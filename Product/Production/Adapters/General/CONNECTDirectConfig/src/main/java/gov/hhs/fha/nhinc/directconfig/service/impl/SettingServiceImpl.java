@@ -24,6 +24,7 @@ package gov.hhs.fha.nhinc.directconfig.service.impl;
 import java.util.Arrays;
 import java.util.Collection;
 
+import javax.annotation.PostConstruct;
 import javax.jws.WebService;
 
 import org.apache.commons.logging.Log;
@@ -36,13 +37,14 @@ import gov.hhs.fha.nhinc.directconfig.dao.SettingDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  * Service class for methods related to a Service object.
  */
 @Service
 @WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.SettingService")
-public class SettingServiceImpl extends org.springframework.web.context.support.SpringBeanAutowiringSupport implements SettingService
+public class SettingServiceImpl extends SpringBeanAutowiringSupport implements SettingService
 {
 
     private static final Log log = LogFactory.getLog(SettingServiceImpl.class);
@@ -53,7 +55,9 @@ public class SettingServiceImpl extends org.springframework.web.context.support.
     /**
      * Initialization method.
      */
+    @PostConstruct
     public void init() {
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
         log.info("SettingService initialized");
     }
 
@@ -126,16 +130,5 @@ public class SettingServiceImpl extends org.springframework.web.context.support.
             throws ConfigurationServiceException {
         
         dao.update(name, value);    
-    }
-
-    /**
-     * Set the value of the AnchorDao object.
-     * 
-     * @param dao
-     *            the value of the AnchorDao object.
-     */
-    @Autowired
-    public void setDao(SettingDao dao) {
-        this.dao = dao;
     }
 }

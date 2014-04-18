@@ -26,6 +26,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.jws.WebService;
 
 import org.apache.commons.logging.Log;
@@ -40,19 +41,28 @@ import gov.hhs.fha.nhinc.directconfig.dao.AnchorDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  * Service class for methods related to an Anchor object.
  */
 @Service
 @WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.AnchorService")
-public class AnchorServiceImpl extends org.springframework.web.context.support.SpringBeanAutowiringSupport implements AnchorService {
+public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements AnchorService {
 
-    @SuppressWarnings("unused")
     private static final Log log = LogFactory.getLog(AnchorServiceImpl.class);
 
     @Autowired
     private AnchorDao dao;
+
+    /**
+     * Initialization method.
+     */
+    @PostConstruct
+    public void init() {
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+        log.info("AnchorService initialized");
+    }
 
     /*
      * (non-Javadoc)

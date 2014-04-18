@@ -39,13 +39,13 @@
             <artifactId>spring-orm</artifactId>
             <version>3.0.7.RELEASE</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-asm</artifactId>
             <version>3.0.7.RELEASE</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
@@ -79,7 +79,7 @@
             <artifactId>geronimo-jpa_2.0_spec</artifactId>
             <version>1.0</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate</artifactId>
@@ -92,7 +92,7 @@
             <artifactId>hibernate-core</artifactId>
             <version>3.3.2.GA</version>
         </dependency>
-            
+
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
@@ -132,7 +132,7 @@
             <groupId>org.apache.cxf</groupId>
             <version>2.7.3</version>
         </dependency>
-    
+
         <!-- Camel -->
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -148,7 +148,7 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-mina</artifactId>
             <version>2.9.2</version>
-        </dependency>   
+        </dependency>
 
         <!-- -->
         <dependency>
@@ -162,13 +162,13 @@
             <artifactId>commons-io</artifactId>
             <version>1.4</version>
         </dependency>
-        
+
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.5</version>
         </dependency>
-        
+
         <!-- Logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -180,13 +180,18 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.6.1</version>
-            <scope>test</scope>
             <exclusions>
                 <exclusion>
                     <groupId>javax.activation</groupId>
                     <artifactId>activation</artifactId>
                 </exclusion>
-            </exclusions>                
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
         </dependency>
 
         <!-- Direct Dependencies -->
@@ -195,7 +200,7 @@
             <artifactId>agent</artifactId>
             <version>2.0.3</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.nhind</groupId>
             <artifactId>direct-common</artifactId>
@@ -213,12 +218,13 @@
             <version>1.4</version>
         </dependency>
     </dependencies>
-    <!--build>
+
+    <build>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
         </resources>
-    </build-->
+    </build>
 </project>

@@ -24,6 +24,7 @@ package gov.hhs.fha.nhinc.directconfig.service.impl;
 import java.util.Calendar;
 import java.util.Collection;
 
+import javax.annotation.PostConstruct;
 import javax.jws.WebService;
 import javax.xml.ws.FaultAction;
 
@@ -52,40 +53,43 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  * Implements the single Service Endpoint Interface. Delegates everything to the
  * individual service implementations.
  */
-//
-//@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.ConfigurationService")
-@Service
-@WebService(endpointInterface="gov.hhs.fha.nhinc.directconfig.service.ConfigurationService", 
-targetNamespace="http://nhind.org/config", 
-serviceName="ConfigurationService", 
-portName="ConfigurationService", 
-wsdlLocation="wsdl/ConfigurationService.wsdl")
-public class ConfigurationServiceImpl extends org.springframework.web.context.support.SpringBeanAutowiringSupport implements ConfigurationService {
 
+@Service
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.ConfigurationService")
+public class ConfigurationServiceImpl extends SpringBeanAutowiringSupport implements ConfigurationService {
 
     private static Log log = LogFactory.getLog(ConfigurationServiceImpl.class);
 
+    @Autowired
     private DomainService domainSvc;
 
+    @Autowired
     private AddressService addressSvc;
 
+    @Autowired
     private CertificateService certSvc;
 
+    @Autowired
     private AnchorService anchorSvc;
 
+    @Autowired
     private SettingService settingSvc;
     
+    @Autowired
     private TrustBundleService trustBundleSvc;
   
     /**
      * Initialization method.
      */
+    @PostConstruct
     public void init() {
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
         log.info("ConfigurationService initialized");
     }
 
@@ -372,126 +376,6 @@ public class ConfigurationServiceImpl extends org.springframework.web.context.su
         anchorSvc.removeAnchorsForOwner(owner);
     }
 
-    /**
-     * Get the DomainService object.
-     * 
-     * @return the DomainService object.
-     */
-    public DomainService getDomainSvc() {
-        return domainSvc;
-    }
-
-    /**
-     * Set the DomainService object.
-     * 
-     * @param domainSvc
-     *            The DomainService object.
-     */
-    @Autowired
-    public void setDomainSvc(DomainService domainSvc) {
-        this.domainSvc = domainSvc;
-    }
-
-    /**
-     * Get the AddressService object.
-     * 
-     * @return the AddressService object.
-     */
-    public AddressService getAddressSvc() {
-        return addressSvc;
-    }
-
-    /**
-     * Set the AddressService object.
-     * 
-     * @param addressSvc
-     *            The ADdressService object.
-     */
-    @Autowired
-    public void setAddressSvc(AddressService addressSvc) {
-        this.addressSvc = addressSvc;
-    }
-
-    /**
-     * Get the CertificateService object.
-     * 
-     * @return the CertificateService object.
-     */
-    public CertificateService getCertSvc() {
-        return certSvc;
-    }
-
-    /**
-     * Set the CertificateService object.
-     * 
-     * @param certSvc
-     *            The CertificateService object.
-     */
-    @Autowired
-    public void setCertSvc(CertificateService certSvc) {
-        this.certSvc = certSvc;
-    }
-
-    /**
-     * Get the SettingService object.
-     * 
-     * @return the SettingService object.
-     */
-    public SettingService getSettingSvc() {
-        return settingSvc;
-    }
-
-    /**
-     * Set the SettingService object.
-     * 
-     * @param settingSvc
-     *            The SettingService object.
-     */
-    @Autowired
-    public void setSettingSvc(SettingService settingSvc) {
-        this.settingSvc = settingSvc;
-    }
-
-    /**
-     * Get the AnchorService object.
-     * 
-     * @return the AnchorService object.
-     */
-    public AnchorService getAnchorSvc() {
-        return anchorSvc;
-    }
-
-    /**
-     * Set the AnchorService object.
-     * 
-     * @param anchorSvc
-     *            The AnchorService object.
-     */
-    @Autowired
-    public void setAnchorSvc(AnchorService anchorSvc) {
-        this.anchorSvc = anchorSvc;
-    }    
-    
-    /**
-     * Get the TrustBundleService object.
-     * 
-     * @return the TrustBundleService object.
-     */
-    public TrustBundleService getTrustBundleSvc() {
-        return trustBundleSvc;
-    }
-
-    /**
-     * Set the TrustBundleService object.
-     * 
-     * @param trustBundleSvc
-     *            The TrustBundleService object.
-     */
-    @Autowired
-    public void setTrustBundleSvc(TrustBundleService trustBundleSvc) {
-        this.trustBundleSvc = trustBundleSvc;
-    }   
-    
     /*
      * (non-Javadoc)
      * 

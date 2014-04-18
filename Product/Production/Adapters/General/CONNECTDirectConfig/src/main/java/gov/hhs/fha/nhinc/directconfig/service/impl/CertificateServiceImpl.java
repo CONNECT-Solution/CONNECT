@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.jws.WebService;
 import javax.security.auth.x500.X500Principal;
 
@@ -51,13 +52,14 @@ import gov.hhs.fha.nhinc.directconfig.dao.CertificateDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  * Service class for methods related to a Certificate object.
  */
 @Service
 @WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.CertificateService")
-public class CertificateServiceImpl extends org.springframework.web.context.support.SpringBeanAutowiringSupport implements CertificateService {
+public class CertificateServiceImpl extends SpringBeanAutowiringSupport implements CertificateService {
 
     private static final int RFC822Name_TYPE = 1; // name type constant for Subject Alternative name email address
     private static final int DNSName_TYPE = 2; // name type constant for Subject Alternative name domain name    
@@ -77,7 +79,9 @@ public class CertificateServiceImpl extends org.springframework.web.context.supp
     /**
      * Initialization method.
      */
+    @PostConstruct
     public void init() {
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
         log.info("CertificateService initialized");
     }
 

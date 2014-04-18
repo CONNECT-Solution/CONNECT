@@ -38,6 +38,7 @@
 
     <jee:jndi-lookup id="dataSource" jndi-name="jdbc/configdb_datasource" />
 
+    <jaxws:endpoint id="configurationService" address="/ConfigurationService" implementor="gov.hhs.fha.nhinc.directconfig.service.impl.ConfigurationServiceImpl" />
     
     <!-- Exception translation bean post processor -->
     <!--bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" /-->

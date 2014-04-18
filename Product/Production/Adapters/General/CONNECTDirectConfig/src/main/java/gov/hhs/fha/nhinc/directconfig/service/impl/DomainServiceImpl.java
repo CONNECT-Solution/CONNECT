@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.jws.WebService;
 
 import org.apache.commons.logging.Log;
@@ -38,13 +39,14 @@ import gov.hhs.fha.nhinc.directconfig.dao.DomainDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  * Service class for methods related to a Domain object.
  */
 @Service
 @WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.DomainService")
-public class DomainServiceImpl extends org.springframework.web.context.support.SpringBeanAutowiringSupport implements DomainService {
+public class DomainServiceImpl extends SpringBeanAutowiringSupport implements DomainService {
 
     private static final Log log = LogFactory.getLog(DomainServiceImpl.class);
 
@@ -54,7 +56,9 @@ public class DomainServiceImpl extends org.springframework.web.context.support.S
     /**
      * Initialization method.
      */
+    @PostConstruct
     public void init() {
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
         log.info("DomainService initialized");
     }
 

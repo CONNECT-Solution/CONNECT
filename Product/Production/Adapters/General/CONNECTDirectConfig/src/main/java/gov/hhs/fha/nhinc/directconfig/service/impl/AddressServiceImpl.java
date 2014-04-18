@@ -26,6 +26,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.jws.WebService;
 
 import org.apache.commons.lang.StringUtils;
@@ -40,13 +41,14 @@ import gov.hhs.fha.nhinc.directconfig.dao.AddressDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  * Service class for methods related to an Address object.
  */
 @Service
 @WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.AddressService")
-public class AddressServiceImpl extends org.springframework.web.context.support.SpringBeanAutowiringSupport implements AddressService {
+public class AddressServiceImpl extends SpringBeanAutowiringSupport implements AddressService {
 
     private static final Log log = LogFactory.getLog(AddressServiceImpl.class);
 
@@ -56,7 +58,9 @@ public class AddressServiceImpl extends org.springframework.web.context.support.
     /**
      * Initialization method.
      */
+    @PostConstruct
     public void init() {
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
         log.info("AddressService initialized");
     }
 
