@@ -26,37 +26,50 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import javax.mail.Address;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.SOAPBinding;
-import org.nhindirect.xd.common.DirectDocuments;
 
 /**
  *
  * @author svalluripalli
  */
 @BindingType(SOAPBinding.SOAP12HTTP_BINDING)
-public class DirectSenderServiceImpl extends DirectAdapterEntity {
-
-    /**
-     *
-     * @param message
-     * @param sender
-     * @param recipients
-     * @param documents
-     * @param messageId
-     */
-    public void sendOutboundDirect(MimeMessage message, Address sender, Address[] recipients, DirectDocuments documents, String messageId) {
+public class DirectSenderServiceImpl extends DirectAdapterEntity implements DirectSenderPortType {
+    
+    @Override
+    public void sendOutboundDirect(SendoutMessage parameters) {
+        ConnectCustomSendMimeMessage message = parameters.getMessage();
+        MimeMessage mimeMessage = new MimeMessage((Session) null);
         try {
-            if (null != message && message.getAllRecipients() != null) {
-                getDirectSender().sendOutboundDirect(message);
-            } else {
-                getDirectSender().sendOutboundDirect(sender, recipients, documents, messageId);
+            //InternetAddress[] addressFrom = new InternetAddress[1];
+            mimeMessage.setFrom(new InternetAddress(message.getSender()));
+//            addressFrom[0] = new InternetAddress(message.getSender());
+//            mimeMessage.addFrom(addressFrom);
+            int receipientCount = message.getReceipients().size();
+            InternetAddress[] addressTo = new InternetAddress[receipientCount];
+            for (int i = 0; i < receipientCount; i++) {
+                addressTo[i] = new InternetAddress(message.getReceipients().get(i));
             }
-        } catch (MessagingException e) {
-            throw new DirectException("Error building and sending mime message.", e, message);
+            MimeMultipart mpart = new MimeMultipart();
+            MimeBodyPart bp = new MimeBodyPart();
+            bp.setText(message.getContent().toString());
+            // add message body
+            mpart.addBodyPart(bp);
+            mimeMessage.setContent(mpart);
+            mimeMessage.setRecipients(MimeMessage.RecipientType.TO, addressTo);
+            mimeMessage.setSubject(message.getSubject());
+            getDirectSender().sendOutboundDirect(mimeMessage);
+        } catch (MessagingException ex) {
+            Logger.getLogger(DirectReceiverServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

@@ -26,7 +26,13 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.SOAPBinding;
 
@@ -35,10 +41,23 @@ import javax.xml.ws.soap.SOAPBinding;
  * @author svalluripalli
  */
 @BindingType(SOAPBinding.SOAP12HTTP_BINDING)
-public class DirectReceiverServiceImpl extends DirectAdapterEntity {
+public class DirectReceiverServiceImpl extends DirectAdapterEntity implements DirectReceiverPortType {
 
-    public void receiveInbound(MimeMessage message) {
-
-        getDirectReceiver().receiveInbound(message);
+    @Override
+    public void receiveInbound(ConnectCustomMimeMessage message) {
+        MimeMessage mimeMessage = new MimeMessage((Session) null);
+        try {
+            mimeMessage.setFrom(new InternetAddress(message.getSender()));
+            int receipientCount = message.getReceipients().size();
+            InternetAddress[] addressTo = new InternetAddress[receipientCount];
+            for (int i = 0; i < receipientCount; i++) {
+                addressTo[i] = new InternetAddress(message.getReceipients().get(i));
+            }
+            mimeMessage.setRecipients(RecipientType.TO, addressTo);
+            mimeMessage.setSubject(message.getSubject());
+            getDirectReceiver().receiveInbound(mimeMessage);
+        } catch (MessagingException ex) {
+            Logger.getLogger(DirectReceiverServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
