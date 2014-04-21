@@ -35,12 +35,8 @@ import org.hibernate.SessionFactory;
 /**
  * Direct Client Factory responsible for {@link DirectAdapter}.
  */
-public class DirectAdapterFactory {
-
+public class DirectAdapterFactory extends DirectAdapterEntity {
     private static final Logger LOG = Logger.getLogger(DirectAdapterFactory.class);
-    private static final String CONFIG_FILE_NAME = "direct.appcontext.xml";
-    private static final String BEAN_NAME_RECEIVER = "directReceiver";
-    private static final String BEAN_NAME_SENDER = "directSender";
     private static final String BEAN_NAME_MANAGE_TASK_SCHEDULER = "manageTaskScheduler";
     
     /**
@@ -54,19 +50,7 @@ public class DirectAdapterFactory {
         getDirectReceiver();
     }
 
-    /**
-     * @return a {@link DirectReceiver} from the factory.
-     */
-    public DirectReceiver getDirectReceiver() {
-        return new ComponentProxyFactory(CONFIG_FILE_NAME).getInstance(BEAN_NAME_RECEIVER, DirectReceiver.class);
-    }
-
-    /**
-     * @return a {@link DirectSender} from the factory.
-     */
-    public DirectSender getDirectSender() {
-        return new ComponentProxyFactory(CONFIG_FILE_NAME).getInstance(BEAN_NAME_SENDER, DirectSender.class);
-    }
+    
 
     /**
      * Stop the default Spring Direct TaskScheduler
