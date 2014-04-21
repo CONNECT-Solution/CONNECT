@@ -27,19 +27,13 @@
         </dependency>
 
         <!-- Modified Direct projects -->
-        <!--dependency>
+        <dependency>
             <groupId>org.connectopensource</groupId>
-            <artifactId>DirectConfigService</artifactId>
+            <artifactId>CONNECTDirectConfig</artifactId>
             <version>4.4.0-SNAPSHOT</version>
             <type>war</type>
             <optional>false</optional>
         </dependency>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>DirectConfigStoreEJB</artifactId>
-            <version>4.4.0-SNAPSHOT</version>
-            <optional>false</optional>
-        </dependency-->
 
         <!-- Unmodified Direct projects -->
         <dependency>

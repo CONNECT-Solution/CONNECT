@@ -291,12 +291,12 @@
                         <artifactId>maven-ear-plugin</artifactId>
                         <configuration>
                             <modules combine.children="append">
-                                <!--webModule>
+                                <webModule>
                                     <groupId>org.connectopensource</groupId>
-                                    <artifactId>DirectConfigService</artifactId>
-                                    <contextRoot>/DirectConfigService</contextRoot>
+                                    <artifactId>CONNECTDirectConfig</artifactId>
+                                    <contextRoot>/CONNECTDirectConfig</contextRoot>
                                     <excluded>${direct.excluded}</excluded>
-                                </webModule-->
+                                </webModule>
                                 <webModule>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>Direct</artifactId>
