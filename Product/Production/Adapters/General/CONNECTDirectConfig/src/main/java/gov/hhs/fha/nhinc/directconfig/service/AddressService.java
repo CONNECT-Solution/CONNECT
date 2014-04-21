@@ -26,8 +26,8 @@ import java.util.Collection;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
-import org.nhindirect.config.store.Address;
-import org.nhindirect.config.store.EntityStatus;
+import gov.hhs.fha.nhinc.directconfig.entity.Address;
+import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 
 /**
  * Service class for methods related to an Address object.

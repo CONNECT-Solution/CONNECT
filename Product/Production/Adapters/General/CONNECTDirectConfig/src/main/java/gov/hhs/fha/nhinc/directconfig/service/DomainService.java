@@ -26,8 +26,8 @@ import java.util.Collection;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
-import org.nhindirect.config.store.Domain;
-import org.nhindirect.config.store.EntityStatus;
+import gov.hhs.fha.nhinc.directconfig.entity.Domain;
+import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 
 /**
  * Service class for methods related to a Domain object.

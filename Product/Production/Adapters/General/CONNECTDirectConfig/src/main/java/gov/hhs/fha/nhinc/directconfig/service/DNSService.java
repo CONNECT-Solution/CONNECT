@@ -26,7 +26,7 @@ import java.util.Collection;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
-import org.nhindirect.config.store.DNSRecord;
+import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
 
 /**
  * Web service class for DNS service operations.

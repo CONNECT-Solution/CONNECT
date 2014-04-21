@@ -4,7 +4,7 @@ CREATE USER nhincuser IDENTIFIED BY 'nhincpass';
 -- begin assigning authority
 CREATE DATABASE assigningauthoritydb;
 
-CREATE TABLE assigningauthoritydb.aa_to_home_community_mapping (
+CREATE TABLE IF NOT EXISTS assigningauthoritydb.aa_to_home_community_mapping (
   id int(10) unsigned NOT NULL auto_increment,
   assigningauthorityid varchar(64) NOT NULL,
   homecommunityid varchar(64) NOT NULL,
@@ -17,7 +17,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON assigningauthoritydb.* to nhincuser;
 -- begin auditrepo
 CREATE DATABASE auditrepo;
 
-CREATE TABLE auditrepo.auditrepository
+CREATE TABLE IF NOT EXISTS auditrepo.auditrepository
 (
     id BIGINT NOT NULL AUTO_INCREMENT,
     audit_timestamp DATETIME,
@@ -45,12 +45,12 @@ CREATE DATABASE configdb;
 -- Table `configdb`.`domain`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.domain (
+CREATE TABLE IF NOT EXISTS configdb.domain (
     id SERIAL PRIMARY KEY,
-    domainName VARCHAR(255),
-    createTime DATETIME,
-    postmasterAddressId BIGINT REFERENCES configdb.address(id),
-    status SMALLINT DEFAULT 0,
+    postmasterAddressId BIGINT,
+    domainName VARCHAR(255) NOT NULL,
+    status INTEGER DEFAULT 0,
+    createTime DATETIME NOT NULL,
     updateTime DATETIME
 );
 
@@ -58,57 +58,140 @@ CREATE TABLE configdb.domain (
 -- Table `configdb`.`address`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.address (
+CREATE TABLE IF NOT EXISTS configdb.address (
     id SERIAL PRIMARY KEY,
+    eMailAddress VARCHAR(255) NOT NULL,
     displayName VARCHAR(100),
-    eMailAddress VARCHAR(255),
     endpoint VARCHAR(255),
-    status SMALLINT DEFAULT 0,
-    type VARCHAR(64),
-    createTime DATETIME,
+    type VARCHAR(4),
+    status INTEGER DEFAULT 0,
+    createTime DATETIME NOT NULL,
     updateTime DATETIME,
-    domainId BIGINT NOT NULL REFERENCES configdb.domain(id)
+
+    domainId BIGINT UNSIGNED NOT NULL,
+    INDEX fk_domainId (domainId ASC),
+    CONSTRAINT fk_domainId
+        FOREIGN KEY (domainId)
+        REFERENCES configdb.domain(id)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
 );
 
 -- -----------------------------------------------------
 -- Table `configdb`.`anchor`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.anchor (
+CREATE TABLE IF NOT EXISTS configdb.anchor (
     id SERIAL PRIMARY KEY,
-    owner VARCHAR(255),
-    thumbprint VARCHAR(64),
-    certificateId BIGINT,
-    createTime DATETIME,
-    certificateData MEDIUMBLOB,
-    validStartDate DATETIME,
-    validEndDate DATETIME,
-    forIncoming SMALLINT DEFAULT 1,
-    forOutgoing SMALLINT DEFAULT 1,
-    status SMALLINT DEFAULT 0
+    certificateId BIGINT NOT NULL COMMENT '?',
+    owner VARCHAR(255) NOT NULL COMMENT 'Subject CN',
+    thumbprint VARCHAR(64) NOT NULL,
+    certificateData BLOB(4096) NOT NULL,
+    validStartDate DATETIME NOT NULL,
+    validEndDate DATETIME NOT NULL,
+    forIncoming BOOLEAN NOT NULL DEFAULT TRUE,
+    forOutgoing BOOLEAN NOT NULL DEFAULT TRUE,
+    status INTEGER DEFAULT 0,
+    createTime DATETIME NOT NULL
 );
 
 -- -----------------------------------------------------
 -- Table `configdb`.`certificate`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.certificate (
+CREATE TABLE IF NOT EXISTS configdb.certificate (
     id SERIAL PRIMARY KEY,
-    owner VARCHAR(255),
-    thumbprint VARCHAR(64),
-    createTime DATETIME,
-    certificateData MEDIUMBLOB,
-    validStartDate DATETIME,
-    validEndDate DATETIME,
-    status SMALLINT DEFAULT 0,
-    privateKey SMALLINT
+    owner VARCHAR(255) NOT NULL COMMENT 'Subject CN',
+    thumbprint VARCHAR(64) NOT NULL,
+    certificateData BLOB(4096) NOT NULL,
+    validStartDate DATETIME NOT NULL,
+    validEndDate DATETIME NOT NULL,
+    privateKey BOOLEAN NOT NULL DEFAULT FALSE,
+    status INTEGER DEFAULT 0,
+    createTime DATETIME NOT NULL
+);
+
+-- -----------------------------------------------------
+-- Table `configdb`.`setting`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS configdb.setting (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255),
+    value VARCHAR(4096),
+    status INTEGER DEFAULT 0,
+    createTime DATETIME NOT NULL,
+    updateTime DATETIME
+);
+
+-- -----------------------------------------------------
+-- Table `configdb`.`trustbundle`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS configdb.trustbundle (
+    id SERIAL PRIMARY KEY,
+    bundleName VARCHAR(255) NOT NULL,
+    bundleURL VARCHAR(255) NOT NULL,
+    getChecksum VARCHAR(255) NOT NULL,
+    lastRefreshAttempt DATETIME,
+    lastSuccessfulRefresh DATETIME,
+    refreshInterval INTEGER,
+    lastRefreshError INTEGER COMMENT 'enum value for refresh status message',
+    signingCertificateData BLOB(4096),
+    createTime DATETIME NOT NULL
+);
+
+-- -----------------------------------------------------
+-- Table `configdb`.`trustbundleanchor`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS configdb.trustbundleanchor (
+    id SERIAL PRIMARY KEY,
+    anchorData BLOB(4096) NOT NULL,
+    thumbprint VARCHAR(64) NOT NULL,
+    validStartDate DATETIME NOT NULL,
+    validEndDate DATETIME NOT NULL,
+
+    trustbundleId BIGINT UNSIGNED NOT NULL,
+    INDEX fk_trustbundleId (trustbundleId ASC),
+    CONSTRAINT fk_trustbundleId
+        FOREIGN KEY (trustbundleId)
+        REFERENCES configdb.trustbundle(id)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+);
+
+-- -----------------------------------------------------
+-- Table `configdb`.`trustbundledomainreltn`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS configdb.trustbundledomainreltn (
+    id SERIAL PRIMARY KEY,
+    forIncoming BOOLEAN NOT NULL DEFAULT TRUE,
+    forOutgoing BOOLEAN NOT NULL DEFAULT TRUE,
+
+    domain_id BIGINT UNSIGNED NOT NULL REFERENCES configdb.domain (id),
+    INDEX fk_domain_id (domain_id ASC),
+    CONSTRAINT fk_domain_id
+        FOREIGN KEY (domain_id)
+        REFERENCES configdb.domain(id)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+
+    trust_bundle_id BIGINT UNSIGNED NOT NULL REFERENCES configdb.trustbundle(id),
+    INDEX fk_trust_bundle_id (trust_bundle_id ASC),
+    CONSTRAINT fk_trust_bundle_id
+        FOREIGN KEY (trust_bundle_id)
+        REFERENCES configdb.trustbundle(id)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
 );
 
 -- -----------------------------------------------------
 -- Table `configdb`.`certpolicy`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.certpolicy (
+CREATE TABLE IF NOT EXISTS configdb.certpolicy (
     id SERIAL PRIMARY KEY,
     createTime DATETIME NOT NULL,
     lexicon INTEGER NOT NULL,
@@ -120,7 +203,7 @@ CREATE TABLE configdb.certpolicy (
 -- Table `configdb`.`certpolicygroup`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.certpolicygroup (
+CREATE TABLE IF NOT EXISTS configdb.certpolicygroup (
     id SERIAL PRIMARY KEY,
     createTime DATETIME NOT NULL,
     policyGroupName VARCHAR(255)
@@ -130,17 +213,17 @@ CREATE TABLE configdb.certpolicygroup (
 -- Table `configdb`.`certpolicygroupdomainreltn`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.certpolicygroupdomainreltn (
+CREATE TABLE IF NOT EXISTS configdb.certpolicygroupdomainreltn (
     id SERIAL PRIMARY KEY,
-    policy_group_id BIGINT NOT NULL REFERENCES configdb.domain(id),
-    domain_id BIGINT NOT NULL REFERENCES configdb.certpolicygroup(id)
+    policy_group_id BIGINT NOT NULL REFERENCES configdb.certpolicygroup(id),
+    domain_id BIGINT NOT NULL REFERENCES configdb.domain(id)
 );
 
 -- -----------------------------------------------------
 -- Table `configdb`.`certpolicygroupreltn`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.certpolicygroupreltn (
+CREATE TABLE IF NOT EXISTS configdb.certpolicygroupreltn (
     id SERIAL PRIMARY KEY,
     incoming SMALLINT,
     outgoing SMALLINT,
@@ -153,69 +236,14 @@ CREATE TABLE configdb.certpolicygroupreltn (
 -- Table `configdb`.`dnsrecord`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.dnsrecord (
+CREATE TABLE IF NOT EXISTS configdb.dnsrecord (
     id SERIAL PRIMARY KEY,
-    createTime DATETIME,
+    createTime DATETIME NOT NULL,
     data BLOB(8192),
     dclass INTEGER,
     name VARCHAR(255),
     ttl BIGINT,
     type INTEGER
-);
-
--- -----------------------------------------------------
--- Table `configdb`.`setting`
--- -----------------------------------------------------
-
-CREATE TABLE configdb.setting (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255),
-    status INTEGER,
-    createTime DATETIME,
-    updateTime DATETIME,
-    value VARCHAR(4096)
-);
-
--- -----------------------------------------------------
--- Table `configdb`.`trustbundle`
--- -----------------------------------------------------
-
-CREATE TABLE configdb.trustbundle (
-    id SERIAL PRIMARY KEY,
-    bundleName VARCHAR(255) NOT NULL,
-    bundleURL VARCHAR(255) NOT NULL,
-    getCheckSum VARCHAR(255) NOT NULL,
-    createTime DATETIME NOT NULL,
-    lastRefreshAttempt DATETIME,
-    lastRefreshError INTEGER,
-    lastSuccessfulRefresh DATETIME,
-    refreshInterval INTEGER,
-    signingCertificateData BLOB(4096)
-);
-
--- -----------------------------------------------------
--- Table `configdb`.`trustbundleanchor`
--- -----------------------------------------------------
-
-CREATE TABLE configdb.trustbundleanchor (
-    id SERIAL PRIMARY KEY,
-    anchorData BLOB(4096) NOT NULL,
-    thumbprint VARCHAR(255) NOT NULL,
-    validEndDate DATETIME NOT NULL,
-    validStartDate DATETIME NOT NULL,
-    trustbundleId BIGINT NOT NULL REFERENCES configdb.trustbundle(id)
-);
-
--- -----------------------------------------------------
--- Table `configdb`.`trustbundledomainreltn`
--- -----------------------------------------------------
-
-CREATE TABLE configdb.trustbundledomainreltn (
-    id SERIAL PRIMARY KEY,
-    forIncoming SMALLINT,
-    forOutgoing SMALLINT,
-    domain_id BIGINT NOT NULL REFERENCES configdb.domain (id),
-    trust_bundle_id BIGINT NOT NULL REFERENCES configdb.trustbundle(id)
 );
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON configdb.* to nhincuser;
@@ -224,7 +252,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON configdb.* to nhincuser;
 -- begin docrepository
 CREATE DATABASE docrepository;
 
-CREATE TABLE docrepository.document (
+CREATE TABLE IF NOT EXISTS docrepository.document (
   documentid int(11) NOT NULL,
   DocumentUniqueId varchar(64) NOT NULL,
   DocumentTitle varchar(128) default NULL,
@@ -281,7 +309,7 @@ CREATE TABLE docrepository.document (
   PRIMARY KEY  (documentid)
 );
 
-CREATE TABLE docrepository.eventcode (
+CREATE TABLE IF NOT EXISTS docrepository.eventcode (
   eventcodeid int(11) NOT NULL,
   documentid int(11) NOT NULL COMMENT 'Foreign key to document table',
   EventCode varchar(64) default NULL,
@@ -296,7 +324,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON docrepository.* to nhincuser;
 -- begin patientcorrelationdb
 CREATE DATABASE patientcorrelationdb;
 
-CREATE TABLE patientcorrelationdb.correlatedidentifiers (
+CREATE TABLE IF NOT EXISTS patientcorrelationdb.correlatedidentifiers (
   correlationId int(10) unsigned NOT NULL auto_increment,
   PatientAssigningAuthorityId varchar(64) NOT NULL,
   PatientId varchar(128) NOT NULL,
@@ -306,7 +334,7 @@ CREATE TABLE patientcorrelationdb.correlatedidentifiers (
   PRIMARY KEY  (correlationId)
 );
 
-CREATE TABLE patientcorrelationdb.pddeferredcorrelation (
+CREATE TABLE IF NOT EXISTS patientcorrelationdb.pddeferredcorrelation (
   Id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   MessageId VARCHAR(100) NOT NULL,
   AssigningAuthorityId varchar(64) NOT NULL,
@@ -345,7 +373,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON asyncmsgs.* to nhincuser;
 -- begin logging
 CREATE DATABASE logging;
 
-CREATE TABLE logging.log (
+CREATE TABLE IF NOT EXISTS logging.log (
     dt timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     context varchar(100) DEFAULT NULL,
     logLevel varchar(10) DEFAULT NULL,
@@ -359,7 +387,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON logging.* to nhincuser;
 -- begin patientdb
 CREATE DATABASE patientdb;
 
-CREATE TABLE patientdb.patient (
+CREATE TABLE IF NOT EXISTS patientdb.patient (
   patientId BIGINT NOT NULL AUTO_INCREMENT,
   dateOfBirth DATE NULL,
   gender CHAR(2) NULL,
@@ -368,7 +396,7 @@ CREATE TABLE patientdb.patient (
   UNIQUE INDEX patientId_UNIQUE (patientId ASC) )
 COMMENT = 'Patient Repository';
 
-CREATE TABLE patientdb.identifier (
+CREATE TABLE IF NOT EXISTS patientdb.identifier (
   identifierId BIGINT NOT NULL AUTO_INCREMENT,
   patientId BIGINT NOT NULL,
   id VARCHAR(64) NULL,
@@ -383,7 +411,7 @@ CREATE TABLE patientdb.identifier (
     ON UPDATE NO ACTION)
 COMMENT = 'Identifier definitions';
 
-CREATE TABLE patientdb.personname (
+CREATE TABLE IF NOT EXISTS patientdb.personname (
   personnameId BIGINT NOT NULL AUTO_INCREMENT,
   patientId BIGINT NOT NULL,
   prefix VARCHAR(64) NULL,
@@ -401,7 +429,7 @@ CREATE TABLE patientdb.personname (
     ON UPDATE NO ACTION)
 COMMENT = 'Person Names';
 
-CREATE TABLE patientdb.address (
+CREATE TABLE IF NOT EXISTS patientdb.address (
   addressId BIGINT NOT NULL AUTO_INCREMENT,
   patientId BIGINT NOT NULL,
   street1 VARCHAR(128) NULL,
@@ -419,7 +447,7 @@ CREATE TABLE patientdb.address (
     ON UPDATE NO ACTION)
 COMMENT = 'Addresses';
 
-CREATE TABLE patientdb.phonenumber (
+CREATE TABLE IF NOT EXISTS patientdb.phonenumber (
   phonenumberId BIGINT NOT NULL AUTO_INCREMENT,
   patientId BIGINT NOT NULL,
   value VARCHAR(64) NULL,
@@ -440,7 +468,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON patientdb.* to nhincuser;
 
 CREATE DATABASE transrepo;
 
-CREATE TABLE transrepo.transactionrepository (
+CREATE TABLE IF NOT EXISTS transrepo.transactionrepository (
     id BIGINT NOT NULL AUTO_INCREMENT,
     transactionId VARCHAR(100) NOT NULL,
     messageId VARCHAR(100) NOT NULL,
@@ -457,7 +485,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON transrepo.* to nhincuser;
 
 CREATE DATABASE eventdb;
 
-CREATE TABLE eventdb.event (
+CREATE TABLE IF NOT EXISTS eventdb.event (
   id BIGINT NOT NULL AUTO_INCREMENT,
   name VARCHAR(100) NOT NULL,
   description longtext,
@@ -468,6 +496,7 @@ CREATE TABLE eventdb.event (
 COMMENT = 'Event Logging';
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON eventdb.* to nhincuser;
+
 GRANT SELECT,INSERT,UPDATE,DELETE ON *.* TO 'nhincuser'@'localhost' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
 GRANT SELECT,INSERT,UPDATE,DELETE ON *.* TO 'nhincuser'@'127.0.0.1' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
 -- end eventdb

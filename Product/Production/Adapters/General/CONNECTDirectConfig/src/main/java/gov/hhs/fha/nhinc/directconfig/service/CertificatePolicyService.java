@@ -5,10 +5,11 @@ import java.util.Collection;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
-import org.nhindirect.config.store.CertPolicy;
-import org.nhindirect.config.store.CertPolicyGroup;
-import org.nhindirect.config.store.CertPolicyGroupDomainReltn;
-import org.nhindirect.config.store.CertPolicyUse;
+import gov.hhs.fha.nhinc.directconfig.entity.CertPolicy;
+import gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroup;
+import gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroupDomainReltn;
+import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
+import gov.hhs.fha.nhinc.directconfig.entity.helpers.CertPolicyUse;
 import org.nhindirect.policy.PolicyLexicon;
 
 

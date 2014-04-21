@@ -21,36 +21,44 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 package gov.hhs.fha.nhinc.directconfig.service.impl;
 
-import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
-import gov.hhs.fha.nhinc.directconfig.service.DNSService;
-
 import java.util.Collection;
 
+import javax.annotation.PostConstruct;
 import javax.jws.WebService;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nhindirect.config.store.DNSRecord;
-import org.nhindirect.config.store.dao.DNSDao;
+
+import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
+import gov.hhs.fha.nhinc.directconfig.service.DNSService;
+import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
+import gov.hhs.fha.nhinc.directconfig.dao.DNSDao;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  * Web service implementation of the DNSService.
  * @author Greg Meyer
  * @since 1.1
  */
-@WebService(endpointInterface = "org.nhindirect.config.service.DNSService")
-public class DNSServiceImpl implements DNSService
+@Service
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.DNSService")
+public class DNSServiceImpl extends SpringBeanAutowiringSupport implements DNSService
 {
 	private static final Log log = LogFactory.getLog(DNSServiceImpl.class);
 
-    private DNSDao dao;
+    @Autowired
+	private DNSDao dao;
     
     /**
      * Initialization method.
      */
+    @PostConstruct
     public void init() 
     {
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
         log.info("DNSService initialized");
     }    
     
@@ -163,25 +171,4 @@ public class DNSServiceImpl implements DNSService
 		dao.update(recordId, record);
 	}
     
-    /**
-     * Set the value of the DNSDao object.
-     * 
-     * @param dao
-     *            the value of the DNSDao object.
-     */
-    @Autowired
-    public void setDao(DNSDao dao) 
-    {
-        this.dao = dao;
-    }
-
-    /**
-     * Return the value of the DNSDao object.
-     * 
-     * @return the value of the DNSDao object.
-     */
-    public DNSDao getDao() 
-    {
-        return dao;
-    }
 }

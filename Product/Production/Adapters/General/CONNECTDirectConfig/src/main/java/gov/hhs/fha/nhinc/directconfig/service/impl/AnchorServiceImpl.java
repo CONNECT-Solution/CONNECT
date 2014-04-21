@@ -21,117 +21,132 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 package gov.hhs.fha.nhinc.directconfig.service.impl;
 
-import gov.hhs.fha.nhinc.directconfig.service.AnchorService;
-import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.jws.WebService;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nhindirect.config.store.Anchor;
-import org.nhindirect.config.store.EntityStatus;
-import org.nhindirect.config.store.dao.AnchorDao;
+
+import gov.hhs.fha.nhinc.directconfig.service.AnchorService;
+import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
+import gov.hhs.fha.nhinc.directconfig.service.helpers.CertificateGetOptions;
+import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
+import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
+import gov.hhs.fha.nhinc.directconfig.dao.AnchorDao;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  * Service class for methods related to an Anchor object.
  */
-@WebService(endpointInterface = "org.nhindirect.config.service.AnchorService")
-public class AnchorServiceImpl implements AnchorService {
+@Service
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.AnchorService")
+public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements AnchorService {
 
-    @SuppressWarnings("unused")
     private static final Log log = LogFactory.getLog(AnchorServiceImpl.class);
 
+    @Autowired
     private AnchorDao dao;
+
+    /**
+     * Initialization method.
+     */
+    @PostConstruct
+    public void init() {
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+        log.info("AnchorService initialized");
+    }
 
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AnchorService#addAnchors(java.util.Collection
+     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#addAnchors(java.util.Collection
      * )
      */
     public void addAnchors(Collection<Anchor> anchors) throws ConfigurationServiceException
     {
-    	if (anchors != null && anchors.size() > 0)
-    		for (Anchor anchor : anchors)
-    			dao.add(anchor);
+        if (anchors != null && anchors.size() > 0)
+            for (Anchor anchor : anchors)
+                dao.add(anchor);
 
     }
 
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AnchorService#getAnchor(java.lang.String, java.lang.String, org.nhindirect.config.service.impl.CertificateGetOptions)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#getAnchor(java.lang.String, java.lang.String, gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions)
      */
     public Anchor getAnchor(String owner, String thumbprint, CertificateGetOptions options)
             throws ConfigurationServiceException 
-    {    	
-    	List<String> owners = new ArrayList<String>();
-    	owners.add(owner);
-    	
-    	List<Anchor> anchors = dao.list(owners);
-    	
-    	if (anchors == null || anchors.size() == 0)
-    		return null;
-    	
-    	for (Anchor anchor : anchors)
-    		if (anchor.getThumbprint().equalsIgnoreCase(thumbprint))
-    			return anchor;
-    	
-    	return null;
+    {        
+        List<String> owners = new ArrayList<String>();
+        owners.add(owner);
+        
+        List<Anchor> anchors = dao.list(owners);
+        
+        if (anchors == null || anchors.size() == 0)
+            return null;
+        
+        for (Anchor anchor : anchors)
+            if (anchor.getThumbprint().equalsIgnoreCase(thumbprint))
+                return anchor;
+        
+        return null;
     }
 
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AnchorService#getAnchors(java.util.Collection, org.nhindirect.config.service.impl.CertificateGetOptions)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#getAnchors(java.util.Collection, gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions)
      */
     public Collection<Anchor> getAnchors(Collection<Long> anchorIds, CertificateGetOptions options)
             throws ConfigurationServiceException 
-    {    	
-    	if (anchorIds == null || anchorIds.size() == 0)
-    		return Collections.emptyList();
-    	
-    	List<Long> ids = new ArrayList<Long>(anchorIds);   	    	
-    	return dao.listByIds(ids);
+    {        
+        if (anchorIds == null || anchorIds.size() == 0)
+            return Collections.emptyList();
+        
+        List<Long> ids = new ArrayList<Long>(anchorIds);               
+        return dao.listByIds(ids);
     }
 
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AnchorService#getAnchorsForOwner(java.lang.String, org.nhindirect.config.service.impl.CertificateGetOptions)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#getAnchorsForOwner(java.lang.String, gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions)
      */
     public Collection<Anchor> getAnchorsForOwner(String owner, CertificateGetOptions options)
             throws ConfigurationServiceException 
     {
-    	List<String> owners = new ArrayList<String>();
-    	owners.add(owner);
-    	
-    	return dao.list(owners);    	    	
+        List<String> owners = new ArrayList<String>();
+        owners.add(owner);
+        
+        return dao.list(owners);                
     }
 
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AnchorService#getIncomingAnchors(java.lang.String, org.nhindirect.config.service.impl.CertificateGetOptions)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#getIncomingAnchors(java.lang.String, gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions)
      */
     public Collection<Anchor> getIncomingAnchors(String owner, CertificateGetOptions options)
             throws ConfigurationServiceException 
-    {    	
+    {        
         Collection<Anchor> anchors = getAnchorsForOwner(owner, options);
         
         if (anchors == null || anchors.size() == 0)
-        	return Collections.emptyList();
+            return Collections.emptyList();
 
         Collection<Anchor> retList = new ArrayList<Anchor>();
         for (Anchor anchor : anchors)
-        	if (anchor.isIncoming())
-        		retList.add(anchor);
+            if (anchor.isIncoming())
+                retList.add(anchor);
         
         return retList;
     }
@@ -139,7 +154,7 @@ public class AnchorServiceImpl implements AnchorService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AnchorService#getOutgoingAnchors(java.lang.String, org.nhindirect.config.service.impl.CertificateGetOptions)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#getOutgoingAnchors(java.lang.String, gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions)
      */
     public Collection<Anchor> getOutgoingAnchors(String owner, CertificateGetOptions options)
             throws ConfigurationServiceException 
@@ -147,12 +162,12 @@ public class AnchorServiceImpl implements AnchorService {
         Collection<Anchor> anchors = getAnchorsForOwner(owner, options);
         
         if (anchors == null || anchors.size() == 0)
-        	return Collections.emptyList();
+            return Collections.emptyList();
 
         Collection<Anchor> retList = new ArrayList<Anchor>();
         for (Anchor anchor : anchors)
-        	if (anchor.isOutgoing())
-        		retList.add(anchor);
+            if (anchor.isOutgoing())
+                retList.add(anchor);
         
         return retList;
     }
@@ -160,68 +175,48 @@ public class AnchorServiceImpl implements AnchorService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AnchorService#setAnchorStatusForOwner(java.lang.String, org.nhindirect.config.store.EntityStatus)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#setAnchorStatusForOwner(java.lang.String, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
     public void setAnchorStatusForOwner(String owner, EntityStatus status) throws ConfigurationServiceException 
     {
-        dao.setStatus(owner, status);    	
+        dao.setStatus(owner, status);        
     }
 
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AnchorService#listAnchors(java.lang.Long, int, org.nhindirect.config.service.impl.CertificateGetOptions)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#listAnchors(java.lang.Long, int, gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions)
      */
     public Collection<Anchor> listAnchors(Long lastAnchorID, int maxResults, CertificateGetOptions options)
             throws ConfigurationServiceException 
     {
-    	// just get all for now
-    	return dao.listAll();
+        // just get all for now
+        return dao.listAll();
     }
 
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AnchorService#removeAnchors(java.util.Collection)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#removeAnchors(java.util.Collection)
      */
     public void removeAnchors(Collection<Long> anchorIds) throws ConfigurationServiceException 
     {
-    	if (anchorIds == null || anchorIds.size() == 0)
-    		return;
-    	
-    	List<Long> ids = new ArrayList<Long>(anchorIds);
-    	
-   		dao.delete(ids);
+        if (anchorIds == null || anchorIds.size() == 0)
+            return;
+        
+        List<Long> ids = new ArrayList<Long>(anchorIds);
+        
+           dao.delete(ids);
     }
 
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AnchorService#removeAnchorsForOwner(java.lang.String)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#removeAnchorsForOwner(java.lang.String)
      */
     public void removeAnchorsForOwner(String owner) throws ConfigurationServiceException 
     {
-    	dao.delete(owner);
-    }
-
-    /**
-     * Set the value of the AnchorDao object.
-     * 
-     * @param dao
-     *            the value of the AnchorDao object.
-     */
-    @Autowired
-    public void setDao(AnchorDao dao) {
-        this.dao = dao;
-    }
-
-    /**
-     * Return the value of the AnchorDao object.
-     * 
-     * @return the value of the AnchorDao object.
-     */
-    public AnchorDao getDao() {
-        return dao;
+        dao.delete(owner);
     }
 
 }

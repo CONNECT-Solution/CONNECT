@@ -21,9 +21,6 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 package gov.hhs.fha.nhinc.directconfig.service.impl;
 
-import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
-import gov.hhs.fha.nhinc.directconfig.service.TrustBundleService;
-
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,36 +32,45 @@ import javax.jws.WebService;
 import org.apache.camel.ProducerTemplate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nhindirect.config.store.BundleRefreshError;
-import org.nhindirect.config.store.Certificate;
-import org.nhindirect.config.store.CertificateException;
-import org.nhindirect.config.store.TrustBundle;
-import org.nhindirect.config.store.TrustBundleAnchor;
-import org.nhindirect.config.store.TrustBundleDomainReltn;
-import org.nhindirect.config.store.dao.TrustBundleDao;
+
+import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
+import gov.hhs.fha.nhinc.directconfig.service.TrustBundleService;
+import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
+import gov.hhs.fha.nhinc.directconfig.entity.TrustBundle;
+import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleAnchor;
+import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleDomainReltn;
+import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleRefreshError;
+import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
+import gov.hhs.fha.nhinc.directconfig.dao.TrustBundleDao;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  * Implementation of the TrustBundleService
  * @author Greg Meyer
  * @since 1.3
  */
-@WebService(endpointInterface = "org.nhindirect.config.service.TrustBundleService")
-public class TrustBundleServiceImpl implements TrustBundleService
+@Service
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.TrustBundleService")
+public class TrustBundleServiceImpl extends SpringBeanAutowiringSupport implements TrustBundleService
 {
     private static final Log log = LogFactory.getLog(TrustBundleServiceImpl.class);
 
-	protected ProducerTemplate template;
+    @Autowired
+    protected ProducerTemplate template;
     
+    @Autowired
     private TrustBundleDao dao;
 
     /**
-	 * Initialization method.
-	 */
+     * Initialization method.
+     */
     ///CLOVER:OFF
     public void init() 
     {
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
         log.info("TrustBundleServiceImpl initialized");
     }
     ///CLOVER:ON
@@ -72,238 +78,202 @@ public class TrustBundleServiceImpl implements TrustBundleService
     /**
      * {@inheritDoc}
      */
-	@Override
-	public Collection<TrustBundle> getTrustBundles(boolean fetchAnchors)
-			throws ConfigurationServiceException 
-	{
-		final Collection<TrustBundle> bundles = dao.getTrustBundles();
-		
-		if (!fetchAnchors)
-		{
-			for (TrustBundle bundle : bundles)
-				bundle.setTrustBundleAnchors(new ArrayList<TrustBundleAnchor>());
-		}
-		
-		return bundles;
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	public TrustBundle getTrustBundleByName(String bundleName)
-			throws ConfigurationServiceException 
-	{
-		return dao.getTrustBundleByName(bundleName);
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	public TrustBundle getTrustBundleById(long id)
-			throws ConfigurationServiceException 
-	{
-		return dao.getTrustBundleById(id);
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	public void addTrustBundle(TrustBundle bundle)
-			throws ConfigurationServiceException 
-	{
-		dao.addTrustBundle(bundle);
-		
-		// the trust bundle does not contain any of the anchors
-		// they must be fetched from the URL... use the
-		// refresh route to force downloading the anchors
-		template.sendBody(bundle);
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-    public void refreshTrustBundle(@WebParam(name = "id") long id) throws ConfigurationServiceException
+    @Override
+    public Collection<TrustBundle> getTrustBundles(boolean fetchAnchors)
+            throws ConfigurationServiceException 
     {
-		final TrustBundle bundle = dao.getTrustBundleById(id);
-		
-		if (bundle != null)
-			template.sendBody(bundle);
+        final Collection<TrustBundle> bundles = dao.getTrustBundles();
+        
+        if (!fetchAnchors)
+        {
+            for (TrustBundle bundle : bundles)
+                bundle.setTrustBundleAnchors(new ArrayList<TrustBundleAnchor>());
+        }
+        
+        return bundles;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	public void updateLastUpdateError(long trustBundleId, Calendar attemptTime,
-			BundleRefreshError error) throws ConfigurationServiceException 
-	{
-		dao.updateLastUpdateError(trustBundleId, attemptTime, error);		
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	public void deleteTrustBundles(long[] trustBundleIds)
-			throws ConfigurationServiceException 
-	{
-		dao.deleteTrustBundles(trustBundleIds);
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	public void updateTrustBundleSigningCertificate(long trustBundleId,
-			Certificate signingCert) throws ConfigurationServiceException 
-	{
-		try
-		{
-			dao.updateTrustBundleSigningCertificate(trustBundleId, signingCert.toCredential().getCert());	
-		}
-		catch (CertificateException e)
-		{
-			throw new ConfigurationServiceException(e);
-		}
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	public void updateTrustBundleAttributes(long trustBundleId, String bundleName, String bundleUrl, Certificate signingCert,
-			 int refreshInterval) throws ConfigurationServiceException
-	{
-		final TrustBundle oldBundle = dao.getTrustBundleById(trustBundleId);
-		String oldBundleURL = "";
-		X509Certificate newSigningCert = null; 
-		
-		// need to know if the URL changed... store off the old URL
-		if (oldBundle != null)
-			oldBundleURL = oldBundle.getBundleURL();
-		
-		try
-		{
-			// make sure the cert isn't null before converting to an X509Certificate
-			if (signingCert != null && signingCert.toCredential() != null)
-				newSigningCert = signingCert.toCredential().getCert();
-			
-			dao.updateTrustBundleAttributes(trustBundleId, bundleName, bundleUrl, newSigningCert, refreshInterval);
-			
-			// if the URL changed, the bundle needs to be refreshed
-			if (!oldBundleURL.equals(bundleUrl))
-			{
-				final TrustBundle bundle = dao.getTrustBundleById(trustBundleId);
-				
-				if (bundle != null)
-					template.sendBody(bundle);
-			}
-			
-		}
-		catch (CertificateException e)
-		{
-				throw new ConfigurationServiceException(e);
-		}
-		 
-	}
-	
     /**
      * {@inheritDoc}
      */
     @Override
-	public void associateTrustBundleToDomain(long domainId, long trustBundleId,  boolean incoming,
-    		boolean outgoing)
-			throws ConfigurationServiceException 
-	{
-    	dao.associateTrustBundleToDomain(domainId, trustBundleId, incoming, outgoing);
-	}
+    public TrustBundle getTrustBundleByName(String bundleName)
+            throws ConfigurationServiceException 
+    {
+        return dao.getTrustBundleByName(bundleName);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public void disassociateTrustBundleFromDomain(long domainId,
-			long trustBundleId) throws ConfigurationServiceException 
-	{
-		dao.disassociateTrustBundleFromDomain(domainId, trustBundleId);
-	}
+    @Override
+    public TrustBundle getTrustBundleById(long id)
+            throws ConfigurationServiceException 
+    {
+        return dao.getTrustBundleById(id);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public void disassociateTrustBundlesFromDomain(long domainId)
-			throws ConfigurationServiceException 
-	{
-		dao.disassociateTrustBundlesFromDomain(domainId);
-	}
+    @Override
+    public void addTrustBundle(TrustBundle bundle)
+            throws ConfigurationServiceException 
+    {
+        dao.addTrustBundle(bundle);
+        
+        // the trust bundle does not contain any of the anchors
+        // they must be fetched from the URL... use the
+        // refresh route to force downloading the anchors
+        template.sendBody(bundle);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public void disassociateTrustBundleFromDomains(long trustBundleId)
-			throws ConfigurationServiceException 
-	{
-		dao.disassociateTrustBundleFromDomains(trustBundleId);
-	}
+    @Override
+    public void refreshTrustBundle(@WebParam(name = "id") long id) throws ConfigurationServiceException
+    {
+        final TrustBundle bundle = dao.getTrustBundleById(id);
+        
+        if (bundle != null)
+            template.sendBody(bundle);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public Collection<TrustBundleDomainReltn> getTrustBundlesByDomain(long domainId, boolean fetchAnchors)
-			throws ConfigurationServiceException 
-	{
-		final Collection<TrustBundleDomainReltn> bundles = dao.getTrustBundlesByDomain(domainId);
-		
-		if (!fetchAnchors)
-		{
-			for (TrustBundleDomainReltn bundle : bundles)
-				bundle.getTrustBundle().setTrustBundleAnchors(new ArrayList<TrustBundleAnchor>());
-		}
-		
-		return bundles;
-		
-	}
+    @Override
+    public void updateLastUpdateError(long trustBundleId, Calendar attemptTime,
+            BundleRefreshError error) throws ConfigurationServiceException 
+    {
+        dao.updateLastUpdateError(trustBundleId, attemptTime, error);        
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void deleteTrustBundles(long[] trustBundleIds)
+            throws ConfigurationServiceException 
+    {
+        dao.deleteTrustBundles(trustBundleIds);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateTrustBundleSigningCertificate(long trustBundleId,
+            Certificate signingCert) throws ConfigurationServiceException 
+    {
+        try
+        {
+            dao.updateTrustBundleSigningCertificate(trustBundleId, signingCert.toCredential().getCert());    
+        }
+        catch (CertificateException e)
+        {
+            throw new ConfigurationServiceException(e);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateTrustBundleAttributes(long trustBundleId, String bundleName, String bundleUrl, Certificate signingCert,
+             int refreshInterval) throws ConfigurationServiceException
+    {
+        final TrustBundle oldBundle = dao.getTrustBundleById(trustBundleId);
+        String oldBundleURL = "";
+        X509Certificate newSigningCert = null; 
+        
+        // need to know if the URL changed... store off the old URL
+        if (oldBundle != null)
+            oldBundleURL = oldBundle.getBundleURL();
+        
+        try
+        {
+            // make sure the cert isn't null before converting to an X509Certificate
+            if (signingCert != null && signingCert.toCredential() != null)
+                newSigningCert = signingCert.toCredential().getCert();
             
-	/**
-     * Set the value of the TrustBundlDao object.
-     * 
-     * @param dao
-     *            the value of the TrustBundlDao object.
+            dao.updateTrustBundleAttributes(trustBundleId, bundleName, bundleUrl, newSigningCert, refreshInterval);
+            
+            // if the URL changed, the bundle needs to be refreshed
+            if (!oldBundleURL.equals(bundleUrl))
+            {
+                final TrustBundle bundle = dao.getTrustBundleById(trustBundleId);
+                
+                if (bundle != null)
+                    template.sendBody(bundle);
+            }
+            
+        }
+        catch (CertificateException e)
+        {
+                throw new ConfigurationServiceException(e);
+        }
+         
+    }
+    
+    /**
+     * {@inheritDoc}
      */
-    @Autowired
-    public void setDao(TrustBundleDao dao) 
+    @Override
+    public void associateTrustBundleToDomain(long domainId, long trustBundleId,  boolean incoming,
+            boolean outgoing)
+            throws ConfigurationServiceException 
     {
-        this.dao = dao;
+        dao.associateTrustBundleToDomain(domainId, trustBundleId, incoming, outgoing);
     }
 
     /**
-     * Return the value of the TrustBundlDao object.
-     * 
-     * @return the value of the TrustBundlDao object.
+     * {@inheritDoc}
      */
-    ///CLOVER:OFF
-    public TrustBundleDao getDao() 
+    @Override
+    public void disassociateTrustBundleFromDomain(long domainId,
+            long trustBundleId) throws ConfigurationServiceException 
     {
-        return dao;
+        dao.disassociateTrustBundleFromDomain(domainId, trustBundleId);
     }
-    ///CLOVER:ON
-    
+
     /**
-     * Sets the camel {@link ProducerTemplate} object for bundle refresh operations.
-     * @param template
+     * {@inheritDoc}
      */
-    @Autowired
-    @Qualifier("bundleRefresh")
-    public void setTemplate(ProducerTemplate template) 
+    @Override
+    public void disassociateTrustBundlesFromDomain(long domainId)
+            throws ConfigurationServiceException 
     {
-        this.template = template;
+        dao.disassociateTrustBundlesFromDomain(domainId);
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void disassociateTrustBundleFromDomains(long trustBundleId)
+            throws ConfigurationServiceException 
+    {
+        dao.disassociateTrustBundleFromDomains(trustBundleId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<TrustBundleDomainReltn> getTrustBundlesByDomain(long domainId, boolean fetchAnchors)
+            throws ConfigurationServiceException 
+    {
+        final Collection<TrustBundleDomainReltn> bundles = dao.getTrustBundlesByDomain(domainId);
+        
+        if (!fetchAnchors)
+        {
+            for (TrustBundleDomainReltn bundle : bundles)
+                bundle.getTrustBundle().setTrustBundleAnchors(new ArrayList<TrustBundleAnchor>());
+        }
+        
+        return bundles;
+        
+    }    
 }

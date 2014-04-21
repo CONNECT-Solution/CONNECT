@@ -1,12 +1,13 @@
 
 package gov.hhs.fha.nhinc.directconfig.service.jaxws;
 
+import gov.hhs.fha.nhinc.directconfig.entity.helpers.CertPolicyUse;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import org.nhindirect.config.store.CertPolicyUse;
 
 @XmlRootElement(name = "addPolicyUseToGroup", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
