@@ -176,7 +176,7 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
         if (description.getRespondingHCIDs() != null) {
             if (description.getRespondingHCIDs().size() == 1) {
                 return description.getRespondingHCIDs().get(0);
-            } else if (description.getRespondingHCIDs().size() >= 1) {
+            } else if (description.getRespondingHCIDs().size() > 1) {
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < description.getRespondingHCIDs().size(); i++) {
                     builder.append(description.getRespondingHCIDs().get(i));
