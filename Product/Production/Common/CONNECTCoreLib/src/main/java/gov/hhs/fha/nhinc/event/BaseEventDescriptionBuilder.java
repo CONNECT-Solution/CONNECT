@@ -173,4 +173,33 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
     protected PropertyAccessor getPropertyAccessor(String fileName){
         return PropertyAccessor.getInstance(fileName);
     }
+    
+    @Override
+    public final String getServiceType(){
+        return description.getServiceType();
+    }
+    
+    @Override
+    public final String getInitiatorHcid(){
+        return description.getInitiatingHCID();
+    }
+    
+    @Override
+    public final String getRespondingHcid(){
+        if(description.getRespondingHCIDs() != null){    
+            if(description.getRespondingHCIDs().size() == 1){
+            return description.getRespondingHCIDs().get(0);
+            }else if(description.getRespondingHCIDs().size() > 1) {
+                StringBuilder builder = new StringBuilder();
+                for(int i = 0; i < description.getRespondingHCIDs().size(); i++){
+                    builder.append(description.getRespondingHCIDs().get(i));
+                    if(i != (description.getRespondingHCIDs().size() - 1)){
+                        builder.append(", ");
+                    }
+                }
+                return builder.toString();
+            }
+        }
+        return null;
+    }
 }

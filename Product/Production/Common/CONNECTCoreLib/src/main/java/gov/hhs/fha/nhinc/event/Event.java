@@ -65,4 +65,17 @@ public interface Event {
     void setMessageID(String messageID);
 
     void setDescription(String description);
+    
+    void setServiceType(String serviceType);
+    
+    String getServiceType();
+    
+    void setInitiatorHcid(String hcid);
+    
+    String getInitiatorHcid();
+    
+    void setRespondingHcid(String hcid);
+    
+    String getRespondingHcid();
+    
 }

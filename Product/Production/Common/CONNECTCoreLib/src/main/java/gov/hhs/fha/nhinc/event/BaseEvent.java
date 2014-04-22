@@ -32,6 +32,9 @@ public abstract class BaseEvent implements Event {
     private String description;
     private String messageID;
     private String transactionID;
+    private String serviceType;
+    private String initiatorHcid;
+    private String respondingHcid;
     
     
     public BaseEvent() {
@@ -93,4 +96,34 @@ public abstract class BaseEvent implements Event {
     }
 
     abstract public String getEventName();
+    
+    @Override
+    public String getServiceType() {
+        return serviceType;
+    }
+
+    @Override
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
+    }
+
+    @Override
+    public String getInitiatorHcid() {
+        return initiatorHcid;
+    }
+
+    @Override
+    public void setInitiatorHcid(String initiatorHcid) {
+        this.initiatorHcid = initiatorHcid;
+    }
+
+    @Override
+    public String getRespondingHcid() {
+        return respondingHcid;
+    }
+
+    @Override
+    public void setRespondingHcid(String respondingHcid) {
+        this.respondingHcid = respondingHcid;
+    }
 }

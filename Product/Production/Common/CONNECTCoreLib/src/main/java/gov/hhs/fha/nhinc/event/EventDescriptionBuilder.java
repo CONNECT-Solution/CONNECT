@@ -56,4 +56,11 @@ public interface EventDescriptionBuilder {
     void setMsgRouting(MessageRoutingAccessor msgRouting);
 
     void setMsgContext(EventContextAccessor msgContext);
+    
+    String getServiceType();
+    
+    String getInitiatorHcid();
+    
+    String getRespondingHcid();
+    
 }
