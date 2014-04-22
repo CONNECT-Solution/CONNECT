@@ -28,5 +28,16 @@ public class EventDescriptionDirector {
         builder.buildErrorCodes();
         builder.buildAction();
     }
+    
+    public String getServiceType(){
+        return builder.getServiceType();
+    }
+    
+    public String getInitiatorHcid(){
+        return builder.getInitiatorHcid();
+    }
 
+    public String getResponderHcid(){
+        return builder.getRespondingHcid();
+    }
 }

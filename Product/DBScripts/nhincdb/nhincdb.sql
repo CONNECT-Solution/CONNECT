@@ -280,6 +280,9 @@ CREATE TABLE eventdb.event (
   description longtext,
   transactionId VARCHAR(100),
   messageId VARCHAR(100),
+  serviceType VARCHAR(100),
+  initiatingHcid VARCHAR(100),
+  respondingHcids VARCHAR(100),
   eventTime TIMESTAMP,
   PRIMARY KEY (id) )
 COMMENT = 'Event Logging';
