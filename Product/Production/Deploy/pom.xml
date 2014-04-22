@@ -19,6 +19,7 @@
         <module>ds-dependencies</module>
         <module>gui-dependencies</module>
         <module>pd-dependencies</module>
+		<module>admingui-dependencies</module>
         <module>ear</module>
         <module>ear/glassfish</module>
     </modules>
