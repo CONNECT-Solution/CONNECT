@@ -199,6 +199,13 @@
             <type>war</type>
             <optional>true</optional>
         </dependency>
+		<dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>CONNETAdminGUI</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>
         <!-- Shared JARs - In order for the SKINNY WARs to work you must 
             include each dependency in the EAR manually and the JARS will be magically 
             removed from the WAR's WEB-INF/lib -->
