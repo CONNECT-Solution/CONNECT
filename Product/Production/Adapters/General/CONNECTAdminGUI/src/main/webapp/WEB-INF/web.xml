@@ -1,10 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          xsi:schemaLocation="
              http://java.sun.com/xml/ns/javaee  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     version="2.5">
+ 
+  <display-name>JavaServerFaces</display-name>
+ 
+  <!-- Add Support for Spring -->
+  <listener>
+	<listener-class>
+		org.springframework.web.context.ContextLoaderListener
+	</listener-class>
+  </listener>
+  <listener>
+	<listener-class>
+		org.springframework.web.context.request.RequestContextListener
+	</listener-class>
+  </listener>
+  
+  <listener>
+  <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
+  </listener>
+  
+  <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>WEB-INF/applicationContext.xml</param-value>
+    </context-param>
 
     <display-name>JavaServerFaces</display-name>
 
