@@ -26,7 +26,7 @@ public abstract class AbstractEncodedPasswordService implements PasswordService 
     /*
      * (non-Javadoc)
      * 
-     * @see org.cahih.services.PasswordService#checkPassword(byte[], byte[], byte[])
+     * @see gov.hhs.fha.nhinc.admingui.services.PasswordService#checkPassword(byte[], byte[], byte[])
      */
     @Override
     public boolean checkPassword(byte[] passwordHash, byte[] candidatePassword, byte[] salt)

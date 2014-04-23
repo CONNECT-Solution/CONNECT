@@ -241,6 +241,16 @@
 	"TRANSFERSTATE" VARCHAR2(32 BYTE)
    ) ;
 --------------------------------------------------------
+--  DDL for Table USERLOGIN
+--------------------------------------------------------
+
+  CREATE TABLE "NHINCUSER"."USERLOGIN"
+   (	"ID" NUMBER,
+	"SALT" VARCHAR2(100 BYTE),
+	"SHA1" VARCHAR2(100 BYTE),
+	"USERNAME" VARCHAR2(100 BYTE)
+   ) ;
+--------------------------------------------------------
 --  DDL for Index MESSAGEID_IDX
 --------------------------------------------------------
 
@@ -363,4 +373,16 @@
   ALTER TABLE "NHINCUSER"."ASYNCMSGREPO" MODIFY ("CREATIONTIME" NOT NULL ENABLE);
   ALTER TABLE "NHINCUSER"."ASYNCMSGREPO" MODIFY ("MESSAGEID" NOT NULL ENABLE);
   ALTER TABLE "NHINCUSER"."ASYNCMSGREPO" MODIFY ("ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table USERLOGIN
+--------------------------------------------------------
 
+  ALTER TABLE "NHINCUSER"."USERLOGIN" ADD PRIMARY KEY ("ID") ENABLE;
+  ALTER TABLE "NHINCUSER"."USERLOGIN" MODIFY ("SALT" NOT NULL ENABLE);
+  ALTER TABLE "NHINCUSER"."USERLOGIN" MODIFY ("SHA1" NOT NULL ENABLE);
+  ALTER TABLE "NHINCUSER"."USERLOGIN" MODIFY ("USERNAME" NOT NULL ENABLE);
+
+  INSERT INTO NHINCUSER.USERLOGIN
+    (ID, SALT, SHA1, USERNAME)
+  VALUES
+    (1, "ABCD", "TxMu4SPUdek0XU5NovS9U2llt3Q=", "CONNECTAdmin");
