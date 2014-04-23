@@ -29,6 +29,8 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
+
     <jee:jndi-lookup id="dataSource" jndi-name="jdbc/adminguidb_datasource" />
+
 
 </beans>
