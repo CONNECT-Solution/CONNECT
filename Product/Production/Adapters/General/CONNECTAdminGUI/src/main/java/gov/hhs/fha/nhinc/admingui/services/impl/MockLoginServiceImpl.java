@@ -24,7 +24,7 @@ public class MockLoginServiceImpl implements LoginService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.cahih.services.LoginService#login(org.cahih.model.Login)
+     * @see gov.hhs.fha.nhinc.admingui.services.LoginService#login(gov.hhs.fha.nhinc.admingui.model.Login)
      */
     @Override
     public boolean login(Login login) {
@@ -39,7 +39,7 @@ public class MockLoginServiceImpl implements LoginService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.cahih.services.LoginService#addUser(org.cahih.model.User)
+     * @see gov.hhs.fha.nhinc.admingui.services.LoginService#addUser(gov.hhs.fha.nhinc.admingui.model.User)
      */
     @Override
     public void addUser(User user) throws UserLoginException {

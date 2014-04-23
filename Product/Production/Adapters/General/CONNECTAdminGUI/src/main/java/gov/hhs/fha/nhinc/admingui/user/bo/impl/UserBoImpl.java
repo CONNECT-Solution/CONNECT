@@ -2,8 +2,6 @@ package gov.hhs.fha.nhinc.admingui.user.bo.impl;
 
 import gov.hhs.fha.nhinc.admingui.user.bo.UserBo;
 
-import javax.inject.Named;
-
 import org.springframework.stereotype.Service;
 
 
