@@ -15,6 +15,7 @@ body {
 	height:100%;
 	padding-left:0px;
 	padding-right:0px;
+	padding-bottom:30px;
 	background:#10253f;
 }
 .sidebar h1.page-header {
@@ -35,6 +36,9 @@ body {
 	text-transform:uppercase;
 	border-bottom:1px solid #283b53;
 }
+.sidebar h2.section-header a {
+	color:#808080;
+}
 .sidebar ul.nav li {
 	background:#10253f;
 }
@@ -48,12 +52,12 @@ body {
 	background:#0c1c2f;
 	color:#ffffff;
 }
-.sidebar ul.nav li a.active {
+.sidebar ul.nav li.active, .sidebar ul.nav li.active a {
 	background:#0c1c2f;
 	color:#ffffff;
 	font-weight:bold;
 }
-.sidebar ul.nav.sidebar-orange li a.active:before {
+.sidebar ul.nav.sidebar-orange li.active a:before {
 	content:"";
 	position:absolute;
 	top:0;
@@ -62,7 +66,7 @@ body {
 	height:100%;
 	background:#e46c0a;
 }
-.sidebar ul.nav.sidebar-purple li a.active:before {
+.sidebar ul.nav.sidebar-purple li.active a:before {
 	content:"";
 	position:absolute;
 	top:0;
@@ -71,7 +75,7 @@ body {
 	height:100%;
 	background:#8064a2;
 }
-.sidebar ul.nav.sidebar-blue li a.active:before {
+.sidebar ul.nav.sidebar-blue li.active a:before {
 	content:"";
 	position:absolute;
 	top:0;
@@ -83,6 +87,11 @@ body {
 .sidebar ul.nav li a i {
 	margin-right:5px;
 }
+.sidebar-gfx {
+	padding-left:10px;
+	padding-right:10px;
+}
+
 
 /* -- MAIN CONTAINER STYLES --------------------------------------------------*/
 .main {
@@ -119,6 +128,20 @@ body {
 .content-block {
 	margin-bottom:20px;
 }
+.content-block .content {
+	padding:20px;
+	background:#ffffff;
+}
+.form-block {
+	padding:40px;
+}
+.form-block .form-button-row {
+	width:100%;
+	margin-bottom:-15px;
+	padding-top:20px;
+	border-top:1px solid #ccc;
+	text-align:right;
+}
 
 /* -- UTILITY NAVBAR STYLES ------------------------------------------------- */
 .navbar {
@@ -141,7 +164,7 @@ body {
 	float: right !important;
 }
 .nav-utility {
-	min-height:50px;
+	min-height:52px;
 	border:1px #b9cde5;
 	border-style:solid none solid;
 }
@@ -151,7 +174,7 @@ body {
 .nav-utility ul.nav li {
 	border-left:1px solid #b9cde5;
 }
-.nav-utility ul.nav li:first-child {
+.nav-utility ul.nav li:first-child, .nav-utility ul.dropdown-menu li {
 	border-left:none;
 }
 .nav-utility ul.nav li a {
@@ -162,6 +185,10 @@ body {
 .nav-utility ul.nav li.banner-nav a:hover {
 	/*background:#b9cde5;*/
 	color:#ffffff;
+}
+.nav-utility .navbar-nav > li > .dropdown-menu {
+	margin-top:1px;
+	margin-left:-1px;
 }
 
 .main .navbar-form {
@@ -183,7 +210,7 @@ body {
   padding-top:15px;
   color:#a8a8a8;
 }
-.main .form-control {
+.main .nav-utility .form-control {
   display: block;
   width: 100%;
   height:48px; /* 34px */
@@ -284,21 +311,51 @@ body {
 	padding:15px;
 	background:#ffffff;
 }
-.main-content .table-remotegateways th {
-	font-size:14px;
+
+.table-button-row {
+	padding-bottom:10px;
+	text-align:right;
 }
-.main-content .table-remotegateways td {
-	font-size:17px;
-}
+
 .main-content .table-remotegateways {
 	margin-bottom:5px;
 	border-bottom: 2px solid #ddd;
 }
+.main-content .table-remotegateways th {
+	font-size:14px;
+}
+.main-content .table-remotegateways td {
+	border-left: 1px solid #ddd;
+	font-size:17px;
+}
 .main-content .table-remotegateways td:first-child {
+	border-left:none;
 	font-weight:bold;
 }
 .main-content .table-remotegateways td:first-child +td+td+td+td+td+td+td {
 	font-weight:bold;
+}
+
+.main-content .table-logs {
+	margin-bottom:5px;
+	border-bottom: 2px solid #ddd;
+}
+.main-content .table-logs th {
+	font-size:14px;
+	white-space:nowrap;
+}
+.main-content .table-logs td {
+	font-size:17px;
+}
+.main-content .table-logs td:first-child {
+	font-weight:bold;
+	white-space:nowrap;
+}
+.main-content .table-logs td:first-child +td, .main-content .table-logs td:first-child +td+td, .main-content .table-logs td:first-child +td+td+td+td {
+	white-space:nowrap;
+}
+.main-content .table-logs td:first-child +td, .main-content .table-logs td:first-child +td+td, .main-content .table-logs td:first-child +td+td+td {
+	border-left: 1px solid #ddd;
 }
 
 
@@ -360,8 +417,34 @@ body {
 }
 
 
+/* -- SIGNIN STYLES ----------------------------------------------------------*/
+.signin-block {
+	height:100%;
+	margin:0px;
+	padding:40px;
+	background:#ffffff;
+}
+.signin-block .checkbox {
+	/*margin-top:20px;
+	margin-bottom:20px;
+	padding-left:15px;*/
+}
+
+
+
 /* -- RESPONSIVE @MEDIA STYLES -----------------------------------------------*/
+@media (max-width: 1100px) {
+	.sidebar h1.page-header {
+		font-size:22px;
+	}
+@media (max-width: 1000px) {
+	.sidebar h1.page-header {
+		font-size:20px;
+	}
 @media (max-width: 900px) {
+	.sidebar h1.page-header {
+		font-size:18px;
+	}
 	.sidebar h2.section-header {
 		font-size:10px;
 	}
@@ -375,7 +458,7 @@ body {
 		line-height:30px;
 	}
 	.nav-section-tabs ul.nav li a {
-		padding:0px 15px;
+		padding:10px 15px;
 		font-size:14px;
 	}
 	.main h2.subsection-header {
@@ -383,11 +466,14 @@ body {
 	}
 }
 @media (max-width: 800px) {
+	.sidebar h1.page-header {
+		font-size:16px;
+	}
 	.nav-section-tabs ul.nav li {
 		width:120px;
 	}
 	.nav-section-tabs ul.nav li a {
-		padding:5px 13px;
+		padding:7px 13px;
 		font-size:13px;
 	}
 }
@@ -654,30 +740,7 @@ table.table-documents td .document-detail {
 
 
 
-/* -- SIGNIN STYLES ----------------------------------------------------------*/
-.form-signin {
-	max-width: 330px;
-	padding:40px 0px; /* ORIGINALLY: 15px */
-	margin: 0 auto;
-}
-.form-signin .form-signin-heading,.form-signin .checkbox {
-	margin-bottom: 10px;
-}
-.form-signin .form-control {
-	position: relative;
-	font-size: 16px;
-	height: auto;
-	padding: 10px;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-.form-signin .form-control:focus {
-	z-index: 2;
-}
-.form-signin .btn-blue {
-	background-color: #0065a1;
-}
+
 
 
 
@@ -737,7 +800,8 @@ table.table-documents td .document-detail {
 }
 .navbar-nav > li > a {
   padding:0px 15px !important; /* 15px */
-  line-height:50px; /*  */
+  height:50px; /*  */
+  line-height:50px;
 }
 
 /* Redeclare since we override the float above */
