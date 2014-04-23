@@ -18,6 +18,9 @@
 <!-- Custom styles for this template -->
 <link href="resources/css/dashboard.css" rel="stylesheet" />
 
+<!-- Tablesort theme CSS -->
+<link href="resources/css/theme.default.css" rel="stylesheet" />
+
 <!-- Just for debugging purposes. Don't actually copy this line! -->
 <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
@@ -40,39 +43,49 @@
             <div class="col-xs-2 sidebar">
                 <h1 class="page-header">Gateway Administrative Console</h1>
 
-                <h2 class="section-header">Gateway Status</h2>
+                <h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
+					Gateway Status
+				</h2>
                 <ul class="nav nav-sidebar sidebar-orange">
-                    <li><a href="#dash" class="active"><i class="glyphicon glyphicon-dashboard"></i> Server
+                    <li class="active"><a href="#tab_dash"><i class="glyphicon glyphicon-dashboard"></i> Server
                             Dashboard</a></li>
-                    <li><a href="#stats"><i class="glyphicon glyphicon-stats"></i> Performance Statistics</a></li>
-                    <li><a href="#remotes"><i class="glyphicon glyphicon-list"></i> Remote Gateway List</a></li>
+                    <li><a href="#tab_stats"><i class="glyphicon glyphicon-stats"></i> Performance Statistics</a></li>
+                    <li><a href="#tab_remotes"><i class="glyphicon glyphicon-list"></i> Remote Gateway List</a></li>
                 </ul>
 
-                <h2 class="section-header">CONNECT Configuration</h2>
-                <ul class="nav nav-sidebar sidebar-purple">
-                    <li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 1</a></li>
-                    <li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 2</a></li>
-                    <li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 3</a></li>
-                </ul>
-
-                <h2 class="section-header">Direct Configuration</h2>
-                <ul class="nav nav-sidebar sidebar-purple">
-                    <li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 1</a></li>
-                    <li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 2</a></li>
-                    <li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 3</a></li>
-                </ul>
-
-                <h2 class="section-header">Account Management</h2>
-                <ul class="nav nav-sidebar sidebar-purple">
-                    <li><a href=""><i class="glyphicon glyphicon-user"></i> User Accounts</a></li>
-                    <li><a href=""><i class="glyphicon glyphicon-lock"></i> Certificate Management</a></li>
-                </ul>
-
-                <h2 class="section-header">Activity Logs</h2>
+                <h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
+					Activity Logs 
+				</h2>
                 <ul class="nav nav-sidebar sidebar-blue">
-                    <li><a href="logs.xhtml#event"><i class="glyphicon glyphicon-list-alt"></i> Event Logs</a></li>
-                    <li><a href="logs.xhtml#audit"><i class="glyphicon glyphicon-list-alt"></i> Audit Logs</a></li>
-                    <li><a href="logs.xhtml#system"><i class="glyphicon glyphicon-list-alt"></i> System Logs</a></li>
+                    <li><a href="logs.xhtml#tab_event"><i class="glyphicon glyphicon-list-alt"></i> Event Logs</a></li>
+                    <li><a href="logs.xhtml#tab_audit"><i class="glyphicon glyphicon-list-alt"></i> Audit Logs</a></li>
+                    <li><a href="logs.xhtml#tab_system"><i class="glyphicon glyphicon-list-alt"></i> System Logs</a></li>
+                </ul>
+
+                <h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
+					CONNECT Configuration
+				</h2>
+                <ul class="nav nav-sidebar sidebar-purple">
+                    <li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 1</a></li>
+                    <li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 2</a></li>
+                    <li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 3</a></li>
+                </ul>
+
+                <h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
+					Direct Configuration
+				</h2>
+                <ul class="nav nav-sidebar sidebar-purple">
+                    <li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 1</a></li>
+                    <li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 2</a></li>
+                    <li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 3</a></li>
+                </ul>
+
+                <h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
+					Account Management
+				</h2>
+                <ul class="nav nav-sidebar sidebar-purple">
+                    <li><a href="acctmanage.xhtml#tab_createuser"><i class="glyphicon glyphicon-user"></i> User Accounts</a></li>
+                    <li><a href="acctmanage.xhtml#tab_certificate"><i class="glyphicon glyphicon-lock"></i> Certificate Management</a></li>
                 </ul>
             </div>
             <!-- END: LEFT COLUMN - SIDEBAR NAVIGATION -->
@@ -97,9 +110,16 @@
                         <!-- ORIGINALLY:  class="navbar-collapse collapse" -->
                         <ul class="nav navbar-nav">
                             <li><a href="#" title="User Profile">Logged in as <strong>John Doe</strong></a></li>
-                            <li><a href="#" title="Settings"><i class="glyphicon glyphicon-wrench"></i></a></li>
-                            <li><a href="#" title="Send a Message"><i class="glyphicon glyphicon-envelope"></i></a></li>
-                            <li><a href="#" title="Help"><i class="glyphicon glyphicon-question-sign"></i></a></li>
+                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Settings">&#x202F;<i class="glyphicon glyphicon-wrench"></i>&#x202F;</a>
+								<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+									<li><a role="menuitem" tabindex="-1" href="acctmanage.xhtml#tab_createuser">User Accounts</a></li>
+									<li><a role="menuitem" tabindex="-1" href="acctmanage.xhtml#tab_certificate">Certificate Management</a></li>
+									<li class="divider"></li>
+									<li><a role="menuitem" tabindex="-1" href="#">Other Tools</a></li>
+								</ul>
+							</li>
+                            <li><a href="#" title="Send a Message">&#x202F;<i class="glyphicon glyphicon-envelope"></i>&#x202F;</a></li>
+                            <li><a href="#" title="Help">&#x202F;<i class="glyphicon glyphicon-question-sign"></i>&#x202F;</a></li>
                         </ul>
                         <form class="navbar-form navbar-right">
                             <i class="glyphicon glyphicon-search"></i><input class="form-control"
@@ -117,12 +137,9 @@
                     <div class="nav-section-tabs tabs-orange" id="nav-section-tabs">
                         <div class="navbar" role="navigation">
                             <ul class="nav nav-tabs">
-                                <li class="active"><a href="#dash" data-toggle="tab" title="Server Dashboard">Server
-                                        Dashboard</a></li>
-                                <li><a href="#stats" data-toggle="tab" title="Performance Statistics">Performance
-                                        Statistics</a></li>
-                                <li><a href="#remotes" data-toggle="tab" title="Remote Gateway List">Remote
-                                        Gateway List</a></li>
+                                <li class="active"><a href="#dash" data-toggle="tab" title="Server Dashboard">Server Dashboard</a></li>
+                                <li><a href="#stats" data-toggle="tab" title="Performance Statistics">Performance Statistics</a></li>
+                                <li><a href="#remotes" data-toggle="tab" title="Remote Gateway List">Remote Gateway List</a></li>
                             </ul>
                         </div>
                     </div>
@@ -259,7 +276,7 @@
                                 <h2 class="subsection-header">Remote Gateway List</h2>
                                 <div class="table-responsive">
                                     <h:dataTable id="dashboardId" value="#{dashboardBean.dashboardDetails}"
-                                        var="organization" styleClass="table table-striped table-remotegateways">
+                                        var="organization" styleClass="table table-striped tablesorter table-remotegateways">
                                         <h:column>
                                             <f:facet name="header">HCID</f:facet>
                                             <h:outputText value="#{organization.hcidName}" />
@@ -331,151 +348,168 @@
     <script src="resources/js/bootstrap.min.js"></script>
     <!--<script src="Dashboard%20Template%20for%20Bootstrap_files/docs.js"></script>-->
 
+	<script type="text/javascript" src="resources/js/jquery.tablesorter.min.js"></script>
+	<!--<script type="text/javascript" src="resources/js/jquery.tablesorter.widgets.min.js"></script>-->
+	<script>
+	$(document).ready(function(){
+		$(function(){
+			$("table").tablesorter();
+		});
+	});
+	</script>
 
     <script>
-					// FUNCTION TO SHOW THE CORRECT TABBED CONTENT IF NAVIGATING FROM DIFFERENT PAGE
-					$(document).ready(
-							function() {
-								var hash = window.location.hash;
-								if (hash != "") {
-									$(
-											'#nav-section-tabs a[href="' + hash
-													+ '"]').tab('show');
-									var showActivebar = $('.sidebar a[href='
-											+ hash + ']'); // FIND SIDEBAR LINK TO MATCH SELECTED TAB
-									$('.sidebar a').not(showActivebar)
-											.removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINKS AS NEEDED
-									$(showActivebar).addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK
-								} else
-									$('#nav-section-tabs a:first').tab('show');
-							});
+	// FUNCTION TO SHOW THE CORRECT TABBED CONTENT IF NAVIGATING FROM DIFFERENT PAGE
+	$(document).ready(function() {
+		var hash = window.location.hash;
+		var prefix = "tab_"; // USING PREFIX TO PREVENT BROWSER AUTOMATIC SCROLL TO THIS ELEMENT
+		if (hash != "") {
+			$('#nav-section-tabs a[href="' + hash.replace(prefix,"") + '"]').tab('show'); // REMOVE PREFIX and CHANGE TO CORRECT TAB
+			var showActivebar = $('.sidebar a[href=' + hash + ']'); // FIND SIDEBAR LINK TO MATCH SELECTED TAB
+			$('.sidebar li').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINK LI'S AS NEEDED
+			$(showActivebar).parent().addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK LI
+		} else
+			$('#nav-section-tabs a:first').tab('show');
+	});
 
-					// FUNCTION FOR SIDEBAR NAV - TOGGLE ACTIVE CLASS and CHANGE SELECTED TAB IN MAIN CONTENT AREA
-					$('.sidebar a').click(
-							function() {
-								var showActivebar = $(this); // STORE ID OF SELECTED SIDEBAR LINK
-								$('.sidebar a').not(showActivebar).removeClass(
-										'active'); // REMOVE ACTIVE CLASS OF OTHER LINKS AS NEEDED
-								$(showActivebar).addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK
+	// FUNCTION FOR SIDEBAR NAV - TOGGLE ACTIVE CLASS and CHANGE SELECTED TAB IN MAIN CONTENT AREA
+	$('.sidebar li').click(function() {
+		var showActivebar = $(this); // STORE ID OF SELECTED SIDEBAR LINK LI
+		$('.sidebar li').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINK LI'S AS NEEDED
+		$(showActivebar).addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK LI
 
-								var url = $(this).attr('href'); // CATCH HREF FROM SIDEBAR LINK
-								//if (url.match('#')) {
-								//var tid = url.split('#')[1];
-								//console.log(url);
-								$('.nav-tabs a[href=' + url + ']').tab('show'); // CHANGE TAB TO MATCH SELECTED SIDEBAR LINK
-								//window.scrollTo(0, 0);
-								//}
-							});
-					// FUNCTION FOR TABBED NAV IN MAIN CONTENT AREA - CHANGE SELECTED SIDEBAR LINK
-					$('.nav-tabs a').click(
-							function() {
-								var url = $(this).attr('href'); // CATCH HREF FROM SELECTED TAB
-								var showActivebar = $('.sidebar a[href=' + url
-										+ ']'); // FIND SIDEBAR LINK TO MATCH SELECTED TAB
-								$('.sidebar a').not(showActivebar).removeClass(
-										'active'); // REMOVE ACTIVE CLASS OF OTHER LINKS AS NEEDED
-								$(showActivebar).addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK
-							});
-				</script>
+		var url = $(this).find('a').attr('href'); // CATCH HREF FROM SIDEBAR LINK
+		var prefix = "tab_"; // USING PREFIX TO PREVENT BROWSER AUTOMATIC SCROLL TO THIS ELEMENT
+		if (url.match('#')) {
+			//var tid = url.split('#')[1];
+			//console.log(url);
+			$('.nav-tabs a[href=' + url.replace(prefix,"") + ']').tab('show'); // REMOVE PREFIX and CHANGE TAB TO MATCH SELECTED SIDEBAR LINK
+			//window.scrollTo(0, 0);
+		}
+	});
+	// FUNCTION FOR TABBED NAV IN MAIN CONTENT AREA - CHANGE SELECTED SIDEBAR LINK
+	$('.nav-tabs a').click(function() {
+		var url = $(this).attr('href').replace("#","#tab_"); // CATCH HREF FROM SELECTED TAB and ADD PREFIX TO FIND CORRECT SIDEBAR LINK
+		var showActivebar = $('.sidebar a[href=' + url + ']'); // FIND SIDEBAR LINK TO MATCH SELECTED TAB
+		$('.sidebar li').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINK LI'S AS NEEDED
+		$(showActivebar).parent().addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK LI
+	});
+	// FUNCTION FOR DROPDOWN NAV IN UTILITY BAR - CHANGE SELECTED SIDEBAR LINK and TAB
+	$('.nav-utility .dropdown-menu a').click(function () {
+		var url = $(this).attr('href'); // CATCH HREF FROM SELECTED DROPDOWN ITEM
+		var showActivebar = $('.sidebar a[href='+url+']'); // FIND SIDEBAR LINK TO MATCH SELECTED TAB
+		$('.sidebar li').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINK LI'S AS NEEDED
+		$(showActivebar).parent().addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK LI
+		$('.nav-tabs a[href='+url.replace("tab_","")+']').tab('show') ; // REMOVE PREFIX and CHANGE TAB TO MATCH SELECTED DROPDOWN ITEM
+	});
+	
+	// FUNCTION TO EXPAND/CONTRACT SIDEBAR NAV SECTIONS
+	$('.sidebar h2.section-header').click(function () {
+		var targetMenu = $(this).next('ul').attr('id');
+		var activeLink = $(this).next('ul').children('.active').attr('id');
+	
+		$(this).find('i').toggleClass('glyphicon-plus glyphicon-minus');
+		$(this).next('ul').slideToggle(400);
+		if ($(targetMenu).is(":visible"))
+			$(activeLink).addClass("active");
+	});
+	</script>
 
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="http://code.highcharts.com/modules/exporting.js"></script>
     <script>
-					$(function() {
-						$('#chart-stats-connect')
-								.highcharts(
-										{
-											chart : {
-											//spacingBottom:0
-											},
-											title : {
-												text : null,
-												x : -20
-											//center
-											},
-											subtitle : {
-												text : null,
-												x : -20
-											},
-											credits : {
-												enabled : false
-											},
-											exporting : {
-												enabled : false
-											},
-											xAxis : {
-												categories : [ 'Jan 7',
-														'Jan 8', 'Jan 9',
-														'Jan 10', 'Jan 11',
-														'Jan 12', 'Jan 13',
-														'Jan 14', 'Jan 15',
-														'Jan 16', 'Jan 17',
-														'Jan 18' ]
-											},
-											yAxis : {
-												title : {
-													text : null
-												},
-												min : -5,
-												startOnTick : false,
-												allowDecimals : false,
-												tickInterval : 5,
-												plotLines : [ {
-													value : 0,
-													width : 1,
-													color : '#808080'
-												} ]
-											},
-											tooltip : {
-												valueSuffix : '',
-												shared : true
-											},
-											legend : {
-												layout : 'horizontal',
-												align : 'center',
-												verticalAlign : 'bottom',
-												borderWidth : 0,
-												itemMarginTop : 5
-											},
-											series : [
-													{
-														name : 'Inbound Messages',
-														data : [ 8, 8, 11, 16,
-																19, 23, 26, 28,
-																24, 19, 15, 11 ]
-													},
-													{
-														name : 'Outbound Messages',
-														data : [ 2, 2, 6, 11,
-																17, 25, 22, 24,
-																20, 14, 9, 3 ]
-													},
-													{
-														name : 'Failed Messages',
-														data : [ 3, 1, 4, 8,
-																14, 17, 19, 18,
-																14, 9, 4, 1 ]
-													},
-													{
-														name : 'Requests Failed Due to Authentication Failure',
-														data : [ 1, 0, 5, 8,
-																11, 14, 16, 16,
-																13, 5, 6, 4 ]
-													} ],
-											plotOptions : {
-												line : {
-													marker : {
-														fillColor : '#ffffff',
-														lineColor : null,
-														lineWidth : 3,
-														radius : 7,
-														symbol : 'circle'
-													}
-												}
-											}
-										});
-					});
-				</script>
+	$(function() {
+		$('#chart-stats-connect').highcharts({
+			chart : {
+			//spacingBottom:0
+			},
+			title : {
+				text : null,
+				x : -20
+			},
+			subtitle : {
+				text : null,
+				x : -20
+			},
+			credits : {
+				enabled : false
+			},
+			exporting : {
+				enabled : false
+			},
+			xAxis : {
+				categories : [ 'Jan 7',
+						'Jan 8', 'Jan 9',
+						'Jan 10', 'Jan 11',
+						'Jan 12', 'Jan 13',
+						'Jan 14', 'Jan 15',
+						'Jan 16', 'Jan 17',
+						'Jan 18' ]
+			},
+			yAxis : {
+				title : {
+					text : null
+				},
+				min : -5,
+				startOnTick : false,
+				allowDecimals : false,
+				tickInterval : 5,
+				plotLines : [ {
+					value : 0,
+					width : 1,
+					color : '#808080'
+				} ]
+			},
+			tooltip : {
+				valueSuffix : '',
+				shared : true
+			},
+			legend : {
+				layout : 'horizontal',
+				align : 'center',
+				verticalAlign : 'bottom',
+				borderWidth : 0,
+				itemMarginTop : 5
+			},
+			series : [
+					{
+						name : 'Inbound Messages',
+						data : [ 8, 8, 11, 16,
+								19, 23, 26, 28,
+								24, 19, 15, 11 ]
+					},
+					{
+						name : 'Outbound Messages',
+						data : [ 2, 2, 6, 11,
+								17, 25, 22, 24,
+								20, 14, 9, 3 ]
+					},
+					{
+						name : 'Failed Messages',
+						data : [ 3, 1, 4, 8,
+								14, 17, 19, 18,
+								14, 9, 4, 1 ]
+					},
+					{
+						name : 'Requests Failed Due to Authentication Failure',
+						data : [ 1, 0, 5, 8,
+								11, 14, 16, 16,
+								13, 5, 6, 4 ]
+					} ],
+			plotOptions : {
+				line : {
+					marker : {
+						fillColor : '#ffffff',
+						lineColor : null,
+						lineWidth : 3,
+						radius : 7,
+						symbol : 'circle'
+					}
+				}
+			}
+		});
+	});
+	</script>
 
 </body>
 </html>
