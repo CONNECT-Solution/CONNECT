@@ -5,6 +5,6 @@
  
 <hibernate-configuration>
     <session-factory>
-        <mapping class="gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin"></mapping>
+        <mapping class="gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin" />
     </session-factory>
 </hibernate-configuration>

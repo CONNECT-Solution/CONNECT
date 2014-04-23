@@ -21,7 +21,7 @@ public abstract class AbstractBase64EncodedPasswordService extends AbstractEncod
     /*
      * (non-Javadoc)
      * 
-     * @see org.cahih.services.impl.AbstractEncodedPasswordService#encode(byte[])
+     * @see gov.hhs.fha.nhinc.admingui.services.impl.AbstractEncodedPasswordService#encode(byte[])
      */
     @Override
     public byte[] encode(byte[] input) {

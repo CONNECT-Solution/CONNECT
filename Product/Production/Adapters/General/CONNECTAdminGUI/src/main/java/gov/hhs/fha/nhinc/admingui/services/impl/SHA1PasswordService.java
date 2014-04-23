@@ -30,7 +30,7 @@ public class SHA1PasswordService extends AbstractBase64EncodedPasswordService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.cahih.services.PasswordService#calculateHash(byte[])
+     * @see gov.hhs.fha.nhinc.admingui.services.PasswordService#calculateHash(byte[])
      */
     @Override
     public byte[] calculateHash(byte[] input) throws PasswordServiceException {
