@@ -346,7 +346,7 @@ public class ConnectionManagerCache implements ConnectionManager {
     }
     
     @Override
-    public String getBusinessEntityDescription(String homeCommunityId) throws ConnectionManagerException{
+    public String getBusinessEntityName(String homeCommunityId) throws ConnectionManagerException{
         BusinessEntity business = getBusinessEntity(homeCommunityId);
         if(business != null && business.getName() != null){
             for(Name name : business.getName()){

@@ -2,18 +2,27 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
   http://maven.apache.org/maven-v4_0_0.xsd">
 
+    <parent>
+        <groupId>org.connectopensource</groupId>
+        <artifactId>General</artifactId>
+        <version>4.4.0-SNAPSHOT</version>
+    </parent>
+    
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.connectopensource</groupId>
     <artifactId>CONNECTAdminGUI</artifactId>
     <packaging>war</packaging>
-    <version>4.4.0-SNAPSHOT</version>
     <name>CONNECT Administration GUI</name>
 
     <dependencies>
         <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>CONNECTCoreLib</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate</artifactId>
-            <version>3.2.5.ga</version>
             <exclusions>
                 <exclusion>
                     <groupId>antlr</groupId>
@@ -45,7 +54,6 @@
                 space. -->
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
-            <version>2.1_3</version>
         </dependency>
 
         <dependency>
@@ -79,13 +87,11 @@
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>1.7</version>
         </dependency>
 
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>2.6</version>
         </dependency>
 
         <dependency>
@@ -97,7 +103,6 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
         </dependency>
 
         <!-- Spring framework -->
@@ -110,7 +115,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>3.0.7.RELEASE</version>
         </dependency>
 
         <dependency>
@@ -175,14 +179,12 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.6.4</version>
             <scope>runtime</scope>
         </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.6.4</version>
             <exclusions>
                 <exclusion>
                     <groupId>javax.activation</groupId>
@@ -196,9 +198,14 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.7</version>
             <scope>test</scope>
         </dependency>
+        
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+        </dependency>
+        
     </dependencies>
 
     <build>

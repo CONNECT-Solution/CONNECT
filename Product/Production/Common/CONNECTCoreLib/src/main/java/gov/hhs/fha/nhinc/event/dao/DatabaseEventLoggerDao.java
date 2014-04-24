@@ -28,10 +28,6 @@ package gov.hhs.fha.nhinc.event.dao;
 
 import gov.hhs.fha.nhinc.event.model.DatabaseEvent;
 import gov.hhs.fha.nhinc.event.persistence.HibernateUtil;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -51,7 +47,6 @@ public class DatabaseEventLoggerDao {
     private static final Logger LOG = Logger.getLogger(DatabaseEventLoggerDao.class);
     
     private static final String EVENT_TYPE_NAME = "eventName";
-    private static final String EVENT_INITIATOR_NAME = "initiatorHcid";
     private static final String EVENT_SERVICETYPE_NAME = "serviceType";
     
 
@@ -107,7 +102,7 @@ public class DatabaseEventLoggerDao {
      * @return List of Object[] with [0] the count, [1] the initiating hcid, and [2]
      * the service type.
      */
-    public List getCounts(String eventType){
+    public List getCounts(String eventType, String hcidType){
         Session session = null;
         List results = null;
         
@@ -118,7 +113,7 @@ public class DatabaseEventLoggerDao {
             .add(Restrictions.eq(EVENT_TYPE_NAME, eventType))
             .setProjection(Projections.projectionList()
                 .add(Projections.rowCount())
-                .add(Projections.groupProperty(EVENT_INITIATOR_NAME))
+                .add(Projections.groupProperty(hcidType))
                 .add(Projections.groupProperty(EVENT_SERVICETYPE_NAME)))
             .list();
         

@@ -66,7 +66,7 @@ public interface ConnectionManager {
      * @return
      * @throws ConnectionManagerException 
      */
-    public String getBusinessEntityDescription(String homeCommunityId) throws ConnectionManagerException;
+    public String getBusinessEntityName(String homeCommunityId) throws ConnectionManagerException;
     
     /**
      * This method returns the business entity information for the set of home communities.

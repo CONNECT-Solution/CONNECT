@@ -11,6 +11,7 @@
         http://www.springframework.org/schema/jee      http://www.springframework.org/schema/jee/spring-jee-3.0.xsd"
     default-autowire="byName">
 
+    <context:annotation-config />
     <context:component-scan base-package="gov.hhs.fha.nhinc.admingui" />
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
