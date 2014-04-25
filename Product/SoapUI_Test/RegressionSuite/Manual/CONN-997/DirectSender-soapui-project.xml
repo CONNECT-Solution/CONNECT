@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="DirectSender" resourceRoot="" soapui-version="4.6.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="DirectSenderServiceSoapBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:direct}DirectSenderServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://gfe-onc-wdev19:8080/Direct/Direct/DirectSenderService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://gfe-onc-wdev19:8080/Direct/Direct/DirectSenderService?wsdl"><con:part><con:url>http://gfe-onc-wdev19:8080/Direct/Direct/DirectSenderService?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="DirectSender" targetNamespace="urn:gov:hhs:fha:nhinc:direct" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:gov:hhs:fha:nhinc:direct" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="urn:gov:hhs:fha:nhinc:direct" xmlns:ds="urn:gov:hhs:fha:nhinc:direct">
+      <xsd:include schemaLocation="http://gfe-onc-wdev19:8080/Direct/Direct/DirectSenderService?xsd=classpath:schemas/nhinc/direct/DirectSender.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="sendOutboundDirect">
+    <wsdl:part element="tns:SendoutMessage" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="DirectSender_PortType">
+    <wsdl:operation name="sendOutboundDirect">
+      <wsdl:input message="tns:sendOutboundDirect" name="sendOutboundDirect"></wsdl:input>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DirectSenderServiceSoapBinding" type="tns:DirectSender_PortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="sendOutboundDirect">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="sendOutboundDirect">
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DirectSenderService">
+    <wsdl:port binding="tns:DirectSenderServiceSoapBinding" name="DirectSender_PortType">
+      <soap:address location="http://gfe-onc-wdev19:8080/Direct/Direct/DirectSenderService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://gfe-onc-wdev19:8080/Direct/Direct/DirectSenderService?xsd=classpath:schemas/nhinc/direct/DirectSender.xsd</con:url><con:content><![CDATA[<xs:schema elementFormDefault="unqualified" targetNamespace="urn:gov:hhs:fha:nhinc:direct" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:direct">
+  <xs:element name="SendoutMessage" type="tns:SendoutMessage"/>
+  <xs:complexType name="SendoutMessage">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="tns:connectCustomSendMimeMessage"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="connectCustomSendMimeMessage">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="content" type="xs:base64Binary"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="receipients" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="sender" type="xs:string"/>
+      <xs:element minOccurs="0" name="subject" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://gfe-onc-wdev19:8080/Direct/Direct/DirectSenderService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="sendOutboundDirect" bindingOperationName="sendOutboundDirect" type="One-Way" inputName="sendOutboundDirect" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://gfe-onc-wdev19:8080/Direct/Direct/DirectSenderService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:direct">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:sendOutboundDirect>
+         <!--Optional:-->
+         <arg0>
+            <!--Zero or more repetitions:-->
+            <replyTo>
+               <!--Optional:-->
+               <atype>?</atype>
+            </replyTo>
+            <!--Optional:-->
+            <sentDate>?</sentDate>
+            <!--Optional:-->
+            <subject>?</subject>
+            <!--Optional:-->
+            <contentID>?</contentID>
+            <!--Zero or more repetitions:-->
+            <contentLanguage>?</contentLanguage>
+            <!--Optional:-->
+            <contentMD5>?</contentMD5>
+            <!--Optional:-->
+            <dataHandler>cid:523375454382</dataHandler>
+            <!--Optional:-->
+            <description>?</description>
+            <!--Optional:-->
+            <disposition>?</disposition>
+            <!--Optional:-->
+            <fileName>?</fileName>
+            <!--Optional:-->
+            <sender>
+               <!--Optional:-->
+               <atype>?</atype>
+            </sender>
+         </arg0>
+         <!--Optional:-->
+         <arg1>
+            <!--Optional:-->
+            <atype>?</atype>
+         </arg1>
+         <!--Zero or more repetitions:-->
+         <arg2>
+            <!--Optional:-->
+            <atype>?</atype>
+         </arg2>
+         <!--Optional:-->
+         <arg3>
+            <!--Zero or more repetitions:-->
+            <documents>
+               <!--Optional:-->
+               <data>cid:62753783844</data>
+               <!--Optional:-->
+               <metadata>
+                  <!--Zero or more repetitions:-->
+                  <authorInstitution>?</authorInstitution>
+                  <!--Optional:-->
+                  <authorPerson>?</authorPerson>
+                  <!--Optional:-->
+                  <authorRole>?</authorRole>
+                  <!--Optional:-->
+                  <authorSpecialty>?</authorSpecialty>
+                  <!--Optional:-->
+                  <classCode>?</classCode>
+                  <!--Optional:-->
+                  <classCode_localized>?</classCode_localized>
+                  <!--Optional:-->
+                  <confidentialityCode>?</confidentialityCode>
+                  <!--Optional:-->
+                  <confidentialityCode_localized>?</confidentialityCode_localized>
+                  <!--Optional:-->
+                  <creationTime>?</creationTime>
+                  <!--Optional:-->
+                  <description>?</description>
+                  <!--Optional:-->
+                  <formatCode>?</formatCode>
+                  <!--Optional:-->
+                  <formatCode_localized>?</formatCode_localized>
+                  <!--Optional:-->
+                  <hash>?</hash>
+                  <!--Optional:-->
+                  <healthcareFacilityTypeCode>?</healthcareFacilityTypeCode>
+                  <!--Optional:-->
+                  <healthcareFacilityTypeCode_localized>?</healthcareFacilityTypeCode_localized>
+                  <!--Optional:-->
+                  <id>?</id>
+                  <!--Optional:-->
+                  <languageCode>?</languageCode>
+                  <!--Optional:-->
+                  <loinc>?</loinc>
+                  <!--Optional:-->
+                  <loinc_localized>?</loinc_localized>
+                  <!--Optional:-->
+                  <mimeType>?</mimeType>
+                  <!--Optional:-->
+                  <patientId>?</patientId>
+                  <!--Optional:-->
+                  <practiceSettingCode>?</practiceSettingCode>
+                  <!--Optional:-->
+                  <practiceSettingCode_localized>?</practiceSettingCode_localized>
+                  <!--Optional:-->
+                  <serviceStartTime>?</serviceStartTime>
+                  <!--Optional:-->
+                  <serviceStopTime>?</serviceStopTime>
+                  <!--Optional:-->
+                  <size>?</size>
+                  <!--Optional:-->
+                  <sourcePatient>
+                     <!--Optional:-->
+                     <age>?</age>
+                     <!--Optional:-->
+                     <ageUnits>?</ageUnits>
+                     <!--Optional:-->
+                     <birthDateTime>?</birthDateTime>
+                     <!--Optional:-->
+                     <city>?</city>
+                     <!--Optional:-->
+                     <country>?</country>
+                     <!--Optional:-->
+                     <county>?</county>
+                     <!--Optional:-->
+                     <department>?</department>
+                     <!--Optional:-->
+                     <email>?</email>
+                     <!--Optional:-->
+                     <ethnicityCode>?</ethnicityCode>
+                     <!--Optional:-->
+                     <ethnicityCodeName>?</ethnicityCodeName>
+                     <!--Optional:-->
+                     <ethnicityCodeSystem>?</ethnicityCodeSystem>
+                     <!--Optional:-->
+                     <firstName>?</firstName>
+                     <!--Optional:-->
+                     <genderCode>?</genderCode>
+                     <!--Optional:-->
+                     <genderCodeSystem>?</genderCodeSystem>
+                     <!--Optional:-->
+                     <languageCode>?</languageCode>
+                     <!--Optional:-->
+                     <lastName>?</lastName>
+                     <!--Optional:-->
+                     <localId>?</localId>
+                     <!--Optional:-->
+                     <localOrg>?</localOrg>
+                     <!--Optional:-->
+                     <middleName>?</middleName>
+                     <!--Optional:-->
+                     <npi>?</npi>
+                     <otherOrgIds>
+                        <!--Zero or more repetitions:-->
+                        <entry>
+                           <!--Optional:-->
+                           <key>?</key>
+                           <!--Optional:-->
+                           <value>?</value>
+                        </entry>
+                     </otherOrgIds>
+                     <!--Optional:-->
+                     <patientEuid>?</patientEuid>
+                     <!--Optional:-->
+                     <pcpName>?</pcpName>
+                     <!--Optional:-->
+                     <pcpOid>?</pcpOid>
+                     <!--Optional:-->
+                     <phoneExt>?</phoneExt>
+                     <!--Optional:-->
+                     <SSN>?</SSN>
+                     <!--Optional:-->
+                     <ssn1>?</ssn1>
+                     <!--Optional:-->
+                     <state>?</state>
+                     <!--Optional:-->
+                     <streetAddress1>?</streetAddress1>
+                     <!--Optional:-->
+                     <streetAddress2>?</streetAddress2>
+                     <!--Optional:-->
+                     <suffix>?</suffix>
+                     <!--Optional:-->
+                     <systemCode>?</systemCode>
+                     <!--Optional:-->
+                     <systemName>?</systemName>
+                     <!--Optional:-->
+                     <telephone>?</telephone>
+                     <!--Optional:-->
+                     <title>?</title>
+                     <!--Optional:-->
+                     <zipCode>?</zipCode>
+                  </sourcePatient>
+                  <!--Optional:-->
+                  <submissionSetStatus>?</submissionSetStatus>
+                  <!--Optional:-->
+                  <URI>?</URI>
+                  <!--Optional:-->
+                  <uniqueId>?</uniqueId>
+               </metadata>
+            </documents>
+            <!--Optional:-->
+            <submissionSet>
+               <!--Zero or more repetitions:-->
+               <authorInstitution>?</authorInstitution>
+               <!--Optional:-->
+               <authorPerson>?</authorPerson>
+               <!--Optional:-->
+               <authorRole>?</authorRole>
+               <!--Optional:-->
+               <authorSpecialty>?</authorSpecialty>
+               <!--Optional:-->
+               <authorTelecommunication>?</authorTelecommunication>
+               <!--Optional:-->
+               <contentTypeCode>?</contentTypeCode>
+               <!--Optional:-->
+               <contentTypeCode_localized>?</contentTypeCode_localized>
+               <!--Optional:-->
+               <description>?</description>
+               <!--Optional:-->
+               <id>?</id>
+               <!--Zero or more repetitions:-->
+               <intendedRecipient>?</intendedRecipient>
+               <!--Optional:-->
+               <name>?</name>
+               <!--Optional:-->
+               <patientId>?</patientId>
+               <!--Optional:-->
+               <sourceId>?</sourceId>
+               <!--Optional:-->
+               <submissionTime>?</submissionTime>
+               <!--Optional:-->
+               <uniqueId>?</uniqueId>
+            </submissionSet>
+         </arg3>
+         <!--Optional:-->
+         <arg4>?</arg4>
+      </urn:sendOutboundDirect>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:direct:sendOutboundDirect"/></con:call></con:operation></con:interface><con:testSuite name="DirectSenderServiceSoapBinding TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="sendOutboundDirect TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="sendOutboundDirect"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>DirectSenderServiceSoapBinding</con:interface><con:operation>sendOutboundDirect</con:operation><con:request name="sendOutboundDirect"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://gfe-onc-wdev19:8080/Direct/Direct/DirectSenderService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:direct">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:SendoutMessage>
+         <message>
+            
+            <content>cid:694772687337</content>
+            
+            <receipients>provider1@direct.sitenv.org</receipients>
+            
+            <sender>naresh@direct.connectopensource.org</sender>
+            
+            <subject>Test5</subject>
+         </message>
+      </urn:SendoutMessage>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:direct/DirectSender_PortType/sendOutboundDirect" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/></con:soapui-project>
