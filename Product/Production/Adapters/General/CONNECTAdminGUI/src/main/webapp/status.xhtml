@@ -275,46 +275,47 @@
                             <div class="content-block">
                                 <h2 class="subsection-header">Remote Gateway List</h2>
                                 <div class="table-responsive">
-                                    <h:dataTable id="dashboardId" value="#{dashboardBean.dashboardDetails}"
-                                        var="organization" styleClass="table table-striped tablesorter table-remotegateways">
+
+                                    <h:dataTable id="dashboardId" value="#{dashboardBean.totalEvents}"
+                                        var="organization" styleClass="table table-striped table-remotegateways">
                                         <h:column>
-                                            <f:facet name="header">HCID</f:facet>
-                                            <h:outputText value="#{organization.hcidName}" />
+                                            <f:facet name="header">Gateway</f:facet>
+                                            <h:outputText value="#{organization.organizationName}" />
                                         </h:column>
 
                                         <h:column>
                                             <f:facet name="header">PD</f:facet>
-                                            <h:outputText value="#{organization.PD.inoutboundvalue}" />
+                                            <h:outputText value="#{organization.pdCount}" />
                                         </h:column>
 
                                         <h:column>
                                             <f:facet name="header">DQ</f:facet>
-                                            <h:outputText value="#{organization.DQ.inoutboundvalue}" />
+                                            <h:outputText value="#{organization.dqCount}" />
                                         </h:column>
 
                                         <h:column>
                                             <f:facet name="header">DR</f:facet>
-                                            <h:outputText value="#{organization.DR.inoutboundvalue}" />
+                                            <h:outputText value="#{organization.drCount}" />
                                         </h:column>
 
                                         <h:column>
                                             <f:facet name="header">DS</f:facet>
-                                            <h:outputText value="#{organization.DS.inoutboundvalue}" />
+                                            <h:outputText value="#{organization.dsCount}" />
                                         </h:column>
 
                                         <h:column>
                                             <f:facet name="header">AD</f:facet>
-                                            <h:outputText value="#{organization.AD.inoutboundvalue}" />
+                                            <h:outputText value="#{organization.adCount}" />
                                         </h:column>
 
                                         <h:column>
                                             <f:facet name="header">Direct</f:facet>
-                                            <h:outputText value="#{organization.direct.inoutboundvalue}" />
+                                            <h:outputText value="#{organization.directCount}" />
                                         </h:column>
 
                                         <h:column>
                                             <f:facet name="header">Total</f:facet>
-                                            <h:outputText value="#{organization.totalInOutBoundValue}" />
+                                            <h:outputText value="#{organization.totalCount}" />
                                         </h:column>
 
                                     </h:dataTable>

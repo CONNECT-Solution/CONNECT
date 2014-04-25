@@ -24,25 +24,38 @@
  *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services.impl;
+package gov.hhs.fha.nhinc.admingui.event.service;
 
-import org.apache.commons.codec.binary.Base64;
+import gov.hhs.fha.nhinc.admingui.event.model.EventNwhinOrganization;
+import java.util.List;
 
 /**
- * The Class AbstractBase64EncodedPasswordService.
- * 
- * @author msw
+ *  Service for querying the Event DB and sorting counts into displayable organization information.
+ *  Can display by total, inbound, and outbound;
+ * @author jasonasmith
  */
-public abstract class AbstractBase64EncodedPasswordService extends AbstractEncodedPasswordService {
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.admingui.services.impl.AbstractEncodedPasswordService#encode(byte[])
+public interface EventCountService {
+    
+    /**
+     * Sets the total counts of inbound and outbound organization cache for events per NwHIN service.
      */
-    @Override
-    public byte[] encode(byte[] input) {
-        return Base64.encodeBase64(input);
-    }
-
+    public void setCounts();
+    
+    /**
+     * Merges the inbound and outbound cache and returns the total displayable organizations.
+     * @return 
+     */
+    public List<EventNwhinOrganization> getTotalOrganizations();
+    
+    /**
+     * Gets the displayable organizations for inbound transactions.
+     * @return 
+     */
+    public List<EventNwhinOrganization> getInboundOrganizations();
+    
+    /**
+     * Gets the displayable organizations for outbound transactions.
+     * @return 
+     */
+    public List<EventNwhinOrganization> getOutboundOrganizations();
 }

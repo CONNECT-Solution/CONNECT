@@ -24,25 +24,31 @@
  *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services.impl;
-
-import org.apache.commons.codec.binary.Base64;
+package gov.hhs.fha.nhinc.admingui.managed;
 
 /**
- * The Class AbstractBase64EncodedPasswordService.
- * 
- * @author msw
+ *
+ * @author sadusumilli / jasonasmith
  */
-public abstract class AbstractBase64EncodedPasswordService extends AbstractEncodedPasswordService {
+import gov.hhs.fha.nhinc.admingui.event.model.EventNwhinOrganization;
+import gov.hhs.fha.nhinc.admingui.event.service.EventCountService;
+import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.admingui.services.impl.AbstractEncodedPasswordService#encode(byte[])
-     */
-    @Override
-    public byte[] encode(byte[] input) {
-        return Base64.encodeBase64(input);
+@ManagedBean(name = "dashboardBean")
+@SessionScoped
+@Component
+public class DashboardBean {
+
+    @Autowired
+    private EventCountService eventCountService;
+    
+    public List<EventNwhinOrganization> getTotalEvents() {
+        eventCountService.setCounts();
+        
+        return eventCountService.getTotalOrganizations();
     }
-
 }
