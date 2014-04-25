@@ -26,10 +26,7 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.mail.MessagingException;
-import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
@@ -37,6 +34,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.SOAPBinding;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -44,16 +42,16 @@ import javax.xml.ws.soap.SOAPBinding;
  */
 @BindingType(SOAPBinding.SOAP12HTTP_BINDING)
 public class DirectSenderServiceImpl extends DirectAdapterEntity implements DirectSenderPortType {
-    
+
+    private static final Logger LOG = Logger.getLogger(DirectSenderServiceImpl.class);
+
     @Override
     public void sendOutboundDirect(SendoutMessage parameters) {
+        LOG.debug("-- Begin DirectSenderServiceImpl.sendOutboundDirect() --");
         ConnectCustomSendMimeMessage message = parameters.getMessage();
         MimeMessage mimeMessage = new MimeMessage((Session) null);
         try {
-            //InternetAddress[] addressFrom = new InternetAddress[1];
             mimeMessage.setFrom(new InternetAddress(message.getSender()));
-//            addressFrom[0] = new InternetAddress(message.getSender());
-//            mimeMessage.addFrom(addressFrom);
             int receipientCount = message.getReceipients().size();
             InternetAddress[] addressTo = new InternetAddress[receipientCount];
             for (int i = 0; i < receipientCount; i++) {
@@ -69,7 +67,8 @@ public class DirectSenderServiceImpl extends DirectAdapterEntity implements Dire
             mimeMessage.setSubject(message.getSubject());
             getDirectSender().sendOutboundDirect(mimeMessage);
         } catch (MessagingException ex) {
-            Logger.getLogger(DirectReceiverServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error(ex.getMessage());
         }
+        LOG.debug("-- End DirectSenderServiceImpl.sendOutboundDirect() --");
     }
 }
