@@ -50,7 +50,9 @@ public interface LoginService {
      * Adds the user.
      * 
      * @param user the user
+     * @return true, if successful
+     * @throws UserLoginException
      */
-    public void addUser(User user) throws UserLoginException;
+    public boolean addUser(Login user) throws UserLoginException;  
 
 }

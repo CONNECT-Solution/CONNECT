@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.admingui.services;
 
 import gov.hhs.fha.nhinc.admingui.services.exception.PasswordServiceException;
+import java.io.IOException;
 
 /**
  * The Interface PasswordService.
@@ -55,5 +56,22 @@ public interface PasswordService {
      * @throws PasswordServiceException
      */
     public byte[] calculateHash(byte[] input) throws PasswordServiceException;
+    
+      /**
+     * Generate Salt.
+     * @return the string
+     */
+    public String generateRandomSalt();
+    
+    /**
+     * Calculate hash.
+     * 
+     * @param salt the salt
+     * @param password the password
+     * @return the byte[]
+     * @throws PasswordServiceException
+     */    
+    public byte[] calculateHash(byte[] salt, byte[] password) throws IOException, PasswordServiceException;
+
 
 }

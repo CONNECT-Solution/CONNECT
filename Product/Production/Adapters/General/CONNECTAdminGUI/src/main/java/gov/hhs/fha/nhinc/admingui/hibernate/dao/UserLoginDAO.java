@@ -34,6 +34,13 @@ import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
  * 
  */
 public interface UserLoginDAO {
-    public UserLogin login(Login login);
+    public UserLogin login(Login login);        
+    /**
+     * 
+     * @param createuser the create user
+     * @return true if successful
+     */
+    public boolean createUser(UserLogin createuser);
+
 
 }
