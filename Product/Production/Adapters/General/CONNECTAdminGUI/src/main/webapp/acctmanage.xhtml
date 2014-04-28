@@ -155,21 +155,23 @@
 								<p>Create a new User Account by entering the required information in the fields below:</p>
 								
 								<div class="form-block center-block">
-									<form class="form-horizontal" role="form">
+                                                                    <h:form class="form-horizontal" role="form" id="createUserForm">
 										<div class="form-group">
-											<label for="input-username" class="col-sm-3 control-label">New Username:</label>
+                                                                                    <h:outputLabel for="username" class="col-sm-3 control-label" id="usernameLbl" value="New Username:" />                                                                                   
 											<div class="col-sm-9">
-												<input type="email" class="form-control" id="input-username" placeholder="New User Name" />
+                                                                                            <h:inputText class="form-control" id="username" maxlength="20" required="true" value="#{createuserBean.userName}" requiredMessage="User Name field should be filled"/>
+                                                                                        </div>
+                                                                                     <h:message for="username" style="color:red" />
+										</div>
+										<div class="form-group">
+                                                                                        <h:outputLabel class="col-sm-3 control-label" for="password" id="userpasswordLbl" value="Password:" />
+											<div class="col-sm-9">
+                                                                                        <h:inputText id="password"  class="form-control" maxlength="20" required="true" value="#{createuserBean.password}" requiredMessage="Password field should be filled"/>
+											<h:message for="password" style="color:red" />
 											</div>
 										</div>
 										<div class="form-group">
-											<label for="input-password" class="col-sm-3 control-label">New Password:</label>
-											<div class="col-sm-9">
-												<input type="password" class="form-control" id="input-password" placeholder="New Password" />
-											</div>
-										</div>
-										<div class="form-group">
-											<label for="select-role" class="col-sm-3 control-label">Assign a Role:</label>
+                                                                                        <h:outputLabel for="select-role" class="col-sm-3 control-label" id="roleLbl" value="Role:" />
 											<div class="col-sm-9">
 												<select class="form-control" id="select-role">
 													<option>Administrator</option>
@@ -182,11 +184,11 @@
 											<div class="col-sm-12">
 												<div class="form-button-row">
 													<button type="submit" class="btn btn-default">Reset Form</button>
-													<button type="submit" class="btn btn-primary">Create User</button>
+                                                                                                        <h:commandButton id="submit" class="btn btn-primary" value="Create User"  action="#{createuserBean.addCreateUser()}" /> 
 												</div>
 											</div>
 										</div>
-									</form>
+									</h:form>
 								</div>
 							</div>
 						</div>

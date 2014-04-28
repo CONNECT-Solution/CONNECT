@@ -26,9 +26,11 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 import gov.hhs.fha.nhinc.admingui.services.exception.PasswordServiceException;
-
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 
 /**
  * The Class SHA1PasswordService.
@@ -61,5 +63,38 @@ public class SHA1PasswordService extends AbstractBase64EncodedPasswordService {
 
         return encode(digest);
     }
+    
+     /**
+     * 
+     * @return string
+     */
+    public String generateRandomSalt() {
+        Random rng = new Random();
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        int length = 4;
+
+        char[] text = new char[length];
+        for (int i = 0; i < length; i++) {
+            text[i] = characters.charAt(rng.nextInt(characters.length()));
+        }
+        return new String(text);
+    }
+    
+    /**
+     * 
+     * @param salt the salt value
+     * @param password the password
+     * @return calculated hash as byte array
+     * @throws IOException
+     * @throws PasswordServiceException 
+     */    
+    public byte[] calculateHash(byte[] salt, byte[] password) throws IOException, PasswordServiceException {
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        outputStream.write(salt);
+        outputStream.write(password);
+        return calculateHash(outputStream.toByteArray());
+    }
+
 
 }

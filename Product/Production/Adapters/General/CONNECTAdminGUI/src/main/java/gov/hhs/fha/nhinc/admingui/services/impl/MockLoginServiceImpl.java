@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
 import gov.hhs.fha.nhinc.admingui.model.Login;
-import gov.hhs.fha.nhinc.admingui.model.User;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 
@@ -53,14 +52,16 @@ public class MockLoginServiceImpl implements LoginService {
         }
     }
 
+  
     /*
      * (non-Javadoc)
      * 
-     * @see gov.hhs.fha.nhinc.admingui.services.LoginService#addUser(gov.hhs.fha.nhinc.admingui.model.User)
+     * @see org.cahih.services.LoginService#addUser(org.cahih.model.User)
      */
     @Override
-    public void addUser(User user) throws UserLoginException {
+    public boolean addUser(Login user) throws UserLoginException {
         throw new UserLoginException("Method not implemented.");
     }
+   
 
 }

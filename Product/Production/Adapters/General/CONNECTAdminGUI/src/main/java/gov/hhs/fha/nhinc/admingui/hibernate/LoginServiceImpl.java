@@ -26,20 +26,20 @@
  */
 package gov.hhs.fha.nhinc.admingui.hibernate;
 
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import gov.hhs.fha.nhinc.admingui.hibernate.dao.UserLoginDAO;
 import gov.hhs.fha.nhinc.admingui.model.Login;
-import gov.hhs.fha.nhinc.admingui.model.User;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
 import gov.hhs.fha.nhinc.admingui.services.PasswordService;
 import gov.hhs.fha.nhinc.admingui.services.exception.PasswordServiceException;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.impl.SHA1PasswordService;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
+import java.io.IOException;
+import java.util.logging.Level;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author msw
@@ -47,13 +47,15 @@ import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
  */
 @Service
 public class LoginServiceImpl implements LoginService {
-    
+
     private static Logger log = Logger.getLogger(LoginServiceImpl.class);
-    
+
     @Autowired
     private UserLoginDAO userLoginDAO;
-    
-    /** The password service. */
+
+    /**
+     * The password service.
+     */
     private PasswordService passwordService = new SHA1PasswordService();
 
     /* (non-Javadoc)
@@ -83,9 +85,23 @@ public class LoginServiceImpl implements LoginService {
      * @see gov.hhs.fha.nhinc.admingui.services.LoginService#addUser(gov.hhs.fha.nhinc.admingui.model.User)
      */
     @Override
-    public void addUser(User user) throws UserLoginException {
-        // TODO Auto-generated method stub
+    public boolean addUser(Login user) throws UserLoginException {
+        boolean isCreateUser = false;
+        String passwordHash = null;
+        String saltValue = null;
+        try {
+            saltValue = passwordService.generateRandomSalt();
+            passwordHash = new String(passwordService.calculateHash(saltValue.getBytes(), user.getPassword().getBytes()));
 
+        } catch (PasswordServiceException e) {
+            throw new UserLoginException("Error while calculating hash.", e);
+        }
+
+        UserLogin userLoginEntity = new UserLogin();
+        userLoginEntity.setUserName(user.getUserName());
+        userLoginEntity.setSha1(passwordHash);
+        userLoginEntity.setSalt(saltValue);
+        isCreateUser = userLoginDAO.createUser(userLoginEntity);
+        return isCreateUser;
     }
-
 }
