@@ -70,7 +70,7 @@ public class UDDIFindBusinessProxyJuddiV3Impl extends UDDIFindBusinessProxyBase 
             oSearchParams.getName().add(findName);
             oSearchParams.setFindQualifiers(qualifiers);
 
-            oSearchParams.setMaxRows(100);
+            oSearchParams.setMaxRows(getMaxResults());
             ServicePortDescriptor<UDDIInquiryPortType> portDescriptor = new UDDIFindBusinessProxyServicePortDescriptor();
             CONNECTClient<UDDIInquiryPortType> client = getCONNECTClientUnsecured(portDescriptor, uddiInquiryUrl, null);
             oBusinessList = (BusinessList) client.invokePort(UDDIInquiryPortType.class, "findBusiness", oSearchParams);
@@ -87,23 +87,8 @@ public class UDDIFindBusinessProxyJuddiV3Impl extends UDDIFindBusinessProxyBase 
 
     @Override
     public BusinessDetail getBusinessDetail(GetBusinessDetail searchParams) throws UDDIFindBusinessException {
-
-        BusinessDetail businessDetail = null;
-        try {
-            loadProperties();
-            ServicePortDescriptor<UDDIInquiryPortType> portDescriptor = new UDDIFindBusinessProxyServicePortDescriptor();
-            CONNECTClient<UDDIInquiryPortType> client = getCONNECTClientUnsecured(portDescriptor, uddiInquiryUrl, null);
-            businessDetail = (BusinessDetail) client.invokePort(UDDIInquiryPortType.class, "getBusinessDetail",
-                    searchParams);
-
-        } catch (Exception e) {
-            String sErrorMessage = "Failed to call 'getBusinessDetail' web service on the NHIN UDDI server.  Error: "
-                    + e.getMessage();
-            LOG.error(sErrorMessage, e);
-            throw new UDDIFindBusinessException(sErrorMessage, e);
-        }
-
-        return businessDetail;
+        
+        return super.getBusinessDetail(searchParams);
     }
 
 }
