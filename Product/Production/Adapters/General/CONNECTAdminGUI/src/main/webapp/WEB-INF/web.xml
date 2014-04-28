@@ -7,24 +7,6 @@
     version="2.5">
     <display-name>JavaServerFaces</display-name>
 
-    <!-- Add Support for Spring -->
-    <listener>
-        <listener-class>
-            org.springframework.web.context.ContextLoaderListener
-        </listener-class>
-    </listener>
-
-    <listener>
-        <listener-class>
-            org.springframework.web.context.request.RequestContextListener
-        </listener-class>
-    </listener>
-
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>WEB-INF/applicationContext.xml</param-value>
-    </context-param>
-
     <!-- Change to "Development" when modifying / debugging -->
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
