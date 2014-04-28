@@ -29,10 +29,8 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
-<<<<<<< HEAD
+
     <jee:jndi-lookup id="dataSource" jndi-name="jdbc/adminguidb_datasource" />
-=======
-    <jee:jndi-lookup id="dataSource" jndi-name="jdbc/hihportaldb_datasource" />
->>>>>>> CONN-1074:Commit changes made to pom.xml to add profile AdminGUI
+
 
 </beans>

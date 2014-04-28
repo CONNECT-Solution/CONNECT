@@ -214,7 +214,7 @@
                             <artifactId>CONNECTUniversalClientGUI</artifactId>
                             <contextRoot>/CONNECTUniversalClientGUI</contextRoot>
                             <excluded>${gui.excluded}</excluded>
-                        </webModule>
+                        </webModule>               
 						<webModule>
                             <groupId>org.connectopensource</groupId>
                             <artifactId>CONNECTAdminGUI</artifactId>
