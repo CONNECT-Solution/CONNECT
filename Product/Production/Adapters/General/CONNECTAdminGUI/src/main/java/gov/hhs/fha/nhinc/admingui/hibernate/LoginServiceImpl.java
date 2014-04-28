@@ -95,6 +95,8 @@ public class LoginServiceImpl implements LoginService {
 
         } catch (PasswordServiceException e) {
             throw new UserLoginException("Error while calculating hash.", e);
+        } catch (IOException ex) {
+            throw new UserLoginException("Error while calculating hash."+ex.getMessage());
         }
 
         UserLogin userLoginEntity = new UserLogin();
