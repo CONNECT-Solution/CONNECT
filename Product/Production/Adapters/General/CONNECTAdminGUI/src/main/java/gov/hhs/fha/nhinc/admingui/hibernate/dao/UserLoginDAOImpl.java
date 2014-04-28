@@ -28,9 +28,12 @@ package gov.hhs.fha.nhinc.admingui.hibernate.dao;
 
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
-
+import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +43,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserLoginDAOImpl implements UserLoginDAO {
-
+    
+    private static final Logger LOG = Logger.getLogger(UserLoginDAOImpl.class); 
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -55,5 +59,63 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         query.setParameter("userName", login.getUserName());
         return (UserLogin) query.list().get(0);
     }
+    /**
+     * 
+     * @param createUser the create user
+     * @return true if successful
+     */
+    @Override
+    public boolean createUser(UserLogin createUser) {
+        System.out.println("inside the daoimpl createuser");
+
+        Session session = null;
+        Transaction tx = null;
+        boolean result = true;
+        try {
+            System.out.println("Username to insert"+createUser.getUserName());
+            System.out.println("sha1 value to insert"+createUser.getSha1());
+            System.out.println("salt value to insert"+createUser.getSalt());
+            session = this.sessionFactory.openSession();
+            tx = session.beginTransaction();
+            session.persist(createUser);
+            System.out.println("after inserting the record");
+            LOG.info("create user record Inserted successfully from dao impl...");
+            tx.commit();
+
+        } catch (HibernateException e) {
+            result = false;
+            transactionRollback(tx);
+            LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
+        } finally {
+            closeSession(session, false);
+        }
+        return result;
+    }
+
+    /**
+     * 
+     * @param tx  the transaction
+     */
+    private void transactionRollback(Transaction tx) {
+        if (tx != null) {
+            tx.rollback();
+        }
+    }
+
+    /**
+     * 
+     * @param session the session
+     * @param flush the boolean 
+     */
+    private void closeSession(Session session, boolean flush) {
+        if (session != null) {
+            if (flush) {
+                session.flush();
+            }
+            session.close();
+        }
+    }    
+
+    
 
 }
