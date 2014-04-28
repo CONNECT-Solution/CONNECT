@@ -70,7 +70,12 @@ public class UDDIFindBusinessProxyJuddiV3Impl extends UDDIFindBusinessProxyBase 
             oSearchParams.getName().add(findName);
             oSearchParams.setFindQualifiers(qualifiers);
 
-            oSearchParams.setMaxRows(getMaxResults());
+            int maxRows = getMaxResults();
+            
+            if(maxRows > 0){
+                 oSearchParams.setMaxRows(getMaxResults());
+            }
+           
             ServicePortDescriptor<UDDIInquiryPortType> portDescriptor = new UDDIFindBusinessProxyServicePortDescriptor();
             CONNECTClient<UDDIInquiryPortType> client = getCONNECTClientUnsecured(portDescriptor, uddiInquiryUrl, null);
             oBusinessList = (BusinessList) client.invokePort(UDDIInquiryPortType.class, "findBusiness", oSearchParams);
