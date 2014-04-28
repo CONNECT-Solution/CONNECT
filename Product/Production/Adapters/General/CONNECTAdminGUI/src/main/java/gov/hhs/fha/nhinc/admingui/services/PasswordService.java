@@ -71,7 +71,7 @@ public interface PasswordService {
      * @return the byte[]
      * @throws PasswordServiceException
      */    
-    public byte[] calculateHash(byte[] salt, byte[] password) throws IOException, PasswordServiceException;
+    public byte[] calculateHash(byte[] salt, byte[] password) throws PasswordServiceException;
 
 
 }

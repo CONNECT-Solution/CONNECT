@@ -28,6 +28,7 @@
  
 
 package gov.hhs.fha.nhinc.admingui.managed;
+import gov.hhs.fha.nhinc.admingui.hibernate.LoginServiceImpl;
 import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
@@ -36,6 +37,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
  
@@ -48,6 +50,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CreateuserBean {
 
+    private static Logger log = Logger.getLogger(CreateuserBean.class);
     private String userName;
     private String password;
     private String role;
@@ -88,7 +91,8 @@ public class CreateuserBean {
                 session.setAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE, user);
             }
         } catch (UserLoginException e) {
-            e.printStackTrace();
+            log.error("Error in create user"+e.getMessage());
+            
         }
         return createdUser;
     }
