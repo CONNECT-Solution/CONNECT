@@ -52,7 +52,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Greg Meyer
  * @since 1.2
  */
-//@Repository
 @Service
 public class TrustBundleDaoImpl implements TrustBundleDao {
     private static final Log log = LogFactory.getLog(TrustBundleDaoImpl.class);
@@ -165,15 +164,15 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
     public void addTrustBundle(TrustBundle bundle) throws ConfigurationStoreException {
         try {
             final TrustBundle existingBundle = this.getTrustBundleByName(bundle.getBundleName());
-            
+
             if (existingBundle != null) {
                 throw new ConfigurationStoreException("Trust bundle " + bundle.getBundleName() + " already exists");
             }
-            
+
+            bundle.setId(null);
             bundle.setCreateTime(Calendar.getInstance(Locale.getDefault()));
 
             sessionFactory.getCurrentSession().persist(bundle);
-            sessionFactory.getCurrentSession().flush();
         } catch (ConfigurationStoreException cse) {
             throw cse;
         } catch (Exception e) {
@@ -196,7 +195,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             if (existingBundle == null) {
                 throw new ConfigurationStoreException("Trust bundle does not exist");
             }
-            
+
             // blow away all the existing bundles
             final Query delete = sessionFactory.getCurrentSession().createQuery("DELETE from TrustBundleAnchor tba where tba.trustBundle = ?");
             delete.setParameter(0, existingBundle);
@@ -209,7 +208,6 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             existingBundle.setLastSuccessfulRefresh(Calendar.getInstance(Locale.getDefault()));
 
             sessionFactory.getCurrentSession().persist(existingBundle);
-            sessionFactory.getCurrentSession().flush();
         } catch (ConfigurationStoreException cse) {
             throw cse;
         } catch (Exception e) {
@@ -227,16 +225,15 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
 
         try {
             final TrustBundle existingBundle = this.getTrustBundleById(trustBundleId);
-            
+
             if (existingBundle == null) {
                 throw new ConfigurationStoreException("Trust bundle does not exist");
             }
-            
+
             existingBundle.setLastRefreshAttempt(attemptTime);
             existingBundle.setLastRefreshError(error);
 
             sessionFactory.getCurrentSession().persist(existingBundle);
-            sessionFactory.getCurrentSession().flush();
         } catch (ConfigurationStoreException cse) {
             throw cse;
         } catch (Exception e) {
@@ -253,7 +250,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
         if (trustBundleIds == null || trustBundleIds.length == 0) {
             return;
         }
-        
+
         for (long id : trustBundleIds) {
             try {
                 final TrustBundle bundle = this.getTrustBundleById(id);
@@ -261,7 +258,6 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
                 this.disassociateTrustBundleFromDomains(id);
 
                 sessionFactory.getCurrentSession().delete(bundle);
-                sessionFactory.getCurrentSession().flush();
             } catch (ConfigurationStoreException e) {
                 log.warn(e.getMessage(), e);
             }
@@ -275,14 +271,14 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
     @Transactional(readOnly = false)
     public void updateTrustBundleSigningCertificate(long trustBundleId, X509Certificate signingCert)
             throws ConfigurationStoreException {
-            
+
         try {
             final TrustBundle existingBundle = this.getTrustBundleById(trustBundleId);
-            
+
             if (existingBundle == null) {
                 throw new ConfigurationStoreException("Trust bundle does not exist");
             }
-            
+
             if (signingCert == null) {
                 existingBundle.setSigningCertificateData(null);
             } else {
@@ -290,7 +286,6 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             }
 
             sessionFactory.getCurrentSession().persist(existingBundle);
-            sessionFactory.getCurrentSession().flush();
         } catch (ConfigurationStoreException cse) {
             throw cse;
         } catch (Exception e) {
@@ -305,32 +300,31 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
     @Transactional(readOnly = false)
     public void updateTrustBundleAttributes(long trustBundleId, String bundleName, String bundleUrl, X509Certificate signingCert,
             int refreshInterval) throws ConfigurationStoreException {
-            
+
         try {
             final TrustBundle existingBundle = this.getTrustBundleById(trustBundleId);
-            
+
             if (existingBundle == null) {
                 throw new ConfigurationStoreException("Trust bundle does not exist");
             }
-            
+
             if (signingCert == null) {
                 existingBundle.setSigningCertificateData(null);
             } else {
                 existingBundle.setSigningCertificateData(signingCert.getEncoded());
             }
-            
+
             existingBundle.setRefreshInterval(refreshInterval);
 
             if (bundleName != null && !bundleName.isEmpty()) {
                 existingBundle.setBundleName(bundleName);
             }
-            
+
             if (bundleUrl != null && !bundleUrl.isEmpty()) {
                 existingBundle.setBundleURL(bundleUrl);
             }
-            
+
             sessionFactory.getCurrentSession().persist(existingBundle);
-            sessionFactory.getCurrentSession().flush();
         } catch (ConfigurationStoreException cse) {
             throw cse;
         } catch (Exception e) {
@@ -345,21 +339,21 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
     @Transactional(readOnly = false)
     public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming,
             boolean outgoing) throws ConfigurationStoreException {
-            
+
         // make sure the domain exists
         final Domain domain = domainDao.getDomain(domainId);
 
         if (domain == null) {
             throw new ConfigurationStoreException("Domain with id " + domainId + " does not exist");
         }
-        
+
         // make sure the trust bundle exists
         final TrustBundle trustBundle = this.getTrustBundleById(trustBundleId);
-        
+
         if (trustBundle == null) {
             throw new ConfigurationStoreException("Trust bundle with id " + trustBundle + " does not exist");
         }
-        
+
         try {
             final TrustBundleDomainReltn domainTrustBundleAssoc = new TrustBundleDomainReltn();
             domainTrustBundleAssoc.setDomain(domain);
@@ -368,7 +362,6 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             domainTrustBundleAssoc.setOutgoing(outgoing);
 
             sessionFactory.getCurrentSession().persist(domainTrustBundleAssoc);
-            sessionFactory.getCurrentSession().flush();
         } catch (Exception e) {
             throw new ConfigurationStoreException("Failed to associate trust bundle to domain.", e);
         }
@@ -382,18 +375,18 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
     public void disassociateTrustBundleFromDomain(long domainId, long trustBundleId) throws ConfigurationStoreException {
         // make sure the domain exists
         final Domain domain = domainDao.getDomain(domainId);
-        
+
         if (domain == null) {
             throw new ConfigurationStoreException("Domain with id " + domainId + " does not exist");
         }
-        
+
         // make sure the trust bundle exists
         final TrustBundle trustBundle = this.getTrustBundleById(trustBundleId);
-        
+
         if (trustBundle == null) {
             throw new ConfigurationStoreException("Trust bundle with id " + trustBundle + " does not exist");
         }
-        
+
         try {
             final Query select = sessionFactory.getCurrentSession().createQuery("SELECT tbd from TrustBundleDomainReltn tbd where tbd.domain  = ? " +
                     " and tbd.trustBundle = ?");
@@ -405,7 +398,6 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
 
             sessionFactory.getCurrentSession().merge(reltn);
             sessionFactory.getCurrentSession().delete(reltn);
-            sessionFactory.getCurrentSession().flush();
         } catch (NoResultException e) {
             throw new ConfigurationStoreException("Association between domain id " + domainId + " and trust bundle id"
                      + trustBundleId + " does not exist", e);
@@ -422,18 +414,16 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
     public void disassociateTrustBundlesFromDomain(long domainId) throws ConfigurationStoreException {
         // make sure the domain exists
         final Domain domain = domainDao.getDomain(domainId);
-        
+
         if (domain == null) {
             throw new ConfigurationStoreException("Domain with id " + domainId + " does not exist");
         }
-        
+
         try {
             final Query delete = sessionFactory.getCurrentSession().createQuery("DELETE from TrustBundleDomainReltn tbd where tbd.domain  = ?");
 
             delete.setParameter(0, domain);
             delete.executeUpdate();
-
-            sessionFactory.getCurrentSession().flush();
         } catch (Exception e) {
             throw new ConfigurationStoreException("Failed to dissaccociate trust bundle from domain id ." + domainId, e);
         }
@@ -447,18 +437,16 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
     public void disassociateTrustBundleFromDomains(long trustBundleId) throws ConfigurationStoreException {
         // make sure the trust bundle exists
         final TrustBundle trustBundle = this.getTrustBundleById(trustBundleId);
-        
+
         if (trustBundle == null) {
             throw new ConfigurationStoreException("Trust bundle with id " + trustBundle + " does not exist");
         }
-        
+
         try {
             final Query delete = sessionFactory.getCurrentSession().createQuery("DELETE from TrustBundleDomainReltn tbd where tbd.trustBundle  = ?");
 
             delete.setParameter(0, trustBundle);
             delete.executeUpdate();
-
-            sessionFactory.getCurrentSession().flush();
         } catch (Exception e) {
             throw new ConfigurationStoreException("Failed to dissaccociate domains from trust bundle id ." + trustBundleId, e);
         }
@@ -473,23 +461,23 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
     public Collection<TrustBundleDomainReltn> getTrustBundlesByDomain(long domainId) throws ConfigurationStoreException {
         // make sure the domain exists
         final Domain domain = domainDao.getDomain(domainId);
-        
+
         if (domain == null) {
             throw new ConfigurationStoreException("Domain with id " + domainId + " does not exist");
         }
-        
+
         Collection<TrustBundleDomainReltn> retVal = null;
-        
+
         try {
             final Query select = sessionFactory.getCurrentSession().createQuery("SELECT tbd from TrustBundleDomainReltn tbd where tbd.domain = ?");
             select.setParameter(0, domain);
 
             retVal = (Collection<TrustBundleDomainReltn>)select.list();
-            
+
             if (retVal.size() == 0) {
                 return Collections.emptyList();
             }
-            
+
             for (TrustBundleDomainReltn reltn : retVal) {
                 if (!reltn.getTrustBundle().getTrustBundleAnchors().isEmpty()) {
                     for (TrustBundleAnchor anchor : reltn.getTrustBundle().getTrustBundleAnchors()) {

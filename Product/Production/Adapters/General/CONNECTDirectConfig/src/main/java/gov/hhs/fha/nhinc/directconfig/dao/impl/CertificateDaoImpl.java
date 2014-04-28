@@ -68,7 +68,7 @@ public class CertificateDaoImpl implements CertificateDao {
 
         List<Certificate> result = null;
         Query select = null;
-        
+
         if (owner == null && thumbprint == null) {
             select = sessionFactory.getCurrentSession().createQuery("SELECT c from Certificate c");
         } else if (owner != null && thumbprint == null) {
@@ -89,7 +89,7 @@ public class CertificateDaoImpl implements CertificateDao {
         } else {
             return null;
         }
-        
+
         log.debug("Exit");
 
         return result.iterator().next();
@@ -108,7 +108,7 @@ public class CertificateDaoImpl implements CertificateDao {
         if (idList == null || idList.size() == 0) {
             return Collections.emptyList();
         }
-        
+
         List<Certificate> result = Collections.emptyList();
 
         Query select = null;
@@ -117,10 +117,10 @@ public class CertificateDaoImpl implements CertificateDao {
             if (ids.length() > 1) {
                 ids.append(", ");
             }
-            
+
             ids.append(id);
         }
-        
+
         ids.append(")");
         String query = "SELECT c from Certificate c WHERE c.id IN " + ids.toString();
 
@@ -186,12 +186,13 @@ public class CertificateDaoImpl implements CertificateDao {
 
         if (certList != null && certList.size() > 0) {
             for (Certificate cert : certList) {
+            	cert.setId(null);
                 cert.setCreateTime(Calendar.getInstance());
 
                 try {
                     CertContainer container = null;
                     X509Certificate xcert = null;
-                    
+
                     try {
                         container = cert.toCredential();
                         xcert = container.getCert();
@@ -204,7 +205,7 @@ public class CertificateDaoImpl implements CertificateDao {
                         startDate.setTime(xcert.getNotBefore());
                         cert.setValidStartDate(startDate);
                     }
-                    
+
                     if (cert.getValidEndDate() == null && xcert != null) {
                         Calendar endDate = Calendar.getInstance();
                         endDate.setTime(xcert.getNotAfter());
@@ -214,10 +215,10 @@ public class CertificateDaoImpl implements CertificateDao {
                     if (cert.getStatus() == null) {
                         cert.setStatus(EntityStatus.NEW);
                     }
-                    
+
                     cert.setPrivateKey(container != null && container.getKey() != null);
                 } catch (CertificateException e) {
-                
+
                 }
 
                 log.debug("Calling JPA to persist the Certificate");
@@ -226,8 +227,6 @@ public class CertificateDaoImpl implements CertificateDao {
 
                 log.debug("Returned from JPA: Certificate ID=" + cert.getId());
             }
-
-            sessionFactory.getCurrentSession().flush();
         }
 
         log.debug("Exit");
@@ -243,11 +242,11 @@ public class CertificateDaoImpl implements CertificateDao {
         log.debug("Enter");
 
         List<Certificate> certs = this.list(certificateIDs);
-        
+
         if (certs == null || certs.size() == 0) {
             return;
         }
-        
+
         for (Certificate cert : certs) {
             cert.setStatus(status);
             sessionFactory.getCurrentSession().merge(cert);
@@ -266,11 +265,11 @@ public class CertificateDaoImpl implements CertificateDao {
         log.debug("Enter");
 
         List<Certificate> certs = list(owner);
-        
+
         if (certs == null || certs.size() == 0) {
             return;
         }
-        
+
         for (Certificate cert : certs) {
             cert.setStatus(status);
             sessionFactory.getCurrentSession().merge(cert);
@@ -290,15 +289,15 @@ public class CertificateDaoImpl implements CertificateDao {
 
         if (idList != null && idList.size() > 0) {
             StringBuffer ids = new StringBuffer("(");
-            
+
             for (Long id : idList) {
                 if (ids.length() > 1) {
                     ids.append(", ");
                 }
-                
+
                 ids.append(id);
             }
-            
+
             ids.append(")");
             String query = "DELETE FROM Certificate c WHERE c.id IN " + ids.toString();
 
@@ -324,7 +323,7 @@ public class CertificateDaoImpl implements CertificateDao {
         if (owner == null) {
             return;
         }
-        
+
         int count = 0;
         if (owner != null) {
             Query delete = sessionFactory.getCurrentSession().createQuery("DELETE FROM Certificate c WHERE UPPER(c.owner) = ?");

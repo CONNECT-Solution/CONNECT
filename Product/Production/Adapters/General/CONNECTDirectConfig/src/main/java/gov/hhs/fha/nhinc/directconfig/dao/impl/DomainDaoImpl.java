@@ -85,7 +85,7 @@ public class DomainDaoImpl implements DomainDao {
         if (item.getDomainName() == null || item.getDomainName().isEmpty()) {
             throw new ConfigurationStoreException("Domain name cannot be empty or null");
         }
-        
+
         // Save and clear Address information until the Domain is saved.
         // This is really something that JPA should be doing, but doesn't seem
         // to work.
@@ -94,24 +94,19 @@ public class DomainDaoImpl implements DomainDao {
 
             item.setAddresses(null);
 
+            item.setId(null);
             item.setCreateTime(Calendar.getInstance());
             item.setUpdateTime(item.getCreateTime());
 
             log.debug("Calling JPA to persist the Domain");
 
             sessionFactory.getCurrentSession().persist(item);
-            sessionFactory.getCurrentSession().flush();
 
             log.debug("Persisted the bare Domain");
 
-            boolean needUpdate = false;
-
             if ((addresses != null) && (addresses.size() > 0)) {
                 item.setAddresses(addresses);
-                needUpdate = true;
-            }
 
-            if (needUpdate) {
                 log.debug("Updating the domain with Address info");
                 update(item);
             }
@@ -242,18 +237,18 @@ public class DomainDaoImpl implements DomainDao {
 
         List<Domain> result = null;
         Query select = null;
-        
+
         if (names != null) {
             StringBuffer nameList = new StringBuffer("(");
-            
+
             for (String aName : names) {
                 if (nameList.length() > 1) {
                     nameList.append(", ");
                 }
-                
+
                 nameList.append("'").append(aName.toUpperCase(Locale.getDefault())).append("'");
             }
-            
+
             nameList.append(")");
             String query = "SELECT d from Domain d WHERE UPPER(d.domainName) IN " + nameList.toString();
 
@@ -299,7 +294,7 @@ public class DomainDaoImpl implements DomainDao {
 
         List<Domain> result = null;
         Query select = null;
-        
+
         if (name != null) {
             select = sessionFactory.getCurrentSession().createQuery("SELECT d from Domain d WHERE UPPER(d.domainName) = ?");
             select.setParameter(0, name.toUpperCase(Locale.getDefault()));
@@ -387,17 +382,9 @@ public class DomainDaoImpl implements DomainDao {
         return result;
     }
 
-    /**
-     * Set the value of addressDao.
-     * @param aDao The value of addressDao.
-     */
-    public void setAddressDao(AddressDao aDao) {
-        addressDao = aDao;
-    }
-
-    protected void disassociateTrustBundlesFromDomain(long domainId) throws ConfigurationStoreException {
+    protected void disassociateTrustBundlesFromDomain(Long domainId) throws ConfigurationStoreException {
         final TrustBundleDaoImpl dao = new TrustBundleDaoImpl();
-        
+
         dao.disassociateTrustBundlesFromDomain(domainId);
     }
 }

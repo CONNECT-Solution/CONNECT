@@ -44,23 +44,24 @@ public class SettingDaoImpl implements SettingDao {
         if (name == null || name.isEmpty() || value == null) {
             return;
         }
-        
+
         // make sure this setting doesn't already exist
         if (this.getByNames(Arrays.asList(name)).size() > 0) {
             throw new ConfigurationStoreException("Setting " + name + " already exists.");
         }
-        
+
         Setting setting = new Setting();
-        
+
         setting.setName(name);
         setting.setValue(value);
+
+        setting.setId(null);
         setting.setCreateTime(Calendar.getInstance());
         setting.setUpdateTime(setting.getCreateTime());
 
         log.debug("Calling JPA to persist the setting");
 
         sessionFactory.getCurrentSession().persist(setting);
-        sessionFactory.getCurrentSession().flush();
 
         log.debug("Returned from JPA: Setting ID=" + setting.getId());
 
@@ -76,15 +77,15 @@ public class SettingDaoImpl implements SettingDao {
 
         if (names != null && names.size() > 0) {
             StringBuffer queryNames = new StringBuffer("(");
-            
+
             for (String name : names) {
                 if (queryNames.length() > 1) {
                     queryNames.append(", ");
                 }
-                
+
                 queryNames.append("'").append(name.toUpperCase(Locale.getDefault())).append("'");
             }
-            
+
             queryNames.append(")");
             String query = "DELETE FROM Setting s WHERE UPPER(s.name) IN " + queryNames.toString();
 
@@ -137,23 +138,23 @@ public class SettingDaoImpl implements SettingDao {
 
         Query select = null;
         StringBuffer nameList = new StringBuffer("(");
-        
+
         for (String name : names) {
             if (nameList.length() > 1) {
                 nameList.append(", ");
             }
-            
+
             nameList.append("'").append(name.toUpperCase(Locale.getDefault())).append("'");
         }
-        
+
         nameList.append(")");
         String query = "SELECT s from Setting s WHERE UPPER(s.name) IN " + nameList.toString();
 
         select = sessionFactory.getCurrentSession().createQuery(query);
-        
+
         @SuppressWarnings("rawtypes")
         List rs = select.list();
-        
+
         if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof Setting))
         {
             result = (List<Setting>) rs;
@@ -174,7 +175,7 @@ public class SettingDaoImpl implements SettingDao {
         if (name == null || name.isEmpty()) {
             return;
         }
-        
+
         Collection<Setting> settings = getByNames(Arrays.asList(name));
 
         for (Setting setting : settings) {

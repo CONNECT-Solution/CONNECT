@@ -77,6 +77,7 @@ public class AddressDaoImpl implements AddressDao {
         log.debug("Enter");
 
         if (item != null) {
+        	item.setId(null);
             item.setCreateTime(Calendar.getInstance());
             item.setUpdateTime(item.getCreateTime());
             sessionFactory.getCurrentSession().persist(item);
@@ -96,14 +97,14 @@ public class AddressDaoImpl implements AddressDao {
 
         if (item != null) {
             Address inDb = (Address)sessionFactory.getCurrentSession().get(Address.class, item.getId());
-            
+
             inDb.setDisplayName(item.getDisplayName());
             inDb.setEndpoint(item.getEndpoint());
             inDb.setEmailAddress(item.getEmailAddress());
             inDb.setType(item.getType());
             inDb.setStatus(item.getStatus());
             inDb.setUpdateTime(Calendar.getInstance());
-            
+
             sessionFactory.getCurrentSession().merge(inDb);
         }
 
@@ -182,17 +183,17 @@ public class AddressDaoImpl implements AddressDao {
 
         List<Address> result = null;
         Query select = null;
-        
+
         if (names != null) {
             StringBuffer nameList = new StringBuffer("(");
             for (String aName : names) {
                 if (nameList.length() > 1) {
                     nameList.append(", ");
                 }
-                
+
                 nameList.append("'").append(aName.toUpperCase(Locale.getDefault())).append("'");
             }
-            
+
             nameList.append(")");
             String query = "SELECT a from Address a WHERE UPPER(a.emailAddress) IN " + nameList.toString();
 
@@ -235,7 +236,7 @@ public class AddressDaoImpl implements AddressDao {
 
         List<Address> result = null;
         Query select = null;
-        
+
         if (domain != null) {
             String query = "SELECT a from Address a WHERE a.domain = ?";
 
