@@ -39,12 +39,12 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author msw
- * 
+ *
  */
 @Service
 public class UserLoginDAOImpl implements UserLoginDAO {
-    
-    private static final Logger LOG = Logger.getLogger(UserLoginDAOImpl.class); 
+
+    private static final Logger LOG = Logger.getLogger(UserLoginDAOImpl.class);
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -59,13 +59,14 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         query.setParameter("userName", login.getUserName());
         return (UserLogin) query.list().get(0);
     }
+
     /**
-     * 
+     *
      * @param createUser the create user
      * @return true if successful
      */
     @Override
-    public boolean createUser(UserLogin createUser) {      
+    public boolean createUser(UserLogin createUser) {
 
         Session session = null;
         Transaction tx = null;
@@ -73,7 +74,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         try {
             session = this.sessionFactory.openSession();
             tx = session.beginTransaction();
-            session.persist(createUser);            
+            session.persist(createUser);
             LOG.info("create user record Inserted successfully from dao impl...");
             tx.commit();
 
@@ -88,8 +89,8 @@ public class UserLoginDAOImpl implements UserLoginDAO {
     }
 
     /**
-     * 
-     * @param tx  the transaction
+     *
+     * @param tx the transaction
      */
     private void transactionRollback(Transaction tx) {
         if (tx != null) {
@@ -98,9 +99,9 @@ public class UserLoginDAOImpl implements UserLoginDAO {
     }
 
     /**
-     * 
+     *
      * @param session the session
-     * @param flush the boolean 
+     * @param flush the boolean
      */
     private void closeSession(Session session, boolean flush) {
         if (session != null) {
@@ -109,6 +110,6 @@ public class UserLoginDAOImpl implements UserLoginDAO {
             }
             session.close();
         }
-    }        
+    }
 
 }

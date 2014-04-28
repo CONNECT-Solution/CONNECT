@@ -25,9 +25,8 @@
  *    * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS  
  *    * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *    */
- 
-
 package gov.hhs.fha.nhinc.admingui.managed;
+
 import gov.hhs.fha.nhinc.admingui.hibernate.LoginServiceImpl;
 import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
 import gov.hhs.fha.nhinc.admingui.model.Login;
@@ -40,7 +39,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
- 
+
 /**
  *
  * @author sadusumilli
@@ -55,16 +54,18 @@ public class CreateuserBean {
     private String password;
     private String role;
     public Boolean isCreated = false;
-    
-    /** The login service. */
+
+    /**
+     * The login service.
+     */
     @Autowired
     private LoginService loginService;
-    
+
     /**
-     * 
-     * @return string which will navigate to relative view 
+     *
+     * @return string which will navigate to relative view
      */
-    public String addCreateUser() {        
+    public String addCreateUser() {
         if (createUser()) {
             this.isCreated = true;
             return "Login";
@@ -74,8 +75,9 @@ public class CreateuserBean {
         }
 
     }
+
     /**
-     * 
+     *
      * @return boolean flag value
      */
     public boolean createUser() {
@@ -91,8 +93,8 @@ public class CreateuserBean {
                 session.setAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE, user);
             }
         } catch (UserLoginException e) {
-            log.error("Error in create user"+e.getMessage());
-            
+            log.error("Error in create user" + e.getMessage());
+
         }
         return createdUser;
     }

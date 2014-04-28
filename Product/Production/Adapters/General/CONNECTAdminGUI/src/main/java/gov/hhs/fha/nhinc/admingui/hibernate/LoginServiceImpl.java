@@ -47,14 +47,15 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class LoginServiceImpl implements LoginService {
-    
+
     private static Logger log = Logger.getLogger(LoginServiceImpl.class);
-    
+
     @Autowired
     private UserLoginDAO userLoginDAO;
-   
-   
-    /** The password service. */
+
+    /**
+     * The password service.
+     */
     private PasswordService passwordService = new SHA1PasswordService();
 
     /* (non-Javadoc)
@@ -80,24 +81,24 @@ public class LoginServiceImpl implements LoginService {
         return loggedIn;
     }
 
-     /* (non-Javadoc)
+    /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.admingui.services.LoginService#addUser(gov.hhs.fha.nhinc.admingui.model.User)
      */
     @Override
-    public boolean addUser(Login user) throws UserLoginException {        
+    public boolean addUser(Login user) throws UserLoginException {
         boolean isCreateUser = false;
         String passwordHash = null;
         String saltValue = null;
-        try{
+        try {
             saltValue = passwordService.generateRandomSalt();
             passwordHash = new String(passwordService.calculateHash(saltValue.getBytes(), user.getPassword().getBytes()));
-           
-        }catch(PasswordServiceException e){
-            throw new UserLoginException("Error while calculating hash.", e);            
+
+        } catch (PasswordServiceException e) {
+            throw new UserLoginException("Error while calculating hash.", e);
         }
-          
+
         UserLogin userLoginEntity = new UserLogin();
-        userLoginEntity.setUserName(user.getUserName());        
+        userLoginEntity.setUserName(user.getUserName());
         userLoginEntity.setSha1(passwordHash);
         userLoginEntity.setSalt(saltValue);
         isCreateUser = userLoginDAO.createUser(userLoginEntity);

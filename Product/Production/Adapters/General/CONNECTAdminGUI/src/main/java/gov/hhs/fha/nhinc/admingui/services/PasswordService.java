@@ -31,14 +31,14 @@ import java.io.IOException;
 
 /**
  * The Interface PasswordService.
- * 
+ *
  * @author msw
  */
 public interface PasswordService {
 
     /**
      * Check password.
-     * 
+     *
      * @param passwordHash the password hash
      * @param candidatePassword the candidate password
      * @param salt the salt
@@ -50,28 +50,28 @@ public interface PasswordService {
 
     /**
      * Calculate hash.
-     * 
+     *
      * @param input the input
      * @return the byte[]
      * @throws PasswordServiceException
      */
     public byte[] calculateHash(byte[] input) throws PasswordServiceException;
-    
-      /**
+
+    /**
      * Generate Salt.
+     *
      * @return the string
      */
     public String generateRandomSalt();
-    
+
     /**
      * Calculate hash.
-     * 
+     *
      * @param salt the salt
      * @param password the password
      * @return the byte[]
      * @throws PasswordServiceException
-     */    
+     */
     public byte[] calculateHash(byte[] salt, byte[] password) throws PasswordServiceException;
-
 
 }
