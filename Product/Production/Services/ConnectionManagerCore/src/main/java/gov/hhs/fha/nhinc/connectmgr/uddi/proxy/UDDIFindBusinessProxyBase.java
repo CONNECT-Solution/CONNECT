@@ -112,17 +112,21 @@ public abstract class UDDIFindBusinessProxyBase implements UDDIFindBusinessProxy
     }
     
     protected int getMaxResults(){
-        int maxResults = 200; //default value
+        int maxResults; //default value
         try {
             String resultEntry = 
                 PropertyAccessor.getInstance(NhincConstants.GATEWAY_PROPERTY_FILE).getProperty(NhincConstants.MAX_UDDI_RESULTS_PROPERTY);
             if(NullChecker.isNotNullish(resultEntry)){
                 maxResults = Integer.parseInt(resultEntry);
+            }else {
+                maxResults = -1;
             }
         } catch (PropertyAccessException ex) {
             LOG.error("Unable to access property for " + NhincConstants.MAX_UDDI_RESULTS_PROPERTY, ex);
+            maxResults = -1;
         } catch (NumberFormatException ex) {
             LOG.error(NhincConstants.MAX_UDDI_RESULTS_PROPERTY + " entry in wrong format.", ex);
+            maxResults = -1;
         }
         return maxResults;
     }
