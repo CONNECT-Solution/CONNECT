@@ -137,6 +137,7 @@ public class NhincConstants {
     public static final String UDDI_CONNECTION_INFO = "";
     public static final String ADAPTER_PROPERTY_FILE_NAME = "adapter";
     public static final String XDS_HOME_COMMUNITY_ID_PROPERTY = "XDSbHomeCommunityId";
+    public static final String MAX_UDDI_RESULTS_PROPERTY = "UDDIMaxResults";
     // Concurrent Executor Service Constants (used to retrieve values from gateway.properties)
     public static final String CONCURRENT_POOL_SIZE = "ConcurrentPoolSize";
     public static final String LARGEJOB_POOL_SIZE = "LargeJobPoolSize";
