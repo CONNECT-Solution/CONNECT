@@ -65,20 +65,15 @@ public class UserLoginDAOImpl implements UserLoginDAO {
      * @return true if successful
      */
     @Override
-    public boolean createUser(UserLogin createUser) {
-        System.out.println("inside the daoimpl createuser");
+    public boolean createUser(UserLogin createUser) {      
 
         Session session = null;
         Transaction tx = null;
         boolean result = true;
         try {
-            System.out.println("Username to insert"+createUser.getUserName());
-            System.out.println("sha1 value to insert"+createUser.getSha1());
-            System.out.println("salt value to insert"+createUser.getSalt());
             session = this.sessionFactory.openSession();
             tx = session.beginTransaction();
-            session.persist(createUser);
-            System.out.println("after inserting the record");
+            session.persist(createUser);            
             LOG.info("create user record Inserted successfully from dao impl...");
             tx.commit();
 
@@ -114,8 +109,6 @@ public class UserLoginDAOImpl implements UserLoginDAO {
             }
             session.close();
         }
-    }    
-
-    
+    }        
 
 }

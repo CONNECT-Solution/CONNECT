@@ -56,18 +56,12 @@ public class CreateuserBean {
     /** The login service. */
     @Autowired
     private LoginService loginService;
-
-   /* public String showCreateUser() {
-        System.out.println("inside the show create user msg ^^^^^^^^^^^^^^^^^^^&&&&&&&&&&6666666666");
-        return "CreateUser";
-    }*/
     
     /**
      * 
      * @return string which will navigate to relative view 
      */
-    public String addCreateUser() {
-        System.out.println("Inside the addcreateuser method......" );
+    public String addCreateUser() {        
         if (createUser()) {
             this.isCreated = true;
             return "Login";
@@ -83,28 +77,21 @@ public class CreateuserBean {
      */
     public boolean createUser() {
         boolean createdUser = false;
-        if(this.getUserName() !=null && this.getPassword() !=null){
-            System.out.println("username from CreateuserBean---"+this.getUserName());
-            System.out.println("password from createuserBean---"+this.getPassword());
+        if (this.getUserName() != null && this.getPassword() != null) {
         }
         Login user = new Login(userName, password);
-        System.out.println("after the login object set up");
-        try{
-            System.out.println("Create user status before calling adduser method"+createdUser);          
+        try {
             createdUser = loginService.addUser(user);
-            System.out.println("Create user status after calling adduser method"+createdUser);
-            if(createdUser){
+            if (createdUser) {
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
                 session.setAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE, user);
             }
-            } catch (UserLoginException e) {
-            // TODO Auto-generated catch block
+        } catch (UserLoginException e) {
             e.printStackTrace();
         }
         return createdUser;
-        }        
-        
+    }
 
     /**
      * @return the userName

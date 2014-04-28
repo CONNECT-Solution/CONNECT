@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.admingui.managed;
 
 /**
  *
- * @author sadusumilli
+ * @author sadusumilli / jasonasmith
  */
 import gov.hhs.fha.nhinc.admingui.event.model.EventNwhinOrganization;
 import gov.hhs.fha.nhinc.admingui.event.service.EventCountService;

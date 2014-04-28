@@ -52,7 +52,8 @@ public class LoginServiceImpl implements LoginService {
     
     @Autowired
     private UserLoginDAO userLoginDAO;
-    
+   
+   
     /** The password service. */
     private PasswordService passwordService = new SHA1PasswordService();
 
@@ -83,37 +84,25 @@ public class LoginServiceImpl implements LoginService {
      * @see gov.hhs.fha.nhinc.admingui.services.LoginService#addUser(gov.hhs.fha.nhinc.admingui.model.User)
      */
     @Override
-    public boolean addUser(Login user) throws UserLoginException {
-        System.out.println("Inside loginserviceimpl of adduser()");
+    public boolean addUser(Login user) throws UserLoginException {        
         boolean isCreateUser = false;
         String passwordHash = null;
         String saltValue = null;
-        System.out.println("before the dao call"+isCreateUser);
-        try{           
-   
-            saltValue = passwordService.generateRandomSalt();   
-            System.out.println("salt value from the loginserviceimpl" + saltValue);
+        try{
+            saltValue = passwordService.generateRandomSalt();
             passwordHash = new String(passwordService.calculateHash(saltValue.getBytes(), user.getPassword().getBytes()));
-            System.out.println("After generating password hash from impl class-------"); 
+           
         }catch(PasswordServiceException e){
             throw new UserLoginException("Error while calculating hash.", e);            
         }
         catch (IOException ex) {
-                java.util.logging.Logger.getLogger(LoginServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        System.out.println("generated passwordhash from loginserviceimpl...." + passwordHash);
+                log.error("Error while calculating hash",ex);
+        }   
         UserLogin userLoginEntity = new UserLogin();
-        System.out.println("user name for userlogin entity---"+user.getUserName());
-        userLoginEntity.setUserName(user.getUserName());
-        System.out.println("saltvalue for userlogin entity---"+saltValue);
+        userLoginEntity.setUserName(user.getUserName());        
         userLoginEntity.setSha1(passwordHash);
         userLoginEntity.setSalt(saltValue);
         isCreateUser = userLoginDAO.createUser(userLoginEntity);
-        System.out.println("after the dao call"+isCreateUser);
-        
         return isCreateUser;
-    
     }
-
-
 }
