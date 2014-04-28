@@ -33,11 +33,12 @@ import org.uddi.api_v3.BusinessList;
 import org.uddi.api_v3.GetBusinessDetail;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.UDDIBaseClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhin_uddi_api_v3.UDDIInquiryPortType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
@@ -65,7 +66,25 @@ public abstract class UDDIFindBusinessProxyBase implements UDDIFindBusinessProxy
      * @see gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxy#getBusinessDetail(org.uddi.api_v3.GetBusinessDetail)
      */
     @Override
-    public abstract BusinessDetail getBusinessDetail(GetBusinessDetail searchParams) throws UDDIFindBusinessException;
+    public BusinessDetail getBusinessDetail(GetBusinessDetail searchParams) throws UDDIFindBusinessException {
+
+        BusinessDetail businessDetail = null;
+        try {
+            loadProperties();
+            ServicePortDescriptor<UDDIInquiryPortType> portDescriptor = new UDDIFindBusinessProxyServicePortDescriptor();
+            CONNECTClient<UDDIInquiryPortType> client = getCONNECTClientUnsecured(portDescriptor, uddiInquiryUrl, null);
+            businessDetail = (BusinessDetail) client.invokePort(UDDIInquiryPortType.class, "getBusinessDetail",
+                searchParams);
+
+        } catch (Exception e) {
+            String sErrorMessage = "Failed to call 'getBusinessDetail' web service on the NHIN UDDI server.  Error: "
+                + e.getMessage();
+            LOG.error(sErrorMessage, e);
+            throw new UDDIFindBusinessException(sErrorMessage, e);
+        }
+
+        return businessDetail;
+    }
 
     /**
      * This method loads information from the gateway.properties file that are pertinent to this class.
@@ -79,7 +98,7 @@ public abstract class UDDIFindBusinessProxyBase implements UDDIFindBusinessProxy
             }
         } catch (PropertyAccessException e) {
             String sErrorMessage = "Failed to retrieve properties from " + GATEWAY_PROPFILE_NAME
-                    + ".properties file.  Error: " + e.getMessage();
+                + ".properties file.  Error: " + e.getMessage();
             LOG.error(sErrorMessage, e);
             throw new UDDIFindBusinessException(sErrorMessage, e);
         }
@@ -87,8 +106,24 @@ public abstract class UDDIFindBusinessProxyBase implements UDDIFindBusinessProxy
     }
 
     protected CONNECTClient<UDDIInquiryPortType> getCONNECTClientUnsecured(
-            ServicePortDescriptor<UDDIInquiryPortType> portDescriptor, String url, AssertionType assertion) {
+        ServicePortDescriptor<UDDIInquiryPortType> portDescriptor, String url, AssertionType assertion) {
 
-    return new UDDIBaseClient<UDDIInquiryPortType>(portDescriptor, url);
-}
+        return new UDDIBaseClient<UDDIInquiryPortType>(portDescriptor, url);
+    }
+    
+    protected int getMaxResults(){
+        int maxResults = 200; //default value
+        try {
+            String resultEntry = 
+                PropertyAccessor.getInstance(NhincConstants.GATEWAY_PROPERTY_FILE).getProperty(NhincConstants.MAX_UDDI_RESULTS_PROPERTY);
+            if(NullChecker.isNotNullish(resultEntry)){
+                maxResults = Integer.parseInt(resultEntry);
+            }
+        } catch (PropertyAccessException ex) {
+            LOG.error("Unable to access property for " + NhincConstants.MAX_UDDI_RESULTS_PROPERTY, ex);
+        } catch (NumberFormatException ex) {
+            LOG.error(NhincConstants.MAX_UDDI_RESULTS_PROPERTY + " entry in wrong format.", ex);
+        }
+        return maxResults;
+    }
 }
