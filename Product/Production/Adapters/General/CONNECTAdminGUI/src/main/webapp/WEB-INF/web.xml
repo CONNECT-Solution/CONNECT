@@ -5,7 +5,36 @@
          xsi:schemaLocation="
              http://java.sun.com/xml/ns/javaee  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     version="2.5">
-    <display-name>JavaServerFaces</display-name>
+ 
+  <display-name>JavaServerFaces</display-name>
+ 
+  <!-- Add Support for Spring -->
+  <listener>
+	<listener-class>
+		org.springframework.web.context.ContextLoaderListener
+	</listener-class>
+  </listener>
+  <listener>
+	<listener-class>
+		org.springframework.web.context.request.RequestContextListener
+	</listener-class>
+  </listener>
+  
+  <listener>
+  <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
+  </listener>
+  
+ 
+<context-param>
+ <param-name>com.sun.faces.expressionFactory</param-name>
+ <param-value>com.sun.el.ExpressionFactoryImpl</param-value>
+</context-param>
+  
+  <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>WEB-INF/applicationContext.xml</param-value>
+    </context-param>
+
 
     <!-- Change to "Development" when modifying / debugging -->
     <context-param>
@@ -35,6 +64,12 @@
     
     <resource-ref>
         <res-ref-name>jdbc/eventdb_datasource</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
+    <resource-ref>
+        <res-ref-name>jdbc/adminguidb_datasource</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
