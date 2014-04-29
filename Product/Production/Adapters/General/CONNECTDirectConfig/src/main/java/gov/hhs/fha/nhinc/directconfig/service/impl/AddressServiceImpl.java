@@ -29,7 +29,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.jws.WebService;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -70,8 +70,7 @@ public class AddressServiceImpl extends SpringBeanAutowiringSupport implements A
      * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#addAddress(java.util.Collection)
      */
     public void addAddress(Collection<Address> address) throws ConfigurationServiceException {
-        
-
+        throw new ConfigurationServiceException(new NotImplementedException());
     }
 
     /*
@@ -82,8 +81,7 @@ public class AddressServiceImpl extends SpringBeanAutowiringSupport implements A
      * )
      */
     public void updateAddress(Address address) throws ConfigurationServiceException {
-        
-
+    	throw new ConfigurationServiceException(new NotImplementedException());
     }
 
     /*
@@ -92,7 +90,7 @@ public class AddressServiceImpl extends SpringBeanAutowiringSupport implements A
      * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#getAddressCount()
      */
     public int getAddressCount() throws ConfigurationServiceException {
-        return 0;
+    	throw new ConfigurationServiceException(new NotImplementedException());
     }
 
     /*
@@ -128,7 +126,7 @@ public class AddressServiceImpl extends SpringBeanAutowiringSupport implements A
      */
     public Collection<Address> listAddresss(String lastAddressName, int maxResults)
             throws ConfigurationServiceException {
-        return null;
+    	throw new ConfigurationServiceException(new NotImplementedException());
     }
 
 }

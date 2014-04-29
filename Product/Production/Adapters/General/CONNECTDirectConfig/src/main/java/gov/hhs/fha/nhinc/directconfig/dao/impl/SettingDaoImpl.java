@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Locale;
 
 import org.hibernate.Query;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
@@ -18,7 +17,7 @@ import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
 import gov.hhs.fha.nhinc.directconfig.dao.SettingDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -26,9 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author Greg Meyer
  */
-//@Repository
-@Service
+@Repository
 public class SettingDaoImpl implements SettingDao {
+
     @Autowired
     protected SessionFactory sessionFactory;
 

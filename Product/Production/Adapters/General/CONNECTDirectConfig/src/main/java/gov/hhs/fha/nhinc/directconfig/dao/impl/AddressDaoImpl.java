@@ -37,7 +37,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.dao.AddressDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -45,7 +45,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author ppyette
  */
-@Service
+@Repository
 public class AddressDaoImpl implements AddressDao {
 
     @Autowired
@@ -77,7 +77,7 @@ public class AddressDaoImpl implements AddressDao {
         log.debug("Enter");
 
         if (item != null) {
-        	item.setId(null);
+            item.setId(null);
             item.setCreateTime(Calendar.getInstance());
             item.setUpdateTime(item.getCreateTime());
             sessionFactory.getCurrentSession().persist(item);

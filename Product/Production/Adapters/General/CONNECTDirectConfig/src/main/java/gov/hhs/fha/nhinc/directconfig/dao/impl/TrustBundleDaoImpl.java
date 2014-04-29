@@ -28,8 +28,8 @@ import java.util.Collections;
 import java.util.Locale;
 
 import javax.persistence.NoResultException;
-import org.hibernate.Query;
 
+import org.hibernate.Query;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
@@ -44,7 +44,7 @@ import gov.hhs.fha.nhinc.directconfig.dao.DomainDao;
 import gov.hhs.fha.nhinc.directconfig.dao.TrustBundleDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -52,18 +52,16 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Greg Meyer
  * @since 1.2
  */
-@Service
+@Repository
 public class TrustBundleDaoImpl implements TrustBundleDao {
-    private static final Log log = LogFactory.getLog(TrustBundleDaoImpl.class);
 
-    /*
-     * Provided by Spring application context.
-     */
     @Autowired
     protected SessionFactory sessionFactory;
 
     @Autowired
     protected DomainDao domainDao;
+
+    private static final Log log = LogFactory.getLog(TrustBundleDaoImpl.class);
 
     /**
      * Empty constructor

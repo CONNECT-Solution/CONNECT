@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.Locale;
 
 import org.hibernate.Query;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
@@ -41,7 +40,7 @@ import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
 import gov.hhs.fha.nhinc.directconfig.dao.CertificateDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -49,8 +48,9 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author ppyette
  */
-@Service
+@Repository
 public class CertificateDaoImpl implements CertificateDao {
+
     @Autowired
     protected SessionFactory sessionFactory;
 
@@ -186,7 +186,7 @@ public class CertificateDaoImpl implements CertificateDao {
 
         if (certList != null && certList.size() > 0) {
             for (Certificate cert : certList) {
-            	cert.setId(null);
+                cert.setId(null);
                 cert.setCreateTime(Calendar.getInstance());
 
                 try {

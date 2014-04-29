@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Locale;
 
 import org.hibernate.Query;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
@@ -41,7 +40,7 @@ import gov.hhs.fha.nhinc.directconfig.dao.AddressDao;
 import gov.hhs.fha.nhinc.directconfig.dao.DomainDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -49,8 +48,9 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author ppyette
  */
-@Service
+@Repository
 public class DomainDaoImpl implements DomainDao {
+
     @Autowired
     protected SessionFactory sessionFactory;
 
