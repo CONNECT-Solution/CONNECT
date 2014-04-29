@@ -25,6 +25,14 @@
   <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
   </listener>
   
+  <listener>
+ <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
+</listener>
+<context-param>
+ <param-name>com.sun.faces.expressionFactory</param-name>
+ <param-value>com.sun.el.ExpressionFactoryImpl</param-value>
+</context-param>
+  
   <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>WEB-INF/applicationContext.xml</param-value>
@@ -60,6 +68,12 @@
     
     <resource-ref>
         <res-ref-name>jdbc/eventdb_datasource</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
+    <resource-ref>
+        <res-ref-name>jdbc/adminguidb_datasource</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
