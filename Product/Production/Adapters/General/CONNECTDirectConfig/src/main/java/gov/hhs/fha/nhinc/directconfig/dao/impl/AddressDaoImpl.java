@@ -1,25 +1,56 @@
 /*
- Copyright (c) 2010, NHIN Direct Project
- All rights reserved.
+ * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+/*
+Copyright (c) 2010, NHIN Direct Project
+All rights reserved.
 
- Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
- 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 
- 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer
- in the documentation and/or other materials provided with the distribution.
- 3. Neither the name of the The NHIN Direct Project (nhindirect.org) nor the names of its contributors may be used to endorse or promote
- products derived from this software without specific prior written permission.
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer
+in the documentation and/or other materials provided with the distribution.
+3. Neither the name of the The NHIN Direct Project (nhindirect.org) nor the names of its contributors may be used to endorse or promote
+products derived from this software without specific prior written permission.
 
- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS
- BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
- GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
- THE POSSIBILITY OF SUCH DAMAGE.
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS
+BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package gov.hhs.fha.nhinc.directconfig.dao.impl;
+
+import gov.hhs.fha.nhinc.directconfig.dao.AddressDao;
+import gov.hhs.fha.nhinc.directconfig.entity.Address;
+import gov.hhs.fha.nhinc.directconfig.entity.Domain;
+import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,21 +59,15 @@ import java.util.Locale;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.SessionFactory;
 import org.hibernate.Query;
-
-import gov.hhs.fha.nhinc.directconfig.entity.Address;
-import gov.hhs.fha.nhinc.directconfig.entity.Domain;
-import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
-import gov.hhs.fha.nhinc.directconfig.dao.AddressDao;
-
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Implementing class for Address DAO methods.
- *
+ * 
  * @author ppyette
  */
 @Repository
@@ -55,13 +80,15 @@ public class AddressDaoImpl implements AddressDao {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.directconfig.dao.AddressDao#count()
      */
+    @Override
     @Transactional(readOnly = true)
     public int count() {
         log.debug("Enter");
-        Long result = (Long) sessionFactory.getCurrentSession().createQuery("select count(d) from Address a").uniqueResult();
+        Long result = (Long) sessionFactory.getCurrentSession().createQuery("select count(d) from Address a")
+                .uniqueResult();
 
         log.debug("Exit: " + result.intValue());
         return result.intValue();
@@ -69,9 +96,10 @@ public class AddressDaoImpl implements AddressDao {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.directconfig.dao.AddressDao#add(gov.hhs.fha.nhinc.directconfig.entity.Address)
      */
+    @Override
     @Transactional(readOnly = false)
     public void add(Address item) {
         log.debug("Enter");
@@ -88,15 +116,16 @@ public class AddressDaoImpl implements AddressDao {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.directconfig.dao.AddressDao#update(gov.hhs.fha.nhinc.directconfig.entity.Address)
      */
+    @Override
     @Transactional(readOnly = false)
     public void update(Address item) {
         log.debug("Enter");
 
         if (item != null) {
-            Address inDb = (Address)sessionFactory.getCurrentSession().get(Address.class, item.getId());
+            Address inDb = (Address) sessionFactory.getCurrentSession().get(Address.class, item.getId());
 
             inDb.setDisplayName(item.getDisplayName());
             inDb.setEndpoint(item.getEndpoint());
@@ -113,9 +142,10 @@ public class AddressDaoImpl implements AddressDao {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.directconfig.dao.AddressDao#save(gov.hhs.fha.nhinc.directconfig.entity.Address)
      */
+    @Override
     @Transactional(readOnly = false)
     public void save(Address item) {
         update(item);
@@ -123,16 +153,18 @@ public class AddressDaoImpl implements AddressDao {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.directconfig.dao.AddressDao#delete(java.lang.String)
      */
+    @Override
     @Transactional(readOnly = false)
     public void delete(String name) {
         log.debug("Enter");
 
         int count = 0;
         if (name != null) {
-            Query delete = sessionFactory.getCurrentSession().createQuery("DELETE FROM Address a WHERE UPPER(a.emailAddress) = ?");
+            Query delete = sessionFactory.getCurrentSession().createQuery(
+                    "DELETE FROM Address a WHERE UPPER(a.emailAddress) = ?");
             delete.setParameter(0, name.toUpperCase(Locale.getDefault()));
             count = delete.executeUpdate();
         }
@@ -142,9 +174,10 @@ public class AddressDaoImpl implements AddressDao {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.directconfig.dao.AddressDao#listAddresses(java.lang.String, int)
      */
+    @Override
     @Transactional(readOnly = true)
     public List<Address> listAddresses(String name, int count) {
         // TODO Auto-generated method stub
@@ -153,9 +186,10 @@ public class AddressDaoImpl implements AddressDao {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.directconfig.dao.AddressDao#get(java.lang.String)
      */
+    @Override
     @Transactional(readOnly = true)
     public Address get(String name) {
         log.debug("Enter");
@@ -163,7 +197,8 @@ public class AddressDaoImpl implements AddressDao {
         Address result = null;
 
         if (name != null) {
-            Query select = sessionFactory.getCurrentSession().createQuery("SELECT DISTINCT a from Address a d WHERE UPPER(a.emailAddress) = ?");
+            Query select = sessionFactory.getCurrentSession().createQuery(
+                    "SELECT DISTINCT a from Address a d WHERE UPPER(a.emailAddress) = ?");
             result = (Address) select.setParameter(0, name.toUpperCase(Locale.getDefault())).uniqueResult();
         }
 
@@ -173,9 +208,11 @@ public class AddressDaoImpl implements AddressDao {
 
     /*
      * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.directconfig.dao.AddressDao#listAddresses(java.util.List, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
+     * 
+     * @see gov.hhs.fha.nhinc.directconfig.dao.AddressDao#listAddresses(java.util.List,
+     * gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
+    @Override
     @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
     public List<Address> listAddresses(List<String> names, EntityStatus status) {
@@ -215,7 +252,7 @@ public class AddressDaoImpl implements AddressDao {
         @SuppressWarnings("rawtypes")
         List rs = select.list();
         if ((rs.size() != 0) && (rs.get(0) instanceof Address)) {
-            result = (List<Address>) rs;
+            result = rs;
         } else {
             result = new ArrayList<Address>();
         }
@@ -226,9 +263,11 @@ public class AddressDaoImpl implements AddressDao {
 
     /*
      * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.directconfig.dao.AddressDao#getByDomain(gov.hhs.fha.nhinc.directconfig.entity.Domain, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
+     * 
+     * @see gov.hhs.fha.nhinc.directconfig.dao.AddressDao#getByDomain(gov.hhs.fha.nhinc.directconfig.entity.Domain,
+     * gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
+    @Override
     @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
     public List<Address> getByDomain(Domain domain, EntityStatus status) {
@@ -260,7 +299,7 @@ public class AddressDaoImpl implements AddressDao {
         @SuppressWarnings("rawtypes")
         List rs = select.list();
         if ((rs.size() != 0) && (rs.get(0) instanceof Address)) {
-            result = (List<Address>) rs;
+            result = rs;
         } else {
             result = new ArrayList<Address>();
         }
