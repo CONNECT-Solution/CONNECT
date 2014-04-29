@@ -221,6 +221,12 @@
                             <contextRoot>/CONNECTAdminGUI</contextRoot>
                             <excluded>${admingui.excluded}</excluded>
                         </webModule>
+						<webModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>CONNECTAdminGUI</artifactId>
+                            <contextRoot>/CONNECTAdminGUI</contextRoot>
+                            <excluded>${admingui.excluded}</excluded>
+                        </webModule>
                     </modules>
                     <version>5</version>
                     <defaultLibBundleDir>lib</defaultLibBundleDir>

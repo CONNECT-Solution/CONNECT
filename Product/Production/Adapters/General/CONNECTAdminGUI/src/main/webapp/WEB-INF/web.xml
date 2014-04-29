@@ -38,7 +38,6 @@
         <param-value>WEB-INF/applicationContext.xml</param-value>
     </context-param>
 
-    <display-name>JavaServerFaces</display-name>
 
     <!-- Change to "Development" when modifying / debugging -->
     <context-param>

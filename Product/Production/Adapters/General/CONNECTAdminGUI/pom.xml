@@ -8,174 +8,66 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>CONNECTAdminGUI</artifactId>
-    <packaging>war</packaging>
-    <name>CONNECT Administration GUI</name>
+	<packaging>war</packaging>
+	<name>CONNECT Administration GUI</name>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>CONNECTCoreLib</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>antlr</groupId>
-                    <artifactId>antlr</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>asm</groupId>
-                    <artifactId>asm</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>asm</groupId>
-                    <artifactId>asm-attrs</artifactId>
-                </exclusion>
-                <exclusion>
-                    <!-- exclude and use <artifactId>cglib-nodep</artifactId> 
-                        to include the asm it needs in a private package space. -->
-                    <groupId>cglib</groupId>
-                    <artifactId>cglib</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>net.sf.ehcache</groupId>
-                    <artifactId>ehcache</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <!-- Used to include the asm it needs in a private package 
-                space. -->
-            <groupId>cglib</groupId>
-            <artifactId>cglib-nodep</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>antlr</groupId>
-            <artifactId>antlr</artifactId>
-            <version>2.7.7</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
-            <version>3.3.1.GA</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.hibernate</groupId>
-                    <artifactId>ejb3-persistence</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.activation</groupId>
-                    <artifactId>activation</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
-            <version>1.0.1.Final</version>
-        </dependency>
-            
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-digester</groupId>
-            <artifactId>commons-digester</artifactId>
-            <version>1.8</version>
-        </dependency>
-
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
-
-        <!-- Spring framework -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>3.0.7.RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-        </dependency>
-
-        
+	<dependencies>
 		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
+			<groupId>org.connectopensource</groupId>
+			<artifactId>CONNECTCoreLib</artifactId>
+			<version>${project.parent.version}</version>
 		</dependency>
-		<dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
-            <version>3.2.5.ga</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>antlr</groupId>
-                    <artifactId>antlr</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>asm</groupId>
-                    <artifactId>asm</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>asm</groupId>
-                    <artifactId>asm-attrs</artifactId>
-                </exclusion>
-                <exclusion>
-                    <!-- exclude and use <artifactId>cglib-nodep</artifactId> 
-                        to include the asm it needs in a private package space. -->
-                    <groupId>cglib</groupId>
-                    <artifactId>cglib</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>net.sf.ehcache</groupId>
-                    <artifactId>ehcache</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-		
-		<dependency>
-            <!-- Used to include the asm it needs in a private package 
-                space. -->
-            <groupId>cglib</groupId>
-            <artifactId>cglib-nodep</artifactId>
-            <version>2.2</version>
-        </dependency>
 
-        <dependency>
-            <groupId>antlr</groupId>
-            <artifactId>antlr</artifactId>
-            <version>2.7.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
-            <version>1.0.1.Final</version>
-        </dependency>		
-		<dependency>            
-			<groupId>org.hibernate</groupId>            
-			<artifactId>hibernate-annotations</artifactId>            
-			<version>3.3.1.GA</version>            
-			<exclusions>                
-				<exclusion>                    
-					<groupId>org.hibernate</groupId>                    
-					<artifactId>ejb3-persistence</artifactId>                
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>antlr</groupId>
+					<artifactId>antlr</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>asm</groupId>
+					<artifactId>asm</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>asm</groupId>
+					<artifactId>asm-attrs</artifactId>
+				</exclusion>
+				<exclusion>
+					<!-- exclude and use <artifactId>cglib-nodep</artifactId> 
+                        to include the asm it needs in a private package space. -->
+					<groupId>cglib</groupId>
+					<artifactId>cglib</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>net.sf.ehcache</groupId>
+					<artifactId>ehcache</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<!-- Used to include the asm it needs in a private package 
+                space. -->
+			<groupId>cglib</groupId>
+			<artifactId>cglib-nodep</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>antlr</groupId>
+			<artifactId>antlr</artifactId>
+			<version>2.7.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>3.3.1.GA</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.hibernate</groupId>
+					<artifactId>ejb3-persistence</artifactId>
 				</exclusion>
 				<exclusion>
 					<groupId>javax.activation</groupId>
@@ -185,107 +77,127 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<version>1.0.1.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-digester</groupId>
+			<artifactId>commons-digester</artifactId>
+			<version>1.8</version>
+		</dependency>
+
+		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 		</dependency>
 
 		<!-- Spring framework -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>3.0.7.RELEASE</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 		</dependency>
-			
+
 		<dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>3.0.7.RELEASE</version>
-        </dependency>
-        <!-- JSF -->
-        <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-bundle</artifactId>
-            <version>2.1.15</version>
-        </dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>3.0.7.RELEASE</version>
+		</dependency>
+		<!-- JSF -->
+		<dependency>
+			<groupId>org.apache.myfaces.core</groupId>
+			<artifactId>myfaces-bundle</artifactId>
+			<version>2.1.15</version>
+		</dependency>
 
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
 
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-        </dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+		</dependency>
 
-        <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.1</version>
-        </dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.1</version>
+		</dependency>
 
-        <!-- EL -->
-        <dependency>
-            <groupId>org.glassfish.web</groupId>
-            <artifactId>el-impl</artifactId>
-            <version>2.2</version>
-        </dependency>
+		<!-- EL -->
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>el-impl</artifactId>
+			<version>2.2</version>
+		</dependency>
 
-        <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
-            <version>2.2</version>
-        </dependency>
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>el-api</artifactId>
+			<version>2.2</version>
+		</dependency>
 
-        <!-- Tomcat 6 needs this -->
-        <dependency>
-            <groupId>com.sun.el</groupId>
-            <artifactId>el-ri</artifactId>
-            <version>1.0</version>
-        </dependency>
+		<!-- SLF4J -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>1.6.4</version>
+			<scope>runtime</scope>
+		</dependency>
 
-        <!-- SLF4J -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <version>1.6.4</version>
-            <scope>runtime</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
+		<dependency>
+			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.activation</groupId>
-                    <artifactId>activation</artifactId>
-                </exclusion>
-            </exclusions>
-            <scope>test</scope>
-            <version>1.6.4</version>
-        </dependency>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.activation</groupId>
+					<artifactId>activation</artifactId>
+				</exclusion>
+			</exclusions>
+			<scope>test</scope>
+			<version>1.6.4</version>
+		</dependency>
 
-        <!-- JUnit -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-        </dependency>
-        
-    </dependencies>
+		<!-- JUnit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+		</dependency>
+
+	</dependencies>
 
 	<build>
 		<plugins>
@@ -299,17 +211,17 @@
 				</configuration>
 			</plugin>
 			<plugin>
-         <artifactId>maven-war-plugin</artifactId>
-         <version>2.3</version>
-         <configuration>
-		 <archive>
-            <manifest>
-              <addClasspath>true</addClasspath>
-              <classpathPrefix>lib/</classpathPrefix>
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
