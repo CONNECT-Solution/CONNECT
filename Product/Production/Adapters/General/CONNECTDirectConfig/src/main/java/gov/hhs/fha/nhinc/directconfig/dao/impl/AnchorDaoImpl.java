@@ -1,56 +1,80 @@
 /*
- Copyright (c) 2010, NHIN Direct Project
- All rights reserved.
+ * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+/*
+Copyright (c) 2010, NHIN Direct Project
+All rights reserved.
 
- Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
- 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 
- 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer
- in the documentation and/or other materials provided with the distribution.
- 3. Neither the name of the The NHIN Direct Project (nhindirect.org) nor the names of its contributors may be used to endorse or promote
- products derived from this software without specific prior written permission.
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer
+in the documentation and/or other materials provided with the distribution.
+3. Neither the name of the The NHIN Direct Project (nhindirect.org) nor the names of its contributors may be used to endorse or promote
+products derived from this software without specific prior written permission.
 
- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS
- BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
- GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
- THE POSSIBILITY OF SUCH DAMAGE.
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS
+BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package gov.hhs.fha.nhinc.directconfig.dao.impl;
 
+import gov.hhs.fha.nhinc.directconfig.dao.AnchorDao;
+import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
+import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
+import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
+
 import java.security.cert.X509Certificate;
-import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import org.hibernate.Query;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-
-import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
-import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
-import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
-import gov.hhs.fha.nhinc.directconfig.dao.AnchorDao;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Implementing class for Anchor DAO methods.
- *
+ * 
  * @author ppyette
  */
-@Service
+@Repository
 public class AnchorDaoImpl implements AnchorDao {
 
     @Autowired
@@ -60,14 +84,15 @@ public class AnchorDaoImpl implements AnchorDao {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.directconfig.dao.AnchorDao#load(java.lang.String)
      */
+    @Override
     @Transactional(readOnly = true)
     public Anchor load(String owner) {
-        // not sure what this will accomplish...  multiple anchors are always possible for an owner
+        // not sure what this will accomplish... multiple anchors are always possible for an owner
 
-        Collection<Anchor> anchors =  this.list(Arrays.asList(owner));
+        Collection<Anchor> anchors = this.list(Arrays.asList(owner));
 
         if (anchors != null && anchors.size() > 0)
             return anchors.iterator().next();
@@ -77,9 +102,10 @@ public class AnchorDaoImpl implements AnchorDao {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.directconfig.dao.AnchorDao#listAll()
      */
+    @Override
     @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
     public List<Anchor> listAll() {
@@ -93,7 +119,7 @@ public class AnchorDaoImpl implements AnchorDao {
         @SuppressWarnings("rawtypes")
         List rs = select.list();
         if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof Anchor)) {
-            result = (List<Anchor>) rs;
+            result = rs;
         }
 
         log.debug("Exit");
@@ -102,9 +128,10 @@ public class AnchorDaoImpl implements AnchorDao {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.directconfig.dao.AnchorDao#list(java.util.List)
      */
+    @Override
     @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
     public List<Anchor> list(List<String> owners) {
@@ -121,10 +148,10 @@ public class AnchorDaoImpl implements AnchorDao {
             if (nameList.length() > 1) {
                 nameList.append(", ");
             }
-            
+
             nameList.append("'").append(owner.toUpperCase(Locale.getDefault())).append("'");
         }
-        
+
         nameList.append(")");
         String query = "SELECT a from Anchor a WHERE UPPER(a.owner) IN " + nameList.toString();
 
@@ -132,7 +159,7 @@ public class AnchorDaoImpl implements AnchorDao {
         @SuppressWarnings("rawtypes")
         List rs = select.list();
         if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof Anchor)) {
-            result = (List<Anchor>) rs;
+            result = rs;
         }
 
         log.debug("Exit");
@@ -142,15 +169,16 @@ public class AnchorDaoImpl implements AnchorDao {
 
     /**
      * Add an anchor
-     *
-     * @param anchor
-     *            The anchor to add.
+     * 
+     * @param anchor The anchor to add.
      */
+    @Override
     @Transactional(readOnly = false)
     public void add(Anchor anchor) {
         log.debug("Enter");
 
         if (anchor != null) {
+            anchor.setId(null);
             anchor.setCreateTime(Calendar.getInstance());
 
             try {
@@ -161,7 +189,7 @@ public class AnchorDaoImpl implements AnchorDao {
                     startDate.setTime(cert.getNotBefore());
                     anchor.setValidStartDate(startDate);
                 }
-                
+
                 if (anchor.getValidEndDate() == null) {
                     Calendar endDate = Calendar.getInstance();
                     endDate.setTime(cert.getNotAfter());
@@ -178,7 +206,6 @@ public class AnchorDaoImpl implements AnchorDao {
             log.debug("Calling JPA to persist the Anchor");
 
             sessionFactory.getCurrentSession().persist(anchor);
-            sessionFactory.getCurrentSession().flush();
 
             log.debug("Returned from JPA: Anchor ID=" + anchor.getId());
         }
@@ -188,9 +215,10 @@ public class AnchorDaoImpl implements AnchorDao {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.directconfig.dao.AnchorDao#save(gov.hhs.fha.nhinc.directconfig.entity.Anchor)
      */
+    @Override
     @Transactional(readOnly = false)
     public void save(Anchor anchor) {
         if (anchor != null) {
@@ -202,9 +230,10 @@ public class AnchorDaoImpl implements AnchorDao {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.directconfig.dao.AnchorDao#save(java.util.List)
      */
+    @Override
     @Transactional(readOnly = false)
     public void save(List<Anchor> anchorList) {
         if (anchorList != null && anchorList.size() > 0) {
@@ -214,6 +243,7 @@ public class AnchorDaoImpl implements AnchorDao {
         }
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
     public List<Anchor> listByIds(List<Long> anchorIds) {
@@ -222,7 +252,7 @@ public class AnchorDaoImpl implements AnchorDao {
         if (anchorIds == null || anchorIds.size() == 0) {
             return Collections.emptyList();
         }
-        
+
         List<Anchor> result = Collections.emptyList();
 
         Query select = null;
@@ -231,10 +261,10 @@ public class AnchorDaoImpl implements AnchorDao {
             if (ids.length() > 1) {
                 ids.append(", ");
             }
-            
+
             ids.append(id);
         }
-        
+
         ids.append(")");
         String query = "SELECT a from Anchor a WHERE a.id IN " + ids.toString();
 
@@ -242,7 +272,7 @@ public class AnchorDaoImpl implements AnchorDao {
         @SuppressWarnings("rawtypes")
         List rs = select.list();
         if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof Anchor)) {
-            result = (List<Anchor>) rs;
+            result = rs;
         }
 
         log.debug("Exit");
@@ -252,9 +282,11 @@ public class AnchorDaoImpl implements AnchorDao {
 
     /*
      * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.directconfig.dao.AnchorDao#setStatus(java.util.List, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
+     * 
+     * @see gov.hhs.fha.nhinc.directconfig.dao.AnchorDao#setStatus(java.util.List,
+     * gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
+    @Override
     @Transactional(readOnly = false)
     public void setStatus(List<Long> anchorIDs, EntityStatus status) {
         log.debug("Enter");
@@ -263,7 +295,7 @@ public class AnchorDaoImpl implements AnchorDao {
         if (anchors == null || anchors.size() == 0) {
             return;
         }
-        
+
         for (Anchor anchor : anchors) {
             anchor.setStatus(status);
             sessionFactory.getCurrentSession().merge(anchor);
@@ -274,9 +306,11 @@ public class AnchorDaoImpl implements AnchorDao {
 
     /*
      * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.directconfig.dao.AnchorDao#setStatus(java.lang.String, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
+     * 
+     * @see gov.hhs.fha.nhinc.directconfig.dao.AnchorDao#setStatus(java.lang.String,
+     * gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
+    @Override
     @Transactional(readOnly = false)
     public void setStatus(String owner, EntityStatus status) {
         log.debug("Enter");
@@ -284,14 +318,14 @@ public class AnchorDaoImpl implements AnchorDao {
         if (owner == null) {
             return;
         }
-        
+
         List<String> owners = new ArrayList<String>();
         owners.add(owner);
         List<Anchor> anchors = list(owners);
         if (anchors == null || anchors.size() == 0) {
             return;
         }
-        
+
         for (Anchor anchor : anchors) {
             anchor.setStatus(status);
             sessionFactory.getCurrentSession().merge(anchor);
@@ -303,24 +337,25 @@ public class AnchorDaoImpl implements AnchorDao {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.directconfig.dao.AnchorDao#delete(java.util.List)
      */
+    @Override
     @Transactional(readOnly = false)
     public void delete(List<Long> idList) {
         log.debug("Enter");
 
         if (idList != null && idList.size() > 0) {
             StringBuffer ids = new StringBuffer("(");
-            
+
             for (Long id : idList) {
                 if (ids.length() > 1) {
                     ids.append(", ");
                 }
-                
+
                 ids.append(id);
             }
-            
+
             ids.append(")");
             String query = "DELETE FROM Anchor a WHERE a.id IN " + ids.toString();
 
@@ -336,9 +371,10 @@ public class AnchorDaoImpl implements AnchorDao {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.directconfig.dao.AnchorDao#delete(java.lang.String)
      */
+    @Override
     @Transactional(readOnly = false)
     public void delete(String owner) {
         log.debug("Enter");
@@ -346,15 +382,16 @@ public class AnchorDaoImpl implements AnchorDao {
         if (owner == null) {
             return;
         }
-        
+
         int count = 0;
-        
+
         if (owner != null) {
-            Query delete = sessionFactory.getCurrentSession().createQuery("DELETE FROM Anchor a WHERE UPPER(a.owner) = ?");
+            Query delete = sessionFactory.getCurrentSession().createQuery(
+                    "DELETE FROM Anchor a WHERE UPPER(a.owner) = ?");
             delete.setParameter(0, owner.toUpperCase(Locale.getDefault()));
             count = delete.executeUpdate();
         }
-        
+
         log.debug("Exit: " + count + " anchor records deleted");
     }
 }
