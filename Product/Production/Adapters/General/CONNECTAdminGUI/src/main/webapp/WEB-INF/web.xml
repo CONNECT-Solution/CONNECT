@@ -6,81 +6,78 @@
          xsi:schemaLocation="
              http://java.sun.com/xml/ns/javaee  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     version="2.5">
- 
-  <display-name>JavaServerFaces</display-name>
- 
-  <!-- Add Support for Spring -->
-  <listener>
-	<listener-class>
+
+	<display-name>JavaServerFaces</display-name>
+
+	<!-- Add Support for Spring -->
+	<listener>
+		<listener-class>
 		org.springframework.web.context.ContextLoaderListener
-	</listener-class>
-  </listener>
-  <listener>
-	<listener-class>
+		</listener-class>
+	</listener>
+    
+	<listener>
+		<listener-class>
 		org.springframework.web.context.request.RequestContextListener
-	</listener-class>
-  </listener>
-  
-  <listener>
-  <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
-  </listener>
- <context-param>
-        <param-name>org.apache.myfaces.SUPPORT_JSP_AND_FACES_EL</param-name>
-        <param-value>false</param-value>
-    </context-param> 
+		</listener-class>
+	</listener>
 
-<context-param>
- <param-name>org.apache.myfaces.EXPRESSION_FACTORY</param-name>
- <param-value>com.sun.el.ExpressionFactoryImpl</param-value>
-</context-param>
-  
-  <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>WEB-INF/applicationContext.xml</param-value>
-    </context-param>
-
-
-    <!-- Change to "Development" when modifying / debugging -->
-    <context-param>
-        <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>Production</param-value>
-    </context-param>
+	<listener>
+		<listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
+	</listener>
     
-    <context-param>
-        <param-name>org.apache.myfaces.FACES_INIT_PLUGINS</param-name>
-        <param-value>org.apache.myfaces.extensions.scripting.servlet.StartupServletContextPluginChainLoader</param-value>
-    </context-param>
+	<context-param>
+		<param-name>org.apache.myfaces.SUPPORT_JSP_AND_FACES_EL</param-name>
+		<param-value>false</param-value>
+	</context-param> 
 
-    <!-- Welcome page -->
-    <welcome-file-list>
-        <welcome-file>default.jsf</welcome-file>
-    </welcome-file-list>
+	<context-param>
+		<param-name>org.apache.myfaces.EXPRESSION_FACTORY</param-name>
+		<param-value>com.sun.el.ExpressionFactoryImpl</param-value>
+	</context-param>
 
-    <!-- JSF Mapping -->
-    <servlet>
-        <servlet-name>facesServlet</servlet-name>
-        <servlet-class>org.apache.myfaces.webapp.MyFacesServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>facesServlet</servlet-name>
-        <url-pattern>*.jsf</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>facesServlet</servlet-name>
-        <url-pattern>*.xhtml</url-pattern>
-    </servlet-mapping>
-    
-    <resource-ref>
-        <res-ref-name>jdbc/eventdb_datasource</res-ref-name>
-        <res-type>javax.sql.DataSource</res-type>
-        <res-auth>Container</res-auth>
-        <res-sharing-scope>Shareable</res-sharing-scope>
-    </resource-ref>
-    <resource-ref>
-        <res-ref-name>jdbc/adminguidb_datasource</res-ref-name>
-        <res-type>javax.sql.DataSource</res-type>
-        <res-auth>Container</res-auth>
-        <res-sharing-scope>Shareable</res-sharing-scope>
-    </resource-ref>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>WEB-INF/applicationContext.xml</param-value>
+	</context-param>
+
+
+	<!-- Change to "Development" when modifying / debugging -->
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Production</param-value>
+	</context-param>
+
+	<!-- Welcome page -->
+	<welcome-file-list>
+		<welcome-file>default.jsf</welcome-file>
+	</welcome-file-list>
+
+	<!-- JSF Mapping -->
+	<servlet>
+		<servlet-name>facesServlet</servlet-name>
+		<servlet-class>org.apache.myfaces.webapp.MyFacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>facesServlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>facesServlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+
+	<resource-ref>
+		<res-ref-name>jdbc/eventdb_datasource</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+		<res-sharing-scope>Shareable</res-sharing-scope>
+	</resource-ref>
+	<resource-ref>
+		<res-ref-name>jdbc/adminguidb_datasource</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+		<res-sharing-scope>Shareable</res-sharing-scope>
+	</resource-ref>
 </web-app>
