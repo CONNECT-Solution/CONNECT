@@ -20,7 +20,7 @@
         <gui.excluded>true</gui.excluded>
         <pd.excluded>true</pd.excluded>
         <direct.excluded>true</direct.excluded>
-		<admingui.excluded>true</admingui.excluded>
+        <admingui.excluded>true</admingui.excluded>
     </properties>
     <dependencies>
         <dependency>
@@ -78,7 +78,7 @@
             <version>${project.parent.version}</version>
             <type>pom</type>
         </dependency>
-		<dependency>
+        <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>admingui-dependencies</artifactId>
             <version>${project.parent.version}</version>
@@ -214,8 +214,8 @@
                             <artifactId>CONNECTUniversalClientGUI</artifactId>
                             <contextRoot>/CONNECTUniversalClientGUI</contextRoot>
                             <excluded>${gui.excluded}</excluded>
-                        </webModule>               
-						<webModule>
+                        </webModule>
+                        <webModule>
                             <groupId>org.connectopensource</groupId>
                             <artifactId>CONNECTAdminGUI</artifactId>
                             <contextRoot>/CONNECTAdminGUI</contextRoot>
@@ -300,7 +300,7 @@
                 <direct.excluded>false</direct.excluded>
             </properties>
         </profile>
-		<profile>
+        <profile>
             <id>AdminGUI</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
