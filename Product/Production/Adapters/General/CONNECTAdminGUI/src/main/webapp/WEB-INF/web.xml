@@ -10,57 +10,36 @@
 
 	<!-- Add Support for Spring -->
 	<listener>
-		<listener-class>
-		org.springframework.web.context.ContextLoaderListener
-		</listener-class>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
     
 	<listener>
-		<listener-class>
-		org.springframework.web.context.request.RequestContextListener
-	</listener-class>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
   </listener>
   
   <listener>
-  <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
+       <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
   </listener>
 
- <context-param>
+  <context-param>
         <param-name>org.apache.myfaces.SUPPORT_JSP_AND_FACES_EL</param-name>
         <param-value>false</param-value>
-    </context-param> 
+   </context-param> 
 
-<context-param>
- <param-name>org.apache.myfaces.EXPRESSION_FACTORY</param-name>
- <param-value>com.sun.el.ExpressionFactoryImpl</param-value>
-</context-param>
+   <context-param>
+        <param-name>org.apache.myfaces.EXPRESSION_FACTORY</param-name>
+        <param-value>com.sun.el.ExpressionFactoryImpl</param-value>
+   </context-param>
   
   <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>WEB-INF/applicationContext.xml</param-value>
     </context-param>
 
-
-	<listener>
-		<listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
-	</listener>
-    
-	<context-param>
-		<param-name>org.apache.myfaces.SUPPORT_JSP_AND_FACES_EL</param-name>
-		<param-value>false</param-value>
-	</context-param> 
-
-<<<<<<< HEAD
     <!-- Welcome page -->
     <welcome-file-list>
         <welcome-file>Login.xhtml</welcome-file>
     </welcome-file-list>
-=======
-	<context-param>
-		<param-name>org.apache.myfaces.EXPRESSION_FACTORY</param-name>
-		<param-value>com.sun.el.ExpressionFactoryImpl</param-value>
-	</context-param>
->>>>>>> CONN-1074:clean web.xml
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
@@ -73,11 +52,6 @@
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Production</param-value>
 	</context-param>
-
-	<!-- Welcome page -->
-	<welcome-file-list>
-		<welcome-file>default.jsf</welcome-file>
-	</welcome-file-list>
 
 	<!-- JSF Mapping -->
 	<servlet>
