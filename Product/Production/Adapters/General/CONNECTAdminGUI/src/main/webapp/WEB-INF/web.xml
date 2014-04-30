@@ -24,12 +24,13 @@
   <listener>
   <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
   </listener>
-  
-  <listener>
- <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
-</listener>
+ <context-param>
+        <param-name>org.apache.myfaces.SUPPORT_JSP_AND_FACES_EL</param-name>
+        <param-value>false</param-value>
+    </context-param> 
+
 <context-param>
- <param-name>com.sun.faces.expressionFactory</param-name>
+ <param-name>org.apache.myfaces.EXPRESSION_FACTORY</param-name>
  <param-value>com.sun.el.ExpressionFactoryImpl</param-value>
 </context-param>
   
@@ -44,6 +45,11 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Production</param-value>
     </context-param>
+    
+    <context-param>
+        <param-name>org.apache.myfaces.FACES_INIT_PLUGINS</param-name>
+        <param-value>org.apache.myfaces.extensions.scripting.servlet.StartupServletContextPluginChainLoader</param-value>
+    </context-param>
 
     <!-- Welcome page -->
     <welcome-file-list>
@@ -53,7 +59,7 @@
     <!-- JSF Mapping -->
     <servlet>
         <servlet-name>facesServlet</servlet-name>
-        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <servlet-class>org.apache.myfaces.webapp.MyFacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
