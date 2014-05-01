@@ -38,10 +38,10 @@
     <welcome-file-list>
         <welcome-file>Login.xhtml</welcome-file>
     </welcome-file-list>
-    <context-param>
+    <!-- <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>WEB-INF/applicationContext.xml</param-value>
-    </context-param>
+    </context-param>-->
 
 
     <!-- Change to "Development" when modifying / debugging -->
