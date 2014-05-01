@@ -55,7 +55,7 @@ public class Address {
     private Domain domain;
 
     private String displayName;
-    
+
     private String endpoint;
 
     private Calendar createTime;
@@ -75,10 +75,8 @@ public class Address {
     /**
      * Construct an Address.
      * 
-     * @param aDomain
-     *            The Domain.
-     * @param anAddress
-     *            The address.
+     * @param aDomain The Domain.
+     * @param anAddress The address.
      */
     public Address(Domain aDomain, String anAddress) {
         setDomain(aDomain);
@@ -92,12 +90,9 @@ public class Address {
     /**
      * Construct an Address.
      * 
-     * @param aDomain
-     *            The Domain.
-     * @param anAddress
-     *            The address.
-     * @param aName
-     *            The display name.
+     * @param aDomain The Domain.
+     * @param anAddress The address.
+     * @param aName The display name.
      */
     public Address(Domain aDomain, String anAddress, String aName) {
         setDomain(aDomain);
@@ -111,8 +106,7 @@ public class Address {
     /**
      * Construct an Address.
      * 
-     * @param anAddress
-     *            The address.
+     * @param anAddress The address.
      */
     public Address(Address anAddress) {
         if (anAddress != null) {
@@ -140,8 +134,7 @@ public class Address {
     /**
      * Set the value of emailAddress.
      * 
-     * @param anEmail
-     *            The value of emailAddress.
+     * @param anEmail The value of emailAddress.
      */
     public void setEmailAddress(String anEmail) {
         emailAddress = anEmail;
@@ -163,8 +156,7 @@ public class Address {
     /**
      * Set the value of id.
      * 
-     * @param id
-     *            The value of id.
+     * @param id The value of id.
      */
     public void setId(Long id) {
         this.id = id;
@@ -185,8 +177,7 @@ public class Address {
     /**
      * Set the value of domain.
      * 
-     * @param anId
-     *            The value of domain.
+     * @param anId The value of domain.
      */
     public void setDomain(Domain anId) {
         domain = anId;
@@ -206,8 +197,7 @@ public class Address {
     /**
      * Set the value of displayName.
      * 
-     * @param aName
-     *            The value of displayName.
+     * @param aName The value of displayName.
      */
     public void setDisplayName(String aName) {
         displayName = aName;
@@ -226,18 +216,18 @@ public class Address {
     /**
      * Set the value of endpoint.
      * 
-     * @param anEndpoint
-     *            The value of endpoint.
+     * @param anEndpoint The value of endpoint.
      */
     public void setEndpoint(String anEndpoint) {
         endpoint = anEndpoint;
     }
-    
+
     /**
      * Get the value of createTime.
      * 
      * @return the value of createTime.
      */
+    @Column(updatable = false, nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     public Calendar getCreateTime() {
         return createTime;
@@ -246,8 +236,7 @@ public class Address {
     /**
      * Set the value of createTime.
      * 
-     * @param timestamp
-     *            The value of createTime.
+     * @param timestamp The value of createTime.
      */
     public void setCreateTime(Calendar timestamp) {
         createTime = timestamp;
@@ -266,8 +255,7 @@ public class Address {
     /**
      * Set the value of updateTime.
      * 
-     * @param timestamp
-     *            The value of updateTime.
+     * @param timestamp The value of updateTime.
      */
     public void setUpdateTime(Calendar timestamp) {
         updateTime = timestamp;
@@ -287,8 +275,7 @@ public class Address {
     /**
      * Set the value of status.
      * 
-     * @param aStatus
-     *            The value of status.
+     * @param aStatus The value of status.
      */
     public void setStatus(EntityStatus aStatus) {
         status = aStatus;
@@ -307,8 +294,7 @@ public class Address {
     /**
      * Set the value of type.
      * 
-     * @param aType
-     *            The value of type.
+     * @param aType The value of type.
      */
     public void setType(String aType) {
         type = aType;
@@ -321,23 +307,16 @@ public class Address {
      */
     @Override
     public String toString() {
-        return "[ID: " + getId() + 
-               " | Address: " + getEmailAddress() + 
-               " | For: " + getDisplayName() + 
-               " | Domain: " + getDomain().getDomainName() + 
-               " | Endpoint: " + getEndpoint() +
-               " | Status: " + getStatus() +
-               " | Type: " + getType() + 
-               "]";
+        return "[ID: " + getId() + " | Address: " + getEmailAddress() + " | For: " + getDisplayName() + " | Domain: "
+                + getDomain().getDomainName() + " | Endpoint: " + getEndpoint() + " | Status: " + getStatus()
+                + " | Type: " + getType() + "]";
     }
 
     /**
      * Actions to run after an unmarshal.
      * 
-     * @param u
-     *            The Unmarshaller.
-     * @param parent
-     *            The paret.
+     * @param u The Unmarshaller.
+     * @param parent The paret.
      */
     public void afterUnmarshal(Unmarshaller u, Object parent) {
         setDomain((Domain) parent);

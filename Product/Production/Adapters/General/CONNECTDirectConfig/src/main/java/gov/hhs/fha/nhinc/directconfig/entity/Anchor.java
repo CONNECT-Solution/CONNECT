@@ -73,8 +73,7 @@ public class Anchor {
     /**
      * Set the value of owner.
      * 
-     * @param owner
-     *            The value of owner.
+     * @param owner The value of owner.
      */
     public void setOwner(String owner) {
         this.owner = owner;
@@ -93,8 +92,7 @@ public class Anchor {
     /**
      * Set the value of thumbprint.
      * 
-     * @param thumbprint
-     *            The value of thumbprint.
+     * @param thumbprint The value of thumbprint.
      */
     public void setThumbprint(String thumbprint) {
         this.thumbprint = thumbprint;
@@ -105,7 +103,7 @@ public class Anchor {
      * 
      * @return the value of certificateData.
      */
-    @Column(name = "certificateData", length=4096)
+    @Column(name = "certificateData", length = 4096)
     @Lob
     public byte[] getData() {
         return certificateData;
@@ -114,8 +112,7 @@ public class Anchor {
     /**
      * Set the value of certificateData.
      * 
-     * @param data
-     *            The value of certificateData.
+     * @param data The value of certificateData.
      * @throws CertificateException
      */
     public void setData(byte[] data) throws CertificateException {
@@ -142,8 +139,7 @@ public class Anchor {
     /**
      * Set the value of id.
      * 
-     * @param id
-     *            The value of id.
+     * @param id The value of id.
      */
     public void setId(Long id) {
         this.id = id;
@@ -154,6 +150,7 @@ public class Anchor {
      * 
      * @return the value of createTime.
      */
+    @Column(updatable = false, nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     public Calendar getCreateTime() {
         return createTime;
@@ -162,8 +159,7 @@ public class Anchor {
     /**
      * Set the value of createTime.
      * 
-     * @param timestamp
-     *            The value of createTime.
+     * @param timestamp The value of createTime.
      */
     public void setCreateTime(Calendar timestamp) {
         createTime = timestamp;
@@ -182,8 +178,7 @@ public class Anchor {
     /**
      * Set the value of validStartDate.
      * 
-     * @param validStartDate
-     *            The value of validStartDate.
+     * @param validStartDate The value of validStartDate.
      */
     public void setValidStartDate(Calendar validStartDate) {
         this.validStartDate = validStartDate;
@@ -202,8 +197,7 @@ public class Anchor {
     /**
      * Set the value of validEndDate.
      * 
-     * @param validEndDate
-     *            The value of validEndDate.
+     * @param validEndDate The value of validEndDate.
      */
     public void setValidEndDate(Calendar validEndDate) {
         this.validEndDate = validEndDate;
@@ -222,8 +216,7 @@ public class Anchor {
     /**
      * Set the value of status.
      * 
-     * @param status
-     *            The value of status.
+     * @param status The value of status.
      */
     public void setStatus(EntityStatus status) {
         this.status = status;
@@ -242,8 +235,7 @@ public class Anchor {
     /**
      * Set the value of incoming.
      * 
-     * @param incoming
-     *            The value of incoming.
+     * @param incoming The value of incoming.
      */
     public void setIncoming(boolean incoming) {
         this.incoming = incoming;
@@ -262,8 +254,7 @@ public class Anchor {
     /**
      * Set the value of outgoing.
      * 
-     * @param outgoing
-     *            The value of outgoing.
+     * @param outgoing The value of outgoing.
      */
     public void setOutgoing(boolean outgoing) {
         this.outgoing = outgoing;
@@ -281,8 +272,7 @@ public class Anchor {
     /**
      * Set the value of certificateId.
      * 
-     * @param certificateId
-     *            The value of certificateId.
+     * @param certificateId The value of certificateId.
      */
     public void setCertificateId(long certificateId) {
         this.certificateId = certificateId;
@@ -300,7 +290,7 @@ public class Anchor {
             setData(Certificate.NULL_CERT);
             throw new CertificateException("Data cannot be converted to a valid X.509 Certificate", e);
         }
-        
+
         return cert;
     }
 
@@ -314,12 +304,10 @@ public class Anchor {
         } catch (Exception e) {
             throw new CertificateException("Data cannot be converted to a valid X.509 Certificate", e);
         }
-        
+
         return cert;
     }
-    
-    
-    
+
     private boolean hasData() {
         return ((certificateData != null) && (!certificateData.equals(Certificate.NULL_CERT))) ? true : false;
     }

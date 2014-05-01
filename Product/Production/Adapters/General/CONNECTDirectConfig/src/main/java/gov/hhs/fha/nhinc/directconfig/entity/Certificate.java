@@ -52,45 +52,43 @@ import javax.persistence.TemporalType;
 /**
  * The JPA Certificate class
  */
-public class Certificate 
-{
+public class Certificate {
 
     private static final String DEFAULT_JCE_PROVIDER_STRING = "BC";
-    private static final String JCE_PROVIDER_STRING_SYS_PARAM = "org.nhindirect.config.JCEProviderName";    
-    
-    static
-    {
+    private static final String JCE_PROVIDER_STRING_SYS_PARAM = "org.nhindirect.config.JCEProviderName";
+
+    static {
         Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
-    }    
-    
+    }
+
     /**
-     * Gets the configured JCE crypto provider string for crypto operations.  This is configured using the
-     * -Dorg.nhindirect.config.JCEProviderName JVM parameters.  If the parameter is not set or is empty,
-     * then the default string "BC" (BouncyCastle provider) is returned.  By default the agent installs the BouncyCastle provider.
+     * Gets the configured JCE crypto provider string for crypto operations. This is configured using the
+     * -Dorg.nhindirect.config.JCEProviderName JVM parameters. If the parameter is not set or is empty, then the default
+     * string "BC" (BouncyCastle provider) is returned. By default the agent installs the BouncyCastle provider.
+     * 
      * @return The name of the JCE provider string.
      */
-    public static String getJCEProviderName()
-    {
+    public static String getJCEProviderName() {
         String retVal = System.getProperty(JCE_PROVIDER_STRING_SYS_PARAM);
-        
+
         if (retVal == null || retVal.isEmpty())
             retVal = DEFAULT_JCE_PROVIDER_STRING;
-        
+
         return retVal;
     }
-    
+
     /**
-     * Overrides the configured JCE crypto provider string.  If the name is empty or null, the default string "BC" (BouncyCastle provider)
-     * is used.
+     * Overrides the configured JCE crypto provider string. If the name is empty or null, the default string "BC"
+     * (BouncyCastle provider) is used.
+     * 
      * @param name The name of the JCE provider.
      */
-    public static void setJCEProviderName(String name)
-    {
+    public static void setJCEProviderName(String name) {
         if (name == null || name.isEmpty())
             System.setProperty(JCE_PROVIDER_STRING_SYS_PARAM, DEFAULT_JCE_PROVIDER_STRING);
         else
             System.setProperty(JCE_PROVIDER_STRING_SYS_PARAM, name);
-    }    
+    }
 
     public static final byte[] NULL_CERT = new byte[] {};
 
@@ -117,8 +115,7 @@ public class Certificate
     /**
      * Set the value of owner.
      * 
-     * @param owner
-     *            The value of owner.
+     * @param owner The value of owner.
      */
     public void setOwner(String owner) {
         this.owner = owner;
@@ -129,7 +126,7 @@ public class Certificate
      * 
      * @return the value of data.
      */
-    @Column(name = "certificateData",  length=4096)
+    @Column(name = "certificateData", length = 4096)
     @Lob
     public byte[] getData() {
         return data;
@@ -138,8 +135,7 @@ public class Certificate
     /**
      * Set the value of data.
      * 
-     * @param data
-     *            The value of data.
+     * @param data The value of data.
      * @throws CertificateException
      */
     public void setData(byte[] data) throws CertificateException {
@@ -154,7 +150,7 @@ public class Certificate
     /**
      * Indicates if the certificate has a private key
      * 
-     * @return 
+     * @return
      */
     @Column(name = "privateKey")
     public boolean isPrivateKey() {
@@ -165,13 +161,13 @@ public class Certificate
      * Indicates if the certificate has a private key
      * 
      * @param data
-     *            
+     * 
      * @throws CertificateException
      */
     public void setPrivateKey(boolean b) throws CertificateException {
         this.privateKey = b;
-    }    
-    
+    }
+
     private void setThumbprint(String aThumbprint) {
         thumbprint = aThumbprint;
 
@@ -202,8 +198,7 @@ public class Certificate
     /**
      * Set the value of id.
      * 
-     * @param id
-     *            The value of id.
+     * @param id The value of id.
      */
     public void setId(Long id) {
         this.id = id;
@@ -214,7 +209,7 @@ public class Certificate
      * 
      * @return the value of createTime.
      */
-    @Column(name = "createTime")
+    @Column(updatable = false, nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     public Calendar getCreateTime() {
         return createTime;
@@ -223,8 +218,7 @@ public class Certificate
     /**
      * Set the value of createTime.
      * 
-     * @param timestamp
-     *            The value of createTime.
+     * @param timestamp The value of createTime.
      */
     public void setCreateTime(Calendar timestamp) {
         createTime = timestamp;
@@ -244,8 +238,7 @@ public class Certificate
     /**
      * Set the value of status.
      * 
-     * @param status
-     *            The value of status.
+     * @param status The value of status.
      */
     public void setStatus(EntityStatus status) {
         this.status = status;
@@ -265,8 +258,7 @@ public class Certificate
     /**
      * Set the value of validStartDate.
      * 
-     * @param validStartDate
-     *            The value of validStartDate.
+     * @param validStartDate The value of validStartDate.
      */
     public void setValidStartDate(Calendar validStartDate) {
         this.validStartDate = validStartDate;
@@ -286,8 +278,7 @@ public class Certificate
     /**
      * Set the value of validEndDate.
      * 
-     * @param validEndDate
-     *            The value of validEndDate.
+     * @param validEndDate The value of validEndDate.
      */
     public void setValidEndDate(Calendar validEndDate) {
         this.validEndDate = validEndDate;
@@ -326,113 +317,92 @@ public class Certificate
         try {
             validate();
 
-            try
-            {
+            try {
                 container = toCredential();
                 cert = container.getCert();
+            } catch (CertificateException e) {
+                /* no-op */
             }
-            catch (CertificateException e)
-            {
-                /*no-op*/
-            }
-            
-            if (cert == null)
-            {
+
+            if (cert == null) {
                 // might be a URL for IPKIX
                 @SuppressWarnings("unused")
                 final URL url = new URL(new String(data, "ASCII"));
-                
+
                 setThumbprint("");
-            }
-            else
-            {
+            } else {
                 setThumbprint(Thumbprint.toThumbprint(cert).toString());
                 setPrivateKey(container != null && container.getKey() != null);
             }
-            
-            
+
         } catch (Exception e) {
             setData(NULL_CERT);
             throw new CertificateException("Data cannot be converted to a valid X.509 Certificate or IPKIX URL", e);
         }
     }
-    
-    public CertContainer toCredential() throws CertificateException 
-    {
+
+    public CertContainer toCredential() throws CertificateException {
         CertContainer certContainer = null;
-        try 
-        {
+        try {
             validate();
             ByteArrayInputStream bais = new ByteArrayInputStream(data);
-            
+
             // lets try this a as a PKCS12 data stream first
-            try
-            {
+            try {
                 KeyStore localKeyStore = KeyStore.getInstance("PKCS12", getJCEProviderName());
-                
+
                 localKeyStore.load(bais, "".toCharArray());
                 Enumeration<String> aliases = localKeyStore.aliases();
 
-
-                // we are really expecting only one alias 
-                if (aliases.hasMoreElements())                    
-                {
+                // we are really expecting only one alias
+                if (aliases.hasMoreElements()) {
                     String alias = aliases.nextElement();
-                    X509Certificate cert = (X509Certificate)localKeyStore.getCertificate(alias);
-                    
+                    X509Certificate cert = (X509Certificate) localKeyStore.getCertificate(alias);
+
                     // check if there is private key
                     Key key = localKeyStore.getKey(alias, "".toCharArray());
-                    if (key != null && key instanceof PrivateKey) 
-                    {
+                    if (key != null && key instanceof PrivateKey) {
                         certContainer = new CertContainer(cert, key);
-                        
+
                     }
                 }
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 // must not be a PKCS12 stream, go on to next step
             }
-   
-            if (certContainer == null)                
-            {
-                //try X509 certificate factory next       
+
+            if (certContainer == null) {
+                // try X509 certificate factory next
                 bais.reset();
                 bais = new ByteArrayInputStream(data);
 
-                X509Certificate cert = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(bais);
+                X509Certificate cert = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(
+                        bais);
                 certContainer = new CertContainer(cert, null);
             }
             bais.close();
-        } 
-        catch (Exception e) 
-        {
+        } catch (Exception e) {
             throw new CertificateException("Data cannot be converted to a valid X.509 Certificate", e);
         }
-        
+
         return certContainer;
     }
-    
-    public static class CertContainer
-    {
+
+    public static class CertContainer {
         private final X509Certificate cert;
         private final Key key;
-        
-        public CertContainer(X509Certificate cert, Key key)
-        {
+
+        public CertContainer(X509Certificate cert, Key key) {
             this.cert = cert;
             this.key = key;
         }
-        
-        public X509Certificate getCert() 
-        {
+
+        public X509Certificate getCert() {
             return cert;
         }
 
-        public Key getKey() 
-        {
+        public Key getKey() {
             return key;
         }
-    
+
     }
 }
