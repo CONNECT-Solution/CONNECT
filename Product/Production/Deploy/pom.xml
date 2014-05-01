@@ -19,12 +19,11 @@
         <module>ds-dependencies</module>
         <module>gui-dependencies</module>
         <module>pd-dependencies</module>
+        <module>admingui-dependencies</module>
         <module>ear</module>
         <module>ear/glassfish</module>
     </modules>
-    <!--properties>
-        <findbugs.skip>true</findbugs.skip>
-    </properties-->
+    <!--properties> <findbugs.skip>true</findbugs.skip> </properties -->
     <build>
         <pluginManagement>
             <plugins>
@@ -37,16 +36,16 @@
         </pluginManagement>
     </build>
     <reporting>
-       <plugins>
-          <plugin>
-              <groupId>org.codehaus.mojo</groupId>
-              <artifactId>findbugs-maven-plugin</artifactId>
-              <configuration>
-                  <skip>true</skip>
-              </configuration>
-          </plugin>
-       </plugins>
-    </reporting> 
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
     <profiles>
         <profile>
             <id>wasce</id>
