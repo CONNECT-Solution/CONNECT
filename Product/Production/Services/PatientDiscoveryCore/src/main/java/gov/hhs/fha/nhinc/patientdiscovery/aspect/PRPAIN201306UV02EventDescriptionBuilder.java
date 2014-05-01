@@ -27,21 +27,17 @@
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
 import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
-
-
 import org.hl7.v3.PRPAIN201306UV02;
 
 import com.google.common.base.Optional;
+import java.util.ArrayList;
 
 public class PRPAIN201306UV02EventDescriptionBuilder extends AssertionEventDescriptionBuilder {
 
     private static final PRPAIN201306UV02HCIDExtractor HCID_EXTRACTOR = new PRPAIN201306UV02HCIDExtractor();
     private static final PRPAIN201306UV02StatusExtractor STATUS_EXTRACTOR = new PRPAIN201306UV02StatusExtractor();
-
+    
     private Optional<PRPAIN201306UV02> body = Optional.absent();
-
-    public PRPAIN201306UV02EventDescriptionBuilder() {
-    }
 
     @Override
     public void buildErrorCodes() {
@@ -57,11 +53,11 @@ public class PRPAIN201306UV02EventDescriptionBuilder extends AssertionEventDescr
 
     @Override
     public void buildRespondingHCIDs() {
-        if (!body.isPresent()) {
-            return;
+        if (body.isPresent()) {
+            setRespondingHCIDs(new ArrayList<String>(HCID_EXTRACTOR.apply(body.get())));
+        } else {
+            setLocalResponder();
         }
-
-        setRespondingHCIDs(HCID_EXTRACTOR.apply(body.get()));
     }
 
     @Override
@@ -70,7 +66,7 @@ public class PRPAIN201306UV02EventDescriptionBuilder extends AssertionEventDescr
             return;
         }
 
-        setStatuses(STATUS_EXTRACTOR.apply(body.get()));
+        setStatuses(new ArrayList<String>(STATUS_EXTRACTOR.apply(body.get())));
     }
 
     @Override

@@ -1685,7 +1685,7 @@ if(passthruValue != null){
             <urn1:haveWitnessSignature>true</urn1:haveWitnessSignature>
             <urn1:homeCommunity>
                <urn1:description>Test HCID1</urn1:description>
-               <urn1:homeCommunityId>2.16.840.1.113883.3.337</urn1:homeCommunityId>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>HCID1</urn1:name>
             </urn1:homeCommunity>
             <urn1:personName>
@@ -1782,7 +1782,7 @@ if(passthruValue != null){
                <urn1:userName>wanderson</urn1:userName>
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
-                  <urn1:homeCommunityId>2.16.840.1.113883.3.337</urn1:homeCommunityId>
+                  <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                   <urn1:name>HCID1</urn1:name>
                </urn1:org>
                <!--Optional:-->
@@ -2098,7 +2098,7 @@ if(passthruValue != null){
             <urn1:haveWitnessSignature>true</urn1:haveWitnessSignature>
             <urn1:homeCommunity>
                <urn1:description>Test HCID1</urn1:description>
-               <urn1:homeCommunityId>2.16.840.1.113883.3.337</urn1:homeCommunityId>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>HCID1</urn1:name>
             </urn1:homeCommunity>
             <urn1:personName>
@@ -2195,7 +2195,7 @@ if(passthruValue != null){
                <urn1:userName>wanderson</urn1:userName>
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
-                  <urn1:homeCommunityId>2.16.840.1.113883.3.337</urn1:homeCommunityId>
+                  <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                   <urn1:name>HCID1</urn1:name>
                </urn1:org>
                <!--Optional:-->
@@ -5579,7 +5579,7 @@ if(passthruValue != null){
             <urn1:haveWitnessSignature>true</urn1:haveWitnessSignature>
             <urn1:homeCommunity>
                <urn1:description>Test HCID1</urn1:description>
-               <urn1:homeCommunityId>2.16.840.1.113883.3.337</urn1:homeCommunityId>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>HCID1</urn1:name>
             </urn1:homeCommunity>
             <urn1:personName>
@@ -5676,7 +5676,7 @@ if(passthruValue != null){
                <urn1:userName>wanderson</urn1:userName>
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
-                  <urn1:homeCommunityId>2.16.840.1.113883.3.337</urn1:homeCommunityId>
+                  <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                   <urn1:name>HCID1</urn1:name>
                </urn1:org>
                <!--Optional:-->
@@ -5975,7 +5975,7 @@ if(passthruValue != null){
             <urn1:haveWitnessSignature>true</urn1:haveWitnessSignature>
             <urn1:homeCommunity>
                <urn1:description>Test HCID1</urn1:description>
-               <urn1:homeCommunityId>2.16.840.1.113883.3.337</urn1:homeCommunityId>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>HCID1</urn1:name>
             </urn1:homeCommunity>
             <urn1:personName>
@@ -6072,7 +6072,7 @@ if(passthruValue != null){
                <urn1:userName>wanderson</urn1:userName>
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
-                  <urn1:homeCommunityId>2.16.840.1.113883.3.337</urn1:homeCommunityId>
+                  <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                   <urn1:name>HCID1</urn1:name>
                </urn1:org>
                <!--Optional:-->

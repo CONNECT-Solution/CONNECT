@@ -30,9 +30,12 @@ import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.admindistribution._20.entity.EntityAdministrativeDistributionSecured_g1;
 import gov.hhs.fha.nhinc.admindistribution._20.entity.EntityAdministrativeDistribution_g1;
 import gov.hhs.fha.nhinc.admindistribution._20.nhin.NhinAdministrativeDistribution_g1;
+import gov.hhs.fha.nhinc.admindistribution.inbound.PassthroughInboundAdminDistribution;
+import gov.hhs.fha.nhinc.admindistribution.inbound.StandardInboundAdminDistribution;
+import gov.hhs.fha.nhinc.admindistribution.outbound.PassthroughOutboundAdminDistribution;
+import gov.hhs.fha.nhinc.admindistribution.outbound.StandardOutboundAdminDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
-
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 import org.junit.Test;
@@ -48,6 +51,18 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/admindistribution/_20/applicationContext.xml" })
 public class AdminDistributionSpringContextTest {
+
+	@Autowired
+    StandardOutboundAdminDistribution standardOutboundOrchImpl;
+    
+    @Autowired
+    StandardInboundAdminDistribution standardInboundOrchImpl;
+    
+    @Autowired
+    PassthroughInboundAdminDistribution passthroughInboundOrchImpl;
+    
+    @Autowired
+    PassthroughOutboundAdminDistribution passthroughOutboundOrchImpl;
 
     @Autowired
     NhinAdministrativeDistribution_g1 inboundAdminDist;

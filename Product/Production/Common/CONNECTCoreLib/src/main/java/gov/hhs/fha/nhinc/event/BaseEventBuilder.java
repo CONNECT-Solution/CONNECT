@@ -11,6 +11,10 @@ public abstract class BaseEventBuilder implements EventBuilder {
         EventDescriptionJSONDecorator jsonDescorator = new EventDescriptionJSONDecorator(
                 eventDescriptionDirector.getEventDescription());
         event.setDescription(jsonDescorator.toJSONString());
+        
+        buildServiceType();
+        buildInitiatorHcid();
+        buildRespondingHcids();
     }
 
     @Override
@@ -27,5 +31,17 @@ public abstract class BaseEventBuilder implements EventBuilder {
 
     public EventDescriptionDirector getEventDescriptionDirector() {
         return eventDescriptionDirector;
+    }
+    
+    private void buildServiceType(){
+        event.setServiceType(eventDescriptionDirector.getServiceType());
+    }
+    
+    private void buildInitiatorHcid(){
+        event.setInitiatorHcid(eventDescriptionDirector.getInitiatorHcid());
+    }
+    
+    private void buildRespondingHcids(){
+        event.setRespondingHcid(eventDescriptionDirector.getResponderHcid());
     }
 }

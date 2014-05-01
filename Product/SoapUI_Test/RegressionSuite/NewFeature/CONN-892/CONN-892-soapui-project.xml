@@ -411,7 +411,7 @@ if(passthruValue != null){
 </con:config>
 </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "DocumentQueryProxyConfig.xml", context.findProperty('GatewayPropDir'), "DocumenQueryProxyConfig.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "DocumentQueryProxyConfig.xml", context.findProperty('GatewayPropDir'), "DocumentQueryProxyConfig.xml", log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){

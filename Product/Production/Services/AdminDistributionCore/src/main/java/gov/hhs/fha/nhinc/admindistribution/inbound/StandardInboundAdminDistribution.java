@@ -32,7 +32,10 @@ import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionPolicyChecker;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionUtils;
 import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyObjectFactory;
+import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
@@ -95,4 +98,14 @@ public class StandardInboundAdminDistribution extends AbstractInboundAdminDistri
         auditLogger.auditNhinAdminDist(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
                 null, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
     }
+    @Override
+    @InboundProcessingEvent(serviceType = "Admin Distribution", version = "",
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
+            beforeBuilder = EDXLDistributionEventDescriptionBuilder.class)
+    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
+        auditRequestFromNhin(body, assertion);
+
+        processAdminDistribution(body, assertion);
+    }
+
 }

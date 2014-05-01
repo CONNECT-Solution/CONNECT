@@ -38,24 +38,13 @@ import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
 public interface WebServicesMXBean {
 
     /**
-     * Configure inbound impl with a class name. The class must be in the current class loader.
-     * 
-     * @param className the class name
-     * @throws InstantiationException the instantiation exception
-     * @throws IllegalAccessException the illegal access exception
-     * @throws ClassNotFoundException the class not found exception
-     */
-    public void configureInboundImpl(String className) throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException;
-
-    /**
      * Configure inbound dependency for std orchestration implementation.
      * 
      * @throws InstantiationException the instantiation exception
      * @throws IllegalAccessException the illegal access exception
      * @throws ClassNotFoundException the class not found exception
      */
-    public void configureInboundStd() throws InstantiationException, IllegalAccessException, ClassNotFoundException;
+    public void configureInboundStdImpl() throws InstantiationException, IllegalAccessException, ClassNotFoundException;
 
     /**
      * Configure inbound dependency for passthru orchestration implementation.
@@ -64,28 +53,16 @@ public interface WebServicesMXBean {
      * @throws IllegalAccessException the illegal access exception
      * @throws ClassNotFoundException the class not found exception
      */
-    public void configureInboundPassthru() throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException;
+    public void configureInboundPtImpl() throws InstantiationException, IllegalAccessException, ClassNotFoundException;
 
     /**
-     * Checks if the inbound dependency is the passthru implementation. Given that custom implementations can be provided
-     * via the {@link #configureOutboundImpl(String)} method, a return value of "false" does not necessarily mean that
-     * the inbound standard orchestration dependency is active.
+     * Checks if the inbound dependency is the passthru implementation. Given that custom implementations can be
+     * provided via the {@link #configureOutboundImpl(String)} method, a return value of "false" does not necessarily
+     * mean that the inbound standard orchestration dependency is active.
      * 
      * @return true, if is inbound is in passthru mode
      */
     public boolean isInboundPassthru();
-
-    /**
-     * Configure outbound impl with a class name. The class must be in the current class loader.
-     * 
-     * @param className the class name
-     * @throws InstantiationException the instantiation exception
-     * @throws IllegalAccessException the illegal access exception
-     * @throws ClassNotFoundException the class not found exception
-     */
-    public void configureOutboundImpl(String className) throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException;
 
     /**
      * Configure outbound dependency for std orchestration implementation.
@@ -94,7 +71,8 @@ public interface WebServicesMXBean {
      * @throws IllegalAccessException the illegal access exception
      * @throws ClassNotFoundException the class not found exception
      */
-    public void configureOutboundStd() throws InstantiationException, IllegalAccessException, ClassNotFoundException;
+    public void configureOutboundStdImpl() throws InstantiationException, IllegalAccessException,
+            ClassNotFoundException;
 
     /**
      * Configure outbound dependency for passthru orchestration implementation.
@@ -103,8 +81,7 @@ public interface WebServicesMXBean {
      * @throws IllegalAccessException the illegal access exception
      * @throws ClassNotFoundException the class not found exception
      */
-    public void configureOutboundPassthru() throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException;
+    public void configureOutboundPtImpl() throws InstantiationException, IllegalAccessException, ClassNotFoundException;
 
     /**
      * Checks if outbound dependency is the passthru implementation. Given that custom implementations can be provided
@@ -121,7 +98,10 @@ public interface WebServicesMXBean {
      * 
      */
     public boolean isInboundStandard();
-    
+
+    /*
+     * checks if the Gateway in Standard Mode
+     */
     public boolean isOutboundStandard();
 
 }

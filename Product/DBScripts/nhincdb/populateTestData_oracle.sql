@@ -93,7 +93,8 @@ create or replace PROCEDURE   "NHINCUSER"."UPDATE_BLOB_DATA"
   p_documentid IN NUMBER
 , p_content1 IN CLOB,
   p_content2 IN CLOB
-) AS
+) AUTHID CURRENT_USER
+  AS
   l_blob          blob;
   l_dest_offset   integer := 1;
   l_source_offset integer := 1;

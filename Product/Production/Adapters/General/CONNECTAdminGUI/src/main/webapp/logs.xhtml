@@ -1,0 +1,404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<!--<link rel="shortcut icon" href="http://getbootstrap.com/assets/ico/favicon.ico">-->
+
+<title>Gateway Administrative Console</title>
+
+<!-- Bootstrap core CSS -->
+<link href="resources/css/bootstrap.css" rel="stylesheet" />
+
+<!-- Custom styles for this template -->
+<link href="resources/css/dashboard.css" rel="stylesheet" />
+
+<!-- Tablesort theme CSS -->
+<link href="resources/css/theme.default.css" rel="stylesheet" />
+
+<!-- Just for debugging purposes. Don't actually copy this line! -->
+<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<!--<style type="text/css" id="holderjs-style"></style>-->
+
+</head>
+
+<body>
+
+<div class="container-fluid" style="height:100%;">
+	<div class="row" style="height:100%;">
+	
+		<!-- BEGIN: LEFT COLUMN - SIDEBAR NAVIGATION -->
+		<div class="col-xs-2 sidebar">
+			<h1 class="page-header">Gateway Administrative Console</h1>
+			
+			<h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
+				Activity Logs 
+			</h2>
+			<ul class="nav nav-sidebar sidebar-blue" id="sidebar-logs">
+				<li class="active"><a href="#tab_event"><i class="glyphicon glyphicon-list-alt glyph"></i> Event Logs</a></li>
+				<li><a href="#tab_audit"><i class="glyphicon glyphicon-list-alt"></i> Audit Logs</a></li>
+				<li><a href="#tab_system"><i class="glyphicon glyphicon-list-alt"></i> System Logs</a></li>
+			</ul>
+
+			<h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
+				Gateway Status
+			</h2>
+			<ul class="nav nav-sidebar sidebar-orange">
+				<li><a href="status.xhtml#tab_dash"><i class="glyphicon glyphicon-dashboard"></i> Server Dashboard</a></li>
+				<li><a href="status.xhtml#tab_stats"><i class="glyphicon glyphicon-stats"></i> Performance Statistics</a></li>
+				<li><a href="status.xhtml#tab_remotes"><i class="glyphicon glyphicon-list"></i> Remote Gateway List</a></li>
+			</ul>
+			
+			<h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
+				CONNECT Configuration
+			</h2>
+			<ul class="nav nav-sidebar sidebar-purple">
+				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 1</a></li>
+				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 2</a></li>
+				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 3</a></li>
+			</ul>
+			
+			<h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
+				Direct Configuration
+			</h2>
+			<ul class="nav nav-sidebar sidebar-purple">
+				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 1</a></li>
+				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 2</a></li>
+				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 3</a></li>
+			</ul>
+			
+			<h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
+				Account Management
+			</h2>
+			<ul class="nav nav-sidebar sidebar-purple">
+				<li><a href="acctmanage.xhtml#tab_createuser"><i class="glyphicon glyphicon-user"></i> User Accounts</a></li>
+				<li><a href="acctmanage.xhtml#tab_certificate"><i class="glyphicon glyphicon-lock"></i> Certificate Management</a></li>
+			</ul>
+		</div>
+		<!-- END: LEFT COLUMN - SIDEBAR NAVIGATION -->
+		
+		<!-- BEGIN: RIGHT COLUMN - Primary content is located here -->
+		<div class="col-xs-10 main">
+
+			<!-- BEGIN: UTILITY NAVIGATION -->
+			<div class="navbar" role="navigation">
+				<!--
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Project name</a>
+				</div>
+				-->
+				<div class="nav-utility"> <!-- ORIGINALLY:  class="navbar-collapse collapse" -->
+					<ul class="nav navbar-nav">
+						<li><a href="#" title="User Profile">Logged in as <strong>John Doe</strong></a></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Settings">&#x202F;<i class="glyphicon glyphicon-wrench"></i>&#x202F;</a>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+								<li><a role="menuitem" tabindex="-1" href="acctmanage.xhtml#tab_createuser">User Accounts</a></li>
+								<li><a role="menuitem" tabindex="-1" href="acctmanage.xhtml#tab_certificate">Certificate Management</a></li>
+								<li class="divider"></li>
+								<li><a role="menuitem" tabindex="-1" href="#">Other Tools</a></li>
+							</ul>
+						</li>
+						<li><a href="#" title="Send a Message">&#x202F;<i class="glyphicon glyphicon-envelope"></i>&#x202F;</a></li>
+						<li><a href="#" title="Help">&#x202F;<i class="glyphicon glyphicon-question-sign"></i>&#x202F;</a></li>
+					</ul>
+					<form class="navbar-form navbar-right">
+						<i class="glyphicon glyphicon-search"></i><input class="form-control" placeholder="Enter Search Query..." type="text" />
+					</form>
+				</div>
+			</div>
+			<!-- END: UTILITY NAVIGATION -->
+
+			<!-- BEGIN: MAIN CONTENT SECTION -->
+			<div class="main-content">
+				<h1 class="section-header">Activity Logs</h1>
+				
+				<!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
+				<div class="nav-section-tabs tabs-blue" id="nav-section-tabs">
+					<div class="navbar" role="navigation">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#event" data-toggle="tab" title="Event Logs">Event Logs</a></li>
+							<li><a href="#audit" data-toggle="tab" title="Audit Logs">Audit Logs</a></li>
+							<li><a href="#system" data-toggle="tab" title="System Logs">System Logs</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
+				
+				<!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
+				<div class="tab-content">
+					<!-- BEGIN: TAB PANE - EVENT LOGS -->
+					<div class="tab-pane active" id="event">
+						<div class="content-block">
+							<h2 class="subsection-header">Event Logs</h2>
+							<div class="table-responsive">
+								<div class="table-button-row">
+									(The buttons in this table are for demonstration purposes only. They may not always be appropriate here)--> <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add New Entry</button> <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i> Refresh Log</button>
+								</div>
+								<table class="table table-striped tablesorter table-logs" id="table-logs-event">
+									<thead>
+										<tr>
+											<th>Date</th>
+											<th>Time</th>
+											<th>Event ID</th>
+											<th data-sorter="false">Description</th>
+											<th data-sorter="false">Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>3/5/2014</td>
+											<td>12:27 pm</td>
+											<td>1001</td>
+											<td>Lorem ipsum dolor sit amet, consectetur... <a href="#">[more]</a></td>
+											<td>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+											</td>
+										</tr>
+										<tr>
+											<td>1/23/2014</td>
+											<td>9:45 am</td>
+											<td>1002</td>
+											<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <a href="#">[less]</a></td>
+											<td>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+											</td>
+										</tr>
+										<tr>
+											<td>12/18/2013</td>
+											<td>4:30 pm</td>
+											<td>1003</td>
+											<td>Lorem ipsum dolor sit amet, consectetur... <a href="#">[more]</a></td>
+											<td>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- END: TAB PANE - EVENT LOGS -->
+					
+					<!-- BEGIN: TAB PANE - AUDIT LOGS -->
+					<div class="tab-pane" id="audit">
+						<div class="content-block">
+							<h2 class="subsection-header">Audit Logs</h2>
+							<div class="table-responsive">
+								<div class="table-button-row">
+									(The buttons in this table are for demonstration purposes only. They may not always be appropriate here)--> <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add New Entry</button> <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i> Refresh Log</button>
+								</div>
+								<table class="table table-striped tablesorter table-logs" id="table-logs-audit">
+									<thead>
+										<tr>
+											<th>Date</th>
+											<th>Time</th>
+											<th>Event ID</th>
+											<th data-sorter="false">Description</th>
+											<th data-sorter="false">Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>3/5/2014</td>
+											<td>12:27 pm</td>
+											<td>2071</td>
+											<td>Lorem ipsum dolor sit amet, consectetur... <a href="#">[more]</a></td>
+											<td>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+											</td>
+										</tr>
+										<tr>
+											<td>1/23/2014</td>
+											<td>9:45 am</td>
+											<td>2102</td>
+											<td>Lorem ipsum dolor sit amet, consectetur... <a href="#">[more]</a></td>
+											<td>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+											</td>
+										</tr>
+										<tr>
+											<td>12/18/2013</td>
+											<td>4:30 pm</td>
+											<td>2543</td>
+											<td>Lorem ipsum dolor sit amet, consectetur... <a href="#">[more]</a></td>
+											<td>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- END: TAB PANE - AUDIT LOGS -->
+					
+					<!-- BEGIN: TAB PANE - SYSTEM LOGS -->
+					<div class="tab-pane" id="system">
+						<div class="content-block">
+							<h2 class="subsection-header">System Logs</h2>
+							<div class="table-responsive">
+								<div class="table-button-row">
+									(The buttons in this table are for demonstration purposes only. They may not always be appropriate here)--> <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add New Entry</button> <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i> Refresh Log</button>
+								</div>
+								<table class="table table-striped tablesorter table-logs" id="table-logs-system">
+									<thead>
+										<tr>
+											<th>Date</th>
+											<th>Time</th>
+											<th>Event ID</th>
+											<th data-sorter="false">Description</th>
+											<th data-sorter="false">Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>3/5/2014</td>
+											<td>12:27 pm</td>
+											<td>3000</td>
+											<td>Logging service started. <a href="#">[more]</a></td>
+											<td>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+											</td>
+										</tr>
+										<tr>
+											<td>1/23/2014</td>
+											<td>9:45 am</td>
+											<td>3002</td>
+											<td>Disk space allocated. <a href="#">[more]</a></td>
+											<td>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+											</td>
+										</tr>
+										<tr>
+											<td>12/18/2013</td>
+											<td>4:30 pm</td>
+											<td>3013</td>
+											<td>Domain controller connected. <a href="#">[more]</a></td>
+											<td>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- END: TAB PANE - SYSTEM LOGS -->
+				</div>
+				<!-- END: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
+				
+			</div>
+			<!-- END: MAIN CONTENT SECTION -->
+
+		</div>
+		<!-- END: RIGHT COLUMN - Primary content is located here -->
+		
+	</div> <!-- Close the ROW -->
+</div> <!-- Close the CONTAINER -->
+
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="resources/js/jquery-1.10.2.min.js"></script>
+<script src="resources/js/bootstrap.min.js"></script>
+<!--<script src="Dashboard%20Template%20for%20Bootstrap_files/docs.js"></script>-->
+
+<script type="text/javascript" src="resources/js/jquery.tablesorter.min.js"></script>
+<!--<script type="text/javascript" src="resources/js/jquery.tablesorter.widgets.min.js"></script>-->
+<script>
+$(document).ready(function(){
+	$(function(){
+		$("table").tablesorter();
+	});
+});
+</script>
+
+<script>
+// FUNCTION TO SHOW THE CORRECT TABBED CONTENT IF NAVIGATING FROM DIFFERENT PAGE
+$(document).ready(function() {
+	var hash = window.location.hash;
+	var prefix = "tab_"; // USING PREFIX TO PREVENT BROWSER AUTOMATIC SCROLL TO THIS ELEMENT
+	if (hash != "") {
+		$('#nav-section-tabs a[href="' + hash.replace(prefix,"") + '"]').tab('show'); // REMOVE PREFIX and CHANGE TO CORRECT TAB
+		var showActivebar = $('.sidebar a[href='+hash+']'); // FIND SIDEBAR LINK TO MATCH SELECTED TAB
+		$('.sidebar li').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINK LI'S AS NEEDED
+		$(showActivebar).parent().addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK
+	}
+	else
+		$('#nav-section-tabs a:first').tab('show');
+});
+
+// FUNCTION FOR SIDEBAR NAV - TOGGLE ACTIVE CLASS and CHANGE SELECTED TAB IN MAIN CONTENT AREA
+$('.sidebar li').click(function () {
+	var showActivebar = $(this); // STORE ID OF SELECTED SIDEBAR LINK LI
+	$('.sidebar li').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINK LI'S AS NEEDED
+	$(showActivebar).addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK LI
+
+	var url = $(this).find('a').attr('href'); // CATCH HREF FROM SIDEBAR LINK
+	var prefix = "tab_"; // USING PREFIX TO PREVENT BROWSER AUTOMATIC SCROLL TO THIS ELEMENT
+	if (url.match('#')) {
+		//var tid = url.split('#')[1];
+		//console.log(url);
+		$('.nav-tabs a[href='+url.replace(prefix,"")+']').tab('show') ; // REMOVE PREFIX and CHANGE TAB TO MATCH SELECTED SIDEBAR LINK
+		//window.scrollTo(0, 0);
+	}
+});
+// FUNCTION FOR TABBED NAV IN MAIN CONTENT AREA - CHANGE SELECTED SIDEBAR LINK
+$('.nav-tabs a').click(function () {
+	var url = $(this).attr('href').replace("#","#tab_"); // CATCH HREF FROM SELECTED TAB and ADD PREFIX TO FIND CORRECT SIDEBAR LINK
+	var showActivebar = $('.sidebar a[href='+url+']'); // FIND SIDEBAR LINK TO MATCH SELECTED TAB
+	$('.sidebar li').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINK LI'S AS NEEDED
+	$(showActivebar).parent().addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK LI
+});
+// FUNCTION FOR DROPDOWN NAV IN UTILITY BAR - CHANGE SELECTED SIDEBAR LINK and TAB
+$('.nav-utility .dropdown-menu a').click(function () {
+	var url = $(this).attr('href'); // CATCH HREF FROM SELECTED DROPDOWN ITEM
+	var showActivebar = $('.sidebar a[href='+url+']'); // FIND SIDEBAR LINK TO MATCH SELECTED TAB
+	$('.sidebar li').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINK LI'S AS NEEDED
+	$(showActivebar).parent().addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK LI
+	$('.nav-tabs a[href='+url.replace("tab_","")+']').tab('show') ; // REMOVE PREFIX and CHANGE TAB TO MATCH SELECTED DROPDOWN ITEM
+});
+
+// FUNCTION TO EXPAND/CONTRACT SIDEBAR NAV SECTIONS
+$('.sidebar h2.section-header').click(function () {
+	var targetMenu = $(this).next('ul').attr('id');
+	var activeLink = $(this).next('ul').children('.active').attr('id');
+
+	$(this).find('i').toggleClass('glyphicon-plus glyphicon-minus');
+    $(this).next('ul').slideToggle(400);
+	if ($(targetMenu).is(":visible"))
+		$(activeLink).addClass("active");
+});
+</script>
+
+</body>
+</html>

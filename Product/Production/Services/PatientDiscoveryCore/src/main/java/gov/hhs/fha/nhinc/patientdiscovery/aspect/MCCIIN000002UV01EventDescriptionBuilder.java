@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
-import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
-
 import java.util.List;
 
 import org.hl7.v3.CS;
@@ -37,8 +35,9 @@ import org.hl7.v3.MCCIMT000200UV01Acknowledgement;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
+import gov.hhs.fha.nhinc.event.TargetEventDescriptionBuilder;
 
-public class MCCIIN000002UV01EventDescriptionBuilder extends AssertionEventDescriptionBuilder {
+public class MCCIIN000002UV01EventDescriptionBuilder extends TargetEventDescriptionBuilder {
 
     private static final TypeCodeExtractor extractor = new TypeCodeExtractor();
     private Optional<MCCIIN000002UV01> returnValue = Optional.absent();
@@ -54,11 +53,6 @@ public class MCCIIN000002UV01EventDescriptionBuilder extends AssertionEventDescr
             List<Optional<String>> transform = Lists.transform(returnValue.get().getAcknowledgement(), extractor);
             setStatuses(Lists.newArrayList(Optional.presentInstances(transform)));
         }
-    }
-
-    @Override
-    public void buildRespondingHCIDs() {
-        // responding HCIDs not here
     }
 
     @Override
@@ -79,6 +73,7 @@ public class MCCIIN000002UV01EventDescriptionBuilder extends AssertionEventDescr
     @Override
     public void setArguments(Object... arguments) {
         extractAssertion(arguments);
+        extractTarget(arguments);
     }
 
     @Override

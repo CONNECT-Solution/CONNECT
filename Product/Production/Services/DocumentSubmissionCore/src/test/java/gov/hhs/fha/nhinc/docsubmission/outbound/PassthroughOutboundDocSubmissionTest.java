@@ -120,19 +120,5 @@ public class PassthroughOutboundDocSubmissionTest {
 
         return orchestratable;
     }
-    
-    @Test
-    public void hasOutboundProcessingEvent() throws Exception {
-        Class<PassthroughOutboundDocSubmission> clazz = PassthroughOutboundDocSubmission.class;
-        Method method = clazz.getMethod("provideAndRegisterDocumentSetB", 
-                ProvideAndRegisterDocumentSetRequestType.class, AssertionType.class, NhinTargetCommunitiesType.class,
-                UrlInfoType.class);
-        OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
-        assertNotNull(annotation);
-        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.afterReturningBuilder());
-        assertEquals("Document Submission", annotation.serviceType());
-        assertEquals("", annotation.version());
-    }
    
 }

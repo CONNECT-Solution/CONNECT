@@ -71,9 +71,6 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
      * @return AdhocQueryResponse received from the NHIN
      */
     @Override
-    @OutboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
-            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
-            version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
             NhinTargetCommunitiesType targets) {
 

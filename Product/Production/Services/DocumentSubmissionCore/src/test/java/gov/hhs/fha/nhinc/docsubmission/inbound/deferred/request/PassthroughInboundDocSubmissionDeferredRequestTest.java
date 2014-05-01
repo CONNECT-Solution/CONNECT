@@ -128,19 +128,4 @@ public class PassthroughInboundDocSubmissionDeferredRequestTest {
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.XDR_REQUEST_ACTION));
     }
     
-    @Test
-    public void hasInboundProcessingEvent() throws Exception {
-        Class<PassthroughInboundDocSubmissionDeferredRequest> clazz = 
-                PassthroughInboundDocSubmissionDeferredRequest.class;
-        Method method = clazz.getMethod("provideAndRegisterDocumentSetBRequest", 
-                ProvideAndRegisterDocumentSetRequestType.class, AssertionType.class);
-        InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
-        assertNotNull(annotation);
-        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.afterReturningBuilder());
-        assertEquals("Document Submission Deferred Request", annotation.serviceType());
-        assertEquals("", annotation.version());
-    }
-    
-    
 }

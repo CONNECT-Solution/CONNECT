@@ -27,16 +27,13 @@
 package gov.hhs.fha.nhinc.admindistribution.outbound;
 
 import gov.hhs.fha.nhinc.admindistribution.MessageGeneratorUtils;
-import gov.hhs.fha.nhinc.admindistribution.aspect.ADRequestTransformingBuilder;
 import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionDelegate;
 import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionOrchestratable;
-import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
 public class PassthroughOutboundAdminDistribution implements OutboundAdminDistribution {
 
@@ -57,17 +54,8 @@ public class PassthroughOutboundAdminDistribution implements OutboundAdminDistri
         this.adDelegate = adDelegate;
     }
 
-    /**
-     * This method implements sendAlertMessage for AdminDist when in passthrumode.
-     * 
-     * @param request
-     * @param assertion
-     * @param target
-     */
+
     @Override
-    @OutboundProcessingEvent(beforeBuilder = ADRequestTransformingBuilder.class,
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution",
-            version = "")
     public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType message, AssertionType assertion,
             NhinTargetCommunitiesType target) {
         RespondingGatewaySendAlertMessageType request = msgUtils.convertToUnsecured(message, assertion, target);
@@ -83,9 +71,6 @@ public class PassthroughOutboundAdminDistribution implements OutboundAdminDistri
      * @param target
      */
     @Override
-    @OutboundProcessingEvent(beforeBuilder = ADRequestTransformingBuilder.class,
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution",
-            version = "")
     public void sendAlertMessage(RespondingGatewaySendAlertMessageType request, AssertionType assertion,
             NhinTargetCommunitiesType targetCommunities) {
         

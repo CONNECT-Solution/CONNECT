@@ -37,11 +37,6 @@ import org.junit.Test;
 public class PassthroughInboundDocQueryTest extends InboundDocQueryTest {
     
     private static final int NUM_TIMES_TO_INVOKE_ADAPTER_AUDIT = 0;
-    
-    @Test
-    public void hasInboundProcessingEvent() throws Exception {
-        hasInboundProcessingEvent(PassthroughInboundDocQuery.class);
-    }
 
     @Test
     public void passthroughInboundDocQueryOrgHcid() {

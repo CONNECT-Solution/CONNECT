@@ -280,6 +280,9 @@ CREATE TABLE eventdb.event (
   description longtext,
   transactionId VARCHAR(100),
   messageId VARCHAR(100),
+  serviceType VARCHAR(100),
+  initiatingHcid VARCHAR(100),
+  respondingHcids VARCHAR(100),
   eventTime TIMESTAMP,
   PRIMARY KEY (id) )
 COMMENT = 'Event Logging';
@@ -288,6 +291,28 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON eventdb.* to nhincuser;
 GRANT SELECT,INSERT,UPDATE,DELETE ON *.* TO 'nhincuser'@'localhost' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
 GRANT SELECT,INSERT,UPDATE,DELETE ON *.* TO 'nhincuser'@'127.0.0.1' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
 -- end eventdb
+
+-- begin adminguidb
+CREATE DATABASE adminguidb;
+
+-- -----------------------------------------------------
+-- Table `adminguidb`.`UserLogin`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS adminguidb.UserLogin (
+    id SERIAL PRIMARY KEY,
+    salt varchar(100) NOT NULL,
+    sha1 varchar(100) NOT NULL,
+    userName varchar(100) NOT NULL UNIQUE
+);
+
+INSERT INTO adminguidb.UserLogin
+(id, salt, sha1, userName)
+VALUES
+(1, "ABCD", "TxMu4SPUdek0XU5NovS9U2llt3Q=", "CONNECTAdmin");
+
+GRANT SELECT,INSERT,UPDATE,DELETE ON adminguidb.* to nhincuser;
+-- end adminguidb
 
 GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'localhost' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'127.0.0.1' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;

@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.aspect;
 
-import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
+import com.google.common.base.Optional;
+import gov.hhs.fha.nhinc.event.TargetEventDescriptionBuilder;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
@@ -35,10 +36,10 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  * 
  * @see DocSubmissionBaseEventDescriptionBuilder
  */
-public class DeferredResponseDescriptionBuilder extends AssertionEventDescriptionBuilder {
+public class DeferredResponseDescriptionBuilder extends TargetEventDescriptionBuilder {
 
     private RegistryResponseDescriptionExtractor extractor = new RegistryResponseDescriptionExtractor();
-    private RegistryResponseType response;
+    private Optional<RegistryResponseType> response;
 
     @Override
     public void buildTimeStamp() {
@@ -47,12 +48,9 @@ public class DeferredResponseDescriptionBuilder extends AssertionEventDescriptio
 
     @Override
     public void buildStatuses() {
-        setStatuses(extractor.getStatuses(response));
-    }
-
-    @Override
-    public void buildRespondingHCIDs() {
-        // not extracted
+        if(response.isPresent()){
+            setStatuses(extractor.getStatuses(response.get()));
+        }
     }
 
     @Override
@@ -67,13 +65,16 @@ public class DeferredResponseDescriptionBuilder extends AssertionEventDescriptio
 
     @Override
     public void buildErrorCodes() {
-        setErrorCodes(extractor.getErrorCodes(response));
+        if(response.isPresent()){
+            setErrorCodes(extractor.getErrorCodes(response.get()));
+        }
     }
 
     @Override
     public void setArguments(Object... arguments) {
         extractAssertion(arguments);
         extractResponse(arguments);
+        extractTarget(arguments);
     }
 
     private void extractResponse(Object... arguments) {
@@ -82,7 +83,7 @@ public class DeferredResponseDescriptionBuilder extends AssertionEventDescriptio
         }
         for (Object argument : arguments) {
             if (argument instanceof RegistryResponseType) {
-                this.response = (RegistryResponseType) argument;
+                this.response = Optional.of((RegistryResponseType) argument);
                 break;
             }
         }
@@ -90,11 +91,7 @@ public class DeferredResponseDescriptionBuilder extends AssertionEventDescriptio
 
     @Override
     public void setReturnValue(Object returnValue) {
-        // Because this builder is somewhat confusing, throw an exception rather than silently ignore.
-        if (returnValue != null) {
-            throw new IllegalArgumentException("This builder only handles input params. "
-                    + "It is not for use as an afterReturning annotation.");
-        }
+        
     }
 
     RegistryResponseDescriptionExtractor getResponseExtractor() {

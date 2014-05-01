@@ -121,17 +121,4 @@ public class PassthroughOutboundDocSubmissionDeferredRequestTest {
         };
     }
     
-    @Test
-    public void hasOutboundProcessingEvent() throws Exception {
-        Class<PassthroughOutboundDocSubmissionDeferredRequest> clazz = PassthroughOutboundDocSubmissionDeferredRequest.class;
-        Method method = clazz.getMethod("provideAndRegisterDocumentSetBAsyncRequest", 
-                ProvideAndRegisterDocumentSetRequestType.class, AssertionType.class,  NhinTargetCommunitiesType.class,
-                UrlInfoType.class);
-        OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
-        assertNotNull(annotation);
-        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.afterReturningBuilder());
-        assertEquals("Document Submission Deferred Request", annotation.serviceType());
-        assertEquals("", annotation.version());
-    }
 }

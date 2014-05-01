@@ -38,10 +38,14 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
 import gov.hhs.fha.nhinc.event.EventDescription;
 import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import javax.xml.ws.WebServiceContext;
 
 import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.Matchers.anyString;
 import org.springframework.util.CollectionUtils;
 
 public class RetrieveDocumentSetRequestTypeDescriptionBuilderTest extends BaseDescriptionBuilderTest {
@@ -52,11 +56,18 @@ public class RetrieveDocumentSetRequestTypeDescriptionBuilderTest extends BaseDe
     private AssertionDescriptionExtractor assertionExtractor;
 
     @Before
-    public void before() {
-        builder = new RetrieveDocumentSetRequestTypeDescriptionBuilder();
+    public void before() throws PropertyAccessException {
+        final PropertyAccessor mockProperties = mock(PropertyAccessor.class);
+        builder = new RetrieveDocumentSetRequestTypeDescriptionBuilder(){
+            @Override
+            protected PropertyAccessor getPropertyAccessor(String fileName){
+                return mockProperties;
+            }
+        };
         request = new RetrieveDocumentSetRequestType();
         assertion = new AssertionType();
         assertionExtractor = mock(AssertionDescriptionExtractor.class);
+        when(mockProperties.getProperty(anyString())).thenReturn(null);
         when(assertionExtractor.getInitiatingHCID(assertion)).thenReturn("hcid");
         when(assertionExtractor.getNPI(assertion)).thenReturn("npi");
     }
@@ -89,7 +100,7 @@ public class RetrieveDocumentSetRequestTypeDescriptionBuilderTest extends BaseDe
         EventDescription eventDescription = getEventDescription(builder);
         assertNull(eventDescription.getTimeStamp());
         assertTrue(CollectionUtils.isEmpty(eventDescription.getStatuses()));
-        assertNull(eventDescription.getRespondingHCIDs());
+        assertTrue(CollectionUtils.isEmpty(eventDescription.getRespondingHCIDs()));
         assertTrue(CollectionUtils.isEmpty(eventDescription.getPayloadTypes()));
         assertTrue(CollectionUtils.isEmpty(eventDescription.getPayloadSizes()));
         assertTrue(CollectionUtils.isEmpty(eventDescription.getErrorCodes()));

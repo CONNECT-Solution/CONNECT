@@ -28,14 +28,14 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.aspect;
 
-import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.TargetEventDescriptionBuilder;
 
 /**
  * Event description builder for retrieve document set request objects. The retrieve document set object does not
  * contain any fields that contribute to event descriptions. Only the routing and event context extraction from the
  * superclass are necessary.
  */
-public class RetrieveDocumentSetRequestTypeDescriptionBuilder extends AssertionEventDescriptionBuilder {
+public class RetrieveDocumentSetRequestTypeDescriptionBuilder extends TargetEventDescriptionBuilder {
 
     @Override
     public void buildTimeStamp() {
@@ -43,10 +43,6 @@ public class RetrieveDocumentSetRequestTypeDescriptionBuilder extends AssertionE
 
     @Override
     public void buildStatuses() {
-    }
-
-    @Override
-    public void buildRespondingHCIDs() {
     }
 
     @Override
@@ -64,6 +60,7 @@ public class RetrieveDocumentSetRequestTypeDescriptionBuilder extends AssertionE
     @Override
     public void setArguments(Object... arguments) {
         extractAssertion(arguments);
+        extractTarget(arguments);
     }
 
     @Override

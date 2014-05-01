@@ -58,16 +58,13 @@ public abstract class AbstractInboundAdminDistribution implements InboundAdminDi
      *            - Assertion received.
      */
     @Override
-    @InboundProcessingEvent(serviceType = "Admin Distribution", version = "",
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
-            beforeBuilder = EDXLDistributionEventDescriptionBuilder.class)
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         auditRequestFromNhin(body, assertion);
 
         processAdminDistribution(body, assertion);
     }
 
-    private void auditRequestFromNhin(EDXLDistribution body, AssertionType assertion) {
+    protected void auditRequestFromNhin(EDXLDistribution body, AssertionType assertion) {
         auditLogger.auditNhinAdminDist(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
                 null, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
     }

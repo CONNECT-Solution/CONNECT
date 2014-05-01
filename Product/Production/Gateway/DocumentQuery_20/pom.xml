@@ -2,7 +2,7 @@
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Gateway</artifactId>
-        <version>4.3.0-SNAPSHOT</version>
+        <version>4.4.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>DocumentQuery_20</artifactId>
@@ -15,8 +15,35 @@
             <artifactId>DocumentQueryCore</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
-        
-       
+		<dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate</artifactId>
+                <version>3.2.5.ga</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>antlr</groupId>
+                        <artifactId>antlr</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>asm</groupId>
+                        <artifactId>asm</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>asm</groupId>
+                        <artifactId>asm-attrs</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <!-- exclude and use <artifactId>cglib-nodep</artifactId> 
+                            to include the asm it needs in a private package space. -->
+                        <groupId>cglib</groupId>
+                        <artifactId>cglib</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>net.sf.ehcache</groupId>
+                        <artifactId>ehcache</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>

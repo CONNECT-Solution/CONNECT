@@ -27,13 +27,17 @@
 package gov.hhs.fha.nhinc.docretrieve._30;
 
 import static org.junit.Assert.assertNotNull;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieve;
 import gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieveSecured;
 import gov.hhs.fha.nhinc.docretrieve.inbound.DocRetrieve;
+import gov.hhs.fha.nhinc.docretrieve.inbound.PassthroughInboundDocRetrieve;
+import gov.hhs.fha.nhinc.docretrieve.inbound.StandardInboundDocRetrieve;
+import gov.hhs.fha.nhinc.docretrieve.outbound.PassthroughOutboundDocRetrieve;
+import gov.hhs.fha.nhinc.docretrieve.outbound.StandardOutboundDocRetrieve;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,6 +52,18 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/docretrieve/_30/applicationContext.xml" })
 public class DocRetrieveSpringContextTest {
+    
+	@Autowired
+    StandardOutboundDocRetrieve standardOutboundOrchImpl;
+    
+    @Autowired
+    StandardInboundDocRetrieve standardInboundOrchImpl;
+    
+    @Autowired
+    PassthroughInboundDocRetrieve passthroughInboundOrchImpl;
+    
+    @Autowired
+    PassthroughOutboundDocRetrieve passthroughOutboundOrchImpl;
     
     @Autowired
     DocRetrieve inboundDocRetrieve;

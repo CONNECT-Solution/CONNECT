@@ -45,6 +45,8 @@ import org.junit.Test;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
+import java.util.Set;
 
 public class CommunityPRPAIN201306UV02BuilderTest extends BaseDescriptionBuilderTest {
 
@@ -81,16 +83,16 @@ public class CommunityPRPAIN201306UV02BuilderTest extends BaseDescriptionBuilder
         RespondingGatewayPRPAIN201306UV02ResponseType response = createResponse(value1, value2);
         CommunityPRPAIN201306UV02Builder builder = new CommunityPRPAIN201306UV02Builder();
 
-        builder.setHCIDExtractor(createMockHcidExtractor(value1, value2, ImmutableList.of("foo", "bar"),
-                ImmutableList.of("baz")));
+        builder.setHCIDExtractor(createMockHcidExtractor(value1, value2, ImmutableSet.of("foo", "bar"),
+                ImmutableSet.of("baz")));
         builder.setReturnValue(response);
 
         EventDescription eventDescription = getEventDescription(builder);
 
         assertEquals(3, eventDescription.getRespondingHCIDs().size());
-        assertEquals("foo", eventDescription.getRespondingHCIDs().get(0));
-        assertEquals("bar", eventDescription.getRespondingHCIDs().get(1));
-        assertEquals("baz", eventDescription.getRespondingHCIDs().get(2));
+        assertTrue(eventDescription.getRespondingHCIDs().contains("foo"));
+        assertTrue(eventDescription.getRespondingHCIDs().contains("bar"));
+        assertTrue(eventDescription.getRespondingHCIDs().contains("baz"));    
     }
 
     @Test
@@ -102,8 +104,8 @@ public class CommunityPRPAIN201306UV02BuilderTest extends BaseDescriptionBuilder
         CommunityPRPAIN201306UV02Builder builder = new CommunityPRPAIN201306UV02Builder();
 
         PRPAIN201306UV02StatusExtractor statusExtractor = mock(PRPAIN201306UV02StatusExtractor.class);
-        when(statusExtractor.apply(value1)).thenReturn(ImmutableList.of("status1", "status2"));
-        when(statusExtractor.apply(value2)).thenReturn(ImmutableList.of("status3"));
+        when(statusExtractor.apply(value1)).thenReturn(ImmutableSet.of("status1", "status2"));
+        when(statusExtractor.apply(value2)).thenReturn(ImmutableSet.of("status3"));
 
         builder.setStatusExtractor(statusExtractor);
         builder.setReturnValue(response);
@@ -111,9 +113,9 @@ public class CommunityPRPAIN201306UV02BuilderTest extends BaseDescriptionBuilder
         EventDescription eventDescription = getEventDescription(builder);
 
         assertEquals(3, eventDescription.getStatuses().size());
-        assertEquals("status1", eventDescription.getStatuses().get(0));
-        assertEquals("status2", eventDescription.getStatuses().get(1));
-        assertEquals("status3", eventDescription.getStatuses().get(2));
+        assertTrue(eventDescription.getStatuses().contains("status1"));
+        assertTrue(eventDescription.getStatuses().contains("status2"));
+        assertTrue(eventDescription.getStatuses().contains("status3"));
     }
 
     private RespondingGatewayPRPAIN201306UV02ResponseType createResponse(PRPAIN201306UV02... values) {
@@ -129,7 +131,7 @@ public class CommunityPRPAIN201306UV02BuilderTest extends BaseDescriptionBuilder
     }
 
     private PRPAIN201306UV02HCIDExtractor createMockHcidExtractor(PRPAIN201306UV02 value1, PRPAIN201306UV02 value2,
-            List<String> firstAnswer, List<String> secondAnswer) {
+            Set<String> firstAnswer, Set<String> secondAnswer) {
         PRPAIN201306UV02HCIDExtractor mock = mock(PRPAIN201306UV02HCIDExtractor.class);
         when(mock.apply(value1)).thenReturn(firstAnswer);
         when(mock.apply(value2)).thenReturn(secondAnswer);

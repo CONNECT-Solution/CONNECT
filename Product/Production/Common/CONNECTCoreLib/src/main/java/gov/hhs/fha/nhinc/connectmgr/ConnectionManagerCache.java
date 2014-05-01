@@ -43,6 +43,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.uddi.api_v3.Name;
 import org.apache.log4j.Logger;
 import org.uddi.api_v3.BindingTemplate;
 import org.uddi.api_v3.BusinessDetail;
@@ -342,6 +343,21 @@ public class ConnectionManagerCache implements ConnectionManager {
             return oUDDIEntity;
         }
         return oInternalEntity;
+    }
+    
+    @Override
+    public String getBusinessEntityName(String homeCommunityId) throws ConnectionManagerException{
+        BusinessEntity business = getBusinessEntity(homeCommunityId);
+        if(business != null && business.getName() != null){
+            for(Name name : business.getName()){
+                if(name != null && name.getValue() != null
+                    && !name.getValue().isEmpty()){
+                    return name.getValue();
+                }
+            }
+        }
+        
+        return null;
     }
 
     /*
