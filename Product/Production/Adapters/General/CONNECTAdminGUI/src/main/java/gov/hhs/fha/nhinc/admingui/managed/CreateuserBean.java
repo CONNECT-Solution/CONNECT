@@ -59,6 +59,8 @@ public class CreateuserBean {
     @Autowired
     private LoginService loginService;
 
+    CreateuserBean(){
+    }
     CreateuserBean(LoginService loginservice) {
         this.loginService = loginservice;
     }
