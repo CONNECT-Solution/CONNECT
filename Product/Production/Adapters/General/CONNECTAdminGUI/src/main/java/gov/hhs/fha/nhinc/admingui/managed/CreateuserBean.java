@@ -27,7 +27,6 @@
  *    */
 package gov.hhs.fha.nhinc.admingui.managed;
 
-import gov.hhs.fha.nhinc.admingui.hibernate.LoginServiceImpl;
 import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
@@ -54,13 +53,17 @@ public class CreateuserBean {
     private String password;
     private String role;
     public Boolean isCreated = false;
-
+   
     /**
      * The login service.
      */
     @Autowired
     private LoginService loginService;
-
+    
+    CreateuserBean(LoginService mockloginservice){
+        this.loginService=mockloginservice;
+   }
+  
     /**
      *
      * @return string which will navigate to relative view
@@ -82,14 +85,12 @@ public class CreateuserBean {
      */
     public boolean createUser() {
         boolean createdUser = false;
-        if (this.getUserName() != null && this.getPassword() != null) {
-        }
         Login user = new Login(userName, password);
         try {
             createdUser = loginService.addUser(user);
-            if (createdUser) {
-                FacesContext facesContext = FacesContext.getCurrentInstance();
-                HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+            if (createdUser) {                
+                //HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+                HttpSession session = getHttpSession();
                 session.setAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE, user);
             }
         } catch (UserLoginException e) {
@@ -97,6 +98,10 @@ public class CreateuserBean {
 
         }
         return createdUser;
+    }    
+    protected HttpSession getHttpSession(){
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        return session;
     }
 
     /**

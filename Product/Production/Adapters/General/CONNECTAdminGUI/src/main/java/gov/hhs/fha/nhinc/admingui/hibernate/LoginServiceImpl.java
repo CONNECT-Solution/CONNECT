@@ -35,7 +35,6 @@ import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.impl.SHA1PasswordService;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import java.io.IOException;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,16 +47,20 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class LoginServiceImpl implements LoginService {
 
-    private static Logger log = Logger.getLogger(LoginServiceImpl.class);
+    private static final Logger log = Logger.getLogger(LoginServiceImpl.class);
 
     @Autowired
     private UserLoginDAO userLoginDAO;
 
+    LoginServiceImpl(UserLoginDAO mockDao) {
+       this.userLoginDAO = mockDao;
+    }   
+    
     /**
      * The password service.
      */
     private PasswordService passwordService = new SHA1PasswordService();
-
+    
     /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.admingui.services.LoginService#login(gov.hhs.fha.nhinc.admingui.model.Login)
      */
