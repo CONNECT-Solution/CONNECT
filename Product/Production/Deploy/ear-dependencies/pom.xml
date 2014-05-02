@@ -11,7 +11,7 @@
     <packaging>pom</packaging>
     <name>CONNECT EAR - Dependencies</name>
     <description>CONNECT EAR - Dependencies</description>
-   
+
     <dependencies>
         <dependency>
             <groupId>org.connectopensource</groupId>
@@ -187,8 +187,8 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- Shared JARs - In order for the SKINNY WARs to work you must 
-            include each dependency in the EAR manually and the JARS will be magically 
+        <!-- Shared JARs - In order for the SKINNY WARs to work you must
+            include each dependency in the EAR manually and the JARS will be magically
             removed from the WAR's WEB-INF/lib -->
         <dependency>
             <groupId>org.connectopensource</groupId>
@@ -422,6 +422,12 @@
             <groupId>org.opensaml</groupId>
             <artifactId>xmltooling</artifactId>
             <version>1.3.2-1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bcprov-jdk15</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -462,7 +468,7 @@
             <artifactId>activation</artifactId>
         </dependency>
     </dependencies>
-    
+
     <profiles>
         <profile>
             <id>Direct</id>

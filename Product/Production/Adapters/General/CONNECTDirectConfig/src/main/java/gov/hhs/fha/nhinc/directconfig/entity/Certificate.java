@@ -47,6 +47,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 @Entity
 @Table(name = "certificate")
 /**
@@ -89,6 +92,8 @@ public class Certificate {
         else
             System.setProperty(JCE_PROVIDER_STRING_SYS_PARAM, name);
     }
+
+    private static final Log log = LogFactory.getLog(Certificate.class);
 
     public static final byte[] NULL_CERT = new byte[] {};
 
@@ -321,13 +326,18 @@ public class Certificate {
                 container = toCredential();
                 cert = container.getCert();
             } catch (CertificateException e) {
-                /* no-op */
+                log.debug("Cert Container conversion failed: ", e);
             }
 
             if (cert == null) {
                 // might be a URL for IPKIX
-                @SuppressWarnings("unused")
-                final URL url = new URL(new String(data, "ASCII"));
+                try {
+                    @SuppressWarnings("unused")
+                    final URL url = new URL(new String(data, "ASCII"));
+                } catch (Exception e) {
+                    // may not be a URL.. may be an encrypted stream that can't be accessed
+                    // set the thumbprint to empty because the cert must be decrtyped
+                }
 
                 setThumbprint("");
             } else {

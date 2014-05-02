@@ -261,8 +261,8 @@
         <!-- Dependencies with version in line with CONNECT -->
         <dependency>
             <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk15</artifactId>
-            <version>1.45</version>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.46</version>
         </dependency>
 
         <dependency>
