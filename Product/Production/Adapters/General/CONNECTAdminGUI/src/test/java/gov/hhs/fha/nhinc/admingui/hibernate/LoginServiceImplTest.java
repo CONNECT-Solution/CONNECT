@@ -65,6 +65,8 @@ public class LoginServiceImplTest {
         userLogin.setUserName("ABCD");
         userLogin.setSalt("SSSS");
         userLogin.setSha1("HHHHHHH"); 
+        login.setUserName("ABCD");
+        login.setPassword("ABCDEFGH"); 
 
 	UserLoginDAO mockDao =new UserLoginDAO(){            
 
@@ -87,8 +89,7 @@ public class LoginServiceImplTest {
     }
     @Test
     public void testAdduser_Pass() throws IOException, PasswordServiceException, UserLoginException {
-       login.setUserName("ABCD");
-       login.setPassword("ABCDEFGH");    
+   
        assertTrue(loginserviceImpl.addUser(login));
     }
 }
