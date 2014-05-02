@@ -59,8 +59,16 @@ public class CreateuserBean {
     @Autowired
     private LoginService loginService;
 
-    public CreateuserBean(){
+    /**
+     * default constructor
+     */
+    public CreateuserBean() {
     }
+
+    /**
+     *
+     * @param loginservice
+     */
     CreateuserBean(LoginService loginservice) {
         this.loginService = loginservice;
     }

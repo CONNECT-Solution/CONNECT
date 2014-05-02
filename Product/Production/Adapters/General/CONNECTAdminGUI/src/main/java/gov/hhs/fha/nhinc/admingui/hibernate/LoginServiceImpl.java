@@ -52,15 +52,25 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private UserLoginDAO userLoginDAO;
 
+    /**
+     * default constructor
+     */
+    public LoginServiceImpl() {
+    }
+
+    /**
+     *
+     * @param userLoginDao
+     */
     LoginServiceImpl(UserLoginDAO userLoginDao) {
-       this.userLoginDAO = userLoginDao;
-    }   
-    
+        this.userLoginDAO = userLoginDao;
+    }
+
     /**
      * The password service.
      */
     private PasswordService passwordService = new SHA1PasswordService();
-    
+
     /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.admingui.services.LoginService#login(gov.hhs.fha.nhinc.admingui.model.Login)
      */
@@ -99,7 +109,7 @@ public class LoginServiceImpl implements LoginService {
         } catch (PasswordServiceException e) {
             throw new UserLoginException("Error while calculating hash.", e);
         } catch (IOException ex) {
-            throw new UserLoginException("Error while calculating hash."+ex.getMessage());
+            throw new UserLoginException("Error while calculating hash." + ex.getMessage());
         }
 
         UserLogin userLoginEntity = new UserLogin();
