@@ -83,7 +83,6 @@ public class LoginServiceImplTest {
 
 	loginserviceImpl = new LoginServiceImpl(mockDao);
     }
-    
     @After
     public void tearDown() {
     }

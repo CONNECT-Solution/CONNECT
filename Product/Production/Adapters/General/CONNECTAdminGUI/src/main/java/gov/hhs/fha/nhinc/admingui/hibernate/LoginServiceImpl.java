@@ -52,8 +52,8 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private UserLoginDAO userLoginDAO;
 
-    LoginServiceImpl(UserLoginDAO mockDao) {
-       this.userLoginDAO = mockDao;
+    LoginServiceImpl(UserLoginDAO userLoginDao) {
+       this.userLoginDAO = userLoginDao;
     }   
     
     /**
