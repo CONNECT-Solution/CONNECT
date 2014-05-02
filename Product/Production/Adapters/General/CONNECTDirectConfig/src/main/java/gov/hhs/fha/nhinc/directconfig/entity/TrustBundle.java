@@ -17,7 +17,7 @@ BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUEN
 GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
 STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
 THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 
 package gov.hhs.fha.nhinc.directconfig.entity;
 
@@ -47,13 +47,13 @@ import javax.persistence.TemporalType;
 
 /**
  * JPA entity object for a trust bundle
+ * 
  * @author Greg Meyer
  * @since 1.2
  */
 @Entity
 @Table(name = "trustbundle")
-public class TrustBundle 
-{
+public class TrustBundle {
     private Long id;
     private String bundleName;
     private String bundleURL;
@@ -62,16 +62,15 @@ public class TrustBundle
     private int refreshInterval;
     private Calendar lastRefreshAttempt;
     private BundleRefreshError lastRefreshError;
-    private Calendar lastSuccessfulRefresh;    
-    private Calendar createTime;  
+    private Calendar lastSuccessfulRefresh;
+    private Calendar createTime;
     private String checkSum;
-    
-    public TrustBundle()
-    {
+
+    public TrustBundle() {
         refreshInterval = 0;
         checkSum = "";
     }
-    
+
     /**
      * Get the value of id.
      * 
@@ -80,293 +79,253 @@ public class TrustBundle
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getId() 
-    {
+    public Long getId() {
         return id;
     }
 
     /**
      * Set the value of id.
      * 
-     * @param id
-     *            The value of id.
+     * @param id The value of id.
      */
-    public void setId(Long id) 
-    {
+    public void setId(Long id) {
         this.id = id;
-    } 
-    
+    }
 
     /**
-     * Gets the value of the bundle name.  The bundle name must be unique
+     * Gets the value of the bundle name. The bundle name must be unique
      * 
      * @return the value of the bundle name
      */
     @Column(name = "bundleName", unique = true, nullable = false)
-    public String getBundleName()
-    {
+    public String getBundleName() {
         return bundleName;
     }
-    
+
     /**
-     * Set the value of the bundle name.  
+     * Set the value of the bundle name.
      * 
-     * @param bundleName
-     *            The value of the bundleName
+     * @param bundleName The value of the bundleName
      */
-    public void setBundleName(String bundleName)
-    {
+    public void setBundleName(String bundleName) {
         this.bundleName = bundleName;
     }
-    
+
     /**
-     * Gets the value of the bundle URL.  The URL specifies the location of the bundle
+     * Gets the value of the bundle URL. The URL specifies the location of the bundle
      * 
      * @return the value of the bundle URL
      */
     @Column(name = "bundleURL", nullable = false)
-    public String getBundleURL()
-    {
+    public String getBundleURL() {
         return bundleURL;
     }
-    
+
     /**
-     * Set the value of the bundle url.  
+     * Set the value of the bundle url.
      * 
-     * @param bundleURL
-     *            The value of the bundle URL
-     */    
-    public void setBundleURL(String bundleURL)
-    {
+     * @param bundleURL The value of the bundle URL
+     */
+    public void setBundleURL(String bundleURL) {
         this.bundleURL = bundleURL;
-    }    
-    
+    }
+
     /**
-     * Gets the value of the signing certificate as it DER encoded byte array.  The signing certificate validates the authenticity of a bundle. 
-     * It is optional and only used with signed bundles.
+     * Gets the value of the signing certificate as it DER encoded byte array. The signing certificate validates the
+     * authenticity of a bundle. It is optional and only used with signed bundles.
      * 
      * @return the value of the signing certificate
      */
-    @Column(name = "signingCertificateData", length=4096)
+    @Column(name = "signingCertificateData", length = 4096)
     @Lob
-    public byte[] getSigningCertificateData() 
-    {
+    public byte[] getSigningCertificateData() {
         return signingCertificateData;
     }
 
     /**
      * Set the value of the signing certificate
      * 
-     * @param signingCertificateData
-     *            The value of the signing certificate
-     */  
-    public void setSigningCertificateData(byte[] signingCertificateData) throws CertificateException 
-    {
+     * @param signingCertificateData The value of the signing certificate
+     */
+    public void setSigningCertificateData(byte[] signingCertificateData) throws CertificateException {
         this.signingCertificateData = signingCertificateData;
-    }    
+    }
 
     /**
      * Gets the value of the bundle refresh interval in seconds.
      * 
      * @return the value of the bundle refresh interval
-     */    
+     */
     @Column(name = "refreshInterval")
-    public int getRefreshInterval() 
-    {
+    public int getRefreshInterval() {
         return refreshInterval;
     }
 
     /**
      * Set the value of the bundle refresh interval in seconds
      * 
-     * @param refreshInterval
-     *            The value of the bundle refresh interval
-     */  
-    public void setRefreshInterval(int refreshInterval) 
-    {
+     * @param refreshInterval The value of the bundle refresh interval
+     */
+    public void setRefreshInterval(int refreshInterval) {
         this.refreshInterval = refreshInterval;
-    } 
-    
+    }
+
     /**
      * Get the value of createTime.
      * 
      * @return the value of createTime.
      */
-    @Column(name = "createTime", nullable = false)    
+    @Column(updatable = false, nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    public Calendar getCreateTime() 
-    {
+    public Calendar getCreateTime() {
         return createTime;
     }
 
     /**
      * Set the value of createTime.
      * 
-     * @param timestamp
-     *            The value of createTime.
+     * @param timestamp The value of createTime.
      */
-    public void setCreateTime(Calendar timestamp) 
-    {
+    public void setCreateTime(Calendar timestamp) {
         createTime = timestamp;
-    }    
+    }
 
     /**
-     * Get the value of the last successful refresh date time.  This time represents
-     * the last time a successful refresh operation was performed.
+     * Get the value of the last successful refresh date time. This time represents the last time a successful refresh
+     * operation was performed.
      * 
      * @return the value of the last successful refresh date time.
      */
     @Column(name = "lastSuccessfulRefresh")
     @Temporal(TemporalType.TIMESTAMP)
-    public Calendar getLastSuccessfulRefresh() 
-    {
+    public Calendar getLastSuccessfulRefresh() {
         return lastSuccessfulRefresh;
     }
 
     /**
      * Set the value of the last successful refresh date time
      * 
-     * @param lastSuccessfulRefresh
-     *            The value of the last successful refresh date time
-     */    
-    public void setLastSuccessfulRefresh(Calendar lastSuccessfulRefresh) 
-    {
+     * @param lastSuccessfulRefresh The value of the last successful refresh date time
+     */
+    public void setLastSuccessfulRefresh(Calendar lastSuccessfulRefresh) {
         this.lastSuccessfulRefresh = lastSuccessfulRefresh;
-    }  
- 
+    }
+
     /**
-     * Get the value of the last refresh attempt date time.  This time represents
-     * the last time a refresh operation was attempted.  It is updated regardless
-     * if the refresh operation is successful or not.
+     * Get the value of the last refresh attempt date time. This time represents the last time a refresh operation was
+     * attempted. It is updated regardless if the refresh operation is successful or not.
      * 
      * @return the value of the last refresh attempt date time
      */
     @Column(name = "lastRefreshAttempt")
     @Temporal(TemporalType.TIMESTAMP)
-    public Calendar getLastRefreshAttempt() 
-    {
+    public Calendar getLastRefreshAttempt() {
         return lastRefreshAttempt;
     }
 
     /**
      * Set the value of the last refresh attempt date time.
      * 
-     * @param lastRefreshAttempt
-     *            The value of the last refresh attempt date time.
-     */  
-    public void setLastRefreshAttempt(Calendar lastRefreshAttempt) 
-    {
+     * @param lastRefreshAttempt The value of the last refresh attempt date time.
+     */
+    public void setLastRefreshAttempt(Calendar lastRefreshAttempt) {
         this.lastRefreshAttempt = lastRefreshAttempt;
-    }  
-    
+    }
+
     /**
-     * Get the value of the last refresh error.  
+     * Get the value of the last refresh error.
      * 
      * @return the value of the last refresh error.
-     */    
+     */
     @Column(name = "lastRefreshError")
     @Enumerated
-    public BundleRefreshError getLastRefreshError() 
-    {
+    public BundleRefreshError getLastRefreshError() {
         return lastRefreshError;
     }
 
     /**
      * Set the value of the last refresh error.
      * 
-     * @param lastRefreshError
-     *            The value of the last refresh error.
-     */     
-    public void setLastRefreshError(BundleRefreshError lastRefreshError) 
-    {
+     * @param lastRefreshError The value of the last refresh error.
+     */
+    public void setLastRefreshError(BundleRefreshError lastRefreshError) {
         this.lastRefreshError = lastRefreshError;
-    } 
+    }
 
     /**
      * Get the value of the collection of trust anchors contained within the bundle
      * 
      * @return collection of trust anchors contained within the bundle
-     */ 
+     */
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "trustBundle")
-    public Collection<TrustBundleAnchor> getTrustBundleAnchors() 
-    {
-        if (trustBundleAnchors == null) 
-        {
+    public Collection<TrustBundleAnchor> getTrustBundleAnchors() {
+        if (trustBundleAnchors == null) {
             trustBundleAnchors = new ArrayList<TrustBundleAnchor>();
         }
         return trustBundleAnchors;
     }
-    
+
     /**
      * Set the value of the collection of trust anchors contained within the bundle
      * 
-     * @param trustBundleAnchors
-     *            The value of the collection of trust anchors contained within the bundle
-     */     
-    public void setTrustBundleAnchors(Collection<TrustBundleAnchor> trustBundleAnchors) 
-    {
+     * @param trustBundleAnchors The value of the collection of trust anchors contained within the bundle
+     */
+    public void setTrustBundleAnchors(Collection<TrustBundleAnchor> trustBundleAnchors) {
         this.trustBundleAnchors = trustBundleAnchors;
     }
-    
+
     /**
-     * Get the value of the bundle check sum.  
+     * Get the value of the bundle check sum.
      * 
-     * @return collection of the bundle check sum.  
-     */ 
+     * @return collection of the bundle check sum.
+     */
     @Column(name = "getCheckSum", nullable = false)
-    public String getCheckSum()
-    {
+    public String getCheckSum() {
         return checkSum;
     }
-   
+
     /**
-     * Set the value of the bundle check sum. 
+     * Set the value of the bundle check sum.
      * 
-     * @param checkSum
-     *            The value of the bundle check sum. 
-     */  
-    public void setCheckSum(String checkSum)
-    {
+     * @param checkSum The value of the bundle check sum.
+     */
+    public void setCheckSum(String checkSum) {
         this.checkSum = checkSum;
     }
-    
+
     /**
      * Converts the signing data into an X509 certificate
+     * 
      * @return The signing data as an X509 certificate
      * @throws CertificateException
      */
-    public X509Certificate toSigningCertificate() throws CertificateException 
-    {
+    public X509Certificate toSigningCertificate() throws CertificateException {
         X509Certificate cert = null;
-        try 
-        {
+        try {
             validate();
             ByteArrayInputStream bais = new ByteArrayInputStream(signingCertificateData);
             cert = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(bais);
             bais.close();
-        } 
-        catch (Exception e) 
-        {
+        } catch (Exception e) {
             throw new CertificateException("Data cannot be converted to a valid X.509 Certificate", e);
         }
-        
+
         return cert;
-    } 
-    
+    }
+
     /**
      * Validates that the bundle has valid and complete data
+     * 
      * @throws CertificateException
      */
-    public void validate() throws CertificateException 
-    {
-        if (!hasData()) 
-        {
+    public void validate() throws CertificateException {
+        if (!hasData()) {
             throw new CertificateException("Invalid Certificate: no certificate data exists");
         }
-    } 
-    
-    private boolean hasData()
-    {
-        return ((signingCertificateData != null) && (!signingCertificateData.equals(Certificate.NULL_CERT))) ? true : false;
+    }
+
+    private boolean hasData() {
+        return ((signingCertificateData != null) && (!signingCertificateData.equals(Certificate.NULL_CERT))) ? true
+                : false;
     }
 }

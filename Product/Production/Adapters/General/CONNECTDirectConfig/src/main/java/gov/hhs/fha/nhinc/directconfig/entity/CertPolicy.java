@@ -18,19 +18,17 @@ import org.nhindirect.policy.PolicyLexicon;
 
 @Entity
 @Table(name = "certpolicy")
-public class CertPolicy 
-{
+public class CertPolicy {
     private Long id;
     private String policyName;
     private PolicyLexicon lexicon;
     private byte[] policyData;
-    private Calendar createTime;      
-    
-    public CertPolicy()
-    {
-        
+    private Calendar createTime;
+
+    public CertPolicy() {
+
     }
-    
+
     /**
      * Get the value of id.
      * 
@@ -39,88 +37,76 @@ public class CertPolicy
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getId() 
-    {
+    public Long getId() {
         return id;
     }
-    
+
     /**
      * Set the value of id.
      * 
-     * @param id
-     *            The value of id.
+     * @param id The value of id.
      */
-    public void setId(Long id) 
-    {
+    public void setId(Long id) {
         this.id = id;
-    } 
-    
+    }
+
     @Enumerated
     @Column(name = "lexicon", nullable = false)
     @XmlAttribute
-    public PolicyLexicon getLexicon()
-    {
+    public PolicyLexicon getLexicon() {
         return lexicon;
     }
-    
-    public void setLexicon(PolicyLexicon lexicon)
-    {
+
+    public void setLexicon(PolicyLexicon lexicon) {
         this.lexicon = lexicon;
     }
-    
+
     /**
      * Get the value of policyName.
      * 
      * @return the value of policyName.
      */
     @Column(name = "policyName", unique = true)
-    public String getPolicyName() 
-    {
+    public String getPolicyName() {
         return policyName;
-    }    
+    }
 
-    
     /**
      * Gets the value of policyName.
+     * 
      * @param policyName Get the value of policyName.
      */
-    public void setPolicyName(String policyName)
-    {
+    public void setPolicyName(String policyName) {
         this.policyName = policyName;
     }
-    
-    @Column(name = "data", nullable = false, length=204800)
+
+    @Column(name = "data", nullable = false, length = 204800)
     @Lob
-    public byte[] getPolicyData()
-    {
+    public byte[] getPolicyData() {
         return policyData;
     }
-    
-    public void setPolicyData(byte[] policyData)
-    {
+
+    public void setPolicyData(byte[] policyData) {
         this.policyData = policyData;
     }
-    
+
     /**
      * Get the value of createTime.
      * 
      * @return the value of createTime.
      */
-    @Column(name = "createTime", nullable = false)    
+    @Column(updatable = false, nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    public Calendar getCreateTime() 
-    {
+    public Calendar getCreateTime() {
         return createTime;
     }
 
     /**
      * Set the value of createTime.
      * 
-     * @param timestamp
-     *            The value of createTime.
+     * @param timestamp The value of createTime.
      */
-    public void setCreateTime(Calendar timestamp) 
-    {
+    public void setCreateTime(Calendar timestamp) {
         createTime = timestamp;
-    }       
+    }
 }

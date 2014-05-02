@@ -28,13 +28,13 @@ import java.util.Calendar;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Column;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -43,7 +43,6 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
 
 @Entity
 @Table(name = "domain")
@@ -76,8 +75,7 @@ public class Domain {
     /**
      * Construct a Domain.
      * 
-     * @param aName
-     *            The domain name.
+     * @param aName The domain name.
      */
     public Domain(String aName) {
         setDomainName(aName);
@@ -102,8 +100,7 @@ public class Domain {
     /**
      * Set the value of id.
      * 
-     * @param anId
-     *            The value of id.
+     * @param anId The value of id.
      */
     public void setId(Long anId) {
         id = anId;
@@ -124,6 +121,7 @@ public class Domain {
      * 
      * @return the value of createTime.
      */
+    @Column(updatable = false, nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     public Calendar getCreateTime() {
         return createTime;
@@ -142,8 +140,7 @@ public class Domain {
     /**
      * Set the value of postmasterAddressId.
      * 
-     * @param anId
-     *            The value of postmasterAddressId.
+     * @param anId The value of postmasterAddressId.
      */
     public void setPostmasterAddressId(Long anId) {
         postmasterAddressId = anId;
@@ -174,8 +171,7 @@ public class Domain {
     /**
      * Set the value of domainName.
      * 
-     * @param aName
-     *            The value of domainName.
+     * @param aName The value of domainName.
      */
     public void setDomainName(String aName) {
         domainName = aName;
@@ -184,8 +180,7 @@ public class Domain {
     /**
      * Set the value of createTime.
      * 
-     * @param timestamp
-     *            The value of createTime.
+     * @param timestamp The value of createTime.
      */
     public void setCreateTime(Calendar timestamp) {
         createTime = timestamp;
@@ -194,8 +189,7 @@ public class Domain {
     /**
      * Set the value of updateTime.
      * 
-     * @param timestamp
-     *            The value of updateTime.
+     * @param timestamp The value of updateTime.
      */
     public void setUpdateTime(Calendar timestamp) {
 
@@ -205,16 +199,15 @@ public class Domain {
     /**
      * Set the value of status.
      * 
-     * @param aStatus
-     *            The value of status.
+     * @param aStatus The value of status.
      */
     public void setStatus(EntityStatus aStatus) {
         status = aStatus;
     }
 
     /**
-     * If we have an email address id, then search through the collection of
-     * addresses to find an id match and return it.
+     * If we have an email address id, then search through the collection of addresses to find an id match and return
+     * it.
      * 
      * @return the postmaster email address.
      */
@@ -234,15 +227,16 @@ public class Domain {
     }
 
     /**
-     * Process according to the following table: <p>
-     *           id       name      action<br>
-     *           0/Null   0/Null    None<br>
-     *           Not Null 0/Null    Set Id to null.  Don't remove the Address<br>
-     *           0/Null   Not Null  Add to Address if not there, set Id<br>
-     *           Not Null Not Null  if id.address = address then None, otherwise update id </p>
+     * Process according to the following table:
+     * <p>
+     * id name action<br>
+     * 0/Null 0/Null None<br>
+     * Not Null 0/Null Set Id to null. Don't remove the Address<br>
+     * 0/Null Not Null Add to Address if not there, set Id<br>
+     * Not Null Not Null if id.address = address then None, otherwise update id
+     * </p>
      * 
-     * @param email
-     *            The postmaster email address.
+     * @param email The postmaster email address.
      */
     public void setPostMasterEmail(String email) {
 
@@ -292,8 +286,7 @@ public class Domain {
     /**
      * Set the value of addresses.
      * 
-     * @param addresses
-     *            the value of addresses
+     * @param addresses the value of addresses
      */
     public void setAddresses(Collection<Address> addresses) {
         this.addresses = addresses;
