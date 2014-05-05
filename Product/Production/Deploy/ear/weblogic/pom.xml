@@ -43,8 +43,7 @@
                     <packagingExcludes>
                         lib/geronimo-stax-api-*.jar,
                         lib/jsr173-*.jar,
-                        lib/Properties-*.jar,
-                        *CONNECTAdminGUI*.war
+                        lib/Properties-*.jar
                     </packagingExcludes>
                 </configuration>
             </plugin>
