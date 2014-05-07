@@ -30,9 +30,10 @@ package gov.hhs.fha.nhinc.admingui.managed;
  *
  * @author sadusumilli / jasonasmith
  */
-import gov.hhs.fha.nhinc.admingui.event.model.EventNwhinOrganization;
-import gov.hhs.fha.nhinc.admingui.event.service.EventCountService;
+import gov.hhs.fha.nhinc.admingui.dashboard.DashboardObserver;
+import gov.hhs.fha.nhinc.admingui.dashboard.DashboardPanel;
 import java.util.List;
+import java.util.Set;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,12 +44,28 @@ import org.springframework.stereotype.Component;
 @Component
 public class DashboardBean {
 
-    @Autowired
-    private EventCountService eventCountService;
+    @Autowired 
+    private DashboardObserver dashboardObserver;
     
-    public List<EventNwhinOrganization> getTotalEvents() {
-        eventCountService.setCounts();
+    public void setUp(){
         
-        return eventCountService.getTotalOrganizations();
+        //TODO check for user preferences
+        dashboardObserver.setDefaultPanels();
+    }
+    
+    public List<DashboardPanel> getPanels(){
+        return dashboardObserver.getOpenDashboardPanels();
+    }
+      
+    public String getAllProperties(){
+        StringBuilder builder = new StringBuilder();
+        Set keys = System.getProperties().keySet();
+        
+        for(Object key : keys){
+            builder.append((String) key).append(" : ")
+                .append((String) System.getProperty((String) key)).append("\n");
+        }
+        
+        return builder.toString();
     }
 }

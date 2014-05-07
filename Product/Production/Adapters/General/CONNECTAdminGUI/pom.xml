@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
   http://maven.apache.org/maven-v4_0_0.xsd">
 
     <parent>
@@ -12,7 +12,7 @@
     <artifactId>CONNECTAdminGUI</artifactId>
     <packaging>war</packaging>
     <name>CONNECT Administration GUI</name>
-
+    
     <dependencies>
         <dependency>
             <groupId>org.connectopensource</groupId>
@@ -38,7 +38,7 @@
                 </exclusion>
                 <exclusion>
                     <!-- exclude and use <artifactId>cglib-nodep</artifactId> 
-                        to include the asm it needs in a private package space. -->
+                    to include the asm it needs in a private package space. -->
                     <groupId>cglib</groupId>
                     <artifactId>cglib</artifactId>
                 </exclusion>
@@ -51,7 +51,7 @@
 
         <dependency>
             <!-- Used to include the asm it needs in a private package 
-                space. -->
+            space. -->
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
         </dependency>
@@ -221,4 +221,5 @@
             </plugin>
         </plugins>
     </build>
+    
 </project>

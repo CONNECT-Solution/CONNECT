@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.event.model;
 
 import gov.hhs.fha.nhinc.event.Event;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Modeled Event for Hibernate Mapping.
@@ -42,7 +44,8 @@ public class DatabaseEvent implements Event {
     private String initiatorHcid;
     private String respondingHcid;
     private String eventName;
-        
+    private Date eventTime;
+
     /**
      * @return the id
      */
@@ -128,6 +131,19 @@ public class DatabaseEvent implements Event {
     @Override
     public String getRespondingHcid() {
         return respondingHcid;
+    }
+    
+    public Date getEventTime() {
+        return eventTime;
+    }
+
+    public void setEventTime(Date eventTime) {
+        this.eventTime = eventTime;
+    }
+    
+    public String getFormattedEventTime(){
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm");
+        return sdf.format(eventTime);
     }
     
 }

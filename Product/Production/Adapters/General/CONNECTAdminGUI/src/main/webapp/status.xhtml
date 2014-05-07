@@ -30,6 +30,9 @@
 
 </head>
 
+    <f:event listener="#{eventBean.setUp}" type="preRenderView" />
+    <f:event listener="#{dashboardBean.setUp}" type="preRenderView" />
+    
 <body>
 
     <div class="container-fluid" style="height: 100%;">
@@ -144,104 +147,22 @@
                     <!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
 
                     <!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
-                    <div class="tab-content">
+                    <div class="tab-content">                
                         <!-- BEGIN: TAB PANE - GATEWAY STATUS DASHBOARD -->
                         <div class="tab-pane active" id="dash">
                             <div class="content-block">
-                                <!-- BEGIN: GATEWAY STATUS - ROW 1 -->
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <div class="kpi-block">
-                                            <h2 class="subsection-header">Server Uptime</h2>
-                                            <div class="kpi-value-a">10 days</div>
-                                            <div class="kpi-value-b">18:35:07.288</div>
-                                            <div class="kpi-footer">
-                                                <a href="#">VIEW HISTORY <i class="glyphicon glyphicon-chevron-right"></i></a>
-                                            </div>
+                                    <ui:repeat var="panelDb" value="#{dashboardBean.panels}" varStatus="status">
+                                        <div class="col-xs-3">
+                                                <div class="kpi-block">
+                                                    <h2 class="subsection-header">#{panelDb.type}</h2>
+                                                    <div class="kpi-value-b">#{panelDb.title}</div>
+                                                    <div class="kpi-value-c">#{panelDb.description}</div>
+                                                    <div class="kpi-footer">
+                                                        <a href="#">VIEW HISTORY <i class="glyphicon glyphicon-chevron-right"></i></a>
+                                                    </div>
+                                                </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <div class="kpi-block">
-                                            <h2 class="subsection-header">Memory Usage</h2>
-                                            <div class="kpi-value-a">65.9 MB</div>
-                                            <div class="kpi-value-b">
-                                                <i class="caret-kpi-up"></i> 17%
-                                            </div>
-                                            <div class="kpi-footer">
-                                                <a href="#">VIEW HISTORY <i class="glyphicon glyphicon-chevron-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <div class="kpi-block">
-                                            <h2 class="subsection-header">CPU Usage</h2>
-                                            <div class="kpi-value-a">30%</div>
-                                            <div class="kpi-value-b">
-                                                <i class="caret-kpi-down"></i> 2.2%
-                                            </div>
-                                            <div class="kpi-footer">
-                                                <a href="#">VIEW HISTORY <i class="glyphicon glyphicon-chevron-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <div class="kpi-block">
-                                            <h2 class="subsection-header">Disk I/O</h2>
-                                            <div class="kpi-value-a">0.77 GB</div>
-                                            <div class="kpi-value-b">
-                                                <i class="caret-kpi-down"></i> 8%
-                                            </div>
-                                            <div class="kpi-footer">
-                                                <a href="#">VIEW HISTORY <i class="glyphicon glyphicon-chevron-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- END: GATEWAY STATUS - ROW 1 -->
-                                <!-- BEGIN: GATEWAY STATUS - ROW 2 -->
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <div class="kpi-block">
-                                            <h2 class="subsection-header">OS version</h2>
-                                            <div class="kpi-value-a">CGIX</div>
-                                            <div class="kpi-value-b">2.77.1026</div>
-                                            <div class="kpi-footer">
-                                                <a href="#">VIEW HISTORY <i class="glyphicon glyphicon-chevron-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <div class="kpi-block">
-                                            <h2 class="subsection-header">App Server Version</h2>
-                                            <div class="kpi-value-a">J2EE</div>
-                                            <div class="kpi-value-b">1.4</div>
-                                            <div class="kpi-footer">
-                                                <a href="#">VIEW HISTORY <i class="glyphicon glyphicon-chevron-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <div class="kpi-block">
-                                            <h2 class="subsection-header">JDK Version</h2>
-                                            <div class="kpi-value-a">JDK</div>
-                                            <div class="kpi-value-b">1.7.0_45-b18</div>
-                                            <div class="kpi-footer">
-                                                <a href="#">VIEW HISTORY <i class="glyphicon glyphicon-chevron-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <div class="kpi-block">
-                                            <h2 class="subsection-header">&lt;Title&gt;</h2>
-                                            <div class="kpi-value-a">&nbsp;</div>
-                                            <div class="kpi-value-b">&nbsp;</div>
-                                            <div class="kpi-footer">
-                                                <a href="#">VIEW HISTORY <i class="glyphicon glyphicon-chevron-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- END: GATEWAY STATUS - ROW 2 -->
+                                </ui:repeat>
                             </div>
                         </div>
                         <!-- END: TAB PANE - GATEWAY STATUS DASHBOARD -->
@@ -266,7 +187,7 @@
                                 <h2 class="subsection-header">Remote Gateway List</h2>
                                 <div class="table-responsive">
 
-                                    <h:dataTable id="dashboardId" value="#{dashboardBean.totalEvents}"
+                                    <h:dataTable id="dashboardId" value="#{eventBean.totalEvents}"
                                         var="organization" styleClass="table table-striped table-remotegateways">
                                         <h:column>
                                             <f:facet name="header">Gateway</f:facet>

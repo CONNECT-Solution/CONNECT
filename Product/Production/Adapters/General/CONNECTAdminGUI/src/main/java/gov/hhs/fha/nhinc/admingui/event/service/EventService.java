@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.admingui.event.service;
 
 import gov.hhs.fha.nhinc.admingui.event.model.EventNwhinOrganization;
+import gov.hhs.fha.nhinc.event.model.DatabaseEvent;
 import java.util.List;
 
 /**
@@ -34,7 +35,7 @@ import java.util.List;
  *  Can display by total, inbound, and outbound;
  * @author jasonasmith
  */
-public interface EventCountService {
+public interface EventService {
     
     /**
      * Sets the total counts of inbound and outbound organization cache for events per NwHIN service.
@@ -58,4 +59,8 @@ public interface EventCountService {
      * @return 
      */
     public List<EventNwhinOrganization> getOutboundOrganizations();
+    
+    public DatabaseEvent getLatestInbound();
+    
+    public DatabaseEvent getLatestOutbound();
 }
