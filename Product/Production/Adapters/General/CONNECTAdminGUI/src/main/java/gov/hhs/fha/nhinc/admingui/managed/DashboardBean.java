@@ -55,8 +55,8 @@ public class DashboardBean {
     
     public List<DashboardPanel> getPanels(){
         return dashboardObserver.getOpenDashboardPanels();
-    }
-      
+    } 
+    
     public String getAllProperties(){
         StringBuilder builder = new StringBuilder();
         Set keys = System.getProperties().keySet();
@@ -67,5 +67,5 @@ public class DashboardBean {
         }
         
         return builder.toString();
-    }
+    }  
 }

@@ -16,7 +16,7 @@
  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*
+ *
  */
 package gov.hhs.fha.nhinc.admingui.dashboard;
 
@@ -40,7 +40,9 @@ public class DashboardObserverImpl implements DashboardObserver {
 
     private final List<DashboardPanel> openPanels = new ArrayList<DashboardPanel>();
     private final List<DashboardPanel> closedPanels = new ArrayList<DashboardPanel>();
-    
+
+    private boolean started = false;
+
     @Override
     public List<DashboardPanel> getOpenDashboardPanels() {
         return openPanels;
@@ -48,9 +50,9 @@ public class DashboardObserverImpl implements DashboardObserver {
 
     @Override
     public void closePanel(Class c) {
-        for(int i = 0; i < openPanels.size(); i++){
+        for (int i = 0; i < openPanels.size(); i++) {
             DashboardPanel panel = openPanels.get(i);
-            if(panel.getClass().equals(c)){
+            if (panel.getClass().equals(c)) {
                 closedPanels.add(openPanels.remove(i));
                 break;
             }
@@ -64,22 +66,25 @@ public class DashboardObserverImpl implements DashboardObserver {
 
     @Override
     public void save(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void setDefaultPanels() {
-        openPanels.add(new DashboardLastInbound(this, false).setData());
-        openPanels.add(new DashboardLastOutbound(this, false).setData());
-        openPanels.add(new DashboardMemory(this, false).setData());
-        openPanels.add(new DashboardOs(this, false).setData());
-        openPanels.add(new DashboardJava(this, false).setData());        
-        openPanels.add(new DashboardAppServer(this, true).setData());
+        if (!started) {
+            openPanels.add(new DashboardLastInbound(this, false).setData());
+            openPanels.add(new DashboardLastOutbound(this, false).setData());
+            openPanels.add(new DashboardMemory(this, false).setData());
+            openPanels.add(new DashboardOs(this, false).setData());
+            openPanels.add(new DashboardJava(this, false).setData());
+            openPanels.add(new DashboardAppServer(this, true).setData());
+            started = true;
+        }
     }
 
     @Override
     public void setUserPanels(User user) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
 }
