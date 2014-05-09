@@ -155,7 +155,6 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
      */
     public DefaultBundleRefreshProcessorImpl() {
         OptionsParameter allowNonVerSSLParam = OptionsManager.getInstance().getParameter(BUNDLE_REFRESH_PROCESSOR_ALLOW_DOWNLOAD_FROM_UNTRUSTED);
-        ///CLOVER:OFF
         if (OptionsParameter.getParamValueAsBoolean(allowNonVerSSLParam, false)) {
             try {
                 TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
@@ -188,8 +187,7 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
             } catch (Exception e) {
 
             }
-        }
-        ///CLOVER:ON
+        }        
     }
 
     /**
@@ -218,12 +216,11 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
             try {
                 checkSum = BundleThumbprint.toThumbprint(rawBundle).toString();
                 update = !bundle.getCheckSum().equals(BundleThumbprint.toThumbprint(rawBundle).toString());
-            } ///CLOVER:OFF
+            }
             catch (NoSuchAlgorithmException ex) {
                 dao.updateLastUpdateError(bundle.getId(), processAttempStart, BundleRefreshError.INVALID_BUNDLE_FORMAT);
                 log.error("Failed to generate downloaded bundle thumbprint ", ex);
             }
-            ///CLOVER:ON
         }
 
         if (!update) {
@@ -248,11 +245,10 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
                     anchorToAdd.setTrustBundle(bundle);
 
                     newAnchors.add(anchorToAdd);
-                } ///CLOVER:OFF
+                } 
                 catch (Exception e) {
                     log.warn("Failed to convert downloaded anchor to byte array. ", e);
                 }
-                ///CLOVER:ON
             }
 
             bundle.setTrustBundleAnchors(newAnchors);
@@ -380,11 +376,11 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
             }
 
             retVal = ouStream.toByteArray();
-        } ///CLOVER:OFF
+        } 
         catch (SocketTimeoutException e) {
             dao.updateLastUpdateError(bundle.getId(), processAttempStart, BundleRefreshError.DOWNLOAD_TIMEOUT);
             log.warn("Failed to download bundle from URL " + bundle.getBundleURL(), e);
-        } ///CLOVER:ON
+        } 
         catch (Exception e) {
             dao.updateLastUpdateError(bundle.getId(), processAttempStart, BundleRefreshError.NOT_FOUND);
             log.warn("Failed to download bundle from URL " + bundle.getBundleURL(), e);
