@@ -101,15 +101,6 @@ public class DefaultBundleCacheUpdateProcessorImpl implements BundleCacheUpdateP
     }
 
     /**
-     * Sets the trust bundle dao used to get the last refresh date/time.
-     *
-     * @param dao
-     */
-    public void setDao(TrustBundleDao dao) {
-        this.dao = dao;
-    }
-
-    /**
      * Sets the {@link BundleRefreshProcessor} used to refresh a bundle the bundle's refresh interval has been exceeded.
      *
      * @param refreshProcessor The {@link BundleRefreshProcessor}.
