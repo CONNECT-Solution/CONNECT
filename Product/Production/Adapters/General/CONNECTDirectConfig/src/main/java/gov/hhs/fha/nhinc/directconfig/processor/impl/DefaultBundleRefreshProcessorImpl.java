@@ -62,12 +62,14 @@ import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundle;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleAnchor;
 import gov.hhs.fha.nhinc.directconfig.dao.TrustBundleDao;
+import javax.annotation.PostConstruct;
 
 import org.nhindirect.stagent.CryptoExtensions;
 import org.nhindirect.stagent.options.OptionsManager;
 import org.nhindirect.stagent.options.OptionsParameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  * Camel based implementation of the {@linkplain BundleRefreshProcessor} interface.
@@ -93,7 +95,7 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
     protected static final int DEFAULT_URL_READ_TIMEOUT = 10000; // 10 hour seconds
 
     private static final Log log = LogFactory.getLog(DefaultBundleRefreshProcessorImpl.class);
-
+        
     @Autowired
     protected TrustBundleDao dao;
 
@@ -103,7 +105,13 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
 
         initJVMParams();
     }
-
+    
+    @PostConstruct
+    public void init() {
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+        log.info("SettingService initialized");
+    }
+    
     /**
      * Initializes system preferences using the Direct {@link OptionsManager} pattern.
      */
@@ -345,6 +353,15 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
         return (Collection<X509Certificate>)bundleCerts;
     }
 
+    /**
+	 * Sets the trust bundle DAO for updating the bundle storage medium.
+	 * @param dao The trust bundle DAOP
+	 */
+	public void setDao(TrustBundleDao dao)
+	{
+		this.dao = dao;
+	}
+    
     /**
      * Downloads a bundle from the bundle's URL and returns the result as a byte array.
      * @param bundle The bundle that will be downloaded.
