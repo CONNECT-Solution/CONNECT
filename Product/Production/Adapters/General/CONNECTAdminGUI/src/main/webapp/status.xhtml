@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
-<head>
+<h:head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <meta charset="utf-8" />
@@ -12,7 +12,8 @@
 <link rel="icon" href="resources/images/favicon-admingui.ico" type="image/x-icon" />
 
 <title>Gateway Administrative Console : Gateway Status</title>
-
+</h:head>
+    
 <!-- Bootstrap core CSS -->
 <link href="resources/css/bootstrap.css" rel="stylesheet" />
 
@@ -21,14 +22,6 @@
 
 <!-- Tablesort theme CSS -->
 <link href="resources/css/theme.default.css" rel="stylesheet" />
-
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
-
-</head>
 
     <f:event listener="#{eventBean.setUp}" type="preRenderView" />
     <f:event listener="#{dashboardBean.setUp}" type="preRenderView" />
@@ -151,18 +144,9 @@
                         <!-- BEGIN: TAB PANE - GATEWAY STATUS DASHBOARD -->
                         <div class="tab-pane active" id="dash">
                             <div class="content-block">
-                                    <ui:repeat var="panelDb" value="#{dashboardBean.panels}" varStatus="status">
-                                        <div class="col-xs-3">
-                                                <div class="kpi-block">
-                                                    <h2 class="subsection-header">#{panelDb.type}</h2>
-                                                    <div class="kpi-value-b">#{panelDb.title}</div>
-                                                    <div class="kpi-value-c">#{panelDb.description}</div>
-                                                    <div class="kpi-footer">
-                                                        <a href="#">VIEW HISTORY <i class="glyphicon glyphicon-chevron-right"></i></a>
-                                                    </div>
-                                                </div>
-                                        </div>
-                                </ui:repeat>
+                                <ui:insert name="dash_insert">
+                                    <ui:include src="DashboardPrime.xhtml"/>
+                                </ui:insert>
                             </div>
                         </div>
                         <!-- END: TAB PANE - GATEWAY STATUS DASHBOARD -->

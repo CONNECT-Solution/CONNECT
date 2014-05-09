@@ -4,8 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:p="http://primefaces.org/ui">
 
     <!-- Bootstrap core CSS -->
     <link href="resources/css/bootstrap.css" rel="stylesheet" />
@@ -20,15 +19,16 @@
         <title>Facelet Title</title>
     </h:head>
 
-    <f:event listener="#{dashboardBean.setUp}" type="preRenderView" />
-
     <h:body>
-        
-        <h:outputStylesheet name="css/pr-override.css" />
-        
-        <h:form>
-        <p:dashboard id="admingui_dashboard" binding="#{dashboardBacker.dashboard}" style=".ui-dashboard-column {width:200px;}"/>
-        </h:form>
+        <ui:composition id="admin_comp">
+            <f:facet name="last">
+                <h:outputStylesheet name="css/pr-override.css" />
+            </f:facet>
+
+            <h:form>
+                <p:dashboard id="admingui_dashboard" binding="#{dashboardBean.dashboard}" style=".ui-dashboard-column {width:200px;}" />  
+            </h:form>
+        </ui:composition>
     </h:body>
 </html>
 

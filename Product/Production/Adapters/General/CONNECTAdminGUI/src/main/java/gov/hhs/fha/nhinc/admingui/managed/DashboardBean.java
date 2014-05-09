@@ -32,30 +32,49 @@ package gov.hhs.fha.nhinc.admingui.managed;
  */
 import gov.hhs.fha.nhinc.admingui.dashboard.DashboardObserver;
 import gov.hhs.fha.nhinc.admingui.dashboard.DashboardPanel;
+import gov.hhs.fha.nhinc.admingui.dashboard.DashboardViewResolver;
 import java.util.List;
 import java.util.Set;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
+import org.primefaces.component.dashboard.Dashboard;
+import org.primefaces.event.CloseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @ManagedBean(name = "dashboardBean")
-@SessionScoped
+@RequestScoped
 @Component
 public class DashboardBean {
 
     @Autowired 
     private DashboardObserver dashboardObserver;
     
+    @Autowired
+    private DashboardViewResolver dashboardView;
+    
     public void setUp(){
         
         //TODO check for user preferences
         dashboardObserver.setDefaultPanels();
+        dashboardView.setView(getPanels());
+    }
+    
+    public Dashboard getDashboard() {
+        return dashboardView.getDashboard();
+    }
+    
+    public void setDashboard(Dashboard dashboard) {
+        dashboardView.setDashboard(dashboard);
     }
     
     public List<DashboardPanel> getPanels(){
         return dashboardObserver.getOpenDashboardPanels();
-    } 
+    }
+    
+    public void handleClose(CloseEvent event) {
+        dashboardView.handleClose(event, getPanels());
+    }
     
     public String getAllProperties(){
         StringBuilder builder = new StringBuilder();

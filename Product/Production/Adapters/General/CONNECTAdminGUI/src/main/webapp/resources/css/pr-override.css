@@ -5,6 +5,26 @@
 .ui-widget-header {
     text-shadow: none;
     background:#254061;
-	color:#a8a8a8;
+    color:#a8a8a8;
 }
 
+.ui-dashboard-column .ui-panel {
+    padding-top: 1px!important;
+    padding-bottom: 1px!important;
+    padding-left: 1px!important;
+    padding-right: 1px!important;
+    padding-bottom: 1px!important;
+    width: 200px!important;
+    height: 200px!important;
+    border-right-style: solid!important;
+    border-bottom-style: solid!important;
+    border-left-style: solid!important;
+    border-top-color: #254061!important;
+    border-right-color: #254061!important;
+    border-bottom-color: #254061!important;
+    border-left-color: #254061!important;
+}
+
+.ui-panel .ui-panel-content {
+        
+}
