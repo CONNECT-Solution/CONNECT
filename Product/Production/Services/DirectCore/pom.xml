@@ -96,7 +96,7 @@
                                 <wsdlFile>DirectReceiver.wsdl</wsdlFile>
                             </wsdlFiles>
                             <packageName>gov.hhs.fha.nhinc.direct</packageName>
-                            <wsdlLocation>file:/C:/Projects/CONNECT/Product/Production/Services/DirectCore/src/main/resources/wsdl/DirectReceiver.wsdl</wsdlLocation>
+                            <wsdlLocation>${basedir}/src/main/resources/wsdl/DirectReceiver.wsdl</wsdlLocation>
                             <staleFile>${project.build.directory}/jaxws/stale/DirectReceiver.stale</staleFile>
                         </configuration>
                         <id>wsimport-generate-DirectReceiver</id>
@@ -111,7 +111,7 @@
                                 <wsdlFile>DirectSender.wsdl</wsdlFile>
                             </wsdlFiles>
                             <packageName>gov.hhs.fha.nhinc.direct</packageName>
-                            <wsdlLocation>file:/C:/Projects/CONNECT/Product/Production/Services/DirectCore/src/main/resources/wsdl/DirectSender.wsdl</wsdlLocation>
+                            <wsdlLocation>${basedir}/src/main/resources/wsdl/DirectSender.wsdl</wsdlLocation>
                             <staleFile>${project.build.directory}/jaxws/stale/DirectSender.stale</staleFile>
                         </configuration>
                         <id>wsimport-generate-DirectSender</id>
