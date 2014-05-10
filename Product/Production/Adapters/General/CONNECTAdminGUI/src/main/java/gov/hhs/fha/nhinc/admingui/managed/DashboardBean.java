@@ -58,6 +58,7 @@ public class DashboardBean {
     @Autowired
     private DashboardViewResolver dashboardView;
     
+    private MethodExpression closeExpp;
     private static final String CLOSE_EXPRESSION_VALUE = "#{dashboardBean.handleClose}";
     
     public Dashboard getDashboard() {
@@ -104,8 +105,12 @@ public class DashboardBean {
     }
     
     private MethodExpression getCloseExpression() {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        ExpressionFactory ef = fc.getApplication().getExpressionFactory();
-        return ef.createMethodExpression(fc.getELContext(), CLOSE_EXPRESSION_VALUE, null, new Class<?>[]{CloseEvent.class});
+        if(closeExpp == null){
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ExpressionFactory ef = fc.getApplication().getExpressionFactory();
+            closeExpp = 
+                ef.createMethodExpression(fc.getELContext(), CLOSE_EXPRESSION_VALUE, null, new Class<?>[]{CloseEvent.class});
+        }
+        return closeExpp;
     }
 }
