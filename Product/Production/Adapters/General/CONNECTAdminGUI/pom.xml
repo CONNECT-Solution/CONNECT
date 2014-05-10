@@ -150,12 +150,7 @@
             <artifactId>el-api</artifactId>
             <version>2.2</version>
         </dependency>
-        <!-- Tomcat 6 needs this -->
-        <dependency>
-            <groupId>com.sun.el</groupId>
-            <artifactId>el-ri</artifactId>
-            <version>1.0</version>
-        </dependency>
+    
         <!-- SLF4J -->
         <dependency>
             <groupId>org.slf4j</groupId>
