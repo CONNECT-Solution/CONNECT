@@ -58,6 +58,11 @@ public class DashboardObserverImpl implements DashboardObserver {
             }
         }
     }
+    
+    @Override
+    public boolean isStarted(){
+        return started;
+    }
 
     @Override
     public void openPanel(DashboardPanel panel) {
@@ -85,6 +90,13 @@ public class DashboardObserverImpl implements DashboardObserver {
     @Override
     public void setUserPanels(User user) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void refreshData() {
+        for(DashboardPanel panel : openPanels){
+            panel.setData();
+        }
     }
 
 }

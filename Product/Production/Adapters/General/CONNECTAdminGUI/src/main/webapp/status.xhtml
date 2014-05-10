@@ -23,8 +23,8 @@
 <!-- Tablesort theme CSS -->
 <link href="resources/css/theme.default.css" rel="stylesheet" />
 
-    <f:event listener="#{eventBean.setUp}" type="preRenderView" />
-    <f:event listener="#{dashboardBean.setUp}" type="preRenderView" />
+    <f:event id="event-listener" listener="#{eventBean.setUp}" type="preRenderView" />
+    
     
 <body>
 
@@ -254,7 +254,7 @@
     <!-- Bootstrap core JavaScript
 ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="resources/js/jquery-1.10.2.min.js"></script>
+    <!--<script src="resources/js/jquery-1.10.2.min.js"></script>
     <script src="resources/js/bootstrap.min.js"></script>
 	
     <script src="resources/js/admingui.js"></script>
@@ -363,7 +363,7 @@
 			}
 		});
 	});
-	</script>
+	</script> -->
 
 </body>
 </html>

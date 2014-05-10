@@ -21,6 +21,7 @@
 package gov.hhs.fha.nhinc.admingui.dashboard;
 
 import java.util.List;
+import org.primefaces.component.behavior.ajax.AjaxBehavior;
 import org.primefaces.component.dashboard.Dashboard;
 import org.primefaces.event.CloseEvent;
 
@@ -30,7 +31,7 @@ import org.primefaces.event.CloseEvent;
  */
 public interface DashboardViewResolver {
     
-    public void setView(List<DashboardPanel> panelDataList);
+    public void setView(List<DashboardPanel> panelDataList, AjaxBehavior ajax);
     
     public void handleClose(CloseEvent event, List<DashboardPanel> panels);
     

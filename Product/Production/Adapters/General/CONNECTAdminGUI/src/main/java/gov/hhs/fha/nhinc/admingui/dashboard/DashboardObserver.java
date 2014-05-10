@@ -48,4 +48,8 @@ public interface DashboardObserver {
     public void setDefaultPanels();
     
     public void setUserPanels(User user);
+    
+    public boolean isStarted();
+    
+    public void refreshData();
 }

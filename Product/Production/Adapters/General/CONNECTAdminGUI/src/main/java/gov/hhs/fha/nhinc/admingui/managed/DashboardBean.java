@@ -35,8 +35,13 @@ import gov.hhs.fha.nhinc.admingui.dashboard.DashboardPanel;
 import gov.hhs.fha.nhinc.admingui.dashboard.DashboardViewResolver;
 import java.util.List;
 import java.util.Set;
+import javax.el.ExpressionFactory;
+import javax.el.MethodExpression;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.component.behavior.ajax.AjaxBehavior;
+import org.primefaces.component.behavior.ajax.AjaxBehaviorListenerImpl;
 import org.primefaces.component.dashboard.Dashboard;
 import org.primefaces.event.CloseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,14 +58,18 @@ public class DashboardBean {
     @Autowired
     private DashboardViewResolver dashboardView;
     
-    public void setUp(){
-        
-        //TODO check for user preferences
-        dashboardObserver.setDefaultPanels();
-        dashboardView.setView(getPanels());
-    }
+    private static final String CLOSE_EXPRESSION_VALUE = "#{dashboardBean.handleClose}";
     
     public Dashboard getDashboard() {
+        if(!dashboardObserver.isStarted()){
+            //TODO Check for User preferences
+            dashboardObserver.setDefaultPanels();
+        }else {
+            dashboardObserver.refreshData();
+        }
+        
+        dashboardView.setView(getPanels(), getAjaxBehavior());
+        
         return dashboardView.getDashboard();
     }
     
@@ -86,5 +95,17 @@ public class DashboardBean {
         }
         
         return builder.toString();
-    }  
+    }
+    
+    private AjaxBehavior getAjaxBehavior() {
+        AjaxBehavior ajaxBehavior = new AjaxBehavior();
+        ajaxBehavior.addAjaxBehaviorListener(new AjaxBehaviorListenerImpl(getCloseExpression(), getCloseExpression()));
+        return ajaxBehavior;
+    }
+    
+    private MethodExpression getCloseExpression() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ExpressionFactory ef = fc.getApplication().getExpressionFactory();
+        return ef.createMethodExpression(fc.getELContext(), CLOSE_EXPRESSION_VALUE, null, new Class<?>[]{CloseEvent.class});
+    }
 }

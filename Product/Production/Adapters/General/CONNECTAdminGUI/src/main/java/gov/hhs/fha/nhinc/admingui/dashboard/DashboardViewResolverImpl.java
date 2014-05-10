@@ -21,13 +21,11 @@
 package gov.hhs.fha.nhinc.admingui.dashboard;
 
 import java.util.List;
-import javax.el.ExpressionFactory;
 import javax.el.MethodExpression;
 import javax.faces.application.Application;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
 import org.primefaces.component.behavior.ajax.AjaxBehavior;
-import org.primefaces.component.behavior.ajax.AjaxBehaviorListenerImpl;
 import org.primefaces.component.dashboard.Dashboard;
 import org.primefaces.component.panel.Panel;
 import org.primefaces.event.CloseEvent;
@@ -48,8 +46,6 @@ public class DashboardViewResolverImpl implements DashboardViewResolver {
     public static final int DEFAULT_COLUMN_COUNT = 4;
     private int columnCount = DEFAULT_COLUMN_COUNT;
 
-    private static MethodExpression closeExpp;
-
     private Dashboard dashboard;
     
     private static final String DASHBOARD_ID = "admingui_dashboard";
@@ -57,14 +53,13 @@ public class DashboardViewResolverImpl implements DashboardViewResolver {
     private static final String DASHBOARD_RENDERER_CLASS = "org.primefaces.component.DashboardRenderer";
     private static final String PANEL_CLASS = "org.primefaces.component.Panel";
     private static final String PANEL_RENDERER_CLASS = "org.primefaces.component.PanelRenderer";
-    private static final String CLOSE_EXPRESSION_VALUE = "#{dashboardBean.handleClose}";
     
     public DashboardViewResolverImpl() {
 
     }
 
     @Override
-    public void setView(List<DashboardPanel> panelDataList) {
+    public void setView(List<DashboardPanel> panelDataList, AjaxBehavior ajax) {
         FacesContext fc = FacesContext.getCurrentInstance();
         Application application = fc.getApplication();
 
@@ -77,7 +72,7 @@ public class DashboardViewResolverImpl implements DashboardViewResolver {
         int i = 1;
         for (DashboardPanel panelData : panelDataList) {
             Panel panel = (Panel) application.createComponent(fc, PANEL_CLASS , PANEL_RENDERER_CLASS);
-            addPanel(panelData, model, panel, i);
+            addPanel(panelData, model, panel, i, ajax);
             i++;
         }
     }
@@ -112,16 +107,6 @@ public class DashboardViewResolverImpl implements DashboardViewResolver {
         }
     }
 
-    private MethodExpression getCloseExpression() {
-        if (closeExpp == null) {
-            FacesContext fc = FacesContext.getCurrentInstance();
-            ExpressionFactory ef = fc.getApplication().getExpressionFactory();
-            closeExpp = 
-                ef.createMethodExpression(fc.getELContext(), CLOSE_EXPRESSION_VALUE, null, new Class<?>[]{CloseEvent.class});
-        }
-        return closeExpp;
-    }
-
     private DashboardModel getModel() {
         DashboardModel model = new DefaultDashboardModel();
 
@@ -132,7 +117,8 @@ public class DashboardViewResolverImpl implements DashboardViewResolver {
         return model;
     }
 
-    private void addPanel(DashboardPanel panelData, DashboardModel model, Panel panel, int i) {
+    private void addPanel(DashboardPanel panelData, DashboardModel model, Panel panel, int i,
+        AjaxBehavior ajax) {
         panel.setId(panelData.getType().replace(" ", "_").toLowerCase());
         panel.setHeader(panelData.getType().toUpperCase());
         panel.setClosable(true);
@@ -142,10 +128,11 @@ public class DashboardViewResolverImpl implements DashboardViewResolver {
         addDescription(panel, panelData);
 
         getDashboard().getChildren().add(panel);
-        DashboardColumn column = model.getColumn(i % getColumnCount());
+        int mod = i % getColumnCount();
+        DashboardColumn column = model.getColumn(mod);
         column.addWidget(panel.getId());
 
-        addAjaxBehavior(panel);
+        panel.addClientBehavior("close", ajax);
     }
 
     private void addTitle(Panel panel, DashboardPanel panelData) {
@@ -164,12 +151,6 @@ public class DashboardViewResolverImpl implements DashboardViewResolver {
 
             panel.getChildren().add(description);
         }
-    }
-
-    private void addAjaxBehavior(Panel panel) {
-        AjaxBehavior ajaxBehavior = new AjaxBehavior();
-        ajaxBehavior.addAjaxBehaviorListener(new AjaxBehaviorListenerImpl(getCloseExpression(), getCloseExpression()));
-        panel.addClientBehavior("close", ajaxBehavior);
     }
 
 }
