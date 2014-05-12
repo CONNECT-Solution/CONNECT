@@ -21,11 +21,13 @@
 package gov.hhs.fha.nhinc.admingui.dashboard;
 
 import java.util.List;
+import javax.el.ExpressionFactory;
 import javax.el.MethodExpression;
 import javax.faces.application.Application;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
 import org.primefaces.component.behavior.ajax.AjaxBehavior;
+import org.primefaces.component.behavior.ajax.AjaxBehaviorListenerImpl;
 import org.primefaces.component.dashboard.Dashboard;
 import org.primefaces.component.panel.Panel;
 import org.primefaces.event.CloseEvent;
@@ -54,12 +56,15 @@ public class DashboardViewResolverImpl implements DashboardViewResolver {
     private static final String PANEL_CLASS = "org.primefaces.component.Panel";
     private static final String PANEL_RENDERER_CLASS = "org.primefaces.component.PanelRenderer";
     
+    private MethodExpression closeExpp;
+    private static final String CLOSE_EXPRESSION_VALUE = "#{dashboardBean.handleClose}";
+    
     public DashboardViewResolverImpl() {
 
     }
 
     @Override
-    public void setView(List<DashboardPanel> panelDataList, AjaxBehavior ajax) {
+    public void setView(List<DashboardPanel> panelDataList) {
         FacesContext fc = FacesContext.getCurrentInstance();
         Application application = fc.getApplication();
 
@@ -71,8 +76,12 @@ public class DashboardViewResolverImpl implements DashboardViewResolver {
 
         int i = 1;
         for (DashboardPanel panelData : panelDataList) {
-            Panel panel = (Panel) application.createComponent(fc, PANEL_CLASS , PANEL_RENDERER_CLASS);
-            addPanel(panelData, model, panel, i, ajax);
+            Panel panel = getPanel(panelData, application, fc);
+            int mod = i % getColumnCount();
+            DashboardColumn column = model.getColumn(mod);
+            column.addWidget(panel.getId());
+            
+            getDashboard().getChildren().add(panel);
             i++;
         }
     }
@@ -117,8 +126,9 @@ public class DashboardViewResolverImpl implements DashboardViewResolver {
         return model;
     }
 
-    private void addPanel(DashboardPanel panelData, DashboardModel model, Panel panel, int i,
-        AjaxBehavior ajax) {
+    private Panel getPanel(DashboardPanel panelData, Application application, FacesContext fc) {
+        Panel panel = (Panel) application.createComponent(fc, PANEL_CLASS , PANEL_RENDERER_CLASS);
+            
         panel.setId(panelData.getType().replace(" ", "_").toLowerCase());
         panel.setHeader(panelData.getType().toUpperCase());
         panel.setClosable(true);
@@ -126,13 +136,10 @@ public class DashboardViewResolverImpl implements DashboardViewResolver {
 
         addTitle(panel, panelData);
         addDescription(panel, panelData);
-
-        getDashboard().getChildren().add(panel);
-        int mod = i % getColumnCount();
-        DashboardColumn column = model.getColumn(mod);
-        column.addWidget(panel.getId());
-
-        panel.addClientBehavior("close", ajax);
+        
+        panel.addClientBehavior("close", getAjaxBehavior());
+        
+        return panel;
     }
 
     private void addTitle(Panel panel, DashboardPanel panelData) {
@@ -153,4 +160,31 @@ public class DashboardViewResolverImpl implements DashboardViewResolver {
         }
     }
 
+    private AjaxBehavior getAjaxBehavior() {
+        AjaxBehavior ajaxBehavior = new AjaxBehavior();
+        ajaxBehavior.addAjaxBehaviorListener(new AjaxBehaviorListenerImpl(getCloseExpression(), getCloseExpression()));
+        return ajaxBehavior;
+    }
+    
+    private MethodExpression getCloseExpression() {
+        if(closeExpp == null){
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ExpressionFactory ef = fc.getApplication().getExpressionFactory();
+            closeExpp = 
+                ef.createMethodExpression(fc.getELContext(), CLOSE_EXPRESSION_VALUE, null, new Class<?>[]{CloseEvent.class});
+        }
+        return closeExpp;
+    }
+
+    @Override
+    public void addPanel(DashboardPanel panelData) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Application application = fc.getApplication();
+        
+        Panel panel = getPanel(panelData, application, fc);
+        
+        getDashboard().getChildren().add(panel);
+        DashboardColumn column = getDashboard().getModel().getColumn(0);
+        column.addWidget(panel.getId());
+    }
 }

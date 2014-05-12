@@ -72,4 +72,10 @@ public class DashboardOs extends DashboardPanelAbstract implements DashboardPane
         setClosed(true);
         getObserver().closePanel(DashboardOs.class);
     }
+    
+    @Override
+    public void open() {
+        setClosed(false);
+        getObserver().openPanel(DashboardOs.class);
+    }
 }

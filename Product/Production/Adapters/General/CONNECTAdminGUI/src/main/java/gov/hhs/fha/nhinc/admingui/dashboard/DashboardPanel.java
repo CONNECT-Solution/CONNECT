@@ -46,6 +46,8 @@ public interface DashboardPanel {
     
     public void close();
     
+    public void open();
+    
     public void setObserver(DashboardObserver observer);
 
 }

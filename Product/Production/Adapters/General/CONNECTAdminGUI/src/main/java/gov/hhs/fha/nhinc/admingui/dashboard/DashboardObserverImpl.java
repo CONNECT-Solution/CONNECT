@@ -50,13 +50,27 @@ public class DashboardObserverImpl implements DashboardObserver {
 
     @Override
     public void closePanel(Class c) {
-        for (int i = 0; i < openPanels.size(); i++) {
-            DashboardPanel panel = openPanels.get(i);
-            if (panel.getClass().equals(c)) {
-                closedPanels.add(openPanels.remove(i));
-                break;
-            }
+        DashboardPanel foundPanel = findPanel(c, openPanels);
+        if(foundPanel != null){
+            closedPanels.add(foundPanel);
         }
+    }
+    
+    @Override
+    public void openPanel(Class c){
+        DashboardPanel foundPanel = findPanel(c, closedPanels);
+        if(foundPanel != null){
+            openPanels.add(foundPanel);
+        }
+    }
+    
+    private DashboardPanel findPanel(Class c, List<DashboardPanel> panels){
+        for(int i = 0; i < panels.size(); i++){
+           if(panels.get(i).getClass().equals(c)){
+               return panels.remove(i);
+           } 
+        }
+        return null;
     }
     
     @Override
@@ -97,6 +111,11 @@ public class DashboardObserverImpl implements DashboardObserver {
         for(DashboardPanel panel : openPanels){
             panel.setData();
         }
+    }
+
+    @Override
+    public List<DashboardPanel> getClosedDashboardPanels() {
+        return closedPanels;
     }
 
 }

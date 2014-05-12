@@ -38,7 +38,6 @@ import gov.hhs.fha.nhinc.admingui.dashboard.DashboardPanel;
 public abstract class DashboardPanelAbstract implements DashboardPanel {
     
     private boolean closed;
-    private int position;
     
     private DashboardObserver observer;
     

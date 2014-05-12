@@ -84,4 +84,9 @@ public class DashboardLastInbound extends DashboardPanelAbstract implements Dash
         getObserver().closePanel(DashboardLastInbound.class);
     }
     
+    @Override
+    public void open() {
+        setClosed(false);
+        getObserver().openPanel(DashboardLastInbound.class);
+    }
 }

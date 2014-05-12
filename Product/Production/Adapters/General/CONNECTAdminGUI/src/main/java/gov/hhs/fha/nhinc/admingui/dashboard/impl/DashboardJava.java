@@ -72,4 +72,10 @@ public class DashboardJava extends DashboardPanelAbstract implements DashboardPa
         setClosed(true);
         getObserver().closePanel(DashboardJava.class);
     }
+    
+    @Override
+    public void open() {
+        setClosed(false);
+        getObserver().openPanel(DashboardJava.class);
+    }
 }

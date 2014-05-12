@@ -33,15 +33,13 @@ package gov.hhs.fha.nhinc.admingui.managed;
 import gov.hhs.fha.nhinc.admingui.dashboard.DashboardObserver;
 import gov.hhs.fha.nhinc.admingui.dashboard.DashboardPanel;
 import gov.hhs.fha.nhinc.admingui.dashboard.DashboardViewResolver;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
-import javax.el.ExpressionFactory;
-import javax.el.MethodExpression;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
-import org.primefaces.component.behavior.ajax.AjaxBehavior;
-import org.primefaces.component.behavior.ajax.AjaxBehaviorListenerImpl;
 import org.primefaces.component.dashboard.Dashboard;
 import org.primefaces.event.CloseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,8 +56,37 @@ public class DashboardBean {
     @Autowired
     private DashboardViewResolver dashboardView;
     
-    private MethodExpression closeExpp;
-    private static final String CLOSE_EXPRESSION_VALUE = "#{dashboardBean.handleClose}";
+    private List<String> selectedClosedPanels;
+    
+    public List<String> getSelectedClosedPanels(){
+        return selectedClosedPanels;
+    }
+    
+    public void setSelectedClosedPanels(List<String> selectedClosedPanels){
+        this.selectedClosedPanels = selectedClosedPanels;
+    }
+    
+    public void addPanels(){
+        List<DashboardPanel> openPanels = new ArrayList<DashboardPanel>();
+        
+        try {
+        for(DashboardPanel panel : dashboardObserver.getClosedDashboardPanels()){
+            for(String type : getSelectedClosedPanels()){
+                if(type.equals(panel.getType())){
+                    openPanels.add(panel);
+                }
+            }
+        }
+        
+        for(DashboardPanel panel : openPanels){
+            panel.open();
+        }
+        
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+    }
     
     public Dashboard getDashboard() {
         if(!dashboardObserver.isStarted()){
@@ -69,7 +96,7 @@ public class DashboardBean {
             dashboardObserver.refreshData();
         }
         
-        dashboardView.setView(getPanels(), getAjaxBehavior());
+        dashboardView.setView(getPanels());
         
         return dashboardView.getDashboard();
     }
@@ -98,19 +125,14 @@ public class DashboardBean {
         return builder.toString();
     }
     
-    private AjaxBehavior getAjaxBehavior() {
-        AjaxBehavior ajaxBehavior = new AjaxBehavior();
-        ajaxBehavior.addAjaxBehaviorListener(new AjaxBehaviorListenerImpl(getCloseExpression(), getCloseExpression()));
-        return ajaxBehavior;
+    public Map<String, String> getClosedPanels(){
+        Map<String, String> closedPanels = new HashMap<String, String>();
+
+        for(DashboardPanel panel : dashboardObserver.getClosedDashboardPanels()){
+            closedPanels.put(panel.getType(), panel.getType());
+        }
+        
+        return closedPanels;
     }
     
-    private MethodExpression getCloseExpression() {
-        if(closeExpp == null){
-            FacesContext fc = FacesContext.getCurrentInstance();
-            ExpressionFactory ef = fc.getApplication().getExpressionFactory();
-            closeExpp = 
-                ef.createMethodExpression(fc.getELContext(), CLOSE_EXPRESSION_VALUE, null, new Class<?>[]{CloseEvent.class});
-        }
-        return closeExpp;
-    }
 }

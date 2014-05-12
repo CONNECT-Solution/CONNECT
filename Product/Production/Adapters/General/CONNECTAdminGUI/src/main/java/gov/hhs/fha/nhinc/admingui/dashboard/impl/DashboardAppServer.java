@@ -81,4 +81,10 @@ public class DashboardAppServer extends DashboardPanelAbstract implements Dashbo
         getObserver().closePanel(DashboardAppServer.class);
     }
 
+    @Override
+    public void open() {
+        setClosed(false);
+        getObserver().openPanel(DashboardAppServer.class);
+    }
+
 }

@@ -52,4 +52,8 @@ public interface DashboardObserver {
     public boolean isStarted();
     
     public void refreshData();
+    
+    public List<DashboardPanel> getClosedDashboardPanels();
+    
+    public void openPanel(Class c);
 }

@@ -82,4 +82,10 @@ public class DashboardMemory extends DashboardPanelAbstract implements Dashboard
         getObserver().closePanel(DashboardMemory.class);
     }
     
+    @Override
+    public void open() {
+        setClosed(false);
+        getObserver().openPanel(DashboardMemory.class);
+    }
+    
 }
