@@ -139,8 +139,9 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
 
             TrustBundle rs = (TrustBundle) select.uniqueResult();
 
-            // make sure the anchors are loaded
-            if (!rs.getTrustBundleAnchors().isEmpty()) {
+            // make sure the anchors are loaded            
+            if(null != rs && null != rs.getTrustBundleAnchors() && !rs.getTrustBundleAnchors().isEmpty())
+            {
                 for (TrustBundleAnchor anchor : rs.getTrustBundleAnchors()) {
                     anchor.getData();
                 }
