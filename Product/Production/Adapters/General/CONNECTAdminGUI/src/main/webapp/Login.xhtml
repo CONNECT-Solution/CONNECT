@@ -34,15 +34,13 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:body>
-        <!-- this page is only for developer demo.It has an implementation of pretty faces -->
         <ui:composition template="/resources/Templates/BaseTemplate.xhtml">                     
             <ui:define name="menu">
                 <ui:include src="/resources/Templates/SidebarForLogin.xhtml" />              
             </ui:define>
             <ui:define name="foradmin">
                 <!--only for admin -->
-            </ui:define>  
-
+            </ui:define>
             <ui:define name="content">
                 <!-- BEGIN: MAIN CONTENT - THE FORM -->
                 <div class="signin-block">
