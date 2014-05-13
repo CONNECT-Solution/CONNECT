@@ -28,3 +28,21 @@
 .ui-panel .ui-panel-content {
       color:#a8a8a8;  
 }
+
+.ui-panelgrid-admin {
+    margin-left: 525px;
+}
+
+.ui-panelgrid-admin td, .ui-panelgrid-admin tr {
+    border: none;
+    background-color: inherit;
+}
+
+.admin-button {
+    background: #428BCA;
+    color: white;
+    text-shadow: none;
+}
+.something {
+    
+}

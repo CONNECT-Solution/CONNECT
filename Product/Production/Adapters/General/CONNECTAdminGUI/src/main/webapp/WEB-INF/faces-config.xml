@@ -27,6 +27,7 @@
         <navigation-case>
             <from-outcome>status</from-outcome>
             <to-view-id>/status.xhtml</to-view-id>
+            <redirect />
         </navigation-case>
     </navigation-rule>
 </faces-config>

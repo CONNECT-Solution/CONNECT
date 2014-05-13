@@ -104,7 +104,11 @@
 				-->
                     <div class=""> <!-- ORIGINALLY:  class="navbar-collapse collapse" -->
                         <ul class="nav navbar-nav">
-                            <li><a href="#" title="User Profile">Logged in as <strong>John Doe</strong></a></li>
+                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" title="User Profile">Logged in as <strong>#{loginBean.userName}</strong></a>
+                                <ul class="dropdown-menu" style="min-width: 100%;" role="menu" aria-labelledby="dLabel">
+                                    <li style="margin-left: 15px;"><h:form><h:commandLink value="Log Out" action="#{loginBean.logout}" /></h:form></li>
+                                </ul>
+                            </li>
                             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Settings">&#x202F;<i class="glyphicon glyphicon-wrench"></i>&#x202F;</a>
 								<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 									<li><a role="menuitem" tabindex="-1" href="acctmanage.xhtml#tab_users">User Accounts</a></li>
@@ -254,12 +258,12 @@
     <!-- Bootstrap core JavaScript
 ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="resources/js/jquery-1.10.2.min.js"></script>
-    <script src="resources/js/bootstrap.min.js"></script>
-	
-    <script src="resources/js/admingui.js"></script>
-
-	<script type="text/javascript" src="resources/js/jquery.tablesorter.min.js"></script>
+    
+    <h:outputScript library="js" name="bootstrap.min.js" />  
+    <h:outputScript library="js" name="jquery-1.10.2.min.js" />
+    <h:outputScript library="js" name="admingui.js" />
+    <h:outputScript library="js" name="jquery.tablesorter.min.js" />
+    
 	<script>
 	$(document).ready(function(){
 		$(function(){

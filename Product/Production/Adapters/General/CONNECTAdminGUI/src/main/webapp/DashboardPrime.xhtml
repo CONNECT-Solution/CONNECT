@@ -25,16 +25,20 @@
                 <h:outputStylesheet name="css/pr-override.css" />
             </f:facet>
 
-            <p:outputPanel autoUpdate="true" >
-                <h:form>
-                    <p:selectCheckboxMenu value="#{dashboardBean.selectedClosedPanels}" label="Available Panels" panelStyle="width:220px">
-                        <f:selectItems value="#{dashboardBean.closedPanels}" />
-                    </p:selectCheckboxMenu>
+            <p:outputPanel id="dashboard_main" autoUpdate="true">
+                <h:form prependId="false" id="dashboard_form">
 
-                    <p:commandButton value="Submit" id="select-ajax"/>
-                </h:form>
-                <h:form>
-                    <p:dashboard id="admingui_dashboard" binding="#{dashboardBean.dashboard}" style=".ui-dashboard-column {width:200px;}" />  
+                    <p:panelGrid columns="2" styleClass="ui-panelgrid-admin">
+                        <p:selectCheckboxMenu value="#{dashboardBean.selectedClosedPanels}" label="Available Panels" panelStyle="width:220px">
+                            <f:selectItems value="#{dashboardBean.closedPanels}"/>
+                        </p:selectCheckboxMenu>
+                        <p:commandButton value="Submit" id="select-ajax" action="#{dashboardBean.addPanels}" oncomplete="javascript:window.location.reload()"/>
+                    </p:panelGrid>
+
+                    <p:outputPanel id="dashboard_output_panel">
+                        <p:dashboard id="admingui_dashboard" binding="#{dashboardBean.dashboard}" 
+                                     style=".ui-dashboard-column {width:200px;}"/>
+                    </p:outputPanel>
                 </h:form>
 
             </p:outputPanel>

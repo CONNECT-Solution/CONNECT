@@ -194,22 +194,6 @@ public class LoginBean {
     }
 
     /**
-     * Gets the logged in user.
-     * 
-     * @return the logged in user
-     */
-    /*public String getLoggedInUser() {
-        String userName = null;
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-        Login login = (Login) session.getAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE);
-        if (login != null) {
-            userName = login.getUserName();
-        }
-        return userName;
-    }*/
-
-    /**
      * Login.
      * 
      * @return true, if successful
