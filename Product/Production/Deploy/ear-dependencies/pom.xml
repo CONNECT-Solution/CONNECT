@@ -297,10 +297,10 @@
             <artifactId>spring-expression</artifactId>
             <version>3.0.7.RELEASE</version>
         </dependency>
-		<dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-			<version>3.0.7.RELEASE</version>
+            <version>3.0.7.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -484,7 +484,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-			<scope>runtime</scope>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.velocity</groupId>
@@ -498,7 +498,7 @@
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
         </dependency>
-		<dependency>
+        <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
         </dependency>
