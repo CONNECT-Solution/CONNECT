@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <weblogic-application xmlns="http://xmlns.oracle.com/weblogic/weblogic-application">
+    <xml>
+        <parser-factory>
+            <saxparser-factory>
+                org.apache.xerces.jaxp.SAXParserFactoryImpl
+            </saxparser-factory>
+            <document-builder-factory>
+                org.apache.xerces.jaxp.DocumentBuilderFactoryImpl
+            </document-builder-factory>
+            <transformer-factory>
+                org.apache.xalan.processor.TransformerFactoryImpl
+            </transformer-factory>
+        </parser-factory>
+    </xml>
     <application-param>
         <param-name>webapp.encoding.default</param-name>
         <param-value>UTF-8</param-value>
