@@ -1,259 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /* 
+   * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+   * All rights reserved. 
+   *
+   * Redistribution and use in source and binary forms, with or without  
+   * modification, are permitted provided that the following conditions are met:  
+   *     * Redistributions of source code must retain the above  
+   *       copyright notice, this list of conditions and the following disclaimer. 
+   *     * Redistributions in binary form must reproduce the above copyright  
+   *       notice, this list of conditions and the following disclaimer in the documentation  
+   *       and/or other materials provided with the distribution.  
+   *     * Neither the name of the United States Government nor the  
+   *       names of its contributors may be used to endorse or promote products  
+   *       derived from this software without specific prior written permission.  
+   * 
+   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND  
+   * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED  
+   * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE  
+   * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY  
+   * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES  
+   * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  
+   * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND  
+   * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT  
+   * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS  
+   * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+   */ 
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <body>
+        <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
+            <ui:define name="metatag"></ui:define>
+            <ui:define name="content">
+                <!-- BEGIN: MAIN CONTENT SECTION -->
+                <div class="main-content">
+                    <h1 class="section-header">Account Management</h1>
+                    <!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
+                    <div class="nav-section-tabs tabs-purple" id="nav-section-tabs">
+                        <div class="navbar" role="navigation">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#users" data-toggle="tab" title="User Accounts">User Accounts</a></li>
+                                <li><a href="#certificate" data-toggle="tab" title="Certificate Management">Certificate Management</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
 
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="" />
-<meta name="author" content="" />
-<link rel="shortcut icon" href="resources/images/favicon-admingui.ico" type="image/x-icon" />
-<link rel="icon" href="resources/images/favicon-admingui.ico" type="image/x-icon" />
+                    <!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
+                    <div class="tab-content">
+                        <!-- BEGIN: TAB PANE - USER ACCOUNTS -->
+                        <div class="tab-pane active" id="users">
+                            <div class="content-block">
+                                <h2 class="subsection-header">Create User</h2>
 
-<title>Gateway Administrative Console : Account Management</title>
+                                <div class="content">
+                                    <p>Create a new User Account by entering the required information in the fields below:</p>
 
-<!-- Bootstrap core CSS -->
-<link href="resources/css/bootstrap.css" rel="stylesheet" />
+                                    <div class="form-block center-block">
+                                        <h:form class="form-horizontal" role="form" id="createUserForm">
+                                            <div class="form-group">
+                                                <h:outputLabel for="username" class="col-sm-3 control-label" id="usernameLbl" value="New Username:" />
+                                                <div class="col-sm-9">
+                                                    <h:inputText class="form-control" id="username" maxlength="20" required="true" value="#{createuserBean.userName}" requiredMessage="User Name field should be filled"/>
+                                                    <h:message for="username" style="color:red" />
+                                                </div>
+                                            </div>
 
-<!-- Custom styles for this template -->
-<link href="resources/css/dashboard.css" rel="stylesheet" />
+                                            <div class="form-group">
+                                                <h:outputLabel class="col-sm-3 control-label" for="password" id="userpasswordLbl" value="Password:" />
+                                                <div class="col-sm-9">
+                                                    <h:inputText id="password"  class="form-control" maxlength="20" required="true" value="#{createuserBean.password}" requiredMessage="Password field should be filled"/>
+                                                    <h:message for="password" style="color:red" />
+                                                </div>
+                                            </div>
 
-<!-- Tablesort theme CSS -->
-<link href="resources/css/theme.default.css" rel="stylesheet" />
-
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
-
-</head>
-
-<body>
-
-<div class="container-fluid" style="height:100%;">
-	<div class="row" style="height:100%;">
-	
-		<!-- BEGIN: LEFT COLUMN - SIDEBAR NAVIGATION -->
-		<div class="col-xs-2 sidebar sidebar-scroll">
-			<h1 class="page-header">Gateway Administrative Console</h1>
-			
-			<h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
-				Account Management
-			</h2>
-			<ul class="nav nav-sidebar sidebar-purple">
-				<li class="active"><a href="#tab_users"><i class="glyphicon glyphicon-user"></i> User Accounts</a></li>
-				<li><a href="#tab_certificate"><i class="glyphicon glyphicon-lock"></i> Certificate Management</a></li>
-			</ul>
-
-			<h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
-				Gateway Status
-			</h2>
-			<ul class="nav nav-sidebar sidebar-orange">
-				<li><a href="status.xhtml#tab_dash"><i class="glyphicon glyphicon-dashboard"></i> Server Dashboard</a></li>
-				<li><a href="status.xhtml#tab_stats"><i class="glyphicon glyphicon-stats"></i> Performance Statistics</a></li>
-				<li><a href="status.xhtml#tab_remotes"><i class="glyphicon glyphicon-list"></i> Remote Gateway List</a></li>
-			</ul>
-			
-			<h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
-				Activity Logs 
-			</h2>
-			<ul class="nav nav-sidebar sidebar-blue" id="sidebar-logs">
-				<li><a href="logs.xhtml#tab_event"><i class="glyphicon glyphicon-list-alt glyph"></i> Event Logs</a></li>
-				<li><a href="logs.xhtml#tab_audit"><i class="glyphicon glyphicon-list-alt"></i> Audit Logs</a></li>
-				<li><a href="logs.xhtml#tab_system"><i class="glyphicon glyphicon-list-alt"></i> System Logs</a></li>
-			</ul>
-			
-			<h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
-				CONNECT Configuration
-			</h2>
-			<ul class="nav nav-sidebar sidebar-purple">
-				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 1</a></li>
-				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 2</a></li>
-				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 3</a></li>
-			</ul>
-			
-			<h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
-				Direct Configuration
-			</h2>
-			<ul class="nav nav-sidebar sidebar-purple">
-				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 1</a></li>
-				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 2</a></li>
-				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 3</a></li>
-			</ul>
-			
-			<div class="copyright">
-				Copyright &copy; 2009-2014, United States Government. All rights reserved. <a href="#" data-toggle="modal" data-target="#modal-copyright">MORE <i class="glyphicon glyphicon-new-window"></i></a>
-			</div>
-		</div>
-		<!-- END: LEFT COLUMN - SIDEBAR NAVIGATION -->
-		
-		<!-- BEGIN: RIGHT COLUMN - Primary content is located here -->
-		<div class="col-xs-offset-2 col-xs-10 main">
-
-			<!-- BEGIN: UTILITY NAVIGATION -->
-			<div class="navbar nav-utility" role="navigation">
-				<!--
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="#">Project name</a>
-				</div>
-				-->
-				<div class=""> <!-- ORIGINALLY:  class="navbar-collapse collapse" -->
-					<ul class="nav navbar-nav">
-						<li><a href="#" title="User Profile">Logged in as <strong>John Doe</strong></a></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Settings">&#x202F;<i class="glyphicon glyphicon-wrench"></i>&#x202F;</a>
-							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-								<li><a role="menuitem" tabindex="-1" href="#tab_users">User Accounts</a></li>
-								<li><a role="menuitem" tabindex="-1" href="#tab_certificate">Certificate Management</a></li>
-								<li class="divider"></li>
-								<li><a role="menuitem" tabindex="-1" href="#">Other Tools</a></li>
-							</ul>
-						</li>
-						<li><a href="#" title="Send a Message">&#x202F;<i class="glyphicon glyphicon-envelope"></i>&#x202F;</a></li>
-						<li><a href="#" title="Help">&#x202F;<i class="glyphicon glyphicon-question-sign"></i>&#x202F;</a></li>
-					</ul>
-					<form class="navbar-form navbar-right">
-						<i class="glyphicon glyphicon-search"></i><input class="form-control" placeholder="Enter Search Query..." type="text" />
-					</form>
-				</div>
-			</div>
-			<!-- END: UTILITY NAVIGATION -->
-
-			<!-- BEGIN: MAIN CONTENT SECTION -->
-			<div class="main-content">
-				<h1 class="section-header">Account Management</h1>
-				
-				<!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
-				<div class="nav-section-tabs tabs-purple" id="nav-section-tabs">
-					<div class="navbar" role="navigation">
-						<ul class="nav nav-tabs">
-							<li class="active"><a href="#users" data-toggle="tab" title="User Accounts">User Accounts</a></li>
-							<li><a href="#certificate" data-toggle="tab" title="Certificate Management">Certificate Management</a></li>
-							<!--
-							<li><a href="#" data-toggle="tab" title="">Tool #2</a></li>
-							-->
-						</ul>
-					</div>
-				</div>
-				<!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
-				
-				<!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
-				<div class="tab-content">
-					<!-- BEGIN: TAB PANE - USER ACCOUNTS -->
-					<div class="tab-pane active" id="users">
-						<div class="content-block">
-							<h2 class="subsection-header">Create User</h2>
-							
-							<div class="content">
-								<p>Create a new User Account by entering the required information in the fields below:</p>
-								
-								<div class="form-block center-block">
-                                    <h:form class="form-horizontal" role="form" id="createUserForm">
-										<div class="form-group">
-											<h:outputLabel for="username" class="col-sm-3 control-label" id="usernameLbl" value="New Username:" />
-											<div class="col-sm-9">
-												<h:inputText class="form-control" id="username" maxlength="20" required="true" value="#{createuserBean.userName}" requiredMessage="User Name field should be filled"/>
-												<h:message for="username" style="color:red" />
-											</div>
-										</div>
-										
-										<div class="form-group">
-											<h:outputLabel class="col-sm-3 control-label" for="password" id="userpasswordLbl" value="Password:" />
-											<div class="col-sm-9">
-												<h:inputText id="password"  class="form-control" maxlength="20" required="true" value="#{createuserBean.password}" requiredMessage="Password field should be filled"/>
-												<h:message for="password" style="color:red" />
-											</div>
-										</div>
-										
-										<div class="form-group">
-											<h:outputLabel for="select-role" class="col-sm-3 control-label" id="roleLbl" value="Role:" />
-											<div class="col-sm-9">
-												<select class="form-control" id="select-role">
-													<option>Administrator</option>
-													<option>Super User</option>
-													<option>User</option>
-												</select>
-											</div>
-										</div>
-										<div class="form-group">
-											<div class="col-sm-12">
-												<div class="form-button-row">
-													<input class="btn btn-default" type="reset" value="Reset" />
-													<h:commandButton id="submit" class="btn btn-primary" value="Create User"  action="#{createuserBean.addCreateUser()}" /> 
-												</div>
-											</div>
-										</div>
-									</h:form>
-								</div>
-							</div>
-						</div>
-						
-						<div class="content-block">
-							<h2 class="subsection-header">Manage Users</h2>
-							<div class="content">[to be developed]</div>
-						</div>
-					</div>
-					<!-- END: TAB PANE - USER ACCOUNTS -->
-					
-					<!-- BEGIN: TAB PANE - CERTIFICATE MANAGEMENT -->
-					<div class="tab-pane" id="certificate">
-						<div class="content-block">
-							<h2 class="subsection-header">Certificate Management</h2>
-							<div class="content">[to be developed]</div>
-						</div>
-					</div>
-					<!-- END: TAB PANE - CERTIFICATE MANAGEMENT -->
-				</div>
-				<!-- END: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
-				
-			</div>
-			<!-- END: MAIN CONTENT SECTION -->
-
-		</div>
-		<!-- END: RIGHT COLUMN - Primary content is located here -->
-		
-	</div> <!-- Close the ROW -->
-</div> <!-- Close the CONTAINER -->
-
-<!-- BEGIN: MODAL - COPYRIGHT -->
-<div class="modal fade" id="modal-copyright" tabindex="-1" role="dialog" aria-labelledby="modal-copyright-label" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="modal-copyright-label">COPYRIGHT STATEMENT</h4>
-			</div>
-			<div class="modal-body">
-				<ui:include src="copyright.xhtml" />
-			</div>
-		</div>
-	</div>
-</div>
-<!-- END: MODAL - COPYRIGHT -->
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="resources/js/jquery-1.10.2.min.js"></script>
-<script src="resources/js/bootstrap.min.js"></script>
-
-<script src="resources/js/admingui.js"></script>
-
-<script type="text/javascript" src="resources/js/jquery.tablesorter.min.js"></script>
-<script>
-$(document).ready(function(){
-	$(function(){
-		$("table").tablesorter();
-	});
-});
-</script>
-
-</body>
+                                            <div class="form-group">
+                                                <h:outputLabel for="select-role" class="col-sm-3 control-label" id="roleLbl" value="Role:" />
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" id="select-role">
+                                                        <option>Administrator</option>
+                                                        <option>Super User</option>
+                                                        <option>User</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <div class="form-button-row">
+                                                        <input class="btn btn-default" type="reset" value="Reset" />
+                                                        <h:commandButton id="submit" class="btn btn-primary" value="Create User"  action="#{createuserBean.addCreateUser()}" /> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content-block">
+                                <h2 class="subsection-header">Manage Users</h2>
+                                <div class="content">[to be developed]</div>
+                            </div>
+                        </div>
+                        <!-- END: TAB PANE - USER ACCOUNTS -->					
+                    </div>
+                    <!-- END: MAIN CONTENT - TAB PANES - All the data/information is contained here -->				
+                </div>
+                <!-- END: MAIN CONTENT SECTION -->
+                <!-- END: RIGHT COLUMN - Primary content is located here -->
+            </ui:define>
+        </ui:composition>
+    </body>
 </html>
