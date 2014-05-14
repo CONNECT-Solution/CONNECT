@@ -90,6 +90,10 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  *
@@ -129,7 +133,7 @@ public class HL7DbParser201306 {
         id.setExtension(MessageIdGenerator.generateMessageId());
         msg.setId(id);
         TSExplicit creationTime = new TSExplicit();
-        creationTime.setValue(buildCreationTimeString(new Date()));
+        creationTime.setValue(buildCreationTimeString());
         msg.setCreationTime(creationTime);
 
         II interactionId = new II();
@@ -163,8 +167,8 @@ public class HL7DbParser201306 {
         return msg;
     }
 
-    static String buildCreationTimeString(Date date) {
-        return new SimpleDateFormat("yyyyMMddHHmmss").format(date);
+    static String buildCreationTimeString() {
+        return DateTimeFormat.forPattern("yyyyMMddHHmmss").print(new DateTime(DateTimeZone.UTC));
     }
 
     private static PRPAIN201306UV02MFMIMT700711UV01ControlActProcess createControlActProcess(List<Patient> patients,
