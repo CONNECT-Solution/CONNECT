@@ -35,7 +35,6 @@ import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.impl.SHA1PasswordService;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import java.io.IOException;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,10 +47,24 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class LoginServiceImpl implements LoginService {
 
-    private static Logger log = Logger.getLogger(LoginServiceImpl.class);
+    private static final Logger log = Logger.getLogger(LoginServiceImpl.class);
 
     @Autowired
     private UserLoginDAO userLoginDAO;
+
+    /**
+     * default constructor
+     */
+    public LoginServiceImpl() {
+    }
+
+    /**
+     *
+     * @param userLoginDao
+     */
+    LoginServiceImpl(UserLoginDAO userLoginDao) {
+        this.userLoginDAO = userLoginDao;
+    }
 
     /**
      * The password service.
@@ -96,7 +109,7 @@ public class LoginServiceImpl implements LoginService {
         } catch (PasswordServiceException e) {
             throw new UserLoginException("Error while calculating hash.", e);
         } catch (IOException ex) {
-            throw new UserLoginException("Error while calculating hash."+ex.getMessage());
+            throw new UserLoginException("Error while calculating hash." + ex.getMessage());
         }
 
         UserLogin userLoginEntity = new UserLogin();

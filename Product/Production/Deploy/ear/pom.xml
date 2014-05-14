@@ -303,7 +303,7 @@
         <profile>
             <id>AdminGUI</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <admingui.excluded>false</admingui.excluded>

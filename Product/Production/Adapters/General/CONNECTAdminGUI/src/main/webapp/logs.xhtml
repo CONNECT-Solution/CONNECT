@@ -8,9 +8,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<!--<link rel="shortcut icon" href="http://getbootstrap.com/assets/ico/favicon.ico">-->
+<link rel="shortcut icon" href="resources/images/favicon-admingui.ico" type="image/x-icon" />
+<link rel="icon" href="resources/images/favicon-admingui.ico" type="image/x-icon" />
 
-<title>Gateway Administrative Console</title>
+<title>Gateway Administrative Console : Activity Logs</title>
 
 <!-- Bootstrap core CSS -->
 <link href="resources/css/bootstrap.css" rel="stylesheet" />
@@ -21,16 +22,11 @@
 <!-- Tablesort theme CSS -->
 <link href="resources/css/theme.default.css" rel="stylesheet" />
 
-<!-- Just for debugging purposes. Don't actually copy this line! -->
-<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
 	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-<!--<style type="text/css" id="holderjs-style"></style>-->
 
 </head>
 
@@ -40,7 +36,7 @@
 	<div class="row" style="height:100%;">
 	
 		<!-- BEGIN: LEFT COLUMN - SIDEBAR NAVIGATION -->
-		<div class="col-xs-2 sidebar">
+		<div class="col-xs-2 sidebar sidebar-scroll">
 			<h1 class="page-header">Gateway Administrative Console</h1>
 			
 			<h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
@@ -83,17 +79,21 @@
 				Account Management
 			</h2>
 			<ul class="nav nav-sidebar sidebar-purple">
-				<li><a href="acctmanage.xhtml#tab_createuser"><i class="glyphicon glyphicon-user"></i> User Accounts</a></li>
+				<li><a href="acctmanage.xhtml#tab_users"><i class="glyphicon glyphicon-user"></i> User Accounts</a></li>
 				<li><a href="acctmanage.xhtml#tab_certificate"><i class="glyphicon glyphicon-lock"></i> Certificate Management</a></li>
 			</ul>
+			
+			<div class="copyright">
+				Copyright &copy; 2009-2014, United States Government. All rights reserved. <a href="#" data-toggle="modal" data-target="#modal-copyright">MORE <i class="glyphicon glyphicon-new-window"></i></a>
+			</div>
 		</div>
 		<!-- END: LEFT COLUMN - SIDEBAR NAVIGATION -->
 		
 		<!-- BEGIN: RIGHT COLUMN - Primary content is located here -->
-		<div class="col-xs-10 main">
+		<div class="col-xs-offset-2 col-xs-10 main">
 
 			<!-- BEGIN: UTILITY NAVIGATION -->
-			<div class="navbar" role="navigation">
+			<div class="navbar nav-utility" role="navigation">
 				<!--
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -105,12 +105,12 @@
 					<a class="navbar-brand" href="#">Project name</a>
 				</div>
 				-->
-				<div class="nav-utility"> <!-- ORIGINALLY:  class="navbar-collapse collapse" -->
+				<div class=""> <!-- ORIGINALLY:  class="navbar-collapse collapse" -->
 					<ul class="nav navbar-nav">
 						<li><a href="#" title="User Profile">Logged in as <strong>John Doe</strong></a></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Settings">&#x202F;<i class="glyphicon glyphicon-wrench"></i>&#x202F;</a>
 							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-								<li><a role="menuitem" tabindex="-1" href="acctmanage.xhtml#tab_createuser">User Accounts</a></li>
+								<li><a role="menuitem" tabindex="-1" href="acctmanage.xhtml#tab_users">User Accounts</a></li>
 								<li><a role="menuitem" tabindex="-1" href="acctmanage.xhtml#tab_certificate">Certificate Management</a></li>
 								<li class="divider"></li>
 								<li><a role="menuitem" tabindex="-1" href="#">Other Tools</a></li>
@@ -150,7 +150,8 @@
 							<h2 class="subsection-header">Event Logs</h2>
 							<div class="table-responsive">
 								<div class="table-button-row">
-									(The buttons in this table are for demonstration purposes only. They may not always be appropriate here)--> <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add New Entry</button> <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i> Refresh Log</button>
+									<button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add New Entry</button> 
+									<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i> Refresh Log</button>
 								</div>
 								<table class="table table-striped tablesorter table-logs" id="table-logs-event">
 									<thead>
@@ -206,7 +207,8 @@
 							<h2 class="subsection-header">Audit Logs</h2>
 							<div class="table-responsive">
 								<div class="table-button-row">
-									(The buttons in this table are for demonstration purposes only. They may not always be appropriate here)--> <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add New Entry</button> <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i> Refresh Log</button>
+									<button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add New Entry</button> 
+									<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i> Refresh Log</button>
 								</div>
 								<table class="table table-striped tablesorter table-logs" id="table-logs-audit">
 									<thead>
@@ -262,7 +264,8 @@
 							<h2 class="subsection-header">System Logs</h2>
 							<div class="table-responsive">
 								<div class="table-button-row">
-									(The buttons in this table are for demonstration purposes only. They may not always be appropriate here)--> <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add New Entry</button> <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i> Refresh Log</button>
+									<button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add New Entry</button> 
+									<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i> Refresh Log</button>
 								</div>
 								<table class="table table-striped tablesorter table-logs" id="table-logs-system">
 									<thead>
@@ -323,80 +326,36 @@
 	</div> <!-- Close the ROW -->
 </div> <!-- Close the CONTAINER -->
 
-
+<!-- BEGIN: MODAL - COPYRIGHT -->
+<div class="modal fade" id="modal-copyright" tabindex="-1" role="dialog" aria-labelledby="modal-copyright-label" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="modal-copyright-label">COPYRIGHT STATEMENT</h4>
+			</div>
+			<div class="modal-body">
+				<ui:include src="copyright.xhtml" />
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END: MODAL - COPYRIGHT -->
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="resources/js/jquery-1.10.2.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
-<!--<script src="Dashboard%20Template%20for%20Bootstrap_files/docs.js"></script>-->
+
+<script src="resources/js/admingui.js"></script>
 
 <script type="text/javascript" src="resources/js/jquery.tablesorter.min.js"></script>
-<!--<script type="text/javascript" src="resources/js/jquery.tablesorter.widgets.min.js"></script>-->
 <script>
 $(document).ready(function(){
 	$(function(){
 		$("table").tablesorter();
 	});
-});
-</script>
-
-<script>
-// FUNCTION TO SHOW THE CORRECT TABBED CONTENT IF NAVIGATING FROM DIFFERENT PAGE
-$(document).ready(function() {
-	var hash = window.location.hash;
-	var prefix = "tab_"; // USING PREFIX TO PREVENT BROWSER AUTOMATIC SCROLL TO THIS ELEMENT
-	if (hash != "") {
-		$('#nav-section-tabs a[href="' + hash.replace(prefix,"") + '"]').tab('show'); // REMOVE PREFIX and CHANGE TO CORRECT TAB
-		var showActivebar = $('.sidebar a[href='+hash+']'); // FIND SIDEBAR LINK TO MATCH SELECTED TAB
-		$('.sidebar li').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINK LI'S AS NEEDED
-		$(showActivebar).parent().addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK
-	}
-	else
-		$('#nav-section-tabs a:first').tab('show');
-});
-
-// FUNCTION FOR SIDEBAR NAV - TOGGLE ACTIVE CLASS and CHANGE SELECTED TAB IN MAIN CONTENT AREA
-$('.sidebar li').click(function () {
-	var showActivebar = $(this); // STORE ID OF SELECTED SIDEBAR LINK LI
-	$('.sidebar li').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINK LI'S AS NEEDED
-	$(showActivebar).addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK LI
-
-	var url = $(this).find('a').attr('href'); // CATCH HREF FROM SIDEBAR LINK
-	var prefix = "tab_"; // USING PREFIX TO PREVENT BROWSER AUTOMATIC SCROLL TO THIS ELEMENT
-	if (url.match('#')) {
-		//var tid = url.split('#')[1];
-		//console.log(url);
-		$('.nav-tabs a[href='+url.replace(prefix,"")+']').tab('show') ; // REMOVE PREFIX and CHANGE TAB TO MATCH SELECTED SIDEBAR LINK
-		//window.scrollTo(0, 0);
-	}
-});
-// FUNCTION FOR TABBED NAV IN MAIN CONTENT AREA - CHANGE SELECTED SIDEBAR LINK
-$('.nav-tabs a').click(function () {
-	var url = $(this).attr('href').replace("#","#tab_"); // CATCH HREF FROM SELECTED TAB and ADD PREFIX TO FIND CORRECT SIDEBAR LINK
-	var showActivebar = $('.sidebar a[href='+url+']'); // FIND SIDEBAR LINK TO MATCH SELECTED TAB
-	$('.sidebar li').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINK LI'S AS NEEDED
-	$(showActivebar).parent().addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK LI
-});
-// FUNCTION FOR DROPDOWN NAV IN UTILITY BAR - CHANGE SELECTED SIDEBAR LINK and TAB
-$('.nav-utility .dropdown-menu a').click(function () {
-	var url = $(this).attr('href'); // CATCH HREF FROM SELECTED DROPDOWN ITEM
-	var showActivebar = $('.sidebar a[href='+url+']'); // FIND SIDEBAR LINK TO MATCH SELECTED TAB
-	$('.sidebar li').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINK LI'S AS NEEDED
-	$(showActivebar).parent().addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK LI
-	$('.nav-tabs a[href='+url.replace("tab_","")+']').tab('show') ; // REMOVE PREFIX and CHANGE TAB TO MATCH SELECTED DROPDOWN ITEM
-});
-
-// FUNCTION TO EXPAND/CONTRACT SIDEBAR NAV SECTIONS
-$('.sidebar h2.section-header').click(function () {
-	var targetMenu = $(this).next('ul').attr('id');
-	var activeLink = $(this).next('ul').children('.active').attr('id');
-
-	$(this).find('i').toggleClass('glyphicon-plus glyphicon-minus');
-    $(this).next('ul').slideToggle(400);
-	if ($(targetMenu).is(":visible"))
-		$(activeLink).addClass("active");
 });
 </script>
 
