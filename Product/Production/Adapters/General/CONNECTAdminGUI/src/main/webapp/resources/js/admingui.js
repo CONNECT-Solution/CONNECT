@@ -56,3 +56,9 @@ $('.sidebar h2.section-header').click(function () {
 	if ($(targetMenu).is(":visible"))
 		$(activeLink).addClass("active");
 });
+
+$(document).ready(function() {
+    $(function() {
+        $("table").tablesorter();
+    });
+});

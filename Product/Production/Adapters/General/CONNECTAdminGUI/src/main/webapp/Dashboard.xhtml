@@ -1,54 +1,46 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core" >
-    <head>
-        <title>Dash Board Page</title>
-    </head>    
-    <h:body>
-        <h:commandButton id="button" action="#{dashboardBean.getDashboardDetails}" value="Dashboard List" ></h:commandButton>
-        <h:dataTable id="dashboardId" value="#{dashboardBean.dashboardDetails}" var="organization" >
-            <h:column >
-                <f:facet name="header1">HCID</f:facet>                            
-                   #{organization.hcidName}
-            </h:column>         
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
-             <h:column>
-                 <f:facet name="header2">PD</f:facet>
-                 #{organization.service1InOutBoundValue}
-            </h:column>
-            
-             <h:column>
-                 <f:facet name="header">DQ</f:facet>
-                 #{organization.service2InOutBoundValue}
-            </h:column>
-            yes
-             <h:column>
-                 <f:facet name="header">DR</f:facet>
-                 #{organization.service3InOutBoundValue}
-            </h:column>
-            
-             <h:column>
-                 <f:facet name="header">DS</f:facet>
-                 #{organization.service4InOutBoundValue}
-            </h:column>
-             <h:column>
-                 <f:facet name="header">AD</f:facet>
-                 #{organization.service4InOutBoundValue}
-            </h:column>
-            
-            <h:column>
-                <f:facet name="header">Total</f:facet>
-                 #{organization.totalInOutBoundValue}
-            </h:column>           
-        </h:dataTable>			
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+
+    <h:body>
+        <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
+            <ui:define name="morejs">
+                <h:outputScript name="jquery/jquery.js" library="primefaces" /> 
+            </ui:define>
+            <ui:define name="content">
+            <f:facet id="pr-override-facet" name="last">
+                <h:outputStylesheet name="css/pr-override.css" />
+            </f:facet>
+
+        <p:outputPanel autoUpdate="true">
+            <h:form prependId="false" id="dashboard_form">
+
+                <h1 class="section-header">Dashboard</h1>
+                
+                <p:panelGrid columns="2" styleClass="ui-panelgrid-admin">
+                    <p:selectCheckboxMenu value="#{dashboardBean.selectedClosedPanels}" label="Available Panels" panelStyle="width:220px">
+                        <f:selectItems value="#{dashboardBean.closedPanels}"/>
+                    </p:selectCheckboxMenu>
+                    <p:commandButton value="Submit" id="select-ajax" action="#{dashboardBean.addPanels}" oncomplete="javascript:window.location.reload()"/>
+                </p:panelGrid>
+
+                <p:outputPanel id="dashboard_output_panel">
+                    <p:dashboard id="admingui_dashboard" binding="#{dashboardBean.dashboard}" 
+                                 style=".ui-dashboard-column {width:200px;}"/>
+                </p:outputPanel>
+            </h:form>
+
+        </p:outputPanel>
+        </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 

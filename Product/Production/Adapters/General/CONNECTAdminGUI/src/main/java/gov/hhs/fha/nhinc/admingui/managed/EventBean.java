@@ -41,11 +41,8 @@ public class EventBean {
     @Autowired
     private EventService eventService;
     
-    public void setUp(){
+    public List<EventNwhinOrganization> getTotalEvents() {
         eventService.setCounts();
-    }
-    
-    public List<EventNwhinOrganization> getTotalEvents() {        
         return eventService.getTotalOrganizations();
     }
 }
