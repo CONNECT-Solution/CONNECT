@@ -194,6 +194,11 @@
             <artifactId>mockito-all</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.23</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -219,6 +224,18 @@
                     </archive>
                 </configuration>
             </plugin>
-        </plugins>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.0.0.RC0</version>
+                <dependencies>
+        <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-bundle</artifactId>
+            <version>2.1.15</version>
+        </dependency>
+                </dependencies>
+            </plugin>
+</plugins>
     </build>
 </project>
