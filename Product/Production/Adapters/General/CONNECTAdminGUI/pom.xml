@@ -92,6 +92,12 @@
             <groupId>commons-digester</groupId>
             <artifactId>commons-digester</artifactId>
             <version>1.8</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-beanutils</groupId>
+                    <artifactId>commons-beanutils</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -150,18 +156,12 @@
             <artifactId>el-api</artifactId>
             <version>2.2</version>
         </dependency>
-        <!-- Tomcat 6 needs this -->
-        <dependency>
-            <groupId>com.sun.el</groupId>
-            <artifactId>el-ri</artifactId>
-            <version>1.0</version>
-        </dependency>
+
         <!-- SLF4J -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            <version>1.6.4</version>
-            <scope>runtime</scope>
+            <version>1.7.0</version>
         </dependency>
 
         <dependency>
@@ -192,6 +192,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -218,6 +219,8 @@
             <layout>default</layout>  
         </repository> 
     </repositories>
+
+
 
     <build>
         <plugins>
@@ -247,13 +250,13 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>9.0.0.RC0</version>
                 <dependencies>
-                    <dependency>
-                        <groupId>org.apache.myfaces.core</groupId>
-                        <artifactId>myfaces-bundle</artifactId>
-                        <version>2.1.15</version>
-                    </dependency>
+        <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-bundle</artifactId>
+            <version>2.1.15</version>
+        </dependency>
                 </dependencies>
             </plugin>
-        </plugins>
+</plugins>
     </build>
 </project>
