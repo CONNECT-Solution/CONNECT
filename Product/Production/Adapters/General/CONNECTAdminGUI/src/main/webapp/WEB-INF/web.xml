@@ -70,6 +70,11 @@
         <servlet-name>facesServlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
+    
+    <context-param>  
+        <param-name>primefaces.THEME</param-name>  
+        <param-value>bootstrap</param-value>  
+    </context-param> 
 
     <resource-ref>
         <res-ref-name>jdbc/eventdb_datasource</res-ref-name>

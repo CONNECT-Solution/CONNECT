@@ -40,6 +40,7 @@ import java.util.Map;
 import java.util.Set;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.component.dashboard.Dashboard;
 import org.primefaces.event.CloseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +67,7 @@ public class DashboardBean {
         this.selectedClosedPanels = selectedClosedPanels;
     }
     
-    public void addPanels(){
+    public String addPanels(){
         List<DashboardPanel> openPanels = new ArrayList<DashboardPanel>();
         
         try {
@@ -86,6 +87,14 @@ public class DashboardBean {
             System.out.println(e.getMessage());
         }
         
+        TabBean tabs = (TabBean) FacesContext.getCurrentInstance().
+            getExternalContext().getSessionMap().get("tabBean");
+        
+        if(tabs != null){
+            tabs.setDashboardTabIndex(0);
+        }
+        
+        return "StatusPrime";       
     }
     
     public Dashboard getDashboard() {

@@ -2,12 +2,6 @@
     width:200px;
 }
 
-.ui-widget-header {
-    text-shadow: none;
-    background:#254061;
-    color:#a8a8a8;
-}
-
 .ui-dashboard-column .ui-panel {
     padding-top: 1px!important;
     padding-bottom: 1px!important;
@@ -38,11 +32,19 @@
     background-color: inherit;
 }
 
-.admin-button {
-    background: #428BCA;
-    color: white;
+.admin-dashboard .ui-widget-header {
+    text-shadow: none;
+    background:#254061;
+    color:#a8a8a8;
+}
+
+.ui-panelmenu .ui-panelmenu-header a {
+    color: #a8a8a8;
+    font-size: 80%;
+    background: #254061;
     text-shadow: none;
 }
+
 .something {
     
 }
