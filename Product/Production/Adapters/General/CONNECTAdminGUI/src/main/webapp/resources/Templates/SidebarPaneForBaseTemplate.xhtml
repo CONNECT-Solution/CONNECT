@@ -34,82 +34,63 @@
       xmlns:f="http://java.sun.com/jsf/core">
 
     <body>
-        <h1 class="page-header">Gateway Administrative Console</h1>
-
-        <h2 class="section-header">
-            <a href="Dashboard.xhtml"><i
-                        class="glyphicon glyphicon-dashboard"></i>CONNECT Dashboard</a>
-        </h2>
-        
-        <h2 class="section-header">
-            <div class="pull-right">
-                <a href="#"><i class="glyphicon glyphicon-minus"></i></a>
-            </div>
-            Gateway Status
-        </h2>
-        <ul class="nav nav-sidebar sidebar-orange">
-            <li class="active"><a href="status.xhtml#tab_stats"><i class="glyphicon glyphicon-stats"></i>
-                    Performance Statistics</a></li>
-            <li><a href="status.xhtml#tab_remotes"><i
-                        class="glyphicon glyphicon-list"></i> Remote Gateway List</a></li>
-        </ul>
-
-        <h2 class="section-header">
-            <div class="pull-right">
-                <a href="#"><i class="glyphicon glyphicon-minus"></i></a>
-            </div>
-            Activity Logs
-        </h2>
-        <ul class="nav nav-sidebar sidebar-blue">
-            <li><a href="logs.xhtml#tab_event"><i
-                        class="glyphicon glyphicon-list-alt"></i> Event Logs</a></li>
-            <li><a href="logs.xhtml#tab_audit"><i
-                        class="glyphicon glyphicon-list-alt"></i> Audit Logs</a></li>
-            <li><a href="logs.xhtml#tab_system"><i
-                        class="glyphicon glyphicon-list-alt"></i> System Logs</a></li>
-        </ul>
-
-        <h2 class="section-header">
-            <div class="pull-right">
-                <a href="#"><i class="glyphicon glyphicon-minus"></i></a>
-            </div>
-            CONNECT Configuration
-        </h2>
-        <ul class="nav nav-sidebar sidebar-purple">
-            <li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen
-                    1</a></li>
-            <li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen
-                    2</a></li>
-            <li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen
-                    3</a></li>
-        </ul>
-
-        <h2 class="section-header">
-            <div class="pull-right">
-                <a href="#"><i class="glyphicon glyphicon-minus"></i></a>
-            </div>
-            Direct Configuration
-        </h2>
-        <ul class="nav nav-sidebar sidebar-purple">
-            <li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen
-                    1</a></li>
-            <li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen
-                    2</a></li>
-            <li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen
-                    3</a></li>
-        </ul>
-
-        <h2 class="section-header">
-            <div class="pull-right">
-                <a href="#"><i class="glyphicon glyphicon-minus"></i></a>
-            </div>
-            Account Management
-        </h2>
-        <ul class="nav nav-sidebar sidebar-purple">
-            <li><a href="acctmanage.xhtml#tab_users"><i
-                        class="glyphicon glyphicon-user"></i> User Accounts</a></li>
-            <li><a href="acctmanage.xhtml#tab_certificate"><i
-                        class="glyphicon glyphicon-lock"></i> Certificate Management</a></li>
-        </ul>
+		
+			<h1 class="page-header">Gateway Administrative Console</h1>
+	
+			<div id="sidenav-status">
+				<h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
+					Gateway Status
+				</h2>
+				<ul class="nav nav-sidebar sidebar-orange">
+					<li class="active"><a href="status.xhtml#tab_dash"><i class="glyphicon glyphicon-dashboard"></i> Server Dashboard</a></li>
+					<li><a href="status.xhtml#tab_stats"><i class="glyphicon glyphicon-stats"></i> Performance Statistics</a></li>
+					<li><a href="status.xhtml#tab_remotes"><i class="glyphicon glyphicon-list"></i> Remote Gateway List</a></li>
+				</ul>
+			</div>
+	
+			<div id="sidenav-logs">
+				<h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
+					Activity Logs 
+				</h2>
+				<ul class="nav nav-sidebar sidebar-blue">
+					<li><a href="logs.xhtml#tab_event"><i class="glyphicon glyphicon-list-alt"></i> Event Logs</a></li>
+					<li><a href="logs.xhtml#tab_audit"><i class="glyphicon glyphicon-list-alt"></i> Audit Logs</a></li>
+					<li><a href="logs.xhtml#tab_system"><i class="glyphicon glyphicon-list-alt"></i> System Logs</a></li>
+				</ul>
+			</div>
+	
+			<div id="sidenav-connect">
+				<h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
+					CONNECT Configuration
+				</h2>
+				<ul class="nav nav-sidebar sidebar-purple">
+					<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 1</a></li>
+					<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 2</a></li>
+					<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 3</a></li>
+				</ul>
+			</div>
+	
+			<div id="sidenav-direct">
+				<h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
+					Direct Configuration
+				</h2>
+				<ul class="nav nav-sidebar sidebar-purple">
+					<li><a href="direct.xhtml#tab_domains"><i class="glyphicon glyphicon-cog"></i> Manage Domains</a></li>
+					<li><a href="direct.xhtml#tab_agent"><i class="glyphicon glyphicon-cog"></i> Agent Settings</a></li>
+					<li><a href="direct.xhtml#tab_certs"><i class="glyphicon glyphicon-cog"></i> Certificates</a></li>
+					<li><a href="direct.xhtml#tab_trust"><i class="glyphicon glyphicon-cog"></i> Trust Bundles</a></li>
+				</ul>
+			</div>
+	
+			<div id="sidenav-accts">
+				<h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
+					Account Management
+				</h2>
+				<ul class="nav nav-sidebar sidebar-purple">
+					<li><a href="acctmanage.xhtml#tab_users"><i class="glyphicon glyphicon-user"></i> User Accounts</a></li>
+					<li><a href="acctmanage.xhtml#tab_certificate"><i class="glyphicon glyphicon-lock"></i> Certificate Management</a></li>
+				</ul>
+			</div>
+		
     </body>
 </html>

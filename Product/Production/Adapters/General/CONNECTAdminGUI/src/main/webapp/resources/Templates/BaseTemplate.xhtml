@@ -36,17 +36,19 @@
     <h:head>
         <title><ui:insert name="title">Connect Administration</ui:insert></title>
         <ui:insert name="metatag">
-        </ui:insert>
-        <h:outputStylesheet library="css" name="bootstrap.css" />
+        </ui:insert>    
         <h:outputStylesheet library="css" name="bootstrap.css.map" />
         <h:outputStylesheet library="css" name="bootstrap.min.css" />
-        <h:outputStylesheet library="css" name="bootstrap-theme.css" />
         <h:outputStylesheet library="css" name="bootstrap-theme.css.map" />
         <h:outputStylesheet library="css" name="bootstrap-theme.min.css" />
         <h:outputStylesheet library="css" name="dashboard.css" />
+        <h:outputScript library="js" name="jquery-1.10.2.min.js" />
+        <h:outputScript library="js" name="jquery.tablesorter.min.js" />
+        <h:outputScript library="js" name="bootstrap.min.js" />
+        <h:outputScript library="js" name="admingui.js" />
         <ui:insert name="morejs"></ui:insert>
     </h:head>
-    <h:body> 
+    <body> 
         <f:view>
             <div class="container-fluid" style="height: 100%;">
                 <div class="row" style="height: 100%;">
@@ -84,6 +86,6 @@
                 </div>
             </div>
         </f:view>
-    </h:body>
+    </body>
 </html>
 

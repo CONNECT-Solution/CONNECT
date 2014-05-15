@@ -35,11 +35,7 @@
       xmlns:f="http://java.sun.com/jsf/core">
     <h:body>	
         <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
-            <ui:define name="morejs">
-                <h:outputScript library="js" name="jquery-1.10.2.min.js" />
-                <h:outputScript library="js" name="jquery.tablesorter.min.js" />
-                <h:outputScript library="js" name="bootstrap.min.js" />
-                <h:outputScript library="js" name="admingui.js" />
+            <ui:define name="morejs"> 
                 <script src="http://code.highcharts.com/highcharts.js"></script>
                 <script src="http://code.highcharts.com/modules/exporting.js"></script>
                 <script>
@@ -180,7 +176,7 @@
                             <div class="content-block">
                                 <h2 class="subsection-header">Remote Gateway List</h2>
                                 <div class="table-responsive">
-                                    <h:dataTable id="dashboardId" value="#{eventBean.totalEvents}"
+                                    <h:dataTable id="dashboardId" value="#{dashboardBean.totalEvents}"
                                                  var="organization" styleClass="table table-striped table-remotegateways">
                                         <h:column>
                                             <f:facet name="header">Gateway</f:facet>
