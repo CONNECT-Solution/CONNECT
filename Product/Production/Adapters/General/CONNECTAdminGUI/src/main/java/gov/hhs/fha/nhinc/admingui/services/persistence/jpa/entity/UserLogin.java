@@ -40,7 +40,7 @@ import javax.persistence.Table;
 // @NamedQueries({ @NamedQuery(name = "findByUserName", query =
 // "SELECT u FROM UserLogin u WHERE u.userName = :userName") })
 @Entity
-@Table(name = "USERLOGIN")
+@Table(name = "UserLogin")
 public class UserLogin {
 
     /** The id. */
