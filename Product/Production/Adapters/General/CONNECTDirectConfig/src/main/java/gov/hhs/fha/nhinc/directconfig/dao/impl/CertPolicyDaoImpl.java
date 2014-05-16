@@ -163,12 +163,12 @@ public class CertPolicyDaoImpl implements CertPolicyDao {
 
     @Override
     public Collection<CertPolicyGroupDomainReltn> getPolicyGroupDomainReltns() throws ConfigurationStoreException {
-        throw new ConfigurationStoreException(new NotImplementedException());
+        return null;
     }
 
     @Override
     public Collection<CertPolicyGroupDomainReltn> getPolicyGroupsByDomain(long domainId)
             throws ConfigurationStoreException {
-        throw new ConfigurationStoreException(new NotImplementedException());
+        return null;
     }
 }
