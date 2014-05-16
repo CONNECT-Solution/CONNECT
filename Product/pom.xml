@@ -244,9 +244,8 @@
             </dependency>
             <dependency>
                 <groupId>org.bouncycastle</groupId>
-                <artifactId>bcprov-jdk15on</artifactId>
-                <!-- versions above 1.46 are missing class DEREncodable -->
-                <version>1.46</version>
+                <artifactId>bcprov-jdk15</artifactId>
+                <version>1.45</version>
             </dependency>
             <dependency>
                 <groupId>javax.activation</groupId>
