@@ -93,7 +93,7 @@ VALUES
 INSERT INTO `configdb`.`address`
 (`id`, `displayName`, `eMailAddress`, `endpoint`, `status`, `type`, `createTime`, `updateTime`, `domainId`)
 VALUES
-('1', 'direct.example.com', 'postmaster@direct.example.com', NULL, '1',NULL, now(), now(), '1');
+('1', 'direct.connectopensource.org', 'postmaster@direct.connectopensource.org', NULL, '1',NULL, now(), now(), '1');
 
 UPDATE `configdb`.`address` SET id=2 WHERE id=1;
 
