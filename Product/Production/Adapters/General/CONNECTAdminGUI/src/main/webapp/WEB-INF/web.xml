@@ -45,6 +45,11 @@
         <location>/Login.xhtml</location>
     </error-page>
 
+    <context-param>
+        <param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
     <!-- Session Config -->
     <session-config>
         <session-timeout>10</session-timeout>
