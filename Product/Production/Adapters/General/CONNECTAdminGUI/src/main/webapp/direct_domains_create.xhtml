@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /* 
+   * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+   * All rights reserved. 
+   *
+   * Redistribution and use in source and binary forms, with or without  
+   * modification, are permitted provided that the following conditions are met:  
+   *     * Redistributions of source code must retain the above  
+   *       copyright notice, this list of conditions and the following disclaimer. 
+   *     * Redistributions in binary form must reproduce the above copyright  
+   *       notice, this list of conditions and the following disclaimer in the documentation  
+   *       and/or other materials provided with the distribution.  
+   *     * Neither the name of the United States Government nor the  
+   *       names of its contributors may be used to endorse or promote products  
+   *       derived from this software without specific prior written permission.  
+   * 
+   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND  
+   * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED  
+   * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE  
+   * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY  
+   * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES  
+   * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  
+   * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND  
+   * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT  
+   * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS  
+   * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+   */ 
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <body>
+        <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
+            <ui:define name="metatag"></ui:define>
+            <ui:define name="content">
+
+			<!-- BEGIN: MAIN CONTENT SECTION -->
+			<div class="main-content">
+				<h1 class="section-header">Direct Configuration</h1>
+				
+				<!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
+				<div class="nav-section-tabs tabs-purple" id="nav-section-tabs">
+					<div class="navbar" role="navigation">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#domains" data-toggle="tab" title="Manage Domains">Manage Domains</a></li>
+							<li><a href="#agent" data-toggle="tab" title="Agent Settings">Agent Settings</a></li>
+							<li><a href="#certs" data-toggle="tab" title="Certificates">Certificates</a></li>
+							<li><a href="#trust" data-toggle="tab" title="Trust Bundles">Trust Bundles</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
+				
+				<!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
+				<div class="tab-content">
+					<!-- BEGIN: TAB PANE - CREATE/EDIT DOMAIN -->
+					<div class="tab-pane active" id="domains">
+						<div class="alert alert-warning"><strong>NOTE:</strong> The "Create New Domain" block will appear first. After the user has entered the required information and successfully submitted the form, the content block will change to the "Edit Domain" block (as seen further below).</div>
+						
+						<!-- BEGIN: CREATE DOMAIN -->
+						<div class="content-block">					
+							<h2 class="subsection-header">Create New Domain</h2>
+							<div class="content">
+								<h3>Add New Domain to HISP</h3>
+								<p class="instructions">Enter the requested information below to add a new domain to configure.</p>
+								<div class="form-block center-block">
+									<form class="form-horizontal" role="form">
+										<div class="form-group">
+											<label for="input-domain" class="col-sm-3 control-label">Domain Name:</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="input-domain" placeholder="Domain Name" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="input-email" class="col-sm-3 control-label">Postmaster E-mail Address:</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="input-email" placeholder="Postmaster E-mail Address" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="select-status" class="col-sm-3 control-label">Status:</label>
+											<div class="col-sm-9">
+												<select class="form-control" id="select-status">
+													<option>NEW</option>
+													<option>ENABLED</option>
+													<option>DISABLED</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="input-email" class="col-sm-3 control-label">Selected Trust Bundles:</label>
+											<div class="col-sm-9">
+												<div class="pull-right" style="display:none">
+													<button type="submit" class="btn btn-primary">Create New Domain</button>
+												</div>
+												<ul class="list-trust-selected">
+													<li>[Click button to add a Trust Bundle]</li>
+												</ul>
+												<a href="#" data-toggle="modal" data-target="#modal-trustbundle"><button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-plus-sign"></i> Add a Trust Bundle</button></a>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-sm-12">
+												<div class="form-button-row">
+													<button type="reset" class="btn btn-default">Reset Form</button>
+													<button type="submit" class="btn btn-primary">Submit</button>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<!-- END: CREATE DOMAIN -->
+						
+						<!-- BEGIN: EDIT DOMAIN -->
+						<a name="editdomain"></a>
+						<div class="content-block">
+							<h2 class="subsection-header">Edit Domain</h2>
+							<div class="content">
+								<p>Use the options below to edit the properties for domain: &lt;domain_name&gt;</p>
+							
+								<!-- BEGIN: EDIT DOMAIN - TAB BAR NAVIGATION -->
+								<div class="nav-section-tabs tabs-gray" id="nav-section-tabs">
+									<div class="navbar" role="navigation">
+										<ul class="nav nav-tabs">
+											<li class="active"><a href="#domain-name" data-toggle="tab" title="Domain Name &amp; Status">Domain Name</a></li>
+											<li><a href="#domain-addresses" data-toggle="tab" title="Addresses">Addresses</a></li>
+											<li><a href="#domain-anchors" data-toggle="tab" title="Anchors">Anchors</a></li>
+											<li><a href="#domain-trust" data-toggle="tab" title="Trust Bundles">Trust Bundles</a></li>
+										</ul>
+									</div>
+								</div>
+								<!-- END: EDIT DOMAIN - TAB BAR NAVIGATION -->
+								
+								<!-- BEGIN: EDIT DOMAIN CONTENT - TAB PANES - Edit domain screens are contained here -->
+								<div class="tab-content">
+									<!-- BEGIN: TAB PANE - CREATE/EDIT DOMAIN NAME-->
+									<div class="tab-pane active" id="domain-name">
+										<div class="form-block">
+											<form class="form-horizontal" role="form">
+												<div class="form-group">
+													<label for="input-domain" class="col-sm-3 control-label">Domain Name:</label>
+													<div class="col-sm-6">
+														<input type="text" class="form-control" id="input-domain" placeholder="Domain Name" />
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="select-status" class="col-sm-3 control-label">Status:</label>
+													<div class="col-sm-6">
+														<select class="form-control" id="select-status">
+															<option>NEW</option>
+															<option>ENABLED</option>
+															<option>DISABLED</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-sm-12">
+														<div class="form-button-row">
+															<button type="submit" class="btn btn-primary">Submit Update</button>
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+									<!-- END: TAB PANE - CREATE/EDIT DOMAIN NAME -->
+									
+									<!-- BEGIN: TAB PANE - CREATE/EDIT DOMAIN ADDRESSES -->
+									<div class="tab-pane" id="domain-addresses">
+										<form>
+											<div class="table-responsive">
+												<div class="table-button-row">
+													<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-domain-address"><i class="glyphicon glyphicon-plus-sign"></i> Add New Address</button> 
+													<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i> Refresh List</button>
+												</div>
+												<table class="table table-striped tablesorter table-domains">
+													<thead>
+														<tr>
+															<th data-sorter="false">&nbsp;</th>
+															<th>Status</th>
+															<th>Email Address</th>
+															<th>Display Name</th>
+															<th>Endpoint</th>
+															<th>Type</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td><input name="" type="checkbox" value="" /></td>
+															<td><span class="enabled">Enabled</span></td>
+															<td><a href="#">postmaster@connectdirect.connect.org</a></td>
+															<td>Postmaster</td>
+															<td></td>
+															<td></td>
+														</tr>
+														<tr>
+															<td><input name="" type="checkbox" value="" /></td>
+															<td><span>Disabled</span></td>
+															<td><a href="#">webmaster@connectdirect.connect.org</a></td>
+															<td>Webmaster</td>
+															<td></td>
+															<td></td>
+														</tr>
+													</tbody>
+												</table>
+												<div class="action-button-row">
+													<button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> Remove Selected Addresses</button>
+												</div>
+											</div>
+										</form>
+									</div>
+									<!-- END: TAB PANE - CREATE/EDIT DOMAIN ADDRESSES -->
+									
+									<!-- BEGIN: TAB PANE - CREATE/EDIT DOMAIN ANCHORS -->
+									<div class="tab-pane" id="domain-anchors">
+										<div class="form-block">
+											<form class="form-horizontal" role="form">
+												<div class="form-group">
+													<label for="input-cert" class="col-sm-3 control-label">Certificate:</label>
+													<div class="col-sm-6">
+														<div class="input-file">
+															<input type="file" id="input-cert" />
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="input-cert-incoming" class="col-sm-3 control-label">Incoming:</label>
+													<div class="col-sm-6">
+														<div class="checkbox">
+															<input type="checkbox" value="" id="input-cert-incoming" />
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="input-cert-outging" class="col-sm-3 control-label">Outgoing:</label>
+													<div class="col-sm-6">
+														<div class="checkbox">
+															<input type="checkbox" value="" id="input-cert-outging" />
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="select-status" class="col-sm-3 control-label">Status:</label>
+													<div class="col-sm-6">
+														<select class="form-control" id="select-status">
+															<option>NEW</option>
+															<option>ENABLED</option>
+															<option>DISABLED</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-sm-12">
+														<div class="form-button-row">
+															<button type="submit" class="btn btn-primary">Add Anchor</button>
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+									<!-- END: TAB PANE - CREATE/EDIT DOMAIN ANCHORS -->
+									
+									<!-- BEGIN: TAB PANE - CREATE/EDIT DOMAIN TRUST BUNDLES -->
+									<div class="tab-pane" id="domain-trust">
+										<form>
+											<div class="table-responsive">
+												<table class="table table-striped tablesorter table-domains">
+													<thead>
+														<tr>
+															<th data-sorter="false">&nbsp;</th>
+															<th>Status</th>
+															<th>Bundle Name</th>
+															<th data-sorter="false">In</th>
+															<th data-sorter="false">Out</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td><input name="" type="checkbox" value="" /></td>
+															<td><span class="enabled">Enabled</span></td>
+															<td>bluebutton-providerstest</td>
+															<td><input name="" type="checkbox" value="" checked="checked" /></td>
+															<td><input name="" type="checkbox" value="" checked="checked" /></td>
+														</tr>
+														<tr>
+															<td><input name="" type="checkbox" value="" /></td>
+															<td><span>Disabled</span></td>
+															<td>DELETEME</td>
+															<td><input name="" type="checkbox" value="" checked="checked" /></td>
+															<td><input name="" type="checkbox" value="" checked="checked" /></td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<div class="table-button-row">
+												<div class="pull-left">
+													<button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> Disable Selected Trust Bundle(s)</button>
+												</div>
+												<button type="submit" class="btn btn-primary">Enable Selected Trust Bundle(s)</button>
+											</div>
+										</form>
+									</div>
+									<!-- END: TAB PANE - CREATE/EDIT DOMAIN TRUST BUNDLES -->
+								</div>
+								<!-- END: EDIT DOMAIN CONTENT - TAB PANES - Edit domain screens are contained here -->
+							</div>
+						</div>
+						<!-- END: EDIT DOMAIN -->
+						
+					</div>
+					<!-- END: TAB PANE - CREATE/EDIT DOMAIN -->
+					
+					<!-- BEGIN: TAB PANE - AGENT SETTINGS -->
+					<div class="tab-pane" id="agent">
+						<div class="content-block">
+							<h2 class="subsection-header">Agent Settings</h2>
+							<div class="content">
+								<div class="table-responsive">
+									<div class="table-button-row">
+										<!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-createdomain"><i class="glyphicon glyphicon-plus-sign"></i> Create New Domain</button>-->
+										<a href="#" data-toggle="modal" data-target="#modal-new-agent"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add New Agent Setting</button></a>
+										<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i> Refresh List</button>
+									</div>
+									<table class="table table-striped tablesorter table-domains">
+										<thead>
+											<tr>
+												<th data-sorter="false">&nbsp;</th>
+												<th>Name</th>
+												<th>Value</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td><input name="" type="checkbox" value="" /></td>
+												<td>OutgoingMessageSaveFolder</td>
+												<td>/opt/direct-stock/james-2.3.2/apps/james/var/mail/directout</td>												
+											</tr>
+											<tr>
+												<td><input name="" type="checkbox" value="" /></td>
+												<td>IncomingMessageSaveFolder</td>
+												<td>/opt/direct-stock/james-2.3.2/apps/james/var/mail/directin</td>												
+											</tr>
+											<tr>
+												<td><input name="" type="checkbox" value="" /></td>
+												<td>RawMessageSaveFolder</td>
+												<td>/opt/direct-stock/james-2.3.2/apps/james/var/mail/directraw</td>												
+											</tr>
+											<tr>
+												<td><input name="" type="checkbox" value="" /></td>
+												<td>AnchorStoreType</td>
+												<td>WS</td>												
+											</tr>
+											<tr>
+												<td><input name="" type="checkbox" value="" /></td>
+												<td>PublicStoreType</td>
+												<td>WS,DNS</td>												
+											</tr>
+											<tr>
+												<td><input name="" type="checkbox" value="" /></td>
+												<td>BadMessageSaveFolder</td>
+												<td>/opt/direct-stock/james-2.3.2/apps/james/var/mail/directerr</td>												
+											</tr>
+											<tr>
+												<td><input name="" type="checkbox" value="" /></td>
+												<td>MDNAutoResponse</td>
+												<td>true</td>												
+											</tr>
+											<tr>
+												<td><input name="" type="checkbox" value="" /></td>
+												<td>PrivateStoreType</td>
+												<td>WS</td>												
+											</tr>
+											<tr>
+												<td><input name="" type="checkbox" value="" /></td>
+												<td>DNSServerBindings</td>
+												<td>0.0.0.0</td>												
+											</tr>
+											<tr>
+												<td><input name="" type="checkbox" value="" /></td>
+												<td>DNSServerPort</td>
+												<td>53</td>												
+											</tr>
+										</tbody>
+									</table>
+									<div class="action-button-row">
+										<button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> Remove Selected Agent Settings</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- END: TAB PANE - AGENT SETTINGS -->
+					
+					<!-- BEGIN: TAB PANE - CERTIFICATES -->
+					<div class="tab-pane" id="certs">
+						<div class="content-block">
+							<h2 class="subsection-header">Certificates</h2>
+							<div class="content">
+								<div class="table-responsive">
+									<div class="table-button-row">
+										<!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-createdomain"><i class="glyphicon glyphicon-plus-sign"></i> Create New Domain</button>-->
+										<a href="#" data-toggle="modal" data-target="#modal-certs"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add New Certificate</button></a>
+										<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i> Refresh List</button>
+									</div>
+									<table class="table table-striped tablesorter table-certs">
+										<thead>
+											<tr>
+												<th data-sorter="false">&nbsp;</th>
+												<th>Status</th>
+												<th>Owner</th>
+												<th>Private</th>
+												<th>Thumb</th>
+												<th>Created</th>
+												<th>Start</th>
+												<th>End</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td><input name="" type="checkbox" value="" /></td>
+												<td><span class="enabled">Enabled</span></td>
+												<td>connectdirect.connect.org</td>
+												<td>No</td>
+												<td>33b0a7f37dc0f8c3a6c0902bc3736aa35744fa58</td>
+												<td>10/17/2013, 11:50</td>
+												<td>10/17/2013, 09:55</td>
+												<td>10/15/2023, 09:55</td>
+											</tr>
+											<tr>
+												<td><input name="" type="checkbox" value="" /></td>
+												<td><span class="enabled">Enabled</span></td>
+												<td>connectdirect.connect.org Root CA</td>
+												<td>No</td>
+												<td>b145e498144454c16e9b9aff60b93e2f0e9839f3</td>
+												<td>10/17/2013, 11:50</td>
+												<td>10/17/2013, 09:54</td>
+												<td>10/15/2023, 09:54</td>
+											</tr>
+											<tr>
+												<td><input name="" type="checkbox" value="" /></td>
+												<td><span class="enabled">Enabled</span></td>
+												<td>connectdirectri.org Root CA</td>
+												<td>No</td>
+												<td>5adb8bef9a562659550f96ea5684979eb820c314</td>
+												<td>10/17/2013, 11:50</td>
+												<td>10/11/2013, 03:59</td>
+												<td>10/11/2014, 03:59</td>
+											</tr>
+											<tr>
+												<td><input name="" type="checkbox" value="" /></td>
+												<td><span class="enabled">Enabled</span></td>
+												<td>connectdirectri.org</td>
+												<td>No</td>
+												<td>90867ce50c18e2a290321f7d28a937f9945549b5</td>
+												<td>10/11/2013, 04:32</td>
+												<td>10/11/2013, 04:00</td>
+												<td>10/11/2014, 04:00</td>
+											</tr>
+											<tr>
+												<td><input name="" type="checkbox" value="" /></td>
+												<td>New</td>
+												<td>directri.connect.org</td>
+												<td>Yes</td>
+												<td>de2cf30af97b73f69bd71d5a0fad5de5d8363cfe</td>
+												<td>05/01/2014, 04:17</td>
+												<td>11/20/2013, 03:46</td>
+												<td>11/18/2023, 03:46</td>
+											</tr>
+											<tr>
+												<td><input name="" type="checkbox" value="" /></td>
+												<td>New</td>
+												<td>directri.connect.org</td>
+												<td>Yes</td>
+												<td>de2cf30af97b73f69bd71d5a0fad5de5d8363cfe</td>
+												<td>05/01/2014, 04:59</td>
+												<td>11/20/2013, 03:46</td>
+												<td>11/18/2023, 03:46</td>
+											</tr>
+										</tbody>
+									</table>
+									<div class="action-button-row">
+										<button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> Remove Selected Certificates</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- END: TAB PANE - CERTIFICATES -->
+					
+					<!-- BEGIN: TAB PANE - TRUST BUNDLES -->
+					<div class="tab-pane" id="trust">
+						<div class="content-block">
+							<h2 class="subsection-header">Trust Bundles</h2>
+							<div class="content">
+								<div class="table-responsive">
+									<div class="table-button-row">
+										<!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-createdomain"><i class="glyphicon glyphicon-plus-sign"></i> Create New Domain</button>-->
+										<a href="#" data-toggle="modal" data-target="#modal-new-trust-bundle"><button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add New Trust Bundles</button></a>
+										<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i> Refresh List</button>
+									</div>
+									<table class="table table-striped tablesorter table-trust">
+										<thead>
+											<tr>
+												<th data-sorter="false">&nbsp;</th>
+												<th>Bundle Name</th>
+												<th>URL</th>
+												<th>Checksum</th>
+												<th>Created</th>
+												<th>Current As Of</th>
+												<th>Last Refresh</th>
+												<th>Refresh Interval</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td><input name="" type="checkbox" value="" /></td>
+												<td>bluebutton-providerstest<br/>
+			                                        <a href="#" data-toggle="modal" data-target="#modal-trust-anchor1">View Anchors</a>                                  
+			                                    </td>
+			                                    <td>
+			                                    	<a href="https://secure.bluebuttontrust.org/p7b.ashx?id=cb300117-3a4a-e211-8bc3-78e3b5114607" target="_blank">https://secure.bluebuttontrust.org/p7b.ashx?id=cb300117-3a4a-e211-8bc3-78e3b5114607</a>
+			                                    </td>
+			                                    <td>8d9121401ba2abcb16d16cb5195c360e84abedb6</td>
+			                                    <td>10/09/2013 03:11</td>
+			                                    <td>05/09/2014 06:51</td>
+			                                    <td>05/13/2014 09:51</td>
+			                                    <td>72</td> 
+											</tr>
+											<tr>
+												<td><input name="" type="checkbox" value="" /></td>
+												<td>DELETEME<br/>
+			                                        <a href="#" data-toggle="modal" data-target="#modal-trust-anchor2">View Anchors</a>
+			                                    </td>
+			                                    <td><a href="http://thisisnotavalidtrustbundle.link/noseriously.p7b" target="_blank">http://thisisnotavalidtrustbundle.link/noseriously.p7b</a></td>
+			                                    <td></td>
+			                                    <td>04/10/2014 04:12</td>
+			                                    <td></td>
+			                                    <td>05/13/2014 09:51</td>
+			                                    <td>1</td>  
+											</tr>
+										</tbody>
+									</table>
+									<div class="action-button-row">
+										<button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> Remove Selected Trust Bundle</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- END: TAB PANE - TRUST BUNDLES -->
+				</div>
+				<!-- END: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
+				
+			</div>
+			<!-- END: MAIN CONTENT SECTION -->
+
+			<!-- END: RIGHT COLUMN - Primary content is located here -->
+		
+
+<!-- BEGIN: MODAL - ADD A TRUST BUNDLE -->
+<div class="modal fade" id="modal-trustbundle" tabindex="-1" role="dialog" aria-labelledby="modal-trustbundle-label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="modal-trustbundle-label">ADD A TRUST BUNDLE</h4>
+			</div>
+			<div class="modal-body">
+				<div class="content-block">
+					<form>
+						<div class="content">
+							<table class="table table-striped table-domains">
+								<thead>
+									<tr>
+										<th data-sorter="false">&nbsp;</th>
+										<th data-sorter="false">Bundle Name</th>
+										<th data-sorter="false">In</th>
+										<th data-sorter="false">Out</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><input name="" type="checkbox" value="" /></td>
+										<td>bluebutton-providerstest</td>
+										<td><input name="" type="checkbox" value="" checked="checked" /></td>
+										<td><input name="" type="checkbox" value="" checked="checked" /></td>
+									</tr>
+									<tr>
+										<td><input name="" type="checkbox" value="" /></td>
+										<td>DELETEME</td>
+										<td><input name="" type="checkbox" value="" checked="checked" /></td>
+										<td><input name="" type="checkbox" value="" checked="checked" /></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="action-button-row">
+							<button type="submit" class="btn btn-primary">Add Selected Trust Bundle(s)</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END: MODAL - ADD A TRUST BUNDLE -->
+
+<!-- BEGIN: MODAL - ADD A NEW ADDRESS -->
+<div class="modal fade" id="modal-domain-address" tabindex="-1" role="dialog" aria-labelledby="modal-domain-address-label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="modal-domain-address-label">ADD A NEW ADDRESS</h4>
+			</div>
+			<div class="modal-body">
+				<div class="content-block">
+
+					<div class="form-block center-block">
+						<form role="form">
+							<div class="form-group">
+								<label for="input-displayname" class="control-label">Display Name:</label>
+								<input type="text" class="form-control" id="input-displayname" placeholder="Display Name" />
+							</div>
+							<div class="form-group">
+								<label for="input-email" class="control-label">E-mail Address:</label>
+								<input type="text" class="form-control" id="input-email" placeholder="E-mail Address" />
+							</div>
+							<div class="form-group">
+								<label for="input-endpoint" class="control-label">Endpoint (XD* or endpoint destination):</label>
+								<input type="text" class="form-control" id="input-endpoint" placeholder="Endpoint" />
+							</div>
+							<div class="form-group">
+								<label for="select-status" class="control-label">Status:</label>
+								<select class="form-control" id="select-status">
+									<option>NEW</option>
+									<option>ENABLED</option>
+									<option>DISABLED</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="input-type" class="control-label">Type:</label>
+								<input type="text" class="form-control" id="input-type" placeholder="Type" />
+							</div>
+							<div class="form-group">
+								<div class="form-button-row">
+									<button type="reset" class="btn btn-default">Reset Form</button>
+									<button type="submit" class="btn btn-primary">Add Address</button>
+								</div>
+							</div>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END: MODAL - ADD A NEW ADDRESS -->
+
+<!-- BEGIN: MODAL - ADD NEW AGENT SETTING -->
+<div class="modal fade" id="modal-new-agent" tabindex="-1" role="dialog" aria-labelledby="modal-agent-label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="modal-agent-label">ADD NEW AGENT SETTING</h4>
+			</div>
+			<div class="modal-body">
+				<div class="content-block">
+					<div class="form-block center-block">
+						<form class="form-horizontal" role="form">
+							<div class="form-group">
+								<label for="input-key" class="col-sm-3 control-label">Key:</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="input-key" placeholder="Key Name" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="input-value" class="col-sm-3 control-label">Value:</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="input-value" placeholder="Key Value" />
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<div class="col-sm-12">
+									<div class="form-button-row">
+										<button type="submit" class="btn btn-default">Add Setting</button>
+										<button type="reset" class="btn btn-primary">Cancel</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END: MODAL - ADD NEW AGENT SETTING -->
+
+<!-- BEGIN: MODAL - ADD NEW CERTIFICATE -->
+<div class="modal fade" id="modal-certs" tabindex="-1" role="dialog" aria-labelledby="modal-certs-label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="modal-certs-label">ADD NEW CERTIFICATE</h4>
+			</div>
+			<div class="modal-body">
+				<div class="content-block">
+					<div class="form-block center-block">
+						<form class="form-horizontal" role="form">
+							<div class="form-group">
+								<label for="input-cert" class="col-sm-3 control-label">Certificate:</label>
+								<div class="col-sm-6">
+									<div class="input-file">
+										<input type="file" id="input-cert" placeholder="No file chosen" />
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="select-status" class="col-sm-3 control-label">Status:</label>
+								<div class="col-sm-6">
+									<select class="form-control" id="select-status">
+										<option>NEW</option>
+										<option>ENABLED</option>
+										<option>DISABLED</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-12">
+									<div class="form-button-row">
+										<button type="submit" class="btn btn-primary">Add Certificate</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END: MODAL - ADD NEW CERTIFICATE -->
+
+<!-- BEGIN: MODAL - ADD NEW TRUST BUNDLE -->
+<div class="modal fade" id="modal-new-trust-bundle" tabindex="-1" role="dialog" aria-labelledby="modal-trust-bundle-label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="modal-trust-bundle-label">ADD NEW TRUST BUNDLE</h4>
+			</div>
+			<div class="modal-body">
+				<div class="content-block">
+					<div class="form-block center-block">
+						<form class="form-horizontal" role="form">
+							<p>Enter the requested information below to add a new trust bundle</p>
+							<div class="form-group">
+								<label for="input-trust-name" class="col-sm-3 control-label">Name:</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="input-trust-name" placeholder="Domain Name" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="input-trust-url" class="col-sm-3 control-label">Trust Bundle URL:</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="input-trust-url" placeholder="http://..." />
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="input-trust-cert" class="col-sm-3 control-label">Signing Certificate:</label>
+								<div class="col-sm-6">
+									<div class="input-file">
+										<input type="file" id="input-trust-cert" placeholder="No file chosen" />
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="input-trust-interval" class="col-sm-3 control-label">Refresh Interval(hours):</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="input-trust-interval" placeholder="" />
+								</div>
+							</div>												
+							<div class="form-group">
+								<div class="col-sm-12">
+									<div class="form-button-row">
+										<button type="submit" class="btn btn-primary">Add Trust Bundle</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END: MODAL - ADD NEW TRUST BUNDLE -->
+
+<!-- BEGIN: MODAL - TRUST BUNDLE ANCHOR #1 -->
+<div class="modal fade" id="modal-trust-anchor1"  tabindex="-1" role="dialog" aria-labelledby="modal-anchor1-label" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="modal-anchor1-label">Anchor List</h4>
+			</div>
+			<div class="modal-body">
+				<ui:include src="trust-bundle-anchor1.xhtml" />
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END: MODAL - TRUST BUNDLE ANCHOR #1 -->
+
+<!-- BEGIN: MODAL - TRUST BUNDLE ANCHOR #2 -->
+<div class="modal fade" id="modal-trust-anchor2"  tabindex="-1" role="dialog" aria-labelledby="modal-anchor2-label" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="modal-anchor2-label">Anchor List</h4>
+			</div>
+			<div class="modal-body">
+				<ui:include src="trust-bundle-anchor2.xhtml" />
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END: MODAL - TRUST BUNDLE ANCHOR #2 -->
+
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
