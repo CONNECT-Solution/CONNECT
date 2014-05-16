@@ -9,6 +9,11 @@
     <application>
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
     </application>
+    
+    <lifecycle>
+        <phase-listener>gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener</phase-listener>
+    </lifecycle>
+    
     <navigation-rule>
         <from-view-id>/*</from-view-id>
         <navigation-case>
@@ -22,6 +27,16 @@
         <navigation-case>
             <from-outcome>status</from-outcome>
             <to-view-id>/status.xhtml</to-view-id>
+            <redirect />
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/*</from-view-id>
+        <navigation-case>
+            <from-outcome>StatusPrime</from-outcome>
+            <to-view-id>/StatusPrime.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
 </faces-config>

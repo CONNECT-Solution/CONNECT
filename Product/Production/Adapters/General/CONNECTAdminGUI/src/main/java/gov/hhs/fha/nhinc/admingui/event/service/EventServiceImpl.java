@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManager;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.event.dao.DatabaseEventLoggerDao;
+import gov.hhs.fha.nhinc.event.model.DatabaseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +43,7 @@ import org.springframework.stereotype.Service;
  * @author jasonasmith
  */
 @Service
-public class EventCountServiceImpl implements EventCountService {
+public class EventServiceImpl implements EventService {
     
     private static final HashMap<String, EventNwhinOrganization> inboundOrganizations = new HashMap<String, EventNwhinOrganization>();
     private static final HashMap<String, EventNwhinOrganization> outboundOrganizations = new HashMap<String, EventNwhinOrganization>();
@@ -63,7 +64,7 @@ public class EventCountServiceImpl implements EventCountService {
     private static final String AD_SERVICE_TYPE = "Admin Distribution";
     private static final String DIRECT_SERVICE_TYPE = "Direct";
     
-    private static final Logger LOG = Logger.getLogger(EventCountServiceImpl.class);
+    private static final Logger LOG = Logger.getLogger(EventServiceImpl.class);
     
     /*
      * (non-Javadoc)
@@ -213,6 +214,16 @@ public class EventCountServiceImpl implements EventCountService {
 
     protected ConnectionManager getConnectionManager(){
         return ConnectionManagerCache.getInstance();
+    }
+
+    @Override
+    public DatabaseEvent getLatestInbound() {
+        return getEventLoggerDao().getLatestEvent(INBOUND_EVENT_TYPE);
+    }
+
+    @Override
+    public DatabaseEvent getLatestOutbound() {
+        return getEventLoggerDao().getLatestEvent(OUTBOUND_EVENT_TYPE);
     }
     
 }

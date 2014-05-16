@@ -45,12 +45,12 @@ import static org.mockito.Mockito.times;
  * Tests the ability to sort event results into displayable organizations by total, inbound, and outbound.
  * @author jasonasmith
  */
-public class EventCountServiceImplTest {
+public class EventCountImplTest {
 
     private List daoInboundResults;
     private List daoOutboundResults;
 
-    private EventCountService countService;
+    private EventService countService;
 
     private final ConnectionManager mockCM = mock(ConnectionManager.class);
     private final DatabaseEventLoggerDao mockDao = mock(DatabaseEventLoggerDao.class);
@@ -61,7 +61,7 @@ public class EventCountServiceImplTest {
     @Before
     public void setUp() {
 
-        countService = new EventCountServiceImpl() {
+        countService = new EventServiceImpl() {
 
             @Override
             protected ConnectionManager getConnectionManager() {
@@ -86,8 +86,8 @@ public class EventCountServiceImplTest {
 
     private void setMockCounts() throws ConnectionManagerException {
 
-        when(mockDao.getCounts(EventCountServiceImpl.INBOUND_EVENT_TYPE, EventCountServiceImpl.INBOUND_HCID_TYPE)).thenReturn(daoInboundResults);
-        when(mockDao.getCounts(EventCountServiceImpl.OUTBOUND_EVENT_TYPE, EventCountServiceImpl.OUTBOUND_HCID_TYPE)).thenReturn(daoOutboundResults);
+        when(mockDao.getCounts(EventServiceImpl.INBOUND_EVENT_TYPE, EventServiceImpl.INBOUND_HCID_TYPE)).thenReturn(daoInboundResults);
+        when(mockDao.getCounts(EventServiceImpl.OUTBOUND_EVENT_TYPE, EventServiceImpl.OUTBOUND_HCID_TYPE)).thenReturn(daoOutboundResults);
 
         when(mockCM.getBusinessEntityName("1.1")).thenReturn(ORG_1);
         when(mockCM.getBusinessEntityName("2.2")).thenReturn(ORG_2);

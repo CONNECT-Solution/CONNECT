@@ -31,37 +31,28 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:p="http://primefaces.org/ui">
     <body style="background: #dddddd" leftmargin="0" topmargin="0">
         <ui:composition>
             <header id="header">
                 <div class="">
                     <!-- ORIGINALLY:  class="navbar-collapse collapse" -->
                     <ul class="nav navbar-nav">
-                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" title="User Profile">Logged in as <strong>#{loginBean.userName}</strong></a>
-                                <ul class="dropdown-menu" style="min-width: 100%;" role="menu" aria-labelledby="dLabel">
-                                    <li style="margin-left: 15px;"><h:form><h:commandLink value="Log Out" action="#{loginBean.logout}" /></h:form></li>
-                                </ul>
-                            </li>
-                        <li class="dropdown"><a href="#" class="dropdown-toggle"
-                                                data-toggle="dropdown" title="Settings">&#x202F;<i
-                                    class="glyphicon glyphicon-wrench"></i>&#x202F;
-                            </a>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                <li><a role="menuitem" tabindex="-1"
-                                       href="acctmanage.xhtml#tab_users">User Accounts</a></li>
-                                <li><a role="menuitem" tabindex="-1"
-                                       href="acctmanage.xhtml#tab_certificate">Certificate
-                                        Management</a></li>
-                                <li class="divider"></li>
-                                <li><a role="menuitem" tabindex="-1" href="#">Other Tools</a></li>
-                            </ul></li>
-                        <li><a href="#" title="Send a Message">&#x202F;<i
-                                    class="glyphicon glyphicon-envelope"></i>&#x202F;
-                            </a></li>
-                        <li><a href="#" title="Help">&#x202F;<i
-                                    class="glyphicon glyphicon-question-sign"></i>&#x202F;
-                            </a></li>
+                        <li class="dropdown">
+                            <h:form>
+                                <p:menubar>
+                                    <p:submenu label="Logged in as #{loginBean.userName}">
+                                        <p:menuitem value="Log out" action="#{loginBean.logout}" ajax="false"/>
+                                    </p:submenu>
+                                    <p:submenu icon="ui-icon-wrench">
+                                        <p:menuitem value="User Accounts" url="acctmanage.xhtml" icon="ui-icon-pencil"/>
+                                        <p:menuitem value="Certificate Management" url="acctmanage.xhtml" icon="ui-icon-gear"/>
+                                    </p:submenu>
+                                    <p:menuitem icon="ui-icon-mail-closed" url="#"/>
+                                    <p:menuitem icon="ui-icon-help" url="#"/>
+                                </p:menubar>
+                            </h:form>
+                        </li>
                     </ul>
                     <form class="navbar-form navbar-right">
                         <i class="glyphicon glyphicon-search"></i><input

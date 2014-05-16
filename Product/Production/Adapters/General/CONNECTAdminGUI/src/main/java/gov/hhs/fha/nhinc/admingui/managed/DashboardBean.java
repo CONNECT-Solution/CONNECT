@@ -30,25 +30,118 @@ package gov.hhs.fha.nhinc.admingui.managed;
  *
  * @author sadusumilli / jasonasmith
  */
-import gov.hhs.fha.nhinc.admingui.event.model.EventNwhinOrganization;
-import gov.hhs.fha.nhinc.admingui.event.service.EventCountService;
+import gov.hhs.fha.nhinc.admingui.dashboard.DashboardObserver;
+import gov.hhs.fha.nhinc.admingui.dashboard.DashboardPanel;
+import gov.hhs.fha.nhinc.admingui.dashboard.DashboardViewResolver;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.component.dashboard.Dashboard;
+import org.primefaces.event.CloseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @ManagedBean(name = "dashboardBean")
-@SessionScoped
+@RequestScoped
 @Component
 public class DashboardBean {
 
-    @Autowired
-    private EventCountService eventCountService;
+    @Autowired 
+    private DashboardObserver dashboardObserver;
     
-    public List<EventNwhinOrganization> getTotalEvents() {
-        eventCountService.setCounts();
-        
-        return eventCountService.getTotalOrganizations();
+    @Autowired
+    private DashboardViewResolver dashboardView;
+    
+    private List<String> selectedClosedPanels;
+    
+    public List<String> getSelectedClosedPanels(){
+        return selectedClosedPanels;
     }
+    
+    public void setSelectedClosedPanels(List<String> selectedClosedPanels){
+        this.selectedClosedPanels = selectedClosedPanels;
+    }
+    
+    public String addPanels(){
+        List<DashboardPanel> openPanels = new ArrayList<DashboardPanel>();
+        
+        try {
+        for(DashboardPanel panel : dashboardObserver.getClosedDashboardPanels()){
+            for(String type : getSelectedClosedPanels()){
+                if(type.equals(panel.getType())){
+                    openPanels.add(panel);
+                }
+            }
+        }
+        
+        for(DashboardPanel panel : openPanels){
+            panel.open();
+        }
+        
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+        TabBean tabs = (TabBean) FacesContext.getCurrentInstance().
+            getExternalContext().getSessionMap().get("tabBean");
+        
+        if(tabs != null){
+            tabs.setDashboardTabIndex(0);
+        }
+        
+        return "StatusPrime";       
+    }
+    
+    public Dashboard getDashboard() {
+        if(!dashboardObserver.isStarted()){
+            //TODO Check for User preferences
+            dashboardObserver.setDefaultPanels();
+        }else {
+            dashboardObserver.refreshData();
+        }
+        
+        dashboardView.setView(getPanels());
+        
+        return dashboardView.getDashboard();
+    }
+    
+    public void setDashboard(Dashboard dashboard) {
+        dashboardView.setDashboard(dashboard);
+    }
+    
+    public List<DashboardPanel> getPanels(){
+        return dashboardObserver.getOpenDashboardPanels();
+    }
+    
+    public void handleClose(CloseEvent event) {
+        dashboardView.handleClose(event, getPanels());
+    }
+    
+    public String getAllProperties(){
+        StringBuilder builder = new StringBuilder();
+        Set keys = System.getProperties().keySet();
+        
+        for(Object key : keys){
+            builder.append((String) key).append(" : ")
+                .append((String) System.getProperty((String) key)).append("\n");
+        }
+        
+        return builder.toString();
+    }
+    
+    public Map<String, String> getClosedPanels(){
+        Map<String, String> closedPanels = new HashMap<String, String>();
+
+        for(DashboardPanel panel : dashboardObserver.getClosedDashboardPanels()){
+            closedPanels.put(panel.getType(), panel.getType());
+        }
+        
+        return closedPanels;
+    }
+    
 }

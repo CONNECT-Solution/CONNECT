@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /* 
+   * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+   * All rights reserved. 
+   *
+   * Redistribution and use in source and binary forms, with or without  
+   * modification, are permitted provided that the following conditions are met:  
+   *     * Redistributions of source code must retain the above  
+   *       copyright notice, this list of conditions and the following disclaimer. 
+   *     * Redistributions in binary form must reproduce the above copyright  
+   *       notice, this list of conditions and the following disclaimer in the documentation  
+   *       and/or other materials provided with the distribution.  
+   *     * Neither the name of the United States Government nor the  
+   *       names of its contributors may be used to endorse or promote products  
+   *       derived from this software without specific prior written permission.  
+   * 
+   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND  
+   * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED  
+   * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE  
+   * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY  
+   * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES  
+   * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  
+   * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND  
+   * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT  
+   * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS  
+   * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+   */ 
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title><ui:insert name="title">Connect Administration</ui:insert></title>
+        <ui:insert name="metatag">
+        </ui:insert>
+        <h:outputStylesheet library="css" name="bootstrap.css" />
+        <h:outputStylesheet library="css" name="bootstrap.css.map" />
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <h:outputStylesheet library="css" name="bootstrap-theme.css" />
+        <h:outputStylesheet library="css" name="bootstrap-theme.css.map" />
+        <h:outputStylesheet library="css" name="bootstrap-theme.min.css" />
+        <h:outputStylesheet library="css" name="dashboard.css" />
+        <ui:insert name="morejs"></ui:insert>
+    </h:head>
+    <h:body> 
+        <f:view>
+            <div class="container-fluid" style="height: 100%;">
+                <div class="row" style="height: 100%;">
+                    <!-- left side div -->
+                    <div class="col-xs-2 sidebar sidebar-scroll">
+                        <ui:insert name="menu">
+
+                            <ui:include src="/resources/Templates/SidebarPaneForBaseTemplatePrime.xhtml" />
+                        </ui:insert>
+                        <div class="copyright">
+                            <ui:insert name="footer">
+                                <ui:include src="/resources/Templates/FooterForBaseTemplatePrime.xhtml" />
+                            </ui:insert>
+                        </div>
+                    </div>
+                    <!-- end of left side div -->
+                    <!-- right side div with content -->
+                    <div class="col-xs-offset-2 col-xs-10 main">
+                        <!--header  -->
+                        <ui:insert name="foradmin">
+                            <div class="navbar nav-utility" role="navigation">
+                                <ui:insert name="header">
+                                    <ui:include src="/resources/Templates/HeaderForBaseTemplatePrime.xhtml" />
+                                </ui:insert>
+                            </div>
+                        </ui:insert>
+                        <!-- content navigation -->
+                        <div class="main-content">
+                            <ui:insert name="content">
+
+                            </ui:insert>
+                        </div>
+                    </div>
+                    <!--end of right side div  -->
+                </div>
+            </div>
+        </f:view>
+    </h:body>
+</html>
+
