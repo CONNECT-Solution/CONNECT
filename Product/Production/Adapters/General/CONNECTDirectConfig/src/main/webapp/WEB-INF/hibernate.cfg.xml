@@ -5,6 +5,12 @@
  
 <hibernate-configuration>
     <session-factory>
+        <!-- We currently have the antlr classpath conflict described here:
+             http://thejavablog.wordpress.com/2010/12/02/classnotfoundexception-org-hibernate-hql-ast-hqltoken/
+             Switching to the classing translator so that our named query works.
+         -->
+        <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
+
         <mapping class="gov.hhs.fha.nhinc.directconfig.entity.Address" />
         <mapping class="gov.hhs.fha.nhinc.directconfig.entity.Anchor" />
         <mapping class="gov.hhs.fha.nhinc.directconfig.entity.Certificate" />
@@ -18,5 +24,6 @@
         <mapping class="gov.hhs.fha.nhinc.directconfig.entity.TrustBundle" />
         <mapping class="gov.hhs.fha.nhinc.directconfig.entity.TrustBundleAnchor" />
         <mapping class="gov.hhs.fha.nhinc.directconfig.entity.TrustBundleDomainReltn" />
+
     </session-factory>
 </hibernate-configuration>
