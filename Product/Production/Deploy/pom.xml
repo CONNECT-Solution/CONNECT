@@ -71,6 +71,11 @@
                 <module>ear/jboss7</module>
             </modules>
         </profile>
-
+        <profile>
+            <id>wildfly</id>
+            <modules>
+                <module>ear/wildfly</module>
+            </modules>
+        </profile>
     </profiles>
 </project>
