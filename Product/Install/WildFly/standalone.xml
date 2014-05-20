@@ -48,7 +48,7 @@
                     </ssl>
                 </server-identities>
                 <authentication>
-                    <truststore path="cacerts.jks" relative-to="jboss.server.config.dir" keystore-password="changeit"/>
+                    <truststore path="modules/system/layers/base/org/connectopensource/configuration/main/cacerts.jks" relative-to="jboss.home.dir" keystore-password="changeit"/>
                     <local default-user="$local" allowed-users="*"/>
                     <properties path="application-users.properties" relative-to="jboss.server.config.dir"/>
                 </authentication>
