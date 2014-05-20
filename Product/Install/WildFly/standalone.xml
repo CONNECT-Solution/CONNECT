@@ -33,13 +33,7 @@
     <management>
         <security-realms>
             <security-realm name="ManagementRealm">
-                <server-identities>
-                    <ssl>
-                        <keystore path="modules/system/layers/base/org/connectopensource/configuration/main/gateway.jks" relative-to="jboss.home.dir" keystore-password="changeit" alias="gateway"/>
-                    </ssl>
-                </server-identities>
                 <authentication>
-                    <truststore path="cacerts.jks" relative-to="jboss.server.config.dir" keystore-password="changeit"/>
                     <local default-user="$local"/>
                     <properties path="mgmt-users.properties" relative-to="jboss.server.config.dir"/>
                 </authentication>
