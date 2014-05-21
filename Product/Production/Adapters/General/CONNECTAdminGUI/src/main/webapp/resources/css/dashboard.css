@@ -353,6 +353,13 @@ span.enabled {
 		transition:none;
 }
 
+.main .nav-utility .navbar-nav.navbar-right {
+	margin-right:0px;
+}
+.main .nav-utility .navbar-nav.navbar-right li {
+	border-left:1px solid #b9cde5;
+}
+
 /* -- SECTION TAB NAVBAR STYLES ----------------------------------------------*/
 .nav-section-tabs {
 	padding-left:40px;
