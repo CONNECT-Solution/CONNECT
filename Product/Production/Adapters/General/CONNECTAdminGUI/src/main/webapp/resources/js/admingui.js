@@ -27,9 +27,9 @@ $(document).ready(function() {
 		$(showActivebar).addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK LI
 	
 		var urlFull = $(this).find('a').attr('href'); // CATCH HREF FROM SIDEBAR LINK
-		console.log(urlFull);
+		//console.log(urlFull);
 		var url = urlFull.substring(urlFull.indexOf("#")); // GET JUST THE URL STRING STARTING AT THE HASH MARK
-		console.log(url);
+		//console.log(url);
 		if (url.match('#')) {
 			//console.log(url);
 			$('.nav-section-tabs a[href='+url.replace(prefix,"")+']').tab('show') ; // REMOVE PREFIX and CHANGE TAB TO MATCH SELECTED SIDEBAR LINK
@@ -38,7 +38,13 @@ $(document).ready(function() {
 	
 	// FUNCTION FOR TABBED NAV IN MAIN CONTENT AREA - CHANGE SELECTED SIDEBAR LINK
 	$('.nav-section-tabs a').click(function () {
-		var url = $(this).attr('href').replace("#","#tab_"); // CATCH HREF FROM SELECTED TAB and ADD PREFIX TO FIND CORRECT SIDEBAR LINK
+		var urlTest = $(this).attr('href').replace("#","#tab_"); // CATCH HREF FROM SELECTED TAB and ADD PREFIX TO FIND CORRECT SIDEBAR LINK
+		if (urlTest.indexOf('domain-') >= 0) {
+			var url = "#tab_domains";
+		}
+		else {
+			var url = urlTest;
+		}
 		SidebarNavStyle(url);
 	});
 	

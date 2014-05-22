@@ -36,8 +36,11 @@
     <h:head>
         <title><ui:insert name="title">Connect Administration</ui:insert></title>
         <ui:insert name="metatag">
-        </ui:insert>    
-        <h:outputStylesheet library="css" name="bootstrap.css.map" />
+        </ui:insert>
+		
+		<link rel="shortcut icon" href="#{resource['images/favicon-admingui.ico']}" type="image/x-icon" />
+        
+		<h:outputStylesheet library="css" name="bootstrap.css.map" />
         <h:outputStylesheet library="css" name="bootstrap.min.css" />
         <h:outputStylesheet library="css" name="bootstrap-theme.css.map" />
         <h:outputStylesheet library="css" name="bootstrap-theme.min.css" />
@@ -85,6 +88,7 @@
                     <!--end of right side div  -->
                 </div>
             </div>
+			<ui:include src="copyright-modal.xhtml" />
         </f:view>
     </body>
 </html>
