@@ -49,11 +49,11 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  * {@link Event} Implementation for Direct.
  */
 public class DirectEvent extends BaseEvent {
-    
+
     private static final Logger LOG = Logger.getLogger(DirectEvent.class);
 
     private static final String XML_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-    
+
     /*
      * JSON fields and values. (should use a standard enum here? )
      */
@@ -72,7 +72,6 @@ public class DirectEvent extends BaseEvent {
 
     private final String name;
 
-    
     /**
      * @param name of the triggered event.
      */
@@ -87,7 +86,7 @@ public class DirectEvent extends BaseEvent {
     public String getEventName() {
         return name;
     }
-    
+
     /**
      * Builder for the Direct Event.
      */
@@ -95,7 +94,7 @@ public class DirectEvent extends BaseEvent {
 
         private MimeMessage message;
         private String errorMsg;
-        
+
         /**
          * @param mimeMessage source for messageid, sender, recips, etc
          * @return this builder.
@@ -104,9 +103,10 @@ public class DirectEvent extends BaseEvent {
             this.message = mimeMessage;
             return this;
         }
-        
+
         /**
          * Create an event with an error status.
+         *
          * @param str error message encountered.
          * @return this builder.
          */
@@ -117,6 +117,7 @@ public class DirectEvent extends BaseEvent {
 
         /**
          * Build a direct event.
+         *
          * @param type - {@link DirectEventType} to build.
          * @return the created event.
          */
@@ -124,13 +125,12 @@ public class DirectEvent extends BaseEvent {
 
             String eventName = type.toString();
             final DirectEvent event = new DirectEvent(eventName);
-            event.setTransactionID("");            
+            event.setTransactionID("");
             event.setServiceType(SERVICE_TYPE);
-            try{
-            event.setInitiatorHcid(PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME, PROPERTY_NAME));
-            event.setRespondingHcid(PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME, PROPERTY_NAME));
-            }catch(PropertyAccessException e)
-            {
+            try {
+                event.setInitiatorHcid(PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME, PROPERTY_NAME));
+                event.setRespondingHcid(PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME, PROPERTY_NAME));
+            } catch (PropertyAccessException e) {
                 LOG.error("Error reading local home community from gateway properties file.", e);
             }
             JSONObject jsonDescription = new JSONObject();
@@ -150,27 +150,27 @@ public class DirectEvent extends BaseEvent {
                     LOG.error("Error building JSON (Messaging Exception)", e);
                 }
             }
-            
+
             if (errorMsg == null) {
                 addToJSON(jsonDescription, STATUSES, STATUS_SUCCESS);
             } else {
-                addToJSON(jsonDescription, STATUSES, STATUS_ERROR);                
+                addToJSON(jsonDescription, STATUSES, STATUS_ERROR);
             }
 
             event.setDescription(jsonDescription.toString());
             return event;
         }
-        
-        private void addToJSON(JSONObject jsonObject, String key, Object value)  {
+
+        private void addToJSON(JSONObject jsonObject, String key, Object value) {
             try {
                 jsonObject.put(key, value);
             } catch (JSONException e) {
                 LOG.error("Exception while building JSON description for direct event.", e);
             }
         }
-    }   
-    
-    private static String formatDateForXml(Date date) {        
+    }
+
+    private static String formatDateForXml(Date date) {
         return new SimpleDateFormat(XML_DATE_FORMAT, Locale.getDefault()).format(date);
     }
 }
