@@ -52,6 +52,8 @@ public class EventServiceImpl implements EventService {
     public static final String OUTBOUND_EVENT_TYPE = "END_INVOCATION_TO_NWHIN";
     public static final String INBOUND_HCID_TYPE = "initiatorHcid";
     public static final String OUTBOUND_HCID_TYPE = "respondingHcid";
+    public static final String INBOUND_DIRECT_EVENT_TYPE = "END_INBOUND_DIRECT";
+    public static final String OUTBOUND_DIRECT_EVENT_TYPE = "END_OUTBOUND_DIRECT";
     
     private static final String PD_SERVICE_TYPE = "Patient Discovery";
     private static final String PD_DEF_REQ_SERVICE_TYPE = "Patient Discovery Deferred Request";
@@ -72,9 +74,31 @@ public class EventServiceImpl implements EventService {
      * @see gov.hhs.fha.nhinc.admingui.event.service.EventCountService#setCounts
      */
     @Override
-    public void setCounts(){
+    public void setCounts(){        
         List inboundResults = getEventLoggerDao().getCounts(INBOUND_EVENT_TYPE, INBOUND_HCID_TYPE);
         List outboundResults = getEventLoggerDao().getCounts(OUTBOUND_EVENT_TYPE, OUTBOUND_HCID_TYPE);
+        List inboundDirectResults = getEventLoggerDao().getCounts(INBOUND_DIRECT_EVENT_TYPE, INBOUND_HCID_TYPE);
+        List outboundDirectResults = getEventLoggerDao().getCounts(OUTBOUND_DIRECT_EVENT_TYPE, OUTBOUND_HCID_TYPE);
+        
+        if(null != inboundResults && !inboundResults.isEmpty())
+        {
+            if(null != inboundDirectResults && !inboundDirectResults.isEmpty())
+            {
+                inboundResults.addAll(inboundDirectResults);
+            }
+        } else {
+            inboundResults = inboundDirectResults;
+        }
+        
+        if(null != outboundResults && !outboundResults.isEmpty())
+        {
+            if(null != outboundDirectResults && !outboundDirectResults.isEmpty())
+            {
+                outboundResults.addAll(outboundDirectResults);
+            }
+        } else {
+            outboundResults = outboundDirectResults;
+        }
         
         setEvents(inboundResults, inboundOrganizations);
         setEvents(outboundResults, outboundOrganizations);

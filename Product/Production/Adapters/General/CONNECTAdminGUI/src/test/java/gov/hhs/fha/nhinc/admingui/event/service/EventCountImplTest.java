@@ -49,6 +49,8 @@ public class EventCountImplTest {
 
     private List daoInboundResults;
     private List daoOutboundResults;
+    private List daoInboundDirectResults;
+    private List daoOutboundDirectResults;
 
     private EventService countService;
 
@@ -81,21 +83,29 @@ public class EventCountImplTest {
         daoOutboundResults = new ArrayList();
         daoOutboundResults.add(new Object[]{2, "1.1", "Patient Discovery"});
         daoOutboundResults.add(new Object[]{2, "2.2", "Retrieve Document"});
-
+        
+        daoInboundDirectResults = new ArrayList();
+        daoInboundDirectResults.add(new Object[]{2, "1.1", "Direct"});
+        daoInboundDirectResults.add(new Object[]{2, "1.1", "Direct"});
+        
+        daoOutboundDirectResults = new ArrayList();
+        daoOutboundDirectResults.add(new Object[]{2, "1.1", "Direct"});
+        daoOutboundDirectResults.add(new Object[]{2, "2.2", "Direct"});
     }
 
     private void setMockCounts() throws ConnectionManagerException {
 
         when(mockDao.getCounts(EventServiceImpl.INBOUND_EVENT_TYPE, EventServiceImpl.INBOUND_HCID_TYPE)).thenReturn(daoInboundResults);
         when(mockDao.getCounts(EventServiceImpl.OUTBOUND_EVENT_TYPE, EventServiceImpl.OUTBOUND_HCID_TYPE)).thenReturn(daoOutboundResults);
-
+        when(mockDao.getCounts(EventServiceImpl.INBOUND_DIRECT_EVENT_TYPE, EventServiceImpl.INBOUND_HCID_TYPE)).thenReturn(daoInboundDirectResults);
+        when(mockDao.getCounts(EventServiceImpl.OUTBOUND_DIRECT_EVENT_TYPE, EventServiceImpl.OUTBOUND_HCID_TYPE)).thenReturn(daoOutboundDirectResults);
         when(mockCM.getBusinessEntityName("1.1")).thenReturn(ORG_1);
         when(mockCM.getBusinessEntityName("2.2")).thenReturn(ORG_2);
 
         countService.setCounts();
 
-        verify(mockDao, times(2)).getCounts(anyString(), anyString());
-        verify(mockCM, times(4)).getBusinessEntityName(anyString());
+        verify(mockDao, times(4)).getCounts(anyString(), anyString());
+        verify(mockCM, times(8)).getBusinessEntityName(anyString());
     }
 
     /**
@@ -128,10 +138,10 @@ public class EventCountImplTest {
     private void assertTotals(EventNwhinOrganization org1, EventNwhinOrganization org2) {
         assertEquals(org1.getPdCount(), 4);
         assertEquals(org1.getDqCount(), 2);
-        assertEquals(org1.getTotalCount(), 6);
+        assertEquals(org1.getTotalCount(), 10);
 
         assertEquals(org2.getDrCount(), 2);
-        assertEquals(org2.getTotalCount(), 2);
+        assertEquals(org2.getTotalCount(), 4);
     }
 
     /**
@@ -148,7 +158,7 @@ public class EventCountImplTest {
 
         assertEquals(inboundOrgs.get(0).getPdCount(), 2);
         assertEquals(inboundOrgs.get(0).getDqCount(), 2);
-        assertEquals(inboundOrgs.get(0).getTotalCount(), 4);
+        assertEquals(inboundOrgs.get(0).getTotalCount(), 6);
     }
 
     /**
@@ -178,8 +188,8 @@ public class EventCountImplTest {
             assertEquals(org2.getPdCount(), 2);
         }
 
-        assertEquals(org1.getTotalCount(), 2);
-        assertEquals(org2.getTotalCount(), 2);
+        assertEquals(org1.getTotalCount(), 4);
+        assertEquals(org2.getTotalCount(), 4);
     }
 
 }

@@ -41,6 +41,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.common.collect.ImmutableList;
+import gov.hhs.fha.nhinc.event.Event;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 /**
  * {@link Event} Implementation for Direct.
@@ -61,6 +64,9 @@ public class DirectEvent extends BaseEvent {
     private static final String ERROR_MSG = "error_msg";
     private static final String SENDER = "sender";
     private static final String RECIPIENT = "recipient";
+    private static final String SERVICE_TYPE = "Direct";
+    private static final String PROPERTY_FILE_NAME = "gateway";
+    private static final String PROPERTY_NAME = "localHomeCommunityId";
     private static final List<String> STATUS_SUCCESS = ImmutableList.of("success");
     private static final List<String> STATUS_ERROR = ImmutableList.of("error");
 
@@ -119,7 +125,14 @@ public class DirectEvent extends BaseEvent {
             String eventName = type.toString();
             final DirectEvent event = new DirectEvent(eventName);
             event.setTransactionID("");            
-            
+            event.setServiceType(SERVICE_TYPE);
+            try{
+            event.setInitiatorHcid(PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME, PROPERTY_NAME));
+            event.setRespondingHcid(PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME, PROPERTY_NAME));
+            }catch(PropertyAccessException e)
+            {
+                LOG.error("Error reading local home community from gateway properties file.", e);
+            }
             JSONObject jsonDescription = new JSONObject();
             addToJSON(jsonDescription, TIMESTAMP, formatDateForXml(new Date()));
             addToJSON(jsonDescription, ACTION, eventName);
