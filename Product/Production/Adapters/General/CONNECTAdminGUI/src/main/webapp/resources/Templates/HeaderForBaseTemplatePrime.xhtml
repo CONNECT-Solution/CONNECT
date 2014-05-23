@@ -45,8 +45,8 @@
                                         <p:menuitem value="Log out" action="#{loginBean.logout}" ajax="false"/>
                                     </p:submenu>
                                     <p:submenu icon="ui-icon-wrench">
-                                        <p:menuitem value="User Accounts" url="acctmanage.xhtml" icon="ui-icon-pencil"/>
-                                        <p:menuitem value="Certificate Management" url="acctmanage.xhtml" icon="ui-icon-gear"/>
+                                        <p:menuitem value="User Accounts" action="#{tabBean.setAdminTabIndexNavigate(0)}" icon="ui-icon-pencil"/>
+                                        <p:menuitem value="Certificate Management" action="#{tabBean.setAdminTabIndexNavigate(1)}" icon="ui-icon-gear"/>
                                     </p:submenu>
                                     <p:menuitem icon="ui-icon-mail-closed" url="#"/>
                                     <p:menuitem icon="ui-icon-help" url="#"/>
