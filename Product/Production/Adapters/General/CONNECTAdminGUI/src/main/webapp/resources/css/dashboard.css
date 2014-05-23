@@ -45,6 +45,7 @@ html, body {
 body {
 	background:#e3ebf5; /* #10253f */
 }
+
 a {
 	outline:none !important;
 }
@@ -63,7 +64,7 @@ a {
 	padding-left:0px;
 	padding-right:0px;
 	padding-bottom:30px;
-	background:#10253f;
+	background:#10253f; /* 212c65 */
 	position:absolute;
 }
 .sidebar h1.page-header {
@@ -570,6 +571,14 @@ span.enabled {
 	margin-top:10px;
 }
 
+.main-content table[class*="table-"] td {  /* table[class$="table-"] */
+	word-wrap: break-word;
+	word-break: break-all;
+}.main-content table[class*="table-"] td.nowrap {  /* table[class$="table-"] */
+	word-wrap: break-word;
+	word-break: normal;
+}
+
 /* -- SERVER STATUS KPI STYLES -----------------------------------------------*/
 .kpi-block {
 	margin-bottom:20px;
@@ -586,13 +595,6 @@ span.enabled {
 	font-size:24px;
 	font-weight:normal;
 }
-
-.kpi-value-c {
-    padding:0px 15px 5px;
-    font-size:18px;
-    font-weight:normal;
-}
-
 .kpi-footer {
 	padding:5px 15px;
 	border-top:1px solid #e3ebf5;
@@ -675,6 +677,9 @@ span.enabled {
 	}
 	.main h2.subsection-header {
 		padding:12px;
+	}
+	.main-content table[class*="table-"] td {
+		font-size:14px;
 	}
 }
 @media (max-width: 800px) {

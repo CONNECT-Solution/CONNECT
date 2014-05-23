@@ -34,7 +34,7 @@
       xmlns:f="http://java.sun.com/jsf/core">
 
     <body>
-		
+		<ui:composition xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml">
 			<h1 class="page-header">Gateway Administrative Console</h1>
 	
 			<div id="sidenav-status">
@@ -75,7 +75,7 @@
 					Direct Configuration
 				</h2>
 				<ul class="nav nav-sidebar sidebar-purple">
-					<li><a href="direct.xhtml#tab_domains"><i class="glyphicon glyphicon-cog"></i> Manage Domains</a></li>
+					<li><a href="direct.xhtml#tab_domains"><i class="glyphicon glyphicon-cog"></i> Domains</a></li>
 					<li><a href="direct.xhtml#tab_agent"><i class="glyphicon glyphicon-cog"></i> Agent Settings</a></li>
 					<li><a href="direct.xhtml#tab_certs"><i class="glyphicon glyphicon-cog"></i> Certificates</a></li>
 					<li><a href="direct.xhtml#tab_trust"><i class="glyphicon glyphicon-cog"></i> Trust Bundles</a></li>
@@ -91,6 +91,6 @@
 					<li><a href="acctmanage.xhtml#tab_certificate"><i class="glyphicon glyphicon-lock"></i> Certificate Management</a></li>
 				</ul>
 			</div>
-		
+		</ui:composition>
     </body>
 </html>
