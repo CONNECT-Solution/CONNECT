@@ -12,9 +12,6 @@ $(document).ready(function() {
 		$(movethis).insertAfter("h1.page-header"); // MOVE SIDEBAR MENU SECTION MATCHING SELECTED TAB TO TOP OF SIDEBAR
 	}
 	else {
-		//var showTab = $('.nav-section-tabs li.active').find('a').attr('href');
-		//console.log(showTab);
-		//$('#nav-section-tabs a[href='+showTab+']').tab('show');
 		var movethis = $('.nav-sidebar li.active').closest('div[id^="sidenav-"]'); // FIND ID OF SIDEBAR MENU'S CONTAINING DIV THAT HAS THE ACTIVE LINK
 		$(movethis).insertAfter("h1.page-header"); // MOVE SIDEBAR MENU SECTION CONTAINING ACTIVE LINK TO TOP OF SIDEBAR
 	};
@@ -27,11 +24,8 @@ $(document).ready(function() {
 		$(showActivebar).addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK LI
 	
 		var urlFull = $(this).find('a').attr('href'); // CATCH HREF FROM SIDEBAR LINK
-		//console.log(urlFull);
 		var url = urlFull.substring(urlFull.indexOf("#")); // GET JUST THE URL STRING STARTING AT THE HASH MARK
-		//console.log(url);
 		if (url.match('#')) {
-			//console.log(url);
 			$('.nav-section-tabs a[href='+url.replace(prefix,"")+']').tab('show') ; // REMOVE PREFIX and CHANGE TAB TO MATCH SELECTED SIDEBAR LINK
 		}
 	});
