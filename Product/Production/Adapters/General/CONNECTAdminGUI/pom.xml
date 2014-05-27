@@ -256,6 +256,15 @@
             <version>2.1.15</version>
         </dependency>
                 </dependencies>
+                <configuration>
+                    <systemProperties>
+                        <systemProperty>
+                        <name>nhinc.properties.dir</name>
+                        <!-- Insert absolute property directory below -->
+                        <value></value>
+                        </systemProperty>
+                    </systemProperties>
+                </configuration>
             </plugin>
 </plugins>
     </build>

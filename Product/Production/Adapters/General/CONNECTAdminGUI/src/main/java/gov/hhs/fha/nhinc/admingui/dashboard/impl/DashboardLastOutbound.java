@@ -74,8 +74,12 @@ public class DashboardLastOutbound extends DashboardPanelAbstract implements Das
     @Override
     public DashboardPanel setData() {
         DatabaseEvent event = eventService.getLatestOutbound();
-        title = event.getFormattedEventTime();
-        description = event.getServiceType() + "\n" + event.getInitiatorHcid();
+        if(event != null){
+            title = event.getFormattedEventTime();
+            description = event.getServiceType() + "\n" + event.getInitiatorHcid();
+        }else {
+            title = "No current messages.";
+        }
         return this;
     }
 
