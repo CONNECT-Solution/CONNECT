@@ -19,5 +19,6 @@
     <property column="serviceType" name="serviceType"/>
     <property column="initiatingHcid" name="initiatorHcid"/>
     <property column="respondingHcids" name="respondingHcid"/>
+    <property column="eventTime" name="eventTime"/>
   </class>
 </hibernate-mapping>

@@ -94,6 +94,8 @@ public class UserAuthorizationListener implements PhaseListener {
             LOG.debug("login required and current user is null, redirecting to login page.");
             NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
             nh.handleNavigation(facesContext, null, LOGIN_PAGE_NAV_OUTCOME);
+        }else {
+            //TODO check role here.
         }
 
     }

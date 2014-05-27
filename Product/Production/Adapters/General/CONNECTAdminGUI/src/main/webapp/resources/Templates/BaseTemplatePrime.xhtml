@@ -37,21 +37,16 @@
         <title><ui:insert name="title">Connect Administration</ui:insert></title>
         <ui:insert name="metatag">
         </ui:insert>
-		
-		<link rel="shortcut icon" href="#{resource['images/favicon-admingui.ico']}" type="image/x-icon" />
-        
-		<h:outputStylesheet library="css" name="bootstrap.css.map" />
+        <h:outputStylesheet library="css" name="bootstrap.css" />
+        <h:outputStylesheet library="css" name="bootstrap.css.map" />
         <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <h:outputStylesheet library="css" name="bootstrap-theme.css" />
         <h:outputStylesheet library="css" name="bootstrap-theme.css.map" />
         <h:outputStylesheet library="css" name="bootstrap-theme.min.css" />
         <h:outputStylesheet library="css" name="dashboard.css" />
-        <h:outputScript library="js" name="jquery-1.10.2.min.js" />
-        <h:outputScript library="js" name="jquery.tablesorter.min.js" />
-        <h:outputScript library="js" name="bootstrap.min.js" />
-        <h:outputScript library="js" name="admingui.js" />
         <ui:insert name="morejs"></ui:insert>
     </h:head>
-    <body> 
+    <h:body> 
         <f:view>
             <div class="container-fluid" style="height: 100%;">
                 <div class="row" style="height: 100%;">
@@ -59,11 +54,11 @@
                     <div class="col-xs-2 sidebar sidebar-scroll">
                         <ui:insert name="menu">
 
-                            <ui:include src="/resources/Templates/SidebarPaneForBaseTemplate.xhtml" />
+                            <ui:include src="/resources/Templates/SidebarPaneForBaseTemplatePrime.xhtml" />
                         </ui:insert>
                         <div class="copyright">
                             <ui:insert name="footer">
-                                <ui:include src="/resources/Templates/FooterForBaseTemplate.xhtml" />
+                                <ui:include src="/resources/Templates/FooterForBaseTemplatePrime.xhtml" />
                             </ui:insert>
                         </div>
                     </div>
@@ -74,7 +69,7 @@
                         <ui:insert name="foradmin">
                             <div class="navbar nav-utility" role="navigation">
                                 <ui:insert name="header">
-                                    <ui:include src="/resources/Templates/HeaderForBaseTemplate.xhtml" />
+                                    <ui:include src="/resources/Templates/HeaderForBaseTemplatePrime.xhtml" />
                                 </ui:insert>
                             </div>
                         </ui:insert>
@@ -88,8 +83,7 @@
                     <!--end of right side div  -->
                 </div>
             </div>
-			<ui:include src="copyright-modal.xhtml" />
         </f:view>
-    </body>
+    </h:body>
 </html>
 

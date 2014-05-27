@@ -38,6 +38,22 @@
     <welcome-file-list>
         <welcome-file>Login.xhtml</welcome-file>
     </welcome-file-list>
+    
+    <!-- Error page -->
+    <error-page>
+        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+        <location>/Login.xhtml</location>
+    </error-page>
+
+    <context-param>
+        <param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <!-- Session Config -->
+    <session-config>
+        <session-timeout>10</session-timeout>
+    </session-config>
 
     <!-- Change to "Development" when modifying / debugging -->
     <context-param>
