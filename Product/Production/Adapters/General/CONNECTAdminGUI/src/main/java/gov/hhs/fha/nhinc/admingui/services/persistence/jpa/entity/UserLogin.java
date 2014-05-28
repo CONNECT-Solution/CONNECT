@@ -60,6 +60,10 @@ public class UserLogin {
     /** The sha1. */
     @Column(name = "SHA1")
     private String sha1;
+    
+    /** The role */
+    @Column(name = "userRole")
+    private long userRoleId;
 
     /**
      * Instantiates a new user login.
@@ -138,6 +142,14 @@ public class UserLogin {
      */
     public void setSha1(String sha1) {
         this.sha1 = sha1;
+    }
+    
+    public long getUserRoleId() {
+        return userRoleId;
+    }
+
+    public void setUserRoleId(long userRoleId) {
+        this.userRoleId = userRoleId;
     }
 
 }

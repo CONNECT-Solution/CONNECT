@@ -33,9 +33,6 @@ package gov.hhs.fha.nhinc.admingui.model;
  */
 public class User extends Login {
 
-    /** The role. */
-    private Role role = null;
-
     /**
      * Instantiates a new user.
      */
@@ -50,26 +47,8 @@ public class User extends Login {
      * @param password the password
      * @param role the role
      */
-    public User(String userName, String password, Role role) {
+    public User(String userName, String password) {
         super(userName, password);
-        this.role = role;
     }
 
-    /**
-     * Gets the role.
-     * 
-     * @return the role
-     */
-    public Role getRole() {
-        return role;
-    }
-
-    /**
-     * Sets the role.
-     * 
-     * @param role the role to set
-     */
-    public void setRole(Role role) {
-        this.role = role;
-    }
 }

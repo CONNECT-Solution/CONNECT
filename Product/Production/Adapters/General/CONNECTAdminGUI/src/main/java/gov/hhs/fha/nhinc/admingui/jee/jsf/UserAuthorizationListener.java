@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admingui.jee.jsf;
 
+import gov.hhs.fha.nhinc.admingui.services.RoleService;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +39,7 @@ import javax.faces.event.PhaseListener;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -60,6 +63,9 @@ public class UserAuthorizationListener implements PhaseListener {
 
     /** The Constant LOGIN_PAGE_NAV_OUTCOME. */
     public static final String LOGIN_PAGE_NAV_OUTCOME = "Login";
+    
+    @Autowired
+    private RoleService roleService;
 
     /**
      * Serial version required for Serializable interface.
@@ -85,17 +91,19 @@ public class UserAuthorizationListener implements PhaseListener {
         LOG.debug("current page: ".concat(currentPage));
 
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-        Object currentUser = null;
+        UserLogin currentUser = null;
         if (session != null) {
-            currentUser = session.getAttribute(USER_INFO_SESSION_ATTRIBUTE);
+            currentUser = (UserLogin) session.getAttribute(USER_INFO_SESSION_ATTRIBUTE);
         }
 
         if (!noLoginRequiredPages.contains(currentPage) && currentUser == null) {
             LOG.debug("login required and current user is null, redirecting to login page.");
             NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
             nh.handleNavigation(facesContext, null, LOGIN_PAGE_NAV_OUTCOME);
-        }else {
-            //TODO check role here.
+        }else if(currentUser != null && !roleService.checkRole(formatPageName(currentPage), currentUser)) {
+            LOG.debug("Current User does not have permission for page, redirecting to login page.");
+            NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
+            nh.handleNavigation(facesContext, null, LOGIN_PAGE_NAV_OUTCOME);
         }
 
     }
@@ -118,6 +126,14 @@ public class UserAuthorizationListener implements PhaseListener {
     @Override
     public PhaseId getPhaseId() {
         return PhaseId.RESTORE_VIEW;
+    }
+    
+    private String formatPageName(String pageName){
+        if(pageName.startsWith("/")){
+            return pageName.substring(1, pageName.length()).toLowerCase();
+        }else {
+            return pageName.toLowerCase();
+        }
     }
 
 }

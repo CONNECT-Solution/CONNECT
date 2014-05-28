@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.admingui.services.impl;
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 
 /**
  * The Class LoginServiceImpl.
@@ -43,12 +44,12 @@ public class MockLoginServiceImpl implements LoginService {
      * @see gov.hhs.fha.nhinc.admingui.services.LoginService#login(gov.hhs.fha.nhinc.admingui.model.Login)
      */
     @Override
-    public boolean login(Login login) {
+    public UserLogin login(Login login) {
         if (login != null && "user".equalsIgnoreCase(login.getUserName())
                 && "pass".equalsIgnoreCase(login.getPassword())) {
-            return true;
+            return new UserLogin();
         } else {
-            return false;
+            return null;
         }
     }
 

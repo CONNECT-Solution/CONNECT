@@ -76,8 +76,7 @@ public class LoginServiceImpl implements LoginService {
      */
     @Override
     @Transactional
-    public boolean login(Login login) throws UserLoginException {
-        boolean loggedIn = false;
+    public UserLogin login(Login login) throws UserLoginException {
 
         UserLogin user = userLoginDAO.login(login);
         log.debug("db user name: ".concat(user.getUserName()));
@@ -85,13 +84,17 @@ public class LoginServiceImpl implements LoginService {
         log.debug("db password: ".concat(user.getSha1()));
         if (user != null && user.getSha1() != null && user.getSalt() != null && login.getPassword() != null) {
             try {
-                loggedIn = passwordService.checkPassword(user.getSha1().getBytes(), login.getPassword().getBytes(),
+                boolean loggedIn = passwordService.checkPassword(user.getSha1().getBytes(), login.getPassword().getBytes(),
                         user.getSalt().getBytes());
+                if(!loggedIn){
+                    user = null;
+                }
             } catch (PasswordServiceException e) {
+                user = null;
                 throw new UserLoginException("Error while trying to login.", e);
             }
         }
-        return loggedIn;
+        return user;
     }
 
     /* (non-Javadoc)
