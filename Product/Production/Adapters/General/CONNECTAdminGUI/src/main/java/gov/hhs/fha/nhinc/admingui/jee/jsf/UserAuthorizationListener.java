@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.admingui.jee.jsf;
 
 import gov.hhs.fha.nhinc.admingui.services.RoleService;
+import gov.hhs.fha.nhinc.admingui.services.impl.RoleServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -51,6 +53,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * 
  * @author msw
  */
+@Component
 public class UserAuthorizationListener implements PhaseListener {
 
     private static final Logger LOG = Logger.getLogger(UserAuthorizationListener.class);
@@ -64,8 +67,9 @@ public class UserAuthorizationListener implements PhaseListener {
     /** The Constant LOGIN_PAGE_NAV_OUTCOME. */
     public static final String LOGIN_PAGE_NAV_OUTCOME = "Login";
     
-    @Autowired
-    private RoleService roleService;
+    public static final String STATUS_PAGE_NAV_OUTCOME = "StatusPrime";
+    
+    private RoleService roleService = new RoleServiceImpl();
 
     /**
      * Serial version required for Serializable interface.
@@ -101,9 +105,9 @@ public class UserAuthorizationListener implements PhaseListener {
             NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
             nh.handleNavigation(facesContext, null, LOGIN_PAGE_NAV_OUTCOME);
         }else if(currentUser != null && !roleService.checkRole(formatPageName(currentPage), currentUser)) {
-            LOG.debug("Current User does not have permission for page, redirecting to login page.");
+            LOG.debug("Current User does not have permission for page, redirecting to status page.");
             NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
-            nh.handleNavigation(facesContext, null, LOGIN_PAGE_NAV_OUTCOME);
+            nh.handleNavigation(facesContext, null, STATUS_PAGE_NAV_OUTCOME);
         }
 
     }

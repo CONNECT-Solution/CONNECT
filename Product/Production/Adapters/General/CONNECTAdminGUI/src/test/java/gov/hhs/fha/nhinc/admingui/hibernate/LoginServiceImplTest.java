@@ -79,6 +79,6 @@ public class LoginServiceImplTest {
         login.setUserName("ABCD");
         login.setPassword("ABCDEFGH");
         Mockito.when(mockDao.createUser(Mockito.any(UserLogin.class))).thenReturn(true);
-        assertTrue(loginService.addUser(login));
+        assertNotNull(loginService.addUser(login, 1));
     }
 }

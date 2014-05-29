@@ -26,10 +26,15 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -62,8 +67,9 @@ public class UserLogin {
     private String sha1;
     
     /** The role */
-    @Column(name = "userRole")
-    private long userRoleId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "userRole")
+    private UserRole userRole;
 
     /**
      * Instantiates a new user login.
@@ -144,12 +150,12 @@ public class UserLogin {
         this.sha1 = sha1;
     }
     
-    public long getUserRoleId() {
-        return userRoleId;
+    public UserRole getUserRole() {
+        return userRole;
     }
 
-    public void setUserRoleId(long userRoleId) {
-        this.userRoleId = userRoleId;
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
 }

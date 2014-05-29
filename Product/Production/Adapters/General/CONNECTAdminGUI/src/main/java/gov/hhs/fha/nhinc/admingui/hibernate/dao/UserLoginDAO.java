@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.admingui.hibernate.dao;
 
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
 
 /**
  * @author msw
@@ -41,6 +42,8 @@ public interface UserLoginDAO {
      * @return true if successful
      */
     public boolean createUser(UserLogin createuser);
+
+    public UserRole getRole(long role);
 
 
 }

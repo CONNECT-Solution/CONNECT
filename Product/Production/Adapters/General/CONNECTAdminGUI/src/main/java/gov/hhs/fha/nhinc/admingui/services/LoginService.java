@@ -53,6 +53,6 @@ public interface LoginService {
      * @return true, if successful
      * @throws UserLoginException
      */
-    public boolean addUser(Login user) throws UserLoginException;  
+    public UserLogin addUser(Login user, long role) throws UserLoginException;  
 
 }

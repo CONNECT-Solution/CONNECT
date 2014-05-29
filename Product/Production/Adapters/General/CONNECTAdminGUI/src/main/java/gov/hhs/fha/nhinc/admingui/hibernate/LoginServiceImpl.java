@@ -34,6 +34,7 @@ import gov.hhs.fha.nhinc.admingui.services.exception.PasswordServiceException;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.impl.SHA1PasswordService;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
 import java.io.IOException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,7 +102,7 @@ public class LoginServiceImpl implements LoginService {
      * @see gov.hhs.fha.nhinc.admingui.services.LoginService#addUser(gov.hhs.fha.nhinc.admingui.model.User)
      */
     @Override
-    public boolean addUser(Login user) throws UserLoginException {
+    public UserLogin addUser(Login user, long role) throws UserLoginException {
         boolean isCreateUser = false;
         String passwordHash = null;
         String saltValue = null;
@@ -119,7 +120,24 @@ public class LoginServiceImpl implements LoginService {
         userLoginEntity.setUserName(user.getUserName());
         userLoginEntity.setSha1(passwordHash);
         userLoginEntity.setSalt(saltValue);
+        
+        UserRole userRole = getUserRole(role);
+        
+        if(userRole != null){
+            userRole.addLogin(userLoginEntity);
+        }
+        
+        userLoginEntity.setUserRole(userRole);
         isCreateUser = userLoginDAO.createUser(userLoginEntity);
-        return isCreateUser;
+        
+        if(isCreateUser){
+            return userLoginEntity;
+        }else {
+            return null;
+        }
+    }
+
+    private UserRole getUserRole(long role) {
+        return userLoginDAO.getRole(role);
     }
 }

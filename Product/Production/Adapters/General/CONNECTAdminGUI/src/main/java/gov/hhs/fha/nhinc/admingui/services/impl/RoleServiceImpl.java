@@ -18,16 +18,30 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.admingui.services.impl;
 
+import gov.hhs.fha.nhinc.admingui.services.RoleService;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author jasonasmith
  */
-public interface RoleService {
-    
-    public boolean checkRole(String pageName, UserLogin user);    
+@Service
+public class RoleServiceImpl implements RoleService {
+
+    @Override
+    public boolean checkRole(String pageName, UserLogin user) {
+        if(user != null && user.getUserRole() != null && user.getUserRole().getPreferences() != null){
+            for(RolePreference preference : user.getUserRole().getPreferences()){
+                if(preference.getPageName().equalsIgnoreCase(pageName)){
+                    return preference.getAccess() >= 0;
+                }
+            }
+        }
+        return false;
+    }
     
 }

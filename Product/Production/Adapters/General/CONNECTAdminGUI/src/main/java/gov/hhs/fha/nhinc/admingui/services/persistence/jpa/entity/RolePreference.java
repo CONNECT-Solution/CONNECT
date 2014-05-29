@@ -51,9 +51,9 @@ public class RolePreference {
     @Column(name = "ACCESS")
     private int access;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ROLEID", nullable = false)
-    private long roleId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "prefRoleId")
+    private UserRole userRole;
 
     public long getId() {
         return id;
@@ -87,12 +87,12 @@ public class RolePreference {
         this.access = access;
     }
 
-    public long getRoleId() {
-        return roleId;
+    public UserRole getUserRole() {
+        return userRole;
     }
 
-    public void setRoleId(long roleId) {
-        this.roleId = roleId;
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
     
 }

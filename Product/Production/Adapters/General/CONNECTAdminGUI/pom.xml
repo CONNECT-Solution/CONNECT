@@ -261,7 +261,7 @@
                         <systemProperty>
                         <name>nhinc.properties.dir</name>
                         <!-- Insert absolute property directory below -->
-                        <value>/Users/jasonasmith/CGI/glassfish3/glassfish/domains/domain1/config/nhin</value>
+                        <value></value>
                         </systemProperty>
                     </systemProperties>
                 </configuration>

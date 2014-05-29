@@ -200,7 +200,7 @@ public class LoginBean {
                 loggedIn = true;
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-                session.setAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE, login);
+                session.setAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE, user);
             }
         } catch (UserLoginException e) {
             LOG.error(e, e);

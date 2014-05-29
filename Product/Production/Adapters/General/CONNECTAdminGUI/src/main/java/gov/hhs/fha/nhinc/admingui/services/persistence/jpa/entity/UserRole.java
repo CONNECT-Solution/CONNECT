@@ -20,12 +20,14 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -46,8 +48,11 @@ public class UserRole {
     @Column(name = "ROLENAME")
     private String roleName;
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "PagePreference")
-    private Set<RolePreference> preferences;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "userRole")
+    private Set<RolePreference> preferences = new HashSet<RolePreference>();
+    
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "userRole")
+    private Set<UserLogin> userLogins = new HashSet<UserLogin>();
 
     public long getRoleId() {
         return roleId;
@@ -71,6 +76,14 @@ public class UserRole {
 
     public void setPreferences(Set<RolePreference> preferences) {
         this.preferences = preferences;
+    }
+
+    public void setUserLogin(Set<UserLogin> userLogins) {
+        this.userLogins = userLogins;
+    }
+    
+    public void addLogin(UserLogin userLogin){
+        userLogins.add(userLogin);
     }
     
 }
