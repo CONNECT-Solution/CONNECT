@@ -19,10 +19,10 @@ CREATE TABLE IF NOT EXISTS adminguidb.PagePreference (
 	pageName VARCHAR(100) NOT NULL,
 	pageDesc VARCHAR(100) NOT NULL,
 	access BIGINT NOT NULL,
-	roleId BIGINT NOT NULL,
+	prefRoleId BIGINT NOT NULL,
 	CONSTRAINT fk_role_pref
-      FOREIGN KEY (roleId)
-      REFERENCES adminguidb.UserRole (id)
+      FOREIGN KEY (prefRoleId)
+      REFERENCES adminguidb.UserRole (roleId)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION	
 );
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS adminguidb.UserLogin (
     userRole BIGINT NOT NULL,
     CONSTRAINT fk_role_user
       FOREIGN KEY (userRole)
-      REFERENCES adminguidb.UserRole (id)
+      REFERENCES adminguidb.UserRole (roleId)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
@@ -48,7 +48,7 @@ VALUES
 (3, "USER");
 
 INSERT INTO adminguidb.PagePreference
-(pageName, pageDesc, access, roleId)
+(pageName, pageDesc, access, prefRoleId)
 VALUES
 ("status.xhtml", "Status", 0, 1),
 ("status.xhtml", "Status", 0, 2),
