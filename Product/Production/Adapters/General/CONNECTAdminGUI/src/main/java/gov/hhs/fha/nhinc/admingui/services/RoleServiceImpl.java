@@ -18,11 +18,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
  */
-package gov.hhs.fha.nhinc.admingui.services.impl;
+package gov.hhs.fha.nhinc.admingui.services;
 
-import gov.hhs.fha.nhinc.admingui.services.RoleService;
+import gov.hhs.fha.nhinc.admingui.hibernate.dao.UserLoginDAO;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -32,6 +35,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoleServiceImpl implements RoleService {
 
+    @Autowired
+    private UserLoginDAO userDAO;
+    
+    public RoleServiceImpl(){
+        
+    }
+    
     @Override
     public boolean checkRole(String pageName, UserLogin user) {
         if(user != null && user.getUserRole() != null && user.getUserRole().getPreferences() != null){
@@ -42,6 +52,21 @@ public class RoleServiceImpl implements RoleService {
             }
         }
         return false;
+    }
+    
+    @Override
+    public List<UserRole> getAllRoles(){
+        return userDAO.getAllRoles();
+    }
+    
+    @Override
+    public List<RolePreference> getPreferences(UserRole role){
+        return userDAO.getPreferences(role);
+    }
+
+    @Override
+    public boolean updatePreference(RolePreference preference) {
+        return userDAO.updatePreference(preference);
     }
     
 }

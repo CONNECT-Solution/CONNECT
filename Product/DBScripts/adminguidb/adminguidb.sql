@@ -61,7 +61,14 @@ VALUES
 ("acctmanage.xhtml", "Account Management", -1, 3),
 ("acctmanagePrime.xhtml", "Account Management Prime", 0, 1),
 ("acctmanagePrime.xhtml", "Account Management Prime", -1, 2),
-("acctmanagePrime.xhtml", "Account Management Prime", -1, 3);
+("acctmanagePrime.xhtml", "Account Management Prime", -1, 3),
+("ManageRole.xhtml", "Manage Role", 0, 1),
+("ManageRole.xhtml", "Manage Role", -1, 2),
+("ManageRole.xhtml", "Manage Role", -1, 3),
+("Test.xhtml", "Test", 0, 1),
+("Test.xhtml", "Test", 0, 2),
+("Test.xhtml", "Test", 0, 3);
+
 
 INSERT INTO adminguidb.UserLogin
 (id, salt, sha1, userName, userRole)

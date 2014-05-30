@@ -34,22 +34,38 @@
     xmlns:p="http://primefaces.org/ui">
 <h:body>
     <ui:composition template="/resources/Templates/BaseTemplatePrime.xhtml">
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{manageRoleBean.initData()}" />
+        </f:metadata>
         <ui:define name="metatag"></ui:define>
-        <ui:define name="content">
+        <ui:define name="content">    
+            
             <h:form id="manageRoleForm" prependId="false">
                 <p:messages id="messages" showDetail="true" autoUpdate="true">
                     <p:effect type="fade" event="load" delay="1000" />
                 </p:messages>
-                <p:dataTable id="pagesTable" var="page" value="#{ManageRoleBean.pages}" resizableColumns="true"
+                
+                <p:selectOneMenu value="#{manageRoleBean.selectedRole}">
+                    <p:ajax event="change" listener="#{manageRoleBean.roleChanged}" update="pagesTable"/>
+                    <f:selectItem itemLabel="Select Role" noSelectionOption="true" />  
+                    <f:selectItems value="#{manageRoleBean.roleLabels}"  
+                        var="role" itemLabel="#{role}"  
+                        itemValue="#{role}"/>
+                </p:selectOneMenu>
+                
+                
+                <p:dataTable id="pagesTable" var="page" value="#{manageRoleBean.pages}" resizableColumns="true"
                     style="margin-bottom:20px">
                     <f:facet name="header">Pages</f:facet>
                     <p:column headerText="Page">
-                        <h:outputText value="#{page.page}" />
+                        <h:outputText value="#{page.preference.pageDesc}" />
                     </p:column>
                     <p:column headerText="Page Level Access">
-                        <p:selectOneMenu value="#{page.selectedAccessLevel}">
-                            <p:ajax event="change" listener="#{ManageRoleBean.accessLevelChanged}" />
-                            <f:selectItems value="#{page.availableAccessLevels}" />
+                        <p:selectOneMenu value="#{page.selectedAccessLevel}" label="#{page.selectedAccessLevel}">
+                            <p:ajax event="change" listener="#{manageRoleBean.accessLevelChanged}" />
+                            <f:selectItems value="#{page.availableAccessLevels}" 
+                                           var="access" itemLabel="#{access}"
+                                           itemValue="#{access}"/>
                         </p:selectOneMenu>
                     </p:column>
                 </p:dataTable>

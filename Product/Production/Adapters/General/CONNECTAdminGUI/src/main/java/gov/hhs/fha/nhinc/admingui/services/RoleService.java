@@ -20,7 +20,10 @@
  */
 package gov.hhs.fha.nhinc.admingui.services;
 
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
+import java.util.List;
 
 /**
  *
@@ -28,6 +31,12 @@ import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
  */
 public interface RoleService {
     
-    public boolean checkRole(String pageName, UserLogin user);    
+    public boolean checkRole(String pageName, UserLogin user);
+    
+    public List<UserRole> getAllRoles();
+    
+    public List<RolePreference> getPreferences(UserRole role);
+    
+    public boolean updatePreference(RolePreference preference);
     
 }

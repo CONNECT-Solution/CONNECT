@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.admingui.jee.jsf;
 
 import gov.hhs.fha.nhinc.admingui.services.RoleService;
-import gov.hhs.fha.nhinc.admingui.services.impl.RoleServiceImpl;
+import gov.hhs.fha.nhinc.admingui.services.RoleServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import java.util.ArrayList;
 import java.util.List;

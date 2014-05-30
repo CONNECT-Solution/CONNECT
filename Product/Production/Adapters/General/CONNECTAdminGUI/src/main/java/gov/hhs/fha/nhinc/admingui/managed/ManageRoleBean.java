@@ -26,28 +26,48 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
+import static gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE;
+import gov.hhs.fha.nhinc.admingui.services.RoleService;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * The Class ManageRoleBean.
  */
-@ManagedBean(name = "ManageRoleBean")
-@ViewScoped
+@Component
+@ManagedBean
+@RequestScoped
 public class ManageRoleBean {
 
-    /** The pages model. */
+    @Autowired
+    private RoleService roleService;
+
+    /**
+     * The pages model.
+     */
     private DataModel<PageAccessMapping> pagesModel;
+
+    private UserRole currentRole;
+
+    private String selectedRole;
+
+    private HashMap<String, UserRole> roles = new HashMap<String, UserRole>();
 
     /**
      * Access level changed.
@@ -55,12 +75,41 @@ public class ManageRoleBean {
      * @param event the event
      */
     public void accessLevelChanged(final AjaxBehaviorEvent event) {
-
-        System.out.println("here we save the changed access level for " + pagesModel.getRowData().page + " to "
-                + pagesModel.getRowData().selectedAccessLevel + ".");
-        FacesContext.getCurrentInstance().addMessage(null,
+        RolePreference preference = pagesModel.getRowData().getPreference();
+        
+        int prefAccess = -1;
+        String selectedAccess = pagesModel.getRowData().getSelectedAccessLevel();
+        
+        if(selectedAccess.equals(PageAccessMapping.NO_ACCESS)){
+            prefAccess = -1;
+        }else if(selectedAccess.equals(PageAccessMapping.READ_ONLY)){
+            prefAccess = 0;
+        }else if(selectedAccess.equals(PageAccessMapping.READ_WRITE)){
+            prefAccess = 1;
+        }
+        
+        preference.setAccess(prefAccess);
+        
+        boolean updated = roleService.updatePreference(preference);
+        
+        if(updated){
+            UserRole userRole = getCurrentUser().getUserRole();
+            if(preference.getUserRole().getRoleName().equals(userRole.getRoleName())){
+                for(RolePreference currPref : userRole.getPreferences()){
+                    if(currPref.getPageName().equals(preference.getPageName())){
+                        currPref.setAccess(prefAccess);
+                        break;
+                    }
+                }
+            }
+            FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Access Level Changed."));
+        }
+    }
 
+    public void roleChanged(final AjaxBehaviorEvent event) {
+        currentRole = roles.get(selectedRole);
+        setPreferences(currentRole);
     }
 
     /**
@@ -81,105 +130,61 @@ public class ManageRoleBean {
         this.pagesModel = pages;
     }
 
-    /**
-     * Inits the.
-     */
-    @PostConstruct
-    public void init() {
-        List<PageAccessMapping> pages = new ArrayList<PageAccessMapping>();
-        pages.add(new PageAccessMapping("acctmanagePrime.xhtml"));
-        pages.add(new PageAccessMapping("DashboardPrime.xhtml"));
-        pages.add(new PageAccessMapping("ManageRole.xhtml"));
-        pages.add(new PageAccessMapping("StatusPrime.xhtml"));
-        pages.add(new PageAccessMapping("direct.xhtml"));
-        pages.add(new PageAccessMapping("trust-bundle-anchor1.xhtml"));
-        pages.add(new PageAccessMapping("trust-bundle-anchor2.xhtml"));
+    public void initData() {
+        if (selectedRole == null) {
 
-        pagesModel = new ListDataModel<PageAccessMapping>(pages);
+            UserLogin user = getCurrentUser();
+
+            List<UserRole> roleList = roleService.getAllRoles();
+            for (UserRole role : roleList) {
+                roles.put(role.getRoleName(), role);
+            }
+
+            if (user != null) {
+                currentRole = user.getUserRole();
+            } else {
+                currentRole = roleList.get(0);
+            }
+
+            selectedRole = currentRole.getRoleName();
+
+            setPreferences(user.getUserRole());
+        }
     }
 
-    /**
-     * The Class PageAccessMapping.
-     */
-    public class PageAccessMapping {
-        
-        /** The page. */
-        private String page;
-        
-        /** The available access levels. */
-        private Collection<String> availableAccessLevels;
-        
-        /** The selected access level. */
-        private String selectedAccessLevel;
-
-        /**
-         * Instantiates a new page access mapping.
-         *
-         * @param page the page
-         */
-        public PageAccessMapping(String page) {
-            this.page = page;
-            availableAccessLevels = new ArrayList<String>();
-            availableAccessLevels.add("No Access");
-            availableAccessLevels.add("Read Only");
-            availableAccessLevels.add("Read Write");
-            selectedAccessLevel = "NoAccess";
+    private void setPreferences(UserRole role) {
+        List<RolePreference> preferences = roleService.getPreferences(role);
+        List<PageAccessMapping> mappings = new ArrayList<PageAccessMapping>();
+        for (RolePreference preference : preferences) {
+            mappings.add(new PageAccessMapping(preference, this));
         }
+        pagesModel = new ListDataModel<PageAccessMapping>(mappings);
+    }
 
-        /**
-         * Gets the page.
-         *
-         * @return the page
-         */
-        public String getPage() {
-            return page;
-        }
+    private UserLogin getCurrentUser() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+        return (UserLogin) session.getAttribute(USER_INFO_SESSION_ATTRIBUTE);
+    }
 
-        /**
-         * Sets the page.
-         *
-         * @param page the page to set
-         */
-        public void setPage(String page) {
-            this.page = page;
-        }
+    public UserRole getCurrentRole() {
+        return currentRole;
+    }
 
-        /**
-         * Gets the available access levels.
-         *
-         * @return the availableAccessLevels
-         */
-        public Collection<String> getAvailableAccessLevels() {
-            return availableAccessLevels;
-        }
+    public void setCurrentRole(UserRole currentRole) {
+        this.currentRole = currentRole;
+    }
 
-        /**
-         * Sets the available access levels.
-         *
-         * @param availableAccessLevels the availableAccessLevels to set
-         */
-        public void setAvailableAccessLevels(Collection<String> availableAccessLevels) {
-            this.availableAccessLevels = availableAccessLevels;
-        }
+    public String getSelectedRole() {
+        return selectedRole;
+    }
 
-        /**
-         * Gets the selected access level.
-         *
-         * @return the selectedAccessLevel
-         */
-        public String getSelectedAccessLevel() {
-            return selectedAccessLevel;
-        }
+    public void setSelectedRole(String selectedRole) {
+        this.selectedRole = selectedRole;
+    }
 
-        /**
-         * Sets the selected access level.
-         *
-         * @param selectedAccessLevel the selectedAccessLevel to set
-         */
-        public void setSelectedAccessLevel(String selectedAccessLevel) {
-            this.selectedAccessLevel = selectedAccessLevel;
-        }
-
+    public Set<String> getRoleLabels() {
+        return roles.keySet();
     }
 
 }
