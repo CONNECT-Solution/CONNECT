@@ -22,13 +22,13 @@
         <property name="createTime" type="timestamp" not-null="true" />
         <property name="updateTime" type="timestamp" />
 
-        <!-- Auto-generated -->
         <set name="addresses" table="address" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="domainId" not-null="true" />
             </key>
             <one-to-many class="Address" />
         </set>
+
         <set name="trustbundledomainreltns" table="trustbundledomainreltn" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="domain_id" not-null="true" />
@@ -130,7 +130,6 @@
         <property name="signingCertificateData" type="blob" />
         <property name="createTime" type="timestamp" not-null="true" />
 
-        <!-- AUTO-GENERATED -->
         <set name="trustbundleanchors" table="trustbundleanchor" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="trustbundleId" not-null="true" />
@@ -153,13 +152,11 @@
             <generator class="native"/>
         </id>
 
-        <!-- auto-generated "anchorData" had type "binary"?? -->
         <property name="anchorData" type="blob" not-null="true" />
         <property name="thumbprint" type="string" length="64" not-null="true" />
         <property name="validStartDate" type="timestamp" not-null="true" />
         <property name="validEndDate" type="timestamp" not-null="true" />
 
-        <!-- Auto-generated -->
         <many-to-one name="trustbundle" column="trustbundleId" class="TrustBundle" fetch="select" not-null="true" />
     </class>
 
@@ -307,9 +304,6 @@
                     WHERE ( :owner IS NULL OR UPPER(c.owner) = :owner ) ]]>
     </query>
 
-
-
-
     <!--
         Domain
     -->
@@ -342,7 +336,6 @@
                     WHERE ( UPPER(s.name) IN :nameList ) ]]>
     </query>
 
-
     <!--
         TrustBundle
     -->
@@ -357,12 +350,7 @@
 
     <query name="getTrustBundleById">
         <![CDATA[FROM TrustBundle t
-                    WHERE ( tb.id = :id ) ]]>
-    </query>
-
-    <query name="getTrustBundleById">
-        <![CDATA[FROM TrustBundle t
-                    WHERE ( tb.id = :id ) ]]>
+                    WHERE ( t.id = :id ) ]]>
     </query>
 
     <!--
