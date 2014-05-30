@@ -13,9 +13,9 @@
         <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 
         <property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
-        
+
         <property name="hibernate.hbm2ddl.auto">update</property>
-        
+
         <property name="connection.datasource">java:comp/env/jdbc/configdb_datasource</property>
 
         <!-- We currently have the antlr classpath conflict described here:
@@ -23,7 +23,7 @@
              Switching to the classing translator so that our named query works.
          -->
         <!--property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property-->
-        
+
         <!-- Mapping files -->
         <mapping resource="configdb.hbm.xml"/>
     </session-factory>

@@ -15,13 +15,13 @@
         <id column="id" name="id" type="long">
             <generator class="native" />
         </id>
-        
+
         <property name="postmasterAddressId" type="long" />
         <property name="domainName" type="string" not-null="true" />
         <property name="status" type="integer" />
         <property name="createTime" type="timestamp" not-null="true" />
         <property name="updateTime" type="timestamp" />
-        
+
         <!-- Auto-generated -->
         <set name="addresses" table="address" inverse="true" lazy="true" fetch="select">
             <key>
@@ -44,7 +44,7 @@
         <id column="id" name="id" type="long">
             <generator class="native"/>
         </id>
-        
+
         <property name="eMailAddress" type="string" not-null="true" />
         <property name="displayName" type="string" length="100" />
         <property name="endpoint" type="string" />
@@ -52,7 +52,7 @@
         <property name="status" type="integer" />
         <property name="createTime" type="timestamp" not-null="true" />
         <property name="updateTime" type="timestamp" />
-        
+
         <!-- Auto-generated -->
         <many-to-one name="domain" class="Domain" fetch="select">
             <column name="domainId" not-null="true" />
@@ -66,7 +66,7 @@
         <id column="id" name="id" type="long">
             <generator class="native"/>
         </id>
-        
+
         <property name="certificateId" type="long" not-null="true" />
         <property name="owner" type="string" not-null="true" />
         <property name="thumbprint" type="string" length="64" not-null="true" />
@@ -78,7 +78,7 @@
         <property name="status" type="integer" />
         <property name="createTime" type="timestamp" not-null="true" />
     </class>
-    
+
     <!--
         Certificate (configdb.certificate)
     -->
@@ -86,7 +86,7 @@
         <id column="id" name="id" type="long">
             <generator class="native"/>
         </id>
-        
+
         <property name="owner" type="string" not-null="true" />
         <property name="thumbprint" type="string" length="64" not-null="true" />
         <property name="certificateData" type="blob" not-null="true" />
@@ -96,7 +96,7 @@
         <property name="status" type="integer" />
         <property name="createTime" type="timestamp" not-null="true" />
     </class>
-    
+
     <!--
         Setting (configdb.setting)
     -->
@@ -104,14 +104,14 @@
         <id column="id" name="id" type="long">
             <generator class="native"/>
         </id>
-        
+
         <property name="name" type="string" />
         <property name="value" type="string" length="4096" />
         <property name="status" type="integer" />
         <property name="createTime" type="timestamp" not-null="true" />
         <property name="updateTime" type="timestamp" />
     </class>
-    
+
     <!--
         TrustBundle (configdb.trustbundle)
     -->
@@ -119,7 +119,7 @@
         <id column="id" name="id" type="long">
             <generator class="native"/>
         </id>
-        
+
         <property name="bundleName" type="string" not-null="true" />
         <property name="bundleUrl" column="bundleURL" type="string" not-null="true" />
         <property name="getChecksum" type="string" not-null="true" />
@@ -129,7 +129,7 @@
         <property name="lastRefreshError" type="integer" />
         <property name="signingCertificateData" type="blob" />
         <property name="createTime" type="timestamp" not-null="true" />
-        
+
         <!-- AUTO-GENERATED -->
         <set name="trustbundleanchors" table="trustbundleanchor" inverse="true" lazy="true" fetch="select">
             <key>
@@ -144,7 +144,7 @@
             <one-to-many class="TrustBundleDomainReltn" />
         </set>
     </class>
-    
+
     <!--
         TrustBundleAnchor (configdb.trustbundleanchor)
     -->
@@ -152,7 +152,7 @@
         <id column="id" name="id" type="long">
             <generator class="native"/>
         </id>
-        
+
         <!-- auto-generated "anchorData" had type "binary"?? -->
         <property name="anchorData" type="blob" not-null="true" />
         <property name="thumbprint" type="string" length="64" not-null="true" />
@@ -162,7 +162,7 @@
         <!-- Auto-generated -->
         <many-to-one name="trustbundle" column="trustbundleId" class="TrustBundle" fetch="select" not-null="true" />
     </class>
-    
+
     <!--
         TrustBundleDomainReltn (configdb.trustbundledomainreltn)
     -->
@@ -170,10 +170,10 @@
         <id column="id" name="id" type="long">
             <generator class="native"/>
         </id>
-        
+
         <property name="forIncoming" type="boolean" not-null="true" />
-        <property name="forOutgoing" type="boolean" not-null="true" />    
-    
+        <property name="forOutgoing" type="boolean" not-null="true" />
+
         <!-- Auto-generated -->
         <many-to-one name="trustbundle" column="trust_bundle_id" class="TrustBundle" fetch="select" not-null="true" />
         <many-to-one name="domain" column="domain_id" class="Domain" fetch="select" not-null="true" />
@@ -186,7 +186,7 @@
         <id column="id" name="id" type="long">
             <generator class="native"/>
         </id>
-        
+
         <property name="createTime" type="timestamp" not-null="true" />
         <property name="lexicon" type="integer" not-null="true" />
         <property name="data" type="blob" length="204800" not-null="true" />
@@ -200,7 +200,7 @@
         <id column="id" name="id" type="long">
             <generator class="native"/>
         </id>
-        
+
         <property name="createTime" type="timestamp" not-null="true" />
         <property name="policyGroupName" type="string" />
     </class>
@@ -212,7 +212,7 @@
         <id column="id" name="id" type="long">
             <generator class="native"/>
         </id>
-        
+
         <property name="policyGroupId" column="policy_group_id" type="long" not-null="true" />
         <property name="domainId" column="domain_id" type="long" not-null="true" />
     </class>
@@ -224,7 +224,7 @@
         <id column="id" name="id" type="long">
             <generator class="native"/>
         </id>
-        
+
         <property name="incoming" type="short" />
         <property name="outgoing" type="short" />
         <property name="policyUse" type="integer" not-null="true" />
@@ -239,7 +239,7 @@
         <id column="id" name="id" type="long">
             <generator class="native"/>
         </id>
-        
+
         <property name="createTime" type="timestamp" not-null="true" />
         <property name="data" type="blob" length="8192"/>
         <property name="dclass" type="integer" />
@@ -265,12 +265,12 @@
                     WHERE ( :domainId IS NULL OR a.domainId = :domainId )
                     AND ( :status IS NULL OR a.status = :status ) ]]>
     </query>
-    
+
     <query name="getAddressById">
         <![CDATA[FROM Address a
                     WHERE ( a.id = :id )]]>
     </query>
-    
+
     <!--
         Anchor
     -->
@@ -282,12 +282,12 @@
         <![CDATA[FROM Anchor a
                     WHERE ( UPPER ( a.owner ) IN :ownerList ) ]]>
     </query>
-    
+
     <query name="getAnchorsByIds">
         <![CDATA[FROM Anchor a
                     WHERE ( a.id IN :idList ) ]]>
     </query>
-    
+
     <!--
         Certificate
     -->
@@ -296,20 +296,20 @@
                     WHERE ( :thumbprint IS NULL OR c.thumbprint = :thumbprint )
                     AND ( :owner IS NULL OR UPPER(c.owner) = :owner ) ]]>
     </query>
-    
+
     <query name="getCertificatesByIds">
         <![CDATA[FROM Certificate c
                     WHERE ( c.id IN :idList ) ]]>
     </query>
-    
+
     <query name="getCertificatesByOwner">
         <![CDATA[FROM Certificate c
                     WHERE ( :owner IS NULL OR UPPER(c.owner) = :owner ) ]]>
     </query>
-    
-    
-    
-    
+
+
+
+
     <!--
         Domain
     -->
@@ -318,53 +318,53 @@
                     WHERE ( :domainName IS NULL OR UPPER(d.domainName) LIKE :domainName )
                     AND ( :status IS NULL OR d.status = :status ) ]]>
     </query>
-    
+
     <query name="getDomains">
         <![CDATA[FROM Domain d
                     WHERE ( :nameList IS NULL OR UPPER(d.domainName) IN :nameList )
                     AND ( :status IS NULL OR d.status = :status ) ]]>
     </query>
-    
+
     <query name="getDomainsByName">
         <![CDATA[FROM Domain d
                     WHERE ( :domainName IS NULL OR UPPER(d.domainName) = :domainName ) ]]>
     </query>
-    
+
     <!--
         Setting
     -->
     <query name="getAllSettings">
         <![CDATA[FROM Setting s]]>
     </query>
-    
+
     <query name="getSettings">
         <![CDATA[FROM Setting s
                     WHERE ( UPPER(s.name) IN :nameList ) ]]>
     </query>
-    
-    
+
+
     <!--
         TrustBundle
     -->
     <query name="getAllTrustBundles">
         <![CDATA[FROM TrustBundle t]]>
     </query>
-    
+
     <query name="getTrustBundleByName">
         <![CDATA[FROM TrustBundle t
                     WHERE ( UPPER(t.bundleName) = :bundleName ) ]]>
     </query>
-    
+
     <query name="getTrustBundleById">
         <![CDATA[FROM TrustBundle t
                     WHERE ( tb.id = :id ) ]]>
     </query>
-    
+
     <query name="getTrustBundleById">
         <![CDATA[FROM TrustBundle t
                     WHERE ( tb.id = :id ) ]]>
     </query>
-    
+
     <!--
         TrustBundleDomainReltn
     -->
@@ -373,7 +373,7 @@
                     WHERE ( t.domain = :domain )
                     AND ( t.trustBundle = :trustBundle ) ]]>
     </query>
-    
+
     <query name="getTrustBundleDomainReltnByDomain">
         <![CDATA[FROM TrustBundleDomainReltn t
                     WHERE ( t.domain = :domain ) ]]>
