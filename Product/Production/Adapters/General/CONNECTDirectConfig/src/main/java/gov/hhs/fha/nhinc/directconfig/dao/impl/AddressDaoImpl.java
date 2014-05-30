@@ -25,29 +25,30 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*
-Copyright (c) 2010, NHIN Direct Project
-All rights reserved.
+ Copyright (c) 2010, NHIN Direct Project
+ All rights reserved.
 
-Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
-1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 
-2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer
-in the documentation and/or other materials provided with the distribution.
-3. Neither the name of the The NHIN Direct Project (nhindirect.org) nor the names of its contributors may be used to endorse or promote
-products derived from this software without specific prior written permission.
+ 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer
+ in the documentation and/or other materials provided with the distribution.
+ 3. Neither the name of the The NHIN Direct Project (nhindirect.org) nor the names of its contributors may be used to endorse or promote
+ products derived from this software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
-THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS
-BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
-GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
-THE POSSIBILITY OF SUCH DAMAGE.
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS
+ BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+ GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+ THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package gov.hhs.fha.nhinc.directconfig.dao.impl;
 
 import gov.hhs.fha.nhinc.directconfig.dao.AddressDao;
+import gov.hhs.fha.nhinc.directconfig.dao.helpers.DaoUtils;
 import gov.hhs.fha.nhinc.directconfig.entity.Address;
 import gov.hhs.fha.nhinc.directconfig.entity.Domain;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
@@ -60,10 +61,9 @@ import java.util.Locale;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Implementing class for Address DAO methods.
@@ -73,238 +73,255 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class AddressDaoImpl implements AddressDao {
 
-    @Autowired
-    protected SessionFactory sessionFactory;
-
     private static final Log log = LogFactory.getLog(AddressDaoImpl.class);
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.dao.AddressDao#count()
+    /**
+     * {@inheritDoc}
      */
     @Override
-    @Transactional(readOnly = true)
     public int count() {
-        log.debug("Enter");
-        Long result = (Long) sessionFactory.getCurrentSession().createQuery("select count(d) from Address a")
-                .uniqueResult();
+        Session session = null;
 
-        log.debug("Exit: " + result.intValue());
-        return result.intValue();
-    }
+        int count = 0;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.dao.AddressDao#add(gov.hhs.fha.nhinc.directconfig.entity.Address)
-     */
-    @Override
-    @Transactional(readOnly = false)
-    public void add(Address item) {
-        log.debug("Enter");
+        try {
+            session = DaoUtils.getSession();
 
-        if (item != null) {
-            item.setId(null);
-            item.setCreateTime(Calendar.getInstance());
-            item.setUpdateTime(item.getCreateTime());
-            sessionFactory.getCurrentSession().persist(item);
+            if (session != null) {
+                count = ((Long) session.createQuery("select count(*) from Address").uniqueResult()).intValue();
+            }
+        } finally {
+            DaoUtils.closeSession(session);
         }
 
-        log.debug("Exit");
+        log.debug("Address Count: " + count);
+
+        return count;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.dao.AddressDao#update(gov.hhs.fha.nhinc.directconfig.entity.Address)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    @Transactional(readOnly = false)
-    public void update(Address item) {
-        log.debug("Enter");
+    public void add(Address address) {
+        Session session = null;
+        Transaction tx = null;
 
-        if (item != null) {
-            Address inDb = (Address) sessionFactory.getCurrentSession().get(Address.class, item.getId());
+        if (address != null) {
+            address.setId(null);
+            address.setCreateTime(Calendar.getInstance());
 
-            inDb.setDisplayName(item.getDisplayName());
-            inDb.setEndpoint(item.getEndpoint());
-            inDb.setEmailAddress(item.getEmailAddress());
-            inDb.setType(item.getType());
-            inDb.setStatus(item.getStatus());
-            inDb.setUpdateTime(Calendar.getInstance());
+            try {
+                session = DaoUtils.getSession();
 
-            sessionFactory.getCurrentSession().merge(inDb);
+                if (session != null) {
+                    log.debug("Saving address: " + address.getEmailAddress());
+
+                    tx = session.beginTransaction();
+                    session.save(address);
+                    tx.commit();
+                }
+            } catch (Exception e) {
+                DaoUtils.rollbackTransaction(tx);
+            } finally {
+                DaoUtils.closeSession(session);
+            }
         }
-
-        log.debug("Exit");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.dao.AddressDao#save(gov.hhs.fha.nhinc.directconfig.entity.Address)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    @Transactional(readOnly = false)
+    public void update(Address address) {
+        Session session = null;
+        Transaction tx = null;
+
+        Address entity = null;
+
+        if (address != null) {
+            try {
+                session = DaoUtils.getSession();
+
+                if (session != null) {
+                    log.debug("Retrieving address: " + address.getEmailAddress());
+
+                    tx = session.beginTransaction();
+
+                    entity = (Address) session.get(Address.class, address.getId());
+
+                    entity.setDisplayName(address.getDisplayName());
+                    entity.setEndpoint(address.getEndpoint());
+                    entity.setEmailAddress(address.getEmailAddress());
+                    entity.setType(address.getType());
+                    entity.setStatus(address.getStatus());
+                    entity.setUpdateTime(Calendar.getInstance());
+
+                    log.debug("Merging address: " + entity.getEmailAddress());
+
+                    session.merge(entity);
+                    tx.commit();
+                }
+            } catch (Exception e) {
+                DaoUtils.rollbackTransaction(tx);
+            } finally {
+                DaoUtils.closeSession(session);
+            }
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void save(Address item) {
         update(item);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.dao.AddressDao#delete(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    @Transactional(readOnly = false)
     public void delete(String name) {
-        log.debug("Enter");
-
-        int count = 0;
         if (name != null) {
-            Query delete = sessionFactory.getCurrentSession().createQuery(
-                    "DELETE FROM Address a WHERE UPPER(a.emailAddress) = ?");
-            delete.setParameter(0, name.toUpperCase(Locale.getDefault()));
-            count = delete.executeUpdate();
-        }
+            Session session = null;
+            Transaction tx = null;
+            Query query = null;
 
-        log.debug("Exit: " + count + " records deleted");
+            int count = 0;
+
+            try {
+                session = DaoUtils.getSession();
+
+                if (session != null) {
+                    tx = session.beginTransaction();
+
+                    query = session.createQuery("DELETE FROM Address a WHERE UPPER(a.eMailAddress) = :eMailAddress");
+                    query.setParameter("eMailAddress", name.toUpperCase(Locale.getDefault()));
+
+                    count = query.executeUpdate();
+                    tx.commit();
+                }
+            } catch (Exception e) {
+                DaoUtils.rollbackTransaction(tx);
+            } finally {
+                DaoUtils.closeSession(session);
+            }
+
+            log.debug("Deleted " + count + " Addresses");
+        }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.dao.AddressDao#listAddresses(java.lang.String, int)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    @Transactional(readOnly = true)
     public List<Address> listAddresses(String name, int count) {
-        // TODO Auto-generated method stub
+        // Unused by Direct RI
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.dao.AddressDao#get(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    @Transactional(readOnly = true)
     public Address get(String name) {
-        log.debug("Enter");
-
         Address result = null;
 
+        Session session = null;
+        Query query = null;
+
         if (name != null) {
-            Query select = sessionFactory.getCurrentSession().createQuery(
-                    "SELECT DISTINCT a from Address a d WHERE UPPER(a.emailAddress) = ?");
-            result = (Address) select.setParameter(0, name.toUpperCase(Locale.getDefault())).uniqueResult();
+            try {
+                session = DaoUtils.getSession();
+
+                if (session != null) {
+                    query = session
+                            .createQuery("SELECT DISTINCT a from Address a d WHERE UPPER(a.eMailAddress) = :eMailAddress");
+
+                    result = (Address) query.setParameter("eMailAddress", name.toUpperCase(Locale.getDefault()))
+                            .uniqueResult();
+                }
+            } finally {
+                DaoUtils.closeSession(session);
+            }
         }
 
-        log.debug("Exit");
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.dao.AddressDao#listAddresses(java.util.List,
-     * gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
+    /**
+     * {@inheritDoc}
      */
     @Override
     @SuppressWarnings("unchecked")
-    @Transactional(readOnly = true)
     public List<Address> listAddresses(List<String> names, EntityStatus status) {
-        log.debug("Enter");
+        List<Address> results = null;
 
-        List<Address> result = null;
-        Query select = null;
+        Session session = null;
+        Query query = null;
 
-        if (names != null) {
-            StringBuffer nameList = new StringBuffer("(");
-            for (String aName : names) {
-                if (nameList.length() > 1) {
-                    nameList.append(", ");
+        try {
+            session = DaoUtils.getSession();
+
+            if (session != null) {
+                query = session.getNamedQuery("getAddress");
+                query.setParameter("eMailList", DaoUtils.toParamString(names));
+                query.setParameter("status", status);
+
+                results = query.list();
+
+                if (results == null) {
+                    results = new ArrayList<Address>();
                 }
 
-                nameList.append("'").append(aName.toUpperCase(Locale.getDefault())).append("'");
+                log.debug("Addresses found: " + results.size());
             }
-
-            nameList.append(")");
-            String query = "SELECT a from Address a WHERE UPPER(a.emailAddress) IN " + nameList.toString();
-
-            if (status != null) {
-                select = sessionFactory.getCurrentSession().createQuery(query + " AND a.status = ?");
-                select.setParameter(0, status);
-            } else {
-                select = sessionFactory.getCurrentSession().createQuery(query);
-            }
-        } else {
-            if (status != null) {
-                select = sessionFactory.getCurrentSession().createQuery("SELECT a from Address a WHERE a.status = ?");
-                select.setParameter(0, status);
-            } else {
-                select = sessionFactory.getCurrentSession().createQuery("SELECT a from Address a");
-            }
+        } finally {
+            DaoUtils.closeSession(session);
         }
 
-        @SuppressWarnings("rawtypes")
-        List rs = select.list();
-        if ((rs.size() != 0) && (rs.get(0) instanceof Address)) {
-            result = rs;
-        } else {
-            result = new ArrayList<Address>();
-        }
-
-        log.debug("Exit");
-        return result;
+        return results;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.dao.AddressDao#getByDomain(gov.hhs.fha.nhinc.directconfig.entity.Domain,
-     * gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
+    /**
+     * {@inheritDoc}
      */
     @Override
     @SuppressWarnings("unchecked")
-    @Transactional(readOnly = true)
     public List<Address> getByDomain(Domain domain, EntityStatus status) {
-        log.debug("Enter");
+        List<Address> results = null;
 
-        List<Address> result = null;
-        Query select = null;
+        Session session = null;
+        Query query = null;
 
-        if (domain != null) {
-            String query = "SELECT a from Address a WHERE a.domain = ?";
+        Long domainId = null;
 
-            if (status != null) {
-                select = sessionFactory.getCurrentSession().createQuery(query + " AND a.status = ?");
-                select.setParameter(0, domain);
-                select.setParameter(1, status);
-            } else {
-                select = sessionFactory.getCurrentSession().createQuery(query);
-                select.setParameter(0, domain);
+        try {
+            session = DaoUtils.getSession();
+
+            if (session != null) {
+                query = session.getNamedQuery("getAddressByDomain");
+
+                if (domain != null) {
+                    domainId = domain.getId();
+                }
+
+                query.setParameter("domainId", domainId);
+                query.setParameter("status", status);
+
+                results = query.list();
+
+                if (results == null) {
+                    results = new ArrayList<Address>();
+                }
+
+                log.debug("Addresses found: " + results.size());
             }
-        } else {
-            if (status != null) {
-                select = sessionFactory.getCurrentSession().createQuery("SELECT a from Address a WHERE a.status = ?");
-                select.setParameter(0, status);
-            } else {
-                select = sessionFactory.getCurrentSession().createQuery("SELECT a from Address a");
-            }
+        } finally {
+            DaoUtils.closeSession(session);
         }
 
-        @SuppressWarnings("rawtypes")
-        List rs = select.list();
-        if ((rs.size() != 0) && (rs.get(0) instanceof Address)) {
-            result = rs;
-        } else {
-            result = new ArrayList<Address>();
-        }
-
-        log.debug("Exit");
-        return result;
+        return results;
     }
 }
