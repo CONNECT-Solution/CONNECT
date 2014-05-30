@@ -51,6 +51,7 @@ import java.util.Collection;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.jws.WebService;
 
 import gov.hhs.fha.nhinc.directconfig.service.helpers.CertificateGetOptions;
 import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
@@ -59,6 +60,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 /**
  * Service class for methods related to a Certificate object.
  */
+@WebService
 public interface CertificateService {
 
     // TODO Should X509Certificate actually be X509CertificateEx?
