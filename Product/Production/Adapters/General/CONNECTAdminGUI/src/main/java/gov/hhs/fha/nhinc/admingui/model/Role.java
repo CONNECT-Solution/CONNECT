@@ -26,10 +26,161 @@
  */
 package gov.hhs.fha.nhinc.admingui.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.faces.model.DataModel;
+
 /**
  * @author msw
  * 
  */
 public class Role {
 
+    /** The name. */
+    private String name;
+
+    /** The page mappings. */
+    private DataModel<PageAccessMapping> pageMappings;
+
+    /**
+     * Gets the name.
+     * 
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets the name.
+     * 
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Gets the page mappings.
+     * 
+     * @return the pageMappings
+     */
+    public DataModel<PageAccessMapping> getPageMappings() {
+        System.out.println("Getting " + ((pageMappings != null) ? pageMappings.getRowCount() : "0") + " mappings.");
+        return pageMappings;
+    }
+
+    /**
+     * Sets the page mappings.
+     * 
+     * @param pageMappings the pageMappings to set
+     */
+    public void setPageMappings(DataModel<PageAccessMapping> pageMappings) {
+        this.pageMappings = pageMappings;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            System.out.println("obj is null - return false.");
+            return false;
+        }
+        if (((Role) obj).getName().equals(this.name)) {
+            System.out.println("obj name match - return true.");
+            return true;
+        } else {
+            System.out.println("obj name don't match - return false.");
+            return false;
+        }
+    }
+
+    /**
+     * The Class PageAccessMapping.
+     */
+    public class PageAccessMapping {
+
+        /** The page. */
+        private String page;
+
+        /** The available access levels. */
+        private Collection<String> availableAccessLevels;
+
+        /** The selected access level. */
+        private String selectedAccessLevel;
+
+        /**
+         * Instantiates a new page access mapping.
+         * 
+         * @param page the page
+         */
+        public PageAccessMapping(String page) {
+            this.page = page;
+            availableAccessLevels = new ArrayList<String>();
+            availableAccessLevels.add("No Access");
+            availableAccessLevels.add("Read Only");
+            availableAccessLevels.add("Read Write");
+            selectedAccessLevel = "NoAccess";
+        }
+
+        /**
+         * Gets the page.
+         * 
+         * @return the page
+         */
+        public String getPage() {
+            return page;
+        }
+
+        /**
+         * Sets the page.
+         * 
+         * @param page the page to set
+         */
+        public void setPage(String page) {
+            this.page = page;
+        }
+
+        /**
+         * Gets the available access levels.
+         * 
+         * @return the availableAccessLevels
+         */
+        public Collection<String> getAvailableAccessLevels() {
+            return availableAccessLevels;
+        }
+
+        /**
+         * Sets the available access levels.
+         * 
+         * @param availableAccessLevels the availableAccessLevels to set
+         */
+        public void setAvailableAccessLevels(Collection<String> availableAccessLevels) {
+            this.availableAccessLevels = availableAccessLevels;
+        }
+
+        /**
+         * Gets the selected access level.
+         * 
+         * @return the selectedAccessLevel
+         */
+        public String getSelectedAccessLevel() {
+            return selectedAccessLevel;
+        }
+
+        /**
+         * Sets the selected access level.
+         * 
+         * @param selectedAccessLevel the selectedAccessLevel to set
+         */
+        public void setSelectedAccessLevel(String selectedAccessLevel) {
+            this.selectedAccessLevel = selectedAccessLevel;
+        }
+
+    }
 }

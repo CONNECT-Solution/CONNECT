@@ -38,7 +38,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-// TODO: Auto-generated Javadoc
 /**
  * The listener interface for receiving userAuthorization events. The class that is interested in processing a
  * userAuthorization event implements this interface, and the object created with that class is registered with a
