@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.directconfig.dao.impl;
 
 import gov.hhs.fha.nhinc.directconfig.dao.SettingDao;
+import gov.hhs.fha.nhinc.directconfig.dao.helpers.DaoUtils;
 import gov.hhs.fha.nhinc.directconfig.entity.Setting;
 import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
 
@@ -35,15 +36,13 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Implementing class for Setting DAO methods.
@@ -53,165 +52,178 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class SettingDaoImpl implements SettingDao {
 
-    @Autowired
-    protected SessionFactory sessionFactory;
-
     private static final Log log = LogFactory.getLog(SettingDaoImpl.class);
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @Transactional(readOnly = false)
     public void add(String name, String value) {
-        log.debug("Enter");
+        if (name != null && !name.isEmpty() && value != null) {
+            Session session = null;
+            Transaction tx = null;
 
-        if (name == null || name.isEmpty() || value == null) {
-            return;
-        }
+            // make sure this setting doesn't already exist
+            if (getByNames(Arrays.asList(name)).size() > 0) {
+                throw new ConfigurationStoreException("Setting " + name + " already exists.");
+            }
 
-        // make sure this setting doesn't already exist
-        if (this.getByNames(Arrays.asList(name)).size() > 0) {
-            throw new ConfigurationStoreException("Setting " + name + " already exists.");
-        }
+            Setting setting = new Setting();
 
-        Setting setting = new Setting();
+            setting.setId(null);
+            setting.setCreateTime(Calendar.getInstance());
 
-        setting.setName(name);
-        setting.setValue(value);
+            setting.setName(name);
+            setting.setValue(value);
 
-        setting.setId(null);
-        setting.setCreateTime(Calendar.getInstance());
-        setting.setUpdateTime(setting.getCreateTime());
+            try {
+                session = DaoUtils.getSession();
 
-        log.debug("Calling JPA to persist the setting");
-
-        sessionFactory.getCurrentSession().persist(setting);
-
-        log.debug("Returned from JPA: Setting ID=" + setting.getId());
-
-        log.debug("Exit");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @Transactional(readOnly = false)
-    public void delete(Collection<String> names) {
-        log.debug("Enter");
-
-        if (names != null && names.size() > 0) {
-            StringBuffer queryNames = new StringBuffer("(");
-
-            for (String name : names) {
-                if (queryNames.length() > 1) {
-                    queryNames.append(", ");
+                if (session != null) {
+                    tx = session.beginTransaction();
+                    session.persist(setting);
+                    tx.commit();
                 }
 
-                queryNames.append("'").append(name.toUpperCase(Locale.getDefault())).append("'");
+                log.debug("Added " + name + ": " + value);
+            } catch (Exception e) {
+                DaoUtils.rollbackTransaction(tx);
+            } finally {
+                DaoUtils.closeSession(session);
             }
+        }
+    }
 
-            queryNames.append(")");
-            String query = "DELETE FROM Setting s WHERE UPPER(s.name) IN " + queryNames.toString();
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void delete(Collection<String> names) {
+        if (names != null && names.size() > 0) {
+            Session session = null;
+            Transaction tx = null;
+            Query query = null;
 
             int count = 0;
-            Query delete = sessionFactory.getCurrentSession().createQuery(query);
-            count = delete.executeUpdate();
 
-            log.debug("Exit: " + count + " setting records deleted");
-        }
+            try {
+                session = DaoUtils.getSession();
 
-        log.debug("Exit");
-    }
+                if (session != null) {
+                    tx = session.beginTransaction();
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @SuppressWarnings("unchecked")
-    @Transactional(readOnly = true)
-    public Collection<Setting> getAll() {
-        log.debug("Enter");
+                    query = session.createQuery("DELETE FROM Setting s WHERE UPPER(s.name) IN :names");
+                    query.setParameter("names", DaoUtils.toParamString(names));
 
-        List<Setting> result = Collections.emptyList();
+                    count = query.executeUpdate();
+                    tx.commit();
 
-        Query select = null;
-        select = sessionFactory.getCurrentSession().createQuery("SELECT s from Setting s");
-
-        @SuppressWarnings("rawtypes")
-        List rs = select.list();
-
-        if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof Setting)) {
-            result = rs;
-        }
-
-        log.debug("Exit");
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @SuppressWarnings("unchecked")
-    @Transactional(readOnly = true)
-    public Collection<Setting> getByNames(Collection<String> names) {
-        log.debug("Enter");
-
-        if (names == null || names.size() == 0)
-            return getAll();
-
-        List<Setting> result = Collections.emptyList();
-
-        Query select = null;
-        StringBuffer nameList = new StringBuffer("(");
-
-        for (String name : names) {
-            if (nameList.length() > 1) {
-                nameList.append(", ");
+                    log.debug("Exit: " + count + " setting records deleted");
+                }
+            } catch (Exception e) {
+                DaoUtils.rollbackTransaction(tx);
+            } finally {
+                DaoUtils.closeSession(session);
             }
-
-            nameList.append("'").append(name.toUpperCase(Locale.getDefault())).append("'");
         }
-
-        nameList.append(")");
-        String query = "SELECT s from Setting s WHERE UPPER(s.name) IN " + nameList.toString();
-
-        select = sessionFactory.getCurrentSession().createQuery(query);
-
-        @SuppressWarnings("rawtypes")
-        List rs = select.list();
-
-        if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof Setting)) {
-            result = rs;
-        }
-
-        log.debug("Exit");
-
-        return result;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @Transactional(readOnly = false)
+    @SuppressWarnings("unchecked")
+    public Collection<Setting> getAll() {
+        List<Setting> results = null;
+
+        Session session = null;
+
+        try {
+            session = DaoUtils.getSession();
+
+            if (session != null) {
+                results = session.getNamedQuery("getAllSettings").list();
+
+                if (results == null) {
+                    results = Collections.emptyList();
+                }
+
+                log.debug("Settings found: " + results.size());
+            }
+        } finally {
+            DaoUtils.closeSession(session);
+        }
+
+        return results;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public Collection<Setting> getByNames(Collection<String> names) {
+        Collection<Setting> results = null;
+
+        if (names == null || names.size() == 0) {
+            results = getAll();
+        } else {
+            Session session = null;
+            Query query = null;
+
+            try {
+                session = DaoUtils.getSession();
+
+                if (session != null) {
+                    query = session.getNamedQuery("getSettings");
+                    query.setParameter("nameList", DaoUtils.toParamString(names));
+
+                    results = query.list();
+
+                    if (results == null) {
+                        results = Collections.emptyList();
+                    }
+
+                    log.debug("Settings found: " + results.size());
+                }
+            } finally {
+                DaoUtils.closeSession(session);
+            }
+        }
+
+        return results;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void update(String name, String value) {
-        log.debug("Enter");
+        if (name != null && !name.isEmpty()) {
+            Collection<Setting> settings = getByNames(Arrays.asList(name));
 
-        if (name == null || name.isEmpty()) {
-            return;
+            Session session = null;
+            Transaction tx = null;
+
+            try {
+                session = DaoUtils.getSession();
+
+                if (session != null) {
+                    tx = session.beginTransaction();
+
+                    for (Setting setting : settings) {
+                        setting.setValue(value);
+                        setting.setUpdateTime(Calendar.getInstance());
+                        session.merge(setting);
+                    }
+
+                    tx.commit();
+                }
+            } catch (Exception e) {
+                DaoUtils.rollbackTransaction(tx);
+            } finally {
+                DaoUtils.closeSession(session);
+            }
         }
-
-        Collection<Setting> settings = getByNames(Arrays.asList(name));
-
-        for (Setting setting : settings) {
-            setting.setValue(value);
-            setting.setUpdateTime(Calendar.getInstance());
-            sessionFactory.getCurrentSession().merge(setting);
-        }
-
-        log.debug("Exit");
     }
 }
