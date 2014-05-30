@@ -8,7 +8,7 @@
        xmlns:jee="http://www.springframework.org/schema/jee"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans    http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+        http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.0.xsd
         http://www.springframework.org/schema/tx       http://www.springframework.org/schema/tx/spring-tx.xsd
         http://cxf.apache.org/jaxws                    http://cxf.apache.org/schemas/jaxws.xsd
         http://camel.apache.org/schema/spring          http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -20,52 +20,34 @@
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
     <context:component-scan base-package="gov.hhs.fha.nhinc.directconfig" />
-    
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="configLocation">
-            <value>/WEB-INF/hibernate.cfg.xml</value>
-        </property>
-        <property name="configurationClass">
-            <value>org.hibernate.cfg.AnnotationConfiguration</value>
-        </property>
-    </bean>
-    
-    <tx:annotation-driven />    
-    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
 
-    <jee:jndi-lookup id="dataSource" jndi-name="jdbc/configdb_datasource" />
+    <!--jee:jndi-lookup id="dataSource" jndi-name="jdbc/configdb_datasource" /-->
 
     <jaxws:endpoint id="configurationService" address="/ConfigurationService" implementor="gov.hhs.fha.nhinc.directconfig.service.impl.ConfigurationServiceImpl" />
-    
+
     <!-- Exception translation bean post processor -->
     <!--bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" /-->
 
     <!-- Camel Context for cache update and trust bundle processors -->
-    <!--bean id="bundleRefreshProcessor" class="gov.hhs.fha.nhinc.directconfig.processor.impl.DefaultBundleRefreshProcessorImpl">
-        <property name="dao" ref="trustBundleDao" />
-    </bean>
+    <bean id="bundleRefreshProcessor" class="gov.hhs.fha.nhinc.directconfig.processor.impl.DefaultBundleRefreshProcessorImpl" />
 
     <bean id="bundleCacheUpdateProcessor" class="gov.hhs.fha.nhinc.directconfig.processor.impl.DefaultBundleCacheUpdateProcessorImpl">
-        <property name="dao" ref="trustBundleDao" />
         <property name="refreshProcessor" ref="bundleRefreshProcessor" />
-    </bean-->
+    </bean>
 
     <camelContext id="web-camel-context" xmlns="http://camel.apache.org/schema/spring">
-        <!--template id="bundleRefresh" defaultEndpoint="seda:refresh-start" /-->
+        <template id="bundleRefresh" defaultEndpoint="seda:refresh-start" />
 
-        <!--route id="refreshBundle">
+        <route id="refreshBundle">
             <from uri="seda:refresh-start" />
             <bean ref="bundleRefreshProcessor" />
-        </route-->
+        </route>
 
-        <!--route id="cache-refresher">
+        <route id="cache-refresher">
             <from uri="timer://cache-refresh?period=1h" />
             <bean ref="bundleCacheUpdateProcessor" />
-        </route-->
-        
+        </route>
+
         <contextScan/>
     </camelContext>
 </beans>
