@@ -51,6 +51,7 @@ import java.util.Collection;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.jws.WebService;
 
 import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
 
@@ -60,6 +61,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
  * @author Greg Meyer
  * @since 1.1
  */
+@WebService
 public interface DNSService 
 {
 	/**
