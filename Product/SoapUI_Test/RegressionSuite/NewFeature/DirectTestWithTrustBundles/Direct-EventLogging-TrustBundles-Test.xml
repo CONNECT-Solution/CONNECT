@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project name="DirectEventLoggingTrustBundlesTest" resourceRoot="" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="ConfigurationServiceImplPortBinding" type="wsdl" bindingName="{http://impl.service.config.nhindirect.org/}ConfigurationServiceImplPortBinding" soapVersion="1_1" anonymous="optional" definition="${projectDir}/wsdl/ConfigurationServiceImplService.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://gfe-onc-ldev19.connect.org:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:AddAddress" name="addAddress" bindingOperationName="addAddress" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:AddAnchor" name="addAnchor" bindingOperationName="addAnchor" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:AddCertificates" name="addCertificates" bindingOperationName="addCertificates" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:AddDNS" name="addDNS" bindingOperationName="addDNS" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:AddDomain" name="addDomain" bindingOperationName="addDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:AddPolicy" name="addPolicy" bindingOperationName="addPolicy" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:AddPolicyGroup" name="addPolicyGroup" bindingOperationName="addPolicyGroup" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:AddPolicyUseToGroup" name="addPolicyUseToGroup" bindingOperationName="addPolicyUseToGroup" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:AddSetting" name="addSetting" bindingOperationName="addSetting" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:AddTrustBundle" name="addTrustBundle" bindingOperationName="addTrustBundle" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:AssociatePolicyGroupToDomain" name="associatePolicyGroupToDomain" bindingOperationName="associatePolicyGroupToDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:AssociateTrustBundleToDomain" name="associateTrustBundleToDomain" bindingOperationName="associateTrustBundleToDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:Contains" name="contains" bindingOperationName="contains" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:DeletePolicies" name="deletePolicies" bindingOperationName="deletePolicies" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:DeletePolicyGroups" name="deletePolicyGroups" bindingOperationName="deletePolicyGroups" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:DeleteSetting" name="deleteSetting" bindingOperationName="deleteSetting" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:DeleteTrustBundles" name="deleteTrustBundles" bindingOperationName="deleteTrustBundles" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:DisassociatePolicyGroupFromDomain" name="disassociatePolicyGroupFromDomain" bindingOperationName="disassociatePolicyGroupFromDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:DisassociatePolicyGroupFromDomains" name="disassociatePolicyGroupFromDomains" bindingOperationName="disassociatePolicyGroupFromDomains" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:DisassociatePolicyGroupsFromDomain" name="disassociatePolicyGroupsFromDomain" bindingOperationName="disassociatePolicyGroupsFromDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:DisassociateTrustBundleFromDomain" name="disassociateTrustBundleFromDomain" bindingOperationName="disassociateTrustBundleFromDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:DisassociateTrustBundleFromDomains" name="disassociateTrustBundleFromDomains" bindingOperationName="disassociateTrustBundleFromDomains" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:DisassociateTrustBundlesFromDomain" name="disassociateTrustBundlesFromDomain" bindingOperationName="disassociateTrustBundlesFromDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAddressCount" name="getAddressCount" bindingOperationName="getAddressCount" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAddresss" name="getAddresss" bindingOperationName="getAddresss" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAllSettings" name="getAllSettings" bindingOperationName="getAllSettings" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAnchor" name="getAnchor" bindingOperationName="getAnchor" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAnchors" name="getAnchors" bindingOperationName="getAnchors" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAnchorsForOwner" name="getAnchorsForOwner" bindingOperationName="getAnchorsForOwner" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetCertificate" name="getCertificate" bindingOperationName="getCertificate" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetCertificates" name="getCertificates" bindingOperationName="getCertificates" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetCertificatesForOwner" name="getCertificatesForOwner" bindingOperationName="getCertificatesForOwner" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetDNSByName" name="getDNSByName" bindingOperationName="getDNSByName" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetDNSByNameAndType" name="getDNSByNameAndType" bindingOperationName="getDNSByNameAndType" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetDNSByRecordId" name="getDNSByRecordId" bindingOperationName="getDNSByRecordId" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetDNSByRecordIds" name="getDNSByRecordIds" bindingOperationName="getDNSByRecordIds" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetDNSByType" name="getDNSByType" bindingOperationName="getDNSByType" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetDNSCount" name="getDNSCount" bindingOperationName="getDNSCount" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetDomain" name="getDomain" bindingOperationName="getDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetDomainCount" name="getDomainCount" bindingOperationName="getDomainCount" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetDomains" name="getDomains" bindingOperationName="getDomains" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetIncomingAnchors" name="getIncomingAnchors" bindingOperationName="getIncomingAnchors" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetOutgoingAnchors" name="getOutgoingAnchors" bindingOperationName="getOutgoingAnchors" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetPolicies" name="getPolicies" bindingOperationName="getPolicies" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetPolicyById" name="getPolicyById" bindingOperationName="getPolicyById" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetPolicyByName" name="getPolicyByName" bindingOperationName="getPolicyByName" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetPolicyGroupById" name="getPolicyGroupById" bindingOperationName="getPolicyGroupById" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetPolicyGroupByName" name="getPolicyGroupByName" bindingOperationName="getPolicyGroupByName" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetPolicyGroupDomainReltns" name="getPolicyGroupDomainReltns" bindingOperationName="getPolicyGroupDomainReltns" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetPolicyGroups" name="getPolicyGroups" bindingOperationName="getPolicyGroups" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetPolicyGroupsByDomain" name="getPolicyGroupsByDomain" bindingOperationName="getPolicyGroupsByDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetSettingByName" name="getSettingByName" bindingOperationName="getSettingByName" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetSettingsByNames" name="getSettingsByNames" bindingOperationName="getSettingsByNames" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetTrustBundleById" name="getTrustBundleById" bindingOperationName="getTrustBundleById" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetTrustBundleByName" name="getTrustBundleByName" bindingOperationName="getTrustBundleByName" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetTrustBundles" name="getTrustBundles" bindingOperationName="getTrustBundles" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetTrustBundlesByDomain" name="getTrustBundlesByDomain" bindingOperationName="getTrustBundlesByDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ListAddresss" name="listAddresss" bindingOperationName="listAddresss" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ListAnchors" name="listAnchors" bindingOperationName="listAnchors" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ListCertificates" name="listCertificates" bindingOperationName="listCertificates" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:listDomains" name="listDomains" bindingOperationName="listDomains" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RefreshTrustBundle" name="refreshTrustBundle" bindingOperationName="refreshTrustBundle" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RemoveAddress" name="removeAddress" bindingOperationName="removeAddress" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RemoveAnchors" name="removeAnchors" bindingOperationName="removeAnchors" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RemoveAnchorsForOwner" name="removeAnchorsForOwner" bindingOperationName="removeAnchorsForOwner" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RemoveCertificates" name="removeCertificates" bindingOperationName="removeCertificates" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RemoveCertificatesForOwner" name="removeCertificatesForOwner" bindingOperationName="removeCertificatesForOwner" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RemoveDNS" name="removeDNS" bindingOperationName="removeDNS" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RemoveDNSByRecordId" name="removeDNSByRecordId" bindingOperationName="removeDNSByRecordId" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RemoveDNSByRecordIds" name="removeDNSByRecordIds" bindingOperationName="removeDNSByRecordIds" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RemoveDomain" name="removeDomain" bindingOperationName="removeDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RemoveDomainById" name="removeDomainById" bindingOperationName="removeDomainById" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RemovePolicyUseFromGroup" name="removePolicyUseFromGroup" bindingOperationName="removePolicyUseFromGroup" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:SearchDomain" name="searchDomain" bindingOperationName="searchDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:SetAnchorStatusForOwner" name="setAnchorStatusForOwner" bindingOperationName="setAnchorStatusForOwner" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:SetCertificateStatus" name="setCertificateStatus" bindingOperationName="setCertificateStatus" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:SetCertificateStatusForOwner" name="setCertificateStatusForOwner" bindingOperationName="setCertificateStatusForOwner" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:UpdateAddress" name="updateAddress" bindingOperationName="updateAddress" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:UpdateDNS" name="updateDNS" bindingOperationName="updateDNS" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:UpdateDomain" name="updateDomain" bindingOperationName="updateDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:UpdateGroupAttributes" name="updateGroupAttributes" bindingOperationName="updateGroupAttributes" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:UpdateLastUpdateError" name="updateLastUpdateError" bindingOperationName="updateLastUpdateError" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:UpdatePolicyAttributes" name="updatePolicyAttributes" bindingOperationName="updatePolicyAttributes" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:UpdateSetting" name="updateSetting" bindingOperationName="updateSetting" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:UpdateTrustBundleAttributes" name="updateTrustBundleAttributes" bindingOperationName="updateTrustBundleAttributes" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:UpdateTrustBundleSigningCertificate" name="updateTrustBundleSigningCertificate" bindingOperationName="updateTrustBundleSigningCertificate" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="DirectEventLogging TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DirectEvenLoggingWithTrustBundleInDB" searchProperties="true" id="cc66aaea-e866-4e46-86bf-f1e63ca138de"><con:settings/><con:testStep type="groovy" name="Set Incoming Outgoing Traffic Value"><con:settings/><con:config><script>testRunner.testCase.testSuite.project.setPropertyValue( "IncomingTraffic", "1") ;
+testRunner.testCase.testSuite.project.setPropertyValue( "OutgoingTraffic", "1") ;
+</script></con:config></con:testStep><con:testStep type="groovy" name="Clear Event Table"><con:settings/><con:config><script>context.withSql(context.findProperty('EventDB')) { sql -> 
+			sql.execute('delete from '+context.findProperty('EventTable'))
+			}</script></con:config></con:testStep><con:testStep type="request" name="DisassociateTrustBundleFromDomain"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>disassociateTrustBundleFromDomain</con:operation><con:request name="DisassociateTrustBundleFromDomain"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://gfe-onc-ldev19.connect.org:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:disassociateTrustBundleFromDomain>
+         <domainId>${#Project#DomainId}</domainId>
+         <trustBundleId>${#Project#TrustBundleID}</trustBundleId>
+      </con:disassociateTrustBundleFromDomain>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="AssociateTrustBundleToDomain"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>associateTrustBundleToDomain</con:operation><con:request name="AssociateTrustBundleToDomain"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://gfe-onc-ldev19.connect.org:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:associateTrustBundleToDomain>
+         <domainId>${#Project#DomainId}</domainId>
+         <trustBundleId>${#Project#TrustBundleID}</trustBundleId>
+         <incoming>${#Project#IncomingTraffic}</incoming>
+         <outgoing>${#Project#OutgoingTraffic}</outgoing>
+      </con:associateTrustBundleToDomain>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="SendEmail"><con:settings/><con:config><script>log.info "Before the step";
+context.sendEmailSmtp("Content","Test Subject New Which was working earlier","murthy@direct.connectopensource.org", "provider1@direct.sitenv.org", "54.85.35.69", "25","direct","Connect#2014");
+log.info "After the step";</script></con:config></con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>100000</delay></con:config></con:testStep><con:testStep type="manualTestStep" name="Check Despatched MDN"><con:description>Verify the email account to see if you got the Despatched MDN.</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Should have received the Despatched MDN</con:expectedResult></con:config></con:testStep><con:testStep type="delay" name="Delay 1"><con:settings/><con:config><delay>20000</delay></con:config></con:testStep><con:testStep type="manualTestStep" name="Check Processed MDN"><con:description>Verify the email account to see if you got the Processed MDN.</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Should have received the Processed MDN in the inbox.</con:expectedResult></con:config></con:testStep><con:testStep type="groovy" name="Count Event Table Rows"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
+	assert 6 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_DIRECT"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_OUTBOUND_DIRECT"')[0]
+	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_MDN"')[0]
+	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_MDN"')[0]
+}</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2014-05-30T21:52:44Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2014-05-30T22:02:44Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>05/30/2014 21:52:44</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2014-06-29T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DirectEvenLoggingTrustBundleNotInDB" searchProperties="true" id="fc64836a-683f-4469-b79e-b86d2d2328a7"><con:settings/><con:testStep type="groovy" name="Set Incoming Outgoing Traffic Value"><con:settings/><con:config><script>testRunner.testCase.testSuite.project.setPropertyValue( "IncomingTraffic", "0") ;
+testRunner.testCase.testSuite.project.setPropertyValue( "OutgoingTraffic", "0") ;
+</script></con:config></con:testStep><con:testStep type="groovy" name="Clear Event Table"><con:settings/><con:config><script>context.withSql(context.findProperty('EventDB')) { sql -> 
+			sql.execute('delete from '+context.findProperty('EventTable'))
+			}</script></con:config></con:testStep><con:testStep type="request" name="DisassociateTrustBundleFromDomain"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>disassociateTrustBundleFromDomain</con:operation><con:request name="DisassociateTrustBundleFromDomain"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://gfe-onc-ldev19.connect.org:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:disassociateTrustBundleFromDomain>
+         <domainId>${#Project#DomainId}</domainId>
+         <trustBundleId>${#Project#TrustBundleID}</trustBundleId>
+      </con:disassociateTrustBundleFromDomain>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="SendEmail"><con:settings/><con:config><script>context.sendEmailSmtp("Content","Test Subject New","murthy@direct.connectopensource.org", "provider1@direct.sitenv.org", "54.85.35.69", "25","direct","Connect#2014");</script></con:config></con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>100000</delay></con:config></con:testStep><con:testStep type="manualTestStep" name="Check Despatched MDN"><con:description>Verify the email account to see if you got the Despatched MDN.</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Should have received the Despatched MDN</con:expectedResult></con:config></con:testStep><con:testStep type="delay" name="Delay 1"><con:settings/><con:config><delay>100000</delay></con:config></con:testStep><con:testStep type="manualTestStep" name="Check Processed MDN"><con:description>Verify the email account to see if you got the Processed MDN.</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Should have received the Processed MDN in the inbox.</con:expectedResult></con:config></con:testStep><con:testStep type="groovy" name="Count Event Table Rows"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
+	assert 6 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_DIRECT"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_OUTBOUND_DIRECT"')[0]
+	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_MDN"')[0]
+	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_MDN"')[0]
+}</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2014-05-28T14:34:13Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2014-05-28T14:44:13Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>05/28/2014 14:34:13</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2014-06-27T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:properties/></con:testSuite><con:properties><con:property><con:name>EventDB</con:name><con:value>eventdb</con:value></con:property><con:property><con:name>EventTable</con:name><con:value>event</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DomainId</con:name><con:value>1</con:value></con:property><con:property><con:name>TrustBundleID</con:name><con:value>4</con:value></con:property><con:property><con:name>IncomingTraffic</con:name><con:value>1</con:value></con:property><con:property><con:name>OutgoingTraffic</con:name><con:value>1</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
+def propertiesFile = new File(propertiesFilename)
+if (propertiesFile.exists()) {
+	def props = new Properties()
+	props.load(new FileInputStream(propertiesFile))
+	props.each { key, value ->
+	    project.setPropertyValue(key, value)
+	}
+}
+
+TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
+def testRunListener = [
+afterRun: { testRunner, runContext -> },
+afterStep: { testRunner, runContext, result -> },
+beforeStep: { testRunner, runContext -> },
+beforeStep: { testRunner, runContext, testStep -> },
+beforeRun: { testRunner, runContext -> 
+use (org.codehaus.groovy.runtime.TimeCategory) {
+def startDate = 5.minutes.ago
+def endDate = 5.minutes.from.now
+def expireDate = 30.days.from.now
+
+def df = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+def dfSig = "MM/dd/yyyy' 'HH:mm:ss"
+
+runContext.testCase.setPropertyValue("startDate", startDate.format(df))
+runContext.testCase.setPropertyValue("endDate", endDate.format(df))
+runContext.testCase.setPropertyValue("sigDate", startDate.format(dfSig))
+runContext.testCase.setPropertyValue("expireDate", expireDate.format(df))
+}
+}   
+] as com.eviware.soapui.model.testsuite.TestRunListener
+
+project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListener)
+
+
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+return delegate.getProperty(propertyName) ?:
+delegate.testCase.getPropertyValue(propertyName) ?:
+delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
+delegate.testCase.testSuite.project.getPropertyValue(propertyName)
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
+def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
+def host = delegate.findProperty('DBHost')
+def port = delegate.findProperty('DBPort')
+def user = delegate.findProperty('DBUser')
+def pass = delegate.findProperty('DBPass')
+
+def connectString = "jdbc:mysql://${host}:${port}/${dbName}"
+def sql = groovy.sql.Sql.newInstance(connectString, user, pass, "com.mysql.jdbc.Driver");
+try {
+block(sql)
+} finally {
+sql.close()
+}
+}
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Properties;
+
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.sendEmailStarttls = { message,subject,fromAddress, toAddress, host, port, username, password  ->
+  def vMessage = delegate.findProperty("message");
+  def vSubject = delegate.findProperty("subject");
+  def vFromAddress = delegate.findProperty("fromAddress");
+  def vToAddress = delegate.findProperty("toAddress");
+  def vHost = delegate.findProperty("host");
+  def vPort = delegate.findProperty("port");
+  
+  log.info "Inside sendEmail method";
+
+  Properties mprops = new Properties();
+  mprops.put( "mail.smtp.host", host);
+  mprops.put("mail.smtp.starttls.enable", "true");
+  mprops.put("mail.smtp.auth", "true");
+  mprops.put("mail.debug", "true");
+  mprops.put("mail.store.protocol", "pop3");
+  mprops.put("mail.transport.protocol", "smtp");
+
+log.info "Inside sendEmail method 123333";
+	Session session = Session.getInstance( mprops, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+          }
+        });
+        log.info "Inside sendEmail method 123433333 step4";
+			Message msg = new MimeMessage( session );
+			msg.setFrom( new InternetAddress( context.expand( fromAddress ) ) );
+			msg.setRecipients( Message.RecipientType.TO, InternetAddress.parse( context.expand( toAddress ), false ) );
+			msg.setSubject(context.expand( subject ) );
+			msg.setText( context.expand( message ) );
+			msg.setHeader( "X-Mailer", "soapUI EMail TestStep" );
+			msg.setHeader( "Disposition-Notification-Options", "X-DIRECT-FINAL-DESTINATION-DELIVERY: optional, true" );
+			msg.setSentDate( new Date() );
+
+			Transport.send( msg );
+			//result.setStatus( TestStepStatus.OK );
+
+  return true;
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.sendEmailSmtp = { message,subject,fromAddress, toAddress, host, port, username, password  ->
+  def vMessage = delegate.findProperty("message");
+  def vSubject = delegate.findProperty("subject");
+  def vFromAddress = delegate.findProperty("fromAddress");
+  def vToAddress = delegate.findProperty("toAddress");
+  def vHost = delegate.findProperty("host");
+  def vPort = delegate.findProperty("port");
+  
+  log.info "Inside sendEmail method";
+
+  Properties mprops = new Properties();
+  mprops.setProperty("mail.transport.protocol","smtp");
+  mprops.setProperty("mail.host",host);
+  mprops.put("mail.smtp.auth", "true");
+  mprops.put("mail.debug", "true");
+
+log.info "Inside sendEmail method 123333";
+	Session session = Session.getInstance( mprops, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+          }
+        });
+        log.info "Inside sendEmail method 123433333 step4";
+			Message msg = new MimeMessage( session ){
+				
+				  protected void updateMessageID() throws MessagingException {
+	                     setHeader("Message-ID", "Naresh1233232");
+                      }
+				};
+
+			
+			msg.setFrom( new InternetAddress( context.expand( fromAddress ) ) );
+			msg.setRecipients( Message.RecipientType.TO, InternetAddress.parse( context.expand( toAddress ), false ) );
+			msg.setSubject(context.expand( subject ) );
+			msg.setText( context.expand( message ) );
+			msg.setHeader( "X-Mailer", "soapUI EMail TestStep" );
+			msg.setHeader("message-id", "naresh1234567");
+			msg.setHeader( "Disposition-Notification-Options", "X-DIRECT-FINAL-DESTINATION-DELIVERY: optional, true" );
+			msg.setSentDate( new Date() );
+
+			Transport.send( msg );
+			//result.setStatus( TestStepStatus.OK );
+
+  return true;
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.sendEmailSmtps = { message,subject,fromAddress, toAddress, host, port, username, password  ->
+  def vMessage = delegate.findProperty("message");
+  def vSubject = delegate.findProperty("subject");
+  def vFromAddress = delegate.findProperty("fromAddress");
+  def vToAddress = delegate.findProperty("toAddress");
+  def vHost = delegate.findProperty("host");
+  def vPort = delegate.findProperty("port");
+  
+  log.info "Inside sendEmail method";
+
+  Properties mprops = new Properties();
+    //mprops.put("mail.smtp.protocol", "smtp");
+    //mprops.put("mail.smtp.starttls.enable", "true");
+    mprops.put("mail.smtp.host", host);
+    mprops.put("mail.smtp.port", "587");
+    mprops.put("mail.smtp.starttls.enable","true");
+    mprops.put("mail.smtp.auth", "true");
+    //mprops.put("mail.smtp.socketFactory.port", "587");
+    //mprops.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+    //mprops.put("mail.smtp.socketFactory.fallback", "false");
+
+log.info "Inside sendEmail method 123333";
+	Session session = Session.getInstance( mprops, new javax.mail.Authenticator() {
+           protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+          }
+        });
+        log.info "Inside sendEmail method 123433333 step4";
+			Message msg = new MimeMessage( session );
+			msg.setFrom( new InternetAddress( context.expand( fromAddress ) ) );
+			msg.setRecipients( Message.RecipientType.TO, InternetAddress.parse( context.expand( toAddress ), false ) );
+			msg.setSubject(context.expand( subject ) );
+			msg.setText( context.expand( message ) );
+			msg.setHeader( "X-Mailer", "soapUI EMail TestStep" );
+			msg.setHeader( "Disposition-Notification-Options", "X-DIRECT-FINAL-DESTINATION-DELIVERY: optional, true" );
+			msg.setSentDate( new Date() );
+
+			Transport.send( msg );
+			//result.setStatus( TestStepStatus.OK );
+
+  return true;
+}</con:afterLoadScript><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>
