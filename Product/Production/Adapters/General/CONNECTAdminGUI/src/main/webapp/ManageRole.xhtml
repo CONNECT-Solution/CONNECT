@@ -40,15 +40,20 @@
                 <p:messages id="messages" showDetail="true" autoUpdate="true">
                     <p:effect type="fade" event="load" delay="1000" />
                 </p:messages>
-                <p:dataTable id="pagesTable" var="page" value="#{ManageRoleBean.pages}" resizableColumns="true"
-                    style="margin-bottom:20px">
+                <p:selectOneMenu value="#{manageRoleBean.selectedRoleName}">
+                    <p:ajax event="change" listener="#{manageRoleBean.roleChanged}" update="pagesTable" />
+                    <f:selectItem itemLabel="Select Role" noSelectionOption="true" />
+                    <f:selectItems value="#{manageRoleBean.roles}"/>
+                </p:selectOneMenu>
+                <p:dataTable id="pagesTable" var="page" value="#{manageRoleBean.selectedRole.pageMappings}"
+                    resizableColumns="true" style="margin-bottom:20px">
                     <f:facet name="header">Pages</f:facet>
                     <p:column headerText="Page">
                         <h:outputText value="#{page.page}" />
                     </p:column>
                     <p:column headerText="Page Level Access">
                         <p:selectOneMenu value="#{page.selectedAccessLevel}">
-                            <p:ajax event="change" listener="#{ManageRoleBean.accessLevelChanged}" />
+                            <p:ajax event="change" listener="#{manageRoleBean.accessLevelChanged}" />
                             <f:selectItems value="#{page.availableAccessLevels}" />
                         </p:selectOneMenu>
                     </p:column>

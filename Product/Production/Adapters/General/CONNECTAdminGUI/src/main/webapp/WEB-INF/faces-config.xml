@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<faces-config
-    xmlns="http://java.sun.com/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="
         http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
     version="2.1">
 
     <application>
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+        <resource-bundle>
+            <base-name>gov.hhs.fha.nhinc.admingui.resources.messages</base-name>
+            <var>messages</var>
+        </resource-bundle>
     </application>
-    
+
     <lifecycle>
         <phase-listener>gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener</phase-listener>
     </lifecycle>
-    
+
     <navigation-rule>
         <from-view-id>/*</from-view-id>
         <navigation-case>
@@ -38,5 +40,5 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
-    
+
 </faces-config>

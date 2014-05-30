@@ -26,9 +26,11 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import gov.hhs.fha.nhinc.admingui.model.Role;
+import gov.hhs.fha.nhinc.admingui.services.ManageRoleService;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -36,49 +38,73 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * The Class ManageRoleBean.
  */
-@ManagedBean(name = "ManageRoleBean")
+@ManagedBean
 @ViewScoped
+@Component
 public class ManageRoleBean {
 
-    /** The pages model. */
-    private DataModel<PageAccessMapping> pagesModel;
+    @Autowired
+    private ManageRoleService manageRoleService;
+
+    private Set<String> roles;
+
+    private Role selectedRole;
+
+    public ManageRoleBean() {
+
+    }
+
+    public void roleChanged(final AjaxBehaviorEvent event) {
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Role Changed."));
+    }
+
+    /**
+     * @return the selectedRole
+     */
+    public String getSelectedRoleName() {
+        return selectedRole != null ? selectedRole.getName() : "";
+    }
+
+    /**
+     * @param selectedRole the selectedRole to set
+     */
+    public void setSelectedRoleName(String selectedRole) {
+        if (roles.contains(selectedRole)) {
+            for (Role r : manageRoleService.getRoles()) {
+                if (r.getName().equals(selectedRole)) {
+                    this.selectedRole = r;
+                }
+            }
+        } else {
+            this.selectedRole = null;
+        }
+
+    }
+
+    public Role getSelectedRole() {
+        return selectedRole;
+    }
+
+    public void setSelectedRole(Role role) {
+        selectedRole = role;
+    }
 
     /**
      * Access level changed.
-     *
+     * 
      * @param event the event
      */
     public void accessLevelChanged(final AjaxBehaviorEvent event) {
-
-        System.out.println("here we save the changed access level for " + pagesModel.getRowData().page + " to "
-                + pagesModel.getRowData().selectedAccessLevel + ".");
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Access Level Changed."));
-
-    }
-
-    /**
-     * Gets the pages.
-     *
-     * @return the pages
-     */
-    public DataModel<PageAccessMapping> getPages() {
-        return pagesModel;
-    }
-
-    /**
-     * Sets the pages.
-     *
-     * @param pages the pages to set
-     */
-    public void setPages(DataModel<PageAccessMapping> pages) {
-        this.pagesModel = pages;
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Access Level Changed."));
     }
 
     /**
@@ -86,100 +112,24 @@ public class ManageRoleBean {
      */
     @PostConstruct
     public void init() {
-        List<PageAccessMapping> pages = new ArrayList<PageAccessMapping>();
-        pages.add(new PageAccessMapping("acctmanagePrime.xhtml"));
-        pages.add(new PageAccessMapping("DashboardPrime.xhtml"));
-        pages.add(new PageAccessMapping("ManageRole.xhtml"));
-        pages.add(new PageAccessMapping("StatusPrime.xhtml"));
-        pages.add(new PageAccessMapping("direct.xhtml"));
-        pages.add(new PageAccessMapping("trust-bundle-anchor1.xhtml"));
-        pages.add(new PageAccessMapping("trust-bundle-anchor2.xhtml"));
-
-        pagesModel = new ListDataModel<PageAccessMapping>(pages);
+        roles = new HashSet<String>();
+        for (Role r : manageRoleService.getRoles()) {
+            roles.add(r.getName());
+        }
     }
 
     /**
-     * The Class PageAccessMapping.
+     * @return the roles
      */
-    public class PageAccessMapping {
-        
-        /** The page. */
-        private String page;
-        
-        /** The available access levels. */
-        private Collection<String> availableAccessLevels;
-        
-        /** The selected access level. */
-        private String selectedAccessLevel;
+    public Set<String> getRoles() {
+        return roles;
+    }
 
-        /**
-         * Instantiates a new page access mapping.
-         *
-         * @param page the page
-         */
-        public PageAccessMapping(String page) {
-            this.page = page;
-            availableAccessLevels = new ArrayList<String>();
-            availableAccessLevels.add("No Access");
-            availableAccessLevels.add("Read Only");
-            availableAccessLevels.add("Read Write");
-            selectedAccessLevel = "NoAccess";
-        }
-
-        /**
-         * Gets the page.
-         *
-         * @return the page
-         */
-        public String getPage() {
-            return page;
-        }
-
-        /**
-         * Sets the page.
-         *
-         * @param page the page to set
-         */
-        public void setPage(String page) {
-            this.page = page;
-        }
-
-        /**
-         * Gets the available access levels.
-         *
-         * @return the availableAccessLevels
-         */
-        public Collection<String> getAvailableAccessLevels() {
-            return availableAccessLevels;
-        }
-
-        /**
-         * Sets the available access levels.
-         *
-         * @param availableAccessLevels the availableAccessLevels to set
-         */
-        public void setAvailableAccessLevels(Collection<String> availableAccessLevels) {
-            this.availableAccessLevels = availableAccessLevels;
-        }
-
-        /**
-         * Gets the selected access level.
-         *
-         * @return the selectedAccessLevel
-         */
-        public String getSelectedAccessLevel() {
-            return selectedAccessLevel;
-        }
-
-        /**
-         * Sets the selected access level.
-         *
-         * @param selectedAccessLevel the selectedAccessLevel to set
-         */
-        public void setSelectedAccessLevel(String selectedAccessLevel) {
-            this.selectedAccessLevel = selectedAccessLevel;
-        }
-
+    /**
+     * @param roles the roles to set
+     */
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
     }
 
 }
