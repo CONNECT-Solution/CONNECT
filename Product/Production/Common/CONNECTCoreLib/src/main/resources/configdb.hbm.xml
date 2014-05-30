@@ -7,16 +7,6 @@
     Description: Hibernate mapping file for CONNECTDirectConfig's configdb
 -->
 
-<!-- NOTES:  Auto-generated file had the following behavior:
-        id generator class="identity"
-        timestamp properties had length="19"
-        type of "integer" was "java.lang.Integer"
-        blobs were "binary" type
--->
-
-<!-- TO CHECK BEFORE CHECKING IN:
-        Verify that prop name and column name are the same when "column" field is left out!
--->
 <hibernate-mapping package="gov.hhs.fha.nhinc.directconfig.entity">
     <!--
         Domain (configdb.domain)
@@ -264,26 +254,128 @@
     <!--
         Address
     -->
-    <query name="getAddressByDomain">
-        <![CDATA[FROM Address a
-                    WHERE ( :domainId IS NULL OR a.domainId = :domainId )
-                    AND ( :status IS NULL OR a.status = :status]]>
-    </query>
-    
     <query name="getAddress">
         <![CDATA[FROM Address a
                     WHERE ( :eMailList IS NULL OR UPPER ( a.eMailAddress ) IN :eMailList )
-                    AND ( :status IS NULL OR a.status = :status]]>
+                    AND ( :status IS NULL OR a.status = :status ) ]]>
     </query>
-    SELECT a from Address a WHERE UPPER(a.emailAddress) IN 
-    
-    <query name="findAAByAAId">
-        <![CDATA[FROM AssigningAuthorityToHomeCommunityMapping aa WHERE aa.assigningAuthorityId = :assigningAuthorityId]]>
-    </query>
-    <query name="findAAByAAIdAndHomeCommunityId">
-        <![CDATA[FROM AssigningAuthorityToHomeCommunityMapping aa
-                    WHERE aa.assigningAuthorityId = :assigningAuthorityId
-                    AND aa.homeCommunityId = :homeCommunityId]]>
+
+    <query name="getAddressByDomain">
+        <![CDATA[FROM Address a
+                    WHERE ( :domainId IS NULL OR a.domainId = :domainId )
+                    AND ( :status IS NULL OR a.status = :status ) ]]>
     </query>
     
+    <query name="getAddressById">
+        <![CDATA[FROM Address a
+                    WHERE ( a.id = :id )]]>
+    </query>
+    
+    <!--
+        Anchor
+    -->
+    <query name="getAllAnchors">
+        <![CDATA[FROM Anchor a]]>
+    </query>
+
+    <query name="getAnchorsByOwner">
+        <![CDATA[FROM Anchor a
+                    WHERE ( UPPER ( a.owner ) IN :ownerList ) ]]>
+    </query>
+    
+    <query name="getAnchorsByIds">
+        <![CDATA[FROM Anchor a
+                    WHERE ( a.id IN :idList ) ]]>
+    </query>
+    
+    <!--
+        Certificate
+    -->
+    <query name="getCertificates">
+        <![CDATA[FROM Certificate c
+                    WHERE ( :thumbprint IS NULL OR c.thumbprint = :thumbprint )
+                    AND ( :owner IS NULL OR UPPER(c.owner) = :owner ) ]]>
+    </query>
+    
+    <query name="getCertificatesByIds">
+        <![CDATA[FROM Certificate c
+                    WHERE ( c.id IN :idList ) ]]>
+    </query>
+    
+    <query name="getCertificatesByOwner">
+        <![CDATA[FROM Certificate c
+                    WHERE ( :owner IS NULL OR UPPER(c.owner) = :owner ) ]]>
+    </query>
+    
+    
+    
+    
+    <!--
+        Domain
+    -->
+    <query name="searchDomains">
+        <![CDATA[FROM Domain d
+                    WHERE ( :domainName IS NULL OR UPPER(d.domainName) LIKE :domainName )
+                    AND ( :status IS NULL OR d.status = :status ) ]]>
+    </query>
+    
+    <query name="getDomains">
+        <![CDATA[FROM Domain d
+                    WHERE ( :nameList IS NULL OR UPPER(d.domainName) IN :nameList )
+                    AND ( :status IS NULL OR d.status = :status ) ]]>
+    </query>
+    
+    <query name="getDomainsByName">
+        <![CDATA[FROM Domain d
+                    WHERE ( :domainName IS NULL OR UPPER(d.domainName) = :domainName ) ]]>
+    </query>
+    
+    <!--
+        Setting
+    -->
+    <query name="getAllSettings">
+        <![CDATA[FROM Setting s]]>
+    </query>
+    
+    <query name="getSettings">
+        <![CDATA[FROM Setting s
+                    WHERE ( UPPER(s.name) IN :nameList ) ]]>
+    </query>
+    
+    
+    <!--
+        TrustBundle
+    -->
+    <query name="getAllTrustBundles">
+        <![CDATA[FROM TrustBundle t]]>
+    </query>
+    
+    <query name="getTrustBundleByName">
+        <![CDATA[FROM TrustBundle t
+                    WHERE ( UPPER(t.bundleName) = :bundleName ) ]]>
+    </query>
+    
+    <query name="getTrustBundleById">
+        <![CDATA[FROM TrustBundle t
+                    WHERE ( tb.id = :id ) ]]>
+    </query>
+    
+    <query name="getTrustBundleById">
+        <![CDATA[FROM TrustBundle t
+                    WHERE ( tb.id = :id ) ]]>
+    </query>
+    
+    <!--
+        TrustBundleDomainReltn
+    -->
+    <query name="getTrustBundleDomainReltn">
+        <![CDATA[FROM TrustBundleDomainReltn t
+                    WHERE ( t.domain = :domain )
+                    AND ( t.trustBundle = :trustBundle ) ]]>
+    </query>
+    
+    <query name="getTrustBundleDomainReltnByDomain">
+        <![CDATA[FROM TrustBundleDomainReltn t
+                    WHERE ( t.domain = :domain ) ]]>
+    </query>
 </hibernate-mapping>
