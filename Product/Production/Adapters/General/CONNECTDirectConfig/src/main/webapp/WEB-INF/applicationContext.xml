@@ -46,7 +46,5 @@
             <from uri="timer://cache-refresh?period=1h" />
             <bean ref="bundleCacheUpdateProcessor" />
         </route>
-
-        <contextScan/>
     </camelContext>
 </beans>
