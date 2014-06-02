@@ -308,7 +308,7 @@ CREATE TABLE IF NOT EXISTS adminguidb.PagePreference (
 	prefId SERIAL PRIMARY KEY,
 	pageName VARCHAR(100) NOT NULL,
 	pageDesc VARCHAR(100) NOT NULL,
-	access BIGINT NOT NULL,
+	accessPage BIGINT NOT NULL,
 	prefRoleId BIGINT NOT NULL,
 	CONSTRAINT fk_role_pref
       FOREIGN KEY (prefRoleId)
@@ -338,7 +338,7 @@ VALUES
 (3, "USER");
 
 INSERT INTO adminguidb.PagePreference
-(pageName, pageDesc, access, prefRoleId)
+(pageName, pageDesc, accessPage, prefRoleId)
 VALUES
 ("status.xhtml", "Status", 0, 1),
 ("status.xhtml", "Status", 0, 2),
