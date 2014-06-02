@@ -67,4 +67,9 @@ $(document).ready(function() {
 			$(activeLink).addClass("active");
 	});
 
+	// FUNCTION TO ACTIVATE TABLE SORTING ABILITY
+	$(function(){
+		$("table").tablesorter();
+	});
+
 }); // CLOSE THE DOCUMENT.READY
