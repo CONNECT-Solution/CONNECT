@@ -25,24 +25,24 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*
-Copyright (c) 2010, NHIN Direct Project
-All rights reserved.
+ Copyright (c) 2010, NHIN Direct Project
+ All rights reserved.
 
-Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
-1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 
-2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer
-in the documentation and/or other materials provided with the distribution.
-3. Neither the name of the The NHIN Direct Project (nhindirect.org) nor the names of its contributors may be used to endorse or promote
-products derived from this software without specific prior written permission.
+ 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer
+ in the documentation and/or other materials provided with the distribution.
+ 3. Neither the name of the The NHIN Direct Project (nhindirect.org) nor the names of its contributors may be used to endorse or promote
+ products derived from this software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
-THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS
-BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
-GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
-THE POSSIBILITY OF SUCH DAMAGE.
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS
+ BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+ GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+ THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package gov.hhs.fha.nhinc.directconfig.entity;
@@ -51,27 +51,10 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 
 import java.util.Calendar;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 
-@Entity
-@Table(name = "address")
-/**
- * The JPA Address class
- */
 public class Address {
 
     private String emailAddress;
@@ -152,7 +135,6 @@ public class Address {
      * 
      * @return the value of emailAddress.
      */
-    @Column(name = "emailaddress", length = 400)
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -171,9 +153,6 @@ public class Address {
      * 
      * @return the value of id.
      */
-    @Column(name = "id", nullable = false)
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @XmlAttribute
     public Long getId() {
         return id;
@@ -193,8 +172,6 @@ public class Address {
      * 
      * @return the value of domain.
      */
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = "domainId")
     @XmlTransient
     public Domain getDomain() {
         return domain;
@@ -215,7 +192,6 @@ public class Address {
      * 
      * @return the value of displayName.
      */
-    @Column(name = "displayname", length = 100)
     public String getDisplayName() {
         return displayName;
     }
@@ -234,7 +210,6 @@ public class Address {
      * 
      * @return the value of entpoint.
      */
-    @Column(name = "endpoint", length = 255)
     public String getEndpoint() {
         return endpoint;
     }
@@ -253,8 +228,6 @@ public class Address {
      * 
      * @return the value of createTime.
      */
-    @Column(updatable = false, nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getCreateTime() {
         return createTime;
     }
@@ -273,7 +246,6 @@ public class Address {
      * 
      * @return the value of updateTime.
      */
-    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getUpdateTime() {
         return updateTime;
     }
@@ -292,8 +264,6 @@ public class Address {
      * 
      * @return the value of status.
      */
-    @Column(name = "status")
-    @Enumerated
     public EntityStatus getStatus() {
         return status;
     }
@@ -312,7 +282,6 @@ public class Address {
      * 
      * @return the value of type.
      */
-    @Column(name = "type", length = 64)
     public String getType() {
         return type;
     }
@@ -347,5 +316,4 @@ public class Address {
     public void afterUnmarshal(Unmarshaller u, Object parent) {
         setDomain((Domain) parent);
     }
-
 }
