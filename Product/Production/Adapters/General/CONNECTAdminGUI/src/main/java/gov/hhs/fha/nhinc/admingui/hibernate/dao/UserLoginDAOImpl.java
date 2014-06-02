@@ -97,14 +97,10 @@ public class UserLoginDAOImpl implements UserLoginDAO {
     @Override
     public UserRole getRole(long role) {
         Session session = null;
-        Transaction tx = null;
-        
         UserRole result = null;
         
         try {
             session = this.sessionFactory.openSession();
-            tx = session.beginTransaction();
-            
             result = (UserRole) session.createCriteria(UserRole.class).add(Restrictions.eq("roleId", role)).uniqueResult();
         }catch(HibernateException e){
             LOG.error(e, e);
@@ -118,14 +114,11 @@ public class UserLoginDAOImpl implements UserLoginDAO {
     @Override
     public List<UserRole> getAllRoles(){
         Session session = null;
-        Transaction tx = null;
         
         List<UserRole> roles = null;
         
         try {
             session = this.sessionFactory.openSession();
-            tx = session.beginTransaction();
-            
             roles = session.createCriteria(UserRole.class).list();
         }catch(HibernateException e){
             LOG.error(e, e);
@@ -139,13 +132,11 @@ public class UserLoginDAOImpl implements UserLoginDAO {
     @Override
     public List<RolePreference> getPreferences(UserRole role) {
         Session session = null;
-        Transaction tx = null;
         
         List<RolePreference> preferences = null;
         
         try {
             session = this.sessionFactory.openSession();
-            tx = session.beginTransaction();
             
             preferences = session.createCriteria(RolePreference.class).add(Restrictions.eq("userRole", role)).list();
         }catch(HibernateException e){
