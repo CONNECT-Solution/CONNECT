@@ -309,7 +309,7 @@ CREATE TABLE IF NOT EXISTS adminguidb.PagePreference (
 	pageName VARCHAR(100) NOT NULL,
 	pageDesc VARCHAR(100) NOT NULL,
 	accessPage BIGINT NOT NULL,
-	prefRoleId BIGINT NOT NULL,
+	prefRoleId BIGINT unsigned NOT NULL,
 	CONSTRAINT fk_role_pref
       FOREIGN KEY (prefRoleId)
       REFERENCES adminguidb.UserRole (roleId)
@@ -322,7 +322,7 @@ CREATE TABLE IF NOT EXISTS adminguidb.UserLogin (
     salt varchar(100) NOT NULL,
     sha1 varchar(100) NOT NULL,
     userName varchar(100) NOT NULL UNIQUE,
-    userRole BIGINT NOT NULL,
+    userRole BIGINT unsigned NOT NULL,
     CONSTRAINT fk_role_user
       FOREIGN KEY (userRole)
       REFERENCES adminguidb.UserRole (roleId)
