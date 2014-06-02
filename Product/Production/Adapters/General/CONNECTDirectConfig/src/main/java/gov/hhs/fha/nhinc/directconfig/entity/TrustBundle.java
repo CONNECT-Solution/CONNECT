@@ -25,24 +25,24 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*
-Copyright (c) 2010, NHIN Direct Project
-All rights reserved.
+ Copyright (c) 2010, NHIN Direct Project
+ All rights reserved.
 
-Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
-1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 
-2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer
-in the documentation and/or other materials provided with the distribution.
-3. Neither the name of the The NHIN Direct Project (nhindirect.org) nor the names of its contributors may be used to endorse or promote
-products derived from this software without specific prior written permission.
+ 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer
+ in the documentation and/or other materials provided with the distribution.
+ 3. Neither the name of the The NHIN Direct Project (nhindirect.org) nor the names of its contributors may be used to endorse or promote
+ products derived from this software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
-THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS
-BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
-GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
-THE POSSIBILITY OF SUCH DAMAGE.
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS
+ BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+ GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+ THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package gov.hhs.fha.nhinc.directconfig.entity;
@@ -57,28 +57,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 /**
  * JPA entity object for a trust bundle
  * 
  * @author Greg Meyer
  * @since 1.2
  */
-@Entity
-@Table(name = "trustbundle")
 public class TrustBundle {
     private Long id;
     private String bundleName;
@@ -102,9 +86,6 @@ public class TrustBundle {
      * 
      * @return the value of id.
      */
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -123,7 +104,6 @@ public class TrustBundle {
      * 
      * @return the value of the bundle name
      */
-    @Column(name = "bundleName", unique = true, nullable = false)
     public String getBundleName() {
         return bundleName;
     }
@@ -142,7 +122,6 @@ public class TrustBundle {
      * 
      * @return the value of the bundle URL
      */
-    @Column(name = "bundleURL", nullable = false)
     public String getBundleURL() {
         return bundleURL;
     }
@@ -162,8 +141,6 @@ public class TrustBundle {
      * 
      * @return the value of the signing certificate
      */
-    @Column(name = "signingCertificateData", length = 4096)
-    @Lob
     public byte[] getSigningCertificateData() {
         return signingCertificateData;
     }
@@ -182,7 +159,6 @@ public class TrustBundle {
      * 
      * @return the value of the bundle refresh interval
      */
-    @Column(name = "refreshInterval")
     public int getRefreshInterval() {
         return refreshInterval;
     }
@@ -201,8 +177,6 @@ public class TrustBundle {
      * 
      * @return the value of createTime.
      */
-    @Column(updatable = false, nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getCreateTime() {
         return createTime;
     }
@@ -222,8 +196,6 @@ public class TrustBundle {
      * 
      * @return the value of the last successful refresh date time.
      */
-    @Column(name = "lastSuccessfulRefresh")
-    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getLastSuccessfulRefresh() {
         return lastSuccessfulRefresh;
     }
@@ -243,8 +215,6 @@ public class TrustBundle {
      * 
      * @return the value of the last refresh attempt date time
      */
-    @Column(name = "lastRefreshAttempt")
-    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getLastRefreshAttempt() {
         return lastRefreshAttempt;
     }
@@ -263,8 +233,6 @@ public class TrustBundle {
      * 
      * @return the value of the last refresh error.
      */
-    @Column(name = "lastRefreshError")
-    @Enumerated
     public BundleRefreshError getLastRefreshError() {
         return lastRefreshError;
     }
@@ -283,7 +251,6 @@ public class TrustBundle {
      * 
      * @return collection of trust anchors contained within the bundle
      */
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "trustBundle")
     public Collection<TrustBundleAnchor> getTrustBundleAnchors() {
         if (trustBundleAnchors == null) {
             trustBundleAnchors = new ArrayList<TrustBundleAnchor>();
@@ -305,7 +272,6 @@ public class TrustBundle {
      * 
      * @return collection of the bundle check sum.
      */
-    @Column(name = "getCheckSum", nullable = false)
     public String getCheckSum() {
         return checkSum;
     }

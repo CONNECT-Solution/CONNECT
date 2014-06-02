@@ -25,24 +25,24 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*
-Copyright (c) 2010, NHIN Direct Project
-All rights reserved.
+ Copyright (c) 2010, NHIN Direct Project
+ All rights reserved.
 
-Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
-1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 
-2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer
-in the documentation and/or other materials provided with the distribution.
-3. Neither the name of the The NHIN Direct Project (nhindirect.org) nor the names of its contributors may be used to endorse or promote
-products derived from this software without specific prior written permission.
+ 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer
+ in the documentation and/or other materials provided with the distribution.
+ 3. Neither the name of the The NHIN Direct Project (nhindirect.org) nor the names of its contributors may be used to endorse or promote
+ products derived from this software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
-THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS
-BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
-GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
-THE POSSIBILITY OF SUCH DAMAGE.
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS
+ BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+ GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+ THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package gov.hhs.fha.nhinc.directconfig.entity;
@@ -56,19 +56,6 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Calendar;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-@Entity
-@Table(name = "anchor")
 /**
  * The JPA Domain class
  */
@@ -91,7 +78,6 @@ public class Anchor {
      * 
      * @return the value of owner.
      */
-    @Column(name = "owner")
     public String getOwner() {
         return owner;
     }
@@ -110,7 +96,6 @@ public class Anchor {
      * 
      * @return the value of thumbprint.
      */
-    @Column(name = "thumbprint")
     public String getThumbprint() {
         return thumbprint;
     }
@@ -129,8 +114,6 @@ public class Anchor {
      * 
      * @return the value of certificateData.
      */
-    @Column(name = "certificateData", length = 4096)
-    @Lob
     public byte[] getData() {
         return certificateData;
     }
@@ -155,9 +138,6 @@ public class Anchor {
      * 
      * @return the value of id.
      */
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -176,8 +156,6 @@ public class Anchor {
      * 
      * @return the value of createTime.
      */
-    @Column(updatable = false, nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getCreateTime() {
         return createTime;
     }
@@ -196,7 +174,6 @@ public class Anchor {
      * 
      * @return the value of validStartDate.
      */
-    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getValidStartDate() {
         return validStartDate;
     }
@@ -215,7 +192,6 @@ public class Anchor {
      * 
      * @return the value of validEndDate.
      */
-    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getValidEndDate() {
         return validEndDate;
     }
@@ -234,7 +210,6 @@ public class Anchor {
      * 
      * @return the value of status.
      */
-    @Enumerated
     public EntityStatus getStatus() {
         return status;
     }
@@ -253,7 +228,6 @@ public class Anchor {
      * 
      * @return the value of incoming.
      */
-    @Column(name = "forIncoming")
     public boolean isIncoming() {
         return incoming;
     }
@@ -272,7 +246,6 @@ public class Anchor {
      * 
      * @return the value of outgoing.
      */
-    @Column(name = "forOutgoing")
     public boolean isOutgoing() {
         return outgoing;
     }
@@ -348,5 +321,4 @@ public class Anchor {
             throw new CertificateException("Invalid Certificate: no certificate data exists");
         }
     }
-
 }

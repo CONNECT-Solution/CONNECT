@@ -23,16 +23,12 @@
         <property name="updateTime" type="timestamp" />
 
         <set name="addresses" table="address" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="domainId" not-null="true" />
-            </key>
+            <key column="domainId" not-null="true" />
             <one-to-many class="Address" />
         </set>
 
         <set name="trustbundledomainreltns" table="trustbundledomainreltn" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="domain_id" not-null="true" />
-            </key>
+            <key column="domain_id" not-null="true" />
             <one-to-many class="TrustBundleDomainReltn" />
         </set>
     </class>
@@ -179,7 +175,7 @@
     <!--
         CertPolicy (configdb.certpolicy)
     -->
-    <class name="CertPolicy" table="certpolicy">
+    <!--class name="CertPolicy" table="certpolicy">
         <id column="id" name="id" type="long">
             <generator class="native"/>
         </id>
@@ -188,36 +184,36 @@
         <property name="lexicon" type="integer" not-null="true" />
         <property name="data" type="blob" length="204800" not-null="true" />
         <property name="policyName" type="string" />
-    </class>
+    </class-->
 
     <!--
         CertPolicyGroup (configdb.certpolicygroup)
     -->
-    <class name="CertPolicyGroup" table="certpolicygroup">
+    <!--class name="CertPolicyGroup" table="certpolicygroup">
         <id column="id" name="id" type="long">
             <generator class="native"/>
         </id>
 
         <property name="createTime" type="timestamp" not-null="true" />
         <property name="policyGroupName" type="string" />
-    </class>
+    </class-->
 
     <!--
         CertPolicyGroupDomainReltn (configdb.certpolicygroupdomainreltn)
     -->
-    <class name="CertPolicyGroupDomainReltn" table="certpolicygroupdomainreltn">
+    <!--class name="CertPolicyGroupDomainReltn" table="certpolicygroupdomainreltn">
         <id column="id" name="id" type="long">
             <generator class="native"/>
         </id>
 
         <property name="policyGroupId" column="policy_group_id" type="long" not-null="true" />
         <property name="domainId" column="domain_id" type="long" not-null="true" />
-    </class>
+    </class-->
 
     <!--
         CertPolicyGroupReltn (configdb.certpolicygroupreltn)
     -->
-    <class name="CertPolicyGroupReltn" table="certpolicygroupreltn">
+    <!--class name="CertPolicyGroupReltn" table="certpolicygroupreltn">
         <id column="id" name="id" type="long">
             <generator class="native"/>
         </id>
@@ -227,12 +223,12 @@
         <property name="policyUse" type="integer" not-null="true" />
         <property name="certPolicyId" type="long" not-null="true" />
         <property name="certPolicyGroupId" type="long" not-null="true" />
-    </class>
+    </class-->
 
     <!--
         DNSRecord (configdb.dnsrecord)
     -->
-    <class name="DNSRecord" table="dnsrecord">
+    <!--class name="DNSRecord" table="dnsrecord">
         <id column="id" name="id" type="long">
             <generator class="native"/>
         </id>
@@ -243,7 +239,7 @@
         <property name="name" type="string" />
         <property name="ttl" type="long" />
         <property name="type" type="integer" />
-    </class>
+    </class-->
 
     <!--
         Named Queries
