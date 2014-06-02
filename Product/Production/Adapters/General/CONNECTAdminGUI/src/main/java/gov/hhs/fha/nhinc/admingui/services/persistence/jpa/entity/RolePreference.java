@@ -48,7 +48,7 @@ public class RolePreference {
     @Column(name = "PAGEDESC")
     private String pageDesc;
     
-    @Column(name = "ACCESS")
+    @Column(name = "ACCESSPAGE")
     private int access;
     
     @ManyToOne(fetch = FetchType.EAGER)
