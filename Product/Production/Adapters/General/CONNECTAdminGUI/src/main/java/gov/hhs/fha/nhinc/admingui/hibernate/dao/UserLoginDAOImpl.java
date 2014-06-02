@@ -27,13 +27,17 @@
 package gov.hhs.fha.nhinc.admingui.hibernate.dao;
 
 import gov.hhs.fha.nhinc.admingui.model.Login;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
+import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +49,7 @@ import org.springframework.stereotype.Service;
 public class UserLoginDAOImpl implements UserLoginDAO {
 
     private static final Logger LOG = Logger.getLogger(UserLoginDAOImpl.class);
+    
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -55,7 +60,8 @@ public class UserLoginDAOImpl implements UserLoginDAO {
      */
     @Override
     public UserLogin login(Login login) {
-        Query query = this.sessionFactory.getCurrentSession().createQuery("from UserLogin where userName = :userName");
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from UserLogin where userName = :userName");
         query.setParameter("userName", login.getUserName());
         return (UserLogin) query.list().get(0);
     }
@@ -87,6 +93,86 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         }
         return result;
     }
+    
+    @Override
+    public UserRole getRole(long role) {
+        Session session = null;
+        UserRole result = null;
+        
+        try {
+            session = this.sessionFactory.openSession();
+            result = (UserRole) session.createCriteria(UserRole.class).add(Restrictions.eq("roleId", role)).uniqueResult();
+        }catch(HibernateException e){
+            LOG.error(e, e);
+        }finally {
+            closeSession(session, false);
+        }
+        
+        return result;
+    }
+    
+    @Override
+    public List<UserRole> getAllRoles(){
+        Session session = null;
+        
+        List<UserRole> roles = null;
+        
+        try {
+            session = this.sessionFactory.openSession();
+            roles = session.createCriteria(UserRole.class).list();
+        }catch(HibernateException e){
+            LOG.error(e, e);
+        }finally {
+            closeSession(session, false);
+        }
+        
+        return roles;
+    }
+    
+    @Override
+    public List<RolePreference> getPreferences(UserRole role) {
+        Session session = null;
+        
+        List<RolePreference> preferences = null;
+        
+        try {
+            session = this.sessionFactory.openSession();
+            
+            preferences = session.createCriteria(RolePreference.class).add(Restrictions.eq("userRole", role)).list();
+        }catch(HibernateException e){
+            LOG.error(e, e);
+        }finally {
+            closeSession(session, false);
+        }
+        
+        return preferences;
+    }
+    
+    
+    @Override
+    public boolean updatePreference(RolePreference preference) {
+        Session session = null;
+        Transaction tx = null;
+        boolean updated = false;
+        
+        try {
+            session = this.sessionFactory.openSession();
+            tx = session.beginTransaction();
+            
+            session.update(preference);
+            tx.commit();
+            updated = true;
+        }catch(HibernateException e){
+            LOG.error(e, e);
+            transactionRollback(tx);
+            updated = false;
+        }finally {
+            closeSession(session, false);
+        }
+        
+        return updated;
+    }
+
 
     /**
      *
@@ -112,4 +198,5 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         }
     }
 
+    
 }

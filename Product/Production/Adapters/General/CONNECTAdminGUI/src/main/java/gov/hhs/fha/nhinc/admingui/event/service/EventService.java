@@ -63,4 +63,5 @@ public interface EventService {
     public DatabaseEvent getLatestInbound();
     
     public DatabaseEvent getLatestOutbound();
+
 }

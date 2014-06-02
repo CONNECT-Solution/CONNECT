@@ -5,6 +5,11 @@
  
 <hibernate-configuration>
     <session-factory>
+        
+        <property name="show_sql">true</property>
+        
         <mapping class="gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin" />
+        <mapping class="gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole" />
+        <mapping class="gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference" />
     </session-factory>
 </hibernate-configuration>

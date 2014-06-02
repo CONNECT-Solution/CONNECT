@@ -34,6 +34,7 @@ import gov.hhs.fha.nhinc.admingui.services.exception.PasswordServiceException;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.impl.SHA1PasswordService;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
 import java.io.IOException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,8 +77,7 @@ public class LoginServiceImpl implements LoginService {
      */
     @Override
     @Transactional
-    public boolean login(Login login) throws UserLoginException {
-        boolean loggedIn = false;
+    public UserLogin login(Login login) throws UserLoginException {
 
         UserLogin user = userLoginDAO.login(login);
         log.debug("db user name: ".concat(user.getUserName()));
@@ -85,20 +85,24 @@ public class LoginServiceImpl implements LoginService {
         log.debug("db password: ".concat(user.getSha1()));
         if (user != null && user.getSha1() != null && user.getSalt() != null && login.getPassword() != null) {
             try {
-                loggedIn = passwordService.checkPassword(user.getSha1().getBytes(), login.getPassword().getBytes(),
+                boolean loggedIn = passwordService.checkPassword(user.getSha1().getBytes(), login.getPassword().getBytes(),
                         user.getSalt().getBytes());
+                if(!loggedIn){
+                    user = null;
+                }
             } catch (PasswordServiceException e) {
+                user = null;
                 throw new UserLoginException("Error while trying to login.", e);
             }
         }
-        return loggedIn;
+        return user;
     }
 
     /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.admingui.services.LoginService#addUser(gov.hhs.fha.nhinc.admingui.model.User)
      */
     @Override
-    public boolean addUser(Login user) throws UserLoginException {
+    public UserLogin addUser(Login user, long role) throws UserLoginException {
         boolean isCreateUser = false;
         String passwordHash = null;
         String saltValue = null;
@@ -116,7 +120,24 @@ public class LoginServiceImpl implements LoginService {
         userLoginEntity.setUserName(user.getUserName());
         userLoginEntity.setSha1(passwordHash);
         userLoginEntity.setSalt(saltValue);
+        
+        UserRole userRole = getUserRole(role);
+        
+        if(userRole != null){
+            userRole.addLogin(userLoginEntity);
+        }
+        
+        userLoginEntity.setUserRole(userRole);
         isCreateUser = userLoginDAO.createUser(userLoginEntity);
-        return isCreateUser;
+        
+        if(isCreateUser){
+            return userLoginEntity;
+        }else {
+            return null;
+        }
+    }
+
+    private UserRole getUserRole(long role) {
+        return userLoginDAO.getRole(role);
     }
 }
