@@ -37,29 +37,30 @@
         <h1 class="page-header">Gateway Administrative Console</h1>
         <h:form>
         <p:panelMenu style="width:100%">
-            <p:submenu label="Gateway Status">
-                <p:menuitem value="Dashboard" action="#{tabBean.setDashboardTabIndexNavigate(0)}" />
-                <p:menuitem value="Performance Statistics" action="#{tabBean.setDashboardTabIndexNavigate(1)}"/>
-                <p:menuitem value="Remote Gateway List" action="#{tabBean.setDashboardTabIndexNavigate(2)}"/>
+            <p:submenu label="Gateway Status" styleClass="sidebar-orange">
+                <p:menuitem value="Dashboard" action="#{tabBean.setDashboardTabIndexNavigate(0)}" styleClass="glyphicon glyphicon-dashboard" />
+                <p:menuitem value="Performance Statistics" action="#{tabBean.setDashboardTabIndexNavigate(1)}" styleClass="glyphicon glyphicon-stats" />
+                <p:menuitem value="Remote Gateway List" action="#{tabBean.setDashboardTabIndexNavigate(2)}" styleClass="glyphicon glyphicon-list" />
             </p:submenu>
-            <p:submenu label="Activity Logs">
-                <p:menuitem value="Event Logs" url="logs.xhtml"/>
-                <p:menuitem value="Audit Logs" url="logs.xhtml"/>
-                <p:menuitem value="System Logs" url="logs.xhtml"/>
+            <p:submenu label="Activity Logs" styleClass="sidebar-blue">
+                <p:menuitem value="Event Logs" url="logs.xhtml#tab_event" styleClass="glyphicon glyphicon-list-alt" />
+                <p:menuitem value="Audit Logs" url="logs.xhtml#tab_audit" styleClass="glyphicon glyphicon-list-alt" />
+                <p:menuitem value="System Logs" url="logs.xhtml#tab_system" styleClass="glyphicon glyphicon-list-alt" />
             </p:submenu>
-            <p:submenu label="CONNECT Configuration">
-                <p:menuitem value="Screen 1"/>
-                <p:menuitem value="Screen 2"/>
-                <p:menuitem value="Screen 3"/>
+            <p:submenu label="CONNECT Configuration" styleClass="sidebar-purple">
+                <p:menuitem value="Screen 1" styleClass="glyphicon glyphicon-cog" />
+                <p:menuitem value="Screen 2" styleClass="glyphicon glyphicon-cog" />
+                <p:menuitem value="Screen 3" styleClass="glyphicon glyphicon-cog" />
             </p:submenu>
-            <p:submenu label="Direct Configuration">
-                <p:menuitem value="Screen 1"/>
-                <p:menuitem value="Screen 2"/>
-                <p:menuitem value="Screen 3"/>
+            <p:submenu label="Direct Configuration" styleClass="sidebar-purple">
+                <p:menuitem value="Domains" url="direct.xhtml#tab_domains" styleClass="glyphicon glyphicon-cog" />
+                <p:menuitem value="Agent Settings" url="direct.xhtml#tab_agent" styleClass="glyphicon glyphicon-cog" />
+                <p:menuitem value="Certificates" url="direct.xhtml#tab_certs" styleClass="glyphicon glyphicon-cog" />
+                <p:menuitem value="Trust Bundles" url="direct.xhtml#tab_trust" styleClass="glyphicon glyphicon-cog" />			
             </p:submenu>
-            <p:submenu label="Account Management">
-                <p:menuitem value="User Accounts" action="#{tabBean.setAdminTabIndexNavigate(0)}"/>
-                <p:menuitem value="Certificate Management" action="#{tabBean.setAdminTabIndexNavigate(1)}"/>
+            <p:submenu label="Account Management" styleClass="sidebar-purple">
+                <p:menuitem value="User Accounts" action="#{tabBean.setAdminTabIndexNavigate(0)}" styleClass="glyphicon glyphicon-user" />
+                <p:menuitem value="Certificate Management" action="#{tabBean.setAdminTabIndexNavigate(1)}" styleClass="glyphicon glyphicon-lock" />
             </p:submenu>
         </p:panelMenu>
         </h:form>
