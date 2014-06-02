@@ -27,7 +27,10 @@
 package gov.hhs.fha.nhinc.admingui.hibernate.dao;
 
 import gov.hhs.fha.nhinc.admingui.model.Login;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
+import java.util.List;
 
 /**
  * @author msw
@@ -42,5 +45,11 @@ public interface UserLoginDAO {
      */
     public boolean createUser(UserLogin createuser);
 
+    public UserRole getRole(long role);
 
+    public List<UserRole> getAllRoles();
+
+    public List<RolePreference> getPreferences(UserRole role);
+    
+    public boolean updatePreference(RolePreference preference);
 }

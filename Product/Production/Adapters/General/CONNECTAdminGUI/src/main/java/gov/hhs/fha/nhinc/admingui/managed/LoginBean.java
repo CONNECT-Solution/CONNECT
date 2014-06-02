@@ -35,13 +35,14 @@ import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
-import gov.hhs.fha.nhinc.admingui.user.bo.UserBo;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -71,17 +72,8 @@ public class LoginBean {
     /** The login service. */
     @Autowired
     private LoginService loginService;
-
-    @Autowired
-    private UserBo userBo;
-
-    public void setUserBo(UserBo userBo) {
-        this.userBo = userBo;
-    }
-
-    public String printMsgFromSpring() {
-        return userBo.getMessage();
-    }
+    
+    private static final Logger LOG = Logger.getLogger(LoginBean.class);
 
     /**
      * Gets the msg.
@@ -202,16 +194,16 @@ public class LoginBean {
         boolean loggedIn = false;
         Login login = new Login(userName, password);
         try {
-            loggedIn = loginService.login(login);
+            UserLogin user = loginService.login(login);
 
-            if (loggedIn) {
+            if (user != null) {
+                loggedIn = true;
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-                session.setAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE, login);
+                session.setAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE, user);
             }
         } catch (UserLoginException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOG.error(e, e);
         }
         return loggedIn;
     }

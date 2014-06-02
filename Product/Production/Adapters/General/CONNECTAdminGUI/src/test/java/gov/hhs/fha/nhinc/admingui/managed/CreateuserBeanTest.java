@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.admingui.managed;
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import javax.servlet.http.HttpSession;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -64,24 +65,20 @@ public class CreateuserBeanTest {
 
     @Before
     public void setUp() throws UserLoginException {
-
-        login.setUserName("username");
-        login.setPassword("password");
-
+        
         LoginService loginservice = new LoginService() {
 
             @Override
-            public boolean login(Login login) throws UserLoginException {
-                return true;
+            public UserLogin login(Login login) throws UserLoginException {
+                return new UserLogin();
             }
 
             @Override
-            public boolean addUser(Login user) throws UserLoginException {
-                return true;
+            public UserLogin addUser(Login user, long role) throws UserLoginException {
+                return new UserLogin();
             }
         };
 
-        loginservice.addUser(login);
         createuserBean = new CreateuserBean(loginservice) {
             @Override
             protected HttpSession getHttpSession() {
@@ -90,6 +87,8 @@ public class CreateuserBeanTest {
             }
 
         };
+        
+        createuserBean.setRole("1");
 
     }
 

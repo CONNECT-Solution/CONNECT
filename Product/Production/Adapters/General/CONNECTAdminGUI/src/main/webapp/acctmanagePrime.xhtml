@@ -85,11 +85,11 @@
 												<h:outputLabel for="select-role"
 													class="col-sm-3 control-label" id="roleLbl" value="Role:" />
 												<div class="col-sm-9">
-													<select class="form-control" id="select-role">
-														<option>Administrator</option>
-														<option>Super User</option>
-														<option>User</option>
-													</select>
+                                                    <h:selectOneMenu class="form-control" id="select-role" value="#{createuserBean.role}">
+                                                        <f:selectItem itemLabel="Administrator" itemValue="1"/>
+                                                        <f:selectItem itemLabel="Super User" itemValue="2"/>
+                                                        <f:selectItem itemLabel="User" itemValue="3"/>
+													</h:selectOneMenu>
 												</div>
 											</div>
 											<div class="form-group">
