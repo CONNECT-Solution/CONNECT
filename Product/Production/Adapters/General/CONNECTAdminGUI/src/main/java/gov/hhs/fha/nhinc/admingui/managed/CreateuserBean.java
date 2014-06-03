@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -96,14 +97,14 @@ public class CreateuserBean {
         boolean createdUser = false;
         Login user = new Login(userName, password);
         try {
-            createdUser = loginService.addUser(user);
-            if (createdUser) {
+            UserLogin userLogin = loginService.addUser(user, Long.parseLong(role));
+            if (userLogin != null) {
+                createdUser = true;
                 HttpSession session = getHttpSession();
-                session.setAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE, user);
+                session.setAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE, userLogin);
             }
         } catch (UserLoginException e) {
             log.error("Error in create user" + e.getMessage());
-
         }
         return createdUser;
     }

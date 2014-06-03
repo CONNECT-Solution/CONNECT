@@ -58,9 +58,10 @@
                 <p:menuitem value="Certificates" url="direct.xhtml#tab_certs" styleClass="glyphicon glyphicon-cog" />
                 <p:menuitem value="Trust Bundles" url="direct.xhtml#tab_trust" styleClass="glyphicon glyphicon-cog" />			
             </p:submenu>
-            <p:submenu label="Account Management" styleClass="sidebar-purple">
+			<p:submenu label="Account Management" styleClass="sidebar-purple">
                 <p:menuitem value="User Accounts" action="#{tabBean.setAdminTabIndexNavigate(0)}" styleClass="glyphicon glyphicon-user" />
                 <p:menuitem value="Certificate Management" action="#{tabBean.setAdminTabIndexNavigate(1)}" styleClass="glyphicon glyphicon-lock" />
+				<p:menuitem value="Manage User Roles" url="ManageRole.xhtml" styleClass="glyphicon glyphicon-lock" />
             </p:submenu>
         </p:panelMenu>
         </h:form>
