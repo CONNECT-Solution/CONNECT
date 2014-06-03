@@ -45,6 +45,34 @@
     text-shadow: none;
 }
 
+.ui-dialog {
+    overflow: hidden!important;
+    padding: 0!important;
+    position: fixed!important;
+    border-radius: 0 0 8px 8px!important;
+    border: 0px!important;
+}
+.modal-body {
+    
+    background-image: none!important;
+    background:#fafafa!important;
+    font-size: 14px!important;
+}
+
+
+.ui-dialog .ui-dialog-titlebar {
+    border: 0 none!important;
+    padding: 1em 0.4em 0.4em 1em!important;
+    position: relative!important;
+    background: #e3ebf5!important;
+    min-height: 50px!important;
+}
+.ui-dialog .ui-dialog-title {
+    float: left!important;
+    margin: 0.3em 16px 0.1em 0!important;
+    font-size: 16px!important;
+}
+
 .something {
     
 }
