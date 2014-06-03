@@ -193,28 +193,4 @@ public class UDDIUpdateManagerHelper {
         return oResponse;
     }
 
-    /**
-     * Main method to test this class. Since this is relys on an external UDDI server, we do not want it part of our
-     * unit tests to stop the build if the server is down or not accessible. This is a main method used for
-     * debugging....
-     * 
-     * @param args
-     */
-    public static void main(String args[]) {
-        System.out.println("Starting test.");
-
-        try {
-            UDDIUpdateManagerForceRefreshRequestType part1 = new UDDIUpdateManagerForceRefreshRequestType();
-            UDDIUpdateManagerHelper helper = new UDDIUpdateManagerHelper();
-            UDDIUpdateManagerForceRefreshResponseType oResponse = helper.forceRefreshFileFromUDDIServer(part1);
-            System.out.println("Response = " + oResponse.getSuccessOrFail().isSuccess());
-        } catch (Exception e) {
-            System.out.println("An unexpected error occurred: " + e.getMessage());
-            e.printStackTrace();
-            System.exit(-1);
-        }
-
-        System.out.println("Ending test.");
-
-    }
 }

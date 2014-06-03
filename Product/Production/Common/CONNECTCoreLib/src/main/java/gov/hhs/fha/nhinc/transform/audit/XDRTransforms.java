@@ -532,16 +532,12 @@ public class XDRTransforms {
             return null;
         }
 
-        System.out.println(request.getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable());
         RegistryObjectListType object = request.getSubmitObjectsRequest().getRegistryObjectList();
 
         for (int x = 0; x < object.getIdentifiable().size(); x++) {
-            System.out.println(object.getIdentifiable().get(x).getName());
-
+            
             if (object.getIdentifiable().get(x).getDeclaredType().equals(RegistryPackageType.class)) {
                 RegistryPackageType registryPackage = (RegistryPackageType) object.getIdentifiable().get(x).getValue();
-
-                System.out.println(registryPackage.getSlot().size());
 
                 for (int y = 0; y < registryPackage.getExternalIdentifier().size(); y++) {
                     String test = registryPackage.getExternalIdentifier().get(y).getName().getLocalizedString().get(0)
@@ -549,18 +545,11 @@ public class XDRTransforms {
                     if (test.equals("XDSSubmissionSet.patientId")) {
                         result = registryPackage.getExternalIdentifier().get(y).getValue();
                     }
-
                 }
-
             }
         }
 
         return result;
-    }
-
-    private String getCompositePatientId(String sCommunityId, String sPatientId) {
-        sPatientId = AuditDataTransformHelper.createCompositePatientId(sCommunityId, sPatientId);
-        return sPatientId;
     }
 
     protected void marshalRequestMessage(ByteArrayOutputStream baOutStrm,

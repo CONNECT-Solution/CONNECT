@@ -721,25 +721,6 @@ public class Page2 extends AbstractPageBean {
         return null;
     }
 
-    private void activateSubjectDiscoveryTab() {
-        this.getSubjectDiscoveryTab().setDisabled(false);
-        String tabLabelStyle = this.getSubjectDiscoveryTab().getStyle();
-        if (tabLabelStyle.contains("color: gray; ")) {
-            String newStyle = tabLabelStyle.replace("color: gray; ", "");
-            this.getSubjectDiscoveryTab().setStyle(newStyle);
-        }
-    }
-
-    private void deactivateSubjectDiscoveryTab() {
-        String tabLabelStyle = this.getSubjectDiscoveryTab().getStyle();
-        if (!tabLabelStyle.contains("color: gray; ")) {
-            StringBuffer newStyle = new StringBuffer(tabLabelStyle);
-            newStyle.insert(0, "color: gray; ");
-            this.getSubjectDiscoveryTab().setStyle(newStyle.toString());
-        }
-        this.getSubjectDiscoveryTab().setDisabled(true);
-    }
-
     private void initializeSubjectDiscoveryTab() {
         this.getSubjectDiscoveryResultsInfo().setText("Patient Discovery Results (Existing Correlations)");
         this.getBroadcastInfo2().setText("Warning: This may take several minutes.");
@@ -808,26 +789,6 @@ public class Page2 extends AbstractPageBean {
             }
 
         }
-    }
-
-    // Document Tab Methods
-    private void activateDocumentTab() {
-        this.getDocumentTab().setDisabled(false);
-        String tabLabelStyle = this.getDocumentTab().getStyle();
-        if (tabLabelStyle.contains("color: gray; ")) {
-            String newStyle = tabLabelStyle.replace("color: gray; ", "");
-            this.getDocumentTab().setStyle(newStyle);
-        }
-    }
-
-    private void deactivateDocumentTab() {
-        String tabLabelStyle = this.getDocumentTab().getStyle();
-        if (!tabLabelStyle.contains("color: gray; ")) {
-            StringBuffer newStyle = new StringBuffer(tabLabelStyle);
-            newStyle.insert(0, "color: gray; ");
-            this.getDocumentTab().setStyle(newStyle.toString());
-        }
-        this.getDocumentTab().setDisabled(true);
     }
 
     public String broadcastSubjectDiscoveryButton_action() {

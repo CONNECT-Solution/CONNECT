@@ -26,11 +26,6 @@
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType;
@@ -38,8 +33,6 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdReques
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import org.apache.log4j.Logger;
 
@@ -51,7 +44,6 @@ import org.apache.log4j.Logger;
 public class AdapterPIPImpl {
 
     private static final Logger LOG = Logger.getLogger(AdapterPIPImpl.class);
-    private static final String ASSERTIONINFO_PROPFILE_NAME = "assertioninfo";
     
     protected PatientConsentManager getPatientConsentManager() {
         return new PatientConsentManager();
@@ -154,152 +146,5 @@ public class AdapterPIPImpl {
         }
         return oResponse;
     }
-
-    /**
-     * This method is used to build Assertion information to send Notification to Entity Notification Consumer
-     * 
-     * @param sHid
-     * @return AssertionType
-     */
-    private AssertionType buildAssertionInfo(String sHid) {
-        LOG.trace("Begin - CPPOperations.buildAssertion() - ");
-        AssertionType assertion = new AssertionType();
-        String svalue = "";
-        try {
-            PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
-            
-            assertion.setHaveSignature(true);
-            assertion.setHaveWitnessSignature(true);
-            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.PERMISSION_DATE);
-            if (svalue != null && svalue.length() > 0) {
-                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
-                        .setNotBefore(svalue.trim());
-            } else {
-                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotBefore("");
-            }
-            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.EXPIRATION_DATE);
-            if (null != svalue && svalue.length() > 0) {
-                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
-                        .setNotOnOrAfter(svalue.trim());
-            } else {
-                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
-                        .setNotOnOrAfter("");
-            }
-            PersonNameType aPersonName = new PersonNameType();
-            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.FIRST_NAME);
-            if (null != svalue && svalue.length() > 0) {
-                aPersonName.setGivenName(svalue.trim());
-            } else {
-                aPersonName.setGivenName("");
-            }
-            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.LAST_NAME);
-            if (null != svalue && svalue.length() > 0) {
-                aPersonName.setFamilyName(svalue.trim());
-            } else {
-                aPersonName.setFamilyName("");
-            }
-            UserType aUser = new UserType();
-            aUser.setPersonName(aPersonName);
-            HomeCommunityType userHm = new HomeCommunityType();
-            svalue = propertyAccessor.getProperty(CDAConstants.SubscribeeCommunityList_PROPFILE_NAME, sHid);
-            if (null != svalue && svalue.length() > 0) {
-                userHm.setName(svalue.trim());
-            } else {
-                userHm.setName("");
-            }
-            userHm.setHomeCommunityId(sHid);
-            aUser.setOrg(userHm);
-            CeType userCe = new CeType();
-            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.USER_ROLE_CD);
-            if (null != svalue && svalue.length() > 0) {
-                userCe.setCode(svalue.trim());
-            } else {
-                userCe.setCode("");
-            }
-            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.USER_ROLE_CD_SYSTEM);
-            if (null != svalue && svalue.length() > 0) {
-                userCe.setCodeSystem(svalue.trim());
-            } else {
-                userCe.setCodeSystem("");
-            }
-            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.USER_ROLE_CD_SYSTEM_NAME);
-            if (null != svalue && svalue.length() > 0) {
-                userCe.setCodeSystemName(svalue.trim());
-            } else {
-                userCe.setCodeSystemName("");
-            }
-            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.USER_ROLE_DISPLAY_NAME);
-            if (null != svalue && svalue.length() > 0) {
-                userCe.setDisplayName(svalue.trim());
-            } else {
-                userCe.setDisplayName("");
-            }
-            aUser.setRoleCoded(userCe);
-            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.USER_NAME);
-            if (null != svalue && svalue.length() > 0) {
-                aUser.setUserName(svalue.trim());
-            } else {
-                aUser.setUserName("");
-            }
-            assertion.setUserInfo(aUser);
-            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.ORG_NAME);
-            HomeCommunityType hm = new HomeCommunityType();
-            if (null != svalue && svalue.length() > 0) {
-                hm.setName(svalue.trim());
-            } else {
-                hm.setName("");
-            }
-            assertion.setHomeCommunity(hm);
-            CeType ce = new CeType();
-            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.PURPOSE_FOR_USE_ROLE_CD);
-            if (null != svalue && svalue.length() > 0) {
-                ce.setCode(svalue.trim());
-            } else {
-                ce.setCode("");
-            }
-            svalue = propertyAccessor
-                    .getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.PURPOSE_FOR_USE_CODE_SYSTEM);
-            if (null != svalue && svalue.length() > 0) {
-                ce.setCodeSystem(svalue.trim());
-            } else {
-                ce.setCodeSystem("");
-            }
-            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME,
-                    CDAConstants.PURPOSE_FOR_USE_CODE_SYSTEM_NAME);
-            if (null != svalue && svalue.length() > 0) {
-                ce.setCodeSystemName(svalue.trim());
-            } else {
-                ce.setCodeSystemName("");
-            }
-            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME,
-                    CDAConstants.PURPOSE_FOR_USE_DISPLAY_NAME);
-            if (null != svalue && svalue.length() > 0) {
-                ce.setDisplayName(svalue.trim());
-            } else {
-                ce.setDisplayName("");
-            }
-            assertion.setPurposeOfDisclosureCoded(ce);
-            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.ACCESS_POLICY_CONSENT);
-            if (null != svalue && svalue.length() > 0) {
-                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy()
-                        .add(svalue.trim());
-            } else {
-                // Do not add empty string to AccessConsentPolicy (Can occur 0 times)
-                // assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy().add("");
-            }
-            svalue = propertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME,
-                    CDAConstants.INSTANCE_ACCESS_POLICY_CONSENT);
-            if (null != svalue && svalue.length() > 0) {
-                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy()
-                        .add(svalue.trim());
-            } else {
-                // Do not add empty string to InstanceAccessConsentPolicy (Can occur 0 times)
-                // assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy().add("");
-            }
-        } catch (PropertyAccessException propExp) {
-            propExp.printStackTrace();
-        }
-        LOG.trace("End - CPPOperations.buildAssertion() - ");
-        return assertion;
-    }
+    
 }

@@ -27,8 +27,9 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
+import org.apache.log4j.Logger;
+
 import org.hl7.v3.TSExplicit;
 
 /**
@@ -38,6 +39,8 @@ import org.hl7.v3.TSExplicit;
 public class CreationTimeHelper {
 
     public static final String DateFormat = "yyyyMMDDhhmmss";
+    
+    private static final Logger LOG = Logger.getLogger(CreationTimeHelper.class);
 
     public static TSExplicit getCreationTime() {
         TSExplicit time = new TSExplicit();
@@ -46,8 +49,8 @@ public class CreationTimeHelper {
             SimpleDateFormat sdf = new SimpleDateFormat(DateFormat);
             formattedTime = sdf.format(new Date());
             time.setValue(formattedTime);
-        } catch (Exception ex) {
-            System.out.print(ex);
+        } catch (Exception e) {
+            LOG.error(e, e);
         }
 
         return time;

@@ -26,15 +26,12 @@
  */
 package gov.hhs.fha.nhinc.patientdb.dao;
 
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.model.Identifier;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -58,7 +55,6 @@ public class PatientDAO {
 
     private static final Logger LOG = Logger.getLogger(PatientDAO.class);
     private static PatientDAO patientDAO = new PatientDAO();
-    private static final String ALLOW_SSN_QUERY = "mpi.db.allow.ssn.query";
 
     /**
      * Constructor
@@ -532,31 +528,4 @@ public class PatientDAO {
         return patientsList;
     }
 
-    // ========================
-    // Utility / Helper Methods
-    // ========================
-    /**
-     * Return gateway property key perf.monitor.expected.errors value
-     * 
-     * @return String gateway property value
-     */
-    private static boolean isAllowSSNQuery() {
-        boolean result = false;
-        try {
-            // Use CONNECT utility class to access gateway.properties
-            String allowString = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, ALLOW_SSN_QUERY);
-            if (allowString != null && allowString.equalsIgnoreCase("true")) {
-                result = true;
-            }
-        } catch (PropertyAccessException pae) {
-            LOG.error("Error: Failed to retrieve " + ALLOW_SSN_QUERY + " from property file: "
-                    + NhincConstants.GATEWAY_PROPERTY_FILE);
-            LOG.error(pae.getMessage());
-        } catch (NumberFormatException nfe) {
-            LOG.error("Error: Failed to convert " + ALLOW_SSN_QUERY + " from property file: "
-                    + NhincConstants.GATEWAY_PROPERTY_FILE);
-            LOG.error(nfe.getMessage());
-        }
-        return result;
-    }
 }

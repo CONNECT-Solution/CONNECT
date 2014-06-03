@@ -106,20 +106,6 @@ public class AssertionHelper {
         LOG.debug("end appending assertion data to xacml request");
     }
 
-    private ActionType getAction(RequestType policyRequest) {
-        if (policyRequest == null) {
-            throw new NullPointerException("policy request is null");
-        }
-
-        ActionType action = policyRequest.getAction();
-        if (action == null) {
-            action = new ActionType();
-            policyRequest.setAction(action);
-        }
-
-        return action;
-    }
-
     private SubjectType getSubject(RequestType policyXacmlRequest) {
 
         if (policyXacmlRequest == null) {
@@ -151,18 +137,6 @@ public class AssertionHelper {
         }
 
         return resource;
-    }
-
-    private boolean doesAtributeExist(ActionType action, String attributeName) {
-        boolean found = false;
-        for (AttributeType attribute : action.getAttribute()) {
-            if (attributeName.contentEquals(attribute.getAttributeId())) {
-                found = true;
-                break;
-
-            }
-        }
-        return found;
     }
 
     public String extractUserName(AssertionType assertion) {

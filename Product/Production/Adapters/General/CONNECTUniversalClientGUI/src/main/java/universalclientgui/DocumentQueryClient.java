@@ -71,7 +71,6 @@ public class DocumentQueryClient {
     private static final String CREATION_TIME_FROM_SLOT_NAME = "$XDSDocumentEntryCreationTimeFrom";
     private static final String CREATION_TIME_TO_SLOT_NAME = "$XDSDocumentEntryCreationTimeTo";
     private static final String DOCUMENT_STATUS_APPROVED = "('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')";
-    private static final String HL7_DATE_FORMAT = "yyyyMMddHHmmss";
     private static final String REGULAR_DATE_FORMAT = "MM/dd/yyyy";
 
     private static final String SERVICE_NAME = NhincConstants.ENTITY_DOC_QUERY_PROXY_SERVICE_NAME;
@@ -361,9 +360,5 @@ public class DocumentQueryClient {
 
         return outputFormatter.format(date);
     }
-
-    private String formatDate(Date date, String format) {
-        SimpleDateFormat formatter = new SimpleDateFormat(format);
-        return formatter.format(date);
-    }
+    
 }

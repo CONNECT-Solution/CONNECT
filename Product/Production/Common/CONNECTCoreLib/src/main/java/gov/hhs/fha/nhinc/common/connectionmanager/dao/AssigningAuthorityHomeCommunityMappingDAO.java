@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -92,7 +93,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
                 if (sess != null) {
                     try {
                         sess.close();
-                    } catch (Throwable t) {
+                    } catch (HibernateException t) {
                         LOG.error("Failed to close session: " + t.getMessage(), t);
                     }
                 }
@@ -134,7 +135,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
                 if (sess != null) {
                     try {
                         sess.close();
-                    } catch (Throwable t) {
+                    } catch (HibernateException t) {
                         LOG.error("Failed to close session: " + t.getMessage(), t);
                     }
                 }
@@ -153,9 +154,8 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
      * @param assigningAuthority
      */
     public boolean storeMapping(String homeCommunityId, String assigningAuthority) {
-        LOG.debug("--Begin AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
-        System.out
-                .println("--Begin AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
+        LOG.trace("--Begin AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
+        
         boolean success = false;
         AssigningAuthorityToHomeCommunityMapping mappingInfo = null;
         Transaction trans = null;
@@ -188,14 +188,14 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
                 if (trans != null) {
                     try {
                         trans.commit();
-                    } catch (Throwable t) {
+                    } catch (HibernateException t) {
                         LOG.error("Failed to commit transaction: " + t.getMessage(), t);
                     }
                 }
                 if (sess != null) {
                     try {
                         sess.close();
-                    } catch (Throwable t) {
+                    } catch (HibernateException t) {
                         LOG.error("Failed to close session: " + t.getMessage(), t);
                     }
                 }
@@ -203,9 +203,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
         } else {
             LOG.error("Invalid data entered, Enter Valid data to store");
         }
-        LOG.debug("--End AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
-        System.out
-                .println("--End AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
+        LOG.trace("--End AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
         return success;
     }
 }

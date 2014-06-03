@@ -81,8 +81,6 @@ public class AdapterPEPImpl {
     private static final String PROPERTY_FILE_NAME_GATEWAY = "gateway";
     private static final String PROPERTY_FILE_KEY_HOME_COMMUNITY = "localHomeCommunityId";
     private static final String DEFAULT_PURPOSE_TEXT = "Purpose for Use code not provided";
-    private static final String VALID_PURPOSE = "PUBLICHEALTH";
-    private static final String VALID_USER_ROLE_CODE = "307969004";
     private static final String XSPA_SUBJECT_ID = "urn:oasis:names:tc:xacml:1.0:subject:subject-id";
     private static final String XSPA_SUBJECT_ORG = "urn:oasis:names:tc:xspa:1.0:subject:organization";
     private static final String XSPA_SUBJECT_ORG_ID = "urn:oasis:names:tc:xspa:1.0:subject:organization-id";
@@ -706,74 +704,6 @@ public class AdapterPEPImpl {
 
         LOG.debug("End createEnvLocAttrs()..");
         return xspaAttrs;
-    }
-
-    /**
-     * Creates the XSPA Attributes for the patient status
-     *
-     * @param userRoleList The listing of user roles
-     * @param purposeList The listing of purpose for use codes
-     * @return The XSPA Attributes containing the determined consent status (Yes - optIn, No -optOut)
-     */
-    private List<Attribute> createReidentOptStatusAttrs(List<String> userRoleList, List<String> purposeList) {
-        LOG.debug("Begin createReidentOptStatusAttrs()..");
-        List<Attribute> xspaAttrs = new ArrayList<Attribute>();
-
-        try {
-            Attribute xspaAttr = ContextFactory.getInstance().createAttribute();
-            xspaAttr.setAttributeId(new URI(XSPA_PATIENT_OPT_IN));
-            xspaAttr.setDataType(new URI(XACML_DATATYPE));
-
-            List<String> optStatusVals = determineReidentOptStatus(userRoleList, purposeList);
-            for (String optStatusVal : optStatusVals) {
-                LOG.debug("Adding attribute value: " + optStatusVal + " for " + XSPA_PATIENT_OPT_IN);
-            }
-
-            xspaAttr.setAttributeStringValues(optStatusVals);
-            xspaAttrs.add(xspaAttr);
-        } catch (URISyntaxException uriex) {
-            LOG.error("Error in extracting PatientOptStatus values: " + uriex.getMessage());
-        } catch (XACMLException xacmlex) {
-            LOG.error("Error in extracting PatientOptStatus values: " + xacmlex.getMessage());
-        }
-        LOG.debug("End createReidentOptStatusAttrs()..");
-        return xspaAttrs;
-    }
-
-    /**
-     * Determines the opt-in/opt-out status of these patients as identified by the user's role code and purpose for use
-     *
-     * @param userRoleList The listing of user roles
-     * @param purposeList The listing of purpose for use codes
-     * @return The listing of matching consent status (Yes - optIn, No -optOut)
-     */
-    private List<String> determineReidentOptStatus(List<String> userRoleList, List<String> purposeList) {
-        List<String> optStatus = new ArrayList<String>();
-        int numRoleAttr = userRoleList.size();
-        int numPurposeAttr = purposeList.size();
-        if (numRoleAttr != numPurposeAttr) {
-            LOG.error("Error in extracting ReidentificationOptStatus values: "
-                    + "Number of User Role Attributes should match number of Purpose For Use Attributes");
-        } else {
-            for (int idx = 0; idx < numRoleAttr; idx++) {
-                String userRole = userRoleList.get(idx).trim();
-                String purpose = purposeList.get(idx).trim();
-                LOG.debug("Process role: " + userRole + " Purpose: " + purpose);
-                if (purpose.toUpperCase().contains(VALID_PURPOSE)) {
-                    if (userRole.contains(VALID_USER_ROLE_CODE)) {
-                        optStatus.add("Yes");
-                        LOG.debug("Determined Reidentification Opt-In Status as: Yes");
-                    } else {
-                        LOG.debug("User role is not valid set Reidentification Opt-In Status: No");
-                        optStatus.add("No");
-                    }
-                } else {
-                    LOG.debug("Purpose for Use is not valid set Reidentification Opt-In Status: No");
-                    optStatus.add("No");
-                }
-            }
-        }
-        return optStatus;
     }
 
     /**

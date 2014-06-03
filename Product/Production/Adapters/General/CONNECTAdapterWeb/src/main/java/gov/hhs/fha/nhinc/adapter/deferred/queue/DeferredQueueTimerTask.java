@@ -84,24 +84,4 @@ public class DeferredQueueTimerTask {
         }
     }
 
-    /**
-     * Main method used to test this class. This one really should not be run under unit test scenarios because it
-     * requires access to the UDDI server.
-     * 
-     * @param args
-     */
-    public static void main(String[] args) {
-        System.out.println("Starting test.");
-
-        try {
-            DeferredQueueTimerTask oTimerTask = new DeferredQueueTimerTask();
-            oTimerTask.run();
-        } catch (Exception e) {
-            System.out.println("An unexpected exception occurred: " + e.getMessage());
-            e.printStackTrace();
-            System.exit(-1);
-        }
-
-        System.out.println("End of test.");
-    }
 }
