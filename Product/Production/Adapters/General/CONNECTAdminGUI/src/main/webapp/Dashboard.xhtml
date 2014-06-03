@@ -12,12 +12,13 @@
 
     <h:body>
         <ui:composition id="admin_comp">
-            <f:facet id="pr-override-facet" name="last">
-                <h:outputStylesheet name="css/pr-override.css" />
-            </f:facet>
+            <ui:remove>
+				<f:facet id="pr-override-facet" name="last">
+					<h:outputStylesheet name="css/pr-override.css" />
+				</f:facet>
+			</ui:remove>
 
         <p:outputPanel autoUpdate="true">
-
 
                 <p:panelGrid columns="2" styleClass="ui-panelgrid-admin">
                     <p:selectCheckboxMenu value="#{dashboardBean.selectedClosedPanels}" label="Available Panels" panelStyle="width:220px">
