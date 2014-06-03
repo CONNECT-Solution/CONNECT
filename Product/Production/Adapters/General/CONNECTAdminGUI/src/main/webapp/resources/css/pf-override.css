@@ -7,9 +7,9 @@
 
 01. BASIC DOCUMENT OBJECT
     - html, body
-02. SIGNIN
-03. SIDEBAR
+02. SIDEBAR
     - left sidebar navigation (+ modal)
+03. DASHBOARD
 
 
 =============================================================================
@@ -186,6 +186,25 @@ body {
 }
 .sidebar ul.nav li a i {
 	margin-right:5px;
+}
+
+/* FOR COPYRIGHT MODAL RESTYLING */
+.modal-copyright-prime .ui-widget-header {
+	/*
+	border: 1px solid #a8a8a8;
+	background: #c4c4c4 url("/javax.faces.resource/images/ui-bg_highlight-soft_100_c4c4c4_1x100.png.xhtml?ln=primefaces-aristo") 50% 50% repeat-x;
+	background: #c4c4c4 linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
+	background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+	background: #c4c4c4 -moz-linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
+	*/
+	background:#e3ebf5;
+	color:#333; /*  */
+	font-weight: bold; /*  */
+	font-size:18px;
+	text-shadow:none; /* 0px 1px 0px rgba(255,255,255,0.7) */
+}
+.modal-copyright-prime .ui-dialog .ui-dialog-titlebar-close, .modal-copyright-prime .ui-dialog .ui-dialog-titlebar-minimize, .modal-copyright-prime .ui-dialog .ui-dialog-titlebar-maximize {
+	margin-top:.4em;
 }
 
 
