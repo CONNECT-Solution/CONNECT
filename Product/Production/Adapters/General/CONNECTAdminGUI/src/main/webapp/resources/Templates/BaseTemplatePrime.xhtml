@@ -46,7 +46,8 @@
         <h:outputStylesheet library="css" name="dashboard.css" />
         <ui:insert name="morejs"></ui:insert>
     </h:head>
-    <h:body> 
+    <h:body>
+		<h:outputStylesheet library="css" name="pf-override.css" />
         <f:view>
             <div class="container-fluid" style="height: 100%;">
                 <div class="row" style="height: 100%;">
@@ -83,6 +84,7 @@
                     <!--end of right side div  -->
                 </div>
             </div>
+			<ui:include src="copyright-modal-prime.xhtml" />
         </f:view>
     </h:body>
 </html>

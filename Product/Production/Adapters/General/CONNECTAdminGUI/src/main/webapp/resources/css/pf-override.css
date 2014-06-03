@@ -1,0 +1,251 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* == TABLE OF CONTENTS ===================================================== */
+/* == TABLE OF CONTENTS ===================================================== */
+/* == TABLE OF CONTENTS ===================================================== 
+
+01. BASIC DOCUMENT OBJECT
+    - html, body
+02. SIDEBAR
+    - left sidebar navigation (+ modal)
+03. DASHBOARD
+
+
+=============================================================================
+
+NOTES:
+
+This CSS file is basically for overriding the Primefaces component styles.
+
+============================================================================= */
+
+
+/* -- BASIC DOCUMENT OBJECT STYLES -------------------------------------------*/
+html, body {
+	height:100%;
+}
+body {
+	background:#e3ebf5; /* #10253f */
+	/* FOLLOWING IS FROM BOOTSTRAP */
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 1.428571429;
+	color: #333;
+}
+
+
+
+/* -- SIDEBAR STYLES ---------------------------------------------------------*/
+
+.sidebar .ui-panelmenu-panel.sidebar-orange li.active a:after {
+	content:"";
+	position:absolute;
+	top:0;
+	left:0;
+	width:7px;
+	height:100%;
+	background:#e46c0a;
+}
+
+.sidebar h3.ui-panelmenu-header { /* ==.sidebar h2.section-header */
+	margin:0px;
+	padding:35px 15px 15px;
+	background:#10253f;
+	color:#808080;
+	font-size:11px;
+	font-weight:bold;
+	text-transform:uppercase;
+	border:none;
+	border-bottom:1px solid #283b53;
+	
+	border-radius:0;
+	box-shadow:none;
+	text-shadow:none;
+}
+.sidebar h3.ui-panelmenu-header a {
+	padding:0;
+	color:#808080;
+	text-shadow:none;
+}
+
+.sidebar .ui-panelmenu .ui-panelmenu-header .ui-icon {
+	position: absolute;
+	left:auto;
+	right: .5em;
+	top: 65%;
+	margin-top: -8px;
+}
+
+.sidebar .ui-panelmenu .ui-panelmenu-content {
+	/*
+	position: relative;
+	overflow: auto;
+	zoom: 1;
+	border-top: 0;
+	*/
+	padding:0; /* 0.2em 0 0.2em 0.2em */
+	margin-top:0; /* -2px */
+	top:auto; /* 1px */
+}
+.sidebar .ui-widget-content {
+	border:none; /* 1px solid #a8a8a8 */
+	background:#10253f; /* #ffffff */
+	color:#808080; /* #4f4f4f */
+}
+
+.sidebar .ui-menuitem, .sidebar .ui-menuitem-link {
+	margin:0;
+	border-radius:0;
+}
+
+.sidebar .ui-panelmenu .ui-menuitem-link {
+	/*
+	display: block;
+	float: left;
+	border: solid 1px transparent;
+	text-decoration: none;
+	outline: none;
+	cursor: pointer;
+	*/
+	width:inherit; /* 92% */
+	font-weight:normal; /* 400 */
+	line-height:1.428571429; /* 16px */
+	padding:10px 15px; /* 0.3em */
+	border:none;
+}
+.sidebar .ui-widget-content a.ui-menuitem-link {
+	top:0;
+	color:#808080; /* #4f4f4f */
+	border-bottom:1px solid #283b53;
+	font-size:14px;
+}
+.sidebar .ui-widget-content a:hover {
+	background:#0c1c2f;
+	color:#ffffff;
+	box-shadow:none;
+}
+.sidebar .ui-widget-content li.active, .sidebar .ui-widget-content li.active a {
+	background:#0c1c2f;
+	color:#ffffff;
+}
+.sidebar .ui-widget-content li.active .ui-menuitem-text, .sidebar .ui-widget-content li.active a .ui-menuitem-text {
+	font-weight:bold;
+}
+.sidebar .ui-panelmenu .ui-menuitem-text {
+	float:none;
+	margin-left:5px;
+	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size:14px;
+}
+
+.sidebar ul.nav li {
+	background:#10253f;
+}
+.sidebar ul.nav li a {
+	color:#808080;
+	font-size:14px;
+	font-weight:normal;
+	border-bottom:1px solid #283b53;
+}
+.sidebar ul.nav li a:hover {
+	background:#0c1c2f;
+	color:#ffffff;
+}
+.sidebar ul.nav li.active, .sidebar ul.nav li.active a {
+	background:#0c1c2f;
+	color:#ffffff;
+	font-weight:bold;
+}
+.sidebar ul.nav.sidebar-orange li.active a:before {
+	content:"";
+	position:absolute;
+	top:0;
+	left:0;
+	width:7px;
+	height:100%;
+	background:#e46c0a;
+}
+.sidebar ul.nav.sidebar-purple li.active a:before {
+	content:"";
+	position:absolute;
+	top:0;
+	left:0;
+	width:7px;
+	height:100%;
+	background:#8064a2;
+}
+.sidebar ul.nav.sidebar-blue li.active a:before {
+	content:"";
+	position:absolute;
+	top:0;
+	left:0;
+	width:7px;
+	height:100%;
+	background:#00b0f0;
+}
+.sidebar ul.nav li a i {
+	margin-right:5px;
+}
+
+/* FOR COPYRIGHT MODAL RESTYLING */
+.modal-copyright-prime .ui-widget-header {
+	/*
+	border: 1px solid #a8a8a8;
+	background: #c4c4c4 url("/javax.faces.resource/images/ui-bg_highlight-soft_100_c4c4c4_1x100.png.xhtml?ln=primefaces-aristo") 50% 50% repeat-x;
+	background: #c4c4c4 linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
+	background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+	background: #c4c4c4 -moz-linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
+	*/
+	background:#e3ebf5;
+	color:#333; /*  */
+	font-weight: bold; /*  */
+	font-size:18px;
+	text-shadow:none; /* 0px 1px 0px rgba(255,255,255,0.7) */
+}
+.modal-copyright-prime .ui-dialog .ui-dialog-titlebar-close, .modal-copyright-prime .ui-dialog .ui-dialog-titlebar-minimize, .modal-copyright-prime .ui-dialog .ui-dialog-titlebar-maximize {
+	margin-top:.4em;
+}
+
+
+/* -- DASHBOARD STYLES -------------------------------------------------------*/
+.ui-dashboard-column {
+    width:200px;
+}
+
+.ui-dashboard-column .ui-panel {
+    padding-top: 1px!important;
+    padding-bottom: 1px!important;
+    padding-left: 1px!important;
+    padding-right: 1px!important;
+    padding-bottom: 1px!important;
+    width: 200px!important;
+    height: 200px!important;
+    border-right-style: solid!important;
+    border-bottom-style: solid!important;
+    border-left-style: solid!important;
+    border-top-color: #254061!important;
+    border-right-color: #254061!important;
+    border-bottom-color: #254061!important;
+    border-left-color: #254061!important;
+}
+
+.ui-panel .ui-panel-content {
+      color:#a8a8a8;  
+}
+
+.ui-panelgrid-admin {
+    margin-left: 525px;
+}
+
+.ui-panelgrid-admin td, .ui-panelgrid-admin tr {
+    border: none;
+    background-color: inherit;
+}
+
+.admin-dashboard .ui-widget-header {
+    text-shadow: none;
+    background:#254061;
+    color:#a8a8a8;
+}
+
