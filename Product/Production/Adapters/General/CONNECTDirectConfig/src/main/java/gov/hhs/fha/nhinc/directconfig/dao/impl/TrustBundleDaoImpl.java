@@ -144,7 +144,12 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
 
             if (session != null) {
                 query = session.getNamedQuery("getTrustBundleByName");
-                query.setParameter("bundleName", bundleName.toUpperCase(Locale.getDefault()));
+
+                if (bundleName != null) {
+                    bundleName = bundleName.toUpperCase(Locale.getDefault());
+                }
+
+                query.setParameter("bundleName", bundleName);
 
                 result = (TrustBundle) query.uniqueResult();
                 loadAnchorData(result.getTrustBundleAnchors());
@@ -250,8 +255,9 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
                 tx = session.beginTransaction();
 
                 // blow away all the existing bundles
-                final Query delete = session.createQuery("DELETE from TrustBundleAnchor tba where tba.trustBundle = ?");
-                delete.setParameter(0, existingBundle);
+                final Query delete = session
+                        .createQuery("DELETE FROM TrustBundleAnchor tba WHERE tba.trustBundle = :existingBundle");
+                delete.setParameter("existingBundle", existingBundle);
                 delete.executeUpdate();
 
                 // now update the bundle
@@ -558,7 +564,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             if (session != null) {
                 tx = session.beginTransaction();
                 final Query delete = session
-                        .createQuery("DELETE from TrustBundleDomainReltn tbd where tbd.domain  = :domain");
+                        .createQuery("DELETE FROM TrustBundleDomainReltn tbd WHERE tbd.domain  = :domain");
 
                 delete.setParameter("domain", domain);
                 delete.executeUpdate();
@@ -593,7 +599,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             if (session != null) {
                 tx = session.beginTransaction();
                 final Query delete = session
-                        .createQuery("DELETE from TrustBundleDomainReltn tbd where tbd.trustBundle  = ?");
+                        .createQuery("DELETE FROM TrustBundleDomainReltn tbd WHERE tbd.trustBundle  = ?");
 
                 delete.setParameter(0, trustBundle);
                 delete.executeUpdate();

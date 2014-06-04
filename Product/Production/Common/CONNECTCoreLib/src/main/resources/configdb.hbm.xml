@@ -12,22 +12,26 @@
         Domain (configdb.domain)
     -->
     <class name="Domain" table="domain">
-        <id column="id" name="id" type="long">
+        <id name="id" type="long">
             <generator class="native" />
         </id>
 
         <property name="postmasterAddressId" type="long" />
         <property name="domainName" type="string" not-null="true" />
-        <property name="status" type="integer" />
-        <property name="createTime" type="timestamp" not-null="true" />
-        <property name="updateTime" type="timestamp" />
-
+        <property name="createTime" type="calendar" not-null="true" />
+        <property name="updateTime" type="calendar" />
+        <property name="status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus</param>
+            </type>
+        </property>
+        
         <set name="addresses" table="address" inverse="true" lazy="true" fetch="select">
             <key column="domainId" not-null="true" />
             <one-to-many class="Address" />
         </set>
 
-        <set name="trustbundledomainreltns" table="trustbundledomainreltn" inverse="true" lazy="true" fetch="select">
+        <set name="relations" table="trustbundledomainreltn" inverse="true" lazy="true" fetch="select">
             <key column="domain_id" not-null="true" />
             <one-to-many class="TrustBundleDomainReltn" />
         </set>
@@ -37,18 +41,22 @@
         Address (configdb.address)
     -->
     <class name="Address" table="address">
-        <id column="id" name="id" type="long">
+        <id name="id" type="long">
             <generator class="native"/>
         </id>
 
-        <property name="eMailAddress" type="string" not-null="true" />
+        <property name="emailAddress" type="string" not-null="true" />
         <property name="displayName" type="string" length="100" />
         <property name="endpoint" type="string" />
         <property name="type" type="string" length="4" />
-        <property name="status" type="integer" />
-        <property name="createTime" type="timestamp" not-null="true" />
-        <property name="updateTime" type="timestamp" />
-
+        <property name="createTime" type="calendar" not-null="true" />
+        <property name="updateTime" type="calendar" />
+        <property name="status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus</param>
+            </type>
+        </property>
+        
         <!-- Auto-generated -->
         <many-to-one name="domain" class="Domain" fetch="select">
             <column name="domainId" not-null="true" />
@@ -59,80 +67,93 @@
         Anchor (configdb.anchor)
     -->
     <class name="Anchor" table="anchor">
-        <id column="id" name="id" type="long">
+        <id name="id" type="long">
             <generator class="native"/>
         </id>
 
         <property name="certificateId" type="long" not-null="true" />
         <property name="owner" type="string" not-null="true" />
         <property name="thumbprint" type="string" length="64" not-null="true" />
-        <property name="certificateData" type="blob" not-null="true" />
-        <property name="validStartDate" type="timestamp" not-null="true" />
-        <property name="validEndDate" type="timestamp" not-null="true" />
-        <property name="forIncoming" type="boolean" not-null="true" />
-        <property name="forOutgoing" type="boolean" not-null="true" />
-        <property name="status" type="integer" />
-        <property name="createTime" type="timestamp" not-null="true" />
+        <property name="data" column="certificateData" type="blob" not-null="true" />
+        <property name="validStartDate" type="calendar" not-null="true" />
+        <property name="validEndDate" type="calendar" not-null="true" />
+        <property name="incoming" type="boolean" not-null="true" />
+        <property name="outgoing" type="boolean" not-null="true" />
+        <property name="createTime" type="calendar" not-null="true" />
+        <property name="status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus</param>
+            </type>
+        </property>
     </class>
 
     <!--
         Certificate (configdb.certificate)
     -->
     <class name="Certificate" table="certificate">
-        <id column="id" name="id" type="long">
+        <id name="id" type="long">
             <generator class="native"/>
         </id>
 
         <property name="owner" type="string" not-null="true" />
         <property name="thumbprint" type="string" length="64" not-null="true" />
-        <property name="certificateData" type="blob" not-null="true" />
-        <property name="validStartDate" type="timestamp" not-null="true" />
-        <property name="validEndDate" type="timestamp" not-null="true" />
+        <property name="data" column="certificateData" type="blob" not-null="true" />
+        <property name="validStartDate" type="calendar" not-null="true" />
+        <property name="validEndDate" type="calendar" not-null="true" />
         <property name="privateKey" type="boolean" not-null="true" />
-        <property name="status" type="integer" />
-        <property name="createTime" type="timestamp" not-null="true" />
+        <property name="createTime" type="calendar" not-null="true" />
+        <property name="status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus</param>
+            </type>
+        </property>
     </class>
 
     <!--
         Setting (configdb.setting)
     -->
     <class name="Setting" table="setting">
-        <id column="id" name="id" type="long">
+        <id name="id" type="long">
             <generator class="native"/>
         </id>
 
         <property name="name" type="string" />
         <property name="value" type="string" length="4096" />
-        <property name="status" type="integer" />
-        <property name="createTime" type="timestamp" not-null="true" />
-        <property name="updateTime" type="timestamp" />
+        <property name="createTime" type="calendar" not-null="true" />
+        <property name="updateTime" type="calendar" />
+        <property name="status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus</param>
+            </type>
+        </property>
     </class>
 
     <!--
         TrustBundle (configdb.trustbundle)
     -->
     <class name="TrustBundle" table="trustbundle">
-        <id column="id" name="id" type="long">
+        <id name="id" type="long">
             <generator class="native"/>
         </id>
 
         <property name="bundleName" type="string" not-null="true" />
-        <property name="bundleUrl" column="bundleURL" type="string" not-null="true" />
-        <property name="getChecksum" type="string" not-null="true" />
-        <property name="lastRefreshAttempt" type="timestamp" />
-        <property name="lastSuccessfulRefresh" type="timestamp" />
+        <property name="bundleURL" type="string" not-null="true" />
+        <property name="checkSum" column="bundleChecksum" type="string" not-null="true" />
+        <property name="lastRefreshAttempt" type="calendar" />
+        <property name="lastSuccessfulRefresh" type="calendar" />
         <property name="refreshInterval" type="integer" />
         <property name="lastRefreshError" type="integer" />
         <property name="signingCertificateData" type="blob" />
-        <property name="createTime" type="timestamp" not-null="true" />
+        <property name="createTime" type="calendar" not-null="true" />
 
-        <set name="trustbundleanchors" table="trustbundleanchor" inverse="true" lazy="true" fetch="select">
+        <set name="trustBundleAnchors" table="trustbundleanchor" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="trustbundleId" not-null="true" />
             </key>
             <one-to-many class="TrustBundleAnchor" />
         </set>
-        <set name="trustbundledomainreltns" table="trustbundledomainreltn" inverse="true" lazy="true" fetch="select">
+        
+        <set name="relations" table="trustbundledomainreltn" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="trust_bundle_id" not-null="true" />
             </key>
@@ -144,31 +165,31 @@
         TrustBundleAnchor (configdb.trustbundleanchor)
     -->
     <class name="TrustBundleAnchor" table="trustbundleanchor">
-        <id column="id" name="id" type="long">
+        <id name="id" type="long">
             <generator class="native"/>
         </id>
 
-        <property name="anchorData" type="blob" not-null="true" />
+        <property name="data" column="anchorData" type="blob" not-null="true" />
         <property name="thumbprint" type="string" length="64" not-null="true" />
-        <property name="validStartDate" type="timestamp" not-null="true" />
-        <property name="validEndDate" type="timestamp" not-null="true" />
+        <property name="validStartDate" type="calendar" not-null="true" />
+        <property name="validEndDate" type="calendar" not-null="true" />
 
-        <many-to-one name="trustbundle" column="trustbundleId" class="TrustBundle" fetch="select" not-null="true" />
+        <many-to-one name="trustBundle" column="trustbundleId" class="TrustBundle" fetch="select" not-null="true" />
     </class>
 
     <!--
         TrustBundleDomainReltn (configdb.trustbundledomainreltn)
     -->
     <class name="TrustBundleDomainReltn" table="trustbundledomainreltn">
-        <id column="id" name="id" type="long">
+        <id name="id" type="long">
             <generator class="native"/>
         </id>
 
-        <property name="forIncoming" type="boolean" not-null="true" />
-        <property name="forOutgoing" type="boolean" not-null="true" />
+        <property name="incoming" type="boolean" not-null="true" />
+        <property name="outgoing" type="boolean" not-null="true" />
 
         <!-- Auto-generated -->
-        <many-to-one name="trustbundle" column="trust_bundle_id" class="TrustBundle" fetch="select" not-null="true" />
+        <many-to-one name="trustBundle" column="trust_bundle_id" class="TrustBundle" fetch="select" not-null="true" />
         <many-to-one name="domain" column="domain_id" class="Domain" fetch="select" not-null="true" />
     </class>
 
@@ -176,13 +197,13 @@
         CertPolicy (configdb.certpolicy)
     -->
     <!--class name="CertPolicy" table="certpolicy">
-        <id column="id" name="id" type="long">
+        <id name="id" type="long">
             <generator class="native"/>
         </id>
 
-        <property name="createTime" type="timestamp" not-null="true" />
+        <property name="createTime" type="calendar" not-null="true" />
         <property name="lexicon" type="integer" not-null="true" />
-        <property name="data" type="blob" length="204800" not-null="true" />
+        <property name="policyData" type="blob" length="204800" not-null="true" />
         <property name="policyName" type="string" />
     </class-->
 
@@ -190,11 +211,11 @@
         CertPolicyGroup (configdb.certpolicygroup)
     -->
     <!--class name="CertPolicyGroup" table="certpolicygroup">
-        <id column="id" name="id" type="long">
+        <id name="id" type="long">
             <generator class="native"/>
         </id>
 
-        <property name="createTime" type="timestamp" not-null="true" />
+        <property name="createTime" type="calendar" not-null="true" />
         <property name="policyGroupName" type="string" />
     </class-->
 
@@ -202,7 +223,7 @@
         CertPolicyGroupDomainReltn (configdb.certpolicygroupdomainreltn)
     -->
     <!--class name="CertPolicyGroupDomainReltn" table="certpolicygroupdomainreltn">
-        <id column="id" name="id" type="long">
+        <id name="id" type="long">
             <generator class="native"/>
         </id>
 
@@ -214,7 +235,7 @@
         CertPolicyGroupReltn (configdb.certpolicygroupreltn)
     -->
     <!--class name="CertPolicyGroupReltn" table="certpolicygroupreltn">
-        <id column="id" name="id" type="long">
+        <id name="id" type="long">
             <generator class="native"/>
         </id>
 
@@ -229,11 +250,11 @@
         DNSRecord (configdb.dnsrecord)
     -->
     <!--class name="DNSRecord" table="dnsrecord">
-        <id column="id" name="id" type="long">
+        <id name="id" type="long">
             <generator class="native"/>
         </id>
 
-        <property name="createTime" type="timestamp" not-null="true" />
+        <property name="createTime" type="calendar" not-null="true" />
         <property name="data" type="blob" length="8192"/>
         <property name="dclass" type="integer" />
         <property name="name" type="string" />
@@ -249,13 +270,13 @@
     -->
     <query name="getAddress">
         <![CDATA[FROM Address a
-                    WHERE ( :eMailList IS NULL OR UPPER ( a.eMailAddress ) IN :eMailList )
+                    WHERE ( :eMailList IS NULL OR UPPER ( a.emailAddress ) IN (:eMailList) )
                     AND ( :status IS NULL OR a.status = :status ) ]]>
     </query>
 
     <query name="getAddressByDomain">
         <![CDATA[FROM Address a
-                    WHERE ( :domainId IS NULL OR a.domainId = :domainId )
+                    WHERE ( :domainId IS NULL OR a.domain = :domainId )
                     AND ( :status IS NULL OR a.status = :status ) ]]>
     </query>
 
@@ -273,12 +294,12 @@
 
     <query name="getAnchorsByOwner">
         <![CDATA[FROM Anchor a
-                    WHERE ( UPPER ( a.owner ) IN :ownerList ) ]]>
+                    WHERE ( UPPER(a.owner) IN (:ownerList) ) ]]>
     </query>
 
     <query name="getAnchorsByIds">
         <![CDATA[FROM Anchor a
-                    WHERE ( a.id IN :idList ) ]]>
+                    WHERE ( a.id IN (:idList) ) ]]>
     </query>
 
     <!--
@@ -292,7 +313,7 @@
 
     <query name="getCertificatesByIds">
         <![CDATA[FROM Certificate c
-                    WHERE ( c.id IN :idList ) ]]>
+                    WHERE ( c.id IN (:idList) ) ]]>
     </query>
 
     <query name="getCertificatesByOwner">
@@ -311,7 +332,7 @@
 
     <query name="getDomains">
         <![CDATA[FROM Domain d
-                    WHERE ( :nameList IS NULL OR UPPER(d.domainName) IN :nameList )
+                    WHERE ( :nameList IS NULL OR UPPER(d.domainName) IN (:nameList) )
                     AND ( :status IS NULL OR d.status = :status ) ]]>
     </query>
 
@@ -329,7 +350,7 @@
 
     <query name="getSettings">
         <![CDATA[FROM Setting s
-                    WHERE ( UPPER(s.name) IN :nameList ) ]]>
+                    WHERE ( UPPER(s.name) IN (:nameList) ) ]]>
     </query>
 
     <!--

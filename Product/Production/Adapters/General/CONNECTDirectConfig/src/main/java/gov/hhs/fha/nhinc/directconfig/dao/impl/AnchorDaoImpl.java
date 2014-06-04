@@ -144,7 +144,7 @@ public class AnchorDaoImpl implements AnchorDao {
 
                 if (session != null) {
                     query = session.getNamedQuery("getAnchorsByOwner");
-                    query.setParameter("eMailList", DaoUtils.toParamString(owners));
+                    query.setParameterList("eMailList", owners);
 
                     results = query.list();
 
@@ -247,7 +247,7 @@ public class AnchorDaoImpl implements AnchorDao {
 
                 if (session != null) {
                     query = session.getNamedQuery("getAnchorsByIds");
-                    query.setParameter("idList", DaoUtils.toIdString(anchorIds));
+                    query.setParameterList("idList", anchorIds);
 
                     results = query.list();
 
@@ -352,8 +352,8 @@ public class AnchorDaoImpl implements AnchorDao {
                 if (session != null) {
                     tx = session.beginTransaction();
 
-                    query = session.createQuery("DELETE FROM Anchor a WHERE a.id IN :idList");
-                    query.setParameter("idList", DaoUtils.toIdString(ids));
+                    query = session.createQuery("DELETE FROM Anchor a WHERE a.id IN (:idList)");
+                    query.setParameterList("idList", ids);
 
                     count = query.executeUpdate();
                     tx.commit();

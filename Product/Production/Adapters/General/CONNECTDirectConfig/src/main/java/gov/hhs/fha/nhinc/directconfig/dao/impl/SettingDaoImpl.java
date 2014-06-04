@@ -112,8 +112,8 @@ public class SettingDaoImpl implements SettingDao {
                 if (session != null) {
                     tx = session.beginTransaction();
 
-                    query = session.createQuery("DELETE FROM Setting s WHERE UPPER(s.name) IN :names");
-                    query.setParameter("names", DaoUtils.toParamString(names));
+                    query = session.createQuery("DELETE FROM Setting s WHERE UPPER(s.name) IN (:names)");
+                    query.setParameterList("names", names);
 
                     count = query.executeUpdate();
                     tx.commit();
@@ -176,7 +176,7 @@ public class SettingDaoImpl implements SettingDao {
 
                 if (session != null) {
                     query = session.getNamedQuery("getSettings");
-                    query.setParameter("nameList", DaoUtils.toParamString(names));
+                    query.setParameterList("nameList", names);
 
                     results = query.list();
 

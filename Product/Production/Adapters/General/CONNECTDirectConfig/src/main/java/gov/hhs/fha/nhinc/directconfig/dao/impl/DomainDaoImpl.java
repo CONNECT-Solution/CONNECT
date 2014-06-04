@@ -95,7 +95,7 @@ public class DomainDaoImpl implements DomainDao {
             session = DaoUtils.getSession();
 
             if (session != null) {
-                count = ((Long) session.createQuery("select count(*) from Domain").uniqueResult()).intValue();
+                count = ((Long) session.createQuery("SELECT count(*) FROM Domain").uniqueResult()).intValue();
             }
         } finally {
             DaoUtils.closeSession(session);
@@ -274,7 +274,8 @@ public class DomainDaoImpl implements DomainDao {
 
                 if (session != null) {
                     query = session
-                            .createQuery("SELECT DISTINCT d from Domain d WHERE UPPER(d.domainName) = :domainName");
+                            .createQuery("SELECT DISTINCT d FROM Domain d WHERE UPPER(d.domainName) = :domainName");
+
                     query.setParameter(0, name.toUpperCase(Locale.getDefault()));
 
                     result = (Domain) query.uniqueResult();
@@ -304,7 +305,7 @@ public class DomainDaoImpl implements DomainDao {
             if (session != null) {
                 query = session.getNamedQuery("getDomains");
 
-                query.setParameter("nameList", DaoUtils.toParamString(names));
+                query.setParameterList("nameList", names);
                 query.setParameter("status", status);
 
                 results = query.list();
@@ -340,7 +341,12 @@ public class DomainDaoImpl implements DomainDao {
 
             if (session != null) {
                 query = session.getNamedQuery("getDomainsByName");
-                query.setParameter("domainName", name.toUpperCase(Locale.getDefault()));
+
+                if (name != null) {
+                    name = name.toUpperCase(Locale.getDefault());
+                }
+
+                query.setParameter("domainName", name);
 
                 // Direct RI Comment:
                 // assuming that a count of zero really means no limit

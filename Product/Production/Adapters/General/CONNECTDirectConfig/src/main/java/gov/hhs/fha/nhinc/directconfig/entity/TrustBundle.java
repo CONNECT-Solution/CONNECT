@@ -75,6 +75,7 @@ public class TrustBundle {
     private Calendar lastSuccessfulRefresh;
     private Calendar createTime;
     private String checkSum;
+    private Collection<TrustBundleDomainReltn> relations;
 
     public TrustBundle() {
         refreshInterval = 0;
@@ -256,6 +257,27 @@ public class TrustBundle {
             trustBundleAnchors = new ArrayList<TrustBundleAnchor>();
         }
         return trustBundleAnchors;
+    }
+
+    /**
+     * Set the collection of Trust Bundle - Domain relations
+     * 
+     * @param relations The collection of Trust Bundle - Domain relations
+     */
+    public void setRelations(Collection<TrustBundleDomainReltn> relations) {
+        this.relations = relations;
+    }
+
+    /**
+     * Get the collection of Trust Bundle - Domain relations
+     * 
+     * @return The collection of Trust Bundle - Domain relations
+     */
+    public Collection<TrustBundleDomainReltn> getRelations() {
+        if (relations == null) {
+            relations = new ArrayList<TrustBundleDomainReltn>();
+        }
+        return relations;
     }
 
     /**

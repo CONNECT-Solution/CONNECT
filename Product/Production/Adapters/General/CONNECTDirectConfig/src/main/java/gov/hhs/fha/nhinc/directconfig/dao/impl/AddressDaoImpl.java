@@ -88,7 +88,7 @@ public class AddressDaoImpl implements AddressDao {
             session = DaoUtils.getSession();
 
             if (session != null) {
-                count = ((Long) session.createQuery("select count(*) from Address").uniqueResult()).intValue();
+                count = ((Long) session.createQuery("SELECT count(*) FROM Address").uniqueResult()).intValue();
             }
         } finally {
             DaoUtils.closeSession(session);
@@ -266,7 +266,7 @@ public class AddressDaoImpl implements AddressDao {
 
             if (session != null) {
                 query = session.getNamedQuery("getAddress");
-                query.setParameter("eMailList", DaoUtils.toParamString(names));
+                query.setParameterList("eMailList", names);
                 query.setParameter("status", status);
 
                 results = query.list();

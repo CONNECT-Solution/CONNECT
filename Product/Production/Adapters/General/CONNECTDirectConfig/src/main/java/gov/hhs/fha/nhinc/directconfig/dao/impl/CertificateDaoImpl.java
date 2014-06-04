@@ -96,7 +96,12 @@ public class CertificateDaoImpl implements CertificateDao {
                 query = session.getNamedQuery("getCertificates");
 
                 query.setParameter("thumbprint", thumbprint);
-                query.setParameter("owner", owner.toUpperCase(Locale.getDefault()));
+
+                if (owner != null) {
+                    owner = owner.toUpperCase(Locale.getDefault());
+                }
+
+                query.setParameter("owner", owner);
 
                 results = query.list();
 
@@ -129,7 +134,7 @@ public class CertificateDaoImpl implements CertificateDao {
 
                 if (session != null) {
                     query = session.getNamedQuery("getCertificatesByIds");
-                    query.setParameter("idList", DaoUtils.toIdString(idList));
+                    query.setParameterList("idList", idList);
 
                     results = query.list();
 
@@ -338,8 +343,8 @@ public class CertificateDaoImpl implements CertificateDao {
                 if (session != null) {
                     tx = session.beginTransaction();
 
-                    query = session.createQuery("DELETE FROM Certificate a WHERE c.id IN :idList");
-                    query.setParameter("idList", DaoUtils.toIdString(idList));
+                    query = session.createQuery("DELETE FROM Certificate a WHERE c.id IN (:idList)");
+                    query.setParameterList("idList", idList);
 
                     count = query.executeUpdate();
                     tx.commit();

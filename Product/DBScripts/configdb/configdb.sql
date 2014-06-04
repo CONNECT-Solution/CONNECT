@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS configdb.domain (
 
 CREATE TABLE IF NOT EXISTS configdb.address (
     id SERIAL PRIMARY KEY,
-    eMailAddress VARCHAR(255) NOT NULL,
+    emailAddress VARCHAR(255) NOT NULL,
     displayName VARCHAR(100),
     endpoint VARCHAR(255),
     type VARCHAR(4),
@@ -49,8 +49,8 @@ CREATE TABLE IF NOT EXISTS configdb.anchor (
     certificateData BLOB(4096) NOT NULL,
     validStartDate DATETIME NOT NULL,
     validEndDate DATETIME NOT NULL,
-    forIncoming BOOLEAN NOT NULL DEFAULT TRUE,
-    forOutgoing BOOLEAN NOT NULL DEFAULT TRUE,
+    incoming BOOLEAN NOT NULL DEFAULT TRUE,
+    outgoing BOOLEAN NOT NULL DEFAULT TRUE,
     status INTEGER DEFAULT 0,
     createTime DATETIME NOT NULL
 );
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS configdb.trustbundle (
     id SERIAL PRIMARY KEY,
     bundleName VARCHAR(255) NOT NULL,
     bundleURL VARCHAR(255) NOT NULL,
-    getChecksum VARCHAR(255) NOT NULL,
+    bundleChecksum VARCHAR(255) NOT NULL,
     lastRefreshAttempt DATETIME,
     lastSuccessfulRefresh DATETIME,
     refreshInterval INTEGER,
@@ -127,8 +127,8 @@ CREATE TABLE IF NOT EXISTS configdb.trustbundleanchor (
 
 CREATE TABLE IF NOT EXISTS configdb.trustbundledomainreltn (
     id SERIAL PRIMARY KEY,
-    forIncoming BOOLEAN NOT NULL DEFAULT TRUE,
-    forOutgoing BOOLEAN NOT NULL DEFAULT TRUE,
+    incoming BOOLEAN NOT NULL DEFAULT TRUE,
+    outgoing BOOLEAN NOT NULL DEFAULT TRUE,
 
     domain_id BIGINT UNSIGNED NOT NULL REFERENCES configdb.domain (id),
     INDEX fk_domain_id (domain_id ASC),
@@ -155,7 +155,7 @@ CREATE TABLE IF NOT EXISTS configdb.certpolicy (
     id SERIAL PRIMARY KEY,
     createTime DATETIME NOT NULL,
     lexicon INTEGER NOT NULL,
-    data BLOB(204800) NOT NULL,
+    policyData BLOB(204800) NOT NULL,
     policyName VARCHAR(255)
 );
 

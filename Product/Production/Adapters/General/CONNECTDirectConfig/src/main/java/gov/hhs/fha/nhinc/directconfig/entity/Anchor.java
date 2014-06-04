@@ -64,7 +64,7 @@ public class Anchor {
     private String owner;
     private String thumbprint;
     private long certificateId;
-    private byte[] certificateData;
+    private byte[] data;
     private Long id;
     private Calendar createTime;
     private Calendar validStartDate;
@@ -115,7 +115,7 @@ public class Anchor {
      * @return the value of certificateData.
      */
     public byte[] getData() {
-        return certificateData;
+        return data;
     }
 
     /**
@@ -125,8 +125,9 @@ public class Anchor {
      * @throws CertificateException
      */
     public void setData(byte[] data) throws CertificateException {
-        certificateData = data;
-        if (data == Certificate.NULL_CERT) {
+        this.data = data;
+
+        if (this.data == Certificate.NULL_CERT) {
             setThumbprint("");
         } else {
             loadCertFromData();
@@ -281,7 +282,7 @@ public class Anchor {
         X509Certificate cert = null;
         try {
             validate();
-            ByteArrayInputStream bais = new ByteArrayInputStream(certificateData);
+            ByteArrayInputStream bais = new ByteArrayInputStream(data);
             cert = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(bais);
             setThumbprint(Thumbprint.toThumbprint(cert).toString());
             bais.close();
@@ -297,7 +298,7 @@ public class Anchor {
         X509Certificate cert = null;
         try {
             validate();
-            ByteArrayInputStream bais = new ByteArrayInputStream(certificateData);
+            ByteArrayInputStream bais = new ByteArrayInputStream(data);
             cert = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(bais);
             bais.close();
         } catch (Exception e) {
@@ -308,11 +309,11 @@ public class Anchor {
     }
 
     private boolean hasData() {
-        return ((certificateData != null) && (!certificateData.equals(Certificate.NULL_CERT))) ? true : false;
+        return (data != null && !data.equals(Certificate.NULL_CERT)) ? true : false;
     }
 
     /**
-     * Validate the Anchor for the existance of data.
+     * Validate the Anchor for the existence of data.
      * 
      * @throws CertificateException
      */
