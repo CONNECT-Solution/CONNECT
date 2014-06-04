@@ -355,9 +355,9 @@ VALUES
 ("ManageRole.xhtml", "Manage Role", 0, 1),
 ("ManageRole.xhtml", "Manage Role", -1, 2),
 ("ManageRole.xhtml", "Manage Role", -1, 3),
-("Test.xhtml", "Test", 0, 1),
-("Test.xhtml", "Test", 0, 2),
-("Test.xhtml", "Test", 0, 3);
+("direct.xhtml", "Direct Config", 0, 1),
+("direct.xhtml", "Direct Config", 0, 2),
+("direct.xhtml", "Direct Config", 0, 3);
 
 
 INSERT INTO adminguidb.UserLogin
