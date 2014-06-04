@@ -2,10 +2,7 @@ package gov.hhs.fha.nhinc.directconfig.dao.helpers;
 
 import gov.hhs.fha.nhinc.directconfig.persistence.HibernateUtil;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -16,33 +13,6 @@ import org.hibernate.Transaction;
 public class DaoUtils {
 
     private static final Log log = LogFactory.getLog(DaoUtils.class);
-
-    public static String toParamString(List<String> list) {
-        StringBuffer nameListBuffer = null;
-        String nameList = null;
-
-        if (list != null) {
-            for (String name : list) {
-                if (nameListBuffer == null) {
-                    nameListBuffer = new StringBuffer("(");
-                } else {
-                    nameListBuffer.append(", ");
-                }
-
-                nameListBuffer.append("'").append(name.toUpperCase(Locale.getDefault())).append("'");
-            }
-
-            if (nameListBuffer != null) {
-                nameListBuffer.append(")");
-
-                nameList = nameListBuffer.toString();
-            }
-        }
-
-        log.debug("Name List: " + nameList);
-
-        return nameList;
-    }
 
     public static String toIdString(List<Long> list) {
         StringBuffer idListBuffer = null;
@@ -69,14 +39,6 @@ public class DaoUtils {
         log.debug("ID List: " + idList);
 
         return idList;
-    }
-
-    public static String toParamString(Collection<String> list) {
-        return toParamString(new ArrayList<String>(list));
-    }
-
-    public static String toIdString(Collection<Long> list) {
-        return toIdString(new ArrayList<Long>(list));
     }
 
     public static Session getSession() {

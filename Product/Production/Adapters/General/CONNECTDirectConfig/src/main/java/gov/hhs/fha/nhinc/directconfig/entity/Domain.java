@@ -71,6 +71,7 @@ public class Domain {
     private Collection<Address> addresses;
     private Long id;
     private EntityStatus status = EntityStatus.NEW;
+    private Collection<TrustBundleDomainReltn> relations;
 
     /**
      * Construct a Domain.
@@ -284,6 +285,27 @@ public class Domain {
      */
     public void setAddresses(Collection<Address> addresses) {
         this.addresses = addresses;
+    }
+
+    /**
+     * Set the collection of Trust Bundle - Domain relations
+     * 
+     * @param relations The collection of Trust Bundle - Domain relations
+     */
+    public void setRelations(Collection<TrustBundleDomainReltn> relations) {
+        this.relations = relations;
+    }
+
+    /**
+     * Get the collection of Trust Bundle - Domain relations
+     * 
+     * @return The collection of Trust Bundle - Domain relations
+     */
+    public Collection<TrustBundleDomainReltn> getRelations() {
+        if (relations == null) {
+            relations = new ArrayList<TrustBundleDomainReltn>();
+        }
+        return relations;
     }
 
     /**
