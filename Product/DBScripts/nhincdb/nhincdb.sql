@@ -358,6 +358,9 @@ VALUES
 ("direct.xhtml", "Direct Config", 0, 1),
 ("direct.xhtml", "Direct Config", 0, 2),
 ("direct.xhtml", "Direct Config", 0, 3);
+("direct_domains_create.xhtml", "Direct Create Domain", 0, 1),
+("direct_domains_create.xhtml", "Direct Create Domain", 0, 2),
+("direct_domains_create.xhtml", "Direct Create Domain", 0, 3);
 
 
 INSERT INTO adminguidb.UserLogin
