@@ -564,7 +564,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             if (session != null) {
                 tx = session.beginTransaction();
                 final Query delete = session
-                        .createQuery("DELETE FROM TrustBundleDomainReltn tbd WHERE tbd.domain  = :domain");
+                        .createQuery("DELETE FROM TrustBundleDomainReltn tbd WHERE tbd.domain = :domain");
 
                 delete.setParameter("domain", domain);
                 delete.executeUpdate();
@@ -599,7 +599,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             if (session != null) {
                 tx = session.beginTransaction();
                 final Query delete = session
-                        .createQuery("DELETE FROM TrustBundleDomainReltn tbd WHERE tbd.trustBundle  = ?");
+                        .createQuery("DELETE FROM TrustBundleDomainReltn tbd WHERE tbd.trustBundle = ?");
 
                 delete.setParameter(0, trustBundle);
                 delete.executeUpdate();
