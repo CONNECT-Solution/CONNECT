@@ -26,15 +26,15 @@
             </type>
         </property>
         
-        <set name="addresses" table="address" inverse="true" lazy="false" fetch="select">
+        <bag name="addresses" table="address" inverse="true" lazy="false" fetch="select">
             <key column="domainId" not-null="true" />
             <one-to-many class="Address" />
-        </set>
+        </bag>
 
-        <set name="relations" table="trustbundledomainreltn" inverse="true" lazy="false" fetch="select">
+        <bag name="relations" table="trustbundledomainreltn" inverse="true" lazy="false" fetch="select">
             <key column="domain_id" not-null="true" />
             <one-to-many class="TrustBundleDomainReltn" />
-        </set>
+        </bag>
     </class>
 
     <!--
@@ -150,19 +150,19 @@
             </type>
         </property>
 
-        <set name="trustBundleAnchors" table="trustbundleanchor" inverse="true" lazy="false" fetch="select">
+        <bag name="trustBundleAnchors" table="trustbundleanchor" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="trustbundleId" not-null="true" />
             </key>
             <one-to-many class="TrustBundleAnchor" />
-        </set>
+        </bag>
         
-        <set name="relations" table="trustbundledomainreltn" inverse="true" lazy="false" fetch="select">
+        <bag name="relations" table="trustbundledomainreltn" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="trust_bundle_id" not-null="true" />
             </key>
             <one-to-many class="TrustBundleDomainReltn" />
-        </set>
+        </bag>
     </class>
 
     <!--
