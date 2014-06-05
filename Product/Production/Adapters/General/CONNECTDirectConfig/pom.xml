@@ -86,7 +86,7 @@
                     <artifactId>asm-attrs</artifactId>
                 </exclusion>
                 <exclusion>
-                    <!-- exclude and use <artifactId>cglib-nodep</artifactId> 
+                    <!-- exclude and use <artifactId>cglib-nodep</artifactId>
                         to include the asm it needs in a private package space. -->
                     <groupId>cglib</groupId>
                     <artifactId>cglib</artifactId>
@@ -99,18 +99,23 @@
         </dependency>
 
         <dependency>
-            <!-- Used to include the asm it needs in a private package 
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>3.3.2.GA</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+            <version>3.3.1.GA</version>
+        </dependency>
+
+        <dependency>
+            <!-- Used to include the asm it needs in a private package
                 space. -->
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
             <version>2.1_3</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>3.3.2.GA</version>
         </dependency>
 
         <!-- CXF -->
@@ -147,6 +152,13 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-mina</artifactId>
             <version>2.9.2</version>
+        </dependency>
+
+        <!-- Mina -->
+        <dependency>
+            <groupId>org.apache.mina</groupId>
+            <artifactId>mina-core</artifactId>
+            <version>1.1.7</version>
         </dependency>
 
         <!-- -->
@@ -242,7 +254,7 @@
             <artifactId>jaxb-xjc</artifactId>
             <version>2.2.7-b41</version>
         </dependency>
-        
+
         <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
