@@ -53,7 +53,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -208,7 +207,6 @@ public class Domain {
      * 
      * @return the postmaster email address.
      */
-    @Transient
     public String getPostMasterEmail() {
         String result = null;
         // return the address that matched the ID
@@ -313,7 +311,6 @@ public class Domain {
      * 
      * @return true if the Domain is valid, false otherwise.
      */
-    @Transient
     public boolean isValid() {
         boolean result = false;
         if ((getDomainName() != null)

@@ -46,6 +46,14 @@
  */
 package gov.hhs.fha.nhinc.directconfig.processor.impl;
 
+import gov.hhs.fha.nhinc.directconfig.dao.TrustBundleDao;
+import gov.hhs.fha.nhinc.directconfig.entity.TrustBundle;
+import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleAnchor;
+import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleRefreshError;
+import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleThumbprint;
+import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
+import gov.hhs.fha.nhinc.directconfig.processor.BundleRefreshProcessor;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -65,6 +73,7 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -79,16 +88,6 @@ import org.apache.commons.logging.LogFactory;
 import org.bouncycastle.cms.CMSProcessableByteArray;
 import org.bouncycastle.cms.CMSSignedData;
 import org.bouncycastle.cms.SignerInformation;
-
-import gov.hhs.fha.nhinc.directconfig.processor.BundleRefreshProcessor;
-import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleRefreshError;
-import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleThumbprint;
-import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
-import gov.hhs.fha.nhinc.directconfig.entity.TrustBundle;
-import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleAnchor;
-import gov.hhs.fha.nhinc.directconfig.dao.TrustBundleDao;
-import javax.annotation.PostConstruct;
-
 import org.nhindirect.stagent.CryptoExtensions;
 import org.nhindirect.stagent.options.OptionsManager;
 import org.nhindirect.stagent.options.OptionsParameter;
@@ -103,7 +102,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
  * CA. This is useful in developement environments and is not recommended in a production environment. By default, this
  * feature is disable, but can be enabled using the
  * {@link DefaultBundleRefreshProcessorImpl#BUNDLE_REFRESH_PROCESSOR_ALLOW_DOWNLOAD_FROM_UNTRUSTED} options parameter.
- *
+ * 
  * @author Greg Meyer
  * @since 1.3
  */
@@ -136,7 +135,7 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
     @PostConstruct
     public void init() {
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
-        log.info("SettingService initialized");
+        log.info("DefaultBundleRefreshProcessorImpl initialized");
     }
 
     /**
@@ -145,7 +144,8 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
     public synchronized static void initJVMParams() {
 
         final Map<String, String> JVM_PARAMS = new HashMap<String, String>();
-        JVM_PARAMS.put(BUNDLE_REFRESH_PROCESSOR_ALLOW_DOWNLOAD_FROM_UNTRUSTED, "gov.hhs.fha.nhinc.directconfig.processor.impl.bundlerefresh.AllowNonVerifiedSSL");
+        JVM_PARAMS.put(BUNDLE_REFRESH_PROCESSOR_ALLOW_DOWNLOAD_FROM_UNTRUSTED,
+                "gov.hhs.fha.nhinc.directconfig.processor.impl.bundlerefresh.AllowNonVerifiedSSL");
 
         OptionsManager.addInitParameters(JVM_PARAMS);
     }
@@ -154,20 +154,24 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
      * Default constructor.
      */
     public DefaultBundleRefreshProcessorImpl() {
-        OptionsParameter allowNonVerSSLParam = OptionsManager.getInstance().getParameter(BUNDLE_REFRESH_PROCESSOR_ALLOW_DOWNLOAD_FROM_UNTRUSTED);
+        OptionsParameter allowNonVerSSLParam = OptionsManager.getInstance().getParameter(
+                BUNDLE_REFRESH_PROCESSOR_ALLOW_DOWNLOAD_FROM_UNTRUSTED);
         if (OptionsParameter.getParamValueAsBoolean(allowNonVerSSLParam, false)) {
             try {
-                TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+                TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+                    @Override
                     public java.security.cert.X509Certificate[] getAcceptedIssuers() {
                         return null;
                     }
 
+                    @Override
                     public void checkClientTrusted(X509Certificate[] certs, String authType) {
                     }
 
+                    @Override
                     public void checkServerTrusted(X509Certificate[] certs, String authType) {
                     }
-                }};
+                } };
 
                 // Install the all-trusting trust manager
                 final SSLContext sc = SSLContext.getInstance("SSL");
@@ -177,6 +181,7 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
 
                 // Create all-trusting host name verifier
                 HostnameVerifier allHostsValid = new HostnameVerifier() {
+                    @Override
                     public boolean verify(String hostname, SSLSession session) {
                         return true;
                     }
@@ -187,57 +192,67 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
             } catch (Exception e) {
 
             }
-        }        
+        }
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     @Handler
     public void refreshBundle(TrustBundle bundle) {
         // track when the process started
-        final Calendar processAttempStart = Calendar.getInstance(Locale.getDefault());
+        final Calendar processAttemptStart = Calendar.getInstance(Locale.getDefault());
 
         // get the bundle from the URL
-        final byte[] rawBundle = downloadBundleToByteArray(bundle, processAttempStart);
+        final byte[] rawBundle = downloadBundleToByteArray(bundle, processAttemptStart);
 
         if (rawBundle == null) {
+            log.warn("Could not download bundle, or bundle file was null.");
             return;
         }
 
-        // check to see if there is a difference in the anchor sets
-        // use a checksum
+        log.debug("Bundle downloaded.");
+
+        // check to see if there is a difference in the anchor sets (using checksums)
         boolean update = false;
         String checkSum = "";
-        if (bundle.getCheckSum() == null) // never got a check sum...
-        {
+
+        if (bundle.getCheckSum() == null) {
+            // never got a check sum, flag for update
             update = true;
         } else {
             try {
                 checkSum = BundleThumbprint.toThumbprint(rawBundle).toString();
+                // if checksum mismatch, flag for update
                 update = !bundle.getCheckSum().equals(BundleThumbprint.toThumbprint(rawBundle).toString());
-            }
-            catch (NoSuchAlgorithmException ex) {
-                dao.updateLastUpdateError(bundle.getId(), processAttempStart, BundleRefreshError.INVALID_BUNDLE_FORMAT);
-                log.error("Failed to generate downloaded bundle thumbprint ", ex);
+            } catch (NoSuchAlgorithmException ex) {
+                dao.updateLastUpdateError(bundle.getId(), processAttemptStart, BundleRefreshError.INVALID_BUNDLE_FORMAT);
+                log.error("Failed to generate thumbprint for downloaded bundle: " + ex.getMessage(), ex);
             }
         }
 
         if (!update) {
-            dao.updateLastUpdateError(bundle.getId(), processAttempStart, BundleRefreshError.SUCCESS);
+            log.debug("No update needed.");
+            dao.updateLastUpdateError(bundle.getId(), processAttemptStart, BundleRefreshError.SUCCESS);
             return;
         }
 
-        final Collection<X509Certificate> bundleCerts = convertRawBundleToAnchorCollection(rawBundle, bundle, processAttempStart);
+        final Collection<X509Certificate> bundleCerts = convertRawBundleToAnchorCollection(rawBundle, bundle,
+                processAttemptStart);
 
         if (bundleCerts == null) {
+            log.warn("No bundle certs found.");
             return;
         }
 
-        final HashSet<X509Certificate> downloadedSet = new HashSet<X509Certificate>((Collection<X509Certificate>) bundleCerts);
+        log.debug("Preparing to update bundle");
+
+        final HashSet<X509Certificate> downloadedSet = new HashSet<X509Certificate>(bundleCerts);
 
         try {
             final Collection<TrustBundleAnchor> newAnchors = new ArrayList<TrustBundleAnchor>();
+
             for (X509Certificate downloadedAnchor : downloadedSet) {
                 try {
                     final TrustBundleAnchor anchorToAdd = new TrustBundleAnchor();
@@ -245,36 +260,39 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
                     anchorToAdd.setTrustBundle(bundle);
 
                     newAnchors.add(anchorToAdd);
-                } 
-                catch (Exception e) {
+                } catch (Exception e) {
                     log.warn("Failed to convert downloaded anchor to byte array. ", e);
                 }
             }
 
+            log.debug("Found " + newAnchors.size() + " Trust Bundle Anchors.");
+
             bundle.setTrustBundleAnchors(newAnchors);
-            dao.updateTrustBundleAnchors(bundle.getId(), processAttempStart, newAnchors, checkSum);
-            dao.updateLastUpdateError(bundle.getId(), processAttempStart, BundleRefreshError.SUCCESS);
+
+            dao.updateTrustBundleAnchors(bundle.getId(), processAttemptStart, newAnchors, checkSum);
+            dao.updateLastUpdateError(bundle.getId(), processAttemptStart, BundleRefreshError.SUCCESS);
         } catch (ConfigurationStoreException e) {
-            dao.updateLastUpdateError(bundle.getId(), processAttempStart, BundleRefreshError.INVALID_BUNDLE_FORMAT);
+            dao.updateLastUpdateError(bundle.getId(), processAttemptStart, BundleRefreshError.INVALID_BUNDLE_FORMAT);
             log.error("Failed to write updated bundle anchors to data store ", e);
         }
     }
 
     /**
      * Converts a trust raw trust bundle byte array into a collection of {@link X509Certificate} objects.
-     *
+     * 
      * @param rawBundle The raw representation of the bundle. This generally the raw byte string downloaded from the
-     * bundle's URL.
+     *            bundle's URL.
      * @param existingBundle The configured bundle object in the DAO. This object may contain the signing certificate
-     * used for bundle authenticity checking.
-     * @param processAttempStart The time that the update process started.
+     *            used for bundle authenticity checking.
+     * @param processAttemptStart The time that the update process started.
      * @return
      */
     @SuppressWarnings("unchecked")
-    protected Collection<X509Certificate> convertRawBundleToAnchorCollection(byte[] rawBundle, final TrustBundle existingBundle,
-        final Calendar processAttempStart) {
+    protected Collection<X509Certificate> convertRawBundleToAnchorCollection(byte[] rawBundle,
+            final TrustBundle existingBundle, final Calendar processAttemptStart) {
         Collection<? extends Certificate> bundleCerts = null;
         InputStream inStream = null;
+
         // check to see if its an unsigned PKCS7 container
         try {
             inStream = new ByteArrayInputStream(rawBundle);
@@ -285,38 +303,40 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
             if (bundleCerts != null && bundleCerts.size() == 0) {
                 bundleCerts = null;
             }
-
         } catch (Exception e) {
-            /* no-op for now.... this may not be a p7b, so try it as a signed message*/
+            /* no-op for now.... this may not be a p7b, so try it as a signed message */
+            log.warn("Could not parse as an unsigned PKCS7 container, possibly a CMS signed message?");
         } finally {
             IOUtils.closeQuietly(inStream);
         }
 
-        // didnt work... try again as a CMS signed message
+        // didn't work... try again as a CMS signed message
         if (bundleCerts == null) {
             try {
                 final CMSSignedData signed = new CMSSignedData(rawBundle);
 
-                // if there is a signing certificate assigned to the bundle,
-                // then verify the signature
+                // if there is a signing certificate assigned to the bundle, verify the signature
                 if (existingBundle.getSigningCertificateData() != null) {
                     boolean sigVerified = false;
 
                     final X509Certificate signingCert = existingBundle.toSigningCertificate();
-                    for (SignerInformation sigInfo : (Collection<SignerInformation>) signed.getSignerInfos().getSigners()) {
+                    for (SignerInformation sigInfo : (Collection<SignerInformation>) signed.getSignerInfos()
+                            .getSigners()) {
 
                         try {
                             if (sigInfo.verify(signingCert, CryptoExtensions.getJCEProviderName())) {
                                 sigVerified = true;
                                 break;
                             }
-                        } catch (Exception e) {/* no-op... can't verify */
-
+                        } catch (Exception e) {
+                            log.warn("Could not parse as a CMS signed message");
+                            /* no-op... can't verify */
                         }
                     }
 
                     if (!sigVerified) {
-                        dao.updateLastUpdateError(existingBundle.getId(), processAttempStart, BundleRefreshError.UNMATCHED_SIGNATURE);
+                        dao.updateLastUpdateError(existingBundle.getId(), processAttemptStart,
+                                BundleRefreshError.UNMATCHED_SIGNATURE);
                         log.warn("Downloaded bundle signature did not match configured signing certificate.");
                         return null;
                     }
@@ -328,7 +348,8 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
 
                 bundleCerts = CertificateFactory.getInstance("X.509").generateCertificates(inStream);
             } catch (Exception e) {
-                dao.updateLastUpdateError(existingBundle.getId(), processAttempStart, BundleRefreshError.INVALID_BUNDLE_FORMAT);
+                dao.updateLastUpdateError(existingBundle.getId(), processAttemptStart,
+                        BundleRefreshError.INVALID_BUNDLE_FORMAT);
                 log.warn("Failed to extract anchors from downloaded bundle at URL " + existingBundle.getBundleURL());
             } finally {
                 IOUtils.closeQuietly(inStream);
@@ -340,7 +361,7 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
 
     /**
      * Downloads a bundle from the bundle's URL and returns the result as a byte array.
-     *
+     * 
      * @param bundle The bundle that will be downloaded.
      * @param processAttempStart The time that the update process started.
      * @return A byte array representing the raw data of the bundle.
@@ -349,7 +370,7 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
         InputStream inputStream = null;
 
         byte[] retVal = null;
-        final ByteArrayOutputStream ouStream = new ByteArrayOutputStream();
+        final ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 
         try {
             // in this case the cert is a binary representation
@@ -372,21 +393,19 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
             final byte buf[] = new byte[BUF_SIZE];
 
             while ((count = inputStream.read(buf)) > -1) {
-                ouStream.write(buf, 0, count);
+                outStream.write(buf, 0, count);
             }
 
-            retVal = ouStream.toByteArray();
-        } 
-        catch (SocketTimeoutException e) {
+            retVal = outStream.toByteArray();
+        } catch (SocketTimeoutException e) {
             dao.updateLastUpdateError(bundle.getId(), processAttempStart, BundleRefreshError.DOWNLOAD_TIMEOUT);
             log.warn("Failed to download bundle from URL " + bundle.getBundleURL(), e);
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             dao.updateLastUpdateError(bundle.getId(), processAttempStart, BundleRefreshError.NOT_FOUND);
             log.warn("Failed to download bundle from URL " + bundle.getBundleURL(), e);
         } finally {
             IOUtils.closeQuietly(inputStream);
-            IOUtils.closeQuietly(ouStream);
+            IOUtils.closeQuietly(outStream);
         }
 
         return retVal;
