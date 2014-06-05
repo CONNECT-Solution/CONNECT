@@ -305,7 +305,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
                 existingBundle.setLastRefreshAttempt(attemptTime);
                 existingBundle.setLastRefreshError(error);
 
-                session.persist(existingBundle);
+                session.merge(existingBundle);
             }
         } catch (ConfigurationStoreException cse) {
             DaoUtils.rollbackTransaction(tx);
