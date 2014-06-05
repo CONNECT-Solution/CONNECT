@@ -274,7 +274,7 @@
     -->
     <query name="getAddress">
         <![CDATA[FROM Address a
-                    WHERE ( :eMailList IS NULL OR UPPER ( a.emailAddress ) IN (:eMailList) )
+                    WHERE ( :emailList IS NULL OR UPPER ( a.emailAddress ) IN (:emailList) )
                     AND ( :status IS NULL OR a.status = :status ) ]]>
     </query>
 
