@@ -343,7 +343,7 @@ public class CertificateDaoImpl implements CertificateDao {
                 if (session != null) {
                     tx = session.beginTransaction();
 
-                    query = session.createQuery("DELETE FROM Certificate a WHERE c.id IN (:idList)");
+                    query = session.createQuery("DELETE FROM Certificate c WHERE c.id IN (:idList)");
                     query.setParameterList("idList", idList);
 
                     count = query.executeUpdate();

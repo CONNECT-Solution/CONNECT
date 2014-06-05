@@ -196,8 +196,8 @@ public class AddressDaoImpl implements AddressDao {
                 if (session != null) {
                     tx = session.beginTransaction();
 
-                    query = session.createQuery("DELETE FROM Address a WHERE UPPER(a.eMailAddress) = :eMailAddress");
-                    query.setParameter("eMailAddress", name.toUpperCase(Locale.getDefault()));
+                    query = session.createQuery("DELETE FROM Address a WHERE UPPER(a.emailAddress) = :emailAddress");
+                    query.setParameter("emailAddress", name.toUpperCase(Locale.getDefault()));
 
                     count = query.executeUpdate();
                     tx.commit();
@@ -237,9 +237,9 @@ public class AddressDaoImpl implements AddressDao {
 
                 if (session != null) {
                     query = session
-                            .createQuery("SELECT DISTINCT a from Address a d WHERE UPPER(a.eMailAddress) = :eMailAddress");
+                            .createQuery("SELECT DISTINCT a from Address a WHERE UPPER(a.emailAddress) = :emailAddress");
 
-                    result = (Address) query.setParameter("eMailAddress", name.toUpperCase(Locale.getDefault()))
+                    result = (Address) query.setParameter("emailAddress", name.toUpperCase(Locale.getDefault()))
                             .uniqueResult();
                 }
             } finally {
@@ -266,7 +266,7 @@ public class AddressDaoImpl implements AddressDao {
 
             if (session != null) {
                 query = session.getNamedQuery("getAddress");
-                query.setParameterList("eMailList", names);
+                query.setParameterList("emailList", names);
                 query.setParameter("status", status);
 
                 results = query.list();
