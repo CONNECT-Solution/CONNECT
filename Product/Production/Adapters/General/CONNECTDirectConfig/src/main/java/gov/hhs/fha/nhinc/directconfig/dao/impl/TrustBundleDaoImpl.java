@@ -152,7 +152,10 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
                 query.setParameter("bundleName", bundleName);
 
                 result = (TrustBundle) query.uniqueResult();
-                loadAnchorData(result.getTrustBundleAnchors());
+
+                if (result != null) {
+                    loadAnchorData(result.getTrustBundleAnchors());
+                }
             }
         } catch (NoResultException e) {
             result = null;
@@ -183,7 +186,10 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
                 query.setParameter("id", id);
 
                 result = (TrustBundle) query.uniqueResult();
-                loadAnchorData(result.getTrustBundleAnchors());
+
+                if (result != null) {
+                    loadAnchorData(result.getTrustBundleAnchors());
+                }
             }
         } catch (NoResultException e) {
             result = null;
