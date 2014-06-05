@@ -272,7 +272,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
                 existingBundle.setLastRefreshAttempt(attemptTime);
                 existingBundle.setLastSuccessfulRefresh(Calendar.getInstance(Locale.getDefault()));
 
-                session.persist(existingBundle);
+                session.merge(existingBundle);
                 tx.commit();
             }
         } catch (ConfigurationStoreException cse) {
@@ -387,7 +387,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
 
             if (session != null) {
                 tx = session.beginTransaction();
-                session.persist(existingBundle);
+                session.merge(existingBundle);
                 tx.commit();
             }
         } catch (ConfigurationStoreException cse) {
@@ -438,7 +438,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
 
             if (session != null) {
                 tx = session.beginTransaction();
-                session.persist(existingBundle);
+                session.merge(existingBundle);
                 tx.commit();
             }
         } catch (ConfigurationStoreException cse) {
