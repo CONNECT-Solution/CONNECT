@@ -26,12 +26,12 @@
             </type>
         </property>
         
-        <set name="addresses" table="address" inverse="true" fetch="select">
+        <set name="addresses" table="address" inverse="true" lazy="false" fetch="select">
             <key column="domainId" not-null="true" />
             <one-to-many class="Address" />
         </set>
 
-        <set name="relations" table="trustbundledomainreltn" inverse="true" fetch="select">
+        <set name="relations" table="trustbundledomainreltn" inverse="true" lazy="false" fetch="select">
             <key column="domain_id" not-null="true" />
             <one-to-many class="TrustBundleDomainReltn" />
         </set>
@@ -58,7 +58,7 @@
         </property>
         
         <!-- Auto-generated -->
-        <many-to-one name="domain" class="Domain" fetch="select">
+        <many-to-one name="domain" class="Domain" lazy="false" fetch="select">
             <column name="domainId" not-null="true" />
         </many-to-one>
     </class>
@@ -150,14 +150,14 @@
             </type>
         </property>
 
-        <set name="trustBundleAnchors" table="trustbundleanchor" inverse="true" fetch="select">
+        <set name="trustBundleAnchors" table="trustbundleanchor" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="trustbundleId" not-null="true" />
             </key>
             <one-to-many class="TrustBundleAnchor" />
         </set>
         
-        <set name="relations" table="trustbundledomainreltn" inverse="true" fetch="select">
+        <set name="relations" table="trustbundledomainreltn" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="trust_bundle_id" not-null="true" />
             </key>
@@ -178,7 +178,7 @@
         <property name="validStartDate" type="calendar" not-null="true" />
         <property name="validEndDate" type="calendar" not-null="true" />
 
-        <many-to-one name="trustBundle" column="trustbundleId" class="TrustBundle" fetch="select" not-null="true" />
+        <many-to-one name="trustBundle" column="trustbundleId" class="TrustBundle" lazy="false" fetch="select" not-null="true" />
     </class>
 
     <!--
@@ -193,8 +193,8 @@
         <property name="outgoing" type="boolean" not-null="true" />
 
         <!-- Auto-generated -->
-        <many-to-one name="trustBundle" column="trust_bundle_id" class="TrustBundle" fetch="select" not-null="true" />
-        <many-to-one name="domain" column="domain_id" class="Domain" fetch="select" not-null="true" />
+        <many-to-one name="trustBundle" column="trust_bundle_id" class="TrustBundle" lazy="false" fetch="select" not-null="true" />
+        <many-to-one name="domain" column="domain_id" class="Domain" lazy="false" fetch="select" not-null="true" />
     </class>
 
     <!--
