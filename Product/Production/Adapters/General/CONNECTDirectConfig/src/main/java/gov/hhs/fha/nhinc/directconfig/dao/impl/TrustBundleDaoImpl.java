@@ -255,6 +255,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
                 throw new ConfigurationStoreException("Trust bundle does not exist");
             }
 
+            log.debug("Preparing to update Trust Bundle Anchors.");
             session = DaoUtils.getSession();
 
             if (session != null) {
@@ -264,7 +265,10 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
                 final Query delete = session
                         .createQuery("DELETE FROM TrustBundleAnchor tba WHERE tba.trustBundle = :existingBundle");
                 delete.setParameter("existingBundle", existingBundle);
-                delete.executeUpdate();
+                int count = delete.executeUpdate();
+
+                log.debug("Deleted " + count + " Trust Bundle Anchors, replacing with " + newAnchorSet.size()
+                        + " new ones.");
 
                 // now update the bundle
                 existingBundle.setCheckSum(bundleCheckSum);
@@ -272,7 +276,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
                 existingBundle.setLastRefreshAttempt(attemptTime);
                 existingBundle.setLastSuccessfulRefresh(Calendar.getInstance(Locale.getDefault()));
 
-                session.merge(existingBundle);
+                session.saveOrUpdate(existingBundle);
                 tx.commit();
             }
         } catch (ConfigurationStoreException cse) {
@@ -280,7 +284,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             throw cse;
         } catch (Exception e) {
             DaoUtils.rollbackTransaction(tx);
-            throw new ConfigurationStoreException("Failed to update anchors in trust bundle.", e);
+            throw new ConfigurationStoreException("Failed to update Trust Bundle Anchors: " + e.getMessage(), e);
         } finally {
             DaoUtils.closeSession(session);
         }
