@@ -37,6 +37,7 @@ public class DirectDomain {
     private String domainUpdated;
     
     private List<DirectAddress> addresses = new ArrayList<DirectAddress>();
+    private List<DirectAnchor> anchors = new ArrayList<DirectAnchor>();
 
     public DirectDomain(){
         
@@ -109,5 +110,17 @@ public class DirectDomain {
    
     public void addAddress(DirectAddress address){
         addresses.add(address);
+    }
+
+    public List<DirectAnchor> getAnchors() {
+        return anchors;
+    }
+
+    public void setAnchors(List<DirectAnchor> anchors) {
+        this.anchors = anchors;
+    }
+    
+    public void addAnchor(DirectAnchor anchor){
+        anchors.add(anchor);
     }
 }

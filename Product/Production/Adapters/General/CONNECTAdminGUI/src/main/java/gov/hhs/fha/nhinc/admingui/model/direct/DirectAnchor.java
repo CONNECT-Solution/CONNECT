@@ -20,48 +20,58 @@
  */
 package gov.hhs.fha.nhinc.admingui.model.direct;
 
+import java.io.File;
+
 /**
  *
  * @author jasonasmith
  */
-public class DirectAddress {
+public class DirectAnchor {
     
-    private int position;
-    private String endpoint;
-    private String type;
+    private String name;
+    private byte[] certificate;
+    private boolean incoming;
+    private boolean outgoing;
+    private String status;
 
-    public DirectAddress() {
-        
-    }
-    
-    public DirectAddress(String endpoint, String type) {
-        this.endpoint = endpoint;
-        this.type = type;
+    public String getName(){
+        return name;
     }
     
-    public int getPosition() {
-        return position;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
+    public void setName(String name){
+        this.name = name;
     }
     
-    public String getEndpoint() {
-        return endpoint;
+    public byte[] getCertificate() {
+        return certificate;
     }
 
-    public void setEndpoint(String endpoint) {
-        this.endpoint = endpoint;
+    public void setCertificate(byte[] certificate) {
+        this.certificate = certificate;
     }
 
-    public String getType() {
-        return type;
+    public boolean isIncoming() {
+        return incoming;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setIncoming(boolean incoming) {
+        this.incoming = incoming;
     }
-    
+
+    public boolean isOutgoing() {
+        return outgoing;
+    }
+
+    public void setOutgoing(boolean outgoing) {
+        this.outgoing = outgoing;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
     
 }

@@ -69,7 +69,7 @@
                                         </p:column>
                                     </p:dataTable>
                                     <p:commandButton update="domainDataTable" value="Delete" actionListener="#{directDomainBean.deleteDomain()}"/>
-                                    <p:commandButton value="Edit Domain" type="button" onclick="PF('domainEditDlg').show();" />
+                                    <p:commandButton value="Edit Domain" actionListener="#{directDomainBean.showEdit()}" />
                                 </h:form>
                             </div>
                     </div>

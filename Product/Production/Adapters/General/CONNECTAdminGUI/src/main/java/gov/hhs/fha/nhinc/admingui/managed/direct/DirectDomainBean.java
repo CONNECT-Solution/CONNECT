@@ -21,12 +21,17 @@
 package gov.hhs.fha.nhinc.admingui.managed.direct;
 
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectAddress;
+import gov.hhs.fha.nhinc.admingui.model.direct.DirectAnchor;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectDomain;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
+import java.io.File;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -49,9 +54,15 @@ public class DirectDomainBean {
     
     private DirectDomain selectedDomain;
     private DirectAddress selectedAddress;
+    private DirectAnchor selectedAnchor;
     
     private String addressEndpoint;
     private String addressType;
+    
+    private UploadedFile anchorCert;
+    private boolean anchorIncoming = true;
+    private boolean anchorOutgoing = true;
+    private String anchorStatus;
     
     public List<DirectDomain> getDomains(){
         return directService.getDomains();
@@ -73,14 +84,21 @@ public class DirectDomainBean {
         directService.addDomain(domain);
     }
     
+    public void showEdit(){
+        if(selectedDomain != null){
+            RequestContext.getCurrentInstance().execute("domainEditDlg.show()");
+        }
+    }
+    
     public void editDomain(){
-        selectedDomain.setDomainName(domainName);
-        selectedDomain.setDomainStatus(domainStatus);
         directService.updateDomain(selectedDomain);
     }
     
     public void addAddress(){
-        selectedDomain.addAddress(selectedAddress);
+        DirectAddress address = new DirectAddress();
+        address.setEndpoint(addressEndpoint);
+        address.setType(addressType);
+        selectedDomain.addAddress(address);
         directService.updateDomain(selectedDomain);
     }
     
@@ -88,6 +106,31 @@ public class DirectDomainBean {
         for(int i = 0; i < selectedDomain.getAddresses().size(); i++){
             if(selectedDomain.getAddresses().get(i).getEndpoint().equals(selectedAddress.getEndpoint())){
                 selectedDomain.getAddresses().remove(i);
+                directService.updateDomain(selectedDomain);
+                break;
+            }
+        }
+    }
+    
+    public void anchorFileUpload(FileUploadEvent event){
+        anchorCert = event.getFile();
+    }
+    
+    public void addAnchor(){
+        DirectAnchor anchor = new DirectAnchor();
+        anchor.setName(anchorCert.getFileName());
+        anchor.setCertificate(anchorCert.getContents());
+        anchor.setIncoming(anchorIncoming);
+        anchor.setOutgoing(anchorOutgoing);
+        anchor.setStatus(anchorStatus);
+        selectedDomain.addAnchor(anchor);
+        directService.updateDomain(selectedDomain);
+    }
+    
+    public void deleteAnchor(){
+        for(int i = 0; i < selectedDomain.getAnchors().size(); i++){
+            if(selectedDomain.getAnchors().get(i).getName().equals(selectedAnchor.getName())){
+                selectedDomain.getAnchors().remove(i);
                 directService.updateDomain(selectedDomain);
                 break;
             }
@@ -156,6 +199,38 @@ public class DirectDomainBean {
 
     public void setAddressType(String addressType) {
         this.addressType = addressType;
+    }
+
+    public DirectAnchor getSelectedAnchor() {
+        return selectedAnchor;
+    }
+
+    public void setSelectedAnchor(DirectAnchor selectedAnchor) {
+        this.selectedAnchor = selectedAnchor;
+    }
+
+    public boolean isAnchorIncoming() {
+        return anchorIncoming;
+    }
+
+    public void setAnchorIncoming(boolean anchorIncoming) {
+        this.anchorIncoming = anchorIncoming;
+    }
+
+    public boolean isAnchorOutgoing() {
+        return anchorOutgoing;
+    }
+
+    public void setAnchorOutgoing(boolean anchorOutgoing) {
+        this.anchorOutgoing = anchorOutgoing;
+    }
+
+    public String getAnchorStatus() {
+        return anchorStatus;
+    }
+
+    public void setAnchorStatus(String anchorStatus) {
+        this.anchorStatus = anchorStatus;
     }
     
     

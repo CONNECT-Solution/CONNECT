@@ -20,6 +20,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl.direct;
 
+import gov.hhs.fha.nhinc.admingui.model.direct.DirectAddress;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectAgent;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectCertificate;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectDomain;
@@ -47,7 +48,9 @@ public class MockDirectServiceImpl implements DirectService {
     static {
         domains = new HashMap<Integer, DirectDomain>();
 
-        domains.put(1, new DirectDomain(1, "ENABLED", "Test Domain", "test@test", "6/3/14 4:04:00", null));
+        DirectDomain domain1 = new DirectDomain(1, "ENABLED", "Test Domain", "test@test", "6/3/14 4:04:00", null);
+        domain1.addAddress(new DirectAddress("testEndpoint", "testType"));
+        domains.put(1, domain1);
         domains.put(2, new DirectDomain(2, "ENABLED", "Connect Domain", "test@connect", "6/3/14 4:04:00", null));
 
         trustBundles = new HashMap<Integer, DirectTrustBundle>();
