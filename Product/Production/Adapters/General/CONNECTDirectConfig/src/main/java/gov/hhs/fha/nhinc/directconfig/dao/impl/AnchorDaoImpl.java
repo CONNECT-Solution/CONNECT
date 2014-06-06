@@ -144,7 +144,7 @@ public class AnchorDaoImpl implements AnchorDao {
 
                 if (session != null) {
                     query = session.getNamedQuery("getAnchorsByOwner");
-                    query.setParameterList("eMailList", owners);
+                    query.setParameterList("ownerList", owners);
 
                     results = query.list();
 
