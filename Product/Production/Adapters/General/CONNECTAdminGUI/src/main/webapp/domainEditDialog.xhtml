@@ -1,0 +1,90 @@
+<ui:composition xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <div>
+        <p:dialog id="domainEditDlg" header="Manage Domains" widgetVar="domainEditDlg" modal="true" dynamic="true">
+            <div class="content">
+                <h3>Edit Selected Domain</h3>
+                <div class="form-block center-block">
+                    <h:form id="domainEditDlgForm" class="form-horizontal">
+                        <div class="form-group">
+                            <h:outputLabel for="input-edit-domain" class="col-sm-3 control-label"
+                                           id="input-edit-domainLbl" value="Domain Name:" />
+                            <div class="col-sm-9">
+                                <h:inputText class="form-control" id="input-edit-domain"
+                                             maxlength="20" required="true"
+                                             value="#{directDomainBean.domainName}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel for="select-edit-status" class="col-sm-3 control-label"
+                                           id="select-edit-statusLbl" value="Status:" />
+                            <div class="col-sm-9">
+                                <p:selectOneMenu id="select-edit-status" value="#{directDomainBean.domainStatus}">
+                                    <f:selectItem itemLabel="NEW" itemValue="NEW" />
+                                    <f:selectItem itemLabel="ENABLED" itemValue="ENABLED" />
+                                    <f:selectItem itemLabel="DISABLED" itemValue="DISABLED" />
+                                </p:selectOneMenu>					
+							</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="form-button-row">
+                                    <h:commandButton id="submit" class="btn btn-primary"
+                                                     value="Update"
+                                                     action="#{directDomainBean.editDomain()}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="form-block center-block">
+                    <p:tabView id="domainEditTabview" effect="fade" effectDuration="normal" dynamic="true"
+                               activeIndex="0">
+                        <p:tab title="Addresses">
+                            <h:form id="addressForm">
+                                <p:dataTable id="addressDataTable" var="address" value="#{directDomainBean.selectedDomain.addresses}"
+                                             selection="#{directDomainBean.selectedAddress}" rowKey="#{address.endpoint}">
+                                    <p:column headerText="Delete" selectionMode="single" />
+                                    <p:column headerText="Endpoint">
+                                        <h:outputText value="#{address.endpoint}" />
+                                    </p:column>
+                                    <p:column headerText="Type">
+                                        <h:outputText value="#{address.type}" />
+                                    </p:column>
+                                </p:dataTable>
+                                <p:commandButton update="addressDataTable" value="Delete" action="#{directDomainBean.deleteAddress()}"/>
+                                <p:separator/>
+                                <div class="form-group">
+                                    <h:outputLabel for="input-address-name" class="col-sm-3 control-label"
+                                           id="input-address-nameLbl" value="Address Endpoint:" />
+                                    <div class="col-sm-9">
+                                        <h:inputText class="form-control" id="input-address-name"
+                                             maxlength="50" required="true"
+                                             value="#{directDomainBean.addressEndpoint}"/>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <h:outputLabel for="input-address-type" class="col-sm-3 control-label"
+                                           id="input-address-typeLbl" value="Address Endpoint:" />
+                                    <div class="col-sm-9">
+                                        <h:inputText class="form-control" id="input-address-type"
+                                             maxlength="20" required="true"
+                                             value="#{directDomainBean.addressType}"/>
+                                    </div>
+                                </div>
+                                <p:commandButton update="addressDataTable" value="Delete" action="#{directDomainBean.addAddress()}"/>
+                            </h:form>
+                        </p:tab>
+                        <p:tab title="Anchors">
+                            
+                        </p:tab>
+                        <p:tab title="Trust Bundles">
+                            
+                        </p:tab>
+                    </p:tabView>
+                </div>
+            </div>
+        </p:dialog>
+    </div>
+</ui:composition>
