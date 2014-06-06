@@ -31,34 +31,33 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://java.sun.com/jsf/core">
     <body style="background: #dddddd" leftmargin="0" topmargin="0">
         <ui:composition>
             <header id="header">
                 <div class="">
                     <!-- ORIGINALLY:  class="navbar-collapse collapse" -->
                     <ul class="nav navbar-nav">
-                        <li class="dropdown">
+                        <li>
                             <h:form>
                                 <p:menubar>
-                                    <p:submenu label="Logged in as #{loginBean.userName}">
+                                    <p:menuitem>
+									    <p:graphicImage value="resources/images/logo-connect-108x40.png"/>
+									</p:menuitem>
+									<p:submenu label="Logged in as #{loginBean.userName}">
                                         <p:menuitem value="Log out" action="#{loginBean.logout}" ajax="false"/>
                                     </p:submenu>
                                     <p:submenu icon="ui-icon-wrench">
                                         <p:menuitem value="User Accounts" action="#{tabBean.setAdminTabIndexNavigate(0)}" icon="ui-icon-pencil"/>
                                         <p:menuitem value="Certificate Management" action="#{tabBean.setAdminTabIndexNavigate(1)}" icon="ui-icon-gear"/>
                                     </p:submenu>
-                                    <p:menuitem icon="ui-icon-mail-closed" url="#"/>
-                                    <p:menuitem icon="ui-icon-help" url="#"/>
+                                    <p:menuitem icon="ui-icon-mail-closed" url="#" styleClass="ui-menuitem-borderright" />
+									<p:menuitem icon="ui-icon-help" url="#" styleClass="ui-menuitem-alignright" />
                                 </p:menubar>
                             </h:form>
                         </li>
                     </ul>
-                    <form class="navbar-form navbar-right">
-                        <i class="glyphicon glyphicon-search"></i><input
-                            class="form-control" placeholder="Enter Search Query..."
-                            type="text" />
-                    </form>
                 </div>
             </header>
         </ui:composition>
