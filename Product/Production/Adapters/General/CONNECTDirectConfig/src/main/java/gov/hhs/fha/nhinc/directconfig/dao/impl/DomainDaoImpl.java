@@ -135,15 +135,9 @@ public class DomainDaoImpl implements DomainDao {
                 if (session != null) {
                     tx = session.beginTransaction();
                     session.persist(item);
-
-                    if (addresses != null && addresses.size() > 0) {
-                        item.setAddresses(addresses);
-
-                        log.debug("Updating the domain with Address info");
-                        update(item);
-                    }
-
                     tx.commit();
+
+                    saveAddresses(addresses);
                 }
             } catch (Exception e) {
                 DaoUtils.rollbackTransaction(tx);
@@ -169,15 +163,10 @@ public class DomainDaoImpl implements DomainDao {
 
                 if (session != null) {
                     tx = session.beginTransaction();
-
-                    for (Address address : item.getAddresses()) {
-                        if (address.getId() == null) {
-                            addressDao.add(address);
-                        }
-                    }
-
                     session.merge(item);
                     tx.commit();
+
+                    saveAddresses(item.getAddresses());
                 }
             } catch (Exception e) {
                 DaoUtils.rollbackTransaction(tx);
@@ -434,5 +423,13 @@ public class DomainDaoImpl implements DomainDao {
         final TrustBundleDaoImpl dao = new TrustBundleDaoImpl();
 
         dao.disassociateTrustBundlesFromDomain(domainId);
+    }
+
+    private void saveAddresses(Collection<Address> addresses) {
+        for (Address address : addresses) {
+            if (address.getId() == null) {
+                addressDao.add(address);
+            }
+        }
     }
 }
