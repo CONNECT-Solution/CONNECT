@@ -7,7 +7,10 @@
     Description: Hibernate mapping file for CONNECTDirectConfig's configdb
 -->
 
-<hibernate-mapping package="gov.hhs.fha.nhinc.directconfig.entity">
+<hibernate-mapping
+    package="gov.hhs.fha.nhinc.directconfig.entity"
+    default-lazy="false">
+
     <!--
         Domain (configdb.domain)
     -->
@@ -58,9 +61,7 @@
         </property>
         
         <!-- Auto-generated -->
-        <many-to-one name="domain" class="Domain" lazy="false" fetch="select">
-            <column name="domainId" not-null="true" />
-        </many-to-one>
+        <many-to-one name="domain" column="domainId" class="Domain" not-null="true" lazy="false" fetch="select" />
     </class>
 
     <!--
