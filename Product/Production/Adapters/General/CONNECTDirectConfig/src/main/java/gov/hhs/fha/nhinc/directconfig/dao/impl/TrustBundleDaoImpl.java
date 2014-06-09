@@ -255,29 +255,26 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
                 throw new ConfigurationStoreException("Trust bundle does not exist");
             }
 
+            deleteTrustBundleAnchors(existingBundle);
+
             log.debug("Preparing to update Trust Bundle Anchors.");
             session = DaoUtils.getSession();
 
+            // now update the bundle
             if (session != null) {
                 tx = session.beginTransaction();
 
-                // blow away all the existing bundles
-                final Query delete = session
-                        .createQuery("DELETE FROM TrustBundleAnchor tba WHERE tba.trustBundle = :existingBundle");
-                delete.setParameter("existingBundle", existingBundle);
-                int count = delete.executeUpdate();
+                // persist TrustBundleAnchors separately
+                existingBundle.setTrustBundleAnchors(null);
 
-                log.debug("Deleted " + count + " Trust Bundle Anchors, replacing with " + newAnchorSet.size()
-                        + " new ones.");
-
-                // now update the bundle
                 existingBundle.setCheckSum(bundleCheckSum);
-                existingBundle.setTrustBundleAnchors(newAnchorSet);
                 existingBundle.setLastRefreshAttempt(attemptTime);
                 existingBundle.setLastSuccessfulRefresh(Calendar.getInstance(Locale.getDefault()));
 
                 session.saveOrUpdate(existingBundle);
                 tx.commit();
+
+                saveAnchors(newAnchorSet);
             }
         } catch (ConfigurationStoreException cse) {
             DaoUtils.rollbackTransaction(tx);
@@ -677,6 +674,60 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             for (TrustBundleAnchor anchor : tba) {
                 anchor.getData();
             }
+        }
+    }
+
+    private void deleteTrustBundleAnchors(TrustBundle existingBundle) {
+        Session session = null;
+        Transaction tx = null;
+
+        try {
+            session = DaoUtils.getSession();
+
+            if (session != null) {
+                tx = session.beginTransaction();
+
+                // blow away all the existing bundles
+                final Query delete = session
+                        .createQuery("DELETE FROM TrustBundleAnchor tba WHERE tba.trustBundle = :existingBundle");
+                delete.setParameter("existingBundle", existingBundle);
+                int count = delete.executeUpdate();
+
+                log.debug("Deleted " + count + " Trust Bundle Anchors");
+
+                tx.commit();
+            }
+        } catch (Exception e) {
+            DaoUtils.rollbackTransaction(tx);
+            throw new ConfigurationStoreException("Failed to update Trust Bundle Anchors: " + e.getMessage(), e);
+        } finally {
+            DaoUtils.closeSession(session);
+        }
+    }
+
+    private void saveAnchors(Collection<TrustBundleAnchor> anchors) {
+        Session session = null;
+        Transaction tx = null;
+
+        try {
+            session = DaoUtils.getSession();
+
+            if (session != null) {
+                log.debug("Saving " + anchors.size() + " Trust Bundle Anchors");
+
+                tx = session.beginTransaction();
+
+                for (TrustBundleAnchor tba : anchors) {
+                    // TODO: set trust bundle?
+                    session.save(tba);
+                }
+
+                tx.commit();
+            }
+        } catch (Exception e) {
+            DaoUtils.rollbackTransaction(tx);
+        } finally {
+            DaoUtils.closeSession(session);
         }
     }
 }
