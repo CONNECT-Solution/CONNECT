@@ -18,23 +18,22 @@
 				</f:facet>
 			</ui:remove>
 
-        <p:outputPanel autoUpdate="true">
+            <p:outputPanel autoUpdate="true">
 
                 <p:panelGrid columns="2" styleClass="ui-panelgrid-admin">
-                    <p:selectCheckboxMenu value="#{dashboardBean.selectedClosedPanels}" label="Available Panels" panelStyle="width:220px">
+                    <p:selectCheckboxMenu value="#{dashboardBean.selectedClosedPanels}" label="Available Metrics" panelStyle="width:220px">
                         <f:selectItems value="#{dashboardBean.closedPanels}"/>
                     </p:selectCheckboxMenu>
-                    <p:commandButton value="Submit" id="dash-command" ajax="false"
-                                     action="#{dashboardBean.addPanels}"/>
+                    <p:commandButton value="Submit" id="dash-command" ajax="false" action="#{dashboardBean.addPanels}"/>
                 </p:panelGrid>
 
                 <p:outputPanel id="dashboard_output_panel">
-                    <p:dashboard id="admingui_dashboard" binding="#{dashboardBean.dashboard}" 
-                                 styleClass="admin-dashboard" style=".ui-dashboard-column {width:200px;}"/>
+                    <p:dashboard id="admingui_dashboard" binding="#{dashboardBean.dashboard}" styleClass="admin-dashboard" />
                 </p:outputPanel>
+				
+				<div class="clearfix"></div>
 
-        </p:outputPanel>
+            </p:outputPanel>
         </ui:composition>
     </h:body>
 </html>
-
