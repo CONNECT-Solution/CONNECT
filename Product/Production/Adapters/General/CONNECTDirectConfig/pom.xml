@@ -103,6 +103,16 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-annotations</artifactId>
             <version>3.3.1.GA</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>cglib</groupId>
+                    <artifactId>cglib</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>ejb3-persistence</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -150,13 +160,14 @@
         </dependency>
 
         <!-- Mina -->
-        <dependency>
+        <!-- Conflicts with CXF 2.7, but fixes the ByteBuffer class not found issue -->
+        <!--dependency>
             <groupId>org.apache.mina</groupId>
             <artifactId>mina-core</artifactId>
             <version>1.1.7</version>
-        </dependency>
+        </dependency-->
 
-        <!-- -->
+        <!-- Apache Commons -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
