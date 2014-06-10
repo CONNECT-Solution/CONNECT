@@ -41,30 +41,33 @@
                 <h:form>
                     <h1 class="section-header">Gateway Status</h1>
                     <!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
-                    <p:tabView id="tabview" effect="fade" effectDuration="normal" dynamic="true"
-                               activeIndex="#{tabBean.dashboardTabIndex}" > 
-                        <p:tab title="Gateway Monitor" closable="true">
+                    <p:tabView id="tabview" effect="fade" effectDuration="normal" dynamic="true" activeIndex="#{tabBean.dashboardTabIndex}" styleClass="tabs-override tabs-ovr-orange" > 
+                        <p:tab title="Gateway Monitor" closable="false">
                             <ui:insert id="dashboard_status">
                                 <ui:include src="Dashboard.xhtml" />
                             </ui:insert>
                         </p:tab>
-                        <p:tab title="Performance Statistics" closable="true">
+                        <p:tab title="Performance Statistics" closable="false">
                             <div class="content-block">
                                 <h2 class="subsection-header">CONNECT Performance Statistics</h2>
-                                <p:lineChart value="#{chartBean.model}" legendPosition="ne"/>                          
+                                <div class="chart-block">
+									<p:lineChart value="#{chartBean.model}" legendPosition="ne"/>
+								</div>
                             </div>
                             <div class="content-block">
                                 <h2 class="subsection-header">Direct Performance Statistics</h2>
+								<div class="chart-block">
+									[to be developed]
+								</div>
                             </div>
                         </p:tab>
                         <!-- END: TAB PANE - PERFORMANCE STATISTICS -->
                         <!-- BEGIN: TAB PANE - REMOTE GATEWAYS -->
-                        <p:tab title="Remote Gateway" closable="true">
+                        <p:tab title="Remote Gateway" closable="false">
                         <div class="content-block">
                                 <h2 class="subsection-header">Remote Gateway List</h2>
                                 <div class="table-responsive">
-                                    <p:dataTable id="dashboardId" value="#{eventBean.totalEvents}"
-                                                 var="organization" styleClass="table table-striped table-remotegateways">
+                                    <p:dataTable id="dashboardId" value="#{eventBean.totalEvents}" var="organization" styleClass="table table-striped table-remotegateways">
                                         <p:column headerText="Gateway">
                                             <h:outputText value="#{organization.organizationName}" />
                                         </p:column>

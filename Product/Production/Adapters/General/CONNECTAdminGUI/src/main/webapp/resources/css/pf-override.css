@@ -16,7 +16,8 @@
     - dashboard
 	- performance stats
 	- remote gateway list
-
+05. RESPONSIVE @MEDIA
+    - set different styles at different browser window sizes
 
 =============================================================================
 
@@ -40,6 +41,17 @@ body {
 	color: #333;
 }
 
+.cf:before,
+.cf:after {
+    content: " "; /*  */
+    display: table; /*  */
+}
+.cf:after {
+    clear: both;
+}
+.cf {
+    *zoom: 1; /* For IE 6/7 only - Include this rule to trigger hasLayout and contain floats */
+}
 
 
 /* -- SIDEBAR STYLES ---------------------------------------------------------*/
@@ -277,6 +289,9 @@ body {
 	width:100%; /* 92% */
 }
 
+
+
+
 /* -- GATEWAY STATUS STYLES --------------------------------------------------*/
 
 /* -- TAB NAV STYLES -- */
@@ -345,29 +360,126 @@ body {
 	background:#00b0f0;
 	color:#ffffff;
 }
+
+
+
 /* -- DASHBOARD STYLES -- */
 .ui-tabs .ui-tabs-panel {
 	/*
 	border-width: 0;
 	background: none;
 	*/
-	padding:20px 40px; /* 1em 1.4em */
-}
-.ui-panelgrid-admin {
-    margin-bottom:20px;
+	padding:40px; /* 1em 1.4em */
 }
 
+.ui-panelgrid-admin {
+    width:100%;
+	margin-bottom:20px;
+	border-bottom:1px solid #b9cde5;
+}
 .ui-panelgrid-admin td, .ui-panelgrid-admin tr {
     border: none;
     background-color: inherit;
 }
+.ui-panelgrid-admin td {
+	padding:0px 20px 20px 0px;
+	text-align:right;
+}
+.ui-panelgrid-admin td:first-child {
+	width:100%;
+}
+.ui-panelgrid-admin .ui-selectcheckboxmenu, .ui-panelgrid-admin .ui-selectcheckboxmenu-trigger {
+	background:#cccccc;
+	color:#333333;
+	border:1px solid #aaaaaa;
+	text-shadow:none;
+	box-shadow:none;
+}
+.ui-panelgrid-admin .ui-selectcheckboxmenu:hover, .ui-panelgrid-admin .ui-selectcheckboxmenu-trigger:hover {
+	border:1px solid #999999;
+}
+.ui-panelgrid-admin .ui-selectcheckboxmenu a {
+	text-shadow:none;
+}
+.ui-panelgrid-admin label.ui-selectcheckboxmenu-label {
+    margin:0px;
+	padding:11px 42px 11px 22px; /* 5px 30px 5px 10px */
+	border-radius:0;
+}
+.ui-panelgrid-admin label.ui-selectcheckboxmenu-label.ui-state-hover {
+    background:#bbbbbb;
+	box-shadow:none;
+}
+.ui-panelgrid-admin .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger {
+	width:auto;
+	padding:9px 3px;
+	border-style:none none none solid;
+}
+.ui-panelgrid-admin .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger.ui-state-hover {
+	background:#bbbbbb;
+}
+
+.ui-selectcheckboxmenu-panel {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+}
+.ui-selectcheckboxmenu-panel .ui-widget-header {
+	padding:5px 0px 3px 5px;
+	background:#eeeeee;
+	border-style:none none solid none;
+	border-radius:0;
+}
+.ui-selectcheckboxmenu-panel .ui-widget-header:before {
+	content:'Check/uncheck all';
+	padding-left:5px;
+	color:#a8a8a8;
+	font-size:12px;
+	text-shadow:none;
+}
+.ui-selectcheckboxmenu-panel .ui-widget-header .ui-selectcheckboxmenu-close.ui-state-hover {
+	padding:1px;
+	background:none;
+	border:none;
+	box-shadow:none;
+}
+.ui-selectcheckboxmenu-panel .ui-chkbox .ui-chkbox-box {
+	background:#ffffff;
+	box-shadow:none;
+}
+.ui-selectcheckboxmenu-panel .ui-chkbox .ui-chkbox-box .ui-chkbox-icon.ui-icon {
+	margin-top:-2px;
+	margin-left:-1px;
+}
+
+.ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-list-item label {
+	margin:0px;
+	padding-left:20px;
+}
+
+.ui-panelgrid-admin .ui-button {
+	margin:0px;
+	padding:6px 12px;
+	color:#ffffff;
+	background:#428bca;
+	border:1px solid #357ebd;
+	text-shadow:none;
+	box-shadow:none;
+}
+.ui-panelgrid-admin .ui-button.ui-state-hover {
+    background:#3276b1;
+	border:1px solid #285e8e;
+	box-shadow:none;
+}
+.ui-panelgrid-admin .ui-button-text-only .ui-button-text {
+	padding:5px 10px;
+}
 
 .ui-dashboard-column {
-    width:200px;
+    width:25%;
 }
 
 .ui-dashboard-column .ui-panel {
-    padding-top: 1px!important;
+    /*
+	padding-top: 1px!important;
     padding-bottom: 1px!important;
     padding-left: 1px!important;
     padding-right: 1px!important;
@@ -381,12 +493,148 @@ body {
     border-right-color: #254061!important;
     border-bottom-color: #254061!important;
     border-left-color: #254061!important;
+	*/
+	min-height:150px;
+	margin-right:20px;
+	margin-bottom:20px;
+	padding:0;
+	border:none;
+	border-radius:0;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
-.ui-panel .ui-panel-content {
-      color:#a8a8a8;  
+.admin-dashboard .ui-widget-content {
+    color:#a8a8a8;
 }
-.admin-dashboard .ui-widget-header {
-    text-shadow: none;
+.admin-dashboard .ui-panel-titlebar {
+	padding:8px 15px 6px;
     background:#254061;
     color:#a8a8a8;
+	border:none;
+	border-radius:0;
+    text-shadow:none;
+}
+.admin-dashboard .ui-panel-titlebar .ui-panel-title {
+	margin:0px 5px 0px 0px;
+}
+.ui-panel .ui-panel-titlebar-icon, .ui-panel .ui-panel-titlebar-icon:hover, .ui-panel .ui-panel-titlebar-icon:focus {
+	margin:0px -5px 0px;
+	background:none;
+	border:none;
+	box-shadow:none;
+}
+.ui-panel .ui-panel-titlebar-icon .ui-icon {
+	background-image:url("/resources/images/ui-icons_a8a8a8_256x240.png");
+}
+.ui-panel .ui-panel-titlebar-icon.ui-state-hover .ui-icon {
+	box-shadow:none;
+	background-image:url("/javax.faces.resource/images/ui-icons_ffffff_256x240.png.xhtml?ln=primefaces-aristo");
+}
+.admin-dashboard .ui-panel-content {
+    padding:15px;
+    font-size:20px;
+	font-weight:bold;
+}
+
+
+/* -- REMOTE GATEWAY LIST STYLES -- */
+.main-content .table-remotegateways th {
+	font-size:14px;
+	text-align:left;
+	background:none;
+	border:none;
+	color:#808080;
+}
+.main-content .table-remotegateways tbody.ui-widget-content {
+	border:none;
+}
+.main-content .table-remotegateways tr {
+	border:none;
+}
+.main-content .table-remotegateways tr.ui-datatable-odd {
+	background:#eeeeee;
+}
+.main-content .table-remotegateways tbody > tr:hover > td, 
+.main-content .table-remotegateways tbody > tr.ui-datatable-even:hover > td, 
+.main-content .table-remotegateways tbody > tr.ui-datatable-odd:hover > td {
+	background:#eeeeee;
+	color:#000000;
+}
+.main-content .table-remotegateways th.ui-state-hover {
+	box-shadow:none;
+}
+.main-content .table-remotegateways td {
+	border-right:none;
+}
+
+
+
+/* -- RESPONSIVE @MEDIA STYLES -----------------------------------------------*/
+@media (max-width: 1100px) {
+	.sidebar h1.page-header {
+		font-size:22px;
+	}
+}
+@media (max-width: 1033px) {
+	.admin-dashboard .ui-panel-titlebar {
+		position:relative;
+	}
+	.admin-dashboard .ui-panel-titlebar-icon {
+		position: absolute;
+		top:8px;
+		right:12px;
+	}
+}
+@media (max-width: 1004px) {
+	.admin-dashboard .ui-panel-titlebar {
+		height:56px;
+	}
+}
+@media (max-width: 1000px) {
+	.sidebar h1.page-header {
+		font-size:20px;
+	}
+}
+@media (max-width: 900px) {
+	.sidebar h1.page-header {
+		font-size:18px;
+	}
+	.sidebar h3.ui-panelmenu-header { /* h2.section-header */
+		font-size:10px;
+	}
+	.sidebar ul.ui-menu-list li a, .sidebar ul.ui-menu-list li a .ui-menuitem-text { /* ul.nav li a */
+		font-size:13px;
+	}
+	.navbar {
+		min-height:30px;
+	}
+	.ui-tabs.tabs-override ul.ui-tabs-nav li { /* .nav-section-tabs ul.nav li */
+		line-height:30px;
+	}
+	.ui-tabs.tabs-override ul.ui-tabs-nav li a { /* .nav-section-tabs ul.nav li */
+		padding:10px 15px;
+		font-size:14px;
+	}
+	.main h2.subsection-header {
+		padding:12px;
+	}
+	.main-content table[class*="table-"] td {
+		font-size:14px;
+	}
+}
+@media (max-width: 800px) {
+	.sidebar h1.page-header {
+		font-size:16px;
+	}
+	.ui-tabs.tabs-override ul.ui-tabs-nav li { /* .nav-section-tabs ul.nav li */
+		width:120px;
+		white-space:normal;
+	}
+	.ui-tabs.tabs-override ul.ui-tabs-nav li a { /* .nav-section-tabs ul.nav li */
+		padding:7px 13px;
+		font-size:13px;
+		line-height:1.428571429;
+	}
+	#domains .ui-tabs ul.ui-tabs-nav li {
+		width:auto;
+	}
 }
