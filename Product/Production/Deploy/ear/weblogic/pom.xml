@@ -41,8 +41,9 @@
                     <skinnyWars>true</skinnyWars>
                     <includeLibInApplicationXml>false</includeLibInApplicationXml>
                     <packagingExcludes>
-                        lib/geronimo-stax-api-*.jar
-                        lib/jsr173-*.jar
+                        lib/geronimo-stax-api-*.jar,
+                        lib/jsr173-*.jar,
+                        lib/Properties-*.jar
                     </packagingExcludes>
                 </configuration>
             </plugin>

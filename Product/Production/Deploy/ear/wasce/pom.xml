@@ -40,7 +40,8 @@
                         lib/velocity-1.5*,
                         lib/xercesImpl-2.10.0.jar,
                         lib/xml-apis-*,
-                        lib/activation-*.jar
+                        lib/activation-*.jar,
+                        lib/Properties-*.jar
                     </packagingExcludes>
                 </configuration>
             </plugin>

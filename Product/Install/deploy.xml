@@ -166,12 +166,12 @@
         <echo>--passwordfile ${deploy.glassfish.password.file.path} --port
             ${deployment.glassfish.admin.port} --host
             ${deployment.glassfish.server} --user
-            ${deployment.glassfish.server.username} deploy --force
+            ${deployment.glassfish.server.username} deploy --libraries ${deployment.config.home} --force
             ${deployment.glassfish.ear.file.path}</echo>
         <exec executable="${ASADMIN}" failonerror="true">
             <env key="AS_ADMIN_READTIMEOUT" value="1200000" />
             <arg
-                line="--passwordfile ${deploy.glassfish.password.file.path} deploy --force ${deployment.glassfish.ear.file.path}" />
+                line="--passwordfile ${deploy.glassfish.password.file.path} deploy --libraries ${deployment.config.home} --force ${deployment.glassfish.ear.file.path}" />
         </exec>
     </target>
 
