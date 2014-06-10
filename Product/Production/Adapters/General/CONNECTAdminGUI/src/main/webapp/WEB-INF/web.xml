@@ -103,9 +103,5 @@
     <filter-mapping>
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <servlet-name>facesServlet</servlet-name>
-        <init-param>
-               <param-name>thresholdSize</param-name>
-               <param-value>51200</param-value>
-        </init-param>
     </filter-mapping>
 </web-app>

@@ -38,6 +38,7 @@ public class DirectDomain {
     
     private List<DirectAddress> addresses = new ArrayList<DirectAddress>();
     private List<DirectAnchor> anchors = new ArrayList<DirectAnchor>();
+    private List<DirectTrustBundle> trustBundles = new ArrayList<DirectTrustBundle>();
 
     public DirectDomain(){
         
@@ -122,5 +123,21 @@ public class DirectDomain {
     
     public void addAnchor(DirectAnchor anchor){
         anchors.add(anchor);
+    }
+
+    public List<DirectTrustBundle> getTrustBundles() {
+        return trustBundles;
+    }
+
+    public void setTrustBundles(List<DirectTrustBundle> trustBundles) {
+        this.trustBundles = trustBundles;
+    }
+    
+    public void addTrustBundle(DirectTrustBundle tb){
+        trustBundles.add(tb);
+    }
+    
+    public void addTrustBundles(List<DirectTrustBundle> tbs){
+        trustBundles.addAll(tbs);
     }
 }
