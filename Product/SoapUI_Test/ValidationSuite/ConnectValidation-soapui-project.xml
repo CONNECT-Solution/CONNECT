@@ -321,7 +321,7 @@ if(passthruValue != null){
             </urn1:userInfo>
             <urn1:authorized>true</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
-               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:code>TREATMENT</urn1:code>
                <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
                <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
@@ -899,7 +899,7 @@ if(passthruValue != null){
             <urn1:authorized>true</urn1:authorized>
             <!--Optional:-->
             <urn1:purposeOfDisclosureCoded>
-               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:code>TREATMENT</urn1:code>
                <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
                <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
@@ -1253,7 +1253,7 @@ if(passthruValue != null){
             </urn1:userInfo>
             <urn1:authorized>true</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
-               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:code>TREATMENT</urn1:code>
                <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
                <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
@@ -1799,7 +1799,7 @@ if(passthruValue != null){
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
-               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:code>TREATMENT</urn1:code>
                <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
                <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
@@ -2212,7 +2212,7 @@ if(passthruValue != null){
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
-               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:code>TREATMENT</urn1:code>
                <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
                <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
@@ -4221,7 +4221,7 @@ if(passthruValue != null){
             </urn1:userInfo>
             <urn1:authorized>true</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
-               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:code>TREATMENT</urn1:code>
                <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
                <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
@@ -4784,7 +4784,7 @@ if(passthruValue != null){
             <urn1:authorized>true</urn1:authorized>
             <!--Optional:-->
             <urn1:purposeOfDisclosureCoded>
-               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:code>TREATMENT</urn1:code>
                <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
                <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
@@ -5142,7 +5142,7 @@ if(passthruValue != null){
             </urn1:userInfo>
             <urn1:authorized>true</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
-               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:code>TREATMENT</urn1:code>
                <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
                <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
@@ -5693,7 +5693,7 @@ if(passthruValue != null){
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
-               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:code>TREATMENT</urn1:code>
                <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
                <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
@@ -6089,7 +6089,7 @@ if(passthruValue != null){
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
-               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:code>TREATMENT</urn1:code>
                <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
                <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
