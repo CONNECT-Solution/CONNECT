@@ -41,34 +41,47 @@
         <ui:define name="content">    
             
             <h:form id="manageRoleForm" prependId="false">
+                <h1 class="section-header">Manage Roles</h1>
+
+                <div class="divManageRole">
+                    <div class="form-group">
+                      <div class="col-sm-2">                                     
+                        <h:selectOneMenu value="#{manageRoleBean.selectedRole}" class="manageRoleSelectMenu form-control">
+                            <p:ajax event="change" listener="#{manageRoleBean.roleChanged}" update="pagesTable"/>
+                            <f:selectItem itemLabel="Select Role" noSelectionOption="true" />  
+                            <f:selectItems value="#{manageRoleBean.roleLabels}"  
+                                var="role" itemLabel="#{role}"  
+                                itemValue="#{role}"/>
+                        </h:selectOneMenu>
+                      </div>
+                    </div>
+                </div>
+                <div class="content-block">   
+                    <h2 class="subsection-header">Pages List</h2>
+                    <div class="table-responsive">                      
+                      <p:dataTable id="pagesTable" var="page" value="#{manageRoleBean.pages}" resizableColumns="true" styleClass="table table-striped table-remotegateways">                          
+                          <p:column headerText="Page Name">
+                              <h:outputText value="#{page.preference.pageDesc}" />
+                          </p:column>
+                          <p:column headerText="Page Level Access">
+                            <div class="form-group">
+                              <div class="col-sm-5">
+                                  <h:selectOneMenu value="#{page.selectedAccessLevel}" label="#{page.selectedAccessLevel}" class="form-control">
+                                      <p:ajax event="change" listener="#{manageRoleBean.accessLevelChanged}" />
+                                      <f:selectItems value="#{page.availableAccessLevels}" 
+                                                     var="access" itemLabel="#{access}"
+                                                     itemValue="#{access}"/>
+                                  </h:selectOneMenu>
+                              </div>
+                            </div>
+                          </p:column>
+                      </p:dataTable>
+                    </div>
+                    
+                </div> 
                 <p:messages id="messages" showDetail="true" autoUpdate="true">
                     <p:effect type="fade" event="load" delay="1000" />
-                </p:messages>
-                
-                <p:selectOneMenu value="#{manageRoleBean.selectedRole}">
-                    <p:ajax event="change" listener="#{manageRoleBean.roleChanged}" update="pagesTable"/>
-                    <f:selectItem itemLabel="Select Role" noSelectionOption="true" />  
-                    <f:selectItems value="#{manageRoleBean.roleLabels}"  
-                        var="role" itemLabel="#{role}"  
-                        itemValue="#{role}"/>
-                </p:selectOneMenu>
-                
-                
-                <p:dataTable id="pagesTable" var="page" value="#{manageRoleBean.pages}" resizableColumns="true"
-                    style="margin-bottom:20px">
-                    <f:facet name="header">Pages</f:facet>
-                    <p:column headerText="Page">
-                        <h:outputText value="#{page.preference.pageDesc}" />
-                    </p:column>
-                    <p:column headerText="Page Level Access">
-                        <p:selectOneMenu value="#{page.selectedAccessLevel}" label="#{page.selectedAccessLevel}">
-                            <p:ajax event="change" listener="#{manageRoleBean.accessLevelChanged}" />
-                            <f:selectItems value="#{page.availableAccessLevels}" 
-                                           var="access" itemLabel="#{access}"
-                                           itemValue="#{access}"/>
-                        </p:selectOneMenu>
-                    </p:column>
-                </p:dataTable>
+                </p:messages>               
             </h:form>
         </ui:define>
     </ui:composition>
