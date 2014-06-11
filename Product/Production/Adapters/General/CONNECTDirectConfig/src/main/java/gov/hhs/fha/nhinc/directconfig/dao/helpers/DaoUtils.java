@@ -41,6 +41,11 @@ public class DaoUtils {
         return idList;
     }
 
+    /**
+     * Opens and returns a Session, using the Hibernate SessionFactory.
+     * 
+     * @return the opened Session.
+     */
     public static Session getSession() {
         Session session = null;
         SessionFactory fact = HibernateUtil.getSessionFactory();
@@ -54,8 +59,8 @@ public class DaoUtils {
         return session;
     }
 
-    /*
-     * TODO: Comments
+    /**
+     * Attempt (safely) to close the Session.
      */
     public static void closeSession(Session session) {
         if (session != null) {
@@ -67,8 +72,8 @@ public class DaoUtils {
         }
     }
 
-    /*
-     * TODO: Comments
+    /**
+     * Attempt (safely) to rollback the Transaction.
      */
     public static void rollbackTransaction(Transaction tx) {
         if (tx != null) {

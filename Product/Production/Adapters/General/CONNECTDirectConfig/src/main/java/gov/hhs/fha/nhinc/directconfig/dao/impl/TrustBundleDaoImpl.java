@@ -715,7 +715,6 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
                 tx = session.beginTransaction();
 
                 for (TrustBundleAnchor tba : anchors) {
-                    // TODO: set trust bundle?
                     session.save(tba);
                 }
 
