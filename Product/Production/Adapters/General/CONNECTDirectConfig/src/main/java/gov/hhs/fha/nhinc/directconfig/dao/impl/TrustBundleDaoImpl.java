@@ -344,7 +344,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
                         try {
                             final TrustBundle bundle = getTrustBundleById(id);
 
-                            disassociateTrustBundleFromDomains(id);
+                            // disassociateTrustBundleFromDomains(id);
                             session.delete(bundle);
                         } catch (ConfigurationStoreException e) {
                             log.warn(e.getMessage(), e);

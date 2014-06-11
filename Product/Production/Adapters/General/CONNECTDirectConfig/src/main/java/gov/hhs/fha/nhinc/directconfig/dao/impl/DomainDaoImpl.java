@@ -189,11 +189,10 @@ public class DomainDaoImpl implements DomainDao {
      */
     @Override
     public void delete(String name) {
-        // delete addresses first if they exist
         final Domain domain = getDomainByName(name);
 
         if (domain != null) {
-            disassociateTrustBundlesFromDomain(domain.getId());
+            // disassociateTrustBundlesFromDomain(domain.getId());
 
             Session session = null;
             Transaction tx = null;
