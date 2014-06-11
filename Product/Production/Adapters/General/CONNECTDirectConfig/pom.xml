@@ -14,6 +14,12 @@
     <name>${project.artifactId}</name>
 
     <dependencies>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>CONNECTCoreLib</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
         <!-- Spring framework -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -62,18 +68,6 @@
 
         <!-- Hibernate -->
         <dependency>
-            <groupId>javax.transaction</groupId>
-            <artifactId>jta</artifactId>
-            <version>1.0.1B</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jpa_2.0_spec</artifactId>
-            <version>1.0</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate</artifactId>
             <version>3.2.5.ga</version>
@@ -92,7 +86,7 @@
                     <artifactId>asm-attrs</artifactId>
                 </exclusion>
                 <exclusion>
-                    <!-- exclude and use <artifactId>cglib-nodep</artifactId> 
+                    <!-- exclude and use <artifactId>cglib-nodep</artifactId>
                         to include the asm it needs in a private package space. -->
                     <groupId>cglib</groupId>
                     <artifactId>cglib</artifactId>
@@ -104,52 +98,29 @@
             </exclusions>
         </dependency>
 
-        <dependency>
-            <!-- Used to include the asm it needs in a private package 
-                space. -->
-            <groupId>cglib</groupId>
-            <artifactId>cglib-nodep</artifactId>
-            <version>2.1_3</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>3.3.2.GA</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>3.3.2.GA</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.hibernate</groupId>
-                    <artifactId>ejb3-persistence</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>geronimo-spec</groupId>
-            <artifactId>geronimo-spec-jta</artifactId>
-            <version>1.0.1B-rc4</version>
-            <scope>provided</scope>
-        </dependency>
+        <!-- Used for EnumType -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-annotations</artifactId>
             <version>3.3.1.GA</version>
             <exclusions>
                 <exclusion>
+                    <groupId>cglib</groupId>
+                    <artifactId>cglib</artifactId>
+                </exclusion>
+                <exclusion>
                     <groupId>org.hibernate</groupId>
                     <artifactId>ejb3-persistence</artifactId>
                 </exclusion>
-                <exclusion>
-                    <groupId>javax.activation</groupId>
-                    <artifactId>activation</artifactId>
-                </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <!-- Used to include the asm it needs in a private package
+                space. -->
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>2.1_3</version>
         </dependency>
 
         <!-- CXF -->
@@ -188,7 +159,15 @@
             <version>2.9.2</version>
         </dependency>
 
-        <!-- -->
+        <!-- Mina -->
+        <!-- Conflicts with CXF 2.7, but fixes the ByteBuffer class not found issue -->
+        <!--dependency>
+            <groupId>org.apache.mina</groupId>
+            <artifactId>mina-core</artifactId>
+            <version>1.1.7</version>
+        </dependency-->
+
+        <!-- Apache Commons -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -281,7 +260,7 @@
             <artifactId>jaxb-xjc</artifactId>
             <version>2.2.7-b41</version>
         </dependency>
-        
+
         <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>

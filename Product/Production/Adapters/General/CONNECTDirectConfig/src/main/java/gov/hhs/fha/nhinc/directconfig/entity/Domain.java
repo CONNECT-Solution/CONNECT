@@ -25,24 +25,24 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*
-Copyright (c) 2010, NHIN Direct Project
-All rights reserved.
+ Copyright (c) 2010, NHIN Direct Project
+ All rights reserved.
 
-Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
-1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 
-2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer
-in the documentation and/or other materials provided with the distribution.
-3. Neither the name of the The NHIN Direct Project (nhindirect.org) nor the names of its contributors may be used to endorse or promote
-products derived from this software without specific prior written permission.
+ 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer
+ in the documentation and/or other materials provided with the distribution.
+ 3. Neither the name of the The NHIN Direct Project (nhindirect.org) nor the names of its contributors may be used to endorse or promote
+ products derived from this software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
-THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS
-BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
-GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
-THE POSSIBILITY OF SUCH DAMAGE.
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS
+ BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+ GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+ THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package gov.hhs.fha.nhinc.directconfig.entity;
@@ -53,25 +53,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@Entity
-@Table(name = "domain")
 /**
  * The JPA Domain class
  */
@@ -79,18 +64,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Domain {
 
     private String domainName;
-
     private Calendar createTime;
-
     private Calendar updateTime;
-
     private Long postmasterAddressId;
-
     private Collection<Address> addresses;
-
     private Long id;
-
     private EntityStatus status = EntityStatus.NEW;
+    private Collection<TrustBundleDomainReltn> relations;
 
     /**
      * Construct a Domain.
@@ -115,9 +95,6 @@ public class Domain {
      * 
      * @return the value of id.
      */
-    @Column(name = "id", nullable = false)
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @XmlAttribute
     public Long getId() {
         return id;
@@ -137,7 +114,6 @@ public class Domain {
      * 
      * @return the value of domainName.
      */
-    @Column(name = "domainName", unique = true)
     public String getDomainName() {
         return domainName;
     }
@@ -147,8 +123,6 @@ public class Domain {
      * 
      * @return the value of createTime.
      */
-    @Column(updatable = false, nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getCreateTime() {
         return createTime;
     }
@@ -158,7 +132,6 @@ public class Domain {
      * 
      * @return the value of postmasterAddressId.
      */
-    @Column(name = "postmasterAddressId")
     public Long getPostmasterAddressId() {
         return postmasterAddressId;
     }
@@ -177,7 +150,6 @@ public class Domain {
      * 
      * @return the value of updateTime.
      */
-    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getUpdateTime() {
         return updateTime;
     }
@@ -187,8 +159,6 @@ public class Domain {
      * 
      * @return the value of status.
      */
-    @Column(name = "status")
-    @Enumerated
     @XmlAttribute
     public EntityStatus getStatus() {
         return status;
@@ -237,7 +207,6 @@ public class Domain {
      * 
      * @return the postmaster email address.
      */
-    @Transient
     public String getPostMasterEmail() {
         String result = null;
         // return the address that matched the ID
@@ -265,7 +234,6 @@ public class Domain {
      * @param email The postmaster email address.
      */
     public void setPostMasterEmail(String email) {
-
         if (email == null) {
             if (getPostmasterAddressId() != null) {
                 setPostmasterAddressId(null);
@@ -300,7 +268,6 @@ public class Domain {
      * 
      * @return a collection of addresses.
      */
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "domain")
     @XmlElement(name = "address")
     public Collection<Address> getAddresses() {
         if (addresses == null) {
@@ -319,11 +286,31 @@ public class Domain {
     }
 
     /**
+     * Set the collection of Trust Bundle - Domain relations
+     * 
+     * @param relations The collection of Trust Bundle - Domain relations
+     */
+    public void setRelations(Collection<TrustBundleDomainReltn> relations) {
+        this.relations = relations;
+    }
+
+    /**
+     * Get the collection of Trust Bundle - Domain relations
+     * 
+     * @return The collection of Trust Bundle - Domain relations
+     */
+    public Collection<TrustBundleDomainReltn> getRelations() {
+        if (relations == null) {
+            relations = new ArrayList<TrustBundleDomainReltn>();
+        }
+        return relations;
+    }
+
+    /**
      * Verify the Domain is valid.
      * 
      * @return true if the Domain is valid, false otherwise.
      */
-    @Transient
     public boolean isValid() {
         boolean result = false;
         if ((getDomainName() != null)

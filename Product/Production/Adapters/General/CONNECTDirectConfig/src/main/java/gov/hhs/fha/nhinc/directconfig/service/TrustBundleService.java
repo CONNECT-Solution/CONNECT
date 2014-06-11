@@ -52,6 +52,7 @@ import java.util.Collection;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.jws.WebService;
 
 import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundle;
@@ -63,6 +64,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleRefreshError;
  * @author Greg Meyer
  * @since 1.3
  */
+@WebService
 public interface TrustBundleService 
 {
     /**

@@ -51,6 +51,7 @@ import java.util.Collection;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.jws.WebService;
 
 import gov.hhs.fha.nhinc.directconfig.entity.CertPolicy;
 import gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroup;
@@ -59,7 +60,7 @@ import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.CertPolicyUse;
 import org.nhindirect.policy.PolicyLexicon;
 
-
+@WebService
 public interface CertificatePolicyService 
 {
     @WebMethod(operationName = "getPolicies", action = "urn:GetPolicies")

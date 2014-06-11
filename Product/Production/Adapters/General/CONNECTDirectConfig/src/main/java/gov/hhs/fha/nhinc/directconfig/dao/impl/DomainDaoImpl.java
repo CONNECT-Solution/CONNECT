@@ -25,30 +25,31 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*
-Copyright (c) 2010, NHIN Direct Project
-All rights reserved.
+ Copyright (c) 2010, NHIN Direct Project
+ All rights reserved.
 
-Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
-1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 
-2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer
-  in the documentation and/or other materials provided with the distribution.
-3. Neither the name of the The NHIN Direct Project (nhindirect.org) nor the names of its contributors may be used to endorse or promote
-  products derived from this software without specific prior written permission.
+ 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer
+ in the documentation and/or other materials provided with the distribution.
+ 3. Neither the name of the The NHIN Direct Project (nhindirect.org) nor the names of its contributors may be used to endorse or promote
+ products derived from this software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
-THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS
-BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
-GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
-THE POSSIBILITY OF SUCH DAMAGE.
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS
+ BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+ GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+ THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package gov.hhs.fha.nhinc.directconfig.dao.impl;
 
 import gov.hhs.fha.nhinc.directconfig.dao.AddressDao;
 import gov.hhs.fha.nhinc.directconfig.dao.DomainDao;
+import gov.hhs.fha.nhinc.directconfig.dao.helpers.DaoUtils;
 import gov.hhs.fha.nhinc.directconfig.entity.Address;
 import gov.hhs.fha.nhinc.directconfig.entity.Domain;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
@@ -63,10 +64,10 @@ import java.util.Locale;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
-import org.hibernate.SessionFactory;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Default Spring/JPA implemenation
@@ -77,47 +78,46 @@ import org.springframework.transaction.annotation.Transactional;
 public class DomainDaoImpl implements DomainDao {
 
     @Autowired
-    protected SessionFactory sessionFactory;
-
-    @Autowired
     protected AddressDao addressDao;
 
     private static final Log log = LogFactory.getLog(DomainDaoImpl.class);
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.dao.DomainDao#count()
+    /**
+     * {@inheritDoc}
      */
     @Override
-    @Transactional(readOnly = true)
     public int count() {
-        log.debug("Enter");
-        Long result = (Long) sessionFactory.getCurrentSession().createQuery("select count(d) from Domain d")
-                .uniqueResult();
+        Session session = null;
 
-        log.debug("Exit: " + result.intValue());
-        return result.intValue();
-    }
+        int count = 0;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.dao.DomainDao#add(gov.hhs.fha.nhinc.directconfig.entity.Domain)
-     */
-    @Override
-    @Transactional(readOnly = false)
-    public void add(Domain item) {
-        log.debug("Enter");
+        try {
+            session = DaoUtils.getSession();
 
-        if (item.getDomainName() == null || item.getDomainName().isEmpty()) {
-            throw new ConfigurationStoreException("Domain name cannot be empty or null");
+            if (session != null) {
+                count = ((Long) session.createQuery("SELECT count(*) FROM Domain").uniqueResult()).intValue();
+            }
+        } finally {
+            DaoUtils.closeSession(session);
         }
 
-        // Save and clear Address information until the Domain is saved.
-        // This is really something that JPA should be doing, but doesn't seem
-        // to work.
+        log.debug("Domain Count: " + count);
+
+        return count;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void add(Domain item) {
         if (item != null) {
+            if (item.getDomainName() == null || item.getDomainName().isEmpty()) {
+                throw new ConfigurationStoreException("Domain name cannot be empty or null");
+            }
+
+            // Direct RI Comment: Save and clear Address information until the Domain is saved.
+            // This is really something that JPA should be doing, but doesn't seem to work.
             Collection<Address> addresses = item.getAddresses();
 
             item.setAddresses(null);
@@ -126,300 +126,291 @@ public class DomainDaoImpl implements DomainDao {
             item.setCreateTime(Calendar.getInstance());
             item.setUpdateTime(item.getCreateTime());
 
-            log.debug("Calling JPA to persist the Domain");
+            Session session = null;
+            Transaction tx = null;
 
-            sessionFactory.getCurrentSession().persist(item);
+            try {
+                session = DaoUtils.getSession();
 
-            log.debug("Persisted the bare Domain");
+                if (session != null) {
+                    tx = session.beginTransaction();
+                    session.persist(item);
+                    tx.commit();
 
-            if ((addresses != null) && (addresses.size() > 0)) {
-                item.setAddresses(addresses);
-
-                log.debug("Updating the domain with Address info");
-                update(item);
+                    saveAddresses(addresses);
+                }
+            } catch (Exception e) {
+                DaoUtils.rollbackTransaction(tx);
+            } finally {
+                DaoUtils.closeSession(session);
             }
-
-            log.debug("Returned from JPA: Domain ID=" + item.getId());
         }
-
-        log.debug("Exit");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.dao.DomainDao#update(gov.hhs.fha.nhinc.directconfig.entity.Domain)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    @Transactional(readOnly = false)
     public void update(Domain item) {
-        log.debug("Enter");
-
         if (item != null) {
             item.setUpdateTime(Calendar.getInstance());
 
-            for (Address address : item.getAddresses()) {
-                if ((address.getId() == null) || (address.getId().longValue() == 0)) {
-                    log.debug("Adding " + address.toString() + " to database");
-                    addressDao.add(address);
+            Session session = null;
+            Transaction tx = null;
+
+            try {
+                session = DaoUtils.getSession();
+
+                if (session != null) {
+                    tx = session.beginTransaction();
+                    session.merge(item);
+                    tx.commit();
+
+                    saveAddresses(item.getAddresses());
                 }
+            } catch (Exception e) {
+                DaoUtils.rollbackTransaction(tx);
+            } finally {
+                DaoUtils.closeSession(session);
             }
-
-            log.debug("Calling JPA to perform update...");
-            sessionFactory.getCurrentSession().merge(item);
         }
-
-        log.debug("Exit");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.dao.DomainDao#save(gov.hhs.fha.nhinc.directconfig.entity.Domain)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    @Transactional(readOnly = false)
     public void save(Domain item) {
         update(item);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.dao.DomainDao#delete(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    @Transactional(readOnly = false)
     public void delete(String name) {
-        log.debug("Enter");
-
-        // delete addresses first if they exist
         final Domain domain = getDomainByName(name);
 
         if (domain != null) {
-            disassociateTrustBundlesFromDomain(domain.getId());
+            Session session = null;
+            Transaction tx = null;
 
-            sessionFactory.getCurrentSession().delete(domain);
+            try {
+                session = DaoUtils.getSession();
+
+                if (session != null) {
+                    tx = session.beginTransaction();
+                    session.delete(domain);
+                    tx.commit();
+                }
+            } catch (Exception e) {
+                DaoUtils.rollbackTransaction(tx);
+            } finally {
+                DaoUtils.closeSession(session);
+            }
         } else {
             log.warn("No domain matching the name: " + name + " found.  Unable to delete.");
         }
-
-        log.debug("Exit");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.dao.DomainDao#delete(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    @Transactional(readOnly = false)
     public void delete(Long anId) {
-        log.debug("Enter");
-
         final Domain domain = getDomain(anId);
 
         if (domain != null) {
-            disassociateTrustBundlesFromDomain(domain.getId());
+            Session session = null;
+            Transaction tx = null;
 
-            sessionFactory.getCurrentSession().delete(domain);
+            try {
+                session = DaoUtils.getSession();
+
+                if (session != null) {
+                    tx = session.beginTransaction();
+                    session.delete(domain);
+                    tx.commit();
+                }
+            } catch (Exception e) {
+                DaoUtils.rollbackTransaction(tx);
+            } finally {
+                DaoUtils.closeSession(session);
+            }
         } else {
             log.warn("No domain matching the id: " + anId + " found.  Unable to delete.");
         }
-
-        log.debug("Exit");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.dao.DomainDao#getDomainByName(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    @Transactional(readOnly = true)
     public Domain getDomainByName(String name) {
-        log.debug("Enter");
-
         Domain result = null;
 
         if (name != null) {
-            Query select = sessionFactory.getCurrentSession().createQuery(
-                    "SELECT DISTINCT d from Domain d WHERE UPPER(d.domainName) = ?");
-            Query paramQuery = select.setParameter(0, name.toUpperCase(Locale.getDefault()));
+            Session session = null;
+            Query query = null;
 
-            if (paramQuery.list().size() > 0) {
-                result = (Domain) paramQuery.uniqueResult();
+            try {
+                session = DaoUtils.getSession();
+
+                if (session != null) {
+                    query = session
+                            .createQuery("SELECT DISTINCT d FROM Domain d WHERE UPPER(d.domainName) = :domainName");
+
+                    query.setParameter("domainName", name.toUpperCase(Locale.getDefault()));
+
+                    result = (Domain) query.uniqueResult();
+                }
+            } finally {
+                DaoUtils.closeSession(session);
             }
         }
 
-        log.debug("Exit");
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.dao.DomainDao#getDomains(java.lang.String,
-     * gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
-     * 
-     * Convert the list of names into a String to be used in an IN clause (i.e. {"One", "Two", "Three"} --> ('One',
-     * 'Two', 'Three'))
+    /**
+     * {@inheritDoc}
      */
     @Override
     @SuppressWarnings("unchecked")
-    @Transactional(readOnly = true)
     public List<Domain> getDomains(List<String> names, EntityStatus status) {
-        log.debug("Enter");
+        List<Domain> results = null;
 
-        List<Domain> result = null;
-        Query select = null;
+        Session session = null;
+        Query query = null;
 
-        if (names != null) {
-            StringBuffer nameList = new StringBuffer("(");
+        try {
+            session = DaoUtils.getSession();
 
-            for (String aName : names) {
-                if (nameList.length() > 1) {
-                    nameList.append(", ");
+            if (session != null) {
+                query = session.getNamedQuery("getDomains");
+
+                query.setParameterList("nameList", names);
+                query.setParameter("status", status);
+
+                results = query.list();
+            }
+        } finally {
+            DaoUtils.closeSession(session);
+        }
+
+        if (results == null) {
+            results = new ArrayList<Domain>();
+        }
+
+        return results;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Domain> listDomains(String name, int count) {
+        // Direct RI Comment:
+        // TODO I'm not sure if this is doing the right thing. I suspect that the
+        // real intent is to do some kind of db paging
+
+        List<Domain> results = null;
+        Query query = null;
+
+        Session session = null;
+
+        try {
+            session = DaoUtils.getSession();
+
+            if (session != null) {
+                query = session.getNamedQuery("getDomainsByName");
+
+                if (name != null) {
+                    name = name.toUpperCase(Locale.getDefault());
                 }
 
-                nameList.append("'").append(aName.toUpperCase(Locale.getDefault())).append("'");
-            }
+                query.setParameter("domainName", name);
 
-            nameList.append(")");
-            String query = "SELECT d from Domain d WHERE UPPER(d.domainName) IN " + nameList.toString();
+                // Direct RI Comment:
+                // assuming that a count of zero really means no limit
+                if (count > 0) {
+                    query.setMaxResults(count);
+                }
 
-            if (status != null) {
-                select = sessionFactory.getCurrentSession().createQuery(query + " AND d.status = ?");
-                select.setParameter(0, status);
-            } else {
-                select = sessionFactory.getCurrentSession().createQuery(query);
-            }
-        } else {
-            if (status != null) {
-                select = sessionFactory.getCurrentSession().createQuery("SELECT d from Domain d WHERE d.status = ?");
-                select.setParameter(0, status);
-            } else {
-                select = sessionFactory.getCurrentSession().createQuery("SELECT d from Domain d");
-            }
+                results = query.list();
 
+                if (results.size() == 0) {
+                    results = null;
+                }
+            }
+        } finally {
+            DaoUtils.closeSession(session);
         }
 
-        @SuppressWarnings("rawtypes")
-        List rs = select.list();
-        if ((rs.size() != 0) && (rs.get(0) instanceof Domain)) {
-            result = rs;
-        } else {
-            result = new ArrayList<Domain>();
-        }
-
-        log.debug("Exit");
-        return result;
+        return results;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.dao.DomainDao#listDomains(java.lang.String, int)
-     */
-    // TODO I'm not sure if this is doing the right thing. I suspect that the
-    // real intent is to do some kind of db paging
-    @Override
-    @SuppressWarnings("unchecked")
-    @Transactional(readOnly = true)
-    public List<Domain> listDomains(String name, int count) {
-        log.debug("Enter");
-
-        List<Domain> result = null;
-        Query select = null;
-
-        if (name != null) {
-            select = sessionFactory.getCurrentSession().createQuery(
-                    "SELECT d from Domain d WHERE UPPER(d.domainName) = ?");
-            select.setParameter(0, name.toUpperCase(Locale.getDefault()));
-        } else {
-            select = sessionFactory.getCurrentSession().createQuery("SELECT d from Domain d");
-        }
-
-        // assuming that a count of zero really means no limit
-        if (count > 0) {
-            select.setMaxResults(count);
-        }
-
-        @SuppressWarnings("rawtypes")
-        List rs = select.list();
-        if ((rs.size() != 0) && (rs.get(0) instanceof Domain)) {
-            result = rs;
-        }
-
-        log.debug("Exit");
-        return result;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.dao.DomainDao#searchDomain(java.lang.String,
-     * gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
+    /**
+     * {@inheritDoc}
      */
     @Override
     @SuppressWarnings("unchecked")
-    @Transactional(readOnly = true)
     public List<Domain> searchDomain(String name, EntityStatus status) {
-
-        log.debug("Enter");
-
         List<Domain> result = null;
-        StringBuffer query = new StringBuffer("");
-        Query select = null;
-        if (name != null) {
-            String search = name.replace('*', '%').toUpperCase(Locale.getDefault());
-            search.replace('?', '_');
-            query.append("SELECT d from Domain d WHERE UPPER(d.domainName) LIKE ? ");
-            if (status != null) {
-                query.append("AND d.status = ?");
-                select = sessionFactory.getCurrentSession().createQuery(query.toString());
-                select.setParameter(0, search);
-                select.setParameter(1, status);
-            } else {
-                select = sessionFactory.getCurrentSession().createQuery(query.toString());
-                select.setParameter(0, search);
-            }
-        } else {
-            if (status != null) {
-                query.append("SELECT d from Domain d WHERE d.status LIKE ?");
-                select = sessionFactory.getCurrentSession().createQuery(query.toString());
-                select.setParameter(0, status);
-            } else {
-                select = sessionFactory.getCurrentSession().createQuery("SELECT d from Domain d");
-            }
 
+        Session session = null;
+        Query query = null;
+
+        String fuzzyName = null;
+
+        try {
+            session = DaoUtils.getSession();
+
+            if (session != null) {
+                query = session.getNamedQuery("searchDomains");
+
+                if (name != null) {
+                    fuzzyName = name.toUpperCase(Locale.getDefault()).replace('*', '%').replace('?', '_');
+                }
+
+                query.setParameter("domainName", fuzzyName);
+                query.setParameter("status", status);
+
+                result = query.list();
+
+                if (result == null) {
+                    result = new ArrayList<Domain>();
+                }
+            }
+        } finally {
+            DaoUtils.closeSession(session);
         }
 
-        result = select.list();
-        if (result == null) {
-            result = new ArrayList<Domain>();
-        }
-
-        log.debug("Exit");
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.dao.DomainDao#getDomain(java.lang.Long)
+    /**
+     * {@inheritDoc}
      */
     @Override
-    @Transactional(readOnly = true)
     public Domain getDomain(Long id) {
-        log.debug("Enter");
-
         Domain result = null;
-        if ((id != null) && (id.longValue() > 0)) {
-            result = (Domain) sessionFactory.getCurrentSession().get(Domain.class, id);
+
+        if (id != null) {
+            Session session = null;
+
+            try {
+                session = DaoUtils.getSession();
+
+                if (session != null) {
+                    result = (Domain) session.get(Domain.class, id);
+                }
+            } finally {
+                DaoUtils.closeSession(session);
+            }
         }
 
-        log.debug("Exit");
         return result;
     }
 
@@ -427,5 +418,13 @@ public class DomainDaoImpl implements DomainDao {
         final TrustBundleDaoImpl dao = new TrustBundleDaoImpl();
 
         dao.disassociateTrustBundlesFromDomain(domainId);
+    }
+
+    private void saveAddresses(Collection<Address> addresses) {
+        for (Address address : addresses) {
+            if (address.getId() == null) {
+                addressDao.add(address);
+            }
+        }
     }
 }
