@@ -52,6 +52,7 @@ import gov.hhs.fha.nhinc.directconfig.dao.helpers.DaoUtils;
 import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
+import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
 
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
@@ -62,6 +63,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
@@ -218,6 +220,7 @@ public class AnchorDaoImpl implements AnchorDao {
     @Override
     public void save(Anchor anchor) {
         // Deleted due to non-terminating circular reference
+        throw new ConfigurationStoreException(new NotImplementedException());
     }
 
     /**
@@ -226,6 +229,7 @@ public class AnchorDaoImpl implements AnchorDao {
     @Override
     public void save(List<Anchor> anchorList) {
         // Deleted due to non-terminating circular reference
+        throw new ConfigurationStoreException(new NotImplementedException());
     }
 
     /**
