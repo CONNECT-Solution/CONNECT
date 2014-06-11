@@ -342,10 +342,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
 
                     for (long id : trustBundleIds) {
                         try {
-                            final TrustBundle bundle = getTrustBundleById(id);
-
-                            // disassociateTrustBundleFromDomains(id);
-                            session.delete(bundle);
+                            session.delete(getTrustBundleById(id));
                         } catch (ConfigurationStoreException e) {
                             log.warn(e.getMessage(), e);
                         }
