@@ -264,7 +264,7 @@ public class DomainDaoImpl implements DomainDao {
                     query = session
                             .createQuery("SELECT DISTINCT d FROM Domain d WHERE UPPER(d.domainName) = :domainName");
 
-                    query.setParameter(0, name.toUpperCase(Locale.getDefault()));
+                    query.setParameter("domainName", name.toUpperCase(Locale.getDefault()));
 
                     result = (Domain) query.uniqueResult();
                 }
