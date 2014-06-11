@@ -2,8 +2,6 @@ package gov.hhs.fha.nhinc.directconfig.dao.helpers;
 
 import gov.hhs.fha.nhinc.directconfig.persistence.HibernateUtil;
 
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
@@ -13,33 +11,6 @@ import org.hibernate.Transaction;
 public class DaoUtils {
 
     private static final Log log = LogFactory.getLog(DaoUtils.class);
-
-    public static String toIdString(List<Long> list) {
-        StringBuffer idListBuffer = null;
-        String idList = null;
-
-        if (list != null) {
-            for (Long id : list) {
-                if (idListBuffer == null) {
-                    idListBuffer = new StringBuffer("(");
-                } else {
-                    idListBuffer.append(", ");
-                }
-
-                idListBuffer.append(id);
-            }
-
-            if (idListBuffer != null) {
-                idListBuffer.append(")");
-
-                idList = idListBuffer.toString();
-            }
-        }
-
-        log.debug("ID List: " + idList);
-
-        return idList;
-    }
 
     /**
      * Opens and returns a Session, using the Hibernate SessionFactory.
