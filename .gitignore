@@ -41,3 +41,8 @@ IncomingMsgFolder/
 nb-configuration.xml
 nbactions.xml
 faces-config.NavData
+
+# Intellij
+.idea/
+*.iml
+*.iws
