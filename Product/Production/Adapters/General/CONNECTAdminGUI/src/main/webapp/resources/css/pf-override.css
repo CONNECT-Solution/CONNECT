@@ -515,6 +515,7 @@ body {
 }
 .admin-dashboard .ui-panel-titlebar .ui-panel-title {
 	margin:0px 5px 0px 0px;
+
 }
 .ui-panel .ui-panel-titlebar-icon, .ui-panel .ui-panel-titlebar-icon:hover, .ui-panel .ui-panel-titlebar-icon:focus {
 	margin:0px -5px 0px;
@@ -522,6 +523,7 @@ body {
 	border:none;
 	box-shadow:none;
 }
+
 .ui-panel .ui-panel-titlebar-icon .ui-icon {
 	background-image:url("/resources/images/ui-icons_a8a8a8_256x240.png");
 }
@@ -563,10 +565,23 @@ body {
 	box-shadow:none;
 }
 .main-content .table-remotegateways td {
+
 	border-right:none;
 }
 
 
+
+
+
+/* ManageRole */
+.manageRoleSelectMenu
+{
+	width: 220px;
+}
+.divManageRole
+{
+	float:right;margin-right:150px;max-width:150px;width:150px;margin-top:7px;
+}
 
 /* -- RESPONSIVE @MEDIA STYLES -----------------------------------------------*/
 @media (max-width: 1100px) {
