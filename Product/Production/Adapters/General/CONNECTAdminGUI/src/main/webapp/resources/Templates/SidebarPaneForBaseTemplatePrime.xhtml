@@ -42,21 +42,11 @@
                 <p:menuitem value="Performance Statistics" action="#{tabBean.setDashboardTabIndexNavigate(1)}" styleClass="glyphicon glyphicon-stats" />
                 <p:menuitem value="Remote Gateway List" action="#{tabBean.setDashboardTabIndexNavigate(2)}" styleClass="glyphicon glyphicon-list" />
             </p:submenu>
-            <p:submenu label="Activity Logs" styleClass="sidebar-blue">
-                <p:menuitem value="Event Logs" url="logs.xhtml#tab_event" styleClass="glyphicon glyphicon-list-alt" />
-                <p:menuitem value="Audit Logs" url="logs.xhtml#tab_audit" styleClass="glyphicon glyphicon-list-alt" />
-                <p:menuitem value="System Logs" url="logs.xhtml#tab_system" styleClass="glyphicon glyphicon-list-alt" />
-            </p:submenu>
-            <p:submenu label="CONNECT Configuration" styleClass="sidebar-purple">
-                <p:menuitem value="Screen 1" styleClass="glyphicon glyphicon-cog" />
-                <p:menuitem value="Screen 2" styleClass="glyphicon glyphicon-cog" />
-                <p:menuitem value="Screen 3" styleClass="glyphicon glyphicon-cog" />
-            </p:submenu>
             <p:submenu label="Direct Configuration" styleClass="sidebar-purple">
-                <p:menuitem value="Domains" url="direct.xhtml#tab_domains" styleClass="glyphicon glyphicon-cog" />
-                <p:menuitem value="Agent Settings" url="direct.xhtml#tab_agent" styleClass="glyphicon glyphicon-cog" />
-                <p:menuitem value="Certificates" url="direct.xhtml#tab_certs" styleClass="glyphicon glyphicon-cog" />
-                <p:menuitem value="Trust Bundles" url="direct.xhtml#tab_trust" styleClass="glyphicon glyphicon-cog" />			
+                <p:menuitem value="Domains" action="#{tabBean.setDirectTabIndexNavigate(0)}" styleClass="glyphicon glyphicon-cog" />
+                <p:menuitem value="Agent Settings" action="#{tabBean.setDirectTabIndexNavigate(1)}" styleClass="glyphicon glyphicon-cog" />
+                <p:menuitem value="Certificates" action="#{tabBean.setDirectTabIndexNavigate(2)}" styleClass="glyphicon glyphicon-cog" />
+                <p:menuitem value="Trust Bundles" action="#{tabBean.setDirectTabIndexNavigate(3)}" styleClass="glyphicon glyphicon-cog" />			
             </p:submenu>
 			<p:submenu label="Account Management" styleClass="sidebar-purple">
                 <p:menuitem value="User Accounts" action="#{tabBean.setAdminTabIndexNavigate(0)}" styleClass="glyphicon glyphicon-user" />

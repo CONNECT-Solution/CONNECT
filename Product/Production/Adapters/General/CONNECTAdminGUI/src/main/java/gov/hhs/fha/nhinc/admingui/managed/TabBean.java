@@ -40,7 +40,16 @@ public class TabBean {
     private int dashboardTabIndex = 0;
     private int logsTabIndex = 0;
     private int adminTabIndex = 0;
+    private int directTabIndex = 0;
 
+    public int getDirectTabIndex() {
+        return directTabIndex;
+    }
+
+    public void setDirectTabIndex(int directTabIndex) {
+        this.directTabIndex = directTabIndex;
+    }
+    
     public int getDashboardTabIndex() {
         return dashboardTabIndex;
     }
@@ -78,6 +87,11 @@ public class TabBean {
     public String setAdminTabIndexNavigate(int adminTabIndex) {
         this.adminTabIndex = adminTabIndex;
         return "acctmanagePrime";
+    }
+    
+    public String setDirectTabIndexNavigate(int directTabIndex){
+        this.directTabIndex = directTabIndex;
+        return "directPrime";
     }
 
 }
