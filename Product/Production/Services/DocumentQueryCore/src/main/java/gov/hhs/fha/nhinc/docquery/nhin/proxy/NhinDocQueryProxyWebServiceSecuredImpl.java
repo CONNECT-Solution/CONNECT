@@ -130,6 +130,7 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
                 "respondingGatewayCrossGatewayQuery", request);
 
         } catch (ConnectionManagerException e) {
+            LOG.error("Error calling respondingGatewayCrossGatewayQuery", e);
             XDCommonResponseHelper helper = new XDCommonResponseHelper();
             RegistryResponseType registryError = helper.createError(e.getLocalizedMessage(),
                 ErrorCodes.XDSRepositoryError, NhincConstants.INIT_MULTISPEC_LOC_ENTITY_DR);
@@ -140,6 +141,7 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
             response.setRegistryErrorList(registryError.getRegistryErrorList());
 
         } catch (WebServiceException wse) {
+            LOG.error("Error calling respondingGatewayCrossGatewayQuery", wse);
             XDCommonResponseHelper helper = new XDCommonResponseHelper();
             String endpointAvailableError = NhincConstants.INIT_MULTISPEC_ERROR_NO_ENDPOINT_AVAILABLE + target.getHomeCommunity().getHomeCommunityId()+".";
             RegistryResponseType registryError = helper.createError(endpointAvailableError,
@@ -150,7 +152,7 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
             response.setRegistryErrorList(registryError.getRegistryErrorList());
 
         } catch (Exception ex) {
-            LOG.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
+            LOG.error("Error calling respondingGatewayCrossGatewayQuery", ex);
             throw ex;
         }
         return response;
