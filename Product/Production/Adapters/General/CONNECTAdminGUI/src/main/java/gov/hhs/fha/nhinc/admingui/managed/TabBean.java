@@ -91,7 +91,7 @@ public class TabBean {
     
     public String setDirectTabIndexNavigate(int directTabIndex){
         this.directTabIndex = directTabIndex;
-        return "direct";
+        return "directPrime";
     }
 
 }
