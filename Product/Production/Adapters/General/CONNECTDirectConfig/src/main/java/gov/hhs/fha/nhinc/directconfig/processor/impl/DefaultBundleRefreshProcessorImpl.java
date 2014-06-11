@@ -214,36 +214,29 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
 
         log.debug("Bundle downloaded.");
 
-        /*
-         * NOTE: Commented-out parts of the code below due to an unconsidered flow:
-         * 
-         * If the TrustBundle itself persists correctly to the database, including checksum, but the TrustBundleAnchors
-         * do not, the TrustBundleAnchors can never be populated until the TrustBundle is deleted and readded (update
-         * will fail).
-         */
         // check to see if there is a difference in the anchor sets (using checksums)
-        // boolean update = false;
+        boolean update = false;
         String checkSum = "";
-        //
-        // if (bundle.getCheckSum() == null) {
-        // // never got a check sum, flag for update
-        // update = true;
-        // } else {
-        try {
-            checkSum = BundleThumbprint.toThumbprint(rawBundle).toString();
-            // // if checksum mismatch, flag for update
-            // update = !bundle.getCheckSum().equals(BundleThumbprint.toThumbprint(rawBundle).toString());
-        } catch (NoSuchAlgorithmException ex) {
-            dao.updateLastUpdateError(bundle.getId(), processAttemptStart, BundleRefreshError.INVALID_BUNDLE_FORMAT);
-            log.error("Failed to generate thumbprint for downloaded bundle: " + ex.getMessage(), ex);
-        }
-        // }
 
-        // if (!update) {
-        // log.debug("No update needed.");
-        // dao.updateLastUpdateError(bundle.getId(), processAttemptStart, BundleRefreshError.SUCCESS);
-        // return;
-        // }
+        if (bundle.getCheckSum() == null) {
+            // never got a check sum, flag for update
+            update = true;
+        } else {
+            try {
+                checkSum = BundleThumbprint.toThumbprint(rawBundle).toString();
+                // if checksum mismatch, flag for update
+                update = !bundle.getCheckSum().equals(BundleThumbprint.toThumbprint(rawBundle).toString());
+            } catch (NoSuchAlgorithmException ex) {
+                dao.updateLastUpdateError(bundle.getId(), processAttemptStart, BundleRefreshError.INVALID_BUNDLE_FORMAT);
+                log.error("Failed to generate thumbprint for downloaded bundle: " + ex.getMessage(), ex);
+            }
+        }
+
+        if (!update) {
+            log.debug("No update needed.");
+            dao.updateLastUpdateError(bundle.getId(), processAttemptStart, BundleRefreshError.SUCCESS);
+            return;
+        }
 
         final Collection<X509Certificate> bundleCerts = convertRawBundleToAnchorCollection(rawBundle, bundle,
                 processAttemptStart);
