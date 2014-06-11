@@ -192,8 +192,6 @@ public class DomainDaoImpl implements DomainDao {
         final Domain domain = getDomainByName(name);
 
         if (domain != null) {
-            // disassociateTrustBundlesFromDomain(domain.getId());
-
             Session session = null;
             Transaction tx = null;
 
@@ -223,8 +221,6 @@ public class DomainDaoImpl implements DomainDao {
         final Domain domain = getDomain(anId);
 
         if (domain != null) {
-            disassociateTrustBundlesFromDomain(domain.getId());
-
             Session session = null;
             Transaction tx = null;
 
