@@ -133,7 +133,7 @@
                         </div>
                     </div>
                 </p:tab>
-                <p:tab title="Trust Bundles" closable="true">
+                <p:tab id="tb-tab" title="Trust Bundles" closable="true">
                     <div class="content-block">
 						<h2 class="subsection-header">Trust Bundles</h2>
                         <div class="content">
@@ -165,7 +165,8 @@
                                             <h:outputText value="#{tb.tbRefreshInterval}" />
                                         </p:column>
                                     </p:dataTable>
-                                    <p:commandButton update="tbDataTable" value="Delete" action="#{directTrustBundleBean.deleteTrustBundle()}"/>
+                                    <p:commandButton update="tbDataTable" value="Delete" action="#{directTrustBundleBean.showDelConfirm()}"/>
+                                    <p:commandButton value="Edit Trust Bundle" actionListener="#{directTrustBundleBean.showEdit()}" />
                                 </h:form>
                         </div>
                     </div>
@@ -176,6 +177,15 @@
             <ui:include src="certCreateDialog.xhtml" />
             <ui:include src="tbCreateDialog.xhtml" />
             <ui:include src="domainEditDialog.xhtml" />
+            <ui:include src="tbEditDialog.xhtml" />
+            <p:dialog id="tbConfirmDelDialog" header="Confirm Trust Bundle Delete" widgetVar="tbConfirmDelDlg" modal="true" dynamic="true">
+                <h3>Are you sure you want to delete this Trust Bundle?</h3>
+                <p>The trust bundle will be deleted for all domains.</p>
+                <h:form id="confirmDelForm">
+                    <p:commandButton value="Yes" ajax="false" action="#{directTrustBundleBean.deleteTrustBundle()}" oncomplete="tbConfirmDelDlg.hide()" />
+                    <p:commandButton value="No" ajax="false" onclick="tbConfirmDelDlg.hide()" />
+                </h:form>
+            </p:dialog>
         </ui:define>
     </ui:composition>
 </h:body>

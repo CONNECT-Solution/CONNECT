@@ -122,6 +122,7 @@
                             </h:form>
                         </p:tab>
                         <p:tab title="Trust Bundles">
+                            <h:form id="domain-tb-form">
                             <p:dataTable id="tb-domainDataTable" var="tb" value="#{directDomainBean.selectedDomain.trustBundles}"
                                          selection="#{directDomainBean.selectedTrustBundle}" rowKey="#{tb.tbName}" >
                                 <f:facet name="header">
@@ -144,15 +145,14 @@
                                             <p:panelGrid columns="2">
                                                 <h:outputLabel for="select-domain-tbs" class="col-sm-3 control-label"
                                                     id="select-domain-tbsLbl" value="Add Trust Bundles:" /> 
-                                                <p:selectOneMenu label="Select Trust Bundle" id="select-domain-tbs" value="#{directDomainBean.selectedDomainTrustBundle}">
-                                                    <f:selectItems value="#{directDomainBean.trustBundleNames}"  
-                                                                   var="tbName" itemLabel="#{tbName}"  
-                                                                   itemValue="#{tbName}"/>
-                                                </p:selectOneMenu>
+                                                <p:selectCheckboxMenu id="select-domain-tbs" value="#{directDomainBean.selectedTrustBundles}" label="Available Trust Bundles" panelStyle="width:220px">
+                                                    <f:selectItems value="#{directDomainBean.trustBundleNames}"/>
+                                                </p:selectCheckboxMenu>
                                             </p:panelGrid>
                                     
-                                    <p:commandButton update="tb-domainDataTable" value="Add Trust Bundle" actionListener="#{directDomainBean.addTrustBundle()}" />
-                                </p:panel>                            
+                                    <p:commandButton update="tb-domainDataTable" value="Add Trust Bundle" actionListener="#{directDomainBean.addTrustBundles()}" />
+                                </p:panel>
+                            </h:form>
                         </p:tab>
                     </p:tabView>
                 </div>

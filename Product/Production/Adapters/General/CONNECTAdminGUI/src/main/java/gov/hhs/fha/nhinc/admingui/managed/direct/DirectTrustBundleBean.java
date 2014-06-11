@@ -20,11 +20,14 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed.direct;
 
+import gov.hhs.fha.nhinc.admingui.managed.TabBean;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -55,6 +58,13 @@ public class DirectTrustBundleBean {
     
     public void deleteTrustBundle(){
         directService.deleteTrustBundle(selectedTb);
+        
+        TabBean tabs = (TabBean) FacesContext.getCurrentInstance().
+            getExternalContext().getSessionMap().get("tabBean");
+        
+        if(tabs != null){
+            tabs.setDirectTabIndex(3);
+        }
     }
     
     public void addTrustBundle(){
@@ -63,6 +73,22 @@ public class DirectTrustBundleBean {
         tb.setTbUrl(tbUrl);
         tb.setTbRefreshInterval(tbRefreshInterval);
         directService.addTrustBundle(tb);
+    }
+    
+    public void editTrustBundle(){
+        directService.updateTrustBundle(selectedTb);
+    }
+    
+    public void showEdit(){
+        if(selectedTb != null){
+            RequestContext.getCurrentInstance().execute("tbEditDlg.show()");
+        }
+    }
+    
+    public void showDelConfirm(){
+        if(selectedTb != null){
+            RequestContext.getCurrentInstance().execute("tbConfirmDelDlg.show()");
+        }
     }
 
     public String getTbName() {

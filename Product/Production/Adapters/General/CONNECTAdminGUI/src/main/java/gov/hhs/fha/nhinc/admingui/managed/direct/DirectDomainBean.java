@@ -65,7 +65,7 @@ public class DirectDomainBean {
     private boolean anchorOutgoing = true;
     private String anchorStatus;
     
-    private String selectedDomainTrustBundle;
+    private List<String> selectedTrustBundles;
     
     public List<DirectDomain> getDomains(){
         return directService.getDomains();
@@ -148,13 +148,18 @@ public class DirectDomainBean {
         }
     }
     
-    public void addTrustBundle(){
-        for(DirectTrustBundle tb : getTrustBundles()){
-            if(tb.getTbName().equals(selectedDomainTrustBundle)){
-                selectedDomain.addTrustBundle(tb);
-                directService.addTrustBundle(tb);
-                break;
+    public void addTrustBundles(){
+        List<DirectTrustBundle> selectTBs = new ArrayList<DirectTrustBundle>();
+        for(String tbName : selectedTrustBundles){
+            for(DirectTrustBundle tb : getTrustBundles()){
+                if(tb.getTbName().equals(tbName)){
+                    selectTBs.add(tb);
+                }
             }
+        }
+        if(selectTBs.size() > 0){
+            selectedDomain.addTrustBundles(selectTBs);
+            directService.updateDomain(selectedDomain);
         }
     }
     
@@ -272,12 +277,12 @@ public class DirectDomainBean {
         this.selectedTrustBundle = selectedTrustBundle;
     }
 
-    public String getSelectedDomainTrustBundle() {
-        return selectedDomainTrustBundle;
+    public List<String> getSelectedTrustBundles() {
+        return selectedTrustBundles;
     }
 
-    public void setSelectedDomainTrustBundle(String selectedDomainTrustBundle) {
-        this.selectedDomainTrustBundle = selectedDomainTrustBundle;
+    public void setSelectedTrustBundles(List<String> selectedTrustBundles) {
+        this.selectedTrustBundles = selectedTrustBundles;
     }
     
 }
