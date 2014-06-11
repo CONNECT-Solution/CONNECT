@@ -152,13 +152,12 @@ public class LoginBean {
      * 
      * @return the string
      */
-    public String invokePatient() {
-        System.out.println("Login user details from NewFile page" + userName);
-        System.out.println("Login password details from NewFile page" + password);
+    public String loginAndNavigate() {
+        System.out.println("Logging in user:  " + userName);
+        
         if (login()) {
             this.isCorrect = true;
-            //return "PatientSearch";
-            return "status";
+            return "StatusPrime";
         } else {
             this.isCorrect = false;
             msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "User details are not valid...!!!", userName);
