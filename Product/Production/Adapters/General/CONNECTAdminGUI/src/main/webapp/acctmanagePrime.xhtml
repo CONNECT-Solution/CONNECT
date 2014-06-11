@@ -41,8 +41,8 @@
 			<h1 class="section-header">Account Management</h1>
 			<!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
 			<p:tabView id="tabview" effect="fade" effectDuration="normal"
-				dynamic="true" activeIndex="#{tabBean.adminTabIndex}">
-				<p:tab title="User Accounts" closable="true">
+				dynamic="true" activeIndex="#{tabBean.adminTabIndex}" styleClass="tabs-override tabs-ovr-purple">
+				<p:tab title="User Accounts"  closable="false">
 					<!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
 					<div class="tab-content">
 						<!-- BEGIN: TAB PANE - USER ACCOUNTS -->
@@ -114,7 +114,7 @@
 						<!-- END: TAB PANE - USER ACCOUNTS -->
 					</div>
 				</p:tab>
-				<p:tab title="Certificate Management" closable="true">
+				<p:tab title="Certificate Management"  closable="false">
 					<div class="content-block">
 						<h2 class="subsection-header">Certificate Management</h2>
 						<div class="content">[to be developed]</div>
