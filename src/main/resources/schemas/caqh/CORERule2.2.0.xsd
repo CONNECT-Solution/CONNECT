@@ -1,0 +1,181 @@
+﻿<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"   xmlns="http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd" targetNamespace="http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd">
+  <xs:element name="COREEnvelopeRealTimeRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="PayloadType" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ProcessingMode" type="RealTimeMode" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="PayloadID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="TimeStamp" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="SenderID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ReceiverID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="CORERuleVersion" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="Payload" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="COREEnvelopeRealTimeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="PayloadType" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ProcessingMode" type="RealTimeMode" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="PayloadID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="TimeStamp" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="SenderID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ReceiverID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="CORERuleVersion" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="Payload" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="ErrorCode" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ErrorMessage" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="COREEnvelopeBatchSubmission">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="PayloadType" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ProcessingMode" type="BatchMode" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="PayloadID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="PayloadLength" type="xs:int" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="TimeStamp" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="SenderID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ReceiverID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="CORERuleVersion" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="CheckSum" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="Payload" type="xs:base64Binary" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="COREEnvelopeBatchSubmissionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="PayloadType" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ProcessingMode" type="BatchMode" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="PayloadID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="PayloadLength" type="xs:int" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="TimeStamp" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="SenderID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ReceiverID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="CORERuleVersion" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="CheckSum" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="Payload" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="ErrorCode" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ErrorMessage" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="COREEnvelopeBatchSubmissionAckRetrievalRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="PayloadType" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ProcessingMode" type="BatchMode" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="PayloadID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="PayloadLength" type="xs:int" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="TimeStamp" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="SenderID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ReceiverID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="CORERuleVersion" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="CheckSum" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="Payload" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="COREEnvelopeBatchSubmissionAckRetrievalResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="PayloadType" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ProcessingMode" type="BatchMode" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="PayloadID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="PayloadLength" type="xs:int" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="TimeStamp" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="SenderID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ReceiverID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="CORERuleVersion" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="CheckSum" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="Payload" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="ErrorCode" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ErrorMessage" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="COREEnvelopeBatchResultsRetrievalRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="PayloadType" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ProcessingMode" type="BatchMode" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="PayloadID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="PayloadLength" type="xs:int" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="TimeStamp" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="SenderID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ReceiverID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="CORERuleVersion" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="CheckSum" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="Payload" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="COREEnvelopeBatchResultsRetrievalResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="PayloadType" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ProcessingMode" type="BatchMode" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="PayloadID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="PayloadLength" type="xs:int" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="TimeStamp" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="SenderID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ReceiverID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="CORERuleVersion" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="CheckSum" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="Payload" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="ErrorCode" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ErrorMessage" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="COREEnvelopeBatchResultsAckSubmission">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="PayloadType" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ProcessingMode" type="BatchMode" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="PayloadID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="PayloadLength" type="xs:int" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="TimeStamp" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="SenderID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ReceiverID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="CORERuleVersion" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="CheckSum" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="Payload" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="COREEnvelopeBatchResultsAckSubmissionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="PayloadType" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ProcessingMode" type="BatchMode" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="PayloadID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="PayloadLength" type="xs:int" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="TimeStamp" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="SenderID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ReceiverID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="CORERuleVersion" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="CheckSum" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="Payload" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="ErrorCode" type="xs:string"  minOccurs="1" maxOccurs="1"/>
+        <xs:element name="ErrorMessage" type="xs:string"  minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="RealTimeMode">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="RealTime"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="BatchMode">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="Batch"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+
+
