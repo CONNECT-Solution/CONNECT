@@ -96,9 +96,13 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
      */
     @Override
     public void addAnchors(Collection<Anchor> anchors) throws ConfigurationServiceException {
-        if (anchors != null && anchors.size() > 0)
-            for (Anchor anchor : anchors)
+        if (anchors != null && anchors.size() > 0) {
+            for (Anchor anchor : anchors) {
                 dao.add(anchor);
+            }
+        } else {
+            log.debug("No anchors were provided.");
+        }
 
     }
 
@@ -145,6 +149,7 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
             throws ConfigurationServiceException {
 
         if (anchorIds == null || anchorIds.size() == 0) {
+            log.debug("No anchor ids were provided.");
             return Collections.emptyList();
         }
 
@@ -248,7 +253,7 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
     public Collection<Anchor> listAnchors(Long lastAnchorID, int maxResults, CertificateGetOptions options)
             throws ConfigurationServiceException {
 
-        // just get all for now
+        // Direct RI comment: just get all for now
         return dao.listAll();
     }
 
