@@ -40,6 +40,8 @@ public class DaoUtils {
             } catch (Exception e) {
                 log.error("Failed to close session: " + e.getMessage(), e);
             }
+        } else {
+            log.warn("Session is null, cannot close");
         }
     }
 
@@ -54,6 +56,8 @@ public class DaoUtils {
             } catch (Exception e) {
                 log.error("Failed to rollback transaction: " + e.getMessage(), e);
             }
+        } else {
+            log.warn("Cannot roll back, transaction is null");
         }
     }
 }
