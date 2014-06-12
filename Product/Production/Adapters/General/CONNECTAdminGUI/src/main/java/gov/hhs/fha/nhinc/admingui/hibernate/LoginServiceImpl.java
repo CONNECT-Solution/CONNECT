@@ -80,9 +80,11 @@ public class LoginServiceImpl implements LoginService {
     public UserLogin login(Login login) throws UserLoginException {
 
         UserLogin user = userLoginDAO.login(login);
+        if (user != null) {
         log.debug("db user name: ".concat(user.getUserName()));
         log.debug("db salt: ".concat(user.getSalt()));
         log.debug("db password: ".concat(user.getSha1()));
+        }
         if (user != null && user.getSha1() != null && user.getSalt() != null && login.getPassword() != null) {
             try {
                 boolean loggedIn = passwordService.checkPassword(user.getSha1().getBytes(), login.getPassword().getBytes(),

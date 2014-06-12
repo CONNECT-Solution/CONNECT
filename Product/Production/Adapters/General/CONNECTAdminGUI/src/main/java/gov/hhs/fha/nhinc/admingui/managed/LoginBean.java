@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;*/
 
+import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
@@ -42,8 +43,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -57,153 +58,109 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoginBean {
 
-    /** The user name. */
-    private String userName;
+	public static final Logger log = Logger.getLogger(LoginBean.class);
 
-    /** The password. */
-    private String password;
+	/** The user name. */
+	private String userName;
 
-    /** The is correct. */
-    public Boolean isCorrect = false;
+	/** The password. */
+	private String password;
 
-    /** The msg. */
-    private FacesMessage msg;
+	/** The login service. */
+	@Autowired
+	private LoginService loginService;
+	
+	/**
+	 * Gets the user name. 
+	 * @return the user name
+	 */
+	public String getUserName() {
+		return userName;
+	}
 
-    /** The login service. */
-    @Autowired
-    private LoginService loginService;
-    
-    private static final Logger LOG = Logger.getLogger(LoginBean.class);
+	/**
+	 * Sets the user name. 
+	 * @param userName
+	 * the new user name
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
-    /**
-     * Gets the msg.
-     * 
-     * @return the msg
-     */
-    public FacesMessage getMsg() {
-        return msg;
-    }
+	/**
+	 * Gets the password. 
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
 
-    /**
-     * Sets the msg.
-     * 
-     * @param msg the new msg
-     */
-    public void setMsg(FacesMessage msg) {
-        this.msg = msg;
-    }
+	/**
+	 * Sets the password. 
+	 * @param password
+	 * the new password
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	/**
+	 * Instantiates a new login bean.
+	 */
+	public LoginBean() {
+	}
 
-    /**
-     * Gets the user name.
-     * 
-     * @return the user name
-     */
-    public String getUserName() {
-        return userName;
-    }
+	/**
+	 * Invoke patient. 
+	 * @return the string
+	 */
+	public String loginAndNavigate() {
+		if (!login()) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Username and/or Password not valid ","")); 
+			return null;
+		} 
+		return NavigationConstant.STATUS_PAGE;
+	}
+	/**
+	 * Logout. 
+	 * @return the string
+	 */
+	public String logout() {
+		userName = null;
+		password = null;
 
-    /**
-     * Sets the user name.
-     * 
-     * @param userName the new user name
-     */
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) facesContext.getExternalContext()
+				.getSession(false);
+		if (session != null) {
+			session.invalidate();
+		}
+		return NavigationConstant.LOGIN_PAGE;
+	}
 
-    /**
-     * Gets the password.
-     * 
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * Sets the password.
-     * 
-     * @param password the new password
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    /**
-     * Instantiates a new login bean.
-     */
-    public LoginBean() {
-        // Injector injector = Guice.createInjector(new LoginServiceModule());
-
-        // loginService = injector.getInstance(LoginService.class);
-    }
-
-    /**
-     * New message.
-     * 
-     * @return the string
-     */
-    public String newMessage() {
-        return "It is from managed bean call";
-    }
-
-    /**
-     * Invoke patient.
-     * 
-     * @return the string
-     */
-    public String loginAndNavigate() {
-        System.out.println("Logging in user:  " + userName);
-        
-        if (login()) {
-            this.isCorrect = true;
-            return "StatusPrime";
-        } else {
-            this.isCorrect = false;
-            msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "User details are not valid...!!!", userName);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            return "Login";
-        }
-
-    }
-
-    /**
-     * Logout.
-     * 
-     * @return the string
-     */
-    public String logout() {
-        userName = null;
-        password = null;
-
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
-        return "Login";
-    }
-
-    /**
-     * Login.
-     * 
-     * @return true, if successful
-     */
-    private boolean login() {
-        boolean loggedIn = false;
-        Login login = new Login(userName, password);
-        try {
-            UserLogin user = loginService.login(login);
-
-            if (user != null) {
-                loggedIn = true;
-                FacesContext facesContext = FacesContext.getCurrentInstance();
-                HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-                session.setAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE, user);
-            }
-        } catch (UserLoginException e) {
-            LOG.error(e, e);
-        }
-        return loggedIn;
-    }
+	/**
+	 * Login. 
+	 * @return true, if successful
+	 */
+	private boolean login() {
+		boolean loggedIn = false;
+		Login login = new Login(userName, password);
+		try {
+			UserLogin user = loginService.login(login);
+			if (user != null) {
+				loggedIn = true;
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) facesContext
+						.getExternalContext().getSession(false);
+				session.setAttribute(
+						UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE,
+						login);
+			}
+		} catch (UserLoginException e) {
+			log.error(e,e);			
+		}
+		return loggedIn;
+	}
 }

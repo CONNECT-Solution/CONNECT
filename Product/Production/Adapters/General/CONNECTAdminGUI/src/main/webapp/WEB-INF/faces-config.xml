@@ -8,6 +8,7 @@
 
     <application>
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+         <message-bundle>Message</message-bundle>
     </application>
     
     <lifecycle>
