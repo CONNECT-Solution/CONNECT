@@ -385,7 +385,7 @@ public class CertificateDaoImpl implements CertificateDao {
                     tx = session.beginTransaction();
 
                     query = session.createQuery("DELETE FROM Certificate c WHERE UPPER(c.owner) = :owner");
-                    query.setParameter(owner, owner.toUpperCase(Locale.getDefault()));
+                    query.setParameter("owner", owner.toUpperCase(Locale.getDefault()));
 
                     count = query.executeUpdate();
                     tx.commit();
