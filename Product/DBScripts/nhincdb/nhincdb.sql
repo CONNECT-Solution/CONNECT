@@ -510,20 +510,21 @@ FLUSH PRIVILEGES;
 -- The following is a workaround that is required for
 -- deployment due to a bug in Direct RI
 -- -----------------------------------------------------
-LOCK TABLES configdb WRITE;
+USE configdb;
+LOCK TABLES domain WRITE, address WRITE;
 
-INSERT INTO `configdb`.`domain`
-(`id`, `domainName`, `postmasterAddressId`, `status`, `createTime`, `updateTime`)
+INSERT INTO domain
+(id, domainName, postmasterAddressId, status, createTime, updateTime)
 VALUES
-('1', 'direct.example.org', NULL, '1', now(), now());
+(1, 'direct.example.org', NULL, 1, now(), now());
 
-INSERT INTO `configdb`.`address`
-(`id`, `displayName`, `emailAddress`, `endpoint`, `status`, `type`, `createTime`, `updateTime`, `domainId`)
+INSERT INTO address
+(id, displayName, emailAddress, endpoint, status, type, createTime, updateTime, domainId)
 VALUES
-('1', 'direct.example.org', 'postmaster@direct.example.org', NULL, '1', NULL, now(), now(), '1');
+(1, 'direct.example.org', 'postmaster@direct.example.org', NULL, 1, NULL, now(), now(), 1);
 
-UPDATE `configdb`.`address` SET id=2 WHERE id=1;
+UPDATE address SET id = 2 WHERE id = 1;
 
-UPDATE `configdb`.`domain` SET postmasterAddressId=2 WHERE id=1;
+UPDATE domain SET postmasterAddressId = 2 WHERE id = 1;
 
 UNLOCK TABLES;
