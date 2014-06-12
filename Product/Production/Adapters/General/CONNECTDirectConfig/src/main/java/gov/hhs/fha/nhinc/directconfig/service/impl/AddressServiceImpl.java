@@ -88,43 +88,32 @@ public class AddressServiceImpl extends SpringBeanAutowiringSupport implements A
         log.info("AddressService initialized");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#addAddress(java.util.Collection)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void addAddress(Collection<Address> address) throws ConfigurationServiceException {
         throw new ConfigurationServiceException(new NotImplementedException());
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * gov.hhs.fha.nhinc.directconfig.service.AddressService#updateAddress(gov.hhs.fha.nhinc.directconfig.entity.Address
-     * )
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void updateAddress(Address address) throws ConfigurationServiceException {
         throw new ConfigurationServiceException(new NotImplementedException());
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#getAddressCount()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public int getAddressCount() throws ConfigurationServiceException {
         throw new ConfigurationServiceException(new NotImplementedException());
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#getAddress(java.util.Collection,
-     * gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Collection<Address> getAddress(Collection<String> addressNames, EntityStatus status)
@@ -138,10 +127,8 @@ public class AddressServiceImpl extends SpringBeanAutowiringSupport implements A
         return dao.listAddresses(new ArrayList<String>(addressNames), status);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#removeAddress(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void removeAddress(String addressName) throws ConfigurationServiceException {
@@ -153,10 +140,8 @@ public class AddressServiceImpl extends SpringBeanAutowiringSupport implements A
         dao.delete(addressName);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#listAddresss(java.lang.String, int)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Collection<Address> listAddresss(String lastAddressName, int maxResults)

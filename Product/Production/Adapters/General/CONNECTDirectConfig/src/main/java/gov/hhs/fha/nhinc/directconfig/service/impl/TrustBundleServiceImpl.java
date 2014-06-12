@@ -280,6 +280,11 @@ public class TrustBundleServiceImpl extends SpringBeanAutowiringSupport implemen
         return bundles;
     }
 
+    /*
+     * Sends a bundle for refresh, which may include downloading the associated anchors
+     * 
+     * @param bundle the TrustBundle to be refreshed
+     */
     private void refreshBundle(TrustBundle bundle) {
         log.debug("Sending bundle: " + bundle.getBundleName() + " to Camel route for refresh");
         template.sendBody(bundle);

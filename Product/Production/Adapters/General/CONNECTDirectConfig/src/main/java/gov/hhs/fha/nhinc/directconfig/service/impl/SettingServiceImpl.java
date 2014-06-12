@@ -85,41 +85,32 @@ public class SettingServiceImpl extends SpringBeanAutowiringSupport implements S
         log.info("SettingService initialized");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.SettingService#addSetting(java.lang.String, java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void addSetting(String name, String value) throws ConfigurationServiceException {
         dao.add(name, value);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.SettingService#deleteSetting(java.util.Collection)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void deleteSetting(Collection<String> names) throws ConfigurationServiceException {
         dao.delete(names);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.SettingService#getAllSettings()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Collection<Setting> getAllSettings() throws ConfigurationServiceException {
-
         return dao.getAll();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.SettingService#getSettingByName(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Setting getSettingByName(String name) throws ConfigurationServiceException {
@@ -133,16 +124,17 @@ public class SettingServiceImpl extends SpringBeanAutowiringSupport implements S
         return settings.iterator().next();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.SettingService#getSettingsByNames(java.util.Collection)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Collection<Setting> getSettingsByNames(Collection<String> names) throws ConfigurationServiceException {
         return dao.getByNames(names);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateSetting(String name, String value) throws ConfigurationServiceException {
         dao.update(name, value);

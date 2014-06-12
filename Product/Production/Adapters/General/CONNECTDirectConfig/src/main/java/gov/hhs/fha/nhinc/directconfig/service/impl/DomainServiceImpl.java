@@ -87,10 +87,8 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
         log.info("DomainService initialized");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.DomainService#addDomain(gov.hhs.fha.nhinc.directconfig.entity.Domain)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void addDomain(Domain domain) throws ConfigurationServiceException {
@@ -98,11 +96,8 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
         log.info("Added Domain: " + domain.getDomainName());
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * gov.hhs.fha.nhinc.directconfig.service.DomainService#updateDomain(gov.hhs.fha.nhinc.directconfig.entity.Domain)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void updateDomain(Domain domain) throws ConfigurationServiceException {
@@ -114,21 +109,16 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.DomainService#getDomainCount()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public int getDomainCount() throws ConfigurationServiceException {
         return dao.count();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.DomainService#getDomains(java.util.Collection,
-     * gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Collection<Domain> getDomains(Collection<String> domainNames, EntityStatus status)
@@ -137,10 +127,8 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
         return dao.getDomains(new ArrayList<String>(domainNames), status);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.DomainService#removeDomain(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void removeDomain(String domainName) throws ConfigurationServiceException {
@@ -148,10 +136,8 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
         log.info("Modified Domain: " + domainName);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.DomainService#removeDomainById(java.lang.Long)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void removeDomainById(Long domainId) throws ConfigurationServiceException {
@@ -159,10 +145,8 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
         log.info("Modified Domain: " + domainId);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.DomainService#listDomains(java.lang.String, int)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Collection<Domain> listDomains(String lastDomainName, int maxResults) throws ConfigurationServiceException {
@@ -175,11 +159,8 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.DomainService#searchDomain(java.lang.String,
-     * gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Collection<Domain> searchDomain(String domain, EntityStatus status) {
@@ -192,10 +173,8 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.DomainService#getDomain(java.lang.Long)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Domain getDomain(Long id) {

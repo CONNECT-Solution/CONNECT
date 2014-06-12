@@ -84,31 +84,49 @@ public class CertificatePolicyServiceImpl extends SpringBeanAutowiringSupport im
         log.info("CertificatePolicyServiceImpl initialized");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Collection<CertPolicy> getPolicies() throws ConfigurationServiceException {
         return dao.getPolicies();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CertPolicy getPolicyByName(String policyName) throws ConfigurationServiceException {
         return dao.getPolicyByName(policyName);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CertPolicy getPolicyById(long id) throws ConfigurationServiceException {
         return dao.getPolicyById(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addPolicy(CertPolicy policy) throws ConfigurationServiceException {
         dao.addPolicy(policy);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void deletePolicies(long[] policyIds) throws ConfigurationServiceException {
         dao.deletePolicies(policyIds);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updatePolicyAttributes(long id, String policyName, PolicyLexicon lexicon, byte[] policyData)
             throws ConfigurationServiceException {
@@ -116,36 +134,57 @@ public class CertificatePolicyServiceImpl extends SpringBeanAutowiringSupport im
         dao.updatePolicyAttributes(id, policyName, lexicon, policyData);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Collection<CertPolicyGroup> getPolicyGroups() throws ConfigurationServiceException {
         return dao.getPolicyGroups();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CertPolicyGroup getPolicyGroupByName(String policyGroupName) throws ConfigurationServiceException {
         return dao.getPolicyGroupByName(policyGroupName);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CertPolicyGroup getPolicyGroupById(long id) throws ConfigurationServiceException {
         return dao.getPolicyGroupById(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addPolicyGroup(CertPolicyGroup group) throws ConfigurationServiceException {
         dao.addPolicyGroup(group);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void deletePolicyGroups(long[] groupIds) throws ConfigurationServiceException {
         dao.deletePolicyGroups(groupIds);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateGroupAttributes(long id, String groupName) throws ConfigurationServiceException {
         dao.updateGroupAttributes(id, groupName);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addPolicyUseToGroup(long groupId, long policyId, CertPolicyUse policyUse, boolean incoming,
             boolean outgoing) throws ConfigurationServiceException {
@@ -153,16 +192,25 @@ public class CertificatePolicyServiceImpl extends SpringBeanAutowiringSupport im
         dao.addPolicyUseToGroup(groupId, policyId, policyUse, incoming, outgoing);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removePolicyUseFromGroup(long policyGroupReltnId) throws ConfigurationServiceException {
         dao.removePolicyUseFromGroup(policyGroupReltnId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void associatePolicyGroupToDomain(long domainId, long policyGroupId) throws ConfigurationServiceException {
         dao.associatePolicyGroupToDomain(domainId, policyGroupId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void disassociatePolicyGroupFromDomain(long domainId, long policyGroupId)
             throws ConfigurationServiceException {
@@ -170,21 +218,33 @@ public class CertificatePolicyServiceImpl extends SpringBeanAutowiringSupport im
         dao.disassociatePolicyGroupFromDomain(domainId, policyGroupId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void disassociatePolicyGroupsFromDomain(long domainId) throws ConfigurationServiceException {
         dao.disassociatePolicyGroupsFromDomain(domainId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void disassociatePolicyGroupFromDomains(long policyGroupId) throws ConfigurationServiceException {
         dao.disassociatePolicyGroupFromDomains(policyGroupId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Collection<CertPolicyGroupDomainReltn> getPolicyGroupDomainReltns() throws ConfigurationServiceException {
         return dao.getPolicyGroupDomainReltns();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Collection<CertPolicyGroupDomainReltn> getPolicyGroupsByDomain(long domainId)
             throws ConfigurationServiceException {

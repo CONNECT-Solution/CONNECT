@@ -89,10 +89,8 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
         log.info("AnchorService initialized");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#addAnchors(java.util.Collection)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void addAnchors(Collection<Anchor> anchors) throws ConfigurationServiceException {
@@ -106,11 +104,8 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#getAnchor(java.lang.String, java.lang.String,
-     * gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Anchor getAnchor(String owner, String thumbprint, CertificateGetOptions options)
@@ -138,11 +133,8 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#getAnchors(java.util.Collection,
-     * gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Collection<Anchor> getAnchors(Collection<Long> anchorIds, CertificateGetOptions options)
@@ -156,11 +148,8 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
         return dao.listByIds(new ArrayList<Long>(anchorIds));
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#getAnchorsForOwner(java.lang.String,
-     * gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Collection<Anchor> getAnchorsForOwner(String owner, CertificateGetOptions options)
@@ -172,11 +161,8 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
         return dao.list(owners);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#getIncomingAnchors(java.lang.String,
-     * gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Collection<Anchor> getIncomingAnchors(String owner, CertificateGetOptions options)
@@ -202,11 +188,8 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
         return retList;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#getOutgoingAnchors(java.lang.String,
-     * gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Collection<Anchor> getOutgoingAnchors(String owner, CertificateGetOptions options)
@@ -232,22 +215,16 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
         return retList;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#setAnchorStatusForOwner(java.lang.String,
-     * gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void setAnchorStatusForOwner(String owner, EntityStatus status) throws ConfigurationServiceException {
         dao.setStatus(owner, status);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#listAnchors(java.lang.Long, int,
-     * gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Collection<Anchor> listAnchors(Long lastAnchorID, int maxResults, CertificateGetOptions options)
@@ -257,14 +234,11 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
         return dao.listAll();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#removeAnchors(java.util.Collection)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void removeAnchors(Collection<Long> anchorIds) throws ConfigurationServiceException {
-
         if (anchorIds == null || anchorIds.size() == 0) {
             log.debug("No anchor ids specified, returning....");
             return;
@@ -275,10 +249,8 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
         dao.delete(ids);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#removeAnchorsForOwner(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void removeAnchorsForOwner(String owner) throws ConfigurationServiceException {
