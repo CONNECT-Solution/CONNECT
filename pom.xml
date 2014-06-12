@@ -83,6 +83,7 @@
                         <include>www.w3.org/**/*.xsd</include>
                         <include>xmlsoap.org/**/*.xsd</include>
                         <include>Endpoint/**/*.xsd</include>
+			<include>caqh/**/*.xsd</include>
                     </schemaIncludes>
                     <source>1.6</source>
                     <target>1.6</target>
