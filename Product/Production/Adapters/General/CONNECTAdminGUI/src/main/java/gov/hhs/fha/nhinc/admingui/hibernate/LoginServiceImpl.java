@@ -35,7 +35,9 @@ import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.impl.SHA1PasswordService;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
+
 import java.io.IOException;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,7 +45,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author msw
- *
+ * 
  */
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -60,7 +62,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     /**
-     *
+     * 
      * @param userLoginDao
      */
     LoginServiceImpl(UserLoginDAO userLoginDao) {
@@ -70,10 +72,12 @@ public class LoginServiceImpl implements LoginService {
     /**
      * The password service.
      */
-    private PasswordService passwordService = new SHA1PasswordService();
+    private final PasswordService passwordService = new SHA1PasswordService();
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.admingui.services.LoginService#login(gov.hhs.fha.nhinc.admingui.model.Login)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.services.LoginService#login(gov.hhs.fha.nhinc .admingui.model.Login)
      */
     @Override
     @Transactional
@@ -81,15 +85,15 @@ public class LoginServiceImpl implements LoginService {
 
         UserLogin user = userLoginDAO.login(login);
         if (user != null) {
-        log.debug("db user name: ".concat(user.getUserName()));
-        log.debug("db salt: ".concat(user.getSalt()));
-        log.debug("db password: ".concat(user.getSha1()));
+            log.debug("db user name: ".concat(user.getUserName()));
+            log.debug("db salt: ".concat(user.getSalt()));
+            log.debug("db password: ".concat(user.getSha1()));
         }
         if (user != null && user.getSha1() != null && user.getSalt() != null && login.getPassword() != null) {
             try {
-                boolean loggedIn = passwordService.checkPassword(user.getSha1().getBytes(), login.getPassword().getBytes(),
-                        user.getSalt().getBytes());
-                if(!loggedIn){
+                boolean loggedIn = passwordService.checkPassword(user.getSha1().getBytes(), login.getPassword()
+                        .getBytes(), user.getSalt().getBytes());
+                if (!loggedIn) {
                     user = null;
                 }
             } catch (PasswordServiceException e) {
@@ -100,7 +104,9 @@ public class LoginServiceImpl implements LoginService {
         return user;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.admingui.services.LoginService#addUser(gov.hhs.fha.nhinc.admingui.model.User)
      */
     @Override
@@ -110,7 +116,8 @@ public class LoginServiceImpl implements LoginService {
         String saltValue = null;
         try {
             saltValue = passwordService.generateRandomSalt();
-            passwordHash = new String(passwordService.calculateHash(saltValue.getBytes(), user.getPassword().getBytes()));
+            passwordHash = new String(
+                    passwordService.calculateHash(saltValue.getBytes(), user.getPassword().getBytes()));
 
         } catch (PasswordServiceException e) {
             throw new UserLoginException("Error while calculating hash.", e);
@@ -122,19 +129,19 @@ public class LoginServiceImpl implements LoginService {
         userLoginEntity.setUserName(user.getUserName());
         userLoginEntity.setSha1(passwordHash);
         userLoginEntity.setSalt(saltValue);
-        
+
         UserRole userRole = getUserRole(role);
-        
-        if(userRole != null){
+
+        if (userRole != null) {
             userRole.addLogin(userLoginEntity);
         }
-        
+
         userLoginEntity.setUserRole(userRole);
         isCreateUser = userLoginDAO.createUser(userLoginEntity);
-        
-        if(isCreateUser){
+
+        if (isCreateUser) {
             return userLoginEntity;
-        }else {
+        } else {
             return null;
         }
     }
