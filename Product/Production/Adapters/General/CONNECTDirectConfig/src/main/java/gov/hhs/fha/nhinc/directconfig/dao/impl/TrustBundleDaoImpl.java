@@ -304,14 +304,18 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
                 throw new ConfigurationStoreException("Trust bundle does not exist");
             }
 
-            log.debug("Updating bundle: " + existingBundle.getBundleName() + " with status: " + error.name());
             session = DaoUtils.getSession();
 
             if (session != null) {
                 tx = session.beginTransaction();
 
-                existingBundle.setLastRefreshAttempt(attemptTime);
-                existingBundle.setLastRefreshError(error);
+                if (attemptTime != null) {
+                    existingBundle.setLastRefreshAttempt(attemptTime);
+                }
+
+                if (error != null) {
+                    existingBundle.setLastRefreshError(error);
+                }
 
                 session.merge(existingBundle);
                 tx.commit();
