@@ -16,7 +16,10 @@
     - dashboard
 	- performance stats
 	- remote gateway list
-05. RESPONSIVE @MEDIA
+05. ACCOUNT MANAGEMENT STYLES
+    - manage role
+
+99. RESPONSIVE @MEDIA
     - set different styles at different browser window sizes
 
 =============================================================================
@@ -529,7 +532,7 @@ body {
 }
 .ui-panel .ui-panel-titlebar-icon.ui-state-hover .ui-icon {
 	box-shadow:none;
-	background-image:url("/javax.faces.resource/images/ui-icons_ffffff_256x240.png.xhtml?ln=primefaces-aristo");
+	background-image:url("../resources/images/ui-icons_ffffff_256x240.png");
 }
 .admin-dashboard .ui-panel-content {
     padding:15px;
@@ -565,15 +568,14 @@ body {
 	box-shadow:none;
 }
 .main-content .table-remotegateways td {
-
 	border-right:none;
 }
 
 
 
+/* -- ACCOUNT MANAGEMENT STYLES ----------------------------------------------*/
 
-
-/* ManageRole */
+/* -- MANAGE ROLE -- */
 .manageRoleSelectMenu
 {
 	width: 220px;
@@ -582,6 +584,8 @@ body {
 {
 	float:right;margin-right:150px;max-width:150px;width:150px;margin-top:7px;
 }
+
+
 
 /* -- RESPONSIVE @MEDIA STYLES -----------------------------------------------*/
 @media (max-width: 1100px) {
