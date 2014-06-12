@@ -505,3 +505,25 @@ GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'localhost' IDENTIFIED BY 'nhincpass'
 GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'127.0.0.1' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'{host name}' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
+
+-- -----------------------------------------------------
+-- The following is a workaround that is required for
+-- deployment due to a bug in Direct RI
+-- -----------------------------------------------------
+LOCK TABLES configdb WRITE;
+
+INSERT INTO `configdb`.`domain`
+(`id`, `domainName`, `postmasterAddressId`, `status`, `createTime`, `updateTime`)
+VALUES
+('1', 'direct.example.org', NULL, '1', now(), now());
+
+INSERT INTO `configdb`.`address`
+(`id`, `displayName`, `emailAddress`, `endpoint`, `status`, `type`, `createTime`, `updateTime`, `domainId`)
+VALUES
+('1', 'direct.example.org', 'postmaster@direct.example.org', NULL, '1', NULL, now(), now(), '1');
+
+UPDATE `configdb`.`address` SET id=2 WHERE id=1;
+
+UPDATE `configdb`.`domain` SET postmasterAddressId=2 WHERE id=1;
+
+UNLOCK TABLES;
