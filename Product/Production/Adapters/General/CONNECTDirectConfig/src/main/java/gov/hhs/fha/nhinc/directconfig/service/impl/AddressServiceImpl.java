@@ -56,7 +56,6 @@ import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.jws.WebService;
@@ -130,11 +129,13 @@ public class AddressServiceImpl extends SpringBeanAutowiringSupport implements A
     @Override
     public Collection<Address> getAddress(Collection<String> addressNames, EntityStatus status)
             throws ConfigurationServiceException {
-        if (addressNames == null || addressNames.size() == 0)
-            return Collections.emptyList();
 
-        List<String> addresses = new ArrayList<String>(addressNames);
-        return dao.listAddresses(addresses, status);
+        if (addressNames == null || addressNames.size() == 0) {
+            log.debug("No address names were provided.");
+            return Collections.emptyList();
+        }
+
+        return dao.listAddresses(new ArrayList<String>(addressNames), status);
     }
 
     /*
@@ -144,8 +145,11 @@ public class AddressServiceImpl extends SpringBeanAutowiringSupport implements A
      */
     @Override
     public void removeAddress(String addressName) throws ConfigurationServiceException {
-        if (addressName == null)
+        if (addressName == null) {
+            log.debug("No address name was provided.");
             return;
+        }
+
         dao.delete(addressName);
     }
 
@@ -157,7 +161,7 @@ public class AddressServiceImpl extends SpringBeanAutowiringSupport implements A
     @Override
     public Collection<Address> listAddresss(String lastAddressName, int maxResults)
             throws ConfigurationServiceException {
+
         throw new ConfigurationServiceException(new NotImplementedException());
     }
-
 }
