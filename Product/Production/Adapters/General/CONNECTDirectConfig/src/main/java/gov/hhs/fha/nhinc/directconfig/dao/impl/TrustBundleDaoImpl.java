@@ -478,7 +478,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
         final TrustBundle trustBundle = getTrustBundleById(trustBundleId);
 
         if (trustBundle == null) {
-            throw new ConfigurationStoreException("Trust bundle with id " + trustBundle + " does not exist");
+            throw new ConfigurationStoreException("Trust bundle with id " + trustBundleId + " does not exist");
         }
 
         try {
