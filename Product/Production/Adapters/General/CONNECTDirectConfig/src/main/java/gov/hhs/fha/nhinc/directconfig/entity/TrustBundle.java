@@ -57,6 +57,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 
+import javax.xml.bind.annotation.XmlTransient;
+
 /**
  * JPA entity object for a trust bundle
  * 
@@ -256,6 +258,7 @@ public class TrustBundle {
         if (trustBundleAnchors == null) {
             trustBundleAnchors = new ArrayList<TrustBundleAnchor>();
         }
+
         return trustBundleAnchors;
     }
 
@@ -273,10 +276,12 @@ public class TrustBundle {
      * 
      * @return The collection of Trust Bundle - Domain relations
      */
+    @XmlTransient
     public Collection<TrustBundleDomainReltn> getRelations() {
         if (relations == null) {
             relations = new ArrayList<TrustBundleDomainReltn>();
         }
+
         return relations;
     }
 
@@ -315,6 +320,7 @@ public class TrustBundle {
      */
     public X509Certificate toSigningCertificate() throws CertificateException {
         X509Certificate cert = null;
+
         try {
             validate();
             ByteArrayInputStream bais = new ByteArrayInputStream(signingCertificateData);

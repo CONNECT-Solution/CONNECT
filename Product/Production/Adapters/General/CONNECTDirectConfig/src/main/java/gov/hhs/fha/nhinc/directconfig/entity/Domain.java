@@ -56,6 +56,7 @@ import java.util.Collection;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * The JPA Domain class
@@ -188,7 +189,6 @@ public class Domain {
      * @param timestamp The value of updateTime.
      */
     public void setUpdateTime(Calendar timestamp) {
-
         updateTime = timestamp;
     }
 
@@ -218,6 +218,7 @@ public class Domain {
                 }
             }
         }
+
         return result;
     }
 
@@ -241,6 +242,7 @@ public class Domain {
         } else {
             Long addressId = null;
             boolean matched = false;
+
             // Check to see if we've already got the address
             for (Address address : getAddresses()) {
                 if (address.getEmailAddress().equals(email)) {
@@ -252,9 +254,11 @@ public class Domain {
 
             if (!matched) { // It's a new address so add it
                 Address postmaster = new Address(this, email);
+
                 postmaster.setDisplayName("Postmaster");
                 postmaster.setStatus(EntityStatus.NEW);
                 getAddresses().add(postmaster);
+
                 addressId = postmaster.getId();
             }
 
@@ -273,6 +277,7 @@ public class Domain {
         if (addresses == null) {
             addresses = new ArrayList<Address>();
         }
+
         return addresses;
     }
 
@@ -299,10 +304,12 @@ public class Domain {
      * 
      * @return The collection of Trust Bundle - Domain relations
      */
+    @XmlTransient
     public Collection<TrustBundleDomainReltn> getRelations() {
         if (relations == null) {
             relations = new ArrayList<TrustBundleDomainReltn>();
         }
+
         return relations;
     }
 
@@ -317,6 +324,7 @@ public class Domain {
                 && (getDomainName().length() > 0)
                 && ((getStatus().equals(EntityStatus.ENABLED)) || (getStatus().equals(EntityStatus.DISABLED)) || ((getStatus()
                         .equals(EntityStatus.NEW)) && (getId() == 0L)))) {
+
             result = true;
         }
 
@@ -333,5 +341,4 @@ public class Domain {
         return "[ID: " + getId() + " | Domain: " + getDomainName() + " | Status: " + getStatus().toString()
                 + " | Addresses: " + getAddresses().size() + "]";
     }
-
 }
