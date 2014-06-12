@@ -27,9 +27,9 @@
 package gov.hhs.fha.nhinc.admingui.managed;
 
 /*import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
-import gov.hhs.fha.nhinc.admingui.model.Login;
-import gov.hhs.fha.nhinc.admingui.services.LoginService;
-import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;*/
+ import gov.hhs.fha.nhinc.admingui.model.Login;
+ import gov.hhs.fha.nhinc.admingui.services.LoginService;
+ import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;*/
 
 import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
@@ -58,7 +58,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoginBean {
 
-	public static final Logger log = Logger.getLogger(LoginBean.class);
+	private static final Logger LOG = Logger.getLogger(LoginBean.class);
 
 	/** The user name. */
 	private String userName;
@@ -66,12 +66,16 @@ public class LoginBean {
 	/** The password. */
 	private String password;
 
+	/** The is correct. */
+	public Boolean isCorrect = false;
+
 	/** The login service. */
 	@Autowired
 	private LoginService loginService;
-	
+
 	/**
-	 * Gets the user name. 
+	 * Gets the user name.
+	 * 
 	 * @return the user name
 	 */
 	public String getUserName() {
@@ -79,16 +83,18 @@ public class LoginBean {
 	}
 
 	/**
-	 * Sets the user name. 
+	 * Sets the user name.
+	 * 
 	 * @param userName
-	 * the new user name
+	 *            the new user name
 	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
 	/**
-	 * Gets the password. 
+	 * Gets the password.
+	 * 
 	 * @return the password
 	 */
 	public String getPassword() {
@@ -96,21 +102,25 @@ public class LoginBean {
 	}
 
 	/**
-	 * Sets the password. 
+	 * Sets the password.
+	 * 
 	 * @param password
-	 * the new password
+	 *            the new password
 	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	/**
 	 * Instantiates a new login bean.
 	 */
 	public LoginBean() {
+
 	}
 
 	/**
-	 * Invoke patient. 
+	 * Invoke patient.
+	 * 
 	 * @return the string
 	 */
 	public String loginAndNavigate() {
@@ -118,13 +128,16 @@ public class LoginBean {
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR,
-							"Username and/or Password not valid ","")); 
+							"Username and/or Password not valid...!!!", ""));
 			return null;
-		} 
+		}
 		return NavigationConstant.STATUS_PAGE;
+
 	}
+
 	/**
-	 * Logout. 
+	 * Logout.
+	 * 
 	 * @return the string
 	 */
 	public String logout() {
@@ -141,7 +154,8 @@ public class LoginBean {
 	}
 
 	/**
-	 * Login. 
+	 * Login.
+	 * 
 	 * @return true, if successful
 	 */
 	private boolean login() {
@@ -149,6 +163,7 @@ public class LoginBean {
 		Login login = new Login(userName, password);
 		try {
 			UserLogin user = loginService.login(login);
+
 			if (user != null) {
 				loggedIn = true;
 				FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -156,10 +171,10 @@ public class LoginBean {
 						.getExternalContext().getSession(false);
 				session.setAttribute(
 						UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE,
-						login);
+						user);
 			}
 		} catch (UserLoginException e) {
-			log.error(e,e);			
+			LOG.error(e, e);
 		}
 		return loggedIn;
 	}

@@ -62,8 +62,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
     public UserLogin login(Login login) {
         Session session = this.sessionFactory.getCurrentSession();
         Query query = session.createQuery("from UserLogin where userName = :userName");
-        query.setParameter("userName", login.getUserName());
-        //return (UserLogin) query.list().get(0);        
+        query.setParameter("userName", login.getUserName());          
 		List list = query.list();
 		if (!list.isEmpty() && list.get(0) != null) {
 			return (UserLogin) list.get(0);
