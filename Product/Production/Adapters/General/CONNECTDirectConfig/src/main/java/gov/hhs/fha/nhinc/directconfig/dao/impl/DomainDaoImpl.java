@@ -291,9 +291,14 @@ public class DomainDaoImpl implements DomainDao {
             session = DaoUtils.getSession();
 
             if (session != null) {
-                query = session.getNamedQuery("getDomains");
+                if (names != null && names.size() > 0) {
+                    query = session.getNamedQuery("getDomains");
 
-                query.setParameterList("nameList", names);
+                    query.setParameterList("nameList", names);
+                } else {
+                    query = session.getNamedQuery("getDomainsByStatus");
+                }
+
                 query.setParameter("status", status);
 
                 results = query.list();

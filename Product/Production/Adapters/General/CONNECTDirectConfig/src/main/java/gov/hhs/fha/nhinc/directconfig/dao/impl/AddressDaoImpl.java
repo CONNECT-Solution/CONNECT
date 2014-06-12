@@ -269,8 +269,14 @@ public class AddressDaoImpl implements AddressDao {
             session = DaoUtils.getSession();
 
             if (session != null) {
-                query = session.getNamedQuery("getAddress");
-                query.setParameterList("emailList", names);
+                if (names != null && names.size() > 0) {
+                    query = session.getNamedQuery("getAddress");
+
+                    query.setParameterList("emailList", names);
+                } else {
+                    query = session.getNamedQuery("getAddressByStatus");
+                }
+
                 query.setParameter("status", status);
 
                 results = query.list();
