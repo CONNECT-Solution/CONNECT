@@ -206,8 +206,11 @@ public class AnchorDaoImpl implements AnchorDao {
                 }
             } catch (CertificateException e) {
                 log.error("Could not convert anchor data to X509Certificate");
+                DaoUtils.rollbackTransaction(tx);
+                throw new ConfigurationStoreException(e);
             } catch (Exception e) {
                 DaoUtils.rollbackTransaction(tx);
+                throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
             }
@@ -295,6 +298,7 @@ public class AnchorDaoImpl implements AnchorDao {
                 }
             } catch (Exception e) {
                 DaoUtils.rollbackTransaction(tx);
+                throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
             }
@@ -331,6 +335,7 @@ public class AnchorDaoImpl implements AnchorDao {
                     }
                 } catch (Exception e) {
                     DaoUtils.rollbackTransaction(tx);
+                    throw new ConfigurationStoreException(e);
                 } finally {
                     DaoUtils.closeSession(session);
                 }
@@ -366,6 +371,7 @@ public class AnchorDaoImpl implements AnchorDao {
                 }
             } catch (Exception e) {
                 DaoUtils.rollbackTransaction(tx);
+                throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
             }
@@ -400,6 +406,7 @@ public class AnchorDaoImpl implements AnchorDao {
                 }
             } catch (Exception e) {
                 DaoUtils.rollbackTransaction(tx);
+                throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
             }

@@ -88,6 +88,7 @@ public class SettingDaoImpl implements SettingDao {
                 log.debug("Added " + name + ": " + value);
             } catch (Exception e) {
                 DaoUtils.rollbackTransaction(tx);
+                throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
             }
@@ -122,6 +123,7 @@ public class SettingDaoImpl implements SettingDao {
                 }
             } catch (Exception e) {
                 DaoUtils.rollbackTransaction(tx);
+                throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
             }
@@ -221,6 +223,7 @@ public class SettingDaoImpl implements SettingDao {
                 }
             } catch (Exception e) {
                 DaoUtils.rollbackTransaction(tx);
+                throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
             }

@@ -352,6 +352,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
                 }
             } catch (Exception e) {
                 DaoUtils.rollbackTransaction(tx);
+                throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
             }
@@ -722,6 +723,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             }
         } catch (Exception e) {
             DaoUtils.rollbackTransaction(tx);
+            throw new ConfigurationStoreException(e);
         } finally {
             DaoUtils.closeSession(session);
         }
