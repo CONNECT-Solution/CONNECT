@@ -42,9 +42,9 @@
             <bean ref="bundleRefreshProcessor" />
         </route>
 
-        <route id="cache-refresher">
+        <!--route id="cache-refresher">
             <from uri="timer://cache-refresh?period=1h" />
             <bean ref="bundleCacheUpdateProcessor" />
-        </route>
+        </route-->
     </camelContext>
 </beans>

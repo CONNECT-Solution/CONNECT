@@ -71,6 +71,12 @@ public class DNSRecord {
     private Calendar createTime;
 
     /**
+     * Construct a DNSRecord.
+     */
+    public DNSRecord() {
+    }
+
+    /**
      * Gets the internal id of the record. The record id is the primary key of the record JPA store.
      * 
      * @return The internal id of the record.
@@ -167,8 +173,9 @@ public class DNSRecord {
      * @return Gets the date/time the record was created.
      */
     public Calendar getCreateTime() {
-        if (createTime == null)
+        if (createTime == null) {
             setCreateTime(Calendar.getInstance());
+        }
 
         return createTime;
     }
@@ -230,8 +237,9 @@ public class DNSRecord {
      */
     @Override
     public boolean equals(Object ob) {
-        if (!(ob instanceof DNSRecord))
+        if (!(ob instanceof DNSRecord)) {
             return false;
+        }
 
         DNSRecord rec = (DNSRecord) ob;
 

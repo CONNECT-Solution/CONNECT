@@ -60,7 +60,6 @@ import java.util.Calendar;
  * The JPA Domain class
  */
 public class Anchor {
-
     private String owner;
     private String thumbprint;
     private long certificateId;
@@ -72,6 +71,12 @@ public class Anchor {
     private EntityStatus status;
     private boolean incoming;
     private boolean outgoing;
+
+    /**
+     * Construct an Anchor.
+     */
+    public Anchor() {
+    }
 
     /**
      * Get the value of owner.

@@ -73,6 +73,12 @@ public class TrustBundleAnchor {
     private Calendar validEndDate;
 
     /**
+     * Construct a TrustBundleAnchor.
+     */
+    public TrustBundleAnchor() {
+    }
+
+    /**
      * Get the value of id.
      * 
      * @return the value of id.

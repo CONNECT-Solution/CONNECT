@@ -78,8 +78,8 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
  * @author Greg Meyer
  * @since 1.3
  */
-@Service
-@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.TrustBundleService")
+@Service("trustBundleSvc")
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.TrustBundleService", portName = "ConfigurationServiceImplPort", targetNamespace = "http://nhind.org/config")
 public class TrustBundleServiceImpl extends SpringBeanAutowiringSupport implements TrustBundleService {
     private static final Log log = LogFactory.getLog(TrustBundleServiceImpl.class);
 

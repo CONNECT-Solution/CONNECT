@@ -271,7 +271,7 @@
     -->
     <query name="getAddress">
         <![CDATA[FROM Address a
-                    WHERE ( :emailList IS NULL OR UPPER ( a.emailAddress ) IN (:emailList) )
+                    WHERE ( UPPER ( a.emailAddress ) IN (:emailList) )
                     AND ( :status IS NULL OR a.status = :status ) ]]>
     </query>
 
@@ -338,7 +338,7 @@
 
     <query name="getDomains">
         <![CDATA[FROM Domain d
-                    WHERE ( :nameList IS NULL OR UPPER(d.domainName) IN (:nameList) )
+                    WHERE ( UPPER(d.domainName) IN (:nameList) )
                     AND ( :status IS NULL OR d.status = :status ) ]]>
     </query>
 

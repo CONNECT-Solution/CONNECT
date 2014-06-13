@@ -60,8 +60,10 @@ public class CertPolicyGroupReltn {
     private boolean incoming;
     private boolean outgoing;
 
+    /**
+     * Construct a CertPolicyGroupReltn.
+     */
     public CertPolicyGroupReltn() {
-
     }
 
     /**

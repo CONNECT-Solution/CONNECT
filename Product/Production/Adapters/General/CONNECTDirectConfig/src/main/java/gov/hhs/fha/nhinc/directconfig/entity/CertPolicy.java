@@ -49,14 +49,10 @@ package gov.hhs.fha.nhinc.directconfig.entity;
 
 import java.util.Calendar;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAttribute;
 
 import org.nhindirect.policy.PolicyLexicon;
 
-@Entity
-@Table(name = "certpolicy")
 public class CertPolicy {
     private Long id;
     private String policyName;
@@ -64,8 +60,10 @@ public class CertPolicy {
     private byte[] policyData;
     private Calendar createTime;
 
+    /**
+     * Construct a CertPolicy.
+     */
     public CertPolicy() {
-
     }
 
     /**

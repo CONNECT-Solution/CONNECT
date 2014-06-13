@@ -56,23 +56,14 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 
 public class Address {
-
     private String emailAddress;
-
     private Long id;
-
     private Domain domain;
-
     private String displayName;
-
     private String endpoint;
-
     private Calendar createTime;
-
     private Calendar updateTime;
-
     private EntityStatus status;
-
     private String type;
 
     /**

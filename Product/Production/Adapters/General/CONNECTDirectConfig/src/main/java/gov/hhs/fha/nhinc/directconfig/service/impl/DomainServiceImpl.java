@@ -69,8 +69,8 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 /**
  * Service class for methods related to a Domain object.
  */
-@Service
-@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.DomainService")
+@Service("domainSvc")
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.DomainService", portName = "ConfigurationServiceImplPort", targetNamespace = "http://nhind.org/config")
 public class DomainServiceImpl extends SpringBeanAutowiringSupport implements DomainService {
 
     private static final Log log = LogFactory.getLog(DomainServiceImpl.class);

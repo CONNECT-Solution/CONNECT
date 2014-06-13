@@ -160,14 +160,14 @@ public class DomainDaoImpl implements DomainDao {
             Transaction tx = null;
 
             try {
+                saveAddresses(item.getAddresses());
+
                 session = DaoUtils.getSession();
 
                 if (session != null) {
                     tx = session.beginTransaction();
                     session.merge(item);
                     tx.commit();
-
-                    saveAddresses(item.getAddresses());
                 }
             } catch (Exception e) {
                 DaoUtils.rollbackTransaction(tx);
