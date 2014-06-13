@@ -52,6 +52,7 @@ import gov.hhs.fha.nhinc.directconfig.dao.helpers.DaoUtils;
 import gov.hhs.fha.nhinc.directconfig.entity.Address;
 import gov.hhs.fha.nhinc.directconfig.entity.Domain;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
+import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -123,6 +124,7 @@ public class AddressDaoImpl implements AddressDao {
                 }
             } catch (Exception e) {
                 DaoUtils.rollbackTransaction(tx);
+                throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
             }
@@ -164,6 +166,7 @@ public class AddressDaoImpl implements AddressDao {
                 }
             } catch (Exception e) {
                 DaoUtils.rollbackTransaction(tx);
+                throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
             }
@@ -204,6 +207,7 @@ public class AddressDaoImpl implements AddressDao {
                 }
             } catch (Exception e) {
                 DaoUtils.rollbackTransaction(tx);
+                throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
             }
@@ -265,8 +269,14 @@ public class AddressDaoImpl implements AddressDao {
             session = DaoUtils.getSession();
 
             if (session != null) {
-                query = session.getNamedQuery("getAddress");
-                query.setParameterList("emailList", names);
+                if (names != null && names.size() > 0) {
+                    query = session.getNamedQuery("getAddress");
+
+                    query.setParameterList("emailList", names);
+                } else {
+                    query = session.getNamedQuery("getAddressByStatus");
+                }
+
                 query.setParameter("status", status);
 
                 results = query.list();

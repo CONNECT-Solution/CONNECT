@@ -53,6 +53,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
 import gov.hhs.fha.nhinc.directconfig.entity.Certificate.CertContainer;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
+import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
 
 import java.security.cert.X509Certificate;
 import java.util.Calendar;
@@ -237,8 +238,11 @@ public class CertificateDaoImpl implements CertificateDao {
                 }
             } catch (CertificateException e) {
                 log.error("Could not convert certificate data to X509Certificate");
+                DaoUtils.rollbackTransaction(tx);
+                throw new ConfigurationStoreException(e);
             } catch (Exception e) {
                 DaoUtils.rollbackTransaction(tx);
+                throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
             }
@@ -285,6 +289,7 @@ public class CertificateDaoImpl implements CertificateDao {
                 }
             } catch (Exception e) {
                 DaoUtils.rollbackTransaction(tx);
+                throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
             }
@@ -319,6 +324,7 @@ public class CertificateDaoImpl implements CertificateDao {
                 }
             } catch (Exception e) {
                 DaoUtils.rollbackTransaction(tx);
+                throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
             }
@@ -353,6 +359,7 @@ public class CertificateDaoImpl implements CertificateDao {
                 }
             } catch (Exception e) {
                 DaoUtils.rollbackTransaction(tx);
+                throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
             }
@@ -378,7 +385,7 @@ public class CertificateDaoImpl implements CertificateDao {
                     tx = session.beginTransaction();
 
                     query = session.createQuery("DELETE FROM Certificate c WHERE UPPER(c.owner) = :owner");
-                    query.setParameter(owner, owner.toUpperCase(Locale.getDefault()));
+                    query.setParameter("owner", owner.toUpperCase(Locale.getDefault()));
 
                     count = query.executeUpdate();
                     tx.commit();
@@ -387,6 +394,7 @@ public class CertificateDaoImpl implements CertificateDao {
                 }
             } catch (Exception e) {
                 DaoUtils.rollbackTransaction(tx);
+                throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
             }

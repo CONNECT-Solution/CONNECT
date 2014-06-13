@@ -298,7 +298,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
         Transaction tx = null;
 
         try {
-            final TrustBundle existingBundle = this.getTrustBundleById(trustBundleId);
+            final TrustBundle existingBundle = getTrustBundleById(trustBundleId);
 
             if (existingBundle == null) {
                 throw new ConfigurationStoreException("Trust bundle does not exist");
@@ -309,10 +309,16 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             if (session != null) {
                 tx = session.beginTransaction();
 
-                existingBundle.setLastRefreshAttempt(attemptTime);
-                existingBundle.setLastRefreshError(error);
+                if (attemptTime != null) {
+                    existingBundle.setLastRefreshAttempt(attemptTime);
+                }
+
+                if (error != null) {
+                    existingBundle.setLastRefreshError(error);
+                }
 
                 session.merge(existingBundle);
+                tx.commit();
             }
         } catch (ConfigurationStoreException cse) {
             DaoUtils.rollbackTransaction(tx);
@@ -352,6 +358,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
                 }
             } catch (Exception e) {
                 DaoUtils.rollbackTransaction(tx);
+                throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
             }
@@ -471,7 +478,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
         final TrustBundle trustBundle = getTrustBundleById(trustBundleId);
 
         if (trustBundle == null) {
-            throw new ConfigurationStoreException("Trust bundle with id " + trustBundle + " does not exist");
+            throw new ConfigurationStoreException("Trust bundle with id " + trustBundleId + " does not exist");
         }
 
         try {
@@ -722,6 +729,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             }
         } catch (Exception e) {
             DaoUtils.rollbackTransaction(tx);
+            throw new ConfigurationStoreException(e);
         } finally {
             DaoUtils.closeSession(session);
         }

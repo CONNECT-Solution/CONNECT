@@ -56,7 +56,6 @@ import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.jws.WebService;
@@ -89,75 +88,65 @@ public class AddressServiceImpl extends SpringBeanAutowiringSupport implements A
         log.info("AddressService initialized");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#addAddress(java.util.Collection)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void addAddress(Collection<Address> address) throws ConfigurationServiceException {
         throw new ConfigurationServiceException(new NotImplementedException());
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * gov.hhs.fha.nhinc.directconfig.service.AddressService#updateAddress(gov.hhs.fha.nhinc.directconfig.entity.Address
-     * )
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void updateAddress(Address address) throws ConfigurationServiceException {
         throw new ConfigurationServiceException(new NotImplementedException());
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#getAddressCount()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public int getAddressCount() throws ConfigurationServiceException {
         throw new ConfigurationServiceException(new NotImplementedException());
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#getAddress(java.util.Collection,
-     * gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Collection<Address> getAddress(Collection<String> addressNames, EntityStatus status)
             throws ConfigurationServiceException {
-        if (addressNames == null || addressNames.size() == 0)
-            return Collections.emptyList();
 
-        List<String> addresses = new ArrayList<String>(addressNames);
-        return dao.listAddresses(addresses, status);
+        if (addressNames == null || addressNames.size() == 0) {
+            log.debug("No address names were provided.");
+            return Collections.emptyList();
+        }
+
+        return dao.listAddresses(new ArrayList<String>(addressNames), status);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#removeAddress(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void removeAddress(String addressName) throws ConfigurationServiceException {
-        if (addressName == null)
+        if (addressName == null) {
+            log.debug("No address name was provided.");
             return;
+        }
+
         dao.delete(addressName);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#listAddresss(java.lang.String, int)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Collection<Address> listAddresss(String lastAddressName, int maxResults)
             throws ConfigurationServiceException {
+
         throw new ConfigurationServiceException(new NotImplementedException());
     }
-
 }

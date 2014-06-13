@@ -1455,76 +1455,110 @@ Note:  At the moment, DNS and CertPolicy TestSuites are disabled due to the no-o
          <names>${#Project#SettingName-Unique}2</names>
       </con:getSettingsByNames>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:assertion type="Simple NotContains" name="Does not return values"><con:configuration><token>&lt;return></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:GetSettingsByNames" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite name="TrustBundleService" disabled="true"><con:description>Disabled due to broken TrustBundle functionality.</con:description><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="getTrustBundles" searchProperties="true"><con:settings/><con:testStep type="request" name="getTrustBundles"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>getTrustBundles</con:operation><con:request name="getTrustBundles"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:assertion type="Simple NotContains" name="Does not return values"><con:configuration><token>&lt;return></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:GetSettingsByNames" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite name="TrustBundleService"><con:description>Disabled due to broken TrustBundle functionality.</con:description><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="getTrustBundles" searchProperties="true"><con:settings/><con:testStep type="request" name="getTrustBundles"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>getTrustBundles</con:operation><con:request name="getTrustBundles"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
    <soapenv:Header/>
    <soapenv:Body>
       <con:getTrustBundles>
-         <fetchAnchors>?</fetchAnchors>
+         <fetchAnchors>true</fetchAnchors>
       </con:getTrustBundles>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:GetTrustBundles"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="getTrustBundleByName" searchProperties="true"><con:settings/><con:testStep type="request" name="getTrustBundleByName"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>getTrustBundleByName</con:operation><con:request name="getTrustBundleByName"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:GetTrustBundles" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="getTrustBundleByName" searchProperties="true"><con:settings/><con:testStep type="request" name="getTrustBundleByName"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>getTrustBundleByName</con:operation><con:request name="getTrustBundleByName"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
    <soapenv:Header/>
    <soapenv:Body>
       <con:getTrustBundleByName>
-         <!--Optional:-->
-         <bundleName>?</bundleName>
+         <bundleName>bluebutton-providerstest</bundleName>
       </con:getTrustBundleByName>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:GetTrustBundleByName"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="getTrustBundleById" searchProperties="true"><con:settings/><con:testStep type="request" name="getTrustBundleById"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>getTrustBundleById</con:operation><con:request name="getTrustBundleById"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:GetTrustBundleByName" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="getTrustBundleById" searchProperties="true"><con:settings/><con:testStep type="request" name="getTrustBundleById"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>getTrustBundleById</con:operation><con:request name="getTrustBundleById"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
    <soapenv:Header/>
    <soapenv:Body>
       <con:getTrustBundleById>
-         <id>?</id>
+         <id>1</id>
       </con:getTrustBundleById>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:GetTrustBundleById"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="getTrustBundlesByDomain" searchProperties="true"><con:settings/><con:testStep type="request" name="getTrustBundlesByDomain"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>getTrustBundlesByDomain</con:operation><con:request name="getTrustBundlesByDomain"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:GetTrustBundleById" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="getTrustBundlesByDomain" searchProperties="true"><con:settings/><con:testStep type="request" name="getTrustBundlesByDomain"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>getTrustBundlesByDomain</con:operation><con:request name="getTrustBundlesByDomain"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
    <soapenv:Header/>
    <soapenv:Body>
       <con:getTrustBundlesByDomain>
-         <domainId>?</domainId>
-         <fetchAnchors>?</fetchAnchors>
+         <domainId>3</domainId>
+         <fetchAnchors>false</fetchAnchors>
       </con:getTrustBundlesByDomain>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:GetTrustBundlesByDomain"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="addTrustBundle" searchProperties="true"><con:settings/><con:testStep type="request" name="addTrustBundle"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>addTrustBundle</con:operation><con:request name="addTrustBundle"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance" disabled="true"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:GetTrustBundlesByDomain" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="addTrustBundle" searchProperties="true"><con:settings/><con:testStep type="request" name="addTrustBundle"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>addTrustBundle</con:operation><con:request name="addTrustBundle"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
    <soapenv:Header/>
    <soapenv:Body>
       <con:addTrustBundle>
-         <!--Optional:-->
          <bundle>
-            <!--Optional:-->
-            <bundleName>?</bundleName>
-            <!--Optional:-->
-            <bundleURL>?</bundleURL>
-            <!--Optional:-->
-            <checkSum>?</checkSum>
-            <!--Optional:-->
-            <createTime>?</createTime>
-            <id>?</id>
-            <!--Optional:-->
-            <lastRefreshAttempt>?</lastRefreshAttempt>
-            <!--Optional:-->
-            <lastRefreshError>?</lastRefreshError>
-            <!--Optional:-->
-            <lastSuccessfulRefresh>?</lastSuccessfulRefresh>
-            <refreshInterval>?</refreshInterval>
-            <!--Optional:-->
-            <signingCertificateData>cid:1347241310417</signingCertificateData>
-            <!--Zero or more repetitions:-->
-            <trustBundleAnchors>
-               <!--Optional:-->
-               <data>cid:1367829545160</data>
-               <id>?</id>
-               <!--Optional:-->
-               <thumbprint>?</thumbprint>
-               <!--Optional:-->
-               <validEndDate>?</validEndDate>
-               <!--Optional:-->
-               <validStartDate>?</validStartDate>
-            </trustBundleAnchors>
+            <bundleName>bluebutton-providerstest</bundleName>
+            <bundleURL>https://secure.bluebuttontrust.org/p7b.ashx?id=cb300117-3a4a-e211-8bc3-78e3b5114607</bundleURL>
+            <refreshInterval>72</refreshInterval>
          </bundle>
       </con:addTrustBundle>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:AddTrustBundle"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="updateTrustBundleSigningCertificate" searchProperties="true"><con:settings/><con:testStep type="request" name="updateTrustBundleSigningCertificate"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>updateTrustBundleSigningCertificate</con:operation><con:request name="updateTrustBundleSigningCertificate"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:AddTrustBundle" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="updateTrustBundleAttributes" searchProperties="true"><con:settings/><con:testStep type="request" name="updateTrustBundleAttributes"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>updateTrustBundleAttributes</con:operation><con:request name="updateTrustBundleAttributes"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:updateTrustBundleAttributes>
+         <trustBundleId>10</trustBundleId>
+         <trustBundleName>bluebutton-providerstest-updated</trustBundleName>
+         <trustBundleRefreshInterval>36</trustBundleRefreshInterval>
+      </con:updateTrustBundleAttributes>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:UpdateTrustBundleAttributes" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="refreshTrustBundle" searchProperties="true"><con:settings/><con:testStep type="request" name="refreshTrustBundle"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>refreshTrustBundle</con:operation><con:request name="refreshTrustBundle"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:refreshTrustBundle>
+         <id>1</id>
+      </con:refreshTrustBundle>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:RefreshTrustBundle" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="updateLastUpdateError" searchProperties="true"><con:settings/><con:testStep type="request" name="updateLastUpdateError"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>updateLastUpdateError</con:operation><con:request name="updateLastUpdateError"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:updateLastUpdateError>
+         <trustBundleId>1</trustBundleId>
+         <error>DOWNLOAD_TIMEOUT</error>
+      </con:updateLastUpdateError>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:UpdateLastUpdateError" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="associateTrustBundleToDomain" searchProperties="true"><con:settings/><con:testStep type="request" name="associateTrustBundleToDomain"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>associateTrustBundleToDomain</con:operation><con:request name="associateTrustBundleToDomain"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:associateTrustBundleToDomain>
+         <domainId>1</domainId>
+         <trustBundleId>1</trustBundleId>
+         <incoming>1</incoming>
+         <outgoing>0</outgoing>
+      </con:associateTrustBundleToDomain>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:AssociateTrustBundleToDomain" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="disassociateTrustBundleFromDomains" searchProperties="true"><con:settings/><con:testStep type="request" name="disassociateTrustBundleFromDomains"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>disassociateTrustBundleFromDomains</con:operation><con:request name="disassociateTrustBundleFromDomains"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:disassociateTrustBundleFromDomains>
+         <trustBundleId>2</trustBundleId>
+      </con:disassociateTrustBundleFromDomains>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:DisassociateTrustBundleFromDomains" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="disassociateTrustBundlesFromDomain" searchProperties="true"><con:settings/><con:testStep type="request" name="disassociateTrustBundlesFromDomain"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>disassociateTrustBundlesFromDomain</con:operation><con:request name="disassociateTrustBundlesFromDomain"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:disassociateTrustBundlesFromDomain>
+         <domainId>1</domainId>
+      </con:disassociateTrustBundlesFromDomain>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:DisassociateTrustBundlesFromDomain" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="disassociateTrustBundleFromDomain" searchProperties="true"><con:settings/><con:testStep type="request" name="disassociateTrustBundleFromDomain"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>disassociateTrustBundleFromDomain</con:operation><con:request name="disassociateTrustBundleFromDomain"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:disassociateTrustBundleFromDomain>
+         <domainId>1</domainId>
+         <trustBundleId>1</trustBundleId>
+      </con:disassociateTrustBundleFromDomain>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:DisassociateTrustBundleFromDomain" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="deleteTrustBundles" searchProperties="true"><con:settings/><con:testStep type="request" name="deleteTrustBundles"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>deleteTrustBundles</con:operation><con:request name="deleteTrustBundles"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:deleteTrustBundles>
+         <trustBundleIds>1</trustBundleIds>
+      </con:deleteTrustBundles>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:DeleteTrustBundles" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="updateTrustBundleSigningCertificate" searchProperties="true" disabled="true"><con:settings/><con:testStep type="request" name="updateTrustBundleSigningCertificate"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>updateTrustBundleSigningCertificate</con:operation><con:request name="updateTrustBundleSigningCertificate"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
    <soapenv:Header/>
    <soapenv:Body>
       <con:updateTrustBundleSigningCertificate>
@@ -1548,94 +1582,7 @@ Note:  At the moment, DNS and CertPolicy TestSuites are disabled due to the no-o
          </signingCert>
       </con:updateTrustBundleSigningCertificate>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:UpdateTrustBundleSigningCertificate"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="updateTrustBundleAttributes" searchProperties="true"><con:settings/><con:testStep type="request" name="updateTrustBundleAttributes"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>updateTrustBundleAttributes</con:operation><con:request name="updateTrustBundleAttributes"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <con:updateTrustBundleAttributes>
-         <trustBundleId>?</trustBundleId>
-         <!--Optional:-->
-         <trustBundleName>?</trustBundleName>
-         <!--Optional:-->
-         <trustBundleURL>?</trustBundleURL>
-         <!--Optional:-->
-         <signingCert>
-            <!--Optional:-->
-            <createTime>?</createTime>
-            <!--Optional:-->
-            <data>cid:853569992092</data>
-            <id>?</id>
-            <!--Optional:-->
-            <owner>?</owner>
-            <privateKey>?</privateKey>
-            <!--Optional:-->
-            <status>?</status>
-            <!--Optional:-->
-            <validEndDate>?</validEndDate>
-            <!--Optional:-->
-            <validStartDate>?</validStartDate>
-         </signingCert>
-         <trustBundleRefreshInterval>?</trustBundleRefreshInterval>
-      </con:updateTrustBundleAttributes>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:UpdateTrustBundleAttributes"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="refreshTrustBundle" searchProperties="true"><con:settings/><con:testStep type="request" name="refreshTrustBundle"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>refreshTrustBundle</con:operation><con:request name="refreshTrustBundle"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <con:refreshTrustBundle>
-         <id>?</id>
-      </con:refreshTrustBundle>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:RefreshTrustBundle"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="updateLastUpdateError" searchProperties="true"><con:settings/><con:testStep type="request" name="updateLastUpdateError"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>updateLastUpdateError</con:operation><con:request name="updateLastUpdateError"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <con:updateLastUpdateError>
-         <trustBundleId>?</trustBundleId>
-         <!--Optional:-->
-         <attemptTime>?</attemptTime>
-         <!--Optional:-->
-         <error>?</error>
-      </con:updateLastUpdateError>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:UpdateLastUpdateError"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="associateTrustBundleToDomain" searchProperties="true"><con:settings/><con:testStep type="request" name="associateTrustBundleToDomain"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>associateTrustBundleToDomain</con:operation><con:request name="associateTrustBundleToDomain"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <con:associateTrustBundleToDomain>
-         <domainId>?</domainId>
-         <trustBundleId>?</trustBundleId>
-         <incoming>?</incoming>
-         <outgoing>?</outgoing>
-      </con:associateTrustBundleToDomain>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:AssociateTrustBundleToDomain"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="disassociateTrustBundleFromDomains" searchProperties="true"><con:settings/><con:testStep type="request" name="disassociateTrustBundleFromDomains"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>disassociateTrustBundleFromDomains</con:operation><con:request name="disassociateTrustBundleFromDomains"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <con:disassociateTrustBundleFromDomains>
-         <trustBundleId>?</trustBundleId>
-      </con:disassociateTrustBundleFromDomains>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:DisassociateTrustBundleFromDomains"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="disassociateTrustBundlesFromDomain" searchProperties="true"><con:settings/><con:testStep type="request" name="disassociateTrustBundlesFromDomain"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>disassociateTrustBundlesFromDomain</con:operation><con:request name="disassociateTrustBundlesFromDomain"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <con:disassociateTrustBundlesFromDomain>
-         <domainId>?</domainId>
-      </con:disassociateTrustBundlesFromDomain>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:DisassociateTrustBundlesFromDomain"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="disassociateTrustBundleFromDomain" searchProperties="true"><con:settings/><con:testStep type="request" name="disassociateTrustBundleFromDomain"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>disassociateTrustBundleFromDomain</con:operation><con:request name="disassociateTrustBundleFromDomain"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <con:disassociateTrustBundleFromDomain>
-         <domainId>?</domainId>
-         <trustBundleId>?</trustBundleId>
-      </con:disassociateTrustBundleFromDomain>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:DisassociateTrustBundleFromDomain"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="deleteTrustBundles" searchProperties="true"><con:settings/><con:testStep type="request" name="deleteTrustBundles"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>deleteTrustBundles</con:operation><con:request name="deleteTrustBundles"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <con:deleteTrustBundles>
-         <!--Zero or more repetitions:-->
-         <trustBundleIds>?</trustBundleIds>
-      </con:deleteTrustBundles>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:DeleteTrustBundles"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite name="AddressService" disabled="true"><con:description>Disabled due to no-op implementation of all but two functions, both of which must be tested in the context of DomainService.</con:description><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="getAddresss" searchProperties="true"><con:settings/><con:testStep type="request" name="getAddresss"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>getAddresss</con:operation><con:request name="getAddresss"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:UpdateTrustBundleSigningCertificate"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite name="AddressService" disabled="true"><con:description>Disabled due to no-op implementation of all but two functions, both of which must be tested in the context of DomainService.</con:description><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="getAddresss" searchProperties="true"><con:settings/><con:testStep type="request" name="getAddresss"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>getAddresss</con:operation><con:request name="getAddresss"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
    <soapenv:Header/>
    <soapenv:Body>
       <con:getAddresss>

@@ -208,3 +208,26 @@ CREATE TABLE IF NOT EXISTS configdb.dnsrecord (
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON configdb.* to nhincuser;
 -- end configdb
+
+-- -----------------------------------------------------
+-- The following is a workaround that is required for
+-- deployment due to a bug in Direct RI
+-- -----------------------------------------------------
+USE configdb;
+LOCK TABLES domain WRITE, address WRITE;
+
+INSERT INTO domain
+(id, domainName, postmasterAddressId, status, createTime, updateTime)
+VALUES
+(1, 'direct.example.org', NULL, 1, now(), now());
+
+INSERT INTO address
+(id, displayName, emailAddress, endpoint, status, type, createTime, updateTime, domainId)
+VALUES
+(1, 'direct.example.org', 'postmaster@direct.example.org', NULL, 1, NULL, now(), now(), 1);
+
+UPDATE address SET id = 2 WHERE id = 1;
+
+UPDATE domain SET postmasterAddressId = 2 WHERE id = 1;
+
+UNLOCK TABLES;
