@@ -266,6 +266,11 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
         private final X509Certificate cert;
         private final Key key;
 
+        public CertContainer() {
+            this.cert = null;
+            this.key = null;
+        }
+
         public CertContainer(X509Certificate cert, Key key) {
             this.cert = cert;
             this.key = key;
