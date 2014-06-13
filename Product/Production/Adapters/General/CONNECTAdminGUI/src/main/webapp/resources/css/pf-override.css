@@ -59,16 +59,6 @@ body {
 
 /* -- SIDEBAR STYLES ---------------------------------------------------------*/
 
-.sidebar .ui-panelmenu-panel.sidebar-orange li.active a:after {
-	content:"";
-	position:absolute;
-	top:0;
-	left:0;
-	width:7px;
-	height:100%;
-	background:#e46c0a;
-}
-
 .sidebar h3.ui-panelmenu-header { /* ==.sidebar h2.section-header */
 	margin:0px;
 	padding:35px 15px 15px;
@@ -160,25 +150,7 @@ body {
 	font-size:14px;
 }
 
-.sidebar ul.nav li {
-	background:#10253f;
-}
-.sidebar ul.nav li a {
-	color:#808080;
-	font-size:14px;
-	font-weight:normal;
-	border-bottom:1px solid #283b53;
-}
-.sidebar ul.nav li a:hover {
-	background:#0c1c2f;
-	color:#ffffff;
-}
-.sidebar ul.nav li.active, .sidebar ul.nav li.active a {
-	background:#0c1c2f;
-	color:#ffffff;
-	font-weight:bold;
-}
-.sidebar ul.nav.sidebar-orange li.active a:before {
+.sidebar .ui-panelmenu-panel.sidebar-orange li.active a:after {
 	content:"";
 	position:absolute;
 	top:0;
@@ -187,7 +159,7 @@ body {
 	height:100%;
 	background:#e46c0a;
 }
-.sidebar ul.nav.sidebar-purple li.active a:before {
+.sidebar .ui-panelmenu-panel.sidebar-purple li.active a:after {
 	content:"";
 	position:absolute;
 	top:0;
@@ -196,7 +168,7 @@ body {
 	height:100%;
 	background:#8064a2;
 }
-.sidebar ul.nav.sidebar-blue li.active a:before {
+.sidebar .ui-panelmenu-panel.sidebar-blue li.active a:after {
 	content:"";
 	position:absolute;
 	top:0;
@@ -205,9 +177,8 @@ body {
 	height:100%;
 	background:#00b0f0;
 }
-.sidebar ul.nav li a i {
-	margin-right:5px;
-}
+
+
 
 /* FOR COPYRIGHT MODAL RESTYLING */
 .modal-copyright-prime .ui-widget-header {
