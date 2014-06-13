@@ -315,7 +315,7 @@ public class Certificate {
         try {
             setData(NULL_CERT);
         } catch (CertificateException e) {
-            e.printStackTrace();
+            log.warn("Could not clear certificate data: " + e.getMessage(), e);
         }
     }
 
