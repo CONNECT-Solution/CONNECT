@@ -26,11 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
-/*import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
-import gov.hhs.fha.nhinc.admingui.model.Login;
-import gov.hhs.fha.nhinc.admingui.services.LoginService;
-import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;*/
-
+import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
@@ -42,8 +38,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -57,6 +53,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoginBean {
 
+    private static final Logger LOG = Logger.getLogger(LoginBean.class);
+
     /** The user name. */
     private String userName;
 
@@ -66,32 +64,9 @@ public class LoginBean {
     /** The is correct. */
     public Boolean isCorrect = false;
 
-    /** The msg. */
-    private FacesMessage msg;
-
     /** The login service. */
     @Autowired
     private LoginService loginService;
-    
-    private static final Logger LOG = Logger.getLogger(LoginBean.class);
-
-    /**
-     * Gets the msg.
-     * 
-     * @return the msg
-     */
-    public FacesMessage getMsg() {
-        return msg;
-    }
-
-    /**
-     * Sets the msg.
-     * 
-     * @param msg the new msg
-     */
-    public void setMsg(FacesMessage msg) {
-        this.msg = msg;
-    }
 
     /**
      * Gets the user name.
@@ -133,37 +108,21 @@ public class LoginBean {
      * Instantiates a new login bean.
      */
     public LoginBean() {
-        // Injector injector = Guice.createInjector(new LoginServiceModule());
 
-        // loginService = injector.getInstance(LoginService.class);
     }
 
     /**
-     * New message.
-     * 
-     * @return the string
-     */
-    public String newMessage() {
-        return "It is from managed bean call";
-    }
-
-    /**
-     * Invoke patient.
+     * Invoke StatusPrime page upon success login.
      * 
      * @return the string
      */
     public String loginAndNavigate() {
-        System.out.println("Logging in user:  " + userName);
-        
-        if (login()) {
-            this.isCorrect = true;
-            return "StatusPrime";
-        } else {
-            this.isCorrect = false;
-            msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "User details are not valid...!!!", userName);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            return "Login";
+        if (!login()) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username and/or Password not valid...!!!", ""));
+            return null;
         }
+        return NavigationConstant.STATUS_PAGE;
 
     }
 
@@ -181,7 +140,7 @@ public class LoginBean {
         if (session != null) {
             session.invalidate();
         }
-        return "Login";
+        return NavigationConstant.LOGIN_PAGE;
     }
 
     /**
