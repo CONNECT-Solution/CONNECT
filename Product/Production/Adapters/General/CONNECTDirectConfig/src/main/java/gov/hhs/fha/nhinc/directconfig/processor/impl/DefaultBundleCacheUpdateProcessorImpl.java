@@ -56,6 +56,7 @@ import java.util.Collection;
 
 import javax.annotation.PostConstruct;
 
+//import org.apache.camel.Handler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,6 +115,8 @@ public class DefaultBundleCacheUpdateProcessorImpl implements BundleCacheUpdateP
      */
     @Override
     // @Handler
+    // TODO: Currently, the Camel timed refresh route starts too soon on JBoss 7; if that issue is resolved, the handler
+    // can be added again. If Camel is removed, this annotation and associated import should be removed as well.
     public void updateBundleCache() {
         Collection<TrustBundle> bundles;
 
