@@ -34,7 +34,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <body>
-        <h1 class="page-header">Gateway Administrative Console</h1>
+        <ui:composition>
+		<h1 class="page-header">Gateway Administrative Console</h1>
         <h:form>
         <p:panelMenu style="width:100%">
             <p:submenu label="Gateway Status" styleClass="sidebar-orange">
@@ -55,5 +56,6 @@
             </p:submenu>
         </p:panelMenu>
         </h:form>
+		</ui:composition>
     </body>
 </html>
