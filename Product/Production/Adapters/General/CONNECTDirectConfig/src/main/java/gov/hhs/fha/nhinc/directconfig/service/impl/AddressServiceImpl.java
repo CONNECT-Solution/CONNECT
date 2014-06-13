@@ -70,7 +70,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 /**
  * Service class for methods related to an Address object.
  */
-@Service
+@Service("addressSvc")
 @WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.AddressService", portName = "ConfigurationServiceImplPort", targetNamespace = "http://nhind.org/config")
 public class AddressServiceImpl extends SpringBeanAutowiringSupport implements AddressService {
 

@@ -82,7 +82,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 /**
  * Service class for methods related to a Certificate object.
  */
-@Service
+@Service("certSvc")
 @WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.CertificateService", portName = "ConfigurationServiceImplPort", targetNamespace = "http://nhind.org/config")
 public class CertificateServiceImpl extends SpringBeanAutowiringSupport implements CertificateService {
 

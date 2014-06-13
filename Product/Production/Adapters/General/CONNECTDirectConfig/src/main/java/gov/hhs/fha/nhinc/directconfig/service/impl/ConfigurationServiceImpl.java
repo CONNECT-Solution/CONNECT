@@ -92,7 +92,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
  * Implements the single Service Endpoint Interface. Delegates everything to the individual service implementations.
  */
 
-@Service
+@Service("configSvc")
 @WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.ConfigurationService", portName = "ConfigurationServiceImplPort", targetNamespace = "http://nhind.org/config")
 public class ConfigurationServiceImpl extends SpringBeanAutowiringSupport implements ConfigurationService {
 

@@ -67,7 +67,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-@Service
+@Service("certPolicySvc")
 @WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.CertificatePolicyService", portName = "ConfigurationServiceImplPort", targetNamespace = "http://nhind.org/config")
 public class CertificatePolicyServiceImpl extends SpringBeanAutowiringSupport implements CertificatePolicyService {
     private static final Log log = LogFactory.getLog(CertificatePolicyServiceImpl.class);
