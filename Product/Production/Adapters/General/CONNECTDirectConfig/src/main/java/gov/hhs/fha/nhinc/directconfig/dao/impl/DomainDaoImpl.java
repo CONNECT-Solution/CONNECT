@@ -299,7 +299,7 @@ public class DomainDaoImpl implements DomainDao {
                     query = session.getNamedQuery("getDomainsByStatus");
                 }
 
-                query.setParameter("status", status);
+                query.setParameter("status", status == null ? status : status.ordinal());
 
                 results = query.list();
             }
@@ -384,7 +384,7 @@ public class DomainDaoImpl implements DomainDao {
                 }
 
                 query.setParameter("domainName", fuzzyName);
-                query.setParameter("status", status);
+                query.setParameter("status", status == null ? status : status.ordinal());
 
                 result = query.list();
 
