@@ -56,7 +56,6 @@ import java.util.Collection;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.camel.Handler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,7 +113,7 @@ public class DefaultBundleCacheUpdateProcessorImpl implements BundleCacheUpdateP
      * {@inheritDoc}
      */
     @Override
-    @Handler
+    // @Handler
     public void updateBundleCache() {
         Collection<TrustBundle> bundles;
 
