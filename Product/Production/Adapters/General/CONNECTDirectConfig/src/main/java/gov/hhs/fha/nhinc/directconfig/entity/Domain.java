@@ -63,7 +63,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlRootElement
 public class Domain {
-
     private String domainName;
     private Calendar createTime;
     private Calendar updateTime;

@@ -64,6 +64,12 @@ public class Setting {
     private EntityStatus status = EntityStatus.NEW;
 
     /**
+     * Construct a Setting.
+     */
+    public Setting() {
+    }
+
+    /**
      * Get the name of the setting.
      * 
      * @return the name of the setting.

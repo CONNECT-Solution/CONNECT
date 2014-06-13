@@ -79,6 +79,9 @@ public class TrustBundle {
     private String checkSum;
     private Collection<TrustBundleDomainReltn> relations;
 
+    /**
+     * Construct a TrustBundle.
+     */
     public TrustBundle() {
         refreshInterval = 0;
         checkSum = "";

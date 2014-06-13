@@ -57,6 +57,9 @@ public class CertPolicyGroup {
     private Collection<CertPolicyGroupReltn> policies;
     private Calendar createTime;
 
+    /**
+     * Construct a CertPolicyGroup.
+     */
     public CertPolicyGroup() {
     }
 

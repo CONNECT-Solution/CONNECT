@@ -47,7 +47,6 @@
 
 package gov.hhs.fha.nhinc.directconfig.entity;
 
-
 /**
  * JPA entity object for a trust bundle to domain relationship
  * 
@@ -56,17 +55,15 @@ package gov.hhs.fha.nhinc.directconfig.entity;
  */
 public class TrustBundleDomainReltn {
     private Long id;
-
     private Domain domain;
-
     private TrustBundle trustBundle;
-
     private boolean incoming;
-
     private boolean outgoing;
 
+    /**
+     * Construct a TrustBundleAnchor.
+     */
     public TrustBundleDomainReltn() {
-
     }
 
     /**

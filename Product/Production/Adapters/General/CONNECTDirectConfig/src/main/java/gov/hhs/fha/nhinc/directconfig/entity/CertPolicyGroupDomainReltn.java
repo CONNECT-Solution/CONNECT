@@ -49,13 +49,13 @@ package gov.hhs.fha.nhinc.directconfig.entity;
 
 public class CertPolicyGroupDomainReltn {
     private Long id;
-
     private Domain domain;
-
     private CertPolicyGroup policyGroup;
 
+    /**
+     * Construct a CertPolicyGroupDomainReltn.
+     */
     public CertPolicyGroupDomainReltn() {
-
     }
 
     /**

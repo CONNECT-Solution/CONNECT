@@ -69,7 +69,6 @@ import org.apache.commons.logging.LogFactory;
  * The JPA Certificate class
  */
 public class Certificate {
-
     private static final String DEFAULT_JCE_PROVIDER_STRING = "BC";
     private static final String JCE_PROVIDER_STRING_SYS_PARAM = "org.nhindirect.config.JCEProviderName";
 
@@ -87,8 +86,9 @@ public class Certificate {
     public static String getJCEProviderName() {
         String retVal = System.getProperty(JCE_PROVIDER_STRING_SYS_PARAM);
 
-        if (retVal == null || retVal.isEmpty())
+        if (retVal == null || retVal.isEmpty()) {
             retVal = DEFAULT_JCE_PROVIDER_STRING;
+        }
 
         return retVal;
     }
@@ -100,10 +100,11 @@ public class Certificate {
      * @param name The name of the JCE provider.
      */
     public static void setJCEProviderName(String name) {
-        if (name == null || name.isEmpty())
+        if (name == null || name.isEmpty()) {
             System.setProperty(JCE_PROVIDER_STRING_SYS_PARAM, DEFAULT_JCE_PROVIDER_STRING);
-        else
+        } else {
             System.setProperty(JCE_PROVIDER_STRING_SYS_PARAM, name);
+        }
     }
 
     private static final Log log = LogFactory.getLog(Certificate.class);
@@ -119,6 +120,12 @@ public class Certificate {
     private Calendar validEndDate;
     private EntityStatus status;
     private boolean privateKey;
+
+    /**
+     * Construct a Certificate.
+     */
+    public Certificate() {
+    }
 
     /**
      * Get the value of owner.
@@ -155,6 +162,7 @@ public class Certificate {
      */
     public void setData(byte[] data) throws CertificateException {
         this.data = data;
+
         if (data == NULL_CERT) {
             setThumbprint("");
         } else {
@@ -184,7 +192,6 @@ public class Certificate {
 
     private void setThumbprint(String aThumbprint) {
         thumbprint = aThumbprint;
-
     }
 
     /**
@@ -308,7 +315,6 @@ public class Certificate {
         try {
             setData(NULL_CERT);
         } catch (CertificateException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -316,6 +322,7 @@ public class Certificate {
     private void loadCertFromData() throws CertificateException {
         X509Certificate cert = null;
         CertContainer container = null;
+
         try {
             validate();
 
@@ -341,7 +348,6 @@ public class Certificate {
                 setThumbprint(Thumbprint.toThumbprint(cert).toString());
                 setPrivateKey(container != null && container.getKey() != null);
             }
-
         } catch (Exception e) {
             setData(NULL_CERT);
             throw new CertificateException("Data cannot be converted to a valid X.509 Certificate or IPKIX URL", e);
@@ -350,6 +356,7 @@ public class Certificate {
 
     public CertContainer toCredential() throws CertificateException {
         CertContainer certContainer = null;
+
         try {
             validate();
             ByteArrayInputStream bais = new ByteArrayInputStream(data);
@@ -370,7 +377,6 @@ public class Certificate {
                     Key key = localKeyStore.getKey(alias, "".toCharArray());
                     if (key != null && key instanceof PrivateKey) {
                         certContainer = new CertContainer(cert, key);
-
                     }
                 }
             } catch (Exception e) {
@@ -398,6 +404,11 @@ public class Certificate {
         private final X509Certificate cert;
         private final Key key;
 
+        public CertContainer() {
+            this.cert = null;
+            this.key = null;
+        }
+
         public CertContainer(X509Certificate cert, Key key) {
             this.cert = cert;
             this.key = key;
@@ -410,6 +421,5 @@ public class Certificate {
         public Key getKey() {
             return key;
         }
-
     }
 }
