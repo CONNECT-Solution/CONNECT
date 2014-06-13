@@ -62,10 +62,20 @@ public class UserLoginDAOImpl implements UserLoginDAO {
      */
     @Override
     public UserLogin login(Login login) {
-        Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery("from UserLogin where userName = :userName");
-        query.setParameter("userName", login.getUserName());
-        return (UserLogin) query.uniqueResult();
+        Session session = null;
+        UserLogin userLogin = null;
+        Query query = null;
+        try {
+            session = this.sessionFactory.getCurrentSession();
+            query = session.createQuery("from UserLogin where userName = :userName");
+            query.setParameter("userName", login.getUserName());
+            userLogin = (UserLogin) query.uniqueResult();
+        } catch (HibernateException e) {
+            LOG.error("Exception during query execution by: " + e.getMessage(), e);
+        } finally {
+            closeSession(session, false);
+        }
+        return userLogin;
     }
 
     /**
