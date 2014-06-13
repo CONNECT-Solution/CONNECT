@@ -72,7 +72,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
  * Service class for methods related to an Anchor object.
  */
 @Service
-@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.AnchorService")
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.AnchorService", portName = "ConfigurationServiceImplPort", targetNamespace = "http://nhind.org/config")
 public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements AnchorService {
 
     private static final Log log = LogFactory.getLog(AnchorServiceImpl.class);

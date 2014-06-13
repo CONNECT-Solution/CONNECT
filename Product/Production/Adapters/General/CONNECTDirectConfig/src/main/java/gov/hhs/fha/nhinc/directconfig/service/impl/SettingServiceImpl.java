@@ -68,7 +68,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
  * Service class for methods related to a Service object.
  */
 @Service
-@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.SettingService")
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.SettingService", portName = "ConfigurationServiceImplPort", targetNamespace = "http://nhind.org/config")
 public class SettingServiceImpl extends SpringBeanAutowiringSupport implements SettingService {
 
     private static final Log log = LogFactory.getLog(SettingServiceImpl.class);

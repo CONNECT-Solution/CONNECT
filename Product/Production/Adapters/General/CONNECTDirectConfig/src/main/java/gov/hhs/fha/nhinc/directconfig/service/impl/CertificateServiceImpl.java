@@ -83,7 +83,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
  * Service class for methods related to a Certificate object.
  */
 @Service
-@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.CertificateService")
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.CertificateService", portName = "ConfigurationServiceImplPort", targetNamespace = "http://nhind.org/config")
 public class CertificateServiceImpl extends SpringBeanAutowiringSupport implements CertificateService {
 
     private static final int RFC822Name_TYPE = 1; // name type constant for Subject Alternative name email address
