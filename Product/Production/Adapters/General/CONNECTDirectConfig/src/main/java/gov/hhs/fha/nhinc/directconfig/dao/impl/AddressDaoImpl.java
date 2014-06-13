@@ -277,7 +277,7 @@ public class AddressDaoImpl implements AddressDao {
                     query = session.getNamedQuery("getAddressByStatus");
                 }
 
-                query.setParameter("status", status);
+                query.setParameter("status", status == null ? status : status.ordinal());
 
                 results = query.list();
 
@@ -318,7 +318,7 @@ public class AddressDaoImpl implements AddressDao {
                 }
 
                 query.setParameter("domainId", domainId);
-                query.setParameter("status", status);
+                query.setParameter("status", status == null ? status : status.ordinal());
 
                 results = query.list();
 
