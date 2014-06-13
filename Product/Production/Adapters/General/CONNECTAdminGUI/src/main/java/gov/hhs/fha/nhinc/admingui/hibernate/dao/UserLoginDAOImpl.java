@@ -30,7 +30,9 @@ import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
+
 import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -43,31 +45,41 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author msw
- *
+ * 
  */
 @Service
 public class UserLoginDAOImpl implements UserLoginDAO {
 
     private static final Logger LOG = Logger.getLogger(UserLoginDAOImpl.class);
-    
+
     @Autowired
     private SessionFactory sessionFactory;
 
     /*
      * (non-Javadoc)
      * 
-     * @see gov.hhs.fha.nhinc.admingui.hibernate.dao.UserLoginDAO#login(gov.hhs.fha.nhinc.admingui.model.Login)
+     * @see gov.hhs.fha.nhinc.admingui.hibernate.dao.UserLoginDAO#login(gov.hhs.fha .nhinc.admingui.model.Login)
      */
     @Override
     public UserLogin login(Login login) {
-        Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery("from UserLogin where userName = :userName");
-        query.setParameter("userName", login.getUserName());
-        return (UserLogin) query.list().get(0);
+        Session session = null;
+        UserLogin userLogin = null;
+        Query query = null;
+        try {
+            session = this.sessionFactory.getCurrentSession();
+            query = session.createQuery("from UserLogin where userName = :userName");
+            query.setParameter("userName", login.getUserName());
+            userLogin = (UserLogin) query.uniqueResult();
+        } catch (HibernateException e) {
+            LOG.error("Exception during query execution by: " + e.getMessage(), e);
+        } finally {
+            closeSession(session, false);
+        }
+        return userLogin;
     }
 
     /**
-     *
+     * 
      * @param createUser the create user
      * @return true if successful
      */
@@ -93,89 +105,88 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         }
         return result;
     }
-    
+
     @Override
     public UserRole getRole(long role) {
         Session session = null;
         UserRole result = null;
-        
+
         try {
             session = this.sessionFactory.openSession();
-            result = (UserRole) session.createCriteria(UserRole.class).add(Restrictions.eq("roleId", role)).uniqueResult();
-        }catch(HibernateException e){
+            result = (UserRole) session.createCriteria(UserRole.class).add(Restrictions.eq("roleId", role))
+                    .uniqueResult();
+        } catch (HibernateException e) {
             LOG.error(e, e);
-        }finally {
+        } finally {
             closeSession(session, false);
         }
-        
+
         return result;
     }
-    
+
     @Override
-    public List<UserRole> getAllRoles(){
+    public List<UserRole> getAllRoles() {
         Session session = null;
-        
+
         List<UserRole> roles = null;
-        
+
         try {
             session = this.sessionFactory.openSession();
             roles = session.createCriteria(UserRole.class).list();
-        }catch(HibernateException e){
+        } catch (HibernateException e) {
             LOG.error(e, e);
-        }finally {
+        } finally {
             closeSession(session, false);
         }
-        
+
         return roles;
     }
-    
+
     @Override
     public List<RolePreference> getPreferences(UserRole role) {
         Session session = null;
-        
+
         List<RolePreference> preferences = null;
-        
+
         try {
             session = this.sessionFactory.openSession();
-            
+
             preferences = session.createCriteria(RolePreference.class).add(Restrictions.eq("userRole", role)).list();
-        }catch(HibernateException e){
+        } catch (HibernateException e) {
             LOG.error(e, e);
-        }finally {
+        } finally {
             closeSession(session, false);
         }
-        
+
         return preferences;
     }
-    
-    
+
     @Override
     public boolean updatePreference(RolePreference preference) {
         Session session = null;
         Transaction tx = null;
         boolean updated = false;
-        
+
         try {
             session = this.sessionFactory.openSession();
             tx = session.beginTransaction();
-            
+
             session.update(preference);
             tx.commit();
             updated = true;
-        }catch(HibernateException e){
+        } catch (HibernateException e) {
             LOG.error(e, e);
             transactionRollback(tx);
             updated = false;
-        }finally {
+        } finally {
             closeSession(session, false);
         }
-        
+
         return updated;
     }
 
-
     /**
-     *
+     * 
      * @param tx the transaction
      */
     private void transactionRollback(Transaction tx) {
@@ -185,7 +196,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
     }
 
     /**
-     *
+     * 
      * @param session the session
      * @param flush the boolean
      */
@@ -198,5 +209,4 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         }
     }
 
-    
 }
