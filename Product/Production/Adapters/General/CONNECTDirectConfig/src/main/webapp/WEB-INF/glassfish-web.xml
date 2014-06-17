@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE glassfish-web-app PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Servlet 3.0//EN"
+    "http://glassfish.org/dtds/glassfish-web-app_3_0-1.dtd">
+<glassfish-web-app>
+    <context-root>/CONNECTDirectConfig</context-root>
+    <!-- Need this to tell Glassfish not to load the JAX-WS RI classes so it will use the CXF ones instead -->
+    <class-loader delegate="false" />
+</glassfish-web-app>
