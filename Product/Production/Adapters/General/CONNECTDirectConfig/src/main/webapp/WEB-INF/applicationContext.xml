@@ -11,7 +11,6 @@
         http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.0.xsd
         http://www.springframework.org/schema/tx       http://www.springframework.org/schema/tx/spring-tx.xsd
         http://cxf.apache.org/jaxws                    http://cxf.apache.org/schemas/jaxws.xsd
-        http://camel.apache.org/schema/spring          http://camel.apache.org/schema/spring/camel-spring.xsd
         http://www.springframework.org/schema/util     http://www.springframework.org/schema/util/spring-util-3.0.xsd
         http://www.springframework.org/schema/jee      http://www.springframework.org/schema/jee/spring-jee-3.0.xsd"
     default-autowire="byName">
@@ -23,24 +22,4 @@
 
     <jaxws:endpoint id="configurationService" address="/ConfigurationService" implementor="gov.hhs.fha.nhinc.directconfig.service.impl.ConfigurationServiceImpl" />
 
-    <!-- Camel Context for cache update and trust bundle processors -->
-    <bean id="bundleRefreshProcessor" class="gov.hhs.fha.nhinc.directconfig.processor.impl.DefaultBundleRefreshProcessorImpl" />
-
-    <bean id="bundleCacheUpdateProcessor" class="gov.hhs.fha.nhinc.directconfig.processor.impl.DefaultBundleCacheUpdateProcessorImpl">
-        <property name="refreshProcessor" ref="bundleRefreshProcessor" />
-    </bean>
-
-    <camelContext id="web-camel-context" xmlns="http://camel.apache.org/schema/spring">
-        <template id="bundleRefresh" defaultEndpoint="seda:refresh-start" />
-
-        <route id="refreshBundle">
-            <from uri="seda:refresh-start" />
-            <bean ref="bundleRefreshProcessor" />
-        </route>
-
-        <!--route id="cache-refresher">
-            <from uri="timer://cache-refresh?period=1h" />
-            <bean ref="bundleCacheUpdateProcessor" />
-        </route-->
-    </camelContext>
 </beans>

@@ -81,7 +81,6 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import org.apache.camel.Handler;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -199,7 +198,6 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
      * {@inheritDoc}
      */
     @Override
-    @Handler
     public void refreshBundle(TrustBundle bundle) {
         // track when the process started
         final Calendar processAttemptStart = Calendar.getInstance(Locale.getDefault());

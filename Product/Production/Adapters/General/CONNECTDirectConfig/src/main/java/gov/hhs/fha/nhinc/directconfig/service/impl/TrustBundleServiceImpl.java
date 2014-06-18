@@ -54,6 +54,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleAnchor;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleDomainReltn;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleRefreshError;
 import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
+import gov.hhs.fha.nhinc.directconfig.processor.BundleRefreshProcessor;
 import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
 import gov.hhs.fha.nhinc.directconfig.service.TrustBundleService;
 
@@ -65,7 +66,6 @@ import java.util.Collection;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 
-import org.apache.camel.ProducerTemplate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,10 +84,10 @@ public class TrustBundleServiceImpl extends SpringBeanAutowiringSupport implemen
     private static final Log log = LogFactory.getLog(TrustBundleServiceImpl.class);
 
     @Autowired
-    protected ProducerTemplate template;
+    private TrustBundleDao dao;
 
     @Autowired
-    private TrustBundleDao dao;
+    private BundleRefreshProcessor bundleRefresh;
 
     /**
      * Initialization method.
@@ -286,7 +286,7 @@ public class TrustBundleServiceImpl extends SpringBeanAutowiringSupport implemen
      * @param bundle the TrustBundle to be refreshed
      */
     private void refreshBundle(TrustBundle bundle) {
-        log.debug("Sending bundle: " + bundle.getBundleName() + " to Camel route for refresh");
-        template.sendBody(bundle);
+        log.debug("Sending bundle: " + bundle.getBundleName() + " to Manual route for refresh");
+        bundleRefresh.refreshBundle(bundle);
     }
 }
