@@ -5,7 +5,7 @@
 
 <glassfish-web-app>
     <context-root>/Gateway/DocumentRetrieve/2_0</context-root>
-    <class-loader delegate="false" />
+    <class-loader delegate="true" />
 
     <jsp-config>
         <property name="keepgenerated" value="true" />
