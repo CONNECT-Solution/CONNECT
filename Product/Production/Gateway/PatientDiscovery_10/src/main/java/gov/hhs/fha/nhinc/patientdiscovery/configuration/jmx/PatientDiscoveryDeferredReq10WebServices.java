@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.configuration.jmx;
 
-import gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean;
 import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
 import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredRequestSecured;
 import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredRequestUnsecured;
@@ -40,28 +39,7 @@ import javax.servlet.ServletContext;
  * @author msw
  * 
  */
-public class PatientDiscoveryDeferredReq10WebServices extends AbstractWebServicesMXBean {
-
-    /** The Constant NHIN_PD_BEAN_NAME. */
-    private static final String NHIN_PD_BEAN_NAME = "nhinPDReq";
-
-    /** The Constant ENTITY_UNSECURED_PD_BEAN_NAME. */
-    private static final String ENTITY_UNSECURED_PD_BEAN_NAME = "entityPDReqUnsecured";
-
-    /** The Constant ENTITY_SECURED_PD_BEAN_NAME. */
-    private static final String ENTITY_SECURED_PD_BEAN_NAME = "entityPDReqSecured";
-
-    /** The Constant DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME. */
-    public static final String DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.request.StandardInboundPatientDiscoveryDeferredRequest";
-
-    /** The Constant DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME. */
-    public static final String DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.request.PassthroughInboundPatientDiscoveryDeferredRequest";
-
-    /** The Constant DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME. */
-    public static final String DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request.StandardOutboundPatientDiscoveryDeferredRequest";
-
-    /** The Constant DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME. */
-    public static final String DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request.PassthroughOutboundPatientDiscoveryDeferredRequest";
+public class PatientDiscoveryDeferredReq10WebServices extends AbstractPDDeferredRequestWebServicesMXBean {
 
     private final serviceEnum serviceName = serviceEnum.PatientDiscoveryDeferredRequest;
     /**
@@ -77,13 +55,26 @@ public class PatientDiscoveryDeferredReq10WebServices extends AbstractWebService
      * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#configureInboundImpl(java.lang.String)
      */
     @Override
-    public void configureInboundImpl(String className) throws InstantiationException, IllegalAccessException,
+    public void configureInboundStdImpl() throws InstantiationException, IllegalAccessException,
             ClassNotFoundException {
         NhinPatientDiscoveryDeferredRequest nhinPD = null;
         InboundPatientDiscoveryDeferredRequest inboundPD = null;
 
         nhinPD = retrieveBean(NhinPatientDiscoveryDeferredRequest.class, getNhinBeanName());
-        inboundPD = retrieveDependency(InboundPatientDiscoveryDeferredRequest.class, className);
+        inboundPD = retrieveBean(InboundPatientDiscoveryDeferredRequest.class, getStandardInboundBeanName() );
+
+        nhinPD.setInboundPatientDiscoveryRequest(inboundPD);
+    }
+    
+    
+    @Override
+    public void configureInboundPtImpl() throws InstantiationException, IllegalAccessException,
+            ClassNotFoundException {
+        NhinPatientDiscoveryDeferredRequest nhinPD = null;
+        InboundPatientDiscoveryDeferredRequest inboundPD = null;
+
+        nhinPD = retrieveBean(NhinPatientDiscoveryDeferredRequest.class, getNhinBeanName());
+        inboundPD = retrieveBean(InboundPatientDiscoveryDeferredRequest.class, getPassthroughInboundBeanName());
 
         nhinPD.setInboundPatientDiscoveryRequest(inboundPD);
     }
@@ -94,13 +85,33 @@ public class PatientDiscoveryDeferredReq10WebServices extends AbstractWebService
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#configureOutboundImpl(java.lang.String)
      */
     @Override
-    public void configureOutboundImpl(String className) throws InstantiationException, IllegalAccessException,
+    public void configureOutboundStdImpl() throws InstantiationException, IllegalAccessException,
             ClassNotFoundException {
         EntityPatientDiscoveryDeferredRequestUnsecured entityPDUnsecured = null;
         EntityPatientDiscoveryDeferredRequestSecured entityPDSecured = null;
         OutboundPatientDiscoveryDeferredRequest inboundPD = null;
+        
+        inboundPD = retrieveBean(OutboundPatientDiscoveryDeferredRequest.class, getStandardOutboundBeanName());
 
-        inboundPD = retrieveDependency(OutboundPatientDiscoveryDeferredRequest.class, className);
+        entityPDUnsecured = retrieveBean(EntityPatientDiscoveryDeferredRequestUnsecured.class,
+                getEntityUnsecuredBeanName());
+        entityPDSecured = retrieveBean(EntityPatientDiscoveryDeferredRequestSecured.class, getEntitySecuredBeanName());
+
+        entityPDUnsecured.setOutboundPatientDiscoveryRequest(inboundPD);
+        entityPDSecured.setOutboundPatientDiscoveryRequest(inboundPD);
+    }
+    
+    
+    @Override
+    public void configureOutboundPtImpl() throws InstantiationException, IllegalAccessException,
+            ClassNotFoundException {
+        EntityPatientDiscoveryDeferredRequestUnsecured entityPDUnsecured = null;
+        EntityPatientDiscoveryDeferredRequestSecured entityPDSecured = null;
+        OutboundPatientDiscoveryDeferredRequest inboundPD = null;
+        
+        inboundPD = retrieveBean(OutboundPatientDiscoveryDeferredRequest.class, getPassthroughOutboundBeanName());
+
+        //inboundPD = retrieveDependency(OutboundPatientDiscoveryDeferredRequest.class, className);
         entityPDUnsecured = retrieveBean(EntityPatientDiscoveryDeferredRequestUnsecured.class,
                 getEntityUnsecuredBeanName());
         entityPDSecured = retrieveBean(EntityPatientDiscoveryDeferredRequestSecured.class, getEntitySecuredBeanName());
@@ -148,70 +159,70 @@ public class PatientDiscoveryDeferredReq10WebServices extends AbstractWebService
      * 
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getNhinBeanName()
      */
-    @Override
+  /*  @Override
     protected String getNhinBeanName() {
         return NHIN_PD_BEAN_NAME;
-    }
+    }*/
 
     /*
      * (non-Javadoc)
      * 
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getEntityUnsecuredBeanName()
      */
-    @Override
+   /* @Override
     protected String getEntityUnsecuredBeanName() {
         return ENTITY_UNSECURED_PD_BEAN_NAME;
-    }
+    }*/
 
     /*
      * (non-Javadoc)
      * 
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getEntitySecuredBeanName()
      */
-    @Override
+   /* @Override
     protected String getEntitySecuredBeanName() {
         return ENTITY_SECURED_PD_BEAN_NAME;
-    }
+    }*/
 
     /*
      * (non-Javadoc)
      * 
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getInboundStandardClassName()
      */
-    @Override
+   /* @Override
     protected String getInboundStandardClassName() {
         return DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME;
-    }
+    }*/
 
     /*
      * (non-Javadoc)
      * 
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getInboundPassthruClassName()
      */
-    @Override
+   /* @Override
     protected String getInboundPassthruClassName() {
         return DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME;
-    }
+    }*/
 
     /*
      * (non-Javadoc)
      * 
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getOutboundStandardClassName()
      */
-    @Override
+   /* @Override
     protected String getOutboundStandardClassName() {
         return DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME;
-    }
+    }*/
 
     /*
      * (non-Javadoc)
      * 
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getOutboundPassthruClassName()
      */
-    @Override
+   /* @Override
     protected String getOutboundPassthruClassName() {
         return DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME;
-    }
+    }*/
     
     @Override
     public serviceEnum getServiceName() {

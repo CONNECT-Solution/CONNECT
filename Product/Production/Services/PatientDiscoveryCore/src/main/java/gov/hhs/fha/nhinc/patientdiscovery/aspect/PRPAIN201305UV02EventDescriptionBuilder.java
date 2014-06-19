@@ -28,17 +28,13 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
-import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.TargetEventDescriptionBuilder;
 
 /**
  * Populates the description from a PRPAIN201305UV02 object. Currently, no information is extracted from this object.
  * Only the Assertion is used.
  */
-public class PRPAIN201305UV02EventDescriptionBuilder extends AssertionEventDescriptionBuilder {
-
-    @Override
-    public void buildRespondingHCIDs() {
-    }
+public class PRPAIN201305UV02EventDescriptionBuilder extends TargetEventDescriptionBuilder {
 
     @Override
     public void buildTimeStamp() {
@@ -63,6 +59,7 @@ public class PRPAIN201305UV02EventDescriptionBuilder extends AssertionEventDescr
     @Override
     public void setArguments(Object... arguments) {
         extractAssertion(arguments);
+        extractTarget(arguments);
     }
 
     @Override

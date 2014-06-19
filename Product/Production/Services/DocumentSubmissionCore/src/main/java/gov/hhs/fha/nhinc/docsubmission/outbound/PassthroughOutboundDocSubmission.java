@@ -56,9 +56,6 @@ public class PassthroughOutboundDocSubmission implements OutboundDocSubmission {
     }
 
     @Override
-    @OutboundProcessingEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
-    afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission",
-    version = "")
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
 

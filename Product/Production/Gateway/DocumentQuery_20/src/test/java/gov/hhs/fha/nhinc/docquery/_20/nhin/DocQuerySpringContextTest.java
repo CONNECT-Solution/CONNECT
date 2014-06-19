@@ -31,6 +31,10 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQ
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQuerySecured;
 import gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured;
+import gov.hhs.fha.nhinc.docquery.inbound.PassthroughInboundDocQuery;
+import gov.hhs.fha.nhinc.docquery.inbound.StandardInboundDocQuery;
+import gov.hhs.fha.nhinc.docquery.outbound.PassthroughOutboundDocQuery;
+import gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQuery;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -57,6 +61,18 @@ public class DocQuerySpringContextTest {
 
     @Autowired
     EntityDocQuerySecured outboundDocQuerySecured;
+    
+    @Autowired
+    StandardOutboundDocQuery stdOutboundDocQuery;
+    
+    @Autowired
+    PassthroughOutboundDocQuery ptOutboundDocQuery;
+    
+    @Autowired
+    StandardInboundDocQuery stdInboundDocQuery;
+    
+    @Autowired
+    PassthroughInboundDocQuery ptInboundDocQUery;
 
     @Test
     public void inbound() {

@@ -38,6 +38,22 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
             <bean class="${docquery.30.outboundDocQuery}" />
         </property>
     </bean>
+    
+    <bean id="stdDQOutbound"
+      class="gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQuery">
+    </bean>
+    
+    <bean id="ptDQOutbound"
+      class="gov.hhs.fha.nhinc.docquery.outbound.PassthroughOutboundDocQuery">
+    </bean>
+    
+    <bean id="stdDQInbound"
+      class="gov.hhs.fha.nhinc.docquery.inbound.StandardInboundDocQuery">
+    </bean>
+    
+    <bean id="ptDQInbound"
+      class="gov.hhs.fha.nhinc.docquery.inbound.PassthroughInboundDocQuery">
+    </bean>
 
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />

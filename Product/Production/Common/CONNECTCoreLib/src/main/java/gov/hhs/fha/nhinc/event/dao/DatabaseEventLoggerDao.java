@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.event.dao;
 
 import gov.hhs.fha.nhinc.event.model.DatabaseEvent;
 import gov.hhs.fha.nhinc.event.persistence.HibernateUtil;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -35,13 +36,21 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * Data Access Object which logs events in the database.
  */
 public class DatabaseEventLoggerDao {
 
-    private static final Logger LOG = Logger.getLogger(DatabaseEventLoggerDao.class);    
+    private static final Logger LOG = Logger.getLogger(DatabaseEventLoggerDao.class);
+    
+    private static final String EVENT_TYPE_NAME = "eventName";
+    private static final String EVENT_SERVICETYPE_NAME = "serviceType";
+    private static final String DATE_NAME = "eventTime";
+    
 
     private static class SingletonHolder { 
         public static final DatabaseEventLoggerDao INSTANCE = new DatabaseEventLoggerDao();
@@ -86,6 +95,51 @@ public class DatabaseEventLoggerDao {
         }
         
         return result;
+    }
+    
+    /**
+     * Hibernate Query for event counts for a given Event type grouping by HCID and 
+     * service type.
+     * @param eventType Location of event call in processing.
+     * @return List of Object[] with [0] the count, [1] the initiating hcid, and [2]
+     * the service type.
+     */
+    public List getCounts(String eventType, String hcidType){
+        Session session = null;
+        List results = null;
+        
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        session = sessionFactory.openSession();
+        
+        results = session.createCriteria(DatabaseEvent.class)
+            .add(Restrictions.eq(EVENT_TYPE_NAME, eventType))
+            .setProjection(Projections.projectionList()
+                .add(Projections.rowCount())
+                .add(Projections.groupProperty(hcidType))
+                .add(Projections.groupProperty(EVENT_SERVICETYPE_NAME)))
+            .list();
+        
+        closeSession(session, false);
+        
+        return results;
+    }
+    
+    public DatabaseEvent getLatestEvent(String eventType){
+        Session session = null;
+        DatabaseEvent event = null;
+        
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        session = sessionFactory.openSession();
+        
+        event = (DatabaseEvent) session.createCriteria(DatabaseEvent.class)
+            .add(Restrictions.eq(EVENT_TYPE_NAME, eventType))
+            .addOrder(Order.desc(DATE_NAME))
+            .setMaxResults(1)
+            .uniqueResult();
+                  
+        closeSession(session, false);
+        
+        return event;
     }
 
     private void closeSession(Session session, boolean flush) {

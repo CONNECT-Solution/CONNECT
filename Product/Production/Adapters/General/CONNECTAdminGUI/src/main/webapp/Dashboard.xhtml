@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+
+    <h:body>
+        <ui:composition id="admin_comp">
+            <ui:remove>
+				<f:facet id="pr-override-facet" name="last">
+					<h:outputStylesheet name="css/pr-override.css" />
+				</f:facet>
+			</ui:remove>
+
+            <p:outputPanel autoUpdate="true">
+
+                <p:panelGrid columns="2" styleClass="ui-panelgrid-admin">
+                    <p:selectCheckboxMenu value="#{dashboardBean.selectedClosedPanels}" label="Available Metrics" panelStyle="width:220px">
+                        <f:selectItems value="#{dashboardBean.closedPanels}"/>
+                    </p:selectCheckboxMenu>
+                    <p:commandButton value="Submit" id="dash-command" ajax="false" action="#{dashboardBean.addPanels}"/>
+                </p:panelGrid>
+
+                <p:outputPanel id="dashboard_output_panel">
+                    <p:dashboard id="admingui_dashboard" binding="#{dashboardBean.dashboard}" styleClass="admin-dashboard" />
+                </p:outputPanel>
+				
+				<div class="clearfix"></div>
+
+            </p:outputPanel>
+        </ui:composition>
+    </h:body>
+</html>

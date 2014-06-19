@@ -1,0 +1,797 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* == TABLE OF CONTENTS ===================================================== */
+/* == TABLE OF CONTENTS ===================================================== */
+/* == TABLE OF CONTENTS ===================================================== 
+
+01. BASIC DOCUMENT OBJECT
+    - html, body
+02. SIGNIN
+03. SIDEBAR
+    - left sidebar navigation (+ modal)
+04. MAIN CONTAINER
+    - primary content blocks, headers
+05. UTILITY NAVBAR
+    - useful links at top of page
+06. SECTION TAB NAVBAR
+    - main content nav tab styles
+07. MAIN CONTENT TABLE
+    - styles for tables
+08. SERVER STATUS KPI
+    - styles for server status widgets
+09. SERVER PERFORMANCE STATISTICS
+    - styles for performance stats charts, etc.
+10. RESPONSIVE @MEDIA
+    - set different styles at different browser window sizes
+
+99. RESPONSIVE DISABLING STYLES ARE AT THE BOTTOM OF THIS FILE
+
+=============================================================================
+
+NOTES:
+
+The following CSS is maintained in their own files for easy removal if
+they are no longer used/needed for the UI:
+* Tablesorter.JS styles are in  -->  theme.default.css
+
+============================================================================= */
+
+
+/* -- BASIC DOCUMENT OBJECT STYLES -------------------------------------------*/
+html, body {
+	height:100%;
+}
+body {
+	background:#e3ebf5; /* #10253f */
+}
+
+a {
+	outline:none !important;
+}
+
+/* -- SIGNIN STYLES ----------------------------------------------------------*/
+.signin-block {
+	height:100%;
+	margin:0px;
+	padding:40px;
+	background:#ffffff;
+}
+
+/* -- SIDEBAR STYLES ---------------------------------------------------------*/
+.sidebar {
+	height:100%;
+	padding-left:0px;
+	padding-right:0px;
+	padding-bottom:30px;
+	background:#10253f; /* 212c65 */
+	position:absolute;
+}
+.sidebar h1.page-header {
+	padding:15px;
+	margin:0px 0px 20px;
+	border:none;
+	color:#c0c0c0;
+	font-size:24px;
+	font-weight:bold;
+}
+.sidebar h2.section-header {
+	margin:0px;
+	padding:35px 15px 15px;
+	background:#10253f;
+	color:#808080;
+	font-size:11px;
+	font-weight:bold;
+	text-transform:uppercase;
+	border-bottom:1px solid #283b53;
+}
+.sidebar h2.section-header a {
+	color:#808080;
+}
+.sidebar ul.nav li {
+	background:#10253f;
+}
+.sidebar ul.nav li a {
+	color:#808080;
+	font-size:14px;
+	font-weight:normal;
+	border-bottom:1px solid #283b53;
+}
+.sidebar ul.nav li a:hover {
+	background:#0c1c2f;
+	color:#ffffff;
+}
+.sidebar ul.nav li.active, .sidebar ul.nav li.active a {
+	background:#0c1c2f;
+	color:#ffffff;
+	font-weight:bold;
+}
+.sidebar ul.nav.sidebar-orange li.active a:before {
+	content:"";
+	position:absolute;
+	top:0;
+	left:0;
+	width:7px;
+	height:100%;
+	background:#e46c0a;
+}
+.sidebar ul.nav.sidebar-purple li.active a:before {
+	content:"";
+	position:absolute;
+	top:0;
+	left:0;
+	width:7px;
+	height:100%;
+	background:#8064a2;
+}
+.sidebar ul.nav.sidebar-blue li.active a:before {
+	content:"";
+	position:absolute;
+	top:0;
+	left:0;
+	width:7px;
+	height:100%;
+	background:#00b0f0;
+}
+.sidebar ul.nav li a i {
+	margin-right:5px;
+}
+.sidebar-gfx {
+	padding-left:10px;
+	padding-right:10px;
+}
+.sidebar-scroll {
+	position:fixed !important;
+	top:0;
+	bottom:0;
+	overflow-y:scroll;
+	overflow-x:hidden;
+	border-right:1px solid #10253f;
+}
+
+.copyright {
+	margin:30px 5px 0px 15px;
+	color:#808080;
+	font-size:10px;
+}
+div[id^="modal-"] .modal-header {
+	background:#e3ebf5;
+	font-weight:bold;
+}
+div[id^="modal-"] .modal-header h4 {
+	font-weight:bold;
+}
+div[id^="modal-"] .form-block {
+	padding:0px;
+}
+
+#modal-trustbundle .modal-body {
+	background:#fafafa;
+}
+#modal-trustbundle .content-block {
+	margin-bottom:0px;
+}
+#modal-trustbundle .content-block .content {
+	padding:20px;
+	background:#ffffff;
+	border:1px solid #eeeeee;
+}
+#modal-trustbundle .action-button-row {
+	margin-top:10px;
+	text-align:right;
+}
+
+/* -- MAIN CONTAINER STYLES --------------------------------------------------*/
+.main {
+	height:100%;
+	/*margin-left:0;*/
+	padding-left:0px;
+	padding-right:0px;
+	background:#e3ebf5;
+}
+.main h1.section-header {
+	margin:0px;
+	padding:40px 40px 30px;
+	background:#ffffff;
+	font-size:24px;
+	font-weight:bold;
+	text-transform:uppercase;
+}
+.main h2.subsection-header {
+	/*min-height:40px;*/
+	line-height:16px;
+	margin:0px;
+	padding:15px;
+	background:#254061;
+	color:#a8a8a8;
+	font-size:14px;
+	font-weight:bold;
+	text-transform:uppercase;
+}
+.main h3 {
+	margin:0px 0px 15px;
+}
+.main p {
+	margin-bottom:20px;
+}
+.main-content {
+	color:#808080;
+}
+.main-content .tab-content {
+	padding:40px;
+}
+.content-block {
+	margin-bottom:20px;
+}
+.content-block .content {
+	padding:20px;
+	background:#ffffff;
+}
+.form-block {
+	padding:40px;
+}
+.form-block .form-button-row {
+	width:100%;
+	margin-bottom:-15px;
+	padding-top:20px;
+	border-top:1px solid #ccc;
+	text-align:right;
+}
+span.enabled {
+	color:#008000;
+	font-weight:bold;
+}
+
+#domains .form-block {
+	padding:0px;
+}
+#domains ul.list-trust-selected {
+	margin:0px 0px 10px;
+	padding:0px;
+}
+#domains ul.list-trust-selected li {
+	margin:0px 0px 0px 20px;
+	padding:5px 0px;
+}
+#domains .tab-content {
+	padding:20px 0px;
+}
+#domains .table-responsive {
+	padding:0px;
+}
+/*
+#domain-name .form-block {
+	padding:0px;
+}
+*/
+#domains .input-file {
+	padding-top:5px;
+}
+
+
+/* -- UTILITY NAVBAR STYLES ------------------------------------------------- */
+.navbar {
+	margin-bottom:0px;
+	background:#ffffff;
+	border:none;
+	border-radius:0;
+}
+.navbar-header {
+	height:50px;
+	line-height:50px;
+}
+.navbar-brand {
+	float:none;
+	margin:0px;
+	padding:1px;
+	line-height:50px;
+}
+.navbar-right {
+	float: right !important;
+}
+.nav-utility {
+	/*min-height:52px;*/
+	border:1px #b9cde5;
+	border-style:solid none solid;
+}
+.nav-utility ul.nav {
+	border-right:1px solid #b9cde5;
+}
+.nav-utility ul.nav li {
+	border-left:1px solid #b9cde5;
+}
+.nav-utility ul.nav li:first-child, .nav-utility ul.dropdown-menu li {
+	border-left:none;
+}
+.nav-utility ul.nav li a {
+	color:#a8a8a8;
+	font-size:14px;
+	font-weight:normal;
+}
+.nav-utility ul.nav li.banner-nav a:hover {
+	/*background:#b9cde5;*/
+	color:#ffffff;
+}
+.nav-utility .navbar-nav > li > .dropdown-menu {
+	margin-top:1px;
+	margin-left:-1px;
+}
+
+.main .navbar-form {
+	padding:0px 15px; /* 10px 15px */
+	height:50px;
+	line-height:50px;
+	margin-top: 0; /* 8px */
+	margin-right:0px !important; /* -15px */
+	margin-bottom: 0; /* 8px */
+	margin-left: 0; /* -15px */
+	border:none;
+	border-left:1px solid #b9cde5;
+	-webkit-box-shadow:none;
+		box-shadow:none;
+}
+.main .navbar-form i.glyphicon {
+	float:left;
+	margin-right:-15px;
+	padding-top:15px;
+	color:#a8a8a8;
+}
+.main .nav-utility .form-control {
+	display: block;
+	width: 100%;
+	height:48px; /* 34px */
+	padding:15px 15px 15px 20px; /* 6px 12px */
+	font-size: 14px;
+	line-height: 1.428571429;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border:none;
+	border-radius:none;
+	-webkit-box-shadow:none;
+		box-shadow:none;
+	-webkit-transition:none;
+		transition:none;
+}
+
+.main .nav-utility .navbar-nav.navbar-right {
+	margin-right:0px;
+}
+.main .nav-utility .navbar-nav.navbar-right li {
+	border-left:1px solid #b9cde5;
+}
+
+/* -- SECTION TAB NAVBAR STYLES ----------------------------------------------*/
+.nav-section-tabs {
+	padding-left:40px;
+	padding-right:40px;
+	background:#ffffff;
+}
+#domains .nav-section-tabs {
+	padding-left:0px;
+	padding-right:0px;
+}
+.nav-section-tabs.tabs-orange {
+	border-bottom:5px solid #e46c0a;
+}
+.nav-section-tabs.tabs-purple {
+	border-bottom:5px solid #8064a2;
+}
+.nav-section-tabs.tabs-blue {
+	border-bottom:5px solid #00b0f0;
+}
+.nav-section-tabs.tabs-gray {
+	border-bottom:3px solid #dddddd;
+}
+.nav-section-tabs .nav-tabs {
+	border:none;
+}
+.nav-section-tabs ul.nav li {
+	line-height:50px;
+	margin:0px;
+}
+.nav-section-tabs ul.nav li a {
+	padding:15px 25px;
+	color:#a8a8a8;
+	font-size:16px;
+	font-weight:bold;
+	/* OVERRIDE BS */
+	background:none;
+	border:none;
+	border-radius:0;
+}
+.nav-section-tabs ul.nav li.active a {
+	color:#ffffff;
+}
+.nav-section-tabs.tabs-orange ul.nav li a:hover {
+	background:#e46c0a;
+	color:#ffffff;
+	/* OVERRIDE BS */
+	border:none;
+}
+.nav-section-tabs.tabs-orange ul.nav li.active {
+	background:#e46c0a;
+	border:none;
+}
+.nav-section-tabs.tabs-orange ul.nav li.active a:focus {
+	background:#e46c0a;
+	border:none;
+}
+.nav-section-tabs.tabs-purple ul.nav li a:hover {
+	background:#8064a2;
+	color:#ffffff;
+	/* OVERRIDE BS */
+	border:none;
+}
+.nav-section-tabs.tabs-purple ul.nav li.active {
+	background:#8064a2;
+	border:none;
+}
+.nav-section-tabs.tabs-purple ul.nav li.active a:focus {
+	background:#8064a2;
+	border:none;
+}
+.nav-section-tabs.tabs-blue ul.nav li a:hover {
+	background:#00b0f0;
+	color:#ffffff;
+	/* OVERRIDE BS */
+	border:none;
+}
+.nav-section-tabs.tabs-blue ul.nav li.active {
+	background:#00b0f0;
+	border:none;
+}
+.nav-section-tabs.tabs-blue ul.nav li.active a:focus {
+	background:#00b0f0;
+	border:none;
+}
+.nav-section-tabs.tabs-gray ul.nav li.active a {
+	color:#404040;
+}
+.nav-section-tabs.tabs-gray ul.nav li a:hover {
+	background:#dddddd;
+	color:#000000;
+	/* OVERRIDE BS */
+	border:none;
+}
+.nav-section-tabs.tabs-gray ul.nav li.active {
+	background:#dddddd;
+	border:none;
+}
+.nav-section-tabs.tabs-gray ul.nav li.active a:focus {
+	background:#dddddd;
+	border:none;
+}
+
+/* -- MAIN CONTENT TABLE STYLES ----------------------------------------------*/
+.main-content .table-responsive {
+	padding:15px;
+	background:#ffffff;
+}
+
+.table-button-row {
+	padding-top:10px;
+	padding-bottom:10px;
+	text-align:right;
+}
+
+.main-content .table-remotegateways {
+	margin-bottom:5px;
+	border-bottom: 2px solid #ddd;
+}
+.main-content .table-remotegateways th {
+	font-size:14px;
+}
+.main-content .table-remotegateways td {
+	border-left: 1px solid #ddd;
+	font-size:17px;
+}
+.main-content .table-remotegateways td:first-child {
+	border-left:none;
+	font-weight:bold;
+}
+.main-content .table-remotegateways td:first-child +td+td+td+td+td+td+td {
+	font-weight:bold;
+}
+
+.main-content .table-logs {
+	margin-bottom:5px;
+	border-bottom: 2px solid #ddd;
+}
+.main-content .table-logs th {
+	font-size:14px;
+	white-space:nowrap;
+}
+.main-content .table-logs td {
+	font-size:17px;
+}
+.main-content .table-logs td:first-child {
+	font-weight:bold;
+	white-space:nowrap;
+}
+.main-content .table-logs td:first-child +td, .main-content .table-logs td:first-child +td+td {
+	white-space:nowrap;
+}
+.main-content .table-logs td:first-child +td, .main-content .table-logs td:first-child +td+td, .main-content .table-logs td:first-child +td+td+td {
+	border-left: 1px solid #ddd;
+}
+
+.main-content .table-logs td button {
+	margin-right:3px;
+	margin-bottom:3px;
+}
+
+.main-content .table-domains, #modal-trustbundle .table-domains {
+	margin-bottom:5px;
+	border-bottom: 2px solid #ddd;
+}
+.main-content .table-domains th, #modal-trustbundle .table-domains th {
+	font-size:14px;
+	white-space:nowrap;
+}
+.main-content .table-domains td, #modal-trustbundle .table-domains td {
+	font-size:17px;
+}
+.main-content .table-domains td, #modal-trustbundle .table-domains td {
+	border-left: 1px solid #ddd;
+}
+.main-content .table-domains td:first-child, #modal-trustbundle .table-domains td:first-child {
+	border-left: none;
+	text-align:center;
+}
+.main-content .table-domains td button, #modal-trustbundle .table-domains td button {
+	margin-right:3px;
+	margin-bottom:3px;
+}
+
+.main-content .table-trust {
+	margin-bottom:5px;
+	border-bottom: 2px solid #ddd;
+}
+.main-content .table-trust th {
+	font-size:14px;
+	white-space:nowrap;
+}
+.main-content .table-trust td {
+	font-size:14px;
+}
+.main-content .table-trust td {
+	border-left: 1px solid #ddd;
+}
+.main-content .table-trust td:first-child {
+	border-left: none;
+	text-align:center;
+}
+.main-content .table-trust td button {
+	margin-right:3px;
+	margin-bottom:3px;
+}
+
+.main-content .action-button-row {
+	margin-top:10px;
+}
+
+.main-content table[class*="table-"] td {  /* table[class$="table-"] */
+	word-wrap: break-word;
+	word-break: break-all;
+}.main-content table[class*="table-"] td.nowrap {  /* table[class$="table-"] */
+	word-wrap: break-word;
+	word-break: normal;
+}
+
+/* -- SERVER STATUS KPI STYLES -----------------------------------------------*/
+.kpi-block {
+	margin-bottom:20px;
+	background:#ffffff;
+}
+.kpi-value-a {
+	line-height:40px;
+	padding:10px 15px 5px;
+	font-size:40px;
+	font-weight:bold;
+}
+.kpi-value-b {
+	padding:0px 15px 5px;
+	font-size:24px;
+	font-weight:normal;
+}
+.kpi-footer {
+	padding:5px 15px;
+	border-top:1px solid #e3ebf5;
+	font-size:10px;
+	text-align:right;
+}
+.kpi-footer a {
+	color:#808080;
+}
+
+.caret {
+	content: "";
+	display: inline-block;
+	width: 0;
+	height: 0;
+	vertical-align: top;
+	border-right: 4px solid transparent;
+	border-left: 4px solid transparent;
+	border-top: 4px solid #ffffff;
+}
+.caret-kpi-up {
+	position:relative;
+	top:-22px;
+	margin-right:5px;
+	border:12px solid transparent;
+	border-bottom:18px solid green;
+}
+.caret-kpi-down {
+	position:relative;
+	top:22px;
+	margin-right:5px;
+	border:12px solid transparent;
+	border-top:18px solid red;
+}
+
+
+/* -- SERVER PERFORMANCE STATISTICS STYLES -----------------------------------*/
+.chart-block {
+	width:100%;
+	padding:15px;
+	background:#ffffff;
+}
+
+
+
+
+
+
+
+/* -- RESPONSIVE @MEDIA STYLES -----------------------------------------------*/
+@media (max-width: 1100px) {
+	.sidebar h1.page-header {
+		font-size:22px;
+	}
+}
+@media (max-width: 1000px) {
+	.sidebar h1.page-header {
+		font-size:20px;
+	}
+}
+@media (max-width: 900px) {
+	.sidebar h1.page-header {
+		font-size:18px;
+	}
+	.sidebar h2.section-header {
+		font-size:10px;
+	}
+	.sidebar ul.nav li a {
+		font-size:13px;
+	}
+	.navbar {
+		min-height:30px;
+	}
+	.nav-section-tabs ul.nav li {
+		line-height:30px;
+	}
+	.nav-section-tabs ul.nav li a {
+		padding:10px 15px;
+		font-size:14px;
+	}
+	.main h2.subsection-header {
+		padding:12px;
+	}
+	.main-content table[class*="table-"] td {
+		font-size:14px;
+	}
+}
+@media (max-width: 800px) {
+	.sidebar h1.page-header {
+		font-size:16px;
+	}
+	.nav-section-tabs ul.nav li {
+		width:120px;
+	}
+	.nav-section-tabs ul.nav li a {
+		padding:7px 13px;
+		font-size:13px;
+	}
+	#domains .nav-section-tabs ul.nav li {
+		width:auto;
+	}
+}
+
+
+
+
+
+
+
+/* Non-responsive overrides
+ *
+ * Utilitze the following CSS to disable the responsive-ness of the container,
+ * grid system, and navbar.
+ */
+
+/* Reset the container */
+.container {
+  /*max-width: none !important;
+  width: 970px;*/
+  max-width:970px !important;
+}
+
+.container .navbar-header,
+.container .navbar-collapse {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+/* Always float the navbar header */
+.navbar-header {
+  float: left;
+}
+
+/* Undo the collapsing navbar */
+.navbar-collapse {
+  display: block !important;
+  height: auto !important;
+  padding-bottom: 0;
+  overflow: visible !important;
+}
+
+.navbar-toggle {
+  display: none;
+}
+.navbar-collapse {
+  border-top: 0;
+}
+
+.navbar-brand {
+  margin-left: -15px;
+}
+
+/* Always apply the floated nav */
+.navbar-nav {
+  float: left;
+  margin: 0;
+}
+.navbar-nav > li {
+  float: left;
+}
+.navbar-nav > li > a {
+  padding:0px 15px !important; /* 15px */
+  height:50px; /*  */
+  line-height:50px;
+}
+
+/* Redeclare since we override the float above */
+.navbar-nav.navbar-right {
+  float: right;
+}
+
+/* Undo custom dropdowns */
+.navbar .navbar-nav .open .dropdown-menu {
+  position: absolute;
+  float: left;
+  background-color: #fff;
+  border: 1px solid #cccccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-width: 0 1px 1px;
+  border-radius: 0 0 4px 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+}
+.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+  color: #333;
+}
+.navbar .navbar-nav .open .dropdown-menu > li > a:hover,
+.navbar .navbar-nav .open .dropdown-menu > li > a:focus,
+.navbar .navbar-nav .open .dropdown-menu > .active > a,
+.navbar .navbar-nav .open .dropdown-menu > .active > a:hover,
+.navbar .navbar-nav .open .dropdown-menu > .active > a:focus {
+  color: #fff !important;
+  background-color: #428bca !important;
+}
+.navbar .navbar-nav .open .dropdown-menu > .disabled > a,
+.navbar .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+.navbar .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+  color: #999 !important;
+  background-color: transparent !important;
+}

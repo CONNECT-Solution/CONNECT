@@ -105,9 +105,8 @@ public class PRPAIN201306UV02EventDescriptionBuilderTest extends BaseDescription
         builder.setReturnValue(body);
 
         EventDescription eventDescription = getEventDescription(builder);
-        assertEquals(2, eventDescription.getStatuses().size());
-        assertEquals("Test Content", eventDescription.getStatuses().get(0));
-        assertEquals("Test Content", eventDescription.getStatuses().get(1));
+        assertEquals(1, eventDescription.getStatuses().size());
+        assertTrue(eventDescription.getStatuses().contains("Test Content"));
     }
 
     @Test
@@ -119,8 +118,8 @@ public class PRPAIN201306UV02EventDescriptionBuilderTest extends BaseDescription
 
         EventDescription eventDescription = getEventDescription(builder);
         assertEquals(2, eventDescription.getStatuses().size());
-        assertEquals("Test Content", eventDescription.getStatuses().get(0));
-        assertEquals("Test Content2", eventDescription.getStatuses().get(1));
+        assertTrue(eventDescription.getStatuses().contains("Test Content"));
+        assertTrue(eventDescription.getStatuses().contains("Test Content2"));
     }
 
     @Test

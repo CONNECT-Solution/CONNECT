@@ -53,18 +53,7 @@ import org.junit.Test;
  */
 public class PassthroughOutboundDocRetrieveTest extends AbstractOutboundDocRetrieveTest {
 
-    @Test
-    public void hasOutboundProcessingEvent() throws Exception {
-        Class<PassthroughOutboundDocRetrieve> clazz = PassthroughOutboundDocRetrieve.class;
-        Method method = clazz.getMethod("respondingGatewayCrossGatewayRetrieve", RetrieveDocumentSetRequestType.class,
-                AssertionType.class, NhinTargetCommunitiesType.class, ADAPTER_API_LEVEL.class);
-        OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
-        assertNotNull(annotation);
-        assertEquals(RetrieveDocumentSetRequestTypeDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(RetrieveDocumentSetResponseTypeDescriptionBuilder.class, annotation.afterReturningBuilder());
-        assertEquals("Retrieve Document", annotation.serviceType());
-        assertEquals("", annotation.version());
-    }
+    
 
     @Test
     public void invoke() {

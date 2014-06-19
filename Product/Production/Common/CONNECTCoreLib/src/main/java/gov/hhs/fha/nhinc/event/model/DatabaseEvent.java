@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.event.model;
 
 import gov.hhs.fha.nhinc.event.Event;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Modeled Event for Hibernate Mapping.
@@ -35,12 +37,15 @@ public class DatabaseEvent implements Event {
 
     private Long id;
     
-    private String eventName;
+    private String messageID;
+    private String transactionID;
     private String description;
-    private String messageId;
-    private String transactionId;
+    private String serviceType;
+    private String initiatorHcid;
+    private String respondingHcid;
+    private String eventName;
+    private Date eventTime;
 
-        
     /**
      * @return the id
      */
@@ -68,45 +73,77 @@ public class DatabaseEvent implements Event {
         this.eventName = eventName;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getDescription() {
         return description;
     }
-    /**
-     * @param description the description to set
-     */
+
+    @Override
+    public String getMessageID() {
+        return messageID;
+    }
+
+    @Override
+    public String getTransactionID() {
+        return transactionID;
+    }
+
+    @Override
+    public void setTransactionID(String transactionID) {
+        this.transactionID = transactionID;
+    }
+
+    @Override
+    public void setMessageID(String messageID) {
+        this.messageID =  messageID;
+    }
+
+    @Override
     public void setDescription(String description) {
         this.description = description;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public String getMessageID() {
-        return messageId;
-    }
-    /**
-     * @param messageID the messageID to set
-     */
-    public void setMessageID(String messageID) {
-        this.messageId = messageID;
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public String getTransactionID() {
-        return transactionId;
+    public String getServiceType() {
+        return serviceType;
     }
-    /**
-     * @param transactionID the transactionID to set
-     */
-    public void setTransactionID(String transactionID) {
-        this.transactionId = transactionID;
+
+    @Override
+    public void setInitiatorHcid(String hcid) {
+        this.initiatorHcid = hcid;
     }
+
+    @Override
+    public String getInitiatorHcid() {
+        return initiatorHcid;
+    }
+
+    @Override
+    public void setRespondingHcid(String hcid) {
+        this.respondingHcid = hcid;
+    }
+
+    @Override
+    public String getRespondingHcid() {
+        return respondingHcid;
+    }
+    
+    public Date getEventTime() {
+        return eventTime;
+    }
+
+    public void setEventTime(Date eventTime) {
+        this.eventTime = eventTime;
+    }
+    
+    public String getFormattedEventTime(){
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm");
+        return sdf.format(eventTime);
+    }
+    
 }

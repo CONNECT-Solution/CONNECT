@@ -38,12 +38,14 @@ import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01ControlActProcess;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 
 import com.google.common.base.Function;
+import java.util.HashSet;
+import java.util.Set;
 
-class PRPAIN201306UV02HCIDExtractor implements Function<PRPAIN201306UV02, List<String>> {
+class PRPAIN201306UV02HCIDExtractor implements Function<PRPAIN201306UV02, Set<String>> {
 
     @Override
-    public List<String> apply(PRPAIN201306UV02 input) {
-        List<String> hcids = new ArrayList<String>();
+    public Set<String> apply(PRPAIN201306UV02 input) {
+        Set<String> hcids = new HashSet<String>();
         PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = input.getControlActProcess();
         if (controlActProcess != null) {
             for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subject : controlActProcess.getSubject()) {
@@ -53,8 +55,8 @@ class PRPAIN201306UV02HCIDExtractor implements Function<PRPAIN201306UV02, List<S
         return hcids;
     }
 
-    private List<String> getSubjectHCIDs(PRPAIN201306UV02MFMIMT700711UV01Subject1 subject) {
-        List<String> result = new ArrayList<String>();
+    private Set<String> getSubjectHCIDs(PRPAIN201306UV02MFMIMT700711UV01Subject1 subject) {
+        Set<String> result = new HashSet<String>();
         if (hasAssignedEntity(subject)) {
             result.addAll(getIis(subject.getRegistrationEvent().getCustodian().getAssignedEntity()));
         }

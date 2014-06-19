@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <businessDetail xmlns="urn:uddi-org:api_v3" xmlns:ns2="http://www.w3.org/2000/09/xmldsig#">
     <businessEntity businessKey="uddi:nhincnode:1.1">
-        <name xml:lang="en">DoD</name>
+        <name xml:lang="en">Gateway 1</name>
         <businessServices>
 
             <!-- Direct Soap Edge  -->

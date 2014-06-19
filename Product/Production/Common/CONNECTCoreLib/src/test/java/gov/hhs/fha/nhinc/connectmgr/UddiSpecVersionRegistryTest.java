@@ -84,12 +84,6 @@ public class UddiSpecVersionRegistryTest {
 		assertTrue(api == GATEWAY_API_LEVEL.LEVEL_g1);
 		api = UddiSpecVersionRegistry.getInstance().getSupportedGatewayAPI(spec, NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
 		assertTrue(api == GATEWAY_API_LEVEL.LEVEL_g1);
-		api = UddiSpecVersionRegistry.getInstance().getSupportedGatewayAPI(spec, NHIN_SERVICE_NAMES.HIEM_NOTIFY);
-		assertTrue(api == GATEWAY_API_LEVEL.LEVEL_g0);
-		api = UddiSpecVersionRegistry.getInstance().getSupportedGatewayAPI(spec, NHIN_SERVICE_NAMES.HIEM_SUBSCRIBE);
-        assertTrue(api == GATEWAY_API_LEVEL.LEVEL_g0);
-        api = UddiSpecVersionRegistry.getInstance().getSupportedGatewayAPI(spec, NHIN_SERVICE_NAMES.HIEM_UNSUBSCRIBE);
-        assertTrue(api == GATEWAY_API_LEVEL.LEVEL_g0);
 	}
 	
 	@Test

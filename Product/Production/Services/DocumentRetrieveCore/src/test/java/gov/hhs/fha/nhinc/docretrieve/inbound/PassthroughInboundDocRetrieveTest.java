@@ -57,18 +57,7 @@ import org.mockito.ArgumentCaptor;
  */
 public class PassthroughInboundDocRetrieveTest {
 
-    @Test
-    public void hasInboundProcessingEvent() throws Exception {
-        Class<PassthroughInboundDocRetrieve> clazz = PassthroughInboundDocRetrieve.class;
-        Method method = clazz.getMethod("respondingGatewayCrossGatewayRetrieve", RetrieveDocumentSetRequestType.class,
-                AssertionType.class);
-        InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
-        assertNotNull(annotation);
-        assertEquals(RetrieveDocumentSetRequestTypeDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(RetrieveDocumentSetResponseTypeDescriptionBuilder.class, annotation.afterReturningBuilder());
-        assertEquals("Retrieve Document", annotation.serviceType());
-        assertEquals("", annotation.version());
-    }
+    
 
     @Test
     public void invoke() {

@@ -32,6 +32,10 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndReg
 import gov.hhs.fha.nhinc.docsubmission._11.entity.EntityDocSubmissionSecured;
 import gov.hhs.fha.nhinc.docsubmission._11.entity.EntityDocSubmissionUnsecured;
 import gov.hhs.fha.nhinc.docsubmission._11.nhin.NhinXDR;
+import gov.hhs.fha.nhinc.docsubmission.inbound.PassthroughInboundDocSubmission;
+import gov.hhs.fha.nhinc.docsubmission.inbound.StandardInboundDocSubmission;
+import gov.hhs.fha.nhinc.docsubmission.outbound.PassthroughOutboundDocSubmission;
+import gov.hhs.fha.nhinc.docsubmission.outbound.StandardOutboundDocSubmission;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
@@ -57,6 +61,19 @@ public class DocSubmissionSpringContextTest {
     
     @Autowired
     EntityDocSubmissionSecured outboundDocSubmissionSecuredEndpoint;
+    
+    @Autowired
+    StandardOutboundDocSubmission stdOutboundDocSubmission;
+    
+    @Autowired
+    PassthroughOutboundDocSubmission ptOutboundDocSubmission;
+    
+    @Autowired
+    StandardInboundDocSubmission stdInboundDocSubmission;
+    
+    @Autowired
+    PassthroughInboundDocSubmission ptInbounDocSubmission;
+    
     
     @Test
     public void inbound() {

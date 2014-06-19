@@ -41,4 +41,22 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
+    
+    <bean id="stdADOutbound"
+      class="gov.hhs.fha.nhinc.admindistribution.outbound.StandardOutboundAdminDistribution">
+    </bean>
+    
+    <bean id="ptADOutbound"
+      class="gov.hhs.fha.nhinc.admindistribution.outbound.PassthroughOutboundAdminDistribution">
+    </bean>
+    
+    <bean id="stdADInbound"
+      class="gov.hhs.fha.nhinc.admindistribution.inbound.StandardInboundAdminDistribution">
+    </bean>
+    
+    <bean id="ptADInbound"
+      class="gov.hhs.fha.nhinc.admindistribution.inbound.PassthroughInboundAdminDistribution">
+    </bean>
+    
+    
 </beans>

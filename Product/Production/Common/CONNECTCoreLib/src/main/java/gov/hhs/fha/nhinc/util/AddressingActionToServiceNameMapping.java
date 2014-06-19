@@ -34,9 +34,6 @@ public class AddressingActionToServiceNameMapping {
                 NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION_DEFERRED_RESPONSE);
         map.put("urn:ihe:iti:xdr:2007:Deferred:XDRResponseInputMessage",
                 NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION_DEFERRED_RESPONSE);
-        map.put("urn:Notify", NhincConstants.NHIN_SERVICE_NAMES.HIEM_NOTIFY);
-        map.put("urn:Subscribe", NhincConstants.NHIN_SERVICE_NAMES.HIEM_SUBSCRIBE);
-        map.put("urn:Unsubscribe", NhincConstants.NHIN_SERVICE_NAMES.HIEM_UNSUBSCRIBE);
         map.put("urn:hl7-org:v3:PRPA_IN201305UV02:CrossGatewayPatientDiscovery",
                 NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
         map.put("urn:hl7-org:v3:PRPA_IN201305UV02:Deferred:CrossGatewayPatientDiscovery",

@@ -62,6 +62,12 @@ public class DatabaseEventLoggerTest {
                 will(Expectations.returnValue("messageid"));
                 oneOf(mockEvent).getTransactionID();
                 will(Expectations.returnValue("transactionid"));
+                oneOf(mockEvent).getServiceType();
+                will(Expectations.returnValue("serviceType"));
+                oneOf(mockEvent).getInitiatorHcid();
+                will(Expectations.returnValue("hcid"));
+                oneOf(mockEvent).getRespondingHcid();
+                will(Expectations.returnValue("hcid"));
             }
         });
 

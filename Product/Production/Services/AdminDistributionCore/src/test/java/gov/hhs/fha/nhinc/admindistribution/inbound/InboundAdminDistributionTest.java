@@ -45,7 +45,7 @@ public class InboundAdminDistributionTest {
 
     @Test
     public void hasEventAnnotation() throws Exception {
-        Class<?>[] classes = { AbstractInboundAdminDistribution.class };
+        Class<?>[] classes = { StandardInboundAdminDistribution.class };
         for (Class<?> clazz : classes) {
             Method method = clazz.getMethod("sendAlertMessage", EDXLDistribution.class, AssertionType.class);
             InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);

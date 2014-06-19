@@ -45,14 +45,14 @@ public class OutboundAdminDistributionTest {
 
     @Test
     public void hasEventAnnotation() throws Exception {
-        Class<?>[] classes = { PassthroughOutboundAdminDistribution.class, StandardOutboundAdminDistribution.class };
+        Class<?>[] classes = { StandardOutboundAdminDistribution.class };
         for (Class<?> clazz : classes) {
             Method method = clazz.getMethod("sendAlertMessage", RespondingGatewaySendAlertMessageSecuredType.class,
                     AssertionType.class, NhinTargetCommunitiesType.class);
             OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
             assertNotNull(annotation);
             assertEquals(ADRequestTransformingBuilder.class, annotation.beforeBuilder());
-            assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+            assertEquals(ADRequestTransformingBuilder.class, annotation.afterReturningBuilder());
             assertEquals("Admin Distribution", annotation.serviceType());
             assertEquals("", annotation.version());
         }

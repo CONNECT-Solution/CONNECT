@@ -28,10 +28,10 @@ package gov.hhs.fha.nhinc.docretrieve.configuration.jmx;
 
 import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
 import gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetrieve;
-import gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetrieveSecured;
 import gov.hhs.fha.nhinc.docretrieve._20.inbound.DocRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.inbound.InboundDocRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.outbound.OutboundDocRetrieve;
+
 import javax.servlet.ServletContext;
 
 /**
@@ -43,7 +43,7 @@ public class DocumentRetrieve20WebServices extends AbstractDRWebServicesMXBean {
 
     /** The Constant DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME. */
     public static final String DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.docretrieve._20.outbound.PassthroughOutboundDocRetrieve";
-    
+  
     private final serviceEnum serviceName = serviceEnum.RetrieveDocuments;
 
     /**
@@ -55,7 +55,7 @@ public class DocumentRetrieve20WebServices extends AbstractDRWebServicesMXBean {
         super(sc);
     }
     
-
+    
     /*
      * (non-Javadoc)
      * 
@@ -71,63 +71,95 @@ public class DocumentRetrieve20WebServices extends AbstractDRWebServicesMXBean {
         }
         return isPassthru;
     }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isOutboundPassthru()
-     */
     @Override
     public boolean isOutboundPassthru() {
         boolean isPassthru = false;
-        EntityDocRetrieve entityDocRetrieve = retrieveBean(EntityDocRetrieve.class, getEntityUnsecuredBeanName());
-        OutboundDocRetrieve outboundDocRetrieve = entityDocRetrieve.getOutboundDocRetrieve();
+        EntityDocRetrieve docRetrieve = retrieveBean(EntityDocRetrieve.class, getEntityUnsecuredBeanName());
+        OutboundDocRetrieve outboundDocRetrieve = docRetrieve.getOutboundDocRetrieve();
         if (compareClassName(outboundDocRetrieve, DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME)) {
             isPassthru = true;
         }
         return isPassthru;
     }
+    
+   
 
-    /*
-     * (non-Javadoc)
+   
+
+
+    /**
+     * Configure inbound implementation. The inbound orchestration implementation provided via the className param is
+     * set on the Nhin interface bean. This method uses specific types and passes them to the generic
+     * {@link gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#retrieveBean(Class, String)} and
+     * {@link gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#retrieveDependency(Class, String)} methods.
      * 
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getOutboundPassthruClassName()
+     * @param className the class name
+     * @throws InstantiationException the instantiation exception
+     * @throws IllegalAccessException the illegal access exception
+     * @throws ClassNotFoundException the class not found exception
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#configureInboundImplementation(java.lang.String)
      */
     @Override
-    protected String getOutboundPassthruClassName() {
-        return DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME;
+    public void configureInboundStdImpl() throws InstantiationException,
+            IllegalAccessException, ClassNotFoundException {
+        DocRetrieve nhinDR = null;
+        InboundDocRetrieve inboundDR = null;
+
+        nhinDR = retrieveBean(DocRetrieve.class, getNhinBeanName());
+        inboundDR = retrieveBean(InboundDocRetrieve.class, getStandardInboundBeanName());
+
+        nhinDR.setInboundDocRetrieve(inboundDR);
+    }
+    
+    
+    @Override
+    public void configureInboundPtImpl() throws InstantiationException,
+            IllegalAccessException, ClassNotFoundException {
+        DocRetrieve nhinDR = null;
+        InboundDocRetrieve inboundDR = null;
+
+        nhinDR = retrieveBean(DocRetrieve.class, getNhinBeanName());
+        inboundDR = retrieveBean(InboundDocRetrieve.class, getPassthroughInboundBeanName());
+
+        nhinDR.setInboundDocRetrieve(inboundDR);
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Configure outbound implementation. The outbound orchestration implementation provided via the className param is
+     * set on the Nhin interface bean. This method uses specific types and passes them to the generic
+     * {@link gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#retrieveBean(Class, String)} and
+     * {@link gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#retrieveDependency(Class, String)} methods.
      * 
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#configureInboundImpl(java.lang.String)
+     * @param className the class name
+     * @throws InstantiationException the instantiation exception
+     * @throws IllegalAccessException the illegal access exception
+     * @throws ClassNotFoundException the class not found exception
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#configureOutboundImplementation(java.lang.String)
      */
     @Override
-    public void configureInboundImpl(String className) throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException {
-        DocRetrieve docRetrieve = retrieveBean(DocRetrieve.class, getNhinBeanName());
-        InboundDocRetrieve inboundDocRetrieve = retrieveDependency(InboundDocRetrieve.class, className);
+    public void configureOutboundStdImpl() throws InstantiationException,
+            IllegalAccessException, ClassNotFoundException {
+        EntityDocRetrieve entityDR = null;
+        OutboundDocRetrieve outboundDR = null;
 
-        docRetrieve.setInboundDocRetrieve(inboundDocRetrieve);
+        entityDR = retrieveBean(EntityDocRetrieve.class, getEntityUnsecuredBeanName());
+        outboundDR = retrieveBean(OutboundDocRetrieve.class, getStandardOutboundBeanName());
+
+        entityDR.setOutboundDocRetrieve(outboundDR);
     }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#configureOutboundImpl(java.lang.String)
-     */
+    
     @Override
-    public void configureOutboundImpl(String className) throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException {
-        OutboundDocRetrieve outboundDocRetrieve = retrieveDependency(OutboundDocRetrieve.class, className);
-        EntityDocRetrieve entityDocRetrieve = retrieveBean(EntityDocRetrieve.class, getEntityUnsecuredBeanName());
-        EntityDocRetrieveSecured entityDocRetrieveSecured = retrieveBean(EntityDocRetrieveSecured.class,
-                getEntitySecuredBeanName());
+    public void configureOutboundPtImpl() throws InstantiationException,
+            IllegalAccessException, ClassNotFoundException {
+        EntityDocRetrieve entityDR = null;
+        OutboundDocRetrieve outboundDR = null;
 
-        entityDocRetrieve.setOutboundDocRetrieve(outboundDocRetrieve);
-        entityDocRetrieveSecured.setOutboundDocRetrieve(outboundDocRetrieve);
+        entityDR = retrieveBean(EntityDocRetrieve.class, getEntityUnsecuredBeanName());
+        outboundDR = retrieveBean(OutboundDocRetrieve.class, getPassthroughOutboundBeanName());
+
+        entityDR.setOutboundDocRetrieve(outboundDR);
     }
+
 
     @Override
     public serviceEnum getServiceName() {

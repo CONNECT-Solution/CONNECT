@@ -79,7 +79,7 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
         return client;
     }
 
-    @NwhinInvocationEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class, afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission Deferred Response", version = "")
+    @NwhinInvocationEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class, afterReturningBuilder = DeferredResponseDescriptionBuilder.class, serviceType = "Document Submission Deferred Response", version = "")
     public RegistryResponseType provideAndRegisterDocumentSetBDeferredResponse20(RegistryResponseType request,
             AssertionType assertion, NhinTargetSystemType target) {
         LOG.debug("Begin provideAndRegisterDocumentSetBDeferredResponse");
