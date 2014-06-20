@@ -18,6 +18,9 @@
 	- remote gateway list
 05. ACCOUNT MANAGEMENT STYLES
     - manage role
+06. DOMAIN CONFIGURATION STYLES
+    - buttons
+	- tables
 
 99. RESPONSIVE @MEDIA
     - set different styles at different browser window sizes
@@ -293,7 +296,7 @@ body {
 	color: #a8a8a8;
 	background:none;
 	border:none;
-	border-radius:none;
+	border-radius:0;
 	font-size:16px;
 	font-weight:bold;
 	text-shadow:none;
@@ -539,6 +542,8 @@ body {
 	box-shadow:none;
 }
 .main-content .table-remotegateways td {
+	border-top:1px solid #ddd;
+	border-bottom:1px solid #ddd;
 	border-right:none;
 }
 
@@ -558,6 +563,226 @@ body {
 
 
 
+/* -- DOMAIN CONFIGURATION STYLES --------------------------------------------*/
+.ui-panelgrid-domain {
+    width:100%;
+	/*margin:10px 0px;*/
+	border-bottom:1px solid #eee;
+}
+.ui-panelgrid-domain-bottom {
+    /*margin:20px 0px 10px;
+	border-top:1px solid #eee;*/
+	border-bottom:none;
+}
+.ui-panelgrid-domain td, .ui-panelgrid-domain tr {
+    border: none;
+    background-color: inherit;
+}
+.ui-panelgrid-domain td {
+	padding:10px 0px;
+	text-align:left;
+}
+.ui-panelgrid-domain td.ui-button-rightmost {
+	width:100%;
+	padding-left:10px;
+}
+
+.ui-panelgrid-domain .ui-button {
+	margin:0px;
+	padding:6px 12px;
+	color:#ffffff;
+	background:#428bca;
+	border:1px solid #357ebd;
+	text-shadow:none;
+	box-shadow:none;
+	white-space:nowrap;
+}
+.ui-panelgrid-domain .ui-button.ui-state-hover {
+    background:#3276b1;
+	border:1px solid #285e8e;
+	box-shadow:none;
+}
+.ui-panelgrid-domain .ui-button-text-only .ui-button-text {
+	padding:5px 10px;
+}
+.ui-panelgrid-domain .ui-button-text-icon-left .ui-button-text {
+	padding: .3em .3em .3em 1.3em;
+}
+.add-button .ui-icon, .delete-button .ui-icon {
+	background-image:url("../resources/images/ui-icons_ffffff_256x240.png");
+}
+.add-button {
+	background-color: #428bca !important;
+	color: #ffffff !important;
+	border-color: #357ebd !important;
+}
+.add-button:hover {
+	background-color: #256ead !important;
+}
+.edit-button {
+	background-color: #ffffff !important;
+	color: #333333 !important;
+	border-color: #cccccc !important;
+}
+.edit-button:hover {
+	background-color: #eeeeee !important;
+}
+.delete-button {
+	background-color: #d9534f !important;
+	color: #ffffff !important;
+	border-color: #d43f3a !important;
+}
+.delete-button:hover {
+	background-color:#d2322d !important;
+}
+
+/* -- DOMAIN CONFIG TABLE STYLES -- */
+.main-content .table-domains th {
+	font-size:14px;
+	text-align:left;
+	background:none;
+	border:none;
+	color:#808080;
+}
+.main-content .table-domains tbody.ui-widget-content {
+	border:none;
+}
+.main-content .table-domains tr {
+	border:none;
+}
+.main-content .table-domains tr.ui-datatable-odd {
+	background:#eeeeee;
+}
+.main-content .table-domains tr.ui-state-highlight {
+	background:#808080;
+	text-shadow:none;
+}
+.main-content .table-domains tbody > tr:hover > td, 
+.main-content .table-domains tbody > tr.ui-datatable-even:hover > td, 
+.main-content .table-domains tbody > tr.ui-datatable-odd:hover > td {
+	background:#eeeeee;
+	color:#000000;
+}
+.main-content .table-domains th.ui-state-hover {
+	box-shadow:none;
+}
+.main-content .table-domains td {
+	border-top:1px solid #ddd;
+	border-bottom:1px solid #ddd;
+	border-right:none;
+}
+/*
+.ui-datatable
+{
+	float:left;
+}
+*/
+
+/* -- MISCELLANEOUS TABLE STYLES -- */
+.main-content div[class*="table-"] {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+.main-content div[class*="table-"] td > span,
+.main-content div[class*="table-"] td {  /* table[class$="table-"] */
+	word-wrap: break-word;
+	word-break: break-all;
+}
+.main-content div[class*="table-"] td > span.nowrap,
+.main-content div[class*="table-"] td.nowrap {  /* table[class$="table-"] */
+	word-wrap: break-word;
+	word-break: normal;
+}
+
+
+/* -- DOMAIN CONFIG MODAL STYLES -- CREATE DOMAIN -- */
+#domainCreateDlg .ui-widget-header {
+	/*
+	border: 1px solid #a8a8a8;
+	background: #c4c4c4 url("/javax.faces.resource/images/ui-bg_highlight-soft_100_c4c4c4_1x100.png.xhtml?ln=primefaces-aristo") 50% 50% repeat-x;
+	background: #c4c4c4 linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
+	background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+	background: #c4c4c4 -moz-linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
+	*/
+	background:#e3ebf5;
+	color:#333; /*  */
+	font-weight: bold; /*  */
+	font-size:18px;
+	text-shadow:none; /* 0px 1px 0px rgba(255,255,255,0.7) */
+}
+#domainCreateDlg .ui-dialog-titlebar-close, #domainCreateDlg .ui-dialog-titlebar-minimize, #domainCreateDlg .ui-dialog-titlebar-maximize {
+	margin-top:.4em;
+}
+#domainCreateDlg .content {
+	padding:20px;
+}
+#domainCreateDlg .content .form-block {
+	padding:0px;
+}
+#domainCreateDlg .ui-selectonemenu .ui-selectonemenu-trigger {
+	/* border-right: none;
+	border-top: none;
+	border-bottom: none;
+	cursor: pointer; */
+	width:auto;
+	/* height: 100%;
+	position: absolute;
+	right: 0;
+	top: 0; */
+	padding:0px;
+}
+#domainCreateDlg .ui-selectonemenu {
+	text-shadow:none;
+}
+#domainCreateDlg .ui-selectonemenu label.ui-selectonemenu-label {
+	box-shadow:none;
+}
+#domainCreateDlg .ui-selectonemenu .ui-selectonemenu-trigger .ui-icon {
+	margin-top:6px;
+}
+.ui-selectonemenu-list .ui-selectonemenu-list-item.ui-state-highlight { /* #domainDlgForm\:select-status_panel AND #domainDlgForm\:select-tb_panel */
+	background:none; /* RESET THE BACKGROUND */
+	background-color:#eeeeee;
+	color:#000000;
+	text-shadow:none;
+}
+.ui-selectonemenu-list .ui-selectonemenu-list-item.ui-state-hover { /* #domainDlgForm\:select-status_panel AND #domainDlgForm\:select-tb_panel */
+	background:none; /* RESET THE BACKGROUND */
+	background-color:#eeeeee;
+	color:#000000;
+	text-shadow:none;
+	box-shadow:none;
+}
+#domainCreateDlg .btn-primary {
+	background:none;
+	background:#428bca;
+}
+#domainCreateDlg .btn-primary:hover {
+	background-color: #3276b1;
+	border-color: #285e8e;
+}
+
+
+/*-- DOMAIN CONFIG MODAL STYLES -- AGENT SETTINGS -- */
+#agentCreateDlg .ui-widget-header {
+	background:none;
+	background:#e3ebf5;
+	font-size:18px;
+	text-shadow:none;
+}
+#agentCreateDlg .ui-dialog-titlebar-close, #domainCreateDlg .ui-dialog-titlebar-minimize, #domainCreateDlg .ui-dialog-titlebar-maximize {
+	margin-top:.4em;
+}
+#agentCreateDlg .btn-primary {
+	background:none;
+	background:#428bca;
+}
+#agentCreateDlg .btn-primary:hover {
+	background-color: #3276b1;
+	border-color: #285e8e;
+}
+
+
+
 /* -- RESPONSIVE @MEDIA STYLES -----------------------------------------------*/
 @media (max-width: 1100px) {
 	.sidebar h1.page-header {
@@ -565,6 +790,9 @@ body {
 	}
 }
 @media (max-width: 1033px) {
+	.sidebar h1.page-header {
+		font-size:18px;
+	}
 	.admin-dashboard .ui-panel-titlebar {
 		position:relative;
 	}
@@ -572,6 +800,12 @@ body {
 		position: absolute;
 		top:8px;
 		right:12px;
+	}
+	.main-content div[class*="table-"] th {
+		font-size:12px;
+	}
+	.main-content div[class*="table-"] td {
+		font-size:14px;
 	}
 }
 @media (max-width: 1004px) {
@@ -606,9 +840,6 @@ body {
 	}
 	.main h2.subsection-header {
 		padding:12px;
-	}
-	.main-content table[class*="table-"] td {
-		font-size:14px;
 	}
 }
 @media (max-width: 800px) {
