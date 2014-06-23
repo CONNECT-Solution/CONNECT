@@ -16,5 +16,9 @@
     <property column="description" name="description"/>
     <property column="messageId" name="messageID"/>
     <property column="transactionId" name="transactionID"/>
+    <property column="serviceType" name="serviceType"/>
+    <property column="initiatingHcid" name="initiatorHcid"/>
+    <property column="respondingHcids" name="respondingHcid"/>
+    <property column="eventTime" name="eventTime"/>
   </class>
 </hibernate-mapping>

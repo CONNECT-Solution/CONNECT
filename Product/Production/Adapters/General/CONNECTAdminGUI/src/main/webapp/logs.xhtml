@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /* 
+   * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+   * All rights reserved. 
+   *
+   * Redistribution and use in source and binary forms, with or without  
+   * modification, are permitted provided that the following conditions are met:  
+   *     * Redistributions of source code must retain the above  
+   *       copyright notice, this list of conditions and the following disclaimer. 
+   *     * Redistributions in binary form must reproduce the above copyright  
+   *       notice, this list of conditions and the following disclaimer in the documentation  
+   *       and/or other materials provided with the distribution.  
+   *     * Neither the name of the United States Government nor the  
+   *       names of its contributors may be used to endorse or promote products  
+   *       derived from this software without specific prior written permission.  
+   * 
+   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND  
+   * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED  
+   * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE  
+   * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY  
+   * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES  
+   * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  
+   * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND  
+   * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT  
+   * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS  
+   * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+   */ 
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <body>
+        <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
+            <ui:define name="metatag"></ui:define>
+            <ui:define name="content">
+
+			<!-- BEGIN: MAIN CONTENT SECTION -->
+			<div class="main-content">
+				<h1 class="section-header">Activity Logs</h1>
+				
+				<!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
+				<div class="nav-section-tabs tabs-blue" id="nav-section-tabs">
+					<div class="navbar" role="navigation">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#event" data-toggle="tab" title="Event Logs">Event Logs</a></li>
+							<li><a href="#audit" data-toggle="tab" title="Audit Logs">Audit Logs</a></li>
+							<li><a href="#system" data-toggle="tab" title="System Logs">System Logs</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
+				
+				<!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
+				<div class="tab-content">
+					<!-- BEGIN: TAB PANE - EVENT LOGS -->
+					<div class="tab-pane active" id="event">
+						<div class="content-block">
+							<h2 class="subsection-header">Event Logs</h2>
+							<div class="table-responsive">
+								<div class="table-button-row">
+									<button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add New Entry</button> 
+									<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i> Refresh Log</button>
+								</div>
+								<table class="table table-striped tablesorter table-logs" id="table-logs-event">
+									<thead>
+										<tr>
+											<th>Date</th>
+											<th>Time</th>
+											<th>Event ID</th>
+											<th data-sorter="false">Description</th>
+											<th data-sorter="false">Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>3/5/2014</td>
+											<td>12:27 pm</td>
+											<td>1001</td>
+											<td>Lorem ipsum dolor sit amet, consectetur... <a href="#">[more]</a></td>
+											<td>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+											</td>
+										</tr>
+										<tr>
+											<td>1/23/2014</td>
+											<td>9:45 am</td>
+											<td>1002</td>
+											<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <a href="#">[less]</a></td>
+											<td>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+											</td>
+										</tr>
+										<tr>
+											<td>12/18/2013</td>
+											<td>4:30 pm</td>
+											<td>1003</td>
+											<td>Lorem ipsum dolor sit amet, consectetur... <a href="#">[more]</a></td>
+											<td>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- END: TAB PANE - EVENT LOGS -->
+					
+					<!-- BEGIN: TAB PANE - AUDIT LOGS -->
+					<div class="tab-pane" id="audit">
+						<div class="content-block">
+							<h2 class="subsection-header">Audit Logs</h2>
+							<div class="table-responsive">
+								<div class="table-button-row">
+									<button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add New Entry</button> 
+									<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i> Refresh Log</button>
+								</div>
+								<table class="table table-striped tablesorter table-logs" id="table-logs-audit">
+									<thead>
+										<tr>
+											<th>Date</th>
+											<th>Time</th>
+											<th>Event ID</th>
+											<th data-sorter="false">Description</th>
+											<th data-sorter="false">Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>3/5/2014</td>
+											<td>12:27 pm</td>
+											<td>2071</td>
+											<td>Lorem ipsum dolor sit amet, consectetur... <a href="#">[more]</a></td>
+											<td>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+											</td>
+										</tr>
+										<tr>
+											<td>1/23/2014</td>
+											<td>9:45 am</td>
+											<td>2102</td>
+											<td>Lorem ipsum dolor sit amet, consectetur... <a href="#">[more]</a></td>
+											<td>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+											</td>
+										</tr>
+										<tr>
+											<td>12/18/2013</td>
+											<td>4:30 pm</td>
+											<td>2543</td>
+											<td>Lorem ipsum dolor sit amet, consectetur... <a href="#">[more]</a></td>
+											<td>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- END: TAB PANE - AUDIT LOGS -->
+					
+					<!-- BEGIN: TAB PANE - SYSTEM LOGS -->
+					<div class="tab-pane" id="system">
+						<div class="content-block">
+							<h2 class="subsection-header">System Logs</h2>
+							<div class="table-responsive">
+								<div class="table-button-row">
+									<button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add New Entry</button> 
+									<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i> Refresh Log</button>
+								</div>
+								<table class="table table-striped tablesorter table-logs" id="table-logs-system">
+									<thead>
+										<tr>
+											<th>Date</th>
+											<th>Time</th>
+											<th>Event ID</th>
+											<th data-sorter="false">Description</th>
+											<th data-sorter="false">Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>3/5/2014</td>
+											<td>12:27 pm</td>
+											<td>3000</td>
+											<td>Logging service started. <a href="#">[more]</a></td>
+											<td>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+											</td>
+										</tr>
+										<tr>
+											<td>1/23/2014</td>
+											<td>9:45 am</td>
+											<td>3002</td>
+											<td>Disk space allocated. <a href="#">[more]</a></td>
+											<td>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+											</td>
+										</tr>
+										<tr>
+											<td>12/18/2013</td>
+											<td>4:30 pm</td>
+											<td>3013</td>
+											<td>Domain controller connected. <a href="#">[more]</a></td>
+											<td>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+												<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- END: TAB PANE - SYSTEM LOGS -->
+				</div>
+				<!-- END: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
+				
+			</div>
+			<!-- END: MAIN CONTENT SECTION -->
+
+			<!-- END: RIGHT COLUMN - Primary content is located here -->
+		
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

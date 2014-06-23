@@ -49,6 +49,108 @@ public abstract class AbstractAdminDistributionWebServicesMXBean extends Abstrac
     /** The Constant DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME. */
     public static final String DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.admindistribution.outbound.PassthroughOutboundAdminDistribution";
     
+    /** The Constant Standard_OutboundOrch_AD_BEAN_NAME. */
+    private static final String StdOutbound_AD_Bean_Name = "stdADOutbound";
+
+    /** The Constant Passthrough_OutboundOrch_AD_BEAN_NAME. */
+    private static final String PtOutbound_AD_Bean_Name = "ptADOutbound";
+
+    /** The Constant Standard_InboundOrch_AD_BEAN_NAME. */
+    private static final String StdInbound_AD_Bean_Name = "stdADInbound";
+
+    /** The Constant Passthrough_InboundOrch_AD_BEAN_NAME. */
+    private static final String PtInbound_AD_Bean_Name = "ptADInbound";
+    
+    
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getStandardOutboundBeanName()
+     */
+    @Override
+    protected String getStandardOutboundBeanName() {
+        return StdOutbound_AD_Bean_Name;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getPassthroughOutboundBeanName()
+     */
+    @Override
+    protected String getPassthroughOutboundBeanName() {
+        return PtOutbound_AD_Bean_Name;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getStandardInboundBeanName()
+     */
+    @Override
+    protected String getStandardInboundBeanName() {
+        return StdInbound_AD_Bean_Name;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getPassthroughInboundBeanName()
+     */
+    @Override
+    protected String getPassthroughInboundBeanName() {
+        return PtInbound_AD_Bean_Name;
+    }
+    /**
+     * Configure outbound Standard implementation. This method is abstract because subclass implementations must use
+     * actual types as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
+     * 
+     * @param className the class name
+     * @throws InstantiationException the instantiation exception
+     * @throws IllegalAccessException the illegal access exception
+     * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
+     */
+    @Override
+    public abstract void configureOutboundStdImpl() throws InstantiationException, IllegalAccessException, ClassNotFoundException;
+
+    /**
+     * Configure outbound Passthrough implementation. This method is abstract because subclass implementations must use
+     * actual types as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
+     * 
+     * @param className the class name
+     * @throws InstantiationException the instantiation exception
+     * @throws IllegalAccessException the illegal access exception
+     * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
+     */
+    @Override
+    public abstract void configureOutboundPtImpl() throws InstantiationException, IllegalAccessException, ClassNotFoundException;
+
+    /**
+     * Configure Inbound Standard implementation. This method is abstract because subclass implementations must use
+     * actual types as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
+     * 
+     * @param className the class name
+     * @throws InstantiationException the instantiation exception
+     * @throws IllegalAccessException the illegal access exception
+     * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
+     */
+    @Override
+    public abstract void configureInboundStdImpl() throws InstantiationException, IllegalAccessException, ClassNotFoundException;
+
+    /**
+     * Configure Inbound Passthrough implementation. This method is abstract because subclass implementations must use
+     * actual types as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
+     * 
+     * @param className the class name
+     * @throws InstantiationException the instantiation exception
+     * @throws IllegalAccessException the illegal access exception
+     * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
+     */
+    @Override
+    public abstract void configureInboundPtImpl() throws InstantiationException, IllegalAccessException, ClassNotFoundException;
+
+
     /**
      * Instantiates a new abstract admin distribution web services mx bean.
      *
@@ -58,36 +160,36 @@ public abstract class AbstractAdminDistributionWebServicesMXBean extends Abstrac
         super(sc);
     }
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getInboundStandardClassName()
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getNhinBeanName()
      */
-    @Override
-    protected String getInboundStandardClassName() {
-        return DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME;
+/*    @Override
+    protected String getNhinBeanName() {
+        return NHIN_AD_BEAN_NAME;
     }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getInboundPassthruClassName()
+*/
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getEntityUnsecuredBeanName()
      */
-    @Override
-    protected String getInboundPassthruClassName() {
-        return DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME;
+/*    @Override
+    protected String getEntityUnsecuredBeanName() {
+        return ENTITY_UNSECURED_AD_BEAN_NAME;
     }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getOutboundStandardClassName()
+*/
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getEntitySecuredBeanName()
      */
+/*    
     @Override
-    protected String getOutboundStandardClassName() {
-        return DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME;
+    protected String getEntitySecuredBeanName() {
+        return ENTITY_SECURED_AD_BEAN_NAME;
     }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getOutboundPassthruClassName()
-     */
-    @Override
-    protected String getOutboundPassthruClassName() {
-        return DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME;
-    }
-
+*/
+    
 }

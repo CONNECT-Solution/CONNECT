@@ -57,7 +57,7 @@ public class DocumentQuery20WebServices extends AbstractDQWebServicesMXBean {
 	}
 
 	/**
-	 * Configure inbound implementation. The inbound orchestration
+	 * Configure Standard inbound implementation. The inbound orchestration
 	 * implementation provided via the className param is set on the Nhin
 	 * interface bean. This method uses specific types and passes them to the
 	 * generic
@@ -77,19 +77,50 @@ public class DocumentQuery20WebServices extends AbstractDQWebServicesMXBean {
 	 * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#configureInboundImplementation(java.lang.String)
 	 */
 	@Override
-	public void configureInboundImpl(String className)
-			throws InstantiationException, IllegalAccessException,
+	public void configureInboundStdImpl() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		DocQuery docQuery = null;
 		InboundDocQuery inboundDocQuery = null;
 
 		docQuery = retrieveBean(DocQuery.class, getNhinBeanName());
-		inboundDocQuery = retrieveDependency(InboundDocQuery.class, className);
+		inboundDocQuery = retrieveBean(InboundDocQuery.class, getStandardInboundBeanName());
 		docQuery.setInboundDocQuery(inboundDocQuery);
 	}
+	
+	
+	/**
+     * Configure Passthrough inbound implementation. The inbound orchestration
+     * implementation provided via the className param is set on the Nhin
+     * interface bean. This method uses specific types and passes them to the
+     * generic
+     * {@link gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#retrieveBean(Class, String)}
+     * and
+     * {@link gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#retrieveDependency(Class, String)}
+     * methods.
+     * 
+     * @param className
+     *            the class name
+     * @throws InstantiationException
+     *             the instantiation exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#configureInboundImplementation(java.lang.String)
+     */
+    @Override
+    public void configureInboundPtImpl() throws InstantiationException, IllegalAccessException,
+            ClassNotFoundException {
+        DocQuery docQuery = null;
+        InboundDocQuery inboundDocQuery = null;
+
+        docQuery = retrieveBean(DocQuery.class, getNhinBeanName());
+        inboundDocQuery = retrieveBean(InboundDocQuery.class, getPassthroughInboundBeanName());
+        docQuery.setInboundDocQuery(inboundDocQuery);
+    }
 
 	/**
-	 * Configure outbound implementation. The outbound orchestration
+	 * Configure Standard outbound implementation. The outbound orchestration
 	 * implementation provided via the className param is set on the Nhin
 	 * interface bean. This method uses specific types and passes them to the
 	 * generic
@@ -109,22 +140,55 @@ public class DocumentQuery20WebServices extends AbstractDQWebServicesMXBean {
 	 * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#configureOutboundImplementation(java.lang.String)
 	 */
 	@Override
-	public void configureOutboundImpl(String className)
-			throws InstantiationException, IllegalAccessException,
+	public void configureOutboundStdImpl() throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		EntityDocQueryUnsecured entityUnsecuredDocQuery = null;
 		EntityDocQuerySecured entitySecuredDocQuery = null;
 		OutboundDocQuery outboundDocQuery = null;
 
-		entityUnsecuredDocQuery = retrieveBean(EntityDocQueryUnsecured.class,
-				getEntityUnsecuredBeanName());
-		entitySecuredDocQuery = retrieveBean(EntityDocQuerySecured.class,
-				getEntitySecuredBeanName());
-		outboundDocQuery = retrieveDependency(OutboundDocQuery.class, className);
+		entityUnsecuredDocQuery = retrieveBean(EntityDocQueryUnsecured.class, getEntityUnsecuredBeanName());
+		entitySecuredDocQuery = retrieveBean(EntityDocQuerySecured.class, getEntitySecuredBeanName());
+		outboundDocQuery = retrieveBean(OutboundDocQuery.class, getStandardOutboundBeanName() );
 
 		entityUnsecuredDocQuery.setOutboundDocQuery(outboundDocQuery);
 		entitySecuredDocQuery.setOutboundDocQuery(outboundDocQuery);
 	}
+	
+	
+	/**
+     * Configure Passthrough outbound implementation. The outbound orchestration
+     * implementation provided via the className param is set on the Nhin
+     * interface bean. This method uses specific types and passes them to the
+     * generic
+     * {@link gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#retrieveBean(Class, String)}
+     * and
+     * {@link gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#retrieveDependency(Class, String)}
+     * methods.
+     * 
+     * @param className
+     *            the class name
+     * @throws InstantiationException
+     *             the instantiation exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#configureOutboundImplementation(java.lang.String)
+     */
+    @Override
+    public void configureOutboundPtImpl() throws InstantiationException, IllegalAccessException,
+            ClassNotFoundException {
+        EntityDocQueryUnsecured entityUnsecuredDocQuery = null;
+        EntityDocQuerySecured entitySecuredDocQuery = null;
+        OutboundDocQuery outboundDocQuery = null;
+
+        entityUnsecuredDocQuery = retrieveBean(EntityDocQueryUnsecured.class, getEntityUnsecuredBeanName());
+        entitySecuredDocQuery = retrieveBean(EntityDocQuerySecured.class, getEntitySecuredBeanName());
+        outboundDocQuery = retrieveBean(OutboundDocQuery.class, getPassthroughOutboundBeanName() );
+
+        entityUnsecuredDocQuery.setOutboundDocQuery(outboundDocQuery);
+        entitySecuredDocQuery.setOutboundDocQuery(outboundDocQuery);
+    }
 
 	/*
 	 * (non-Javadoc)
@@ -162,51 +226,7 @@ public class DocumentQuery20WebServices extends AbstractDQWebServicesMXBean {
 		}
 		return isPassthru;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#
-	 * getInboundStandardClassName()
-	 */
-	@Override
-	protected String getInboundStandardClassName() {
-		return DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#
-	 * getInboundPassthruClassName()
-	 */
-	@Override
-	protected String getInboundPassthruClassName() {
-		return DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#
-	 * getOutboundStandardClassName()
-	 */
-	@Override
-	protected String getOutboundStandardClassName() {
-		return DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#
-	 * getOutboundPassthruClassName()
-	 */
-	@Override
-	protected String getOutboundPassthruClassName() {
-		return DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME;
-	}
-
+	
 	@Override
 	public serviceEnum getServiceName() {
 		return this.serviceName;

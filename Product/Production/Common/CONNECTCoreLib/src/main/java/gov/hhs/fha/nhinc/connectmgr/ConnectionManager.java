@@ -61,6 +61,14 @@ public interface ConnectionManager {
     public BusinessEntity getBusinessEntity(String sHomeCommunityId) throws ConnectionManagerException;
 
     /**
+     * Returns the name of the entity for the given home community id.
+     * @param homeCommunityId
+     * @return
+     * @throws ConnectionManagerException 
+     */
+    public String getBusinessEntityName(String homeCommunityId) throws ConnectionManagerException;
+    
+    /**
      * This method returns the business entity information for the set of home communities.
      * 
      * @param saHomeCommunityId The set of home communities to be retrieved.

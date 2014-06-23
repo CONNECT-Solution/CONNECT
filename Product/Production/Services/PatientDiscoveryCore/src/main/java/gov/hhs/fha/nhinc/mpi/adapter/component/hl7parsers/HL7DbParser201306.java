@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers;
 
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.TimeZone;
@@ -88,6 +90,10 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  *
@@ -126,26 +132,8 @@ public class HL7DbParser201306 {
         }
         id.setExtension(MessageIdGenerator.generateMessageId());
         msg.setId(id);
-
-        // Set up the creation time string
-        String timestamp = "";
-        try {
-            GregorianCalendar today = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
-
-            timestamp =
-                String.valueOf(today.get(GregorianCalendar.YEAR))
-                + String.valueOf(today.get(GregorianCalendar.MONTH) + 1)
-                + String.valueOf(today.get(GregorianCalendar.DAY_OF_MONTH))
-                + String.valueOf(today.get(GregorianCalendar.HOUR_OF_DAY))
-                + String.valueOf(today.get(GregorianCalendar.MINUTE))
-                + String.valueOf(today.get(GregorianCalendar.SECOND));
-        } catch (Exception e) {
-            LOG.error("Exception when creating XMLGregorian Date");
-            LOG.error(" message: " + e.getMessage());
-        }
-
         TSExplicit creationTime = new TSExplicit();
-        creationTime.setValue(timestamp);
+        creationTime.setValue(buildCreationTimeString());
         msg.setCreationTime(creationTime);
 
         II interactionId = new II();
@@ -177,6 +165,10 @@ public class HL7DbParser201306 {
 
         LOG.trace("Exiting HL7Parser201306.BuildMessageFromMpiPatient method...");
         return msg;
+    }
+
+    static String buildCreationTimeString() {
+        return DateTimeFormat.forPattern("yyyyMMddHHmmss").print(new DateTime(DateTimeZone.UTC));
     }
 
     private static PRPAIN201306UV02MFMIMT700711UV01ControlActProcess createControlActProcess(List<Patient> patients,

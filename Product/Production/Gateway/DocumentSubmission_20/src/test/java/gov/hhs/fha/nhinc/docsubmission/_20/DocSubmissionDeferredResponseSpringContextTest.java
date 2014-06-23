@@ -32,6 +32,10 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndReg
 import gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSubmissionDeferredResponseSecured_g1;
 import gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSubmissionDeferredResponseUnsecured_g1;
 import gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinXDRResponse20;
+import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response.PassthroughInboundDocSubmissionDeferredResponse;
+import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response.StandardInboundDocSubmissionDeferredResponse;
+import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response.PassthroughOutboundDocSubmissionDeferredResponse;
+import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response.StandardOutboundDocSubmissionDeferredResponse;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
@@ -57,6 +61,19 @@ public class DocSubmissionDeferredResponseSpringContextTest {
 
     @Autowired
     EntityDocSubmissionDeferredResponseSecured_g1 outboundDocSubmissionResponseSecuredEndpoint;
+    
+    @Autowired
+    StandardOutboundDocSubmissionDeferredResponse stdOutboundDocSubmissionDeferredResponse;
+    
+    @Autowired
+    PassthroughOutboundDocSubmissionDeferredResponse ptOutboundDocSubmissionDeferredResponse;
+    
+    @Autowired
+    StandardInboundDocSubmissionDeferredResponse stdInboundDocSubmissionDeferredResponse;
+    
+    @Autowired
+    PassthroughInboundDocSubmissionDeferredResponse ptInbounDocSubmissionDeferredResponse;
+    
 
     @Test
     public void inbound() {

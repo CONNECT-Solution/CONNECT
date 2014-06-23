@@ -26,7 +26,10 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.inbound;
 
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveAuditTransformer_g0;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveDelegate;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveOrchestratable;
@@ -37,6 +40,7 @@ import gov.hhs.fha.nhinc.orchestration.CONNECTInboundOrchestrator;
 import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 public class StandardInboundDocRetrieve extends BaseInboundDocRetrieve {
 
@@ -93,5 +97,18 @@ public class StandardInboundDocRetrieve extends BaseInboundDocRetrieve {
     @Override
     CONNECTInboundOrchestrator getOrchestrator() {
         return orch;
+    }
+    @Override
+    @InboundProcessingEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class, 
+            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
+            serviceType = "Retrieve Document", version = "")
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
+            AssertionType assertion) {
+
+        InboundDocRetrieveOrchestratable inboundOrchestrable = createInboundOrchestrable(body, assertion);
+
+        InboundDocRetrieveOrchestratable orchResponse = (InboundDocRetrieveOrchestratable) getOrchestrator().process(
+                inboundOrchestrable);
+        return orchResponse.getResponse();
     }
 }

@@ -66,6 +66,9 @@ public class DatabaseEventLogger extends EventLogger {
             dbEvent.setDescription(event.getDescription());
             dbEvent.setMessageID(event.getMessageID());
             dbEvent.setTransactionID(event.getTransactionID());
+            dbEvent.setServiceType(event.getServiceType());
+            dbEvent.setInitiatorHcid(event.getInitiatorHcid());
+            dbEvent.setRespondingHcid(event.getRespondingHcid());
             
             databaseEventLoggerDao.insertEvent(dbEvent);
         }

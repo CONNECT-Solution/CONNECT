@@ -131,11 +131,11 @@ public class DocumentSubmissionDefResponse20WebServices extends AbstractDSDeferr
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#configureInboundImpl(java.lang.String)
      */
     @Override
-    public void configureInboundImpl(String className) throws InstantiationException, IllegalAccessException,
+    public void configureInboundStdImpl() throws InstantiationException, IllegalAccessException,
             ClassNotFoundException {
         NhinXDRResponse20 nhinDS = retrieveBean(NhinXDRResponse20.class, getNhinBeanName());
-        InboundDocSubmissionDeferredResponse inboundDS = retrieveDependency(InboundDocSubmissionDeferredResponse.class,
-                className);
+        InboundDocSubmissionDeferredResponse inboundDS = retrieveBean(InboundDocSubmissionDeferredResponse.class,
+                getStandardInboundBeanName());
 
         nhinDS.setInboundDocSubmissionResponse(inboundDS);
     }
@@ -143,13 +143,48 @@ public class DocumentSubmissionDefResponse20WebServices extends AbstractDSDeferr
     /*
      * (non-Javadoc)
      * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#configureInboundImpl(java.lang.String)
+     */
+    @Override
+    public void configureInboundPtImpl() throws InstantiationException, IllegalAccessException,
+            ClassNotFoundException {
+        NhinXDRResponse20 nhinDS = retrieveBean(NhinXDRResponse20.class, getNhinBeanName());
+        InboundDocSubmissionDeferredResponse inboundDS = retrieveBean(InboundDocSubmissionDeferredResponse.class,
+                getPassthroughInboundBeanName());
+
+        nhinDS.setInboundDocSubmissionResponse(inboundDS);
+    }
+    
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#configureOutboundImpl(java.lang.String)
      */
     @Override
-    public void configureOutboundImpl(String className) throws InstantiationException, IllegalAccessException,
+    public void configureOutboundStdImpl() throws InstantiationException, IllegalAccessException,
             ClassNotFoundException {
-        OutboundDocSubmissionDeferredResponse outboundDS = retrieveDependency(
-                OutboundDocSubmissionDeferredResponse.class, className);
+        OutboundDocSubmissionDeferredResponse outboundDS = retrieveBean(
+                OutboundDocSubmissionDeferredResponse.class, getStandardOutboundBeanName());
+        EntityDocSubmissionDeferredResponseUnsecured_g1 entityDSUnsecured = retrieveBean(
+                EntityDocSubmissionDeferredResponseUnsecured_g1.class, getEntityUnsecuredBeanName());
+        EntityDocSubmissionDeferredResponseSecured_g1 entityDSSecured = retrieveBean(
+                EntityDocSubmissionDeferredResponseSecured_g1.class, getEntitySecuredBeanName());
+        
+        entityDSSecured.setOutboundDocSubmissionResponse(outboundDS);
+        entityDSUnsecured.setOutboundDocSubmissionResponse(outboundDS);
+    }
+    
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#configureOutboundImpl(java.lang.String)
+     */
+    @Override
+    public void configureOutboundPtImpl() throws InstantiationException, IllegalAccessException,
+            ClassNotFoundException {
+        OutboundDocSubmissionDeferredResponse outboundDS = retrieveBean(
+                OutboundDocSubmissionDeferredResponse.class, getPassthroughOutboundBeanName());
         EntityDocSubmissionDeferredResponseUnsecured_g1 entityDSUnsecured = retrieveBean(
                 EntityDocSubmissionDeferredResponseUnsecured_g1.class, getEntityUnsecuredBeanName());
         EntityDocSubmissionDeferredResponseSecured_g1 entityDSSecured = retrieveBean(

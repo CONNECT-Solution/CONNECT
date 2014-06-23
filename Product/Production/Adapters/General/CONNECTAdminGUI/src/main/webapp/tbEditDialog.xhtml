@@ -1,0 +1,49 @@
+<ui:composition xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <div>
+        <p:dialog id="tbEditDlg" header="Edit Trust Bundle" widgetVar="tbEditDlg" modal="true" dynamic="true">
+            <div class="content">
+                <h3>Edit Selected Trust Bundle</h3>
+                <h:form id="tbEditDlgForm" class="form-horizontal">
+                    <div class="form-group">
+                            <h:outputLabel for="input-edit-tbName" class="col-sm-3 control-label"
+                                           id="input-edit-tbNameLbl" value="Trust Bundle Name: " />
+                            <div class="col-sm-9">
+                                <h:inputText class="form-control" id="input-edit-tbName"
+                                             maxlength="20" required="true"
+                                             value="#{directTrustBundleBean.selectedTb.tbName}"/>
+                            </div>
+                        </div>
+                    <div class="form-group">
+                            <h:outputLabel for="input-edit-tbUrl" class="col-sm-3 control-label"
+                                           id="input-edit-tbUrlLbl" value="Trust Bundle URL: " />
+                            <div class="col-sm-9">
+                                <h:inputText class="form-control" id="input-edit-tbUrl"
+                                             maxlength="40" required="true"
+                                             value="#{directTrustBundleBean.selectedTb.tbUrl}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel for="input-edit-tbRR" class="col-sm-3 control-label"
+                                           id="input-edit-tbRRLbl" value="Refresh Interval: " />
+                            <div class="col-sm-9">
+                                <h:inputText class="form-control" id="input-edit-tbRR"
+                                             maxlength="10" required="true"
+                                             value="#{directTrustBundleBean.selectedTb.tbRefreshInterval}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="form-button-row">
+                                    <h:commandButton id="submitTbEdit" class="btn btn-primary"
+                                                     value="Update"
+                                                     action="#{directTrustBundleBean.editTrustBundle()}"/>
+                                </div>
+                            </div>
+                        </div>
+                </h:form>
+            </div>
+        </p:dialog>
+    </div>
+</ui:composition>

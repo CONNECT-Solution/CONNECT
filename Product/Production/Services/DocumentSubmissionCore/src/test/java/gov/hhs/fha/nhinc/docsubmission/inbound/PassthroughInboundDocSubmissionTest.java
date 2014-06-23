@@ -128,18 +128,5 @@ public class PassthroughInboundDocSubmissionTest {
         verify(auditLogger).auditNhinXDRResponse(eq(actualResponse), eq(assertion), isNull(NhinTargetSystemType.class),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(false));
     }
-    
-    @Test
-    public void hasInboundProcessingEvent() throws Exception {
-        Class<PassthroughInboundDocSubmission> clazz = PassthroughInboundDocSubmission.class;
-        Method method = clazz.getMethod("documentRepositoryProvideAndRegisterDocumentSetB", 
-                ProvideAndRegisterDocumentSetRequestType.class, AssertionType.class);
-        InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
-        assertNotNull(annotation);
-        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.afterReturningBuilder());
-        assertEquals("Document Submission", annotation.serviceType());
-        assertEquals("", annotation.version());
-    }
 
 }

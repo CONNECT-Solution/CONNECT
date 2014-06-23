@@ -28,7 +28,6 @@
  */
 package gov.hhs.fha.nhinc.docquery.aspect;
 
-import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.util.JaxbDocumentUtils;
 import gov.hhs.fha.nhinc.util.NhincCollections;
@@ -51,11 +50,15 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 
-public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBuilder {
+public class AdhocQueryResponseDescriptionBuilder extends AssertionEventDescriptionBuilder {
 
     private static final Logger LOG = Logger.getLogger(AdhocQueryResponseDescriptionBuilder.class);
-    private static final HCIDExtractor HCID_EXTRACTOR = new HCIDExtractor();
     private static final ErrorExtractor ERROR_EXTRACTOR = new ErrorExtractor();
     private static final PayloadTypeExtractor PAYLOAD_TYPE_EXTRACTOR = new PayloadTypeExtractor();
     private static final PayloadSizeExtractor PAYLOAD_SIZE_EXTRACTOR = new PayloadSizeExtractor();
@@ -89,9 +92,9 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
     @Override
     public void buildRespondingHCIDs() {
         if (hasObjectList()) {
-            List<String> listWithDups = Lists.transform(response.getRegistryObjectList().getIdentifiable(),
-                    HCID_EXTRACTOR);
-            setRespondingHCIDs(listWithDups);
+            setRespondingHCIDs(new ArrayList<String>(extractHcids(response.getRegistryObjectList())));
+        } else {
+            setLocalResponder();
         }
     }
 
@@ -116,16 +119,6 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
     }
 
     @Override
-    public void buildNPI() {
-        // NPI not available in response
-    }
-
-    @Override
-    public void buildInitiatingHCID() {
-        // Initiating HCIDs not available in response
-    }
-
-    @Override
     public void buildErrorCodes() {
         if (hasErrorList()) {
             List<String> listWithDups = Lists.transform(response.getRegistryErrorList().getRegistryError(),
@@ -136,7 +129,7 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
 
     @Override
     public void setArguments(Object... arguments) {
-        // response builder ignores input arguments
+        extractAssertion(arguments);
     }
 
     @Override
@@ -160,14 +153,17 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
         return response != null && response.getRegistryErrorList() != null;
     }
 
-    private static class HCIDExtractor implements Function<JAXBElement<? extends IdentifiableType>, String> {
-
-        @Override
-        public String apply(JAXBElement<? extends IdentifiableType> jaxbElement) {
-            IdentifiableType value = jaxbElement.getValue();
-            ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
-            return extrinsicObjectType.getHome();
+    private Set<String> extractHcids(RegistryObjectListType registryObjectList) {
+        Set<String> hcids = new HashSet<String>();
+        if(registryObjectList.getIdentifiable() != null){
+            for(JAXBElement<? extends IdentifiableType> identifiable : registryObjectList.getIdentifiable()){
+                if(identifiable.getValue() != null
+                        && identifiable.getValue() instanceof ExtrinsicObjectType){
+                    hcids.add(((ExtrinsicObjectType)identifiable.getValue()).getHome());
+                }
+            }
         }
+        return hcids;
     }
 
     private static class ErrorExtractor implements Function<RegistryError, String> {

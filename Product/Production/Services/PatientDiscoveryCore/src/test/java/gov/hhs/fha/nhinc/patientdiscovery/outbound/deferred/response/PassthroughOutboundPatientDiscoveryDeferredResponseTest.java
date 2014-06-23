@@ -35,17 +35,12 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
-import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
-import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseOrchestratable;
-
-import java.lang.reflect.Method;
 
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -58,19 +53,6 @@ import org.mockito.ArgumentCaptor;
  * 
  */
 public class PassthroughOutboundPatientDiscoveryDeferredResponseTest {
-
-    @Test
-    public void hasOutboundProcessingEvent() throws Exception {
-        Class<PassthroughOutboundPatientDiscoveryDeferredResponse> clazz = PassthroughOutboundPatientDiscoveryDeferredResponse.class;
-        Method method = clazz.getMethod("processPatientDiscoveryAsyncResp", PRPAIN201306UV02.class,
-                AssertionType.class, NhinTargetCommunitiesType.class);
-        OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
-        assertNotNull(annotation);
-        assertEquals(PRPAIN201306UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(MCCIIN000002UV01EventDescriptionBuilder.class, annotation.afterReturningBuilder());
-        assertEquals("Patient Discovery Deferred Response", annotation.serviceType());
-        assertEquals("1.0", annotation.version());
-    }
 
     @Test
     public void invoke() {

@@ -56,7 +56,7 @@ public class NhinAdministrativeDistribution_g1 extends BaseService implements
 
     @Override
     @InboundMessageEvent(serviceType = "Admin Distribution", version = "2.0",
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
+            afterReturningBuilder = EDXLDistributionEventDescriptionBuilder.class,
             beforeBuilder = EDXLDistributionEventDescriptionBuilder.class)
     public void sendAlertMessage(EDXLDistribution body) {
         AssertionType assertion = getAssertion(context, null);

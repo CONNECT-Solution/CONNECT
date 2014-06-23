@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docquery.inbound;
 
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
@@ -33,6 +34,8 @@ import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
 import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -58,6 +61,31 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
         this.auditLogger = auditLogger;
     }
 
+    /**
+     * 
+     * @param body
+     * @param assertion
+     * @return <code>AdhocQueryResponse</code>
+     */   
+    @Override
+    @InboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
+            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
+            version = "")
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
+        String senderHcid = null;
+        if (msg != null) {
+            senderHcid = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
+        }
+
+        auditRequestFromNhin(msg, assertion, senderHcid);
+
+        AdhocQueryResponse resp = processDocQuery(msg, assertion, HomeCommunityMap.getLocalHomeCommunityId());
+
+        auditResponseToNhin(resp, assertion, senderHcid);
+
+        return resp;
+    }
+    
     /**
      * Forwards the AdhocQueryRequest to this agency's adapter doc query service
      * 

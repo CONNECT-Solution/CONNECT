@@ -226,6 +226,22 @@
     </jdbc-connection-pool>
     <jdbc-resource pool-name="configdb_pool" jndi-name="jdbc/configdb_datasource" enabled="true" object-type="user"/>
 
+    <jdbc-connection-pool connection-validation-method="auto-commit"
+           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+           res-type="javax.sql.DataSource"
+           wrap-jdbc-objects="false"
+           name="adminguidb_pool"
+           min-pool-size="1"
+           max-pool-size="10">
+      <property name="URL" value="jdbc:mysql://localhost/adminguidb" />
+      <property name="driverClass" value="com.mysql.jdbc.Driver" />
+      <property name="portNumber" value="3306" />
+      <property name="databaseName" value="adminguidb" />
+      <property name="User" value="nhincuser" />
+      <property name="Password" value="nhincpass" />
+      <property name="serverName" value="localhost" />
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="adminguidb_pool" jndi-name="jdbc/adminguidb_datasource" enabled="true" object-type="user"/>
   </resources>
   <configs>
     <config name="server-config">
@@ -352,6 +368,7 @@
         <jvm-options>-DSERVER_KEY_ALIAS=gateway</jvm-options>
         <jvm-options>-DCLIENT_KEY_ALIAS=gateway</jvm-options>
         <jvm-options>-Dcom.sun.grizzly.writeTimeout=30000</jvm-options>
+        <jvm-options>-Dorg.connectopensource.enablejmx=true</jvm-options>
       </java-config>
       <thread-pools>
         <thread-pool max-thread-pool-size="200" name="thread-pool-1"/>
@@ -578,6 +595,7 @@
       <resource-ref ref="jdbc/perfrepo_datasource"/>
       <resource-ref ref="jdbc/transrepo_datasource"/>
       <resource-ref ref="jdbc/eventdb_datasource"/>
+      <resource-ref ref="jdbc/adminguidb_datasource"/>
       <resource-ref ref="jdbc/configdb_datasource"/>
     </server>
   </servers>

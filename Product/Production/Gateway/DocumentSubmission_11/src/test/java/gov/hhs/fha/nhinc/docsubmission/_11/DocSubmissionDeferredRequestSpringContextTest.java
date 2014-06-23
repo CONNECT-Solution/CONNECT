@@ -33,6 +33,10 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndReg
 import gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.request.EntityDocSubmissionDeferredRequestSecured;
 import gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.request.EntityDocSubmissionDeferredRequestUnsecured;
 import gov.hhs.fha.nhinc.docsubmission._11.nhin.deferred.request.NhinXDRRequest;
+import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.request.PassthroughInboundDocSubmissionDeferredRequest;
+import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.request.StandardInboundDocSubmissionDeferredRequest;
+import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.request.PassthroughOutboundDocSubmissionDeferredRequest;
+import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.request.StandardOutboundDocSubmissionDeferredRequest;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 import org.junit.Test;
@@ -57,6 +61,19 @@ public class DocSubmissionDeferredRequestSpringContextTest {
 
     @Autowired
     EntityDocSubmissionDeferredRequestSecured outboundDocSubmissionRequestSecuredEndpoint;
+    
+    @Autowired
+    StandardOutboundDocSubmissionDeferredRequest stdOutboundDocSubmissionDeferredRequest;
+    
+    @Autowired
+    PassthroughOutboundDocSubmissionDeferredRequest ptOutboundDocSubmissionDeferredRequest;
+    
+    @Autowired
+    StandardInboundDocSubmissionDeferredRequest stdInboundDocSubmissionDeferredRequest;
+    
+    @Autowired
+    PassthroughInboundDocSubmissionDeferredRequest ptInbounDocSubmissionDeferredRequest;
+    
 
     @Test
     public void inbound() {

@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
+<weblogic-web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd
+http://xmlns.oracle.com/weblogic/weblogic-web-app
+http://xmlns.oracle.com/weblogic/weblogic-web-app/1.3/weblogic-web-app.xsd">
+    <container-descriptor>
+        <prefer-web-inf-classes>false</prefer-web-inf-classes>
+    </container-descriptor>
+</weblogic-web-app>
+=======
 <wls:weblogic-web-app
     xmlns:wls="http://xmlns.oracle.com/weblogic/weblogic-web-app"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -14,3 +25,4 @@
         <wls:keepgenerated>true</wls:keepgenerated>
     </wls:jsp-descriptor>
 </wls:weblogic-web-app>
+>>>>>>> b9a0142cad999aee0e3d50ff0aa7f61a3dd8a6ac

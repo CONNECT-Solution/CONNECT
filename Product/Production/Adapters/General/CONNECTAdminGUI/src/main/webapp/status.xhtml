@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /* 
+   * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+   * All rights reserved. 
+   *
+   * Redistribution and use in source and binary forms, with or without  
+   * modification, are permitted provided that the following conditions are met:  
+   *     * Redistributions of source code must retain the above  
+   *       copyright notice, this list of conditions and the following disclaimer. 
+   *     * Redistributions in binary form must reproduce the above copyright  
+   *       notice, this list of conditions and the following disclaimer in the documentation  
+   *       and/or other materials provided with the distribution.  
+   *     * Neither the name of the United States Government nor the  
+   *       names of its contributors may be used to endorse or promote products  
+   *       derived from this software without specific prior written permission.  
+   * 
+   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND  
+   * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED  
+   * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE  
+   * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY  
+   * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES  
+   * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  
+   * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND  
+   * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT  
+   * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS  
+   * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+   */ 
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:body>	
+        <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
+            <ui:define name="morejs"> 
+                <script src="http://code.highcharts.com/highcharts.js"></script>
+                <script src="http://code.highcharts.com/modules/exporting.js"></script>
+                <script>
+                    $(function() {
+                        $('#chart-stats-connect').highcharts({
+                            chart: {
+                                //spacingBottom:0
+                                height: 200
+                            },
+                            title: {
+                                text: null,
+                                x: -20
+                            },
+                            subtitle: {
+                                text: null,
+                                x: -20
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            exporting: {
+                                enabled: false
+                            },
+                            xAxis: {
+                                categories: ['Jan 7',
+                                    'Jan 8', 'Jan 9',
+                                    'Jan 10', 'Jan 11',
+                                    'Jan 12', 'Jan 13',
+                                    'Jan 14', 'Jan 15',
+                                    'Jan 16', 'Jan 17',
+                                    'Jan 18']
+                            },
+                            yAxis: {
+                                title: {
+                                    text: null
+                                },
+                                min: -5,
+                                startOnTick: false,
+                                allowDecimals: false,
+                                tickInterval: 5,
+                                plotLines: [{
+                                        value: 0,
+                                        width: 1,
+                                        color: '#808080'
+                                    }]
+                            },
+                            tooltip: {
+                                valueSuffix: '',
+                                shared: true
+                            },
+                            legend: {
+                                layout: 'horizontal',
+                                align: 'center',
+                                verticalAlign: 'bottom',
+                                borderWidth: 0,
+                                itemMarginTop: 5
+                            },
+                            series: [
+                                {
+                                    name: 'Inbound Messages',
+                                    data: [8, 8, 11, 16,
+                                        19, 23, 26, 28,
+                                        24, 19, 15, 11]
+                                },
+                                {
+                                    name: 'Outbound Messages',
+                                    data: [2, 2, 6, 11,
+                                        17, 25, 22, 24,
+                                        20, 14, 9, 3]
+                                },
+                                {
+                                    name: 'Failed Messages',
+                                    data: [3, 1, 4, 8,
+                                        14, 17, 19, 18,
+                                        14, 9, 4, 1]
+                                },
+                                {
+                                    name: 'Requests Failed Due to Authentication Failure',
+                                    data: [1, 0, 5, 8,
+                                        11, 14, 16, 16,
+                                        13, 5, 6, 4]
+                                }],
+                            plotOptions: {
+                                line: {
+                                    marker: {
+                                        fillColor: '#ffffff',
+                                        lineColor: null,
+                                        lineWidth: 3,
+                                        radius: 7,
+                                        symbol: 'circle'
+                                    }
+                                }
+                            }
+                        });
+                    });
+                </script>
+            </ui:define>                
+            <ui:define name="metatag"></ui:define>
+            <ui:define name="content">
+                <h:form>
+                    <h1 class="section-header">Gateway Status</h1>
+                    <!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
+                    <div class="nav-section-tabs tabs-orange" id="nav-section-tabs">
+                        <div class="navbar" role="navigation">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#dash" data-toggle="tab" title="Server Dashboard">Server Dashboard</a></li>
+                                <li><a href="#stats" data-toggle="tab" title="Performance Statistics">Performance Statistics</a></li>
+                                <li><a href="#remotes" data-toggle="tab" title="Remote Gateway List">Remote Gateway List</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
+                    <!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
+                    <div class="tab-content">
+                        <!-- BEGIN: TAB PANE - GATEWAY STATUS DASHBOARD -->
+                        <div class="tab-pane active" id="dash">
+                            <div class="content-block">
+                                <div class="content-block">
+                            </div>
+                            </div>
+                        </div>
+                        <!-- END: TAB PANE - GATEWAY STATUS DASHBOARD -->
+                        <!-- BEGIN: TAB PANE - PERFORMANCE STATISTICS -->
+                        <div class="tab-pane" id="stats">
+                            <div class="content-block">
+                                <h2 class="subsection-header">CONNECT Performance Statistics</h2>
+                                <div class="chart-block">
+                                    <div id="chart-stats-connect"></div>
+                                </div>
+                            </div>
+                            <div class="content-block">
+                                <h2 class="subsection-header">Direct Performance Statistics</h2>
+                            </div>
+                        </div>
+                        <!-- END: TAB PANE - PERFORMANCE STATISTICS -->
+                        <!-- BEGIN: TAB PANE - REMOTE GATEWAYS -->
+                        <div class="tab-pane" id="remotes">
+                            <div class="content-block">
+                                <h2 class="subsection-header">Remote Gateway List</h2>
+                                <div class="table-responsive">
+                                    <h:dataTable id="dashboardId" value="#{eventBean.totalEvents}"
+                                                 var="organization" styleClass="table table-striped table-remotegateways">
+                                        <h:column>
+                                            <f:facet name="header">Gateway</f:facet>
+                                            <h:outputText value="#{organization.organizationName}" />
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">PD</f:facet>
+                                            <h:outputText value="#{organization.pdCount}" />
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">DQ</f:facet>
+                                            <h:outputText value="#{organization.dqCount}" />
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">DR</f:facet>
+                                            <h:outputText value="#{organization.drCount}" />
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">DS</f:facet>
+                                            <h:outputText value="#{organization.dsCount}" />
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">AD</f:facet>
+                                            <h:outputText value="#{organization.adCount}" />
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Direct</f:facet>
+                                            <h:outputText value="#{organization.directCount}" />
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Total</f:facet>
+                                            <h:outputText value="#{organization.totalCount}" />
+                                        </h:column>
+                                    </h:dataTable>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: TAB PANE - REMOTE GATEWAYS -->
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

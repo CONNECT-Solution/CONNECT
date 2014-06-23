@@ -60,6 +60,34 @@ public abstract class AbstractWebServicesMXBean implements WebServicesMXBean {
     protected abstract String getNhinBeanName();
 
     /**
+     * Gets the Standard Outbound OrchImpl bean name.
+     * 
+     * @return the Standard Outbound OrchImpl interface bean name
+     */
+    protected abstract String getStandardOutboundBeanName();
+
+    /**
+     * Gets the Passthrough Outbound OrchImpl bean name.
+     * 
+     * @return the Passthrough Outbound OrchImpl interface bean name
+     */
+    protected abstract String getPassthroughOutboundBeanName();
+
+    /**
+     * Gets the Standard Inbound OrchImpl bean name.
+     * 
+     * @return the Standard Outbound OrchImpl interface bean name
+     */
+    protected abstract String getStandardInboundBeanName();
+
+    /**
+     * Gets the Passthrough Inbound OrchImpl bean name.
+     * 
+     * @return the Passthrough Inbound OrchImpl interface bean name
+     */
+    protected abstract String getPassthroughInboundBeanName();
+
+    /**
      * Gets the entity unsecured interface bean name.
      * 
      * @return the entity unsecured interface bean name
@@ -72,34 +100,6 @@ public abstract class AbstractWebServicesMXBean implements WebServicesMXBean {
      * @return the entity secured interface bean name
      */
     protected abstract String getEntitySecuredBeanName();
-
-    /**
-     * Gets the inbound standard class name.
-     * 
-     * @return the inbound standard class name
-     */
-    protected abstract String getInboundStandardClassName();
-
-    /**
-     * Gets the inbound passthru class name.
-     * 
-     * @return the inbound passthru class name
-     */
-    protected abstract String getInboundPassthruClassName();
-
-    /**
-     * Gets the outbound standard class name.
-     * 
-     * @return the outbound standard class name
-     */
-    protected abstract String getOutboundStandardClassName();
-
-    /**
-     * Gets the outbound passthru class name.
-     * 
-     * @return the outbound passthru class name
-     */
-    protected abstract String getOutboundPassthruClassName();
 
     /**
      * Parameterized method for retrieving a bean based on the type and name. The bean is retrieved from the Spring
@@ -118,101 +118,53 @@ public abstract class AbstractWebServicesMXBean implements WebServicesMXBean {
     }
 
     /**
-     * Parameterized method for retrieving a dependency on the type and name. The dependency class is instanciated from
-     * the class loader.
-     * 
-     * @param <T> the generic type
-     * @param dependencyType the generic dependency type
-     * @param className the class name
-     * @return the t
-     * @throws InstantiationException the instantiation exception
-     * @throws IllegalAccessException the illegal access exception
-     * @throws ClassNotFoundException the class not found exception
-     */
-    protected <T> T retrieveDependency(final Class<T> dependencyType, String className) throws InstantiationException,
-            IllegalAccessException, ClassNotFoundException {
-        T dependency = dependencyType.cast(Class.forName(className).newInstance());
-        return dependency;
-    }
-
-    /**
-     * Configure inbound implementation. This method is abstract because subclass implementations must use actual types
-     * as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
+     * Configure inbound Standard implementation. This method is abstract because subclass implementations must use
+     * actual types as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
      * 
      * @param className the class name
      * @throws InstantiationException the instantiation exception
      * @throws IllegalAccessException the illegal access exception
      * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
      */
-    public abstract void configureInboundImpl(String className) throws InstantiationException, IllegalAccessException,
+    public abstract void configureInboundStdImpl() throws InstantiationException, IllegalAccessException,
             ClassNotFoundException;
 
     /**
-     * Configure the inbound dependency with the inbound passthru implementation.
-     *
-     * @throws InstantiationException the instantiation exception
-     * @throws IllegalAccessException the illegal access exception
-     * @throws ClassNotFoundException the class not found exception
-     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#configureInboundPassthru()
-     */
-    @Override
-    public void configureInboundPassthru() throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException {
-        configureInboundImpl(getInboundPassthruClassName());
-    }
-
-    /**
-     * Configure the inbound dependency with the inbound standard implementation.
-     *
-     * @throws InstantiationException the instantiation exception
-     * @throws IllegalAccessException the illegal access exception
-     * @throws ClassNotFoundException the class not found exception
-     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#configureInboundStd()
-     */
-    @Override
-    public void configureInboundStd() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        configureInboundImpl(getInboundStandardClassName());
-    }
-
-    /**
-     * Configure outbound implementation. This method is abstract because subclass implementations must use actual types
-     * as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
+     * Configure inbound Passthrough implementation. This method is abstract because subclass implementations must use
+     * actual types as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
      * 
      * @param className the class name
      * @throws InstantiationException the instantiation exception
      * @throws IllegalAccessException the illegal access exception
      * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
      */
-    public abstract void configureOutboundImpl(String className) throws InstantiationException, IllegalAccessException,
+    public abstract void configureInboundPtImpl() throws InstantiationException, IllegalAccessException,
             ClassNotFoundException;
 
     /**
-     * Configure the outbound dependency with the outbound passthru implementation.
+     * Configure outbound Standard implementation. This method is abstract because subclass implementations must use
+     * actual types as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
      * 
+     * @param className the class name
      * @throws InstantiationException the instantiation exception
      * @throws IllegalAccessException the illegal access exception
-     * @throws ClassNotFoundException the class not found exception
-     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#configureOutboundPassthru()
+     * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
      */
-    @Override
-    public void configureOutboundPassthru() throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException {
-        configureOutboundImpl(getOutboundPassthruClassName());
-    }
+    public abstract void configureOutboundStdImpl() throws InstantiationException, IllegalAccessException,
+            ClassNotFoundException;
 
     /**
-     * Configure the outbound dependency with with outbound standard implementation.
+     * Configure outbound Passthrough implementation. This method is abstract because subclass implementations must use
+     * actual types as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
      * 
+     * @param className the class name
      * @throws InstantiationException the instantiation exception
      * @throws IllegalAccessException the illegal access exception
-     * @throws ClassNotFoundException the class not found exception
-     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#configureOutboundStd()
+     * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
      */
-    @Override
-    public void configureOutboundStd() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        configureOutboundImpl(getOutboundStandardClassName());
-    }
-    
+    public abstract void configureOutboundPtImpl() throws InstantiationException, IllegalAccessException,
+            ClassNotFoundException;
+
     /**
      * Compares the class name of an object vs the class name passed in.
      * 
@@ -222,11 +174,11 @@ public abstract class AbstractWebServicesMXBean implements WebServicesMXBean {
      * @return true if the clazz object class name and className match.
      */
     protected boolean compareClassName(Object clazz, String className) {
-    	boolean matches = false;
-    	if (clazz != null && clazz.getClass() != null && StringUtils.startsWith(clazz.getClass().getName(), className)) {
-    		matches = true;
-    	}
-    	return matches;
+        boolean matches = false;
+        if (clazz != null && clazz.getClass() != null && StringUtils.startsWith(clazz.getClass().getName(), className)) {
+            matches = true;
+        }
+        return matches;
     }
 
 }

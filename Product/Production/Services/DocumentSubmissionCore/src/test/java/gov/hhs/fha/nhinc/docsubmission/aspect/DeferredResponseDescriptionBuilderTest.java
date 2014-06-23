@@ -95,11 +95,6 @@ public class DeferredResponseDescriptionBuilderTest extends BaseDescriptionBuild
 
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void errorOnMisuse() {
-        builder.setReturnValue(mock(RegistryResponseType.class));
-    }
-
     @Test
     public void nullArgumentsNoException() {
         builder.setArguments((Object[]) null);

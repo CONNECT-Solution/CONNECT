@@ -27,6 +27,10 @@
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
 import static org.junit.Assert.assertNotNull;
+import gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.request.PassthroughInboundPatientDiscoveryDeferredRequest;
+import gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.request.StandardInboundPatientDiscoveryDeferredRequest;
+import gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request.PassthroughOutboundPatientDiscoveryDeferredRequest;
+import gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request.StandardOutboundPatientDiscoveryDeferredRequest;
 
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -54,6 +58,19 @@ public class PatientDiscoveryDeferredRequestSpringContextTest {
     
     @Autowired
     EntityPatientDiscoveryDeferredRequestSecured outboundPatientDiscoverySecuredEndpoint;
+    
+    @Autowired
+    StandardOutboundPatientDiscoveryDeferredRequest stdOutboundReqOrchImpl;
+    
+    @Autowired
+    StandardInboundPatientDiscoveryDeferredRequest stdInboundReqOrchImpl;
+    
+    @Autowired
+    PassthroughOutboundPatientDiscoveryDeferredRequest ptOutboundPDResqOrchImpl;
+    
+    @Autowired
+    PassthroughInboundPatientDiscoveryDeferredRequest ptInboundPDReqOrchImpl;
+   
 
     @Test
     public void inbound() {

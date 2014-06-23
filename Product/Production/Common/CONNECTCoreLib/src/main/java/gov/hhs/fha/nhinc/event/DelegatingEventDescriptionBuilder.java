@@ -154,4 +154,19 @@ public abstract class DelegatingEventDescriptionBuilder implements EventDescript
             delegate.setMsgRouting(msgRouting);
         }
     }
+    
+    @Override
+    public final String getServiceType(){
+        return delegate.getServiceType();
+    }
+    
+    @Override
+    public final String getInitiatorHcid(){
+        return delegate.getInitiatorHcid();
+    }
+    
+    @Override
+    public final String getRespondingHcid(){
+        return delegate.getRespondingHcid();
+    }
 }

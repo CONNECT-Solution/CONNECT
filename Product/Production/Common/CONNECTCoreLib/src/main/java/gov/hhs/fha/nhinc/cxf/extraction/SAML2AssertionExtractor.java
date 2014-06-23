@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package gov.hhs.fha.nhinc.cxf.extraction;
 
@@ -16,11 +16,12 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 
 /**
- * This class is used to extract the AssertionType from Saml2Assertion in the ws security header. This AssertionType is
- * provided to the responding HIO for using the information for authorization.
- * 
+ * This class is used to extract the AssertionType from Saml2Assertion in the ws
+ * security header. This AssertionType is provided to the responding HIO for
+ * using the information for authorization.
+ *
  * @author mweaver
- * 
+ *
  */
 public class SAML2AssertionExtractor {
 
@@ -45,7 +46,7 @@ public class SAML2AssertionExtractor {
 
     /**
      * This method is used to extract the saml assertion information.
-     * 
+     *
      * @param context context
      * @return AssertionType
      */
@@ -71,17 +72,19 @@ public class SAML2AssertionExtractor {
     }
 
     private final SoapHeader getSecuritySoapHeader(MessageContext mContext) {
-        @SuppressWarnings("unchecked")
-        List<Header> headers = (List<Header>) mContext.get(org.apache.cxf.headers.Header.HEADER_LIST);
 
-        if (headers != null) {
-            for (Header header : headers) {
-                if (header.getName().getLocalPart().equalsIgnoreCase("Security")) {
-                    return (SoapHeader) header;
+        if (mContext != null) {
+            @SuppressWarnings("unchecked")
+            List<Header> headers = (List<Header>) mContext.get(org.apache.cxf.headers.Header.HEADER_LIST);
+
+            if (headers != null) {
+                for (Header header : headers) {
+                    if (header.getName().getLocalPart().equalsIgnoreCase("Security")) {
+                        return (SoapHeader) header;
+                    }
                 }
             }
         }
-
         return null;
     }
 }

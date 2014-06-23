@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -35,16 +33,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyObjectFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
-import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
-
-import java.lang.reflect.Method;
 
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -55,19 +48,6 @@ import org.junit.Test;
  * 
  */
 public class PassthroughInboundPatientDiscoveryDeferredResponseTest {
-
-    @Test
-    public void hasInboundProcessingEvent() throws Exception {
-        Class<PassthroughInboundPatientDiscoveryDeferredResponse> clazz = PassthroughInboundPatientDiscoveryDeferredResponse.class;
-        Method method = clazz.getMethod("respondingGatewayDeferredPRPAIN201306UV02", PRPAIN201306UV02.class,
-                AssertionType.class);
-        InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
-        assertNotNull(annotation);
-        assertEquals(PRPAIN201306UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(MCCIIN000002UV01EventDescriptionBuilder.class, annotation.afterReturningBuilder());
-        assertEquals("Patient Discovery Deferred Response", annotation.serviceType());
-        assertEquals("1.0", annotation.version());
-    }
 
     @Test
     public void invoke() {
@@ -95,7 +75,8 @@ public class PassthroughInboundPatientDiscoveryDeferredResponseTest {
         // Verify
         assertSame(expectedResponse, actualResponse);
 
-        verify(auditLogger, never()).auditAdapterDeferred201306(any(PRPAIN201306UV02.class), any(AssertionType.class), any(String.class));
+        verify(auditLogger, never()).auditAdapterDeferred201306(any(PRPAIN201306UV02.class), any(AssertionType.class),
+                any(String.class));
 
         verify(auditLogger, never()).auditAck(any(MCCIIN000002UV01.class), any(AssertionType.class), any(String.class),
                 eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE));

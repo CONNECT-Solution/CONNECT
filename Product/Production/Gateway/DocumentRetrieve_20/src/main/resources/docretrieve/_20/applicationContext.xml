@@ -40,5 +40,20 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
      
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
-   
+    <bean id="stdDROutbound"
+      class="gov.hhs.fha.nhinc.docretrieve.outbound.StandardOutboundDocRetrieve">
+    </bean>
+    
+    <bean id="ptDROutbound"
+      class="gov.hhs.fha.nhinc.docretrieve.outbound.PassthroughOutboundDocRetrieve">
+    </bean>
+    
+    <bean id="stdDRInbound"
+      class="gov.hhs.fha.nhinc.docretrieve.inbound.StandardInboundDocRetrieve">
+    </bean>
+    
+    <bean id="ptDRInbound"
+      class="gov.hhs.fha.nhinc.docretrieve.inbound.PassthroughInboundDocRetrieve">
+    </bean>
+
 </beans>

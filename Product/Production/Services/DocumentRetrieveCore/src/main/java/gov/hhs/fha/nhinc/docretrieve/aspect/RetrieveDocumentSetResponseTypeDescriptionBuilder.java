@@ -28,8 +28,6 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.aspect;
 
-import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.util.NhincCollections;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 
@@ -41,10 +39,13 @@ import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
-public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends BaseEventDescriptionBuilder {
+public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends AssertionEventDescriptionBuilder {
 
-    private static final HCIDExtractor HCID_EXTRACTOR = new HCIDExtractor();
     private static final ErrorCodeExtractor ERROR_CODE_EXTRACTOR = new ErrorCodeExtractor();
     private Optional<RetrieveDocumentSetResponseType> response = Optional.absent();
 
@@ -61,9 +62,11 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends BaseEvent
 
     @Override
     public void buildRespondingHCIDs() {
-        if (response.isPresent()) {
-            List<Optional<String>> listWithDups = Lists.transform(response.get().getDocumentResponse(), HCID_EXTRACTOR);
-            setRespondingHCIDs(NhincCollections.fillAbsents(listWithDups, ""));
+        if (response.isPresent() && response.get() != null 
+                && response.get().getDocumentResponse() != null) {
+            setRespondingHCIDs(new ArrayList<String>(extractHcids(response.get().getDocumentResponse())));
+        }else {
+            setLocalResponder();
         }
     }
 
@@ -80,14 +83,6 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends BaseEvent
     }
 
     @Override
-    public void buildNPI() {
-    }
-
-    @Override
-    public void buildInitiatingHCID() {
-    }
-
-    @Override
     public void buildErrorCodes() {
         if (response.isPresent() && response.get().getRegistryResponse().getRegistryErrorList() != null) {
             List<String> listWithDups = Lists.transform(response.get().getRegistryResponse().getRegistryErrorList()
@@ -95,17 +90,13 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends BaseEvent
             setErrorCodes(listWithDups);
         }
     }
-
-    private static class HCIDExtractor implements Function<DocumentResponse, Optional<String>> {
-
-        @Override
-        public Optional<String> apply(DocumentResponse documentResponse) {
-            if (documentResponse.getHomeCommunityId() != null) {
-                return Optional.of(documentResponse.getHomeCommunityId());
-            } else {
-                return Optional.absent();
-            }
+    
+    private Set<String> extractHcids(List<DocumentResponse> docResponses){
+        Set<String> hcids = new HashSet<String>();
+        for(DocumentResponse docResponse : docResponses){
+            hcids.add(docResponse.getHomeCommunityId());
         }
+        return hcids;
     }
 
     private static class ErrorCodeExtractor implements Function<RegistryError, String> {
@@ -118,6 +109,7 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends BaseEvent
 
     @Override
     public void setArguments(Object... arguments) {
+        extractAssertion(arguments);
     }
 
     @Override
