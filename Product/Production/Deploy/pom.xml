@@ -13,7 +13,6 @@
     <modules>
         <module>ear-dependencies</module>
         <module>ad-dependencies</module>
-        <module>direct-dependencies</module>
         <module>dq-dependencies</module>
         <module>dr-dependencies</module>
         <module>ds-dependencies</module>
@@ -72,5 +71,14 @@
             </modules>
         </profile>
 
+        <profile>
+            <id>Direct</id>
+            <modules>
+                <module>direct-dependencies</module>
+            </modules>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+        </profile>
     </profiles>
 </project>

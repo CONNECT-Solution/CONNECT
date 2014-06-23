@@ -78,6 +78,23 @@ Insert into NHINCUSER.PHONENUMBER (PHONENUMBERID,PATIENTID,VALUE) values (3,3,'t
 Insert into NHINCUSER.PHONENUMBER (PHONENUMBERID,PATIENTID,VALUE) values (4,4,'tel:+1-987-555-9876');
 Insert into NHINCUSER.PHONENUMBER (PHONENUMBERID,PATIENTID,VALUE) values (5,5,'tel:+1-904-900-3444');
 
+REM INSERTING into NHINCUSER.DOMAIN
+SET DEFINE OFF;
+INSERT INTO NHINCUSER.DOMAIN ('id', 'domainname', 'postmasterAddressId', 'status', 'createTime', 'updateTime') VALUES ('1', 'direct.connectopensource.org',null, '1', sysdate, sysdate);
+
+
+REM INSERTING into NHINCUSER.ADDRESS
+SET DEFINE OFF;
+INSERT INTO NHINCUSER.ADDRESS ('id', 'displayName', 'eMailAddress', 'endpoint', 'status', 'type', 'createTime', 'updateTime', 'domainId') VALUES ('1', 'direct.connectopensource.org', 'postmaster@direct.connectopensource.org', NULL, '1',NULL, sysdate, sysdate, '1');
+
+REM UPDATE NHINCUSER.DOMAIN and NHINCUSER.ADDRESS records
+SET DEFINE OFF;
+
+UPDATE NHINCUSER.ADDRESS SET id=2 WHERE id=1;
+
+UPDATE NHINCUSER.DOMAIN SET postmasterAddressId=2 WHERE id=1;
+
+
 COMMIT;
 
 --------------------------------------------------------

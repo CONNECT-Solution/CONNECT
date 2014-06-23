@@ -5,7 +5,10 @@
         <param-value>UTF-8</param-value>
     </application-param>
     <prefer-application-packages>
+<<<<<<< HEAD
         <package-name>javax.jws.*</package-name>
+=======
+>>>>>>> b9a0142cad999aee0e3d50ff0aa7f61a3dd8a6ac
         <package-name>org.apache.cxf.*</package-name>
         <package-name>org.apache.geronimo.webservices.*</package-name>
         <package-name>org.apache.jcp.*</package-name>
@@ -14,9 +17,12 @@
         <package-name>org.apache.xml.*</package-name>
         <package-name>org.apache.xalan.*</package-name>
         <package-name>org.apache.log4j.*</package-name>
+<<<<<<< HEAD
         <package-name>javax.xml.ws.*</package-name>
         <package-name>javax.xml.soap.*</package-name>
         <package-name>javax.xml.crypto.*</package-name>
+=======
+>>>>>>> b9a0142cad999aee0e3d50ff0aa7f61a3dd8a6ac
         <package-name>org.springframework.*</package-name>
         <package-name>antlr.*</package-name>
         <package-name>net.sf.cglib.*</package-name>
@@ -28,6 +34,7 @@
         <package-name>com.sun.xml.messaging.saaj.*</package-name>
         <package-name>com.google.common.*</package-name>
         <package-name>org.bouncycastle.*</package-name>
+<<<<<<< HEAD
         <package-name>javax.faces.*</package-name>
         <package-name>com.sun.faces.*</package-name>
         <package-name>com.bea.faces.*</package-name>
@@ -39,4 +46,7 @@
         <resource-name>com.bea.faces.*</resource-name>
         <resource-name>META-INF/services/javax.servlet.ServletContainerInitializer</resource-name>
     </prefer-application-resources>
+=======
+    </prefer-application-packages>
+>>>>>>> b9a0142cad999aee0e3d50ff0aa7f61a3dd8a6ac
 </weblogic-application>
