@@ -18,6 +18,10 @@
 	- remote gateway list
 05. ACCOUNT MANAGEMENT STYLES
     - manage role
+06. DOMAIN CONFIGURATION STYLES
+    - buttons
+	- tables
+	- dialogs
 
 99. RESPONSIVE @MEDIA
     - set different styles at different browser window sizes
@@ -293,7 +297,7 @@ body {
 	color: #a8a8a8;
 	background:none;
 	border:none;
-	border-radius:none;
+	border-radius:0;
 	font-size:16px;
 	font-weight:bold;
 	text-shadow:none;
@@ -362,34 +366,41 @@ body {
 .ui-panelgrid-admin td:first-child {
 	width:100%;
 }
-.ui-panelgrid-admin .ui-selectcheckboxmenu, .ui-panelgrid-admin .ui-selectcheckboxmenu-trigger {
+.ui-panelgrid-admin .ui-selectcheckboxmenu, .ui-panelgrid-admin .ui-selectcheckboxmenu-trigger,
+#domainEditTabview .ui-selectcheckboxmenu, #domainEditTabview .ui-selectcheckboxmenu-trigger {
 	background:#cccccc;
 	color:#333333;
 	border:1px solid #aaaaaa;
 	text-shadow:none;
 	box-shadow:none;
 }
-.ui-panelgrid-admin .ui-selectcheckboxmenu:hover, .ui-panelgrid-admin .ui-selectcheckboxmenu-trigger:hover {
+.ui-panelgrid-admin .ui-selectcheckboxmenu:hover, .ui-panelgrid-admin .ui-selectcheckboxmenu-trigger:hover,
+#domainEditTabview .ui-selectcheckboxmenu:hover, #domainEditTabview .ui-selectcheckboxmenu-trigger:hover {
 	border:1px solid #999999;
 }
-.ui-panelgrid-admin .ui-selectcheckboxmenu a {
+.ui-panelgrid-admin .ui-selectcheckboxmenu a,
+#domainEditTabview .ui-selectcheckboxmenu a {
 	text-shadow:none;
 }
-.ui-panelgrid-admin label.ui-selectcheckboxmenu-label {
+.ui-panelgrid-admin label.ui-selectcheckboxmenu-label,
+#domainEditTabview label.ui-selectcheckboxmenu-label {
     margin:0px;
 	padding:11px 42px 11px 22px; /* 5px 30px 5px 10px */
 	border-radius:0;
 }
-.ui-panelgrid-admin label.ui-selectcheckboxmenu-label.ui-state-hover {
+.ui-panelgrid-admin label.ui-selectcheckboxmenu-label.ui-state-hover,
+#domainEditTabview label.ui-selectcheckboxmenu-label.ui-state-hover {
     background:#bbbbbb;
 	box-shadow:none;
 }
-.ui-panelgrid-admin .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger {
+.ui-panelgrid-admin .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger,
+#domainEditTabview .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger {
 	width:auto;
 	padding:9px 3px;
 	border-style:none none none solid;
 }
-.ui-panelgrid-admin .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger.ui-state-hover {
+.ui-panelgrid-admin .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger.ui-state-hover,
+#domainEditTabview .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger.ui-state-hover {
 	background:#bbbbbb;
 }
 
@@ -539,6 +550,8 @@ body {
 	box-shadow:none;
 }
 .main-content .table-remotegateways td {
+	border-top:1px solid #ddd;
+	border-bottom:1px solid #ddd;
 	border-right:none;
 }
 
@@ -558,6 +571,390 @@ body {
 
 
 
+/* -- DOMAIN CONFIGURATION STYLES --------------------------------------------*/
+.ui-panelgrid-domain {
+    width:100%;
+	/*margin:10px 0px;*/
+	border-bottom:1px solid #eee;
+}
+.ui-panelgrid-domain-bottom {
+    /*margin:20px 0px 10px;
+	border-top:1px solid #eee;*/
+	border-bottom:none;
+}
+.ui-panelgrid-domain td, .ui-panelgrid-domain tr {
+    border: none;
+    background-color: inherit;
+}
+.ui-panelgrid-domain td {
+	padding:10px 0px;
+	text-align:left;
+}
+.ui-panelgrid-domain td.ui-button-rightmost {
+	width:100%;
+	padding-left:10px;
+}
+
+.ui-panelgrid-domain .ui-button {
+	margin:0px;
+	padding:6px 12px;
+	color:#ffffff;
+	background:#428bca;
+	border:1px solid #357ebd;
+	text-shadow:none;
+	box-shadow:none;
+	white-space:nowrap;
+}
+.ui-panelgrid-domain .ui-button.ui-state-hover {
+    background:#3276b1;
+	border:1px solid #285e8e;
+	box-shadow:none;
+}
+.ui-panelgrid-domain .ui-button-text-only .ui-button-text {
+	padding:5px 10px;
+}
+.ui-panelgrid-domain .ui-button-text-icon-left .ui-button-text {
+	padding: .3em .3em .3em 1.3em;
+}
+.add-button .ui-icon, .delete-button .ui-icon {
+	background-image:url("../resources/images/ui-icons_ffffff_256x240.png");
+}
+.add-button {
+	background-color: #428bca !important;
+	color: #ffffff !important;
+	border-color: #357ebd !important;
+}
+.add-button:hover {
+	background-color: #256ead !important;
+}
+.edit-button {
+	background-color: #ffffff !important;
+	color: #333333 !important;
+	border-color: #cccccc !important;
+}
+.edit-button:hover {
+	background-color: #eeeeee !important;
+}
+.delete-button {
+	background-color: #d9534f !important;
+	color: #ffffff !important;
+	border-color: #d43f3a !important;
+}
+.delete-button:hover {
+	background-color:#d2322d !important;
+}
+
+/* -- DOMAIN CONFIG TABLE STYLES -- */
+.main-content .table-domains th {
+	font-size:14px;
+	text-align:left;
+	background:none;
+	border:none;
+	color:#808080;
+}
+.main-content .table-domains tbody.ui-widget-content {
+	border:none;
+}
+.main-content .table-domains tr {
+	border:none;
+}
+.main-content .table-domains tr.ui-datatable-odd {
+	background:#eeeeee;
+}
+.main-content .table-domains tr.ui-state-highlight {
+	background:#808080;
+	text-shadow:none;
+}
+.main-content .table-domains tbody > tr:hover > td, 
+.main-content .table-domains tbody > tr.ui-datatable-even:hover > td, 
+.main-content .table-domains tbody > tr.ui-datatable-odd:hover > td {
+	background:#eeeeee;
+	color:#000000;
+}
+.main-content .table-domains th.ui-state-hover {
+	box-shadow:none;
+}
+.main-content .table-domains td {
+	border-top:1px solid #ddd;
+	border-bottom:1px solid #ddd;
+	border-right:none;
+}
+/*
+.ui-datatable
+{
+	float:left;
+}
+*/
+
+/* -- MISCELLANEOUS TABLE STYLES -- */
+.main-content div[class*="table-"] {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+.main-content div[class*="table-"] td > span,
+.main-content div[class*="table-"] td {  /* table[class$="table-"] */
+	word-wrap: break-word;
+	word-break: break-all;
+}
+.main-content div[class*="table-"] td > span.nowrap,
+.main-content div[class*="table-"] td.nowrap {  /* table[class$="table-"] */
+	word-wrap: break-word;
+	word-break: normal;
+}
+
+
+/* -- DOMAIN CONFIG MODAL STYLES -- CREATE DOMAIN / EDIT DOMAIN -- */
+#domainCreateDlg .ui-widget-header,
+#domainEditDlg .ui-widget-header {
+	/*
+	border: 1px solid #a8a8a8;
+	background: #c4c4c4 url("/javax.faces.resource/images/ui-bg_highlight-soft_100_c4c4c4_1x100.png.xhtml?ln=primefaces-aristo") 50% 50% repeat-x;
+	background: #c4c4c4 linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
+	background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+	background: #c4c4c4 -moz-linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
+	*/
+	background:#e3ebf5;
+	color:#333; /*  */
+	font-weight: bold; /*  */
+	font-size:18px;
+	text-shadow:none; /* 0px 1px 0px rgba(255,255,255,0.7) */
+}
+#domainCreateDlg .ui-dialog-titlebar-close, #domainCreateDlg .ui-dialog-titlebar-minimize, #domainCreateDlg .ui-dialog-titlebar-maximize,
+#domainEditDlg .ui-dialog-titlebar-close, #domainEditDlg .ui-dialog-titlebar-minimize, #domainEditDlg .ui-dialog-titlebar-maximize {
+	margin-top:.4em;
+}
+#domainCreateDlg .ui-dialog-content,
+#domainEditDlg .ui-dialog-content {
+	max-height:600px;
+	overflow-y:auto;
+}
+#domainCreateDlg .content,
+#domainEditDlg .content,
+#agentCreateDlg .content,
+#certCreateDlg .content,
+#certTbDlg .content,
+#tbEditDlg .content,
+#tbConfirmDelDialog .content {
+	padding:20px;
+}
+#domainCreateDlg .content h3,
+#domainEditDlg .content h3,
+#agentCreateDlg .content h3,
+#certCreateDlg .content h3,
+#certTbDlg .content h3,
+#tbEditDlg .content h3,
+#tbConfirmDelDialog .content h3 {
+	margin:10px 0px 20px;
+}
+#domainCreateDlg .content .form-block,
+#domainEditDlg .content .form-block,
+#agentCreateDlg .content .form-block,
+#certCreateDlg .content .form-block,
+#certTbDlg .content .form-block,
+#tbEditDlg .content .form-block,
+#tbConfirmDelDialog .content .form-block {
+	padding:0px;
+}
+#domainCreateDlg .ui-selectonemenu .ui-selectonemenu-trigger,
+#domainEditDlg .ui-selectonemenu .ui-selectonemenu-trigger,
+#certDlgForm .ui-selectonemenu .ui-selectonemenu-trigger {
+	/* border-right: none;
+	border-top: none;
+	border-bottom: none;
+	cursor: pointer; */
+	width:auto;
+	/* height: 100%;
+	position: absolute;
+	right: 0;
+	top: 0; */
+	padding:0px;
+}
+#domainCreateDlg .ui-selectonemenu,
+#domainEditDlg .ui-selectonemenu,
+#certDlgForm .ui-selectonemenu {
+	text-shadow:none;
+}
+#domainCreateDlg .ui-selectonemenu label.ui-selectonemenu-label,
+#domainEditDlg .ui-selectonemenu label.ui-selectonemenu-label,
+#certDlgForm .ui-selectonemenu label.ui-selectonemenu-label {
+	box-shadow:none;
+}
+#domainCreateDlg .ui-selectonemenu .ui-selectonemenu-trigger .ui-icon,
+#domainEditDlg .ui-selectonemenu .ui-selectonemenu-trigger .ui-icon,
+#certDlgForm .ui-selectonemenu .ui-selectonemenu-trigger .ui-icon {
+	margin-top:6px;
+}
+.ui-selectonemenu-list .ui-selectonemenu-list-item.ui-state-highlight { /* #domainDlgForm\:select-status_panel AND #domainDlgForm\:select-tb_panel */
+	background:none; /* RESET THE BACKGROUND */
+	background-color:#eeeeee;
+	color:#000000;
+	text-shadow:none;
+}
+.ui-selectonemenu-list .ui-selectonemenu-list-item.ui-state-hover { /* #domainDlgForm\:select-status_panel AND #domainDlgForm\:select-tb_panel */
+	background:none; /* RESET THE BACKGROUND */
+	background-color:#eeeeee;
+	color:#000000;
+	text-shadow:none;
+	box-shadow:none;
+}
+#domainEditTabview {
+	padding:0px;
+	border:none;
+	border-radius:0;
+	color:#333333;
+}
+#domainEditTabview h4 {
+	margin-top:0px;
+	margin-bottom:15px;
+}
+#domainEditTabview hr.ui-separator {
+	height:2px;
+	color:#dddddd;
+	background:#dddddd;
+	border:0;
+}
+#domainEditTabview .ui-tabs-nav.ui-widget-header {
+	padding:0px;
+	background:none;
+	border-bottom:5px solid #dddddd;
+}
+#domainEditTabview .ui-tabs-nav li a {
+	padding: 15px 25px;
+	color: #a8a8a8;
+	font-size: 16px;
+	font-weight: bold;
+	background: none;
+	border: none;
+	border-radius: 0;
+	text-shadow:none;
+}
+#domainEditTabview .ui-tabs-nav li.ui-state-default {
+	background:none;
+	border:none;
+	border-radius:0;
+}
+#domainEditTabview .ui-tabs-nav li.ui-tabs-selected a {
+	background:#dddddd;
+	color:#404040;
+}
+#domainEditTabview .ui-tabs-nav li.ui-state-hover {
+	background:#dddddd;
+	box-shadow:none;
+}
+#domainEditTabview .ui-tabs-nav li.ui-state-hover a {
+	color:#404040;
+}
+#domainEditTabview.ui-tabs .ui-tabs-panel {
+	padding:30px 0px 0px;
+}
+#domainEditTabview .ui-datatable td.ui-selection-column {
+	width:1px;
+	white-space:nowrap;
+}
+.domain-form-block {
+	margin:10px 0px;
+	padding:20px;
+	border:1px solid #dddddd;
+}
+#domainEditTabview .label-pick-anchor {
+	line-height:50px;
+	padding:0px 15px 0px 0px;
+}
+#domainEditTabview .ui-fileupload-buttonbar {
+	height:50px;
+}
+#domainEditTabview .ui-fileupload-buttonbar .ui-button {
+	margin:4px;
+	background:none;
+	background:#cccccc;
+	font-size:15px;
+	text-shadow:none;
+	box-shadow:none;
+}
+#domainEditTabview .domain-form-block .control-label {
+	padding:0px;
+}
+
+#domainEditTabview.ui-tabs .ui-tabs-panel .form-button-row {
+	width: 100%;
+	margin-top:10px;
+	padding-top: 20px;
+	border-top: 1px solid #ccc;
+	text-align: right;
+}
+#domainEditTabview.ui-tabs .ui-tabs-panel .form-button-row .btn {
+	color:#ffffff;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	font-weight:bold;
+	text-shadow:none;
+	box-shadow:none;
+}
+
+
+
+/*-- DOMAIN CONFIG MODAL STYLES -- GENERAL SETTINGS APPLICABLE TO AGENTS, CERTIFICATES, TRUST BUNDLES -- */
+#agentCreateDlg .ui-widget-header,
+#certCreateDlg .ui-widget-header,
+#certTbDlg .ui-widget-header,
+#tbEditDlg .ui-widget-header,
+#tbConfirmDelDialog .ui-widget-header {
+	background:none;
+	background:#e3ebf5;
+	font-size:18px;
+	text-shadow:none;
+}
+#agentCreateDlg .ui-dialog-titlebar-close, #domainCreateDlg .ui-dialog-titlebar-minimize, #domainCreateDlg .ui-dialog-titlebar-maximize,
+#certCreateDlg .ui-dialog-titlebar-close, #certCreateDlg .ui-dialog-titlebar-minimize, #certCreateDlg .ui-dialog-titlebar-maximize,
+#certTbDlg .ui-dialog-titlebar-close, #certTbDlg .ui-dialog-titlebar-minimize, #certTbDlg .ui-dialog-titlebar-maximize,
+#tbEditDlg .ui-dialog-titlebar-close, #tbEditDlg .ui-dialog-titlebar-minimize, #tbEditDlg .ui-dialog-titlebar-maximize,
+#tbConfirmDelDialog .ui-dialog-titlebar-close, #tbConfirmDelDialog .ui-dialog-titlebar-minimize, #tbConfirmDelDialog .ui-dialog-titlebar-maximize {
+	margin-top:.4em;
+}
+
+#domainCreateDlg .btn-primary,
+#domainEditDlg .btn-primary,
+#domainEditTabview .btn-primary,
+#agentCreateDlg .btn-primary,
+#certCreateDlg .btn-primary,
+#certTbDlg .btn-primary,
+#tbEditDlg .btn-primary {
+	background:none;
+	background:#428bca;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	font-weight:bold;
+	text-shadow:none;
+	box-shadow:none;
+}
+#domainCreateDlg .btn-primary:hover,
+#domainEditDlg .btn-primary:hover,
+#domainEditTabview .btn-primary:hover,
+#agentCreateDlg .btn-primary:hover,
+#certCreateDlg .btn-primary:hover,
+#certTbDlg .btn-primary:hover,
+#tbEditDlg .btn-primary:hover {
+	background-color: #3276b1;
+	border-color: #285e8e;
+}
+
+/*-- DOMAIN CONFIG MODAL STYLES -- AGENT SETTINGS -- */
+#agentCreateDlg {
+
+}
+
+/*-- DOMAIN CONFIG MODAL STYLES -- CERTIFICATES SETTINGS -- */
+#certCreateDlg {
+
+}
+
+/*-- DOMAIN CONFIG MODAL STYLES -- TRUST BUNDLES SETTINGS -- */
+#certTbDlg {
+
+}
+#tbEditDlg {
+
+}
+
+
+
 /* -- RESPONSIVE @MEDIA STYLES -----------------------------------------------*/
 @media (max-width: 1100px) {
 	.sidebar h1.page-header {
@@ -565,6 +962,9 @@ body {
 	}
 }
 @media (max-width: 1033px) {
+	.sidebar h1.page-header {
+		font-size:18px;
+	}
 	.admin-dashboard .ui-panel-titlebar {
 		position:relative;
 	}
@@ -572,6 +972,12 @@ body {
 		position: absolute;
 		top:8px;
 		right:12px;
+	}
+	.main-content div[class*="table-"] th {
+		font-size:12px;
+	}
+	.main-content div[class*="table-"] td {
+		font-size:14px;
 	}
 }
 @media (max-width: 1004px) {
@@ -606,9 +1012,6 @@ body {
 	}
 	.main h2.subsection-header {
 		padding:12px;
-	}
-	.main-content table[class*="table-"] td {
-		font-size:14px;
 	}
 }
 @media (max-width: 800px) {
