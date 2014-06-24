@@ -2,160 +2,165 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <div>
-        <p:dialog id="domainEditDlg" header="Manage Domains" widgetVar="domainEditDlg" modal="true" dynamic="true" width="80%" height="90%">
+        <p:dialog id="domainEditDlg" header="Edit Domain" widgetVar="domainEditDlg" modal="true" dynamic="true" width="80%" height="90%" closeOnEscape="true">
             <div class="content">
-                <h3>Edit Selected Domain</h3>
-                <h:form id="domainEditDlgForm" class="form-horizontal">
-                        <div class="form-group">
-                            <h:outputLabel for="input-edit-domain" class="col-sm-3 control-label"
-                                           id="input-edit-domainLbl" value="Domain Name:" />
-                            <div class="col-sm-9">
-                                <h:inputText class="form-control" id="input-edit-domain"
-                                             maxlength="20" required="true"
-                                             value="#{directDomainBean.selectedDomain.domainName}"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <h:outputLabel for="select-edit-status" class="col-sm-3 control-label"
-                                           id="select-edit-statusLbl" value="Status:" />
-                            <div class="col-sm-9">
-                                <p:selectOneMenu id="select-edit-status" value="#{directDomainBean.selectedDomain.domainStatus}">
-                                    <f:selectItem itemLabel="NEW" itemValue="NEW" />
-                                    <f:selectItem itemLabel="ENABLED" itemValue="ENABLED" />
-                                    <f:selectItem itemLabel="DISABLED" itemValue="DISABLED" />
-                                </p:selectOneMenu>					
+                <p>Use the options below to edit the properties for domain:
+					<strong><h:outputText value="#{directDomainBean.selectedDomain.domainName}"/></strong>
+				</p>
+                <p:tabView id="domainEditTabview" effect="fade" effectDuration="normal" dynamic="true" activeIndex="0">
+					<p:tab title="Domain Name">
+						<h:form id="domainEditDlgForm" class="form form-horizontal">
+							<div class="form-group">
+								<h:outputLabel for="input-edit-domain" class="col-sm-3 control-label" id="input-edit-domainLbl" value="Domain Name:" />
+								<div class="col-sm-9">
+									<h:inputText class="form-control" id="input-edit-domain" maxlength="20" required="true" value="#{directDomainBean.selectedDomain.domainName}"/>
+								</div>
 							</div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                <div class="form-button-row">
-                                    <h:commandButton id="submit" class="btn btn-primary"
-                                                     value="Update"
-                                                     action="#{directDomainBean.editDomain()}"/>
-                                </div>
-                            </div>
-                        </div>
-                </h:form>
-                <p:tabView id="domainEditTabview" effect="fade" effectDuration="normal" dynamic="true"
-                               activeIndex="0">
-                        <p:tab title="Addresses">
-                            <h:form id="addressForm">
-                                <p:dataTable id="addressDataTable" var="address" value="#{directDomainBean.selectedDomain.addresses}"
-                                             selection="#{directDomainBean.selectedAddress}" rowKey="#{address.endpoint}">
-                                    <p:column headerText="Delete" selectionMode="single" />
-                                    <p:column headerText="Endpoint">
-                                        <h:outputText value="#{address.endpoint}" />
-                                    </p:column>
-                                    <p:column headerText="Type">
-                                        <h:outputText value="#{address.type}" />
-                                    </p:column>
-                                </p:dataTable>
-                                <p:commandButton update="addressDataTable" value="Delete" actionListener="#{directDomainBean.deleteAddress()}"/>
-                                <p:separator/>
-                            <div class="form-group">
-                                    <h:outputLabel for="input-address-name" class="col-sm-3 control-label"
-                                           id="input-address-nameLbl" value="Address Endpoint:" />
-                                    <div class="col-sm-9">
-                                        <h:inputText class="form-control" id="input-address-name"
-                                             maxlength="50" required="true"
-                                             value="#{directDomainBean.addressEndpoint}" immediate="true"/>
-                                    </div>
-                                </div> 
-                                <div class="form-group">
-                                    <h:outputLabel for="input-address-type" class="col-sm-3 control-label"
-                                           id="input-address-typeLbl" value="Address Type:" />
-                                    <div class="col-sm-9">
-                                        <h:inputText class="form-control" id="input-address-type"
-                                             maxlength="20" required="true"
-                                             value="#{directDomainBean.addressType}" immediate="true"/>
-                                    </div>
-                                </div>
-                                <p:separator/>
-                                <p:commandButton update="addressDataTable" value="Add Address" actionListener="#{directDomainBean.addAddress()}"/>
-                            </h:form>
-                        </p:tab>
-                        <p:tab title="Anchors">
-                            <h:form id="anchorsForm" enctype="multipart/form-data">
-                                <p:dataTable id="anchorDataTable" var="anchor" value="#{directDomainBean.selectedDomain.anchors}"
-                                             selection="#{directDomainBean.selectedAnchor}" rowKey="#{anchor.name}" >
-                                    <p:column headerText="Delete" selectionMode="single" />
-                                    <p:column headerText="Name">
-                                        <h:outputText value="#{anchor.name}" />
-                                    </p:column>
-                                    <p:column headerText="Status">
-                                        <h:outputText value="#{anchor.status}" />
-                                    </p:column>
-                                    <p:column headerText="Incoming">
-                                        <h:outputText value="#{anchor.incoming}" />
-                                    </p:column>
-                                    <p:column headerText="Outgoing">
-                                        <h:outputText value="#{anchor.outgoing}" />
-                                    </p:column>
-                                </p:dataTable>
-                                <p:commandButton update="anchorDataTable" value="Delete" actionListener="#{directDomainBean.deleteAnchor()}"/>
-                                <p:separator/>
-                                        <h:outputLabel for="pick-anchor-cert" class="col-sm-3 control-label"
-                                           id="pick-anchor-certLbl" value="Choose Anchor Certificate:" />
-                                        <p:fileUpload id="pick-anchor-cert" fileUploadListener="#{directDomainBean.anchorFileUpload}" />
-                                        
-                                        <p:panel>
-                                            <p:panelGrid columns="2">
-                                                <h:outputLabel for="check-anchor-in" class="col-sm-3 control-label"
-                                                    id="check-anchor-inLbl" value="Incoming:" />
-                                                <h:selectBooleanCheckbox id="check-anchor-in" value="#{directDomainBean.anchorIncoming}" />
-                                        
-                                                <h:outputLabel for="check-anchor-out" class="col-sm-3 control-label"
-                                                    id="check-anchor-outLbl" value="Outgoing" />
-                                                <h:selectBooleanCheckbox id="check-anchor-out" value="#{directDomainBean.anchorOutgoing}" />
-                                    
-                                                <h:outputLabel for="select-anchor-status" class="col-sm-3 control-label"
-                                                    id="select-anchor-statusLbl" value="Status:" />
-                                                <p:selectOneMenu id="select-anchor-status" value="#{directDomainBean.anchorStatus}">
-                                                    <f:selectItem itemLabel="NEW" itemValue="NEW" />
-                                                    <f:selectItem itemLabel="ENABLED" itemValue="ENABLED" />
-                                                    <f:selectItem itemLabel="DISABLED" itemValue="DISABLED" />
-                                                </p:selectOneMenu>					
-                                    
-                                                <p:commandButton update="anchorDataTable" value="Add Anchor" actionListener="#{directDomainBean.addAnchor()}"/>                                   
-                                            </p:panelGrid>
-                                        </p:panel>
-                            </h:form>
-                        </p:tab>
-                        <p:tab title="Trust Bundles">
-                            <h:form id="domain-tb-form">
-                            <p:dataTable id="tb-domainDataTable" var="tb" value="#{directDomainBean.selectedDomain.trustBundles}"
-                                         selection="#{directDomainBean.selectedTrustBundle}" rowKey="#{tb.tbName}" >
-                                <f:facet name="header">
-                                    Assigned Trust Bundles
-                                </f:facet>
-                                    <p:column headerText="Delete" selectionMode="single" />
-                                    <p:column headerText="Name">
-                                        <h:outputText value="#{tb.tbName}" />
-                                    </p:column>
-                                    <p:column headerText="URL">
-                                        <h:outputText value="#{tb.tbUrl}" />
-                                    </p:column>
-                                    <p:column headerText="CheckSum">
-                                        <h:outputText value="#{tb.tbCheckSum}" />
-                                    </p:column>
-                            </p:dataTable>
-                            <p:commandButton update="tb-domainDataTable" value="Delete" actionListener="#{directDomainBean.deleteTrustBundle()}"/>
-                            <p:separator />
-                                <p:panel>
-                                            <p:panelGrid columns="2">
-                                                <h:outputLabel for="select-domain-tbs" class="col-sm-3 control-label"
-                                                    id="select-domain-tbsLbl" value="Add Trust Bundles:" /> 
-                                                <p:selectCheckboxMenu id="select-domain-tbs" value="#{directDomainBean.selectedTrustBundles}" label="Available Trust Bundles" panelStyle="width:220px">
-                                                    <f:selectItems value="#{directDomainBean.trustBundleNames}"/>
-                                                </p:selectCheckboxMenu>
-                                            </p:panelGrid>
-                                    
-                                    <p:commandButton update="tb-domainDataTable" value="Add Trust Bundle" actionListener="#{directDomainBean.addTrustBundles()}" />
-                                </p:panel>
-                            </h:form>
-                        </p:tab>
-                    </p:tabView>
-                </div>
+							<div class="form-group">
+								<h:outputLabel for="select-edit-status" class="col-sm-3 control-label" id="select-edit-statusLbl" value="Status:" />
+								<div class="col-sm-9">
+									<p:selectOneMenu id="select-edit-status" value="#{directDomainBean.selectedDomain.domainStatus}">
+										<f:selectItem itemLabel="NEW" itemValue="NEW" />
+										<f:selectItem itemLabel="ENABLED" itemValue="ENABLED" />
+										<f:selectItem itemLabel="DISABLED" itemValue="DISABLED" />
+									</p:selectOneMenu>					
+								</div>
+							</div>
+							<div class="form-button-row">
+								<h:commandButton id="submit" class="btn btn-primary" value="Update" action="#{directDomainBean.editDomain()}"/>
+							</div>
+						</h:form>
+					</p:tab>
+					<p:tab title="Addresses">
+						<h:form id="addressForm" class="form-horizontal">
+							<h4>Stored Addresses</h4>
+							<p:dataTable id="addressDataTable" var="address" value="#{directDomainBean.selectedDomain.addresses}" selection="#{directDomainBean.selectedAddress}" rowKey="#{address.endpoint}" styleClass="table table-striped table-domains">
+								<p:column headerText="Delete" selectionMode="single" />
+								<p:column headerText="Endpoint" sortBy="endpoint">
+									<h:outputText value="#{address.endpoint}" />
+								</p:column>
+								<p:column headerText="Type" sortBy="type">
+									<h:outputText value="#{address.type}" />
+								</p:column>
+							</p:dataTable>
+							<p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
+								<p:commandButton update="addressDataTable" value="Delete" actionListener="#{directDomainBean.deleteAddress()}" styleClass="delete-button" icon="ui-icon-closethick"/>
+							</p:panelGrid>
+							
+							<div class="domain-form-block">
+								<h4>Add Another Address</h4>
+								<div class="form-group">
+									<h:outputLabel for="input-address-name" class="col-sm-3 control-label" id="input-address-nameLbl" value="Address Endpoint:" />
+									<div class="col-sm-9">
+										<h:inputText class="form-control" id="input-address-name" maxlength="50" required="true" value="#{directDomainBean.addressEndpoint}" immediate="true"/>
+									</div>
+								</div> 
+								<div class="form-group">
+									<h:outputLabel for="input-address-type" class="col-sm-3 control-label" id="input-address-typeLbl" value="Address Type:" />
+									<div class="col-sm-9">
+										<h:inputText class="form-control" id="input-address-type" maxlength="20" required="true" value="#{directDomainBean.addressType}" immediate="true"/>
+									</div>
+								</div>
+								<div class="form-button-row">
+									<p:commandButton update="addressDataTable" value="Add Address" actionListener="#{directDomainBean.addAddress()}" styleClass="btn btn-primary" />
+								</div>
+							</div>
+						</h:form>
+					</p:tab>
+					<p:tab title="Anchors">
+						<h:form id="anchorsForm" enctype="multipart/form-data" class="form-horizontal">
+							<h4>Stored Anchors</h4>
+							<p:dataTable id="anchorDataTable" var="anchor" value="#{directDomainBean.selectedDomain.anchors}" selection="#{directDomainBean.selectedAnchor}" rowKey="#{anchor.name}" styleClass="table table-striped table-domains">
+								<p:column headerText="Delete" selectionMode="single" />
+								<p:column headerText="Name" sortBy="name">
+									<h:outputText value="#{anchor.name}" />
+								</p:column>
+								<p:column headerText="Status" sortBy="status">
+									<h:outputText value="#{anchor.status}" />
+								</p:column>
+								<p:column headerText="Incoming">
+									<h:outputText value="#{anchor.incoming}" />
+								</p:column>
+								<p:column headerText="Outgoing">
+									<h:outputText value="#{anchor.outgoing}" />
+								</p:column>
+							</p:dataTable>
+							<p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
+								<p:commandButton update="anchorDataTable" value="Delete" actionListener="#{directDomainBean.deleteAnchor()}" styleClass="delete-button" icon="ui-icon-closethick"/>
+							</p:panelGrid>
+							
+							<div class="domain-form-block">
+								<h4>Add Another Anchor</h4>
+								<h:outputLabel for="pick-anchor-cert" class="col-sm-4 control-label label-pick-anchor" id="pick-anchor-certLbl" value="Choose Anchor Certificate:" />
+								<p:fileUpload id="pick-anchor-cert" fileUploadListener="#{directDomainBean.anchorFileUpload}" />
+								
+								<p:separator/>
+								
+								<div class="form-group">
+									<h:outputLabel for="check-anchor-in" class="col-sm-3 control-label" id="check-anchor-inLbl" value="Incoming:" />
+									<div class="col-sm-9">
+										<h:selectBooleanCheckbox id="check-anchor-in" value="#{directDomainBean.anchorIncoming}" />
+									</div>
+								</div>
+								<div class="form-group">
+									<h:outputLabel for="check-anchor-out" class="col-sm-3 control-label" id="check-anchor-outLbl" value="Outgoing:" />
+									<div class="col-sm-9">
+										<h:selectBooleanCheckbox id="check-anchor-out" value="#{directDomainBean.anchorOutgoing}" />					
+									</div>
+								</div>
+								<div class="form-group">
+									<h:outputLabel for="select-anchor-status" class="col-sm-3 control-label" id="select-anchor-statusLbl" value="Status:" />
+									<div class="col-sm-9">
+										<p:selectOneMenu id="select-anchor-status" value="#{directDomainBean.anchorStatus}">
+											<f:selectItem itemLabel="NEW" itemValue="NEW" />
+											<f:selectItem itemLabel="ENABLED" itemValue="ENABLED" />
+											<f:selectItem itemLabel="DISABLED" itemValue="DISABLED" />
+										</p:selectOneMenu>					
+									</div>
+								</div>
+								<div class="form-button-row">
+									<p:commandButton update="anchorDataTable" value="Add Anchor" actionListener="#{directDomainBean.addAnchor()}" styleClass="btn btn-primary" />
+								</div>
+							</div>
+						</h:form>
+					</p:tab>
+					<p:tab title="Trust Bundles">
+						<h:form id="domain-tb-form" class="form-horizontal">
+							<h4>Assigned Trust Bundles</h4>
+							<p:dataTable id="tb-domainDataTable" var="tb" value="#{directDomainBean.selectedDomain.trustBundles}" selection="#{directDomainBean.selectedTrustBundle}" rowKey="#{tb.tbName}" styleClass="table table-striped table-domains">
+								<p:column headerText="Delete" selectionMode="single" />
+								<p:column headerText="Name" sortBy="name">
+									<h:outputText value="#{tb.tbName}" />
+								</p:column>
+								<p:column headerText="URL" sortBy="url">
+									<h:outputText value="#{tb.tbUrl}" />
+								</p:column>
+								<p:column headerText="CheckSum" sortBy="checksum">
+									<h:outputText value="#{tb.tbCheckSum}" />
+								</p:column>
+							</p:dataTable>
+							<p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
+								<p:commandButton update="tb-domainDataTable" value="Delete" actionListener="#{directDomainBean.deleteTrustBundle()}" styleClass="delete-button" icon="ui-icon-closethick"/>
+							</p:panelGrid>
+							
+							<div class="domain-form-block">
+								<h4>Add Another Trust Bundle</h4>
+								<div class="form-group">
+									<h:outputLabel for="select-domain-tbs" class="col-sm-3 control-label" id="select-domain-tbsLbl" value="Add Trust Bundles:" />
+									<div class="col-sm-9">
+										<p:selectCheckboxMenu id="select-domain-tbs" value="#{directDomainBean.selectedTrustBundles}" label="Available Trust Bundles" panelStyle="width:220px">
+											<f:selectItems value="#{directDomainBean.trustBundleNames}"/>
+										</p:selectCheckboxMenu>
+									</div>
+								</div>
+								<div class="form-button-row">
+									<p:commandButton update="tb-domainDataTable" value="Add Trust Bundle" actionListener="#{directDomainBean.addTrustBundles()}" styleClass="btn btn-primary" />
+								</div>
+							</div>
+						</h:form>
+					</p:tab>
+                </p:tabView>
+            </div>
         </p:dialog>
     </div>
 </ui:composition>
