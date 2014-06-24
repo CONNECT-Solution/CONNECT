@@ -69,7 +69,7 @@ public class CONNECTTestClient<T> implements CONNECTClient<T> {
      * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#invokePort(java.lang.Class, java.lang.String, java.lang.Object)
      */
     @Override
-    public Object invokePort(Class<T> portClass, String methodName, Object operationInput) throws Exception {
+    public Object invokePort(Class<T> portClass, String methodName, Object ... operationInput) throws Exception {
         return null;
     }
 

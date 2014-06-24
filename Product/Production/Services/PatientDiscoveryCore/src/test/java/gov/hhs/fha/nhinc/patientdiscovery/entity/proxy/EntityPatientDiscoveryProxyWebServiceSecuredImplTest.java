@@ -194,7 +194,7 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
             final WebServiceProxyHelper wsProxyHelper = new WebServiceProxyHelper() {
 
                 @Override
-                public Object invokePort(Object portObject, Class portClass, String methodName, Object operationInput)
+                public Object invokePort(Object portObject, Class portClass, String methodName, Object ... operationInput)
                         throws Exception {
                     return null;
                 }

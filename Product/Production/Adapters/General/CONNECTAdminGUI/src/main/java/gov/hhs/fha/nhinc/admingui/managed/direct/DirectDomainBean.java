@@ -24,11 +24,16 @@ import gov.hhs.fha.nhinc.admingui.model.direct.DirectAddress;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectAnchor;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectDomain;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
+import gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.apache.log4j.Logger;
+import org.nhind.config.common.AddDomain;
+import org.nhind.config.common.Domain;
+import org.nhind.config.common.EntityStatus;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -46,6 +51,11 @@ public class DirectDomainBean {
     
     @Autowired
     private DirectService directService;
+    
+    @Autowired
+    private DirectConfigProxy directProxy;
+    
+    private static final Logger LOG = Logger.getLogger(DirectDomainBean.class);
     
     private String domainName;
     private String domainStatus;
@@ -88,11 +98,19 @@ public class DirectDomainBean {
     }
     
     public void addDomain(){
-        DirectDomain domain = new DirectDomain();
-        domain.setDomainName(domainName);
-        domain.setDomainStatus(domainStatus);
-        domain.setDomainPostMaster(domainPostmaster);
-        directService.addDomain(domain);
+        try {
+            AddDomain addDomain = new AddDomain();
+            Domain domain = new Domain();
+            domain.setDomainName(domainName);
+            domain.setStatus(EntityStatus.NEW);
+            domain.setPostMasterEmail(domainPostmaster);
+            addDomain.setDomain(domain);
+        
+            directProxy.addDomain(addDomain);
+        } catch(Exception e){
+            LOG.error("Unable to add domain due to: " + e.getMessage(), e);
+            //TODO show error message
+        }
     }
     
     public void showEdit(){
