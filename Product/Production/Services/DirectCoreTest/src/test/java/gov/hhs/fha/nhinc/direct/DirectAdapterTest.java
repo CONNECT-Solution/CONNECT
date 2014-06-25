@@ -181,7 +181,7 @@ public class DirectAdapterTest extends AbstractDirectMailClientTest {
      * @throws MailClientException 
      * @throws InterruptedException 
      */
-    private void canEndToEndWithSmtpEdgeClients() throws UserException, MessagingException, MailClientException {
+    private void canEndToEndWithSmtpEdgeClients(int expectedNumberOfMessages) throws UserException, MessagingException, MailClientException {
 
         deliverMessage("PlainOutgoingMessage.txt");
         verifySmtpEdgeMessage();
@@ -203,9 +203,8 @@ public class DirectAdapterTest extends AbstractDirectMailClientTest {
         setUpDirectClients(senderMailServerProps, respondingSmtp);
 
         handleMessages(extMailReceiver, inboundMsgHandler, 2, senderUser);
-        verifyInboundMdn();
+        verifyInboundMdn(expectedNumberOfMessages);
     }
-    
     /**
      * Run the end to end test and also verify that the events are logged in the correct order.
      * @throws UserException on failure.
@@ -214,6 +213,35 @@ public class DirectAdapterTest extends AbstractDirectMailClientTest {
      */
     @Test
     public void canLogEventsDuringEndToEnd() throws UserException, MessagingException, MailClientException {
+        //should not receive any mdn in the edge client by default
+        //set the system property
+        System.setProperty(DirectReceiverImpl.SUPPRESS_MDN_EDGE_NOTIFICATION, "true");
+        eventIndex = 0;
+        canLogEventsDuringEndToEnd(0);
+    }
+    /**
+     * Run the end to end test and also verify that the events are logged in the correct order.
+     * @throws UserException on failure.
+     * @throws MessagingException on failure.
+     * @throws MailClientException 
+     */
+    @Test
+    public void canLogEventsDuringEndToEndWithSuppressNotificationDisabled() throws UserException, MessagingException, MailClientException {
+        //test with suppressmdnedgenotification false. Should receive a mdn from the sending end.
+        //set the system property
+        System.setProperty(DirectReceiverImpl.SUPPRESS_MDN_EDGE_NOTIFICATION, "false");
+        eventIndex = 0;
+        // ...there are 2 MDNs right now because of a quirk in greenmail.
+        canLogEventsDuringEndToEnd(2);
+    }
+
+    /**
+     * Run the end to end test and also verify that the events are logged in the correct order.
+     * @throws UserException on failure.
+     * @throws MessagingException on failure.
+     * @throws MailClientException 
+     */
+    public void canLogEventsDuringEndToEnd(int expectedNumberOfMessages) throws UserException, MessagingException, MailClientException {
         
         final EventLoggerFactory loggerFactory = new EventLoggerFactory(EventManager.getInstance());        
         final EventLogger mockEventLogger = mock(EventLogger.class);
@@ -234,7 +262,7 @@ public class DirectAdapterTest extends AbstractDirectMailClientTest {
         loggerFactory.setLoggers(ImmutableList.of(mockEventLogger, new Log4jEventLogger()));
         loggerFactory.registerLoggers();
         
-        canEndToEndWithSmtpEdgeClients();
+        canEndToEndWithSmtpEdgeClients(expectedNumberOfMessages);
         
         // verify that the events were fired in order.
         assertTriggered(DirectEventType.BEGIN_OUTBOUND_DIRECT, triggeredEvents);

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="DirectSender" 
+                  targetNamespace="urn:gov:hhs:fha:nhinc:direct" 
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+                  xmlns:tns="urn:gov:hhs:fha:nhinc:direct" 
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:types>
+        <xsd:schema elementFormDefault="qualified"
+                targetNamespace="urn:gov:hhs:fha:nhinc:direct"
+                xmlns:ds="urn:gov:hhs:fha:nhinc:direct">
+            <xsd:include schemaLocation="classpath:schemas/nhinc/direct/DirectSender.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="sendOutboundDirect">
+        <wsdl:part name="parameters" element="tns:SendoutMessage">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="DirectSender_PortType">
+        <wsdl:operation name="sendOutboundDirect">
+            <wsdl:input name="sendOutboundDirect" message="tns:sendOutboundDirect">
+            </wsdl:input>            
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="DirectSenderServiceSoapBinding" type="tns:DirectSender_PortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="sendOutboundDirect">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="sendOutboundDirect">
+                <soap:body use="literal"/>
+            </wsdl:input>            
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="DirectSenderService">
+        <wsdl:port name="DirectSender_PortType" binding="tns:DirectSenderServiceSoapBinding">
+            <soap:address location="http://localhost:${HttpDefaultPort}/Direct/DirectSenderService"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
