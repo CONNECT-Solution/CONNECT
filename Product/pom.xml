@@ -33,6 +33,15 @@
     </modules>
     <dependencyManagement>
         <dependencies>
+            <!-- Java EE API -->
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>6.0</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- CXF -->
             <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-bundle</artifactId>
@@ -44,15 +53,12 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+
+            <!-- XML -->
             <dependency>
                 <groupId>org.apache.santuario</groupId>
                 <artifactId>xmlsec</artifactId>
                 <version>1.5.5</version>
-            </dependency>
-            <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-                <version>1.2.17</version>
             </dependency>
             <dependency>
                 <groupId>xerces</groupId>
@@ -60,10 +66,16 @@
                 <version>2.10.0</version>
             </dependency>
             <dependency>
-                <groupId>commons-collections</groupId>
-                <artifactId>commons-collections</artifactId>
-                <version>3.2.1</version>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-impl</artifactId>
+                <version>2.2.7-b41</version>
             </dependency>
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-xjc</artifactId>
+                <version>2.2.7-b41</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
@@ -84,12 +96,8 @@
                 <artifactId>spring-web</artifactId>
                 <version>3.0.7.RELEASE</version>
             </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-test</artifactId>
-                <version>3.0.7.RELEASE</version>
-                <scope>test</scope>
-            </dependency>
+
+            <!-- Persistence -->
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate</artifactId>
@@ -108,7 +116,7 @@
                         <artifactId>asm-attrs</artifactId>
                     </exclusion>
                     <exclusion>
-                        <!-- exclude and use <artifactId>cglib-nodep</artifactId> to include the asm it needs in a private 
+                        <!-- exclude and use <artifactId>cglib-nodep</artifactId> to include the asm it needs in a private
                             package space. -->
                         <groupId>cglib</groupId>
                         <artifactId>cglib</artifactId>
@@ -119,6 +127,7 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+
             <dependency>
                 <!-- Used to include the asm it needs in a private package space. -->
                 <groupId>cglib</groupId>
@@ -126,27 +135,17 @@
                 <version>2.2</version>
             </dependency>
             <dependency>
-                <groupId>commons-logging</groupId>
-                <artifactId>commons-logging</artifactId>
-                <version>1.1.1</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
                 <groupId>org.forgerock.openam</groupId>
                 <artifactId>clientsdk</artifactId>
                 <version>10.0.1</version>
-            </dependency>
-            <dependency>
-                <groupId>javax</groupId>
-                <artifactId>javaee-api</artifactId>
-                <version>6.0</version>
-                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>com.thoughtworks.xstream</groupId>
                 <artifactId>xstream</artifactId>
                 <version>1.4.3</version>
             </dependency>
+
+            <!-- Testing -->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
@@ -168,15 +167,44 @@
                 <version>2.5.1</version>
             </dependency>
             <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>1.9.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>3.0.7.RELEASE</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- Logging -->
+            <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
-                <version>1.6.4</version>
+                <version>1.7.0</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.6.4</version>
+                <version>1.7.0</version>
             </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>1.7.0</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>1.1.1</version>
+            </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.17</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjrt</artifactId>
@@ -197,26 +225,20 @@
                 <artifactId>velocity</artifactId>
                 <version>1.7</version>
             </dependency>
+
+            <!-- Security -->
             <dependency>
                 <groupId>org.owasp.esapi</groupId>
                 <artifactId>esapi</artifactId>
                 <version>2.0.1</version>
             </dependency>
             <dependency>
-                <groupId>com.sun.xml.bind</groupId>
-                <artifactId>jaxb-impl</artifactId>
-                <version>2.2.7-b41</version>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk15</artifactId>
+                <version>1.45</version>
             </dependency>
-            <dependency>
-                <groupId>com.sun.xml.bind</groupId>
-                <artifactId>jaxb-xjc</artifactId>
-                <version>2.2.7-b41</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-all</artifactId>
-                <version>1.9.0</version>
-            </dependency>
+
+            <!-- Apache Commons -->
             <dependency>
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
@@ -233,6 +255,13 @@
                 <version>1.7</version>
             </dependency>
             <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>3.2.1</version>
+            </dependency>
+
+            <!-- Mail -->
+            <dependency>
                 <groupId>com.icegreen</groupId>
                 <artifactId>greenmail</artifactId>
                 <version>1.3.1b-mbaechler</version>
@@ -243,16 +272,14 @@
                 <artifactId>mail</artifactId>
                 <version>1.4.4</version>
             </dependency>
-            <dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bcprov-jdk15</artifactId>
-                <version>1.45</version>
-            </dependency>
+
             <dependency>
                 <groupId>javax.activation</groupId>
                 <artifactId>activation</artifactId>
                 <version>1.1.1</version>
             </dependency>
+
+            <!-- JSF -->
             <dependency>
                 <groupId>com.sun.faces.extensions</groupId>
                 <artifactId>jsf-extensions-dynamic-faces</artifactId>
@@ -293,6 +320,8 @@
                 <artifactId>webui-jsf-suntheme</artifactId>
                 <version>1.0</version>
             </dependency>
+
+            <!-- CONNECT Modules / Web Services -->
             <dependency>
                 <groupId>org.connectopensource</groupId>
                 <artifactId>CONNECTCommonTypesLib</artifactId>
