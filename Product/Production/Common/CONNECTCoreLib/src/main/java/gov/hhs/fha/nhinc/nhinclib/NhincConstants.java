@@ -417,6 +417,7 @@ public class NhincConstants {
     public static final String HIBERNATE_PATIENTDB_REPOSITORY = "patientdb.hibernate.cfg.xml";
     public static final String HIBERNATE_TRANSREPO_REPOSITORY = "transrepo.hibernate.cfg.xml";
     public static final String HIBERNATE_EVENT_REPOSITORY = "event.hibernate.cfg.xml";
+    public static final String HIBERNATE_DIRECTCONFIG_REPOSITORY = "configdb.hibernate.cfg.xml";
     
     public static final String XDS_REGISTRY_ERROR_SEVERITY_WARNING = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Warning";
     public static final String XDS_REGISTRY_ERROR_SEVERITY_ERROR = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error";

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="DirectReceiver" 
+                  targetNamespace="urn:gov:hhs:fha:nhinc:direct" 
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+                  xmlns:tns="urn:gov:hhs:fha:nhinc:direct" 
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:types>
+        <xsd:schema elementFormDefault="qualified"
+                    targetNamespace="urn:gov:hhs:fha:nhinc:direct"
+                    xmlns:dr="urn:gov:hhs:fha:nhinc:direct">
+            <xsd:include schemaLocation="classpath:schemas/nhinc/direct/DirectReceiver.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="receiveInbound">
+        <wsdl:part name="parameters" element="tns:receiveInbound">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="DirectReceiver_PortType">
+        <wsdl:operation name="receiveInbound">
+            <wsdl:input name="receiveInbound" message="tns:receiveInbound">
+            </wsdl:input>            
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="DirectReceiverServiceSoapBinding" type="tns:DirectReceiver_PortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="receiveInbound">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="receiveInbound">
+                <soap:body use="literal"/>
+            </wsdl:input>            
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="DirectReceiverService">
+        <wsdl:port name="DirectReceiver_PortType" binding="tns:DirectReceiverServiceSoapBinding">
+            <soap:address location="http://localhost:${HttpDefaultPort}/Direct/DirectReceiverService"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

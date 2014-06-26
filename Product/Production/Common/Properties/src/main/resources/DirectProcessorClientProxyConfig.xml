@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+<!-- 
+	The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
+	in the description separated with a comma like the following sample: {somebean,anotherbean}
+-->
+	<description>Beans included in this file: {directedgeclient}</description>
+	<import resource="direct.beans.xml"/>
+    
+    <!-- ws helper bean -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper" id="proxyHelper" name="proxyHelper"/> 
+
+   	<alias alias="directReceiverClient" name="directreceiverclientjava" />
+
+	<!-- No-op Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.direct.receiver.proxy.DirectReceiverProxyNoOpImpl" id="directreceiverclientnoop" name="directreceiverclientnoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean>
+
+	<!-- Java Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.direct.receiver.proxy.DirectReceiverProxyJavaImpl" id="directreceiverclientjava" name="directreceiverclientjava"> 
+		<meta key="impltype" value="java"/>
+	</bean>
+
+	<!-- Unsecured web service Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.direct.receiver.proxy.DirectReceiverProxyWebServiceImpl" id="directreceiverclientws" name="directreceiverclientws">
+        <meta key="impltype" value="soap"/>
+        <constructor-arg><ref bean="proxyHelper" /></constructor-arg>
+	</bean>
+    
+    <alias alias="directSenderClient" name="directsenderclientjava" />
+
+    <!-- No-op Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.direct.sender.proxy.DirectSenderProxyNoOpImpl" id="directsenderclientnoop" name="directsenderclientnoop"> 
+        <meta key="impltype" value="noop"/>
+    </bean>
+
+    <!-- Java Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.direct.sender.proxy.DirectSenderProxyJavaImpl" id="directsenderclientjava" name="directsenderclientjava"> 
+        <meta key="impltype" value="java"/>
+    </bean>
+
+    <!-- Unsecured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.direct.sender.proxy.DirectSenderProxyWebServiceImpl" id="directsenderclientws" name="directsenderclientws">
+        <meta key="impltype" value="soap"/>
+        <constructor-arg><ref bean="proxyHelper" /></constructor-arg>
+    </bean>
+
+</beans>
