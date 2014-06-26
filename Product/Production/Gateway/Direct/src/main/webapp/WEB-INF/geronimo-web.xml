@@ -21,5 +21,8 @@
         <naming:ref-name>jdbc/eventdb_datasource</naming:ref-name>
         <naming:resource-link>eventdb_pool</naming:resource-link>
     </naming:resource-ref>
-
+    <naming:resource-ref>
+        <naming:ref-name>jdbc/messagemonitoringdb_datasource</naming:ref-name>
+        <naming:resource-link>messagemonitoringdb_pool</naming:resource-link>
+    </naming:resource-ref>
 </web-app>

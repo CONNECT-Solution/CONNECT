@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.direct;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
 import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
 import gov.hhs.fha.nhinc.direct.event.DirectEventType;
+import gov.hhs.fha.nhinc.direct.messagemonitoring.impl.MessageMonitoringAPI;
 import gov.hhs.fha.nhinc.mail.MailSender;
 import java.util.Collection;
 import java.util.Map;
@@ -72,7 +73,8 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
      */
     public static final String X_DIRECT_FINAL_DESTINATION_DELIVERY_HEADER_VALUE = "X-DIRECT-FINAL-DESTINATION-DELIVERY";
     /**
-     * Header name to determine if dispositions are being requested by the sending STA.
+     * Header name to determine if dispositions are being requested by the
+     * sending STA.
      */
     public static final String DISPOSITION_NOTIFICATION_OPTIONS_HEADER_NAME = "Disposition-Notification-Options";
     /**
@@ -116,7 +118,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
      * @param producer the producer
      */
     public DirectReceiverImpl(MailSender externalMailSender, SmtpAgent smtpAgent, DirectEventLogger directEventLogger,
-        ReliableDispatchedNotificationProducer producer) {
+            ReliableDispatchedNotificationProducer producer) {
         super(externalMailSender, smtpAgent, directEventLogger);
         dispatchProducer = producer;
     }
@@ -130,8 +132,16 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
         MessageProcessResult result = process(message);
         MessageEnvelope processedEnvelope = result.getProcessedMessage();
         boolean isMdn = DirectAdapterUtils.isMdn(processedEnvelope);
+        //final NHINDAddressCollection recipients = getMailRecipients(message);
+
+        //	final NHINDAddress sender = getMailSender(message);
+        //	final Tx txToTrack = getTxToTrack(message, sender, recipients);
+        //get the 
         if (isMdn) {
             getDirectEventLogger().log(DirectEventType.BEGIN_INBOUND_MDN, message);
+            //Update message monitoring status
+            MessageMonitoringAPI.getInstance().updateIncomingMessageNotificatinStatus(processedEnvelope.getMessage());
+
         } else {
             getDirectEventLogger().log(DirectEventType.BEGIN_INBOUND_DIRECT, message);
         }
@@ -151,7 +161,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
             try {
                 proxy.provideAndRegisterDocumentSetB(processedEnvelope.getMessage());
             } catch (DirectException e) {
-                getDirectEventLogger().log(DirectEventType.DIRECT_ERROR,message,e.getMessage());
+                getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message, e.getMessage());
                 //capture the error message
                 notificationFailureMessage = e.getMessage();
                 notificationToEdgeFailed = true;
@@ -214,7 +224,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
         String[] parts = StringUtils.split(header, "=");
         if (parts != null && parts.length == 2) {
             if (StringUtils.contains(parts[0], X_DIRECT_FINAL_DESTINATION_DELIVERY_HEADER_VALUE)
-                && StringUtils.contains(parts[1], "true")) {
+                    && StringUtils.contains(parts[1], "true")) {
                 dispatchRequested = true;
             }
         }
@@ -274,7 +284,8 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
      * @param tx
      * @param notificationFailureMessage
      *
-     * @return returns a collection of DSN messages using message information provided.
+     * @return returns a collection of DSN messages using message information
+     * provided.
      */
     public Collection<MimeMessage> createFailedDeliveryDSNFailureMessage(MimeMessage message, Tx tx, String notificationFailureMessage) throws MessagingException {
         //Default properties can be set in a property file agentSettings.properties
@@ -284,21 +295,21 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
         DSNGenerator generator = new DSNGenerator(RejectedRecipientDSNCreatorOptions.DEFAULT_PREFIX);
         //use the default postmasterbox
         String postmasterMailbox = GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_POSTMASTER,
-            mailet, RejectedRecipientDSNCreatorOptions.DEFAULT_POSTMASTER);
+                mailet, RejectedRecipientDSNCreatorOptions.DEFAULT_POSTMASTER);
         //use the default reporting MTA
         String reportingMta = GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_MTA_NAME,
-            mailet, RejectedRecipientDSNCreatorOptions.DEFAULT_MTA_NAME);
+                mailet, RejectedRecipientDSNCreatorOptions.DEFAULT_MTA_NAME);
         DSNFailureTextBodyPartGenerator textGenerator = new DefaultDSNFailureTextBodyPartGenerator(
-            GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_HEADER,
-            mailet, HEADER),
-            GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_FOOTER,
-            mailet, FOOTER),
-            GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_RECIP_TITLE,
-            mailet, RejectedRecipientDSNCreatorOptions.DEFAULT_FAILED_RECIP_TITLE),
-            RejectedRecipientDSNCreatorOptions.DEFAULT_ERROR_MESSAGE_TITLE,
-            GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_ERROR_MESSAGE,
-            mailet, ERROR_MESSAGE),
-            HumanReadableTextAssemblerFactory.getInstance());
+                GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_HEADER,
+                        mailet, HEADER),
+                GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_FOOTER,
+                        mailet, FOOTER),
+                GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_RECIP_TITLE,
+                        mailet, RejectedRecipientDSNCreatorOptions.DEFAULT_FAILED_RECIP_TITLE),
+                RejectedRecipientDSNCreatorOptions.DEFAULT_ERROR_MESSAGE_TITLE,
+                GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_ERROR_MESSAGE,
+                        mailet, ERROR_MESSAGE),
+                HumanReadableTextAssemblerFactory.getInstance());
 
         FailedDeliveryDSNCreator rejectedDNSCreator = new FailedDeliveryDSNCreator(generator, postmasterMailbox, reportingMta, textGenerator);
         final NHINDAddressCollection xdRecipients = new NHINDAddressCollection();
@@ -328,7 +339,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
      * Sends out a Failed MDN/Delivery Status Notification(DSN)
      *
      * @param message
-     * @param notificationFailureMessage 
+     * @param notificationFailureMessage
      *
      */
     private void sendMdnFailed(MimeMessage message, String notificationFailureMessage) throws MessagingException {

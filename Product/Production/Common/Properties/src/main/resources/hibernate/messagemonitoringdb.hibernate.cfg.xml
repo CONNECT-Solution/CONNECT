@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+
+        <!-- SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <!-- Disable the second-level cache  -->
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+
+        <property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <property name="connection.datasource">java:comp/env/jdbc/messagemonitoringdb_datasource</property>
+
+        <!-- SQL Debug Properties -->
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+        <property name="use_sql_comments">true</property>
+        
+        <!-- We currently have the antlr classpath conflict described here:
+             http://thejavablog.wordpress.com/2010/12/02/classnotfoundexception-org-hibernate-hql-ast-hqltoken/
+             Switching to the classing translator so that our named query works.
+         -->
+        <!--property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property-->
+
+        <!-- Mapping files -->
+        <mapping resource="messagemonitoringdb.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>

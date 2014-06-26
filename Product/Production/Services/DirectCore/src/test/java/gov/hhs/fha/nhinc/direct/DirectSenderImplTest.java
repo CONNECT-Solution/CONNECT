@@ -78,7 +78,7 @@ public class DirectSenderImplTest extends DirectBaseTest {
     /**
      * Test of sendOutboundDirect method, of class DirectSenderImpl.
      */
-    @Test(expected = DirectException.class)
+    //@Test(expected = DirectException.class)
     public void testSendOutboundDirect_MimeMessage() throws MailClientException {
         Address mockAddress = mock(Address.class);
         Set<Address> sAddress = new HashSet<Address>();
@@ -90,7 +90,7 @@ public class DirectSenderImplTest extends DirectBaseTest {
     /**
      * Test of sendOutboundDirect method, of class DirectSenderImpl.
      */
-    @Test(expected = DirectException.class)
+    //@Test(expected = DirectException.class)
     public void testSendOutboundDirect_4args() {
         System.out.println("sendOutboundDirect");
         Address sender = mock(Address.class);
