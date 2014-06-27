@@ -25,6 +25,9 @@ import gov.hhs.fha.nhinc.admingui.model.direct.DirectCertificate;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectDomain;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import java.util.List;
+import org.nhind.config.common.AddDomain;
+import org.nhind.config.common.Domain;
+import org.nhind.config.common.UpdateDomain;
 
 /**
  *
@@ -32,10 +35,10 @@ import java.util.List;
  */
 public interface DirectService {
     
-    public List<DirectDomain> getDomains();
-    public void updateDomain(DirectDomain domain);
-    public void addDomain(DirectDomain domain);
-    public void deleteDomain(DirectDomain domain);
+    public List<Domain> getDomains();
+    public void updateDomain(UpdateDomain domain);
+    public void addDomain(AddDomain domain);
+    public void deleteDomain(Domain domain);
     
     public List<DirectAgent> getAgents();
     public void updateAgent(DirectAgent agent);

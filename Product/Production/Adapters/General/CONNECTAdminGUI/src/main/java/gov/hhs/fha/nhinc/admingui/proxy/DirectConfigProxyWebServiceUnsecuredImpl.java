@@ -64,19 +64,20 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
         return (UpdateDomainResponse) getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_UPDATE_DOMAIN, updateDomain);
     }
     
+    @Override
     public void deleteDomain(String name) throws Exception {
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DELETE_DOMAIN, name);
     }
     
     private CONNECTClient getClient() throws Exception{
         
-        String url = oProxyHelper.getUrlLocalHomeCommunity(DirectConfigConstants.DIRECT_CONFIG_SERVICE_NAME);
+        String url = oProxyHelper.getAdapterEndPointFromConnectionManager(DirectConfigConstants.DIRECT_CONFIG_SERVICE_NAME);
         
         ServicePortDescriptor<ConfigurationService> portDescriptor = new DirectConfigUnsecuredServicePortDescriptor();
         
         CONNECTClient<ConfigurationService> client = CONNECTCXFClientFactory.getInstance()
                             .getCONNECTClientUnsecured(portDescriptor, url, null);
-        
+               
         return client;
     }
 }

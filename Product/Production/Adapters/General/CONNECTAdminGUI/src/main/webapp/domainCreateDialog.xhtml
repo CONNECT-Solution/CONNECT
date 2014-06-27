@@ -30,14 +30,16 @@
                                 </p:selectOneMenu>					
 							</div>
                         </div>
-                        <div class="form-group">
+                        <ui:remove>
+                        <!--<div class="form-group">
                             <h:outputLabel for="select-tb" class="col-sm-3 control-label" id="select-tbLbl" value="Select Trust Bundle:" />
                             <div class="col-sm-9">
                                 <p:selectOneMenu id="select-tb" value="#{directDomainBean.domainTrustBundle}">
                                     <f:selectItems var="tb" value="#{directDomainBean.trustBundles}" itemLabel="#{tb.tbName}" itemValue="#{tb.tbName}" />       
                                 </p:selectOneMenu>
                             </div>
-                        </div>
+                        </div> -->
+                        </ui:remove>
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <div class="form-button-row">

@@ -55,6 +55,12 @@ import javax.jws.WebService;
 
 import gov.hhs.fha.nhinc.directconfig.entity.Domain;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddDomain;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddDomainResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.UpdateDomain;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.UpdateDomainResponse;
+import javax.jws.WebResult;
+import javax.jws.soap.SOAPBinding;
 
 /**
  * Service class for methods related to a Domain object.
@@ -63,24 +69,29 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 public interface DomainService {
 
     /**
-     * Add a new Domain.
+     * Add a Domain
      * 
-     * @param domain
-     *            The Domain to add.
-     * @throws ConfigurationServiceException
+     * @param addDomain
+     * @return
+     * @throws ConfigurationServiceException 
      */
+    @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
+    @WebResult(name = "addDomainResponse", targetNamespace = "http://nhind.org/config/common", partName = "parameters")
     @WebMethod(operationName = "addDomain", action = "urn:AddDomain")
-    void addDomain(@WebParam(name = "domain") Domain domain) throws ConfigurationServiceException;
+    AddDomainResponse addDomain(@WebParam(partName = "parameters", name = "addDomain", targetNamespace = "http://nhind.org/config/common") AddDomain addDomain) throws ConfigurationServiceException;
 
     /**
      * Update a Domain.
      * 
      * @param domain
      *            The Domain to update.
+     * @return 
      * @throws ConfigurationServiceException
      */
-    @WebMethod(operationName = "updateDomain", action = "urn:UpdateDomain")
-    void updateDomain(@WebParam(name = "domain") Domain domain) throws ConfigurationServiceException;
+    @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
+    @WebResult(name = "updateDomainResponse", targetNamespace = "http://nhind.org/config/common", partName = "parameters")
+    @WebMethod(action = "urn:UpdateDomain")
+    UpdateDomainResponse updateDomain(@WebParam(name = "updateDomain") UpdateDomain domain) throws ConfigurationServiceException;
 
     /**
      * Get a count of Domains.

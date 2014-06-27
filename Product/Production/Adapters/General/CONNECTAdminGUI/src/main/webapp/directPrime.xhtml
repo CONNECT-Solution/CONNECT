@@ -52,19 +52,19 @@
 								<p:dataTable id="domainDataTable" var="domain" value="#{directDomainBean.domains}" selection="#{directDomainBean.selectedDomain}" rowKey="#{domain.domainName}" styleClass="table table-striped table-domains">
 									<p:column headerText="Delete" selectionMode="single" />
 									<p:column headerText="Status" sortBy="status">
-										<h:outputText value="#{domain.domainStatus}" styleClass="nowrap" />
+                                        <h:outputText value="#{domain.status}" styleClass="nowrap" />
 									</p:column>
 									<p:column headerText="Name" sortBy="name">
-										<h:outputText value="#{domain.domainName}" />
+                                        <h:outputText value="#{domain.domainName}" />
 									</p:column>
 									<p:column headerText="PostMaster" sortBy="postmaster">
-										<h:outputText value="#{domain.domainPostMaster}"/>
+                                        <h:outputText value="#{domain.postMasterEmail}"/>
 									</p:column>
 									<p:column headerText="Created" sortBy="created">
-										<h:outputText value="#{domain.domainCreated}" styleClass="nowrap" />
+                                        <h:outputText value="#{domain.createTime}" styleClass="nowrap" />
 									</p:column>
 									<p:column headerText="Updated" sortBy="updated">
-										<h:outputText value="#{domain.domainUpdated}" styleClass="nowrap" />
+                                        <h:outputText value="#{domain.updateTime}" styleClass="nowrap" />
 									</p:column>
 								</p:dataTable>                                    
 								<p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">

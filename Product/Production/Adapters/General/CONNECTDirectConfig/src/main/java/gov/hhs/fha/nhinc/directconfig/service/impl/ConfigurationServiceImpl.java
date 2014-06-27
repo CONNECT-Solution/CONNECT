@@ -73,6 +73,10 @@ import gov.hhs.fha.nhinc.directconfig.service.DomainService;
 import gov.hhs.fha.nhinc.directconfig.service.SettingService;
 import gov.hhs.fha.nhinc.directconfig.service.TrustBundleService;
 import gov.hhs.fha.nhinc.directconfig.service.helpers.CertificateGetOptions;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddDomain;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddDomainResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.UpdateDomain;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.UpdateDomainResponse;
 
 import java.util.Calendar;
 import java.util.Collection;
@@ -93,7 +97,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
  */
 
 @Service
-@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.ConfigurationService", portName = "ConfigurationServiceImplPort", targetNamespace = "http://nhind.org/config")
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.ConfigurationService", portName = "ConfigurationServiceImplPort", targetNamespace = "http://nhind.org/config/common")
 public class ConfigurationServiceImpl extends SpringBeanAutowiringSupport implements ConfigurationService {
 
     private static Log log = LogFactory.getLog(ConfigurationServiceImpl.class);
@@ -192,11 +196,13 @@ public class ConfigurationServiceImpl extends SpringBeanAutowiringSupport implem
 
     /**
      * {@inheritDoc}
+     * @param domain
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
-    public void addDomain(Domain domain) throws ConfigurationServiceException {
+    public AddDomainResponse addDomain(AddDomain domain) throws ConfigurationServiceException {
         domainSvc.addDomain(domain);
+        return new AddDomainResponse();
     }
 
     /**
@@ -204,8 +210,9 @@ public class ConfigurationServiceImpl extends SpringBeanAutowiringSupport implem
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
-    public void updateDomain(Domain domain) throws ConfigurationServiceException {
+    public UpdateDomainResponse updateDomain(UpdateDomain domain) throws ConfigurationServiceException {
         domainSvc.updateDomain(domain);
+        return new UpdateDomainResponse();
     }
 
     /**

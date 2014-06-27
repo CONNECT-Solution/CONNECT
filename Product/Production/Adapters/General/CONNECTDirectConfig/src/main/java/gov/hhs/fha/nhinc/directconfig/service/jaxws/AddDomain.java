@@ -50,18 +50,16 @@ package gov.hhs.fha.nhinc.directconfig.service.jaxws;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.Domain;
 
-@XmlRootElement(name = "addDomain", namespace = "http://nhind.org/config")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "addDomain", namespace = "http://nhind.org/config")
+@XmlAccessorType(value = XmlAccessType.FIELD)
+@XmlType(name = "addDomain", propOrder= {"domain"})
 public class AddDomain {
 
-    @XmlElement(name = "domain", namespace = "")
+    @XmlElement(namespace = "http://nhind.org/config/common")
     private Domain domain;
-
+    
     /**
      * 
      * @return

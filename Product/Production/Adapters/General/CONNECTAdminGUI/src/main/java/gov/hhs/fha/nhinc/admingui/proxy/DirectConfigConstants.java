@@ -27,10 +27,10 @@ package gov.hhs.fha.nhinc.admingui.proxy;
 public class DirectConfigConstants {
     
     
-    static final String DIRECT_CONFIG_SERVICE_NAME = "directConfig";
+    static final String DIRECT_CONFIG_SERVICE_NAME = "directconfig";
     static final String DIRECT_CONFIG_GET_DOMAIN = "getDomain";
     static final String DIRECT_CONFIG_ADD_DOMAIN = "addDomain";
     static final String DIRECT_CONFIG_LIST_DOMAINS = "listDomains";
     static final String DIRECT_CONFIG_UPDATE_DOMAIN = "updateDomain";
-    static final String DIRECT_CONFIG_DELETE_DOMAIN = "deleteDomain";
+    static final String DIRECT_CONFIG_DELETE_DOMAIN = "removeDomain";
 }
