@@ -2,6 +2,11 @@
 <!DOCTYPE hibernate-configuration PUBLIC
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+		
+		<!-- This file is added in Properties as a workaround to avaoid classloader issues in embedded GF.
+     The CONNECTDirectConfig uses antlr-2.7.7 which conflicts the embedded GF antlr available in the classpath.
+	 Hence this file is added to embedded GF Properties library and it's overwritten into configdb.hibernate.config.xml while
+	 build. This file is introduced as part of CONN-1212.-->
 
 <hibernate-configuration>
     <session-factory>
