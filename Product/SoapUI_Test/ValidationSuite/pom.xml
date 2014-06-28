@@ -315,10 +315,6 @@
                                             todir="${project.build.directory}/domain1/lib/classes/" />
                                         <copy file="${project.build.directory}/test-classes/chaincerts/cacerts.jks"
                                             todir="${project.build.directory}/domain1/lib/classes/" />
-                                        <copy
-                                            file="${project.build.directory}/nhinc-properites-dir/hibernate/configdb.hibernate.build.cfg.xml"
-                                            tofile="${project.build.directory}/nhinc-properites-dir/hibernate/configdb.hibernate.cfg.xml"
-                                            overwrite="true" />
                                     </target>
 
                                 </configuration>
