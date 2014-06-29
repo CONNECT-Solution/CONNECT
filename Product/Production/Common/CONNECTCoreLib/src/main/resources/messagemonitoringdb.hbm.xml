@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--
+    Document   : messagemonitoring.hbm.xml
+    Created on : June 23, 2014
+    Author     : Naresh Subramanyan
+    Description: Hibernate mapping file for CONNECT Direct's messagemonitoringdb
+-->
+
+<hibernate-mapping>
+    <class name="gov.hhs.fha.nhinc.direct.messagemonitoring.domain.Trackmessage" table="trackmessage" catalog="messagemonitoringdb">
+        <id name="id" type="java.lang.Long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="senderemailid" type="string">
+            <column name="senderemailid">
+                <comment>sender email identifier</comment>
+            </column>
+        </property>
+        <property name="subject" type="string">
+            <column name="subject">
+                <comment>email Subject</comment>
+            </column>
+        </property>
+        <property name="messageid" type="string">
+            <column name="messageid" length="100">
+                <comment>unique email message identifier</comment>
+            </column>
+        </property>
+        <property name="recipients" type="string">
+            <column name="recipients" length="4000" />
+        </property>
+        <property name="deliveryrequested" type="java.lang.Boolean">
+            <column name="deliveryrequested">
+                <comment>column to identify if the edge requested for delivery notification</comment>
+            </column>
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="30">
+                <comment>Pending, Completed, Error</comment>
+            </column>
+        </property>
+        <property name="createtime" type="timestamp">
+            <column name="createtime" length="19">
+                <comment>Creation Time</comment>
+            </column>
+        </property>
+        <property name="updatetime" type="timestamp">
+            <column name="updatetime" length="19">
+                <comment>Record Update time</comment>
+            </column>
+        </property>
+        <set name="trackmessagenotifications" table="trackmessagenotification" inverse="true" lazy="true" fetch="join" cascade="persist,delete,save-update">
+            <key>
+                <column name="trackmessageid" not-null="true">
+                    <comment>unique trackmessage identifier</comment>
+                </column>
+            </key>
+            <one-to-many class="gov.hhs.fha.nhinc.direct.messagemonitoring.domain.Trackmessagenotification" />
+        </set>
+    </class>
+    
+    <class name="gov.hhs.fha.nhinc.direct.messagemonitoring.domain.Trackmessagenotification" table="trackmessagenotification" catalog="messagemonitoringdb">
+        <id name="id" type="java.lang.Long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="trackmessage" class="gov.hhs.fha.nhinc.direct.messagemonitoring.domain.Trackmessage" fetch="select">
+            <column name="trackmessageid" not-null="true">
+                <comment>unique trackmessage identifier</comment>
+            </column>
+        </many-to-one>
+        <property name="emailid" type="string">
+            <column name="emailid" not-null="true">
+                <comment>notification email identifier</comment>
+            </column>
+        </property>
+        <property name="messageid" type="string">
+            <column name="messageid" length="100">
+                <comment>unique email message identifier</comment>
+            </column>
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="30" not-null="true">
+                <comment>Pending, Completed, Error</comment>
+            </column>
+        </property>
+        <property name="createtime" type="timestamp">
+            <column name="createtime" length="19" />
+        </property>
+        <property name="updatetime" type="timestamp">
+            <column name="updatetime" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

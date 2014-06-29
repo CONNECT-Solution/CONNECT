@@ -1,0 +1,261 @@
+/*
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+package gov.hhs.fha.nhinc.direct.messagemonitoring.dao.impl;
+
+import gov.hhs.fha.nhinc.direct.messagemonitoring.dao.MessageMonitoringDAO;
+import gov.hhs.fha.nhinc.direct.messagemonitoring.dao.MessageMonitoringDAOException;
+import gov.hhs.fha.nhinc.direct.messagemonitoring.domain.Trackmessage;
+import gov.hhs.fha.nhinc.direct.messagemonitoring.domain.Trackmessagenotification;
+import gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
+/**
+ * Class provides MessageMonitoringDb database interface services
+ *
+ * @author Naresh Subramanyan
+ */
+public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
+
+    private static final Logger LOG = Logger.getLogger(MessageMonitoringDAOImpl.class);
+
+    private static class SingletonHolder {
+
+        public static final MessageMonitoringDAO INSTANCE = new MessageMonitoringDAOImpl();
+    }
+
+    /**
+     * Get an instance of MessageMonitoringDAO.
+     *
+     * @return singleton instance of DatabaseEventLoggerDao
+     */
+    public static MessageMonitoringDAO getInstance() {
+        LOG.debug("getInstance()...");
+        return SingletonHolder.INSTANCE;
+    }
+
+    /**
+     * Inserts the OutgoingMessage and OutgoingMessageNotification
+     *
+     * @param trackMessage Outgoing message to track
+     *
+     * @exception MessageMonitoringDAOException
+     *
+     * @return true if successful else false
+     */
+    @Override
+    public boolean addOutgoingMessage(Trackmessage trackMessage) throws MessageMonitoringDAOException {
+        Session session = null;
+        Transaction tx = null;
+        boolean result = true;
+
+        try {
+            LOG.debug("Inside addOutgoingMessage()");
+            session = getSession();
+            tx = session.beginTransaction();
+            session.persist(trackMessage);
+            tx.commit();
+
+        } catch (HibernateException e) {
+            result = false;
+            transactionRollback(tx);
+            LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
+        } finally {
+            closeSession(session, false);
+        }
+
+        return result;
+
+    }
+
+    /**
+     * Updates the OutgoingMessage and OutgoingMessageNotification
+     *
+     * @param trackMessage Outgoing message to track
+     *
+     * @exception MessageMonitoringDAOException
+     *
+     * @return true if successful else false
+     */
+    @Override
+    public boolean updateOutgoingMessage(Trackmessage trackMessage) throws MessageMonitoringDAOException {
+        Session session = null;
+        Transaction tx = null;
+        boolean result = true;
+
+        try {
+            LOG.debug("Inside addOutgoingMessage()");
+            session = getSession();
+            tx = session.beginTransaction();
+            session.update(trackMessage);
+            tx.commit();
+        } catch (HibernateException e) {
+            result = false;
+            transactionRollback(tx);
+            LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
+        } finally {
+            closeSession(session, false);
+        }
+        return result;
+    }
+
+    /**
+     * Updates the OutgoingMessageNotification
+     *
+     * @param trackMessageNotification Outgoing message to track
+     *
+     * @exception MessageMonitoringDAOException
+     *
+     * @return true if successful else false
+     */
+    @Override
+    public boolean updateMessageNotification(Trackmessagenotification trackMessageNotification) throws MessageMonitoringDAOException {
+        Session session = null;
+        Transaction tx = null;
+        boolean result = true;
+
+        try {
+            LOG.debug("Inside addOutgoingMessage()");
+            session = getSession();
+            tx = session.beginTransaction();
+            session.update(trackMessageNotification);
+            tx.commit();
+        } catch (HibernateException e) {
+            result = false;
+            transactionRollback(tx);
+            LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
+        } finally {
+            closeSession(session, false);
+        }
+        return result;
+    }
+
+    /**
+     * Deletes the OutgoingMessage and OutgoingMessageNotification
+     *
+     * @param trackMessage Outgoing message to track
+     *
+     * @exception MessageMonitoringDAOException
+     *
+     * @return true if successful else false
+     */
+    @Override
+    public boolean deleteCompletedMessages(Trackmessage trackMessage) throws MessageMonitoringDAOException {
+        Session session = null;
+        Transaction tx = null;
+        boolean result = true;
+
+        try {
+            LOG.debug("Inside addOutgoingMessage()");
+            session = getSession();
+            tx = session.beginTransaction();
+            session.delete(trackMessage);
+            tx.commit();
+        } catch (HibernateException e) {
+            result = false;
+            transactionRollback(tx);
+            LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
+        } finally {
+            closeSession(session, false);
+        }
+        return result;
+    }
+
+    /**
+     * Get all pending Outgoing messages
+     *
+     * @return 
+     */
+    @Override
+    public List<Trackmessage> getAllPendingMessages() {
+        Session session = null;
+        Transaction tx = null;
+        List<Trackmessage> pendingList = new ArrayList<Trackmessage>();
+
+        try {
+            LOG.debug("Inside addOutgoingMessage()");
+            session = getSession();
+            pendingList = session.createCriteria(Trackmessage.class).list();
+        } catch (HibernateException e) {
+            LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
+        } finally {
+            closeSession(session, false);
+        }
+        return pendingList;
+    }
+
+    /**
+     * Closes the Hibernate Session
+     *
+     * @param session Hibernate session instance
+     * @param flush
+     *
+     */
+    private void closeSession(Session session, boolean flush) {
+        if (session != null) {
+            if (flush) {
+                session.flush();
+            }
+            session.close();
+        }
+    }
+
+    /**
+     * Rolls back database transaction
+     *
+     * @param session Hibernate session instance
+     * @param flush
+     *
+     */
+    private void transactionRollback(Transaction tx) {
+        if (tx != null) {
+            tx.rollback();
+        }
+    }
+
+    /**
+     * Returns the hibernate session object
+     *
+     *
+     * @return
+     */
+    protected Session getSession() {
+        Session session = null;
+        SessionFactory fact = HibernateUtil.getSessionFactory();
+        if (fact != null) {
+            session = fact.openSession();
+        } else {
+            LOG.error("Session is null");
+        }
+        return session;
+    }
+}

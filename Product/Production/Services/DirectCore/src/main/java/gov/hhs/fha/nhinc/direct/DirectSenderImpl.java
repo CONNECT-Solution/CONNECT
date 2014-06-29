@@ -28,10 +28,13 @@ package gov.hhs.fha.nhinc.direct;
 
 import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
 import gov.hhs.fha.nhinc.direct.event.DirectEventType;
+import gov.hhs.fha.nhinc.direct.messagemonitoring.dao.impl.MessageMonitoringDAOImpl;
+import gov.hhs.fha.nhinc.direct.messagemonitoring.impl.MessageMonitoringAPI;
 import gov.hhs.fha.nhinc.mail.MailSender;
 
 import javax.mail.Address;
 import javax.mail.internet.MimeMessage;
+import org.apache.log4j.Logger;
 
 import org.nhindirect.gateway.smtp.SmtpAgent;
 import org.nhindirect.xd.common.DirectDocuments;
@@ -41,9 +44,11 @@ import org.nhindirect.xd.common.DirectDocuments;
  */
 public class DirectSenderImpl extends DirectAdapter implements DirectSender {
 
+    private static final Logger LOG = Logger.getLogger(DirectSenderImpl.class);
     private static final String MSG_SUBJECT = "DIRECT Message";
     private static final String MSG_TEXT = "DIRECT Message body text";
-    
+    private static final int OUTBOUND_RETRY_COUNT = 1;
+    private static final int OUTBOUND_NUMBER_TIMES_TRIED = 1;
     /**
      * @param externalMailSender used to send messages.
      * @param smtpAgent used to process direct messages.
@@ -58,12 +63,27 @@ public class DirectSenderImpl extends DirectAdapter implements DirectSender {
      */
     @Override
     public void sendOutboundDirect(MimeMessage message) {
+        
+        //if (MessageMonitoringImpl.getInstance().isRetryOutgoingMeesage(message)){
+            //update the DB & Cache
+            //MessageMonitoringImpl.getInstance().updateMessageMonitoring(message);
+        //}
         getDirectEventLogger().log(DirectEventType.BEGIN_OUTBOUND_DIRECT, message);
         try {
             MimeMessage processedMessage = process(message).getProcessedMessage().getMessage();
             getExternalMailSender().send(message.getAllRecipients(), processedMessage);
         } catch (Exception e) {
+            //if its security error then return send a message back to sender
+            if (OUTBOUND_RETRY_COUNT >= OUTBOUND_NUMBER_TIMES_TRIED){
+                //write the code to send a Failure message
+                //getDirectEventLogger().log(DirectEventType.END_OUTBOUND_DIRECT, message);
+                //put it on a delete bin folder
+                return;
+            }
             throw new DirectException("Exception sending outbound direct.", e, message);
+        }finally{
+            LOG.debug("Before inserting Outgoing Message");
+            MessageMonitoringAPI.getInstance().addOutgoingMessage(message);
         }
         getDirectEventLogger().log(DirectEventType.END_OUTBOUND_DIRECT, message);
     }
@@ -82,4 +102,5 @@ public class DirectSenderImpl extends DirectAdapter implements DirectSender {
             throw new DirectException("Error building and sending mime message.", e, message);
         }
     }
+    
 }
