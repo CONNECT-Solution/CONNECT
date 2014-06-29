@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
 import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
 import gov.hhs.fha.nhinc.direct.event.DirectEventType;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.impl.MessageMonitoringAPI;
+import gov.hhs.fha.nhinc.direct.messagemonitoring.util.MessageMonitoringUtil;
 import gov.hhs.fha.nhinc.mail.MailSender;
 import java.util.Collection;
 import java.util.Map;
@@ -131,16 +132,13 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
 
         MessageProcessResult result = process(message);
         MessageEnvelope processedEnvelope = result.getProcessedMessage();
-        boolean isMdn = DirectAdapterUtils.isMdn(processedEnvelope);
-        //final NHINDAddressCollection recipients = getMailRecipients(message);
-
-        //	final NHINDAddress sender = getMailSender(message);
-        //	final Tx txToTrack = getTxToTrack(message, sender, recipients);
-        //get the 
+        boolean isMdn = MessageMonitoringUtil.isMdnOrDsn(processedEnvelope.getMessage());
+        //if its MDN or DSN then log the event and update the tracking information
         if (isMdn) {
+            //figure out how to figure out if its MDN or DSN
             getDirectEventLogger().log(DirectEventType.BEGIN_INBOUND_MDN, message);
             //Update message monitoring status
-            MessageMonitoringAPI.getInstance().updateIncomingMessageNotificatinStatus(processedEnvelope.getMessage());
+            MessageMonitoringAPI.getInstance().updateIncomingMessageNotificationStatus(processedEnvelope.getMessage());
 
         } else {
             getDirectEventLogger().log(DirectEventType.BEGIN_INBOUND_DIRECT, message);

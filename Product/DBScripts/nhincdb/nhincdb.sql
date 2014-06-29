@@ -588,10 +588,10 @@ GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'127.0.0.1' IDENTIFIED BY 'nhincpass'
 GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'{host name}' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 
--- begin assigning authority
+-- begin message monitoringdb
 CREATE DATABASE messagemonitoringdb;
 
-CREATE TABLE messagemonitoringdb.trackmessage (
+CREATE TABLE messagemonitoringdb.monitoredmessage (
   id bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Unique identifier',
   senderemailid varchar(255) DEFAULT NULL COMMENT 'sender email identifier',
   subject varchar(255) DEFAULT NULL COMMENT 'email Subject',
@@ -605,21 +605,21 @@ CREATE TABLE messagemonitoringdb.trackmessage (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-CREATE TABLE messagemonitoringdb.trackmessagenotification (
+CREATE TABLE messagemonitoringdb.monitoredmessagenotification (
   id bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Unique identifier',
   emailid varchar(255) NOT NULL COMMENT 'notification email identifier',
   messageid varchar(100) DEFAULT NULL COMMENT 'unique email message identifier',
-  trackmessageid bigint(20) NOT NULL COMMENT 'unique trackmessage identifier',
+  monitoredmessageid bigint(20) NOT NULL COMMENT 'unique trackmessage identifier',
   status varchar(30) NOT NULL COMMENT 'Pending, Completed, Error',
   createtime timestamp NULL DEFAULT NULL,
   updatetime timestamp NULL DEFAULT NULL,
   PRIMARY KEY (id),
-  KEY fk_trackmessageId (trackmessageid),
-  CONSTRAINT fk_trackmessageId FOREIGN KEY (trackmessageid) REFERENCES trackmessage (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY fk_monitoredmessageId (monitoredmessageid),
+  CONSTRAINT fk_monitoredmessageId FOREIGN KEY (monitoredmessageid) REFERENCES monitoredmessage (id) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table to track outbound Message Monitoring notification';
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON messagemonitoringdb.* to nhincuser;
--- end assigning authority
+-- end message monitoring db
 
 -- -----------------------------------------------------
 -- The following is a workaround that is required for

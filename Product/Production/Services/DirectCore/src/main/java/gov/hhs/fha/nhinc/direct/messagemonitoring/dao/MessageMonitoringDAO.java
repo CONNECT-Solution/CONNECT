@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.direct.messagemonitoring.dao;
 
-import gov.hhs.fha.nhinc.direct.messagemonitoring.domain.Trackmessage;
-import gov.hhs.fha.nhinc.direct.messagemonitoring.domain.Trackmessagenotification;
+import gov.hhs.fha.nhinc.direct.messagemonitoring.domain.MonitoredMessage;
+import gov.hhs.fha.nhinc.direct.messagemonitoring.domain.MonitoredMessageNotification;
 import java.util.List;
 
 /**
@@ -37,14 +37,14 @@ import java.util.List;
  */
 public interface MessageMonitoringDAO {
 
-    public boolean addOutgoingMessage(Trackmessage trackMessage) throws MessageMonitoringDAOException;
+    public boolean addOutgoingMessage(MonitoredMessage trackMessage) throws MessageMonitoringDAOException;
 
-    public boolean updateOutgoingMessage(Trackmessage trackMessage) throws MessageMonitoringDAOException;
+    public boolean updateOutgoingMessage(MonitoredMessage trackMessage) throws MessageMonitoringDAOException;
 
-    public boolean updateMessageNotification(Trackmessagenotification trackMessageNotification) throws MessageMonitoringDAOException;
+    public boolean updateMessageNotification(MonitoredMessageNotification trackMessageNotification) throws MessageMonitoringDAOException;
 
-    public boolean deleteCompletedMessages(Trackmessage trackMessage) throws MessageMonitoringDAOException;
+    public boolean deleteCompletedMessages(MonitoredMessage trackMessage) throws MessageMonitoringDAOException;
     
-    public List<Trackmessage> getAllPendingMessages();
+    public List<MonitoredMessage> getAllPendingMessages();
 
 }

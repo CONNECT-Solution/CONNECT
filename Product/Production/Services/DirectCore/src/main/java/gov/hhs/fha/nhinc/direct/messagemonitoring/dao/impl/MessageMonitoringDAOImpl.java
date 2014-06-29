@@ -28,8 +28,8 @@ package gov.hhs.fha.nhinc.direct.messagemonitoring.dao.impl;
 
 import gov.hhs.fha.nhinc.direct.messagemonitoring.dao.MessageMonitoringDAO;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.dao.MessageMonitoringDAOException;
-import gov.hhs.fha.nhinc.direct.messagemonitoring.domain.Trackmessage;
-import gov.hhs.fha.nhinc.direct.messagemonitoring.domain.Trackmessagenotification;
+import gov.hhs.fha.nhinc.direct.messagemonitoring.domain.MonitoredMessage;
+import gov.hhs.fha.nhinc.direct.messagemonitoring.domain.MonitoredMessageNotification;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +73,7 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
      * @return true if successful else false
      */
     @Override
-    public boolean addOutgoingMessage(Trackmessage trackMessage) throws MessageMonitoringDAOException {
+    public boolean addOutgoingMessage(MonitoredMessage trackMessage) throws MessageMonitoringDAOException {
         Session session = null;
         Transaction tx = null;
         boolean result = true;
@@ -107,7 +107,7 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
      * @return true if successful else false
      */
     @Override
-    public boolean updateOutgoingMessage(Trackmessage trackMessage) throws MessageMonitoringDAOException {
+    public boolean updateOutgoingMessage(MonitoredMessage trackMessage) throws MessageMonitoringDAOException {
         Session session = null;
         Transaction tx = null;
         boolean result = true;
@@ -138,7 +138,7 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
      * @return true if successful else false
      */
     @Override
-    public boolean updateMessageNotification(Trackmessagenotification trackMessageNotification) throws MessageMonitoringDAOException {
+    public boolean updateMessageNotification(MonitoredMessageNotification trackMessageNotification) throws MessageMonitoringDAOException {
         Session session = null;
         Transaction tx = null;
         boolean result = true;
@@ -169,7 +169,7 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
      * @return true if successful else false
      */
     @Override
-    public boolean deleteCompletedMessages(Trackmessage trackMessage) throws MessageMonitoringDAOException {
+    public boolean deleteCompletedMessages(MonitoredMessage trackMessage) throws MessageMonitoringDAOException {
         Session session = null;
         Transaction tx = null;
         boolean result = true;
@@ -196,15 +196,15 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
      * @return 
      */
     @Override
-    public List<Trackmessage> getAllPendingMessages() {
+    public List<MonitoredMessage> getAllPendingMessages() {
         Session session = null;
         Transaction tx = null;
-        List<Trackmessage> pendingList = new ArrayList<Trackmessage>();
+        List<MonitoredMessage> pendingList = new ArrayList<MonitoredMessage>();
 
         try {
             LOG.debug("Inside addOutgoingMessage()");
             session = getSession();
-            pendingList = session.createCriteria(Trackmessage.class).list();
+            pendingList = session.createCriteria(MonitoredMessage.class).list();
         } catch (HibernateException e) {
             LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
         } finally {

@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.direct.messagemonitoring.util;
 
 import static gov.hhs.fha.nhinc.direct.DirectReceiverImpl.X_DIRECT_FINAL_DESTINATION_DELIVERY_HEADER_VALUE;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
@@ -35,6 +36,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.nhindirect.common.tx.TxDetailParser;
 import org.nhindirect.common.tx.TxUtil;
 import org.nhindirect.common.tx.impl.DefaultTxDetailParser;
@@ -48,16 +50,15 @@ import org.nhindirect.stagent.NHINDAddressCollection;
 
 /**
  * Message Monitoring utility class
- * 
+ *
  * @author Naresh Subramanyan
  */
 public class MessageMonitoringUtil {
 
     public static final String DISPOSITION_NOTIFICATION_OPTIONS_HEADER_NAME = "Disposition-Notification-Options";
-    
+
     public static final String DISPOSITION_NOTIFICATION_PROCESSED = "automatic-action/mdn-sent-automatically;processed";
     public static final String DISPOSITION_NOTIFICATION_DISPATCHED = "automatic-action/MDN-sent-automatically;dispatched";
-    
 
     public static final int DEFAULT_OUTBOUND_FAILED_MESSAGE_RETRY_COUNT = 1;
     public static final int DEFAULT_INBOUND_FAILED_MESSAGE_RETRY_COUNT = 1;
@@ -65,7 +66,7 @@ public class MessageMonitoringUtil {
     public static final boolean DEFAULT_MESSAGE_MONITORING_ENABLED = true;
     public static final int DEFAULT_PROCESSED_MESSAGE_RECEIVE_TIME_LIMIT = 60;
     public static final int DEFAULT_DISPATCHED_MESSAGE_RECEIVE_TIME_LIMIT = 60;
-    
+
     /**
      * Returns Mail Recipients as a NHINDAddressCollection
      *
@@ -75,8 +76,8 @@ public class MessageMonitoringUtil {
      */
     protected static NHINDAddressCollection getMailRecipients(MimeMessage message) throws MessagingException {
         final NHINDAddressCollection recipients = new NHINDAddressCollection();
-        
-        if (message.getAllRecipients() == null){
+
+        if (message.getAllRecipients() == null) {
             return recipients;
         }
 
@@ -86,6 +87,7 @@ public class MessageMonitoringUtil {
         }
         return recipients;
     }
+
     /**
      * Returns Mail Sender from the message
      *
@@ -130,6 +132,7 @@ public class MessageMonitoringUtil {
         }
         ///CLOVER:ON
     }
+
     /**
      * Returns parent message id from the message
      *
@@ -142,6 +145,7 @@ public class MessageMonitoringUtil {
         return getOriginalMessageId(convertMimeMessageToTx(msg, txParser));
 
     }
+
     /**
      * Returns true of the incoming message is Processed MDN
      *
@@ -159,6 +163,7 @@ public class MessageMonitoringUtil {
         final TxDetail detail = tx.getDetail(TxDetailType.DISPOSITION);
         return detail != null && !detail.getDetailValue().isEmpty() && detail.getDetailValue().equalsIgnoreCase(DISPOSITION_NOTIFICATION_PROCESSED);
     }
+
     /**
      * Returns true of the incoming message is Dispatched MDN
      *
@@ -176,7 +181,7 @@ public class MessageMonitoringUtil {
         final TxDetail detail = tx.getDetail(TxDetailType.DISPOSITION);
         return detail != null && !detail.getDetailValue().isEmpty() && detail.getDetailValue().equalsIgnoreCase(DISPOSITION_NOTIFICATION_DISPATCHED);
     }
-    
+
     /**
      * Returns the Original Message Id of the outbound notification
      *
@@ -193,6 +198,7 @@ public class MessageMonitoringUtil {
         return (detail != null && !detail.getDetailValue().isEmpty()) ? detail.getDetailValue() : "";
 
     }
+
     /**
      * Converts a MimeMessage to a Tx message
      *
@@ -208,9 +214,9 @@ public class MessageMonitoringUtil {
         final Map<String, TxDetail> details = parser.getMessageDetails(msg);
         return new Tx(TxUtil.getMessageType(msg), details);
     }
-    
+
     /**
-     * Returns true if the edge requested for notification else false. 
+     * Returns true if the edge requested for notification else false.
      *
      * @param message
      * @return
@@ -234,7 +240,7 @@ public class MessageMonitoringUtil {
     }
 
     /**
-     * Returns true if the edge requested for notification else false. 
+     * Returns true if the edge requested for notification else false.
      *
      * @return
      */
@@ -242,9 +248,9 @@ public class MessageMonitoringUtil {
         //TODO: need a beeter approcah to verify the value
         return StringUtils.contains(header, X_DIRECT_FINAL_DESTINATION_DELIVERY_HEADER_VALUE) && StringUtils.contains(header, "true");
     }
-    
+
     /**
-     * Returns the Outbound Failed message retry count. Reads the system 
+     * Returns the Outbound Failed message retry count. Reads the system
      * property first, if not found then reads the gateway properties, if not
      * found then uses the default value.
      *
@@ -260,9 +266,9 @@ public class MessageMonitoringUtil {
     }
 
     /**
-     * Returns the Inbound Failed message retry count. Reads the system 
-     * property first, if not found then reads the gateway properties, if not
-     * found then uses the default value.
+     * Returns the Inbound Failed message retry count. Reads the system property
+     * first, if not found then reads the gateway properties, if not found then
+     * uses the default value.
      *
      * @return
      */
@@ -274,10 +280,10 @@ public class MessageMonitoringUtil {
         //If not found, then use the default value
         return DEFAULT_INBOUND_FAILED_MESSAGE_RETRY_COUNT;
     }
-    
+
     /**
      * Return true if the notification to edge needs to be sent immediately.
-     * Reads the system property first, if not found then reads the gateway 
+     * Reads the system property first, if not found then reads the gateway
      * properties, if not found then uses the default value.
      *
      * @return
@@ -290,8 +296,9 @@ public class MessageMonitoringUtil {
         //If not found, then use the default value
         return DEFAULT_NOTIFIY_OUTBOUND_SECURITY_FAILURE_IMMEDIATE;
     }
+
     /**
-     * Returns the Processed message receive time limit. Reads the system 
+     * Returns the Processed message receive time limit. Reads the system
      * property first, if not found then reads the gateway properties, if not
      * found then uses the default value.
      *
@@ -305,13 +312,13 @@ public class MessageMonitoringUtil {
         //If not found, then use the default value
         return DEFAULT_INBOUND_FAILED_MESSAGE_RETRY_COUNT;
     }
-    
+
     /**
-     * Returns the Dispatched message receive time limit. Reads the system 
+     * Returns the Dispatched message receive time limit. Reads the system
      * property first, if not found then reads the gateway properties, if not
      * found then uses the default value.
      *
-     * @return 
+     * @return
      */
     public static int getDispatchedMessageReceiveTimeLimit() {
         //Check if its there in the Syestem Properties
@@ -320,5 +327,42 @@ public class MessageMonitoringUtil {
         //TODO
         //If not found, then use the default value
         return DEFAULT_INBOUND_FAILED_MESSAGE_RETRY_COUNT;
+    }
+
+    public static boolean isMessageMonitoringEnabled() {
+
+        //check the system properties
+        //check the property file
+        //not found then return the default value
+        return DEFAULT_MESSAGE_MONITORING_ENABLED;
+    }
+
+    /**
+     * Return true if the message is a DSN or MDN
+     *
+     * @param message containing the message to be tested.
+     * @return true if the envelope exists, the message exists and is an MDN
+     * Notification or a DSN notification.
+     */
+    public static boolean isMdnOrDsn(MimeMessage message) {
+        return TxUtil.getMessageType(message).equals(TxMessageType.DSN)
+                || TxUtil.getMessageType(message).equals(TxMessageType.MDN);
+    }
+
+    public static boolean isProcessedMDNReceiveTimeLapsed(Date createTime) {
+        //check if the currenttime - createTime > the time limit
+        long diff = (new Date()).getTime() - createTime.getTime();
+        long diffHours = diff / (60 * 60 * 1000) % 24;
+        long diffDays = diff / (24 * 60 * 60 * 1000);
+        int totalDiffHours = (int) (diffHours + (diffDays * 24));
+        return totalDiffHours > getProcessedMessageReceiveTimeLimit();
+    }
+    public static boolean isDispatchedMDNReceiveTimeLapsed(Date createTime) {
+        //check if the currenttime - createTime > the time limit
+        long diff = (new Date()).getTime() - createTime.getTime();
+        long diffHours = diff / (60 * 60 * 1000) % 24;
+        long diffDays = diff / (24 * 60 * 60 * 1000);
+        int totalDiffHours = (int) (diffHours + (diffDays * 24));
+        return totalDiffHours > getDispatchedMessageReceiveTimeLimit();
     }
 }

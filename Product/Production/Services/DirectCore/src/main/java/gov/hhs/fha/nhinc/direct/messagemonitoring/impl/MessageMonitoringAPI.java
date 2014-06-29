@@ -29,8 +29,8 @@ package gov.hhs.fha.nhinc.direct.messagemonitoring.impl;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.dao.MessageMonitoringDAO;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.dao.MessageMonitoringDAOException;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.dao.impl.MessageMonitoringDAOImpl;
-import gov.hhs.fha.nhinc.direct.messagemonitoring.domain.Trackmessage;
-import gov.hhs.fha.nhinc.direct.messagemonitoring.domain.Trackmessagenotification;
+import gov.hhs.fha.nhinc.direct.messagemonitoring.domain.MonitoredMessage;
+import gov.hhs.fha.nhinc.direct.messagemonitoring.domain.MonitoredMessageNotification;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.util.MessageMonitoringUtil;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,21 +46,20 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.nhindirect.common.tx.TxUtil;
+import org.nhindirect.common.tx.model.TxMessageType;
 
 /**
- * All the Message Monitoring API services are exposed through this class. This
- * class will maintain a cache to store all the active messages that are sent
- * out waiting for response.
+ * All the Message Monitoring API services are exposed through this class. This class will maintain a cache to store all
+ * the active messages that are sent out waiting for response.
  *
  * @author Naresh Subramanyan
  */
 public class MessageMonitoringAPI {
 
     private static final Logger LOG = Logger.getLogger(MessageMonitoringAPI.class);
-
     //messageId is the key and Trackmessage object the value
-    Map<String, Trackmessage> messageMonitoringCache = null;
-
+    Map<String, MonitoredMessage> messageMonitoringCache = null;
     private static final String STATUS_PENDING = "Pending";
     private static final String STATUS_ERROR = "Error";
     private static final String STATUS_COMPLETED = "Completed";
@@ -69,8 +68,9 @@ public class MessageMonitoringAPI {
 
     public MessageMonitoringAPI() {
         //set the default value
-        messageMonitoringCache = new HashMap<String, Trackmessage>();
-        buildCahce();
+        messageMonitoringCache = new HashMap<String, MonitoredMessage>();
+        //Load the cahce from the database
+        buildCache();
     }
 
     private static class SingletonHolder {
@@ -82,150 +82,22 @@ public class MessageMonitoringAPI {
         return SingletonHolder.INSTANCE;
     }
 
-    public void addOutgoingMessage(MimeMessage message) {
+    public void updateIncomingMessageNotificationStatus(MimeMessage message) {
+        //Alway
+        //check if the message monitoring is enabled 
+        if (!MessageMonitoringUtil.isMessageMonitoringEnabled()) {
+            LOG.debug("Message Monitoring is not enabled.");
+            return;
+        }
+        LOG.debug("Message Monitoring is enabled.");
+
         try {
-            //get the all recipients
-            InternetAddress recipients[] = (InternetAddress[]) message.getAllRecipients();
-
-            //get the mail sender
-            InternetAddress sender = (InternetAddress) message.getSender();
-            String senderMailId = sender.getAddress();
-            //Mail Subject
-            String mailSubject = message.getSubject();
-            //get the message id
-            String messageId = message.getMessageID();
-            //created time
-            Date createdTime = new Date();
-
-            boolean deliveryRequested = MessageMonitoringUtil.isNotificationRequestedByEdge(message);
-            //Create the track Message domain
-            Trackmessage tm = new Trackmessage();
-            tm.setSubject(mailSubject);
-            tm.setSenderemailid(senderMailId);
-            tm.setMessageid(messageId);
-            tm.setStatus(STATUS_PENDING);
-            tm.setDeliveryrequested(deliveryRequested);
-            tm.setCreatetime(createdTime);
-            tm.setUpdatetime(createdTime);
-            ArrayList recipientsList = new ArrayList();
-            Set messageNotificationSet = new HashSet();
-            for (InternetAddress address : recipients) {
-                String emailId = address.getAddress();
-                //create the track message notification objects
-                Trackmessagenotification tmn = new Trackmessagenotification();
-                tmn.setCreatetime(createdTime);
-                tmn.setUpdatetime(createdTime);
-                tmn.setEmailid(emailId);
-                tmn.setStatus(STATUS_PENDING);
-                messageNotificationSet.add(tmn);
-                tmn.setTrackmessage(tm);
-                recipientsList.add(emailId);
-            }
-            tm.setRecipients(StringUtils.join(recipientsList, ","));
-            tm.setTrackmessagenotifications(messageNotificationSet);
-
-            //call the dao to persist the date
-            getMessageMonitoringDAO().addOutgoingMessage(tm);
-
-            messageMonitoringCache.put(messageId, tm);
-
-        } catch (MessagingException ex) {
-            LOG.info("Failed:" + ex.getMessage());
-        } catch (MessageMonitoringDAOException ex) {
-            LOG.info("Failed:" + ex.getMessage());
-        }
-
-    }
-
-    /**
-     * Clear the cache
-     *
-     */
-    public void clearCache() {
-        messageMonitoringCache = new HashMap();
-    }
-
-    /**
-     * Build the Message Monitoring cache from the database tables. This will be
-     * called when the module is initiated.
-     *
-     */
-    public void buildCahce() {
-        //get all the Pending rows and add it to the cache
-        List<Trackmessage> pendingMessages = getAllPendingMessagesFromDatbase();
-        clearCache();
-        //load the pending outgoing messages to the cache
-        for (Trackmessage trackMessage : pendingMessages) {
-            messageMonitoringCache.put(trackMessage.getMessageid(), trackMessage);
-        }
-    }
-
-    /**
-     * Returns all the Successfully Completed outbound messages.
-     *
-     * @return List
-     */
-    public List<Trackmessage> getAllCompletedMessages() {
-        List<Trackmessage> completedMessages = new ArrayList<Trackmessage>();
-        //loop through the cache
-        for (Trackmessage trackMessage : messageMonitoringCache.values()) {
-            if (trackMessage.getStatus().equals(STATUS_COMPLETED)){
-                completedMessages.add(trackMessage);
-            }
-        }
-        return completedMessages;
-    }
-
-    /**
-     * Returns all the Successfully Completed outbound messages.
-     *
-     * @return List
-     */
-    public List<Trackmessage> getAllPendingMessagesFromDatbase() {
-        return getMessageMonitoringDAO().getAllPendingMessages();
-    }
-
-    /**
-     * Returns all the Failed outbound messages. 1. Processed not received for
-     * one or more recipients 2. Dispatched not received for one or more
-     * recipients if notification requested by edge. 3. Got Failed DSN/MDN for
-     * one or more recipients
-     *
-     * @return List
-     */
-    public List<Trackmessage> getAllFailedMessages() {
-        //loop through the list and find all the pending messages
-        List<Trackmessage> failedMessages = new ArrayList<Trackmessage>();
-        //loop through the cache
-        for (Trackmessage trackMessage : messageMonitoringCache.values()) {
-            if (trackMessage.getStatus().equals(STATUS_ERROR)){
-                failedMessages.add(trackMessage);
-            }
-            else if (trackMessage.getStatus().equals(STATUS_PENDING)){
-                //if its pending & if its elapsed then 
-                //change the status to Error
-            }
-        }
-        return failedMessages;
-    }
-
-    public void updateIncomingMessageNotificatinStatus(MimeMessage message) {
-
-        String messageId;
-        try {
-            messageId = message.getMessageID();
-
-            //TODO: check if the retry limit has reached
-            //if (isRetryLimitReached(messageMonitoringCache.get(messageId))) {
-            //update the cache
-            //update the database
-            //}
             //find out if its a successful or failed message
             boolean isMDNProcessed = MessageMonitoringUtil.isIncomingMessageMDNProcessed(message);
             boolean isMDNDispatched = MessageMonitoringUtil.isIncomingMessageMDNDispatched(message);
 
             String parentMessageId = MessageMonitoringUtil.getParentMessageId(message);
-            Trackmessage tm = messageMonitoringCache.get(parentMessageId);
+            MonitoredMessage tm = messageMonitoringCache.get(parentMessageId);
 
             //if the message is not there then ignore it for now
             if (tm == null) {
@@ -245,9 +117,18 @@ public class MessageMonitoringAPI {
             }
             String senderMailId = sender.getAddress();
 
-            Trackmessagenotification tmn = getTrackmessagenotification(tm, senderMailId);
-            //if delivery is requested
-            if (tm.getDeliveryrequested()) {
+            MonitoredMessageNotification tmn = getTrackmessagenotification(tm, senderMailId);
+            //check if its a MDN or DSN
+            //if its an DSN then set the status to Error
+            if (TxUtil.getMessageType(message).equals(TxMessageType.DSN)) {
+                if (tmn == null) {
+                   tm.setStatus(STATUS_ERROR);    
+                }
+                else{
+                    tmn.setStatus(STATUS_ERROR);
+                }
+            } //if its an MDN and also if delivery is requested
+            else if (tm.getDeliveryrequested()) {
                 //Update only if MDN is dispatched
                 if (isMDNDispatched) {
                     //update the status to completed
@@ -261,12 +142,13 @@ public class MessageMonitoringAPI {
                 tmn.setStatus(STATUS_ERROR);
             }
             Date updatedTime = new Date();
-            if (isAllIncomingMessagesReceived(tm).equalsIgnoreCase(STATUS_PENDING)) {
+            if (getIncomingMessagesReceivedStatus(tm).equalsIgnoreCase(STATUS_PENDING)
+                || getIncomingMessagesReceivedStatus(tm).equalsIgnoreCase(STATUS_PROCESSED)) {
                 tmn.setUpdatetime(updatedTime);
                 getMessageMonitoringDAO().updateMessageNotification(tmn);
             } else {
                 //set the status to Completed or Error
-                tm.setStatus(isAllIncomingMessagesReceived(tm));
+                tm.setStatus(getIncomingMessagesReceivedStatus(tm));
                 tm.setUpdatetime(updatedTime);
                 getMessageMonitoringDAO().updateOutgoingMessage(tm);
             }
@@ -275,6 +157,168 @@ public class MessageMonitoringAPI {
         } catch (MessageMonitoringDAOException mde) {
             LOG.info("Failed:" + mde.getMessage());
         }
+    }
+
+    private void updateOutgoingMessage(MonitoredMessage trackMessage, boolean failed) {
+        //set the status
+        trackMessage.setStatus(failed ? STATUS_ERROR : STATUS_COMPLETED);
+
+    }
+
+    public void addOutgoingMessage(MimeMessage message, boolean failed, String errorMessage) {
+        //Always check if message monitoring enabled
+        if (!MessageMonitoringUtil.isMessageMonitoringEnabled()) {
+            LOG.debug("Message Monitoring is not enabled.");
+            return;
+        }
+        try {
+            //get the all recipients
+            InternetAddress recipients[] = (InternetAddress[]) message.getAllRecipients();
+
+            //get the mail sender
+            InternetAddress sender = (InternetAddress) message.getSender();
+            String senderMailId = sender.getAddress();
+            //Mail Subject
+            String mailSubject = message.getSubject();
+            //get the message id
+            String messageId = message.getMessageID();
+            //created time
+            Date createdTime = new Date();
+
+            boolean deliveryRequested = MessageMonitoringUtil.isNotificationRequestedByEdge(message);
+            //Create the track Message domain
+            MonitoredMessage tm = new MonitoredMessage();
+            tm.setSubject(mailSubject);
+            tm.setSenderemailid(senderMailId);
+            tm.setMessageid(messageId);
+            tm.setStatus(failed ? STATUS_ERROR : STATUS_PENDING);
+            tm.setDeliveryrequested(deliveryRequested);
+            tm.setCreatetime(createdTime);
+            tm.setUpdatetime(createdTime);
+            ArrayList recipientsList = new ArrayList();
+            Set messageNotificationSet = new HashSet();
+            for (InternetAddress address : recipients) {
+                String emailId = address.getAddress();
+                //create the track message notification objects
+                MonitoredMessageNotification tmn = new MonitoredMessageNotification();
+                tmn.setCreatetime(createdTime);
+                tmn.setUpdatetime(createdTime);
+                tmn.setEmailid(emailId);
+                tmn.setStatus(failed ? STATUS_ERROR : STATUS_PENDING);
+                messageNotificationSet.add(tmn);
+                tmn.setMonitoredmessage(tm);
+                recipientsList.add(emailId);
+            }
+            tm.setRecipients(StringUtils.join(recipientsList, ","));
+            tm.setMonitoredmessagenotifications(messageNotificationSet);
+
+            //call the dao to persist the date
+            getMessageMonitoringDAO().addOutgoingMessage(tm);
+
+            messageMonitoringCache.put(messageId, tm);
+
+        } catch (MessagingException ex) {
+            LOG.info("Failed:" + ex.getMessage());
+        } catch (MessageMonitoringDAOException ex) {
+            LOG.info("Failed:" + ex.getMessage());
+        }
+    }
+
+    /**
+     * Build the Message Monitoring cache from the database tables. This will be called when the module is initiated.
+     *
+     */
+    public void buildCache() {
+        LOG.debug("Inside buildCache");
+        //Always check if message monitoring enabled
+        if (!MessageMonitoringUtil.isMessageMonitoringEnabled()) {
+            LOG.debug("Message Monitoring is not enabled.");
+            return;
+        }
+        LOG.debug("Message Monitoring is enabled.");
+        //get all the Pending rows and add it to the cache
+        List<MonitoredMessage> pendingMessages = getAllPendingMessagesFromDatabase();
+        LOG.debug("Total cache rows from database:" + pendingMessages.size());
+        //clear the cache before loading the data from database
+        clearCache();
+        //load the pending outgoing messages to the cache
+        for (MonitoredMessage trackMessage : pendingMessages) {
+            messageMonitoringCache.put(trackMessage.getMessageid(), trackMessage);
+            LOG.debug("messageID:" + trackMessage.getMessageid());
+            LOG.debug("Total child rows for the messageId:" + trackMessage.getMonitoredmessagenotifications().size());
+        }
+        LOG.debug("Exiting buildCache.");
+    }
+
+    /**
+     * Clear the cache.
+     *
+     */
+    public void clearCache() {
+        messageMonitoringCache = new HashMap();
+    }
+
+    /**
+     * Returns all the Successfully Completed outbound messages.
+     *
+     * @return List
+     */
+    public List<MonitoredMessage> getAllCompletedMessages() {
+        List<MonitoredMessage> completedMessages = new ArrayList<MonitoredMessage>();
+        //loop through the cache
+        for (MonitoredMessage trackMessage : messageMonitoringCache.values()) {
+            if (trackMessage.getStatus().equals(STATUS_COMPLETED)) {
+                completedMessages.add(trackMessage);
+            }
+        }
+        return completedMessages;
+    }
+
+    /**
+     * Returns all the Successfully Completed outbound messages.
+     *
+     * @return List
+     */
+    public List<MonitoredMessage> getAllPendingMessages() {
+        List<MonitoredMessage> pendingMessages = new ArrayList<MonitoredMessage>();
+        //loop through the cache
+        for (MonitoredMessage trackMessage : messageMonitoringCache.values()) {
+            if (trackMessage.getStatus().equals(STATUS_PENDING)) {
+                pendingMessages.add(trackMessage);
+            }
+        }
+        return pendingMessages;
+    }
+
+    /**
+     * Returns all the Successfully Completed outbound messages.
+     *
+     * @return List
+     */
+    public List<MonitoredMessage> getAllPendingMessagesFromDatabase() {
+        return getMessageMonitoringDAO().getAllPendingMessages();
+    }
+
+    /**
+     * Returns all the Failed outbound messages. 1. Processed not received for one or more recipients 2. Dispatched not
+     * received for one or more recipients if notification requested by edge. 3. Got Failed DSN/MDN for one or more
+     * recipients
+     *
+     * @return List
+     */
+    public List<MonitoredMessage> getAllFailedMessages() {
+        //loop through the list and find all the pending messages
+        List<MonitoredMessage> failedMessages = new ArrayList<MonitoredMessage>();
+        //loop through the cache
+        for (MonitoredMessage trackMessage : messageMonitoringCache.values()) {
+            if (trackMessage.getStatus().equals(STATUS_ERROR)) {
+                failedMessages.add(trackMessage);
+            } else if (trackMessage.getStatus().equals(STATUS_PENDING)) {
+                //if its pending & if its elapsed then 
+                //change the status to Error
+            }
+        }
+        return failedMessages;
     }
 
     public boolean updateMessageMonitoringRetryCount(MimeMessage message) {
@@ -286,14 +330,13 @@ public class MessageMonitoringAPI {
             //check if the retry limit has reached
             if (isRetryLimitReached(messageMonitoringCache.get(messageId))) {
                 //update the cache
-
                 //update the database
             }
             //its already there, just update the
             String emailId = null;
             Date updatedTime = new Date();
             //create the track message notification objects
-            Trackmessagenotification tmn = new Trackmessagenotification();
+            MonitoredMessageNotification tmn = new MonitoredMessageNotification();
             tmn.setUpdatetime(updatedTime);
             tmn.setEmailid(emailId);
             tmn.setStatus(STATUS_PENDING);
@@ -307,19 +350,18 @@ public class MessageMonitoringAPI {
     //clear the database entries
     public void deleteCompletedOutgoingMessages() {
         //loop through the completed or Error List and delete the rows
-
     }
 
     protected MessageMonitoringDAO getMessageMonitoringDAO() {
         return MessageMonitoringDAOImpl.getInstance();
     }
 
-    public boolean isRetryOutgoingMeesage(MimeMessage message) {
+    public boolean isRetryOutgoingMessage(MimeMessage message) {
         String messageId = MessageMonitoringUtil.getParentMessageId(message);
         return messageMonitoringCache.containsKey(messageId);
     }
 
-    private boolean isRetryLimitReached(Trackmessage trackMessage) {
+    private boolean isRetryLimitReached(MonitoredMessage trackMessage) {
         //TODO
         //get the outgoing retry count
 
@@ -330,14 +372,14 @@ public class MessageMonitoringAPI {
         return true;
     }
 
-    public Trackmessagenotification getTrackmessagenotification(Trackmessage trackMessage) throws MessagingException {
+    public MonitoredMessageNotification getTrackmessagenotification(MonitoredMessage trackMessage) throws MessagingException {
         //assuming only one recipient
         String emailId = trackMessage.getRecipients();
 
-        Iterator iterator = trackMessage.getTrackmessagenotifications().iterator();
+        Iterator iterator = trackMessage.getMonitoredmessagenotifications().iterator();
         // check values
         while (iterator.hasNext()) {
-            Trackmessagenotification tmn = (Trackmessagenotification) iterator.next();
+            MonitoredMessageNotification tmn = (MonitoredMessageNotification) iterator.next();
             //get the correspoding email id
             if (tmn.getEmailid().equalsIgnoreCase(emailId)) {
                 return tmn;
@@ -346,11 +388,11 @@ public class MessageMonitoringAPI {
         return null;
     }
 
-    public Trackmessagenotification getTrackmessagenotification(Trackmessage trackMessage, String emailId) throws MessagingException {
-        Iterator iterator = trackMessage.getTrackmessagenotifications().iterator();
+    public MonitoredMessageNotification getTrackmessagenotification(MonitoredMessage trackMessage, String emailId) throws MessagingException {
+        Iterator iterator = trackMessage.getMonitoredmessagenotifications().iterator();
         // check values
         while (iterator.hasNext()) {
-            Trackmessagenotification tmn = (Trackmessagenotification) iterator.next();
+            MonitoredMessageNotification tmn = (MonitoredMessageNotification) iterator.next();
             //get the correspoding email id
             if (tmn.getEmailid().equalsIgnoreCase(emailId)) {
                 return tmn;
@@ -359,28 +401,44 @@ public class MessageMonitoringAPI {
         return null;
     }
 
-    private String isAllIncomingMessagesReceived(Trackmessage trackMessage) {
+    private String getIncomingMessagesReceivedStatus(MonitoredMessage trackMessage) {
         boolean failed = false;
+        boolean processed = false;
+
+        //if the trackMessage status is Error then return ERROR
+        if (trackMessage.getStatus().equalsIgnoreCase(STATUS_ERROR)) {
+            return STATUS_ERROR;
+        }
 
         //loop through the 
         //loop through the incoming message and return STATUS_COMPLETED or STATUS_PENDING or STATUS_FAILED
-        Iterator iterator = trackMessage.getTrackmessagenotifications().iterator();
+        Iterator iterator = trackMessage.getMonitoredmessagenotifications().iterator();
         // check values
+
         while (iterator.hasNext()) {
-            Trackmessagenotification tmn = (Trackmessagenotification) iterator.next();
+            MonitoredMessageNotification tmn = (MonitoredMessageNotification) iterator.next();
             //get the correspoding email id
-            if (tmn.getStatus().equalsIgnoreCase(STATUS_PENDING) || tmn.getStatus().equalsIgnoreCase(STATUS_PROCESSED)) {
+            if (tmn.getStatus().equalsIgnoreCase(STATUS_PENDING)) {
                 return STATUS_PENDING;
+            } else if (tmn.getStatus().equalsIgnoreCase(STATUS_PROCESSED)) {
+                processed = true;
             } else if (tmn.getStatus().equalsIgnoreCase(STATUS_ERROR)) {
                 failed = true;
             }
         }
-        return failed ? STATUS_ERROR : STATUS_COMPLETED;
+        //If not failed rows then retun it as PROCESSED
+        if (failed) {
+            return STATUS_ERROR;
+        } else if (processed) {
+            return STATUS_PROCESSED;
+        } else {
+            return STATUS_COMPLETED;
+        }
     }
 
     public boolean isAllIncomingMessagesReceived(MimeMessage message) {
         String parentMessageId = MessageMonitoringUtil.getParentMessageId(message);
-        Trackmessage tm = messageMonitoringCache.get(parentMessageId);
+        MonitoredMessage tm = messageMonitoringCache.get(parentMessageId);
 
         if (tm != null) {
             return tm.getStatus().equalsIgnoreCase(STATUS_COMPLETED) || tm.getStatus().equalsIgnoreCase(STATUS_ERROR);
@@ -389,32 +447,88 @@ public class MessageMonitoringAPI {
         //TODO: revist this
         return true;
     }
-    
-    public void process(){
-        processAllMessages();
-        deleteAllPurgeMessages();
+
+    public void process() {
+        LOG.debug("Inside Message Monitoring API process() method.");
+        //check all the pending messages and update the status 
+        //1. Check if the message is elaspsed and yes then update the status to Failed
+        //   else Completed
+        //2. Check all the completed /failed messages and set the status
+        //    to Completed or Failed
+        checkAndUpdateMessageStatus();
+        try {
+            //send notification to all the completed
+            //or failed messages
+            //delete the notified message
+            processAllMessages();
+        } catch (MessageMonitoringDAOException ex) {
+            LOG.debug("Error in Message Monitoring API process()." + ex.getMessage());
+        }
+        LOG.debug("Exiting Message Monitoring API process() method.");
     }
 
-    public void deleteAllPurgeMessages() {
-        
+    private void checkAndUpdateMessageStatus() {
+        LOG.debug("Exiting Message Monitoring API checkAndUpdateMessageStatus() method.");
+        //get the pending message list
+        List<MonitoredMessage> pendingMessages = getAllPendingMessages();
+
+        for (MonitoredMessage trackMessage : pendingMessages) {
+            //check if the processed message is received, if not check the time limit
+            //reached
+            if (trackMessage.getStatus().equals(STATUS_PENDING) && getIncomingMessagesReceivedStatus(trackMessage).equals(STATUS_PENDING)) {
+                if (MessageMonitoringUtil.isProcessedMDNReceiveTimeLapsed(trackMessage.getCreatetime())) {
+                    LOG.debug("Processed MDN not received on time for the message ID:" + trackMessage.getMessageid());
+                    //update the status to Error
+                    updateOutgoingMessage(trackMessage, true);
+                }//process the next pending message
+            }//if the message status is processed then check if the time limit reached for dispatched
+            else if (trackMessage.getStatus().equals(STATUS_PENDING) && getIncomingMessagesReceivedStatus(trackMessage).equals(STATUS_PROCESSED)) {
+                if (MessageMonitoringUtil.isDispatchedMDNReceiveTimeLapsed(trackMessage.getCreatetime())) {
+                    LOG.debug("Dispatched MDN not received on time for the message ID:" + trackMessage.getMessageid());
+                    //update the status to Error
+                    updateOutgoingMessage(trackMessage, true);
+                }//process the next pending message
+            }
+        }
+        LOG.debug("Exiting Message Monitoring API checkAndUpdateMessageStatus() method.");
     }
-    public void processAllMessages() {
-        //
+
+    public void processAllMessages() throws MessageMonitoringDAOException {
+        LOG.debug("Inside Message Monitoring API checkAndUpdateMessageStatus() method.");
         //********FAILED MESSAGES***********
         //get all the failed messages
-        //send out a Failed notification to the edge
-        
-        //set the status to Purge
-
+        List<MonitoredMessage> failedMessages = getAllFailedMessages();
+        for (MonitoredMessage trackMessage : failedMessages) {
+            //send out a Failed notification to the edge
+            sendFailedEdgeNotification(trackMessage);
+            //delete the message
+            MessageMonitoringDAOImpl.getInstance().deleteCompletedMessages(trackMessage);
+            messageMonitoringCache.remove(trackMessage.getMessageid());
+            LOG.debug("Completed message deleted. Message ID:" + trackMessage.getMessageid());
+        }
         //********COMPLETED MESSAGES********
         //get all the completed messages
-        
-        //send out a successful notification
-        
-        //update the status to Purge
+        List<MonitoredMessage> completedMessages = getAllCompletedMessages();
+        for (MonitoredMessage trackMessage : completedMessages) {
+            //send out a successful notification
+            sendSuccessEdgeNotification(trackMessage);
+            //delete the message
+            MessageMonitoringDAOImpl.getInstance().deleteCompletedMessages(trackMessage);
+            messageMonitoringCache.remove(trackMessage.getMessageid());
+            LOG.debug("Completed message deleted. Message ID:" + trackMessage.getMessageid());
+        }
+        LOG.debug("Exiting Message Monitoring API checkAndUpdateMessageStatus() method.");
     }
-    
-    public void sendEdgeNotification(){
-        
+
+    public void sendSuccessEdgeNotification(MonitoredMessage trackMessage) {
+        LOG.debug("Inside Message Monitoring API sendSuccessEdgeNotification() method.");
+        //logic goes here
+        LOG.debug("Exiting Message Monitoring API sendSuccessEdgeNotification() method.");
+    }
+
+    public void sendFailedEdgeNotification(MonitoredMessage trackMessage) {
+        LOG.debug("Inside Message Monitoring API sendFailedEdgeNotification() method.");
+        //logic goes here
+        LOG.debug("Exiting Message Monitoring API sendFailedEdgeNotification() method.");
     }
 }

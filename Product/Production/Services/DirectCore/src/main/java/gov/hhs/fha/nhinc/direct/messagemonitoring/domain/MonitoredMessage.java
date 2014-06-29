@@ -35,7 +35,7 @@ import java.util.Set;
  *
  * @author nsubrama
  */
-public class Trackmessage implements java.io.Serializable {
+public class MonitoredMessage implements java.io.Serializable {
 
     private Long id;
     private String senderemailid;
@@ -46,12 +46,12 @@ public class Trackmessage implements java.io.Serializable {
     private String status;
     private Date createtime;
     private Date updatetime;
-    private Set trackmessagenotifications = new HashSet(0);
+    private Set monitoredmessagenotifications = new HashSet(0);
 
-    public Trackmessage() {
+    public MonitoredMessage() {
     }
 
-    public Trackmessage(String senderemailid, String subject, String messageid, String recipients, Boolean deliveryrequested, String status, Date createtime, Date updatetime, Set trackmessagenotifications) {
+    public MonitoredMessage(String senderemailid, String subject, String messageid, String recipients, Boolean deliveryrequested, String status, Date createtime, Date updatetime, Set monitoredmessagenotifications) {
         this.senderemailid = senderemailid;
         this.subject = subject;
         this.messageid = messageid;
@@ -60,7 +60,7 @@ public class Trackmessage implements java.io.Serializable {
         this.status = status;
         this.createtime = createtime;
         this.updatetime = updatetime;
-        this.trackmessagenotifications = trackmessagenotifications;
+        this.monitoredmessagenotifications = monitoredmessagenotifications;
     }
 
     public Long getId() {
@@ -135,12 +135,12 @@ public class Trackmessage implements java.io.Serializable {
         this.updatetime = updatetime;
     }
 
-    public Set getTrackmessagenotifications() {
-        return this.trackmessagenotifications;
+    public Set getMonitoredmessagenotifications() {
+        return this.monitoredmessagenotifications;
     }
 
-    public void setTrackmessagenotifications(Set trackmessagenotifications) {
-        this.trackmessagenotifications = trackmessagenotifications;
+    public void setMonitoredmessagenotifications(Set monitoredmessagenotifications) {
+        this.monitoredmessagenotifications = monitoredmessagenotifications;
     }
 
 }

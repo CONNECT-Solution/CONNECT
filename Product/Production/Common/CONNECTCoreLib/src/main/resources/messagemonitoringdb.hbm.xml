@@ -8,7 +8,7 @@
 -->
 
 <hibernate-mapping>
-    <class name="gov.hhs.fha.nhinc.direct.messagemonitoring.domain.Trackmessage" table="trackmessage" catalog="messagemonitoringdb">
+    <class name="gov.hhs.fha.nhinc.direct.messagemonitoring.domain.MonitoredMessage" table="monitoredmessage" catalog="messagemonitoringdb">
         <id name="id" type="java.lang.Long">
             <column name="id" />
             <generator class="identity" />
@@ -51,24 +51,24 @@
                 <comment>Record Update time</comment>
             </column>
         </property>
-        <set name="trackmessagenotifications" table="trackmessagenotification" inverse="true" lazy="true" fetch="join" cascade="persist,delete,save-update">
+        <set name="monitoredmessagenotifications" table="monitoredmessagenotification" inverse="true" fetch="join" cascade="persist,delete,save-update">
             <key>
-                <column name="trackmessageid" not-null="true">
-                    <comment>unique trackmessage identifier</comment>
+                <column name="monitoredmessageid" not-null="true">
+                    <comment>unique monitoredmessage identifier</comment>
                 </column>
             </key>
-            <one-to-many class="gov.hhs.fha.nhinc.direct.messagemonitoring.domain.Trackmessagenotification" />
+            <one-to-many class="gov.hhs.fha.nhinc.direct.messagemonitoring.domain.MonitoredMessageNotification" />
         </set>
     </class>
     
-    <class name="gov.hhs.fha.nhinc.direct.messagemonitoring.domain.Trackmessagenotification" table="trackmessagenotification" catalog="messagemonitoringdb">
+    <class name="gov.hhs.fha.nhinc.direct.messagemonitoring.domain.MonitoredMessageNotification" table="monitoredmessagenotification" catalog="messagemonitoringdb">
         <id name="id" type="java.lang.Long">
             <column name="id" />
             <generator class="identity" />
         </id>
-        <many-to-one name="trackmessage" class="gov.hhs.fha.nhinc.direct.messagemonitoring.domain.Trackmessage" fetch="select">
-            <column name="trackmessageid" not-null="true">
-                <comment>unique trackmessage identifier</comment>
+        <many-to-one name="monitoredmessage" class="gov.hhs.fha.nhinc.direct.messagemonitoring.domain.MonitoredMessage" fetch="select">
+            <column name="monitoredmessageid" not-null="true">
+                <comment>unique monitored message identifier</comment>
             </column>
         </many-to-one>
         <property name="emailid" type="string">

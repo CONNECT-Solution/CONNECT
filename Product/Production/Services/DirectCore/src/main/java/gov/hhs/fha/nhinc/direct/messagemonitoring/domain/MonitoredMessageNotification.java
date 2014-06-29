@@ -32,27 +32,27 @@ import java.util.Date;
  *
  * @author nsubrama
  */
-public class Trackmessagenotification implements java.io.Serializable {
+public class MonitoredMessageNotification implements java.io.Serializable {
 
     private Long id;
-    private Trackmessage trackmessage;
+    private MonitoredMessage monitoredmessage;
     private String emailid;
     private String messageid;
     private String status;
     private Date createtime;
     private Date updatetime;
 
-    public Trackmessagenotification() {
+    public MonitoredMessageNotification() {
     }
 
-    public Trackmessagenotification(Trackmessage trackmessage, String emailid, String status) {
-        this.trackmessage = trackmessage;
+    public MonitoredMessageNotification(MonitoredMessage monitoredmessage, String emailid, String status) {
+        this.monitoredmessage = monitoredmessage;
         this.emailid = emailid;
         this.status = status;
     }
 
-    public Trackmessagenotification(Trackmessage trackmessage, String emailid, String messageid, String status, Date createtime, Date updatetime) {
-        this.trackmessage = trackmessage;
+    public MonitoredMessageNotification(MonitoredMessage monitoredmessage, String emailid, String messageid, String status, Date createtime, Date updatetime) {
+        this.monitoredmessage = monitoredmessage;
         this.emailid = emailid;
         this.messageid = messageid;
         this.status = status;
@@ -68,12 +68,12 @@ public class Trackmessagenotification implements java.io.Serializable {
         this.id = id;
     }
 
-    public Trackmessage getTrackmessage() {
-        return this.trackmessage;
+    public MonitoredMessage getMonitoredmessage() {
+        return this.monitoredmessage;
     }
 
-    public void setTrackmessage(Trackmessage trackmessage) {
-        this.trackmessage = trackmessage;
+    public void setMonitoredmessage(MonitoredMessage monitoredmessage) {
+        this.monitoredmessage = monitoredmessage;
     }
 
     public String getEmailid() {
