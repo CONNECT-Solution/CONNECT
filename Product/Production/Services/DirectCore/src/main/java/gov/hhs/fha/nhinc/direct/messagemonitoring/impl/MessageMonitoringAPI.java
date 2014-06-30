@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.direct.messagemonitoring.impl;
 
+import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.dao.MessageMonitoringDAO;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.dao.MessageMonitoringDAOException;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.dao.impl.MessageMonitoringDAOImpl;
@@ -41,7 +42,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
+import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.apache.commons.lang.StringUtils;
@@ -83,7 +87,7 @@ public class MessageMonitoringAPI {
     }
 
     public void updateIncomingMessageNotificationStatus(MimeMessage message) {
-        //Alway
+        //Always
         //check if the message monitoring is enabled 
         if (!MessageMonitoringUtil.isMessageMonitoringEnabled()) {
             LOG.debug("Message Monitoring is not enabled.");
@@ -122,9 +126,8 @@ public class MessageMonitoringAPI {
             //if its an DSN then set the status to Error
             if (TxUtil.getMessageType(message).equals(TxMessageType.DSN)) {
                 if (tmn == null) {
-                   tm.setStatus(STATUS_ERROR);    
-                }
-                else{
+                    tm.setStatus(STATUS_ERROR);
+                } else {
                     tmn.setStatus(STATUS_ERROR);
                 }
             } //if its an MDN and also if delivery is requested
@@ -448,8 +451,19 @@ public class MessageMonitoringAPI {
         return true;
     }
 
+    /**
+     * This method is called by the poller task to monitor & update the message status and also to notify the edge
+     * client with respective status of the
+     *
+     */
     public void process() {
         LOG.debug("Inside Message Monitoring API process() method.");
+
+        //Always check if the message monitoring is enabled 
+        if (!MessageMonitoringUtil.isMessageMonitoringEnabled()) {
+            LOG.debug("Message Monitoring is not enabled.");
+            return;
+        }
         //check all the pending messages and update the status 
         //1. Check if the message is elaspsed and yes then update the status to Failed
         //   else Completed
@@ -520,15 +534,52 @@ public class MessageMonitoringAPI {
         LOG.debug("Exiting Message Monitoring API checkAndUpdateMessageStatus() method.");
     }
 
+    /**
+     * Sends out a Successful SMTP edge notification.
+     *
+     * @return List
+     */
     public void sendSuccessEdgeNotification(MonitoredMessage trackMessage) {
         LOG.debug("Inside Message Monitoring API sendSuccessEdgeNotification() method.");
+
+        String subject = "Successfully Delivered: " + trackMessage.getSubject();
+        String emailText = "Message successfully delivered to the recipient " + trackMessage.getRecipients();
+        String postmasterEmailId = MessageMonitoringUtil.getDomainPostmasterEmailId()+"@"+MessageMonitoringUtil.getDomainFromEmail(trackMessage.getSenderemailid());
         //logic goes here
+        DirectEdgeProxy proxy = MessageMonitoringUtil.getDirectEdgeProxy();
+        MimeMessage message;
+        try {
+            message = MessageMonitoringUtil.createMimeMessage(postmasterEmailId, subject, trackMessage.getSenderemailid(), emailText);
+            proxy.provideAndRegisterDocumentSetB(message);
+        } catch (AddressException ex) {
+            java.util.logging.Logger.getLogger(MessageMonitoringAPI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MessagingException ex) {
+            java.util.logging.Logger.getLogger(MessageMonitoringAPI.class.getName()).log(Level.SEVERE, null, ex);
+        }
         LOG.debug("Exiting Message Monitoring API sendSuccessEdgeNotification() method.");
     }
 
-    public void sendFailedEdgeNotification(MonitoredMessage trackMessage) {
+    /**
+     * Sends out a Failed SMTP edge notification.
+     *
+     * @return List
+     */
+    private void sendFailedEdgeNotification(MonitoredMessage trackMessage) {
         LOG.debug("Inside Message Monitoring API sendFailedEdgeNotification() method.");
+        String subject = "Email Delivery Failed: " + trackMessage.getSubject();
+        String emailText = "Email delivery failed for the recipient " + trackMessage.getRecipients();
+        String postmasterEmailId = MessageMonitoringUtil.getDomainPostmasterEmailId()+"@"+MessageMonitoringUtil.getDomainFromEmail(trackMessage.getSenderemailid());
         //logic goes here
+        DirectEdgeProxy proxy = MessageMonitoringUtil.getDirectEdgeProxy();
+        MimeMessage message;
+        try {
+            message = MessageMonitoringUtil.createMimeMessage(postmasterEmailId, subject, trackMessage.getSenderemailid(), emailText);
+            proxy.provideAndRegisterDocumentSetB(message);
+        } catch (AddressException ex) {
+            java.util.logging.Logger.getLogger(MessageMonitoringAPI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MessagingException ex) {
+            java.util.logging.Logger.getLogger(MessageMonitoringAPI.class.getName()).log(Level.SEVERE, null, ex);
+        }
         LOG.debug("Exiting Message Monitoring API sendFailedEdgeNotification() method.");
     }
 }

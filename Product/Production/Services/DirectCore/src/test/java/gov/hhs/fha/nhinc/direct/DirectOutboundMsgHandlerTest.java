@@ -27,20 +27,18 @@
 package gov.hhs.fha.nhinc.direct;
 
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getSampleMimeMessage;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
 import gov.hhs.fha.nhinc.mail.MailClientException;
 import gov.hhs.fha.nhinc.mail.MailSender;
 import gov.hhs.fha.nhinc.mail.MessageHandler;
-
 import javax.mail.Address;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-
 import org.junit.Test;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.gateway.smtp.SmtpAgent;
 import org.nhindirect.stagent.NHINDAddress;
@@ -50,30 +48,35 @@ import org.nhindirect.stagent.NHINDAddressCollection;
  * Test {@link OutboundMessageHandler}.
  */
 public class DirectOutboundMsgHandlerTest extends DirectBaseTest {
-    
+
     private SmtpAgent mockSmtpAgent;
     private MessageProcessResult mockResult;
     private MailSender mockExtMailSender;
     private DirectSender directSender;
-    private MessageHandler testOutboundMsgHandler;        
+    private MessageHandler testOutboundMsgHandler;
 
-    
     /**
-     * Verify that the Outbound Message Handler will use the external direct mail client to directify the message.
-     * The internal direct mail client passed in will be ignored.
-     * @throws MailClientException 
-     * @throws MessagingException 
+     * Verify that the Outbound Message Handler will use the external direct mail client to directify the message. The
+     * internal direct mail client passed in will be ignored.
+     *
+     * @throws MailClientException
+     * @throws MessagingException
      */
-    //@Test
+    @Test
     public void canHandleOutboundMsg() throws MailClientException, MessagingException {
-        
+
         mockSmtpAgent = mock(SmtpAgent.class);
         mockResult = DirectUnitTestUtil.getMockMessageProcessResult(1);
         when(mockSmtpAgent.processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class),
-                any(NHINDAddress.class))).thenReturn(mockResult);
-        
+            any(NHINDAddress.class))).thenReturn(mockResult);
+
         mockExtMailSender = mock(MailSender.class);
-        directSender = new DirectSenderImpl(mockExtMailSender, mockSmtpAgent, DirectEventLogger.getInstance());        
+        directSender = new DirectSenderImpl(mockExtMailSender, mockSmtpAgent, DirectEventLogger.getInstance()) {
+            //igonre it for now. Need to come up with better unit tests for this    
+            @Override
+            protected void addOutgoingMessage(MimeMessage message, boolean failed, String errorMessage) {
+            }
+        };
         testOutboundMsgHandler = new DirectOutboundMsgHandler(directSender);
 
         MimeMessage mimeMessage = getSampleMimeMessage();
@@ -81,5 +84,4 @@ public class DirectOutboundMsgHandlerTest extends DirectBaseTest {
 
         verify(mockExtMailSender).send(any(Address[].class), any(MimeMessage.class));
     }
-    
 }

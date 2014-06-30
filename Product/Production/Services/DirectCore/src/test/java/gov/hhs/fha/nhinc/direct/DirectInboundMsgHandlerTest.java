@@ -27,11 +27,6 @@
 package gov.hhs.fha.nhinc.direct;
 
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getSampleMimeMessage;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxySmtpImpl;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxySoapImpl;
@@ -40,13 +35,16 @@ import gov.hhs.fha.nhinc.mail.MailClientException;
 import gov.hhs.fha.nhinc.mail.MailSender;
 import gov.hhs.fha.nhinc.mail.MessageHandler;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
 import javax.mail.Address;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-
 import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.gateway.smtp.SmtpAgent;
 import org.nhindirect.stagent.NHINDAddress;
@@ -60,13 +58,14 @@ public class DirectInboundMsgHandlerTest extends DirectBaseTest {
     private SmtpAgent mockSmtpAgent;
     private MailSender mockExtMailSender;
     private MailSender mockIntMailSender;
-    private MessageProcessResult mockResult; 
+    private MessageProcessResult mockResult;
     private DirectReceiver directReceiver;
-    private MessageHandler testInboundMsgHandler;        
+    private MessageHandler testInboundMsgHandler;
 
     /**
      * Set up before each test.
-     * @throws MessagingException 
+     *
+     * @throws MessagingException
      */
     @Before
     public void setUp() throws MessagingException {
@@ -75,25 +74,27 @@ public class DirectInboundMsgHandlerTest extends DirectBaseTest {
         mockIntMailSender = mock(MailSender.class);
         mockResult = DirectUnitTestUtil.getMockMessageProcessResult(1);
         when(mockSmtpAgent.processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class),
-                any(NHINDAddress.class))).thenReturn(mockResult);
+            any(NHINDAddress.class))).thenReturn(mockResult);
     }
-    
+
     /**
-     * Test {@link InboundMessageHandler#handleMessage(MimeMessage, DirectClient)}
-     * Verify that an inbound message is handled and passed to the internal smtp mail server.
-     * @throws MailClientException 
+     * Test {@link InboundMessageHandler#handleMessage(MimeMessage, DirectClient)} Verify that an inbound message is
+     * handled and passed to the internal smtp mail server.
+     *
+     * @throws MailClientException
      */
     @Test
-    public void canHandleInboundMessageSmtpEdgeClient() throws MailClientException {                
+    public void canHandleInboundMessageSmtpEdgeClient() throws MailClientException {
         setUpForSmtpEdgeClient();
         testInboundMsgHandler.handleMessage(getSampleMimeMessage());
         verifyInboundMessageHandler(2, 1, 1);
     }
-    
+
     /**
-     * Test {@link InboundMessageHandler#handleMessage(MimeMessage, DirectClient)}
-     * Verify that the notification messages are logged if the processed message is null. 
-     * @throws MailClientException 
+     * Test {@link InboundMessageHandler#handleMessage(MimeMessage, DirectClient)} Verify that the notification messages
+     * are logged if the processed message is null.
+     *
+     * @throws MailClientException
      */
     @Test
     public void willLogNotificationsWhenProcessedMessageIsNullSmtpEdgeClient() throws MailClientException {
@@ -102,24 +103,25 @@ public class DirectInboundMsgHandlerTest extends DirectBaseTest {
         testInboundMsgHandler.handleMessage(getSampleMimeMessage());
         verifyInboundMessageHandler(1, 0, 0);
     }
-    
+
     /**
-     * Test {@link InboundMessageHandler#handleMessage(MimeMessage, DirectClient)}
-     * Verify that an inbound message is handled and passed to the internal smtp mail server.
-     * @throws MailClientException 
+     * Test {@link InboundMessageHandler#handleMessage(MimeMessage, DirectClient)} Verify that an inbound message is
+     * handled and passed to the internal smtp mail server.
+     *
+     * @throws MailClientException
      */
     @Test
-    public void canHandleInboundMessageSoapEdgeClient() throws MailClientException {                
+    public void canHandleInboundMessageSoapEdgeClient() throws MailClientException {
         setUpForSoapEdgeClient();
         testInboundMsgHandler.handleMessage(getSampleMimeMessage());
         verifyInboundMessageHandler(2, 1, 0);
     }
 
     private void verifyInboundMessageHandler(int timesToProcess, int timesToSendMdn, int timesSentToInternalSmtp)
-            throws MailClientException {
+        throws MailClientException {
         // verify the smtp agent is used to process the message and process the mdn response.
         verify(mockSmtpAgent, times(timesToProcess)).processMessage(any(MimeMessage.class),
-                any(NHINDAddressCollection.class), any(NHINDAddress.class));
+            any(NHINDAddressCollection.class), any(NHINDAddress.class));
 
         // verify that the external direct mail client is used to send the MDN notification emails.
         verify(mockExtMailSender, times(timesToSendMdn)).send(any(Address[].class), any(MimeMessage.class));
@@ -127,7 +129,7 @@ public class DirectInboundMsgHandlerTest extends DirectBaseTest {
         // verify that the internal direct mail client is used n times to resend the message
         verify(mockIntMailSender, times(timesSentToInternalSmtp)).send(any(Address[].class), any(MimeMessage.class));
     }
-    
+
     private void setUpForSmtpEdgeClient() {
         directReceiver = new DirectReceiverImpl(mockExtMailSender, mockSmtpAgent, DirectEventLogger.getInstance()) {
             /**
@@ -137,9 +139,15 @@ public class DirectInboundMsgHandlerTest extends DirectBaseTest {
             protected DirectEdgeProxy getDirectEdgeProxy() {
                 return new DirectEdgeProxySmtpImpl(mockIntMailSender);
             }
-            
-        };        
-        testInboundMsgHandler = new DirectInboundMsgHandler(directReceiver);
+        };
+        testInboundMsgHandler = new DirectInboundMsgHandler(directReceiver) {
+            @Override
+            protected void handleMessageMonitoring() {
+                //do nothing for now
+                //need to come up with better unit tests
+                //to to handle message monitoring
+            }
+        };
     }
 
     private void setUpForSoapEdgeClient() {
@@ -150,8 +158,15 @@ public class DirectInboundMsgHandlerTest extends DirectBaseTest {
             @Override
             protected DirectEdgeProxy getDirectEdgeProxy() {
                 return new DirectEdgeProxySoapImpl(new WebServiceProxyHelper());
-            }            
-        };        
-        testInboundMsgHandler = new DirectInboundMsgHandler(directReceiver);
+            }
+        };
+        testInboundMsgHandler = new DirectInboundMsgHandler(directReceiver) {
+            @Override
+            protected void handleMessageMonitoring() {
+                //do nothing for now
+                //need to come up with better unit tests
+                //to to handle message monitoring
+            }
+        };
     }
 }

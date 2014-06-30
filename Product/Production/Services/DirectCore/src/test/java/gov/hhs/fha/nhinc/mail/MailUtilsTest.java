@@ -26,17 +26,15 @@
  */
 package gov.hhs.fha.nhinc.mail;
 
-import static org.mockito.Matchers.anyBoolean;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-
 import javax.mail.Flags;
 import javax.mail.Folder;
 import javax.mail.MessagingException;
 import javax.mail.Store;
 import javax.mail.internet.MimeMessage;
-
 import org.junit.Test;
+import static org.mockito.Matchers.anyBoolean;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 import org.mockito.stubbing.Stubber;
 
 /**
@@ -48,7 +46,7 @@ public class MailUtilsTest {
      * Test {@link MailUtils#closeQuietly(Store)}.
      * @throws MessagingException messaging exception
      */
-    //@Test
+    @Test
     public void canCloseQuietlyOnStoreException() throws MessagingException {
         MailUtils.closeQuietly(getMockStore(true));
     }
@@ -57,7 +55,7 @@ public class MailUtilsTest {
      * Test {@link MailUtils#closeQuietly(Store, Folder, boolean)}.
      * @throws MessagingException messaging exception
      */
-    //@Test
+    @Test
     public void canCloseBothQuietlyOnStoreException() throws MessagingException {
         MailUtils.closeQuietly(getMockStore(true), getMockFolder(false), MailUtils.FOLDER_EXPUNGE_INBOX_TRUE);
     }
@@ -66,7 +64,7 @@ public class MailUtilsTest {
      * Test {@link MailUtils#closeQuietly(Store, Folder, boolean)}.
      * @throws MessagingException messaging exception
      */
-    //@Test
+    @Test
     public void canCloseBothQuietlyOnFolderException() throws MessagingException {
         MailUtils.closeQuietly(getMockStore(false), getMockFolder(true), MailUtils.FOLDER_EXPUNGE_INBOX_TRUE);
     }
@@ -75,7 +73,7 @@ public class MailUtilsTest {
      * Test {@link MailUtils#setDeletedQuietly(MimeMessage)}.
      * @throws MessagingException messaging exception
      */
-    //@Test
+    @Test
     public void canSetDeletedQuietlyOnException() throws MessagingException {
         MimeMessage mockMimeMsg = mock(MimeMessage.class);
         doThrowMessagingException().when(mockMimeMsg).setFlag(Flags.Flag.DELETED, true);

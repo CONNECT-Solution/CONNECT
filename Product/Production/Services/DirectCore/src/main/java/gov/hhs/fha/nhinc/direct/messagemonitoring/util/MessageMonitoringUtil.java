@@ -27,12 +27,17 @@
 package gov.hhs.fha.nhinc.direct.messagemonitoring.util;
 
 import static gov.hhs.fha.nhinc.direct.DirectReceiverImpl.X_DIRECT_FINAL_DESTINATION_DELIVERY_HEADER_VALUE;
+import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
+import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxyObjectFactory;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.apache.commons.lang.StringUtils;
@@ -56,16 +61,15 @@ import org.nhindirect.stagent.NHINDAddressCollection;
 public class MessageMonitoringUtil {
 
     public static final String DISPOSITION_NOTIFICATION_OPTIONS_HEADER_NAME = "Disposition-Notification-Options";
-
     public static final String DISPOSITION_NOTIFICATION_PROCESSED = "automatic-action/mdn-sent-automatically;processed";
     public static final String DISPOSITION_NOTIFICATION_DISPATCHED = "automatic-action/MDN-sent-automatically;dispatched";
-
     public static final int DEFAULT_OUTBOUND_FAILED_MESSAGE_RETRY_COUNT = 1;
     public static final int DEFAULT_INBOUND_FAILED_MESSAGE_RETRY_COUNT = 1;
     public static final boolean DEFAULT_NOTIFIY_OUTBOUND_SECURITY_FAILURE_IMMEDIATE = true;
     public static final boolean DEFAULT_MESSAGE_MONITORING_ENABLED = true;
     public static final int DEFAULT_PROCESSED_MESSAGE_RECEIVE_TIME_LIMIT = 60;
     public static final int DEFAULT_DISPATCHED_MESSAGE_RECEIVE_TIME_LIMIT = 60;
+    public static final String DEFAULT_POSTMASTER_EMAIL_ID_PREFIX = "postmaster";
 
     /**
      * Returns Mail Recipients as a NHINDAddressCollection
@@ -250,9 +254,8 @@ public class MessageMonitoringUtil {
     }
 
     /**
-     * Returns the Outbound Failed message retry count. Reads the system
-     * property first, if not found then reads the gateway properties, if not
-     * found then uses the default value.
+     * Returns the Outbound Failed message retry count. Reads the system property first, if not found then reads the
+     * gateway properties, if not found then uses the default value.
      *
      * @return
      */
@@ -266,9 +269,8 @@ public class MessageMonitoringUtil {
     }
 
     /**
-     * Returns the Inbound Failed message retry count. Reads the system property
-     * first, if not found then reads the gateway properties, if not found then
-     * uses the default value.
+     * Returns the Inbound Failed message retry count. Reads the system property first, if not found then reads the
+     * gateway properties, if not found then uses the default value.
      *
      * @return
      */
@@ -282,9 +284,8 @@ public class MessageMonitoringUtil {
     }
 
     /**
-     * Return true if the notification to edge needs to be sent immediately.
-     * Reads the system property first, if not found then reads the gateway
-     * properties, if not found then uses the default value.
+     * Return true if the notification to edge needs to be sent immediately. Reads the system property first, if not
+     * found then reads the gateway properties, if not found then uses the default value.
      *
      * @return
      */
@@ -297,10 +298,10 @@ public class MessageMonitoringUtil {
         return DEFAULT_NOTIFIY_OUTBOUND_SECURITY_FAILURE_IMMEDIATE;
     }
 
+    
     /**
-     * Returns the Processed message receive time limit. Reads the system
-     * property first, if not found then reads the gateway properties, if not
-     * found then uses the default value.
+     * Returns the Processed message receive time limit. Reads the system property first, if not found then reads the
+     * gateway properties, if not found then uses the default value.
      *
      * @return
      */
@@ -314,9 +315,23 @@ public class MessageMonitoringUtil {
     }
 
     /**
-     * Returns the Dispatched message receive time limit. Reads the system
-     * property first, if not found then reads the gateway properties, if not
-     * found then uses the default value.
+     * Returns the Processed message receive time limit. Reads the system property first, if not found then reads the
+     * gateway properties, if not found then uses the default value.
+     *
+     * @return
+     */
+    public static String getDomainPostmasterEmailId() {
+        //Check if its there in the Syestem Properties
+        //TODO
+        //Read it from the properties file
+        //TODO
+        //If not found, then use the default value
+        return DEFAULT_POSTMASTER_EMAIL_ID_PREFIX;
+    }
+    
+    /**
+     * Returns the Dispatched message receive time limit. Reads the system property first, if not found then reads the
+     * gateway properties, if not found then uses the default value.
      *
      * @return
      */
@@ -341,12 +356,11 @@ public class MessageMonitoringUtil {
      * Return true if the message is a DSN or MDN
      *
      * @param message containing the message to be tested.
-     * @return true if the envelope exists, the message exists and is an MDN
-     * Notification or a DSN notification.
+     * @return true if the envelope exists, the message exists and is an MDN Notification or a DSN notification.
      */
     public static boolean isMdnOrDsn(MimeMessage message) {
         return TxUtil.getMessageType(message).equals(TxMessageType.DSN)
-                || TxUtil.getMessageType(message).equals(TxMessageType.MDN);
+            || TxUtil.getMessageType(message).equals(TxMessageType.MDN);
     }
 
     public static boolean isProcessedMDNReceiveTimeLapsed(Date createTime) {
@@ -357,6 +371,7 @@ public class MessageMonitoringUtil {
         int totalDiffHours = (int) (diffHours + (diffDays * 24));
         return totalDiffHours > getProcessedMessageReceiveTimeLimit();
     }
+
     public static boolean isDispatchedMDNReceiveTimeLapsed(Date createTime) {
         //check if the currenttime - createTime > the time limit
         long diff = (new Date()).getTime() - createTime.getTime();
@@ -364,5 +379,41 @@ public class MessageMonitoringUtil {
         long diffDays = diff / (24 * 60 * 60 * 1000);
         int totalDiffHours = (int) (diffHours + (diffDays * 24));
         return totalDiffHours > getDispatchedMessageReceiveTimeLimit();
+    }
+
+    public static MimeMessage createMimeMessage(String postMasterEmailId, String subject,
+        String recipient, String text) throws AddressException, MessagingException {
+        MimeMessage message = new MimeMessage((Session) null);
+        message.setSender(new InternetAddress(postMasterEmailId));
+        message.setSubject(subject);
+        message.setRecipient(RecipientType.TO, new InternetAddress(recipient));
+        message.setText(text);
+        message.setFrom(new InternetAddress(postMasterEmailId));
+        message.setSentDate(new Date());
+        return message;
+    }
+
+    /**
+     * Get the Direct edge Proxy
+     * 
+     * @return DirectEdgeProxy implementation to handle the direct edge
+     */
+    public static DirectEdgeProxy getDirectEdgeProxy() {
+        DirectEdgeProxyObjectFactory factory = new DirectEdgeProxyObjectFactory();
+        return factory.getDirectEdgeProxy();
+    }
+    /**
+     * Returns the domain name from an emailId.
+     * 
+     * @return
+     */
+    public static String getDomainFromEmail(String emailId){
+        if (emailId!=null){
+               String[] emailSplit = emailId.split("@");
+               if (emailSplit.length >= 2){
+                   return emailSplit[1];
+               }
+        }
+        return null;
     }
 }

@@ -67,6 +67,10 @@ public class DirectSenderImplTest extends DirectBaseTest {
             protected MailSender getExternalMailSender() {
                 return mockMailSender;
             }
+            //igonre it for now. Need to come up with better unit tests for this    
+            @Override
+            protected void addOutgoingMessage(MimeMessage message, boolean failed, String errorMessage) {
+            }
         };
     }
 
@@ -90,7 +94,7 @@ public class DirectSenderImplTest extends DirectBaseTest {
     /**
      * Test of sendOutboundDirect method, of class DirectSenderImpl.
      */
-    //@Test(expected = DirectException.class)
+    @Test(expected = DirectException.class)
     public void testSendOutboundDirect_4args() {
         System.out.println("sendOutboundDirect");
         Address sender = mock(Address.class);

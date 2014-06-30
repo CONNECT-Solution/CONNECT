@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
+import gov.hhs.fha.nhinc.direct.messagemonitoring.impl.MessageMonitoringAPI;
 import gov.hhs.fha.nhinc.mail.MessageHandler;
 
 import javax.mail.internet.MimeMessage;
@@ -39,14 +40,14 @@ import org.apache.log4j.Logger;
 public class DirectInboundMsgHandler implements MessageHandler {
 
     private static final Logger LOG = Logger.getLogger(DirectInboundMsgHandler.class);
-
     /**
      * Property for the external direct client used to send the outbound message.
      */
     private final DirectReceiver directReceiver;
-    
+
     /**
      * Constructor.
+     *
      * @param directReceiver direct receiver used to process messages.
      */
     public DirectInboundMsgHandler(DirectReceiver directReceiver) {
@@ -60,11 +61,16 @@ public class DirectInboundMsgHandler implements MessageHandler {
     public boolean handleMessage(MimeMessage message) {
         boolean handled = false;
         try {
-           directReceiver.receiveInbound(message);
-           handled = true;
+            directReceiver.receiveInbound(message);
+            //Run the message monitoring logic
+            handleMessageMonitoring();
+            handled = true;
         } catch (Exception e) {
             LOG.error("Exception while processing and sending outbound direct message", e);
         }
         return handled;
+    }
+    protected void handleMessageMonitoring(){
+        MessageMonitoringAPI.getInstance().process();
     }
 }

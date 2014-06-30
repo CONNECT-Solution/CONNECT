@@ -77,7 +77,7 @@ public class DirectSenderImpl extends DirectAdapter implements DirectSender {
             LOG.debug("Before inserting Outgoing Message");
             //if failed then insert a row with the status failed, which will be
             //used by the Notification piece to send a message to the edge
-            MessageMonitoringAPI.getInstance().addOutgoingMessage(message,failed, errorMessage);
+            addOutgoingMessage(message,failed,errorMessage);
             //add an error even. TODO: Make sure the error is logged into the 
             //even logging
             getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message);
@@ -99,5 +99,7 @@ public class DirectSenderImpl extends DirectAdapter implements DirectSender {
             throw new DirectException("Error building and sending mime message.sendOutboundDirect", e, message);
         }
     }
-    
+    protected void addOutgoingMessage(MimeMessage message, boolean failed, String errorMessage){
+        MessageMonitoringAPI.getInstance().addOutgoingMessage(message,failed, errorMessage);
+    }    
 }
