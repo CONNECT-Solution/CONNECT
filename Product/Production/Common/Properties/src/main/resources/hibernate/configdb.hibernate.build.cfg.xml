@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<!-- This file is added in Properties as a workaround to avoid classloader issues in embedded GF. The CONNECTDirectConfig 
+    uses antlr-2.7.7 which conflicts the embedded GF antlr available in the classpath. Hence this file is added to embedded GF 
+    Properties library and it's overwritten into configdb.hibernate.config.xml while build. This file is introduced as part of 
+    CONN-1212. -->
+
+<hibernate-configuration>
+    <session-factory>
+
+        <!-- SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <!-- Disable the second-level cache -->
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+
+        <property name="connection.datasource">java:comp/env/jdbc/configdb_datasource</property>
+
+        <property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+
+        <!-- We currently have the antlr classpath conflict described here: http://thejavablog.wordpress.com/2010/12/02/classnotfoundexception-org-hibernate-hql-ast-hqltoken/ 
+            Switching to the classing translator so that our named query works. -->
+        <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
+
+        <!-- Mapping files -->
+        <mapping resource="configdb.hbm.xml" />
+
+    </session-factory>
+</hibernate-configuration>
