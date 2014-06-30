@@ -1,4 +1,3 @@
-package gov.hhs.fha.nhinc.direct;
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
@@ -25,46 +24,40 @@ package gov.hhs.fha.nhinc.direct;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
-
-import gov.hhs.fha.nhinc.mail.MessageHandler;
-import javax.mail.internet.MimeMessage;
-import org.apache.log4j.Logger;
+package gov.hhs.fha.nhinc.direct.messagemonitoring.dao;
 
 /**
- * Handles outbound messages from an internal mail client. Outbound messages are directified and resent using the
- * external mail server.
+ *
+ * @author nsubrama
  */
-public class DirectOutboundMsgHandler implements MessageHandler {
+public class MessageMonitoringDAOException extends Exception {
 
-    private static final Logger LOG = Logger.getLogger(DirectOutboundMsgHandler.class);
-
-    /**
-     * Property for the external direct client used to send the outbound message.
-     */
-    private final DirectSender directSender;
-    
-    /**
-     * Constructor.
-     * @param directSender direct sender used to send outbound direct messages.
-     */
-    public DirectOutboundMsgHandler(DirectSender directSender) {
-        this.directSender = directSender;
+    public MessageMonitoringDAOException() {
     }
 
     /**
      * {@inheritDoc}
+     * @param msg
      */
-    @Override
-    public boolean handleMessage(MimeMessage message) {
-        boolean handled = false;
-        try {
-            directSender.sendOutboundDirect(message);
-            handled = true;
-        } catch (Exception e) {
-            LOG.error("Exception while processing and sending outbound direct message", e);
-        }
-        return handled;
+    public MessageMonitoringDAOException(String msg) {
+        super(msg);
     }
-        
+
+    /**
+     * {@inheritDoc}
+     * @param msg
+     * @param t
+     */
+    public MessageMonitoringDAOException(String msg, Throwable t) {
+        super(msg, t);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @param t
+     */
+    public MessageMonitoringDAOException(Throwable t) {
+        super(t);
+    }
+
 }

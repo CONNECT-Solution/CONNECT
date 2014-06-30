@@ -26,17 +26,15 @@
  */
 package gov.hhs.fha.nhinc.mail;
 
-import static org.mockito.Matchers.anyBoolean;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-
 import javax.mail.Flags;
 import javax.mail.Folder;
 import javax.mail.MessagingException;
 import javax.mail.Store;
 import javax.mail.internet.MimeMessage;
-
 import org.junit.Test;
+import static org.mockito.Matchers.anyBoolean;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 import org.mockito.stubbing.Stubber;
 
 /**

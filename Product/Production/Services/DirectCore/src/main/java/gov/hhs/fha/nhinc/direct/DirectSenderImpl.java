@@ -28,10 +28,13 @@ package gov.hhs.fha.nhinc.direct;
 
 import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
 import gov.hhs.fha.nhinc.direct.event.DirectEventType;
+import gov.hhs.fha.nhinc.direct.messagemonitoring.dao.impl.MessageMonitoringDAOImpl;
+import gov.hhs.fha.nhinc.direct.messagemonitoring.impl.MessageMonitoringAPI;
 import gov.hhs.fha.nhinc.mail.MailSender;
 
 import javax.mail.Address;
 import javax.mail.internet.MimeMessage;
+import org.apache.log4j.Logger;
 
 import org.nhindirect.gateway.smtp.SmtpAgent;
 import org.nhindirect.xd.common.DirectDocuments;
@@ -41,9 +44,9 @@ import org.nhindirect.xd.common.DirectDocuments;
  */
 public class DirectSenderImpl extends DirectAdapter implements DirectSender {
 
+    private static final Logger LOG = Logger.getLogger(DirectSenderImpl.class);
     private static final String MSG_SUBJECT = "DIRECT Message";
     private static final String MSG_TEXT = "DIRECT Message body text";
-    
     /**
      * @param externalMailSender used to send messages.
      * @param smtpAgent used to process direct messages.
@@ -58,12 +61,26 @@ public class DirectSenderImpl extends DirectAdapter implements DirectSender {
      */
     @Override
     public void sendOutboundDirect(MimeMessage message) {
+        boolean failed = false;
+        String errorMessage = null;
         getDirectEventLogger().log(DirectEventType.BEGIN_OUTBOUND_DIRECT, message);
         try {
             MimeMessage processedMessage = process(message).getProcessedMessage().getMessage();
             getExternalMailSender().send(message.getAllRecipients(), processedMessage);
         } catch (Exception e) {
-            throw new DirectException("Exception sending outbound direct.", e, message);
+            //if its security error then return send a message back to sender
+            failed = true;
+            errorMessage = e.getMessage();
+            //TODO: drop the message to a delete bin directory for future ref
+            return;
+        }finally{
+            LOG.debug("Before inserting Outgoing Message");
+            //if failed then insert a row with the status failed, which will be
+            //used by the Notification piece to send a message to the edge
+            addOutgoingMessage(message,failed,errorMessage);
+            //add an error even. TODO: Make sure the error is logged into the 
+            //even logging
+            getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message);
         }
         getDirectEventLogger().log(DirectEventType.END_OUTBOUND_DIRECT, message);
     }
@@ -79,7 +96,10 @@ public class DirectSenderImpl extends DirectAdapter implements DirectSender {
                     .subject(MSG_SUBJECT).text(MSG_TEXT).documents(documents).messageId(messageId).build();
             sendOutboundDirect(message);
         } catch (Exception e) {
-            throw new DirectException("Error building and sending mime message.", e, message);
+            throw new DirectException("Error building and sending mime message.sendOutboundDirect", e, message);
         }
     }
+    protected void addOutgoingMessage(MimeMessage message, boolean failed, String errorMessage){
+        MessageMonitoringAPI.getInstance().addOutgoingMessage(message,failed, errorMessage);
+    }    
 }
