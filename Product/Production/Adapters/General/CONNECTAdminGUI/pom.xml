@@ -19,12 +19,10 @@
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DirectWebservices</artifactId>
-            <version>4.0.8-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
-            <version>4.0.9-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
