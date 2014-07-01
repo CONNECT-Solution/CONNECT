@@ -17,6 +17,14 @@
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DirectWebservices</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>CONNECTCommonTypesLib</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate</artifactId>
             <exclusions>

@@ -18,40 +18,32 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.admingui.proxy.service;
 
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectAgent;
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectCertificate;
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectDomain;
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
-import java.util.List;
-import org.nhind.config.common.AddDomain;
-import org.nhind.config.common.Domain;
-import org.nhind.config.common.UpdateDomain;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP11ServicePortDescriptor;
+import org.nhind.config.common.ConfigurationService;
 
 /**
  *
  * @author jasonasmith
  */
-public interface DirectService {
-    
-    public List<Domain> getDomains();
-    public void updateDomain(UpdateDomain domain);
-    public void addDomain(AddDomain domain);
-    public void deleteDomain(Domain domain);
-    
-    public List<DirectAgent> getAgents();
-    public void updateAgent(DirectAgent agent);
-    public void addAgent(DirectAgent agent);
-    public void deleteAgent(DirectAgent agent);
-    
-    public List<DirectCertificate> getCertificates();
-    public void addCertificate(DirectCertificate cert);
-    public void deleteCertificate(DirectCertificate cert);
-    
-    public List<DirectTrustBundle> getTrustBundles();
-    public void updateTrustBundle(DirectTrustBundle tb);
-    public void addTrustBundle(DirectTrustBundle tb);
-    public void deleteTrustBundle(DirectTrustBundle tb);
+public class DirectConfigUnsecuredServicePortDescriptor extends 
+    SOAP11ServicePortDescriptor<ConfigurationService> {
 
+    private String configAction;
+    
+    public void setWSAddressingAction(String configAction){
+        this.configAction = configAction;
+    }
+    
+    @Override
+    public String getWSAddressingAction() {
+        return configAction;
+    }
+
+    @Override
+    public Class<ConfigurationService> getPortClass() {
+        return ConfigurationService.class;
+    }
+    
 }

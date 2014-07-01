@@ -52,6 +52,10 @@ import gov.hhs.fha.nhinc.directconfig.entity.Domain;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
 import gov.hhs.fha.nhinc.directconfig.service.DomainService;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddDomain;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddDomainResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.UpdateDomain;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.UpdateDomainResponse;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -89,24 +93,27 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
 
     /**
      * {@inheritDoc}
+     * @param domain
      */
     @Override
-    public void addDomain(Domain domain) throws ConfigurationServiceException {
-        dao.add(domain);
-        log.info("Added Domain: " + domain.getDomainName());
+    public AddDomainResponse addDomain(AddDomain domain) throws ConfigurationServiceException {
+        dao.add(domain.getDomain());
+        log.info("Added Domain: " + domain.getDomain().getDomainName());
+        return new AddDomainResponse();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void updateDomain(Domain domain) throws ConfigurationServiceException {
+    public UpdateDomainResponse updateDomain(UpdateDomain domain) throws ConfigurationServiceException {
         if (domain != null) {
-            dao.update(domain);
-            log.info("Modified Domain: " + domain.getDomainName());
+            dao.update(domain.getDomain());
+            log.info("Modified Domain: " + domain.getDomain().getDomainName());
         } else {
             log.debug("No domain provided");
         }
+        return new UpdateDomainResponse();
     }
 
     /**

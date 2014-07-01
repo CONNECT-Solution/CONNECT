@@ -31,13 +31,15 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import org.nhind.config.common.AddDomain;
+import org.nhind.config.common.Domain;
+import org.nhind.config.common.UpdateDomain;
 import org.springframework.stereotype.Service;
 
 /**
  *
  * @author jasonasmith
  */
-@Service
 public class MockDirectServiceImpl implements DirectService {
     
     private static HashMap<Integer, DirectDomain> domains;
@@ -80,20 +82,23 @@ public class MockDirectServiceImpl implements DirectService {
         certificates.put(2, new DirectCertificate(2, "ENABLED", "connectdirect.connect.org", "NO", "b145e498144454c16e9b9aff60b93e2f0e9839f3",
             "10/17/2013, 11:50", "10/17/2013, 09:54", "10/15/2023, 09:54"));
     }
-
+    
     @Override
-    public List<DirectDomain> getDomains() {
+    public List<Domain> getDomains(){
+        return null;
+    }
+    
+    public List<DirectDomain> getDomainsMock() {
         return new ArrayList(domains.values());
     }
 
     @Override
-    public void updateDomain(DirectDomain domain) {
-        domains.put(domain.getPosition(), domain);
+    public void updateDomain(UpdateDomain domain) {
+        //domains.put(domain.getPosition(), domain);
     }
 
     @Override
-    public void deleteDomain(DirectDomain domain) {
-        domains.remove(domain.getPosition());
+    public void deleteDomain(Domain domain) {
         
         Collection<DirectDomain> collectionDomains = domains.values();
         
@@ -181,10 +186,8 @@ public class MockDirectServiceImpl implements DirectService {
     }
 
     @Override
-    public void addDomain(DirectDomain domain) {
-        int i = domains.size() + 1;
-        domain.setPosition(i);
-        domains.put(i, domain);
+    public void addDomain(AddDomain domain) {
+        
     }
 
     @Override

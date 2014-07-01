@@ -268,7 +268,7 @@ public class WebServiceProxyHelper {
      * @throws IllegalAccessException Exceptions thrown by invoke - passed on.
      * @throws InvocationTargetException Exceptions thrown by invoke - passed on.
      */
-    private Object invokeTheMethod(Method oMethod, Object portObject, Object operationInput)
+    private Object invokeTheMethod(Method oMethod, Object portObject, Object ... operationInput)
             throws IllegalAccessException, InvocationTargetException {
         return oMethod.invoke(portObject, operationInput);
     }
@@ -305,7 +305,7 @@ public class WebServiceProxyHelper {
      * @return Web service response - may be null if one way operation (Assumption).
      * @throws Exception generic exception
      */
-    public Object invokePort(Object portObject, Class<?> portClass, String methodName, Object operationInput)
+    public Object invokePort(Object portObject, Class<?> portClass, String methodName, Object ... operationInput)
             throws Exception {
         LOG.debug("Begin invokePort");
 
@@ -324,13 +324,13 @@ public class WebServiceProxyHelper {
         }
 
         if ((iRetryCount > 0) && (iRetryDelay > 0) && (sExceptionText != null) && (sExceptionText.length() > 0)) {
-            oResponse = invokePortWithRetry(portObject, portClass, operationInput, iRetryCount, iRetryDelay, oMethod);
+            oResponse = invokePortWithRetry(portObject, portClass, iRetryCount, iRetryDelay, oMethod, operationInput);
         } // if ((iRetryCount > 0) && (iRetryDelay > 0))
         else {
             LOG.debug("Invoking " + portClass.getCanonicalName() + "." + oMethod.getName()
                     + ": Retry is not being used");
 
-            oResponse = invokePort(portObject, portClass, operationInput, oResponse, oMethod);
+            oResponse = invokePort(portObject, portClass, oResponse, oMethod, operationInput);
         }
 
         LOG.debug("End invokePort");
@@ -346,8 +346,8 @@ public class WebServiceProxyHelper {
      * @return
      * @throws Exception
      */
-    private Object invokePort(Object portObject, Class<?> portClass, Object operationInput, Object oResponse,
-            Method oMethod) throws Exception {
+    private Object invokePort(Object portObject, Class<?> portClass, Object oResponse,
+            Method oMethod, Object ... operationInput) throws Exception {
         try {
 
             LOG.debug("with parameters:" + listParameters(oMethod.getParameterTypes()));
@@ -388,8 +388,8 @@ public class WebServiceProxyHelper {
      * @return Web service response - may be null if one way operation (Assumption).
      * @throws Exception
      */
-    public Object invokePortWithRetry(Object portObject, Class<?> portClass, Object operationInput, int iRetryCount,
-            int iRetryDelay, Method oMethod) throws Exception {
+    public Object invokePortWithRetry(Object portObject, Class<?> portClass, int iRetryCount,
+            int iRetryDelay, Method oMethod, Object ... operationInput) throws Exception {
         Object oResponse = null;
         int i = 1;
         Exception eCatchExp = new Exception();
@@ -399,7 +399,7 @@ public class WebServiceProxyHelper {
                 LOG.debug("Invoking " + portClass.getCanonicalName() + "." + oMethod.getName() + ": Try #" + i);
 
                 // invokePort will log any exception and throw back out
-                oResponse = invokePort(portObject, portClass, operationInput, oResponse, oMethod);
+                oResponse = invokePort(portObject, portClass, oResponse, oMethod, operationInput);
                 break;
             } catch (InvocationTargetException e) {
                 Throwable throwable = e.getCause();

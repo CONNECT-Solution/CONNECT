@@ -19,7 +19,7 @@
 							<div class="form-group">
 								<h:outputLabel for="select-edit-status" class="col-sm-3 control-label" id="select-edit-statusLbl" value="Status:" />
 								<div class="col-sm-9">
-									<p:selectOneMenu id="select-edit-status" value="#{directDomainBean.selectedDomain.domainStatus}">
+                                    <p:selectOneMenu id="select-edit-status" value="#{directDomainBean.selectedDomain.status}">
 										<f:selectItem itemLabel="NEW" itemValue="NEW" />
 										<f:selectItem itemLabel="ENABLED" itemValue="ENABLED" />
 										<f:selectItem itemLabel="DISABLED" itemValue="DISABLED" />
@@ -34,10 +34,10 @@
 					<p:tab title="Addresses">
 						<h:form id="addressForm" class="form-horizontal">
 							<h4>Stored Addresses</h4>
-							<p:dataTable id="addressDataTable" var="address" value="#{directDomainBean.selectedDomain.addresses}" selection="#{directDomainBean.selectedAddress}" rowKey="#{address.endpoint}" styleClass="table table-striped table-domains">
+                            <p:dataTable id="addressDataTable" var="address" value="#{directDomainBean.selectedDomain.address}" selection="#{directDomainBean.selectedAddress}" rowKey="#{address.endpoint}" styleClass="table table-striped table-domains">
 								<p:column headerText="Delete" selectionMode="single" />
 								<p:column headerText="Endpoint" sortBy="endpoint">
-									<h:outputText value="#{address.endpoint}" />
+                                    <h:outputText value="#{address.endpoint}" />
 								</p:column>
 								<p:column headerText="Type" sortBy="type">
 									<h:outputText value="#{address.type}" />
@@ -46,7 +46,6 @@
 							<p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
 								<p:commandButton update="addressDataTable" value="Delete" actionListener="#{directDomainBean.deleteAddress()}" styleClass="delete-button" icon="ui-icon-closethick"/>
 							</p:panelGrid>
-							
 							<div class="domain-form-block">
 								<h4>Add Another Address</h4>
 								<div class="form-group">
@@ -70,7 +69,8 @@
 					<p:tab title="Anchors">
 						<h:form id="anchorsForm" enctype="multipart/form-data" class="form-horizontal">
 							<h4>Stored Anchors</h4>
-							<p:dataTable id="anchorDataTable" var="anchor" value="#{directDomainBean.selectedDomain.anchors}" selection="#{directDomainBean.selectedAnchor}" rowKey="#{anchor.name}" styleClass="table table-striped table-domains">
+                            <ui:remove>
+                            <!--<p:dataTable id="anchorDataTable" var="anchor" value="#{directDomainBean.selectedDomain.anchors}" selection="#{directDomainBean.selectedAnchor}" rowKey="#{anchor.name}" styleClass="table table-striped table-domains">
 								<p:column headerText="Delete" selectionMode="single" />
 								<p:column headerText="Name" sortBy="name">
 									<h:outputText value="#{anchor.name}" />
@@ -88,7 +88,8 @@
 							<p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
 								<p:commandButton update="anchorDataTable" value="Delete" actionListener="#{directDomainBean.deleteAnchor()}" styleClass="delete-button" icon="ui-icon-closethick"/>
 							</p:panelGrid>
-							
+							-->
+                            </ui:remove>
 							<div class="domain-form-block">
 								<h4>Add Another Anchor</h4>
 								<h:outputLabel for="pick-anchor-cert" class="col-sm-4 control-label label-pick-anchor" id="pick-anchor-certLbl" value="Choose Anchor Certificate:" />
@@ -127,6 +128,8 @@
 					<p:tab title="Trust Bundles">
 						<h:form id="domain-tb-form" class="form-horizontal">
 							<h4>Assigned Trust Bundles</h4>
+                            <ui:remove>
+                            <!--
 							<p:dataTable id="tb-domainDataTable" var="tb" value="#{directDomainBean.selectedDomain.trustBundles}" selection="#{directDomainBean.selectedTrustBundle}" rowKey="#{tb.tbName}" styleClass="table table-striped table-domains">
 								<p:column headerText="Delete" selectionMode="single" />
 								<p:column headerText="Name" sortBy="name">
@@ -142,7 +145,8 @@
 							<p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
 								<p:commandButton update="tb-domainDataTable" value="Delete" actionListener="#{directDomainBean.deleteTrustBundle()}" styleClass="delete-button" icon="ui-icon-closethick"/>
 							</p:panelGrid>
-							
+							-->
+                            </ui:remove>
 							<div class="domain-form-block">
 								<h4>Add Another Trust Bundle</h4>
 								<div class="form-group">

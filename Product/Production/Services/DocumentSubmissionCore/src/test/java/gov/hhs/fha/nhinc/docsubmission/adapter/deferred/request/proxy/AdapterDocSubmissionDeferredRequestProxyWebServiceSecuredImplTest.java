@@ -86,7 +86,7 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
 
         @Override
         public Object invokePort(Class<AdapterXDRRequestSecuredPortType> portClass, String methodName,
-                Object operationInput) throws Exception {
+                Object ... operationInput) throws Exception {
             XDRAcknowledgementType response = new XDRAcknowledgementType();
             RegistryResponseType regResp = new RegistryResponseType();
             regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);

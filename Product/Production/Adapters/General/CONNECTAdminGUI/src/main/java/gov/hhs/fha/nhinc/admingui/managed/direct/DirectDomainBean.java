@@ -16,19 +16,23 @@
  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*
+ *
  */
 package gov.hhs.fha.nhinc.admingui.managed.direct;
 
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectAddress;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectAnchor;
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectDomain;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.apache.log4j.Logger;
+import org.nhind.config.common.AddDomain;
+import org.nhind.config.common.Domain;
+import org.nhind.config.common.EntityStatus;
+import org.nhind.config.common.UpdateDomain;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -43,134 +47,109 @@ import org.springframework.stereotype.Component;
 @ViewScoped
 @Component
 public class DirectDomainBean {
-    
+
     @Autowired
     private DirectService directService;
-    
+
     private String domainName;
     private String domainStatus;
     private String domainPostmaster;
     private String domainTrustBundle;
-    
-    private DirectDomain selectedDomain;
+
+    private Domain selectedDomain;
     private DirectAddress selectedAddress;
     private DirectAnchor selectedAnchor;
     private DirectTrustBundle selectedTrustBundle;
-    
+
     private String addressEndpoint;
     private String addressType;
-    
+
     private UploadedFile anchorCert;
     private boolean anchorIncoming = true;
     private boolean anchorOutgoing = true;
     private String anchorStatus;
-    
+
     private List<String> selectedTrustBundles;
-    
-    public List<DirectDomain> getDomains(){
+
+    public List<Domain> getDomains() {
         return directService.getDomains();
     }
-    
-    public List<DirectTrustBundle> getTrustBundles(){
+
+    public List<DirectTrustBundle> getTrustBundles() {
         return directService.getTrustBundles();
     }
-    
-    public List<String> getTrustBundleNames(){
+
+    public List<String> getTrustBundleNames() {
         List<String> tbNames = new ArrayList<String>();
-        for(DirectTrustBundle tb : getTrustBundles()){
+        for (DirectTrustBundle tb : getTrustBundles()) {
             tbNames.add(tb.getTbName());
         }
         return tbNames;
     }
-    
-    public void deleteDomain(){
+
+    public void deleteDomain() {
         directService.deleteDomain(selectedDomain);
     }
-    
-    public void addDomain(){
-        DirectDomain domain = new DirectDomain();
+
+    public void addDomain() {
+        AddDomain addDomain = new AddDomain();
+        Domain domain = new Domain();
         domain.setDomainName(domainName);
-        domain.setDomainStatus(domainStatus);
-        domain.setDomainPostMaster(domainPostmaster);
-        directService.addDomain(domain);
+        domain.setStatus(EntityStatus.NEW);
+        domain.setPostMasterEmail(domainPostmaster);
+        addDomain.setDomain(domain);
+
+        directService.addDomain(addDomain);
     }
-    
-    public void showEdit(){
-        if(selectedDomain != null){
+
+    public void showEdit() {
+        if (selectedDomain != null) {
             RequestContext.getCurrentInstance().execute("domainEditDlg.show()");
         }
     }
-    
-    public void editDomain(){
-        directService.updateDomain(selectedDomain);
+
+    public void editDomain() {
+        UpdateDomain updateDomain = new UpdateDomain();
+        updateDomain.setDomain(selectedDomain);
+        directService.updateDomain(updateDomain);
     }
-    
-    public void addAddress(){
-        DirectAddress address = new DirectAddress();
-        address.setEndpoint(addressEndpoint);
-        address.setType(addressType);
-        selectedDomain.addAddress(address);
-        directService.updateDomain(selectedDomain);
+
+    public void addAddress() {
+
     }
-    
-    public void deleteAddress(){
-        for(int i = 0; i < selectedDomain.getAddresses().size(); i++){
-            if(selectedDomain.getAddresses().get(i).getEndpoint().equals(selectedAddress.getEndpoint())){
-                selectedDomain.getAddresses().remove(i);
-                directService.updateDomain(selectedDomain);
-                break;
-            }
-        }
+
+    public void deleteAddress() {
+
     }
-    
-    public void anchorFileUpload(FileUploadEvent event){
+
+    public void anchorFileUpload(FileUploadEvent event) {
         anchorCert = event.getFile();
     }
-    
-    public void addAnchor(){
-        DirectAnchor anchor = new DirectAnchor();
-        anchor.setName(anchorCert.getFileName());
-        anchor.setCertificate(anchorCert.getContents());
-        anchor.setIncoming(anchorIncoming);
-        anchor.setOutgoing(anchorOutgoing);
-        anchor.setStatus(anchorStatus);
-        selectedDomain.addAnchor(anchor);
-        directService.updateDomain(selectedDomain);
+
+    public void addAnchor() {
+
     }
-    
-    public void deleteAnchor(){
-        for(int i = 0; i < selectedDomain.getAnchors().size(); i++){
-            if(selectedDomain.getAnchors().get(i).getName().equals(selectedAnchor.getName())){
-                selectedDomain.getAnchors().remove(i);
-                directService.updateDomain(selectedDomain);
-                break;
-            }
-        }
+
+    public void deleteAnchor() {
+
     }
-    
-    public void addTrustBundles(){
+
+    public void addTrustBundles() {
         List<DirectTrustBundle> selectTBs = new ArrayList<DirectTrustBundle>();
-        for(String tbName : selectedTrustBundles){
-            for(DirectTrustBundle tb : getTrustBundles()){
-                if(tb.getTbName().equals(tbName)){
+        for (String tbName : selectedTrustBundles) {
+            for (DirectTrustBundle tb : getTrustBundles()) {
+                if (tb.getTbName().equals(tbName)) {
                     selectTBs.add(tb);
                 }
             }
         }
-        if(selectTBs.size() > 0){
-            selectedDomain.addTrustBundles(selectTBs);
-            directService.updateDomain(selectedDomain);
+        if (selectTBs.size() > 0) {
+
         }
     }
-    
-    public void deleteTrustBundle(){
-        for(int i = 0; i < selectedDomain.getTrustBundles().size(); i++){
-            if(selectedDomain.getTrustBundles().get(i).getTbCheckSum().equals(selectedTrustBundle.getTbCheckSum())){
-                selectedDomain.getTrustBundles().remove(i);
-                directService.updateDomain(selectedDomain);
-                break;
-            }
-        }
+
+    public void deleteTrustBundle() {
+
     }
 
     public String getDomainName() {
@@ -205,11 +184,11 @@ public class DirectDomainBean {
         this.domainTrustBundle = domainTrustBundle;
     }
 
-    public DirectDomain getSelectedDomain() {
+    public Domain getSelectedDomain() {
         return selectedDomain;
     }
 
-    public void setSelectedDomain(DirectDomain selectedDomain) {
+    public void setSelectedDomain(Domain selectedDomain) {
         this.selectedDomain = selectedDomain;
     }
 
@@ -284,5 +263,5 @@ public class DirectDomainBean {
     public void setSelectedTrustBundles(List<String> selectedTrustBundles) {
         this.selectedTrustBundles = selectedTrustBundles;
     }
-    
+
 }

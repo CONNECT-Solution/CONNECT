@@ -18,40 +18,24 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.admingui.proxy;
 
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectAgent;
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectCertificate;
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectDomain;
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import java.util.List;
 import org.nhind.config.common.AddDomain;
 import org.nhind.config.common.Domain;
 import org.nhind.config.common.UpdateDomain;
+import org.nhind.config.common.UpdateDomainResponse;
 
 /**
  *
  * @author jasonasmith
  */
-public interface DirectService {
+public interface DirectConfigProxy {
     
-    public List<Domain> getDomains();
-    public void updateDomain(UpdateDomain domain);
-    public void addDomain(AddDomain domain);
-    public void deleteDomain(Domain domain);
+    public Domain getDomain(Long id) throws Exception;
+    public void addDomain(AddDomain domain) throws Exception;
+    public List<Domain> listDomains()throws Exception;
+    public UpdateDomainResponse updateDomain(UpdateDomain updateDomain) throws Exception;
+    public void deleteDomain(String name) throws Exception;
     
-    public List<DirectAgent> getAgents();
-    public void updateAgent(DirectAgent agent);
-    public void addAgent(DirectAgent agent);
-    public void deleteAgent(DirectAgent agent);
-    
-    public List<DirectCertificate> getCertificates();
-    public void addCertificate(DirectCertificate cert);
-    public void deleteCertificate(DirectCertificate cert);
-    
-    public List<DirectTrustBundle> getTrustBundles();
-    public void updateTrustBundle(DirectTrustBundle tb);
-    public void addTrustBundle(DirectTrustBundle tb);
-    public void deleteTrustBundle(DirectTrustBundle tb);
-
 }

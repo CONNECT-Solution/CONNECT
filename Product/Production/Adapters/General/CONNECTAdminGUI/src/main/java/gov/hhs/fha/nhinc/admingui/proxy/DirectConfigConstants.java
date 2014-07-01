@@ -18,40 +18,19 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
  */
-package gov.hhs.fha.nhinc.admingui.services;
-
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectAgent;
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectCertificate;
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectDomain;
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
-import java.util.List;
-import org.nhind.config.common.AddDomain;
-import org.nhind.config.common.Domain;
-import org.nhind.config.common.UpdateDomain;
+package gov.hhs.fha.nhinc.admingui.proxy;
 
 /**
  *
  * @author jasonasmith
  */
-public interface DirectService {
+public class DirectConfigConstants {
     
-    public List<Domain> getDomains();
-    public void updateDomain(UpdateDomain domain);
-    public void addDomain(AddDomain domain);
-    public void deleteDomain(Domain domain);
     
-    public List<DirectAgent> getAgents();
-    public void updateAgent(DirectAgent agent);
-    public void addAgent(DirectAgent agent);
-    public void deleteAgent(DirectAgent agent);
-    
-    public List<DirectCertificate> getCertificates();
-    public void addCertificate(DirectCertificate cert);
-    public void deleteCertificate(DirectCertificate cert);
-    
-    public List<DirectTrustBundle> getTrustBundles();
-    public void updateTrustBundle(DirectTrustBundle tb);
-    public void addTrustBundle(DirectTrustBundle tb);
-    public void deleteTrustBundle(DirectTrustBundle tb);
-
+    static final String DIRECT_CONFIG_SERVICE_NAME = "directconfig";
+    static final String DIRECT_CONFIG_GET_DOMAIN = "getDomain";
+    static final String DIRECT_CONFIG_ADD_DOMAIN = "addDomain";
+    static final String DIRECT_CONFIG_LIST_DOMAINS = "listDomains";
+    static final String DIRECT_CONFIG_UPDATE_DOMAIN = "updateDomain";
+    static final String DIRECT_CONFIG_DELETE_DOMAIN = "removeDomain";
 }
