@@ -9,8 +9,7 @@
 			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		</f:facet>
 		<title><ui:insert name="title">Connect Administration</ui:insert></title>
-        <ui:insert name="metatag">
-        </ui:insert>
+        <ui:insert name="metatag"></ui:insert>
 		
 		<link rel="shortcut icon" href="#{resource['images/favicon-admingui.ico']}" type="image/x-icon" />
         
@@ -19,6 +18,7 @@
         <h:outputStylesheet library="css" name="bootstrap-theme.css.map" />
         <h:outputStylesheet library="css" name="bootstrap-theme.min.css" />
         <h:outputStylesheet library="css" name="dashboard.css" />
+		
         <h:outputScript library="js" name="jquery-1.10.2.min.js" />
         <h:outputScript library="js" name="jquery.tablesorter.min.js" />
         <h:outputScript library="js" name="bootstrap.min.js" />
@@ -27,12 +27,11 @@
     </h:head>
     <body> 
         <f:view>
-            <div class="container-fluid" style="height: 100%;">
+            <div class="container-fluid" style="height:100%;">
                 <div class="row" style="height: 100%;">
-                    <!-- left side div -->
+                    <!-- BEGIN: LEFT COLUMN - SIDEBAR NAVIGATION -->
                     <div class="col-xs-2 sidebar sidebar-scroll">
                         <ui:insert name="menu">
-
                             <ui:include src="/resources/Templates/SidebarPaneForBaseTemplate.xhtml" />
                         </ui:insert>
                         <div class="copyright">
@@ -41,10 +40,11 @@
                             </ui:insert>
                         </div>
                     </div>
-                    <!-- end of left side div -->
-                    <!-- right side div with content -->
+                    <!-- END: LEFT COLUMN - SIDEBAR NAVIGATION -->
+					
+                    <!-- BEGIN: RIGHT COLUMN - Primary content is located here -->
                     <div class="col-xs-offset-2 col-xs-10 main">
-                        <!--header  -->
+                        <!-- BEGIN: UTILITY BAR -->
                         <ui:insert name="foradmin">
                             <div class="navbar nav-utility" role="navigation">
                                 <ui:insert name="header">
@@ -52,18 +52,20 @@
                                 </ui:insert>
                             </div>
                         </ui:insert>
-                        <!-- content navigation -->
+                        <!-- END: UTILITY BAR -->
+						
+                        <!-- BEGIN: MAIN CONTENT SECTION -->
                         <div class="main-content">
                             <ui:insert name="content">
 
                             </ui:insert>
                         </div>
+						<!-- END: MAIN CONTENT SECTION -->
                     </div>
-                    <!--end of right side div  -->
+                    <!-- END: RIGHT COLUMN - Primary content is located here -->
                 </div>
             </div>
 			<ui:include src="copyright-modal.xhtml" />
-			<h:outputScript library="js" name="sidebar.js" />
         </f:view>
     </body>
 </html>

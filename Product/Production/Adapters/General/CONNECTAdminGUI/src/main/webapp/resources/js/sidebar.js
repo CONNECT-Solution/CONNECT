@@ -19,12 +19,16 @@ $(document).ready(function() {
 	$('ul.ui-tabs-nav li').click(function () {
 		var stringColor = $('div[class*="tabs-ovr-"]').attr('class'); // GET THE FULL STRING OF THE CLASSNAMES CONTAINING THE COLOR CLASS
 		var whichColor = stringColor.substring(stringColor.indexOf("tabs-ovr-")+9); // GET SUBSTRING OF JUST THE COLOR
-		console.log(whichColor);
 		var indexTab = $(this).index(); // GET THE INDEX NUMBER OF THE SELECTED TAB
-		console.log(indexTab);
 		var showActivebar = $('.sidebar div[class*=sidebar-'+whichColor+'] li').eq(indexTab); // FIND SIDEBAR LI TO MATCH SELECTED TAB
 		$('.sidebar li').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINK LI'S AS NEEDED
 		$(showActivebar).addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK LI
+		// == BEGIN: FOR INTERNET EXPLORER AND OLDER, REDRAW SIDEBAR MENU TO MAKE SURE THE BUTTONS ARE VISUALLY UPDATED
+		if (window.attachEvent && !window.addEventListener) { // CHECK FOR OLDER BROWSER
+			var tempHolder = $('.sidebar div[class*=sidebar-'+whichColor+']').html(); // GET THE HTML
+			$('.sidebar div[class*=sidebar-'+whichColor+']').html(tempHolder); // REDRAW THE HTML
+		}
+		// == END: FOR INTERNET EXPLORER AND OLDER, REDRAW SIDEBAR MENU TO MAKE SURE THE BUTTONS ARE VISUALLY UPDATED
 	});
 	// == END: AFTER TAB CLICKED CLICKED, MODIFY ACTIVE STATE OF SIDEBAR MENU BASED ON WHICH TAB == //
 	
