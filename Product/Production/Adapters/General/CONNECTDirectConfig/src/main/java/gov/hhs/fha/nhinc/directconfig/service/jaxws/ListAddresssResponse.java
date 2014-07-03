@@ -55,12 +55,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.Address;
 
-@XmlRootElement(name = "listAddresssResponse", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "listAddresssResponse", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "listAddresssResponse", namespace = "http://nhind.org/config/common")
+@XmlType(name = "listAddresssResponse", namespace = "http://nhind.org/config")
 public class ListAddresssResponse {
 
-    @XmlElement(name = "return", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "return", namespace = "")
     private Collection<Address> _return;
 
     /**

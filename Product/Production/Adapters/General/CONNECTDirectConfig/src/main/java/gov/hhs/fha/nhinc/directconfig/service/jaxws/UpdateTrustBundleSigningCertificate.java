@@ -54,17 +54,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
 
-@XmlRootElement(name = "updateTrustBundleSigningCertificate", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "updateTrustBundleSigningCertificate", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "updateTrustBundleSigningCertificate", namespace = "http://nhind.org/config/common", propOrder = {
+@XmlType(name = "updateTrustBundleSigningCertificate", namespace = "http://nhind.org/config", propOrder = {
     "trustBundleIds",
     "signingCert"
 })
 public class UpdateTrustBundleSigningCertificate {
 
-    @XmlElement(name = "trustBundleIds", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "trustBundleIds", namespace = "")
     private long trustBundleIds;
-    @XmlElement(name = "signingCert", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "signingCert", namespace = "")
     private Certificate signingCert;
 
     /**

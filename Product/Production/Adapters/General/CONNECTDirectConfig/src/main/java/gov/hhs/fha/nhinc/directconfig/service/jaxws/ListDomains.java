@@ -53,17 +53,17 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "listDomains", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "listDomains", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "listDomains", namespace = "http://nhind.org/config/common", propOrder = {
+@XmlType(name = "listDomains", namespace = "http://nhind.org/config", propOrder = {
     "names",
     "maxResults"
 })
 public class ListDomains {
 
-    @XmlElement(name = "names", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "names", namespace = "")
     private String names;
-    @XmlElement(name = "maxResults", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "maxResults", namespace = "")
     private int maxResults;
 
     /**

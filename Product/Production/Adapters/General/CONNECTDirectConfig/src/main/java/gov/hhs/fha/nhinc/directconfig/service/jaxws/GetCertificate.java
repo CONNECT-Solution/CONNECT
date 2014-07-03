@@ -54,20 +54,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.service.helpers.CertificateGetOptions;
 
-@XmlRootElement(name = "getCertificate", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "getCertificate", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getCertificate", namespace = "http://nhind.org/config/common", propOrder = {
+@XmlType(name = "getCertificate", namespace = "http://nhind.org/config", propOrder = {
     "owner",
     "thumbprint",
     "options"
 })
 public class GetCertificate {
 
-    @XmlElement(name = "owner", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "owner", namespace = "")
     private String owner;
-    @XmlElement(name = "thumbprint", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "thumbprint", namespace = "")
     private String thumbprint;
-    @XmlElement(name = "options", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "options", namespace = "")
     private CertificateGetOptions options;
 
     /**

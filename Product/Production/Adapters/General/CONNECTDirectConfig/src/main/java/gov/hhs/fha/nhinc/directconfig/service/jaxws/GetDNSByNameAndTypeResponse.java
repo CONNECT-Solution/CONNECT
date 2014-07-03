@@ -55,12 +55,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
 
-@XmlRootElement(name = "getDNSByNameAndTypeResponse", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "getDNSByNameAndTypeResponse", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getDNSByNameAndTypeResponse", namespace = "http://nhind.org/config/common")
+@XmlType(name = "getDNSByNameAndTypeResponse", namespace = "http://nhind.org/config")
 public class GetDNSByNameAndTypeResponse {
 
-    @XmlElement(name = "return", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "return", namespace = "")
     private Collection<DNSRecord> _return;
 
     /**

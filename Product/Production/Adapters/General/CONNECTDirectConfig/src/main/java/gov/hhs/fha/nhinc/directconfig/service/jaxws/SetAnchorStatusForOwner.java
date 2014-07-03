@@ -55,17 +55,17 @@ import javax.xml.bind.annotation.XmlType;
 
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 
-@XmlRootElement(name = "setAnchorStatusForOwner", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "setAnchorStatusForOwner", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "setAnchorStatusForOwner", namespace = "http://nhind.org/config/common", propOrder = {
+@XmlType(name = "setAnchorStatusForOwner", namespace = "http://nhind.org/config", propOrder = {
     "owner",
     "status"
 })
 public class SetAnchorStatusForOwner {
 
-    @XmlElement(name = "owner", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "owner", namespace = "")
     private String owner;
-    @XmlElement(name = "status", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "status", namespace = "")
     private EntityStatus status;
 
     /**

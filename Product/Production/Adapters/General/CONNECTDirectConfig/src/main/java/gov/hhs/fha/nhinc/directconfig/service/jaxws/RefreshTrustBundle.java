@@ -53,12 +53,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "refreshTrustBundle", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "refreshTrustBundle", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "refreshTrustBundle", namespace = "http://nhind.org/config/common")
+@XmlType(name = "refreshTrustBundle", namespace = "http://nhind.org/config")
 public class RefreshTrustBundle {
 
-    @XmlElement(name = "id", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "id", namespace = "")
     private long id;
 
     /**

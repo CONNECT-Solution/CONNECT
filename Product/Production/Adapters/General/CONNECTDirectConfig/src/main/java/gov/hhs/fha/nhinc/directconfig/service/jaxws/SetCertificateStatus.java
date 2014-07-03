@@ -57,17 +57,17 @@ import javax.xml.bind.annotation.XmlType;
 
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 
-@XmlRootElement(name = "setCertificateStatus", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "setCertificateStatus", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "setCertificateStatus", namespace = "http://nhind.org/config/common", propOrder = {
+@XmlType(name = "setCertificateStatus", namespace = "http://nhind.org/config", propOrder = {
     "certificateIds",
     "status"
 })
 public class SetCertificateStatus {
 
-    @XmlElement(name = "certificateIds", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "certificateIds", namespace = "")
     private Collection<Long> certificateIds;
-    @XmlElement(name = "status", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "status", namespace = "")
     private EntityStatus status;
 
     /**

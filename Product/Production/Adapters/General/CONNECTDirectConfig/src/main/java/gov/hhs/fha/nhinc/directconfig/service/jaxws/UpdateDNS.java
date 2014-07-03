@@ -54,17 +54,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
 
-@XmlRootElement(name = "updateDNS", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "updateDNS", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "updateDNS", namespace = "http://nhind.org/config/common", propOrder = {
+@XmlType(name = "updateDNS", namespace = "http://nhind.org/config", propOrder = {
     "recordId",
     "record"
 })
 public class UpdateDNS {
 
-    @XmlElement(name = "recordId", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "recordId", namespace = "")
     private long recordId;
-    @XmlElement(name = "record", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "record", namespace = "")
     private DNSRecord record;
 
     /**

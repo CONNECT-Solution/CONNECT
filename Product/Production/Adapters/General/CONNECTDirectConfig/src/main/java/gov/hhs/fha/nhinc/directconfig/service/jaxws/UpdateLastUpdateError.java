@@ -57,20 +57,20 @@ import javax.xml.bind.annotation.XmlType;
 
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleRefreshError;
 
-@XmlRootElement(name = "updateLastUpdateError", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "updateLastUpdateError", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "updateLastUpdateError", namespace = "http://nhind.org/config/common", propOrder = {
+@XmlType(name = "updateLastUpdateError", namespace = "http://nhind.org/config", propOrder = {
     "trustBundleId",
     "attemptTime",
     "error"
 })
 public class UpdateLastUpdateError {
 
-    @XmlElement(name = "trustBundleId", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "trustBundleId", namespace = "")
     private long trustBundleId;
-    @XmlElement(name = "attemptTime", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "attemptTime", namespace = "")
     private Calendar attemptTime;
-    @XmlElement(name = "error", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "error", namespace = "")
     private BundleRefreshError error;
 
     /**

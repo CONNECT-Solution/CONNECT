@@ -53,12 +53,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.Setting;
 
-@XmlRootElement(name = "getSettingByNameResponse", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "getSettingByNameResponse", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getSettingByNameResponse", namespace = "http://nhind.org/config/common")
+@XmlType(name = "getSettingByNameResponse", namespace = "http://nhind.org/config")
 public class GetSettingByNameResponse {
 
-    @XmlElement(name = "return", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "return", namespace = "")
     private Setting _return;
 
     /**

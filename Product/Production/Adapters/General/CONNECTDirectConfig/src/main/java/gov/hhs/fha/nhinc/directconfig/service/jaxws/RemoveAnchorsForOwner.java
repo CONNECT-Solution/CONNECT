@@ -53,12 +53,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "removeAnchorsForOwner", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "removeAnchorsForOwner", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "removeAnchorsForOwner", namespace = "http://nhind.org/config/common")
+@XmlType(name = "removeAnchorsForOwner", namespace = "http://nhind.org/config")
 public class RemoveAnchorsForOwner {
 
-    @XmlElement(name = "owner", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "owner", namespace = "")
     private String owner;
 
     /**

@@ -55,12 +55,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
 
-@XmlRootElement(name = "getOutgoingAnchorsResponse", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "getOutgoingAnchorsResponse", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getOutgoingAnchorsResponse", namespace = "http://nhind.org/config/common")
+@XmlType(name = "getOutgoingAnchorsResponse", namespace = "http://nhind.org/config")
 public class GetOutgoingAnchorsResponse {
 
-    @XmlElement(name = "return", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "return", namespace = "")
     private Collection<Anchor> _return;
 
     /**

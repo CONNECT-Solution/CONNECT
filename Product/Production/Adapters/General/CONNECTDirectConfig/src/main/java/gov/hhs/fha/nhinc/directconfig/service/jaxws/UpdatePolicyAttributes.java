@@ -54,9 +54,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import org.nhindirect.policy.PolicyLexicon;
 
-@XmlRootElement(name = "updatePolicyAttributes", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "updatePolicyAttributes", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "updatePolicyAttributes", namespace = "http://nhind.org/config/common", propOrder = {
+@XmlType(name = "updatePolicyAttributes", namespace = "http://nhind.org/config", propOrder = {
     "policyId",
     "policyName",
     "policyLexicon",
@@ -64,13 +64,13 @@ import org.nhindirect.policy.PolicyLexicon;
 })
 public class UpdatePolicyAttributes {
 
-    @XmlElement(name = "policyId", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "policyId", namespace = "")
     private long policyId;
-    @XmlElement(name = "policyName", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "policyName", namespace = "")
     private String policyName;
-    @XmlElement(name = "policyLexicon", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "policyLexicon", namespace = "")
     private PolicyLexicon policyLexicon;
-    @XmlElement(name = "policyData", namespace = "http://nhind.org/config/common", nillable = true)
+    @XmlElement(name = "policyData", namespace = "", nillable = true)
     private byte[] policyData;
 
     /**

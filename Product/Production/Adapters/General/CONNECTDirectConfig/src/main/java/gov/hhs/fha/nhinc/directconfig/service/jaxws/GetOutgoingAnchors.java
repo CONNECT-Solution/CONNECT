@@ -54,17 +54,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.service.helpers.CertificateGetOptions;
 
-@XmlRootElement(name = "getOutgoingAnchors", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "getOutgoingAnchors", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getOutgoingAnchors", namespace = "http://nhind.org/config/common", propOrder = {
+@XmlType(name = "getOutgoingAnchors", namespace = "http://nhind.org/config", propOrder = {
     "owner",
     "options"
 })
 public class GetOutgoingAnchors {
 
-    @XmlElement(name = "owner", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "owner", namespace = "")
     private String owner;
-    @XmlElement(name = "options", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "options", namespace = "")
     private CertificateGetOptions options;
 
     /**

@@ -53,12 +53,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "removePolicyUseFromGroup", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "removePolicyUseFromGroup", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "removePolicyUseFromGroup", namespace = "http://nhind.org/config/common")
+@XmlType(name = "removePolicyUseFromGroup", namespace = "http://nhind.org/config")
 public class RemovePolicyUseFromGroup {
 
-    @XmlElement(name = "policyGroupReltnId", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "policyGroupReltnId", namespace = "")
     private long policyGroupReltnId;
 
     /**

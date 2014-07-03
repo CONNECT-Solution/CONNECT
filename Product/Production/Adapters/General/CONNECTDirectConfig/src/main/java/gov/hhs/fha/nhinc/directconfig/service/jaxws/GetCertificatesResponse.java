@@ -55,12 +55,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
 
-@XmlRootElement(name = "getCertificatesResponse", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "getCertificatesResponse", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getCertificatesResponse", namespace = "http://nhind.org/config/common")
+@XmlType(name = "getCertificatesResponse", namespace = "http://nhind.org/config")
 public class GetCertificatesResponse {
 
-    @XmlElement(name = "return", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "return", namespace = "")
     private Collection<Certificate> _return;
 
     /**

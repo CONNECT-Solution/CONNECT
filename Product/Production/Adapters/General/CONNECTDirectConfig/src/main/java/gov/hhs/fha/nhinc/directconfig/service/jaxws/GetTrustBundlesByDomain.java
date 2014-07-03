@@ -53,17 +53,17 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "getTrustBundlesByDomain", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "getTrustBundlesByDomain", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getTrustBundlesByDomain", namespace = "http://nhind.org/config/common", propOrder = {
+@XmlType(name = "getTrustBundlesByDomain", namespace = "http://nhind.org/config", propOrder = {
     "domainId",
     "fetchAnchors"
 })
 public class GetTrustBundlesByDomain {
 
-    @XmlElement(name = "domainId", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "domainId", namespace = "")
     private long domainId;
-    @XmlElement(name = "fetchAnchors", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "fetchAnchors", namespace = "")
     private boolean fetchAnchors;
 
     /**

@@ -55,17 +55,17 @@ import javax.xml.bind.annotation.XmlType;
 
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 
-@XmlRootElement(name = "searchDomain", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "searchDomain", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "searchDomain", namespace = "http://nhind.org/config/common", propOrder = {
+@XmlType(name = "searchDomain", namespace = "http://nhind.org/config", propOrder = {
     "name",
     "status"
 })
 public class SearchDomain {
 
-    @XmlElement(name = "name", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "name", namespace = "")
     private String name;
-    @XmlElement(name = "status", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "status", namespace = "")
     private EntityStatus status;
 
     /**

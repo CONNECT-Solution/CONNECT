@@ -54,12 +54,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "removeCertificates", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "removeCertificates", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "removeCertificates", namespace = "http://nhind.org/config/common")
+@XmlType(name = "removeCertificates", namespace = "http://nhind.org/config")
 public class RemoveCertificates {
 
-    @XmlElement(name = "certificateIds", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "certificateIds", namespace = "")
     private Collection<Long> certificateIds;
 
     /**

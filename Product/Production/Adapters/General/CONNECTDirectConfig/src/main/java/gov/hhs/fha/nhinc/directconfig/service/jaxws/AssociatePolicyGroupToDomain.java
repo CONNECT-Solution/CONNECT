@@ -53,17 +53,17 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "associatePolicyGroupToDomain", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "associatePolicyGroupToDomain", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "associatePolicyGroupToDomain", namespace = "http://nhind.org/config/common", propOrder = {
+@XmlType(name = "associatePolicyGroupToDomain", namespace = "http://nhind.org/config", propOrder = {
     "domainId",
     "policyGroupId"
 })
 public class AssociatePolicyGroupToDomain {
 
-    @XmlElement(name = "domainId", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "domainId", namespace = "")
     private long domainId;
-    @XmlElement(name = "policyGroupId", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "policyGroupId", namespace = "")
     private long policyGroupId;
 
     /**

@@ -52,9 +52,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "removeAnchorsResponse", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "removeAnchorsResponse", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "removeAnchorsResponse", namespace = "http://nhind.org/config/common")
+@XmlType(name = "removeAnchorsResponse", namespace = "http://nhind.org/config")
 public class RemoveAnchorsResponse {
 
 
