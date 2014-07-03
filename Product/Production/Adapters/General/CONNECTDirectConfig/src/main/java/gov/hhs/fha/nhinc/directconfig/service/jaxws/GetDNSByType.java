@@ -53,12 +53,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "getDNSByType", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "getDNSByType", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getDNSByType", namespace = "http://nhind.org/config")
+@XmlType(name = "getDNSByType", namespace = "http://nhind.org/config/common")
 public class GetDNSByType {
 
-    @XmlElement(name = "type", namespace = "")
+    @XmlElement(name = "type", namespace = "http://nhind.org/config/common")
     private int type;
 
     /**

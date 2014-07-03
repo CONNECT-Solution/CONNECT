@@ -53,17 +53,17 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "updateSetting", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "updateSetting", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "updateSetting", namespace = "http://nhind.org/config", propOrder = {
+@XmlType(name = "updateSetting", namespace = "http://nhind.org/config/common", propOrder = {
     "name",
     "value"
 })
 public class UpdateSetting {
 
-    @XmlElement(name = "name", namespace = "")
+    @XmlElement(name = "name", namespace = "http://nhind.org/config/common")
     private String name;
-    @XmlElement(name = "value", namespace = "")
+    @XmlElement(name = "value", namespace = "http://nhind.org/config/common")
     private String value;
 
     /**

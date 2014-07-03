@@ -53,12 +53,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "disassociateTrustBundlesFromDomain", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "disassociateTrustBundlesFromDomain", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "disassociateTrustBundlesFromDomain", namespace = "http://nhind.org/config")
+@XmlType(name = "disassociateTrustBundlesFromDomain", namespace = "http://nhind.org/config/common")
 public class DisassociateTrustBundlesFromDomain {
 
-    @XmlElement(name = "domainId", namespace = "")
+    @XmlElement(name = "domainId", namespace = "http://nhind.org/config/common")
     private long domainId;
 
     /**

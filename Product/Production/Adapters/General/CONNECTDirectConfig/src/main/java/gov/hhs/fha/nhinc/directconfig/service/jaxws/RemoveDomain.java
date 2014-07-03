@@ -53,12 +53,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "removeDomain", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "removeDomain", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "removeDomain", namespace = "http://nhind.org/config")
+@XmlType(name = "removeDomain", namespace = "http://nhind.org/config/common")
 public class RemoveDomain {
 
-    @XmlElement(name = "name", namespace = "")
+    @XmlElement(name = "name", namespace = "http://nhind.org/config/common")
     private String name;
 
     /**

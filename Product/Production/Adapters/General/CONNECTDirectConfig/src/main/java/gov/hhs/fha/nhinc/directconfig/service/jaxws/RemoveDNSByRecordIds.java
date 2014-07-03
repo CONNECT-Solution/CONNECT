@@ -53,12 +53,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "removeDNSByRecordIds", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "removeDNSByRecordIds", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "removeDNSByRecordIds", namespace = "http://nhind.org/config")
+@XmlType(name = "removeDNSByRecordIds", namespace = "http://nhind.org/config/common")
 public class RemoveDNSByRecordIds {
 
-    @XmlElement(name = "recordIds", namespace = "", nillable = true)
+    @XmlElement(name = "recordIds", namespace = "http://nhind.org/config/common", nillable = true)
     private long[] recordIds;
 
     /**

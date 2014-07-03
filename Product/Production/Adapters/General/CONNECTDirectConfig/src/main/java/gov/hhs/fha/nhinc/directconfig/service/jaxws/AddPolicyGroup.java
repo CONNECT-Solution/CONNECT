@@ -55,12 +55,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "addPolicyGroup", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "addPolicyGroup", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "addPolicyGroup", namespace = "http://nhind.org/config")
+@XmlType(name = "addPolicyGroup", namespace = "http://nhind.org/config/common")
 public class AddPolicyGroup {
 
-    @XmlElement(name = "policyGroup", namespace = "")
+    @XmlElement(name = "policyGroup", namespace = "http://nhind.org/config/common")
     private CertPolicyGroup policyGroup;
 
     /**

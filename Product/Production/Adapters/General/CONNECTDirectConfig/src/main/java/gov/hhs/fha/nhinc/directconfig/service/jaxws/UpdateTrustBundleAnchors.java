@@ -56,20 +56,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleAnchor;
 
-@XmlRootElement(name = "updateTrustBundleAnchors", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "updateTrustBundleAnchors", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "updateTrustBundleAnchors", namespace = "http://nhind.org/config", propOrder = {
+@XmlType(name = "updateTrustBundleAnchors", namespace = "http://nhind.org/config/common", propOrder = {
     "trustBundleId",
     "attemptTime",
     "newAnchorSet"
 })
 public class UpdateTrustBundleAnchors {
 
-    @XmlElement(name = "trustBundleId", namespace = "")
+    @XmlElement(name = "trustBundleId", namespace = "http://nhind.org/config/common")
     private long trustBundleId;
-    @XmlElement(name = "attemptTime", namespace = "")
+    @XmlElement(name = "attemptTime", namespace = "http://nhind.org/config/common")
     private Calendar attemptTime;
-    @XmlElement(name = "newAnchorSet", namespace = "")
+    @XmlElement(name = "newAnchorSet", namespace = "http://nhind.org/config/common")
     private Collection<TrustBundleAnchor> newAnchorSet;
 
     /**

@@ -60,7 +60,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.Address;
 @XmlType(name = "addAddress", namespace = "http://nhind.org/config/common")
 public class AddAddress {
 
-    @XmlElement(name = "address", namespace = "")
+    @XmlElement(name = "address", namespace = "http://nhind.org/config/common")
     private Collection<Address> address;
 
     /**

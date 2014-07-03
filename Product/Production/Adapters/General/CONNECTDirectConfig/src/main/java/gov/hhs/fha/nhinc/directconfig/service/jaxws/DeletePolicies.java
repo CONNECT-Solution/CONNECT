@@ -53,12 +53,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "deletePolicies", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "deletePolicies", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "deletePolicies", namespace = "http://nhind.org/config")
+@XmlType(name = "deletePolicies", namespace = "http://nhind.org/config/common")
 public class DeletePolicies {
 
-    @XmlElement(name = "policyIds", namespace = "", nillable = true)
+    @XmlElement(name = "policyIds", namespace = "http://nhind.org/config/common", nillable = true)
     private long[] policyIds;
 
     /**
