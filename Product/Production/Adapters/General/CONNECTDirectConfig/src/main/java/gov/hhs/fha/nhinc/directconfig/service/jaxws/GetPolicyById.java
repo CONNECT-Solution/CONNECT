@@ -53,9 +53,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "getPolicyById", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "getPolicyById", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getPolicyById", namespace = "http://nhind.org/config")
+@XmlType(name = "getPolicyById", namespace = "http://nhind.org/config/common")
 public class GetPolicyById {
 
     @XmlElement(name = "policyId", namespace = "")

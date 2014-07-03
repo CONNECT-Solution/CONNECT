@@ -55,9 +55,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
 
-@XmlRootElement(name = "getDNSByTypeResponse", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "getDNSByTypeResponse", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getDNSByTypeResponse", namespace = "http://nhind.org/config")
+@XmlType(name = "getDNSByTypeResponse", namespace = "http://nhind.org/config/common")
 public class GetDNSByTypeResponse {
 
     @XmlElement(name = "return", namespace = "")

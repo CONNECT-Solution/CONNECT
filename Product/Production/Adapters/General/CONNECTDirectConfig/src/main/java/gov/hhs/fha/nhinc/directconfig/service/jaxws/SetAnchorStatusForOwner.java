@@ -55,9 +55,9 @@ import javax.xml.bind.annotation.XmlType;
 
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 
-@XmlRootElement(name = "setAnchorStatusForOwner", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "setAnchorStatusForOwner", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "setAnchorStatusForOwner", namespace = "http://nhind.org/config", propOrder = {
+@XmlType(name = "setAnchorStatusForOwner", namespace = "http://nhind.org/config/common", propOrder = {
     "owner",
     "status"
 })

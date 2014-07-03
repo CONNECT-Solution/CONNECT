@@ -55,9 +55,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
 
-@XmlRootElement(name = "addDNS", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "addDNS", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "addDNS", namespace = "http://nhind.org/config")
+@XmlType(name = "addDNS", namespace = "http://nhind.org/config/common")
 public class AddDNS {
 
     @XmlElement(name = "records", namespace = "")

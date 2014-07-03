@@ -54,9 +54,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.service.helpers.CertificateGetOptions;
 
-@XmlRootElement(name = "listCertificates", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "listCertificates", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "listCertificates", namespace = "http://nhind.org/config", propOrder = {
+@XmlType(name = "listCertificates", namespace = "http://nhind.org/config/common", propOrder = {
     "lastCertificateId",
     "maxResutls",
     "options"

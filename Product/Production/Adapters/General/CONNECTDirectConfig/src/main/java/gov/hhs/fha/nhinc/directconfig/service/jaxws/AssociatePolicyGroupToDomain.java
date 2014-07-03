@@ -53,9 +53,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "associatePolicyGroupToDomain", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "associatePolicyGroupToDomain", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "associatePolicyGroupToDomain", namespace = "http://nhind.org/config", propOrder = {
+@XmlType(name = "associatePolicyGroupToDomain", namespace = "http://nhind.org/config/common", propOrder = {
     "domainId",
     "policyGroupId"
 })

@@ -52,9 +52,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "addPolicyUseToGroupResponse", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "addPolicyUseToGroupResponse", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "addPolicyUseToGroupResponse", namespace = "http://nhind.org/config")
+@XmlType(name = "addPolicyUseToGroupResponse", namespace = "http://nhind.org/config/common")
 public class AddPolicyUseToGroupResponse {
 
 

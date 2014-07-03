@@ -70,7 +70,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
  * @since 1.1
  */
 @Service("dnsSvc")
-@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.DNSService", portName = "ConfigurationServiceImplPort", targetNamespace = "http://nhind.org/config")
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.DNSService", portName = "ConfigurationServiceImplPort", targetNamespace = "http://nhind.org/config/common")
 public class DNSServiceImpl extends SpringBeanAutowiringSupport implements DNSService {
     private static final Log log = LogFactory.getLog(DNSServiceImpl.class);
 

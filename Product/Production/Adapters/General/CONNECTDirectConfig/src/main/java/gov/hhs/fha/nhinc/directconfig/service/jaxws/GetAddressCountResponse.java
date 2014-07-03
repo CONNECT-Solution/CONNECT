@@ -53,9 +53,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "getAddressCountResponse", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "getAddressCountResponse", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getAddressCountResponse", namespace = "http://nhind.org/config")
+@XmlType(name = "getAddressCountResponse", namespace = "http://nhind.org/config/common")
 public class GetAddressCountResponse {
 
     @XmlElement(name = "return", namespace = "")

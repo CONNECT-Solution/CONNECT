@@ -54,9 +54,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.Address;
 
-@XmlRootElement(name = "updateAddress", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "updateAddress", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "updateAddress", namespace = "http://nhind.org/config")
+@XmlType(name = "updateAddress", namespace = "http://nhind.org/config/common")
 public class UpdateAddress {
 
     @XmlElement(name = "address", namespace = "")

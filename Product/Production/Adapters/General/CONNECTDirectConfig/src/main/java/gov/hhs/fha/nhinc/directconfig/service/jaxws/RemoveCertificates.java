@@ -54,9 +54,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "removeCertificates", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "removeCertificates", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "removeCertificates", namespace = "http://nhind.org/config")
+@XmlType(name = "removeCertificates", namespace = "http://nhind.org/config/common")
 public class RemoveCertificates {
 
     @XmlElement(name = "certificateIds", namespace = "")

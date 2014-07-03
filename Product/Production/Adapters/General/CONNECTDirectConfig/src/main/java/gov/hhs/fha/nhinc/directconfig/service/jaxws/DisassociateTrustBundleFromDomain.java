@@ -53,9 +53,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "disassociateTrustBundleFromDomain", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "disassociateTrustBundleFromDomain", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "disassociateTrustBundleFromDomain", namespace = "http://nhind.org/config", propOrder = {
+@XmlType(name = "disassociateTrustBundleFromDomain", namespace = "http://nhind.org/config/common", propOrder = {
     "domainId",
     "trustBundleId"
 })

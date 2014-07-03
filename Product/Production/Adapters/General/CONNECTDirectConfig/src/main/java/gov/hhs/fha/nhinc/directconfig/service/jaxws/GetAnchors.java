@@ -55,9 +55,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.service.helpers.CertificateGetOptions;
 
-@XmlRootElement(name = "getAnchors", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "getAnchors", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getAnchors", namespace = "http://nhind.org/config", propOrder = {
+@XmlType(name = "getAnchors", namespace = "http://nhind.org/config/common", propOrder = {
     "anchorId",
     "options"
 })

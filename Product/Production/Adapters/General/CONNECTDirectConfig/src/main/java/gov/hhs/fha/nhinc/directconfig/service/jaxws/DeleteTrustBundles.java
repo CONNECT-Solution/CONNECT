@@ -53,9 +53,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "deleteTrustBundles", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "deleteTrustBundles", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "deleteTrustBundles", namespace = "http://nhind.org/config")
+@XmlType(name = "deleteTrustBundles", namespace = "http://nhind.org/config/common")
 public class DeleteTrustBundles {
 
     @XmlElement(name = "trustBundleIds", namespace = "", nillable = true)

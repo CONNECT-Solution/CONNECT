@@ -53,9 +53,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "disassociatePolicyGroupFromDomains", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "disassociatePolicyGroupFromDomains", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "disassociatePolicyGroupFromDomains", namespace = "http://nhind.org/config")
+@XmlType(name = "disassociatePolicyGroupFromDomains", namespace = "http://nhind.org/config/common")
 public class DisassociatePolicyGroupFromDomains {
 
     @XmlElement(name = "policyGroupId", namespace = "")

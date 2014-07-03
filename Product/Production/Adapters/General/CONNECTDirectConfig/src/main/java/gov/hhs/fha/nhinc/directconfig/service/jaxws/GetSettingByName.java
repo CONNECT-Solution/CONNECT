@@ -52,9 +52,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "getSettingByName", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "getSettingByName", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getSettingByName", namespace = "http://nhind.org/config")
+@XmlType(name = "getSettingByName", namespace = "http://nhind.org/config/common")
 public class GetSettingByName {
 
     @XmlElement(name = "name", namespace = "")

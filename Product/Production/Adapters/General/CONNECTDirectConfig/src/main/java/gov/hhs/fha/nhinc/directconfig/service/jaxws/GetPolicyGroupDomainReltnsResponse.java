@@ -54,9 +54,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroupDomainReltn;
 
-@XmlRootElement(name = "getPolicyGroupDomainReltnsResponse", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "getPolicyGroupDomainReltnsResponse", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getPolicyGroupDomainReltnsResponse", namespace = "http://nhind.org/config")
+@XmlType(name = "getPolicyGroupDomainReltnsResponse", namespace = "http://nhind.org/config/common")
 public class GetPolicyGroupDomainReltnsResponse {
 
     @XmlElement(name = "return", namespace = "")

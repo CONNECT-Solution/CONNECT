@@ -55,9 +55,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
 
-@XmlRootElement(name = "listAnchorsResponse", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "listAnchorsResponse", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "listAnchorsResponse", namespace = "http://nhind.org/config")
+@XmlType(name = "listAnchorsResponse", namespace = "http://nhind.org/config/common")
 public class ListAnchorsResponse {
 
     @XmlElement(name = "return", namespace = "")
