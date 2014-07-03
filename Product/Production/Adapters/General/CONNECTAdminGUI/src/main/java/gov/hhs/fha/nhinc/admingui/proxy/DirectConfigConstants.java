@@ -49,13 +49,13 @@ public class DirectConfigConstants {
     static final String DIRECT_CONFIG_GET_CERTS_FOR_OWNER = "getCertificatesForOwner";
     static final String DIRECT_CONFIG_LIST_CERTS = "listCertificates";
 
-    static final String DIRECT_CONFIG_ADD_TRUST_BUNDLE = "addTrustBundle"
-    static final String DIRECT_CONFIG_DELETE_TRUST_BUNDLE = "deleteTrustBundles"
-    static final String DIRECT_CONFIG_GET_TRUST_BUNDLE = "getTrustBundles"
-    static final String DIRECT_CONFIG_GET_TRUST_BUNDLE_BY_NAME = "getTrustBundleByName"
-    static final String DIRECT_CONFIG_GET_TRUST_BUNDLE_BY_DOMAIN = "getTrustBundlesByDomain"
-    static final String DIRECT_CONFIG_ASSOCIATE_TRUST_BUNDLE_TO_DOMAIN = "associateTrustBundleToDomain"
-    static final String DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLE_FROM_DOMAIN = "disassociateTrustBundleFromDomain"
-    static final String DIRECT_CONFIG_REFRESH_TRUST_BUNDLE = "refreshTrustBundle"
+    static final String DIRECT_CONFIG_ADD_TRUST_BUNDLE = "addTrustBundle";
+    static final String DIRECT_CONFIG_DELETE_TRUST_BUNDLE = "deleteTrustBundles";
+    static final String DIRECT_CONFIG_GET_TRUST_BUNDLE = "getTrustBundles";
+    static final String DIRECT_CONFIG_GET_TRUST_BUNDLE_BY_NAME = "getTrustBundleByName";
+    static final String DIRECT_CONFIG_GET_TRUST_BUNDLE_BY_DOMAIN = "getTrustBundlesByDomain";
+    static final String DIRECT_CONFIG_ASSOCIATE_TRUST_BUNDLE_TO_DOMAIN = "associateTrustBundleToDomain";
+    static final String DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLE_FROM_DOMAIN = "disassociateTrustBundleFromDomain";
+    static final String DIRECT_CONFIG_REFRESH_TRUST_BUNDLE = "refreshTrustBundle";
 }
 
