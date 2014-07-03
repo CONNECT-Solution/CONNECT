@@ -26,11 +26,36 @@ package gov.hhs.fha.nhinc.admingui.proxy;
  */
 public class DirectConfigConstants {
     
-    
     static final String DIRECT_CONFIG_SERVICE_NAME = "directconfig";
+
     static final String DIRECT_CONFIG_GET_DOMAIN = "getDomain";
     static final String DIRECT_CONFIG_ADD_DOMAIN = "addDomain";
     static final String DIRECT_CONFIG_LIST_DOMAINS = "listDomains";
     static final String DIRECT_CONFIG_UPDATE_DOMAIN = "updateDomain";
     static final String DIRECT_CONFIG_DELETE_DOMAIN = "removeDomain";
+
+    static final String DIRECT_CONFIG_ADD_ANCHOR = "addAnchors";
+    static final String DIRECT_CONFIG_DELETE_ANCHOR = "removeAnchors";
+    static final String DIRECT_CONFIG_GET_ANCHORS_FOR_OWNER = "getAnchorsForOwner";
+
+    static final String DIRECT_CONFIG_DELETE_ADDRESS = "removeAddress";
+
+    static final String DIRECT_CONFIG_ADD_SETTING = "addSetting";
+    static final String DIRECT_CONFIG_DELETE_SETTING = "deleteSetting";
+    static final String DIRECT_CONFIG_LIST_SETTINGS = "getAllSettings";
+
+    static final String DIRECT_CONFIG_ADD_CERT = "addCertificates";
+    static final String DIRECT_CONFIG_DELETE_CERT = "removeCertificates";
+    static final String DIRECT_CONFIG_GET_CERTS_FOR_OWNER = "getCertificatesForOwner";
+    static final String DIRECT_CONFIG_LIST_CERTS = "listCertificates";
+
+    static final String DIRECT_CONFIG_ADD_TRUST_BUNDLE = "addTrustBundle"
+    static final String DIRECT_CONFIG_DELETE_TRUST_BUNDLE = "deleteTrustBundles"
+    static final String DIRECT_CONFIG_GET_TRUST_BUNDLE = "getTrustBundles"
+    static final String DIRECT_CONFIG_GET_TRUST_BUNDLE_BY_NAME = "getTrustBundleByName"
+    static final String DIRECT_CONFIG_GET_TRUST_BUNDLE_BY_DOMAIN = "getTrustBundlesByDomain"
+    static final String DIRECT_CONFIG_ASSOCIATE_TRUST_BUNDLE_TO_DOMAIN = "associateTrustBundleToDomain"
+    static final String DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLE_FROM_DOMAIN = "disassociateTrustBundleFromDomain"
+    static final String DIRECT_CONFIG_REFRESH_TRUST_BUNDLE = "refreshTrustBundle"
 }
+
