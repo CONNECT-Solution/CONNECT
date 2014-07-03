@@ -54,12 +54,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "deleteSetting", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "deleteSetting", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "deleteSetting", namespace = "http://nhind.org/config")
+@XmlType(name = "deleteSetting", namespace = "http://nhind.org/config/common")
 public class DeleteSetting {
 
-    @XmlElement(name = "names", namespace = "")
+    @XmlElement(name = "names", namespace = "http://nhind.org/config/common")
     private Collection<String> names;
 
     /**

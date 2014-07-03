@@ -53,9 +53,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "associateTrustBundleToDomain", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "associateTrustBundleToDomain", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "associateTrustBundleToDomain", namespace = "http://nhind.org/config", propOrder = {
+@XmlType(name = "associateTrustBundleToDomain", namespace = "http://nhind.org/config/common", propOrder = {
     "domainId",
     "trustBundleId",
     "incoming",
@@ -63,13 +63,13 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class AssociateTrustBundleToDomain {
 
-    @XmlElement(name = "domainId", namespace = "")
+    @XmlElement(name = "domainId", namespace = "http://nhind.org/config/common")
     private long domainId;
-    @XmlElement(name = "trustBundleId", namespace = "")
+    @XmlElement(name = "trustBundleId", namespace = "http://nhind.org/config/common")
     private long trustBundleId;
-    @XmlElement(name = "incoming", namespace = "")
+    @XmlElement(name = "incoming", namespace = "http://nhind.org/config/common")
     private boolean incoming;
-    @XmlElement(name = "outgoing", namespace = "")
+    @XmlElement(name = "outgoing", namespace = "http://nhind.org/config/common")
     private boolean outgoing;
 
     /**

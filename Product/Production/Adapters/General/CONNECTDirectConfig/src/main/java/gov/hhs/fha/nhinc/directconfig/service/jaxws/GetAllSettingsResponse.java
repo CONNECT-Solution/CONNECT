@@ -55,12 +55,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.Setting;
 
-@XmlRootElement(name = "getAllSettingsResponse", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "getAllSettingsResponse", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getAllSettingsResponse", namespace = "http://nhind.org/config")
+@XmlType(name = "getAllSettingsResponse", namespace = "http://nhind.org/config/common")
 public class GetAllSettingsResponse {
 
-    @XmlElement(name = "return", namespace = "")
+    @XmlElement(name = "return", namespace = "http://nhind.org/config/common")
     private Collection<Setting> _return;
 
     /**

@@ -52,9 +52,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "getDomainCount", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "getDomainCount", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getDomainCount", namespace = "http://nhind.org/config")
+@XmlType(name = "getDomainCount", namespace = "http://nhind.org/config/common")
 public class GetDomainCount {
 
 

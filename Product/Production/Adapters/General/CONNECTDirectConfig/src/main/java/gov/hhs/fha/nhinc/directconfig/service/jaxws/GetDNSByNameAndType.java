@@ -53,17 +53,17 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "getDNSByNameAndType", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "getDNSByNameAndType", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getDNSByNameAndType", namespace = "http://nhind.org/config", propOrder = {
+@XmlType(name = "getDNSByNameAndType", namespace = "http://nhind.org/config/common", propOrder = {
     "name",
     "type"
 })
 public class GetDNSByNameAndType {
 
-    @XmlElement(name = "name", namespace = "")
+    @XmlElement(name = "name", namespace = "http://nhind.org/config/common")
     private String name;
-    @XmlElement(name = "type", namespace = "")
+    @XmlElement(name = "type", namespace = "http://nhind.org/config/common")
     private int type;
 
     /**

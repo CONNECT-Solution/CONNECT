@@ -54,12 +54,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
 
-@XmlRootElement(name = "getAnchorResponse", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "getAnchorResponse", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getAnchorResponse", namespace = "http://nhind.org/config")
+@XmlType(name = "getAnchorResponse", namespace = "http://nhind.org/config/common")
 public class GetAnchorResponse {
 
-    @XmlElement(name = "return", namespace = "")
+    @XmlElement(name = "return", namespace = "http://nhind.org/config/common")
     private Anchor _return;
 
     /**

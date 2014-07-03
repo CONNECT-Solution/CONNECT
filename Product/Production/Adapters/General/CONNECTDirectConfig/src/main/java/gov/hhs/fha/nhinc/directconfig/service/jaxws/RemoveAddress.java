@@ -53,12 +53,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "removeAddress", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "removeAddress", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "removeAddress", namespace = "http://nhind.org/config")
+@XmlType(name = "removeAddress", namespace = "http://nhind.org/config/common")
 public class RemoveAddress {
 
-    @XmlElement(name = "emailAddress", namespace = "")
+    @XmlElement(name = "emailAddress", namespace = "http://nhind.org/config/common")
     private String emailAddress;
 
     /**

@@ -55,9 +55,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "addPolicyUseToGroup", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "addPolicyUseToGroup", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "addPolicyUseToGroup", namespace = "http://nhind.org/config", propOrder = {
+@XmlType(name = "addPolicyUseToGroup", namespace = "http://nhind.org/config/common", propOrder = {
     "policyGroupId",
     "policyId",
     "policyUse",
@@ -66,15 +66,15 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class AddPolicyUseToGroup {
 
-    @XmlElement(name = "policyGroupId", namespace = "")
+    @XmlElement(name = "policyGroupId", namespace = "http://nhind.org/config/common")
     private long policyGroupId;
-    @XmlElement(name = "policyId", namespace = "")
+    @XmlElement(name = "policyId", namespace = "http://nhind.org/config/common")
     private long policyId;
-    @XmlElement(name = "policyUse", namespace = "")
+    @XmlElement(name = "policyUse", namespace = "http://nhind.org/config/common")
     private CertPolicyUse policyUse;
-    @XmlElement(name = "incoming", namespace = "")
+    @XmlElement(name = "incoming", namespace = "http://nhind.org/config/common")
     private boolean incoming;
-    @XmlElement(name = "outgoing", namespace = "")
+    @XmlElement(name = "outgoing", namespace = "http://nhind.org/config/common")
     private boolean outgoing;
 
     /**

@@ -54,12 +54,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroupDomainReltn;
 
-@XmlRootElement(name = "getPolicyGroupsByDomainResponse", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "getPolicyGroupsByDomainResponse", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getPolicyGroupsByDomainResponse", namespace = "http://nhind.org/config")
+@XmlType(name = "getPolicyGroupsByDomainResponse", namespace = "http://nhind.org/config/common")
 public class GetPolicyGroupsByDomainResponse {
 
-    @XmlElement(name = "return", namespace = "")
+    @XmlElement(name = "return", namespace = "http://nhind.org/config/common")
     private Collection<CertPolicyGroupDomainReltn> _return;
 
     /**

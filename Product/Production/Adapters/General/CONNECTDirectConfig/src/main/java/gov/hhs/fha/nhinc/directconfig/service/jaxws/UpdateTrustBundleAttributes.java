@@ -54,9 +54,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
 
-@XmlRootElement(name = "updateTrustBundleAttributes", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "updateTrustBundleAttributes", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "updateTrustBundleAttributes", namespace = "http://nhind.org/config", propOrder = {
+@XmlType(name = "updateTrustBundleAttributes", namespace = "http://nhind.org/config/common", propOrder = {
     "trustBundleId",
     "trustBundleName",
     "trustBundleURL",
@@ -65,15 +65,15 @@ import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
 })
 public class UpdateTrustBundleAttributes {
 
-    @XmlElement(name = "trustBundleId", namespace = "")
+    @XmlElement(name = "trustBundleId", namespace = "http://nhind.org/config/common")
     private long trustBundleId;
-    @XmlElement(name = "trustBundleName", namespace = "")
+    @XmlElement(name = "trustBundleName", namespace = "http://nhind.org/config/common")
     private String trustBundleName;
-    @XmlElement(name = "trustBundleURL", namespace = "")
+    @XmlElement(name = "trustBundleURL", namespace = "http://nhind.org/config/common")
     private String trustBundleURL;
-    @XmlElement(name = "signingCert", namespace = "")
+    @XmlElement(name = "signingCert", namespace = "http://nhind.org/config/common")
     private Certificate signingCert;
-    @XmlElement(name = "trustBundleRefreshInterval", namespace = "")
+    @XmlElement(name = "trustBundleRefreshInterval", namespace = "http://nhind.org/config/common")
     private int trustBundleRefreshInterval;
 
     /**

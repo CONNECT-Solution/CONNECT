@@ -55,12 +55,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundle;
 
-@XmlRootElement(name = "getTrustBundlesResponse", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "getTrustBundlesResponse", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getTrustBundlesResponse", namespace = "http://nhind.org/config")
+@XmlType(name = "getTrustBundlesResponse", namespace = "http://nhind.org/config/common")
 public class GetTrustBundlesResponse {
 
-    @XmlElement(name = "return", namespace = "")
+    @XmlElement(name = "return", namespace = "http://nhind.org/config/common")
     private Collection<TrustBundle> _return;
 
     /**

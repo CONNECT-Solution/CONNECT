@@ -52,9 +52,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "updateLastUpdateErrorResponse", namespace = "http://nhind.org/config")
+@XmlRootElement(name = "updateLastUpdateErrorResponse", namespace = "http://nhind.org/config/common")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "updateLastUpdateErrorResponse", namespace = "http://nhind.org/config")
+@XmlType(name = "updateLastUpdateErrorResponse", namespace = "http://nhind.org/config/common")
 public class UpdateLastUpdateErrorResponse {
 
 
