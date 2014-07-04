@@ -59,7 +59,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
 @XmlType(name = "getDNSByRecordIdResponse", namespace = "http://nhind.org/config/common")
 public class GetDNSByRecordIdResponse {
 
-    @XmlElement(name = "return", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "return", namespace = "")
     private DNSRecord _return;
 
     /**

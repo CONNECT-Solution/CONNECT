@@ -59,7 +59,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.Address;
 @XmlType(name = "updateAddress", namespace = "http://nhind.org/config/common")
 public class UpdateAddress {
 
-    @XmlElement(name = "address", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "address", namespace = "")
     private Address address;
 
     /**

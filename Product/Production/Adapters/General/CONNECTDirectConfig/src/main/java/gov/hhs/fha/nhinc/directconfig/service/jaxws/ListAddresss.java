@@ -61,9 +61,9 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class ListAddresss {
 
-    @XmlElement(name = "lastEmailAddress", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "lastEmailAddress", namespace = "")
     private String lastEmailAddress;
-    @XmlElement(name = "maxResults", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "maxResults", namespace = "")
     private int maxResults;
 
     /**

@@ -63,9 +63,9 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 })
 public class SetAnchorStatusForOwner {
 
-    @XmlElement(name = "owner", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "owner", namespace = "")
     private String owner;
-    @XmlElement(name = "status", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "status", namespace = "")
     private EntityStatus status;
 
     /**

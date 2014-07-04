@@ -58,7 +58,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "disassociatePolicyGroupFromDomains", namespace = "http://nhind.org/config/common")
 public class DisassociatePolicyGroupFromDomains {
 
-    @XmlElement(name = "policyGroupId", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "policyGroupId", namespace = "")
     private long policyGroupId;
 
     /**

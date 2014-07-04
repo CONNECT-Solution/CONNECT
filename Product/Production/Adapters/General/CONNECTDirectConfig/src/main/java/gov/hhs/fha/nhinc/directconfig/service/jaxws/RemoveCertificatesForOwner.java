@@ -58,7 +58,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "removeCertificatesForOwner", namespace = "http://nhind.org/config/common")
 public class RemoveCertificatesForOwner {
 
-    @XmlElement(name = "owner", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "owner", namespace = "")
     private String owner;
 
     /**

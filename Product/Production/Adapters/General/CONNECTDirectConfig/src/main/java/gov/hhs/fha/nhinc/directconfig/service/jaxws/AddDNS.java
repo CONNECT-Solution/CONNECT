@@ -60,7 +60,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
 @XmlType(name = "addDNS", namespace = "http://nhind.org/config/common")
 public class AddDNS {
 
-    @XmlElement(name = "records", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "records", namespace = "")
     private Collection<DNSRecord> records;
 
     /**

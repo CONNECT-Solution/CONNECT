@@ -60,7 +60,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
 @XmlType(name = "getIncomingAnchorsResponse", namespace = "http://nhind.org/config/common")
 public class GetIncomingAnchorsResponse {
 
-    @XmlElement(name = "return", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "return", namespace = "")
     private Collection<Anchor> _return;
 
     /**

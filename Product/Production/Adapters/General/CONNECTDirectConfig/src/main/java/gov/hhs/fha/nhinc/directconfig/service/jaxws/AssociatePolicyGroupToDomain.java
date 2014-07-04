@@ -61,9 +61,9 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class AssociatePolicyGroupToDomain {
 
-    @XmlElement(name = "domainId", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "domainId", namespace = "")
     private long domainId;
-    @XmlElement(name = "policyGroupId", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "policyGroupId", namespace = "")
     private long policyGroupId;
 
     /**

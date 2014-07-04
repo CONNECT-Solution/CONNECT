@@ -65,15 +65,15 @@ import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
 })
 public class UpdateTrustBundleAttributes {
 
-    @XmlElement(name = "trustBundleId", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "trustBundleId", namespace = "")
     private long trustBundleId;
-    @XmlElement(name = "trustBundleName", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "trustBundleName", namespace = "")
     private String trustBundleName;
-    @XmlElement(name = "trustBundleURL", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "trustBundleURL", namespace = "")
     private String trustBundleURL;
-    @XmlElement(name = "signingCert", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "signingCert", namespace = "")
     private Certificate signingCert;
-    @XmlElement(name = "trustBundleRefreshInterval", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "trustBundleRefreshInterval", namespace = "")
     private int trustBundleRefreshInterval;
 
     /**

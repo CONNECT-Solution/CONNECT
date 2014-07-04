@@ -60,7 +60,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.Setting;
 @XmlType(name = "getSettingsByNamesResponse", namespace = "http://nhind.org/config/common")
 public class GetSettingsByNamesResponse {
 
-    @XmlElement(name = "return", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "return", namespace = "")
     private Collection<Setting> _return;
 
     /**

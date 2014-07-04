@@ -65,11 +65,11 @@ import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleAnchor;
 })
 public class UpdateTrustBundleAnchors {
 
-    @XmlElement(name = "trustBundleId", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "trustBundleId", namespace = "")
     private long trustBundleId;
-    @XmlElement(name = "attemptTime", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "attemptTime", namespace = "")
     private Calendar attemptTime;
-    @XmlElement(name = "newAnchorSet", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "newAnchorSet", namespace = "")
     private Collection<TrustBundleAnchor> newAnchorSet;
 
     /**

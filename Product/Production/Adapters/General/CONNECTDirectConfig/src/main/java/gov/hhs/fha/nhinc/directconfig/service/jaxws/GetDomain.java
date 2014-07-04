@@ -58,7 +58,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "getDomain", namespace = "http://nhind.org/config/common")
 public class GetDomain {
 
-    @XmlElement(name = "id", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "id", namespace = "")
     private Long id;
 
     /**

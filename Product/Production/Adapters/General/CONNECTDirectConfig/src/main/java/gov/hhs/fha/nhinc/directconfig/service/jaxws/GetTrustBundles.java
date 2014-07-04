@@ -58,7 +58,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "getTrustBundles", namespace = "http://nhind.org/config/common")
 public class GetTrustBundles {
 
-    @XmlElement(name = "fetchAnchors", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "fetchAnchors", namespace = "")
     private boolean fetchAnchors;
 
     /**

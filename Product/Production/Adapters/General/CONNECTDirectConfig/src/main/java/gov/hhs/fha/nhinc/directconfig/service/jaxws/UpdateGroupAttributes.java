@@ -61,9 +61,9 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class UpdateGroupAttributes {
 
-    @XmlElement(name = "policyGroupId", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "policyGroupId", namespace = "")
     private long policyGroupId;
-    @XmlElement(name = "policyGroupName", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "policyGroupName", namespace = "")
     private String policyGroupName;
 
     /**

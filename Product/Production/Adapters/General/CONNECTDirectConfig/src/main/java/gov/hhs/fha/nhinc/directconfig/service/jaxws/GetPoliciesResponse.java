@@ -60,7 +60,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.CertPolicy;
 @XmlType(name = "getPoliciesResponse", namespace = "http://nhind.org/config/common")
 public class GetPoliciesResponse {
 
-    @XmlElement(name = "return", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "return", namespace = "")
     private Collection<CertPolicy> _return;
 
     /**

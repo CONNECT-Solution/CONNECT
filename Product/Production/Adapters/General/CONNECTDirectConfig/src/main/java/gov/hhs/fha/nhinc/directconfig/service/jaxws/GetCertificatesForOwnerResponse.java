@@ -60,7 +60,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
 @XmlType(name = "getCertificatesForOwnerResponse", namespace = "http://nhind.org/config/common")
 public class GetCertificatesForOwnerResponse {
 
-    @XmlElement(name = "return", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "return", namespace = "")
     private Collection<Certificate> _return;
 
     /**

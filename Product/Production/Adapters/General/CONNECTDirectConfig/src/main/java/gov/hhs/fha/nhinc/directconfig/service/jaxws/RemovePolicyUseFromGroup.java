@@ -58,7 +58,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "removePolicyUseFromGroup", namespace = "http://nhind.org/config/common")
 public class RemovePolicyUseFromGroup {
 
-    @XmlElement(name = "policyGroupReltnId", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "policyGroupReltnId", namespace = "")
     private long policyGroupReltnId;
 
     /**

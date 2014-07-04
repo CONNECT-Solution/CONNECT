@@ -58,7 +58,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.Setting;
 @XmlType(name = "getSettingByNameResponse", namespace = "http://nhind.org/config/common")
 public class GetSettingByNameResponse {
 
-    @XmlElement(name = "return", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "return", namespace = "")
     private Setting _return;
 
     /**

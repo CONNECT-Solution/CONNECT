@@ -62,9 +62,9 @@ import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
 })
 public class UpdateTrustBundleSigningCertificate {
 
-    @XmlElement(name = "trustBundleIds", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "trustBundleIds", namespace = "")
     private long trustBundleIds;
-    @XmlElement(name = "signingCert", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "signingCert", namespace = "")
     private Certificate signingCert;
 
     /**

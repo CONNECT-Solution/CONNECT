@@ -59,7 +59,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.Domain;
 @XmlType(name = "getDomainResponse", namespace = "http://nhind.org/config/common")
 public class GetDomainResponse {
 
-    @XmlElement(name = "return", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "return", namespace = "")
     private Domain _return;
 
     /**

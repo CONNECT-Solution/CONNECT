@@ -63,9 +63,9 @@ import gov.hhs.fha.nhinc.directconfig.service.helpers.CertificateGetOptions;
 })
 public class GetAnchors {
 
-    @XmlElement(name = "anchorId", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "anchorId", namespace = "")
     private Collection<Long> anchorId;
-    @XmlElement(name = "options", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "options", namespace = "")
     private CertificateGetOptions options;
 
     /**

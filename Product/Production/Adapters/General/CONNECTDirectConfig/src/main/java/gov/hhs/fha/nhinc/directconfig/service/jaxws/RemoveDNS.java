@@ -60,7 +60,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
 @XmlType(name = "removeDNS", namespace = "http://nhind.org/config/common")
 public class RemoveDNS {
 
-    @XmlElement(name = "records", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "records", namespace = "")
     private Collection<DNSRecord> records;
 
     /**

@@ -58,7 +58,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "getPolicyByName", namespace = "http://nhind.org/config/common")
 public class GetPolicyByName {
 
-    @XmlElement(name = "policyName", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "policyName", namespace = "")
     private String policyName;
 
     /**

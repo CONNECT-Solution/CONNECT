@@ -61,9 +61,9 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class ListDomains {
 
-    @XmlElement(name = "names", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "names", namespace = "")
     private String names;
-    @XmlElement(name = "maxResults", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "maxResults", namespace = "")
     private int maxResults;
 
     /**

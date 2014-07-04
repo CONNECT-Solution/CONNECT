@@ -62,9 +62,9 @@ import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
 })
 public class UpdateDNS {
 
-    @XmlElement(name = "recordId", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "recordId", namespace = "")
     private long recordId;
-    @XmlElement(name = "record", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "record", namespace = "")
     private DNSRecord record;
 
     /**

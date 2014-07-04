@@ -60,7 +60,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.Domain;
 @XmlType(name = "searchDomainResponse", namespace = "http://nhind.org/config/common")
 public class SearchDomainResponse {
 
-    @XmlElement(name = "return", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "return", namespace = "")
     private Collection<Domain> _return;
 
     /**

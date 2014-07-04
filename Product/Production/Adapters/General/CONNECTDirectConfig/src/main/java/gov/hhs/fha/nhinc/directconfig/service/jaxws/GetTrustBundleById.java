@@ -58,7 +58,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "getTrustBundleById", namespace = "http://nhind.org/config/common")
 public class GetTrustBundleById {
 
-    @XmlElement(name = "id", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "id", namespace = "")
     private long id;
 
     /**

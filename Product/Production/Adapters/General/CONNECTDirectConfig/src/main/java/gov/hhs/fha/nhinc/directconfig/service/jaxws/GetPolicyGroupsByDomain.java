@@ -57,7 +57,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "getPolicyGroupsByDomain", namespace = "http://nhind.org/config/common")
 public class GetPolicyGroupsByDomain {
 
-    @XmlElement(name = "domainId", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "domainId", namespace = "")
     private long domainId;
 
     /**

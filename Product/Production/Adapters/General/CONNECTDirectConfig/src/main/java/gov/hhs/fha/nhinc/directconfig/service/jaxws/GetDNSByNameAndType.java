@@ -61,9 +61,9 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class GetDNSByNameAndType {
 
-    @XmlElement(name = "name", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "name", namespace = "")
     private String name;
-    @XmlElement(name = "type", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "type", namespace = "")
     private int type;
 
     /**

@@ -59,7 +59,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroupDomainReltn;
 @XmlType(name = "getPolicyGroupDomainReltnsResponse", namespace = "http://nhind.org/config/common")
 public class GetPolicyGroupDomainReltnsResponse {
 
-    @XmlElement(name = "return", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "return", namespace = "")
     private Collection<CertPolicyGroupDomainReltn> _return;
 
     /**

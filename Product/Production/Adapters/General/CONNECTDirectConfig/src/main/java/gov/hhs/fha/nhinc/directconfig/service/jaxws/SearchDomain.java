@@ -63,9 +63,9 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 })
 public class SearchDomain {
 
-    @XmlElement(name = "name", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "name", namespace = "")
     private String name;
-    @XmlElement(name = "status", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "status", namespace = "")
     private EntityStatus status;
 
     /**

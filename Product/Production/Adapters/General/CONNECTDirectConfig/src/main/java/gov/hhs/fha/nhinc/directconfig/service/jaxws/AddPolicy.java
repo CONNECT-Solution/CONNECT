@@ -59,7 +59,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.CertPolicy;
 @XmlType(name = "addPolicy", namespace = "http://nhind.org/config/common")
 public class AddPolicy {
 
-    @XmlElement(name = "policy", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "policy", namespace = "")
     private CertPolicy policy;
 
     /**

@@ -58,7 +58,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "removeAddress", namespace = "http://nhind.org/config/common")
 public class RemoveAddress {
 
-    @XmlElement(name = "emailAddress", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "emailAddress", namespace = "")
     private String emailAddress;
 
     /**

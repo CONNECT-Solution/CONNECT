@@ -58,7 +58,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "deleteTrustBundles", namespace = "http://nhind.org/config/common")
 public class DeleteTrustBundles {
 
-    @XmlElement(name = "trustBundleIds", namespace = "http://nhind.org/config/common", nillable = true)
+    @XmlElement(name = "trustBundleIds", namespace = "", nillable = true)
     private long[] trustBundleIds;
 
     /**

@@ -66,11 +66,11 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleRefreshError;
 })
 public class UpdateLastUpdateError {
 
-    @XmlElement(name = "trustBundleId", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "trustBundleId", namespace = "")
     private long trustBundleId;
-    @XmlElement(name = "attemptTime", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "attemptTime", namespace = "")
     private Calendar attemptTime;
-    @XmlElement(name = "error", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "error", namespace = "")
     private BundleRefreshError error;
 
     /**

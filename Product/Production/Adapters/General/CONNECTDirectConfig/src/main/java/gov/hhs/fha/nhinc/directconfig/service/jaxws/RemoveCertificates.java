@@ -59,7 +59,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "removeCertificates", namespace = "http://nhind.org/config/common")
 public class RemoveCertificates {
 
-    @XmlElement(name = "certificateIds", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "certificateIds", namespace = "")
     private Collection<Long> certificateIds;
 
     /**

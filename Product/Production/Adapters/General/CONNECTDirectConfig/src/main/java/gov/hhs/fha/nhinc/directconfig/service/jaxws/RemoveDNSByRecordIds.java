@@ -58,7 +58,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "removeDNSByRecordIds", namespace = "http://nhind.org/config/common")
 public class RemoveDNSByRecordIds {
 
-    @XmlElement(name = "recordIds", namespace = "http://nhind.org/config/common", nillable = true)
+    @XmlElement(name = "recordIds", namespace = "", nillable = true)
     private long[] recordIds;
 
     /**

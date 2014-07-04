@@ -60,7 +60,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "addPolicyGroup", namespace = "http://nhind.org/config/common")
 public class AddPolicyGroup {
 
-    @XmlElement(name = "policyGroup", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "policyGroup", namespace = "")
     private CertPolicyGroup policyGroup;
 
     /**

@@ -58,7 +58,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "deletePolicies", namespace = "http://nhind.org/config/common")
 public class DeletePolicies {
 
-    @XmlElement(name = "policyIds", namespace = "http://nhind.org/config/common", nillable = true)
+    @XmlElement(name = "policyIds", namespace = "", nillable = true)
     private long[] policyIds;
 
     /**

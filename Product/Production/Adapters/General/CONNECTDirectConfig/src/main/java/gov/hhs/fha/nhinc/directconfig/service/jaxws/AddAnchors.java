@@ -60,7 +60,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
 @XmlType(name = "addAnchor", namespace = "http://nhind.org/config/common")
 public class AddAnchors {
 
-    @XmlElement(name = "anchor", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "anchor", namespace = "")
     private Collection<Anchor> anchor;
 
     /**

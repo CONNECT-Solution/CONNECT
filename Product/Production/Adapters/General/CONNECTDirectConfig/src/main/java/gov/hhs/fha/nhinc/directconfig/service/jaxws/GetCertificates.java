@@ -63,9 +63,9 @@ import gov.hhs.fha.nhinc.directconfig.service.helpers.CertificateGetOptions;
 })
 public class GetCertificates {
 
-    @XmlElement(name = "certificateIds", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "certificateIds", namespace = "")
     private Collection<Long> certificateIds;
-    @XmlElement(name = "options", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "options", namespace = "")
     private CertificateGetOptions options;
 
     /**

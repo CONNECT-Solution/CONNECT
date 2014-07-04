@@ -58,7 +58,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "refreshTrustBundle", namespace = "http://nhind.org/config/common")
 public class RefreshTrustBundle {
 
-    @XmlElement(name = "id", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "id", namespace = "")
     private long id;
 
     /**

@@ -58,7 +58,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "disassociateTrustBundleFromDomains", namespace = "http://nhind.org/config/common")
 public class DisassociateTrustBundleFromDomains {
 
-    @XmlElement(name = "trustBundleId", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "trustBundleId", namespace = "")
     private long trustBundleId;
 
     /**

@@ -61,9 +61,9 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class AddSetting {
 
-    @XmlElement(name = "name", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "name", namespace = "")
     private String name;
-    @XmlElement(name = "value", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "value", namespace = "")
     private String value;
 
     /**

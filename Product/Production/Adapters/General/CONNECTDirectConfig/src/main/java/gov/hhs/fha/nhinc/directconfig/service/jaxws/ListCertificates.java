@@ -63,11 +63,11 @@ import gov.hhs.fha.nhinc.directconfig.service.helpers.CertificateGetOptions;
 })
 public class ListCertificates {
 
-    @XmlElement(name = "lastCertificateId", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "lastCertificateId", namespace = "")
     private long lastCertificateId;
-    @XmlElement(name = "maxResutls", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "maxResutls", namespace = "")
     private int maxResutls;
-    @XmlElement(name = "options", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "options", namespace = "")
     private CertificateGetOptions options;
 
     /**

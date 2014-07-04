@@ -65,9 +65,9 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 })
 public class GetAddress {
 
-    @XmlElement(name = "emailAddress", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "emailAddress", namespace = "")
     private Collection<String> emailAddress;
-    @XmlElement(name = "status", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "status", namespace = "")
     private EntityStatus status;
 
     /**

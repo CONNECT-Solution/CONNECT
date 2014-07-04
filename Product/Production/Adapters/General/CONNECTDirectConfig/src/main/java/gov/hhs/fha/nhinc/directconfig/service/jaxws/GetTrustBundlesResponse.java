@@ -60,7 +60,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.TrustBundle;
 @XmlType(name = "getTrustBundlesResponse", namespace = "http://nhind.org/config/common")
 public class GetTrustBundlesResponse {
 
-    @XmlElement(name = "return", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "return", namespace = "")
     private Collection<TrustBundle> _return;
 
     /**

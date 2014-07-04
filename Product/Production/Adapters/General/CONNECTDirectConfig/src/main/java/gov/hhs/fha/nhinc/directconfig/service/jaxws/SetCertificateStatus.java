@@ -65,9 +65,9 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 })
 public class SetCertificateStatus {
 
-    @XmlElement(name = "certificateIds", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "certificateIds", namespace = "")
     private Collection<Long> certificateIds;
-    @XmlElement(name = "status", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "status", namespace = "")
     private EntityStatus status;
 
     /**

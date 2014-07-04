@@ -59,7 +59,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "removeAnchors", namespace = "http://nhind.org/config/common")
 public class RemoveAnchors {
 
-    @XmlElement(name = "anchorId", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "anchorId", namespace = "")
     private Collection<Long> anchorId;
 
     /**

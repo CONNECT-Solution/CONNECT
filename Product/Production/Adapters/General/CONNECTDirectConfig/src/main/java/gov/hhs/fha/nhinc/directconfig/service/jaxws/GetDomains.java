@@ -65,9 +65,9 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 })
 public class GetDomains {
 
-    @XmlElement(name = "names", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "names", namespace = "")
     private Collection<String> names;
-    @XmlElement(name = "status", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "status", namespace = "")
     private EntityStatus status;
 
     /**

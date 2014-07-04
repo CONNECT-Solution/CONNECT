@@ -58,7 +58,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "getSettingsByNames", namespace = "http://nhind.org/config/common")
 public class GetSettingsByNames {
 
-    @XmlElement(name = "names", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "names", namespace = "")
     private Collection<String> names;
 
     /**
