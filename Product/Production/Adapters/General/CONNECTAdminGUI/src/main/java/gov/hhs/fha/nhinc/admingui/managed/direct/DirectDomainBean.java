@@ -21,17 +21,22 @@
 package gov.hhs.fha.nhinc.admingui.managed.direct;
 
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectAddress;
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectAnchor;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import org.apache.log4j.Logger;
+
+import org.nhind.config.common.AddAnchor;
 import org.nhind.config.common.AddDomain;
+import org.nhind.config.common.Anchor;
 import org.nhind.config.common.Domain;
 import org.nhind.config.common.EntityStatus;
+import org.nhind.config.common.GetAnchorsForOwner;
+import org.nhind.config.common.RemoveAnchors;
 import org.nhind.config.common.UpdateDomain;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
@@ -58,7 +63,7 @@ public class DirectDomainBean {
 
     private Domain selectedDomain;
     private DirectAddress selectedAddress;
-    private DirectAnchor selectedAnchor;
+    private Anchor selectedAnchor;
     private DirectTrustBundle selectedTrustBundle;
 
     private String addressEndpoint;
@@ -127,11 +132,35 @@ public class DirectDomainBean {
     }
 
     public void addAnchor() {
+        AddAnchor addAnchor = new AddAnchor();
+        Anchor anchor = new Anchor();
 
+        if (anchorCert != null) {
+            anchor.setData(anchorCert.getContents());
+
+            // TODO: Set these based on user input
+            // TODO: We may have to parse X509 data to retrieve and set owner (per Direct RI)
+            anchor.setIncoming(true);
+            anchor.setOutgoing(true);
+            anchor.setStatus(EntityStatus.NEW);
+
+            addAnchor.getAnchor().add(anchor);
+        }
+
+        directService.addAnchor(addAnchor);
+    }
+
+    public List<Anchor> getAnchorsForOwner() {
+        GetAnchorsForOwner getAnchorsForOwner = new GetAnchorsForOwner();
+        getAnchorsForOwner.setOwner(domainName);
+
+        return directService.getAnchorsForOwner(getAnchorsForOwner);
     }
 
     public void deleteAnchor() {
+        RemoveAnchors removeAnchors = new RemoveAnchors();
 
+        removeAnchors.getAnchorId().add(selectedAnchor.getId());
     }
 
     public void addTrustBundles() {
@@ -216,11 +245,11 @@ public class DirectDomainBean {
         this.addressType = addressType;
     }
 
-    public DirectAnchor getSelectedAnchor() {
+    public Anchor getSelectedAnchor() {
         return selectedAnchor;
     }
 
-    public void setSelectedAnchor(DirectAnchor selectedAnchor) {
+    public void setSelectedAnchor(Anchor selectedAnchor) {
         this.selectedAnchor = selectedAnchor;
     }
 

@@ -53,6 +53,8 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.service.AnchorService;
 import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
 import gov.hhs.fha.nhinc.directconfig.service.helpers.CertificateGetOptions;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddAnchors;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddAnchorsResponse;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -93,15 +95,16 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
      * {@inheritDoc}
      */
     @Override
-    public void addAnchors(Collection<Anchor> anchors) throws ConfigurationServiceException {
-        if (anchors != null && anchors.size() > 0) {
-            for (Anchor anchor : anchors) {
+    public AddAnchorsResponse addAnchors(AddAnchors addAnchors) throws ConfigurationServiceException {
+        if (addAnchors.getAnchor() != null && addAnchors.getAnchor().size() > 0) {
+            for (Anchor anchor : addAnchors.getAnchor()) {
                 dao.add(anchor);
             }
         } else {
             log.debug("No anchors were provided.");
         }
 
+        return new AddAnchorsResponse();
     }
 
     /**

@@ -21,8 +21,15 @@
 package gov.hhs.fha.nhinc.admingui.proxy;
 
 import java.util.List;
+
+import org.nhind.config.common.AddAnchor;
+import org.nhind.config.common.AddAnchorResponse;
 import org.nhind.config.common.AddDomain;
 import org.nhind.config.common.Domain;
+import org.nhind.config.common.GetAnchorsForOwner;
+import org.nhind.config.common.GetAnchorsForOwnerResponse;
+import org.nhind.config.common.RemoveAnchors;
+import org.nhind.config.common.RemoveAnchorsResponse;
 import org.nhind.config.common.UpdateDomain;
 import org.nhind.config.common.UpdateDomainResponse;
 
@@ -31,11 +38,15 @@ import org.nhind.config.common.UpdateDomainResponse;
  * @author jasonasmith
  */
 public interface DirectConfigProxy {
-    
+
     public Domain getDomain(Long id) throws Exception;
     public void addDomain(AddDomain domain) throws Exception;
     public List<Domain> listDomains()throws Exception;
     public UpdateDomainResponse updateDomain(UpdateDomain updateDomain) throws Exception;
     public void deleteDomain(String name) throws Exception;
-    
+
+    public AddAnchorResponse addAnchor(AddAnchor anchor) throws Exception;
+    public RemoveAnchorsResponse removeAnchors(RemoveAnchors anchors) throws Exception;
+    public GetAnchorsForOwnerResponse getAnchorsForOwner(GetAnchorsForOwner anchors) throws Exception;
+
 }

@@ -73,8 +73,14 @@ import gov.hhs.fha.nhinc.directconfig.service.DomainService;
 import gov.hhs.fha.nhinc.directconfig.service.SettingService;
 import gov.hhs.fha.nhinc.directconfig.service.TrustBundleService;
 import gov.hhs.fha.nhinc.directconfig.service.helpers.CertificateGetOptions;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddAnchors;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddAnchorsResponse;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddDomain;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddDomainResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.GetAnchorsForOwner;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.GetAnchorsForOwnerResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.RemoveAnchors;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.RemoveAnchorsResponse;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.UpdateDomain;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.UpdateDomainResponse;
 
@@ -196,6 +202,7 @@ public class ConfigurationServiceImpl extends SpringBeanAutowiringSupport implem
 
     /**
      * {@inheritDoc}
+     *
      * @param domain
      */
     @Override
@@ -342,9 +349,8 @@ public class ConfigurationServiceImpl extends SpringBeanAutowiringSupport implem
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
-    public void addAnchors(Collection<Anchor> anchors) throws ConfigurationServiceException {
-        anchorSvc.addAnchors(anchors);
-
+    public AddAnchorsResponse addAnchors(AddAnchors anchors) throws ConfigurationServiceException {
+        return anchorSvc.addAnchors(anchors);
     }
 
     /**
@@ -361,8 +367,8 @@ public class ConfigurationServiceImpl extends SpringBeanAutowiringSupport implem
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
-    public void removeAnchors(Collection<Long> anchorIds) throws ConfigurationServiceException {
-        anchorSvc.removeAnchors(anchorIds);
+    public RemoveAnchorsResponse removeAnchors(RemoveAnchors anchors) throws ConfigurationServiceException {
+        return anchorSvc.removeAnchors(anchors);
     }
 
     /**
@@ -445,10 +451,10 @@ public class ConfigurationServiceImpl extends SpringBeanAutowiringSupport implem
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
-    public Collection<Anchor> getAnchorsForOwner(String owner, CertificateGetOptions options)
+    public GetAnchorsForOwnerResponse getAnchorsForOwner(GetAnchorsForOwner anchors)
             throws ConfigurationServiceException {
 
-        return anchorSvc.getAnchorsForOwner(owner, options);
+        return anchorSvc.getAnchorsForOwner(anchors);
     }
 
     /**
