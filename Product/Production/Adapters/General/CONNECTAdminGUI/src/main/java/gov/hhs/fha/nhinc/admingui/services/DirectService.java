@@ -59,7 +59,7 @@ public interface DirectService {
     public void addTrustBundle(DirectTrustBundle tb);
     public void deleteTrustBundle(DirectTrustBundle tb);
 
-    public List<Anchor> getAnchorsForOwner(GetAnchorsForOwner anchors);
-    public void addAnchor(AddAnchor anchor);
-    public void deleteAnchor(RemoveAnchors anchor);
+    public List<Anchor> getAnchorsForOwner(GetAnchorsForOwner getAnchorsForOwner);
+    public void addAnchor(AddAnchor addAnchor);
+    public void deleteAnchor(RemoveAnchors removeAnchors);
 }

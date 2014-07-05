@@ -156,31 +156,33 @@ public class DirectServiceImpl implements DirectService {
     }
 
     @Override
-    public List<Anchor> getAnchorsForOwner(GetAnchorsForOwner anchor) {
+    public List<Anchor> getAnchorsForOwner(GetAnchorsForOwner getAnchorsForOwner) {
         List<Anchor> anchors = null;
 
         try {
-            anchors = directProxy.getAnchorsForOwner(anchor).getReturn();
+            anchors = directProxy.getAnchorsForOwner(getAnchorsForOwner);
         } catch (Exception ex) {
-            LOG.error("Error retrieving list of anchors for owner " + anchor.getOwner() + ": " + ex.getMessage(), ex);
+            LOG.error(
+                    "Error retrieving list of anchors for owner " + getAnchorsForOwner.getOwner() + ": "
+                            + ex.getMessage(), ex);
         }
 
         return anchors;
     }
 
     @Override
-    public void addAnchor(AddAnchor anchor) {
+    public void addAnchor(AddAnchor addAnchor) {
         try {
-            directProxy.addAnchor(anchor);
+            directProxy.addAnchor(addAnchor);
         } catch (Exception ex) {
             LOG.error("Unable to add anchor", ex);
         }
     }
 
     @Override
-    public void deleteAnchor(RemoveAnchors anchors) {
+    public void deleteAnchor(RemoveAnchors removeAnchors) {
         try {
-            directProxy.removeAnchors(anchors);
+            directProxy.removeAnchors(removeAnchors);
         } catch (Exception ex) {
             LOG.error("Unable to remove anchor", ex);
         }

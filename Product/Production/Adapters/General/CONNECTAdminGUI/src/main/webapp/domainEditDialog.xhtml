@@ -69,11 +69,10 @@
                     <p:tab title="Anchors">
                         <h:form id="anchorsForm" enctype="multipart/form-data" class="form-horizontal">
                             <h4>Stored Anchors</h4>
-                            <ui:remove>
-                            <!--<p:dataTable id="anchorDataTable" var="anchor" value="#{directDomainBean.selectedDomain.anchors}" selection="#{directDomainBean.selectedAnchor}" rowKey="#{anchor.name}" styleClass="table table-striped table-domains">
+                            <p:dataTable id="anchorDataTable" var="anchor" value="#{directDomainBean.anchors}" selection="#{directDomainBean.selectedAnchor}" rowKey="#{anchor.owner}" styleClass="table table-striped table-domains">
                                 <p:column headerText="Delete" selectionMode="single" />
                                 <p:column headerText="Name" sortBy="name">
-                                    <h:outputText value="#{anchor.name}" />
+                                    <h:outputText value="#{anchor.owner}" />
                                 </p:column>
                                 <p:column headerText="Status" sortBy="status">
                                     <h:outputText value="#{anchor.status}" />
@@ -88,8 +87,6 @@
                             <p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
                                 <p:commandButton update="anchorDataTable" value="Delete" actionListener="#{directDomainBean.deleteAnchor()}" styleClass="delete-button" icon="ui-icon-closethick"/>
                             </p:panelGrid>
-                            -->
-                            </ui:remove>
                             <div class="domain-form-block">
                                 <h4>Add Another Anchor</h4>
                                 <h:outputLabel for="pick-anchor-cert" class="col-sm-4 control-label label-pick-anchor" id="pick-anchor-certLbl" value="Choose Anchor Certificate:" />

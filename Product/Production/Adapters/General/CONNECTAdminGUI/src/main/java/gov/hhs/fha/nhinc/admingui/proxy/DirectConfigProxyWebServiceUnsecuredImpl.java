@@ -29,14 +29,12 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.util.List;
 
 import org.nhind.config.common.AddAnchor;
-import org.nhind.config.common.AddAnchorResponse;
 import org.nhind.config.common.AddDomain;
+import org.nhind.config.common.Anchor;
 import org.nhind.config.common.ConfigurationService;
 import org.nhind.config.common.Domain;
 import org.nhind.config.common.GetAnchorsForOwner;
-import org.nhind.config.common.GetAnchorsForOwnerResponse;
 import org.nhind.config.common.RemoveAnchors;
-import org.nhind.config.common.RemoveAnchorsResponse;
 import org.nhind.config.common.UpdateDomain;
 import org.nhind.config.common.UpdateDomainResponse;
 import org.springframework.stereotype.Service;
@@ -80,21 +78,25 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
     }
 
     @Override
-    public AddAnchorResponse addAnchor(AddAnchor anchor) throws Exception {
-        return (AddAnchorResponse) getClient().invokePort(directConfigClazz,
-                DirectConfigConstants.DIRECT_CONFIG_ADD_ANCHOR, anchor);
+    @SuppressWarnings("unchecked")
+    public void addAnchor(AddAnchor addAnchor) throws Exception {
+        getClient()
+                .invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ADD_ANCHOR, addAnchor.getAnchor());
     }
 
     @Override
-    public RemoveAnchorsResponse removeAnchors(RemoveAnchors anchors) throws Exception {
-        return (RemoveAnchorsResponse) getClient().invokePort(directConfigClazz,
-                DirectConfigConstants.DIRECT_CONFIG_DELETE_ANCHOR, anchors);
+    @SuppressWarnings("unchecked")
+    public void removeAnchors(RemoveAnchors removeAnchors) throws Exception {
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DELETE_ANCHOR,
+                removeAnchors.getAnchorId());
     }
 
     @Override
-    public GetAnchorsForOwnerResponse getAnchorsForOwner(GetAnchorsForOwner anchors) throws Exception {
-        return (GetAnchorsForOwnerResponse) getClient().invokePort(directConfigClazz,
-                DirectConfigConstants.DIRECT_CONFIG_GET_ANCHORS_FOR_OWNER, anchors);
+    @SuppressWarnings("unchecked")
+    public List<Anchor> getAnchorsForOwner(GetAnchorsForOwner getAnchorsForOwner) throws Exception {
+        return (List<Anchor>) getClient().invokePort(directConfigClazz,
+                DirectConfigConstants.DIRECT_CONFIG_GET_ANCHORS_FOR_OWNER, getAnchorsForOwner.getOwner(),
+                getAnchorsForOwner.getOptions());
     }
 
     private CONNECTClient getClient() throws Exception {

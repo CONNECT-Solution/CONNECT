@@ -33,6 +33,7 @@ import javax.faces.bean.ViewScoped;
 import org.nhind.config.common.AddAnchor;
 import org.nhind.config.common.AddDomain;
 import org.nhind.config.common.Anchor;
+import org.nhind.config.common.CertificateGetOptions;
 import org.nhind.config.common.Domain;
 import org.nhind.config.common.EntityStatus;
 import org.nhind.config.common.GetAnchorsForOwner;
@@ -132,35 +133,36 @@ public class DirectDomainBean {
     }
 
     public void addAnchor() {
-        AddAnchor addAnchor = new AddAnchor();
-        Anchor anchor = new Anchor();
-
         if (anchorCert != null) {
-            anchor.setData(anchorCert.getContents());
+            AddAnchor addAnchor = new AddAnchor();
+            Anchor anchor = new Anchor();
 
-            // TODO: Set these based on user input
-            // TODO: We may have to parse X509 data to retrieve and set owner (per Direct RI)
-            anchor.setIncoming(true);
-            anchor.setOutgoing(true);
-            anchor.setStatus(EntityStatus.NEW);
+            // TODO: May have to parse X509 data for thumbprint, valid start/end date, etc.
+            anchor.setData(anchorCert.getContents());
+            anchor.setOwner(getSelectedDomain().getDomainName());
+            anchor.setIncoming(isAnchorIncoming());
+            anchor.setOutgoing(isAnchorOutgoing());
+            anchor.setStatus(EntityStatus.valueOf(getAnchorStatus()));
 
             addAnchor.getAnchor().add(anchor);
-        }
 
-        directService.addAnchor(addAnchor);
+            directService.addAnchor(addAnchor);
+        }
     }
 
-    public List<Anchor> getAnchorsForOwner() {
+    public List<Anchor> getAnchors() {
         GetAnchorsForOwner getAnchorsForOwner = new GetAnchorsForOwner();
-        getAnchorsForOwner.setOwner(domainName);
+        getAnchorsForOwner.setOwner(getSelectedDomain().getDomainName());
+        getAnchorsForOwner.setOptions(new CertificateGetOptions());
 
         return directService.getAnchorsForOwner(getAnchorsForOwner);
     }
 
     public void deleteAnchor() {
         RemoveAnchors removeAnchors = new RemoveAnchors();
+        removeAnchors.getAnchorId().add(getSelectedAnchor().getId());
 
-        removeAnchors.getAnchorId().add(selectedAnchor.getId());
+        directService.deleteAnchor(removeAnchors);
     }
 
     public void addTrustBundles() {
