@@ -49,12 +49,28 @@ package gov.hhs.fha.nhinc.directconfig.service.impl;
 
 import gov.hhs.fha.nhinc.directconfig.dao.AnchorDao;
 import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
-import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.service.AnchorService;
 import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
-import gov.hhs.fha.nhinc.directconfig.service.helpers.CertificateGetOptions;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddAnchors;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddAnchorsResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.GetAnchor;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.GetAnchorResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.GetAnchors;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.GetAnchorsForOwner;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.GetAnchorsForOwnerResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.GetAnchorsResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.GetIncomingAnchors;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.GetIncomingAnchorsResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.GetOutgoingAnchors;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.GetOutgoingAnchorsResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.ListAnchors;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.ListAnchorsResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.RemoveAnchors;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.RemoveAnchorsForOwner;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.RemoveAnchorsForOwnerResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.RemoveAnchorsResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.SetAnchorStatusForOwner;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.SetAnchorStatusForOwnerResponse;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -111,152 +127,187 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
      * {@inheritDoc}
      */
     @Override
-    public Anchor getAnchor(String owner, String thumbprint, CertificateGetOptions options)
-            throws ConfigurationServiceException {
+    public GetAnchorResponse getAnchor(GetAnchor getAnchor) throws ConfigurationServiceException {
+        GetAnchorResponse getAnchorResponse = new GetAnchorResponse();
+        getAnchorResponse.setReturn(null);
 
         List<String> owners = new ArrayList<String>();
-        owners.add(owner);
+        owners.add(getAnchor.getOwner());
 
         List<Anchor> anchors = dao.list(owners);
 
-        if (anchors == null || anchors.size() == 0) {
-            log.debug("No anchors found for owner: " + owner);
-            return null;
-        }
-
-        for (Anchor anchor : anchors) {
-            if (anchor.getThumbprint().equalsIgnoreCase(thumbprint)) {
-                log.debug("Single anchor found, returning: " + owner + ", " + thumbprint);
-                return anchor;
+        if (anchors != null) {
+            for (Anchor anchor : anchors) {
+                if (anchor.getThumbprint().equalsIgnoreCase(getAnchor.getThumbprint())) {
+                    log.debug("Anchor found for " + getAnchor.getOwner() + " with thumbprint: "
+                            + getAnchor.getThumbprint());
+                    getAnchorResponse.setReturn(anchor);
+                    break;
+                }
             }
         }
 
-        log.debug("Found " + anchors.size() + " anchors, but none with thumbprint: " + thumbprint);
-
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Collection<Anchor> getAnchors(Collection<Long> anchorIds, CertificateGetOptions options)
-            throws ConfigurationServiceException {
-
-        if (anchorIds == null || anchorIds.size() == 0) {
-            log.debug("No anchor ids were provided.");
-            return Collections.emptyList();
+        if (getAnchorResponse.getReturn() == null) {
+            log.debug("No anchors found for owner: " + getAnchor.getOwner());
         }
 
-        return dao.listByIds(new ArrayList<Long>(anchorIds));
+        return getAnchorResponse;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Collection<Anchor> getAnchorsForOwner(String owner, CertificateGetOptions options)
+    public GetAnchorsResponse getAnchors(GetAnchors getAnchors) throws ConfigurationServiceException {
+        GetAnchorsResponse getAnchorsResponse = new GetAnchorsResponse();
+        List<Anchor> retList;
+
+        if (getAnchors.getAnchorId() != null && getAnchors.getAnchorId().size() > 0) {
+            retList = dao.listByIds(new ArrayList<Long>(getAnchors.getAnchorId()));
+        } else {
+            log.debug("No anchor ids were provided.");
+            retList = Collections.emptyList();
+        }
+
+        getAnchorsResponse.setReturn(retList);
+
+        return getAnchorsResponse;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GetAnchorsForOwnerResponse getAnchorsForOwner(GetAnchorsForOwner getAnchorsForOwner)
             throws ConfigurationServiceException {
 
         List<String> owners = new ArrayList<String>();
-        owners.add(owner);
+        owners.add(getAnchorsForOwner.getOwner());
 
-        return dao.list(owners);
+        GetAnchorsForOwnerResponse anchors = new GetAnchorsForOwnerResponse();
+        anchors.setReturn(dao.list(owners));
+
+        return anchors;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Collection<Anchor> getIncomingAnchors(String owner, CertificateGetOptions options)
+    public GetIncomingAnchorsResponse getIncomingAnchors(GetIncomingAnchors getIncomingAnchors)
             throws ConfigurationServiceException {
 
-        Collection<Anchor> anchors = getAnchorsForOwner(owner, options);
+        GetIncomingAnchorsResponse getIncomingAnchorsResponse = new GetIncomingAnchorsResponse();
 
-        if (anchors == null || anchors.size() == 0) {
-            log.debug("No anchors found for owner: " + owner);
-            return Collections.emptyList();
-        }
+        GetAnchorsForOwner getAnchorsForOwner = new GetAnchorsForOwner();
+        getAnchorsForOwner.setOwner(getIncomingAnchors.getOwner());
+        getAnchorsForOwner.setOptions(getIncomingAnchors.getOptions());
 
+        Collection<Anchor> anchors = getAnchorsForOwner(getAnchorsForOwner).getReturn();
         Collection<Anchor> retList = new ArrayList<Anchor>();
 
-        for (Anchor anchor : anchors) {
-            if (anchor.isIncoming()) {
-                retList.add(anchor);
+        if (anchors != null && anchors.size() > 0) {
+            for (Anchor anchor : anchors) {
+                if (anchor.isIncoming()) {
+                    retList.add(anchor);
+                }
             }
+
+            log.debug("Found " + retList.size() + " incoming anchors");
+        } else {
+            log.debug("No anchors found for owner: " + getIncomingAnchors.getOwner());
+            retList = Collections.emptyList();
         }
 
-        log.debug("Found " + retList.size() + " incoming anchors");
+        getIncomingAnchorsResponse.setReturn(retList);
 
-        return retList;
+        return getIncomingAnchorsResponse;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Collection<Anchor> getOutgoingAnchors(String owner, CertificateGetOptions options)
+    public GetOutgoingAnchorsResponse getOutgoingAnchors(GetOutgoingAnchors getOutgoingAnchors)
             throws ConfigurationServiceException {
 
-        Collection<Anchor> anchors = getAnchorsForOwner(owner, options);
+        GetAnchorsForOwner getAnchorsForOwner = new GetAnchorsForOwner();
+        getAnchorsForOwner.setOwner(getOutgoingAnchors.getOwner());
+        getAnchorsForOwner.setOptions(getOutgoingAnchors.getOptions());
 
-        if (anchors == null || anchors.size() == 0) {
-            log.debug("No anchors found for owner: " + owner);
-            return Collections.emptyList();
-        }
+        Collection<Anchor> allAnchors = getAnchorsForOwner(getAnchorsForOwner).getReturn();
+        Collection<Anchor> outgoingAnchors = new ArrayList<Anchor>();
 
-        Collection<Anchor> retList = new ArrayList<Anchor>();
-
-        for (Anchor anchor : anchors) {
-            if (anchor.isOutgoing()) {
-                retList.add(anchor);
+        if (allAnchors != null) {
+            for (Anchor anchor : allAnchors) {
+                if (anchor.isOutgoing()) {
+                    outgoingAnchors.add(anchor);
+                }
             }
+
+            log.debug("Found " + outgoingAnchors.size() + " incoming anchors for owner: "
+                    + getOutgoingAnchors.getOwner());
+        } else {
+            log.debug("No anchors found for owner: " + getOutgoingAnchors.getOwner());
+            outgoingAnchors = Collections.emptyList();
         }
 
-        log.debug("Found " + retList.size() + " incoming anchors");
+        GetOutgoingAnchorsResponse getOutgoingAnchorsResponse = new GetOutgoingAnchorsResponse();
+        getOutgoingAnchorsResponse.setReturn(outgoingAnchors);
 
-        return retList;
+        return getOutgoingAnchorsResponse;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setAnchorStatusForOwner(String owner, EntityStatus status) throws ConfigurationServiceException {
-        dao.setStatus(owner, status);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Collection<Anchor> listAnchors(Long lastAnchorID, int maxResults, CertificateGetOptions options)
+    public SetAnchorStatusForOwnerResponse setAnchorStatusForOwner(SetAnchorStatusForOwner setAnchorStatusForOwner)
             throws ConfigurationServiceException {
+
+        dao.setStatus(setAnchorStatusForOwner.getOwner(), setAnchorStatusForOwner.getStatus());
+
+        return new SetAnchorStatusForOwnerResponse();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ListAnchorsResponse listAnchors(ListAnchors listAnchors) throws ConfigurationServiceException {
+        ListAnchorsResponse listAnchorsResponse = new ListAnchorsResponse();
 
         // Direct RI comment: just get all for now
-        return dao.listAll();
+        listAnchorsResponse.setReturn(dao.listAll());
+
+        return listAnchorsResponse;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void removeAnchors(Collection<Long> anchorIds) throws ConfigurationServiceException {
-        if (anchorIds == null || anchorIds.size() == 0) {
-            log.debug("No anchor ids specified, returning....");
-            return;
+    public RemoveAnchorsResponse removeAnchors(RemoveAnchors removeAnchors) throws ConfigurationServiceException {
+        Collection<Long> ids = removeAnchors.getAnchorId();
+
+        if (ids != null && ids.size() > 0) {
+            dao.delete(new ArrayList<Long>(ids));
+        } else {
+            log.debug("No Anchor IDs specified for deletion.");
         }
 
-        List<Long> ids = new ArrayList<Long>(anchorIds);
-
-        dao.delete(ids);
+        return new RemoveAnchorsResponse();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void removeAnchorsForOwner(String owner) throws ConfigurationServiceException {
-        dao.delete(owner);
+    public RemoveAnchorsForOwnerResponse removeAnchorsForOwner(RemoveAnchorsForOwner removeAnchorsForOwner)
+            throws ConfigurationServiceException {
+
+        dao.delete(removeAnchorsForOwner.getOwner());
+
+        return new RemoveAnchorsForOwnerResponse();
     }
 }

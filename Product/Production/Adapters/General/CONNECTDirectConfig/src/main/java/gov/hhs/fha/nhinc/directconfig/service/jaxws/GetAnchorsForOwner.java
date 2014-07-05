@@ -58,7 +58,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "getAnchorsForOwner", propOrder = { "owner", "options" })
 public class GetAnchorsForOwner {
 
-    @XmlElement(namespace = "http://nhind.org/config/common")
+    @XmlElement(namespace = "")
     private String owner;
 
     @XmlElement(namespace = "http://nhind.org/config/common")
