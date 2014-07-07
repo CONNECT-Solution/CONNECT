@@ -11,7 +11,7 @@
 		<title><ui:insert name="title">Connect Administration</ui:insert></title>
         <ui:insert name="metatag"></ui:insert>
 		
-		<link rel="shortcut icon" href="#{resource['images/favicon-admingui.ico']}" type="image/x-icon" />
+        <link rel="shortcut icon" href="#{resource['images/favicon-admingui.ico']}" type="image/x-icon" />
         
 		<h:outputStylesheet library="css" name="bootstrap.css.map" />
         <h:outputStylesheet library="css" name="bootstrap.min.css" />
@@ -30,21 +30,14 @@
             <div class="container-fluid" style="height:100%;">
                 <div class="row" style="height: 100%;">
                     <!-- BEGIN: LEFT COLUMN - SIDEBAR NAVIGATION -->
-                    <div class="col-xs-2 sidebar sidebar-scroll">
-                        <ui:insert name="menu">
-                            <ui:include src="/resources/Templates/SidebarPaneForBaseTemplate.xhtml" />
-                        </ui:insert>
-                        <div class="copyright">
-                            <ui:insert name="footer">
-                                <ui:include src="/resources/Templates/FooterForBaseTemplate.xhtml" />
-                            </ui:insert>
-                        </div>
-                    </div>
+                    <ui:insert name="menu">
+                        <ui:include src="/resources/Templates/SidebarPaneForBaseTemplate.xhtml" />
+                    </ui:insert>
                     <!-- END: LEFT COLUMN - SIDEBAR NAVIGATION -->
 					
                     <!-- BEGIN: RIGHT COLUMN - Primary content is located here -->
                     <div class="col-xs-offset-2 col-xs-10 main">
-                        <!-- BEGIN: UTILITY BAR -->
+                        <!-- BEGIN: UTILITY BAR - "Header" -->
                         <ui:insert name="foradmin">
                             <div class="navbar nav-utility" role="navigation">
                                 <ui:insert name="header">
@@ -52,7 +45,7 @@
                                 </ui:insert>
                             </div>
                         </ui:insert>
-                        <!-- END: UTILITY BAR -->
+                        <!-- END: UTILITY BAR - "Header" -->
 						
                         <!-- BEGIN: MAIN CONTENT SECTION -->
                         <div class="main-content">

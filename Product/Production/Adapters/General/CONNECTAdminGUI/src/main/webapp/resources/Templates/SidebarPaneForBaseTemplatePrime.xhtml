@@ -34,28 +34,39 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <body>
-        <ui:composition>
-		<h1 class="page-header">Gateway Administrative Console</h1>
-        <h:form>
-        <p:panelMenu style="width:100%">
-            <p:submenu label="Gateway Status" styleClass="sidebar-orange">
-                <p:menuitem value="Dashboard" action="#{tabBean.setDashboardTabIndexNavigate(0)}" styleClass="glyphicon glyphicon-dashboard" />
-                <p:menuitem value="Performance Statistics" action="#{tabBean.setDashboardTabIndexNavigate(1)}" styleClass="glyphicon glyphicon-stats" />
-                <p:menuitem value="Remote Gateway List" action="#{tabBean.setDashboardTabIndexNavigate(2)}" styleClass="glyphicon glyphicon-list" />
-            </p:submenu>
-            <p:submenu label="Direct Configuration" styleClass="sidebar-purple">
-                <p:menuitem value="Domains" action="#{tabBean.setDirectTabIndexNavigate(0)}" styleClass="glyphicon glyphicon-globe" />
-                <p:menuitem value="Agent Settings" action="#{tabBean.setDirectTabIndexNavigate(1)}" styleClass="glyphicon glyphicon-cog" />
-                <p:menuitem value="Certificates" action="#{tabBean.setDirectTabIndexNavigate(2)}" styleClass="glyphicon glyphicon-list-alt" />
-                <p:menuitem value="Trust Bundles" action="#{tabBean.setDirectTabIndexNavigate(3)}" styleClass="glyphicon glyphicon-briefcase" />			
-            </p:submenu>
-			<p:submenu label="Account Management" styleClass="sidebar-blue">
-                <p:menuitem value="User Accounts" action="#{tabBean.setAdminTabIndexNavigate(0)}" styleClass="glyphicon glyphicon-user" />
-                <p:menuitem value="Certificate Management" action="#{tabBean.setAdminTabIndexNavigate(1)}" styleClass="glyphicon glyphicon-lock" />
-				<p:menuitem value="Manage User Roles" url="ManageRole.xhtml" styleClass="glyphicon glyphicon-lock" />
-            </p:submenu>
-        </p:panelMenu>
-        </h:form>
-		</ui:composition>
+    <ui:composition>
+        <div class="col-xs-2 sidebar sidebar-scroll">
+            
+                <h1 class="page-header">Gateway Administrative Console</h1>
+                
+                <h:form>
+                    <p:panelMenu style="width:100%">
+                        <p:submenu label="Gateway Status" styleClass="sidebar-orange">
+                            <p:menuitem value="Dashboard" action="#{tabBean.setDashboardTabIndexNavigate(0)}" styleClass="glyphicon glyphicon-dashboard" />
+                            <p:menuitem value="Performance Statistics" action="#{tabBean.setDashboardTabIndexNavigate(1)}" styleClass="glyphicon glyphicon-stats" />
+                            <p:menuitem value="Remote Gateway List" action="#{tabBean.setDashboardTabIndexNavigate(2)}" styleClass="glyphicon glyphicon-list" />
+                        </p:submenu>
+                        <p:submenu label="Direct Configuration" styleClass="sidebar-purple">
+                            <p:menuitem value="Domains" action="#{tabBean.setDirectTabIndexNavigate(0)}" styleClass="glyphicon glyphicon-globe" />
+                            <p:menuitem value="Agent Settings" action="#{tabBean.setDirectTabIndexNavigate(1)}" styleClass="glyphicon glyphicon-cog" />
+                            <p:menuitem value="Certificates" action="#{tabBean.setDirectTabIndexNavigate(2)}" styleClass="glyphicon glyphicon-list-alt" />
+                            <p:menuitem value="Trust Bundles" action="#{tabBean.setDirectTabIndexNavigate(3)}" styleClass="glyphicon glyphicon-briefcase" />			
+                        </p:submenu>
+                        <p:submenu label="Account Management" styleClass="sidebar-blue">
+                            <p:menuitem value="User Accounts" action="#{tabBean.setAdminTabIndexNavigate(0)}" styleClass="glyphicon glyphicon-user" />
+                            <p:menuitem value="Certificate Management" action="#{tabBean.setAdminTabIndexNavigate(1)}" styleClass="glyphicon glyphicon-lock" />
+                            <p:menuitem value="Manage User Roles" url="ManageRole.xhtml" styleClass="glyphicon glyphicon-lock" />
+                        </p:submenu>
+                    </p:panelMenu>
+                </h:form>
+                
+                <div class="copyright">
+                    <ui:insert name="footer">
+                        <ui:include src="/resources/Templates/FooterForBaseTemplatePrime.xhtml" />
+                    </ui:insert>
+                </div>
+            
+        </div>
+    </ui:composition>
     </body>
 </html>

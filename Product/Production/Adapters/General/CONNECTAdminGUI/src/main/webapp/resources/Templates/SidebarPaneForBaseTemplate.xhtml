@@ -34,7 +34,8 @@
       xmlns:f="http://java.sun.com/jsf/core">
 
     <body>
-		<ui:composition xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml">
+    <ui:composition xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml">
+        <div class="col-xs-2 sidebar sidebar-scroll">
 			<h1 class="page-header">Gateway Administrative Console</h1>
 	
 			<div id="sidenav-status">
@@ -91,6 +92,13 @@
 					<li><a href="acctmanage.xhtml#tab_certificate"><i class="glyphicon glyphicon-lock"></i> Certificate Management</a></li>
 				</ul>
 			</div>
-		</ui:composition>
+            
+            <div class="copyright">
+                <ui:insert name="footer">
+                    <ui:include src="/resources/Templates/FooterForBaseTemplate.xhtml" />
+                </ui:insert>
+            </div>
+        </div>
+    </ui:composition>
     </body>
 </html>

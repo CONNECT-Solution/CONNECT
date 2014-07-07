@@ -9,15 +9,16 @@
 			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		</f:facet>
         <title><ui:insert name="title">Connect Administration</ui:insert></title>
-        <ui:insert name="metatag">
-        </ui:insert>
-        <h:outputStylesheet library="css" name="bootstrap.css" />
+        <ui:insert name="metatag"></ui:insert>
+        
+        <link rel="shortcut icon" href="#{resource['images/favicon-admingui.ico']}" type="image/x-icon" />
+
         <h:outputStylesheet library="css" name="bootstrap.css.map" />
         <h:outputStylesheet library="css" name="bootstrap.min.css" />
-        <h:outputStylesheet library="css" name="bootstrap-theme.css" />
         <h:outputStylesheet library="css" name="bootstrap-theme.css.map" />
         <h:outputStylesheet library="css" name="bootstrap-theme.min.css" />
         <h:outputStylesheet library="css" name="dashboard.css" />
+        
         <ui:insert name="morejs"></ui:insert>
     </h:head>
     <h:body>
@@ -25,22 +26,15 @@
         <f:view>
             <div class="container-fluid" style="height: 100%;">
                 <div class="row" style="height: 100%;">
-                    <!-- left side div -->
-                    <div class="col-xs-2 sidebar sidebar-scroll">
-                        <ui:insert name="menu">
-
-                            <ui:include src="/resources/Templates/SidebarPaneForBaseTemplatePrime.xhtml" />
-                        </ui:insert>
-                        <div class="copyright">
-                            <ui:insert name="footer">
-                                <ui:include src="/resources/Templates/FooterForBaseTemplatePrime.xhtml" />
-                            </ui:insert>
-                        </div>
-                    </div>
-                    <!-- end of left side div -->
-                    <!-- right side div with content -->
+                    <!-- BEGIN: LEFT COLUMN - SIDEBAR NAVIGATION -->
+                    <ui:insert name="menu">
+                        <ui:include src="/resources/Templates/SidebarPaneForBaseTemplatePrime.xhtml" />
+                    </ui:insert>
+                    <!-- END: LEFT COLUMN - SIDEBAR NAVIGATION -->
+					
+                    <!-- BEGIN: RIGHT COLUMN - Primary content is located here -->
                     <div class="col-xs-offset-2 col-xs-10 main">
-                        <!--header  -->
+                        <!-- BEGIN: UTILITY BAR - "Header" -->
                         <ui:insert name="foradmin">
                             <div class="navbar nav-utility" role="navigation">
                                 <ui:insert name="header">
@@ -48,18 +42,22 @@
                                 </ui:insert>
                             </div>
                         </ui:insert>
-                        <!-- content navigation -->
+                        <!-- END: UTILITY BAR - "Header" -->
+						
+                        <!-- BEGIN: MAIN CONTENT SECTION -->
                         <div class="main-content">
                             <ui:insert name="content">
 
                             </ui:insert>
                         </div>
+                        <!-- END: MAIN CONTENT SECTION -->
                     </div>
-                    <!--end of right side div  -->
+                    <!-- END: RIGHT COLUMN - Primary content is located here -->
                 </div>
             </div>
-			<ui:include src="copyright-modal-prime.xhtml" />
-			<h:outputScript library="js" name="sidebar.js" />
+            <ui:include src="copyright-modal-prime.xhtml" />
+            
+            <h:outputScript library="js" name="sidebar.js" />
         </f:view>
     </h:body>
 </html>
