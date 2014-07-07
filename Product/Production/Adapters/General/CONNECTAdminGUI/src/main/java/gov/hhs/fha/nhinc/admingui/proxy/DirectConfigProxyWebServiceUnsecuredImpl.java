@@ -20,6 +20,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.proxy;
 
+import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import gov.hhs.fha.nhinc.admingui.proxy.service.DirectConfigUnsecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
@@ -69,6 +70,56 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DELETE_DOMAIN, name);
     }
     
+    @Override
+    public void addTrustBundle(DirectTrustBundle tb) throws Exception {
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ADD_TRUST_BUNDLE, tb);
+    }
+
+    @Override
+    public List<DirectTrustBundle> getTrustBundles() throws Exception {
+        return (List<DirectTrustBundle>) getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_GET_TRUST_BUNDLE, null, 0);
+    }
+
+    @Override
+    public void deleteTrustBundle(DirectTrustBundle tb) throws Exception {
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DELETE_TRUST_BUNDLE, tb);
+    }
+
+        @Override
+    public DirectTrustBundle getTrustBundleByName() throws Exception {
+        return (DirectTrustBundle) getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_GET_TRUST_BUNDLE_BY_NAME, null, 0);
+    }
+
+    @Override
+    public DirectTrustBundle getTrustBundlesByDomain() throws Exception {
+        return (DirectTrustBundle) getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ASSOCIATE_TRUST_BUNDLE_TO_DOMAIN, null, 0);
+    }
+
+    @Override
+    public DirectTrustBundle getTrustBundlesById() throws Exception {
+        return (DirectTrustBundle) getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_GET_TRUST_BUNDLE_BY_ID, null, 0);
+    }
+
+    @Override
+    public void refreshTrustBundle(int id) throws Exception {
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_REFRESH_TRUST_BUNDLE, id);
+    }
+
+        @Override
+    public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming, boolean outgoing) throws Exception {
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ASSOCIATE_TRUST_BUNDLE_TO_DOMAIN, domainId, trustBundleId, incoming, outgoing);
+    }
+
+    @Override
+    public void disassociateTrustBundleFromDomains(long domainId, long trustBundleId) throws Exception {
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLE_FROM_DOMAIN, domainId, trustBundleId);
+    }
+    
+    @Override
+    public void updateTrustBundleAttributes(DirectTrustBundle tb) throws Exception {
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_UPDATE_TRUST_BUNDLE_ATTRIBUTES, tb);
+    }
+    
     private CONNECTClient getClient() throws Exception{
         
         String url = oProxyHelper.getAdapterEndPointFromConnectionManager(DirectConfigConstants.DIRECT_CONFIG_SERVICE_NAME);
@@ -80,4 +131,5 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
                
         return client;
     }
+
 }

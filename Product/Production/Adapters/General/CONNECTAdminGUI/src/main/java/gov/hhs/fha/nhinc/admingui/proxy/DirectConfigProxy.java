@@ -20,6 +20,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.proxy;
 
+import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import java.util.List;
 import org.nhind.config.common.AddDomain;
 import org.nhind.config.common.Domain;
@@ -37,5 +38,16 @@ public interface DirectConfigProxy {
     public List<Domain> listDomains()throws Exception;
     public UpdateDomainResponse updateDomain(UpdateDomain updateDomain) throws Exception;
     public void deleteDomain(String name) throws Exception;
+    public void addTrustBundle(DirectTrustBundle tb)throws Exception;
+    public List<DirectTrustBundle> getTrustBundles() throws Exception;
+    public DirectTrustBundle getTrustBundleByName() throws Exception;    
+    public DirectTrustBundle getTrustBundlesByDomain() throws Exception;
+    public DirectTrustBundle getTrustBundlesById() throws Exception;
+    public void updateTrustBundleAttributes(DirectTrustBundle tb) throws Exception;
+    public void refreshTrustBundle(int id) throws Exception;
+    public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming, boolean outgoing) throws Exception;
+    public void disassociateTrustBundleFromDomains(long domainId, long trustBundleId) throws Exception;
+    public void deleteTrustBundle(DirectTrustBundle tb) throws Exception;
+    
     
 }

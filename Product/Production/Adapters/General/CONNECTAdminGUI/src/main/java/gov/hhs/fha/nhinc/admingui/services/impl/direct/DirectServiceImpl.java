@@ -75,7 +75,7 @@ public class DirectServiceImpl implements DirectService {
     }
 
     @Override
-    public void deleteDomain(Domain domain) {      
+    public void deleteDomain(Domain domain) {
         try {
             directProxy.deleteDomain(domain.getDomainName());
         } catch (Exception ex) {
@@ -120,22 +120,106 @@ public class DirectServiceImpl implements DirectService {
 
     @Override
     public List<DirectTrustBundle> getTrustBundles() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<DirectTrustBundle> listTB = null;
+
+        try {
+            listTB = directProxy.getTrustBundles();
+        } catch (Exception ex) {
+            LOG.error("Unable to get List of Trust Bundles: ", ex);
+        }
+        return listTB;
     }
 
     @Override
     public void updateTrustBundle(DirectTrustBundle tb) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            directProxy.updateTrustBundleAttributes(tb);
+        } catch (Exception ex) {
+            LOG.error("Unable to update trust bundle with Name: " + tb.getTbName(), ex);
+        }
     }
 
     @Override
     public void addTrustBundle(DirectTrustBundle tb) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            directProxy.addTrustBundle(tb);
+        } catch(Exception ex)
+        {
+            LOG.error("Unable to add trust bundle with Name: " + tb.getTbName(), ex);
+        }
     }
 
     @Override
     public void deleteTrustBundle(DirectTrustBundle tb) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            directProxy.deleteTrustBundle(tb);
+        } catch(Exception ex)
+        {
+            LOG.error("Unable to delete trust bundle with Name: " + tb.getTbName(), ex);
+        }
+    }
+
+    @Override
+    public DirectTrustBundle getTrustBundleByName() {
+        DirectTrustBundle response = null;
+        try {
+            response = directProxy.getTrustBundleByName();
+        } catch (Exception ex) {
+            LOG.error("Unable to get Trust Bundle By Name: ", ex);
+        }
+        return response;
+    }
+
+    @Override
+    public DirectTrustBundle getTrustBundlesByDomain() {
+        DirectTrustBundle response = null;
+        try {
+            response = directProxy.getTrustBundlesByDomain();
+        } catch (Exception ex) {
+            LOG.error("Unable to get Trust Bundle By Doman: ", ex);
+        }
+        return response;
+    }
+
+    @Override
+    public DirectTrustBundle getTrustBundlesById() {
+        DirectTrustBundle response = null;
+        try {
+            response = directProxy.getTrustBundlesById();
+        } catch (Exception ex) {
+            LOG.error("Unable to get Trust Bundle By Id: ", ex);
+        }
+        return response;
+    }
+
+    @Override
+    public void refreshTrustBundle(int id) {
+        try{
+            directProxy.refreshTrustBundle(id);
+        } catch(Exception ex)
+        {
+            LOG.error("Unable to refresh Trust Bundle: "+ ex);
+        }
+    }
+
+    @Override
+    public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming, boolean outgoing) {
+        try{
+            directProxy.associateTrustBundleToDomain(domainId, trustBundleId, incoming, outgoing);
+        } catch(Exception ex)
+        {
+            LOG.error("Unable to Associate Trust Bundle to Domain domain ID ="+domainId+" Trust Bundle ID = "+trustBundleId, ex);
+        }
+    }
+
+    @Override
+    public void disassociateTrustBundleFromDomains(long domainId, long trustBundleId) {
+        try{
+            directProxy.disassociateTrustBundleFromDomains(domainId, trustBundleId);
+        } catch(Exception ex)
+        {
+            LOG.error("Unable to disassociate Trust Bundle from Domain domain ID ="+domainId+" Trust Bundle ID = "+trustBundleId, ex);
+        }
     }
 
 }

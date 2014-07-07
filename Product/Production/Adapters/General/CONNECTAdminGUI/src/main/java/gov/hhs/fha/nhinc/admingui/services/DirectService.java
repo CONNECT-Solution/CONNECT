@@ -22,7 +22,6 @@ package gov.hhs.fha.nhinc.admingui.services;
 
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectAgent;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectCertificate;
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectDomain;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import java.util.List;
 import org.nhind.config.common.AddDomain;
@@ -53,5 +52,11 @@ public interface DirectService {
     public void updateTrustBundle(DirectTrustBundle tb);
     public void addTrustBundle(DirectTrustBundle tb);
     public void deleteTrustBundle(DirectTrustBundle tb);
+    public DirectTrustBundle getTrustBundleByName();    
+    public DirectTrustBundle getTrustBundlesByDomain();
+    public DirectTrustBundle getTrustBundlesById();
+    public void refreshTrustBundle(int id);
+    public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming, boolean outgoing);
+    public void disassociateTrustBundleFromDomains(long domainId, long trustBundleId);
 
 }

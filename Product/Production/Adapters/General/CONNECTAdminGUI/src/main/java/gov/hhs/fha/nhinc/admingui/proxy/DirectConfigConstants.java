@@ -54,6 +54,8 @@ public class DirectConfigConstants {
     static final String DIRECT_CONFIG_GET_TRUST_BUNDLE = "getTrustBundles";
     static final String DIRECT_CONFIG_GET_TRUST_BUNDLE_BY_NAME = "getTrustBundleByName";
     static final String DIRECT_CONFIG_GET_TRUST_BUNDLE_BY_DOMAIN = "getTrustBundlesByDomain";
+    static final String DIRECT_CONFIG_GET_TRUST_BUNDLE_BY_ID = "getTrustBundlesById";
+    static final String DIRECT_CONFIG_UPDATE_TRUST_BUNDLE_ATTRIBUTES = "updateTrustBundleAttributes";
     static final String DIRECT_CONFIG_ASSOCIATE_TRUST_BUNDLE_TO_DOMAIN = "associateTrustBundleToDomain";
     static final String DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLE_FROM_DOMAIN = "disassociateTrustBundleFromDomain";
     static final String DIRECT_CONFIG_REFRESH_TRUST_BUNDLE = "refreshTrustBundle";
