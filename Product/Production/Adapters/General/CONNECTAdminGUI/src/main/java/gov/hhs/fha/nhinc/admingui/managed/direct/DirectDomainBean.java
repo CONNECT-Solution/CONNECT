@@ -160,13 +160,8 @@ public class DirectDomainBean {
         List<Anchor> anchorsResponse = directService.getAnchorsForOwner(getAnchorsForOwner);
 
         for (Anchor a : anchorsResponse) {
-            try {
-                CertContainer cc = new CertContainer(a.getData());
-                DirectAnchor da = new DirectAnchor(a, cc.getTrustedEntityName());
-                anchorList.add(da);
-            } catch (Exception e) {
-                // TODO: Log exception
-            }
+            CertContainer cc = new CertContainer(a.getData());
+            anchorList.add(new DirectAnchor(a, cc.getTrustedEntityName()));
         }
 
         return anchorList;
@@ -174,7 +169,7 @@ public class DirectDomainBean {
 
     public void deleteAnchor() {
         RemoveAnchors removeAnchors = new RemoveAnchors();
-        removeAnchors.getAnchorId().add(getSelectedAnchor().getAnchor().getId());
+        removeAnchors.getAnchorId().add(getSelectedAnchor().getId());
 
         directService.deleteAnchor(removeAnchors);
     }

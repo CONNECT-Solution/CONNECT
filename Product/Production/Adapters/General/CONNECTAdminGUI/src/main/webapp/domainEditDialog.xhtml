@@ -69,19 +69,31 @@
                     <p:tab title="Anchors">
                         <h:form id="anchorsForm" enctype="multipart/form-data" class="form-horizontal">
                             <h4>Stored Anchors</h4>
-                            <p:dataTable id="anchorDataTable" var="anchors" value="#{directDomainBean.anchors}" selection="#{directDomainBean.selectedAnchor}" rowKey="#{anchors.anchor.owner}" styleClass="table table-striped table-domains">
+                            <p:dataTable id="anchorDataTable" var="anchor" value="#{directDomainBean.anchors}" selection="#{directDomainBean.selectedAnchor}" rowKey="#{anchor.owner}" styleClass="table table-striped table-domains">
                                 <p:column headerText="Delete" selectionMode="single" />
                                 <p:column headerText="Trusted Domain / User" sortBy="name">
-                                    <h:outputText value="#{anchors.trustedDomainOrUser}" />
+                                    <h:outputText value="#{anchor.trustedDomainOrUser}" />
+                                </p:column>
+                                <p:column headerText="Thumbprint">
+                                    <h:outputText value="#{anchor.thumbprint}" />
+                                </p:column>
+                                <p:column headerText="Upload Date">
+                                    <h:outputText value="#{anchor.createTime}" />
+                                </p:column>
+                                <p:column headerText="Issue Date">
+                                    <h:outputText value="#{anchor.validStartDate}" />
+                                </p:column>
+                                <p:column headerText="Expiration Date">
+                                    <h:outputText value="#{anchor.validEndDate}" />
                                 </p:column>
                                 <p:column headerText="Status" sortBy="status">
-                                    <h:outputText value="#{anchors.anchor.status}" />
+                                    <h:outputText value="#{anchor.status}" />
                                 </p:column>
                                 <p:column headerText="Incoming">
-                                    <h:outputText value="#{anchors.anchor.incoming}" />
+                                    <h:outputText value="#{anchor.incoming}" />
                                 </p:column>
                                 <p:column headerText="Outgoing">
-                                    <h:outputText value="#{anchors.anchor.outgoing}" />
+                                    <h:outputText value="#{anchor.outgoing}" />
                                 </p:column>
                             </p:dataTable>
                             <p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">

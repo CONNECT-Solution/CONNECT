@@ -20,7 +20,10 @@
  */
 package gov.hhs.fha.nhinc.admingui.model.direct;
 
+import java.text.SimpleDateFormat;
+
 import org.nhind.config.common.Anchor;
+import org.nhind.config.common.EntityStatus;
 
 /**
  *
@@ -28,22 +31,131 @@ import org.nhind.config.common.Anchor;
  */
 public class DirectAnchor {
 
-    private Anchor anchor;
     private String trustedDomainOrUser;
+
+    private long id;
+    private long certificateId;
+
+    private String owner;
+    private String thumbprint;
+
+    private EntityStatus status;
+
+    private String createTime;
+    private String validEndDate;
+    private String validStartDate;
+
+    private boolean isOutgoing;
+    private boolean isIncoming;
 
     public DirectAnchor() {
     }
 
     public DirectAnchor(Anchor anchor, String trustedDomainOrUser) {
-        this.anchor = anchor;
         this.trustedDomainOrUser = trustedDomainOrUser;
-    }
 
-    public Anchor getAnchor() {
-        return anchor;
+        id = anchor.getId();
+        certificateId = anchor.getCertificateId();
+
+        owner = anchor.getOwner();
+        thumbprint = anchor.getThumbprint();
+
+        status = anchor.getStatus();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        createTime = sdf.format(anchor.getCreateTime().toGregorianCalendar().getTime());
+        validEndDate = sdf.format(anchor.getValidEndDate().toGregorianCalendar().getTime());
+        validStartDate = sdf.format(anchor.getValidStartDate().toGregorianCalendar().getTime());
+
+        isIncoming = anchor.isIncoming();
+        isOutgoing = anchor.isOutgoing();
     }
 
     public String getTrustedDomainOrUser() {
         return trustedDomainOrUser;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public long getCertificateId() {
+        return certificateId;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public String getThumbprint() {
+        return thumbprint;
+    }
+
+    public EntityStatus getStatus() {
+        return status;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public String getValidEndDate() {
+        return validEndDate;
+    }
+
+    public boolean isOutgoing() {
+        return isOutgoing;
+    }
+
+    public boolean isIncoming() {
+        return isIncoming;
+    }
+
+    public String getValidStartDate() {
+        return validStartDate;
+    }
+
+    public void setTrustedDomainOrUser(String trustedDomainOrUser) {
+        this.trustedDomainOrUser = trustedDomainOrUser;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setCertificateId(long certificateId) {
+        this.certificateId = certificateId;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public void setThumbprint(String thumbprint) {
+        this.thumbprint = thumbprint;
+    }
+
+    public void setStatus(EntityStatus status) {
+        this.status = status;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public void setValidEndDate(String validEndDate) {
+        this.validEndDate = validEndDate;
+    }
+
+    public void setValidStartDate(String validStartDate) {
+        this.validStartDate = validStartDate;
+    }
+
+    public void setOutgoing(boolean isOutgoing) {
+        this.isOutgoing = isOutgoing;
+    }
+
+    public void setIncoming(boolean isIncoming) {
+        this.isIncoming = isIncoming;
     }
 }
