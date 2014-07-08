@@ -171,6 +171,7 @@ public class DirectDomainBean {
         RemoveAnchors removeAnchors = new RemoveAnchors();
         removeAnchors.getAnchorId().add(getSelectedAnchor().getId());
 
+        selectedAnchor = null;
         directService.deleteAnchor(removeAnchors);
     }
 
