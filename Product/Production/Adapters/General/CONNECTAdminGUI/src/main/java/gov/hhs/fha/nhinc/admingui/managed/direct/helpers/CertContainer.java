@@ -12,9 +12,12 @@ import java.util.Map;
 
 import javax.security.auth.x500.X500Principal;
 
+import org.apache.log4j.Logger;
+
 public class CertContainer {
     private X509Certificate cert;
     private Key key;
+    private static final Logger LOG = Logger.getLogger(CertContainer.class);
 
     public CertContainer(X509Certificate cert, Key key) {
         this.cert = cert;
@@ -24,9 +27,8 @@ public class CertContainer {
     public CertContainer(byte[] data) {
         ByteArrayInputStream bais = new ByteArrayInputStream(data);
 
-        // lets try this a as a PKCS12 data stream first
+        // Trying a as a PKCS12 data stream
         try {
-            // TODO: "BC" (Bouncy Castle) should be a constant
             KeyStore localKeyStore = KeyStore.getInstance("PKCS12", "BC");
 
             localKeyStore.load(bais, "".toCharArray());
@@ -45,11 +47,11 @@ public class CertContainer {
                 }
             }
         } catch (Exception e) {
-            // must not be a PKCS12 stream, go on to next step
+            LOG.warn("Cert data is not a PKCS12 stream, trying next option...");
         }
 
-        if (this.cert == null) {
-            // try X509 certificate factory next
+        // Trying as an X.509 certificate
+        if (cert == null) {
             bais.reset();
             bais = new ByteArrayInputStream(data);
 
@@ -60,14 +62,18 @@ public class CertContainer {
                 this.cert = cert;
                 this.key = null;
             } catch (Exception e) {
-                // TODO: Handle exception
+                LOG.warn("Cert data cannot be converted to X.509, trying next option...");
             }
+        }
+
+        if (cert == null) {
+            LOG.error("Could not parse cert data");
         }
 
         try {
             bais.close();
         } catch (Exception e) {
-            // TODO: Handle exception
+            LOG.error("Could not close input stream.");
         }
     }
 
