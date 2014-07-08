@@ -71,7 +71,7 @@
                             <h4>Stored Anchors</h4>
                             <p:dataTable id="anchorDataTable" var="anchor" value="#{directDomainBean.anchors}" selection="#{directDomainBean.selectedAnchor}" rowKey="#{anchor.owner}" styleClass="table table-striped table-domains">
                                 <p:column headerText="Delete" selectionMode="single" />
-                                <p:column headerText="Trusted Domain / User" sortBy="name">
+                                <p:column headerText="Trusted Domain / User">
                                     <h:outputText value="#{anchor.trustedDomainOrUser}" />
                                 </p:column>
                                 <p:column headerText="Thumbprint">
@@ -86,7 +86,7 @@
                                 <p:column headerText="Expiration Date">
                                     <h:outputText value="#{anchor.validEndDate}" />
                                 </p:column>
-                                <p:column headerText="Status" sortBy="status">
+                                <p:column headerText="Status">
                                     <h:outputText value="#{anchor.status}" />
                                 </p:column>
                                 <p:column headerText="Incoming">
