@@ -20,7 +20,9 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed.direct;
 
+import gov.hhs.fha.nhinc.admingui.managed.direct.helpers.CertContainer;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectAddress;
+import gov.hhs.fha.nhinc.admingui.model.direct.DirectAnchor;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
 
@@ -64,7 +66,7 @@ public class DirectDomainBean {
 
     private Domain selectedDomain;
     private DirectAddress selectedAddress;
-    private Anchor selectedAnchor;
+    private DirectAnchor selectedAnchor;
     private DirectTrustBundle selectedTrustBundle;
 
     private String addressEndpoint;
@@ -137,7 +139,6 @@ public class DirectDomainBean {
             AddAnchor addAnchor = new AddAnchor();
             Anchor anchor = new Anchor();
 
-            // TODO: May have to parse X509 data for thumbprint, valid start/end date, etc.
             anchor.setData(anchorCert.getContents());
             anchor.setOwner(getSelectedDomain().getDomainName());
             anchor.setIncoming(isAnchorIncoming());
@@ -150,17 +151,30 @@ public class DirectDomainBean {
         }
     }
 
-    public List<Anchor> getAnchors() {
+    public List<DirectAnchor> getAnchors() {
         GetAnchorsForOwner getAnchorsForOwner = new GetAnchorsForOwner();
         getAnchorsForOwner.setOwner(getSelectedDomain().getDomainName());
         getAnchorsForOwner.setOptions(new CertificateGetOptions());
 
-        return directService.getAnchorsForOwner(getAnchorsForOwner);
+        List<DirectAnchor> anchorList = new ArrayList<DirectAnchor>();
+        List<Anchor> anchorsResponse = directService.getAnchorsForOwner(getAnchorsForOwner);
+
+        for (Anchor a : anchorsResponse) {
+            try {
+                CertContainer cc = new CertContainer(a.getData());
+                DirectAnchor da = new DirectAnchor(a, cc.getTrustedEntityName());
+                anchorList.add(da);
+            } catch (Exception e) {
+                // TODO: Log exception
+            }
+        }
+
+        return anchorList;
     }
 
     public void deleteAnchor() {
         RemoveAnchors removeAnchors = new RemoveAnchors();
-        removeAnchors.getAnchorId().add(getSelectedAnchor().getId());
+        removeAnchors.getAnchorId().add(getSelectedAnchor().getAnchor().getId());
 
         directService.deleteAnchor(removeAnchors);
     }
@@ -247,11 +261,11 @@ public class DirectDomainBean {
         this.addressType = addressType;
     }
 
-    public Anchor getSelectedAnchor() {
+    public DirectAnchor getSelectedAnchor() {
         return selectedAnchor;
     }
 
-    public void setSelectedAnchor(Anchor selectedAnchor) {
+    public void setSelectedAnchor(DirectAnchor selectedAnchor) {
         this.selectedAnchor = selectedAnchor;
     }
 

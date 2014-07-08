@@ -16,62 +16,34 @@
  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*
+ *
  */
 package gov.hhs.fha.nhinc.admingui.model.direct;
 
-import java.io.File;
+import org.nhind.config.common.Anchor;
 
 /**
  *
  * @author jasonasmith
  */
 public class DirectAnchor {
-    
-    private String name;
-    private byte[] certificate;
-    private boolean incoming;
-    private boolean outgoing;
-    private String status;
 
-    public String getName(){
-        return name;
-    }
-    
-    public void setName(String name){
-        this.name = name;
-    }
-    
-    public byte[] getCertificate() {
-        return certificate;
+    private Anchor anchor;
+    private String trustedDomainOrUser;
+
+    public DirectAnchor() {
     }
 
-    public void setCertificate(byte[] certificate) {
-        this.certificate = certificate;
+    public DirectAnchor(Anchor anchor, String trustedDomainOrUser) {
+        this.anchor = anchor;
+        this.trustedDomainOrUser = trustedDomainOrUser;
     }
 
-    public boolean isIncoming() {
-        return incoming;
+    public Anchor getAnchor() {
+        return anchor;
     }
 
-    public void setIncoming(boolean incoming) {
-        this.incoming = incoming;
+    public String getTrustedDomainOrUser() {
+        return trustedDomainOrUser;
     }
-
-    public boolean isOutgoing() {
-        return outgoing;
-    }
-
-    public void setOutgoing(boolean outgoing) {
-        this.outgoing = outgoing;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    
 }
