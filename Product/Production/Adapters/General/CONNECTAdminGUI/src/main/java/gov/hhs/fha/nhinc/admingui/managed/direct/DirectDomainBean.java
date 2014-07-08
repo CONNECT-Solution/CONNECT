@@ -32,6 +32,8 @@ import org.apache.log4j.Logger;
 import org.nhind.config.common.AddDomain;
 import org.nhind.config.common.Domain;
 import org.nhind.config.common.EntityStatus;
+import org.nhind.config.common.GetTrustBundles;
+import org.nhind.config.common.TrustBundle;
 import org.nhind.config.common.UpdateDomain;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
@@ -75,14 +77,16 @@ public class DirectDomainBean {
         return directService.getDomains();
     }
 
-    public List<DirectTrustBundle> getTrustBundles() {
-        return directService.getTrustBundles();
+    public List<TrustBundle> getTrustBundles() {
+        GetTrustBundles gtb = new GetTrustBundles();
+        gtb.setFetchAnchors(true);
+        return directService.getTrustBundles(gtb);
     }
 
     public List<String> getTrustBundleNames() {
         List<String> tbNames = new ArrayList<String>();
-        for (DirectTrustBundle tb : getTrustBundles()) {
-            tbNames.add(tb.getTbName());
+        for (TrustBundle tb : getTrustBundles()) {
+            tbNames.add(tb.getBundleName());
         }
         return tbNames;
     }
@@ -135,16 +139,15 @@ public class DirectDomainBean {
     }
 
     public void addTrustBundles() {
-        List<DirectTrustBundle> selectTBs = new ArrayList<DirectTrustBundle>();
+        List<TrustBundle> selectTBs = new ArrayList<TrustBundle>();
         for (String tbName : selectedTrustBundles) {
-            for (DirectTrustBundle tb : getTrustBundles()) {
-                if (tb.getTbName().equals(tbName)) {
+            for (TrustBundle tb : getTrustBundles()) {
+                if (tb.getBundleName().equals(tbName)) {
                     selectTBs.add(tb);
                 }
             }
         }
         if (selectTBs.size() > 0) {
-
         }
     }
 
@@ -263,5 +266,4 @@ public class DirectDomainBean {
     public void setSelectedTrustBundles(List<String> selectedTrustBundles) {
         this.selectedTrustBundles = selectedTrustBundles;
     }
-
 }

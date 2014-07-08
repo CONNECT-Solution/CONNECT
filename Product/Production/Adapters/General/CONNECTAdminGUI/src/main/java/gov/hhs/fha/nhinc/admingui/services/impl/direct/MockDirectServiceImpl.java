@@ -32,9 +32,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import org.nhind.config.common.AddDomain;
+import org.nhind.config.common.DeleteTrustBundles;
 import org.nhind.config.common.Domain;
+import org.nhind.config.common.GetTrustBundles;
+import org.nhind.config.common.TrustBundle;
 import org.nhind.config.common.UpdateDomain;
-import org.springframework.stereotype.Service;
+import org.nhind.config.common.UpdateTrustBundleAttributes;
 
 /**
  *
@@ -160,32 +163,6 @@ public class MockDirectServiceImpl implements DirectService {
     }
 
     @Override
-    public List<DirectTrustBundle> getTrustBundles() {
-        return new ArrayList(trustBundles.values());
-    }
-
-    @Override
-    public void updateTrustBundle(DirectTrustBundle tb) {
-        trustBundles.put(tb.getPosition(), tb);
-    }
-
-    @Override
-    public void deleteTrustBundle(DirectTrustBundle tb) {
-        trustBundles.remove(tb.getPosition());
-        
-        Collection<DirectTrustBundle> collection = trustBundles.values();
-        
-        int i = 1;
-        
-        Iterator<DirectTrustBundle> iter = collection.iterator();
-        while(iter.hasNext()){
-            DirectTrustBundle temp = iter.next();
-            temp.setPosition(i);
-            i++;
-        }
-    }
-
-    @Override
     public void addDomain(AddDomain domain) {
         
     }
@@ -205,28 +182,6 @@ public class MockDirectServiceImpl implements DirectService {
     }
 
     @Override
-    public void addTrustBundle(DirectTrustBundle tb) {
-        int i = trustBundles.size() + 1;
-        tb.setPosition(i);
-        trustBundles.put(i, tb);
-    }
-
-    @Override
-    public DirectTrustBundle getTrustBundleByName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public DirectTrustBundle getTrustBundlesByDomain() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public DirectTrustBundle getTrustBundlesById() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void refreshTrustBundle(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -238,6 +193,36 @@ public class MockDirectServiceImpl implements DirectService {
 
     @Override
     public void disassociateTrustBundleFromDomains(long domainId, long trustBundleId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void addTrustBundle(TrustBundle tb) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public TrustBundle getTrustBundleByName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public TrustBundle getTrustBundlesByDomain() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<TrustBundle> getTrustBundles(GetTrustBundles gtb) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void updateTrustBundle(UpdateTrustBundleAttributes utba) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void deleteTrustBundle(DeleteTrustBundles dtb) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -20,7 +20,6 @@
  */
 package gov.hhs.fha.nhinc.admingui.proxy;
 
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import gov.hhs.fha.nhinc.admingui.proxy.service.DirectConfigUnsecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
@@ -28,10 +27,15 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.util.List;
 import org.nhind.config.common.AddDomain;
+import org.nhind.config.common.AddTrustBundle;
 import org.nhind.config.common.ConfigurationService;
+import org.nhind.config.common.DeleteTrustBundles;
 import org.nhind.config.common.Domain;
+import org.nhind.config.common.GetTrustBundles;
+import org.nhind.config.common.TrustBundle;
 import org.nhind.config.common.UpdateDomain;
 import org.nhind.config.common.UpdateDomainResponse;
+import org.nhind.config.common.UpdateTrustBundleAttributes;
 import org.springframework.stereotype.Service;
 
 /**
@@ -71,33 +75,28 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
     }
     
     @Override
-    public void addTrustBundle(DirectTrustBundle tb) throws Exception {
-        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ADD_TRUST_BUNDLE, tb);
+    public void addTrustBundle(AddTrustBundle tb) throws Exception {
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ADD_TRUST_BUNDLE, tb.getBundle());
     }
 
     @Override
-    public List<DirectTrustBundle> getTrustBundles() throws Exception {
-        return (List<DirectTrustBundle>) getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_GET_TRUST_BUNDLE, null, 0);
+    public List<TrustBundle> getTrustBundles(GetTrustBundles gtb) throws Exception {
+        return (List<TrustBundle>) getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_GET_TRUST_BUNDLE, gtb.isFetchAnchors());
     }
 
     @Override
-    public void deleteTrustBundle(DirectTrustBundle tb) throws Exception {
-        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DELETE_TRUST_BUNDLE, tb);
-    }
-
-        @Override
-    public DirectTrustBundle getTrustBundleByName() throws Exception {
-        return (DirectTrustBundle) getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_GET_TRUST_BUNDLE_BY_NAME, null, 0);
+    public void deleteTrustBundle(DeleteTrustBundles tb) throws Exception {
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DELETE_TRUST_BUNDLE, tb.getTrustBundleIds().get(0));
     }
 
     @Override
-    public DirectTrustBundle getTrustBundlesByDomain() throws Exception {
-        return (DirectTrustBundle) getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ASSOCIATE_TRUST_BUNDLE_TO_DOMAIN, null, 0);
+    public TrustBundle getTrustBundleByName() throws Exception {
+        return (TrustBundle) getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_GET_TRUST_BUNDLE_BY_NAME, null, 0);
     }
 
     @Override
-    public DirectTrustBundle getTrustBundlesById() throws Exception {
-        return (DirectTrustBundle) getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_GET_TRUST_BUNDLE_BY_ID, null, 0);
+    public TrustBundle getTrustBundlesByDomain() throws Exception {
+        return (TrustBundle) getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ASSOCIATE_TRUST_BUNDLE_TO_DOMAIN, null, 0);
     }
 
     @Override
@@ -116,7 +115,7 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
     }
     
     @Override
-    public void updateTrustBundleAttributes(DirectTrustBundle tb) throws Exception {
+    public void updateTrustBundleAttributes(UpdateTrustBundleAttributes tb) throws Exception {
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_UPDATE_TRUST_BUNDLE_ATTRIBUTES, tb);
     }
     

@@ -22,11 +22,14 @@ package gov.hhs.fha.nhinc.admingui.services;
 
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectAgent;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectCertificate;
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import java.util.List;
 import org.nhind.config.common.AddDomain;
+import org.nhind.config.common.DeleteTrustBundles;
 import org.nhind.config.common.Domain;
+import org.nhind.config.common.GetTrustBundles;
+import org.nhind.config.common.TrustBundle;
 import org.nhind.config.common.UpdateDomain;
+import org.nhind.config.common.UpdateTrustBundleAttributes;
 
 /**
  *
@@ -48,13 +51,12 @@ public interface DirectService {
     public void addCertificate(DirectCertificate cert);
     public void deleteCertificate(DirectCertificate cert);
     
-    public List<DirectTrustBundle> getTrustBundles();
-    public void updateTrustBundle(DirectTrustBundle tb);
-    public void addTrustBundle(DirectTrustBundle tb);
-    public void deleteTrustBundle(DirectTrustBundle tb);
-    public DirectTrustBundle getTrustBundleByName();    
-    public DirectTrustBundle getTrustBundlesByDomain();
-    public DirectTrustBundle getTrustBundlesById();
+    public List<TrustBundle> getTrustBundles(GetTrustBundles gtb);
+    public void updateTrustBundle(UpdateTrustBundleAttributes utba);
+    public void addTrustBundle(TrustBundle tb);
+    public void deleteTrustBundle(DeleteTrustBundles dtb);
+    public TrustBundle getTrustBundleByName();    
+    public TrustBundle getTrustBundlesByDomain();
     public void refreshTrustBundle(int id);
     public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming, boolean outgoing);
     public void disassociateTrustBundleFromDomains(long domainId, long trustBundleId);

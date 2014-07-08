@@ -22,14 +22,18 @@ package gov.hhs.fha.nhinc.admingui.services.impl.direct;
 
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectAgent;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectCertificate;
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.nhind.config.common.AddDomain;
+import org.nhind.config.common.AddTrustBundle;
+import org.nhind.config.common.DeleteTrustBundles;
 import org.nhind.config.common.Domain;
+import org.nhind.config.common.GetTrustBundles;
+import org.nhind.config.common.TrustBundle;
 import org.nhind.config.common.UpdateDomain;
+import org.nhind.config.common.UpdateTrustBundleAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -119,11 +123,10 @@ public class DirectServiceImpl implements DirectService {
     }
 
     @Override
-    public List<DirectTrustBundle> getTrustBundles() {
-        List<DirectTrustBundle> listTB = null;
-
+    public List<TrustBundle> getTrustBundles(GetTrustBundles gtb) {
+        List<TrustBundle> listTB = null;
         try {
-            listTB = directProxy.getTrustBundles();
+            listTB = directProxy.getTrustBundles(gtb);
         } catch (Exception ex) {
             LOG.error("Unable to get List of Trust Bundles: ", ex);
         }
@@ -131,37 +134,40 @@ public class DirectServiceImpl implements DirectService {
     }
 
     @Override
-    public void updateTrustBundle(DirectTrustBundle tb) {
+    public void updateTrustBundle(UpdateTrustBundleAttributes utba) {
         try {
-            directProxy.updateTrustBundleAttributes(tb);
+            directProxy.updateTrustBundleAttributes(utba);
         } catch (Exception ex) {
-            LOG.error("Unable to update trust bundle with Name: " + tb.getTbName(), ex);
+            LOG.error("Unable to update trust bundle with Name: " + utba.getTrustBundleName(), ex);
         }
     }
 
     @Override
-    public void addTrustBundle(DirectTrustBundle tb) {
+    public void addTrustBundle(TrustBundle tb) {
         try{
-            directProxy.addTrustBundle(tb);
+            AddTrustBundle atb = new AddTrustBundle();
+            atb.setBundle(tb);
+            directProxy.addTrustBundle(atb);
         } catch(Exception ex)
         {
-            LOG.error("Unable to add trust bundle with Name: " + tb.getTbName(), ex);
+            LOG.error("Unable to add trust bundle with Name: " + tb.getBundleName(), ex);
         }
     }
 
     @Override
-    public void deleteTrustBundle(DirectTrustBundle tb) {
+    public void deleteTrustBundle(DeleteTrustBundles tb) {
         try{
+            
             directProxy.deleteTrustBundle(tb);
         } catch(Exception ex)
         {
-            LOG.error("Unable to delete trust bundle with Name: " + tb.getTbName(), ex);
+            LOG.error("Unable to delete trust bundle ", ex);
         }
     }
 
     @Override
-    public DirectTrustBundle getTrustBundleByName() {
-        DirectTrustBundle response = null;
+    public TrustBundle getTrustBundleByName() {
+        TrustBundle response = null;
         try {
             response = directProxy.getTrustBundleByName();
         } catch (Exception ex) {
@@ -171,23 +177,12 @@ public class DirectServiceImpl implements DirectService {
     }
 
     @Override
-    public DirectTrustBundle getTrustBundlesByDomain() {
-        DirectTrustBundle response = null;
+    public TrustBundle getTrustBundlesByDomain() {
+        TrustBundle response = null;
         try {
             response = directProxy.getTrustBundlesByDomain();
         } catch (Exception ex) {
             LOG.error("Unable to get Trust Bundle By Doman: ", ex);
-        }
-        return response;
-    }
-
-    @Override
-    public DirectTrustBundle getTrustBundlesById() {
-        DirectTrustBundle response = null;
-        try {
-            response = directProxy.getTrustBundlesById();
-        } catch (Exception ex) {
-            LOG.error("Unable to get Trust Bundle By Id: ", ex);
         }
         return response;
     }
@@ -221,5 +216,4 @@ public class DirectServiceImpl implements DirectService {
             LOG.error("Unable to disassociate Trust Bundle from Domain domain ID ="+domainId+" Trust Bundle ID = "+trustBundleId, ex);
         }
     }
-
 }
