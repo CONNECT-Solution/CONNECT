@@ -22,9 +22,14 @@ package gov.hhs.fha.nhinc.admingui.proxy;
 
 import java.util.List;
 import org.nhind.config.common.AddDomain;
+import org.nhind.config.common.AddTrustBundle;
+import org.nhind.config.common.DeleteTrustBundles;
 import org.nhind.config.common.Domain;
+import org.nhind.config.common.GetTrustBundles;
+import org.nhind.config.common.TrustBundle;
 import org.nhind.config.common.UpdateDomain;
 import org.nhind.config.common.UpdateDomainResponse;
+import org.nhind.config.common.UpdateTrustBundleAttributes;
 
 /**
  *
@@ -37,5 +42,15 @@ public interface DirectConfigProxy {
     public List<Domain> listDomains()throws Exception;
     public UpdateDomainResponse updateDomain(UpdateDomain updateDomain) throws Exception;
     public void deleteDomain(String name) throws Exception;
+    public void addTrustBundle(AddTrustBundle tb)throws Exception;
+    public List<TrustBundle> getTrustBundles(GetTrustBundles gtb) throws Exception;
+    public TrustBundle getTrustBundleByName() throws Exception;    
+    public TrustBundle getTrustBundlesByDomain() throws Exception;
+    public void updateTrustBundleAttributes(UpdateTrustBundleAttributes tb) throws Exception;
+    public void refreshTrustBundle(int id) throws Exception;
+    public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming, boolean outgoing) throws Exception;
+    public void disassociateTrustBundleFromDomains(long domainId, long trustBundleId) throws Exception;
+    public void deleteTrustBundle(DeleteTrustBundles tb) throws Exception;
+    
     
 }
