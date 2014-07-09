@@ -135,7 +135,7 @@ body {
 	border-bottom:1px solid #283b53;
 	font-size:14px;
 }
-.sidebar .ui-widget-content a:hover {
+.sidebar .ui-widget-content a:hover, .sidebar .ui-widget-content a.ui-state-hover {
 	background:#0c1c2f;
 	color:#ffffff;
 	box-shadow:none;
