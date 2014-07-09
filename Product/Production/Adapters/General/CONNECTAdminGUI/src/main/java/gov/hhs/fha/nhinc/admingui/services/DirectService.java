@@ -16,18 +16,18 @@
  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*
+ *
  */
 package gov.hhs.fha.nhinc.admingui.services;
-
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectCertificate;
 
 import java.util.List;
 
 import org.nhind.config.common.AddAnchor;
+import org.nhind.config.common.AddCertificates;
 import org.nhind.config.common.AddDomain;
 import org.nhind.config.common.Anchor;
 import org.nhind.config.common.AssociateTrustBundleToDomain;
+import org.nhind.config.common.Certificate;
 import org.nhind.config.common.DeleteTrustBundles;
 import org.nhind.config.common.DisassociateTrustBundleFromDomains;
 import org.nhind.config.common.Domain;
@@ -35,14 +35,16 @@ import org.nhind.config.common.GetAnchorsForOwner;
 import org.nhind.config.common.GetTrustBundleByName;
 import org.nhind.config.common.GetTrustBundles;
 import org.nhind.config.common.GetTrustBundlesByDomain;
+import org.nhind.config.common.ListCertificates;
 import org.nhind.config.common.RemoveAnchors;
+import org.nhind.config.common.RemoveCertificates;
 import org.nhind.config.common.Setting;
 import org.nhind.config.common.TrustBundle;
 import org.nhind.config.common.UpdateDomain;
 import org.nhind.config.common.UpdateTrustBundleAttributes;
 
 /**
- *
+ * 
  * @author jasonasmith
  */
 public interface DirectService {
@@ -56,21 +58,20 @@ public interface DirectService {
     public void addSetting(String name, String value);
     public void deleteSetting(List<String> deleteNames);
 
-    public List<DirectCertificate> getCertificates();
-    public void addCertificate(DirectCertificate cert);
-    public void deleteCertificate(DirectCertificate cert);
-
-    public List<TrustBundle> getTrustBundles(GetTrustBundles gtb);
-    public void updateTrustBundle(UpdateTrustBundleAttributes utba);
-    public void addTrustBundle(TrustBundle tb);
-    public void deleteTrustBundle(DeleteTrustBundles dtb);
+    public List<Certificate> listCertificate(ListCertificates listCert);
+    public void addCertificate(AddCertificates addcert);
+    public void deleteCertificate(RemoveCertificates removeCert);
 
     public List<Anchor> getAnchorsForOwner(GetAnchorsForOwner getAnchorsForOwner);
     public void addAnchor(AddAnchor addAnchor);
     public void deleteAnchor(RemoveAnchors removeAnchors);
     
+    public List<TrustBundle> getTrustBundles(GetTrustBundles gtb);
     public TrustBundle getTrustBundleByName(GetTrustBundleByName getTrustBundleByName);
     public TrustBundle getTrustBundlesByDomain(GetTrustBundlesByDomain getTrustBundlesByDomain);
+    public void addTrustBundle(TrustBundle tb);
+    public void deleteTrustBundle(DeleteTrustBundles dtb);
+    public void updateTrustBundle(UpdateTrustBundleAttributes utba);
     public void refreshTrustBundle(int id);
     public void associateTrustBundleToDomain(AssociateTrustBundleToDomain associateTrustBundleToDomain);
     public void disassociateTrustBundleFromDomains(DisassociateTrustBundleFromDomains disassociateTrustBundleFromDomains);

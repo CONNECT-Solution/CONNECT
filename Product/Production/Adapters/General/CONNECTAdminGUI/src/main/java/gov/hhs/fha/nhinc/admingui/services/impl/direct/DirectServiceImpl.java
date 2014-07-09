@@ -20,18 +20,20 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl.direct;
 
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectCertificate;
 import gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
 
 import java.util.List;
 
 import org.apache.log4j.Logger;
+
 import org.nhind.config.common.AddAnchor;
+import org.nhind.config.common.AddCertificates;
 import org.nhind.config.common.AddDomain;
 import org.nhind.config.common.AddTrustBundle;
 import org.nhind.config.common.Anchor;
 import org.nhind.config.common.AssociateTrustBundleToDomain;
+import org.nhind.config.common.Certificate;
 import org.nhind.config.common.DeleteTrustBundles;
 import org.nhind.config.common.DisassociateTrustBundleFromDomains;
 import org.nhind.config.common.Domain;
@@ -39,16 +41,19 @@ import org.nhind.config.common.GetAnchorsForOwner;
 import org.nhind.config.common.GetTrustBundleByName;
 import org.nhind.config.common.GetTrustBundles;
 import org.nhind.config.common.GetTrustBundlesByDomain;
+import org.nhind.config.common.ListCertificates;
 import org.nhind.config.common.RemoveAnchors;
+import org.nhind.config.common.RemoveCertificates;
 import org.nhind.config.common.Setting;
 import org.nhind.config.common.TrustBundle;
 import org.nhind.config.common.UpdateDomain;
 import org.nhind.config.common.UpdateTrustBundleAttributes;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- *
+ * 
  * @author jasonasmith
  */
 @Service
@@ -127,21 +132,32 @@ public class DirectServiceImpl implements DirectService {
     }
 
     @Override
-    public List<DirectCertificate> getCertificates() {
-        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
-        // Tools | Templates.
+    public void addCertificate(AddCertificates certificate) {
+        try {
+            directProxy.addCertificates(certificate);
+        } catch (Exception ex) {
+            LOG.error("Error While adding Certificate " + ex.getMessage(), ex);
+        }
+
     }
 
     @Override
-    public void addCertificate(DirectCertificate cert) {
-        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
-        // Tools | Templates.
+    public void deleteCertificate(RemoveCertificates removeCert) {
+        try {
+            directProxy.removeCertificate(removeCert);
+        } catch (Exception ex) {
+            LOG.error("Error While removing Certificate " + ex.getMessage(), ex);
+        }
     }
 
-    @Override
-    public void deleteCertificate(DirectCertificate cert) {
-        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
-        // Tools | Templates.
+    public List<Certificate> listCertificate(ListCertificates listCert) {
+        List<Certificate> certs = null;
+        try {
+            certs = directProxy.listCertificates(listCert);
+        } catch (Exception ex) {
+            LOG.error("Error While retrieving Certificate " + ex.getMessage(), ex);
+        }
+        return certs;
     }
 
     @Override
