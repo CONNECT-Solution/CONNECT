@@ -816,7 +816,8 @@ body {
 	border:0;
 }
 #domainEditTabview .ui-tabs-nav.ui-widget-header {
-	padding:0px;
+	margin:0px -35px;
+	padding:0px 35px;
 	background:none;
 	border-bottom:5px solid #dddddd;
 }
@@ -831,7 +832,7 @@ body {
 	text-shadow:none;
 }
 #domainEditTabview .ui-tabs-nav li.ui-state-default {
-	background:none;
+	background:#f4f4f4;
 	border:none;
 	border-radius:0;
 }
@@ -856,6 +857,7 @@ body {
 .domain-form-block {
 	margin:10px 0px;
 	padding:20px;
+	background:#f4f4f4;
 	border:1px solid #dddddd;
 }
 #domainEditTabview .label-pick-anchor {

@@ -63,7 +63,7 @@ a {
 	height:100%;
 	padding-left:0px;
 	padding-right:0px;
-	padding-bottom:30px;
+	padding-bottom:0px;
 	background:#10253f; /* 212c65 */
 	position:absolute;
 }
@@ -144,13 +144,14 @@ a {
 	position:fixed !important;
 	top:0;
 	bottom:0;
-	overflow-y:scroll;
+	overflow-y:hidden; /* USE "scroll" FOR DEFAULT SCROLLER - USE "hidden" FOR PERFECT SCROLL BAR SCRIPT */
 	overflow-x:hidden;
 	border-right:1px solid #10253f;
 }
 
 .copyright {
 	margin:30px 5px 0px 15px;
+	padding-bottom:15px;
 	color:#808080;
 	font-size:10px;
 }
