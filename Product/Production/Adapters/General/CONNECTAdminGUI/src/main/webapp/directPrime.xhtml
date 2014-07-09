@@ -113,28 +113,26 @@
 								<p:panelGrid columns="1" styleClass="ui-panelgrid-domain">
 									<p:commandButton value="Add New Certificate" type="button" onclick="PF('certDlg').show();" icon="ui-icon-circle-plus" styleClass="add-button pull-right" />
 								</p:panelGrid>
-								<p:dataTable id="certDataTable" var="cert" value="#{directCertBean.certificates}" selection="#{directCertBean.selectedCert}" rowKey="#{cert.certThumb}" styleClass="table table-striped table-domains">
+								<p:dataTable id="certDataTable" var="cert" value="#{directCertBean.certificates}" selection="#{directCertBean.selectedCert}" rowKey="#{cert.owner}" styleClass="table table-striped table-domains">
 									<p:column headerText="Delete" selectionMode="single" />
 									<p:column headerText="Status" sortBy="status">
-										<h:outputText value="#{cert.certStatus}" styleClass="nowrap" />
+										<h:outputText value="#{cert.status}" styleClass="nowrap" />
 									</p:column>
 									<p:column headerText="Owner" sortBy="owner">
-										<h:outputText value="#{cert.certOwner}" />
+										<h:outputText value="#{cert.owner}" />
 									</p:column>
 									<p:column headerText="Private" sortBy="private">
-										<h:outputText value="#{cert.certPrivate}" />
+										<h:outputText value="#{cert.privateKey}" />
 									</p:column>
-									<p:column headerText="Thumb" sortBy="thumb">
-										<h:outputText value="#{cert.certThumb}" />
-									</p:column>
+									
 									<p:column headerText="Created" sortBy="created">
-										<h:outputText value="#{cert.certCreated}" styleClass="nowrap" />
+										<h:outputText value="#{cert.createTime}" styleClass="nowrap" />
 									</p:column>
 									<p:column headerText="Started" sortBy="started">
-										<h:outputText value="#{cert.certStart}" styleClass="nowrap" />
+										<h:outputText value="#{cert.validStartDate}" styleClass="nowrap" />
 									</p:column>
 									<p:column headerText="End" sortBy="end">
-										<h:outputText value="#{cert.certEnd}" styleClass="nowrap" />
+										<h:outputText value="#{cert.validEndDate}" styleClass="nowrap" />
 									</p:column>
 								</p:dataTable>
 								<p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">

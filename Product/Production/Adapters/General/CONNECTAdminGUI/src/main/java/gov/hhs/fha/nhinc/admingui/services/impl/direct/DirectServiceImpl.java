@@ -21,20 +21,25 @@
 package gov.hhs.fha.nhinc.admingui.services.impl.direct;
 
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectAgent;
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectCertificate;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
+
 import java.util.List;
+
 import org.apache.log4j.Logger;
+import org.nhind.config.common.AddCertificates;
 import org.nhind.config.common.AddDomain;
+import org.nhind.config.common.Certificate;
 import org.nhind.config.common.Domain;
+import org.nhind.config.common.ListCertificates;
+import org.nhind.config.common.RemoveCertificates;
 import org.nhind.config.common.UpdateDomain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- *
+ * 
  * @author jasonasmith
  */
 @Service
@@ -75,7 +80,7 @@ public class DirectServiceImpl implements DirectService {
     }
 
     @Override
-    public void deleteDomain(Domain domain) {      
+    public void deleteDomain(Domain domain) {
         try {
             directProxy.deleteDomain(domain.getDomainName());
         } catch (Exception ex) {
@@ -85,57 +90,94 @@ public class DirectServiceImpl implements DirectService {
 
     @Override
     public List<DirectAgent> getAgents() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
+                                                                       // Tools | Templates.
     }
 
     @Override
     public void updateAgent(DirectAgent agent) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
+                                                                       // Tools | Templates.
     }
 
     @Override
     public void addAgent(DirectAgent agent) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
+                                                                       // Tools | Templates.
     }
 
     @Override
     public void deleteAgent(DirectAgent agent) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
+                                                                       // Tools | Templates.
+    }
+
+    /*
+     * @Override public List<Certificate> getCertificatesForOwner(GetCertificatesForOwner certForOwner) {
+     * List<Certificate> certificates = null; try { certificates = directProxy.getCertificatesForOwner(certForOwner); }
+     * catch (Exception ex) { LOG.error("Error while retrieving Certificates " + ex.getMessage(), ex); } return
+     * certificates;
+     * 
+     * }
+     */
+
+    @Override
+    public void addCertificate(AddCertificates certificate) {
+        try {
+            directProxy.addCertificates(certificate);
+        } catch (Exception ex) {
+            LOG.error("Error While adding Certificate " + ex.getMessage(), ex);
+        }
+
     }
 
     @Override
-    public List<DirectCertificate> getCertificates() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteCertificate(RemoveCertificates removeCert) {
+        try {
+            directProxy.removeCertificate(removeCert);
+        } catch (Exception ex) {
+            LOG.error("Error While removing Certificate " + ex.getMessage(), ex);
+        }
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.services.DirectService#listCertificate(org.nhind.config.common.ListCertificates)
+     */
     @Override
-    public void addCertificate(DirectCertificate cert) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void deleteCertificate(DirectCertificate cert) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Certificate> listCertificate(ListCertificates listCert) {
+        List<Certificate> certs = null;
+        try {
+            certs = directProxy.listCertificates(listCert);
+        } catch (Exception ex) {
+            LOG.error("Error While retrieving Certificate " + ex.getMessage(), ex);
+        }
+        return certs;
     }
 
     @Override
     public List<DirectTrustBundle> getTrustBundles() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
+                                                                       // Tools | Templates.
     }
 
     @Override
     public void updateTrustBundle(DirectTrustBundle tb) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
+                                                                       // Tools | Templates.
     }
 
     @Override
     public void addTrustBundle(DirectTrustBundle tb) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
+                                                                       // Tools | Templates.
     }
 
     @Override
     public void deleteTrustBundle(DirectTrustBundle tb) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
+                                                                       // Tools | Templates.
     }
 
 }
