@@ -28,10 +28,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import org.apache.log4j.Logger;
 import org.nhind.config.common.AddDomain;
+import org.nhind.config.common.AssociateTrustBundleToDomain;
+import org.nhind.config.common.DisassociateTrustBundleFromDomains;
 import org.nhind.config.common.Domain;
 import org.nhind.config.common.EntityStatus;
+import org.nhind.config.common.GetTrustBundleByName;
 import org.nhind.config.common.GetTrustBundles;
 import org.nhind.config.common.TrustBundle;
 import org.nhind.config.common.UpdateDomain;
@@ -139,6 +141,35 @@ public class DirectDomainBean {
     }
 
     public void addTrustBundles() {
+        System.out.println("--Entered to addTrustBundles()--");
+        List<TrustBundle> selectTBs = new ArrayList<TrustBundle>();
+        for (String tbName : selectedTrustBundles) {
+            System.out.println("--- Inside for loop ---");
+            for (TrustBundle tb : getTrustBundles()) {
+                System.out.println("--- Inside for loop ---"+tb.getBundleName());
+                if (tb.getBundleName().equals(tbName)) {
+                    selectTBs.add(tb);
+                }
+            }
+        }
+        
+        System.out.println("Selected Trust Bundles are: "+selectTBs.size());
+        if (selectTBs.size() > 0) {
+            AssociateTrustBundleToDomain associateTrustBundleToDomain = null;
+            for (TrustBundle eachTrustBundle : selectTBs) {
+                System.out.println("Get Trust Bundle By Name ID Value:"+eachTrustBundle.getId());
+                associateTrustBundleToDomain = new AssociateTrustBundleToDomain();
+                associateTrustBundleToDomain.setDomainId(selectedDomain.getId());
+                associateTrustBundleToDomain.setTrustBundleId(eachTrustBundle.getId());
+                associateTrustBundleToDomain.setIncoming(true);
+                associateTrustBundleToDomain.setOutgoing(true);
+                directService.associateTrustBundleToDomain(associateTrustBundleToDomain);
+            }
+        }
+        System.out.println("--End to addTrustBundles()--");
+    }
+
+    public void deleteTrustBundle() {
         List<TrustBundle> selectTBs = new ArrayList<TrustBundle>();
         for (String tbName : selectedTrustBundles) {
             for (TrustBundle tb : getTrustBundles()) {
@@ -148,11 +179,14 @@ public class DirectDomainBean {
             }
         }
         if (selectTBs.size() > 0) {
+            DisassociateTrustBundleFromDomains disassociateTrustBundleFromDomains = null;
+            for (TrustBundle eachTrustBundle : selectTBs) {
+                disassociateTrustBundleFromDomains = new DisassociateTrustBundleFromDomains();
+                disassociateTrustBundleFromDomains.setTrustBundleId(eachTrustBundle.getId());
+                directService.disassociateTrustBundleFromDomains(disassociateTrustBundleFromDomains);
+            }
         }
-    }
-
-    public void deleteTrustBundle() {
-
+        directService.disassociateTrustBundleFromDomains(null);
     }
 
     public String getDomainName() {

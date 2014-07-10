@@ -32,9 +32,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import org.nhind.config.common.AddDomain;
+import org.nhind.config.common.AssociateTrustBundleToDomain;
 import org.nhind.config.common.DeleteTrustBundles;
+import org.nhind.config.common.DisassociateTrustBundleFromDomains;
 import org.nhind.config.common.Domain;
+import org.nhind.config.common.GetTrustBundleByName;
 import org.nhind.config.common.GetTrustBundles;
+import org.nhind.config.common.GetTrustBundlesByDomain;
 import org.nhind.config.common.TrustBundle;
 import org.nhind.config.common.UpdateDomain;
 import org.nhind.config.common.UpdateTrustBundleAttributes;
@@ -187,27 +191,7 @@ public class MockDirectServiceImpl implements DirectService {
     }
 
     @Override
-    public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming, boolean outgoing) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void disassociateTrustBundleFromDomains(long domainId, long trustBundleId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void addTrustBundle(TrustBundle tb) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public TrustBundle getTrustBundleByName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public TrustBundle getTrustBundlesByDomain() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -223,6 +207,26 @@ public class MockDirectServiceImpl implements DirectService {
 
     @Override
     public void deleteTrustBundle(DeleteTrustBundles dtb) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void associateTrustBundleToDomain(AssociateTrustBundleToDomain associateTrustBundleToDomain) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void disassociateTrustBundleFromDomains(DisassociateTrustBundleFromDomains disassociateTrustBundleFromDomains) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public TrustBundle getTrustBundleByName(GetTrustBundleByName getTrustBundleByName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public TrustBundle getTrustBundlesByDomain(GetTrustBundlesByDomain getTrustBundlesByDomain) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

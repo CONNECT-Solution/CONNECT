@@ -152,7 +152,7 @@
 								<p:panelGrid columns="1" styleClass="ui-panelgrid-domain">
 									<p:commandButton value="Add New Trust Bundle" type="button" onclick="PF('tbDlg').show();" icon="ui-icon-circle-plus" styleClass="add-button pull-right" />
 								</p:panelGrid>
-								<p:dataTable id="tbDataTable" var="tb" value="#{directTrustBundleBean.trustBundles}" selection="#{directTrustBundleBean.selectedTb}" rowKey="#{tb.tbName}" styleClass="table table-striped table-domains">
+                                <p:dataTable id="tbDataTable" var="tb" value="#{directTrustBundleBean.trustBundles}" selection="#{directTrustBundleBean.selectedTb}" rowKey="#{tb.bundleName}" styleClass="table table-striped table-domains">
 									<p:column headerText="Delete" selectionMode="single" />
 									<p:column headerText="Bundle Name" sortBy="bundle_name">
                                         <h:outputText value="#{tb.bundleName}" />

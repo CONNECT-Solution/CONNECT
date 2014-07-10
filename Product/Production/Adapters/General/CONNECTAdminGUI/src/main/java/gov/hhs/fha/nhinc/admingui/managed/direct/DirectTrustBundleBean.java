@@ -94,9 +94,11 @@ public class DirectTrustBundleBean {
         utba.setTrustBundleId(selectedTb.getId());
         utba.setTrustBundleName(selectedTb.getBundleName());
         utba.setTrustBundleRefreshInterval(selectedTb.getRefreshInterval());
-        Certificate crt = new Certificate();
-        crt.setData(selectedTb.getSigningCertificateData());
-        utba.setSigningCert(crt);
+        if (null != selectedTb.getSigningCertificateData() && selectedTb.getSigningCertificateData().length > 0) {
+            Certificate crt = new Certificate();
+            crt.setData(selectedTb.getSigningCertificateData());
+            utba.setSigningCert(crt);
+        }
         utba.setTrustBundleURL(selectedTb.getBundleURL());
         directService.updateTrustBundle(utba);
     }

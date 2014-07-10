@@ -16,7 +16,7 @@
  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*
+ *
  */
 package gov.hhs.fha.nhinc.admingui.services;
 
@@ -24,9 +24,13 @@ import gov.hhs.fha.nhinc.admingui.model.direct.DirectAgent;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectCertificate;
 import java.util.List;
 import org.nhind.config.common.AddDomain;
+import org.nhind.config.common.AssociateTrustBundleToDomain;
 import org.nhind.config.common.DeleteTrustBundles;
+import org.nhind.config.common.DisassociateTrustBundleFromDomains;
 import org.nhind.config.common.Domain;
+import org.nhind.config.common.GetTrustBundleByName;
 import org.nhind.config.common.GetTrustBundles;
+import org.nhind.config.common.GetTrustBundlesByDomain;
 import org.nhind.config.common.TrustBundle;
 import org.nhind.config.common.UpdateDomain;
 import org.nhind.config.common.UpdateTrustBundleAttributes;
@@ -36,29 +40,45 @@ import org.nhind.config.common.UpdateTrustBundleAttributes;
  * @author jasonasmith
  */
 public interface DirectService {
-    
+
     public List<Domain> getDomains();
+
     public void updateDomain(UpdateDomain domain);
+
     public void addDomain(AddDomain domain);
+
     public void deleteDomain(Domain domain);
-    
+
     public List<DirectAgent> getAgents();
+
     public void updateAgent(DirectAgent agent);
+
     public void addAgent(DirectAgent agent);
+
     public void deleteAgent(DirectAgent agent);
-    
+
     public List<DirectCertificate> getCertificates();
+
     public void addCertificate(DirectCertificate cert);
+
     public void deleteCertificate(DirectCertificate cert);
-    
+
     public List<TrustBundle> getTrustBundles(GetTrustBundles gtb);
+
     public void updateTrustBundle(UpdateTrustBundleAttributes utba);
+
     public void addTrustBundle(TrustBundle tb);
+
     public void deleteTrustBundle(DeleteTrustBundles dtb);
-    public TrustBundle getTrustBundleByName();    
-    public TrustBundle getTrustBundlesByDomain();
+
+    public TrustBundle getTrustBundleByName(GetTrustBundleByName getTrustBundleByName);
+
+    public TrustBundle getTrustBundlesByDomain(GetTrustBundlesByDomain getTrustBundlesByDomain);
+
     public void refreshTrustBundle(int id);
-    public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming, boolean outgoing);
-    public void disassociateTrustBundleFromDomains(long domainId, long trustBundleId);
+
+    public void associateTrustBundleToDomain(AssociateTrustBundleToDomain associateTrustBundleToDomain);
+
+    public void disassociateTrustBundleFromDomains(DisassociateTrustBundleFromDomains disassociateTrustBundleFromDomains);
 
 }
