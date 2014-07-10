@@ -16,7 +16,7 @@
  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*
+ *
  */
 package gov.hhs.fha.nhinc.admingui.proxy;
 
@@ -25,7 +25,7 @@ package gov.hhs.fha.nhinc.admingui.proxy;
  * @author jasonasmith
  */
 public class DirectConfigConstants {
-    
+
     static final String DIRECT_CONFIG_SERVICE_NAME = "directconfig";
 
     static final String DIRECT_CONFIG_GET_DOMAIN = "getDomain";
@@ -34,7 +34,7 @@ public class DirectConfigConstants {
     static final String DIRECT_CONFIG_UPDATE_DOMAIN = "updateDomain";
     static final String DIRECT_CONFIG_DELETE_DOMAIN = "removeDomain";
 
-    static final String DIRECT_CONFIG_ADD_ANCHOR = "addAnchors";
+    static final String DIRECT_CONFIG_ADD_ANCHOR = "addAnchor";
     static final String DIRECT_CONFIG_DELETE_ANCHOR = "removeAnchors";
     static final String DIRECT_CONFIG_GET_ANCHORS_FOR_OWNER = "getAnchorsForOwner";
 
@@ -58,4 +58,3 @@ public class DirectConfigConstants {
     static final String DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLE_FROM_DOMAIN = "disassociateTrustBundleFromDomain";
     static final String DIRECT_CONFIG_REFRESH_TRUST_BUNDLE = "refreshTrustBundle";
 }
-

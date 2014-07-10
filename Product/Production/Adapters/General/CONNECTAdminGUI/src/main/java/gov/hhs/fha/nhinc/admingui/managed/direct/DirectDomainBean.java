@@ -20,18 +20,26 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed.direct;
 
+import gov.hhs.fha.nhinc.admingui.managed.direct.helpers.CertContainer;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectAddress;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectAnchor;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import org.apache.log4j.Logger;
+
+import org.nhind.config.common.AddAnchor;
 import org.nhind.config.common.AddDomain;
+import org.nhind.config.common.Anchor;
+import org.nhind.config.common.CertificateGetOptions;
 import org.nhind.config.common.Domain;
 import org.nhind.config.common.EntityStatus;
+import org.nhind.config.common.GetAnchorsForOwner;
+import org.nhind.config.common.RemoveAnchors;
 import org.nhind.config.common.UpdateDomain;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
@@ -127,11 +135,44 @@ public class DirectDomainBean {
     }
 
     public void addAnchor() {
+        if (anchorCert != null) {
+            AddAnchor addAnchor = new AddAnchor();
+            Anchor anchor = new Anchor();
 
+            anchor.setData(anchorCert.getContents());
+            anchor.setOwner(getSelectedDomain().getDomainName());
+            anchor.setIncoming(isAnchorIncoming());
+            anchor.setOutgoing(isAnchorOutgoing());
+            anchor.setStatus(EntityStatus.valueOf(getAnchorStatus()));
+
+            addAnchor.getAnchor().add(anchor);
+
+            directService.addAnchor(addAnchor);
+        }
+    }
+
+    public List<DirectAnchor> getAnchors() {
+        GetAnchorsForOwner getAnchorsForOwner = new GetAnchorsForOwner();
+        getAnchorsForOwner.setOwner(getSelectedDomain().getDomainName());
+        getAnchorsForOwner.setOptions(new CertificateGetOptions());
+
+        List<DirectAnchor> anchorList = new ArrayList<DirectAnchor>();
+        List<Anchor> anchorsResponse = directService.getAnchorsForOwner(getAnchorsForOwner);
+
+        for (Anchor a : anchorsResponse) {
+            CertContainer cc = new CertContainer(a.getData());
+            anchorList.add(new DirectAnchor(a, cc.getTrustedEntityName()));
+        }
+
+        return anchorList;
     }
 
     public void deleteAnchor() {
+        RemoveAnchors removeAnchors = new RemoveAnchors();
+        removeAnchors.getAnchorId().add(getSelectedAnchor().getId());
 
+        selectedAnchor = null;
+        directService.deleteAnchor(removeAnchors);
     }
 
     public void addTrustBundles() {

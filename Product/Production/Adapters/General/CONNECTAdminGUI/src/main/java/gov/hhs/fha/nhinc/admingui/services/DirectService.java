@@ -22,11 +22,16 @@ package gov.hhs.fha.nhinc.admingui.services;
 
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectAgent;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectCertificate;
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectDomain;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
+
 import java.util.List;
+
+import org.nhind.config.common.AddAnchor;
 import org.nhind.config.common.AddDomain;
+import org.nhind.config.common.Anchor;
 import org.nhind.config.common.Domain;
+import org.nhind.config.common.GetAnchorsForOwner;
+import org.nhind.config.common.RemoveAnchors;
 import org.nhind.config.common.UpdateDomain;
 
 /**
@@ -34,24 +39,27 @@ import org.nhind.config.common.UpdateDomain;
  * @author jasonasmith
  */
 public interface DirectService {
-    
+
     public List<Domain> getDomains();
     public void updateDomain(UpdateDomain domain);
     public void addDomain(AddDomain domain);
     public void deleteDomain(Domain domain);
-    
+
     public List<DirectAgent> getAgents();
     public void updateAgent(DirectAgent agent);
     public void addAgent(DirectAgent agent);
     public void deleteAgent(DirectAgent agent);
-    
+
     public List<DirectCertificate> getCertificates();
     public void addCertificate(DirectCertificate cert);
     public void deleteCertificate(DirectCertificate cert);
-    
+
     public List<DirectTrustBundle> getTrustBundles();
     public void updateTrustBundle(DirectTrustBundle tb);
     public void addTrustBundle(DirectTrustBundle tb);
     public void deleteTrustBundle(DirectTrustBundle tb);
 
+    public List<Anchor> getAnchorsForOwner(GetAnchorsForOwner getAnchorsForOwner);
+    public void addAnchor(AddAnchor addAnchor);
+    public void deleteAnchor(RemoveAnchors removeAnchors);
 }

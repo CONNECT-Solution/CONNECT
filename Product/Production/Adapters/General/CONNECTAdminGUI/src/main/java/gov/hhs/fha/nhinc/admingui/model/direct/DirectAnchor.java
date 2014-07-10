@@ -16,62 +16,146 @@
  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*
+ *
  */
 package gov.hhs.fha.nhinc.admingui.model.direct;
 
-import java.io.File;
+import java.text.SimpleDateFormat;
+
+import org.nhind.config.common.Anchor;
+import org.nhind.config.common.EntityStatus;
 
 /**
  *
  * @author jasonasmith
  */
 public class DirectAnchor {
-    
-    private String name;
-    private byte[] certificate;
-    private boolean incoming;
-    private boolean outgoing;
-    private String status;
 
-    public String getName(){
-        return name;
-    }
-    
-    public void setName(String name){
-        this.name = name;
-    }
-    
-    public byte[] getCertificate() {
-        return certificate;
-    }
+    private String trustedDomainOrUser;
 
-    public void setCertificate(byte[] certificate) {
-        this.certificate = certificate;
+    private long id;
+    private long certificateId;
+
+    private String owner;
+    private String thumbprint;
+
+    private EntityStatus status;
+
+    private String createTime;
+    private String validEndDate;
+    private String validStartDate;
+
+    private boolean isOutgoing;
+    private boolean isIncoming;
+
+    public DirectAnchor() {
     }
 
-    public boolean isIncoming() {
-        return incoming;
+    public DirectAnchor(Anchor anchor, String trustedDomainOrUser) {
+        this.trustedDomainOrUser = trustedDomainOrUser;
+
+        id = anchor.getId();
+        certificateId = anchor.getCertificateId();
+
+        owner = anchor.getOwner();
+        thumbprint = anchor.getThumbprint();
+
+        status = anchor.getStatus();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        createTime = sdf.format(anchor.getCreateTime().toGregorianCalendar().getTime());
+        validEndDate = sdf.format(anchor.getValidEndDate().toGregorianCalendar().getTime());
+        validStartDate = sdf.format(anchor.getValidStartDate().toGregorianCalendar().getTime());
+
+        isIncoming = anchor.isIncoming();
+        isOutgoing = anchor.isOutgoing();
     }
 
-    public void setIncoming(boolean incoming) {
-        this.incoming = incoming;
+    public String getTrustedDomainOrUser() {
+        return trustedDomainOrUser;
     }
 
-    public boolean isOutgoing() {
-        return outgoing;
+    public long getId() {
+        return id;
     }
 
-    public void setOutgoing(boolean outgoing) {
-        this.outgoing = outgoing;
+    public long getCertificateId() {
+        return certificateId;
     }
 
-    public String getStatus() {
+    public String getOwner() {
+        return owner;
+    }
+
+    public String getThumbprint() {
+        return thumbprint;
+    }
+
+    public EntityStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public String getValidEndDate() {
+        return validEndDate;
+    }
+
+    public boolean isOutgoing() {
+        return isOutgoing;
+    }
+
+    public boolean isIncoming() {
+        return isIncoming;
+    }
+
+    public String getValidStartDate() {
+        return validStartDate;
+    }
+
+    public void setTrustedDomainOrUser(String trustedDomainOrUser) {
+        this.trustedDomainOrUser = trustedDomainOrUser;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setCertificateId(long certificateId) {
+        this.certificateId = certificateId;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public void setThumbprint(String thumbprint) {
+        this.thumbprint = thumbprint;
+    }
+
+    public void setStatus(EntityStatus status) {
         this.status = status;
     }
-    
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public void setValidEndDate(String validEndDate) {
+        this.validEndDate = validEndDate;
+    }
+
+    public void setValidStartDate(String validStartDate) {
+        this.validStartDate = validStartDate;
+    }
+
+    public void setOutgoing(boolean isOutgoing) {
+        this.isOutgoing = isOutgoing;
+    }
+
+    public void setIncoming(boolean isIncoming) {
+        this.isIncoming = isIncoming;
+    }
 }

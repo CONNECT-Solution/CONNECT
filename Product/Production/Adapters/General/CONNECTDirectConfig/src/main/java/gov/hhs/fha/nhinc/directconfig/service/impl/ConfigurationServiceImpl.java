@@ -48,7 +48,6 @@
 package gov.hhs.fha.nhinc.directconfig.service.impl;
 
 import gov.hhs.fha.nhinc.directconfig.entity.Address;
-import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
 import gov.hhs.fha.nhinc.directconfig.entity.CertPolicy;
 import gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroup;
 import gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroupDomainReltn;
@@ -73,8 +72,28 @@ import gov.hhs.fha.nhinc.directconfig.service.DomainService;
 import gov.hhs.fha.nhinc.directconfig.service.SettingService;
 import gov.hhs.fha.nhinc.directconfig.service.TrustBundleService;
 import gov.hhs.fha.nhinc.directconfig.service.helpers.CertificateGetOptions;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddAnchors;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddAnchorsResponse;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddDomain;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddDomainResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.GetAnchor;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.GetAnchorResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.GetAnchors;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.GetAnchorsForOwner;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.GetAnchorsForOwnerResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.GetAnchorsResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.GetIncomingAnchors;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.GetIncomingAnchorsResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.GetOutgoingAnchors;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.GetOutgoingAnchorsResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.ListAnchors;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.ListAnchorsResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.RemoveAnchors;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.RemoveAnchorsForOwner;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.RemoveAnchorsForOwnerResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.RemoveAnchorsResponse;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.SetAnchorStatusForOwner;
+import gov.hhs.fha.nhinc.directconfig.service.jaxws.SetAnchorStatusForOwnerResponse;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.UpdateDomain;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.UpdateDomainResponse;
 
@@ -196,6 +215,7 @@ public class ConfigurationServiceImpl extends SpringBeanAutowiringSupport implem
 
     /**
      * {@inheritDoc}
+     *
      * @param domain
      */
     @Override
@@ -342,9 +362,8 @@ public class ConfigurationServiceImpl extends SpringBeanAutowiringSupport implem
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
-    public void addAnchors(Collection<Anchor> anchors) throws ConfigurationServiceException {
-        anchorSvc.addAnchors(anchors);
-
+    public AddAnchorsResponse addAnchors(AddAnchors addAnchors) throws ConfigurationServiceException {
+        return anchorSvc.addAnchors(addAnchors);
     }
 
     /**
@@ -352,8 +371,10 @@ public class ConfigurationServiceImpl extends SpringBeanAutowiringSupport implem
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
-    public void setAnchorStatusForOwner(String owner, EntityStatus status) throws ConfigurationServiceException {
-        anchorSvc.setAnchorStatusForOwner(owner, status);
+    public SetAnchorStatusForOwnerResponse setAnchorStatusForOwner(SetAnchorStatusForOwner setAnchorStatusForOwner)
+            throws ConfigurationServiceException {
+
+        return anchorSvc.setAnchorStatusForOwner(setAnchorStatusForOwner);
     }
 
     /**
@@ -361,8 +382,8 @@ public class ConfigurationServiceImpl extends SpringBeanAutowiringSupport implem
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
-    public void removeAnchors(Collection<Long> anchorIds) throws ConfigurationServiceException {
-        anchorSvc.removeAnchors(anchorIds);
+    public RemoveAnchorsResponse removeAnchors(RemoveAnchors removeAnchors) throws ConfigurationServiceException {
+        return anchorSvc.removeAnchors(removeAnchors);
     }
 
     /**
@@ -370,8 +391,10 @@ public class ConfigurationServiceImpl extends SpringBeanAutowiringSupport implem
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
-    public void removeAnchorsForOwner(String owner) throws ConfigurationServiceException {
-        anchorSvc.removeAnchorsForOwner(owner);
+    public RemoveAnchorsForOwnerResponse removeAnchorsForOwner(RemoveAnchorsForOwner removeAnchorsForOwner)
+            throws ConfigurationServiceException {
+
+        return anchorSvc.removeAnchorsForOwner(removeAnchorsForOwner);
     }
 
     /**
@@ -423,10 +446,8 @@ public class ConfigurationServiceImpl extends SpringBeanAutowiringSupport implem
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
-    public Anchor getAnchor(String owner, String thumbprint, CertificateGetOptions options)
-            throws ConfigurationServiceException {
-
-        return anchorSvc.getAnchor(owner, thumbprint, options);
+    public GetAnchorResponse getAnchor(GetAnchor getAnchor) throws ConfigurationServiceException {
+        return anchorSvc.getAnchor(getAnchor);
     }
 
     /**
@@ -434,10 +455,8 @@ public class ConfigurationServiceImpl extends SpringBeanAutowiringSupport implem
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
-    public Collection<Anchor> getAnchors(Collection<Long> anchorIds, CertificateGetOptions options)
-            throws ConfigurationServiceException {
-
-        return anchorSvc.getAnchors(anchorIds, options);
+    public GetAnchorsResponse getAnchors(GetAnchors getAnchors) throws ConfigurationServiceException {
+        return anchorSvc.getAnchors(getAnchors);
     }
 
     /**
@@ -445,10 +464,10 @@ public class ConfigurationServiceImpl extends SpringBeanAutowiringSupport implem
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
-    public Collection<Anchor> getAnchorsForOwner(String owner, CertificateGetOptions options)
+    public GetAnchorsForOwnerResponse getAnchorsForOwner(GetAnchorsForOwner getAnchorsForOwner)
             throws ConfigurationServiceException {
 
-        return anchorSvc.getAnchorsForOwner(owner, options);
+        return anchorSvc.getAnchorsForOwner(getAnchorsForOwner);
     }
 
     /**
@@ -456,10 +475,10 @@ public class ConfigurationServiceImpl extends SpringBeanAutowiringSupport implem
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
-    public Collection<Anchor> getIncomingAnchors(String owner, CertificateGetOptions options)
+    public GetIncomingAnchorsResponse getIncomingAnchors(GetIncomingAnchors getIncomingAnchors)
             throws ConfigurationServiceException {
 
-        return anchorSvc.getIncomingAnchors(owner, options);
+        return anchorSvc.getIncomingAnchors(getIncomingAnchors);
     }
 
     /**
@@ -467,10 +486,10 @@ public class ConfigurationServiceImpl extends SpringBeanAutowiringSupport implem
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
-    public Collection<Anchor> getOutgoingAnchors(String owner, CertificateGetOptions options)
+    public GetOutgoingAnchorsResponse getOutgoingAnchors(GetOutgoingAnchors getOutgoingAnchors)
             throws ConfigurationServiceException {
 
-        return anchorSvc.getOutgoingAnchors(owner, options);
+        return anchorSvc.getOutgoingAnchors(getOutgoingAnchors);
     }
 
     /**
@@ -478,10 +497,8 @@ public class ConfigurationServiceImpl extends SpringBeanAutowiringSupport implem
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
-    public Collection<Anchor> listAnchors(Long lastAnchorID, int maxResults, CertificateGetOptions options)
-            throws ConfigurationServiceException {
-
-        return anchorSvc.listAnchors(lastAnchorID, maxResults, options);
+    public ListAnchorsResponse listAnchors(ListAnchors listAnchors) throws ConfigurationServiceException {
+        return anchorSvc.listAnchors(listAnchors);
     }
 
     /**
