@@ -16,49 +16,52 @@
  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*
+ *
  */
 package gov.hhs.fha.nhinc.admingui.managed.direct;
 
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectAgent;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
+
+import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
+import org.nhind.config.common.Setting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- *
- * @author jasonasmith
+ * 
+ * @author jasonasmith / sadusumilli
  */
 
 @ManagedBean(name = "directAgentBean")
 @ViewScoped
 @Component
 public class DirectAgentBean {
-    
+
     @Autowired
     private DirectService directService;
-    
+
     private String agentName;
     private String agentValue;
-    
-    private DirectAgent selectedAgent;
-    
-    public List<DirectAgent> getAgents(){
-        return directService.getAgents();
+
+    private Setting setting;
+
+    public List<Setting> getSettings() {
+        return directService.getSetting();
     }
-    
-    public void deleteAgent(){
-        directService.deleteAgent(selectedAgent);
+
+    public void addSetting() {
+        directService.addSetting(agentName, agentValue);
     }
-    
-    public void addAgent(){
-        DirectAgent agent = new DirectAgent();
-        agent.setAgentName(agentName);
-        agent.setAgentValue(agentValue);
-        directService.addAgent(agent);
+
+    public void deleteSetting() {
+        List<String> deleteNames = new ArrayList<String>();
+        deleteNames.add(agentName);
+        directService.deleteSetting(deleteNames);
     }
 
     public String getAgentName() {
@@ -77,13 +80,12 @@ public class DirectAgentBean {
         this.agentValue = agentValue;
     }
 
-    public DirectAgent getSelectedAgent() {
-        return selectedAgent;
+    public Setting getSetting() {
+        return setting;
     }
 
-    public void setSelectedAgent(DirectAgent selectedAgent) {
-        this.selectedAgent = selectedAgent;
+    public void setSetting(Setting setting) {
+        this.setting = setting;
     }
-    
-    
+
 }

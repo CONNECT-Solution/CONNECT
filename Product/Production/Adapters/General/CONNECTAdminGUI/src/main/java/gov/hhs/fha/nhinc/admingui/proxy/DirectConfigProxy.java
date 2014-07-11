@@ -28,6 +28,7 @@ import org.nhind.config.common.Anchor;
 import org.nhind.config.common.Domain;
 import org.nhind.config.common.GetAnchorsForOwner;
 import org.nhind.config.common.RemoveAnchors;
+import org.nhind.config.common.Setting;
 import org.nhind.config.common.UpdateDomain;
 import org.nhind.config.common.UpdateDomainResponse;
 
@@ -46,5 +47,10 @@ public interface DirectConfigProxy {
     public void addAnchor(AddAnchor addAnchor) throws Exception;
     public void removeAnchors(RemoveAnchors removeAnchors) throws Exception;
     public List<Anchor> getAnchorsForOwner(GetAnchorsForOwner getAnchorsForOwner) throws Exception;
+    
+    public void addSetting(String name, String Value) throws Exception;
+    public List<Setting> getSetting() throws Exception;
+    public void deleteSetting(List<String> deleteNames) throws Exception;
+
 
 }

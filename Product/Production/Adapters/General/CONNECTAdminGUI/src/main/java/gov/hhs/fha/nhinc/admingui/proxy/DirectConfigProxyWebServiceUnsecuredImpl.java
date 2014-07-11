@@ -35,12 +35,13 @@ import org.nhind.config.common.ConfigurationService;
 import org.nhind.config.common.Domain;
 import org.nhind.config.common.GetAnchorsForOwner;
 import org.nhind.config.common.RemoveAnchors;
+import org.nhind.config.common.Setting;
 import org.nhind.config.common.UpdateDomain;
 import org.nhind.config.common.UpdateDomainResponse;
 import org.springframework.stereotype.Service;
 
 /**
- *
+ * 
  * @author jasonasmith
  */
 @Service
@@ -97,6 +98,22 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
         return (List<Anchor>) getClient().invokePort(directConfigClazz,
                 DirectConfigConstants.DIRECT_CONFIG_GET_ANCHORS_FOR_OWNER, getAnchorsForOwner.getOwner(),
                 getAnchorsForOwner.getOptions());
+    }
+
+    @Override
+    public void addSetting(String name, String value) throws Exception {
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ADD_SETTING, name, value);
+    }
+
+    @Override
+    public List<Setting> getSetting() throws Exception {
+        return (List<Setting>) getClient().invokePort(directConfigClazz,
+                DirectConfigConstants.DIRECT_CONFIG_LIST_SETTINGS);
+    }
+
+    @Override
+    public void deleteSetting(List<String> deleteNames) throws Exception {
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DELETE_SETTING, deleteNames);
     }
 
     private CONNECTClient getClient() throws Exception {
