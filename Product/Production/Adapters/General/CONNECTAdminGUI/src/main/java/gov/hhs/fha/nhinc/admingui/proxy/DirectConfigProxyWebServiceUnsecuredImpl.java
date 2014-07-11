@@ -30,18 +30,27 @@ import java.util.List;
 
 import org.nhind.config.common.AddAnchor;
 import org.nhind.config.common.AddDomain;
+import org.nhind.config.common.AddTrustBundle;
 import org.nhind.config.common.Anchor;
+import org.nhind.config.common.AssociateTrustBundleToDomain;
 import org.nhind.config.common.ConfigurationService;
+import org.nhind.config.common.DeleteTrustBundles;
+import org.nhind.config.common.DisassociateTrustBundleFromDomains;
 import org.nhind.config.common.Domain;
 import org.nhind.config.common.GetAnchorsForOwner;
+import org.nhind.config.common.GetTrustBundleByName;
+import org.nhind.config.common.GetTrustBundles;
+import org.nhind.config.common.GetTrustBundlesByDomain;
 import org.nhind.config.common.RemoveAnchors;
 import org.nhind.config.common.Setting;
+import org.nhind.config.common.TrustBundle;
 import org.nhind.config.common.UpdateDomain;
 import org.nhind.config.common.UpdateDomainResponse;
+import org.nhind.config.common.UpdateTrustBundleAttributes;
 import org.springframework.stereotype.Service;
 
 /**
- * 
+ *
  * @author jasonasmith
  */
 @Service
@@ -64,13 +73,13 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
     @Override
     public List<Domain> listDomains() throws Exception {
         return (List<Domain>) getClient().invokePort(directConfigClazz,
-                DirectConfigConstants.DIRECT_CONFIG_LIST_DOMAINS, null, 0);
+            DirectConfigConstants.DIRECT_CONFIG_LIST_DOMAINS, null, 0);
     }
 
     @Override
     public UpdateDomainResponse updateDomain(UpdateDomain updateDomain) throws Exception {
         return (UpdateDomainResponse) getClient().invokePort(directConfigClazz,
-                DirectConfigConstants.DIRECT_CONFIG_UPDATE_DOMAIN, updateDomain);
+            DirectConfigConstants.DIRECT_CONFIG_UPDATE_DOMAIN, updateDomain);
     }
 
     @Override
@@ -82,22 +91,22 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
     @SuppressWarnings("unchecked")
     public void addAnchor(AddAnchor addAnchor) throws Exception {
         getClient()
-                .invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ADD_ANCHOR, addAnchor.getAnchor());
+            .invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ADD_ANCHOR, addAnchor.getAnchor());
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public void removeAnchors(RemoveAnchors removeAnchors) throws Exception {
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DELETE_ANCHOR,
-                removeAnchors.getAnchorId());
+            removeAnchors.getAnchorId());
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public List<Anchor> getAnchorsForOwner(GetAnchorsForOwner getAnchorsForOwner) throws Exception {
         return (List<Anchor>) getClient().invokePort(directConfigClazz,
-                DirectConfigConstants.DIRECT_CONFIG_GET_ANCHORS_FOR_OWNER, getAnchorsForOwner.getOwner(),
-                getAnchorsForOwner.getOptions());
+            DirectConfigConstants.DIRECT_CONFIG_GET_ANCHORS_FOR_OWNER, getAnchorsForOwner.getOwner(),
+            getAnchorsForOwner.getOptions());
     }
 
     @Override
@@ -108,7 +117,7 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
     @Override
     public List<Setting> getSetting() throws Exception {
         return (List<Setting>) getClient().invokePort(directConfigClazz,
-                DirectConfigConstants.DIRECT_CONFIG_LIST_SETTINGS);
+            DirectConfigConstants.DIRECT_CONFIG_LIST_SETTINGS);
     }
 
     @Override
@@ -116,15 +125,60 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DELETE_SETTING, deleteNames);
     }
 
+    @Override
+    public void addTrustBundle(AddTrustBundle tb) throws Exception {
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ADD_TRUST_BUNDLE, tb.getBundle());
+    }
+
+    @Override
+    public List<TrustBundle> getTrustBundles(GetTrustBundles gtb) throws Exception {
+        return (List<TrustBundle>) getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_GET_TRUST_BUNDLE, gtb.isFetchAnchors());
+    }
+
+    @Override
+    public TrustBundle getTrustBundleByName(GetTrustBundleByName getTrustBundleByName) throws Exception {
+        return (TrustBundle) getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_GET_TRUST_BUNDLE_BY_NAME, getTrustBundleByName.getBundleName());
+    }
+
+    @Override
+    public TrustBundle getTrustBundlesByDomain(GetTrustBundlesByDomain getTrustBundlesByDomain) throws Exception {
+        return (TrustBundle) getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ASSOCIATE_TRUST_BUNDLE_TO_DOMAIN, getTrustBundlesByDomain.getDomainId(), getTrustBundlesByDomain.isFetchAnchors());
+    }
+    
+    @Override
+    public void associateTrustBundleToDomain(AssociateTrustBundleToDomain associateTrustBundleToDomain) throws Exception {
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ASSOCIATE_TRUST_BUNDLE_TO_DOMAIN, associateTrustBundleToDomain.getDomainId(), associateTrustBundleToDomain.getTrustBundleId(), associateTrustBundleToDomain.isIncoming(), associateTrustBundleToDomain.isOutgoing());
+    }
+
+    @Override
+    public void updateTrustBundleAttributes(UpdateTrustBundleAttributes tb) throws Exception {
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_UPDATE_TRUST_BUNDLE_ATTRIBUTES, tb.getTrustBundleId(), tb.getTrustBundleName(), tb.getTrustBundleURL(), tb.getSigningCert(), tb.getTrustBundleRefreshInterval());
+    }
+
+    @Override
+    public void refreshTrustBundle(int id) throws Exception {
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_REFRESH_TRUST_BUNDLE, id);
+    }
+
+    @Override
+    public void disassociateTrustBundleFromDomains(DisassociateTrustBundleFromDomains disassociateTrustBundleFromDomains) throws Exception {
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLE_FROM_DOMAIN, disassociateTrustBundleFromDomains.getTrustBundleId());
+    }
+
+    @Override
+    public void deleteTrustBundle(DeleteTrustBundles tb) throws Exception {
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DELETE_TRUST_BUNDLE, tb.getTrustBundleIds());
+    }
+
     private CONNECTClient getClient() throws Exception {
 
         String url = oProxyHelper
-                .getAdapterEndPointFromConnectionManager(DirectConfigConstants.DIRECT_CONFIG_SERVICE_NAME);
+            .getAdapterEndPointFromConnectionManager(DirectConfigConstants.DIRECT_CONFIG_SERVICE_NAME);
 
         ServicePortDescriptor<ConfigurationService> portDescriptor = new DirectConfigUnsecuredServicePortDescriptor();
 
         CONNECTClient<ConfigurationService> client = CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(
-                portDescriptor, url, null);
+            portDescriptor, url, null);
 
         return client;
     }

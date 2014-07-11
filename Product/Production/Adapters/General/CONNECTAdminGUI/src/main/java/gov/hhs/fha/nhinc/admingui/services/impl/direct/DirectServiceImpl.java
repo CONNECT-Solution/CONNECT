@@ -21,7 +21,6 @@
 package gov.hhs.fha.nhinc.admingui.services.impl.direct;
 
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectCertificate;
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
 
@@ -30,17 +29,26 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.nhind.config.common.AddAnchor;
 import org.nhind.config.common.AddDomain;
+import org.nhind.config.common.AddTrustBundle;
 import org.nhind.config.common.Anchor;
+import org.nhind.config.common.AssociateTrustBundleToDomain;
+import org.nhind.config.common.DeleteTrustBundles;
+import org.nhind.config.common.DisassociateTrustBundleFromDomains;
 import org.nhind.config.common.Domain;
 import org.nhind.config.common.GetAnchorsForOwner;
+import org.nhind.config.common.GetTrustBundleByName;
+import org.nhind.config.common.GetTrustBundles;
+import org.nhind.config.common.GetTrustBundlesByDomain;
 import org.nhind.config.common.RemoveAnchors;
 import org.nhind.config.common.Setting;
+import org.nhind.config.common.TrustBundle;
 import org.nhind.config.common.UpdateDomain;
+import org.nhind.config.common.UpdateTrustBundleAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * 
+ *
  * @author jasonasmith
  */
 @Service
@@ -137,27 +145,93 @@ public class DirectServiceImpl implements DirectService {
     }
 
     @Override
-    public List<DirectTrustBundle> getTrustBundles() {
-        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
-        // Tools | Templates.
+    public List<TrustBundle> getTrustBundles(GetTrustBundles gtb) {
+        List<TrustBundle> listTB = null;
+        try {
+            listTB = directProxy.getTrustBundles(gtb);
+        } catch (Exception ex) {
+            LOG.error("Unable to get List of Trust Bundles: ", ex);
+        }
+        return listTB;
     }
 
     @Override
-    public void updateTrustBundle(DirectTrustBundle tb) {
-        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
-        // Tools | Templates.
+    public void updateTrustBundle(UpdateTrustBundleAttributes utba) {
+        try {
+            directProxy.updateTrustBundleAttributes(utba);
+        } catch (Exception ex) {
+            LOG.error("Unable to update trust bundle with Name: " + utba.getTrustBundleName(), ex);
+        }
     }
 
     @Override
-    public void addTrustBundle(DirectTrustBundle tb) {
-        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
-        // Tools | Templates.
+    public void addTrustBundle(TrustBundle tb) {
+        try {
+            AddTrustBundle atb = new AddTrustBundle();
+            atb.setBundle(tb);
+            directProxy.addTrustBundle(atb);
+        } catch (Exception ex) {
+            LOG.error("Unable to add trust bundle with Name: " + tb.getBundleName(), ex);
+        }
     }
 
     @Override
-    public void deleteTrustBundle(DirectTrustBundle tb) {
-        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
-        // Tools | Templates.
+    public void deleteTrustBundle(DeleteTrustBundles tb) {
+        try {
+
+            directProxy.deleteTrustBundle(tb);
+        } catch (Exception ex) {
+            LOG.error("Unable to delete trust bundle ", ex);
+        }
+    }
+
+    @Override
+    public TrustBundle getTrustBundleByName(GetTrustBundleByName getTrustBundleByName) {
+        TrustBundle response = null;
+        try {
+            response = directProxy.getTrustBundleByName(getTrustBundleByName);
+        } catch (Exception ex) {
+            LOG.error("Unable to get Trust Bundle By Name: ", ex);
+        }
+        return response;
+    }
+
+    @Override
+    public TrustBundle getTrustBundlesByDomain(GetTrustBundlesByDomain getTrustBundlesByDomain) {
+        TrustBundle response = null;
+        try {
+            response = directProxy.getTrustBundlesByDomain(getTrustBundlesByDomain);
+        } catch (Exception ex) {
+            LOG.error("Unable to get Trust Bundle By Doman: ", ex);
+        }
+        return response;
+    }
+
+    @Override
+    public void refreshTrustBundle(int id) {
+        try {
+            directProxy.refreshTrustBundle(id);
+        } catch (Exception ex) {
+            LOG.error("Unable to refresh Trust Bundle: " + ex);
+        }
+    }
+
+    @Override
+    public void associateTrustBundleToDomain(AssociateTrustBundleToDomain associateTrustBundleToDomain) {
+        try {
+            directProxy.associateTrustBundleToDomain(associateTrustBundleToDomain);
+        } catch (Exception ex) {
+            LOG.error("Unable to Associate Trust Bundle to Domain domain ID =" + associateTrustBundleToDomain.getDomainId() + " Trust Bundle ID = " + associateTrustBundleToDomain.getTrustBundleId(), ex);
+        }
+    }
+
+    @Override
+    public void disassociateTrustBundleFromDomains(DisassociateTrustBundleFromDomains disassociateTrustBundleFromDomains) {
+        try {
+            directProxy.disassociateTrustBundleFromDomains(disassociateTrustBundleFromDomains);
+        } catch (Exception ex) {
+            LOG.error("Unable to disassociate Trust Bundle from Domain trust bundle ID =" + disassociateTrustBundleFromDomains.getTrustBundleId(), ex);
+        }
     }
 
     @Override
@@ -168,8 +242,8 @@ public class DirectServiceImpl implements DirectService {
             anchors = directProxy.getAnchorsForOwner(getAnchorsForOwner);
         } catch (Exception ex) {
             LOG.error(
-                    "Error retrieving list of anchors for owner " + getAnchorsForOwner.getOwner() + ": "
-                            + ex.getMessage(), ex);
+                "Error retrieving list of anchors for owner " + getAnchorsForOwner.getOwner() + ": "
+                + ex.getMessage(), ex);
         }
 
         return anchors;
