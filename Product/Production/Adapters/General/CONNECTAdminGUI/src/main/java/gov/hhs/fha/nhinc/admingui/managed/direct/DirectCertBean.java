@@ -16,47 +16,70 @@
  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*
+ *
  */
 package gov.hhs.fha.nhinc.admingui.managed.direct;
 
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectCertificate;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
+
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
+import org.nhind.config.common.AddCertificates;
+import org.nhind.config.common.Certificate;
+import org.nhind.config.common.CertificateGetOptions;
+import org.nhind.config.common.EntityStatus;
+import org.nhind.config.common.ListCertificates;
+import org.nhind.config.common.RemoveCertificates;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- *
+ * 
  * @author jasonasmith
  */
 @ManagedBean(name = "directCertBean")
 @ViewScoped
 @Component
 public class DirectCertBean {
-    
+
     @Autowired
     private DirectService directService;
-    
+
     private UploadedFile certFile;
     private String certStatus;
-    
-    private DirectCertificate selectedCert;
-    
-    public List<DirectCertificate> getCertificates(){
-        return directService.getCertificates();
+
+    private Certificate selectedCert;
+
+    public List<Certificate> getCertificates() {
+        ListCertificates cert = new ListCertificates();
+        cert.setLastCertificateId(0);
+        cert.setMaxResutls(0);
+        cert.setOptions(new CertificateGetOptions());
+        return directService.listCertificate(cert);
     }
-    
-    public void deleteCertificate(){
-        directService.deleteCertificate(selectedCert);
+
+    public void deleteCertificate() {
+        RemoveCertificates removeCert = new RemoveCertificates();
+        removeCert.getCertificateIds().add(selectedCert.getId());
+        directService.deleteCertificate(removeCert);
     }
-    
-    public void addCertificate(){
-        DirectCertificate cert = new DirectCertificate();
-        //TODO get info from cert file and add cert
+
+    public void certFileUpload(FileUploadEvent event) {
+        certFile = event.getFile();
+    }
+
+    public void addCertificate() {
+        AddCertificates addCert = new AddCertificates();
+        Certificate certificate = new Certificate();
+        certificate.setData(certFile.getContents());
+        certificate.setStatus(EntityStatus.NEW);
+        addCert.getCerts().add(certificate);
+        directService.addCertificate(addCert);
     }
 
     public UploadedFile getCertFile() {
@@ -75,12 +98,12 @@ public class DirectCertBean {
         this.certStatus = certStatus;
     }
 
-    public DirectCertificate getSelectedCert() {
+    public Certificate getSelectedCert() {
         return selectedCert;
     }
 
-    public void setSelectedCert(DirectCertificate selectedCert) {
+    public void setSelectedCert(Certificate selectedCert) {
         this.selectedCert = selectedCert;
     }
-    
+
 }

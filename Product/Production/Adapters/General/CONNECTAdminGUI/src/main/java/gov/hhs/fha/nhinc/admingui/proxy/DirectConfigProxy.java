@@ -16,30 +16,34 @@
  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*
+ *
  */
 package gov.hhs.fha.nhinc.admingui.proxy;
 
 import java.util.List;
 
-import org.nhind.config.common.AddAnchor;
+import org.nhind.config.common.AddCertificates;
 import org.nhind.config.common.AddDomain;
+import org.nhind.config.common.AddAnchor;
 import org.nhind.config.common.Anchor;
+import org.nhind.config.common.Certificate;
 import org.nhind.config.common.Domain;
 import org.nhind.config.common.GetAnchorsForOwner;
+import org.nhind.config.common.ListCertificates;
 import org.nhind.config.common.RemoveAnchors;
+import org.nhind.config.common.RemoveCertificates;
 import org.nhind.config.common.UpdateDomain;
 import org.nhind.config.common.UpdateDomainResponse;
 
 /**
- *
+ * 
  * @author jasonasmith
  */
 public interface DirectConfigProxy {
 
     public Domain getDomain(Long id) throws Exception;
     public void addDomain(AddDomain domain) throws Exception;
-    public List<Domain> listDomains()throws Exception;
+    public List<Domain> listDomains() throws Exception;
     public UpdateDomainResponse updateDomain(UpdateDomain updateDomain) throws Exception;
     public void deleteDomain(String name) throws Exception;
 
@@ -47,4 +51,7 @@ public interface DirectConfigProxy {
     public void removeAnchors(RemoveAnchors removeAnchors) throws Exception;
     public List<Anchor> getAnchorsForOwner(GetAnchorsForOwner getAnchorsForOwner) throws Exception;
 
+    public void addCertificates(AddCertificates certificate) throws Exception;
+    public void removeCertificate(RemoveCertificates cert) throws Exception;
+    public List<Certificate> listCertificates(ListCertificates listCert) throws Exception;
 }

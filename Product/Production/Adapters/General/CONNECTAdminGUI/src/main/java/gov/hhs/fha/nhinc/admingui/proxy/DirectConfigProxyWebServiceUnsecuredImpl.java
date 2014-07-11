@@ -26,29 +26,36 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.nhind.config.common.AddAnchor;
+import org.nhind.config.common.AddCertificates;
 import org.nhind.config.common.AddDomain;
 import org.nhind.config.common.Anchor;
+import org.nhind.config.common.Certificate;
 import org.nhind.config.common.ConfigurationService;
 import org.nhind.config.common.Domain;
 import org.nhind.config.common.GetAnchorsForOwner;
+import org.nhind.config.common.ListCertificates;
 import org.nhind.config.common.RemoveAnchors;
+import org.nhind.config.common.RemoveCertificates;
 import org.nhind.config.common.UpdateDomain;
 import org.nhind.config.common.UpdateDomainResponse;
+
 import org.springframework.stereotype.Service;
 
 /**
- *
+ * 
  * @author jasonasmith
  */
+@SuppressWarnings("unchecked")
 @Service
 public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigProxy {
 
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
-    private final Class directConfigClazz = ConfigurationService.class;
+    private final Class<ConfigurationService> directConfigClazz = ConfigurationService.class;
 
     @Override
     public Domain getDomain(Long id) throws Exception {
@@ -99,7 +106,45 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
                 getAnchorsForOwner.getOptions());
     }
 
-    private CONNECTClient getClient() throws Exception {
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addCertificates(gov.hhs.fha.nhinc.admingui.model.direct.
+     * DirectCertificate)
+     */
+    @Override
+    public void addCertificates(AddCertificates certificate) throws Exception {
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ADD_CERT, certificate.getCerts());
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#removeCertificate(gov.hhs.fha.nhinc.admingui.model.direct.
+     * DirectCertificate)
+     */
+    @Override
+    public void removeCertificate(RemoveCertificates certificate) throws Exception {
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DELETE_CERT,
+                certificate.getCertificateIds());
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#listCertificates(java.util.List)
+     */
+    @Override
+    public List<Certificate> listCertificates(ListCertificates listCert) throws Exception {
+        return (List<Certificate>) getClient().invokePort(directConfigClazz,
+                DirectConfigConstants.DIRECT_CONFIG_LIST_CERTS, listCert.getLastCertificateId(),
+                listCert.getMaxResutls(), listCert.getOptions());
+    }
+
+    private CONNECTClient<ConfigurationService> getClient() throws Exception {
 
         String url = oProxyHelper
                 .getAdapterEndPointFromConnectionManager(DirectConfigConstants.DIRECT_CONFIG_SERVICE_NAME);
