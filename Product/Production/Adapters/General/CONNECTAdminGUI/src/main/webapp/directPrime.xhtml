@@ -133,9 +133,6 @@
                                     <p:column headerText="End" sortBy="end">
                                         <h:outputText value="#{cert.validEndDate}" styleClass="nowrap" />
                                     </p:column>
-                                    <p:column headerText="Thumb" sortBy="thumb">
-                                        <h:outputText value="#{cert.certThumb}" />
-                                    </p:column>
                                 </p:dataTable>
                                 <p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
                                     <p:commandButton update="certDataTable" value="Delete" action="#{directCertBean.deleteCertificate()}" styleClass="delete-button" icon="ui-icon-closethick"/>
