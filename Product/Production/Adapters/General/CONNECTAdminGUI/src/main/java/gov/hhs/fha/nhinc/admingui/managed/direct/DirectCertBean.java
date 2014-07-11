@@ -66,6 +66,8 @@ public class DirectCertBean {
     public void deleteCertificate() {
         RemoveCertificates removeCert = new RemoveCertificates();
         removeCert.getCertificateIds().add(selectedCert.getId());
+
+        selectedCert = null;
         directService.deleteCertificate(removeCert);
     }
 
