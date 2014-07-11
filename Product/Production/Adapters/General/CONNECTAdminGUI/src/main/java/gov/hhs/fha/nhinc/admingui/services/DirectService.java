@@ -58,9 +58,9 @@ public interface DirectService {
     public void addSetting(String name, String value);
     public void deleteSetting(List<String> deleteNames);
 
-    public List<Certificate> listCertificate(ListCertificates listCert);
     public void addCertificate(AddCertificates addcert);
     public void deleteCertificate(RemoveCertificates removeCert);
+    public List<Certificate> listCertificate(ListCertificates listCert);
 
     public List<Anchor> getAnchorsForOwner(GetAnchorsForOwner getAnchorsForOwner);
     public void addAnchor(AddAnchor addAnchor);
