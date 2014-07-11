@@ -20,7 +20,6 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl.direct;
 
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectAgent;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectCertificate;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy;
@@ -35,12 +34,13 @@ import org.nhind.config.common.Anchor;
 import org.nhind.config.common.Domain;
 import org.nhind.config.common.GetAnchorsForOwner;
 import org.nhind.config.common.RemoveAnchors;
+import org.nhind.config.common.Setting;
 import org.nhind.config.common.UpdateDomain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- *
+ * 
  * @author jasonasmith
  */
 @Service
@@ -90,27 +90,32 @@ public class DirectServiceImpl implements DirectService {
     }
 
     @Override
-    public List<DirectAgent> getAgents() {
-        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
-        // Tools | Templates.
+    public List<Setting> getSetting() {
+        List<Setting> listSetting = null;
+        try {
+            listSetting = directProxy.getSetting();
+        } catch (Exception ex) {
+            LOG.error("Error retrieving list of Setting: " + ex.getMessage(), ex);
+        }
+        return listSetting;
     }
 
     @Override
-    public void updateAgent(DirectAgent agent) {
-        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
-        // Tools | Templates.
+    public void addSetting(String name, String value) {
+        try {
+            directProxy.addSetting(name, value);
+        } catch (Exception ex) {
+            LOG.error("Unable to add new setting: " + ex.getMessage());
+        }
     }
 
     @Override
-    public void addAgent(DirectAgent agent) {
-        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
-        // Tools | Templates.
-    }
-
-    @Override
-    public void deleteAgent(DirectAgent agent) {
-        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
-        // Tools | Templates.
+    public void deleteSetting(List<String> deleteNames) {
+        try {
+            directProxy.deleteSetting(deleteNames);
+        } catch (Exception ex) {
+            LOG.error("Unable to delete setting: ", ex);
+        }
     }
 
     @Override

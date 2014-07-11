@@ -32,6 +32,7 @@ import org.nhind.config.common.Anchor;
 import org.nhind.config.common.Domain;
 import org.nhind.config.common.GetAnchorsForOwner;
 import org.nhind.config.common.RemoveAnchors;
+import org.nhind.config.common.Setting;
 import org.nhind.config.common.UpdateDomain;
 
 /**
@@ -45,10 +46,9 @@ public interface DirectService {
     public void addDomain(AddDomain domain);
     public void deleteDomain(Domain domain);
 
-    public List<DirectAgent> getAgents();
-    public void updateAgent(DirectAgent agent);
-    public void addAgent(DirectAgent agent);
-    public void deleteAgent(DirectAgent agent);
+    public List<Setting> getSetting();
+    public void addSetting(String name, String value);
+    public void deleteSetting(List<String> deleteNames);
 
     public List<DirectCertificate> getCertificates();
     public void addCertificate(DirectCertificate cert);

@@ -89,17 +89,17 @@
                                 <p:panelGrid columns="1" styleClass="ui-panelgrid-domain">
                                     <p:commandButton value="Add New Agent Setting" type="button" onclick="PF('agentDlg').show();" icon="ui-icon-circle-plus" styleClass="add-button pull-right" />
                                 </p:panelGrid>
-                                <p:dataTable id="agentDataTable" var="agent" value="#{directAgentBean.agents}" selection="#{directAgentBean.selectedAgent}" rowKey="#{agent.agentName}" styleClass="table table-striped table-domains">
+                                <p:dataTable id="agentDataTable" var="agent" value="#{directAgentBean.settings}" selection="#{directAgentBean.setting}" rowKey="#{agent.name}" styleClass="table table-striped table-domains">
                                    <p:column headerText="Delete" selectionMode="single" />
                                    <p:column headerText="Name" sortBy="name">
-                                       <h:outputText value="#{agent.agentName}" />
+                                       <h:outputText value="#{agent.name}" />
                                    </p:column>
                                    <p:column headerText="Value" sortBy="value">
-                                       <h:outputText value="#{agent.agentValue}" />
+                                       <h:outputText value="#{agent.value}" />
                                    </p:column>
                                 </p:dataTable>
                                 <p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
-                                    <p:commandButton update="agentDataTable" value="Delete" action="#{directAgentBean.deleteAgent()}" styleClass="delete-button" icon="ui-icon-closethick"/>
+                                    <p:commandButton update="agentDataTable" value="Delete" actionListener="#{directAgentBean.deleteSetting()}" styleClass="delete-button" icon="ui-icon-closethick"/>
                                 </p:panelGrid>
                             </h:form>
                         </div>
