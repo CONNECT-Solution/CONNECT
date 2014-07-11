@@ -121,6 +121,9 @@
                                     <p:column headerText="Owner" sortBy="owner">
                                         <h:outputText value="#{cert.owner}" />
                                     </p:column>
+                                    <p:column headerText="Thumbprint" sortBy="private">
+                                        <h:outputText value="#{cert.thumbprint}" />
+                                    </p:column>
                                     <p:column headerText="Private" sortBy="private">
                                         <h:outputText value="#{cert.privateKey}" />
                                     </p:column>

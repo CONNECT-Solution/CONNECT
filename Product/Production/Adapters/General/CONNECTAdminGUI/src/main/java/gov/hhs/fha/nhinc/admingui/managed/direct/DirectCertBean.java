@@ -20,13 +20,13 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed.direct;
 
+import gov.hhs.fha.nhinc.admingui.managed.direct.helpers.CertContainer;
+import gov.hhs.fha.nhinc.admingui.model.direct.DirectCertificate;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
-
+import java.util.ArrayList;
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
 import org.nhind.config.common.AddCertificates;
 import org.nhind.config.common.Certificate;
 import org.nhind.config.common.CertificateGetOptions;
@@ -53,14 +53,24 @@ public class DirectCertBean {
     private UploadedFile certFile;
     private String certStatus;
 
-    private Certificate selectedCert;
+    private DirectCertificate selectedCert;
 
-    public List<Certificate> getCertificates() {
+    public List<DirectCertificate> getCertificates() {
         ListCertificates cert = new ListCertificates();
+        
         cert.setLastCertificateId(0);
         cert.setMaxResutls(0);
         cert.setOptions(new CertificateGetOptions());
-        return directService.listCertificate(cert);
+        
+        List<DirectCertificate> certList = new ArrayList<DirectCertificate>();
+        List<Certificate> certsResponse = directService.listCertificate(cert);
+
+        for (Certificate c : certsResponse) {
+            CertContainer cc = new CertContainer(c.getData());            
+            certList.add(new DirectCertificate(c, cc.getThumbprint()));
+        }
+
+        return certList;
     }
 
     public void deleteCertificate() {
@@ -100,12 +110,11 @@ public class DirectCertBean {
         this.certStatus = certStatus;
     }
 
-    public Certificate getSelectedCert() {
+    public DirectCertificate getSelectedCert() {
         return selectedCert;
     }
 
-    public void setSelectedCert(Certificate selectedCert) {
+    public void setSelectedCert(DirectCertificate selectedCert) {
         this.selectedCert = selectedCert;
     }
-
 }
