@@ -15,6 +15,17 @@ $(document).ready(function() {
 	$('.sidebar div[class*=sidebar-'+whichColor+'] .ui-panelmenu-content').css("display","block"); // OPEN THE MENU BLOCK WITH THE ACTIVE LI
 	$('.sidebar div[class*=sidebar-'+whichColor+'] .ui-panelmenu-header .ui-icon-triangle-1-e').removeClass("ui-icon-triangle-1-e").addClass("ui-icon-triangle-1-s"); // EXPAND THE TRIANGLE
 	
+	if (window.attachEvent && !window.addEventListener) { // CHECK FOR OLDER BROWSER
+		$('.sidebar-scroll').perfectScrollbar({ // SET PERFECT-SCROLLBAR TO SCROLL FASTER FOR OLDER INTERNET EXPLORER
+			wheelSpeed:80,
+			suppressScrollX:true
+		});
+	} else {
+		$('.sidebar-scroll').perfectScrollbar({ // DEFAULT PERFECT-SCROLLBAR
+			suppressScrollX:true
+		});
+	};
+	
 	// == BEGIN: AFTER TAB CLICKED, MODIFY ACTIVE STATE OF SIDEBAR MENU BASED ON WHICH TAB == //
 	$('ul.ui-tabs-nav li').click(function () {
 		var stringColor = $('div[class*="tabs-ovr-"]').attr('class'); // GET THE FULL STRING OF THE CLASSNAMES CONTAINING THE COLOR CLASS
