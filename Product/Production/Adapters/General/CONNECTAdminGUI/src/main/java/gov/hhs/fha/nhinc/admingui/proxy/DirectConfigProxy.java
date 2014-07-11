@@ -24,13 +24,22 @@ import java.util.List;
 
 import org.nhind.config.common.AddAnchor;
 import org.nhind.config.common.AddDomain;
+import org.nhind.config.common.AddTrustBundle;
 import org.nhind.config.common.Anchor;
+import org.nhind.config.common.AssociateTrustBundleToDomain;
+import org.nhind.config.common.DeleteTrustBundles;
+import org.nhind.config.common.DisassociateTrustBundleFromDomains;
 import org.nhind.config.common.Domain;
 import org.nhind.config.common.GetAnchorsForOwner;
+import org.nhind.config.common.GetTrustBundleByName;
+import org.nhind.config.common.GetTrustBundles;
+import org.nhind.config.common.GetTrustBundlesByDomain;
 import org.nhind.config.common.RemoveAnchors;
 import org.nhind.config.common.Setting;
+import org.nhind.config.common.TrustBundle;
 import org.nhind.config.common.UpdateDomain;
 import org.nhind.config.common.UpdateDomainResponse;
+import org.nhind.config.common.UpdateTrustBundleAttributes;
 
 /**
  *
@@ -52,5 +61,14 @@ public interface DirectConfigProxy {
     public List<Setting> getSetting() throws Exception;
     public void deleteSetting(List<String> deleteNames) throws Exception;
 
+    public void addTrustBundle(AddTrustBundle tb) throws Exception;
+    public List<TrustBundle> getTrustBundles(GetTrustBundles gtb) throws Exception;
+    public TrustBundle getTrustBundleByName(GetTrustBundleByName getTrustBundleByName) throws Exception;
+    public TrustBundle getTrustBundlesByDomain(GetTrustBundlesByDomain getTrustBundlesByDomain) throws Exception;
+    public void updateTrustBundleAttributes(UpdateTrustBundleAttributes tb) throws Exception;
+    public void refreshTrustBundle(int id) throws Exception;
+    public void associateTrustBundleToDomain(AssociateTrustBundleToDomain associateTrustBundleToDomain) throws Exception;
+    public void disassociateTrustBundleFromDomains(DisassociateTrustBundleFromDomains disassociateTrustBundleFromDomains) throws Exception;
+    public void deleteTrustBundle(DeleteTrustBundles tb) throws Exception;
 
 }

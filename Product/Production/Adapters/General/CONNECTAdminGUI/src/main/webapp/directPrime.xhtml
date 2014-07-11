@@ -152,28 +152,28 @@
                                 <p:panelGrid columns="1" styleClass="ui-panelgrid-domain">
                                     <p:commandButton value="Add New Trust Bundle" type="button" onclick="PF('tbDlg').show();" icon="ui-icon-circle-plus" styleClass="add-button pull-right" />
                                 </p:panelGrid>
-                                <p:dataTable id="tbDataTable" var="tb" value="#{directTrustBundleBean.trustBundles}" selection="#{directTrustBundleBean.selectedTb}" rowKey="#{tb.tbName}" styleClass="table table-striped table-domains">
+                                <p:dataTable id="tbDataTable" var="tb" value="#{directTrustBundleBean.trustBundles}" selection="#{directTrustBundleBean.selectedTb}" rowKey="#{tb.bundleName}" styleClass="table table-striped table-domains">
                                     <p:column headerText="Delete" selectionMode="single" />
                                     <p:column headerText="Bundle Name" sortBy="bundle_name">
-                                        <h:outputText value="#{tb.tbName}" />
+                                        <h:outputText value="#{tb.bundleName}" />
                                     </p:column>
                                     <p:column headerText="URL" sortBy="url">
-                                        <h:outputText value="#{tb.tbUrl}" />
+                                        <h:outputText value="#{tb.bundleURL}" />
                                     </p:column>
                                     <p:column headerText="Checksum" sortBy="checksum">
-                                        <h:outputText value="#{tb.tbCheckSum}" />
+                                        <h:outputText value="#{tb.checkSum}" />
                                     </p:column>
                                     <p:column headerText="Created" sortBy="created">
-                                        <h:outputText value="#{tb.tbCreated}" styleClass="nowrap" />
+                                        <h:outputText value="#{tb.createTime}" styleClass="nowrap" />
                                     </p:column>
                                     <p:column headerText="Current As Of" sortBy="current_as_of">
-                                        <h:outputText value="#{tb.tbCurrentAsOf}" styleClass="nowrap" />
+                                        <h:outputText value="#{tb.lastSuccessfulRefresh}" styleClass="nowrap" />
                                     </p:column>
                                     <p:column headerText="Last Refresh" sortBy="last_refresh">
-                                        <h:outputText value="#{tb.tbLastRefresh}" styleClass="nowrap" />
+                                        <h:outputText value="#{tb.lastRefreshAttempt}" styleClass="nowrap" />
                                     </p:column>
                                     <p:column headerText="Refresh Interval" sortBy="refresh_interval">
-                                        <h:outputText value="#{tb.tbRefreshInterval}" />
+                                        <h:outputText value="#{tb.refreshInterval}" />
                                     </p:column>
                                 </p:dataTable>
                                 <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">

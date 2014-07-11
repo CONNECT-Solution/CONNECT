@@ -137,37 +137,33 @@
                     <p:tab title="Trust Bundles">
                         <h:form id="domain-tb-form" class="form-horizontal">
                             <h4>Assigned Trust Bundles</h4>
-                            <ui:remove>
-                            <!--
-                            <p:dataTable id="tb-domainDataTable" var="tb" value="#{directDomainBean.selectedDomain.trustBundles}" selection="#{directDomainBean.selectedTrustBundle}" rowKey="#{tb.tbName}" styleClass="table table-striped table-domains">
+                            <p:dataTable id="tb-domainDataTable" var="tb" value="#{directDomainBean.selectedTrustBundle}" selection="#{directDomainBean.selectedTrustBundle}" rowKey="#{tb.bundleName}" styleClass="table table-striped table-domains">
                                 <p:column headerText="Delete" selectionMode="single" />
                                 <p:column headerText="Name" sortBy="name">
-                                    <h:outputText value="#{tb.tbName}" />
+                                    <h:outputText value="#{tb.bundleName}" />
                                 </p:column>
                                 <p:column headerText="URL" sortBy="url">
-                                    <h:outputText value="#{tb.tbUrl}" />
+                                    <h:outputText value="#{tb.bundleURL}" />
                                 </p:column>
                                 <p:column headerText="CheckSum" sortBy="checksum">
-                                    <h:outputText value="#{tb.tbCheckSum}" />
+                                    <h:outputText value="#{tb.checkSum}" />
                                 </p:column>
                             </p:dataTable>
                             <p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
                                 <p:commandButton update="tb-domainDataTable" value="Delete" actionListener="#{directDomainBean.deleteTrustBundle()}" styleClass="delete-button" icon="ui-icon-closethick"/>
                             </p:panelGrid>
-                            -->
-                            </ui:remove>
                             <div class="domain-form-block">
                                 <h4>Add Another Trust Bundle</h4>
                                 <div class="form-group">
                                     <h:outputLabel for="select-domain-tbs" class="col-sm-3 control-label" id="select-domain-tbsLbl" value="Add Trust Bundles:" />
                                     <div class="col-sm-9">
-                                        <p:selectCheckboxMenu id="select-domain-tbs" value="#{directDomainBean.selectedTrustBundles}" label="Available Trust Bundles" panelStyle="width:220px">
+                                        <p:selectCheckboxMenu id="select-domain-tbs" value="#{directDomainBean.trustBundleNames}" label="Available Trust Bundles" panelStyle="width:220px">
                                             <f:selectItems value="#{directDomainBean.trustBundleNames}"/>
                                         </p:selectCheckboxMenu>
                                     </div>
                                 </div>
                                 <div class="form-button-row">
-                                    <p:commandButton update="tb-domainDataTable" value="Add Trust Bundle" actionListener="#{directDomainBean.addTrustBundles()}" styleClass="btn btn-primary" />
+                                    <h:commandButton id="submit" class="btn btn-primary" value="AddTrustBundle" action="#{directDomainBean.addTrustBundles()}"/>
                                 </div>
                             </div>
                         </h:form>

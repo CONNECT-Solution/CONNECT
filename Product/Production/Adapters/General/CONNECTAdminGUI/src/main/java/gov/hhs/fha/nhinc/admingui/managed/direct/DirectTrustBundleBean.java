@@ -16,7 +16,7 @@
  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*
+ *
  */
 package gov.hhs.fha.nhinc.admingui.managed.direct;
 
@@ -27,6 +27,11 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.nhind.config.common.Certificate;
+import org.nhind.config.common.DeleteTrustBundles;
+import org.nhind.config.common.GetTrustBundles;
+import org.nhind.config.common.TrustBundle;
+import org.nhind.config.common.UpdateTrustBundleAttributes;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,53 +45,70 @@ import org.springframework.stereotype.Component;
 @ViewScoped
 @Component
 public class DirectTrustBundleBean {
-    
+
     @Autowired
     private DirectService directService;
-    
+
     private String tbName;
     private String tbUrl;
     private String tbRefreshInterval;
-    
+
     private UploadedFile tbCert;
-    
-    private DirectTrustBundle selectedTb;
-    
-    public List<DirectTrustBundle> getTrustBundles(){
-        return directService.getTrustBundles();
+
+    private TrustBundle selectedTb;
+
+    public List<TrustBundle> getTrustBundles() {
+        GetTrustBundles gtb = new GetTrustBundles();
+        gtb.setFetchAnchors(true);
+        return directService.getTrustBundles(gtb);
     }
-    
-    public void deleteTrustBundle(){
-        directService.deleteTrustBundle(selectedTb);
-        
+
+    public void deleteTrustBundle() {
+        DeleteTrustBundles dtb = new DeleteTrustBundles();
+        dtb.getTrustBundleIds().add(selectedTb.getId());
+        directService.deleteTrustBundle(dtb);
         TabBean tabs = (TabBean) FacesContext.getCurrentInstance().
             getExternalContext().getSessionMap().get("tabBean");
-        
-        if(tabs != null){
+
+        if (tabs != null) {
             tabs.setDirectTabIndex(3);
         }
     }
-    
-    public void addTrustBundle(){
-        DirectTrustBundle tb = new DirectTrustBundle();
-        tb.setTbName(tbName);
-        tb.setTbUrl(tbUrl);
-        tb.setTbRefreshInterval(tbRefreshInterval);
+
+    public void addTrustBundle() {
+        TrustBundle tb = new TrustBundle();
+        tb.setBundleName(tbName);
+        tb.setBundleURL(tbUrl);
+        int refreshIntervalue = 0;
+        if (null != tbRefreshInterval && tbRefreshInterval.length() > 0) {
+            refreshIntervalue = Integer.parseInt(tbRefreshInterval);
+        }
+        tb.setRefreshInterval(refreshIntervalue);
         directService.addTrustBundle(tb);
     }
-    
-    public void editTrustBundle(){
-        directService.updateTrustBundle(selectedTb);
+
+    public void editTrustBundle() {
+        UpdateTrustBundleAttributes utba = new UpdateTrustBundleAttributes();
+        utba.setTrustBundleId(selectedTb.getId());
+        utba.setTrustBundleName(selectedTb.getBundleName());
+        utba.setTrustBundleRefreshInterval(selectedTb.getRefreshInterval());
+        if (null != selectedTb.getSigningCertificateData() && selectedTb.getSigningCertificateData().length > 0) {
+            Certificate crt = new Certificate();
+            crt.setData(selectedTb.getSigningCertificateData());
+            utba.setSigningCert(crt);
+        }
+        utba.setTrustBundleURL(selectedTb.getBundleURL());
+        directService.updateTrustBundle(utba);
     }
-    
-    public void showEdit(){
-        if(selectedTb != null){
+
+    public void showEdit() {
+        if (selectedTb != null) {
             RequestContext.getCurrentInstance().execute("tbEditDlg.show()");
         }
     }
-    
-    public void showDelConfirm(){
-        if(selectedTb != null){
+
+    public void showDelConfirm() {
+        if (selectedTb != null) {
             RequestContext.getCurrentInstance().execute("tbConfirmDelDlg.show()");
         }
     }
@@ -123,12 +145,12 @@ public class DirectTrustBundleBean {
         this.tbCert = tbCert;
     }
 
-    public DirectTrustBundle getSelectedTb() {
+    public TrustBundle getSelectedTb() {
         return selectedTb;
     }
 
-    public void setSelectedTb(DirectTrustBundle selectedTb) {
+    public void setSelectedTb(TrustBundle selectedTb) {
         this.selectedTb = selectedTb;
     }
-    
+
 }

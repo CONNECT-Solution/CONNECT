@@ -5,35 +5,35 @@
         <p:dialog id="tbEditDlg" header="Edit Trust Bundle" widgetVar="tbEditDlg" modal="true" dynamic="true" width="75%" closeOnEscape="true">
             <div class="content">
                 <h3>Edit Selected Trust Bundle</h3>
-				<div class="form-block center-block">
-					<h:form id="tbEditDlgForm" class="form form-horizontal">
-						<div class="form-group">
-							<h:outputLabel for="input-edit-tbName" class="col-sm-3 control-label" id="input-edit-tbNameLbl" value="Trust Bundle Name: " />
-							<div class="col-sm-9">
-								<h:inputText class="form-control" id="input-edit-tbName" maxlength="20" required="true" value="#{directTrustBundleBean.selectedTb.tbName}"/>
-							</div>
-						</div>
-						<div class="form-group">
-							<h:outputLabel for="input-edit-tbUrl" class="col-sm-3 control-label" id="input-edit-tbUrlLbl" value="Trust Bundle URL: " />
-							<div class="col-sm-9">
-								<h:inputText class="form-control" id="input-edit-tbUrl" maxlength="40" required="true" value="#{directTrustBundleBean.selectedTb.tbUrl}"/>
-							</div>
-						</div>
-						<div class="form-group">
-							<h:outputLabel for="input-edit-tbRR" class="col-sm-3 control-label" id="input-edit-tbRRLbl" value="Refresh Interval: " />
-							<div class="col-sm-9">
-								<h:inputText class="form-control" id="input-edit-tbRR" maxlength="10" required="true" value="#{directTrustBundleBean.selectedTb.tbRefreshInterval}"/>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-12">
-								<div class="form-button-row">
-									<h:commandButton id="submitTbEdit" class="btn btn-primary" value="Update" action="#{directTrustBundleBean.editTrustBundle()}"/>
-								</div>
-							</div>
-						</div>
-					</h:form>
-				</div>
+                <div class="form-block center-block">
+                    <h:form id="tbEditDlgForm" class="form form-horizontal">
+                        <div class="form-group">
+                            <h:outputLabel for="input-edit-tbName" class="col-sm-3 control-label" id="input-edit-tbNameLbl" value="Trust Bundle Name: " />
+                            <div class="col-sm-9">
+                                <h:inputText class="form-control" id="input-edit-tbName" maxlength="20" required="true" value="#{directTrustBundleBean.selectedTb.bundleName}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel for="input-edit-tbUrl" class="col-sm-3 control-label" id="input-edit-tbUrlLbl" value="Trust Bundle URL: " />
+                            <div class="col-sm-9">
+                                <h:inputText class="form-control" id="input-edit-tbUrl" maxlength="100" required="true" value="#{directTrustBundleBean.selectedTb.bundleURL}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel for="input-edit-tbRR" class="col-sm-3 control-label" id="input-edit-tbRRLbl" value="Refresh Interval: " />
+                            <div class="col-sm-9">
+                                <h:inputText class="form-control" id="input-edit-tbRR" maxlength="10" required="true" value="#{directTrustBundleBean.selectedTb.refreshInterval}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="form-button-row">
+                                    <h:commandButton id="submitTbEdit" class="btn btn-primary" value="Update" action="#{directTrustBundleBean.editTrustBundle()}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
             </div>
         </p:dialog>
     </div>
