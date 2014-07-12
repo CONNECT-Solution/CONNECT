@@ -23,25 +23,22 @@ package gov.hhs.fha.nhinc.admingui.managed.direct;
 import gov.hhs.fha.nhinc.admingui.managed.direct.helpers.CertContainer;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectAddress;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectAnchor;
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
 import org.nhind.config.common.AddAnchor;
 import org.nhind.config.common.AddDomain;
 import org.nhind.config.common.Anchor;
 import org.nhind.config.common.AssociateTrustBundleToDomain;
 import org.nhind.config.common.CertificateGetOptions;
+import org.nhind.config.common.DisassociateTrustBundleFromDomain;
 import org.nhind.config.common.DisassociateTrustBundleFromDomains;
 import org.nhind.config.common.Domain;
 import org.nhind.config.common.EntityStatus;
 import org.nhind.config.common.GetAnchorsForOwner;
-import org.nhind.config.common.GetTrustBundles;
+import org.nhind.config.common.GetTrustBundlesByDomain;
 import org.nhind.config.common.RemoveAnchors;
 import org.nhind.config.common.TrustBundle;
 import org.nhind.config.common.UpdateDomain;
@@ -71,33 +68,46 @@ public class DirectDomainBean {
     private Domain selectedDomain;
     private DirectAddress selectedAddress;
     private DirectAnchor selectedAnchor;
-    private DirectTrustBundle selectedTrustBundle;
-
-    private String addressEndpoint;
-    private String addressType;
+    private TrustBundle selectedTrustBundle;
+    
+    private List<TrustBundle> bundlesToAdd;
 
     private UploadedFile anchorCert;
     private boolean anchorIncoming = true;
     private boolean anchorOutgoing = true;
     private String anchorStatus;
 
-    private List<String> selectedTrustBundles;
+    private String addressEndpoint;
+    private String addressType;
 
     public List<Domain> getDomains() {
         return directService.getDomains();
     }
 
     public List<TrustBundle> getTrustBundles() {
-        GetTrustBundles gtb = new GetTrustBundles();
-        gtb.setFetchAnchors(true);
-        return directService.getTrustBundles(gtb);
+        GetTrustBundlesByDomain getTrustBundlesByDomain = new GetTrustBundlesByDomain();
+        getTrustBundlesByDomain.setFetchAnchors(false);
+        //getTrustBundlesByDomain.setDomainId(selectedDomain.getId());
+        getTrustBundlesByDomain.setDomainId(3);
+        
+        List<TrustBundle> bundles = directService.getTrustBundlesByDomain(getTrustBundlesByDomain);
+        
+        if (bundles == null) {
+            bundles = new ArrayList<TrustBundle>();
+        }
+        
+        return bundles;
     }
 
     public List<String> getTrustBundleNames() {
         List<String> tbNames = new ArrayList<String>();
-        for (TrustBundle tb : getTrustBundles()) {
-            tbNames.add(tb.getBundleName());
-        }
+        
+        //if (getTrustBundles() != null) {
+            //for (TrustBundle tb : getTrustBundles()) {
+                //tbNames.add(tb.getBundleName());
+            //}
+        //}
+        
         return tbNames;
     }
 
@@ -182,46 +192,34 @@ public class DirectDomainBean {
     }
 
     public void addTrustBundles() {
-        List<TrustBundle> selectTBs = new ArrayList<TrustBundle>();
-        for (String tbName : selectedTrustBundles) {
-            for (TrustBundle tb : getTrustBundles()) {
-                if (tb.getBundleName().equals(tbName)) {
-                    selectTBs.add(tb);
-                }
-            }
-        }
-        
-        if (selectTBs.size() > 0) {
+        if (bundlesToAdd != null && bundlesToAdd.size() > 0) {
             AssociateTrustBundleToDomain associateTrustBundleToDomain = null;
-            for (TrustBundle eachTrustBundle : selectTBs) {
+            
+            for (TrustBundle tb : bundlesToAdd) {
                 associateTrustBundleToDomain = new AssociateTrustBundleToDomain();
                 associateTrustBundleToDomain.setDomainId(selectedDomain.getId());
-                associateTrustBundleToDomain.setTrustBundleId(eachTrustBundle.getId());
+                associateTrustBundleToDomain.setTrustBundleId(tb.getId());
+                
+                // TODO: This should be set by user through UI
                 associateTrustBundleToDomain.setIncoming(true);
                 associateTrustBundleToDomain.setOutgoing(true);
+                
+                bundlesToAdd.remove(tb);
                 directService.associateTrustBundleToDomain(associateTrustBundleToDomain);
             }
         }        
     }
 
-    public void deleteTrustBundle() {
-        List<TrustBundle> selectTBs = new ArrayList<TrustBundle>();
-        for (String tbName : selectedTrustBundles) {
-            for (TrustBundle tb : getTrustBundles()) {
-                if (tb.getBundleName().equals(tbName)) {
-                    selectTBs.add(tb);
-                }
-            }
+    public void disassociateTrustBundle() {
+        if (selectedTrustBundle != null) {
+            DisassociateTrustBundleFromDomain disassociateTrustBundleFromDomain
+                    = new DisassociateTrustBundleFromDomain();
+            
+            disassociateTrustBundleFromDomain.setTrustBundleId(selectedTrustBundle.getId());
+            disassociateTrustBundleFromDomain.setDomainId(selectedDomain.getId());
+            selectedTrustBundle = null;
+            directService.disassociateTrustBundleFromDomain(disassociateTrustBundleFromDomain);
         }
-        if (selectTBs.size() > 0) {
-            DisassociateTrustBundleFromDomains disassociateTrustBundleFromDomains = null;
-            for (TrustBundle eachTrustBundle : selectTBs) {
-                disassociateTrustBundleFromDomains = new DisassociateTrustBundleFromDomains();
-                disassociateTrustBundleFromDomains.setTrustBundleId(eachTrustBundle.getId());
-                directService.disassociateTrustBundleFromDomains(disassociateTrustBundleFromDomains);
-            }
-        }
-        directService.disassociateTrustBundleFromDomains(null);
     }
 
     public String getDomainName() {
@@ -320,20 +318,19 @@ public class DirectDomainBean {
         this.anchorStatus = anchorStatus;
     }
 
-    public DirectTrustBundle getSelectedTrustBundle() {
+    public TrustBundle getSelectedTrustBundle() {
         return selectedTrustBundle;
     }
 
-    public void setSelectedTrustBundle(DirectTrustBundle selectedTrustBundle) {
+    public void setSelectedTrustBundle(TrustBundle selectedTrustBundle) {
         this.selectedTrustBundle = selectedTrustBundle;
     }
 
-    public List<String> getSelectedTrustBundles() {
-        return selectedTrustBundles;
+    public List<TrustBundle> getSelectedTrustBundles() {
+        return bundlesToAdd;
     }
 
-    public void setSelectedTrustBundles(List<String> selectedTrustBundles) {
-        this.selectedTrustBundles = selectedTrustBundles;
+    public void setBundlesToAdd(List<TrustBundle> bundlesToAdd) {
+        this.bundlesToAdd = bundlesToAdd;
     }
-
 }
