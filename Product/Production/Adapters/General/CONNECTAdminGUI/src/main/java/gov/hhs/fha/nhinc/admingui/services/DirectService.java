@@ -21,7 +21,6 @@
 package gov.hhs.fha.nhinc.admingui.services;
 
 import java.util.List;
-
 import org.nhind.config.common.AddAnchor;
 import org.nhind.config.common.AddCertificates;
 import org.nhind.config.common.AddDomain;
@@ -29,6 +28,7 @@ import org.nhind.config.common.Anchor;
 import org.nhind.config.common.AssociateTrustBundleToDomain;
 import org.nhind.config.common.Certificate;
 import org.nhind.config.common.DeleteTrustBundles;
+import org.nhind.config.common.DisassociateTrustBundleFromDomain;
 import org.nhind.config.common.DisassociateTrustBundleFromDomains;
 import org.nhind.config.common.Domain;
 import org.nhind.config.common.GetAnchorsForOwner;
@@ -67,12 +67,11 @@ public interface DirectService {
     public void deleteAnchor(RemoveAnchors removeAnchors);
     
     public List<TrustBundle> getTrustBundles(GetTrustBundles gtb);
-    public TrustBundle getTrustBundleByName(GetTrustBundleByName getTrustBundleByName);
-    public TrustBundle getTrustBundlesByDomain(GetTrustBundlesByDomain getTrustBundlesByDomain);
+    public List<TrustBundle> getTrustBundlesByDomain(GetTrustBundlesByDomain getTrustBundlesByDomain);
     public void addTrustBundle(TrustBundle tb);
     public void deleteTrustBundle(DeleteTrustBundles dtb);
     public void updateTrustBundle(UpdateTrustBundleAttributes utba);
     public void refreshTrustBundle(int id);
     public void associateTrustBundleToDomain(AssociateTrustBundleToDomain associateTrustBundleToDomain);
-    public void disassociateTrustBundleFromDomains(DisassociateTrustBundleFromDomains disassociateTrustBundleFromDomains);
+    public void disassociateTrustBundleFromDomain(DisassociateTrustBundleFromDomain disassociateTrustBundleFromDomain);
 }
