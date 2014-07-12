@@ -142,10 +142,45 @@
                                 <p:column headerText="Name">
                                     <h:outputText value="#{tb.bundleName}" />
                                 </p:column>
+                                <p:column headerText="URL">
+                                    <h:outputText value="#{tb.bundleURL}" />
+                                </p:column>
+                                <p:column headerText="Checksum">
+                                    <h:outputText value="#{tb.checkSum}" />
+                                </p:column>
+                                <p:column headerText="Create Time">
+                                    <h:outputText value="#{tb.createTime}" />
+                                </p:column>
+                                <p:column headerText="Last Refresh Attempt">
+                                    <h:outputText value="#{tb.lastRefreshAttempt}" />
+                                </p:column>
+                                <p:column headerText="Last Successful Refresh">
+                                    <h:outputText value="#{tb.lastSuccessfulRefresh}" />
+                                </p:column>
+                                <p:column headerText="Last Refresh Error">
+                                    <h:outputText value="#{tb.lastRefreshAttempt}" />
+                                </p:column>
+                                <p:column headerText="Refresh Interval (hours)">
+                                    <h:outputText value="#{tb.refreshInterval}" />
+                                </p:column>
                             </p:dataTable>
                             <p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
                                 <p:commandButton update="tb-domainDataTable" value="Delete" actionListener="#{directDomainBean.disassociateTrustBundle()}" styleClass="delete-button" icon="ui-icon-closethick"/>
                             </p:panelGrid>
+                            <div class="domain-form-block">
+                                <h4>Add Another Trust Bundle</h4>
+                                <div class="form-group">
+                                    <h:outputLabel for="select-domain-tbs" class="col-sm-3 control-label" id="select-domain-tbsLbl" value="Add Trust Bundles:" />
+                                    <div class="col-sm-9">
+                                        <p:selectCheckboxMenu id="select-domain-tbs" value="#{directDomainBean.bundlesToAdd}" label="Available Trust Bundles" panelStyle="width:220px">
+                                            <f:selectItems value="#{directDomainBean.availableTrustBundleNames}"/>
+                                        </p:selectCheckboxMenu>
+                                    </div>
+                                </div>
+                                <div class="form-button-row">
+                                    <h:commandButton id="submit" class="btn btn-primary" value="AddTrustBundle" action="#{directDomainBean.addTrustBundles()}"/>
+                                </div>
+                            </div>
                         </h:form>
                     </p:tab>
                 </p:tabView>

@@ -31,16 +31,13 @@ import javax.faces.bean.ViewScoped;
 import org.nhind.config.common.AddAnchor;
 import org.nhind.config.common.AddDomain;
 import org.nhind.config.common.Anchor;
-import org.nhind.config.common.AssociateTrustBundleToDomain;
 import org.nhind.config.common.CertificateGetOptions;
-import org.nhind.config.common.DisassociateTrustBundleFromDomain;
-import org.nhind.config.common.DisassociateTrustBundleFromDomains;
 import org.nhind.config.common.Domain;
 import org.nhind.config.common.EntityStatus;
 import org.nhind.config.common.GetAnchorsForOwner;
-import org.nhind.config.common.GetTrustBundlesByDomain;
 import org.nhind.config.common.RemoveAnchors;
 import org.nhind.config.common.TrustBundle;
+import org.nhind.config.common.TrustBundleDomainReltn;
 import org.nhind.config.common.UpdateDomain;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
@@ -60,19 +57,21 @@ public class DirectDomainBean {
     @Autowired
     private DirectService directService;
 
+    private Domain selectedDomain;
+    private DirectAddress selectedAddress;
+    private DirectAnchor selectedAnchor;
+    private TrustBundle selectedTrustBundle;
+
+    private List<String> bundlesToAdd;
+
+    private UploadedFile anchorCert;
+
+    // TODO: Unused vars below?
     private String domainName;
     private String domainStatus;
     private String domainPostmaster;
     private String domainTrustBundle;
 
-    private Domain selectedDomain;
-    private DirectAddress selectedAddress;
-    private DirectAnchor selectedAnchor;
-    private TrustBundle selectedTrustBundle;
-    
-    private List<TrustBundle> bundlesToAdd;
-
-    private UploadedFile anchorCert;
     private boolean anchorIncoming = true;
     private boolean anchorOutgoing = true;
     private String anchorStatus;
@@ -85,30 +84,38 @@ public class DirectDomainBean {
     }
 
     public List<TrustBundle> getTrustBundles() {
-        GetTrustBundlesByDomain getTrustBundlesByDomain = new GetTrustBundlesByDomain();
-        getTrustBundlesByDomain.setFetchAnchors(false);
-        //getTrustBundlesByDomain.setDomainId(selectedDomain.getId());
-        getTrustBundlesByDomain.setDomainId(3);
-        
-        List<TrustBundle> bundles = directService.getTrustBundlesByDomain(getTrustBundlesByDomain);
-        
-        if (bundles == null) {
-            bundles = new ArrayList<TrustBundle>();
+        List<TrustBundleDomainReltn> bundleRelations = directService.getTrustBundlesByDomain(selectedDomain.getId(), false);
+        List<TrustBundle> bundles = new ArrayList<TrustBundle>();
+
+        if (bundleRelations != null) {
+            for (TrustBundleDomainReltn tbdr : bundleRelations) {
+                bundles.add(tbdr.getTrustBundle());
+            }
         }
-        
+
         return bundles;
     }
 
-    public List<String> getTrustBundleNames() {
-        List<String> tbNames = new ArrayList<String>();
-        
-        //if (getTrustBundles() != null) {
-            //for (TrustBundle tb : getTrustBundles()) {
-                //tbNames.add(tb.getBundleName());
-            //}
-        //}
-        
-        return tbNames;
+    public List<TrustBundle> getAvailableTrustBundles() {
+        List<TrustBundle> bundles = directService.getTrustBundles(false);
+
+        if (bundles != null) {
+            for (TrustBundle tb : getTrustBundles()) {
+                bundles.remove(tb);
+            }
+        }
+
+        return bundles;
+    }
+
+    public List<String> getAvailableTrustBundleNames() {
+        List<String> bundleNames = new ArrayList<String> ();
+
+        for (TrustBundle tb : getAvailableTrustBundles()) {
+            bundleNames.add(tb.getBundleName());
+        }
+
+        return bundleNames;
     }
 
     public void deleteDomain() {
@@ -193,32 +200,23 @@ public class DirectDomainBean {
 
     public void addTrustBundles() {
         if (bundlesToAdd != null && bundlesToAdd.size() > 0) {
-            AssociateTrustBundleToDomain associateTrustBundleToDomain = null;
-            
-            for (TrustBundle tb : bundlesToAdd) {
-                associateTrustBundleToDomain = new AssociateTrustBundleToDomain();
-                associateTrustBundleToDomain.setDomainId(selectedDomain.getId());
-                associateTrustBundleToDomain.setTrustBundleId(tb.getId());
-                
-                // TODO: This should be set by user through UI
-                associateTrustBundleToDomain.setIncoming(true);
-                associateTrustBundleToDomain.setOutgoing(true);
-                
-                bundlesToAdd.remove(tb);
-                directService.associateTrustBundleToDomain(associateTrustBundleToDomain);
+            List<TrustBundle> bundles = new ArrayList<TrustBundle> ();
+
+            for (String bundleName : bundlesToAdd) {
+                bundles.add(directService.getTrustBundleByName(bundleName));
             }
-        }        
+
+            for (TrustBundle tb : bundles) {
+                bundlesToAdd = new ArrayList<String> ();
+                // TODO: incoming & outgoing should be set by user via UI
+                directService.associateTrustBundleToDomain(selectedDomain.getId(), tb.getId(), true, true);
+            }
+        }
     }
 
     public void disassociateTrustBundle() {
         if (selectedTrustBundle != null) {
-            DisassociateTrustBundleFromDomain disassociateTrustBundleFromDomain
-                    = new DisassociateTrustBundleFromDomain();
-            
-            disassociateTrustBundleFromDomain.setTrustBundleId(selectedTrustBundle.getId());
-            disassociateTrustBundleFromDomain.setDomainId(selectedDomain.getId());
-            selectedTrustBundle = null;
-            directService.disassociateTrustBundleFromDomain(disassociateTrustBundleFromDomain);
+            directService.disassociateTrustBundleFromDomain(selectedDomain.getId(), selectedTrustBundle.getId());
         }
     }
 
@@ -326,11 +324,11 @@ public class DirectDomainBean {
         this.selectedTrustBundle = selectedTrustBundle;
     }
 
-    public List<TrustBundle> getSelectedTrustBundles() {
+    public List<String> getBundlesToAdd() {
         return bundlesToAdd;
     }
 
-    public void setBundlesToAdd(List<TrustBundle> bundlesToAdd) {
+    public void setBundlesToAdd(List<String> bundlesToAdd) {
         this.bundlesToAdd = bundlesToAdd;
     }
 }
