@@ -83,7 +83,7 @@ public class DirectDomainBean {
         return directService.getDomains();
     }
 
-    public List<TrustBundle> getTrustBundles() {
+    public List<TrustBundle> getAssociatedTrustBundles() {
         List<TrustBundleDomainReltn> bundleRelations = directService.getTrustBundlesByDomain(selectedDomain.getId(), false);
         List<TrustBundle> bundles = new ArrayList<TrustBundle>();
 
@@ -96,25 +96,9 @@ public class DirectDomainBean {
         return bundles;
     }
 
-    public List<TrustBundle> getAvailableTrustBundles() {
-        List<TrustBundle> bundles = directService.getTrustBundles(false);
-
-        if (bundles != null) {
-            for (TrustBundle tb : getTrustBundles()) {
-                bundles.remove(tb);
-            }
-        }
-
-        return bundles;
-    }
-
-    public List<String> getAvailableTrustBundleNames() {
-        List<String> bundleNames = new ArrayList<String> ();
-
-        for (TrustBundle tb : getAvailableTrustBundles()) {
-            bundleNames.add(tb.getBundleName());
-        }
-
+    public List<String> getUnassociatedTrustBundleNames() {
+        List<String> bundleNames = getTrustBundleNames(directService.getTrustBundles(false));
+        bundleNames.removeAll(getTrustBundleNames(getAssociatedTrustBundles()));
         return bundleNames;
     }
 
@@ -206,8 +190,9 @@ public class DirectDomainBean {
                 bundles.add(directService.getTrustBundleByName(bundleName));
             }
 
+            bundlesToAdd = new ArrayList<String>();
+
             for (TrustBundle tb : bundles) {
-                bundlesToAdd = new ArrayList<String> ();
                 // TODO: incoming & outgoing should be set by user via UI
                 directService.associateTrustBundleToDomain(selectedDomain.getId(), tb.getId(), true, true);
             }
@@ -217,6 +202,7 @@ public class DirectDomainBean {
     public void disassociateTrustBundle() {
         if (selectedTrustBundle != null) {
             directService.disassociateTrustBundleFromDomain(selectedDomain.getId(), selectedTrustBundle.getId());
+            selectedTrustBundle = null;
         }
     }
 
@@ -330,5 +316,15 @@ public class DirectDomainBean {
 
     public void setBundlesToAdd(List<String> bundlesToAdd) {
         this.bundlesToAdd = bundlesToAdd;
+    }
+
+    protected List<String> getTrustBundleNames(List<TrustBundle> bundles) {
+        List<String> bundleNames = new ArrayList<String>();
+
+        for (TrustBundle tb : bundles) {
+            bundleNames.add(tb.getBundleName());
+        }
+
+        return bundleNames;
     }
 }
