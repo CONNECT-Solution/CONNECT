@@ -24,28 +24,21 @@ import java.util.List;
 import org.nhind.config.common.AddAnchor;
 import org.nhind.config.common.AddCertificates;
 import org.nhind.config.common.AddDomain;
-import org.nhind.config.common.AddTrustBundle;
 import org.nhind.config.common.Anchor;
-import org.nhind.config.common.AssociateTrustBundleToDomain;
 import org.nhind.config.common.Certificate;
-import org.nhind.config.common.DeleteTrustBundles;
-import org.nhind.config.common.DisassociateTrustBundleFromDomain;
-import org.nhind.config.common.DisassociateTrustBundleFromDomains;
 import org.nhind.config.common.Domain;
 import org.nhind.config.common.GetAnchorsForOwner;
-import org.nhind.config.common.GetTrustBundles;
-import org.nhind.config.common.GetTrustBundlesByDomain;
 import org.nhind.config.common.ListCertificates;
 import org.nhind.config.common.RemoveAnchors;
 import org.nhind.config.common.RemoveCertificates;
 import org.nhind.config.common.Setting;
 import org.nhind.config.common.TrustBundle;
+import org.nhind.config.common.TrustBundleDomainReltn;
 import org.nhind.config.common.UpdateDomain;
 import org.nhind.config.common.UpdateDomainResponse;
-import org.nhind.config.common.UpdateTrustBundleAttributes;
 
 /**
- * 
+ *
  * @author jasonasmith
  */
 public interface DirectConfigProxy {
@@ -59,22 +52,26 @@ public interface DirectConfigProxy {
     public void addAnchor(AddAnchor addAnchor) throws Exception;
     public void removeAnchors(RemoveAnchors removeAnchors) throws Exception;
     public List<Anchor> getAnchorsForOwner(GetAnchorsForOwner getAnchorsForOwner) throws Exception;
-    
+
     public void addSetting(String name, String Value) throws Exception;
     public List<Setting> getSetting() throws Exception;
     public void deleteSetting(List<String> deleteNames) throws Exception;
 
-    public List<TrustBundle> getTrustBundlesByDomain(GetTrustBundlesByDomain getTrustBundlesByDomain) throws Exception;
-    public void associateTrustBundleToDomain(AssociateTrustBundleToDomain associateTrustBundleToDomain) throws Exception;
-    public void disassociateTrustBundleFromDomain(DisassociateTrustBundleFromDomain disassociateTrustBundleFromDomain) throws Exception;
-
-    public void addTrustBundle(AddTrustBundle tb) throws Exception;
-    public List<TrustBundle> getTrustBundles(GetTrustBundles gtb) throws Exception;
-    public void updateTrustBundleAttributes(UpdateTrustBundleAttributes tb) throws Exception;
-    public void refreshTrustBundle(int id) throws Exception;
-    public void deleteTrustBundle(DeleteTrustBundles tb) throws Exception;
-    
     public void addCertificates(AddCertificates certificate) throws Exception;
     public void removeCertificate(RemoveCertificates cert) throws Exception;
     public List<Certificate> listCertificates(ListCertificates listCert) throws Exception;
+
+    public List<TrustBundle> getTrustBundles(boolean fetchAnchors) throws Exception;
+    public List<TrustBundleDomainReltn> getTrustBundlesByDomain(long domainId, boolean fetchAnchors) throws Exception;
+    public TrustBundle getTrustBundleByName(String bundleName) throws Exception;
+
+    public void addTrustBundle(TrustBundle b) throws Exception;
+    public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming, boolean outgoing) throws Exception;
+    public void deleteTrustBundles(List<Long> ids) throws Exception;
+    public void disassociateTrustBundleFromDomain(long domainId, long trustBundleId) throws Exception;
+    public void disassociateTrustBundleFromDomains(long trustBundleId) throws Exception;
+    public void disassociateTrustBundlesFromDomain(long domainId) throws Exception;
+    public void refreshTrustBundle(int id) throws Exception;
+    public void updateTrustBundleAttributes(long trustBundleId, String trustBundleName, String trustBundleURL,
+        Certificate signingCert, int trustBundleRefreshInterval) throws Exception;
 }

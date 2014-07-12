@@ -25,26 +25,19 @@ import org.nhind.config.common.AddAnchor;
 import org.nhind.config.common.AddCertificates;
 import org.nhind.config.common.AddDomain;
 import org.nhind.config.common.Anchor;
-import org.nhind.config.common.AssociateTrustBundleToDomain;
 import org.nhind.config.common.Certificate;
-import org.nhind.config.common.DeleteTrustBundles;
-import org.nhind.config.common.DisassociateTrustBundleFromDomain;
-import org.nhind.config.common.DisassociateTrustBundleFromDomains;
 import org.nhind.config.common.Domain;
 import org.nhind.config.common.GetAnchorsForOwner;
-import org.nhind.config.common.GetTrustBundleByName;
-import org.nhind.config.common.GetTrustBundles;
-import org.nhind.config.common.GetTrustBundlesByDomain;
 import org.nhind.config.common.ListCertificates;
 import org.nhind.config.common.RemoveAnchors;
 import org.nhind.config.common.RemoveCertificates;
 import org.nhind.config.common.Setting;
 import org.nhind.config.common.TrustBundle;
+import org.nhind.config.common.TrustBundleDomainReltn;
 import org.nhind.config.common.UpdateDomain;
-import org.nhind.config.common.UpdateTrustBundleAttributes;
 
 /**
- * 
+ *
  * @author jasonasmith
  */
 public interface DirectService {
@@ -54,6 +47,10 @@ public interface DirectService {
     public void addDomain(AddDomain domain);
     public void deleteDomain(Domain domain);
 
+    public void addAnchor(AddAnchor addAnchor);
+    public List<Anchor> getAnchorsForOwner(GetAnchorsForOwner getAnchorsForOwner);
+    public void deleteAnchor(RemoveAnchors removeAnchors);
+
     public List<Setting> getSetting();
     public void addSetting(String name, String value);
     public void deleteSetting(List<String> deleteNames);
@@ -62,16 +59,16 @@ public interface DirectService {
     public void deleteCertificate(RemoveCertificates removeCert);
     public List<Certificate> listCertificate(ListCertificates listCert);
 
-    public List<Anchor> getAnchorsForOwner(GetAnchorsForOwner getAnchorsForOwner);
-    public void addAnchor(AddAnchor addAnchor);
-    public void deleteAnchor(RemoveAnchors removeAnchors);
-    
-    public List<TrustBundle> getTrustBundles(GetTrustBundles gtb);
-    public List<TrustBundle> getTrustBundlesByDomain(GetTrustBundlesByDomain getTrustBundlesByDomain);
-    public void addTrustBundle(TrustBundle tb);
-    public void deleteTrustBundle(DeleteTrustBundles dtb);
-    public void updateTrustBundle(UpdateTrustBundleAttributes utba);
+    public List<TrustBundle> getTrustBundles(boolean fetchAnchors);
+    public TrustBundle getTrustBundleByName(String bundleName);
+    public List<TrustBundleDomainReltn> getTrustBundlesByDomain(long domainId, boolean fetchAnchors);
+    public void addTrustBundle(TrustBundle b);
+    public void deleteTrustBundles(List<Long> ids);
+    public void updateTrustBundle(long trustBundleId, String trustBundleName, String trustBundleURL,
+        Certificate signingCert, int trustBundleRefreshInterval);
     public void refreshTrustBundle(int id);
-    public void associateTrustBundleToDomain(AssociateTrustBundleToDomain associateTrustBundleToDomain);
-    public void disassociateTrustBundleFromDomain(DisassociateTrustBundleFromDomain disassociateTrustBundleFromDomain);
+    public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming, boolean outgoing);
+    public void disassociateTrustBundleFromDomain(long domainId, long trustBundleId);
+    public void disassociateTrustBundleFromDomains(long trustBundleId);
+    public void disassociateTrustBundlesFromDomain(long domainId);
 }
