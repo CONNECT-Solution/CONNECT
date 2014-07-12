@@ -137,7 +137,7 @@
                     <p:tab title="Trust Bundles">
                         <h:form id="domain-tb-form" class="form-horizontal">
                             <h4>Assigned Trust Bundles</h4>
-                            <p:dataTable id="tb-domainDataTable" var="tb" value="#{directDomainBean.trustBundles}" selection="#{directDomainBean.selectedTrustBundle}" rowKey="#{tb.bundleName}" styleClass="table table-striped table-domains">
+                            <p:dataTable id="tb-domainDataTable" var="tb" value="#{directDomainBean.associatedTrustBundles}" selection="#{directDomainBean.selectedTrustBundle}" rowKey="#{tb.bundleName}" styleClass="table table-striped table-domains">
                                 <p:column headerText="Delete" selectionMode="single" />
                                 <p:column headerText="Name">
                                     <h:outputText value="#{tb.bundleName}" />
@@ -173,12 +173,12 @@
                                     <h:outputLabel for="select-domain-tbs" class="col-sm-3 control-label" id="select-domain-tbsLbl" value="Add Trust Bundles:" />
                                     <div class="col-sm-9">
                                         <p:selectCheckboxMenu id="select-domain-tbs" value="#{directDomainBean.bundlesToAdd}" label="Available Trust Bundles" panelStyle="width:220px">
-                                            <f:selectItems value="#{directDomainBean.availableTrustBundleNames}"/>
+                                            <f:selectItems value="#{directDomainBean.unassociatedTrustBundleNames}"/>
                                         </p:selectCheckboxMenu>
                                     </div>
                                 </div>
                                 <div class="form-button-row">
-                                    <h:commandButton id="submit" class="btn btn-primary" value="AddTrustBundle" action="#{directDomainBean.addTrustBundles()}"/>
+                                    <p:commandButton update="tb-domainDataTable" value="Add Trust Bundle" actionListener="#{directDomainBean.addTrustBundles()}" styleClass="btn btn-primary" />
                                 </div>
                             </div>
                         </h:form>

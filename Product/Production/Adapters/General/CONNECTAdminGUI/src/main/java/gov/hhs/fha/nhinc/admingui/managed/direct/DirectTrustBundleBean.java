@@ -91,9 +91,10 @@ public class DirectTrustBundleBean {
     }
 
     public void editTrustBundle() {
-        Certificate cert = new Certificate();
+        Certificate cert = null;
 
         if (selectedTb.getSigningCertificateData() != null) {
+            cert = new Certificate();
             cert.setData(selectedTb.getSigningCertificateData());
         }
 
