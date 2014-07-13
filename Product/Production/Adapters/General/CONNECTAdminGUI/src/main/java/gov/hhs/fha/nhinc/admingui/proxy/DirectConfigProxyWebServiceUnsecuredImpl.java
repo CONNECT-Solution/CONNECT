@@ -29,10 +29,12 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.util.List;
 
 import org.nhind.config.common.AddAnchor;
+import org.nhind.config.common.AddCertificates;
 import org.nhind.config.common.AddDomain;
 import org.nhind.config.common.AddTrustBundle;
 import org.nhind.config.common.Anchor;
 import org.nhind.config.common.AssociateTrustBundleToDomain;
+import org.nhind.config.common.Certificate;
 import org.nhind.config.common.ConfigurationService;
 import org.nhind.config.common.DeleteTrustBundles;
 import org.nhind.config.common.DisassociateTrustBundleFromDomains;
@@ -41,24 +43,28 @@ import org.nhind.config.common.GetAnchorsForOwner;
 import org.nhind.config.common.GetTrustBundleByName;
 import org.nhind.config.common.GetTrustBundles;
 import org.nhind.config.common.GetTrustBundlesByDomain;
+import org.nhind.config.common.ListCertificates;
 import org.nhind.config.common.RemoveAnchors;
+import org.nhind.config.common.RemoveCertificates;
 import org.nhind.config.common.Setting;
 import org.nhind.config.common.TrustBundle;
 import org.nhind.config.common.UpdateDomain;
 import org.nhind.config.common.UpdateDomainResponse;
 import org.nhind.config.common.UpdateTrustBundleAttributes;
+
 import org.springframework.stereotype.Service;
 
 /**
- *
+ * 
  * @author jasonasmith
  */
+@SuppressWarnings("unchecked")
 @Service
 public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigProxy {
 
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
-    private final Class directConfigClazz = ConfigurationService.class;
+    private final Class<ConfigurationService> directConfigClazz = ConfigurationService.class;
 
     @Override
     public Domain getDomain(Long id) throws Exception {
@@ -73,13 +79,13 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
     @Override
     public List<Domain> listDomains() throws Exception {
         return (List<Domain>) getClient().invokePort(directConfigClazz,
-            DirectConfigConstants.DIRECT_CONFIG_LIST_DOMAINS, null, 0);
+                DirectConfigConstants.DIRECT_CONFIG_LIST_DOMAINS, null, 0);
     }
 
     @Override
     public UpdateDomainResponse updateDomain(UpdateDomain updateDomain) throws Exception {
         return (UpdateDomainResponse) getClient().invokePort(directConfigClazz,
-            DirectConfigConstants.DIRECT_CONFIG_UPDATE_DOMAIN, updateDomain);
+                DirectConfigConstants.DIRECT_CONFIG_UPDATE_DOMAIN, updateDomain);
     }
 
     @Override
@@ -88,25 +94,42 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void addAnchor(AddAnchor addAnchor) throws Exception {
         getClient()
             .invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ADD_ANCHOR, addAnchor.getAnchor());
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void removeAnchors(RemoveAnchors removeAnchors) throws Exception {
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DELETE_ANCHOR,
             removeAnchors.getAnchorId());
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<Anchor> getAnchorsForOwner(GetAnchorsForOwner getAnchorsForOwner) throws Exception {
         return (List<Anchor>) getClient().invokePort(directConfigClazz,
             DirectConfigConstants.DIRECT_CONFIG_GET_ANCHORS_FOR_OWNER, getAnchorsForOwner.getOwner(),
             getAnchorsForOwner.getOptions());
+    }
+
+    @Override
+    public void addCertificates(AddCertificates certificate) throws Exception {
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ADD_CERT, certificate.getCerts());
+
+    }
+
+    @Override
+    public void removeCertificate(RemoveCertificates certificate) throws Exception {
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DELETE_CERT,
+                certificate.getCertificateIds());
+
+    }
+
+    @Override
+    public List<Certificate> listCertificates(ListCertificates listCert) throws Exception {
+        return (List<Certificate>) getClient().invokePort(directConfigClazz,
+                DirectConfigConstants.DIRECT_CONFIG_LIST_CERTS, listCert.getLastCertificateId(),
+                listCert.getMaxResutls(), listCert.getOptions());
     }
 
     @Override
@@ -170,15 +193,15 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DELETE_TRUST_BUNDLE, tb.getTrustBundleIds());
     }
 
-    private CONNECTClient getClient() throws Exception {
+    private CONNECTClient<ConfigurationService> getClient() throws Exception {
 
         String url = oProxyHelper
-            .getAdapterEndPointFromConnectionManager(DirectConfigConstants.DIRECT_CONFIG_SERVICE_NAME);
+                .getAdapterEndPointFromConnectionManager(DirectConfigConstants.DIRECT_CONFIG_SERVICE_NAME);
 
         ServicePortDescriptor<ConfigurationService> portDescriptor = new DirectConfigUnsecuredServicePortDescriptor();
 
         CONNECTClient<ConfigurationService> client = CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(
-            portDescriptor, url, null);
+                portDescriptor, url, null);
 
         return client;
     }

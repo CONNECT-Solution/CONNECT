@@ -20,99 +20,110 @@
  */
 package gov.hhs.fha.nhinc.admingui.model.direct;
 
+import java.text.SimpleDateFormat;
+
+import org.nhind.config.common.Certificate;
+import org.nhind.config.common.EntityStatus;
+
 /**
  *
  * @author jasonasmith
  */
 public class DirectCertificate {
-    
-    private int position;
-    private String certStatus;
-    private String certOwner;
-    private String certPrivate;
-    private String certThumb;
-    private String certCreated;
-    private String certStart;
-    private String certEnd;
 
-    public DirectCertificate(){
+    private String thumbprint;
+
+    private long id;
+
+    private EntityStatus status;
+    private boolean privateKey;
+
+    private String owner;
+
+    private String createTime;
+    private String validEndDate;
+    private String validStartDate;
+
+    public DirectCertificate() {
+    }
+
+    public DirectCertificate(Certificate cert, String thumbprint) {
+        this.thumbprint = thumbprint;
+
+        id = cert.getId();
+
+        status = cert.getStatus();
+        privateKey = cert.isPrivateKey();
         
+        owner = cert.getOwner();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        createTime = sdf.format(cert.getCreateTime().toGregorianCalendar().getTime());
+        validEndDate = sdf.format(cert.getValidEndDate().toGregorianCalendar().getTime());
+        validStartDate = sdf.format(cert.getValidStartDate().toGregorianCalendar().getTime());
     }
 
-    public DirectCertificate(int position, String certStatus, String certOwner, String certPrivate, String certThumb, String certCreated, String certStart, String certEnd) {
-        this.position = position;
-        this.certStatus = certStatus;
-        this.certOwner = certOwner;
-        this.certPrivate = certPrivate;
-        this.certThumb = certThumb;
-        this.certCreated = certCreated;
-        this.certStart = certStart;
-        this.certEnd = certEnd;
+    public String getThumbprint() {
+        return thumbprint;
     }
 
-    public int getPosition() {
-        return position;
+    public void setThumbprint(String thumbprint) {
+        this.thumbprint = thumbprint;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
-    }
-    
-    public String getCertStatus() {
-        return certStatus;
+    public long getId() {
+        return id;
     }
 
-    public void setCertStatus(String certStatus) {
-        this.certStatus = certStatus;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getCertOwner() {
-        return certOwner;
+    public EntityStatus getStatus() {
+        return status;
     }
 
-    public void setCertOwner(String certOwner) {
-        this.certOwner = certOwner;
+    public void setStatus(EntityStatus status) {
+        this.status = status;
     }
 
-    public String getCertPrivate() {
-        return certPrivate;
+    public boolean isPrivateKey() {
+        return privateKey;
     }
 
-    public void setCertPrivate(String certPrivate) {
-        this.certPrivate = certPrivate;
+    public void setPrivateKey(boolean privateKey) {
+        this.privateKey = privateKey;
     }
 
-    public String getCertThumb() {
-        return certThumb;
+    public String getOwner() {
+        return owner;
     }
 
-    public void setCertThumb(String certThumb) {
-        this.certThumb = certThumb;
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
-    public String getCertCreated() {
-        return certCreated;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setCertCreated(String certCreated) {
-        this.certCreated = certCreated;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
-    public String getCertStart() {
-        return certStart;
+    public String getValidEndDate() {
+        return validEndDate;
     }
 
-    public void setCertStart(String certStart) {
-        this.certStart = certStart;
+    public void setValidEndDate(String validEndDate) {
+        this.validEndDate = validEndDate;
     }
 
-    public String getCertEnd() {
-        return certEnd;
+    public String getValidStartDate() {
+        return validStartDate;
     }
 
-    public void setCertEnd(String certEnd) {
-        this.certEnd = certEnd;
+    public void setValidStartDate(String validStartDate) {
+        this.validStartDate = validStartDate;
     }
-    
-    
 }

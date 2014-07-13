@@ -4,14 +4,14 @@ import java.io.ByteArrayInputStream;
 import java.security.Key;
 import java.security.KeyStore;
 import java.security.PrivateKey;
+import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.security.auth.x500.X500Principal;
-
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 
 public class CertContainer {
@@ -115,5 +115,17 @@ public class CertContainer {
         }
 
         return address;
+    }
+    
+    public String getThumbprint() {
+        String thumbprint;
+        
+        try {
+            thumbprint = DigestUtils.sha1Hex(cert.getEncoded());
+        } catch (CertificateEncodingException e) {
+            thumbprint = null;
+        }
+        
+        return thumbprint;
     }
 }
