@@ -572,8 +572,10 @@ VALUES
 ("direct.xhtml", "Direct Config", 0, 3),
 ("direct_domains_create.xhtml", "Direct Create Domain", 0, 1),
 ("direct_domains_create.xhtml", "Direct Create Domain", 0, 2),
-("direct_domains_create.xhtml", "Direct Create Domain", 0, 3);
-
+("direct_domains_create.xhtml", "Direct Create Domain", 0, 3),
+("directPrime.xhtml", "Direct Config Prime", 0, 1),
+("directPrime.xhtml", "Direct Config Prime", 0, 2),
+("directPrime.xhtml", "Direct Config Prime", 0, 3);
 
 INSERT INTO adminguidb.UserLogin
 (id, salt, sha1, userName, userRole)
