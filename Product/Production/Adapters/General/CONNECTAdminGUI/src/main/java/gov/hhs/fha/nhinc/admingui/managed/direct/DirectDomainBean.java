@@ -63,7 +63,7 @@ public class DirectDomainBean {
     private TrustBundle selectedTrustBundle;
 
     private List<String> bundlesToAdd;
-
+    private List<String> unassociatedBundleNames = null;
     private UploadedFile anchorCert;
 
     // TODO: Unused vars below?
@@ -97,13 +97,22 @@ public class DirectDomainBean {
     }
 
     public List<String> getUnassociatedTrustBundleNames() {
-        List<String> bundleNames = getTrustBundleNames(directService.getTrustBundles(false));
-        bundleNames.removeAll(getTrustBundleNames(getAssociatedTrustBundles()));
+        List<String> bundleNames;
+
+        if (unassociatedBundleNames == null) {
+            bundleNames = getTrustBundleNames(directService.getTrustBundles(false));
+            bundleNames.removeAll(getTrustBundleNames(getAssociatedTrustBundles()));
+        } else {
+            bundleNames = unassociatedBundleNames;
+        }
+
         return bundleNames;
     }
 
     public void deleteDomain() {
+        directService.disassociateTrustBundlesFromDomain(selectedDomain.getId());
         directService.deleteDomain(selectedDomain);
+        selectedDomain = null;
     }
 
     public void addDomain() {
@@ -178,8 +187,8 @@ public class DirectDomainBean {
         RemoveAnchors removeAnchors = new RemoveAnchors();
         removeAnchors.getAnchorId().add(getSelectedAnchor().getId());
 
-        selectedAnchor = null;
         directService.deleteAnchor(removeAnchors);
+        selectedAnchor = null;
     }
 
     public void addTrustBundles() {
@@ -195,6 +204,7 @@ public class DirectDomainBean {
             for (TrustBundle tb : bundles) {
                 // TODO: incoming & outgoing should be set by user via UI
                 directService.associateTrustBundleToDomain(selectedDomain.getId(), tb.getId(), true, true);
+                unassociatedBundleNames.remove(tb.getBundleName());
             }
         }
     }
@@ -202,6 +212,7 @@ public class DirectDomainBean {
     public void disassociateTrustBundle() {
         if (selectedTrustBundle != null) {
             directService.disassociateTrustBundleFromDomain(selectedDomain.getId(), selectedTrustBundle.getId());
+            unassociatedBundleNames.add(selectedTrustBundle.getBundleName());
             selectedTrustBundle = null;
         }
     }
