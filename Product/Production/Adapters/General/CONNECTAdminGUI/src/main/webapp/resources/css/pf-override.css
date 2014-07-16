@@ -850,8 +850,8 @@ body {
 #domainEditTabview .ui-tabs-nav li.ui-state-hover a {
 	color:#404040;
 }
-#domainEditTabview.ui-tabs .ui-tabs-panel {
-	padding:30px 0px 0px;
+#domainEditTabview.ui-tabs > .ui-tabs-panels > .ui-tabs-panel {
+	padding:30px 0px 0px !important;
 }
 #domainEditTabview .ui-datatable td.ui-selection-column {
 	width:1px;
