@@ -102,7 +102,7 @@
                             <div class="domain-form-block">
                                 <h4>Add Another Anchor</h4>
                                 <h:outputLabel for="pick-anchor-cert" class="col-sm-4 control-label label-pick-anchor" id="pick-anchor-certLbl" value="Choose Anchor Certificate:" />
-                                <p:fileUpload id="pick-anchor-cert" fileUploadListener="#{directDomainBean.anchorFileUpload}" />
+                                <p:fileUpload id="pick-anchor-cert" fileUploadListener="#{directDomainBean.anchorFileUpload}" allowTypes="/(\.|\/)(der|cer|crt|pem|p12|p7b|p7c|pfx)$/"/>
 
                                 <p:separator/>
 
