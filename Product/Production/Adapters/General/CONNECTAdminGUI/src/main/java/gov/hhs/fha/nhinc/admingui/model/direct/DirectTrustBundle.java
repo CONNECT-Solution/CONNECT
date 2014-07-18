@@ -20,99 +20,153 @@
  */
 package gov.hhs.fha.nhinc.admingui.model.direct;
 
+import java.text.SimpleDateFormat;
+import java.util.List;
+import org.nhind.config.common.TrustBundle;
+import org.nhind.config.common.TrustBundleAnchor;
+
 /**
  *
  * @author jasonasmith
  */
 public class DirectTrustBundle {
-    
-    private int position;
-    private String tbName;
-    private String tbUrl;
-    private String tbCheckSum;
-    private String tbCreated;
-    private String tbCurrentAsOf;
-    private String tbLastRefresh;
-    private String tbRefreshInterval;
 
-    public DirectTrustBundle(){
-        
-    }
+    long id;
 
-    public DirectTrustBundle(int position, String tbName, String tbUrl, String tbCheckSum, String tbCreated, String tbCurrentAsOf, String tbLastRefresh, String tbRefreshInterval) {
-        this.position = position;
-        this.tbName = tbName;
-        this.tbUrl = tbUrl;
-        this.tbCheckSum = tbCheckSum;
-        this.tbCreated = tbCreated;
-        this.tbCurrentAsOf = tbCurrentAsOf;
-        this.tbLastRefresh = tbLastRefresh;
-        this.tbRefreshInterval = tbRefreshInterval;
+    private String bundleName;
+    private String bundleURL;
+    private String checkSum;
+
+    private String createTime;
+    private String lastSuccessfulRefresh;
+    private String lastRefreshAttempt;
+    private String lastRefreshError;
+
+    private int refreshInterval;
+
+    private boolean incoming;
+    private boolean outgoing;
+
+    private List<TrustBundleAnchor> anchors;
+
+    public DirectTrustBundle() {
+
     }
 
-    public int getPosition() {
-        return position;
+    public DirectTrustBundle(TrustBundle tb, boolean incoming, boolean outgoing) {
+        id = tb.getId();
+
+        bundleName = tb.getBundleName();
+        bundleURL = tb.getBundleURL();
+        checkSum = tb.getCheckSum();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        createTime = sdf.format(tb.getCreateTime().toGregorianCalendar().getTime());
+        lastSuccessfulRefresh = sdf.format(tb.getLastSuccessfulRefresh().toGregorianCalendar().getTime());
+        lastRefreshAttempt = sdf.format(tb.getLastRefreshAttempt().toGregorianCalendar().getTime());
+
+        lastRefreshError = tb.getLastRefreshError().value();
+        refreshInterval = tb.getRefreshInterval();
+
+        this.incoming = incoming;
+        this.outgoing = outgoing;
+
+        anchors = tb.getTrustBundleAnchors();
     }
 
-    public void setPosition(int position) {
-        this.position = position;
-    }
-    
-    public String getTbName() {
-        return tbName;
+    public long getId() {
+        return id;
     }
 
-    public void setTbName(String tbName) {
-        this.tbName = tbName;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getTbUrl() {
-        return tbUrl;
+    public String getBundleName() {
+        return bundleName;
     }
 
-    public void setTbUrl(String tbUrl) {
-        this.tbUrl = tbUrl;
+    public void setBundleName(String bundleName) {
+        this.bundleName = bundleName;
     }
 
-    public String getTbCheckSum() {
-        return tbCheckSum;
+    public String getBundleURL() {
+        return bundleURL;
     }
 
-    public void setTbCheckSum(String tbCheckSum) {
-        this.tbCheckSum = tbCheckSum;
+    public void setBundleURL(String bundleURL) {
+        this.bundleURL = bundleURL;
     }
 
-    public String getTbCreated() {
-        return tbCreated;
+    public String getCheckSum() {
+        return checkSum;
     }
 
-    public void setTbCreated(String tbCreated) {
-        this.tbCreated = tbCreated;
+    public void setCheckSum(String checkSum) {
+        this.checkSum = checkSum;
     }
 
-    public String getTbCurrentAsOf() {
-        return tbCurrentAsOf;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setTbCurrentAsOf(String tbCurrentAsOf) {
-        this.tbCurrentAsOf = tbCurrentAsOf;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
-    public String getTbLastRefresh() {
-        return tbLastRefresh;
+    public String getLastSuccessfulRefresh() {
+        return lastSuccessfulRefresh;
     }
 
-    public void setTbLastRefresh(String tbLastRefresh) {
-        this.tbLastRefresh = tbLastRefresh;
+    public void setLastSuccessfulRefresh(String lastSuccessfulRefresh) {
+        this.lastSuccessfulRefresh = lastSuccessfulRefresh;
     }
 
-    public String getTbRefreshInterval() {
-        return tbRefreshInterval;
+    public String getLastRefreshAttempt() {
+        return lastRefreshAttempt;
     }
 
-    public void setTbRefreshInterval(String tbRefreshInterval) {
-        this.tbRefreshInterval = tbRefreshInterval;
+    public void setLastRefreshAttempt(String lastRefreshAttempt) {
+        this.lastRefreshAttempt = lastRefreshAttempt;
     }
-    
-    
+
+    public String getLastRefreshError() {
+        return lastRefreshError;
+    }
+
+    public void setLastRefreshError(String lastRefreshError) {
+        this.lastRefreshError = lastRefreshError;
+    }
+
+    public int getRefreshInterval() {
+        return refreshInterval;
+    }
+
+    public void setRefreshInterval(int refreshInterval) {
+        this.refreshInterval = refreshInterval;
+    }
+
+    public boolean isIncoming() {
+        return incoming;
+    }
+
+    public void setIncoming(boolean incoming) {
+        this.incoming = incoming;
+    }
+
+    public boolean isOutgoing() {
+        return outgoing;
+    }
+
+    public void setOutgoing(boolean outgoing) {
+        this.outgoing = outgoing;
+    }
+
+    public List<TrustBundleAnchor> getAnchors() {
+        return anchors;
+    }
+
+    public void setAnchors(List<TrustBundleAnchor> anchors) {
+        this.anchors = anchors;
+    }
 }
