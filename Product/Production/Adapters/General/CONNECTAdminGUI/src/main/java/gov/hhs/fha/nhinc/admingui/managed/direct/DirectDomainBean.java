@@ -61,7 +61,7 @@ public class DirectDomainBean {
     private Domain selectedDomain;
     private DirectAddress selectedAddress;
     private DirectAnchor selectedAnchor;
-    private TrustBundle selectedTrustBundle;
+    private DirectTrustBundle selectedTrustBundle;
 
     private List<Domain> domains;
     private List<DirectAnchor> anchors;
@@ -353,11 +353,11 @@ public class DirectDomainBean {
         this.anchorStatus = anchorStatus;
     }
 
-    public TrustBundle getSelectedTrustBundle() {
+    public DirectTrustBundle getSelectedTrustBundle() {
         return selectedTrustBundle;
     }
 
-    public void setSelectedTrustBundle(TrustBundle selectedTrustBundle) {
+    public void setSelectedTrustBundle(DirectTrustBundle selectedTrustBundle) {
         this.selectedTrustBundle = selectedTrustBundle;
     }
 
