@@ -54,9 +54,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "removeAnchors", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "removeAnchors", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "removeAnchors", namespace = "http://nhind.org/config/common")
+@XmlType(name = "removeAnchors", namespace = "http://nhind.org/config")
 public class RemoveAnchors {
 
     @XmlElement(name = "anchorId", namespace = "")

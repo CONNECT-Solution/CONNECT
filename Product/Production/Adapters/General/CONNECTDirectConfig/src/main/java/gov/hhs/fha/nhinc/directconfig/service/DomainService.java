@@ -76,9 +76,9 @@ public interface DomainService {
      * @throws ConfigurationServiceException 
      */
     @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
-    @WebResult(name = "addDomainResponse", targetNamespace = "http://nhind.org/config/common", partName = "parameters")
+    @WebResult(name = "addDomainResponse", targetNamespace = "http://nhind.org/config", partName = "parameters")
     @WebMethod(operationName = "addDomain", action = "urn:AddDomain")
-    AddDomainResponse addDomain(@WebParam(partName = "parameters", name = "addDomain", targetNamespace = "http://nhind.org/config/common") AddDomain addDomain) throws ConfigurationServiceException;
+    AddDomainResponse addDomain(@WebParam(partName = "parameters", name = "addDomain", targetNamespace = "http://nhind.org/config") AddDomain addDomain) throws ConfigurationServiceException;
 
     /**
      * Update a Domain.
@@ -89,7 +89,7 @@ public interface DomainService {
      * @throws ConfigurationServiceException
      */
     @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
-    @WebResult(name = "updateDomainResponse", targetNamespace = "http://nhind.org/config/common", partName = "parameters")
+    @WebResult(name = "updateDomainResponse", targetNamespace = "http://nhind.org/config", partName = "parameters")
     @WebMethod(action = "urn:UpdateDomain")
     UpdateDomainResponse updateDomain(@WebParam(name = "updateDomain") UpdateDomain domain) throws ConfigurationServiceException;
 

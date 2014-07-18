@@ -52,9 +52,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "disassociatePolicyGroupsFromDomainResponse", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "disassociatePolicyGroupsFromDomainResponse", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "disassociatePolicyGroupsFromDomainResponse", namespace = "http://nhind.org/config/common")
+@XmlType(name = "disassociatePolicyGroupsFromDomainResponse", namespace = "http://nhind.org/config")
 public class DisassociatePolicyGroupsFromDomainResponse {
 
 

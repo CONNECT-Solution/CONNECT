@@ -55,9 +55,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
 
-@XmlRootElement(name = "removeDNS", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "removeDNS", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "removeDNS", namespace = "http://nhind.org/config/common")
+@XmlType(name = "removeDNS", namespace = "http://nhind.org/config")
 public class RemoveDNS {
 
     @XmlElement(name = "records", namespace = "")

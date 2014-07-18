@@ -116,7 +116,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
  */
 
 @Service
-@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.ConfigurationService", portName = "ConfigurationServiceImplPort", targetNamespace = "http://nhind.org/config/common")
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.ConfigurationService", portName = "ConfigurationServiceImplPort", targetNamespace = "http://nhind.org/config")
 public class ConfigurationServiceImpl extends SpringBeanAutowiringSupport implements ConfigurationService {
 
     private static Log log = LogFactory.getLog(ConfigurationServiceImpl.class);

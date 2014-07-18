@@ -71,7 +71,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
  * Service class for methods related to an Address object.
  */
 @Service("addressSvc")
-@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.AddressService", portName = "ConfigurationServiceImplPort", targetNamespace = "http://nhind.org/config/common")
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.AddressService", portName = "ConfigurationServiceImplPort", targetNamespace = "http://nhind.org/config")
 public class AddressServiceImpl extends SpringBeanAutowiringSupport implements AddressService {
 
     private static final Log log = LogFactory.getLog(AddressServiceImpl.class);

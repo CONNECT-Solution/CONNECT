@@ -53,9 +53,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "getTrustBundleByName", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "getTrustBundleByName", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getTrustBundleByName", namespace = "http://nhind.org/config/common")
+@XmlType(name = "getTrustBundleByName", namespace = "http://nhind.org/config")
 public class GetTrustBundleByName {
 
     @XmlElement(name = "bundleName", namespace = "")

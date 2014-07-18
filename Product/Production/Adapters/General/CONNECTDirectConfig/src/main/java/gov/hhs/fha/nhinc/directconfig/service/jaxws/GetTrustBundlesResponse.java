@@ -55,9 +55,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundle;
 
-@XmlRootElement(name = "getTrustBundlesResponse", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "getTrustBundlesResponse", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getTrustBundlesResponse", namespace = "http://nhind.org/config/common")
+@XmlType(name = "getTrustBundlesResponse", namespace = "http://nhind.org/config")
 public class GetTrustBundlesResponse {
 
     @XmlElement(name = "return", namespace = "")

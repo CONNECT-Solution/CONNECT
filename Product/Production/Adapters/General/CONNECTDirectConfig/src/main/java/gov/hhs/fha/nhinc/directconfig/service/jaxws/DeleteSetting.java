@@ -54,9 +54,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "deleteSetting", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "deleteSetting", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "deleteSetting", namespace = "http://nhind.org/config/common")
+@XmlType(name = "deleteSetting", namespace = "http://nhind.org/config")
 public class DeleteSetting {
 
     @XmlElement(name = "names", namespace = "")

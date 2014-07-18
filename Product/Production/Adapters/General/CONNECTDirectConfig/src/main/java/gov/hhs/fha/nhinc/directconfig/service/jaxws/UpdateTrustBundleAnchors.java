@@ -56,9 +56,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleAnchor;
 
-@XmlRootElement(name = "updateTrustBundleAnchors", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "updateTrustBundleAnchors", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "updateTrustBundleAnchors", namespace = "http://nhind.org/config/common", propOrder = {
+@XmlType(name = "updateTrustBundleAnchors", namespace = "http://nhind.org/config", propOrder = {
     "trustBundleId",
     "attemptTime",
     "newAnchorSet"

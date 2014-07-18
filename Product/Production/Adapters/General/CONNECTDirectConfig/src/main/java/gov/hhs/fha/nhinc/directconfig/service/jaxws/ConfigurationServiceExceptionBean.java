@@ -59,9 +59,9 @@ import javax.xml.bind.annotation.XmlType;
  * Generated source version: 2.1.3
  * 
  */
-@XmlRootElement(name = "ConfigurationServiceException", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "ConfigurationServiceException", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ConfigurationServiceException", namespace = "http://nhind.org/config/common")
+@XmlType(name = "ConfigurationServiceException", namespace = "http://nhind.org/config")
 public class ConfigurationServiceExceptionBean {
 
     private String message;
