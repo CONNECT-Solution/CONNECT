@@ -17,7 +17,7 @@
         <connection>scm:git:git@github.com:${git.username}/Common-Types.git</connection>
         <developerConnection>scm:git:git@github.com:${git.username}/Common-Types.git</developerConnection>
         <url>https://github.com/${git.username}/Common-Types</url>
-      <tag>4.0.9</tag>
+      <tag>HEAD</tag>
     </scm>
 
     <developers>
