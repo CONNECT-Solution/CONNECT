@@ -26,6 +26,7 @@ import gov.hhs.fha.nhinc.admingui.model.direct.DirectAnchor;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -242,6 +243,7 @@ public class DirectDomainBean {
             }
         }
 
+        Collections.sort(unassociatedTrustBundleNames);
         return unassociatedTrustBundleNames;
     }
 
