@@ -137,7 +137,9 @@
                     <p:tab title="Trust Bundles">
                         <h:form id="domain-tb-form" class="form-horizontal">
                             <h4>Assigned Trust Bundles</h4>
-                            <p:dataTable id="tb-domainDataTable" var="tb" value="#{directDomainBean.associatedTrustBundles}" selection="#{directDomainBean.selectedTrustBundle}" rowKey="#{tb.bundleName}" styleClass="table table-striped table-domains">
+                            <p:dataTable id="tb-domainDataTable" var="tb" value="#{directDomainBean.associatedTrustBundles}"
+                                         selection="#{directDomainBean.selectedTrustBundle}" rowKey="#{tb.bundleName}"
+                                         sortBy="#{tb.bundleName}" styleClass="table table-striped table-domains">
                                 <p:column headerText="Delete" selectionMode="single" />
                                 <p:column headerText="Name">
                                     <h:outputText value="#{tb.bundleName}" />
@@ -147,21 +149,6 @@
                                 </p:column>
                                 <p:column headerText="Checksum">
                                     <h:outputText value="#{tb.checkSum}" />
-                                </p:column>
-                                <p:column headerText="Create Time">
-                                    <h:outputText value="#{tb.createTime}" />
-                                </p:column>
-                                <p:column headerText="Last Refresh Attempt">
-                                    <h:outputText value="#{tb.lastRefreshAttempt}" />
-                                </p:column>
-                                <p:column headerText="Last Successful Refresh">
-                                    <h:outputText value="#{tb.lastSuccessfulRefresh}" />
-                                </p:column>
-                                <p:column headerText="Last Refresh Error">
-                                    <h:outputText value="#{tb.lastRefreshAttempt}" />
-                                </p:column>
-                                <p:column headerText="Refresh Interval (hours)">
-                                    <h:outputText value="#{tb.refreshInterval}" />
                                 </p:column>
                                 <p:column headerText="Incoming">
                                     <h:outputText value="#{tb.incoming}" />
