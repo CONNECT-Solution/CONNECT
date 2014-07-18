@@ -139,7 +139,7 @@
                             <h4>Assigned Trust Bundles</h4>
                             <p:dataTable id="tb-domainDataTable" var="tb" value="#{directDomainBean.associatedTrustBundles}"
                                          selection="#{directDomainBean.selectedTrustBundle}" rowKey="#{tb.bundleName}"
-                                         sortBy="#{tb.bundleName}" styleClass="table table-striped table-domains">
+                                         sortBy="bundleName" styleClass="table table-striped table-domains">
                                 <p:column headerText="Delete" selectionMode="single" />
                                 <p:column headerText="Name">
                                     <h:outputText value="#{tb.bundleName}" />
