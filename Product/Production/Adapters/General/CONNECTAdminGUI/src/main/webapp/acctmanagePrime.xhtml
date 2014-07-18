@@ -35,94 +35,120 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:body>
-	<ui:composition template="/resources/Templates/BaseTemplatePrime.xhtml">
-		<ui:define name="metatag"></ui:define>
-		<ui:define name="content">
-			<h1 class="section-header">Account Management</h1>
-			<!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
-			<p:tabView id="tabview" effect="fade" effectDuration="normal"
-				dynamic="true" activeIndex="#{tabBean.adminTabIndex}" styleClass="tabs-override tabs-ovr-blue">
-				<p:tab title="User Accounts"  closable="false">
-					<!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
-					<div class="tab-content">
-						<!-- BEGIN: TAB PANE - USER ACCOUNTS -->
-						<div class="tab-pane active" id="users">
-							<div class="content-block">
-								<h2 class="subsection-header">Create User</h2>
-
-								<div class="content">
-									<p>Create a new User Account by entering the required
-										information in the fields below:</p>
-
-									<div class="form-block center-block">
-										<h:form class="form-horizontal" role="form"
-											id="createUserForm">
-											<div class="form-group">
-												<h:outputLabel for="username" class="col-sm-3 control-label"
-													id="usernameLbl" value="New Username:" />
-												<div class="col-sm-9">
-													<h:inputText class="form-control" id="username"
-														maxlength="20" required="true"
-														value="#{createuserBean.userName}"
-														requiredMessage="User Name field should be filled" />
-													<h:message for="username" style="color:red" />
-												</div>
-											</div>
-
-											<div class="form-group">
-												<h:outputLabel class="col-sm-3 control-label" for="password"
-													id="userpasswordLbl" value="Password:" />
-												<div class="col-sm-9">
-													<h:inputText id="password" class="form-control"
-														maxlength="20" required="true"
-														value="#{createuserBean.password}"
-														requiredMessage="Password field should be filled" />
-													<h:message for="password" style="color:red" />
-												</div>
-											</div>
-
-											<div class="form-group">
-												<h:outputLabel for="select-role"
-													class="col-sm-3 control-label" id="roleLbl" value="Role:" />
-												<div class="col-sm-9">
+    <ui:composition template="/resources/Templates/BaseTemplatePrime.xhtml">
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{manageRoleBean.initData()}" />
+        </f:metadata>
+        <ui:define name="metatag"></ui:define>
+        <ui:define name="content">
+            <h1 class="section-header">Account Management</h1>
+            <!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
+            <p:tabView id="tabview" effect="fade" effectDuration="normal" dynamic="true" activeIndex="#{tabBean.adminTabIndex}" styleClass="tabs-override tabs-ovr-blue">
+                <!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
+                <div class="tab-content">
+                    <!-- BEGIN: TAB PANE - USER ACCOUNTS -->
+                    <p:tab title="User Accounts"  closable="false">
+                        <div class="tab-pane active" id="users">
+                            <div class="content-block">
+                                <h2 class="subsection-header">Create User</h2>
+                                
+                                <div class="content">
+                                    <p>Create a new User Account by entering the required information in the fields below:</p>
+                                    
+                                    <div class="form-block center-block">
+                                        <h:form class="form-horizontal" role="form" id="createUserForm">
+                                            <div class="form-group">
+                                                <h:outputLabel for="username" class="col-sm-3 control-label" id="usernameLbl" value="New Username:" />
+                                                <div class="col-sm-9">
+                                                    <h:inputText class="form-control" id="username" maxlength="20" required="true" value="#{createuserBean.userName}" requiredMessage="User Name field should be filled" />
+                                                    <h:message for="username" style="color:red" />
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <h:outputLabel class="col-sm-3 control-label" for="password" id="userpasswordLbl" value="Password:" />
+                                                <div class="col-sm-9">
+                                                    <h:inputText id="password" class="form-control" maxlength="20" required="true" value="#{createuserBean.password}" requiredMessage="Password field should be filled" />
+                                                    <h:message for="password" style="color:red" />
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <h:outputLabel for="select-role" class="col-sm-3 control-label" id="roleLbl" value="Role:" />
+                                                <div class="col-sm-9">
                                                     <h:selectOneMenu class="form-control" id="select-role" value="#{createuserBean.role}">
                                                         <f:selectItem itemLabel="Administrator" itemValue="1"/>
                                                         <f:selectItem itemLabel="Super User" itemValue="2"/>
                                                         <f:selectItem itemLabel="User" itemValue="3"/>
-													</h:selectOneMenu>
-												</div>
-											</div>
-											<div class="form-group">
-												<div class="col-sm-12">
-													<div class="form-button-row">
-														<input class="btn btn-default" type="reset" value="Reset" />
-														<h:commandButton id="submit" class="btn btn-primary"
-															value="Create User"
-															action="#{createuserBean.addCreateUser()}" />
-													</div>
-												</div>
-											</div>
-										</h:form>
-									</div>
-								</div>
-							</div>
-							<div class="content-block">
-								<h2 class="subsection-header">Manage Users</h2>
-								<div class="content">[to be developed]</div>
-							</div>
-						</div>
-						<!-- END: TAB PANE - USER ACCOUNTS -->
-					</div>
-				</p:tab>
-				<p:tab title="Certificate Management"  closable="false">
-					<div class="content-block">
-						<h2 class="subsection-header">Certificate Management</h2>
-						<div class="content">[to be developed]</div>
-					</div>
-				</p:tab>
-			</p:tabView>
-			<!-- END: TAB PANE - REMOTE GATEWAYS -->
-		</ui:define>
-	</ui:composition>
+                                                    </h:selectOneMenu>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <div class="form-button-row">
+                                                        <p:commandButton type="reset" value="Reset" styleClass="btn btn-default" />
+                                                        <p:commandButton id="submit" value="Create User" action="#{createuserBean.addCreateUser()}" styleClass="btn btn-primary" icon="ui-icon-circle-plus" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content-block">
+                                <h2 class="subsection-header">Manage Users</h2>
+                                <div class="content">[to be developed]</div>
+                            </div>
+                        </div>
+                    </p:tab>
+                    <!-- END: TAB PANE - USER ACCOUNTS -->
+                    
+                    <!-- BEGIN: TAB PANE - MANAGE ROLES -->        
+                    <p:tab title="Manage Roles" closable="false">
+                        <div class="content-block">
+                            <h2 class="subsection-header">Manage User Roles</h2>
+                            <div class="content">
+                                <h:form id="manageRoleForm" prependId="false">
+                                    <div class="content-block">   
+                                        <h2 class="subsection-header-select">
+                                        	Edit Page Level Access for: 
+                                            <div class="divManageRole">
+                                                <h:selectOneMenu value="#{manageRoleBean.selectedRole}" class="form-control">
+                                                    <p:ajax event="change" listener="#{manageRoleBean.roleChanged}" update="pagesTable"/>
+                                                    <f:selectItem itemLabel="Select Role" noSelectionOption="true" />  
+                                                    <f:selectItems value="#{manageRoleBean.roleLabels}" var="role" itemLabel="#{role}" itemValue="#{role}"/>
+                                                </h:selectOneMenu>
+                                            </div>
+                                        </h2>
+                                        <div class="table-responsive">                      
+                                            <p:dataTable id="pagesTable" var="page" value="#{manageRoleBean.pages}" resizableColumns="true" styleClass="table table-striped table-remotegateways">                          
+                                                <p:column headerText="Page Name">
+                                                    <h:outputText value="#{page.preference.pageDesc}" />
+                                                </p:column>
+                                                <p:column headerText="Page Level Access">
+                                                    <h:selectOneMenu value="#{page.selectedAccessLevel}" label="#{page.selectedAccessLevel}" class="form-control" style="width:auto;">
+                                                        <p:ajax event="change" listener="#{manageRoleBean.accessLevelChanged}" />
+                                                        <f:selectItems value="#{page.availableAccessLevels}" var="access" itemLabel="#{access}" itemValue="#{access}"/>
+                                                    </h:selectOneMenu>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </div>
+                                    </div>
+                                    
+                                    <p:messages id="messages" showDetail="true" autoUpdate="true">
+                                        <p:effect type="fade" event="load" delay="1000" />
+                                    </p:messages>               
+                                </h:form>
+                            </div>
+                        </div>
+                    </p:tab>
+                    <!-- END: TAB PANE - MANAGE ROLES -->
+                </div>
+                <!-- END: MAIN CONTENT - TAB PANES - All the data/information -->
+            </p:tabView>
+            <!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
+        </ui:define>
+    </ui:composition>
 </h:body>
 </html>

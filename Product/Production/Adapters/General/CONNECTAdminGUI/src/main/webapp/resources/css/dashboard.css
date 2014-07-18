@@ -216,6 +216,15 @@ div[id^="modal-"] .form-block {
 	font-weight:bold;
 	text-transform:uppercase;
 }
+.main h2.subsection-header-select { /* USED IN "MANAGE USER ROLES" TAB IN ACCT MGMT */
+	line-height:16px;
+	margin:0px;
+	padding:5px 15px;
+	background:#dddddd;
+	color:#000000;
+	font-size:16px;
+	font-weight:bold;
+}
 .main h3 {
 	margin:0px 0px 15px;
 }

@@ -17,7 +17,8 @@
 	- performance stats
 	- remote gateway list
 05. ACCOUNT MANAGEMENT STYLES
-    - manage role
+    - user accounts
+	- manage user roles
 06. DOMAIN CONFIGURATION STYLES
     - buttons
 	- tables
@@ -277,7 +278,7 @@ body {
 	padding:0px;
 	background:none;
 	border:none;
-	border-radius:none;
+	border-radius:0;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 .ui-tabs.tabs-override > .ui-tabs-nav {
@@ -291,7 +292,7 @@ body {
 .ui-tabs.tabs-override .ui-tabs-nav li, .ui-tabs.tabs-override .ui-tabs-nav li.ui-tabs-selected {
 	background:none;
 	border:none;
-	border-radius:none;
+	border-radius:0;
 	text-shadow:none;
 	box-shadow:none;
 }
@@ -546,7 +547,7 @@ body {
 .main-content .table-remotegateways tbody > tr:hover > td, 
 .main-content .table-remotegateways tbody > tr.ui-datatable-even:hover > td, 
 .main-content .table-remotegateways tbody > tr.ui-datatable-odd:hover > td {
-	background:#eeeeee;
+	background:#dddddd;
 	color:#000000;
 }
 .main-content .table-remotegateways th.ui-state-hover {
@@ -562,14 +563,62 @@ body {
 
 /* -- ACCOUNT MANAGEMENT STYLES ----------------------------------------------*/
 
-/* -- MANAGE ROLE -- */
-.manageRoleSelectMenu
-{
+/* -- USER ACCOUNTS -- */
+.form-block .form-button-row .ui-button {
+	margin:0px 0px 0px 10px;
+	padding:6px 12px;
+	color:#ffffff;
+	background:#428bca;
+	border:1px solid #357ebd;
+	text-shadow:none;
+	box-shadow:none;
+	white-space:nowrap;
+}
+.form-block .form-button-row .ui-button:first-child {
+	margin-left:0px;
+}
+.form-block .form-button-row .ui-button.ui-state-hover {
+    background:#3276b1;
+	border:1px solid #285e8e;
+	box-shadow:none;
+}
+.form-block .form-button-row .ui-button-text-only .ui-button-text {
+	padding:5px 10px;
+}
+.form-block .form-button-row .ui-button-text-icon-left .ui-button-text {
+	padding: .3em .3em .3em 1.3em;
+}
+.form-block .form-button-row .ui-button.btn-default {
+	background-color: #ffffff !important;
+	color: #333333 !important;
+	border-color: #cccccc !important;
+}
+.form-block .form-button-row .ui-button.btn-default:hover {
+	background-color: #eeeeee !important;
+}
+.form-block .form-button-row .ui-button.btn-primary .ui-icon {
+	background-image:url("../resources/images/ui-icons_ffffff_256x240.png");
+}
+
+
+
+/* -- MANAGE USER ROLES -- */
+.manageRoleSelectMenu {
 	width: 220px;
 }
-.divManageRole
-{
-	float:right;margin-right:150px;max-width:150px;width:150px;margin-top:7px;
+.divManageRole {
+	/*
+	float:right;
+	width:150px;
+	max-width:150px;
+	margin-top:7px;
+	margin-right:150px;
+	*/
+	display:inline-block;
+	margin-left:10px;
+}
+.divManageRole select {
+	font-size:14px;
 }
 
 
@@ -671,7 +720,7 @@ body {
 .main-content .table-domains tbody > tr:hover > td, 
 .main-content .table-domains tbody > tr.ui-datatable-even:hover > td, 
 .main-content .table-domains tbody > tr.ui-datatable-odd:hover > td {
-	background:#eeeeee;
+	background:#dddddd;
 	color:#000000;
 }
 .main-content .table-domains th.ui-state-hover {
