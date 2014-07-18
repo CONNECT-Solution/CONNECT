@@ -69,7 +69,7 @@
                     <p:tab title="Anchors">
                         <h:form id="anchorsForm" enctype="multipart/form-data" class="form-horizontal">
                             <h4>Stored Anchors</h4>
-                            <p:dataTable id="anchorDataTable" var="anchor" value="#{directDomainBean.anchors}" selection="#{directDomainBean.selectedAnchor}" rowKey="#{anchor.owner}" styleClass="table table-striped table-domains">
+                            <p:dataTable id="anchorDataTable" var="anchor" value="#{directDomainBean.anchors}" selection="#{directDomainBean.selectedAnchor}" rowKey="#{anchor.id}" styleClass="table table-striped table-domains">
                                 <p:column headerText="Delete" selectionMode="single" />
                                 <p:column headerText="Trusted Domain / User">
                                     <h:outputText value="#{anchor.trustedDomainOrUser}" />
@@ -102,7 +102,7 @@
                             <div class="domain-form-block">
                                 <h4>Add Another Anchor</h4>
                                 <h:outputLabel for="pick-anchor-cert" class="col-sm-4 control-label label-pick-anchor" id="pick-anchor-certLbl" value="Choose Anchor Certificate:" />
-                                <p:fileUpload id="pick-anchor-cert" fileUploadListener="#{directDomainBean.anchorFileUpload}" />
+                                <p:fileUpload id="pick-anchor-cert" fileUploadListener="#{directDomainBean.anchorFileUpload}" allowTypes="/(\.|\/)(der|cer|crt|pem|p12|p7b|p7c|pfx)$/"/>
 
                                 <p:separator/>
 
