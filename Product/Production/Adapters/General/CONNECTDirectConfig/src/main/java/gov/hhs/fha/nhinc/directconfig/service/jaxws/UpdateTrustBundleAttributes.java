@@ -54,9 +54,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
 
-@XmlRootElement(name = "updateTrustBundleAttributes", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "updateTrustBundleAttributes", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "updateTrustBundleAttributes", namespace = "http://nhind.org/config/common", propOrder = {
+@XmlType(name = "updateTrustBundleAttributes", namespace = "http://nhind.org/config", propOrder = {
     "trustBundleId",
     "trustBundleName",
     "trustBundleURL",

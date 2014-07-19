@@ -54,12 +54,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.Domain;
 
-@XmlRootElement(name = "updateDomain", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "updateDomain", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "updateDomain", namespace = "http://nhind.org/config/common")
+@XmlType(name = "updateDomain", namespace = "http://nhind.org/config")
 public class UpdateDomain {
 
-    @XmlElement(name = "domain", namespace = "http://nhind.org/config/common")
+    @XmlElement(name = "domain", namespace = "http://nhind.org/config")
     private Domain domain;
 
     /**

@@ -54,9 +54,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import org.nhindirect.policy.PolicyLexicon;
 
-@XmlRootElement(name = "updatePolicyAttributes", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "updatePolicyAttributes", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "updatePolicyAttributes", namespace = "http://nhind.org/config/common", propOrder = {
+@XmlType(name = "updatePolicyAttributes", namespace = "http://nhind.org/config", propOrder = {
     "policyId",
     "policyName",
     "policyLexicon",

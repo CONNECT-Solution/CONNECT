@@ -52,7 +52,7 @@ import javax.jws.WebService;
 /**
  * Main configuration service interface.
  */
-@WebService(name = "ConfigurationService", targetNamespace = "http://nhind.org/config/common")
+@WebService(name = "ConfigurationService", targetNamespace = "http://nhind.org/config")
 public interface ConfigurationService extends AddressService, 
                                               DomainService,
                                               CertificateService,  

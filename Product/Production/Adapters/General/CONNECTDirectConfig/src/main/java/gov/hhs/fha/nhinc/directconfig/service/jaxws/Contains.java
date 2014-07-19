@@ -54,9 +54,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
 
-@XmlRootElement(name = "contains", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "contains", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "contains", namespace = "http://nhind.org/config/common")
+@XmlType(name = "contains", namespace = "http://nhind.org/config")
 public class Contains {
 
     @XmlElement(name = "cert", namespace = "")

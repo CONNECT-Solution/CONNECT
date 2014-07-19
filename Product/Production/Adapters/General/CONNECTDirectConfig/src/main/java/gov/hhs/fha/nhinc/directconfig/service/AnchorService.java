@@ -87,10 +87,10 @@ public interface AnchorService {
      * @throws ConfigurationServiceException
      */
     @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
-    @WebResult(name = "addAnchorResponse", targetNamespace = "http://nhind.org/config/common", partName = "parameters")
+    @WebResult(name = "addAnchorResponse", targetNamespace = "http://nhind.org/config", partName = "parameters")
     @WebMethod(operationName = "addAnchor", action = "urn:AddAnchor")
     AddAnchorsResponse addAnchors(
-            @WebParam(partName = "parameters", name = "addAnchor", targetNamespace = "http://nhind.org/config/common") AddAnchors addAnchors)
+            @WebParam(partName = "parameters", name = "addAnchor", targetNamespace = "http://nhind.org/config") AddAnchors addAnchors)
             throws ConfigurationServiceException;
 
     /**
@@ -103,10 +103,10 @@ public interface AnchorService {
      * @throws ConfigurationServiceException
      */
     @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
-    @WebResult(name = "getAnchorResponse", targetNamespace = "http://nhind.org/config/common", partName = "parameters")
+    @WebResult(name = "getAnchorResponse", targetNamespace = "http://nhind.org/config", partName = "parameters")
     @WebMethod(operationName = "getAnchor", action = "urn:GetAnchor")
     GetAnchorResponse getAnchor(
-            @WebParam(partName = "parameters", name = "getAnchor", targetNamespace = "http://nhind.org/config/common") GetAnchor getAnchor)
+            @WebParam(partName = "parameters", name = "getAnchor", targetNamespace = "http://nhind.org/config") GetAnchor getAnchor)
             throws ConfigurationServiceException;
 
     /**
@@ -118,10 +118,10 @@ public interface AnchorService {
      * @throws ConfigurationServiceException
      */
     @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
-    @WebResult(name = "getAnchorsResponse", targetNamespace = "http://nhind.org/config/common", partName = "parameters")
+    @WebResult(name = "getAnchorsResponse", targetNamespace = "http://nhind.org/config", partName = "parameters")
     @WebMethod(operationName = "getAnchors", action = "urn:GetAnchors")
     GetAnchorsResponse getAnchors(
-            @WebParam(partName = "parameters", name = "getAnchors", targetNamespace = "http://nhind.org/config/common") GetAnchors getAnchors)
+            @WebParam(partName = "parameters", name = "getAnchors", targetNamespace = "http://nhind.org/config") GetAnchors getAnchors)
             throws ConfigurationServiceException;
 
     /**
@@ -133,10 +133,10 @@ public interface AnchorService {
      * @throws ConfigurationServiceException
      */
     @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
-    @WebResult(name = "getAnchorsForOwnerResponse", targetNamespace = "http://nhind.org/config/common", partName = "parameters")
+    @WebResult(name = "getAnchorsForOwnerResponse", targetNamespace = "http://nhind.org/config", partName = "parameters")
     @WebMethod(operationName = "getAnchorsForOwner", action = "urn:GetAnchorsForOwner")
     GetAnchorsForOwnerResponse getAnchorsForOwner(
-            @WebParam(partName = "parameters", name = "getAnchorsForOwner", targetNamespace = "http://nhind.org/config/common") GetAnchorsForOwner getAnchorsForOwner)
+            @WebParam(partName = "parameters", name = "getAnchorsForOwner", targetNamespace = "http://nhind.org/config") GetAnchorsForOwner getAnchorsForOwner)
             throws ConfigurationServiceException;
 
     /**
@@ -148,10 +148,10 @@ public interface AnchorService {
      * @throws ConfigurationServiceException
      */
     @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
-    @WebResult(name = "getIncomingAnchorsResponse", targetNamespace = "http://nhind.org/config/common", partName = "parameters")
+    @WebResult(name = "getIncomingAnchorsResponse", targetNamespace = "http://nhind.org/config", partName = "parameters")
     @WebMethod(operationName = "getIncomingAnchors", action = "urn:GetIncomingAnchors")
     GetIncomingAnchorsResponse getIncomingAnchors(
-            @WebParam(partName = "parameters", name = "getIncomingAnchors", targetNamespace = "http://nhind.org/config/common") GetIncomingAnchors getIncomingAnchors)
+            @WebParam(partName = "parameters", name = "getIncomingAnchors", targetNamespace = "http://nhind.org/config") GetIncomingAnchors getIncomingAnchors)
             throws ConfigurationServiceException;
 
     /**
@@ -163,10 +163,10 @@ public interface AnchorService {
      * @throws ConfigurationServiceException
      */
     @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
-    @WebResult(name = "getOutgoingAnchorsResponse", targetNamespace = "http://nhind.org/config/common", partName = "parameters")
+    @WebResult(name = "getOutgoingAnchorsResponse", targetNamespace = "http://nhind.org/config", partName = "parameters")
     @WebMethod(operationName = "getOutgoingAnchors", action = "urn:GetOutgoingAnchors")
     GetOutgoingAnchorsResponse getOutgoingAnchors(
-            @WebParam(partName = "parameters", name = "getOutgoingAnchors", targetNamespace = "http://nhind.org/config/common") GetOutgoingAnchors getOutgoingAnchors)
+            @WebParam(partName = "parameters", name = "getOutgoingAnchors", targetNamespace = "http://nhind.org/config") GetOutgoingAnchors getOutgoingAnchors)
             throws ConfigurationServiceException;
 
     /**
@@ -177,10 +177,10 @@ public interface AnchorService {
      * @throws ConfigurationServiceException
      */
     @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
-    @WebResult(name = "setAnchorStatusForOwnerResponse", targetNamespace = "http://nhind.org/config/common", partName = "parameters")
+    @WebResult(name = "setAnchorStatusForOwnerResponse", targetNamespace = "http://nhind.org/config", partName = "parameters")
     @WebMethod(operationName = "setAnchorStatusForOwner", action = "urn:SetAnchorStatusForOwner")
     SetAnchorStatusForOwnerResponse setAnchorStatusForOwner(
-            @WebParam(partName = "parameters", name = "setAnchorStatusForOwner", targetNamespace = "http://nhind.org/config/common") SetAnchorStatusForOwner setAnchorStatusForOwner)
+            @WebParam(partName = "parameters", name = "setAnchorStatusForOwner", targetNamespace = "http://nhind.org/config") SetAnchorStatusForOwner setAnchorStatusForOwner)
             throws ConfigurationServiceException;
 
     /**
@@ -193,10 +193,10 @@ public interface AnchorService {
      * @throws ConfigurationServiceException
      */
     @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
-    @WebResult(name = "listAnchorsResponse", targetNamespace = "http://nhind.org/config/common", partName = "parameters")
+    @WebResult(name = "listAnchorsResponse", targetNamespace = "http://nhind.org/config", partName = "parameters")
     @WebMethod(operationName = "listAnchors", action = "urn:ListAnchors")
     ListAnchorsResponse listAnchors(
-            @WebParam(partName = "parameters", name = "setAnchorStatusForOwner", targetNamespace = "http://nhind.org/config/common") ListAnchors listAnchors)
+            @WebParam(partName = "parameters", name = "setAnchorStatusForOwner", targetNamespace = "http://nhind.org/config") ListAnchors listAnchors)
             throws ConfigurationServiceException;
 
     /**
@@ -206,10 +206,10 @@ public interface AnchorService {
      * @throws ConfigurationServiceException
      */
     @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
-    @WebResult(name = "removeAnchorsResponse", targetNamespace = "http://nhind.org/config/common", partName = "parameters")
+    @WebResult(name = "removeAnchorsResponse", targetNamespace = "http://nhind.org/config", partName = "parameters")
     @WebMethod(operationName = "removeAnchors", action = "urn:RemoveAnchors")
     RemoveAnchorsResponse removeAnchors(
-            @WebParam(partName = "parameters", name = "removeAnchors", targetNamespace = "http://nhind.org/config/common") RemoveAnchors removeAnchors)
+            @WebParam(partName = "parameters", name = "removeAnchors", targetNamespace = "http://nhind.org/config") RemoveAnchors removeAnchors)
             throws ConfigurationServiceException;
 
     /**
@@ -219,10 +219,10 @@ public interface AnchorService {
      * @throws ConfigurationServiceException
      */
     @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
-    @WebResult(name = "removeAnchorsForOwnerResponse", targetNamespace = "http://nhind.org/config/common", partName = "parameters")
+    @WebResult(name = "removeAnchorsForOwnerResponse", targetNamespace = "http://nhind.org/config", partName = "parameters")
     @WebMethod(operationName = "removeAnchorsForOwner", action = "urn:RemoveAnchorsForOwner")
     RemoveAnchorsForOwnerResponse removeAnchorsForOwner(
-            @WebParam(partName = "parameters", name = "removeAnchorsForOwner", targetNamespace = "http://nhind.org/config/common") RemoveAnchorsForOwner removeAnchorsForOwner)
+            @WebParam(partName = "parameters", name = "removeAnchorsForOwner", targetNamespace = "http://nhind.org/config") RemoveAnchorsForOwner removeAnchorsForOwner)
             throws ConfigurationServiceException;
 
 }

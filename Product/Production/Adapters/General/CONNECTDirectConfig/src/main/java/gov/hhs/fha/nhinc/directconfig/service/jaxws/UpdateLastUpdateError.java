@@ -57,9 +57,9 @@ import javax.xml.bind.annotation.XmlType;
 
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleRefreshError;
 
-@XmlRootElement(name = "updateLastUpdateError", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "updateLastUpdateError", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "updateLastUpdateError", namespace = "http://nhind.org/config/common", propOrder = {
+@XmlType(name = "updateLastUpdateError", namespace = "http://nhind.org/config", propOrder = {
     "trustBundleId",
     "attemptTime",
     "error"

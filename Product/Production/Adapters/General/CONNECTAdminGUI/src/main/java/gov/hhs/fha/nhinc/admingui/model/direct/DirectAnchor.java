@@ -22,8 +22,8 @@ package gov.hhs.fha.nhinc.admingui.model.direct;
 
 import java.text.SimpleDateFormat;
 
-import org.nhind.config.common.Anchor;
-import org.nhind.config.common.EntityStatus;
+import org.nhind.config.Anchor;
+import org.nhind.config.EntityStatus;
 
 /**
  *
