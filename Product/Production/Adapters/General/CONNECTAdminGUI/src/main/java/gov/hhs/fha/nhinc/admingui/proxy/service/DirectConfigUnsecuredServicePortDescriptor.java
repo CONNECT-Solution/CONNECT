@@ -21,7 +21,7 @@
 package gov.hhs.fha.nhinc.admingui.proxy.service;
 
 import gov.hhs.fha.nhinc.messaging.service.port.SOAP11ServicePortDescriptor;
-import org.nhind.config.common.ConfigurationService;
+import org.nhind.config.ConfigurationService;
 
 /**
  *

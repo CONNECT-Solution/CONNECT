@@ -29,10 +29,11 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-
-import org.nhind.config.common.Certificate;
-import org.nhind.config.common.TrustBundle;
-
+import org.nhind.config.Certificate;
+import org.nhind.config.DeleteTrustBundles;
+import org.nhind.config.GetTrustBundles;
+import org.nhind.config.TrustBundle;
+import org.nhind.config.UpdateTrustBundleAttributes;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;

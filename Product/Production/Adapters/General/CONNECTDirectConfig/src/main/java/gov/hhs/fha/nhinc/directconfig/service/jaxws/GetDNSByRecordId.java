@@ -53,9 +53,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "getDNSByRecordId", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "getDNSByRecordId", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getDNSByRecordId", namespace = "http://nhind.org/config/common")
+@XmlType(name = "getDNSByRecordId", namespace = "http://nhind.org/config")
 public class GetDNSByRecordId {
 
     @XmlElement(name = "recordId", namespace = "")

@@ -54,9 +54,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
 
-@XmlRootElement(name = "updateDNS", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "updateDNS", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "updateDNS", namespace = "http://nhind.org/config/common", propOrder = {
+@XmlType(name = "updateDNS", namespace = "http://nhind.org/config", propOrder = {
     "recordId",
     "record"
 })

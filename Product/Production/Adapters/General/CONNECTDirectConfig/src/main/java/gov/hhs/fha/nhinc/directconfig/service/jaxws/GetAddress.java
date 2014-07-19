@@ -57,9 +57,9 @@ import javax.xml.bind.annotation.XmlType;
 
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 
-@XmlRootElement(name = "getAddresss", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "getAddresss", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getAddresss", namespace = "http://nhind.org/config/common", propOrder = {
+@XmlType(name = "getAddresss", namespace = "http://nhind.org/config", propOrder = {
     "emailAddress",
     "status"
 })

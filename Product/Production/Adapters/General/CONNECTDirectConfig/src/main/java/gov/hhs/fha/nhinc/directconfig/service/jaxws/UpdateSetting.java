@@ -53,9 +53,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "updateSetting", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "updateSetting", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "updateSetting", namespace = "http://nhind.org/config/common", propOrder = {
+@XmlType(name = "updateSetting", namespace = "http://nhind.org/config", propOrder = {
     "name",
     "value"
 })

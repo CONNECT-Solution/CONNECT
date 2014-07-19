@@ -61,7 +61,7 @@ public class GetAnchorsForOwner {
     @XmlElement(namespace = "")
     private String owner;
 
-    @XmlElement(namespace = "http://nhind.org/config/common")
+    @XmlElement(namespace = "http://nhind.org/config")
     private CertificateGetOptions options;
 
     /**

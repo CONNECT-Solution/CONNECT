@@ -57,7 +57,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.Domain;
 @XmlType(name = "addDomain", propOrder= {"domain"})
 public class AddDomain {
 
-    @XmlElement(namespace = "http://nhind.org/config/common")
+    @XmlElement(namespace = "http://nhind.org/config")
     private Domain domain;
     
     /**

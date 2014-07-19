@@ -55,9 +55,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import gov.hhs.fha.nhinc.directconfig.entity.Domain;
 
-@XmlRootElement(name = "getDomainsResponse", namespace = "http://nhind.org/config/common")
+@XmlRootElement(name = "getDomainsResponse", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getDomainsResponse", namespace = "http://nhind.org/config/common")
+@XmlType(name = "getDomainsResponse", namespace = "http://nhind.org/config")
 public class GetDomainsResponse {
 
     @XmlElement(name = "return", namespace = "")
