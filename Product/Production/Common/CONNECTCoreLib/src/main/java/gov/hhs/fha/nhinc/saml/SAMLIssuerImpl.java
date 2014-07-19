@@ -56,8 +56,12 @@ public class SAMLIssuerImpl implements SAMLIssuer {
 
     static {
         try {
-            DEFAULT_DELEGATE = new org.apache.ws.security.saml.SAMLIssuerImpl(SAMLConfigFactory.getInstance()
-                    .getConfiguration());
+            Properties samlProps = SAMLConfigFactory.getInstance().getConfiguration();
+            String samlPW = samlProps.getProperty("org.apache.ws.security.saml.issuer.key.password");
+            
+            DEFAULT_DELEGATE = new org.apache.ws.security.saml.SAMLIssuerImpl(samlProps);
+            // manually update the key password with the decoded version from samlProps
+            DEFAULT_DELEGATE.setIssuerKeyPassword(samlPW);
         } catch (WSSecurityException e) {
             LOG.fatal("Could not initialize SAMLIssuerImpl: " + e.getMessage(), e);
         }

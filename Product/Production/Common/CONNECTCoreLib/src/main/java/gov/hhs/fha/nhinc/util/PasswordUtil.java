@@ -24,61 +24,28 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.saml;
-
-import gov.hhs.fha.nhinc.properties.PropertyAccessorFileUtilities;
-import gov.hhs.fha.nhinc.util.PasswordUtil;
-
-import java.util.Properties;
+package gov.hhs.fha.nhinc.util;
 
 /**
- * @author akong
+ * @author cmay
  *
  */
-public class SAMLConfigFactory {
-
-    private static final String SAML_PROPERTIES_FILENAME = "saml";
-
-    private static SAMLConfigFactory INSTANCE = null;
-    private Properties configuration = null;
-
-    SAMLConfigFactory() {
-        this(new PropertyAccessorFileUtilities());
-    }
-
-    SAMLConfigFactory(PropertyAccessorFileUtilities propFileUtilities) {
-        configuration = propFileUtilities.loadPropertyFile(SAML_PROPERTIES_FILENAME);
-
-        // If the key password is in the configuration, replace it with the decoded version
-        if (configuration != null && configuration.containsKey("org.apache.ws.security.saml.issuer.key.password")) {
-            configuration.setProperty("org.apache.ws.security.saml.issuer.key.password",
-                    PasswordUtil.decode(configuration.getProperty("org.apache.ws.security.saml.issuer.key.password")));
-        }
-    }
+public class PasswordUtil {
 
     /**
-     * Returns a singleton instance of this factory.
+     * Decodes a password.
      *
-     * @return a singleton instance of this factory.
+     * @param password a String to be decoded.
+     * @return A String with the decoded password.
      */
-    public static SAMLConfigFactory getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new SAMLConfigFactory();
+    public static String decode (String password) {
+        String decoded = null;
+        
+        if (password != null) {
+            // Insert decoding algorithm here
+            decoded = password;
         }
-
-        return INSTANCE;
-    }
-
-    /**
-     * Returns a cloned copy of the Properties read from saml.properties.
-     *
-     * @return a cloned copy of the Properties read from saml.properties.
-     */
-    public Properties getConfiguration() {
-        if (configuration == null) {
-            return null;
-        } else {
-            return (Properties) configuration.clone();
-        }
+        
+        return decoded;
     }
 }
