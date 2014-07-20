@@ -22,8 +22,8 @@ package gov.hhs.fha.nhinc.admingui.model.direct;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
-import org.nhind.config.common.TrustBundle;
-import org.nhind.config.common.TrustBundleAnchor;
+import org.nhind.config.TrustBundle;
+import org.nhind.config.TrustBundleAnchor;
 
 /**
  *
