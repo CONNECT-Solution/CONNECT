@@ -229,7 +229,7 @@ body {
 	border-radius:0;
 }
 .nav-utility .ui-menu > .ui-menu-list > .ui-menuitem img {
-	margin:3px 5px;
+	margin:5px; /* 5px (top) + 5px (bottom) + 40px (img height) = 50px TOTAL */
 }
 .nav-utility .ui-menu > .ui-menu-list > .ui-menuitem > .ui-menuitem-link {
 	/* width: auto; */
@@ -244,10 +244,10 @@ body {
 	/* float: right; */
 	display:inline-block;
 }
-.nav-utility .ui-menuitem-borderright {
+.nav-utility  .ui-menu .ui-menuitem-link.ui-menuitem-borderright {
 	border-right:1px solid #b9cde5;
 }
-.nav-utility .ui-menuitem-alignright {
+.nav-utility  .ui-menu .ui-menuitem-link.ui-menuitem-alignright {
 	position:absolute;
 	right:0px;
 	border-left:1px solid #b9cde5;
@@ -280,10 +280,13 @@ body {
 	border-radius:none;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
-.ui-tabs.tabs-override .ui-tabs-nav {
-	padding-left:40px;
+.ui-tabs.tabs-override > .ui-tabs-nav {
+	padding-left:0px;
 	padding-right:40px;
 	background:#ffffff;
+}
+.ui-tabs.tabs-override .ui-tabs-nav li:first-child {
+	margin-left:40px;
 }
 .ui-tabs.tabs-override .ui-tabs-nav li, .ui-tabs.tabs-override .ui-tabs-nav li.ui-tabs-selected {
 	background:none;
@@ -347,19 +350,19 @@ body {
 	border-width: 0;
 	background: none;
 	*/
-	padding:40px; /* 1em 1.4em */
+	padding:40px !important; /* 1em 1.4em */
 }
 
 .ui-panelgrid-admin {
     width:100%;
 	margin-bottom:20px;
-	border-bottom:1px solid #b9cde5;
+	border-bottom:1px solid #b9cde5 !important;
 }
 .ui-panelgrid-admin td, .ui-panelgrid-admin tr {
-    border: none;
+    border:none !important;
     background-color: inherit;
 }
-.ui-panelgrid-admin td {
+.ui-panelgrid-admin.ui-panelgrid td {
 	padding:0px 20px 20px 0px;
 	text-align:right;
 }
@@ -583,10 +586,10 @@ body {
 	border-bottom:none;
 }
 .ui-panelgrid-domain td, .ui-panelgrid-domain tr {
-    border: none;
+    border:none !important;
     background-color: inherit;
 }
-.ui-panelgrid-domain td {
+.ui-panelgrid-domain.ui-panelgrid td {
 	padding:10px 0px;
 	text-align:left;
 }
@@ -847,8 +850,8 @@ body {
 #domainEditTabview .ui-tabs-nav li.ui-state-hover a {
 	color:#404040;
 }
-#domainEditTabview.ui-tabs .ui-tabs-panel {
-	padding:30px 0px 0px;
+#domainEditTabview.ui-tabs > .ui-tabs-panels > .ui-tabs-panel {
+	padding:30px 0px 0px !important;
 }
 #domainEditTabview .ui-datatable td.ui-selection-column {
 	width:1px;

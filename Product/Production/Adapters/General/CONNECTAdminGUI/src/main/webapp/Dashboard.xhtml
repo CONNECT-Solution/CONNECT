@@ -20,11 +20,17 @@
 
             <p:outputPanel autoUpdate="true">
 
-                <p:panelGrid columns="2" styleClass="ui-panelgrid-admin">
-                    <p:selectCheckboxMenu value="#{dashboardBean.selectedClosedPanels}" label="Available Metrics" panelStyle="width:220px">
-                        <f:selectItems value="#{dashboardBean.closedPanels}"/>
-                    </p:selectCheckboxMenu>
-                    <p:commandButton value="Submit" id="dash-command" ajax="false" action="#{dashboardBean.addPanels}"/>
+                <p:panelGrid styleClass="ui-panelgrid-admin">
+                    <p:row>
+                        <p:column>
+                            <p:selectCheckboxMenu value="#{dashboardBean.selectedClosedPanels}" label="Available Metrics" styleClass="pull-right" panelStyle="width:220px">
+                                <f:selectItems value="#{dashboardBean.closedPanels}"/>
+                            </p:selectCheckboxMenu>
+                        </p:column>
+                        <p:column style="vertical-align:top;">
+                            <p:commandButton value="Submit" id="dash-command" ajax="false" action="#{dashboardBean.addPanels}"/>
+                        </p:column>
+                    </p:row>
                 </p:panelGrid>
 
                 <p:outputPanel id="dashboard_output_panel">

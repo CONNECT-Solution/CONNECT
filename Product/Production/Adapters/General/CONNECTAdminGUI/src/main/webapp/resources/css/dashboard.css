@@ -57,6 +57,13 @@ a {
 	padding:40px;
 	background:#ffffff;
 }
+h2.form-signin-heading img {
+	margin-top:-4px;
+	margin-right:5px;
+	margin-left:-3px;
+	padding-right:5px;
+	border-right:1px solid gray;
+}
 
 /* -- SIDEBAR STYLES ---------------------------------------------------------*/
 .sidebar {
@@ -216,6 +223,7 @@ div[id^="modal-"] .form-block {
 	margin-bottom:20px;
 }
 .main-content {
+	height:100%;
 	color:#808080;
 }
 .main-content .tab-content {

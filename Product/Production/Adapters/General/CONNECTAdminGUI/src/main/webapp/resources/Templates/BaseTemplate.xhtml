@@ -7,6 +7,10 @@
     <h:head>
         <f:facet name="first">
 			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+            <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+            <meta http-equiv="Pragma" content="no-cache" />
+            <meta http-equiv="Expires" content="0" />
 		</f:facet>
 		<title><ui:insert name="title">Connect Administration</ui:insert></title>
         <ui:insert name="metatag"></ui:insert>
@@ -19,6 +23,12 @@
         <h:outputStylesheet library="css" name="bootstrap-theme.min.css" />
         <h:outputStylesheet library="css" name="dashboard.css" />
         <h:outputStylesheet library="css" name="perfect-scrollbar-0.4.10.css" />
+        
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
 		
         <h:outputScript library="js" name="jquery-1.10.2.min.js" />
         <h:outputScript library="js" name="jquery.tablesorter.min.js" />
