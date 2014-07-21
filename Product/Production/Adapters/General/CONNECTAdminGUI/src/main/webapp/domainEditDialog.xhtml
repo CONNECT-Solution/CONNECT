@@ -137,33 +137,55 @@
                     <p:tab title="Trust Bundles">
                         <h:form id="domain-tb-form" class="form-horizontal">
                             <h4>Assigned Trust Bundles</h4>
-                            <p:dataTable id="tb-domainDataTable" var="tb" value="#{directDomainBean.selectedTrustBundle}" selection="#{directDomainBean.selectedTrustBundle}" rowKey="#{tb.bundleName}" styleClass="table table-striped table-domains">
+                            <p:dataTable id="tb-domainDataTable" var="tb" value="#{directDomainBean.associatedTrustBundles}"
+                                         selection="#{directDomainBean.selectedTrustBundle}" rowKey="#{tb.bundleName}"
+                                         sortBy="bundleName" styleClass="table table-striped table-domains">
                                 <p:column headerText="Delete" selectionMode="single" />
-                                <p:column headerText="Name" sortBy="name">
+                                <p:column headerText="Name">
                                     <h:outputText value="#{tb.bundleName}" />
                                 </p:column>
-                                <p:column headerText="URL" sortBy="url">
+                                <p:column headerText="URL">
                                     <h:outputText value="#{tb.bundleURL}" />
                                 </p:column>
-                                <p:column headerText="CheckSum" sortBy="checksum">
+                                <p:column headerText="Checksum">
                                     <h:outputText value="#{tb.checkSum}" />
+                                </p:column>
+                                <p:column headerText="Incoming">
+                                    <h:outputText value="#{tb.incoming}" />
+                                </p:column>
+                                <p:column headerText="Outgoing">
+                                    <h:outputText value="#{tb.outgoing}" />
                                 </p:column>
                             </p:dataTable>
                             <p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
-                                <p:commandButton update="tb-domainDataTable" value="Delete" actionListener="#{directDomainBean.deleteTrustBundle()}" styleClass="delete-button" icon="ui-icon-closethick"/>
+                                <p:commandButton update="tb-domainDataTable,select-domain-tbs" value="Delete" actionListener="#{directDomainBean.disassociateTrustBundle()}" styleClass="delete-button" icon="ui-icon-closethick"/>
                             </p:panelGrid>
                             <div class="domain-form-block">
                                 <h4>Add Another Trust Bundle</h4>
                                 <div class="form-group">
                                     <h:outputLabel for="select-domain-tbs" class="col-sm-3 control-label" id="select-domain-tbsLbl" value="Add Trust Bundles:" />
                                     <div class="col-sm-9">
-                                        <p:selectCheckboxMenu id="select-domain-tbs" value="#{directDomainBean.trustBundleNames}" label="Available Trust Bundles" panelStyle="width:220px">
-                                            <f:selectItems value="#{directDomainBean.trustBundleNames}"/>
+                                        <p:selectCheckboxMenu id="select-domain-tbs" value="#{directDomainBean.namesOfBundlesToAdd}" label="Available Trust Bundles" panelStyle="width:220px">
+                                            <f:selectItems value="#{directDomainBean.unassociatedTrustBundleNames}"/>
                                         </p:selectCheckboxMenu>
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <h:outputLabel for="check-bundle-in" class="col-sm-3 control-label" id="check-bundle-inLbl" value="Incoming:" />
+                                    <div class="col-sm-9">
+                                        <h:selectBooleanCheckbox id="check-bundle-in" value="#{directDomainBean.bundleIncoming}" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="check-bundle-out" class="col-sm-3 control-label" id="check-bundle-outLbl" value="Outgoing:" />
+                                    <div class="col-sm-9">
+                                        <h:selectBooleanCheckbox id="check-bundle-out" value="#{directDomainBean.bundleOutgoing}" />
+                                    </div>
+                                </div>
+
                                 <div class="form-button-row">
-                                    <h:commandButton id="submit" class="btn btn-primary" value="AddTrustBundle" action="#{directDomainBean.addTrustBundles()}"/>
+                                    <p:commandButton update="tb-domainDataTable,select-domain-tbs" value="Add Trust Bundle" actionListener="#{directDomainBean.addTrustBundles()}" styleClass="btn btn-primary" />
                                 </div>
                             </div>
                         </h:form>

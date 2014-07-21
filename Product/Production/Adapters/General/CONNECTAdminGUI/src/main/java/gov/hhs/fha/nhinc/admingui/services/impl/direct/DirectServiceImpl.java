@@ -22,11 +22,8 @@ package gov.hhs.fha.nhinc.admingui.services.impl.direct;
 
 import gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
-
 import java.util.List;
-
 import org.apache.log4j.Logger;
-
 import org.nhind.config.AddAnchor;
 import org.nhind.config.AddCertificates;
 import org.nhind.config.AddDomain;
@@ -46,14 +43,14 @@ import org.nhind.config.RemoveAnchors;
 import org.nhind.config.RemoveCertificates;
 import org.nhind.config.Setting;
 import org.nhind.config.TrustBundle;
+import org.nhind.config.TrustBundleDomainReltn;
 import org.nhind.config.UpdateDomain;
 import org.nhind.config.UpdateTrustBundleAttributes;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * 
+ *
  * @author jasonasmith
  */
 @Service
@@ -150,6 +147,7 @@ public class DirectServiceImpl implements DirectService {
         }
     }
 
+    @Override
     public List<Certificate> listCertificate(ListCertificates listCert) {
         List<Certificate> certs = null;
         try {
@@ -161,10 +159,10 @@ public class DirectServiceImpl implements DirectService {
     }
 
     @Override
-    public List<TrustBundle> getTrustBundles(GetTrustBundles gtb) {
+    public List<TrustBundle> getTrustBundles(boolean fetchAnchors) {
         List<TrustBundle> listTB = null;
         try {
-            listTB = directProxy.getTrustBundles(gtb);
+            listTB = directProxy.getTrustBundles(fetchAnchors);
         } catch (Exception ex) {
             LOG.error("Unable to get List of Trust Bundles: ", ex);
         }
@@ -172,40 +170,39 @@ public class DirectServiceImpl implements DirectService {
     }
 
     @Override
-    public void updateTrustBundle(UpdateTrustBundleAttributes utba) {
+    public void updateTrustBundle(long trustBundleId, String trustBundleName, String trustBundleURL,
+        Certificate signingCert, int trustBundleRefreshInterval) {
         try {
-            directProxy.updateTrustBundleAttributes(utba);
+            directProxy.updateTrustBundleAttributes(trustBundleId, trustBundleName, trustBundleURL, signingCert,
+                trustBundleRefreshInterval);
         } catch (Exception ex) {
-            LOG.error("Unable to update trust bundle with Name: " + utba.getTrustBundleName(), ex);
+            LOG.error("Unable to update trust bundle with Name: " + trustBundleName, ex);
         }
     }
 
     @Override
     public void addTrustBundle(TrustBundle tb) {
         try {
-            AddTrustBundle atb = new AddTrustBundle();
-            atb.setBundle(tb);
-            directProxy.addTrustBundle(atb);
+            directProxy.addTrustBundle(tb);
         } catch (Exception ex) {
             LOG.error("Unable to add trust bundle with Name: " + tb.getBundleName(), ex);
         }
     }
 
     @Override
-    public void deleteTrustBundle(DeleteTrustBundles tb) {
+    public void deleteTrustBundles(List<Long> ids) {
         try {
-
-            directProxy.deleteTrustBundle(tb);
+            directProxy.deleteTrustBundles(ids);
         } catch (Exception ex) {
             LOG.error("Unable to delete trust bundle ", ex);
         }
     }
 
     @Override
-    public TrustBundle getTrustBundleByName(GetTrustBundleByName getTrustBundleByName) {
+    public TrustBundle getTrustBundleByName(String bundleName) {
         TrustBundle response = null;
         try {
-            response = directProxy.getTrustBundleByName(getTrustBundleByName);
+            response = directProxy.getTrustBundleByName(bundleName);
         } catch (Exception ex) {
             LOG.error("Unable to get Trust Bundle By Name: ", ex);
         }
@@ -213,14 +210,14 @@ public class DirectServiceImpl implements DirectService {
     }
 
     @Override
-    public TrustBundle getTrustBundlesByDomain(GetTrustBundlesByDomain getTrustBundlesByDomain) {
-        TrustBundle response = null;
+    public List<TrustBundleDomainReltn> getTrustBundlesByDomain(long domainId, boolean fetchAnchors) {
+        List<TrustBundleDomainReltn> bundles = null;
         try {
-            response = directProxy.getTrustBundlesByDomain(getTrustBundlesByDomain);
+            bundles = directProxy.getTrustBundlesByDomain(domainId, fetchAnchors);
         } catch (Exception ex) {
             LOG.error("Unable to get Trust Bundle By Doman: ", ex);
         }
-        return response;
+        return bundles;
     }
 
     @Override
@@ -233,20 +230,38 @@ public class DirectServiceImpl implements DirectService {
     }
 
     @Override
-    public void associateTrustBundleToDomain(AssociateTrustBundleToDomain associateTrustBundleToDomain) {
+    public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming, boolean outgoing) {
         try {
-            directProxy.associateTrustBundleToDomain(associateTrustBundleToDomain);
+            directProxy.associateTrustBundleToDomain(domainId, trustBundleId, incoming, outgoing);
         } catch (Exception ex) {
-            LOG.error("Unable to Associate Trust Bundle to Domain domain ID =" + associateTrustBundleToDomain.getDomainId() + " Trust Bundle ID = " + associateTrustBundleToDomain.getTrustBundleId(), ex);
+            LOG.error("Unable to associate Trust Bundle with ID " + trustBundleId + " to Domain with ID " + domainId, ex);
         }
     }
 
     @Override
-    public void disassociateTrustBundleFromDomains(DisassociateTrustBundleFromDomains disassociateTrustBundleFromDomains) {
+    public void disassociateTrustBundleFromDomain(long domainId, long trustBundleId) {
         try {
-            directProxy.disassociateTrustBundleFromDomains(disassociateTrustBundleFromDomains);
+            directProxy.disassociateTrustBundleFromDomain(domainId, trustBundleId);
         } catch (Exception ex) {
-            LOG.error("Unable to disassociate Trust Bundle from Domain trust bundle ID =" + disassociateTrustBundleFromDomains.getTrustBundleId(), ex);
+            LOG.error("Unable to disassociate Trust Bundle with ID " + trustBundleId + " to Domain with ID " + domainId, ex);
+        }
+    }
+
+    @Override
+    public void disassociateTrustBundlesFromDomain(long domainId) {
+        try {
+            directProxy.disassociateTrustBundlesFromDomain(domainId);
+        } catch (Exception ex) {
+            LOG.error("Unable to disassociate Trust Bundles from Domain with ID " + domainId, ex);
+        }
+    }
+
+    @Override
+    public void disassociateTrustBundleFromDomains(long trustBundleId) {
+        try {
+            directProxy.disassociateTrustBundleFromDomains(trustBundleId);
+        } catch (Exception ex) {
+            LOG.error("Unable to disassociate Trust Bundle with ID " + trustBundleId + " from Domains", ex);
         }
     }
 

@@ -21,9 +21,11 @@
 package gov.hhs.fha.nhinc.admingui.managed.direct;
 
 import gov.hhs.fha.nhinc.admingui.managed.TabBean;
-import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
+
+import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -58,17 +60,17 @@ public class DirectTrustBundleBean {
     private TrustBundle selectedTb;
 
     public List<TrustBundle> getTrustBundles() {
-        GetTrustBundles gtb = new GetTrustBundles();
-        gtb.setFetchAnchors(true);
-        return directService.getTrustBundles(gtb);
+        return directService.getTrustBundles(true);
     }
 
     public void deleteTrustBundle() {
-        DeleteTrustBundles dtb = new DeleteTrustBundles();
-        dtb.getTrustBundleIds().add(selectedTb.getId());
-        directService.deleteTrustBundle(dtb);
-        TabBean tabs = (TabBean) FacesContext.getCurrentInstance().
-            getExternalContext().getSessionMap().get("tabBean");
+        List<Long> ids = new ArrayList<Long>();
+        ids.add(selectedTb.getId());
+
+        directService.disassociateTrustBundleFromDomains(selectedTb.getId());
+        directService.deleteTrustBundles(ids);
+
+        TabBean tabs = (TabBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("tabBean");
 
         if (tabs != null) {
             tabs.setDirectTabIndex(3);
@@ -76,29 +78,29 @@ public class DirectTrustBundleBean {
     }
 
     public void addTrustBundle() {
+        int refreshValue = 0;
+
+        if (tbRefreshInterval != null && tbRefreshInterval.length() > 0) {
+            refreshValue = Integer.parseInt(tbRefreshInterval);
+        }
+
         TrustBundle tb = new TrustBundle();
         tb.setBundleName(tbName);
         tb.setBundleURL(tbUrl);
-        int refreshIntervalue = 0;
-        if (null != tbRefreshInterval && tbRefreshInterval.length() > 0) {
-            refreshIntervalue = Integer.parseInt(tbRefreshInterval);
-        }
-        tb.setRefreshInterval(refreshIntervalue);
+        tb.setRefreshInterval(refreshValue);
         directService.addTrustBundle(tb);
     }
 
     public void editTrustBundle() {
-        UpdateTrustBundleAttributes utba = new UpdateTrustBundleAttributes();
-        utba.setTrustBundleId(selectedTb.getId());
-        utba.setTrustBundleName(selectedTb.getBundleName());
-        utba.setTrustBundleRefreshInterval(selectedTb.getRefreshInterval());
-        if (null != selectedTb.getSigningCertificateData() && selectedTb.getSigningCertificateData().length > 0) {
-            Certificate crt = new Certificate();
-            crt.setData(selectedTb.getSigningCertificateData());
-            utba.setSigningCert(crt);
+        Certificate cert = null;
+
+        if (selectedTb.getSigningCertificateData() != null) {
+            cert = new Certificate();
+            cert.setData(selectedTb.getSigningCertificateData());
         }
-        utba.setTrustBundleURL(selectedTb.getBundleURL());
-        directService.updateTrustBundle(utba);
+
+        directService.updateTrustBundle(selectedTb.getId(), selectedTb.getBundleName(), selectedTb.getBundleURL(),
+            cert, selectedTb.getRefreshInterval());
     }
 
     public void showEdit() {
@@ -152,5 +154,4 @@ public class DirectTrustBundleBean {
     public void setSelectedTb(TrustBundle selectedTb) {
         this.selectedTb = selectedTb;
     }
-
 }

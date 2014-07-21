@@ -25,13 +25,11 @@ import gov.hhs.fha.nhinc.admingui.model.direct.DirectAddress;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectAnchor;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
 import org.nhind.config.AddAnchor;
 import org.nhind.config.AddDomain;
 import org.nhind.config.Anchor;
@@ -44,6 +42,7 @@ import org.nhind.config.GetAnchorsForOwner;
 import org.nhind.config.GetTrustBundles;
 import org.nhind.config.RemoveAnchors;
 import org.nhind.config.TrustBundle;
+import org.nhind.config.TrustBundleDomainReltn;
 import org.nhind.config.UpdateDomain;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
@@ -63,46 +62,47 @@ public class DirectDomainBean {
     @Autowired
     private DirectService directService;
 
-    private String domainName;
-    private String domainStatus;
-    private String domainPostmaster;
-    private String domainTrustBundle;
-
     private Domain selectedDomain;
     private DirectAddress selectedAddress;
     private DirectAnchor selectedAnchor;
     private DirectTrustBundle selectedTrustBundle;
 
-    private String addressEndpoint;
-    private String addressType;
+    private List<Domain> domains;
+    private List<DirectAnchor> anchors;
+    private List<DirectTrustBundle> associatedTrustBundles;
+    private List<String> unassociatedTrustBundleNames;
 
+    private List<String> namesOfBundlesToAdd;
     private UploadedFile anchorCert;
+
+    private String domainName;
+    private String domainStatus;
+    private String domainPostmaster;
+    private String domainTrustBundle;
+
     private boolean anchorIncoming = true;
     private boolean anchorOutgoing = true;
     private String anchorStatus;
 
-    private List<String> selectedTrustBundles;
+    private boolean bundleIncoming = true;
+    private boolean bundleOutgoing = true;
+
+    private String addressEndpoint;
+    private String addressType;
 
     public List<Domain> getDomains() {
-        return directService.getDomains();
-    }
-
-    public List<TrustBundle> getTrustBundles() {
-        GetTrustBundles gtb = new GetTrustBundles();
-        gtb.setFetchAnchors(true);
-        return directService.getTrustBundles(gtb);
-    }
-
-    public List<String> getTrustBundleNames() {
-        List<String> tbNames = new ArrayList<String>();
-        for (TrustBundle tb : getTrustBundles()) {
-            tbNames.add(tb.getBundleName());
+        if (domains == null) {
+            refreshDomains();
         }
-        return tbNames;
+
+        return domains;
     }
 
     public void deleteDomain() {
+        directService.disassociateTrustBundlesFromDomain(selectedDomain.getId());
         directService.deleteDomain(selectedDomain);
+        selectedDomain = null;
+        refreshDomains();
     }
 
     public void addDomain() {
@@ -114,10 +114,12 @@ public class DirectDomainBean {
         addDomain.setDomain(domain);
 
         directService.addDomain(addDomain);
+        refreshDomains();
     }
 
     public void showEdit() {
         if (selectedDomain != null) {
+            resetBean();
             RequestContext.getCurrentInstance().execute("domainEditDlg.show()");
         }
     }
@@ -126,6 +128,10 @@ public class DirectDomainBean {
         UpdateDomain updateDomain = new UpdateDomain();
         updateDomain.setDomain(selectedDomain);
         directService.updateDomain(updateDomain);
+    }
+
+    protected void refreshDomains() {
+        domains = directService.getDomains();
     }
 
     public void addAddress() {
@@ -154,74 +160,106 @@ public class DirectDomainBean {
             addAnchor.getAnchor().add(anchor);
 
             directService.addAnchor(addAnchor);
+            refreshAnchors();
         }
     }
 
     public List<DirectAnchor> getAnchors() {
-        GetAnchorsForOwner getAnchorsForOwner = new GetAnchorsForOwner();
-        getAnchorsForOwner.setOwner(getSelectedDomain().getDomainName());
-        getAnchorsForOwner.setOptions(new CertificateGetOptions());
-
-        List<DirectAnchor> anchorList = new ArrayList<DirectAnchor>();
-        List<Anchor> anchorsResponse = directService.getAnchorsForOwner(getAnchorsForOwner);
-
-        for (Anchor a : anchorsResponse) {
-            CertContainer cc = new CertContainer(a.getData());
-            anchorList.add(new DirectAnchor(a, cc.getTrustedEntityName()));
+        if (anchors == null) {
+            refreshAnchors();
         }
 
-        return anchorList;
+        return anchors;
     }
 
     public void deleteAnchor() {
         RemoveAnchors removeAnchors = new RemoveAnchors();
         removeAnchors.getAnchorId().add(getSelectedAnchor().getId());
 
-        selectedAnchor = null;
         directService.deleteAnchor(removeAnchors);
+        selectedAnchor = null;
+        refreshAnchors();
+    }
+
+    protected void refreshAnchors() {
+        GetAnchorsForOwner getAnchorsForOwner = new GetAnchorsForOwner();
+        getAnchorsForOwner.setOwner(getSelectedDomain().getDomainName());
+        getAnchorsForOwner.setOptions(new CertificateGetOptions());
+
+        anchors = new ArrayList<DirectAnchor>();
+        List<Anchor> anchorsResponse = directService.getAnchorsForOwner(getAnchorsForOwner);
+
+        for (Anchor a : anchorsResponse) {
+            CertContainer cc = new CertContainer(a.getData());
+            anchors.add(new DirectAnchor(a, cc.getTrustedEntityName()));
+        }
     }
 
     public void addTrustBundles() {
-        List<TrustBundle> selectTBs = new ArrayList<TrustBundle>();
-        for (String tbName : selectedTrustBundles) {
-            for (TrustBundle tb : getTrustBundles()) {
-                if (tb.getBundleName().equals(tbName)) {
-                    selectTBs.add(tb);
-                }
+        if (namesOfBundlesToAdd != null && namesOfBundlesToAdd.size() > 0) {
+            List<TrustBundle> bundlesToAdd = new ArrayList<TrustBundle>();
+
+            for (String bundleName : namesOfBundlesToAdd) {
+                TrustBundle tb = directService.getTrustBundleByName(bundleName);
+                unassociatedTrustBundleNames.remove(tb.getBundleName());
+                bundlesToAdd.add(tb);
             }
+
+            namesOfBundlesToAdd = new ArrayList<String>();
+
+            for (TrustBundle tb : bundlesToAdd) {
+                directService.associateTrustBundleToDomain(selectedDomain.getId(), tb.getId(), bundleIncoming, bundleOutgoing);
+                unassociatedTrustBundleNames.remove(tb.getBundleName());
+            }
+
+            refreshTrustBundles();
         }
-        
-        if (selectTBs.size() > 0) {
-            AssociateTrustBundleToDomain associateTrustBundleToDomain = null;
-            for (TrustBundle eachTrustBundle : selectTBs) {
-                associateTrustBundleToDomain = new AssociateTrustBundleToDomain();
-                associateTrustBundleToDomain.setDomainId(selectedDomain.getId());
-                associateTrustBundleToDomain.setTrustBundleId(eachTrustBundle.getId());
-                associateTrustBundleToDomain.setIncoming(true);
-                associateTrustBundleToDomain.setOutgoing(true);
-                directService.associateTrustBundleToDomain(associateTrustBundleToDomain);
-            }
-        }        
     }
 
-    public void deleteTrustBundle() {
-        List<TrustBundle> selectTBs = new ArrayList<TrustBundle>();
-        for (String tbName : selectedTrustBundles) {
-            for (TrustBundle tb : getTrustBundles()) {
-                if (tb.getBundleName().equals(tbName)) {
-                    selectTBs.add(tb);
-                }
+    public void disassociateTrustBundle() {
+        if (selectedTrustBundle != null) {
+            unassociatedTrustBundleNames.add(selectedTrustBundle.getBundleName());
+            directService.disassociateTrustBundleFromDomain(selectedDomain.getId(), selectedTrustBundle.getId());
+            selectedTrustBundle = null;
+            refreshTrustBundles();
+        }
+    }
+
+    public List<DirectTrustBundle> getAssociatedTrustBundles() {
+        if (associatedTrustBundles == null) {
+            refreshTrustBundles();
+        }
+
+        return associatedTrustBundles;
+    }
+
+    public List<String> getUnassociatedTrustBundleNames() {
+        if (unassociatedTrustBundleNames == null) {
+            unassociatedTrustBundleNames = new ArrayList<String>();
+
+            for (TrustBundle tb : directService.getTrustBundles(false)) {
+                unassociatedTrustBundleNames.add(tb.getBundleName());
+            }
+
+            for (DirectTrustBundle tb : getAssociatedTrustBundles()) {
+                unassociatedTrustBundleNames.remove(tb.getBundleName());
             }
         }
-        if (selectTBs.size() > 0) {
-            DisassociateTrustBundleFromDomains disassociateTrustBundleFromDomains = null;
-            for (TrustBundle eachTrustBundle : selectTBs) {
-                disassociateTrustBundleFromDomains = new DisassociateTrustBundleFromDomains();
-                disassociateTrustBundleFromDomains.setTrustBundleId(eachTrustBundle.getId());
-                directService.disassociateTrustBundleFromDomains(disassociateTrustBundleFromDomains);
+
+        Collections.sort(unassociatedTrustBundleNames);
+        return unassociatedTrustBundleNames;
+    }
+
+    protected void refreshTrustBundles() {
+        List<TrustBundleDomainReltn> bundleRelations = directService.getTrustBundlesByDomain(selectedDomain.getId(), false);
+        associatedTrustBundles = new ArrayList<DirectTrustBundle>();
+
+        if (bundleRelations != null) {
+            for (TrustBundleDomainReltn tbdr : bundleRelations) {
+                DirectTrustBundle dtb = new DirectTrustBundle(tbdr.getTrustBundle(), tbdr.isIncoming(), tbdr.isOutgoing());
+                associatedTrustBundles.add(dtb);
             }
         }
-        directService.disassociateTrustBundleFromDomains(null);
     }
 
     public String getDomainName() {
@@ -328,12 +366,70 @@ public class DirectDomainBean {
         this.selectedTrustBundle = selectedTrustBundle;
     }
 
-    public List<String> getSelectedTrustBundles() {
-        return selectedTrustBundles;
+    public List<String> getNamesOfBundlesToAdd() {
+        return namesOfBundlesToAdd;
     }
 
-    public void setSelectedTrustBundles(List<String> selectedTrustBundles) {
-        this.selectedTrustBundles = selectedTrustBundles;
+    public void setNamesOfBundlesToAdd(List<String> namesOfBundlesToAdd) {
+        this.namesOfBundlesToAdd = namesOfBundlesToAdd;
     }
 
+    public void setUnassociatedTrustBundleNames(List<String> unassociatedBundleNames) {
+        this.unassociatedTrustBundleNames = unassociatedBundleNames;
+    }
+
+    public boolean isBundleIncoming() {
+        return bundleIncoming;
+    }
+
+    public void setBundleIncoming(boolean bundleIncoming) {
+        this.bundleIncoming = bundleIncoming;
+    }
+
+    public boolean isBundleOutgoing() {
+        return bundleOutgoing;
+    }
+
+    public void setBundleOutgoing(boolean bundleOutgoing) {
+        this.bundleOutgoing = bundleOutgoing;
+    }
+
+    protected List<String> getTrustBundleNames(List<DirectTrustBundle> bundles) {
+        List<String> bundleNames = new ArrayList<String>();
+
+        for (DirectTrustBundle tb : bundles) {
+            bundleNames.add(tb.getBundleName());
+        }
+
+        return bundleNames;
+    }
+
+    protected void resetBean() {
+        selectedAddress = null;
+        selectedAnchor = null;
+        selectedTrustBundle = null;
+
+        domains = null;
+        anchors = null;
+        associatedTrustBundles = null;
+
+        namesOfBundlesToAdd = null;
+        unassociatedTrustBundleNames = null;
+        anchorCert = null;
+
+        domainName = null;
+        domainStatus = null;
+        domainPostmaster = null;
+        domainTrustBundle = null;
+
+        anchorIncoming = true;
+        anchorOutgoing = true;
+        anchorStatus = null;
+
+        bundleIncoming = true;
+        bundleOutgoing = true;
+
+        addressEndpoint = null;
+        addressType = null;
+    }
 }

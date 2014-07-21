@@ -35,7 +35,7 @@
                             <h:outputLabel for="select-tb" class="col-sm-3 control-label" id="select-tbLbl" value="Select Trust Bundle:" />
                             <div class="col-sm-9">
                                 <p:selectOneMenu id="select-tb" value="#{directDomainBean.domainTrustBundle}">
-                                    <f:selectItems var="tb" value="#{directDomainBean.trustBundles}" itemLabel="#{tb.tbName}" itemValue="#{tb.tbName}" />       
+                                    <f:selectItems var="tb" value="#{directDomainBean.associatedTrustBundles}" itemLabel="#{tb.tbName}" itemValue="#{tb.tbName}" />       
                                 </p:selectOneMenu>
                             </div>
                         </div> -->

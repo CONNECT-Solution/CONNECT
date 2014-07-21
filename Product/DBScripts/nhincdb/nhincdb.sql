@@ -577,7 +577,6 @@ VALUES
 ("directPrime.xhtml", "Direct Config Prime", 0, 2),
 ("directPrime.xhtml", "Direct Config Prime", 0, 3);
 
-
 INSERT INTO adminguidb.UserLogin
 (id, salt, sha1, userName, userRole)
 VALUES
