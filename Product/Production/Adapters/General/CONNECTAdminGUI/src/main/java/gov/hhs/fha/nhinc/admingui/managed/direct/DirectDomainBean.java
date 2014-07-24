@@ -159,6 +159,7 @@ public class DirectDomainBean {
         for (int i = 0; i < addresses.size(); i++) {
             if (addresses.get(i).getEmailAddress().equals(getEmailAddress())) {
                 addresses.remove(i);
+                break;
             }
         }
 
