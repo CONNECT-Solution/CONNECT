@@ -639,8 +639,11 @@ body {
     background-color: inherit;
 }
 .ui-panelgrid-domain.ui-panelgrid td {
-	padding:10px 0px;
+	padding:10px 0px 0px 10px;
 	text-align:left;
+}
+.ui-panelgrid-domain.ui-panelgrid td:first-child {
+	padding-left:0px;
 }
 .ui-panelgrid-domain td.ui-button-rightmost {
 	width:100%;
@@ -755,6 +758,9 @@ body {
 
 
 /* -- DOMAIN CONFIG MODAL STYLES -- CREATE DOMAIN / EDIT DOMAIN -- */
+#domainEditDlg {
+	top:50px !important;
+}
 #domainCreateDlg .ui-widget-header,
 #domainEditDlg .ui-widget-header {
 	/*
