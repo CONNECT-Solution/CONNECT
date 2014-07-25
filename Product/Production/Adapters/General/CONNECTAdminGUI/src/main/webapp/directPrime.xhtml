@@ -46,9 +46,6 @@
                         <h2 class="subsection-header">Domain List</h2>
                         <div class="table-responsive">
                             <h:form id="domain-form">
-                                <p:panelGrid columns="1" styleClass="ui-panelgrid-domain">
-                                    <p:commandButton value="Create New Domain" type="button" onclick="PF('domainDlg').show();" styleClass="add-button pull-right" icon="ui-icon-circle-plus" />
-                                </p:panelGrid>
                                 <p:dataTable id="domainDataTable" var="domain" value="#{directDomainBean.domains}" selection="#{directDomainBean.selectedDomain}" rowKey="#{domain.domainName}" styleClass="table table-striped table-domains">
                                     <p:column headerText="Delete" selectionMode="single" />
                                     <p:column headerText="Status" sortBy="status">
@@ -72,9 +69,12 @@
                                         <p:column>
                                             <p:commandButton value="Delete" actionListener="#{directDomainBean.deleteDomain()}" update="domainDataTable" styleClass="delete-button" icon="ui-icon-closethick" />
                                         </p:column>
-                                        <p:column styleClass="ui-button-rightmost">
+                                        <p:column>
                                             <p:commandButton value="Edit Domain" actionListener="#{directDomainBean.showEdit()}" styleClass="edit-button" icon="ui-icon-pencil" />
                                         </p:column>
+										<p:column styleClass="ui-button-rightmost">
+											<p:commandButton value="Create New Domain" type="button" onclick="PF('domainDlg').show();" styleClass="add-button pull-right" icon="ui-icon-circle-plus" />
+										</p:column>
                                     </p:row>
                                 </p:panelGrid>
                             </h:form>
@@ -86,9 +86,6 @@
                         <h2 class="subsection-header">Agent Settings</h2>
                         <div class="table-responsive">
                             <h:form id="agent-form">
-                                <p:panelGrid columns="1" styleClass="ui-panelgrid-domain">
-                                    <p:commandButton value="Add New Agent Setting" type="button" onclick="PF('agentDlg').show();" icon="ui-icon-circle-plus" styleClass="add-button pull-right" />
-                                </p:panelGrid>
                                 <p:dataTable id="agentDataTable" var="agent" value="#{directAgentBean.settings}" selection="#{directAgentBean.setting}" rowKey="#{agent.name}" styleClass="table table-striped table-domains">
                                     <p:column headerText="Delete" selectionMode="single" />
                                     <p:column headerText="Name" sortBy="name">
@@ -98,8 +95,15 @@
                                         <h:outputText value="#{agent.value}" />
                                     </p:column>
                                 </p:dataTable>
-                                <p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
-                                    <p:commandButton update="agentDataTable" value="Delete" actionListener="#{directAgentBean.deleteSetting()}" styleClass="delete-button" icon="ui-icon-closethick"/>
+                                <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
+                                    <p:row>
+                                        <p:column>
+                                            <p:commandButton update="agentDataTable" value="Delete" actionListener="#{directAgentBean.deleteSetting()}" styleClass="delete-button" icon="ui-icon-closethick"/>
+                                        </p:column>
+										<p:column styleClass="ui-button-rightmost">
+											<p:commandButton value="Add New Agent Setting" type="button" onclick="PF('agentDlg').show();" icon="ui-icon-circle-plus" styleClass="add-button pull-right" />
+										</p:column>
+                                    </p:row>
                                 </p:panelGrid>
                             </h:form>
                         </div>
@@ -109,10 +113,7 @@
                     <div class="content-block">
                         <h2 class="subsection-header">Certificates</h2>
                         <div class="table-responsive">
-                            <h:form id="cert-form">                                    
-                                <p:panelGrid columns="1" styleClass="ui-panelgrid-domain">
-                                    <p:commandButton value="Add New Certificate" type="button" onclick="PF('certDlg').show();" icon="ui-icon-circle-plus" styleClass="add-button pull-right" />
-                                </p:panelGrid>
+                            <h:form id="cert-form">
                                 <p:dataTable id="certDataTable" var="cert" value="#{directCertBean.certificates}" selection="#{directCertBean.selectedCert}" rowKey="#{cert.owner}" styleClass="table table-striped table-domains">
                                     <p:column headerText="Delete" selectionMode="single" />
                                     <p:column headerText="Status" sortBy="status">
@@ -137,8 +138,15 @@
                                         <h:outputText value="#{cert.validEndDate}" styleClass="nowrap" />
                                     </p:column>
                                 </p:dataTable>
-                                <p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
-                                    <p:commandButton update="certDataTable" value="Delete" action="#{directCertBean.deleteCertificate()}" styleClass="delete-button" icon="ui-icon-closethick"/>
+                                <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
+                                    <p:row>
+                                        <p:column>
+                                            <p:commandButton update="certDataTable" value="Delete" action="#{directCertBean.deleteCertificate()}" styleClass="delete-button" icon="ui-icon-closethick"/>
+                                        </p:column>
+										<p:column styleClass="ui-button-rightmost">
+											<p:commandButton value="Add New Certificate" type="button" onclick="PF('certDlg').show();" icon="ui-icon-circle-plus" styleClass="add-button pull-right" />
+										</p:column>
+                                    </p:row>
                                 </p:panelGrid>                                    
                             </h:form>
                         </div>
@@ -149,9 +157,6 @@
                         <h2 class="subsection-header">Trust Bundles</h2>
                         <div class="table-responsive">
                             <h:form id="tb-form">
-                                <p:panelGrid columns="1" styleClass="ui-panelgrid-domain">
-                                    <p:commandButton value="Add New Trust Bundle" type="button" onclick="PF('tbDlg').show();" icon="ui-icon-circle-plus" styleClass="add-button pull-right" />
-                                </p:panelGrid>
                                 <p:dataTable id="tbDataTable" var="tb" value="#{directTrustBundleBean.trustBundles}" selection="#{directTrustBundleBean.selectedTb}" rowKey="#{tb.bundleName}" styleClass="table table-striped table-domains">
                                     <p:column headerText="Delete" selectionMode="single" />
                                     <p:column headerText="Bundle Name" sortBy="bundle_name">
@@ -181,8 +186,11 @@
                                         <p:column>
                                             <p:commandButton value="Delete" update="tbDataTable" action="#{directTrustBundleBean.showDelConfirm()}" icon="ui-icon-closethick" styleClass="delete-button" />
                                         </p:column>
-                                        <p:column styleClass="ui-button-rightmost">
+                                        <p:column>
                                             <p:commandButton value="Edit Trust Bundle" actionListener="#{directTrustBundleBean.showEdit()}" icon="ui-icon-pencil" styleClass="edit-button" />
+                                        </p:column>
+                                        <p:column styleClass="ui-button-rightmost">
+                                            <p:commandButton value="Add New Trust Bundle" type="button" onclick="PF('tbDlg').show();" icon="ui-icon-circle-plus" styleClass="add-button pull-right" />
                                         </p:column>
                                     </p:row>
                                 </p:panelGrid>
