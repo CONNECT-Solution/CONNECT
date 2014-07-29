@@ -9,19 +9,19 @@
     </parent>
     <artifactId>x12-dependencies</artifactId>
     <packaging>pom</packaging>
-    <name>X12 - Dependencies</name>
-    <description>X12  - Dependencies</description>
+    <name>Core X12 - Dependencies</name>
+    <description>Core X12 - Dependencies</description>
     <dependencies>
         <dependency>
             <groupId>org.connectopensource</groupId>
-            <artifactId>X12_10</artifactId>
+            <artifactId>CORE_X12DocumentSubmission_10</artifactId>
             <version>${project.parent.version}</version>
             <type>war</type>
             <optional>false</optional>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
-            <artifactId>X12_a0</artifactId>
+            <artifactId>CORE_X12DocumentSubmission_a0</artifactId>
             <version>${project.parent.version}</version>
             <type>war</type>
             <optional>false</optional>
@@ -29,14 +29,14 @@
 
         <dependency>
             <groupId>org.connectopensource</groupId>
-            <artifactId>X12_10</artifactId>
+            <artifactId>CORE_X12DocumentSubmission_10</artifactId>
             <version>${project.parent.version}</version>
             <type>pom</type>
             <optional>false</optional>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
-            <artifactId>X12_a0</artifactId>
+            <artifactId>CORE_X12DocumentSubmission_a0</artifactId>
             <version>${project.parent.version}</version>
             <type>pom</type>
             <optional>false</optional>
