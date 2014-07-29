@@ -21,6 +21,7 @@
         <pd.excluded>true</pd.excluded>
         <direct.excluded>true</direct.excluded>
         <admingui.excluded>true</admingui.excluded>
+        <x12.excluded>true</x12.excluded>
     </properties>
     <dependencies>
         <dependency>
@@ -61,6 +62,13 @@
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>dr-dependencies</artifactId>
+            <version>${project.parent.version}</version>
+            <type>pom</type>
+        </dependency>
+        <!-- X12 -->
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>x12-dependencies</artifactId>
             <version>${project.parent.version}</version>
             <type>pom</type>
         </dependency>
@@ -339,6 +347,59 @@
             <properties>
                 <admingui.excluded>false</admingui.excluded>
             </properties>
+        </profile>
+        <profile>
+            <id>X12</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <x12.excluded>false</x12.excluded>
+            </properties>
+
+            <!-- X12 -->
+            <dependencies>
+                <dependency>
+                    <groupId>org.connectopensource</groupId>
+                    <artifactId>x12-dependencies</artifactId>
+                    <version>${project.parent.version}</version>
+                    <type>pom</type>
+                </dependency>
+            </dependencies>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-ear-plugin</artifactId>
+                        <configuration>
+                            <modules combine.children="append">
+                                <webModule>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>X12_10</artifactId>
+                                    <contextRoot>/Gateway/X12/1_0</contextRoot>
+                                    <excluded>${x12.excluded}</excluded>
+                                </webModule>
+                                <webModule>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>X12_a0</artifactId>
+                                    <contextRoot>/Adapter/X12/A_0</contextRoot>
+                                    <excluded>${x12.excluded}</excluded>
+                                </webModule>
+                            </modules>
+                            <version>5</version>
+                            <defaultLibBundleDir>lib</defaultLibBundleDir>
+                            <skinnyWars>true</skinnyWars>
+                            <packagingExcludes>
+                                lib/Properties-*.jar
+                            </packagingExcludes>
+
+                            <!-- this causes all archives to be exploded on server SLOW!!! <includeLibInApplicationXml>true</includeLibInApplicationXml> -->
+                        </configuration>
+                    </plugin>
+                </plugins>
+                <finalName>${project.artifactId}</finalName>
+            </build>
         </profile>
     </profiles>
 </project>
