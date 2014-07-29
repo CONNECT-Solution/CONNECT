@@ -19,7 +19,6 @@
         <module>gui-dependencies</module>
         <module>pd-dependencies</module>
         <module>admingui-dependencies</module>
-        <module>x12-dependencies</module>
         <module>ear</module>
         <module>ear/glassfish</module>
     </modules>
@@ -76,6 +75,15 @@
             <id>Direct</id>
             <modules>
                 <module>direct-dependencies</module>
+            </modules>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>X12</id>
+            <modules>
+                <module>x12-dependencies</module>
             </modules>
             <activation>
                 <activeByDefault>false</activeByDefault>
