@@ -77,6 +77,13 @@
             <version>${project.parent.version}</version>
             <type>pom</type>
         </dependency>
+		<!-- Core X12 -->
+		<dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>x12-dependencies</artifactId>
+            <version>${project.parent.version}</version>
+            <type>pom</type>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -207,6 +214,12 @@
                             <artifactId>CONNECTAdminGUI</artifactId>
                             <contextRoot>/CONNECTAdminGUI</contextRoot>
                             <excluded>${admingui.excluded}</excluded>
+                        </webModule>
+						<webModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>X12DocumentSubmission_10</artifactId>
+                            <contextRoot>/Gateway/X12DocumentSubmission/1_0</contextRoot>
+                            <excluded>${ds.excluded}</excluded>
                         </webModule>
                     </modules>
                     <version>5</version>
