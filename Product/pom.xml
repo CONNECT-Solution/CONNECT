@@ -354,6 +354,11 @@
             </dependency>
             <dependency>
                 <groupId>org.connectopensource</groupId>
+                <artifactId>CORERule2_2_0Webervices</artifactId>
+                <version>4.0.9-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.connectopensource</groupId>
                 <artifactId>DirectWebservices</artifactId>
                 <version>4.0.9-SNAPSHOT</version>
             </dependency>

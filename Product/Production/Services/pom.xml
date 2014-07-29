@@ -19,6 +19,7 @@
         <module>RedactionEngineCore</module>
         <module>PatientDiscoveryCore</module>
         <module>DocumentSubmissionCore</module>
+        <module>X12_DocumentSubmissionCore</module>
         <module>DocumentRetrieveCore</module>
         <module>DocumentQueryCore</module>
         <module>AdminDistributionCore</module>
