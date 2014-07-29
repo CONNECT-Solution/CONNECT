@@ -19,6 +19,7 @@
         <module>gui-dependencies</module>
         <module>pd-dependencies</module>
         <module>admingui-dependencies</module>
+        <module>x12-dependencies</module>
         <module>ear</module>
         <module>ear/glassfish</module>
     </modules>
