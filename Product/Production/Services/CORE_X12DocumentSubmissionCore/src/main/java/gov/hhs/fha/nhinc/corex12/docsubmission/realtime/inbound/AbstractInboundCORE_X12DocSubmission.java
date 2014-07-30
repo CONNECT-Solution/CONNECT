@@ -47,11 +47,7 @@ public abstract class AbstractInboundCORE_X12DocSubmission implements InboundCOR
     public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest body,
         AssertionType assertion) {
 
-        auditRequestFromNhin(body, assertion);
-        COREEnvelopeRealTimeResponse response = processCORE_X12DocSubmission(body, assertion);
-        auditResponseToNhin(response, assertion);
-
-        return response;
+        return processCORE_X12DocSubmission(body, assertion);
     }
 
     protected COREEnvelopeRealTimeResponse sendToAdapter(COREEnvelopeRealTimeRequest request,
@@ -59,17 +55,5 @@ public abstract class AbstractInboundCORE_X12DocSubmission implements InboundCOR
 
         AdapterCORE_X12DocSubmissionProxy proxy = adapterFactory.getAdapterCORE_X12DocSubmissionProxy();
         return proxy.realTimeRequest(request, assertion);
-    }
-
-    protected void auditRequestFromNhin(COREEnvelopeRealTimeRequest request, AssertionType assertion) {
-    }
-
-    protected void auditResponseToNhin(COREEnvelopeRealTimeResponse response, AssertionType assertion) {
-    }
-
-    protected void auditRequestToAdapter(COREEnvelopeRealTimeRequest request, AssertionType assertion) {
-    }
-
-    protected void auditResponseFromAdapter(COREEnvelopeRealTimeResponse response, AssertionType assertion) {
     }
 }
