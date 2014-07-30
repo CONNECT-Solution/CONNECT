@@ -24,36 +24,25 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.inbound;
+package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.nhin.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.AdapterCORE_X12DocSubmissionProxy;
-import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.AdapterCORE_X12DocSubmissionProxyObjectFactory;
-import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
-import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
  * @author cmay
  *
  */
-public abstract class AbstractInboundCORE_X12DocSubmission implements InboundCORE_X12DocSubmission {
+public class NhinCORE_X12DSRealTimeProxyObjectFactory extends ComponentProxyObjectFactory {
 
-    private AdapterCORE_X12DocSubmissionProxyObjectFactory adapterFactory;
-
-    abstract COREEnvelopeRealTimeResponse processCORE_X12DocSubmission(COREEnvelopeRealTimeRequest body,
-        AssertionType assertion);
+    private static final String CONFIG_FILE_NAME = "CORE_X12DocumentSubmissionProxyConfig.xml";
+    private static final String BEAN_NAME = "nhin_core_x12ds";
 
     @Override
-    public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest body,
-        AssertionType assertion) {
-
-        return processCORE_X12DocSubmission(body, assertion);
+    protected String getConfigFileName() {
+        return CONFIG_FILE_NAME;
     }
 
-    protected COREEnvelopeRealTimeResponse sendToAdapter(COREEnvelopeRealTimeRequest request,
-        AssertionType assertion) {
-
-        AdapterCORE_X12DocSubmissionProxy proxy = adapterFactory.getAdapterCORE_X12DocSubmissionProxy();
-        return proxy.realTimeRequest(request, assertion);
+    public NhinCORE_X12DSRealTimeProxy getNhinCORE_X12DocSubmissionProxy() {
+        return getBean(BEAN_NAME, NhinCORE_X12DSRealTimeProxy.class);
     }
 }

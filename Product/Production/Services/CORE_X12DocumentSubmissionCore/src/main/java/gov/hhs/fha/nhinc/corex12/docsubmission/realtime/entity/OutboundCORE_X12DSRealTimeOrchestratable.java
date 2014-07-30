@@ -28,47 +28,61 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
-import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
-import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
+import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
+import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
+import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
 /**
  * @author cmay
  *
  */
-public abstract class OutboundCORE_X12DocSubmissionOrchestrationContextBuilder implements OrchestrationContextBuilder {
+public class OutboundCORE_X12DSRealTimeOrchestratable implements OutboundOrchestratable {
 
-    private AssertionType assertionType;
-    private OutboundDelegate nhinDelegate;
-    private COREEnvelopeRealTimeRequest request;
-    private NhinTargetSystemType target;
+    protected NhinTargetSystemType target = null;
+    private AssertionType assertion = null;
+    private OutboundDelegate nhinDelegate = null;
+    private COREEnvelopeRealTimeRequest request = null;
+    private COREEnvelopeRealTimeResponse response = null;
+
+    public OutboundCORE_X12DSRealTimeOrchestratable(OutboundDelegate delegate) {
+        this.nhinDelegate = delegate;
+    }
+
+    public OutboundCORE_X12DSRealTimeOrchestratable(OutboundDelegate delegate,
+        COREEnvelopeRealTimeRequest request, NhinTargetSystemType target, AssertionType assertion) {
+
+        this(delegate);
+        this.assertion = assertion;
+        this.request = request;
+        this.target = target;
+    }
 
     @Override
-    public abstract OrchestrationContext build();
-
-    public void init(OutboundOrchestratable message) {
-        setAssertionType(message.getAssertion());
-        setRequest(((OutboundCORE_X12DocSubmissionOrchestratable) message).getRequest());
-        setTarget(((OutboundCORE_X12DocSubmissionOrchestratable) message).getTarget());
-        setNhinDelegate(((OutboundCORE_X12DocSubmissionOrchestratable) message).getNhinDelegate());
-    }
-
-    public AssertionType getAssertionType() {
-        return assertionType;
-    }
-
-    public void setAssertionType(AssertionType assertionType) {
-        this.assertionType = assertionType;
+    public OutboundDelegate getDelegate() {
+        return getNhinDelegate();
     }
 
     public OutboundDelegate getNhinDelegate() {
         return nhinDelegate;
     }
 
-    public void setNhinDelegate(OutboundDelegate nhinDelegate) {
-        this.nhinDelegate = nhinDelegate;
+    @Override
+    public NhinAggregator getAggregator() {
+        throw new UnsupportedOperationException("X12 Document Submission does not support aggregation.");
+    }
+
+    @Override
+    public AssertionType getAssertion() {
+        return assertion;
+    }
+
+    public void setAssertion(AssertionType assertion) {
+        this.assertion = assertion;
     }
 
     public COREEnvelopeRealTimeRequest getRequest() {
@@ -79,11 +93,39 @@ public abstract class OutboundCORE_X12DocSubmissionOrchestrationContextBuilder i
         this.request = request;
     }
 
+    public COREEnvelopeRealTimeResponse getResponse() {
+        return response;
+    }
+
+    public void setResponse(COREEnvelopeRealTimeResponse response) {
+        this.response = response;
+    }
+
     public NhinTargetSystemType getTarget() {
         return target;
     }
 
     public void setTarget(NhinTargetSystemType target) {
         this.target = target;
+    }
+
+    @Override
+    public String getServiceName() {
+        return NhincConstants.NHINC_CORE_X12_DS_SERVICE_NAME;
+    }
+
+    @Override
+    public boolean isPassthru() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public AuditTransformer getAuditTransformer() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public PolicyTransformer getPolicyTransformer() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

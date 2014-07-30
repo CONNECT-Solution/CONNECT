@@ -24,25 +24,20 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.nhin.proxy;
+package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound;
 
-import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
 /**
  * @author cmay
  *
  */
-public class NhinCORE_X12DocSubmissionProxyObjectFactory extends ComponentProxyObjectFactory {
+public interface OutboundCORE_X12DSRealTime {
 
-    private static final String CONFIG_FILE_NAME = "CORE_X12DocumentSubmissionProxyConfig.xml";
-    private static final String BEAN_NAME = "nhin_core_x12ds";
-
-    @Override
-    protected String getConfigFileName() {
-        return CONFIG_FILE_NAME;
-    }
-
-    public NhinCORE_X12DocSubmissionProxy getNhinCORE_X12DocSubmissionProxy() {
-        return getBean(BEAN_NAME, NhinCORE_X12DocSubmissionProxy.class);
-    }
+    public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest msg,
+        AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo);
 }

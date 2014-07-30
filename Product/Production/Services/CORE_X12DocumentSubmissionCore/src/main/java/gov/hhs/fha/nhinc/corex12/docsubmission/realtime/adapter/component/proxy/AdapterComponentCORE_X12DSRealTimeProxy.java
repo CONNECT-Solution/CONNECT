@@ -34,7 +34,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  * @author cmay
  *
  */
-public interface AdapterComponentCORE_X12DocSubmissionProxy {
+public interface AdapterComponentCORE_X12DSRealTimeProxy {
 
     public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest msg,
         AssertionType assertion);
