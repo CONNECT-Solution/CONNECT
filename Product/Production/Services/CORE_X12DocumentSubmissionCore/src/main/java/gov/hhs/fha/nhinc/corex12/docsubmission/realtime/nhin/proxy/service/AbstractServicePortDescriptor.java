@@ -35,7 +35,7 @@ import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
  */
 public abstract class AbstractServicePortDescriptor extends SOAP12ServicePortDescriptor<AdapterCORETransactionPortType> {
 
-    private static final String NAMESPACE_URI = "urn:ihe:iti:xdr:2007";
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adaptercore";
     private static final String SERVICE_LOCAL_PART = "AdapterCORETransaction";
     private static final String PORT_LOCAL_PART = "AdapterCORETransaction_Port";
 
