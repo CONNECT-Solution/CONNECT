@@ -26,9 +26,7 @@
  */
 package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy;
 
-import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
@@ -38,9 +36,6 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  */
 public interface AdapterCORE_X12DocSubmissionProxy {
 
-    @AdapterDelegationEvent(serviceType = "X12 Document Submission", version = "",
-        beforeBuilder = DefaultEventDescriptionBuilder.class,
-        afterReturningBuilder = DefaultEventDescriptionBuilder.class)
     public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest msg,
         AssertionType assertion);
 }

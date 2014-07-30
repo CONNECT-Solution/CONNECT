@@ -13,11 +13,6 @@
     <dependencies>
         <dependency>
             <groupId>org.connectopensource</groupId>
-            <artifactId>AuditRepositoryCore</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
             <artifactId>CORERule2_2_0Webervices</artifactId>
         </dependency>
     </dependencies>
