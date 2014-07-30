@@ -12,7 +12,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces
     in the description separated with a comma like the following sample: {somebean,anotherbean}
 -->
-    <description>Beans included in this file: {adaptercore_x12docsubmission,adaptercomponentcore_x12docsubmission,entitycore_x12docsubmission}</description>
+    <description>Beans included in this file: {adaptercore_x12docsubmission,entitycore_x12docsubmission}</description>
 
     <aop:aspectj-autoproxy proxy-target-class="true" />
     <context:annotation-config />
@@ -61,49 +61,6 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
           lazy-init="true">
 
         <meta key="impltype" value="wsunsecured"/>
-    </bean>
-
-    <!--
-        Beans defined for adaptercomponentcore_x12docsubmission
-    -->
-    <alias alias="adaptercomponentcore_x12docsubmission"
-           name="adaptercomponentcore_x12docsubmissionwsunsecured" />
-
-    <!-- No-op Implementation -->
-    <bean id="adaptercomponentcore_x12docsubmissionnoop"
-          name="adaptercomponentcore_x12docsubmissionnoop"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.component.proxy.AdapterComponentCORE_X12DocSubmissionProxyNoOpImpl"
-          lazy-init="true">
-
-        <meta key="impltype" value="noop"/>
-    </bean>
-
-    <!-- Java Implementation -->
-    <bean id="adaptercomponentcore_x12docsubmissionjava"
-          name="adaptercomponentcore_x12docsubmissionjava"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.component.proxy.AdapterComponentCORE_X12DocSubmissionProxyJavaImpl"
-          lazy-init="true">
-
-        <meta key="impltype" value="java"/>
-    </bean>
-
-    <!-- Secured web service Implementation -->
-    <bean id="adaptercomponentcore_x12docsubmissionwssecured"
-          name="adaptercomponentcore_x12docsubmissionwssecured"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.component.proxy.AdapterComponentCORE_X12DocSubmissionProxyWebServiceSecuredImpl"
-          lazy-init="true">
-
-        <meta key="impltype" value="wssecured"/>
-    </bean>
-
-    <!-- Unsecured web service Implementation -->
-    <bean id="adaptercomponentcore_x12docsubmissionwsunsecured"
-          name="adaptercomponentcore_x12docsubmissionwsunsecured"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.component.proxy.AdapterComponentCORE_X12DocSubmissionProxyWebServiceUnsecuredImpl"
-          lazy-init="true">
-
-        <meta key="impltype" value="wsunsecured"/>
-        <meta key="default" value="true"/>
     </bean>
 
     <!--
