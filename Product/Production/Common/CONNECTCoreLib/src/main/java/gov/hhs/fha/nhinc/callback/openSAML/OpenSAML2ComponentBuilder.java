@@ -39,6 +39,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.xml.namespace.QName;
+import org.apache.log4j.Logger;
 
 import org.joda.time.DateTime;
 import org.opensaml.Configuration;
@@ -50,8 +51,6 @@ import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeStatement;
 import org.opensaml.saml2.core.AttributeValue;
-import org.opensaml.saml2.core.Audience;
-import org.opensaml.saml2.core.AudienceRestriction;
 import org.opensaml.saml2.core.AuthnContext;
 import org.opensaml.saml2.core.AuthnContextClassRef;
 import org.opensaml.saml2.core.AuthnStatement;
@@ -121,12 +120,6 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /** The authorization decision statement builder. */
     private final SAMLObjectBuilder<AuthzDecisionStatement> authorizationDecisionStatementBuilder;
 
-    /** The audience restriction builder. */
-    private final SAMLObjectBuilder<AudienceRestriction> audienceRestrictionBuilder;
-
-    /** The audience builder. */
-    private final SAMLObjectBuilder<Audience> audienceBuilder;
-
     /** The string builder. */
     private final XSStringBuilder stringBuilder;
 
@@ -141,6 +134,8 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
     /** The builder factory. */
     private static XMLObjectBuilderFactory builderFactory = Configuration.getBuilderFactory();
+    
+    private static final Logger LOG = Logger.getLogger(OpenSAML2ComponentBuilder.class);
 
     /**
      * Instantiates a new open sam l2 component builder.
@@ -174,11 +169,6 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
         conditionsBuilder = (SAMLObjectBuilder<Conditions>) builderFactory.getBuilder(Conditions.DEFAULT_ELEMENT_NAME);
 
-        audienceRestrictionBuilder = (SAMLObjectBuilder<AudienceRestriction>) builderFactory
-                .getBuilder(AudienceRestriction.DEFAULT_ELEMENT_NAME);
-
-        audienceBuilder = (SAMLObjectBuilder<Audience>) builderFactory.getBuilder(Audience.DEFAULT_ELEMENT_NAME);
-
         evidenceBuilder = (SAMLObjectBuilder<Evidence>) builderFactory.getBuilder(Evidence.DEFAULT_ELEMENT_NAME);
 
         stringBuilder = (XSStringBuilder) builderFactory.getBuilder(XSString.TYPE_NAME);
@@ -202,7 +192,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
             try {
                 INSTANCE = new OpenSAML2ComponentBuilder();
             } catch (ConfigurationException e) {
-                e.printStackTrace();
+                LOG.error(e.getMessage(), e);
                 INSTANCE = null;
             }
 
@@ -680,24 +670,24 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         Map<QName, String> userRoleAttributes = new HashMap<QName, String>();
 
         if (code != null) {
-            userRoleAttributes.put(new QName(SamlConstants.CE_CODE_ID), code);
+            userRoleAttributes.put(new QName(SamlConstants.HL7_NAMESPACE_URI, SamlConstants.CE_CODE_ID, SamlConstants.HL7_PREFIX), code);
         }
 
         if (codeSystem != null) {
-            userRoleAttributes.put(new QName(SamlConstants.CE_CODESYS_ID), codeSystem);
+            userRoleAttributes.put(new QName(SamlConstants.HL7_NAMESPACE_URI, SamlConstants.CE_CODESYS_ID, SamlConstants.HL7_PREFIX), codeSystem);
         }
 
         if (codeSystemName != null) {
-            userRoleAttributes.put(new QName(SamlConstants.CE_CODESYSNAME_ID), codeSystemName);
+            userRoleAttributes.put(new QName(SamlConstants.HL7_NAMESPACE_URI, SamlConstants.CE_CODESYSNAME_ID, SamlConstants.HL7_PREFIX), codeSystemName);
         }
 
         if (displayName != null) {
-            userRoleAttributes.put(new QName(SamlConstants.CE_DISPLAYNAME_ID), displayName);
+            userRoleAttributes.put(new QName(SamlConstants.HL7_NAMESPACE_URI, SamlConstants.CE_DISPLAYNAME_ID, SamlConstants.HL7_PREFIX), displayName);
         }
-        userRoleAttributes.put(new QName(SamlConstants.HL7_NAMESPACE_URI, SamlConstants.HL7_LOCAL_PART,
-                SamlConstants.HL7_PREFIX), SamlConstants.HL7_KEY_VALUE);
+        userRoleAttributes.put(new QName(SamlConstants.HL7_TYPE_NAMESPACE_URI, SamlConstants.HL7_TYPE_LOCAL_PART,
+                SamlConstants.HL7_TYPE_PREFIX), SamlConstants.HL7_TYPE_KEY_VALUE);
 
-        XSAny attributeValue = createAttributeValue("urn:hl7-org:v3", name, "hl7", userRoleAttributes);
+        XSAny attributeValue = createAttributeValue(SamlConstants.HL7_NAMESPACE_URI, name, SamlConstants.HL7_PREFIX, userRoleAttributes);
         return attributeValue;
 
     }

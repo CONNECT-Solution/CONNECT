@@ -33,9 +33,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import org.opensaml.saml2.core.Attribute;
-import org.opensaml.saml2.core.AttributeValue;
-
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,9 +42,7 @@ import org.junit.Test;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.schema.XSAny;
-import org.opensaml.xml.schema.XSString;
 import org.opensaml.xml.util.AttributeMap;
-import org.w3c.dom.Element;
 
 /**
  * @author achidamb
@@ -79,7 +74,7 @@ public class OpenSAML2ComponentBuilderTest {
         String purposeSystem = "purposeSystem";
         String purposeSystemName = "purposeSystemName";
         String purposeDisplay = "purposeDisplay";
-        String type = "CE";
+        String type = "hl7:CE";
         Attribute attribute = OpenSAML2ComponentBuilder.getInstance().createPurposeOfUseAttribute(purposeCode,
                 purposeSystem, purposeSystemName, purposeDisplay);
         List<XMLObject> attributeValue = attribute.getAttributeValues();
@@ -107,7 +102,7 @@ public class OpenSAML2ComponentBuilderTest {
         String userSystem = "1.2.34.56";
         String userSystemName = "CANCER-Research";
         String userDisplay = "Public Health";
-        String type = "CE";
+        String type = "hl7:CE";
         Attribute attribute = OpenSAML2ComponentBuilder.getInstance().createUserRoleAttribute(userCode, userSystem,
                 userSystemName, userDisplay);
         List<XMLObject> attributeValue = attribute.getAttributeValues();
