@@ -36,7 +36,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayR
  *
  * @author svalluripalli
  */
-public class EntityX12DocumentSubmissionUnSecured implements gov.hhs.fha.nhinc.nhincentitycore.EntityCORETransactionPortType {
+public class EntityX12DocumentSubmissionUnsecured implements gov.hhs.fha.nhinc.nhincentitycore.EntityCORETransactionPortType {
 
     @Override
     public RespondingGatewayCrossGatewayBatchSubmissionAckResponseType batchSubmitTransactionDeferredResponse(RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType body) {
