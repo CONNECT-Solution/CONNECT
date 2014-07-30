@@ -12,13 +12,12 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces
     in the description separated with a comma like the following sample: {somebean,anotherbean}
 -->
-    <description>Beans included in this file: {adaptercore_x12docsubmission,entitycore_x12docsubmission}</description>
+    <description>Beans included in this file: {adaptercore_x12docsubmission,entitycore_x12docsubmission,nhincore_x12ds}</description>
 
     <aop:aspectj-autoproxy proxy-target-class="true" />
     <context:annotation-config />
 
-    <import resource="classpath:CONNECT-context.xml"/>
-    <import resource="classpath:eventlogging.xml"/>
+    <import resource="classpath:CONNECT-context.xml" />
 
     <!--
         Beans defined for adaptercore_x12docsubmission
@@ -32,7 +31,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
           class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.AdapterCORE_X12DocSubmissionProxyNoOpImpl"
           lazy-init="true">
 
-        <meta key="impltype" value="noop"/>
+        <meta key="impltype" value="noop" />
     </bean>
 
     <!-- Java Implementation -->
@@ -41,7 +40,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
           class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.AdapterCORE_X12DocSubmissionProxyJavaImpl"
           lazy-init="true">
 
-        <meta key="impltype" value="java"/>
+        <meta key="impltype" value="java" />
     </bean>
 
     <!-- Secured web service Implementation -->
@@ -50,8 +49,8 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
           class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.AdapterCORE_X12DocSubmissionProxyWebServiceSecuredImpl"
           lazy-init="true">
 
-        <meta key="impltype" value="wssecured"/>
-        <meta key="default" value="true"/>
+        <meta key="impltype" value="wssecured" />
+        <meta key="default" value="true" />
     </bean>
 
     <!-- Unsecured web service Implementation -->
@@ -60,7 +59,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
           class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.AdapterCORE_X12DocSubmissionProxyWebServiceUnsecuredImpl"
           lazy-init="true">
 
-        <meta key="impltype" value="wsunsecured"/>
+        <meta key="impltype" value="wsunsecured" />
     </bean>
 
     <!--
@@ -74,7 +73,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
           class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.entity.proxy.EntityCORE_X12DocSubmissionProxyNoOpImpl"
           lazy-init="true">
 
-        <meta key="impltype" value="noop"/>
+        <meta key="impltype" value="noop" />
     </bean>
 
     <!-- Java Implementation -->
@@ -83,7 +82,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
           class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.entity.proxy.EntityCORE_X12DocSubmissionProxyJavaImpl"
           lazy-init="true">
 
-        <meta key="impltype" value="java"/>
+        <meta key="impltype" value="java" />
     </bean>
 
     <!-- Secured web service Implementation -->
@@ -92,8 +91,8 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
           class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.entity.proxy.EntityCORE_X12DocSubmissionProxyWebServiceSecuredImpl"
           lazy-init="true">
 
-        <meta key="impltype" value="wssecured"/>
-        <meta key="default" value="true"/>
+        <meta key="impltype" value="wssecured" />
+        <meta key="default" value="true" />
     </bean>
 
     <!-- Unsecured web service Implementation -->
@@ -102,7 +101,32 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
           class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.entity.proxy.EntityCORE_X12DocSubmissionProxyWebServiceUnsecuredImpl"
           lazy-init="true">
 
-        <meta key="impltype" value="wsunsecured"/>
+        <meta key="impltype" value="wsunsecured" />
+    </bean>
+
+
+    <!--
+        Beans defined for nhincore_x12ds
+    -->
+    <alias alias="nhincore_x12ds" name="nhincore_x12dswssecured" />
+
+    <!-- No-op Implementation -->
+    <bean id="nhincore_x12dsnoop"
+          name="nhincore_x12dsnoop"
+          class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.nhin.proxy.NhinCORE_X12DSProxyNoOpImpl"
+          lazy-init="true">
+
+        <meta key="impltype" value="noop" />
+    </bean>
+
+    <!-- Secured web service Implementation -->
+    <bean id="nhincore_x12dswssecured"
+          name="nhincore_x12dswssecured"
+          class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.nhin.proxy.NhinCORE_X12DSProxyWebServiceSecuredImpl"
+          lazy-init="true">
+
+        <meta key="impltype" value="wssecured" />
+        <meta key="default" value="true" />
     </bean>
 
     <aop:aspectj-autoproxy />
