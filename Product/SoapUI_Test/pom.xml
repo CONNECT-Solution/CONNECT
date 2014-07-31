@@ -106,7 +106,7 @@
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>CONNECTCommonTypesLib</artifactId>
-                                    <version>4.0.7</version>
+                                    <version>4.1.0-SNAPSHOT</version>
                                     <type>jar</type>
                                 </artifactItem>
                             </artifactItems>
@@ -126,77 +126,82 @@
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>AdapterAuthenticationWebservices</artifactId>
-                                    <version>4.0.6</version>
+                                    <version>4.0.9-SNAPSHOT</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>AdminDistributionWebservices</artifactId>
-                                    <version>4.0.6</version>
+                                    <version>4.0.9-SNAPSHOT</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>AuditRepositoryWebservices</artifactId>
-                                    <version>4.0.6</version>
+                                    <version>4.0.9-SNAPSHOT</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>ComponentWebservices</artifactId>
-                                    <version>4.0.6</version>
+                                    <version>4.0.9-SNAPSHOT</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>ConnectionManagerWebservices</artifactId>
-                                    <version>4.0.6</version>
+                                    <version>4.0.9-SNAPSHOT</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>DirectWebservices</artifactId>
-                                    <version>4.0.6</version>
+                                    <version>4.0.9-SNAPSHOT</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>DocRegistryWebservices</artifactId>
-                                    <version>4.0.6</version>
+                                    <version>4.0.9-SNAPSHOT</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>DocRepositoryWebservices</artifactId>
-                                    <version>4.0.6</version>
+                                    <version>4.0.9-SNAPSHOT</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>DocumentQueryWebservices</artifactId>
-                                    <version>4.0.6</version>
+                                    <version>4.0.9-SNAPSHOT</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>DocumentRetrieveWebservices</artifactId>
-                                    <version>4.0.6</version>
+                                    <version>4.0.9-SNAPSHOT</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>DocumentSubmissionWebervices</artifactId>
-                                    <version>4.0.6</version>
+                                    <version>4.0.9-SNAPSHOT</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>PatientCorrelationWebservices</artifactId>
-                                    <version>4.0.6</version>
+                                    <version>4.0.9-SNAPSHOT</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>PatientDiscoveryWebservices</artifactId>
-                                    <version>4.0.6</version>
+                                    <version>4.0.9-SNAPSHOT</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>PolicyEngineWebservices</artifactId>
-                                    <version>4.0.6</version>
+                                    <version>4.0.9-SNAPSHOT</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>RedactionEngineWebservices</artifactId>
-                                    <version>4.0.6</version>
+                                    <version>4.0.9-SNAPSHOT</version>
+                                </artifactItem>
+								<artifactItem>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>CORERule2_2_0Webervices</artifactId>
+                                    <version>4.0.9-SNAPSHOT</version>
                                 </artifactItem>
                             </artifactItems>
                             <includes>**/*.wsdl</includes>

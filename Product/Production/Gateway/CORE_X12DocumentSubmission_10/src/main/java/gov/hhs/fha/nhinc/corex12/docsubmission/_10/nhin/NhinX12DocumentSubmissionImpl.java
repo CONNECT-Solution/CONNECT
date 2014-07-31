@@ -27,10 +27,28 @@
 
 package gov.hhs.fha.nhinc.corex12.docsubmission._10.nhin;
 
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
+
 /**
  *
  * @author svalluripalli
  */
-public class NhinX12DocumentSubmissionImpl {
+public class NhinX12DocumentSubmissionImpl extends BaseService {
     
+    public NhinX12DocumentSubmissionImpl()
+    {
+        
+    }
+    
+    /**
+     * 
+     * @param body
+     * @return COREEnvelopeRealTimeResponse
+     */
+    public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest body) {
+        COREEnvelopeRealTimeResponse response = new COREEnvelopeRealTimeResponse();
+        return response;
+    }
 }

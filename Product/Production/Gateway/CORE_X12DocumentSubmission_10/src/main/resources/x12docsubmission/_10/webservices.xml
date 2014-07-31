@@ -20,18 +20,79 @@
 
 
     <!-- X12 Document Submission -->
-
     <cxf:bus>
         <cxf:features>
             <p:policies />
         </cxf:features>
     </cxf:bus>
-
-    <!-- Nhin services -->
     
+    <!-- Nhin services -->
+    <jaxws:endpoint xmlns:nds="http://www.caqh.org/SOAP/WSDL/" id="CORE" address="/X12DocumentSubmission_Service"
+        serviceName="nds:Core" endpointName="nds:CoreSoapPort" implementor="#nhinX12DocumentSubmission"
+        wsdlLocation="classpath:wsdl/CORERule2.2.0.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>
+            <entry key="ws-security.timestamp.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
+            </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+
+        <jaxws:inInterceptors>
+            <ref bean="timestampInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
+        </jaxws:inInterceptors>
+        <jaxws:outFaultInterceptors>
+            <ref bean="attachmentFaultOutInterceptor" />
+        </jaxws:outFaultInterceptors>
+        <jaxws:handlers>
+            <ref bean="SOAPHeaderHandler" />
+            <ref bean="TransactionHandler" />
+        </jaxws:handlers>
+    </jaxws:endpoint>
 	
 
     <!-- Entity services -->
-    
+    <jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:nhincentitycore" id="NhincEntityCORE"
+        address="/EntityService/EntityCORETransactionUnsecured" serviceName="eds:EntityCORETransaction" endpointName="eds:EntityCORETransaction_Port"
+        implementor="#nhincEntityCORE" wsdlLocation="classpath:wsdl/EntityCORERule2.2.0.wsdl">
+        <jaxws:handlers>
+            <ref bean="TransactionHandler" />
+        </jaxws:handlers>
+        <jaxws:properties>
+            <entry key="mtom-enabled" value="true" />
+        </jaxws:properties>
+    </jaxws:endpoint>
 
+    <jaxws:endpoint xmlns:edss="urn:gov:hhs:fha:nhinc:nhincentitycoresecured" id="NhincEntityCORESecured"
+        address="/EntityService/EntityCORETransactionSecured" serviceName="edss:EntityCORETransactionSecured" endpointName="edss:EntityCORETransactionSecured_Port"
+        implementor="#nhincEntityCORESecured" wsdlLocation="classpath:wsdl/EntityCORERule2.2.0Secured.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
+            <entry key="mtom-enabled" value="true" />
+            <entry key="ws-security.timestamp.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
+            </entry>
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+
+        <jaxws:inInterceptors>
+            <ref bean="timestampInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
+        </jaxws:inInterceptors>
+        <jaxws:outFaultInterceptors>
+            <ref bean="attachmentFaultOutInterceptor" />
+        </jaxws:outFaultInterceptors>
+        <jaxws:handlers>
+            <ref bean="TransactionHandler" />
+        </jaxws:handlers>
+    </jaxws:endpoint>
 </beans>

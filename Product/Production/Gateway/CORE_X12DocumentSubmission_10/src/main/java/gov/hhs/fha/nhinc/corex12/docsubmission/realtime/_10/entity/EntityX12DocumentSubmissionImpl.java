@@ -26,10 +26,44 @@
  */
 package gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity;
 
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRealTimeRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRealTimeResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRealTimeSecuredRequestType;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import org.apache.log4j.Logger;
+
 /**
  *
  * @author svalluripalli
  */
-public class EntityX12DocumentSubmissionImpl {
+public class EntityX12DocumentSubmissionImpl extends BaseService{
+    private static final Logger LOG = Logger.getLogger(EntityX12DocumentSubmissionImpl.class);
     
+    /**
+     * 
+     */
+    public EntityX12DocumentSubmissionImpl()
+    {
+        
+    }
+    
+    /**
+     * 
+     * @param body
+     * @return RespondingGatewayCrossGatewayRealTimeResponseType
+     */
+    public RespondingGatewayCrossGatewayRealTimeResponseType realTimeTransaction(RespondingGatewayCrossGatewayRealTimeRequestType body) {
+        RespondingGatewayCrossGatewayRealTimeResponseType response = new RespondingGatewayCrossGatewayRealTimeResponseType();
+        return response;
+    }
+    
+    /**
+     * 
+     * @param body
+     * @return RespondingGatewayCrossGatewayRealTimeResponseType
+     */
+    public RespondingGatewayCrossGatewayRealTimeResponseType realTimeTransactionSecured(RespondingGatewayCrossGatewayRealTimeSecuredRequestType body) {
+        RespondingGatewayCrossGatewayRealTimeResponseType response = new RespondingGatewayCrossGatewayRealTimeResponseType();
+        return response;
+    }
 }
