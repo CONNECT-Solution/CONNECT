@@ -404,7 +404,11 @@ public class NhincConstants {
     public static final String ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME = "entityadmindistsecured";
     public static final String ADAPTER_ADMIN_DIST_SERVICE_NAME = "adapteradmindist";
     public static final String ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME = "adapteradmindistsecured";
-    
+
+    // CORE X12 Document Submission Constants
+    public static final String CORE_X12DS_REALTIME_PROXY_CONFIG_FILE_NAME = "CORE_X12DSRealTimeProxyConfig.xml";
+    public static final String NHINC_CORE_X12DS_SERVICE_NAME = "CORE_X12DSRealTime";
+
     //DocumentQueryTransform Constants
     public static final String EBXML_DOCENTRY_PATIENT_ID = "$XDSDocumentEntryPatientId";
     
