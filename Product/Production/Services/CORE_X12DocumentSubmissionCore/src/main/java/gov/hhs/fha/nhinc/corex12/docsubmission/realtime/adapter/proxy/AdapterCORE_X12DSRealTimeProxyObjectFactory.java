@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
@@ -34,8 +35,8 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  */
 public class AdapterCORE_X12DSRealTimeProxyObjectFactory extends ComponentProxyObjectFactory {
 
-    private static final String CONFIG_FILE_NAME = "CORE_X12DocumentSubmissionProxyConfig.xml";
-    private static final String BEAN_NAME = "adaptercore_x12docsubmission";
+    private static final String CONFIG_FILE_NAME = NhincConstants.CORE_X12DS_REALTIME_PROXY_CONFIG_FILE_NAME;
+    private static final String BEAN_NAME = "adaptercore_x12dsrealtime";
 
     @Override
     protected String getConfigFileName() {

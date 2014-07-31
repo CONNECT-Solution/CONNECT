@@ -73,7 +73,7 @@ public class OutboundCORE_X12DSRealTimeOrchestratable implements OutboundOrchest
 
     @Override
     public NhinAggregator getAggregator() {
-        throw new UnsupportedOperationException("X12 Document Submission does not support aggregation.");
+        throw new UnsupportedOperationException("X12 DS RealTime does not support aggregation.");
     }
 
     @Override
@@ -111,7 +111,7 @@ public class OutboundCORE_X12DSRealTimeOrchestratable implements OutboundOrchest
 
     @Override
     public String getServiceName() {
-        return NhincConstants.NHINC_CORE_X12_DS_SERVICE_NAME;
+        return NhincConstants.NHINC_CORE_X12DS_SERVICE_NAME;
     }
 
     @Override
