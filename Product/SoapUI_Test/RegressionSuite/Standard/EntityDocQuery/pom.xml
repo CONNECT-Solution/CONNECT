@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Standard</artifactId>
-        <version>4.3.1-SNAPSHOT</version>
+        <version>4.3.2-RC1</version>
     </parent>
     <artifactId>EntityDocQuery</artifactId>
     <packaging>jar</packaging>
@@ -37,7 +37,7 @@
                         <dependency>
                             <groupId>org.connectopensource</groupId>
                             <artifactId>FileUtils</artifactId>
-                            <version>4.3.1-SNAPSHOT</version>
+                            <version>4.3.2-RC1</version>
                         </dependency>
                     </dependencies>
                     <configuration>

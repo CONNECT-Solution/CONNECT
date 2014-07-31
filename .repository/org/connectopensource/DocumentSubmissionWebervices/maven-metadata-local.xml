@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>org.connectopensource</groupId>
+  <artifactId>DocumentSubmissionWebervices</artifactId>
+  <versioning>
+    <versions>
+      <version>4.0.9-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20140731011925</lastUpdated>
+  </versioning>
+</metadata>
