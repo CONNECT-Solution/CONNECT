@@ -26,10 +26,21 @@
  */
 package gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.adapter;
 
+import org.apache.log4j.Logger;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+
 /**
  *
  * @author sadusumilli
  */
-public class AdapterX12DocSubmissionImpl {
+public class AdapterX12DocSubmissionImpl extends BaseService {
+
+    private static final Logger LOG = Logger.getLogger(AdapterX12DocSubmissionImpl.class);
+
+    /*
+     *
+     */
+    public AdapterX12DocSubmissionImpl() {
+    }
 
 }

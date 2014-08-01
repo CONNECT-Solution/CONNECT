@@ -31,12 +31,20 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionRespons
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionSecuredRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeSecuredRequestType;
+import javax.annotation.Resource;
+import javax.xml.ws.BindingType;
+import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.Addressing;
 
 /**
  *
  * @author sadusumilli
  */
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@Addressing(enabled = true)
 public class AdapterX12DocSubmissionSecured implements gov.hhs.fha.nhinc.adaptercoresecured.AdapterCORETransactionSecuredPortType {
+
+    private WebServiceContext context;
 
     @Override
     public AdapterBatchSubmissionAckResponseType batchSubmitTransactionDeferredResponseSecured(AdapterBatchSubmissionResponseSecuredType absrst) {
@@ -51,6 +59,10 @@ public class AdapterX12DocSubmissionSecured implements gov.hhs.fha.nhinc.adapter
     @Override
     public AdapterCOREEnvelopeRealTimeResponseType realTimeTransactionSecured(AdapterCOREEnvelopeRealTimeSecuredRequestType a) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setContext(WebServiceContext context) {
+        this.context = context;
     }
 
 }

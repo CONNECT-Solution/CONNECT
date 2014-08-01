@@ -27,10 +27,9 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
         </cxf:features>
     </cxf:bus>
 
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdrsecured" id="AdapterDocSubmissionSecured"
-        address="/AdapterDocSubmissionSecured" serviceName="tns:AdapterXDRSecured_Service" endpointName="tns:AdapterXDRSecured_Port"
-        implementor="gov.hhs.fha.nhinc.docsubmission.adapter.AdapterDocSubmissionSecured" wsdlLocation="classpath:wsdl/AdapterXDRSecured.wsdl">
-
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercoresecured" id="AdapterDocSubmissionCoreSecured"
+        address="/CORETransaction/AdapterCORETransactionSecured" serviceName="tns:AdapterCORETransactionSecured" endpointName="tns:AdapterCORETransactionSecured_Port"
+        implementor="#AdapterCORESecured" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0Secured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
@@ -51,9 +50,9 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
         </jaxws:outFaultInterceptors>
     </jaxws:endpoint>
 
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdr" id="AdapterDocSubmissionUnsecured"
-        address="/AdapterDocSubmissionUnsecured" serviceName="tns:AdapterXDR_Service" endpointName="tns:AdapterXDR_Port"
-        implementor="gov.hhs.fha.nhinc.docsubmission.adapter.AdapterDocSubmissionUnsecured" wsdlLocation="classpath:wsdl/AdapterXDR.wsdl">
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercore" id="AdapterDocSubmissionCore"
+        address="CORETransaction/AdapterCORETransactionUnsecured" serviceName="tns:AdapterCORETransaction" endpointName="tns:AdapterCORETransaction_Port"
+        implementor="#AdapterCORE" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0.wsdl">
         <jaxws:properties>
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
