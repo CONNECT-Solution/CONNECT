@@ -40,6 +40,10 @@ public abstract class AbstractInboundCORE_X12DSRealTime implements InboundCORE_X
 
     private AdapterCORE_X12DSRealTimeProxyObjectFactory adapterFactory;
 
+    public AbstractInboundCORE_X12DSRealTime(AdapterCORE_X12DSRealTimeProxyObjectFactory adapterFactory) {
+        this.adapterFactory = adapterFactory;
+    }
+
     abstract COREEnvelopeRealTimeResponse processCORE_X12DocSubmission(COREEnvelopeRealTimeRequest body,
         AssertionType assertion);
 
