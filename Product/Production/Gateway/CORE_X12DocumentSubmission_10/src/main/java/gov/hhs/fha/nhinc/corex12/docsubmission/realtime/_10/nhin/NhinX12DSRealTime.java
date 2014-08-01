@@ -24,56 +24,54 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docsubmission._11.entity;
 
+package gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.nhin;
 
-import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
-import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
-import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.docsubmission.outbound.OutboundDocSubmission;
-
+import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.inbound.InboundCORE_X12DSRealTime;
 import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
+import org.caqh.soap.wsdl.CORETransactions;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionAckRetrievalResponse;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
-
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class EntityDocSubmissionUnsecured implements gov.hhs.fha.nhinc.nhincentityxdr.EntityXDRPortType {
+/**
+ *
+ * @author svalluripalli
+ */
+public class NhinX12DSRealTime implements CORETransactions {
 
     private WebServiceContext context;
-   
-    private OutboundDocSubmission outboundDocSubmission;
-
-    @Override
-    @OutboundMessageEvent(beforeBuilder = DocSubmissionArgTransformerBuilder.class,
-    afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission",
-    version = "1.1")
-    public RegistryResponseType provideAndRegisterDocumentSetB(
-            RespondingGatewayProvideAndRegisterDocumentSetRequestType body) {
-        return new EntityDocSubmissionImpl(outboundDocSubmission)
-                .provideAndRegisterDocumentSetBUnsecured(body, context);
-    }
-
+    private InboundCORE_X12DSRealTime inboundCORE_X12DSRealTime;
+    
     @Resource
     public void setContext(WebServiceContext context) {
         this.context = context;
     }
 
-    public void setOutboundDocSubmission(OutboundDocSubmission outboundDocSubmission) {
-        this.outboundDocSubmission = outboundDocSubmission;
+    public InboundCORE_X12DSRealTime getInboundCORE_X12DSRealTime() {
+        return inboundCORE_X12DSRealTime;
     }
 
-    /**
-     * Gets the outbound doc submission.
-     *
-     * @return the outbound doc submission
-     */
-    public OutboundDocSubmission getOutboundDocSubmission() {
-        return this.outboundDocSubmission;
+    public void setInboundCORE_X12DSRealTime(InboundCORE_X12DSRealTime inboundCORE_X12DSRealTime) {
+        this.inboundCORE_X12DSRealTime = inboundCORE_X12DSRealTime;
     }
+    
+    @Override
+    public COREEnvelopeBatchSubmissionAckRetrievalResponse batchSubmitTransactionDeferredRequest(COREEnvelopeBatchSubmission body) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public COREEnvelopeBatchSubmissionAckRetrievalResponse batchSubmitTransactionDeferredResponse(COREEnvelopeBatchSubmissionResponse body) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest body) {
+        return new NhinX12DSRealTimeImpl(inboundCORE_X12DSRealTime).realTimeTransaction(body, context);
+    }
+    
 }

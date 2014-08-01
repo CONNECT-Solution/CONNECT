@@ -24,56 +24,57 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docsubmission._11.entity;
+package gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity;
 
-
-import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
-import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
-import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.docsubmission.outbound.OutboundDocSubmission;
-
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionAckResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRealTimeRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRealTimeResponseType;
+import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.OutboundCORE_X12DSRealTime;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
-
+/**
+ *
+ * @author svalluripalli
+ */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class EntityDocSubmissionUnsecured implements gov.hhs.fha.nhinc.nhincentityxdr.EntityXDRPortType {
+public class EntityX12DSRealTimeUnsecured implements gov.hhs.fha.nhinc.nhincentitycore.EntityCORETransactionPortType {
 
     private WebServiceContext context;
-   
-    private OutboundDocSubmission outboundDocSubmission;
-
+    private OutboundCORE_X12DSRealTime outboundCORE_X12DSRealTime;
+    
     @Override
-    @OutboundMessageEvent(beforeBuilder = DocSubmissionArgTransformerBuilder.class,
-    afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission",
-    version = "1.1")
-    public RegistryResponseType provideAndRegisterDocumentSetB(
-            RespondingGatewayProvideAndRegisterDocumentSetRequestType body) {
-        return new EntityDocSubmissionImpl(outboundDocSubmission)
-                .provideAndRegisterDocumentSetBUnsecured(body, context);
+    public RespondingGatewayCrossGatewayBatchSubmissionAckResponseType batchSubmitTransactionDeferredResponse(RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType body) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public RespondingGatewayCrossGatewayBatchSubmissionAckResponseType batchSubmitTransactionDeferredRequest(RespondingGatewayCrossGatewayBatchSubmissionRequestType body) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public RespondingGatewayCrossGatewayRealTimeResponseType realTimeTransaction(RespondingGatewayCrossGatewayRealTimeRequestType body) {
+        return new EntityX12DSRealTimeImpl(outboundCORE_X12DSRealTime).realTimeTransaction(body, context);
+    }
+    
     @Resource
     public void setContext(WebServiceContext context) {
         this.context = context;
     }
-
-    public void setOutboundDocSubmission(OutboundDocSubmission outboundDocSubmission) {
-        this.outboundDocSubmission = outboundDocSubmission;
-    }
-
+    
     /**
-     * Gets the outbound doc submission.
-     *
-     * @return the outbound doc submission
+     * 
+     * @param outboundCORE_X12DSRealTime 
      */
-    public OutboundDocSubmission getOutboundDocSubmission() {
-        return this.outboundDocSubmission;
+    public void setOutboundCORE_X12DSRealTime(OutboundCORE_X12DSRealTime outboundCORE_X12DSRealTime)
+    {
+        this.outboundCORE_X12DSRealTime = outboundCORE_X12DSRealTime;
     }
+
 }
