@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>Adapters</artifactId>
+        <groupId>org.connectopensource</groupId>
+        <version>4.4.0-SNAPSHOT</version>
+    </parent>    
+    <artifactId>CORE_X12DocSubmissionAdapter10</artifactId>    
+    <packaging>war</packaging>
+    
+    <name>CONNECT Adapter - ${project.artifactId}</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.connectopensource</groupId>            
+            <artifactId>AuditRepositoryCore</artifactId>            
+            <version>${project.parent.version}</version>        
+        </dependency>        
+        <dependency>            
+            <groupId>org.connectopensource</groupId>            
+            <artifactId>CORERule2_2_0Webervices</artifactId>            
+            <version>4.0.9-SNAPSHOT</version>        
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>                
+                <configuration>                    
+                    <packagingExcludes>WEB-INF/classes/xml-resources/**</packagingExcludes>                    
+                    <webResources>                         
+                    </webResources>                
+                </configuration>            
+            </plugin>           
+        </plugins>
+    </build>
+</project>
