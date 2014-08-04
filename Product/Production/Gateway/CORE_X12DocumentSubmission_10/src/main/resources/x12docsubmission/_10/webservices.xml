@@ -28,7 +28,7 @@
     
     <!-- Nhin services -->
     <jaxws:endpoint xmlns:nds="http://www.caqh.org/SOAP/WSDL/" id="CORE" address="/X12DocumentSubmission_Service"
-        serviceName="nds:Core" endpointName="nds:CoreSoapPort" implementor="#nhinX12DocumentSubmission"
+        serviceName="nds:Core" endpointName="nds:CoreSoapPort" implementor="#nhinX12DSRealTime"
         wsdlLocation="classpath:wsdl/CORERule2.2.0.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
@@ -59,7 +59,7 @@
     <!-- Entity services -->
     <jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:nhincentitycore" id="NhincEntityCORE"
         address="/EntityService/EntityCORETransactionUnsecured" serviceName="eds:EntityCORETransaction" endpointName="eds:EntityCORETransaction_Port"
-        implementor="#nhincEntityCORE" wsdlLocation="classpath:wsdl/EntityCORERule2.2.0.wsdl">
+        implementor="#entityX12DSUnsecured" wsdlLocation="classpath:wsdl/EntityCORERule2.2.0.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
@@ -70,7 +70,7 @@
 
     <jaxws:endpoint xmlns:edss="urn:gov:hhs:fha:nhinc:nhincentitycoresecured" id="NhincEntityCORESecured"
         address="/EntityService/EntityCORETransactionSecured" serviceName="edss:EntityCORETransactionSecured" endpointName="edss:EntityCORETransactionSecured_Port"
-        implementor="#nhincEntityCORESecured" wsdlLocation="classpath:wsdl/EntityCORERule2.2.0Secured.wsdl">
+        implementor="#entityX12DSSecured" wsdlLocation="classpath:wsdl/EntityCORERule2.2.0Secured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />

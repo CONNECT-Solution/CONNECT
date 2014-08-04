@@ -11,10 +11,6 @@
                 <groupId>console.dbpool</groupId>
                 <artifactId>transrepo_pool</artifactId>
             </dependency>
-            <dependency>
-                <groupId>console.dbpool</groupId>
-                <artifactId>eventdb_pool</artifactId>
-            </dependency>
         </dependencies>
 
     </environment>
@@ -24,10 +20,5 @@
     <naming:resource-ref>
         <naming:ref-name>jdbc/transrepo_datasource</naming:ref-name>
         <naming:resource-link>transrepo_pool</naming:resource-link>
-    </naming:resource-ref>
-
-    <naming:resource-ref>
-        <naming:ref-name>jdbc/eventdb_datasource</naming:ref-name>
-        <naming:resource-link>eventdb_pool</naming:resource-link>
     </naming:resource-ref>
 </web-app>

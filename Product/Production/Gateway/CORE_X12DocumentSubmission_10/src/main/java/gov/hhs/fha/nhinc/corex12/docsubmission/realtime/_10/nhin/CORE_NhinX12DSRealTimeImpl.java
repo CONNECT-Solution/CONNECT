@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2014, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,14 +38,14 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  *
  * @author svalluripalli
  */
-public class NhinX12DSRealTimeImpl extends BaseService {
+public class CORE_NhinX12DSRealTimeImpl extends BaseService {
     private InboundCORE_X12DSRealTime inboundCORE_X12DSRealTime;
     
     /**
      * 
      * @param inboundCORE_X12DSRealTime 
      */
-    public NhinX12DSRealTimeImpl(InboundCORE_X12DSRealTime inboundCORE_X12DSRealTime)
+    public CORE_NhinX12DSRealTimeImpl(InboundCORE_X12DSRealTime inboundCORE_X12DSRealTime)
     {
         this.inboundCORE_X12DSRealTime = inboundCORE_X12DSRealTime;
     }

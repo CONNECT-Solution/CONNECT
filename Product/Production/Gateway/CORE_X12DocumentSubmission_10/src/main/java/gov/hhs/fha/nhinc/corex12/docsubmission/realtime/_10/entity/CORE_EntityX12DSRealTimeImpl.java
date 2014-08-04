@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2014, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,14 +40,14 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  *
  * @author svalluripalli
  */
-public class EntityX12DSRealTimeImpl extends BaseService{
-    private static final Logger LOG = Logger.getLogger(EntityX12DSRealTimeImpl.class);
+public class CORE_EntityX12DSRealTimeImpl extends BaseService{
+    private static final Logger LOG = Logger.getLogger(CORE_EntityX12DSRealTimeImpl.class);
     
     private OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime;
     /**
      * 
      */
-    public EntityX12DSRealTimeImpl(OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime)
+    public CORE_EntityX12DSRealTimeImpl(OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime)
     {
         this.outboundCOREX12DSRealTime = outboundCOREX12DSRealTime;
     }

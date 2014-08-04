@@ -23,22 +23,16 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 
     <!-- X12 DocSubmisison -->
 
-    <bean id="nhinX12DSRealTime" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.nhin.NhinX12DSRealTime">
-        <property name="inboundDocSubmission">
-            <bean class="${docsubmission.inboundDocSubmission}" />
-        </property>
+    <bean id="nhinX12DSRealTime" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.nhin.CORE_NhinX12DSRealTime">
+       
     </bean>
     
-    <bean id="entityX12DSUnsecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity.EntityX12DSRealTimeUnsecured">
-        <property name="outboundDocSubmission">
-            <bean class="${docsubmission.outboundDocSubmission}" />
-        </property>
+    <bean id="entityX12DSUnsecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity.CORE_EntityX12DSRealTimeUnsecured">
+        
     </bean>
 
-    <bean id="entityX12DSSecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity.EntityX12DSRealTimeSecured">
-        <property name="outboundDocSubmission">
-            <bean class="${docsubmission.outboundDocSubmission}" />
-        </property>
+    <bean id="entityX12DSSecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity.CORE_EntityX12DSRealTimeSecured">
+        
     </bean>
     
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
