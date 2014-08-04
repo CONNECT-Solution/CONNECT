@@ -53,6 +53,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercore" id="AdapterDocSubmissionCore"
         address="CORETransaction/AdapterCORETransactionUnsecured" serviceName="tns:AdapterCORETransaction" endpointName="tns:AdapterCORETransaction_Port"
         implementor="#AdapterCORE" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0.wsdl">
+
         <jaxws:properties>
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
