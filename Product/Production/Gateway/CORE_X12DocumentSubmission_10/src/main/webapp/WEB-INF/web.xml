@@ -12,8 +12,7 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
       classpath:CONNECT-interceptor-beans.xml 
-      classpath:CONNECT-context.xml
-      classpath:eventlogging.xml
+      classpath:CONNECT-context.xml      
       classpath:/x12docsubmission/_10/applicationContext.xml
       classpath:/x12docsubmission/_10/webservices.xml
       </param-value>
