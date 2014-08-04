@@ -111,12 +111,12 @@ public class OutboundCORE_X12DSRealTimeOrchestratable implements OutboundOrchest
 
     @Override
     public String getServiceName() {
-        return NhincConstants.NHINC_CORE_X12DS_SERVICE_NAME;
+        return NhincConstants.NHIN_CORE_X12DS_REALTIME_SERVICE_NAME;
     }
 
     @Override
     public boolean isPassthru() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return true;
     }
 
     @Override
