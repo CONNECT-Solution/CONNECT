@@ -38,14 +38,14 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  *
  * @author svalluripalli
  */
-public class CORE_NhinX12DSRealTimeImpl extends BaseService {
+public class NhinCORE_X12DSRealTimeImpl extends BaseService {
     private InboundCORE_X12DSRealTime inboundCORE_X12DSRealTime;
     
     /**
      * 
      * @param inboundCORE_X12DSRealTime 
      */
-    public CORE_NhinX12DSRealTimeImpl(InboundCORE_X12DSRealTime inboundCORE_X12DSRealTime)
+    public NhinCORE_X12DSRealTimeImpl(InboundCORE_X12DSRealTime inboundCORE_X12DSRealTime)
     {
         this.inboundCORE_X12DSRealTime = inboundCORE_X12DSRealTime;
     }

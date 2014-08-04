@@ -45,7 +45,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class CORE_NhinX12DSRealTime implements CORETransactions {
+public class NhinCORE_X12DSRealTime implements CORETransactions {
 
     private WebServiceContext context;
     private InboundCORE_X12DSRealTime inboundCORE_X12DSRealTime;
@@ -102,6 +102,6 @@ public class CORE_NhinX12DSRealTime implements CORETransactions {
      */
     @Override
     public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest body) {
-        return new CORE_NhinX12DSRealTimeImpl(inboundCORE_X12DSRealTime).realTimeTransaction(body, context);
+        return new NhinCORE_X12DSRealTimeImpl(inboundCORE_X12DSRealTime).realTimeTransaction(body, context);
     }    
 }

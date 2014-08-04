@@ -40,14 +40,14 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  *
  * @author svalluripalli
  */
-public class CORE_EntityX12DSRealTimeImpl extends BaseService{
-    private static final Logger LOG = Logger.getLogger(CORE_EntityX12DSRealTimeImpl.class);
+public class EntityCORE_X12DSRealTimeImpl extends BaseService{
+    private static final Logger LOG = Logger.getLogger(EntityCORE_X12DSRealTimeImpl.class);
     
     private OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime;
     /**
      * 
      */
-    public CORE_EntityX12DSRealTimeImpl(OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime)
+    public EntityCORE_X12DSRealTimeImpl(OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime)
     {
         this.outboundCOREX12DSRealTime = outboundCOREX12DSRealTime;
     }

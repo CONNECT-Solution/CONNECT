@@ -43,7 +43,7 @@ import javax.xml.ws.soap.Addressing;
  */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class CORE_EntityX12DSRealTimeUnsecured implements gov.hhs.fha.nhinc.nhincentitycore.EntityCORETransactionPortType {
+public class EntityCORE_X12DSRealTimeUnsecured implements gov.hhs.fha.nhinc.nhincentitycore.EntityCORETransactionPortType {
 
     private WebServiceContext context;
     private OutboundCORE_X12DSRealTime outboundCORE_X12DSRealTime;
@@ -75,7 +75,7 @@ public class CORE_EntityX12DSRealTimeUnsecured implements gov.hhs.fha.nhinc.nhin
      */
     @Override
     public RespondingGatewayCrossGatewayRealTimeResponseType realTimeTransaction(RespondingGatewayCrossGatewayRealTimeRequestType body) {
-        return new CORE_EntityX12DSRealTimeImpl(outboundCORE_X12DSRealTime).realTimeTransaction(body, context);
+        return new EntityCORE_X12DSRealTimeImpl(outboundCORE_X12DSRealTime).realTimeTransaction(body, context);
     }
     
     /**
