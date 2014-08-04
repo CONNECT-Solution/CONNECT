@@ -26,6 +26,10 @@
  */
 package gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.adapter;
 
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeSecuredRequestType;
+import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.OutboundCORE_X12DSRealTime;
 import org.apache.log4j.Logger;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 
@@ -36,11 +40,21 @@ import gov.hhs.fha.nhinc.messaging.server.BaseService;
 public class AdapterX12DocSubmissionImpl extends BaseService {
 
     private static final Logger LOG = Logger.getLogger(AdapterX12DocSubmissionImpl.class);
+    private OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime;
 
     /*
      *
      */
-    public AdapterX12DocSubmissionImpl() {
+    public AdapterX12DocSubmissionImpl(OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime) {
+        this.outboundCOREX12DSRealTime = outboundCOREX12DSRealTime;
+    }
+
+    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransactionSecured(AdapterCOREEnvelopeRealTimeSecuredRequestType a) {
+        return new AdapterCOREEnvelopeRealTimeResponseType();
+    }
+
+    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransaction(AdapterCOREEnvelopeRealTimeRequestType acrtrt) {
+        return new AdapterCOREEnvelopeRealTimeResponseType();
     }
 
 }

@@ -31,7 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionRespons
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionSecuredRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeSecuredRequestType;
-import javax.annotation.Resource;
+import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.OutboundCORE_X12DSRealTime;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
@@ -45,6 +45,7 @@ import javax.xml.ws.soap.Addressing;
 public class AdapterX12DocSubmissionSecured implements gov.hhs.fha.nhinc.adaptercoresecured.AdapterCORETransactionSecuredPortType {
 
     private WebServiceContext context;
+    private OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime;
 
     @Override
     public AdapterBatchSubmissionAckResponseType batchSubmitTransactionDeferredResponseSecured(AdapterBatchSubmissionResponseSecuredType absrst) {
@@ -58,11 +59,15 @@ public class AdapterX12DocSubmissionSecured implements gov.hhs.fha.nhinc.adapter
 
     @Override
     public AdapterCOREEnvelopeRealTimeResponseType realTimeTransactionSecured(AdapterCOREEnvelopeRealTimeSecuredRequestType a) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new AdapterX12DocSubmissionImpl(outboundCOREX12DSRealTime).realTimeTransactionSecured(a);
     }
 
     public void setContext(WebServiceContext context) {
         this.context = context;
+    }
+
+    public void setOutboundCOREX12DSRealTime(OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime) {
+        this.outboundCOREX12DSRealTime = outboundCOREX12DSRealTime;
     }
 
 }

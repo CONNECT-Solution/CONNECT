@@ -22,6 +22,11 @@
             <artifactId>CORERule2_2_0Webervices</artifactId>            
             <version>4.0.9-SNAPSHOT</version>        
         </dependency>
+         <dependency>
+             <groupId>org.connectopensource</groupId>
+             <artifactId>CORE_X12DocumentSubmissionCore</artifactId>   
+             <version>${project.parent.version}</version>         
+         </dependency>
     </dependencies>
     
     <build>
