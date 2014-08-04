@@ -1,0 +1,24 @@
+<web-app xmlns="http://geronimo.apache.org/xml/ns/j2ee/web-2.0.1" xmlns:sys="http://geronimo.apache.org/xml/ns/deployment-1.2"
+    xmlns:naming="http://geronimo.apache.org/xml/ns/naming-1.2">
+
+    <environment>
+        <moduleId>
+            <artifactId>CORE_X12DocumentSubmission10</artifactId>
+        </moduleId>
+
+        <dependencies>
+            <dependency>
+                <groupId>console.dbpool</groupId>
+                <artifactId>transrepo_pool</artifactId>
+            </dependency>
+        </dependencies>
+
+    </environment>
+
+    <context-root>Gateway/CORE_X12DocumentSubmission/1_0</context-root>
+
+    <naming:resource-ref>
+        <naming:ref-name>jdbc/transrepo_datasource</naming:ref-name>
+        <naming:resource-link>transrepo_pool</naming:resource-link>
+    </naming:resource-ref>
+</web-app>

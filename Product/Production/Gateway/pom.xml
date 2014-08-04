@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.connectopensource</groupId>
@@ -20,7 +21,8 @@
         <module>PatientDiscovery_10</module>
         <module>CONNECTGatewayWeb</module>
         <module>Direct</module>
-    </modules>
+    <module>CORE_X12DocumentSubmission_10</module>
+  </modules>
     <properties>
         <skip.unpack>false</skip.unpack>
     </properties>
