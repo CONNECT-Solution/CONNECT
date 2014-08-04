@@ -11,25 +11,12 @@
     
     <name>CONNECT Adapter - ${project.artifactId}</name>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.connectopensource</groupId>            
-            <artifactId>AuditRepositoryCore</artifactId>            
-            <version>${project.parent.version}</version>        
-        </dependency>        
-        <dependency>            
-            <groupId>org.connectopensource</groupId>            
-            <artifactId>CORERule2_2_0Webervices</artifactId>            
-            <version>4.0.9-SNAPSHOT</version>        
-        </dependency>
-<<<<<<< HEAD
+    <dependencies>  
          <dependency>
              <groupId>org.connectopensource</groupId>
              <artifactId>CORE_X12DocumentSubmissionCore</artifactId>   
              <version>${project.parent.version}</version>         
          </dependency>
-=======
->>>>>>> c94ee3ebb63cf1b1ca9ad92cce83646df79c44a4
     </dependencies>
     
     <build>

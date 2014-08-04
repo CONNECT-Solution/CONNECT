@@ -32,8 +32,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
         implementor="#AdapterCORESecured" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0Secured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
-            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
-            <entry key="mtom-enabled" value="true" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />            
             <entry key="ws-security.timestamp.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
             </entry>
@@ -53,10 +52,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercore" id="AdapterDocSubmissionCore"
         address="CORETransaction/AdapterCORETransactionUnsecured" serviceName="tns:AdapterCORETransaction" endpointName="tns:AdapterCORETransaction_Port"
         implementor="#AdapterCORE" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0.wsdl">
-
-        <jaxws:properties>
-            <entry key="mtom-enabled" value="true" />
-        </jaxws:properties>
     </jaxws:endpoint>  
 
 </beans>

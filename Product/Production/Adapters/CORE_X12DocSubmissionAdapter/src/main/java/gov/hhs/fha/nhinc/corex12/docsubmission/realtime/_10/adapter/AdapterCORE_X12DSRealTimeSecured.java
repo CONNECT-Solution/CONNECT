@@ -26,42 +26,49 @@
  */
 package gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.adapter;
 
-<<<<<<< HEAD
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionAckResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionResponseSecuredType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionSecuredRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeSecuredRequestType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.OutboundCORE_X12DSRealTime;
-import org.apache.log4j.Logger;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import javax.xml.ws.BindingType;
+import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.Addressing;
 
-=======
->>>>>>> c94ee3ebb63cf1b1ca9ad92cce83646df79c44a4
 /**
  *
  * @author sadusumilli
  */
-<<<<<<< HEAD
-public class AdapterX12DocSubmissionImpl extends BaseService {
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@Addressing(enabled = true)
+public class AdapterCORE_X12DSRealTimeSecured implements gov.hhs.fha.nhinc.adaptercoresecured.AdapterCORETransactionSecuredPortType {
 
-    private static final Logger LOG = Logger.getLogger(AdapterX12DocSubmissionImpl.class);
+    private WebServiceContext context;
     private OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime;
 
-    /*
-     *
-     */
-    public AdapterX12DocSubmissionImpl(OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime) {
+    @Override
+    public AdapterBatchSubmissionAckResponseType batchSubmitTransactionDeferredResponseSecured(AdapterBatchSubmissionResponseSecuredType absrst) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public AdapterBatchSubmissionAckResponseType batchSubmitTransactionDeferredRequestSecured(AdapterBatchSubmissionSecuredRequestType abssrt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransactionSecured(AdapterCOREEnvelopeRealTimeSecuredRequestType a) {
+
+        return new AdapterCORE_X12DSRealTimeImpl(outboundCOREX12DSRealTime).realTimeTransactionSecured(a);
+    }
+
+    public void setContext(WebServiceContext context) {
+        this.context = context;
+    }
+
+    public void setOutboundCOREX12DSRealTime(OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime) {
         this.outboundCOREX12DSRealTime = outboundCOREX12DSRealTime;
     }
-
-    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransactionSecured(AdapterCOREEnvelopeRealTimeSecuredRequestType a) {
-        return new AdapterCOREEnvelopeRealTimeResponseType();
-    }
-
-    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransaction(AdapterCOREEnvelopeRealTimeRequestType acrtrt) {
-        return new AdapterCOREEnvelopeRealTimeResponseType();
-    }
-=======
-public class AdapterX12DocSubmissionImpl {
->>>>>>> c94ee3ebb63cf1b1ca9ad92cce83646df79c44a4
 
 }

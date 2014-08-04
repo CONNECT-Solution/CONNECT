@@ -31,43 +31,31 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionRequest
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeResponseType;
-<<<<<<< HEAD
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.OutboundCORE_X12DSRealTime;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
-=======
->>>>>>> c94ee3ebb63cf1b1ca9ad92cce83646df79c44a4
 
 /**
  *
  * @author sadusumilli
  */
-<<<<<<< HEAD
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class AdapterX12DocSubmissionUnsecured implements gov.hhs.fha.nhinc.adaptercore.AdapterCORETransactionPortType {
+public class AdapterCORE_X12DSRealTimeUnsecured implements gov.hhs.fha.nhinc.adaptercore.AdapterCORETransactionPortType {
 
     private WebServiceContext context;
     private OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime;
 
-=======
-public class AdapterX12DocSubmissionUnsecured implements gov.hhs.fha.nhinc.adaptercore.AdapterCORETransactionPortType {
-
->>>>>>> c94ee3ebb63cf1b1ca9ad92cce83646df79c44a4
     @Override
     public AdapterBatchSubmissionAckResponseType batchSubmitTransactionDeferredResponse(AdapterBatchSubmissionResponseType absrt) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-<<<<<<< HEAD
+
     public AdapterCOREEnvelopeRealTimeResponseType realTimeTransaction(AdapterCOREEnvelopeRealTimeRequestType a) {
-        return new AdapterX12DocSubmissionImpl(outboundCOREX12DSRealTime).realTimeTransaction(a);
-=======
-    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransaction(AdapterCOREEnvelopeRealTimeRequestType acrtrt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
->>>>>>> c94ee3ebb63cf1b1ca9ad92cce83646df79c44a4
+        return new AdapterCORE_X12DSRealTimeImpl(outboundCOREX12DSRealTime).realTimeTransaction(a);
     }
 
     @Override
@@ -75,7 +63,6 @@ public class AdapterX12DocSubmissionUnsecured implements gov.hhs.fha.nhinc.adapt
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-<<<<<<< HEAD
     public void setContext(WebServiceContext context) {
         this.context = context;
     }
@@ -84,6 +71,4 @@ public class AdapterX12DocSubmissionUnsecured implements gov.hhs.fha.nhinc.adapt
         this.outboundCOREX12DSRealTime = outboundCOREX12DSRealTime;
     }
 
-=======
->>>>>>> c94ee3ebb63cf1b1ca9ad92cce83646df79c44a4
 }
