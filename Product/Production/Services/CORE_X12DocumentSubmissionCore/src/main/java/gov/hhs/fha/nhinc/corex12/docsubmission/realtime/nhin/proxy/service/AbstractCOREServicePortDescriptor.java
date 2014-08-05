@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.corex12.docsubmission.nhin.proxy.service;
+package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.nhin.proxy.service;
 
 import gov.hhs.fha.nhinc.adaptercore.AdapterCORETransactionPortType;
 import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
