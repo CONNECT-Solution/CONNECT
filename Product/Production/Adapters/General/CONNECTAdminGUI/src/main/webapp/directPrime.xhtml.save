@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /*
+   * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+   * All rights reserved.
+   *
+   * Redistribution and use in source and binary forms, with or without
+   * modification, are permitted provided that the following conditions are met:
+   *     * Redistributions of source code must retain the above
+   *       copyright notice, this list of conditions and the following disclaimer.
+   *     * Redistributions in binary form must reproduce the above copyright
+   *       notice, this list of conditions and the following disclaimer in the documentation
+   *       and/or other materials provided with the distribution.
+   *     * Neither the name of the United States Government nor the
+   *       names of its contributors may be used to endorse or promote products
+   *       derived from this software without specific prior written permission.
+   *
+   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+   * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+   * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+   * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+   * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+   * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+   * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+   * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+   * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+   */
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+<h:body>
+    <ui:composition template="/resources/Templates/BaseTemplatePrime.xhtml">
+        <ui:define name="metatag"/>
+        <ui:define name="content">
+
+            <h1 class="section-header">Direct Configuration</h1>
+            <p:tabView id="tabview" effect="fade" effectDuration="normal" dynamic="true" activeIndex="#{tabBean.directTabIndex}" styleClass="tabs-override tabs-ovr-purple">
+                <p:tab title="Domains" closable="false">
+                    <div class="content-block">
+                        <h2 class="subsection-header">Domain List</h2>
+                        <div class="table-responsive">
+                            <h:form id="domain-form">
+                                <p:panelGrid columns="1" styleClass="ui-panelgrid-domain">
+                                    <p:commandButton value="Create New Domain" type="button" onclick="PF('domainDlg').show();" styleClass="add-button pull-right" icon="ui-icon-circle-plus" />
+                                </p:panelGrid>
+                                <p:dataTable id="domainDataTable" var="domain" value="#{directDomainBean.domains}" selection="#{directDomainBean.selectedDomain}" rowKey="#{domain.domainName}" styleClass="table table-striped table-domains">
+                                    <p:column headerText="Delete" selectionMode="single" />
+                                    <p:column headerText="Status" sortBy="status">
+                                        <h:outputText value="#{domain.status}" styleClass="nowrap" />
+                                    </p:column>
+                                    <p:column headerText="Name" sortBy="name">
+                                        <h:outputText value="#{domain.domainName}" />
+                                    </p:column>
+                                    <p:column headerText="PostMaster" sortBy="postmaster">
+                                        <h:outputText value="#{domain.postMasterEmail}"/>
+                                    </p:column>
+                                    <p:column headerText="Created" sortBy="created">
+                                        <h:outputText value="#{domain.createTime}" styleClass="nowrap" />
+                                    </p:column>
+                                    <p:column headerText="Updated" sortBy="updated">
+                                        <h:outputText value="#{domain.updateTime}" styleClass="nowrap" />
+                                    </p:column>
+                                </p:dataTable>
+                                <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
+                                    <p:row>
+                                        <p:column>
+                                            <p:commandButton value="Delete" actionListener="#{directDomainBean.deleteDomain()}" update="domainDataTable" styleClass="delete-button" icon="ui-icon-closethick" />
+                                        </p:column>
+                                        <p:column styleClass="ui-button-rightmost">
+                                            <p:commandButton value="Edit Domain" actionListener="#{directDomainBean.showEdit()}" styleClass="edit-button" icon="ui-icon-pencil" />
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </h:form>
+                        </div>
+                    </div>
+                </p:tab>
+                <p:tab title="Agent Settings" closable="false">
+                    <div class="content-block">
+                        <h2 class="subsection-header">Agent Settings</h2>
+                        <div class="table-responsive">
+                            <h:form id="agent-form">
+                                <p:panelGrid columns="1" styleClass="ui-panelgrid-domain">
+                                    <p:commandButton value="Add New Agent Setting" type="button" onclick="PF('agentDlg').show();" icon="ui-icon-circle-plus" styleClass="add-button pull-right" />
+                                </p:panelGrid>
+                                <p:dataTable id="agentDataTable" var="agent" value="#{directAgentBean.settings}" selection="#{directAgentBean.setting}" rowKey="#{agent.name}" styleClass="table table-striped table-domains">
+                                    <p:column headerText="Delete" selectionMode="single" />
+                                    <p:column headerText="Name" sortBy="name">
+                                        <h:outputText value="#{agent.name}" />
+                                    </p:column>
+                                    <p:column headerText="Value" sortBy="value">
+                                        <h:outputText value="#{agent.value}" />
+                                    </p:column>
+                                </p:dataTable>
+                                <p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
+                                    <p:commandButton update="agentDataTable" value="Delete" actionListener="#{directAgentBean.deleteSetting()}" styleClass="delete-button" icon="ui-icon-closethick"/>
+                                </p:panelGrid>
+                            </h:form>
+                        </div>
+                    </div>
+                </p:tab>
+                <p:tab title="Certificates" closable="false">
+                    <div class="content-block">
+                        <h2 class="subsection-header">Certificates</h2>
+                        <div class="table-responsive">
+                            <h:form id="cert-form">                                    
+                                <p:panelGrid columns="1" styleClass="ui-panelgrid-domain">
+                                    <p:commandButton value="Add New Certificate" type="button" onclick="PF('certDlg').show();" icon="ui-icon-circle-plus" styleClass="add-button pull-right" />
+                                </p:panelGrid>
+                                <p:dataTable id="certDataTable" var="cert" value="#{directCertBean.certificates}" selection="#{directCertBean.selectedCert}" rowKey="#{cert.owner}" styleClass="table table-striped table-domains">
+                                    <p:column headerText="Delete" selectionMode="single" />
+                                    <p:column headerText="Status" sortBy="status">
+                                        <h:outputText value="#{cert.status}" styleClass="nowrap" />
+                                    </p:column>
+                                    <p:column headerText="Owner" sortBy="owner">
+                                        <h:outputText value="#{cert.owner}" />
+                                    </p:column>
+                                    <p:column headerText="Thumbprint" sortBy="private">
+                                        <h:outputText value="#{cert.thumbprint}" />
+                                    </p:column>
+                                    <p:column headerText="Private" sortBy="private">
+                                        <h:outputText value="#{cert.privateKey}" />
+                                    </p:column>
+                                    <p:column headerText="Created" sortBy="created">
+                                        <h:outputText value="#{cert.createTime}" styleClass="nowrap" />
+                                    </p:column>
+                                    <p:column headerText="Started" sortBy="started">
+                                        <h:outputText value="#{cert.validStartDate}" styleClass="nowrap" />
+                                    </p:column>
+                                    <p:column headerText="End" sortBy="end">
+                                        <h:outputText value="#{cert.validEndDate}" styleClass="nowrap" />
+                                    </p:column>
+                                </p:dataTable>
+                                <p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
+                                    <p:commandButton update="certDataTable" value="Delete" action="#{directCertBean.deleteCertificate()}" styleClass="delete-button" icon="ui-icon-closethick"/>
+                                </p:panelGrid>                                    
+                            </h:form>
+                        </div>
+                    </div>
+                </p:tab>
+                <p:tab id="tb-tab" title="Trust Bundles" closable="false">
+                    <div class="content-block">
+                        <h2 class="subsection-header">Trust Bundles</h2>
+                        <div class="table-responsive">
+                            <h:form id="tb-form">
+                                <p:panelGrid columns="1" styleClass="ui-panelgrid-domain">
+                                    <p:commandButton value="Add New Trust Bundle" type="button" onclick="PF('tbDlg').show();" icon="ui-icon-circle-plus" styleClass="add-button pull-right" />
+                                </p:panelGrid>
+                                <p:dataTable id="tbDataTable" var="tb" value="#{directTrustBundleBean.trustBundles}" selection="#{directTrustBundleBean.selectedTb}" rowKey="#{tb.bundleName}" styleClass="table table-striped table-domains">
+                                    <p:column headerText="Delete" selectionMode="single" />
+                                    <p:column headerText="Bundle Name" sortBy="bundle_name">
+                                        <h:outputText value="#{tb.bundleName}" />
+                                    </p:column>
+                                    <p:column headerText="URL" sortBy="url">
+                                        <h:outputText value="#{tb.bundleURL}" />
+                                    </p:column>
+                                    <p:column headerText="Checksum" sortBy="checksum">
+                                        <h:outputText value="#{tb.checkSum}" />
+                                    </p:column>
+                                    <p:column headerText="Created" sortBy="created">
+                                        <h:outputText value="#{tb.createTime}" styleClass="nowrap" />
+                                    </p:column>
+                                    <p:column headerText="Current As Of" sortBy="current_as_of">
+                                        <h:outputText value="#{tb.lastSuccessfulRefresh}" styleClass="nowrap" />
+                                    </p:column>
+                                    <p:column headerText="Last Refresh" sortBy="last_refresh">
+                                        <h:outputText value="#{tb.lastRefreshAttempt}" styleClass="nowrap" />
+                                    </p:column>
+                                    <p:column headerText="Refresh Interval" sortBy="refresh_interval">
+                                        <h:outputText value="#{tb.refreshInterval}" />
+                                    </p:column>
+                                </p:dataTable>
+                                <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
+                                    <p:row>
+                                        <p:column>
+                                            <p:commandButton value="Delete" update="tbDataTable" action="#{directTrustBundleBean.showDelConfirm()}" icon="ui-icon-closethick" styleClass="delete-button" />
+                                        </p:column>
+                                        <p:column styleClass="ui-button-rightmost">
+                                            <p:commandButton value="Edit Trust Bundle" actionListener="#{directTrustBundleBean.showEdit()}" icon="ui-icon-pencil" styleClass="edit-button" />
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </h:form>
+                        </div>
+                    </div>
+                </p:tab>
+            </p:tabView>
+            <ui:include src="domainCreateDialog.xhtml" />
+            <ui:include src="agentCreateDialog.xhtml" />
+            <ui:include src="certCreateDialog.xhtml" />
+            <ui:include src="tbCreateDialog.xhtml" />
+            <ui:include src="domainEditDialog.xhtml" />
+            <ui:include src="tbEditDialog.xhtml" />
+            <p:dialog id="tbConfirmDelDialog" header="Confirm Trust Bundle Delete" widgetVar="tbConfirmDelDlg" modal="true" dynamic="true" width="50%" closeOnEscape="true">
+                <div class="content">
+                    <h3>Are you sure you want to delete this Trust Bundle?</h3>
+                    <p>The trust bundle will be deleted for all domains.</p>
+                    <div class="form-block center-block">
+                        <h:form id="confirmDelForm">
+                            <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
+                                <p:row>
+                                    <p:column>
+                                        <p:commandButton value="No" icon="ui-icon-circle-close" styleClass="add-button" ajax="false" onclick="tbConfirmDelDlg.hide()" />
+                                    </p:column>
+                                    <p:column style="text-align:right">
+                                        <p:commandButton value="Yes" icon="ui-icon-circle-check" styleClass="delete-button" ajax="false" action="#{directTrustBundleBean.deleteTrustBundle()}" oncomplete="tbConfirmDelDlg.hide()" />
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+                        </h:form>
+                    </div>
+                </div>
+            </p:dialog>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

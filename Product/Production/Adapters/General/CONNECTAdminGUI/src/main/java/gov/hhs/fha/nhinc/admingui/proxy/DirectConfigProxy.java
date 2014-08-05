@@ -82,4 +82,5 @@ public interface DirectConfigProxy {
     public void refreshTrustBundle(int id) throws Exception;
     public void updateTrustBundleAttributes(long trustBundleId, String trustBundleName, String trustBundleURL,
         Certificate signingCert, int trustBundleRefreshInterval) throws Exception;
+    public void removeAddress(String addressEmail) throws Exception;
 }

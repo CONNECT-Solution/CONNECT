@@ -60,4 +60,5 @@ public class DirectConfigConstants {
     static final String DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLES_FROM_DOMAIN = "disassociateTrustBundlesFromDomain";
     static final String DIRECT_CONFIG_UPDATE_TRUST_BUNDLE_ATTRIBUTES = "updateTrustBundleAttributes";
     static final String DIRECT_CONFIG_REFRESH_TRUST_BUNDLE = "refreshTrustBundle";
+    static final String DIRECT_CONFIG_REMOVE_ADDRESS = "removeAddress";
 }

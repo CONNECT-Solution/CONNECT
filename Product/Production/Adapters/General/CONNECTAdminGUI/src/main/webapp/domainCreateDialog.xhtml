@@ -11,13 +11,13 @@
                         <div class="form-group">
                             <h:outputLabel for="input-domain" class="col-sm-3 control-label" id="input-domainLbl" value="Domain Name:" />
                             <div class="col-sm-9">
-                                <h:inputText class="form-control" id="input-domain" maxlength="20" required="true" value="#{directDomainBean.domainName}"/>
+                                <h:inputText class="form-control" id="input-domain" maxlength="255" required="true" value="#{directDomainBean.domainName}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <h:outputLabel for="input-email" class="col-sm-3 control-label" id="input-emailLbl" value="Postmaster E-mail Address:" />
                             <div class="col-sm-9">
-                                <h:inputText class="form-control" id="input-email" maxlength="30" required="true" value="#{directDomainBean.domainPostmaster}"/>
+                                <h:inputText class="form-control" id="input-email" maxlength="255" required="true" value="#{directDomainBean.domainPostmaster}"/>
                             </div>
                         </div>
                         <div class="form-group">

@@ -87,10 +87,8 @@ public class DirectDomainBean {
     private boolean bundleIncoming = true;
     private boolean bundleOutgoing = true;
 
-    private String addressEndpoint;
-    private String addressType;
-    private String displayName;
-    private String emailAddress;
+    private String addressName;
+    private String addressEmail;
 
     public List<Domain> getDomains() {
         if (domains == null) {
@@ -138,34 +136,38 @@ public class DirectDomainBean {
 
     public List<Address> getAddresses() {
         return selectedDomain.getAddress();
-
     }
 
     public void addAddress() {
-        Address currentAddress = new Address();
-        currentAddress.setDisplayName(getDisplayName());
-        currentAddress.setEmailAddress(getEmailAddress());
-        currentAddress.setEndpoint(getAddressEndpoint());
-        currentAddress.setType(getAddressType());
-        selectedDomain.getAddress().add(currentAddress);
+        if (notNullish(addressName) && notNullish(addressEmail)) {
+            Address currentAddress = new Address();
+            currentAddress.setDisplayName(addressName);
+            currentAddress.setEmailAddress(addressEmail);
+            selectedDomain.getAddress().add(currentAddress);
 
-        UpdateDomain updateDomain = new UpdateDomain();
-        updateDomain.setDomain(selectedDomain);
-        directService.updateDomain(updateDomain);
+            UpdateDomain updateDomain = new UpdateDomain();
+            updateDomain.setDomain(selectedDomain);
+            directService.updateDomain(updateDomain);
+        }
+        addressName = null;
+        addressEmail = null;
     }
 
     public void deleteAddress() {
-        List<Address> addresses = selectedDomain.getAddress();
-        for (int i = 0; i < addresses.size(); i++) {
-            if (addresses.get(i).getEmailAddress().equals(getEmailAddress())) {
-                addresses.remove(i);
-                break;
+        if (selectedAddress != null) {
+            boolean removed = directService.removeAddress(selectedAddress.getEmailAddress());
+
+            if (removed) {
+                List<Address> addresses = selectedDomain.getAddress();
+                for (int i = 0; i < addresses.size(); i++) {
+                    if (addresses.get(i).getEmailAddress().equals(selectedAddress.getEmailAddress())) {
+                        addresses.remove(i);
+                        break;
+                    }
+                }
             }
         }
-
-        UpdateDomain updateDomain = new UpdateDomain();
-        updateDomain.setDomain(selectedDomain);
-        directService.updateDomain(updateDomain);
+        selectedAddress = null;
     }
 
     public void anchorFileUpload(FileUploadEvent event) {
@@ -339,20 +341,12 @@ public class DirectDomainBean {
         this.selectedAddress = selectedAddress;
     }
 
-    public String getAddressEndpoint() {
-        return addressEndpoint;
+    public String getAddressName() {
+        return addressName;
     }
 
-    public void setAddressEndpoint(String addressEndpoint) {
-        this.addressEndpoint = addressEndpoint;
-    }
-
-    public String getAddressType() {
-        return addressType;
-    }
-
-    public void setAddressType(String addressType) {
-        this.addressType = addressType;
+    public void setAddressName(String addressName) {
+        this.addressName = addressName;
     }
 
     public DirectAnchor getSelectedAnchor() {
@@ -458,31 +452,19 @@ public class DirectDomainBean {
         bundleIncoming = true;
         bundleOutgoing = true;
 
-        addressEndpoint = null;
-        addressType = null;
-        emailAddress = null;
-        displayName = null;
+        addressName = null;
+        addressEmail = null;
     }
 
-    public String getEmailAddress() {
-        return emailAddress;
+    public String getAddressEmail() {
+        return addressEmail;
     }
 
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+    public void setAddressEmail(String addressEmail) {
+        this.addressEmail = addressEmail;
     }
 
-    /**
-     * @return the displayName
-     */
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    /**
-     * @param displayName the displayName to set
-     */
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
+    private boolean notNullish(String value){
+        return value != null && !value.isEmpty();
     }
 }
