@@ -78,10 +78,14 @@ public class AdapterCORE_X12DSRealTimeProxyWebServiceSecuredImpl implements Adap
                 response = (COREEnvelopeRealTimeResponse) client.invokePort(AdapterCORETransactionSecuredPortType.class,
                     "realTimeRequest", msg);
             } else {
+                // TODO: We need to add error handling here based on CORE X12 DS RealTime use cases
+                // e.g., Adapter not found, timeout, etc.
                 LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_CORE_X12DS_REALTIME_SECURED_SERVICE_NAME
                     + "); the URL is null.");
             }
         } catch (Exception ex) {
+            // TODO: We need to add error handling here based on CORE X12 DS RealTime use cases
+            // e.g., Adapter not found, timeout, etc.
             LOG.error("Error sending Adapter CORE X12 Doc Submission Secured message: " + ex.getMessage(), ex);
             response = new COREEnvelopeRealTimeResponse();
 
