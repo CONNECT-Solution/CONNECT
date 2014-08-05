@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.AdapterCORE_X12DSRealTimeOrchImpl;
 
 import org.apache.log4j.Logger;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
@@ -43,6 +44,6 @@ public class AdapterCORE_X12DSRealTimeProxyJavaImpl implements AdapterCORE_X12DS
     @Override
     public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest msg, AssertionType assertion) {
         LOG.trace("Using Java Implementation for Adapter CORE X12 Doc Submission Service");
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new AdapterCORE_X12DSRealTimeOrchImpl().realTimeRequest(msg, assertion);
     }
 }
