@@ -92,6 +92,7 @@ public class AdapterCORE_X12DSRealTimeProxyWebServiceSecuredImpl implements Adap
             response.setErrorMessage(NhincConstants.CORE_X12DS_ACK_ERROR_MSG);
             response.setErrorCode(NhincConstants.CORE_X12DS_ACK_ERROR_CODE);
         }
+
         return response;
     }
 }
