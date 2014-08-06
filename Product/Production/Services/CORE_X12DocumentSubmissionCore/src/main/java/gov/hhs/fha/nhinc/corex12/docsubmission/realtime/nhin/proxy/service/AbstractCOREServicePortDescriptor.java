@@ -24,18 +24,35 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.component.proxy;
+package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.nhin.proxy.service;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
-import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
+import gov.hhs.fha.nhinc.adaptercore.AdapterCORETransactionPortType;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author cmay
  *
  */
-public interface AdapterComponentCORE_X12DSRealTimeProxy {
+public abstract class AbstractCOREServicePortDescriptor extends SOAP12ServicePortDescriptor<AdapterCORETransactionPortType> {
 
-    public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest msg,
-        AssertionType assertion);
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adaptercore";
+    private static final String SERVICE_LOCAL_PART = "AdapterCORETransaction";
+    private static final String PORT_LOCAL_PART = "AdapterCORETransaction_Port";
+
+    public String getNamespaceUri() {
+        return NAMESPACE_URI;
+    }
+
+    public String getServiceLocalPart() {
+        return SERVICE_LOCAL_PART;
+    }
+
+    public String getPortLocalPart() {
+        return PORT_LOCAL_PART;
+    }
+
+    @Override
+    public Class<AdapterCORETransactionPortType> getPortClass() {
+        return AdapterCORETransactionPortType.class;
+    }
 }

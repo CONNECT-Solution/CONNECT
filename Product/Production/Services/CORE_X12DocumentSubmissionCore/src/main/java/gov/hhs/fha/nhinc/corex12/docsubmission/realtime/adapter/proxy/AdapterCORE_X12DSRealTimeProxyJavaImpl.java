@@ -24,11 +24,12 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.inbound;
+package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.AdapterCORE_X12DSRealTimeProxy;
-import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.AdapterCORE_X12DSRealTimeProxyObjectFactory;
+import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.AdapterCORE_X12DSRealTimeOrchImpl;
+
+import org.apache.log4j.Logger;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
@@ -36,28 +37,13 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  * @author cmay
  *
  */
-public abstract class AbstractInboundCORE_X12DSRealTime implements InboundCORE_X12DSRealTime {
+public class AdapterCORE_X12DSRealTimeProxyJavaImpl implements AdapterCORE_X12DSRealTimeProxy {
 
-    private AdapterCORE_X12DSRealTimeProxyObjectFactory adapterFactory;
-
-    public AbstractInboundCORE_X12DSRealTime(AdapterCORE_X12DSRealTimeProxyObjectFactory adapterFactory) {
-        this.adapterFactory = adapterFactory;
-    }
-
-    abstract COREEnvelopeRealTimeResponse processCORE_X12DocSubmission(COREEnvelopeRealTimeRequest body,
-        AssertionType assertion);
+    private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSRealTimeProxyJavaImpl.class);
 
     @Override
-    public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest body,
-        AssertionType assertion) {
-
-        return processCORE_X12DocSubmission(body, assertion);
-    }
-
-    protected COREEnvelopeRealTimeResponse sendToAdapter(COREEnvelopeRealTimeRequest request,
-        AssertionType assertion) {
-
-        AdapterCORE_X12DSRealTimeProxy proxy = adapterFactory.getAdapterCORE_X12DocSubmissionProxy();
-        return proxy.realTimeRequest(request, assertion);
+    public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest msg, AssertionType assertion) {
+        LOG.trace("Using Java Implementation for Adapter CORE X12 Doc Submission Service");
+        return new AdapterCORE_X12DSRealTimeOrchImpl().realTimeRequest(msg, assertion);
     }
 }

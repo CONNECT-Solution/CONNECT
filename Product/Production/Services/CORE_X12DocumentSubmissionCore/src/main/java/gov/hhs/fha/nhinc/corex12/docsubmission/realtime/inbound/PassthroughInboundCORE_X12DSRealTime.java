@@ -27,8 +27,8 @@
 package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.inbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.AdapterCORE_X12DSRealTimeProxy;
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.AdapterCORE_X12DSRealTimeProxyObjectFactory;
+
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
@@ -36,28 +36,26 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  * @author cmay
  *
  */
-public abstract class AbstractInboundCORE_X12DSRealTime implements InboundCORE_X12DSRealTime {
+public class PassthroughInboundCORE_X12DSRealTime extends AbstractInboundCORE_X12DSRealTime {
 
-    private AdapterCORE_X12DSRealTimeProxyObjectFactory adapterFactory;
-
-    public AbstractInboundCORE_X12DSRealTime(AdapterCORE_X12DSRealTimeProxyObjectFactory adapterFactory) {
-        this.adapterFactory = adapterFactory;
+    /**
+     * Default constructor.
+     */
+    public PassthroughInboundCORE_X12DSRealTime() {
+        this(new AdapterCORE_X12DSRealTimeProxyObjectFactory());
     }
 
-    abstract COREEnvelopeRealTimeResponse processCORE_X12DocSubmission(COREEnvelopeRealTimeRequest body,
-        AssertionType assertion);
+    /**
+     * Constructor with dependency injection of strategy components.
+     *
+     * @param adapterFactory
+     */
+    public PassthroughInboundCORE_X12DSRealTime(AdapterCORE_X12DSRealTimeProxyObjectFactory adapterFactory) {
+        super(adapterFactory);
+    }
 
     @Override
-    public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest body,
-        AssertionType assertion) {
-
-        return processCORE_X12DocSubmission(body, assertion);
-    }
-
-    protected COREEnvelopeRealTimeResponse sendToAdapter(COREEnvelopeRealTimeRequest request,
-        AssertionType assertion) {
-
-        AdapterCORE_X12DSRealTimeProxy proxy = adapterFactory.getAdapterCORE_X12DocSubmissionProxy();
-        return proxy.realTimeRequest(request, assertion);
+    COREEnvelopeRealTimeResponse processCORE_X12DocSubmission(COREEnvelopeRealTimeRequest body, AssertionType assertion) {
+        return sendToAdapter(body, assertion);
     }
 }

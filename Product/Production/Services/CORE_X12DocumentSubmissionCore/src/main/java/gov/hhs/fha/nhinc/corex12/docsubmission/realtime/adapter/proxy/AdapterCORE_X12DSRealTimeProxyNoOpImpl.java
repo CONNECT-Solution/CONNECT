@@ -24,35 +24,25 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.corex12.docsubmission.nhin.proxy.service;
+package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy;
 
-import gov.hhs.fha.nhinc.adaptercore.AdapterCORETransactionPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+
+import org.apache.log4j.Logger;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
 /**
  * @author cmay
  *
  */
-public abstract class AbstractCOREServicePortDescriptor extends SOAP12ServicePortDescriptor<AdapterCORETransactionPortType> {
+public class AdapterCORE_X12DSRealTimeProxyNoOpImpl implements AdapterCORE_X12DSRealTimeProxy {
 
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adaptercore";
-    private static final String SERVICE_LOCAL_PART = "AdapterCORETransaction";
-    private static final String PORT_LOCAL_PART = "AdapterCORETransaction_Port";
-
-    public String getNamespaceUri() {
-        return NAMESPACE_URI;
-    }
-
-    public String getServiceLocalPart() {
-        return SERVICE_LOCAL_PART;
-    }
-
-    public String getPortLocalPart() {
-        return PORT_LOCAL_PART;
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSRealTimeProxyNoOpImpl.class);
 
     @Override
-    public Class<AdapterCORETransactionPortType> getPortClass() {
-        return AdapterCORETransactionPortType.class;
+    public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest msg, AssertionType assertion) {
+        LOG.trace("Using NoOp Implementation for Adapter CORE X12 Doc Submission Service");
+        return new COREEnvelopeRealTimeResponse();
     }
 }
