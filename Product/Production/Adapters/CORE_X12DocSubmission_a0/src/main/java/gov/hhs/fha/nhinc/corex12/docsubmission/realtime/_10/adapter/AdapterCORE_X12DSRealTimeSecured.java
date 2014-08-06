@@ -43,7 +43,6 @@ public class AdapterCORE_X12DSRealTimeSecured implements gov.hhs.fha.nhinc.adapt
 
     @Resource
     private WebServiceContext context;
-    private OutboundCORE_X12DSRealTime outboundCORE_X12DSRealTime;
 
     @Override
     public AdapterBatchSubmissionAckResponseType batchSubmitTransactionDeferredResponseSecured(AdapterBatchSubmissionResponseSecuredType absrst) {
@@ -57,11 +56,6 @@ public class AdapterCORE_X12DSRealTimeSecured implements gov.hhs.fha.nhinc.adapt
 
     @Override
     public AdapterCOREEnvelopeRealTimeResponseType realTimeTransactionSecured(AdapterCOREEnvelopeRealTimeSecuredRequestType adapterCOREEnvelopeRealTimeSecuredRequestType) {
-        return new AdapterCORE_X12DSRealTimeImpl(outboundCORE_X12DSRealTime).realTimeTransactionSecured(adapterCOREEnvelopeRealTimeSecuredRequestType, context);
+        return new AdapterCORE_X12DSRealTimeImpl().realTimeTransactionSecured(adapterCOREEnvelopeRealTimeSecuredRequestType, context);
     }
-
-    public void setOutboundCORE_X12DSRealTime(OutboundCORE_X12DSRealTime outboundCORE_X12DSRealTime) {
-        this.outboundCORE_X12DSRealTime = outboundCORE_X12DSRealTime;
-    }
-
 }

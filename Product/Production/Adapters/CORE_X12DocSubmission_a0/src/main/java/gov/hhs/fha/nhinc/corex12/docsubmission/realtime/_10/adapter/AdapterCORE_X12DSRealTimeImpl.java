@@ -42,38 +42,29 @@ import javax.xml.ws.WebServiceContext;
  */
 public class AdapterCORE_X12DSRealTimeImpl extends BaseService {
 
-    private OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime;
-
     /**
      *
-     * @param outboundCOREX12DSRealTime
-     */
-    public AdapterCORE_X12DSRealTimeImpl(OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime) {
-        this.outboundCOREX12DSRealTime = outboundCOREX12DSRealTime;
-    }
-
-    /**
-     *
-     * @param adapterCOREEnvelopeRealTimeRequestType
+     * @param adapterRequest
      * @param context
      * @return
      */
-    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransaction(AdapterCOREEnvelopeRealTimeRequestType adapterCOREEnvelopeRealTimeRequestType, WebServiceContext context) {
+    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransaction(AdapterCOREEnvelopeRealTimeRequestType adapterRequest, WebServiceContext context) {
         AdapterCOREEnvelopeRealTimeResponseType oResponse = new AdapterCOREEnvelopeRealTimeResponseType();
-        oResponse.setCOREEnvelopeRealTimeResponse(new AdapterCORE_X12DSRealTimeOrchImpl().realTimeRequest(adapterCOREEnvelopeRealTimeRequestType.getCOREEnvelopeRealTimeRequest(), adapterCOREEnvelopeRealTimeRequestType.getAssertion()));
+        AssertionType oAssertion = getAssertion(context, adapterRequest.getAssertion());
+        oResponse.setCOREEnvelopeRealTimeResponse(new AdapterCORE_X12DSRealTimeOrchImpl().realTimeRequest(adapterRequest.getCOREEnvelopeRealTimeRequest(), oAssertion));
         return oResponse;
     }
 
     /**
      *
-     * @param adapterCOREEnvelopeRealTimeSecuredRequestType
+     * @param adapterRequest
      * @param context
      * @return
      */
-    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransactionSecured(AdapterCOREEnvelopeRealTimeSecuredRequestType adapterCOREEnvelopeRealTimeSecuredRequestType, WebServiceContext context) {
+    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransactionSecured(AdapterCOREEnvelopeRealTimeSecuredRequestType adapterRequest, WebServiceContext context) {
         AdapterCOREEnvelopeRealTimeResponseType oResponse = new AdapterCOREEnvelopeRealTimeResponseType();
         AssertionType oAssertion = getAssertion(context, null);
-        oResponse.setCOREEnvelopeRealTimeResponse(new AdapterCORE_X12DSRealTimeOrchImpl().realTimeRequest(adapterCOREEnvelopeRealTimeSecuredRequestType.getCOREEnvelopeRealTimeRequest(), oAssertion));
+        oResponse.setCOREEnvelopeRealTimeResponse(new AdapterCORE_X12DSRealTimeOrchImpl().realTimeRequest(adapterRequest.getCOREEnvelopeRealTimeRequest(), oAssertion));
         return oResponse;
     }
 
