@@ -33,9 +33,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />            
-            <entry key="ws-security.timestamp.validator">
-                <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
-            </entry>
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>

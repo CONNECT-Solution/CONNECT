@@ -6,10 +6,10 @@
         <groupId>org.connectopensource</groupId>
         <version>4.4.0-SNAPSHOT</version>
     </parent>    
-    <artifactId>CORE_X12DocSubmissionAdapter10</artifactId>    
+    <artifactId>CORE_X12DocSubmission_a0</artifactId>    
     <packaging>war</packaging>
     
-    <name>CONNECT Adapter - ${project.artifactId}</name>
+    <name>CONNECT Adapter - CORE_X12DocSubmission_a0</name>
 
     <dependencies>  
          <dependency>

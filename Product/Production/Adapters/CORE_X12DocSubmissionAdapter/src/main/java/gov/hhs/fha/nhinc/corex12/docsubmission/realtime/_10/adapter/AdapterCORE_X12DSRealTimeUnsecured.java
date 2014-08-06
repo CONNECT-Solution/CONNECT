@@ -44,7 +44,6 @@ import javax.xml.ws.soap.Addressing;
 @Addressing(enabled = true)
 public class AdapterCORE_X12DSRealTimeUnsecured implements gov.hhs.fha.nhinc.adaptercore.AdapterCORETransactionPortType {
 
-    private WebServiceContext context;
     private OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime;
 
     @Override
@@ -54,17 +53,13 @@ public class AdapterCORE_X12DSRealTimeUnsecured implements gov.hhs.fha.nhinc.ada
 
     @Override
 
-    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransaction(AdapterCOREEnvelopeRealTimeRequestType a) {
-        return new AdapterCORE_X12DSRealTimeImpl(outboundCOREX12DSRealTime).realTimeTransaction(a);
+    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransaction(AdapterCOREEnvelopeRealTimeRequestType adapterCOREEnvelopeRealTimeRequestType) {
+        return new AdapterCORE_X12DSRealTimeImpl(outboundCOREX12DSRealTime).realTimeTransaction(adapterCOREEnvelopeRealTimeRequestType);
     }
 
     @Override
     public AdapterBatchSubmissionAckResponseType batchSubmitTransactionDeferredRequest(AdapterBatchSubmissionRequestType absrt) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void setContext(WebServiceContext context) {
-        this.context = context;
     }
 
     public void setOutboundCOREX12DSRealTime(OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime) {

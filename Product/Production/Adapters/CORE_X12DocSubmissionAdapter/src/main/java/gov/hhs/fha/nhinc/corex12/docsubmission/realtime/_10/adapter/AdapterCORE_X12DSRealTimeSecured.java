@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionSecured
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeSecuredRequestType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.OutboundCORE_X12DSRealTime;
+import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
@@ -44,7 +45,6 @@ import javax.xml.ws.soap.Addressing;
 @Addressing(enabled = true)
 public class AdapterCORE_X12DSRealTimeSecured implements gov.hhs.fha.nhinc.adaptercoresecured.AdapterCORETransactionSecuredPortType {
 
-    private WebServiceContext context;
     private OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime;
 
     @Override
@@ -58,13 +58,9 @@ public class AdapterCORE_X12DSRealTimeSecured implements gov.hhs.fha.nhinc.adapt
     }
 
     @Override
-    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransactionSecured(AdapterCOREEnvelopeRealTimeSecuredRequestType a) {
+    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransactionSecured(AdapterCOREEnvelopeRealTimeSecuredRequestType adapterCOREEnvelopeRealTimeSecuredRequestType) {
 
-        return new AdapterCORE_X12DSRealTimeImpl(outboundCOREX12DSRealTime).realTimeTransactionSecured(a);
-    }
-
-    public void setContext(WebServiceContext context) {
-        this.context = context;
+        return new AdapterCORE_X12DSRealTimeImpl(outboundCOREX12DSRealTime).realTimeTransactionSecured(adapterCOREEnvelopeRealTimeSecuredRequestType);
     }
 
     public void setOutboundCOREX12DSRealTime(OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime) {

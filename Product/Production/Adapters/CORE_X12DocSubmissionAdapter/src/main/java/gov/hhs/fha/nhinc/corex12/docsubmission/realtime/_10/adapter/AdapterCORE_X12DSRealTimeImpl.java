@@ -26,12 +26,13 @@
  */
 package gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.adapter;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeSecuredRequestType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.OutboundCORE_X12DSRealTime;
-import org.apache.log4j.Logger;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import javax.xml.ws.WebServiceContext;
 
 /**
  *
@@ -39,7 +40,6 @@ import gov.hhs.fha.nhinc.messaging.server.BaseService;
  */
 public class AdapterCORE_X12DSRealTimeImpl extends BaseService {
 
-    private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSRealTimeImpl.class);
     private OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime;
 
     /*
@@ -49,12 +49,15 @@ public class AdapterCORE_X12DSRealTimeImpl extends BaseService {
         this.outboundCOREX12DSRealTime = outboundCOREX12DSRealTime;
     }
 
-    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransactionSecured(AdapterCOREEnvelopeRealTimeSecuredRequestType a) {
-        return new AdapterCOREEnvelopeRealTimeResponseType();
-    }
+    /* public AdapterCOREEnvelopeRealTimeResponseType realTimeTransactionSecured(AdapterCOREEnvelopeRealTimeSecuredRequestType adapterCOREEnvelopeRealTimeSecuredRequestType) {
+     return new AdapterCOREEnvelopeRealTimeResponseType();
+     }
 
-    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransaction(AdapterCOREEnvelopeRealTimeRequestType acrtrt) {
-        return new AdapterCOREEnvelopeRealTimeResponseType();
+     public AdapterCOREEnvelopeRealTimeResponseType realTimeTransaction(AdapterCOREEnvelopeRealTimeRequestType acrtrt) {
+     return new AdapterCOREEnvelopeRealTimeResponseType();
+     }*/
+    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransaction(AdapterCOREEnvelopeRealTimeRequestType adapterCOREEnvelopeRealTimeRequestType, WebServiceContext context) {
+        AssertionType assertion = getAssertion(context, adapterCOREEnvelopeRealTimeRequestType.getAssertion());
+        return new AdapterDocSubmissionOrchImpl()
     }
-
 }
