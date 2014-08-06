@@ -937,6 +937,17 @@ body {
 	padding:0px;
 }
 
+#domainEditTabview .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+	/*
+	background: #ffffff;
+	color: #313131;
+	*/
+	-moz-box-shadow:none;
+	-webkit-box-shadow:none;
+	box-shadow:none;
+	border: 1px solid #ccc;
+}
+
 #domainEditTabview.ui-tabs .ui-tabs-panel .form-button-row {
 	width: 100%;
 	margin-top:10px;
