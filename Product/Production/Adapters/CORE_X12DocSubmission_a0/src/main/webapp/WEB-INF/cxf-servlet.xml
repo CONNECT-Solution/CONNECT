@@ -38,14 +38,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
             </entry>
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
-        <jaxws:inInterceptors>
-            <ref bean="timestampInInterceptor" />
-        </jaxws:inInterceptors>
-        <jaxws:outFaultInterceptors>
-            <ref bean="attachmentFaultOutInterceptor" />
-        </jaxws:outFaultInterceptors>
     </jaxws:endpoint>
-
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercore" id="AdapterDocSubmissionCore"    
         address="CORETransaction/AdapterCORETransactionUnsecured" serviceName="tns:AdapterCORETransaction" endpointName="tns:AdapterCORETransaction_Port"
         implementor="#AdapterCORE" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0RealTime.wsdl">

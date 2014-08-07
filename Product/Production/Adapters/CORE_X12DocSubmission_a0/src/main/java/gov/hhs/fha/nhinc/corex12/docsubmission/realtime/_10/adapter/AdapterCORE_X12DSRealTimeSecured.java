@@ -26,12 +26,8 @@
  */
 package gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.adapter;
 
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionAckResponseType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionResponseSecuredType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionSecuredRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeSecuredRequestType;
-import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.OutboundCORE_X12DSRealTime;
 import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
 
@@ -45,17 +41,8 @@ public class AdapterCORE_X12DSRealTimeSecured implements gov.hhs.fha.nhinc.adapt
     private WebServiceContext context;
 
     @Override
-    public AdapterBatchSubmissionAckResponseType batchSubmitTransactionDeferredResponseSecured(AdapterBatchSubmissionResponseSecuredType absrst) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public AdapterBatchSubmissionAckResponseType batchSubmitTransactionDeferredRequestSecured(AdapterBatchSubmissionSecuredRequestType abssrt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransactionSecured(AdapterCOREEnvelopeRealTimeSecuredRequestType adapterCOREEnvelopeRealTimeSecuredRequestType) {
+    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransaction(AdapterCOREEnvelopeRealTimeSecuredRequestType adapterCOREEnvelopeRealTimeSecuredRequestType) {
         return new AdapterCORE_X12DSRealTimeImpl().realTimeTransactionSecured(adapterCOREEnvelopeRealTimeSecuredRequestType, context);
     }
+
 }
