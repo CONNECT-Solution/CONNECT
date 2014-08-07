@@ -36,19 +36,8 @@
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
-            <entry key="ws-security.timestamp.validator">
-                <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
-            </entry>
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
-
-        <jaxws:inInterceptors>
-            <ref bean="timestampInInterceptor" />
-            <ref bean="securityConfigInInterceptor" />
-        </jaxws:inInterceptors>
-        <jaxws:outFaultInterceptors>
-            <ref bean="attachmentFaultOutInterceptor" />
-        </jaxws:outFaultInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
             <ref bean="TransactionHandler" />
@@ -63,9 +52,6 @@
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
-        <jaxws:properties>
-            <entry key="mtom-enabled" value="true" />
-        </jaxws:properties>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:edss="urn:gov:hhs:fha:nhinc:nhincentitycoresecured" id="NhincEntityCORESecured"
@@ -74,23 +60,14 @@
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
-            <entry key="mtom-enabled" value="true" />
-            <entry key="ws-security.timestamp.validator">
-                <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
-            </entry>
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
-
         <jaxws:inInterceptors>
-            <ref bean="timestampInInterceptor" />
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
-        <jaxws:outFaultInterceptors>
-            <ref bean="attachmentFaultOutInterceptor" />
-        </jaxws:outFaultInterceptors>
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>

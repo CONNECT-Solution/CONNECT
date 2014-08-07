@@ -22,20 +22,9 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     </bean>
 
     <!-- X12 DocSubmisison -->
-
-    <bean id="nhinX12DSRealTime" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.nhin.NhinCORE_X12DSRealTime">
-       
-    </bean>
-    
-    <bean id="entityX12DSUnsecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity.EntityCORE_X12DSRealTimeUnsecured">
-        
-    </bean>
-
-    <bean id="entityX12DSSecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity.EntityCORE_X12DSRealTimeSecured">
-        
-    </bean>
-    
+    <bean id="nhinX12DSRealTime" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.nhin.NhinCORE_X12DSRealTime"/>         
+    <bean id="entityX12DSUnsecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity.EntityCORE_X12DSRealTimeUnsecured"/>
+    <bean id="entityX12DSSecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity.EntityCORE_X12DSRealTimeSecured"/>
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
-
 </beans>
