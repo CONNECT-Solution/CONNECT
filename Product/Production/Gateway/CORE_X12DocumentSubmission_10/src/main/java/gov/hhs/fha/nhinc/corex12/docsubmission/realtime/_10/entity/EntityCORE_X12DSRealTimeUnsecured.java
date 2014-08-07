@@ -26,9 +26,6 @@
  */
 package gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionAckResponseType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRealTimeRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRealTimeResponseType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.OutboundCORE_X12DSRealTime;
@@ -48,32 +45,7 @@ public class EntityCORE_X12DSRealTimeUnsecured implements gov.hhs.fha.nhinc.nhin
     private WebServiceContext context;
     private OutboundCORE_X12DSRealTime outboundCORE_X12DSRealTime;
     
-    /**
-     * 
-     * @param body
-     * @return RespondingGatewayCrossGatewayBatchSubmissionAckResponseType
-     */
-    @Override
-    public RespondingGatewayCrossGatewayBatchSubmissionAckResponseType batchSubmitTransactionDeferredResponse(RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType body) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
-     * 
-     * @param body
-     * @return RespondingGatewayCrossGatewayBatchSubmissionAckResponseType
-     */
-    @Override
-    public RespondingGatewayCrossGatewayBatchSubmissionAckResponseType batchSubmitTransactionDeferredRequest(RespondingGatewayCrossGatewayBatchSubmissionRequestType body) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
-     * 
-     * @param body
-     * @return RespondingGatewayCrossGatewayRealTimeResponseType
-     */
-    @Override
+        @Override
     public RespondingGatewayCrossGatewayRealTimeResponseType realTimeTransaction(RespondingGatewayCrossGatewayRealTimeRequestType body) {
         return new EntityCORE_X12DSRealTimeImpl(outboundCORE_X12DSRealTime).realTimeTransaction(body, context);
     }
