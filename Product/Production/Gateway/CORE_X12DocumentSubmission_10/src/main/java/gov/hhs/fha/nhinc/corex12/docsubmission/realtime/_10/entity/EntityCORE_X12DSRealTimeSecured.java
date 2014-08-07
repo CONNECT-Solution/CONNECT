@@ -26,9 +26,6 @@
  */
 package gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionAckResponseType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionResponseMessageSecuredRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionSecuredRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRealTimeResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRealTimeSecuredRequestType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.OutboundCORE_X12DSRealTime;
@@ -48,19 +45,9 @@ public class EntityCORE_X12DSRealTimeSecured implements gov.hhs.fha.nhinc.nhince
     private WebServiceContext context;
     private OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime;
     
-    @Override
-    public RespondingGatewayCrossGatewayBatchSubmissionAckResponseType batchSubmitTransactionDeferredRequestSecured(RespondingGatewayCrossGatewayBatchSubmissionSecuredRequestType body) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public RespondingGatewayCrossGatewayRealTimeResponseType realTimeTransactionSecured(RespondingGatewayCrossGatewayRealTimeSecuredRequestType body) {
+        @Override
+    public RespondingGatewayCrossGatewayRealTimeResponseType realTimeTransaction(RespondingGatewayCrossGatewayRealTimeSecuredRequestType body) {
         return new EntityCORE_X12DSRealTimeImpl(outboundCOREX12DSRealTime).realTimeTransactionSecured(body, context);
-    }
-
-    @Override
-    public RespondingGatewayCrossGatewayBatchSubmissionAckResponseType batchSubmitTransactionDeferredResponseSecured(RespondingGatewayCrossGatewayBatchSubmissionResponseMessageSecuredRequestType body) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     @Resource

@@ -33,9 +33,6 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 import org.caqh.soap.wsdl.CORETransactions;
-import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
-import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionAckRetrievalResponse;
-import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
@@ -49,6 +46,11 @@ public class NhinCORE_X12DSRealTime implements CORETransactions {
 
     private WebServiceContext context;
     private InboundCORE_X12DSRealTime inboundCORE_X12DSRealTime;
+        
+    @Override
+    public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest body) {
+        return new NhinCORE_X12DSRealTimeImpl(inboundCORE_X12DSRealTime).realTimeTransaction(body, context);
+    }
     
     /**
      * 
@@ -74,34 +76,4 @@ public class NhinCORE_X12DSRealTime implements CORETransactions {
     public void setInboundCORE_X12DSRealTime(InboundCORE_X12DSRealTime inboundCORE_X12DSRealTime) {
         this.inboundCORE_X12DSRealTime = inboundCORE_X12DSRealTime;
     }
-    
-    /**
-     * 
-     * @param body
-     * @return COREEnvelopeBatchSubmissionAckRetrievalResponse
-     */
-    @Override
-    public COREEnvelopeBatchSubmissionAckRetrievalResponse batchSubmitTransactionDeferredRequest(COREEnvelopeBatchSubmission body) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
-     * 
-     * @param body
-     * @return COREEnvelopeBatchSubmissionAckRetrievalResponse
-     */
-    @Override
-    public COREEnvelopeBatchSubmissionAckRetrievalResponse batchSubmitTransactionDeferredResponse(COREEnvelopeBatchSubmissionResponse body) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
-     * 
-     * @param body
-     * @return COREEnvelopeRealTimeResponse
-     */
-    @Override
-    public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest body) {
-        return new NhinCORE_X12DSRealTimeImpl(inboundCORE_X12DSRealTime).realTimeTransaction(body, context);
-    }    
 }
