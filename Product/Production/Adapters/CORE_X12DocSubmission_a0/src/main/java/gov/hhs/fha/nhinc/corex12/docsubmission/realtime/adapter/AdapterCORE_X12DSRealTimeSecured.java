@@ -24,47 +24,25 @@
  *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.adapter;
+package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeSecuredRequestType;
-import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.AdapterCORE_X12DSRealTimeOrchImpl;
-
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
 
 /**
  *
  * @author sadusumilli
  */
-public class AdapterCORE_X12DSRealTimeImpl extends BaseService {
+public class AdapterCORE_X12DSRealTimeSecured implements gov.hhs.fha.nhinc.adaptercoresecured.AdapterCORETransactionSecuredPortType {
 
-    /**
-     *
-     * @param adapterRequest
-     * @param context
-     * @return
-     */
-    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransaction(AdapterCOREEnvelopeRealTimeRequestType adapterRequest, WebServiceContext context) {
-        AdapterCOREEnvelopeRealTimeResponseType oResponse = new AdapterCOREEnvelopeRealTimeResponseType();
-        AssertionType oAssertion = getAssertion(context, adapterRequest.getAssertion());
-        oResponse.setCOREEnvelopeRealTimeResponse(new AdapterCORE_X12DSRealTimeOrchImpl().realTimeRequest(adapterRequest.getCOREEnvelopeRealTimeRequest(), oAssertion));
-        return oResponse;
-    }
+    @Resource
+    private WebServiceContext context;
 
-    /**
-     *
-     * @param adapterRequest
-     * @param context
-     * @return
-     */
-    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransactionSecured(AdapterCOREEnvelopeRealTimeSecuredRequestType adapterRequest, WebServiceContext context) {
-        AdapterCOREEnvelopeRealTimeResponseType oResponse = new AdapterCOREEnvelopeRealTimeResponseType();
-        AssertionType oAssertion = getAssertion(context, null);
-        oResponse.setCOREEnvelopeRealTimeResponse(new AdapterCORE_X12DSRealTimeOrchImpl().realTimeRequest(adapterRequest.getCOREEnvelopeRealTimeRequest(), oAssertion));
-        return oResponse;
+    @Override
+    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransaction(AdapterCOREEnvelopeRealTimeSecuredRequestType adapterCOREEnvelopeRealTimeSecuredRequestType) {
+        return new AdapterCORE_X12DSRealTimeImpl().realTimeTransactionSecured(adapterCOREEnvelopeRealTimeSecuredRequestType, context);
     }
 
 }
