@@ -29,7 +29,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercoresecured" id="AdapterCORESecured"
         address="/CORETransaction/AdapterCORETransactionSecured" serviceName="tns:AdapterCORETransactionSecured" endpointName="tns:AdapterCORETransactionSecured_Port"
-        implementor="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.adapter.AdapterCORE_X12DSRealTimeSecured" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0RealTimeSecured.wsdl">
+        implementor="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.AdapterCORE_X12DSRealTimeSecured" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0RealTimeSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />            
@@ -41,7 +41,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
     </jaxws:endpoint>
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercore" id="AdapterCORE"    
         address="/CORETransaction/AdapterCORETransactionUnsecured" serviceName="tns:AdapterCORETransaction" endpointName="tns:AdapterCORETransaction_Port"
-        implementor="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.adapter.AdapterCORE_X12DSRealTimeUnsecured" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0RealTime.wsdl">
+        implementor="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.AdapterCORE_X12DSRealTimeUnsecured" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0RealTime.wsdl">
     </jaxws:endpoint>  
 
 </beans>
