@@ -65,13 +65,6 @@
             <version>${project.parent.version}</version>
             <type>pom</type>
         </dependency>
-        <!-- X12 -->
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>x12-dependencies</artifactId>
-            <version>${project.parent.version}</version>
-            <type>pom</type>
-        </dependency>
         <!-- GUI -->
         <dependency>
             <groupId>org.connectopensource</groupId>
