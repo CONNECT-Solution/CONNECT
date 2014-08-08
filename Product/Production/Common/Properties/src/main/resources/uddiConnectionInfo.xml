@@ -162,6 +162,23 @@
                 </categoryBag>
             </businessService>
 
+            <!--  CORE X12 Document Submission -->
+
+            <businessService serviceKey="uddi:nhincnode:CORE_X12DSRealtime" businessKey="uddi:testnhieonenode:1.0">
+                <name xml:lang="en">CORE_X12DSRealtime</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:CORE_X12DSRealtime" serviceKey="uddi:nhincnode:CORE_X12DSRealtime">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/X12RealTimeDS_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="CORE_X12DSRealtime" keyValue="CORE_X12DSRealtime"/>
+                </categoryBag>
+            </businessService>
+
             <!--  Administrative Distribution  -->
 
             <businessService serviceKey="uddi:nhincnode:AdminDistribution" businessKey="uddi:testnhieonenode:1.1">

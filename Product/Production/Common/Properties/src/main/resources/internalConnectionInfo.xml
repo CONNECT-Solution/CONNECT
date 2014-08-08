@@ -418,6 +418,68 @@
                 </categoryBag>
             </businessService>
 
+            <!--  CORE X12 Document Submission  -->
+
+            <businessService serviceKey="uddi:nhincnode:adaptercore_x12dsrealtimesecured">
+                <name xml:lang="en">adaptercore_x12dsrealtimesecured</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:adaptercore_x12dsrealtimesecured" serviceKey="uddi:nhincnode:adaptercore_x12dsrealtimesecured">
+                        <accessPoint useType="endPoint">https://localhost:8181/Adapter/CORE_X12DocSubmission/A_0/AdapterCORETransactionSecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adaptercore_x12dsrealtimesecured" keyValue="adaptercore_x12dsrealtimesecured"/>
+                </categoryBag>
+            </businessService>
+
+            <businessService serviceKey="uddi:nhincnode:adaptercore_x12dsrealtime">
+                <name xml:lang="en">adaptercore_x12dsrealtime</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:adaptercore_x12dsrealtime" serviceKey="uddi:nhincnode:adaptercore_x12dsrealtime">
+                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/CORE_X12DocSubmission/A_0/AdapterCORETransactionUnsecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adaptercore_x12dsrealtime" keyValue="adaptercore_x12dsrealtime"/>
+                </categoryBag>
+            </businessService>
+
+            <businessService serviceKey="uddi:nhincnode:entitycore_x12dsrealtimesecured">
+                <name xml:lang="en">entitycore_x12dsrealtimesecured</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:entitycore_x12dsrealtimesecured" serviceKey="uddi:nhincnode:entitycore_x12dsrealtimesecured">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/EntityService/EntityCORETransactionSecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="entitycore_x12dsrealtimesecured" keyValue="entitycore_x12dsrealtimesecured"/>
+                </categoryBag>
+            </businessService>
+
+            <businessService serviceKey="uddi:nhincnode:entitycore_x12dsrealtime">
+                <name xml:lang="en">entitycore_x12dsrealtime</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:entitycore_x12dsrealtime" serviceKey="uddi:nhincnode:entitycore_x12dsrealtime">
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/CORE_X12DocumentSubmission/1_0/EntityService/EntityCORETransactionUnsecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="entitycore_x12dsrealtime" keyValue="entitycore_x12dsrealtime"/>
+                </categoryBag>
+            </businessService>
+
             <!--  Document Query  -->
 
             <businessService serviceKey="uddi:nhincnode:adapterdocquery">
