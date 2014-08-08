@@ -14,6 +14,6 @@
 
     </sys:environment> 
     
-    <context-root>Adapter/CORE_X12DocSubmissionAdapter/1_0</context-root>
+    <context-root>/Adapter/CORE_X12DocSubmission/A_0</context-root>
    
 </web-app>
