@@ -21,7 +21,7 @@
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
-            <artifactId>CORE_X12DocumentSubmission_a0</artifactId>
+            <artifactId>CORE_X12DocSubmission_a0</artifactId>
             <version>${project.parent.version}</version>
             <type>war</type>
             <optional>false</optional>
@@ -36,7 +36,7 @@
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
-            <artifactId>CORE_X12DocumentSubmission_a0</artifactId>
+            <artifactId>CORE_X12DocSubmission_a0</artifactId>
             <version>${project.parent.version}</version>
             <type>pom</type>
             <optional>false</optional>
