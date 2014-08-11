@@ -34,6 +34,6 @@ public class NhinCORE_X12DSRealTimeServicePortDescriptor extends AbstractCORESer
 
     @Override
     public String getWSAddressingAction() {
-        return "urn:ihe:iti:xdr:2007:X12RealTimeRequestMessage";
+        return "RealTimeTransaction";
     }
 }

@@ -75,13 +75,12 @@ public class NhinCORE_X12DSRealTimeProxyWebServiceSecuredImpl implements NhinCOR
 
             CONNECTClient<AdapterCORETransactionPortType> client = getCONNECTClientSecured(portDescriptor, assertion,
                 url, targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.NHIN_CORE_X12DS_REALTIME_SECURED_SERVICE_NAME);
-            client.enableMtom();
 
             response = (COREEnvelopeRealTimeResponse) client.invokePort(AdapterCORETransactionPortType.class,
                 "realTimeRequest", msg);
         } catch (Exception ex) {
             // TODO: We need to add error handling here based on CORE X12 DS RealTime use cases
-            // e.g., Adapter not found, timeout, etc.
+            // e.g., Connection error, etc.
             LOG.error("Error calling realTimeRequest: " + ex.getMessage(), ex);
             response = new COREEnvelopeRealTimeResponse();
 
