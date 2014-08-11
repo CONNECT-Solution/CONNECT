@@ -24,19 +24,16 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
-import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
+package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.nhin.proxy.service;
 
 /**
  * @author cmay
  *
  */
-public class AdapterCORE_X12DSRealTimeOrchImpl {
+public class NhinCORE_X12DSRealTimeServicePortDescriptor extends AbstractCOREServicePortDescriptor {
 
-    public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest msg, AssertionType assertion) {
-        return new COREEnvelopeRealTimeResponse();
+    @Override
+    public String getWSAddressingAction() {
+        return "RealTimeTransaction";
     }
 }
