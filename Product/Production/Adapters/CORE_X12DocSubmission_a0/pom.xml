@@ -10,7 +10,7 @@
     <artifactId>CORE_X12DocSubmission_a0</artifactId>
     <packaging>war</packaging>
 
-    <name>CORE_X12DocSubmission_a0</name>
+    <name>CONNECT Adapter - ${project.artifactId}</name>
     
      <dependencies>  
          <dependency>

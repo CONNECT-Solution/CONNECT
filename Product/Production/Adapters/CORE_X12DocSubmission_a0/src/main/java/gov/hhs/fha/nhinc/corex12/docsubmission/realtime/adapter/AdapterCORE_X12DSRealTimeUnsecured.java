@@ -24,10 +24,10 @@
  *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.adapter;
+package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter;
 
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeResponseType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeSecuredRequestType;
 import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
 
@@ -35,14 +35,14 @@ import javax.xml.ws.WebServiceContext;
  *
  * @author sadusumilli
  */
-public class AdapterCORE_X12DSRealTimeSecured implements gov.hhs.fha.nhinc.adaptercoresecured.AdapterCORETransactionSecuredPortType {
+public class AdapterCORE_X12DSRealTimeUnsecured implements gov.hhs.fha.nhinc.adaptercore.AdapterCORETransactionPortType {
 
     @Resource
     private WebServiceContext context;
 
     @Override
-    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransaction(AdapterCOREEnvelopeRealTimeSecuredRequestType adapterCOREEnvelopeRealTimeSecuredRequestType) {
-        return new AdapterCORE_X12DSRealTimeImpl().realTimeTransactionSecured(adapterCOREEnvelopeRealTimeSecuredRequestType, context);
+    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransaction(AdapterCOREEnvelopeRealTimeRequestType adapterCOREEnvelopeRealTimeRequestType) {
+        return new AdapterCORE_X12DSRealTimeImpl().realTimeTransaction(adapterCOREEnvelopeRealTimeRequestType, context);
     }
 
 }
