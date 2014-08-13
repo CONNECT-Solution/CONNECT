@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/aop     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+<!--
+    The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces
+    in the description separated with a comma like the following sample: {somebean,anotherbean}
+-->
+    <description>Beans included in this file: {adaptercore_x12dsgenericbatchrequest,entitycore_x12dsgenericbatchrequest,nhincore_x12dsgenericbatchrequest,
+    adaptercore_x12dsgenericbatchresponse,entitycore_x12dsgenericbatchresponse,nhincore_x12dsgenericbatchresponse}</description>
+
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+    <context:annotation-config />
+
+    <import resource="classpath:CONNECT-context.xml" />
+
+    <!--
+        Beans defined for adaptercore_x12dsrealtime
+    -->
+    <alias alias="adaptercore_x12dsgenericbatchrequest"
+           name="adaptercore_x12dsgenericbatchrequestwssecured" />
+
+    <!-- No-op Implementation -->
+    <bean id="adaptercore_x12dsgenericbatchrequestnoop"
+          name="adaptercore_x12dsgenericbatchrequestnoop"
+          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.AdapterCORE_X12DGenericBatchRequestProxyNoOpImpl"
+          lazy-init="true">
+
+        <meta key="impltype" value="noop" />
+    </bean>
+
+    <!-- Java Implementation -->
+    <bean id="adaptercore_x12dsgenericbatchrequestjava"
+          name="adaptercore_x12dsgenericbatchrequestjava"
+          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.AdapterCORE_X12DSGenericBatchRequestProxyJavaImpl"
+          lazy-init="true">
+
+        <meta key="impltype" value="java" />
+    </bean>
+
+    <!-- Secured web service Implementation -->
+    <bean id="adaptercore_x12dsgenericbatchrequestwssecured"
+          name="adaptercore_x12dsgenericbatchrequestwssecured"
+          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.AdapterCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl"
+          lazy-init="true">
+
+        <meta key="impltype" value="wssecured" />
+        <meta key="default" value="true" />
+    </bean>
+
+    <!-- Unsecured web service Implementation -->
+    <bean id="adaptercore_x12dsenericbatchrequestwsunsecured"
+          name="adaptercore_x12dsenericbatchrequestwsunsecured"
+          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.AdapterCORE_X12DSGenericBatchRequestProxyWebServiceUnsecuredImpl"
+          lazy-init="true">
+
+        <meta key="impltype" value="wsunsecured" />
+    </bean>
+
+    <aop:aspectj-autoproxy />
+</beans>

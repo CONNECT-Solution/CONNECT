@@ -419,6 +419,27 @@ public class NhincConstants {
     public static final String ADAPTER_CORE_X12DS_REALTIME_SECURED_SERVICE_NAME = "adaptercore_x12dsrealtimesecured";
 
     public static final String CORE_X12DS_REALTIME_PROXY_CONFIG_FILE_NAME = "CORE_X12DSRealTimeProxyConfig.xml";
+    
+    // CORE X12 Document Submission Generic Batch Constants..
+    public static final String NHIN_CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME = "nhincore_x12dsgenericbatchrequest";
+    public static final String NHIN_CORE_X12DS_GENERICBATCH_REQUEST_SECURED_SERVICE_NAME = "nhincore_x12dsgenericbatchrequestwssecured";
+
+    public static final String ENTITY_CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME = "entitycore_x12dsgenericbatchrequest";
+    public static final String ENTITY_CORE_X12DS_GENERICBATCH_REQUEST_SECURED_SERVICE_NAME = "entitycore_x12dsgenericbatchrequestsecured";
+
+    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME = "adaptercore_x12dsgenericbatchrequest";
+    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_SECURED_SERVICE_NAME = "adaptercore_x12dsgenericbatchrequestsecured";
+
+        public static final String NHIN_CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME = "nhincore_x12dsgenericbatchresponse";
+    public static final String NHIN_CORE_X12DS_GENERICBATCH_RESPONSE_SECURED_SERVICE_NAME = "nhincore_x12dsgenericbatchresponsewssecured";
+
+    public static final String ENTITY_CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME = "entitycore_x12dsgenericbatchresponse";
+    public static final String ENTITY_CORE_X12DS_GENERICBATCH_RESPONSE_SECURED_SERVICE_NAME = "entitycore_x12dsgenericbatchresponsesecured";
+
+    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME = "adaptercore_x12dsgenericbatchresponse";
+    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_RESPONSE_SECURED_SERVICE_NAME = "adaptercore_x12dsgenericbatchresponsesecured";
+    
+    public static final String CORE_X12DS_GENERICBATCH_PROXY_CONFIG_FILE_NAME = "CORE_X12DSGenericBatchProxyConfig.xml";
 
     public static final String CORE_X12DS_ACK_ERROR_MSG = null;
     public static final String CORE_X12DS_ACK_ERROR_CODE = null;
