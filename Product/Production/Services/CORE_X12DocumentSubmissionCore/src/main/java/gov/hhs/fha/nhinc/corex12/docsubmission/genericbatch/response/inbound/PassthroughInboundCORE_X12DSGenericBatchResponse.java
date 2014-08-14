@@ -24,30 +24,44 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.nhin.proxy;
+package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.inbound;
 
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.proxy.AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 
 /**
- *
  * @author svalluripalli
+ *
  */
-public class NhinCORE_X12DGenericBatchRequestProxyObjectFactory extends ComponentProxyObjectFactory {
+public class PassthroughInboundCORE_X12DSGenericBatchResponse extends AbstractInboundCORE_X12DSGenericBatchResponse {
 
-    private static final String CONFIG_FILE_NAME = NhincConstants.CORE_X12DS_GENERICBATCH_PROXY_CONFIG_FILE_NAME;
-    private static final String BEAN_NAME = "nhincore_x12dsgenericbatchrequest";
+    /**
+     * Default constructor.
+     */
+    public PassthroughInboundCORE_X12DSGenericBatchResponse() {
+        this(new AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory());
+    }
 
-    @Override
-    protected String getConfigFileName() {
-        return CONFIG_FILE_NAME;
+    /**
+     * Constructor with dependency injection of strategy components.
+     *
+     * @param adapterFactory
+     */
+    public PassthroughInboundCORE_X12DSGenericBatchResponse(AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory adapterFactory) {
+        super(adapterFactory);
     }
 
     /**
      *
-     * @return NhinCORE_X12DSGenericBatchRequestProxy
+     * @param msg
+     * @param assertion
+     * @return COREEnvelopeBatchSubmissionResponse
      */
-    public NhinCORE_X12DSGenericBatchRequestProxy getNhinCORE_X12DSGenericBatchRequestProxy() {
-        return getBean(BEAN_NAME, NhinCORE_X12DSGenericBatchRequestProxy.class);
+    @Override
+    COREEnvelopeBatchSubmissionResponse processGenericBatchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
+        return sendToAdapter(msg, assertion);
     }
+
 }
