@@ -27,8 +27,8 @@
 package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import gov.hhs.fha.nhinc.util.Base64Coder;
+import org.apache.log4j.Logger;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
@@ -38,19 +38,38 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  */
 public class AdapterCORE_X12DSRealTimeOrchImpl {
 
-    Log log = LogFactory.getLog(AdapterCORE_X12DSRealTimeOrchImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSRealTimeOrchImpl.class);
 
-    public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest msg, AssertionType assertion) {
-        log.info("Begin AdapterCORE_X12DSRealTimeOrchImpl.realTimeRequest()");
-        log.info("CORE Paylod Type = " + msg.getPayloadType());
-        log.info("CORE Processing Mode = " + msg.getProcessingMode());
-        log.info("CORE Rule version = " + msg.getCORERuleVersion());
-        log.info("CORE Payload Id = " + msg.getPayloadID());
-        log.info("CORE Receiver Id = " + msg.getReceiverID());
-        log.info("CORE Sender Id = " + msg.getSenderID());
-        log.info("CORE TimeStamp = " + msg.getTimeStamp());
-        log.info("CORE Payload = " + msg.getPayload());
-        log.info("End AdapterCORE_X12DSRealTimeOrchImpl.realTimeRequest()");
-        return new COREEnvelopeRealTimeResponse();
+    public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest, AssertionType assertion) {
+
+        COREEnvelopeRealTimeResponse oResponse = null;
+        if (coreEnvelopeRealTimeRequest != null) {
+
+            LOG.trace("Begin AdapterCORE_X12DSRealTimeOrchImpl.realTimeRequest()");
+
+            oResponse = new COREEnvelopeRealTimeResponse();
+            oResponse.setPayloadType("X12_278_Response_005010X279A1");
+            LOG.info("CORE Paylod Type = " + coreEnvelopeRealTimeRequest.getPayloadType());
+            oResponse.setProcessingMode("RealTime");
+            LOG.info("CORE Processing Mode = " + coreEnvelopeRealTimeRequest.getProcessingMode());
+            oResponse.setPayloadID("a81d44ae-7dec-11d0-a765-00a0c91e6ba0");
+            LOG.info("CORE Payload Id = " + coreEnvelopeRealTimeRequest.getPayloadID());
+            oResponse.setTimeStamp("2007-08-30T10:20:34Z");
+            LOG.info("CORE TimeStamp = " + coreEnvelopeRealTimeRequest.getTimeStamp());
+            oResponse.setSenderID("PayerB");
+            LOG.info("CORE Sender Id = " + coreEnvelopeRealTimeRequest.getSenderID());
+            oResponse.setReceiverID("HospitalA");
+            LOG.info("CORE Receiver Id = " + coreEnvelopeRealTimeRequest.getReceiverID());
+            oResponse.setCORERuleVersion("2.2.0");
+            LOG.info("CORE Rule version = " + coreEnvelopeRealTimeRequest.getCORERuleVersion());
+            oResponse.setPayload("PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxDbGluaWNhbERvY3VtZW50\n"
+                + "IG1vb2RDb2RlPSJFVk4iIHhtbG5zPSJ1cm46aGw3LW9yZzp2MyINCiAgICB4bWxuczp4c2k9Imh0");
+            LOG.info("CORE Payload = " + Base64Coder.decodeString(coreEnvelopeRealTimeRequest.getPayload()));
+
+            LOG.trace("End AdapterCORE_X12DSRealTimeOrchImpl.realTimeRequest()");
+
+        }
+        return oResponse;
     }
+
 }
