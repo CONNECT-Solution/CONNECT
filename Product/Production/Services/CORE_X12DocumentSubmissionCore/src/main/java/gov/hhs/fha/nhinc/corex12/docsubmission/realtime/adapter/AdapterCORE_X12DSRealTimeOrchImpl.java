@@ -51,8 +51,10 @@ public class AdapterCORE_X12DSRealTimeOrchImpl {
         COREEnvelopeRealTimeResponse oResponse = null;
         if (coreEnvelopeRealTimeRequest != null) {
             LOG.trace("Begin AdapterCORE_X12DSRealTimeOrchImpl.realTimeRequest()");
+            //Call to a method which builds response metadata and returns response
             oResponse = buildAdapterCORE_X12DSRealTimeResponseMetadata();
-            createAdapterCORE_X12DSRealTimeRequestLogInfo(coreEnvelopeRealTimeRequest);
+            //Call for logging inbound
+            LogAdapterCORE_X12DSRealTimeRequest(coreEnvelopeRealTimeRequest);
             LOG.trace("End AdapterCORE_X12DSRealTimeOrchImpl.realTimeRequest()");
         } else {
             return oResponse;
@@ -61,10 +63,6 @@ public class AdapterCORE_X12DSRealTimeOrchImpl {
         return oResponse;
     }
 
-    /**
-     *
-     * @return
-     */
     private COREEnvelopeRealTimeResponse buildAdapterCORE_X12DSRealTimeResponseMetadata() {
         COREEnvelopeRealTimeResponse oResponse = new COREEnvelopeRealTimeResponse();
         oResponse.setPayloadType("X12_278_Response_005010X279A1");
@@ -79,11 +77,7 @@ public class AdapterCORE_X12DSRealTimeOrchImpl {
         return oResponse;
     }
 
-    /**
-     *
-     * @param coreEnvelopeRealTimeRequest
-     */
-    private void createAdapterCORE_X12DSRealTimeRequestLogInfo(COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest) {
+    private void LogAdapterCORE_X12DSRealTimeRequest(COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest) {
         LOG.info("CORE Paylod Type = " + coreEnvelopeRealTimeRequest.getPayloadType());
         LOG.info("CORE Processing Mode = " + coreEnvelopeRealTimeRequest.getProcessingMode());
         LOG.info("CORE Payload Id = " + coreEnvelopeRealTimeRequest.getPayloadID());
