@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
@@ -36,7 +38,19 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  */
 public class AdapterCORE_X12DSRealTimeOrchImpl {
 
+    Log log = LogFactory.getLog(AdapterCORE_X12DSRealTimeOrchImpl.class);
+
     public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest msg, AssertionType assertion) {
+        log.info("Begin AdapterCORE_X12DSRealTimeOrchImpl.realTimeRequest()");
+        log.info("CORE Paylod Type = " + msg.getPayloadType());
+        log.info("CORE Processing Mode = " + msg.getProcessingMode());
+        log.info("CORE Rule version = " + msg.getCORERuleVersion());
+        log.info("CORE Payload Id = " + msg.getPayloadID());
+        log.info("CORE Receiver Id = " + msg.getReceiverID());
+        log.info("CORE Sender Id = " + msg.getSenderID());
+        log.info("CORE TimeStamp = " + msg.getTimeStamp());
+        log.info("CORE Payload = " + msg.getPayload());
+        log.info("End AdapterCORE_X12DSRealTimeOrchImpl.realTimeRequest()");
         return new COREEnvelopeRealTimeResponse();
     }
 }
