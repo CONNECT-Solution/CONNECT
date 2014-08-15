@@ -58,7 +58,6 @@ public class AdapterCORE_X12DSRealTimeOrchImpl {
             LOG.trace("End AdapterCORE_X12DSRealTimeOrchImpl.realTimeRequest()");
         } else {
             oResponse = new COREEnvelopeRealTimeResponse();
-            return oResponse;
             //TODO: Need to add error handling
         }
         return oResponse;
