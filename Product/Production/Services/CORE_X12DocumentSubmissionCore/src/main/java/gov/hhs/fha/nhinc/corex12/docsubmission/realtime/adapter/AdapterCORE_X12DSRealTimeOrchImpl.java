@@ -54,9 +54,10 @@ public class AdapterCORE_X12DSRealTimeOrchImpl {
             //Call to a method which builds response metadata and returns response
             oResponse = buildAdapterCORE_X12DSRealTimeResponseMetadata();
             //Call for logging inbound
-            LogAdapterCORE_X12DSRealTimeRequest(coreEnvelopeRealTimeRequest);
+            logAdapterCORE_X12DSRealTimeRequest(coreEnvelopeRealTimeRequest);
             LOG.trace("End AdapterCORE_X12DSRealTimeOrchImpl.realTimeRequest()");
         } else {
+            oResponse = new COREEnvelopeRealTimeResponse();
             return oResponse;
             //TODO: Need to add error handling
         }
@@ -77,7 +78,7 @@ public class AdapterCORE_X12DSRealTimeOrchImpl {
         return oResponse;
     }
 
-    private void LogAdapterCORE_X12DSRealTimeRequest(COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest) {
+    private void logAdapterCORE_X12DSRealTimeRequest(COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest) {
         LOG.info("CORE Paylod Type = " + coreEnvelopeRealTimeRequest.getPayloadType());
         LOG.info("CORE Processing Mode = " + coreEnvelopeRealTimeRequest.getProcessingMode());
         LOG.info("CORE Payload Id = " + coreEnvelopeRealTimeRequest.getPayloadID());
