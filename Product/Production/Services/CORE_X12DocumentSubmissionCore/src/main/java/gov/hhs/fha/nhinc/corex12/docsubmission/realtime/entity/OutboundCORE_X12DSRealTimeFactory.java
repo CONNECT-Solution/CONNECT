@@ -43,15 +43,11 @@ public class OutboundCORE_X12DSRealTimeFactory {
     }
 
     public static OutboundCORE_X12DSRealTimeFactory getInstance() {
-        return getSingletonInstance();
+        return OutboundCORE_X12DSRealTimeFactoryHolder.INSTANCE;
     }
 
-    // Singleton nested class and getter
+    // Singleton nested class
     private static class OutboundCORE_X12DSRealTimeFactoryHolder {
         public static OutboundCORE_X12DSRealTimeFactory INSTANCE = new OutboundCORE_X12DSRealTimeFactory();
-    }
-
-    private static OutboundCORE_X12DSRealTimeFactory getSingletonInstance() {
-        return OutboundCORE_X12DSRealTimeFactoryHolder.INSTANCE;
     }
 }

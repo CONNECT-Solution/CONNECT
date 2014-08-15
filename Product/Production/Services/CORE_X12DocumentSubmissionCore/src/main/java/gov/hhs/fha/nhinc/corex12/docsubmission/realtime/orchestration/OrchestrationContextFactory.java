@@ -58,15 +58,11 @@ public class OrchestrationContextFactory extends AbstractOrchestrationContextFac
     }
 
     public static OrchestrationContextFactory getInstance() {
-        return getSingletonInstance();
+        return OrchestrationContextFactoryHolder.INSTANCE;
     }
 
-    // Singleton nested class and getter
+    // Singleton nested class
     private static class OrchestrationContextFactoryHolder {
         public static OrchestrationContextFactory INSTANCE = new OrchestrationContextFactory();
-    }
-
-    private static OrchestrationContextFactory getSingletonInstance() {
-        return OrchestrationContextFactoryHolder.INSTANCE;
     }
 }
