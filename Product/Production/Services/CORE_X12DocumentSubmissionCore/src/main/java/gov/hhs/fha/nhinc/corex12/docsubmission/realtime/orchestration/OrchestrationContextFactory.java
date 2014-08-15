@@ -32,13 +32,7 @@ import gov.hhs.fha.nhinc.orchestration.AbstractOrchestrationContextFactory;
  */
 public class OrchestrationContextFactory extends AbstractOrchestrationContextFactory {
 
-    private static OrchestrationContextFactory INSTANCE = new OrchestrationContextFactory();
-
     private OrchestrationContextFactory() {
-    }
-
-    public static OrchestrationContextFactory getInstance() {
-        return INSTANCE;
     }
 
     @Override
@@ -61,5 +55,18 @@ public class OrchestrationContextFactory extends AbstractOrchestrationContextFac
         }
 
         return null;
+    }
+
+    public static OrchestrationContextFactory getInstance() {
+        return getSingletonInstance();
+    }
+
+    // Singleton nested class and getter
+    private static class OrchestrationContextFactoryHolder {
+        public static OrchestrationContextFactory INSTANCE = new OrchestrationContextFactory();
+    }
+
+    private static OrchestrationContextFactory getSingletonInstance() {
+        return OrchestrationContextFactoryHolder.INSTANCE;
     }
 }

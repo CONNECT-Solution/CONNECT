@@ -35,8 +35,6 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
  */
 public class OutboundCORE_X12DSRealTimeFactory {
 
-    private static OutboundCORE_X12DSRealTimeFactory INSTANCE = new OutboundCORE_X12DSRealTimeFactory();
-
     private OutboundCORE_X12DSRealTimeFactory() {
     }
 
@@ -45,6 +43,15 @@ public class OutboundCORE_X12DSRealTimeFactory {
     }
 
     public static OutboundCORE_X12DSRealTimeFactory getInstance() {
-        return INSTANCE;
+        return getSingletonInstance();
+    }
+
+    // Singleton nested class and getter
+    private static class OutboundCORE_X12DSRealTimeFactoryHolder {
+        public static OutboundCORE_X12DSRealTimeFactory INSTANCE = new OutboundCORE_X12DSRealTimeFactory();
+    }
+
+    private static OutboundCORE_X12DSRealTimeFactory getSingletonInstance() {
+        return OutboundCORE_X12DSRealTimeFactoryHolder.INSTANCE;
     }
 }
