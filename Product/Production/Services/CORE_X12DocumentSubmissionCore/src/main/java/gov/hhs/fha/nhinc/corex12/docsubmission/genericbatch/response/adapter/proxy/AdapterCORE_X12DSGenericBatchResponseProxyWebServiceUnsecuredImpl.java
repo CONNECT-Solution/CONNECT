@@ -65,6 +65,7 @@ public class AdapterCORE_X12DSGenericBatchResponseProxyWebServiceUnsecuredImpl i
     @Override
     public COREEnvelopeBatchSubmissionResponse genericBatchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
         COREEnvelopeBatchSubmissionResponse oResponse = new COREEnvelopeBatchSubmissionResponse();
+        //TODO need to implement this method...
         return oResponse;
     }
 }

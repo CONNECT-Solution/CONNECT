@@ -24,34 +24,20 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.entity.proxy;
+package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.outbound;
 
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 
 /**
- *
  * @author svalluripalli
+ *
  */
-public class EntityCORE_X12DSGenericBatchRequestProxyObjectFactory extends ComponentProxyObjectFactory {
+public interface OutboundCORE_X12DSGenericBatchResponse {
 
-    private static final String CONFIG_FILE_NAME = NhincConstants.CORE_X12DS_GENERICBATCH_PROXY_CONFIG_FILE_NAME;
-    private static final String BEAN_NAME = "entitycore_x12dsgenericbatchrequest";
-
-    /**
-     *
-     * @return String
-     */
-    @Override
-    protected String getConfigFileName() {
-        return CONFIG_FILE_NAME;
-    }
-
-    /**
-     *
-     * @return EntityCORE_X12DSGenericBatchRequestProxy
-     */
-    public EntityCORE_X12DSGenericBatchRequestProxy getEntityCORE_X12DSGenericBatchRequestProxy() {
-        return getBean(BEAN_NAME, EntityCORE_X12DSGenericBatchRequestProxy.class);
-    }
+    public COREEnvelopeBatchSubmissionResponse genericBatchSubmitTransaction(COREEnvelopeBatchSubmission msg,
+        AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo);
 }

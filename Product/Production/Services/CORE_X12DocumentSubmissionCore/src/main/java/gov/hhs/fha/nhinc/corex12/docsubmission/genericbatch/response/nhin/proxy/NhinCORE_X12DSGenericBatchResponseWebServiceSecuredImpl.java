@@ -61,6 +61,7 @@ public class NhinCORE_X12DSGenericBatchResponseWebServiceSecuredImpl implements 
     @Override
     public COREEnvelopeBatchSubmissionResponse genericBatchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         LOG.info("NhinCORE_X12DSGenericBatchResponseWebServiceSecuredImpl.genericBatchSubmitTransaction()");
+        //TODO need to implement this method...
         return new COREEnvelopeBatchSubmissionResponse();
     }
 }

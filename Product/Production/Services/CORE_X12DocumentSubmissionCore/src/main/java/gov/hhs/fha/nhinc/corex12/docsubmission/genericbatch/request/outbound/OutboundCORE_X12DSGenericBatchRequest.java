@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.entity.proxy;
+package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.outbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -33,10 +33,10 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 
 /**
- *
  * @author svalluripalli
+ *
  */
-public interface EntityCORE_X12DSGenericBatchRequestProxy {
+public interface OutboundCORE_X12DSGenericBatchRequest {
 
     public COREEnvelopeBatchSubmissionResponse genericBatchSubmitTransaction(COREEnvelopeBatchSubmission msg,
         AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo);
