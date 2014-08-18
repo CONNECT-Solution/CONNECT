@@ -409,6 +409,8 @@ public class NhincConstants {
     public static final String ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME = "adapteradmindistsecured";
 
     // CORE X12 Document Submission Constants
+    public static final String CORE_X12DS_REALTIME_SERVICE_NAME = "CORE_X12DSRealtime";
+
     public static final String NHIN_CORE_X12DS_REALTIME_SERVICE_NAME = "nhincore_x12dsrealtime";
     public static final String NHIN_CORE_X12DS_REALTIME_SECURED_SERVICE_NAME = "nhincore_x12dsrealtimewssecured";
 
