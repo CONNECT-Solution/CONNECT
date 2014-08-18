@@ -62,6 +62,7 @@ import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
 import com.services.nhinc.schema.auditmessage.ObjectFactory;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
+import javax.sql.rowset.serial.SerialBlob;
 
 /**
  * 
@@ -187,7 +188,7 @@ public class AuditRepositoryOrchImpl {
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
-            eventMessage = Hibernate.createBlob(buffer);
+            eventMessage = new SerialBlob(buffer);            
         } catch (Exception e) {
             LOG.error("Exception during Blob conversion :" + e.getMessage());
             e.printStackTrace();

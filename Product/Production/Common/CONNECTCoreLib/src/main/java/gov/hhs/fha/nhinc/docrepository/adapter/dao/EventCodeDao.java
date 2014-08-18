@@ -27,9 +27,7 @@
 package gov.hhs.fha.nhinc.docrepository.adapter.dao;
 
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
-import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCodeParam;
 import gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -40,12 +38,10 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
 
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import org.hibernate.Criteria;
@@ -60,15 +56,16 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
-import org.hibernate.engine.SessionFactoryImplementor;
-import org.hibernate.impl.CriteriaImpl;
-import org.hibernate.impl.SessionImpl;
+import org.hibernate.engine.spi.LoadQueryInfluencers;
+import org.hibernate.engine.spi.SessionFactoryImplementor;
+import org.hibernate.internal.CriteriaImpl;
+import org.hibernate.internal.SessionImpl;
 import org.hibernate.loader.OuterJoinLoader;
 import org.hibernate.loader.criteria.CriteriaLoader;
 import org.hibernate.persister.entity.OuterJoinLoadable;
+import org.hibernate.type.IntegerType;
 import org.hibernate.type.Type;
 
-import com.sun.xml.xsom.impl.scd.Iterators.Map;
 
 /**
  * Data access object class for EventCode data
@@ -150,7 +147,7 @@ public class EventCodeDao {
                     String[] alias = new String[1];
                     alias[0] = "documentid";
                     Type[] types = new Type[1];
-                    types[0] = Hibernate.INTEGER;
+                    types[0] = IntegerType.INSTANCE;
                     List<String> classCodes = null;
                     List<String> orValues = new ArrayList<String>();
                     int eventCodeSlotSize = 0;
@@ -336,8 +333,10 @@ public class EventCodeDao {
             SessionImpl s = (SessionImpl) c.getSession();
             SessionFactoryImplementor factory = (SessionFactoryImplementor) s.getSessionFactory();
             String[] implementors = factory.getImplementors(c.getEntityOrClassName());
+            LoadQueryInfluencers oLoadQueryInfluencers = new LoadQueryInfluencers();
+            oLoadQueryInfluencers.getEnabledFilters().putAll(s.getEnabledFilters());
             CriteriaLoader loader = new CriteriaLoader((OuterJoinLoadable) factory.getEntityPersister(implementors[0]),
-                    factory, c, implementors[0], s.getEnabledFilters());
+                    factory, c, implementors[0], oLoadQueryInfluencers);
             Field f = OuterJoinLoader.class.getDeclaredField("sql");
             f.setAccessible(true);
             sql = (String) f.get(loader);

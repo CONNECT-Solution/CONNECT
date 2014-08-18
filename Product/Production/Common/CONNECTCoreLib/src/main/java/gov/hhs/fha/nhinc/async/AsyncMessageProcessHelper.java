@@ -40,7 +40,6 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Hibernate;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PIXConsumerMCCIIN000002UV01RequestType;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -55,6 +54,7 @@ import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import java.io.IOException;
+import javax.sql.rowset.serial.SerialBlob;
 import javax.xml.bind.JAXBException;
 
 /**
@@ -371,7 +371,7 @@ public class AsyncMessageProcessHelper {
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
-            asyncMessage = Hibernate.createBlob(buffer);
+            asyncMessage = new SerialBlob(buffer);
         } catch (Exception e) {
             LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
@@ -394,7 +394,7 @@ public class AsyncMessageProcessHelper {
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
-            asyncMessage = Hibernate.createBlob(buffer);
+            asyncMessage = new SerialBlob(buffer);
         } catch (Exception e) {
             LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
@@ -417,7 +417,7 @@ public class AsyncMessageProcessHelper {
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
-            asyncMessage = Hibernate.createBlob(buffer);
+            asyncMessage = new SerialBlob(buffer);
         } catch (Exception e) {
             LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
         }

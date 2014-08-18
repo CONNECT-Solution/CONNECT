@@ -338,7 +338,7 @@
         <!-- Hibernate & cglib-nodep -->
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
+            <artifactId>hibernate-core</artifactId>
             <exclusions>
                 <exclusion>
                     <artifactId>ehcache</artifactId>

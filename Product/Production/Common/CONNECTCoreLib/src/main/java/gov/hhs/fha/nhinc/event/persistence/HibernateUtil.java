@@ -34,6 +34,8 @@ import java.io.File;
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 
 /**
  * 
@@ -48,7 +50,10 @@ public class HibernateUtil {
     static {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
-            SESSION_FACTORY = new Configuration().configure(getConfigFile()).buildSessionFactory();
+            Configuration configuration = new Configuration();
+            configuration.configure(getConfigFile());
+            ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
+            SESSION_FACTORY = configuration.buildSessionFactory(serviceRegistry);
         } catch (Throwable ex) {
             // Make sure you log the exception, as it might be swallowed
             LOG.error("Initial SessionFactory creation failed." + ex, ex.getCause());
