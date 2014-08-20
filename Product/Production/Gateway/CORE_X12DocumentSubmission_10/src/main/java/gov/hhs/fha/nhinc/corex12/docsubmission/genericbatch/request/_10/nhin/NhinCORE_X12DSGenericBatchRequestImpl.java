@@ -27,6 +27,9 @@
 
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request._10.nhin;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.inbound.InboundCORE_X12DSGenericBatchRequest;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import javax.xml.ws.WebServiceContext;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
@@ -35,7 +38,17 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  *
  * @author svalluripalli
  */
-public class NhinCORE_X12DSGenericBatchRequestImpl {
+public class NhinCORE_X12DSGenericBatchRequestImpl extends BaseService {
+    private InboundCORE_X12DSGenericBatchRequest inboundCORE_X12DSGenericBatchRequest;
+    
+    /**
+     * Constructor
+     * @param inboundCORE_X12DSGenericBatchRequest 
+     */
+    public NhinCORE_X12DSGenericBatchRequestImpl(InboundCORE_X12DSGenericBatchRequest inboundCORE_X12DSGenericBatchRequest)
+    {
+        this.inboundCORE_X12DSGenericBatchRequest = inboundCORE_X12DSGenericBatchRequest;
+    }
     
     /**
      * 
@@ -44,7 +57,7 @@ public class NhinCORE_X12DSGenericBatchRequestImpl {
      * @return COREEnvelopeBatchSubmissionResponse
      */
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission body, WebServiceContext context) {
-        //TODO Make a call to Implementation class.
-        return null;
+        AssertionType assertion = getAssertion(context, null);
+        return inboundCORE_X12DSGenericBatchRequest.genericBatchSubmitTransaction(body, assertion);
     }  
 }

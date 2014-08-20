@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response._10.nhin;
 
+import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.inbound.InboundCORE_X12DSGenericBatchResponse;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -43,20 +44,29 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 public class NhinCORE_X12DSGenericBatchResponse implements GenericBatchTransactionPort {
 
     private WebServiceContext context;
-        
+    private InboundCORE_X12DSGenericBatchResponse inboundCORE_X12DSGenericBatchResponse;
+
     @Resource
     public void setContext(WebServiceContext context) {
         this.context = context;
     }
 
     /**
-     * 
+     *
+     * @param inboundCORE_X12DSGenericBatchResponse
+     */
+    public void setInboundCORE_X12DSGenericBatchResponse(InboundCORE_X12DSGenericBatchResponse inboundCORE_X12DSGenericBatchResponse) {
+        this.inboundCORE_X12DSGenericBatchResponse = inboundCORE_X12DSGenericBatchResponse;
+    }
+
+    /**
+     *
      * @param body
      * @return COREEnvelopeBatchSubmissionResponse
      */
     @Override
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission body) {
-        return new NhinCORE_X12DSGenericBatchResponseImpl().batchSubmitTransaction(body, context);
+        return new NhinCORE_X12DSGenericBatchResponseImpl(inboundCORE_X12DSGenericBatchResponse).batchSubmitTransaction(body, context);
     }
-       
+
 }

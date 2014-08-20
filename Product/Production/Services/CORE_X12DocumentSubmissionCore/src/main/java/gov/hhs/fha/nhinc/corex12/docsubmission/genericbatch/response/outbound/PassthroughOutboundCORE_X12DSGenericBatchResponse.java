@@ -24,40 +24,25 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response._10.nhin;
+package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.outbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.inbound.InboundCORE_X12DSGenericBatchResponse;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
-import javax.xml.ws.WebServiceContext;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 
 /**
- *
  * @author svalluripalli
+ *
  */
-public class NhinCORE_X12DSGenericBatchResponseImpl extends BaseService {
+public class PassthroughOutboundCORE_X12DSGenericBatchResponse implements OutboundCORE_X12DSGenericBatchResponse {
 
-    private InboundCORE_X12DSGenericBatchResponse inboundCORE_X12DSGenericBatchResponse;
-
-    /**
-     * Constructor
-     *
-     * @param inboundCORE_X12DSGenericBatchResponse
-     */
-    public NhinCORE_X12DSGenericBatchResponseImpl(InboundCORE_X12DSGenericBatchResponse inboundCORE_X12DSGenericBatchResponse) {
-        this.inboundCORE_X12DSGenericBatchResponse = inboundCORE_X12DSGenericBatchResponse;
+    @Override
+    public COREEnvelopeBatchSubmissionResponse genericBatchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
+        //TODO needs to implement as part of other user story..
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    /**
-     *
-     * @param body
-     * @param context
-     * @return COREEnvelopeBatchSubmissionResponse
-     */
-    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission body, WebServiceContext context) {
-        AssertionType assertion = getAssertion(context, null);
-        return inboundCORE_X12DSGenericBatchResponse.genericBatchSubmitTransaction(body, assertion);
-    }
+
 }
