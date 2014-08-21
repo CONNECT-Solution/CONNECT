@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayR
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRealTimeResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRealTimeSecuredRequestType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.OutboundCORE_X12DSRealTime;
+import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.PassthroughOutboundCORE_X12DSRealTime;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import javax.xml.ws.WebServiceContext;
 import org.apache.log4j.Logger;
@@ -40,20 +41,25 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  *
  * @author svalluripalli
  */
-public class EntityCORE_X12DSRealTimeImpl extends BaseService{
+public class EntityCORE_X12DSRealTimeImpl extends BaseService {
     private static final Logger LOG = Logger.getLogger(EntityCORE_X12DSRealTimeImpl.class);
-    
-    private OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime;
+
+    private OutboundCORE_X12DSRealTime outboundCORE_X12DSRealTime;
     /**
-     * 
+     *
      */
-    public EntityCORE_X12DSRealTimeImpl(OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime)
-    {
-        this.outboundCOREX12DSRealTime = outboundCOREX12DSRealTime;
+    public EntityCORE_X12DSRealTimeImpl(OutboundCORE_X12DSRealTime outboundCORE_X12DSRealTime) {
+        // TODO: Once injection for outboundCORE_X12DSRealTime is fully implemented, remove this conditional
+        // statement, the entire else clause, and the import for PassthroughOutboundCORE_X12DSRealTime
+        if (outboundCORE_X12DSRealTime != null) {
+            this.outboundCORE_X12DSRealTime = outboundCORE_X12DSRealTime;
+        } else {
+            this.outboundCORE_X12DSRealTime = new PassthroughOutboundCORE_X12DSRealTime();
+        }
     }
-    
+
     /**
-     * 
+     *
      * @param body
      * @return RespondingGatewayCrossGatewayRealTimeResponseType
      */
@@ -61,7 +67,7 @@ public class EntityCORE_X12DSRealTimeImpl extends BaseService{
         RespondingGatewayCrossGatewayRealTimeResponseType response = null;
         try
         {
-            COREEnvelopeRealTimeResponse realTimeResponse = outboundCOREX12DSRealTime.realTimeRequest(body.getCOREEnvelopeRealTimeRequest(), body.getAssertion(), body.getNhinTargetCommunities(), null);
+            COREEnvelopeRealTimeResponse realTimeResponse = outboundCORE_X12DSRealTime.realTimeTransaction(body.getCOREEnvelopeRealTimeRequest(), body.getAssertion(), body.getNhinTargetCommunities(), null);
             response = new RespondingGatewayCrossGatewayRealTimeResponseType();
             response.setCOREEnvelopeRealTimeResponse(realTimeResponse);
         } catch(Exception e)
@@ -70,9 +76,9 @@ public class EntityCORE_X12DSRealTimeImpl extends BaseService{
         }
         return response;
     }
-    
+
     /**
-     * 
+     *
      * @param body
      * @return RespondingGatewayCrossGatewayRealTimeResponseType
      */
@@ -81,7 +87,7 @@ public class EntityCORE_X12DSRealTimeImpl extends BaseService{
         try
         {
             AssertionType assertion = getAssertion(context, null);
-            COREEnvelopeRealTimeResponse realTimeResponse = outboundCOREX12DSRealTime.realTimeRequest(body.getCOREEnvelopeRealTimeRequest(), assertion, body.getNhinTargetCommunities(), null);
+            COREEnvelopeRealTimeResponse realTimeResponse = outboundCORE_X12DSRealTime.realTimeTransaction(body.getCOREEnvelopeRealTimeRequest(), assertion, body.getNhinTargetCommunities(), null);
             response = new RespondingGatewayCrossGatewayRealTimeResponseType();
             response.setCOREEnvelopeRealTimeResponse(realTimeResponse);
         } catch(Exception e)

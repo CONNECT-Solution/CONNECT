@@ -53,7 +53,7 @@ public class PassthroughOutboundCORE_X12DSRealTime implements OutboundCORE_X12DS
     }
 
     @Override
-    public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest body, AssertionType assertion,
+    public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest body, AssertionType assertion,
         NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
 
         NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(

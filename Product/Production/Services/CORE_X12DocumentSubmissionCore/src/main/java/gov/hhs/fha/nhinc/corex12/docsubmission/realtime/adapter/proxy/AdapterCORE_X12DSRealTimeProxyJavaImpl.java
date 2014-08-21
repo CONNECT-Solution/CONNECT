@@ -42,8 +42,8 @@ public class AdapterCORE_X12DSRealTimeProxyJavaImpl implements AdapterCORE_X12DS
     private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSRealTimeProxyJavaImpl.class);
 
     @Override
-    public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest msg, AssertionType assertion) {
+    public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest msg, AssertionType assertion) {
         LOG.trace("Using Java Implementation for Adapter CORE X12 Doc Submission Service");
-        return new AdapterCORE_X12DSRealTimeOrchImpl().realTimeRequest(msg, assertion);
+        return new AdapterCORE_X12DSRealTimeOrchImpl().realTimeTransaction(msg, assertion);
     }
 }

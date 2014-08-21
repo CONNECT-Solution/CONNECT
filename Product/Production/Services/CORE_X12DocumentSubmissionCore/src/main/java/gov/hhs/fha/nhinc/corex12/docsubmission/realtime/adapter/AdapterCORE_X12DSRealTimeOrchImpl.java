@@ -46,16 +46,16 @@ public class AdapterCORE_X12DSRealTimeOrchImpl {
      * @param assertion
      * @return
      */
-    public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest, AssertionType assertion) {
+    public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest, AssertionType assertion) {
 
         COREEnvelopeRealTimeResponse oResponse = null;
         if (coreEnvelopeRealTimeRequest != null) {
-            LOG.trace("Begin AdapterCORE_X12DSRealTimeOrchImpl.realTimeRequest()");
+            LOG.trace("Begin AdapterCORE_X12DSRealTimeOrchImpl.realTimeTransaction()");
             //Call to a method which builds response metadata and returns response
             oResponse = buildAdapterCORE_X12DSRealTimeResponseMetadata();
             //Call for logging inbound
             logAdapterCORE_X12DSRealTimeRequest(coreEnvelopeRealTimeRequest);
-            LOG.trace("End AdapterCORE_X12DSRealTimeOrchImpl.realTimeRequest()");
+            LOG.trace("End AdapterCORE_X12DSRealTimeOrchImpl.realTimeTransaction()");
         } else {
             oResponse = new COREEnvelopeRealTimeResponse();
             //TODO: Need to add error handling
