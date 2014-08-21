@@ -68,8 +68,4 @@ public class EntityCORE_X12DSRealTimeUnsecured implements gov.hhs.fha.nhinc.nhin
         this.outboundCORE_X12DSRealTime = outboundCORE_X12DSRealTime;
     }
 
-    public OutboundCORE_X12DSRealTime getOutboundCOREX12DSRealTime() {
-        return outboundCORE_X12DSRealTime;
-    }
-
 }
