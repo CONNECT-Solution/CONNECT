@@ -37,6 +37,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
 import org.apache.log4j.Logger;
+import org.caqh.soap.wsdl.CORETransactions;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
@@ -53,8 +54,8 @@ public class NhinCORE_X12DSRealTimeProxyWebServiceSecuredImpl implements NhinCOR
         proxyHelper = new WebServiceProxyHelper();
     }
 
-    protected CONNECTClient<AdapterCORETransactionPortType> getCONNECTClientSecured(
-        ServicePortDescriptor<AdapterCORETransactionPortType> portDescriptor, AssertionType assertion, String url,
+    protected CONNECTClient<CORETransactions> getCONNECTClientSecured(
+        ServicePortDescriptor<CORETransactions> portDescriptor, AssertionType assertion, String url,
         String targetHomeCommunityId, String serviceName) {
 
         return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
@@ -71,13 +72,13 @@ public class NhinCORE_X12DSRealTimeProxyWebServiceSecuredImpl implements NhinCOR
             String url = proxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
                 NhincConstants.NHIN_CORE_X12DS_REALTIME_SECURED_SERVICE_NAME, apiLevel);
 
-            ServicePortDescriptor<AdapterCORETransactionPortType> portDescriptor = new NhinCORE_X12DSRealTimeServicePortDescriptor();
+            ServicePortDescriptor<CORETransactions> portDescriptor = new NhinCORE_X12DSRealTimeServicePortDescriptor();
 
-            CONNECTClient<AdapterCORETransactionPortType> client = getCONNECTClientSecured(portDescriptor, assertion,
+            CONNECTClient<CORETransactions> client = getCONNECTClientSecured(portDescriptor, assertion,
                 url, targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.NHIN_CORE_X12DS_REALTIME_SECURED_SERVICE_NAME);
 
-            response = (COREEnvelopeRealTimeResponse) client.invokePort(AdapterCORETransactionPortType.class,
-                "realTimeRequest", msg);
+            response = (COREEnvelopeRealTimeResponse) client.invokePort(CORETransactions.class,
+                "realTimeTransaction", msg);
         } catch (Exception ex) {
             // TODO: We need to add error handling here based on CORE X12 DS RealTime use cases
             // e.g., Connection error, etc.

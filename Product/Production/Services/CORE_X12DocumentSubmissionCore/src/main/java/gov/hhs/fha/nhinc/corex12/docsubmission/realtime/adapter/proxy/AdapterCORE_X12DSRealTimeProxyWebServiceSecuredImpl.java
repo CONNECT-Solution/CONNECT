@@ -76,7 +76,7 @@ public class AdapterCORE_X12DSRealTimeProxyWebServiceSecuredImpl implements Adap
                 CONNECTClient<AdapterCORETransactionSecuredPortType> client = CONNECTClientFactory.getInstance()
                     .getCONNECTClientSecured(portDescriptor, url, assertion);
                 response = (COREEnvelopeRealTimeResponse) client.invokePort(AdapterCORETransactionSecuredPortType.class,
-                    "realTimeRequest", msg);
+                    "realTimeTransaction", msg);
             } else {
                 // TODO: We need to add error handling here based on CORE X12 DS RealTime use cases
                 // e.g., Adapter not found, timeout, etc.

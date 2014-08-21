@@ -48,7 +48,8 @@
     <!-- Entity services -->
     <jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:nhincentitycore" id="NhincEntityCORE"
         address="/EntityService/EntityCORETransactionUnsecured" serviceName="eds:EntityCORETransaction" endpointName="eds:EntityCORETransaction_Port"
-        implementor="#entityX12DSUnsecured" wsdlLocation="classpath:wsdl/EntityCORERule2.2.0RealTime.wsdl">
+        implementorClass="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity.EntityCORE_X12DSRealTimeUnsecured"
+        implementor="#entityX12DSUnsecured" wsdlLocation="classpath:wsdl/EntityCORERule2.2.0RealTime.wsdl">        
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
@@ -56,6 +57,7 @@
 
     <jaxws:endpoint xmlns:edss="urn:gov:hhs:fha:nhinc:nhincentitycoresecured" id="NhincEntityCORESecured"
         address="/EntityService/EntityCORETransactionSecured" serviceName="edss:EntityCORETransactionSecured" endpointName="edss:EntityCORETransactionSecured_Port"
+        implementorClass="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity.EntityCORE_X12DSRealTimeSecured"
         implementor="#entityX12DSSecured" wsdlLocation="classpath:wsdl/EntityCORERule2.2.0RealTimeSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
