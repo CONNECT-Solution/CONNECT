@@ -65,7 +65,8 @@ http://www.springframework.org/schema/aop     http://www.springframework.org/sch
     <!--
         Beans defined for entitycore_x12dsrealtime
     -->
-    <alias alias="entitycore_x12dsrealtime" name="entitycore_x12dsrealtimewssecured" />
+    <alias alias="entitycore_x12dsrealtime"
+           name="entitycore_x12dsrealtimewssecured" />
 
     <!-- No-op Implementation -->
     <bean id="entitycore_x12dsrealtimenoop"
@@ -108,7 +109,8 @@ http://www.springframework.org/schema/aop     http://www.springframework.org/sch
     <!--
         Beans defined for nhincore_x12ds
     -->
-    <alias alias="nhincore_x12dsrealtime" name="nhincore_x12dswssecured" />
+    <alias alias="nhincore_x12dsrealtime"
+           name="nhincore_x12dsrealtimewssecured" />
 
     <!-- No-op Implementation -->
     <bean id="nhincore_x12dsrealtimenoop"
