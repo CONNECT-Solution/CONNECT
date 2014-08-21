@@ -26,23 +26,28 @@
  */
 package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter;
 
+import gov.hhs.fha.nhinc.adaptercoresecured.AdapterCORETransactionSecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeSecuredRequestType;
 import javax.annotation.Resource;
+import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.Addressing;
 
 /**
  *
  * @author sadusumilli
  */
-public class AdapterCORE_X12DSRealTimeSecured implements gov.hhs.fha.nhinc.adaptercoresecured.AdapterCORETransactionSecuredPortType {
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@Addressing(enabled = true)
+public class AdapterCORE_X12DSRealTimeSecured implements AdapterCORETransactionSecuredPortType {
 
     @Resource
     private WebServiceContext context;
 
     @Override
-    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransaction(AdapterCOREEnvelopeRealTimeSecuredRequestType adapterCOREEnvelopeRealTimeSecuredRequestType) {
-        return new AdapterCORE_X12DSRealTimeImpl().realTimeTransactionSecured(adapterCOREEnvelopeRealTimeSecuredRequestType, context);
+    public AdapterCOREEnvelopeRealTimeResponseType realTimeTransaction(AdapterCOREEnvelopeRealTimeSecuredRequestType body) {
+        return new AdapterCORE_X12DSRealTimeImpl().realTimeTransactionSecured(body, context);
     }
 
 }
