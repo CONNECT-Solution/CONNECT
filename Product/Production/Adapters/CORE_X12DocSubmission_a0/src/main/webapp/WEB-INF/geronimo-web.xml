@@ -5,7 +5,7 @@
 
         <sys:moduleId>
             <sys:groupId>CONNECT</sys:groupId>
-            <sys:artifactId>CORE_X12DocSubmission_a0</sys:artifactId>
+            <sys:artifactId>CORE_X12DocumentSubmission_a0</sys:artifactId>
             <sys:version>10</sys:version>
             <sys:type>war</sys:type>
         </sys:moduleId>       
@@ -14,6 +14,6 @@
 
     </sys:environment> 
     
-    <context-root>/Adapter/CORE_X12DocSubmission/A_0</context-root>
+    <context-root>/Adapter/CORE_X12DocumentSubmission/A_0</context-root>
    
 </web-app>

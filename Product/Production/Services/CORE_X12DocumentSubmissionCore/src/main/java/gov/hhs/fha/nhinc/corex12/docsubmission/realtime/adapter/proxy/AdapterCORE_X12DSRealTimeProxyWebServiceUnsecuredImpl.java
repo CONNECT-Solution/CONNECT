@@ -64,7 +64,7 @@ public class AdapterCORE_X12DSRealTimeProxyWebServiceUnsecuredImpl implements Ad
      * @return
      */
     @Override
-    public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest msg, AssertionType assertion) {
+    public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest msg, AssertionType assertion) {
         COREEnvelopeRealTimeResponse response = null;
 
         try {

@@ -1,52 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="
-http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        http://www.springframework.org/schema/beans    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/aop      http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 ">
 
     <aop:aspectj-autoproxy proxy-target-class="true" />
     <context:annotation-config />
-    
+
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="ignoreResourceNotFound" value="true"/>
         <property name="locations">
             <list>
                 <value>classpath:x12documentsubmission10.properties</value>
                 <value>file:///${nhinc.properties.dir}/gateway.properties</value>
-                <value>classpath:x12documentsubmission-test.properties</value>
             </list>
         </property>
     </bean>
 
-    <!-- X12 DocSubmisison -->
-	
-    <bean id="ptCORE_X12DSRealTimeOutbound" 
-      class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.PassthroughOutboundCORE_X12DSRealTime" /> 
-  
-     <bean id="ptCORE_X12DSRealTimeInbound" 
-       class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.inbound.PassthroughInboundCORE_X12DSRealTime" /> 
-  
-     <bean id="nhinX12DSRealTime" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.nhin.NhinCORE_X12DSRealTime"> 
-         <property name="inboundCORE_X12DSRealTime">
-             <bean class="${core_x12ds.inboundCOREX12DSRealTime}" /> 
-         </property> 
-     </bean> 
-  
-     <bean id="entityX12DSUnsecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity.EntityCORE_X12DSRealTimeUnsecured"> 
-         <property name="outboundCORE_X12DSRealTime">
-            <bean class="${core_x12ds.outboundCOREX12DSRealTime}" /> 
-       </property> 
-     </bean> 
-  
-    <bean id="entityX12DSSecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity.EntityCORE_X12DSRealTimeSecured"> 
-         <property name="outboundCORE_X12DSRealTime"> 
-             <bean class="${core_x12ds.outboundCOREX12DSRealTime}" /> 
-         </property> 
-     </bean> 
+    <!-- CORE X12 Document Submission -->
+    <bean id="nhinX12DSRealTime" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.nhin.NhinCORE_X12DSRealTime">
+        <property name="inboundCORE_X12DSRealTime">
+            <bean class="${x12docsubmission.inboundCORE_X12DSRealTime}" />
+        </property>
+    </bean>
 
+    <bean id="entityX12DSRealTimeUnsecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity.EntityCORE_X12DSRealTimeUnsecured">
+        <property name="outboundCORE_X12DSRealTime">
+            <bean class="${x12docsubmission.outboundCORE_X12DSRealTime}" />
+        </property>
+    </bean>
+
+    <bean id="entityX12DSRealTimeSecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity.EntityCORE_X12DSRealTimeSecured">
+        <property name="outboundCORE_X12DSRealTime">
+            <bean class="${x12docsubmission.outboundCORE_X12DSRealTime}" />
+        </property>
+    </bean>
+
+    <bean id="ptCORE_X12DSRealTimeOutbound" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.PassthroughOutboundCORE_X12DSRealTime" /> 
+    <bean id="ptCORE_X12DSRealTimeInbound" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.inbound.PassthroughInboundCORE_X12DSRealTime" /> 
+    
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
 </beans>

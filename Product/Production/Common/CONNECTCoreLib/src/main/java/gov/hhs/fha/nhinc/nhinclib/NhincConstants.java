@@ -88,7 +88,7 @@ public class NhincConstants {
 
         ADMINISTRATIVE_DISTRIBUTION(NHIN_ADMIN_DIST_SERVICE_NAME),
 
-        CORE_X12DS_REALTIME(NHIN_CORE_X12DS_REALTIME_SECURED_SERVICE_NAME);
+        CORE_X12DS_REALTIME(CORE_X12DS_REALTIME_SERVICE_NAME);
 
 
         private String UDDIServiceName = null;
@@ -408,21 +408,18 @@ public class NhincConstants {
     public static final String ADAPTER_ADMIN_DIST_SERVICE_NAME = "adapteradmindist";
     public static final String ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME = "adapteradmindistsecured";
 
-    // CORE X12 Document Submission Constants
-    public static final String CORE_X12DS_REALTIME_SERVICE_NAME = "CORE_X12DSRealtime";
+    // CORE X12 Document Submission RealTime Constants
+    public static final String CORE_X12DS_REALTIME_SERVICE_NAME = "CORE_X12DSRealTime";
 
     public static final String NHIN_CORE_X12DS_REALTIME_SERVICE_NAME = "nhincore_x12dsrealtime";
-    public static final String NHIN_CORE_X12DS_REALTIME_SECURED_SERVICE_NAME = "nhincore_x12dsrealtimewssecured";
-
-    public static final String ENTITY_CORE_X12DS_REALTIME_SERVICE_NAME = "entitycore_x12dsrealtime";
-    public static final String ENTITY_CORE_X12DS_REALTIME_SECURED_SERVICE_NAME = "entitycore_x12dsrealtimesecured";
+    public static final String NHIN_CORE_X12DS_REALTIME_SECURED_SERVICE_NAME = "CORE_X12DSRealTime";
 
     public static final String ADAPTER_CORE_X12DS_REALTIME_SERVICE_NAME = "adaptercore_x12dsrealtime";
     public static final String ADAPTER_CORE_X12DS_REALTIME_SECURED_SERVICE_NAME = "adaptercore_x12dsrealtimesecured";
 
     public static final String CORE_X12DS_REALTIME_PROXY_CONFIG_FILE_NAME = "CORE_X12DSRealTimeProxyConfig.xml";
-    
-    // CORE X12 Document Submission Generic Batch Constants..
+
+    // CORE X12 Document Submission Generic Batch Constants
     public static final String NHIN_CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME = "nhincore_x12dsgenericbatchrequest";
     public static final String NHIN_CORE_X12DS_GENERICBATCH_REQUEST_SECURED_SERVICE_NAME = "nhincore_x12dsgenericbatchrequestwssecured";
 
@@ -432,7 +429,7 @@ public class NhincConstants {
     public static final String ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME = "adaptercore_x12dsgenericbatchrequest";
     public static final String ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_SECURED_SERVICE_NAME = "adaptercore_x12dsgenericbatchrequestsecured";
 
-        public static final String NHIN_CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME = "nhincore_x12dsgenericbatchresponse";
+    public static final String NHIN_CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME = "nhincore_x12dsgenericbatchresponse";
     public static final String NHIN_CORE_X12DS_GENERICBATCH_RESPONSE_SECURED_SERVICE_NAME = "nhincore_x12dsgenericbatchresponsewssecured";
 
     public static final String ENTITY_CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME = "entitycore_x12dsgenericbatchresponse";
@@ -440,7 +437,7 @@ public class NhincConstants {
 
     public static final String ADAPTER_CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME = "adaptercore_x12dsgenericbatchresponse";
     public static final String ADAPTER_CORE_X12DS_GENERICBATCH_RESPONSE_SECURED_SERVICE_NAME = "adaptercore_x12dsgenericbatchresponsesecured";
-    
+
     public static final String CORE_X12DS_GENERICBATCH_PROXY_CONFIG_FILE_NAME = "CORE_X12DSGenericBatchProxyConfig.xml";
 
     public static final String CORE_X12DS_ACK_ERROR_MSG = null;
@@ -464,9 +461,9 @@ public class NhincConstants {
     public static final String XDS_REGISTRY_ERROR_SEVERITY_WARNING = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Warning";
     public static final String XDS_REGISTRY_ERROR_SEVERITY_ERROR = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error";
 
-	public static final String DIRECT_SOAP_EDGE_SERVICE_NAME = "directsoapedge";
+    public static final String DIRECT_SOAP_EDGE_SERVICE_NAME = "directsoapedge";
 
-	// JMX configurations
+    // JMX configurations
     public static final String JMX_ENABLED_SYSTEM_PROPERTY = "org.connectopensource.enablejmx";
     public static final String JMX_CONFIGURATION_BEAN_NAME = "org.connectopensource.mbeans:type=Configuration";
     public static final String JMX_DOCUMENT_QUERY_30_BEAN_NAME = "org.connectopensource.mbeans:type=DocumentQuery30WebServices";

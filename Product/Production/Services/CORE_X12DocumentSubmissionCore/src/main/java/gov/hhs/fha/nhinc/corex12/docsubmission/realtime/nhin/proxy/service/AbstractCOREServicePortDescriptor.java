@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.nhin.proxy.service;
 
-import gov.hhs.fha.nhinc.adaptercore.AdapterCORETransactionPortType;
 import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 import org.caqh.soap.wsdl.CORETransactions;
 
@@ -37,7 +36,7 @@ import org.caqh.soap.wsdl.CORETransactions;
 public abstract class AbstractCOREServicePortDescriptor extends SOAP12ServicePortDescriptor<CORETransactions> {
 
     private static final String NAMESPACE_URI = "http://www.caqh.org/SOAP/WSDL/";
-    private static final String SERVICE_LOCAL_PART = "CORE";
+    private static final String SERVICE_LOCAL_PART = "Core";
     private static final String PORT_LOCAL_PART = "CORETransactions";
 
     public String getNamespaceUri() {

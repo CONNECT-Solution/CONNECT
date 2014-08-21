@@ -36,7 +36,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 public class NhinCORE_X12DSRealTimeProxyObjectFactory extends ComponentProxyObjectFactory {
 
     private static final String CONFIG_FILE_NAME = NhincConstants.CORE_X12DS_REALTIME_PROXY_CONFIG_FILE_NAME;
-    private static final String BEAN_NAME = "nhincore_x12dsrealtime";
+    private static final String BEAN_NAME = NhincConstants.NHIN_CORE_X12DS_REALTIME_SERVICE_NAME;
 
     @Override
     protected String getConfigFileName() {

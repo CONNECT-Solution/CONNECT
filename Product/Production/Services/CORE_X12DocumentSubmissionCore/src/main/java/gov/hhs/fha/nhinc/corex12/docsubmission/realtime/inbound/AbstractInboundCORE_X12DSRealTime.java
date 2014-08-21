@@ -48,7 +48,7 @@ public abstract class AbstractInboundCORE_X12DSRealTime implements InboundCORE_X
         AssertionType assertion);
 
     @Override
-    public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest body,
+    public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest body,
         AssertionType assertion) {
 
         return processCORE_X12DocSubmission(body, assertion);
@@ -58,6 +58,6 @@ public abstract class AbstractInboundCORE_X12DSRealTime implements InboundCORE_X
         AssertionType assertion) {
 
         AdapterCORE_X12DSRealTimeProxy proxy = adapterFactory.getAdapterCORE_X12DocSubmissionProxy();
-        return proxy.realTimeRequest(request, assertion);
+        return proxy.realTimeTransaction(request, assertion);
     }
 }

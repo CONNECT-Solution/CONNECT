@@ -36,6 +36,6 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  */
 public interface InboundCORE_X12DSRealTime {
 
-    public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest msg,
+    public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest msg,
         AssertionType assertion);
 }

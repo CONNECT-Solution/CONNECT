@@ -41,7 +41,7 @@ public class AdapterCORE_X12DSRealTimeProxyNoOpImpl implements AdapterCORE_X12DS
     private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSRealTimeProxyNoOpImpl.class);
 
     @Override
-    public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest msg, AssertionType assertion) {
+    public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest msg, AssertionType assertion) {
         LOG.trace("Using NoOp Implementation for Adapter CORE X12 Doc Submission Service");
         return new COREEnvelopeRealTimeResponse();
     }

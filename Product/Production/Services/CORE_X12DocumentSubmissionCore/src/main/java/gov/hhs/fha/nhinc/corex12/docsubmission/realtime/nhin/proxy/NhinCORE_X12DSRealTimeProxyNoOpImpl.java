@@ -42,7 +42,7 @@ public class NhinCORE_X12DSRealTimeProxyNoOpImpl implements NhinCORE_X12DSRealTi
     private static final Logger LOG = Logger.getLogger(NhinCORE_X12DSRealTimeProxyNoOpImpl.class);
 
     @Override
-    public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest msg, AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+    public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest msg, AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         LOG.trace("Using NoOp Implementation for Nhin CORE X12 Doc Submission Service");
         return new COREEnvelopeRealTimeResponse();
     }
