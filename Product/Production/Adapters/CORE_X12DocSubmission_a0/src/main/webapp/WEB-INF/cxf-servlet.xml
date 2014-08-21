@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements. See the NOTICE file 
-    distributed with this work for additional information regarding copyright ownership. The ASF licenses this file to you under 
-    the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may 
-    obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to 
-    in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF 
-    ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under 
-    the License. -->
+distributed with this work for additional information regarding copyright ownership. The ASF licenses this file to you under 
+the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may 
+obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to 
+in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF 
+ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under 
+the License. -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap" xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:cxf="http://cxf.apache.org/core" xmlns:p="http://cxf.apache.org/policy"
-    xsi:schemaLocation="
+       xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:cxf="http://cxf.apache.org/core" xmlns:p="http://cxf.apache.org/policy"
+       xsi:schemaLocation="
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
@@ -27,9 +27,10 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
         </cxf:features>
     </cxf:bus>
 
+    <!-- Real time services ... -->
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercoresecured" id="AdapterCORESecured"
-        address="/CORETransaction/AdapterCORETransactionSecured" serviceName="tns:AdapterCORETransactionSecured" endpointName="tns:AdapterCORETransactionSecured_Port"
-        implementor="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.AdapterCORE_X12DSRealTimeSecured" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0RealTimeSecured.wsdl">
+                    address="/CORETransaction/AdapterCORETransactionSecured" serviceName="tns:AdapterCORETransactionSecured" endpointName="tns:AdapterCORETransactionSecured_Port"
+                    implementor="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.AdapterCORE_X12DSRealTimeSecured" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0RealTimeSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />            
@@ -40,8 +41,43 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
         </jaxws:properties>
     </jaxws:endpoint>
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercore" id="AdapterCORE"    
-        address="/CORETransaction/AdapterCORETransactionUnsecured" serviceName="tns:AdapterCORETransaction" endpointName="tns:AdapterCORETransaction_Port"
-        implementor="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.AdapterCORE_X12DSRealTimeUnsecured" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0RealTime.wsdl">
+                    address="/CORETransaction/AdapterCORETransactionUnsecured" serviceName="tns:AdapterCORETransaction" endpointName="tns:AdapterCORETransaction_Port"
+                    implementor="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.AdapterCORE_X12DSRealTimeUnsecured" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0RealTime.wsdl">
     </jaxws:endpoint>  
+
+    <!-- Batch services ... -->
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercoresecured" id="AdapterCOREGBRequestSecured"
+                    address="/COREGenericBatch/AdapterCOREGenericBatchRequestSecured" serviceName="tns:AdapterCOREGenericBatchTransactionSecured" endpointName="tns:AdapterCOREGenericBatchTransactionSecured_Port"
+                    implementor="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.AdapterCORE_X12DSGenericBatchRequestSecured" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0GenericBatchSecured.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />            
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+    </jaxws:endpoint>
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercore" id="AdapterCOREGBRequestUnsecured"    
+                    address="/COREGenericBatch/AdapterCOREGenericBatchRequestUnsecured" serviceName="tns:AdapterGenericBatchSubmissionTransaction" endpointName="tns:AdapterGenericBatchSubmissionTransaction_Port"
+                    implementor="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.AdapterCORE_X12DSGenericBatchRequestUnsecured" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0GenericBatch.wsdl">
+    </jaxws:endpoint> 
+    
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercoresecured" id="AdapterCOREGBResponseSecured"
+                    address="/COREGenericBatch/AdapterCOREGenericBatchResponseSecured" serviceName="tns:AdapterCOREGenericBatchTransactionSecured" endpointName="tns:AdapterCOREGenericBatchTransactionSecured_Port"
+                    implementor="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.AdapterCORE_X12DSGenericBatchResponseSecured" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0GenericBatchSecured.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />            
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+    </jaxws:endpoint>
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercore" id="AdapterCOREGBResponseUnsecured"    
+                    address="/COREGenericBatch/AdapterCOREGenericBatchResponseUnsecured" serviceName="tns:AdapterGenericBatchSubmissionTransaction" endpointName="tns:AdapterGenericBatchSubmissionTransaction_Port"
+                    implementor="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.AdapterCORE_X12DSGenericBatchResponseUnsecured" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0GenericBatch.wsdl">
+    </jaxws:endpoint> 
 
 </beans>
