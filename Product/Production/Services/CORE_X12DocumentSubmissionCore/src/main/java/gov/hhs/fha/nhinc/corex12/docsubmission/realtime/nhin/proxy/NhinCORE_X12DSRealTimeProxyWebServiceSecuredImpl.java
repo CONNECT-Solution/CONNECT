@@ -68,12 +68,12 @@ public class NhinCORE_X12DSRealTimeProxyWebServiceSecuredImpl implements NhinCOR
 
         try {
             String url = proxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
-                NhincConstants.NHIN_CORE_X12DS_REALTIME_SECURED_SERVICE_NAME, apiLevel);
+                NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME, apiLevel);
 
             ServicePortDescriptor<CORETransactions> portDescriptor = new NhinCORE_X12DSRealTimeServicePortDescriptor();
 
             CONNECTClient<CORETransactions> client = getCONNECTClientSecured(portDescriptor, assertion,
-                url, targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.NHIN_CORE_X12DS_REALTIME_SECURED_SERVICE_NAME);
+                url, targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME);
 
             response = (COREEnvelopeRealTimeResponse) client.invokePort(CORETransactions.class,
                 "realTimeTransaction", msg);

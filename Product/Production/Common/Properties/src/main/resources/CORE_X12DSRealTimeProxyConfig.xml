@@ -4,15 +4,15 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
-http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-http://www.springframework.org/schema/aop     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/aop     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 <!--
     The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces
     in the description separated with a comma like the following sample: {somebean,anotherbean}
 -->
-    <description>Beans included in this file: {adaptercore_x12dsrealtime,entitycore_x12dsrealtime,nhincore_x12dsrealtime}</description>
+    <description>Beans included in this file: {adaptercore_x12dsrealtime,nhincore_x12dsrealtime}</description>
 
     <aop:aspectj-autoproxy proxy-target-class="true" />
     <context:annotation-config />
@@ -61,50 +61,6 @@ http://www.springframework.org/schema/aop     http://www.springframework.org/sch
 
         <meta key="impltype" value="wsunsecured" />
     </bean>
-
-    <!--
-        Beans defined for entitycore_x12dsrealtime
-    -->
-    <alias alias="entitycore_x12dsrealtime"
-           name="entitycore_x12dsrealtimewssecured" />
-
-    <!-- No-op Implementation -->
-    <bean id="entitycore_x12dsrealtimenoop"
-          name="entitycore_x12dsrealtimenoop"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.entity.proxy.EntityCORE_X12DSRealTimeProxyNoOpImpl"
-          lazy-init="true">
-
-        <meta key="impltype" value="noop" />
-    </bean>
-
-    <!-- Java Implementation -->
-    <bean id="entitycore_x12dsrealtimejava"
-          name="entitycore_x12dsrealtimejava"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.entity.proxy.EntityCORE_X12DSRealTimeProxyJavaImpl"
-          lazy-init="true">
-
-        <meta key="impltype" value="java" />
-    </bean>
-
-    <!-- Secured web service Implementation -->
-    <bean id="entitycore_x12dsrealtimewssecured"
-          name="entitycore_x12dsrealtimewssecured"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.entity.proxy.EntityCORE_X12DSRealTimeProxyWebServiceSecuredImpl"
-          lazy-init="true">
-
-        <meta key="impltype" value="wssecured" />
-        <meta key="default" value="true" />
-    </bean>
-
-    <!-- Unsecured web service Implementation -->
-    <bean id="entitycore_x12dsrealtimewsunsecured"
-          name="entitycore_x12dsrealtimewsunsecured"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.entity.proxy.EntityCORE_X12DSRealTimeProxyWebServiceUnsecuredImpl"
-          lazy-init="true">
-
-        <meta key="impltype" value="wsunsecured" />
-    </bean>
-
 
     <!--
         Beans defined for nhincore_x12ds

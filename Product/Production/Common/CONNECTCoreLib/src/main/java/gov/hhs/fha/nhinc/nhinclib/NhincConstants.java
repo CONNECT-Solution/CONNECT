@@ -88,7 +88,7 @@ public class NhincConstants {
 
         ADMINISTRATIVE_DISTRIBUTION(NHIN_ADMIN_DIST_SERVICE_NAME),
 
-        CORE_X12DS_REALTIME(NHIN_CORE_X12DS_REALTIME_SECURED_SERVICE_NAME);
+        CORE_X12DS_REALTIME(CORE_X12DS_REALTIME_SERVICE_NAME);
 
 
         private String UDDIServiceName = null;
@@ -411,10 +411,8 @@ public class NhincConstants {
     // CORE X12 Document Submission RealTime Constants
     public static final String CORE_X12DS_REALTIME_SERVICE_NAME = "CORE_X12DSRealTime";
 
+    public static final String NHIN_CORE_X12DS_REALTIME_SERVICE_NAME = "nhincore_x12dsrealtime";
     public static final String NHIN_CORE_X12DS_REALTIME_SECURED_SERVICE_NAME = "CORE_X12DSRealTime";
-
-    public static final String ENTITY_CORE_X12DS_REALTIME_SERVICE_NAME = "entitycore_x12dsrealtime";
-    public static final String ENTITY_CORE_X12DS_REALTIME_SECURED_SERVICE_NAME = "entitycore_x12dsrealtimesecured";
 
     public static final String ADAPTER_CORE_X12DS_REALTIME_SERVICE_NAME = "adaptercore_x12dsrealtime";
     public static final String ADAPTER_CORE_X12DS_REALTIME_SECURED_SERVICE_NAME = "adaptercore_x12dsrealtimesecured";
