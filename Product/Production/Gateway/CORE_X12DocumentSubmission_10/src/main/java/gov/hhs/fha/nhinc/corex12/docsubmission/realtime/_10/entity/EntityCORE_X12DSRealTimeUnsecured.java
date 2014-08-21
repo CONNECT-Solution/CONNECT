@@ -67,4 +67,5 @@ public class EntityCORE_X12DSRealTimeUnsecured implements EntityCORETransactionP
     public void setOutboundCORE_X12DSRealTime(OutboundCORE_X12DSRealTime outboundCORE_X12DSRealTime) {
         this.outboundCORE_X12DSRealTime = outboundCORE_X12DSRealTime;
     }
+
 }

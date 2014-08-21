@@ -22,7 +22,7 @@
         </property>
     </bean>
 
-    <!-- X12 DocSubmisison -->
+    <!-- CORE X12 Document Submission -->
     <bean id="nhinX12DSRealTime" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.nhin.NhinCORE_X12DSRealTime">
         <property name="inboundCORE_X12DSRealTime">
             <bean class="${x12docsubmission.inboundCORE_X12DSRealTime}" />
@@ -41,6 +41,11 @@
         </property>
     </bean>
 
+    <bean id="ptCORE_X12DSRealTimeOutbound" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.PassthroughOutboundCORE_X12DSRealTime" /> 
+    <bean id="ptCORE_X12DSRealTimeInbound" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.inbound.PassthroughInboundCORE_X12DSRealTime" /> 
+    
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
 </beans>
+
+
