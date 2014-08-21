@@ -44,19 +44,18 @@ public class EntityCORE_X12DSRealTimeSecured implements gov.hhs.fha.nhinc.nhince
 
     private WebServiceContext context;
     private OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime;
-    
-        @Override
+
+    @Override
     public RespondingGatewayCrossGatewayRealTimeResponseType realTimeTransaction(RespondingGatewayCrossGatewayRealTimeSecuredRequestType body) {
         return new EntityCORE_X12DSRealTimeImpl(outboundCOREX12DSRealTime).realTimeTransactionSecured(body, context);
     }
-    
+
     @Resource
     public void setContext(WebServiceContext context) {
         this.context = context;
     }
-    
-    public void setOutboundCORE_X12DSRealTime(OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime)
-    {
+
+    public void setOutboundCORE_X12DSRealTime(OutboundCORE_X12DSRealTime outboundCOREX12DSRealTime) {
         this.outboundCOREX12DSRealTime = outboundCOREX12DSRealTime;
     }
 }
