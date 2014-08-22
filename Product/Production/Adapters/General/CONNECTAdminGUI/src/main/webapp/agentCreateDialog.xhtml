@@ -9,13 +9,13 @@
                         <div class="form-group">
                             <h:outputLabel for="input-agent-key" class="col-sm-3 control-label" id="input-agent-keyLbl" value="Key:" />
                             <div class="col-sm-9">
-                                <h:inputText class="form-control" id="input-agent-key" maxlength="20" required="true" value="#{directAgentBean.agentName}"/>
+                                <h:inputText class="form-control" id="input-agent-key" maxlength="255" required="true" value="#{directAgentBean.agentName}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <h:outputLabel for="input-agent-value" class="col-sm-3 control-label" id="input-agent-valueLbl" value="Value:" />
                             <div class="col-sm-9">
-                                <h:inputText class="form-control" id="input-agent-value" maxlength="50" required="true" value="#{directAgentBean.agentValue}"/>
+                                <h:inputText class="form-control" id="input-agent-value" maxlength="4096" required="true" value="#{directAgentBean.agentValue}"/>
                             </div>
                         </div>
                         <div class="form-group">
