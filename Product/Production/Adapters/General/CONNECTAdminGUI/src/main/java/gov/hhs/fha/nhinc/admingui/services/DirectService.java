@@ -78,4 +78,5 @@ public interface DirectService {
     public void disassociateTrustBundleFromDomain(long domainId, long trustBundleId);
     public void disassociateTrustBundleFromDomains(long trustBundleId);
     public void disassociateTrustBundlesFromDomain(long domainId);
+    public boolean removeAddress(String addressEmail);
 }

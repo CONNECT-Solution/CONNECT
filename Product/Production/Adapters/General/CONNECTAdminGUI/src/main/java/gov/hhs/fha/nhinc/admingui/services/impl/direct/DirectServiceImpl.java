@@ -23,21 +23,15 @@ package gov.hhs.fha.nhinc.admingui.services.impl.direct;
 import gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
 import java.util.List;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.nhind.config.AddAnchor;
 import org.nhind.config.AddCertificates;
 import org.nhind.config.AddDomain;
-import org.nhind.config.AddTrustBundle;
 import org.nhind.config.Anchor;
-import org.nhind.config.AssociateTrustBundleToDomain;
 import org.nhind.config.Certificate;
-import org.nhind.config.DeleteTrustBundles;
-import org.nhind.config.DisassociateTrustBundleFromDomains;
 import org.nhind.config.Domain;
 import org.nhind.config.GetAnchorsForOwner;
-import org.nhind.config.GetTrustBundleByName;
-import org.nhind.config.GetTrustBundles;
-import org.nhind.config.GetTrustBundlesByDomain;
 import org.nhind.config.ListCertificates;
 import org.nhind.config.RemoveAnchors;
 import org.nhind.config.RemoveCertificates;
@@ -45,7 +39,6 @@ import org.nhind.config.Setting;
 import org.nhind.config.TrustBundle;
 import org.nhind.config.TrustBundleDomainReltn;
 import org.nhind.config.UpdateDomain;
-import org.nhind.config.UpdateTrustBundleAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -296,5 +289,17 @@ public class DirectServiceImpl implements DirectService {
         } catch (Exception ex) {
             LOG.error("Unable to remove anchor", ex);
         }
+    }
+    
+    @Override
+    public boolean removeAddress(String addressEmail){
+        boolean removed = true;
+        try {
+            directProxy.removeAddress(addressEmail);
+        } catch (Exception ex) {
+            removed = false;
+            LOG.error("Unable to remove address with email: " + addressEmail, ex);
+        }
+        return removed;
     }
 }

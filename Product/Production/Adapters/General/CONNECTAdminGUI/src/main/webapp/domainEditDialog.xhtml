@@ -13,7 +13,7 @@
                             <div class="form-group">
                                 <h:outputLabel for="input-edit-domain" class="col-sm-3 control-label" id="input-edit-domainLbl" value="Domain Name:" />
                                 <div class="col-sm-9">
-                                    <h:inputText class="form-control" id="input-edit-domain" maxlength="20" required="true" value="#{directDomainBean.selectedDomain.domainName}"/>
+                                    <h:inputText class="form-control" id="input-edit-domain" maxlength="255" required="true" value="#{directDomainBean.selectedDomain.domainName}"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -32,61 +32,46 @@
                         </h:form>
                     </p:tab>
                     <p:tab title="Addresses">
-                        <h:form id="addressForm" class="form-horizontal">
+                        <h:form id="addressesShowForm" class="form form-horizontal">
                             <h4>Stored Addresses</h4>
-                           <p:dataTable id="addressDataTable" var="address" value="#{directDomainBean.addresses}" selection="#{directDomainBean.selectedAddress}" rowKey="#{address.emailAddress}" styleClass="table table-striped table-domains">
+                            <p:dataTable id="addressDataTable" var="address" value="#{directDomainBean.addresses}" selection="#{directDomainBean.selectedAddress}" rowKey="#{address.displayName}" styleClass="table table-striped table-domains">
                                 <p:column headerText="Delete" selectionMode="single" />
-                                <p:column headerText="DisplayName" sortBy="displayName">
+                                <p:column headerText="Name">
                                     <h:outputText value="#{address.displayName}" />
                                 </p:column>
-                                <p:column headerText="EmailAddress" sortBy="emailAddress">
+                                <p:column headerText="Email Address">
                                     <h:outputText value="#{address.emailAddress}" />
                                 </p:column>
-                                <p:column headerText="Endpoint" sortBy="endpoint">
-                                    <h:outputText value="#{address.endpoint}" />
-                                </p:column>                                
-                                <p:column headerText="Type" sortBy="type">
-                                    <h:outputText value="#{address.type}" />
-                                </p:column>                                
                             </p:dataTable>
-							<p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
-                                <p:commandButton update="addressDataTable" value="Delete" action="#{directDomainBean.deleteAddress()}" 
-                                styleClass="delete-button" icon="ui-icon-closethick" />
-                            </p:panelGrid>                            
-                            <div class="domain-form-block">
-                                <h4>Add Another Address</h4>                                
-                                 <div class="form-group">
-                                    <h:outputLabel for="input-display-name" class="col-sm-3 control-label" id="input-display-nameLbl" value="Display Name:" />
+                            
+                            <p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
+                                <p:commandButton update="addressDataTable" value="Delete" actionListener="#{directDomainBean.deleteAddress()}" styleClass="delete-button" icon="ui-icon-closethick"/>                          
+                            </p:panelGrid> 
+                        </h:form>
+                        <h:form id="addressesAddForm" class="form form-horizontal">
+                                          
+                                <div class="domain-form-block">
+                                <h4>Add Another Address</h4>
+                                <div class="form-group">
+                                    <h:outputLabel for="input-address-name" class="col-sm-3 control-label" id="input-address-nameLbl" value="Address Name:" />
                                     <div class="col-sm-9">
-                                        <h:inputText class="form-control" id="input-display-name" maxlength="50" required="true" value="#{directDomainBean.displayName}" immediate="true" />
+                                        <p:inputText required="false" maxlength="100" styleClass="form-control" id="input-address-name" value="#{directDomainBean.addressName}" />   
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <h:outputLabel for="input-email-address" class="col-sm-3 control-label" id="input-email-addressLbl" value="Email Address:" />
+                                    <h:outputLabel for="input-address-email" class="col-sm-3 control-label" id="input-address-typeLbl" value="Address Email:" />
                                     <div class="col-sm-9">
-                                        <h:inputText class="form-control" id="input-email-address" maxlength="50" required="true" value="#{directDomainBean.emailAddress}" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <h:outputLabel for="input-address-name" class="col-sm-3 control-label" id="input-address-nameLbl" value="Address Endpoint:" />
-                                    <div class="col-sm-9">
-                                        <h:inputText class="form-control" id="input-address-name" maxlength="50" required="true" value="#{directDomainBean.addressEndpoint}" immediate="true"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <h:outputLabel for="input-address-type" class="col-sm-3 control-label" id="input-address-typeLbl" value="Address Type:" />
-                                    <div class="col-sm-9">
-                                        <h:inputText class="form-control" id="input-address-type" maxlength="20" required="true" value="#{directDomainBean.addressType}" immediate="true"/>
+                                        <p:inputText required="false" maxlength="255" styleClass="form-control" id="input-address-email" value="#{directDomainBean.addressEmail}" />
                                     </div>
                                 </div>
                                 <div class="form-button-row">
-                                    <p:commandButton update="addressDataTable" value="Add Address" action="#{directDomainBean.addAddress()}" styleClass="btn btn-primary" />
+                                    <p:commandButton value="Add Address" update="input-address-email, input-address-name, :domainEditTabview:addressesShowForm:addressDataTable" actionListener="#{directDomainBean.addAddress()}" styleClass="btn btn-primary" />
                                 </div>
                             </div>
                         </h:form>
                     </p:tab>
                     <p:tab title="Anchors">
-                        <h:form id="anchorsForm" enctype="multipart/form-data" class="form-horizontal">
+                        <h:form id="anchorsForm" enctype="multipart/form-data" class="form form-horizontal">
                             <h4>Stored Anchors</h4>
                             <p:dataTable id="anchorDataTable" var="anchor" value="#{directDomainBean.anchors}" selection="#{directDomainBean.selectedAnchor}" rowKey="#{anchor.id}" styleClass="table table-striped table-domains">
                                 <p:column headerText="Delete" selectionMode="single" />
@@ -154,7 +139,7 @@
                         </h:form>
                     </p:tab>
                     <p:tab title="Trust Bundles">
-                        <h:form id="domain-tb-form" class="form-horizontal">
+                        <h:form id="domain-tb-form" class="form form-horizontal">
                             <h4>Assigned Trust Bundles</h4>
                             <p:dataTable id="tb-domainDataTable" var="tb" value="#{directDomainBean.associatedTrustBundles}"
                                          selection="#{directDomainBean.selectedTrustBundle}" rowKey="#{tb.bundleName}"

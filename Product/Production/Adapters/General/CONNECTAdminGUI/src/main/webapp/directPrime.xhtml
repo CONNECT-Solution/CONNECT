@@ -72,9 +72,9 @@
                                         <p:column>
                                             <p:commandButton value="Edit Domain" actionListener="#{directDomainBean.showEdit()}" styleClass="edit-button" icon="ui-icon-pencil" />
                                         </p:column>
-										<p:column styleClass="ui-button-rightmost">
-											<p:commandButton value="Create New Domain" type="button" onclick="PF('domainDlg').show();" styleClass="add-button pull-right" icon="ui-icon-circle-plus" />
-										</p:column>
+                                        <p:column styleClass="ui-button-rightmost">
+                                            <p:commandButton value="Create New Domain" type="button" onclick="PF('domainDlg').show();" styleClass="add-button pull-right" icon="ui-icon-circle-plus" />
+                                        </p:column>
                                     </p:row>
                                 </p:panelGrid>
                             </h:form>
@@ -100,9 +100,9 @@
                                         <p:column>
                                             <p:commandButton update="agentDataTable" value="Delete" actionListener="#{directAgentBean.deleteSetting()}" styleClass="delete-button" icon="ui-icon-closethick"/>
                                         </p:column>
-										<p:column styleClass="ui-button-rightmost">
-											<p:commandButton value="Add New Agent Setting" type="button" onclick="PF('agentDlg').show();" icon="ui-icon-circle-plus" styleClass="add-button pull-right" />
-										</p:column>
+                                        <p:column styleClass="ui-button-rightmost">
+                                            <p:commandButton value="Add New Agent Setting" type="button" onclick="PF('agentDlg').show();" icon="ui-icon-circle-plus" styleClass="add-button pull-right" />
+                                        </p:column>
                                     </p:row>
                                 </p:panelGrid>
                             </h:form>
@@ -143,9 +143,9 @@
                                         <p:column>
                                             <p:commandButton update="certDataTable" value="Delete" action="#{directCertBean.deleteCertificate()}" styleClass="delete-button" icon="ui-icon-closethick"/>
                                         </p:column>
-										<p:column styleClass="ui-button-rightmost">
-											<p:commandButton value="Add New Certificate" type="button" onclick="PF('certDlg').show();" icon="ui-icon-circle-plus" styleClass="add-button pull-right" />
-										</p:column>
+                                        <p:column styleClass="ui-button-rightmost">
+                                            <p:commandButton value="Add New Certificate" type="button" onclick="PF('certDlg').show();" icon="ui-icon-circle-plus" styleClass="add-button pull-right" />
+                                        </p:column>
                                     </p:row>
                                 </p:panelGrid>                                    
                             </h:form>
