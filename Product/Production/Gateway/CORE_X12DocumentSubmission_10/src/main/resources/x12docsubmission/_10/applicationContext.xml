@@ -24,11 +24,8 @@
 
 
     <!-- X12 DocSubmisison -->
-    <bean id="nhinX12DSRealTime" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.nhin.NhinCORE_X12DSRealTime"/>
     <bean id="nhinX12DSGenericBatchRequest" class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request._10.nhin.NhinCORE_X12DSGenericBatchRequest"/>
     <bean id="nhinX12DSGenericBatchResponse" class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response._10.nhin.NhinCORE_X12DSGenericBatchResponse"/>
-    <bean id="entityX12DSUnsecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity.EntityCORE_X12DSRealTimeUnsecured"/>
-    <bean id="entityX12DSSecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity.EntityCORE_X12DSRealTimeSecured"/>
     <bean id="entityX12DSGBRequestUnsecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request._10.entity.EntityCORE_X12DSGenericBatchRequestUnsecured"/>
     <bean id="entityX12DSGBResponseUnsecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response._10.entity.EntityCORE_X12DSGenericBatchResponseUnsecured"/>
     <bean id="entityX12DSGBRequestSecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request._10.entity.EntityCORE_X12DSGenericBatchRequestSecured"/>
