@@ -45,7 +45,7 @@
                             </p:dataTable>
                             
                             <p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
-                                <p:commandButton update="addressDataTable" value="Delete" actionListener="#{directDomainBean.deleteAddress()}" styleClass="delete-button" icon="ui-icon-closethick"/>                          
+                                <p:commandButton update="addressDataTable" value="Delete" action="#{directDomainBean.deleteAddress()}" styleClass="delete-button" icon="ui-icon-closethick"/>                          
                             </p:panelGrid> 
                         </h:form>
                         <h:form id="addressesAddForm" class="form form-horizontal">
@@ -65,7 +65,7 @@
                                     </div>
                                 </div>
                                 <div class="form-button-row">
-                                    <p:commandButton value="Add Address" update="input-address-email, input-address-name, :domainEditTabview:addressesShowForm:addressDataTable" actionListener="#{directDomainBean.addAddress()}" styleClass="btn btn-primary" />
+                                    <p:commandButton value="Add Address" update="input-address-email, input-address-name, :domainEditTabview:addressesShowForm:addressDataTable" action="#{directDomainBean.addAddress()}" styleClass="btn btn-primary" />
                                 </div>
                             </div>
                         </h:form>

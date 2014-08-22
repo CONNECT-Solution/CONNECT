@@ -24,6 +24,7 @@ import gov.hhs.fha.nhinc.admingui.managed.direct.helpers.CertContainer;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectAnchor;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -139,7 +140,7 @@ public class DirectDomainBean {
     }
 
     public void addAddress() {
-        if (notNullish(addressName) && notNullish(addressEmail)) {
+        if (NullChecker.isNotNullish(addressName) && NullChecker.isNotNullish(addressEmail)) {
             Address currentAddress = new Address();
             currentAddress.setDisplayName(addressName);
             currentAddress.setEmailAddress(addressEmail);
@@ -463,8 +464,5 @@ public class DirectDomainBean {
     public void setAddressEmail(String addressEmail) {
         this.addressEmail = addressEmail;
     }
-
-    private boolean notNullish(String value){
-        return value != null && !value.isEmpty();
-    }
+    
 }

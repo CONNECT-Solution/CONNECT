@@ -23,7 +23,6 @@ package gov.hhs.fha.nhinc.admingui.services.impl.direct;
 import gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
 import java.util.List;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.nhind.config.AddAnchor;
 import org.nhind.config.AddCertificates;
