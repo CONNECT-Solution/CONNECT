@@ -75,7 +75,7 @@ public class AdapterCORE_X12DSRealTimeOrchImpl {
         oResponse.setPayload("PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxDbGluaWNhbERvY3VtZW50\n"
             + "IG1vb2RDb2RlPSJFVk4iIHhtbG5zPSJ1cm46aGw3LW9yZzp2MyINCiAgICB4bWxuczp4c2k9Imh0");
         oResponse.setErrorCode("Success");
-        oResponse.setErrorMessage(null);
+        oResponse.setErrorMessage("None");
         return oResponse;
     }
 
