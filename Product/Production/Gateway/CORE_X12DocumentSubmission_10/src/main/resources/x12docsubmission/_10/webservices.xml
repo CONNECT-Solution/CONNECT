@@ -18,8 +18,7 @@
     http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
     http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 
-
-    <!-- X12 Document Submission -->
+    <!-- CORE X12 Document Submission -->
     <cxf:bus>
         <cxf:features>
             <p:policies />
@@ -81,7 +80,7 @@
     <!-- Entity Unsecured services -->
     <jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:nhincentitycore" id="NhincEntityCORE"
         address="/EntityService/EntityCORETransactionUnsecured" serviceName="eds:EntityCORETransaction" endpointName="eds:EntityCORETransaction_Port"
-        implementor="#entityX12DSUnsecured" wsdlLocation="classpath:wsdl/EntityCORERule2.2.0RealTime.wsdl">
+        implementor="#entityX12DSRealTimeUnsecured" wsdlLocation="classpath:wsdl/EntityCORERule2.2.0RealTime.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
@@ -106,7 +105,7 @@
     <!-- Entity Secured services -->
     <jaxws:endpoint xmlns:edss="urn:gov:hhs:fha:nhinc:nhincentitycoresecured" id="NhincEntityCORESecured"
         address="/EntityService/EntityCORETransactionSecured" serviceName="edss:EntityCORETransactionSecured" endpointName="edss:EntityCORETransactionSecured_Port"
-        implementor="#entityX12DSSecured" wsdlLocation="classpath:wsdl/EntityCORERule2.2.0RealTimeSecured.wsdl">
+        implementor="#entityX12DSRealTimeSecured" wsdlLocation="classpath:wsdl/EntityCORERule2.2.0RealTimeSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />

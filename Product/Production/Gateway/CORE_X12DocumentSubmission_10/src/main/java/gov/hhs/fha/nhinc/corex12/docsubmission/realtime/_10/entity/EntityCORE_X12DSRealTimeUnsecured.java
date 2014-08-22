@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRealTimeRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRealTimeResponseType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.OutboundCORE_X12DSRealTime;
+import gov.hhs.fha.nhinc.nhincentitycore.EntityCORETransactionPortType;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -40,31 +41,31 @@ import javax.xml.ws.soap.Addressing;
  */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class EntityCORE_X12DSRealTimeUnsecured implements gov.hhs.fha.nhinc.nhincentitycore.EntityCORETransactionPortType {
+public class EntityCORE_X12DSRealTimeUnsecured implements EntityCORETransactionPortType {
 
     private WebServiceContext context;
     private OutboundCORE_X12DSRealTime outboundCORE_X12DSRealTime;
-    
-        @Override
+
+    @Override
     public RespondingGatewayCrossGatewayRealTimeResponseType realTimeTransaction(RespondingGatewayCrossGatewayRealTimeRequestType body) {
         return new EntityCORE_X12DSRealTimeImpl(outboundCORE_X12DSRealTime).realTimeTransaction(body, context);
     }
-    
+
     /**
-     * 
-     * @param context 
+     *
+     * @param context
      */
     @Resource
     public void setContext(WebServiceContext context) {
         this.context = context;
     }
-    
+
     /**
-     * 
-     * @param outboundCORE_X12DSRealTime 
+     *
+     * @param outboundCORE_X12DSRealTime
      */
-    public void setOutboundCORE_X12DSRealTime(OutboundCORE_X12DSRealTime outboundCORE_X12DSRealTime)
-    {
+    public void setOutboundCORE_X12DSRealTime(OutboundCORE_X12DSRealTime outboundCORE_X12DSRealTime) {
         this.outboundCORE_X12DSRealTime = outboundCORE_X12DSRealTime;
     }
+
 }

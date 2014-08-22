@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeSecuredRequestType;
-import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.AdapterCORE_X12DSRealTimeOrchImpl;
 
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import javax.xml.ws.WebServiceContext;
@@ -50,7 +49,7 @@ public class AdapterCORE_X12DSRealTimeImpl extends BaseService {
     public AdapterCOREEnvelopeRealTimeResponseType realTimeTransaction(AdapterCOREEnvelopeRealTimeRequestType adapterRequest, WebServiceContext context) {
         AdapterCOREEnvelopeRealTimeResponseType oResponse = new AdapterCOREEnvelopeRealTimeResponseType();
         AssertionType oAssertion = getAssertion(context, adapterRequest.getAssertion());
-        oResponse.setCOREEnvelopeRealTimeResponse(new AdapterCORE_X12DSRealTimeOrchImpl().realTimeRequest(adapterRequest.getCOREEnvelopeRealTimeRequest(), oAssertion));
+        oResponse.setCOREEnvelopeRealTimeResponse(new AdapterCORE_X12DSRealTimeOrchImpl().realTimeTransaction(adapterRequest.getCOREEnvelopeRealTimeRequest(), oAssertion));
         return oResponse;
     }
 
@@ -63,7 +62,7 @@ public class AdapterCORE_X12DSRealTimeImpl extends BaseService {
     public AdapterCOREEnvelopeRealTimeResponseType realTimeTransactionSecured(AdapterCOREEnvelopeRealTimeSecuredRequestType adapterRequest, WebServiceContext context) {
         AdapterCOREEnvelopeRealTimeResponseType oResponse = new AdapterCOREEnvelopeRealTimeResponseType();
         AssertionType oAssertion = getAssertion(context, null);
-        oResponse.setCOREEnvelopeRealTimeResponse(new AdapterCORE_X12DSRealTimeOrchImpl().realTimeRequest(adapterRequest.getCOREEnvelopeRealTimeRequest(), oAssertion));
+        oResponse.setCOREEnvelopeRealTimeResponse(new AdapterCORE_X12DSRealTimeOrchImpl().realTimeTransaction(adapterRequest.getCOREEnvelopeRealTimeRequest(), oAssertion));
         return oResponse;
     }
 

@@ -40,24 +40,24 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  */
 public class NhinCORE_X12DSRealTimeImpl extends BaseService {
     private InboundCORE_X12DSRealTime inboundCORE_X12DSRealTime;
-    
+
     /**
-     * 
-     * @param inboundCORE_X12DSRealTime 
+     *
+     * @param inboundCORE_X12DSRealTime
      */
     public NhinCORE_X12DSRealTimeImpl(InboundCORE_X12DSRealTime inboundCORE_X12DSRealTime)
     {
         this.inboundCORE_X12DSRealTime = inboundCORE_X12DSRealTime;
     }
-    
+
     /**
-     * 
+     *
      * @param body
      * @return COREEnvelopeRealTimeResponse
      */
     public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest body, WebServiceContext context) {
         COREEnvelopeRealTimeResponse response = new COREEnvelopeRealTimeResponse();
         AssertionType assertion = getAssertion(context, null);
-        return inboundCORE_X12DSRealTime.realTimeRequest(body, assertion);
+        return inboundCORE_X12DSRealTime.realTimeTransaction(body, assertion);
     }
 }

@@ -60,7 +60,7 @@ class OutboundCORE_X12DSRealTimeStrategyImpl_g0 implements OrchestrationStrategy
         LOG.trace("Begin OutboundCORE_X12DSRealTimeOrchestratableImpl_g0.process");
 
         NhinCORE_X12DSRealTimeProxy nhincCORE_X12DSRealTime = getNhinCORE_X12DSRealTimeProxy();
-        COREEnvelopeRealTimeResponse response = nhincCORE_X12DSRealTime.realTimeRequest(message.getRequest(),
+        COREEnvelopeRealTimeResponse response = nhincCORE_X12DSRealTime.realTimeTransaction(message.getRequest(),
             message.getAssertion(), message.getTarget(), NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
         message.setResponse(response);
 

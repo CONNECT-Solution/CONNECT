@@ -30,18 +30,11 @@ import java.util.List;
 import org.nhind.config.AddAnchor;
 import org.nhind.config.AddCertificates;
 import org.nhind.config.AddDomain;
-import org.nhind.config.AddTrustBundle;
 import org.nhind.config.Anchor;
-import org.nhind.config.AssociateTrustBundleToDomain;
 import org.nhind.config.Certificate;
 import org.nhind.config.ConfigurationService;
-import org.nhind.config.DeleteTrustBundles;
-import org.nhind.config.DisassociateTrustBundleFromDomains;
 import org.nhind.config.Domain;
 import org.nhind.config.GetAnchorsForOwner;
-import org.nhind.config.GetTrustBundleByName;
-import org.nhind.config.GetTrustBundles;
-import org.nhind.config.GetTrustBundlesByDomain;
 import org.nhind.config.ListCertificates;
 import org.nhind.config.RemoveAnchors;
 import org.nhind.config.RemoveCertificates;
@@ -50,7 +43,6 @@ import org.nhind.config.TrustBundle;
 import org.nhind.config.TrustBundleDomainReltn;
 import org.nhind.config.UpdateDomain;
 import org.nhind.config.UpdateDomainResponse;
-import org.nhind.config.UpdateTrustBundleAttributes;
 import org.springframework.stereotype.Service;
 
 /**
@@ -203,6 +195,11 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
     @Override
     public void deleteTrustBundles(List<Long> ids) throws Exception {
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DELETE_TRUST_BUNDLE, ids);
+    }
+    
+    @Override
+    public void removeAddress(String addressEmail) throws Exception{
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_REMOVE_ADDRESS, addressEmail);
     }
 
     private CONNECTClient<ConfigurationService> getClient() throws Exception {

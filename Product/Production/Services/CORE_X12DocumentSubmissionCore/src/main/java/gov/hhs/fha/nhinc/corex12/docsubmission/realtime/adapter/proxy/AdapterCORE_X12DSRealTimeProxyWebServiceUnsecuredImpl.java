@@ -64,7 +64,7 @@ public class AdapterCORE_X12DSRealTimeProxyWebServiceUnsecuredImpl implements Ad
      * @return
      */
     @Override
-    public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest msg, AssertionType assertion) {
+    public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest msg, AssertionType assertion) {
         COREEnvelopeRealTimeResponse response = null;
 
         try {
@@ -81,7 +81,7 @@ public class AdapterCORE_X12DSRealTimeProxyWebServiceUnsecuredImpl implements Ad
                 CONNECTClient<AdapterCORETransactionPortType> client = CONNECTClientFactory.getInstance()
                     .getCONNECTClientUnsecured(portDescriptor, url, assertion);
                 response = (COREEnvelopeRealTimeResponse) client.invokePort(AdapterCORETransactionPortType.class,
-                    "realTimeRequest", request);
+                    "realTimeTransaction", request);
 
             } else {
                 // TODO: We need to add error handling here based on CORE X12 DS RealTime use cases

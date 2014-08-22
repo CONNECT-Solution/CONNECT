@@ -424,7 +424,7 @@
                 <name xml:lang="en">adaptercore_x12dsrealtimesecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:nhincnode:adaptercore_x12dsrealtimesecured" serviceKey="uddi:nhincnode:adaptercore_x12dsrealtimesecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Adapter/CORE_X12DocSubmission/A_0/AdapterCORETransactionSecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Adapter/CORE_X12DocumentSubmission/A_0/CORETransaction/AdapterCORETransactionSecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>
@@ -439,7 +439,7 @@
                 <name xml:lang="en">adaptercore_x12dsrealtime</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:nhincnode:adaptercore_x12dsrealtime" serviceKey="uddi:nhincnode:adaptercore_x12dsrealtime">
-                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/CORE_X12DocSubmission/A_0/AdapterCORETransactionUnsecured</accessPoint>
+                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/CORE_X12DocumentSubmission/A_0/CORETransaction/AdapterCORETransactionUnsecured</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
                         </categoryBag>

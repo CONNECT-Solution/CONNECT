@@ -164,18 +164,18 @@
 
             <!--  CORE X12 Document Submission -->
 
-            <businessService serviceKey="uddi:nhincnode:CORE_X12DSRealtime" businessKey="uddi:testnhieonenode:1.0">
-                <name xml:lang="en">CORE_X12DSRealtime</name>
+            <businessService serviceKey="uddi:nhincnode:CORE_X12DSRealTime" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">CORE_X12DSRealTime</name>
                 <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:nhincnode:CORE_X12DSRealtime" serviceKey="uddi:nhincnode:CORE_X12DSRealtime">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/X12RealTimeDS_Service</accessPoint>
+                    <bindingTemplate bindingKey="uddi:nhincnode:CORE_X12DSRealTime" serviceKey="uddi:nhincnode:CORE_X12DSRealTime">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/X12DocumentSubmission_Service</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
                 <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="CORE_X12DSRealtime" keyValue="CORE_X12DSRealtime"/>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="CORE_X12DSRealTime" keyValue="CORE_X12DSRealTime"/>
                 </categoryBag>
             </businessService>
 
@@ -371,6 +371,23 @@
                 </bindingTemplates>
                 <categoryBag>
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="DocSubmissionDeferredResp" keyValue="DocSubmissionDeferredResp"/>
+                </categoryBag>
+            </businessService>
+
+            <!-- CORE X12 Document Submission -->
+
+            <businessService serviceKey="uddi:nhincnode:CORE_X12DSRealTime" businessKey="uddi:testnhieonenode:2.2">
+                <name xml:lang="en">CORE_X12DSRealTime</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:CORE_X12DSRealTime" serviceKey="uddi:nhincnode:CORE_X12DSRealTime">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/X12DocumentSubmission_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="CORE_X12DSRealTime" keyValue="CORE_X12DSRealTime"/>
                 </categoryBag>
             </businessService>
 

@@ -28,6 +28,8 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy;
 
 import gov.hhs.fha.nhinc.adaptercoresecured.AdapterCORETransactionSecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeSecuredRequestType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.service.AdapterCORE_X12DSRealTimeSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
@@ -63,7 +65,7 @@ public class AdapterCORE_X12DSRealTimeProxyWebServiceSecuredImpl implements Adap
      * @return
      */
     @Override
-    public COREEnvelopeRealTimeResponse realTimeRequest(COREEnvelopeRealTimeRequest msg, AssertionType assertion) {
+    public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest msg, AssertionType assertion) {
         COREEnvelopeRealTimeResponse response = null;
 
         try {
@@ -75,8 +77,15 @@ public class AdapterCORE_X12DSRealTimeProxyWebServiceSecuredImpl implements Adap
 
                 CONNECTClient<AdapterCORETransactionSecuredPortType> client = CONNECTClientFactory.getInstance()
                     .getCONNECTClientSecured(portDescriptor, url, assertion);
-                response = (COREEnvelopeRealTimeResponse) client.invokePort(AdapterCORETransactionSecuredPortType.class,
-                    "realTimeRequest", msg);
+
+                AdapterCOREEnvelopeRealTimeSecuredRequestType requestWrapper = new AdapterCOREEnvelopeRealTimeSecuredRequestType();
+                requestWrapper.setCOREEnvelopeRealTimeRequest(msg);
+
+                AdapterCOREEnvelopeRealTimeResponseType responseWrapper = (AdapterCOREEnvelopeRealTimeResponseType) client.invokePort(
+                    AdapterCORETransactionSecuredPortType.class, "realTimeTransaction", requestWrapper);
+
+                response = responseWrapper.getCOREEnvelopeRealTimeResponse();
+
             } else {
                 // TODO: We need to add error handling here based on CORE X12 DS RealTime use cases
                 // e.g., Adapter not found, timeout, etc.

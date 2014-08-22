@@ -375,8 +375,8 @@
                                 </webModule>
                                 <webModule>
                                     <groupId>org.connectopensource</groupId>
-                                    <artifactId>CORE_X12DocSubmission_a0</artifactId>
-                                    <contextRoot>/Adapter/CORE_X12DocSubmission/A_0</contextRoot>
+                                    <artifactId>CORE_X12DocumentSubmission_a0</artifactId>
+                                    <contextRoot>/Adapter/CORE_X12DocumentSubmission/A_0</contextRoot>
                                     <excluded>${x12.excluded}</excluded>
                                 </webModule>
                             </modules>
