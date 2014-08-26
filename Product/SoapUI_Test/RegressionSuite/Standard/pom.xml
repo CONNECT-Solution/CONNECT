@@ -34,7 +34,7 @@
             <module>EntitySendingXDRAsyncResponseTests</module-->
             <module>EntityXDRTests</module>
             <module>EventLogging-Standard</module>
-            <module>Fanout-Test</module>
+            <!--module>Fanout-Test</module-->
             <!--module>LargePayloadTest</module-->
             <module>NHINCPatientDiscoveryMAA</module>
             <module>PatientCorrelation</module>
