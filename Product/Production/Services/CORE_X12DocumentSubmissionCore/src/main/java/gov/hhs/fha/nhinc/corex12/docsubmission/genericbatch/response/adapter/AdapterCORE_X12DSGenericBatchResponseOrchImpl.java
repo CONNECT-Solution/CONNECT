@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.util.Base64Coder;
+import org.apache.log4j.Logger;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 
@@ -36,7 +38,61 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  */
 public class AdapterCORE_X12DSGenericBatchResponseOrchImpl {
 
-    public COREEnvelopeBatchSubmissionResponse genericBatchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
-        return new COREEnvelopeBatchSubmissionResponse();
+    private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSGenericBatchResponseOrchImpl.class);
+
+    /**
+     *
+     * @param msg
+     * @param assertion
+     * @return
+     */
+    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
+
+        COREEnvelopeBatchSubmissionResponse oResponse = null;
+        if (msg != null) {
+            LOG.trace("Begin AdapterCORE_X12DSGenericBatchResponseOrchImpl.realTimeRequest()");
+            //Call to a method which builds response metadata and returns response
+            oResponse = buildAdapterCORE_X12DSGenericBatchResponseMetadata();
+            //Call for logging inbound
+            logAdapterCORE_X12DSGenericBatchRequest(msg);
+            LOG.trace("End AdapterCORE_X12DSGenericBatchResponseOrchImpl.realTimeRequest()");
+        } else {
+            oResponse = new COREEnvelopeBatchSubmissionResponse();
+            //TODO: Need to add error handling
+        }
+        return oResponse;
+    }
+
+    private COREEnvelopeBatchSubmissionResponse buildAdapterCORE_X12DSGenericBatchResponseMetadata() {
+
+        String str_payload = "<xop:Include href=\"cid:1.urn:uuid:5117AAE1116EA8B87A1200060184692@apache.org\"\n"
+            + "xmlns:xop=\"http://www.w3.org/2004/08/xop/include\"/>";
+        byte[] payload = str_payload.getBytes();
+
+        COREEnvelopeBatchSubmissionResponse oResponse = new COREEnvelopeBatchSubmissionResponse();
+        oResponse.setPayloadType("X12_999_Response_005010X231A1");
+        oResponse.setProcessingMode("Batch");
+        oResponse.setPayloadID("f81d4fae-7dec-11d0-a765-00a0c91e6bf6");
+        oResponse.setPayloadLength(1551254);
+        oResponse.setTimeStamp("2007-08-30T10:20:34Z");
+        oResponse.setSenderID("PayerB");
+        oResponse.setReceiverID("HospitalA");
+        oResponse.setCORERuleVersion("2.2.0");
+        oResponse.setPayload(payload);
+        oResponse.setErrorCode("Success");
+        oResponse.setErrorMessage("None");
+        return oResponse;
+    }
+
+    private void logAdapterCORE_X12DSGenericBatchRequest(COREEnvelopeBatchSubmission request) {
+
+        LOG.info("Generich Batch Response Paylod Type = " + request.getPayloadType());
+        LOG.info("Generich Batch Response Processing Mode = " + request.getProcessingMode());
+        LOG.info("Generich Batch Response Payload Id = " + request.getPayloadID());
+        LOG.info("Generich Batch Response TimeStamp = " + request.getTimeStamp());
+        LOG.info("Generich Batch Response Sender Id = " + request.getSenderID());
+        LOG.info("Generich Batch Response Receiver Id = " + request.getReceiverID());
+        LOG.info("Generich Batch Response Rule version = " + request.getCORERuleVersion());
+        LOG.info("Generich Batch Response Payload = " + Base64Coder.decodeString(request.getPayload().toString()));
     }
 }
