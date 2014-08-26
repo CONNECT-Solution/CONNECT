@@ -24,35 +24,44 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.nhin.proxy;
+package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.entity;
 
-import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.nhin.proxy.NhinCORE_X12DSGenericBatchRequestProxy;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 
 /**
  *
  * @author svalluripalli
  */
-public class NhinCORE_X12DGenericBatchResponseProxyObjectFactory extends ComponentProxyObjectFactory {
-    private static final String CONFIG_FILE_NAME = NhincConstants.CORE_X12DS_GENERICBATCH_PROXY_CONFIG_FILE_NAME;
-    private static final String BEAN_NAME = "nhincore_x12dsgenericbatchresponse";
+public class OutboundCORE_X12DSGenericBatchResponseFactory {
+
+    private static OutboundCORE_X12DSGenericBatchResponseFactory instance;
 
     /**
-     * 
-     * @return String
+     * Singleton Constructor
      */
-    @Override
-    protected String getConfigFileName() {
-        return CONFIG_FILE_NAME;
+    private OutboundCORE_X12DSGenericBatchResponseFactory() {
+
     }
-    
+
     /**
-     * 
-     * @return NhinCORE_X12DSGenericBatchRequestProxy
+     * returns a instance of OutboundCORE_X12DSGenericBatchRequestFactory
+     *
+     * @return OutboundCORE_X12DSGenericBatchRequestFactory
      */
-    public NhinCORE_X12DSGenericBatchResponseProxy getNhinCORE_X12DSGenericBatchResponseProxy() {
-        return getBean(BEAN_NAME, NhinCORE_X12DSGenericBatchResponseProxy.class);
+    public static OutboundCORE_X12DSGenericBatchResponseFactory getInstance() {
+        if (instance == null) {
+            instance = new OutboundCORE_X12DSGenericBatchResponseFactory();
+        }
+        return instance;
     }
-    
+
+    /**
+     *
+     * @param apiLevel
+     * @return OrchestrationContextBuilder
+     */
+    public OrchestrationContextBuilder createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+        return new OutboundCORE_X12DSGenericBatchResponseOrchestrationContextBuilder_g0();
+    }
 }

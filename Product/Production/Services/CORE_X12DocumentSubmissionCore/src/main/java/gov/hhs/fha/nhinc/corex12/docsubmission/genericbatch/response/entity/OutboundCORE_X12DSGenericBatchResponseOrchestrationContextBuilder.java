@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
+import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 
 /**
@@ -46,6 +47,17 @@ public abstract class OutboundCORE_X12DSGenericBatchResponseOrchestrationContext
 
     @Override
     public abstract OrchestrationContext build();
+
+    /**
+     *
+     * @param message
+     */
+    public void init(OutboundOrchestratable message) {
+        setAssertionType(message.getAssertion());
+        setRequest(((OutboundCORE_X12DSGenericBatchResponseOrchestratable) message).getRequest());
+        setTarget(((OutboundCORE_X12DSGenericBatchResponseOrchestratable) message).getTarget());
+        setNhinDelegate(((OutboundCORE_X12DSGenericBatchResponseOrchestratable) message).getNhinDelegate());
+    }
 
     /**
      *
