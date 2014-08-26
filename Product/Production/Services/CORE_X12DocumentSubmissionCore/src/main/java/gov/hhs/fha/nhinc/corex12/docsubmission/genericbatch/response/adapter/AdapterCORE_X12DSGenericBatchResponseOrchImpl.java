@@ -50,12 +50,12 @@ public class AdapterCORE_X12DSGenericBatchResponseOrchImpl {
 
         COREEnvelopeBatchSubmissionResponse oResponse = null;
         if (msg != null) {
-            LOG.trace("Begin AdapterCORE_X12DSGenericBatchResponseOrchImpl.realTimeRequest()");
+            LOG.trace("Begin AdapterCORE_X12DSGenericBatchResponseOrchImpl.batchSubmitTransaction()");
             //Call to a method which builds response metadata and returns response
             oResponse = buildAdapterCORE_X12DSGenericBatchResponseMetadata();
             //Call for logging inbound
             logAdapterCORE_X12DSGenericBatchRequest(msg);
-            LOG.trace("End AdapterCORE_X12DSGenericBatchResponseOrchImpl.realTimeRequest()");
+            LOG.trace("End AdapterCORE_X12DSGenericBatchResponseOrchImpl.batchSubmitTransaction()");
         } else {
             oResponse = new COREEnvelopeBatchSubmissionResponse();
             //TODO: Need to add error handling
@@ -85,7 +85,6 @@ public class AdapterCORE_X12DSGenericBatchResponseOrchImpl {
     }
 
     private void logAdapterCORE_X12DSGenericBatchRequest(COREEnvelopeBatchSubmission request) {
-
         LOG.info("Generich Batch Response Paylod Type = " + request.getPayloadType());
         LOG.info("Generich Batch Response Processing Mode = " + request.getProcessingMode());
         LOG.info("Generich Batch Response Payload Id = " + request.getPayloadID());

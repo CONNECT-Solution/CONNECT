@@ -50,7 +50,7 @@ public class AdapterCORE_X12DSGenericBatchRequestImpl extends BaseService {
     public AdapterBatchSubmissionResponseSecuredType batchSubmitTransaction(AdapterBatchSubmissionSecuredRequestType body, WebServiceContext context) {
         AdapterBatchSubmissionResponseSecuredType oResponse = new AdapterBatchSubmissionResponseSecuredType();
         AssertionType oAssertion = getAssertion(context, null);
-        COREEnvelopeBatchSubmissionResponse aResponse = new AdapterCORE_X12DSGenericBatchResponseOrchImpl().genericBatchSubmitTransaction(body.getCOREEnvelopeBatchSubmission(), oAssertion);
+        COREEnvelopeBatchSubmissionResponse aResponse = new AdapterCORE_X12DSGenericBatchResponseOrchImpl().batchSubmitTransaction(body.getCOREEnvelopeBatchSubmission(), oAssertion);
         oResponse.setCOREEnvelopeBatchSubmissionResponse(aResponse);
         return oResponse;
     }
@@ -63,7 +63,7 @@ public class AdapterCORE_X12DSGenericBatchRequestImpl extends BaseService {
     public AdapterBatchSubmissionResponseType batchSubmitTransaction(AdapterBatchSubmissionRequestType body, WebServiceContext context) {
         AdapterBatchSubmissionResponseType oResponse = new AdapterBatchSubmissionResponseType();
         AssertionType oAssertion = getAssertion(context, body.getAssertion());
-        COREEnvelopeBatchSubmissionResponse aResponse = new AdapterCORE_X12DSGenericBatchResponseOrchImpl().genericBatchSubmitTransaction(body.getCOREEnvelopeBatchSubmission(), oAssertion);
+        COREEnvelopeBatchSubmissionResponse aResponse = new AdapterCORE_X12DSGenericBatchResponseOrchImpl().batchSubmitTransaction(body.getCOREEnvelopeBatchSubmission(), oAssertion);
         oResponse.setCOREEnvelopeBatchSubmissionResponse(aResponse);
         return oResponse;
     }
