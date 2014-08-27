@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.nhin.proxy;
 
-import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.nhin.proxy.NhinCORE_X12DSGenericBatchRequestProxy;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
@@ -35,24 +34,25 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  * @author svalluripalli
  */
 public class NhinCORE_X12DGenericBatchResponseProxyObjectFactory extends ComponentProxyObjectFactory {
+
     private static final String CONFIG_FILE_NAME = NhincConstants.CORE_X12DS_GENERICBATCH_PROXY_CONFIG_FILE_NAME;
     private static final String BEAN_NAME = "nhincore_x12dsgenericbatchresponse";
 
     /**
-     * 
+     *
      * @return String
      */
     @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }
-    
+
     /**
-     * 
+     *
      * @return NhinCORE_X12DSGenericBatchRequestProxy
      */
     public NhinCORE_X12DSGenericBatchResponseProxy getNhinCORE_X12DSGenericBatchResponseProxy() {
         return getBean(BEAN_NAME, NhinCORE_X12DSGenericBatchResponseProxy.class);
     }
-    
+
 }

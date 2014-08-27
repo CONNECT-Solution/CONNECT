@@ -71,7 +71,7 @@ public class AdapterCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl impl
      * @return COREEnvelopeBatchSubmissionResponse
      */
     @Override
-    public COREEnvelopeBatchSubmissionResponse genericBatchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
+    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
         COREEnvelopeBatchSubmissionResponse oResponse = null;
         
         try{
@@ -79,7 +79,7 @@ public class AdapterCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl impl
             if (NullChecker.isNotNullish(url)) {
                 ServicePortDescriptor<AdapterCOREGenericBatchTransactionSecuredPortType> portDescriptor = new AdapterCORE_X12DSGenericBatchRequestSecuredServicePortDescriptor();
                 CONNECTClient<AdapterCOREGenericBatchTransactionSecuredPortType> client = CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
-                oResponse = (COREEnvelopeBatchSubmissionResponse) client.invokePort(AdapterCOREGenericBatchTransactionSecuredPortType.class, "genericBatchSubmitTransaction", msg);
+                oResponse = (COREEnvelopeBatchSubmissionResponse) client.invokePort(AdapterCOREGenericBatchTransactionSecuredPortType.class, "batchSubmitTransaction", msg);
             }
         } catch(Exception ex){
             LOG.error("Error sending Adapter CORE X12 Doc Submission Secured message: " + ex.getMessage(), ex);

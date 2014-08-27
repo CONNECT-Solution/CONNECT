@@ -36,6 +36,6 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  */
 public interface AdapterCORE_X12DGenericBatchResponseProxy {
 
-    public COREEnvelopeBatchSubmissionResponse genericBatchSubmitTransaction(COREEnvelopeBatchSubmission msg,
+    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg,
         AssertionType assertion);
 }

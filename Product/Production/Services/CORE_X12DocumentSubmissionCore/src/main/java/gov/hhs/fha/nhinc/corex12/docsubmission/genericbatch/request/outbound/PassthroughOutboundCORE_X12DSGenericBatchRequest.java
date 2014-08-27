@@ -28,7 +28,11 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.outbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
+import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.entity.OutboundCORE_X12DSGenericBatchRequestDelegate;
+import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.entity.OutboundCORE_X12DSGenericBatchRequestOrchestratable;
+import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 
@@ -38,11 +42,61 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  */
 public class PassthroughOutboundCORE_X12DSGenericBatchRequest implements OutboundCORE_X12DSGenericBatchRequest {
 
-    @Override
-    public COREEnvelopeBatchSubmissionResponse genericBatchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-        //TODO needs to implement as part of other user story..
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private OutboundCORE_X12DSGenericBatchRequestDelegate dsDelegate = new OutboundCORE_X12DSGenericBatchRequestDelegate();
+
+    /**
+     * Constructor..
+     */
+    public PassthroughOutboundCORE_X12DSGenericBatchRequest() {
+        super();
     }
 
-    
+    /**
+     * Constructor with parameters..
+     *
+     * @param dsDelegate
+     */
+    public PassthroughOutboundCORE_X12DSGenericBatchRequest(OutboundCORE_X12DSGenericBatchRequestDelegate dsDelegate) {
+        this.dsDelegate = dsDelegate;
+    }
+
+    /**
+     *
+     * @param msg
+     * @param assertion
+     * @param targets
+     * @param urlInfo
+     * @return COREEnvelopeBatchSubmissionResponse
+     */
+    @Override
+    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
+        COREEnvelopeBatchSubmissionResponse oResponse = null;
+        NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
+            targets);
+        OutboundCORE_X12DSGenericBatchRequestOrchestratable dsOrchestratable = 
+            createOrchestratable(dsDelegate, msg, targetSystem, assertion);
+        oResponse = ((OutboundCORE_X12DSGenericBatchRequestOrchestratable) 
+            dsDelegate.process(dsOrchestratable)).getResponse();
+        return oResponse;
+    }
+
+    /**
+     *
+     * @param delegate
+     * @param request
+     * @param targetSystem
+     * @param assertion
+     * @return OutboundCORE_X12DSGenericBatchRequestOrchestratable
+     */
+    public OutboundCORE_X12DSGenericBatchRequestOrchestratable createOrchestratable(OutboundCORE_X12DSGenericBatchRequestDelegate delegate,
+        COREEnvelopeBatchSubmission request,
+        NhinTargetSystemType targetSystem,
+        AssertionType assertion) {
+
+        OutboundCORE_X12DSGenericBatchRequestOrchestratable core_x12dsOrchestratable = new OutboundCORE_X12DSGenericBatchRequestOrchestratable(delegate);
+        core_x12dsOrchestratable.setAssertion(assertion);
+        core_x12dsOrchestratable.setRequest(request);
+        core_x12dsOrchestratable.setTarget(targetSystem);
+        return core_x12dsOrchestratable;
+    }
 }

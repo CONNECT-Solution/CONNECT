@@ -28,9 +28,14 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.nhin.proxy
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.nhin.proxy.service.NhinCORE_X12DSGenericBatchResponseServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import org.apache.log4j.Logger;
+import org.caqh.soap.wsdl.GenericBatchTransactionPort;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 
@@ -39,7 +44,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  * @author svalluripalli
  */
 public class NhinCORE_X12DSGenericBatchResponseWebServiceSecuredImpl implements NhinCORE_X12DSGenericBatchResponseProxy {
-    
+
     private static final Logger LOG = Logger.getLogger(NhinCORE_X12DSGenericBatchResponseWebServiceSecuredImpl.class);
     private WebServiceProxyHelper proxyHelper = null;
 
@@ -48,6 +53,14 @@ public class NhinCORE_X12DSGenericBatchResponseWebServiceSecuredImpl implements 
      */
     public NhinCORE_X12DSGenericBatchResponseWebServiceSecuredImpl() {
         proxyHelper = new WebServiceProxyHelper();
+    }
+
+    protected CONNECTClient<GenericBatchTransactionPort> getCONNECTClientSecured(
+        ServicePortDescriptor<GenericBatchTransactionPort> portDescriptor, AssertionType assertion, String url,
+        String targetHomeCommunityId, String serviceName) {
+
+        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
+            targetHomeCommunityId, serviceName);
     }
 
     /**
@@ -59,9 +72,26 @@ public class NhinCORE_X12DSGenericBatchResponseWebServiceSecuredImpl implements 
      * @return COREEnvelopeBatchSubmissionResponse
      */
     @Override
-    public COREEnvelopeBatchSubmissionResponse genericBatchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        LOG.info("NhinCORE_X12DSGenericBatchResponseWebServiceSecuredImpl.genericBatchSubmitTransaction()");
-        //TODO need to implement this method...
-        return new COREEnvelopeBatchSubmissionResponse();
+    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+        LOG.info("Begin NhinCORE_X12DSGenericBatchResponseWebServiceSecuredImpl.batchSubmitTransaction()");
+        COREEnvelopeBatchSubmissionResponse response = null;
+        try {
+            String url = proxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
+                NhincConstants.CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME, apiLevel);
+            ServicePortDescriptor<GenericBatchTransactionPort> portDescriptor = new NhinCORE_X12DSGenericBatchResponseServicePortDescriptor();
+            CONNECTClient<GenericBatchTransactionPort> client = getCONNECTClientSecured(portDescriptor, assertion,
+                url, targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
+            response = (COREEnvelopeBatchSubmissionResponse) client.invokePort(GenericBatchTransactionPort.class,
+                "batchSubmitTransaction", msg);
+        } catch (Exception ex) {
+            // TODO: We need to add error handling here based on CORE X12 DS RealTime use cases
+            // e.g., Connection error, etc.
+            LOG.error("Error calling batchSubmitTransaction: " + ex.getMessage(), ex);
+            response = new COREEnvelopeBatchSubmissionResponse();
+            response.setErrorMessage(NhincConstants.CORE_X12DS_ACK_ERROR_MSG);
+            response.setErrorCode(NhincConstants.CORE_X12DS_ACK_ERROR_CODE);
+        }
+        LOG.info("End NhinCORE_X12DSGenericBatchResponseWebServiceSecuredImpl.batchSubmitTransaction()");
+        return response;
     }
 }

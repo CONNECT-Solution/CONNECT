@@ -26,9 +26,7 @@
  */
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.proxy;
 
-import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.*;
 import gov.hhs.fha.nhinc.adaptercoresecured.AdapterCOREGenericBatchTransactionSecuredPortType;
-import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.*;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.service.AdapterCORE_X12DSGenericBatchRequestSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
@@ -58,7 +56,7 @@ public class AdapterCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl imp
     }
 
     /**
-     * 
+     *
      * @return WebServiceProxyHelper
      */
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -66,23 +64,23 @@ public class AdapterCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl imp
     }
 
     /**
-     * 
+     *
      * @param msg
      * @param assertion
      * @return COREEnvelopeBatchSubmissionResponse
      */
     @Override
-    public COREEnvelopeBatchSubmissionResponse genericBatchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
+    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
         COREEnvelopeBatchSubmissionResponse oResponse = null;
-        
-        try{
+
+        try {
             String url = oProxyHelper.getAdapterEndPointFromConnectionManager(NhincConstants.ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_SECURED_SERVICE_NAME);
             if (NullChecker.isNotNullish(url)) {
                 ServicePortDescriptor<AdapterCOREGenericBatchTransactionSecuredPortType> portDescriptor = new AdapterCORE_X12DSGenericBatchRequestSecuredServicePortDescriptor();
                 CONNECTClient<AdapterCOREGenericBatchTransactionSecuredPortType> client = CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
                 oResponse = (COREEnvelopeBatchSubmissionResponse) client.invokePort(AdapterCOREGenericBatchTransactionSecuredPortType.class, "genericBatchSubmitTransaction", msg);
             }
-        } catch(Exception ex){
+        } catch (Exception ex) {
             LOG.error("Error sending Adapter CORE X12 Doc Submission Secured message: " + ex.getMessage(), ex);
             oResponse = new COREEnvelopeBatchSubmissionResponse();
             oResponse.setErrorMessage(NhincConstants.CORE_X12DS_ACK_ERROR_MSG);

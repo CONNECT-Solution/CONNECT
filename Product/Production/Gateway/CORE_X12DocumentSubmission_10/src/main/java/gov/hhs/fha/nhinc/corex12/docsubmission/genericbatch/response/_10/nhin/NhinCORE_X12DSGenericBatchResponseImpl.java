@@ -58,6 +58,6 @@ public class NhinCORE_X12DSGenericBatchResponseImpl extends BaseService {
      */
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission body, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
-        return inboundCORE_X12DSGenericBatchResponse.genericBatchSubmitTransaction(body, assertion);
+        return inboundCORE_X12DSGenericBatchResponse.batchSubmitTransaction(body, assertion);
     }
 }

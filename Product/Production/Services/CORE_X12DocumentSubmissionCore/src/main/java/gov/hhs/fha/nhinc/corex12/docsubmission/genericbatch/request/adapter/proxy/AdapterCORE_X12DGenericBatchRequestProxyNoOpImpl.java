@@ -41,7 +41,7 @@ public class AdapterCORE_X12DGenericBatchRequestProxyNoOpImpl implements Adapter
     private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DGenericBatchRequestProxyNoOpImpl.class);
 
     @Override
-    public COREEnvelopeBatchSubmissionResponse genericBatchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
+    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
         LOG.trace("Using NoOp Implementation for Adapter CORE X12 Doc Submission Service");
         return new COREEnvelopeBatchSubmissionResponse();
     }

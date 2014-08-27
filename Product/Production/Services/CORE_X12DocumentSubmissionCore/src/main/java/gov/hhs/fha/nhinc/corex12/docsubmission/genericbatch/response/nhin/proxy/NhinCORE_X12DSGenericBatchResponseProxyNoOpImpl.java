@@ -50,7 +50,7 @@ public class NhinCORE_X12DSGenericBatchResponseProxyNoOpImpl implements NhinCORE
      * @return COREEnvelopeBatchSubmissionResponse
      */
     @Override
-    public COREEnvelopeBatchSubmissionResponse genericBatchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         LOG.info("NhinCORE_X12DSGenericBatchResponseProxyNoOpImpl.genericBatchSubmitTransaction()");
         return new COREEnvelopeBatchSubmissionResponse();
     }

@@ -38,6 +38,6 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  */
 public interface OutboundCORE_X12DSGenericBatchResponse {
 
-    public COREEnvelopeBatchSubmissionResponse genericBatchSubmitTransaction(COREEnvelopeBatchSubmission msg,
+    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg,
         AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo);
 }

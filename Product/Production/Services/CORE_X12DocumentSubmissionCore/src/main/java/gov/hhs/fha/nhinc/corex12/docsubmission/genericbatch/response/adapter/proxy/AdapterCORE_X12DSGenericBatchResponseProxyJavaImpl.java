@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.proxy;
 
-import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.*;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
 import org.apache.log4j.Logger;
@@ -37,13 +36,13 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  * @author svalluripalli
  *
  */
-public class AdapterCORE_X12DSGenericBatchResponseProxyJavaImpl implements AdapterCORE_X12DGenericBatchRequestProxy {
+public class AdapterCORE_X12DSGenericBatchResponseProxyJavaImpl implements AdapterCORE_X12DGenericBatchResponseProxy {
 
     private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSGenericBatchResponseProxyJavaImpl.class);
 
     @Override
-    public COREEnvelopeBatchSubmissionResponse genericBatchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
+    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
         LOG.trace("Using Java Implementation for Adapter CORE X12 Doc Submission Service");
-        return new AdapterCORE_X12DSGenericBatchResponseProxyJavaImpl().genericBatchSubmitTransaction(msg, assertion);
+        return new AdapterCORE_X12DSGenericBatchResponseProxyJavaImpl().batchSubmitTransaction(msg, assertion);
     }
 }
