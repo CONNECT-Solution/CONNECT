@@ -64,7 +64,7 @@ public class EntityCORE_X12DSGenericBatchRequestImpl extends BaseService {
         RespondingGatewayCrossGatewayBatchSubmissionResponseMessageSecuredRequestType oResponse = null;
         try {
             AssertionType assertion = getAssertion(context, null);
-            COREEnvelopeBatchSubmissionResponse oBatchSubmissionResponse = outboundCORE_X12DSGenericBatchRequest.genericBatchSubmitTransaction(body.getCOREEnvelopeBatchSubmission(), assertion, body.getNhinTargetCommunities(), null);
+            COREEnvelopeBatchSubmissionResponse oBatchSubmissionResponse = outboundCORE_X12DSGenericBatchRequest.batchSubmitTransaction(body.getCOREEnvelopeBatchSubmission(), assertion, body.getNhinTargetCommunities(), null);
             oResponse = new RespondingGatewayCrossGatewayBatchSubmissionResponseMessageSecuredRequestType();
             oResponse.setCOREEnvelopeBatchSubmissionResponse(oBatchSubmissionResponse);
             oResponse.setNhinTargetCommunities(body.getNhinTargetCommunities());
@@ -82,7 +82,7 @@ public class EntityCORE_X12DSGenericBatchRequestImpl extends BaseService {
     public RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionRequestType body, WebServiceContext context) {
         RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType oResponse = null;
         try {
-            COREEnvelopeBatchSubmissionResponse oBatchSubmissionResponse = outboundCORE_X12DSGenericBatchRequest.genericBatchSubmitTransaction(body.getCOREEnvelopeBatchSubmission(), body.getAssertion(), body.getNhinTargetCommunities(), null);
+            COREEnvelopeBatchSubmissionResponse oBatchSubmissionResponse = outboundCORE_X12DSGenericBatchRequest.batchSubmitTransaction(body.getCOREEnvelopeBatchSubmission(), body.getAssertion(), body.getNhinTargetCommunities(), null);
             oResponse = new RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType();
             oResponse.setCOREEnvelopeBatchSubmissionResponse(oBatchSubmissionResponse);
             oResponse.setAssertion(body.getAssertion());
