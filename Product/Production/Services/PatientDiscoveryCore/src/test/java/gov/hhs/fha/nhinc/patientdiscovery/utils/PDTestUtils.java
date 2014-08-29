@@ -26,8 +26,22 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.utils;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AddressType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
+import gov.hhs.fha.nhinc.common.nhinccommon.PhoneType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthnStatementType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceAssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceConditionsType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
 import javax.xml.bind.JAXBElement;
-
 import org.hl7.v3.ActClassControlAct;
 import org.hl7.v3.BinaryDataEncoding;
 import org.hl7.v3.CE;
@@ -48,7 +62,6 @@ import org.hl7.v3.MCCIMT000100UV01Sender;
 import org.hl7.v3.ObjectFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201305UV02QUQIMT021001UV01ControlActProcess;
-import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectAdministrativeGender;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectBirthTime;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
@@ -57,27 +70,10 @@ import org.hl7.v3.PRPAMT201306UV02ParameterList;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.QUQIMT021001UV01AuthorOrPerformer;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
-import org.hl7.v3.ST;
+import org.hl7.v3.STExplicit;
 import org.hl7.v3.TSExplicit;
 import org.hl7.v3.XActMoodIntentEvent;
 import org.hl7.v3.XParticipationAuthorPerformer;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AddressType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
-import gov.hhs.fha.nhinc.common.nhinccommon.PhoneType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthnStatementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceAssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceConditionsType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
 
 /**
  * @author zmelnick
@@ -421,7 +417,7 @@ public class PDTestUtils {
         value.setExtension("1111");
         subjectId.getValue().add(0, value);
 
-        ST oRepresentation = new ST();
+        STExplicit oRepresentation = new STExplicit();
         oRepresentation.setRepresentation(BinaryDataEncoding.TXT);
         subjectId.setSemanticsText(oRepresentation);
         return subjectId;
@@ -449,7 +445,7 @@ public class PDTestUtils {
         nameValue.getContent().add(1, jaxbGivenName);
         subjectName.getValue().add(0, nameValue);
 
-        ST oRepresentation = new ST();
+        STExplicit oRepresentation = new STExplicit();
         oRepresentation.setRepresentation(BinaryDataEncoding.TXT);
         subjectName.setSemanticsText(oRepresentation);
 
@@ -465,7 +461,7 @@ public class PDTestUtils {
         value.setValue("19630804");
         birthTime.getValue().add(0, value);
 
-        ST oRepresentation = new ST();
+        STExplicit oRepresentation = new STExplicit();
         oRepresentation.setRepresentation(BinaryDataEncoding.TXT);
         birthTime.setSemanticsText(oRepresentation);
         return birthTime;
@@ -481,7 +477,7 @@ public class PDTestUtils {
         code.setCode("M");
         gender.getValue().add(0, code);
 
-        ST oRepresentation = new ST();
+        STExplicit oRepresentation = new STExplicit();
         oRepresentation.setRepresentation(BinaryDataEncoding.TXT);
         gender.setSemanticsText(oRepresentation);
         return gender;
