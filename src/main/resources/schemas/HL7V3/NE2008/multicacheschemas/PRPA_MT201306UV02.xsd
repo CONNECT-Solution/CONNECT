@@ -49,7 +49,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="value" type="CE" minOccurs="1" maxOccurs="unbounded"/>
-         <xs:element name="semanticsText" type="ST" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="semanticsText" type="ST_explicit" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -58,7 +58,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="value" type="AD_explicit" minOccurs="1" maxOccurs="unbounded"/>
-         <xs:element name="semanticsText" type="ST" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="semanticsText" type="ST_explicit" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -67,7 +67,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="value" type="EN_explicit" minOccurs="1" maxOccurs="unbounded"/>
-         <xs:element name="semanticsText" type="ST" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="semanticsText" type="ST_explicit" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -76,7 +76,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="value" type="IVL_TS_explicit" minOccurs="1" maxOccurs="unbounded"/>
-         <xs:element name="semanticsText" type="ST" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="semanticsText" type="ST_explicit" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -94,7 +94,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="value" type="II" minOccurs="1" maxOccurs="unbounded"/>
-         <xs:element name="semanticsText" type="ST" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="semanticsText" type="ST_explicit" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -103,7 +103,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="value" type="EN_explicit" minOccurs="1" maxOccurs="unbounded"/>
-         <xs:element name="semanticsText" type="ST" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="semanticsText" type="ST_explicit" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -157,7 +157,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="value" type="PN_explicit" minOccurs="1" maxOccurs="unbounded"/>
-         <xs:element name="semanticsText" type="ST" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="semanticsText" type="ST_explicit" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -242,7 +242,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="value" type="AD_explicit" minOccurs="1" maxOccurs="unbounded"/>
-         <xs:element name="semanticsText" type="ST" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="semanticsText" type="ST_explicit" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -260,7 +260,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="value" type="TEL_explicit" minOccurs="1" maxOccurs="unbounded"/>
-         <xs:element name="semanticsText" type="ST" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="semanticsText" type="ST_explicit" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -269,7 +269,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="value" type="II" minOccurs="1" maxOccurs="unbounded"/>
-         <xs:element name="semanticsText" type="ST" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="semanticsText" type="ST_explicit" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -278,7 +278,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="value" type="II" minOccurs="1" maxOccurs="unbounded"/>
-         <xs:element name="semanticsText" type="ST" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="semanticsText" type="ST_explicit" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
