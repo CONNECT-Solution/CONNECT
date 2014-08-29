@@ -70,6 +70,7 @@ public class EntityCORE_X12DSGenericBatchRequestImpl extends BaseService {
             oResponse.setNhinTargetCommunities(body.getNhinTargetCommunities());
         } catch (Exception e) {
             LOG.error("Failed to send X12DS request to Nwhin. " + e);
+            e.printStackTrace();
         }
         return oResponse;
     }
