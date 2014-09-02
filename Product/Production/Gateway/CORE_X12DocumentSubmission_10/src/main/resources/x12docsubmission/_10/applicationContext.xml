@@ -77,7 +77,11 @@
 
     <bean id="ptCORE_X12DSRealTimeOutbound" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.PassthroughOutboundCORE_X12DSRealTime" /> 
     <bean id="ptCORE_X12DSRealTimeInbound" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.inbound.PassthroughInboundCORE_X12DSRealTime" /> 
-    
+    <bean id="ptCORE_X12DSGenericBatchRequestInbound" class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.inbound.PassthroughInboundCORE_X12DSGenericBatchRequest"/>
+    <bean id="ptCORE_X12DSGenericBatchRequestOutbound" class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.outbound.PassthroughOutboundCORE_X12DSGenericBatchRequest"/>    
+    <bean id="ptCORE_X12DSGenericBatchResponseInbound" class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.inbound.PassthroughInboundCORE_X12DSGenericBatchResponse"/>
+    <bean id="ptCORE_X12DSGenericBatchResponseOutbound" class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.outbound.PassthroughOutboundCORE_X12DSGenericBatchResponse"/>    
+        
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
 </beans>

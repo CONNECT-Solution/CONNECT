@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.entity;
 
-import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.orchestration.OrchestrationContextFactory;
+import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.orchestration.OrchestrationContextFactory;
 import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;

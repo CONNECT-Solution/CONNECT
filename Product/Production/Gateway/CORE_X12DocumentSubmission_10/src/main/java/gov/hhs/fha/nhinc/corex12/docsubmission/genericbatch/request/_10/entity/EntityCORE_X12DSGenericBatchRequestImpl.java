@@ -44,7 +44,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 public class EntityCORE_X12DSGenericBatchRequestImpl extends BaseService {
 
     private static final Logger LOG = Logger.getLogger(EntityCORE_X12DSGenericBatchRequestImpl.class);
-    private OutboundCORE_X12DSGenericBatchRequest outboundCORE_X12DSGenericBatchRequest;
+    private final OutboundCORE_X12DSGenericBatchRequest outboundCORE_X12DSGenericBatchRequest;
 
     /**
      * Constructor
@@ -58,6 +58,7 @@ public class EntityCORE_X12DSGenericBatchRequestImpl extends BaseService {
     /**
      *
      * @param body
+     * @param context
      * @return RespondingGatewayCrossGatewayBatchSubmissionResponseMessageSecuredRequestType
      */
     public RespondingGatewayCrossGatewayBatchSubmissionResponseMessageSecuredRequestType batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionSecuredRequestType body, WebServiceContext context) {
@@ -69,8 +70,8 @@ public class EntityCORE_X12DSGenericBatchRequestImpl extends BaseService {
             oResponse.setCOREEnvelopeBatchSubmissionResponse(oBatchSubmissionResponse);
             oResponse.setNhinTargetCommunities(body.getNhinTargetCommunities());
         } catch (Exception e) {
-            LOG.error("Failed to send X12DS request to Nwhin. " + e);
             e.printStackTrace();
+            LOG.error("Failed to send X12DS request to Nwhin. " + e);
         }
         return oResponse;
     }
@@ -78,6 +79,7 @@ public class EntityCORE_X12DSGenericBatchRequestImpl extends BaseService {
     /**
      *
      * @param body
+     * @param context
      * @return RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType
      */
     public RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionRequestType body, WebServiceContext context) {
@@ -89,6 +91,7 @@ public class EntityCORE_X12DSGenericBatchRequestImpl extends BaseService {
             oResponse.setAssertion(body.getAssertion());
             oResponse.setNhinTargetCommunities(body.getNhinTargetCommunities());
         } catch (Exception e) {
+            e.printStackTrace();
             LOG.error("Failed to send X12DS request to Nwhin. " + e);
         }
         return oResponse;

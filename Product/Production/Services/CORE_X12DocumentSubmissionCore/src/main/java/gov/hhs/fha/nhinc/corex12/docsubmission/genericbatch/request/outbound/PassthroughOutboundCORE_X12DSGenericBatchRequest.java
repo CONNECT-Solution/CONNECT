@@ -73,10 +73,9 @@ public class PassthroughOutboundCORE_X12DSGenericBatchRequest implements Outboun
         COREEnvelopeBatchSubmissionResponse oResponse = null;
         NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
             targets);
-        OutboundCORE_X12DSGenericBatchRequestOrchestratable dsOrchestratable = 
-            createOrchestratable(dsDelegate, msg, targetSystem, assertion);
-        oResponse = ((OutboundCORE_X12DSGenericBatchRequestOrchestratable) 
-            dsDelegate.process(dsOrchestratable)).getResponse();
+        OutboundCORE_X12DSGenericBatchRequestOrchestratable dsOrchestratable
+            = createOrchestratable(dsDelegate, msg, targetSystem, assertion);
+        oResponse = ((OutboundCORE_X12DSGenericBatchRequestOrchestratable) dsDelegate.process(dsOrchestratable)).getResponse();
         return oResponse;
     }
 
@@ -92,7 +91,6 @@ public class PassthroughOutboundCORE_X12DSGenericBatchRequest implements Outboun
         COREEnvelopeBatchSubmission request,
         NhinTargetSystemType targetSystem,
         AssertionType assertion) {
-
         OutboundCORE_X12DSGenericBatchRequestOrchestratable core_x12dsOrchestratable = new OutboundCORE_X12DSGenericBatchRequestOrchestratable(delegate);
         core_x12dsOrchestratable.setAssertion(assertion);
         core_x12dsOrchestratable.setRequest(request);
