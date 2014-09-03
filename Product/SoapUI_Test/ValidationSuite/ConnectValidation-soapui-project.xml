@@ -42577,11 +42577,11 @@ if(!runMock){
    				<parameterList>
    					<livingSubjectAdministrativeGender>
    						<value code="M"/>
-   						<semanticsText representation="TXT"/>
+   						<semanticsText representation="TXT">LivingSubject.administrativeGender</semanticsText>
    					</livingSubjectAdministrativeGender>
    					<livingSubjectBirthTime>
    						<value value="19630804"/>
-   						<semanticsText representation="TXT"/>
+   						<semanticsText representation="TXT">LivingSubject.birthTime</semanticsText>
    					</livingSubjectBirthTime>
    					<livingSubjectId>
    						<value root="1.1" extension="1111"/>
@@ -42592,7 +42592,7 @@ if(!runMock){
    							<family partType="FAM">Younger</family>
    							<given partType="GIV">Gallow</given>
                         		</value>
-                        		<semanticsText representation="TXT"/>
+                        		<semanticsText representation="TXT">LivingSubject.name</semanticsText>
                         	</livingSubjectName>
                      </parameterList>
                  </queryByParameter>
@@ -46437,11 +46437,11 @@ if(!runMock){
    				<parameterList>
    					<livingSubjectAdministrativeGender>
    						<value code="M"/>
-   						<semanticsText representation="TXT"/>
+   						<semanticsText representation="TXT">LivingSubject.administrativeGender</semanticsText>
    					</livingSubjectAdministrativeGender>
    					<livingSubjectBirthTime>
    						<value value="19630804"/>
-   						<semanticsText representation="TXT"/>
+   						<semanticsText representation="TXT">LivingSubject.birthTime</semanticsText>
    					</livingSubjectBirthTime>
    					<livingSubjectId>
    						<value root="1.1" extension="1111"/>
@@ -46452,7 +46452,7 @@ if(!runMock){
    							<family partType="FAM">Younger</family>
    							<given partType="GIV">Gallow</given>
                         		</value>
-                        		<semanticsText representation="TXT"/>
+                        		<semanticsText representation="TXT">LivingSubject.name</semanticsText>
                         	</livingSubjectName>
                      </parameterList>
                  </queryByParameter>

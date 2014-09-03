@@ -45,7 +45,7 @@ import org.hl7.v3.PRPAMT201306UV02ParameterList;
 import org.hl7.v3.PRPAMT201306UV02PatientAddress;
 import org.hl7.v3.PRPAMT201306UV02PatientTelecom;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
-import org.hl7.v3.ST;
+import org.hl7.v3.STExplicit;
 import org.hl7.v3.TELExplicit;
 
 /**
@@ -129,7 +129,7 @@ public class HL7QueryParamsTransforms {
 
         if (subjectId != null) {
             id.getValue().add(subjectId);
-            ST text = new ST();
+            STExplicit text = new STExplicit();
             id.setSemanticsText(text);
         }
 
@@ -145,7 +145,7 @@ public class HL7QueryParamsTransforms {
 
         for (PNExplicit name : patientNames) {
             subjectName.getValue().add(HL7DataTransformHelper.convertPNToEN(name));
-            ST text = new ST();
+            STExplicit text = new STExplicit();
             subjectName.setSemanticsText(text);
         }
 
@@ -159,7 +159,7 @@ public class HL7QueryParamsTransforms {
         if (birthTime != null && birthTime.length() > 0) {
             bday.setValue(birthTime);
             subjectBirthTime.getValue().add(bday);
-            ST text = new ST();
+            STExplicit text = new STExplicit();
             subjectBirthTime.setSemanticsText(text);
         }
 
@@ -174,7 +174,7 @@ public class HL7QueryParamsTransforms {
             genderCode.setCode(gender);
             adminGender.getValue().add(genderCode);
 
-            ST text = new ST();
+            STExplicit text = new STExplicit();
             adminGender.setSemanticsText(text);
         }
 
@@ -183,13 +183,13 @@ public class HL7QueryParamsTransforms {
 
     public static PRPAMT201306UV02PatientAddress createAddress(List<ADExplicit> patientAddress) {
         PRPAMT201306UV02PatientAddress subjectAddress = null;
-        ST text = null;
+        STExplicit text = null;
 
         if (patientAddress != null) {
             subjectAddress = new PRPAMT201306UV02PatientAddress();
             for (ADExplicit address : patientAddress) {
                 subjectAddress.getValue().add(address);
-                text = new ST();
+                text = new STExplicit();
                 subjectAddress.setSemanticsText(text);
             }
         }
@@ -199,13 +199,13 @@ public class HL7QueryParamsTransforms {
 
     public static PRPAMT201306UV02PatientTelecom createTelecom(List<TELExplicit> patientTelecom) {
         PRPAMT201306UV02PatientTelecom subjectTele = null;
-        ST text = null;
+        STExplicit text = null;
 
         if (patientTelecom != null) {
             subjectTele = new PRPAMT201306UV02PatientTelecom();
             for (TELExplicit tele : patientTelecom) {
                 subjectTele.getValue().add(tele);
-                text = new ST();
+                text = new STExplicit();
                 subjectTele.setSemanticsText(text);
             }
         }
