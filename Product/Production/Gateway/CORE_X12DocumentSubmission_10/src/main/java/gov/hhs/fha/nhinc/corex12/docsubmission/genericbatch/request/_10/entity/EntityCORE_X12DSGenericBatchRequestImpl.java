@@ -44,7 +44,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 public class EntityCORE_X12DSGenericBatchRequestImpl extends BaseService {
 
     private static final Logger LOG = Logger.getLogger(EntityCORE_X12DSGenericBatchRequestImpl.class);
-    private final OutboundCORE_X12DSGenericBatchRequest outboundCORE_X12DSGenericBatchRequest;
+    private OutboundCORE_X12DSGenericBatchRequest outboundCORE_X12DSGenericBatchRequest;
 
     /**
      * Constructor

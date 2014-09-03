@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.entity;
 
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.nhin.proxy.NhinCORE_X12DGenericBatchRequestProxyObjectFactory;
@@ -56,10 +55,6 @@ public class OutboundCORE_X12DSGenericBatchRequestStrategyImpl_g0 implements Orc
         }
     }
 
-    /**
-     *
-     * @param message
-     */
     private void process(OutboundCORE_X12DSGenericBatchRequestOrchestratable message) {
         LOG.info("Begin OutboundCORE_X12DSGenericBatchRequestStrategyImpl_g0.process()");
         NhinCORE_X12DGenericBatchRequestProxyObjectFactory factory = new NhinCORE_X12DGenericBatchRequestProxyObjectFactory();

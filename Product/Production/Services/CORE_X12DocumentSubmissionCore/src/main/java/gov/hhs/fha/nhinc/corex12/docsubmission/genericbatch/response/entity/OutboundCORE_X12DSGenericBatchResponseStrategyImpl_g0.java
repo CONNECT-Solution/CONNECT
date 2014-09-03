@@ -55,10 +55,6 @@ public class OutboundCORE_X12DSGenericBatchResponseStrategyImpl_g0 implements Or
         }
     }
 
-    /**
-     *
-     * @param message
-     */
     private void process(OutboundCORE_X12DSGenericBatchResponseOrchestratable message) {
         LOG.info("Begin OutboundCORE_X12DSGenericBatchResponseStrategyImpl_g0.process()");
         NhinCORE_X12DGenericBatchResponseProxyObjectFactory factory = new NhinCORE_X12DGenericBatchResponseProxyObjectFactory();
