@@ -52,6 +52,7 @@
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
+            <entry key="mtom-enabled" value="true" />
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
         <jaxws:handlers>
@@ -69,6 +70,7 @@
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
+            <entry key="mtom-enabled" value="true" />
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
         <jaxws:handlers>
@@ -92,6 +94,9 @@
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
+        <jaxws:properties>
+            <entry key="mtom-enabled" value="true" />
+        </jaxws:properties>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:nhincentitycore" id="NhincEntityCOREResponse"
@@ -100,6 +105,9 @@
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
+        <jaxws:properties>
+            <entry key="mtom-enabled" value="true" />
+        </jaxws:properties>
     </jaxws:endpoint>
     
     <!-- Entity Secured services -->
@@ -131,6 +139,7 @@
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
+            <entry key="mtom-enabled" value="true" />
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
         <jaxws:inInterceptors>
@@ -150,6 +159,7 @@
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
+            <entry key="mtom-enabled" value="true" />
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
         <jaxws:inInterceptors>

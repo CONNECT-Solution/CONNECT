@@ -44,7 +44,7 @@ public class AdapterCORE_X12DSGenericBatchRequestOrchImpl {
      *
      * @param msg
      * @param assertion
-     * @return
+     * @return COREEnvelopeBatchSubmissionResponse
      */
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
 

@@ -24,34 +24,16 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.nhin.proxy;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import org.apache.log4j.Logger;
-import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
-import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
+package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.nhin.proxy.service;
 
 /**
- *
  * @author svalluripalli
+ *
  */
-public class NhinCORE_X12DSGenericBatchRequestProxyNoOpImpl implements NhinCORE_X12DSGenericBatchRequestProxy {
-    private static final Logger LOG = Logger.getLogger(NhinCORE_X12DSGenericBatchRequestProxyNoOpImpl.class);
-    
-    /**
-     * 
-     * @param msg
-     * @param assertion
-     * @param targetSystem
-     * @param apiLevel
-     * @return COREEnvelopeBatchSubmissionResponse
-     */
+public class NhinCORE_X12DSGenericBatchResponseServicePortDescriptor extends AbstractCOREGenericBatchResponseServicePortDescriptor {
+
     @Override
-    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        LOG.info("NhinCORE_X12DSGenericBatchRequestProxyNoOpImpl.genericBatchSubmitTransaction()");
-        return new COREEnvelopeBatchSubmissionResponse();
+    public String getWSAddressingAction() {
+        return "BatchSubmitTransaction";
     }
-    
 }

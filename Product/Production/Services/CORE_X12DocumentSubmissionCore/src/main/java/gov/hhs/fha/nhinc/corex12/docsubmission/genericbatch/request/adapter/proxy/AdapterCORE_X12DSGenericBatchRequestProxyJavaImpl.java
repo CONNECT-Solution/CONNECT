@@ -41,8 +41,8 @@ public class AdapterCORE_X12DSGenericBatchRequestProxyJavaImpl implements Adapte
     private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSGenericBatchRequestProxyJavaImpl.class);
 
     @Override
-    public COREEnvelopeBatchSubmissionResponse genericBatchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
+    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
         LOG.trace("Using Java Implementation for Adapter CORE X12 Doc Submission Service");
-        return new AdapterCORE_X12DSGenericBatchRequestProxyJavaImpl().genericBatchSubmitTransaction(msg, assertion);
+        return new AdapterCORE_X12DSGenericBatchRequestProxyJavaImpl().batchSubmitTransaction(msg, assertion);
     }
 }

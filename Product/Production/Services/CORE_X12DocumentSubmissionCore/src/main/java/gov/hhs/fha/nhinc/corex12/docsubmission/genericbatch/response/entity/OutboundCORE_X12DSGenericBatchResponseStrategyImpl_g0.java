@@ -24,34 +24,43 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.nhin.proxy;
+package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.entity;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.nhin.proxy.NhinCORE_X12DGenericBatchResponseProxyObjectFactory;
+import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.nhin.proxy.NhinCORE_X12DSGenericBatchResponseProxy;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.orchestration.Orchestratable;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import org.apache.log4j.Logger;
-import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 
 /**
  *
  * @author svalluripalli
  */
-public class NhinCORE_X12DSGenericBatchRequestProxyNoOpImpl implements NhinCORE_X12DSGenericBatchRequestProxy {
-    private static final Logger LOG = Logger.getLogger(NhinCORE_X12DSGenericBatchRequestProxyNoOpImpl.class);
-    
+public class OutboundCORE_X12DSGenericBatchResponseStrategyImpl_g0 implements OrchestrationStrategy {
+
+    private static final Logger LOG = Logger.getLogger(OutboundCORE_X12DSGenericBatchResponseStrategyImpl_g0.class);
+
     /**
-     * 
-     * @param msg
-     * @param assertion
-     * @param targetSystem
-     * @param apiLevel
-     * @return COREEnvelopeBatchSubmissionResponse
+     *
+     * @param message
      */
     @Override
-    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        LOG.info("NhinCORE_X12DSGenericBatchRequestProxyNoOpImpl.genericBatchSubmitTransaction()");
-        return new COREEnvelopeBatchSubmissionResponse();
+    public void execute(Orchestratable message) {
+        if (message instanceof OutboundCORE_X12DSGenericBatchResponseOrchestratable) {
+            process((OutboundCORE_X12DSGenericBatchResponseOrchestratable) message);
+        } else {
+            LOG.error("Not an OutboundCORE_X12DSGenericBatchResponseOrchestratable.");
+        }
     }
-    
+
+    private void process(OutboundCORE_X12DSGenericBatchResponseOrchestratable message) {
+        LOG.info("Begin OutboundCORE_X12DSGenericBatchResponseStrategyImpl_g0.process()");
+        NhinCORE_X12DGenericBatchResponseProxyObjectFactory factory = new NhinCORE_X12DGenericBatchResponseProxyObjectFactory();
+        NhinCORE_X12DSGenericBatchResponseProxy proxy = factory.getNhinCORE_X12DSGenericBatchResponseProxy();
+        COREEnvelopeBatchSubmissionResponse oResponse = proxy.batchSubmitTransaction(message.getRequest(), message.getAssertion(), message.getTarget(), NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
+        message.setResponse(oResponse);
+        LOG.info("End OutboundCORE_X12DSGenericBatchResponseStrategyImpl_g0.process()");
+    }
 }

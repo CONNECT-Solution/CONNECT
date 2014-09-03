@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.proxy;
 
-import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.*;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
 import org.apache.log4j.Logger;
@@ -42,7 +41,7 @@ public class AdapterCORE_X12DGenericBatchResponseProxyNoOpImpl implements Adapte
     private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DGenericBatchResponseProxyNoOpImpl.class);
 
     @Override
-    public COREEnvelopeBatchSubmissionResponse genericBatchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
+    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
         LOG.trace("Using NoOp Implementation for Adapter CORE X12 Doc Submission Service");
         return new COREEnvelopeBatchSubmissionResponse();
     }

@@ -64,7 +64,7 @@ public abstract class AbstractInboundCORE_X12DSGenericBatchRequest implements In
      * @return COREEnvelopeBatchSubmissionResponse
      */
     @Override
-    public COREEnvelopeBatchSubmissionResponse genericBatchSubmitTransaction(COREEnvelopeBatchSubmission msg,
+    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg,
         AssertionType assertion) {
         return processGenericBatchSubmitTransaction(msg, assertion);
     }
@@ -78,7 +78,7 @@ public abstract class AbstractInboundCORE_X12DSGenericBatchRequest implements In
     public COREEnvelopeBatchSubmissionResponse sendToAdapter(COREEnvelopeBatchSubmission msg,
         AssertionType assertion) {
         AdapterCORE_X12DGenericBatchRequestProxy oProxy = oAdapterFactory.getAdapterCORE_X12DocSubmissionProxy();
-        return oProxy.genericBatchSubmitTransaction(msg, assertion);
+        return oProxy.batchSubmitTransaction(msg, assertion);
     }
 
 }

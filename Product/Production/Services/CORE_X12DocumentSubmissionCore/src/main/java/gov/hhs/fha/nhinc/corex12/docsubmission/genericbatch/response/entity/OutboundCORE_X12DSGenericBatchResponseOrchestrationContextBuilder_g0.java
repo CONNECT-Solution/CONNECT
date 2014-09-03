@@ -24,34 +24,30 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.nhin.proxy;
+package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.entity;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.entity.*;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
+
 import org.apache.log4j.Logger;
-import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
-import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 
 /**
- *
  * @author svalluripalli
+ *
  */
-public class NhinCORE_X12DSGenericBatchRequestProxyNoOpImpl implements NhinCORE_X12DSGenericBatchRequestProxy {
-    private static final Logger LOG = Logger.getLogger(NhinCORE_X12DSGenericBatchRequestProxyNoOpImpl.class);
-    
+public class OutboundCORE_X12DSGenericBatchResponseOrchestrationContextBuilder_g0 extends OutboundCORE_X12DSGenericBatchResponseOrchestrationContextBuilder {
+
+    private static final Logger LOG = Logger.getLogger(OutboundCORE_X12DSGenericBatchResponseOrchestrationContextBuilder_g0.class);
+
     /**
      * 
-     * @param msg
-     * @param assertion
-     * @param targetSystem
-     * @param apiLevel
-     * @return COREEnvelopeBatchSubmissionResponse
+     * @return OrchestrationContext
      */
     @Override
-    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        LOG.info("NhinCORE_X12DSGenericBatchRequestProxyNoOpImpl.genericBatchSubmitTransaction()");
-        return new COREEnvelopeBatchSubmissionResponse();
+    public OrchestrationContext build() {
+        LOG.trace("begin OutboundCORE_X12DSGenericBatchResponseOrchestrationContextBuilder_g0.build()");
+        return new OrchestrationContext(new OutboundCORE_X12DSGenericBatchResponseStrategyImpl_g0(),
+            new OutboundCORE_X12DSGenericBatchResponseOrchestratable(getNhinDelegate(), getRequest(), getTarget(),
+                getAssertionType()));
     }
-    
 }

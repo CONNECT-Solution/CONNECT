@@ -43,6 +43,6 @@ public interface InboundCORE_X12DSGenericBatchRequest {
      * @param assertion
      * @return COREEnvelopeBatchSubmissionResponse
      */
-    public COREEnvelopeBatchSubmissionResponse genericBatchSubmitTransaction(COREEnvelopeBatchSubmission msg,
+    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg,
         AssertionType assertion);
 }

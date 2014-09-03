@@ -418,7 +418,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  CORE X12 Document Submission  -->
+            <!--  CORE X12 RealTime Document Submission  -->
 
             <businessService serviceKey="uddi:nhincnode:adaptercore_x12dsrealtimesecured">
                 <name xml:lang="en">adaptercore_x12dsrealtimesecured</name>
@@ -480,7 +480,133 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Document Query  -->
+            
+			<!--  CORE X12 Document Submission Request  -->
+
+            <businessService serviceKey="uddi:nhincnode:adaptercore_x12dsgenericbatchrequestsecured">
+                <name xml:lang="en">adaptercore_x12dsgenericbatchrequestsecured</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:adaptercore_x12dsgenericbatchrequestsecured" serviceKey="uddi:nhincnode:adaptercore_x12dsgenericbatchrequestsecured">
+                        <accessPoint useType="endPoint">https://localhost:8181/Adapter/CORE_X12DocumentSubmission/A_0/COREGenericBatch/AdapterCOREGenericBatchRequestSecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adaptercore_x12dsgenericbatchrequestsecured" keyValue="adaptercore_x12dsgenericbatchrequestsecured"/>
+                </categoryBag>
+            </businessService>
+
+            <businessService serviceKey="uddi:nhincnode:adaptercore_x12dsgenericbatchrequest">
+                <name xml:lang="en">adaptercore_x12dsgenericbatchrequest</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:adaptercore_x12dsgenericbatchrequest" serviceKey="uddi:nhincnode:adaptercore_x12dsgenericbatchrequest">
+                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/CORE_X12DocumentSubmission/A_0/COREGenericBatch/AdapterCOREGenericBatchRequestUnsecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adaptercore_x12dsgenericbatchrequest" keyValue="adaptercore_x12dsgenericbatchrequest"/>
+                </categoryBag>
+            </businessService>
+
+            <businessService serviceKey="uddi:nhincnode:entitycore_x12dsgenericbatchrequestsecured">
+                <name xml:lang="en">entitycore_x12dsgenericbatchrequestsecured</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:entitycore_x12dsgenericbatchrequestsecured" serviceKey="uddi:nhincnode:entitycore_x12dsgenericbatchrequestsecured">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/EntityService/EntityCOREGenericBatchRequestSecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="entitycore_x12dsgenericbatchrequestsecured" keyValue="entitycore_x12dsgenericbatchrequestsecured"/>
+                </categoryBag>
+            </businessService>
+
+            <businessService serviceKey="uddi:nhincnode:entitycore_x12dsgenericbatchrequest">
+                <name xml:lang="en">entitycore_x12dsgenericbatchrequest</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:entitycore_x12dsgenericbatchrequest" serviceKey="uddi:nhincnode:entitycore_x12dsgenericbatchrequest">
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/CORE_X12DocumentSubmission/1_0/EntityService/EntityCOREGenericBatchRequestUnsecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="entitycore_x12dsgenericbatchrequest" keyValue="entitycore_x12dsgenericbatchrequest"/>
+                </categoryBag>
+            </businessService>
+
+            
+						<!--  CORE X12 Document Submission Response  -->
+
+            <businessService serviceKey="uddi:nhincnode:adaptercore_x12dsgenericbatchresponsesecured">
+                <name xml:lang="en">adaptercore_x12dsgenericbatchresponsesecured</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:adaptercore_x12dsgenericbatchresponsesecured" serviceKey="uddi:nhincnode:adaptercore_x12dsgenericbatchresponsesecured">
+                        <accessPoint useType="endPoint">https://localhost:8181/Adapter/CORE_X12DocumentSubmission/A_0/COREGenericBatch/AdapterCOREGenericBatchResponseSecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adaptercore_x12dsgenericbatchresponsesecured" keyValue="adaptercore_x12dsgenericbatchresponsesecured"/>
+                </categoryBag>
+            </businessService>
+
+            <businessService serviceKey="uddi:nhincnode:adaptercore_x12dsgenericbatchresponse">
+                <name xml:lang="en">adaptercore_x12dsgenericbatchresponse</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:adaptercore_x12dsgenericbatchresponse" serviceKey="uddi:nhincnode:adaptercore_x12dsgenericbatchresponse">
+                        <accessPoint useType="endPoint">http://localhost:8080/Adapter/CORE_X12DocumentSubmission/A_0/COREGenericBatch/AdapterCOREGenericBatchResponseUnsecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adaptercore_x12dsgenericbatchresponse" keyValue="adaptercore_x12dsgenericbatchresponse"/>
+                </categoryBag>
+            </businessService>
+
+            <businessService serviceKey="uddi:nhincnode:entitycore_x12dsgenericbatchresponsesecured">
+                <name xml:lang="en">entitycore_x12dsgenericbatchresponsesecured</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:entitycore_x12dsgenericbatchresponsesecured" serviceKey="uddi:nhincnode:entitycore_x12dsgenericbatchresponsesecured">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/EntityService/EntityCOREGenericBatchResponseSecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="entitycore_x12dsgenericbatchresponsesecured" keyValue="entitycore_x12dsgenericbatchresponsesecured"/>
+                </categoryBag>
+            </businessService>
+
+            <businessService serviceKey="uddi:nhincnode:entitycore_x12dsgenericbatchresponse">
+                <name xml:lang="en">entitycore_x12dsgenericbatchresponse</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:entitycore_x12dsgenericbatchresponse" serviceKey="uddi:nhincnode:entitycore_x12dsgenericbatchresponse">
+                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/CORE_X12DocumentSubmission/1_0/EntityService/EntityCOREGenericBatchResponseUnsecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="entitycore_x12dsgenericbatchresponse" keyValue="entitycore_x12dsgenericbatchresponse"/>
+                </categoryBag>
+            </businessService>
+            			
+			<!--  Document Query  -->
 
             <businessService serviceKey="uddi:nhincnode:adapterdocquery">
                 <name xml:lang="en">adapterdocquery</name>
