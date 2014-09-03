@@ -24,7 +24,7 @@ http://www.springframework.org/schema/aop     http://www.springframework.org/sch
         Beans defined for adaptercore_x12dsgenericbatchrequest
     -->
     <alias alias="adaptercore_x12dsgenericbatchrequest"
-           name="adaptercore_x12dsgenericbatchrequestwssecured" />
+           name="adaptercore_x12dsgenericbatchrequestsecured" />
 
     <!-- No-op Implementation -->
     <bean id="adaptercore_x12dsgenericbatchrequestnoop"
@@ -45,8 +45,8 @@ http://www.springframework.org/schema/aop     http://www.springframework.org/sch
     </bean>
 
     <!-- Secured web service Implementation -->
-    <bean id="adaptercore_x12dsgenericbatchrequestwssecured"
-          name="adaptercore_x12dsgenericbatchrequestwssecured"
+    <bean id="adaptercore_x12dsgenericbatchrequestsecured"
+          name="adaptercore_x12dsgenericbatchrequestsecured"
           class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.AdapterCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl"
           lazy-init="true">
 
@@ -67,7 +67,7 @@ http://www.springframework.org/schema/aop     http://www.springframework.org/sch
         Beans defined for adaptercore_x12dsgenericbatchresponse
     -->
     <alias alias="adaptercore_x12dsgenericbatchresponse"
-           name="adaptercore_x12dsgenericbatchresponsewssecured" />
+           name="adaptercore_x12dsgenericbatchresponsesecured" />
 
     <!-- No-op Implementation -->
     <bean id="adaptercore_x12dsgenericbatchresponsenoop"
@@ -88,8 +88,8 @@ http://www.springframework.org/schema/aop     http://www.springframework.org/sch
     </bean>
 
     <!-- Secured web service Implementation -->
-    <bean id="adaptercore_x12dsgenericbatchresponsewssecured"
-          name="adaptercore_x12dsgenericbatchresponsewssecured"
+    <bean id="adaptercore_x12dsgenericbatchresponsesecured"
+          name="adaptercore_x12dsgenericbatchresponsesecured"
           class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.proxy.AdapterCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl"
           lazy-init="true">
 
@@ -217,8 +217,8 @@ http://www.springframework.org/schema/aop     http://www.springframework.org/sch
     </bean>
 
     <!-- Secured web service Implementation -->
-    <bean id="entitycore_x12dsgenericbatchrequestwssecured"
-          name="entitycore_x12dsgenericbatchrequestwssecured"
+    <bean id="nhincore_x12dsgenericbatchrequestwssecured"
+          name="nhincore_x12dsgenericbatchrequestwssecured"
           class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.nhin.proxy.NhinCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl"
           lazy-init="true">
 

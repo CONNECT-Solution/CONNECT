@@ -43,15 +43,15 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  *
  * @author svalluripalli
  */
-public class NhinCORE_X12DSGenericBatchRequestWebServiceSecuredImpl implements NhinCORE_X12DSGenericBatchRequestProxy {
+public class NhinCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl implements NhinCORE_X12DSGenericBatchRequestProxy {
 
-    private static final Logger LOG = Logger.getLogger(NhinCORE_X12DSGenericBatchRequestWebServiceSecuredImpl.class);
+    private static final Logger LOG = Logger.getLogger(NhinCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper proxyHelper = null;
 
     /**
      * Constructor..
      */
-    public NhinCORE_X12DSGenericBatchRequestWebServiceSecuredImpl() {
+    public NhinCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl() {
         proxyHelper = new WebServiceProxyHelper();
     }
 

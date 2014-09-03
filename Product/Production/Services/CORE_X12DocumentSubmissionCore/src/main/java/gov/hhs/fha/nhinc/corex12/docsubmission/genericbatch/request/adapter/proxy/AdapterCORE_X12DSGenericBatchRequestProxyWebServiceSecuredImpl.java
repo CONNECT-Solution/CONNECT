@@ -27,8 +27,9 @@
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy;
 
 import gov.hhs.fha.nhinc.adaptercoresecured.AdapterCOREGenericBatchTransactionSecuredPortType;
-import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.*;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionResponseSecuredType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionSecuredRequestType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.service.AdapterCORE_X12DSGenericBatchRequestSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
@@ -46,7 +47,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  */
 public class AdapterCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl implements AdapterCORE_X12DGenericBatchRequestProxy {
 
-    private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSRealTimeProxyWebServiceSecuredImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     /**
@@ -57,7 +58,7 @@ public class AdapterCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl impl
     }
 
     /**
-     * 
+     *
      * @return WebServiceProxyHelper
      */
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -65,7 +66,7 @@ public class AdapterCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl impl
     }
 
     /**
-     * 
+     *
      * @param msg
      * @param assertion
      * @return COREEnvelopeBatchSubmissionResponse
@@ -73,16 +74,22 @@ public class AdapterCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl impl
     @Override
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
         COREEnvelopeBatchSubmissionResponse oResponse = null;
-        
-        try{
+
+        try {
             String url = oProxyHelper.getAdapterEndPointFromConnectionManager(NhincConstants.ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_SECURED_SERVICE_NAME);
             if (NullChecker.isNotNullish(url)) {
                 ServicePortDescriptor<AdapterCOREGenericBatchTransactionSecuredPortType> portDescriptor = new AdapterCORE_X12DSGenericBatchRequestSecuredServicePortDescriptor();
                 CONNECTClient<AdapterCOREGenericBatchTransactionSecuredPortType> client = CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
-                oResponse = (COREEnvelopeBatchSubmissionResponse) client.invokePort(AdapterCOREGenericBatchTransactionSecuredPortType.class, "batchSubmitTransaction", msg);
+                client.enableMtom();
+                AdapterBatchSubmissionSecuredRequestType request = new AdapterBatchSubmissionSecuredRequestType();
+                request.setCOREEnvelopeBatchSubmission(msg);
+                AdapterBatchSubmissionResponseSecuredType adapterResponse = (AdapterBatchSubmissionResponseSecuredType) client.invokePort(AdapterCOREGenericBatchTransactionSecuredPortType.class, "batchSubmitTransaction", request);
+                oResponse = adapterResponse.getCOREEnvelopeBatchSubmissionResponse();
+            } else {
+                LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_SECURED_SERVICE_NAME + ").  The URL is null.");
             }
-        } catch(Exception ex){
-            LOG.error("Error sending Adapter CORE X12 Doc Submission Secured message: " + ex.getMessage(), ex);
+        } catch (Exception ex) {
+            LOG.error("Error sending Adapter CORE X12 Doc Submission Request Secured message: " + ex.getMessage(), ex);
             oResponse = new COREEnvelopeBatchSubmissionResponse();
             oResponse.setErrorMessage(NhincConstants.CORE_X12DS_ACK_ERROR_MSG);
             oResponse.setErrorCode(NhincConstants.CORE_X12DS_ACK_ERROR_CODE);

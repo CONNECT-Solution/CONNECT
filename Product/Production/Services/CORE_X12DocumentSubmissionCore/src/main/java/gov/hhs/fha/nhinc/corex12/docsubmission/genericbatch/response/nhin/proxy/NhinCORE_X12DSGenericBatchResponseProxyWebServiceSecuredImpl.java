@@ -43,15 +43,15 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  *
  * @author svalluripalli
  */
-public class NhinCORE_X12DSGenericBatchResponseWebServiceSecuredImpl implements NhinCORE_X12DSGenericBatchResponseProxy {
+public class NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl implements NhinCORE_X12DSGenericBatchResponseProxy {
 
-    private static final Logger LOG = Logger.getLogger(NhinCORE_X12DSGenericBatchResponseWebServiceSecuredImpl.class);
+    private static final Logger LOG = Logger.getLogger(NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper proxyHelper = null;
 
     /**
      * Constructor..
      */
-    public NhinCORE_X12DSGenericBatchResponseWebServiceSecuredImpl() {
+    public NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl() {
         proxyHelper = new WebServiceProxyHelper();
     }
 
@@ -73,7 +73,7 @@ public class NhinCORE_X12DSGenericBatchResponseWebServiceSecuredImpl implements 
      */
     @Override
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        LOG.info("Begin NhinCORE_X12DSGenericBatchResponseWebServiceSecuredImpl.batchSubmitTransaction()");
+        LOG.info("Begin NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl.batchSubmitTransaction()");
         COREEnvelopeBatchSubmissionResponse response = null;
         try {
             String url = proxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
@@ -91,7 +91,7 @@ public class NhinCORE_X12DSGenericBatchResponseWebServiceSecuredImpl implements 
             response.setErrorMessage(NhincConstants.CORE_X12DS_ACK_ERROR_MSG);
             response.setErrorCode(NhincConstants.CORE_X12DS_ACK_ERROR_CODE);
         }
-        LOG.info("End NhinCORE_X12DSGenericBatchResponseWebServiceSecuredImpl.batchSubmitTransaction()");
+        LOG.info("End NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl.batchSubmitTransaction()");
         return response;
     }
 }
