@@ -92,6 +92,6 @@ public class AdapterCORE_X12DSGenericBatchResponseOrchImpl {
         LOG.info("Generich Batch Response Sender Id = " + request.getSenderID());
         LOG.info("Generich Batch Response Receiver Id = " + request.getReceiverID());
         LOG.info("Generich Batch Response Rule version = " + request.getCORERuleVersion());
-        LOG.info("Generich Batch Response Payload = " + Base64Coder.decodeString(request.getPayload().toString()));
+        LOG.info("Generich Batch Response Payload = " + request.getPayload());
     }
 }
