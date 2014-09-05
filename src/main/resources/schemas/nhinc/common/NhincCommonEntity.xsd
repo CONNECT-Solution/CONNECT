@@ -313,28 +313,11 @@
     </xsd:complexType>
     <xsd:element name="RespondingGateway_CrossGatewayBatchSubmissionRequestSecured" type="tns:RespondingGateway_CrossGatewayBatchSubmissionSecuredRequestType"/>
     
-    <xsd:complexType name="RespondingGateway_CrossGatewayBatchSubmissionResponseMessageRequestType">
+    <xsd:complexType name="RespondingGateway_CrossGatewayBatchSubmissionResponseMessageType">
         <xsd:sequence>
             <xsd:element ref="x12:COREEnvelopeBatchSubmissionResponse"/>
-            <xsd:element name="assertion" type="nccommon:AssertionType"/>
-            <xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
         </xsd:sequence>
     </xsd:complexType>
-    <xsd:element name="RespondingGateway_CrossGatewayBatchSubmissionResponseMessageRequest" type="tns:RespondingGateway_CrossGatewayBatchSubmissionResponseMessageRequestType"/>
-
-    <xsd:complexType name="RespondingGateway_CrossGatewayBatchSubmissionResponseMessageSecuredRequestType">
-        <xsd:sequence>
-            <xsd:element ref="x12:COREEnvelopeBatchSubmissionResponse"/>
-            <xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
-        </xsd:sequence>
-    </xsd:complexType>
-    <xsd:element name="RespondingGateway_CrossGatewayBatchSubmissionResponseMessageRequestSecured" type="tns:RespondingGateway_CrossGatewayBatchSubmissionResponseMessageSecuredRequestType"/>
+    <xsd:element name="RespondingGateway_CrossGatewayBatchSubmissionResponseMessage" type="tns:RespondingGateway_CrossGatewayBatchSubmissionResponseMessageType"/>
     
-    <xsd:complexType name="RespondingGateway_CrossGatewayBatchSubmissionAckResponseType">
-        <xsd:sequence>
-            <xsd:element ref="x12:COREEnvelopeBatchSubmissionAckRetrievalResponse"/>
-        </xsd:sequence>
-    </xsd:complexType>
-    <xsd:element name="RespondingGateway_CrossGatewayBatchSubmissionAckResponse" type="tns:RespondingGateway_CrossGatewayBatchSubmissionAckResponseType"/>
-	
 </xsd:schema>
