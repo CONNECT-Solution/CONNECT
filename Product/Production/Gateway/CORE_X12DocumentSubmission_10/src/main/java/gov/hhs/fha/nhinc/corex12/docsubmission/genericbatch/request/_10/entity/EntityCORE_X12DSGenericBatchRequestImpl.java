@@ -28,8 +28,7 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request._10.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionResponseMessageSecuredRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionSecuredRequestType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.outbound.OutboundCORE_X12DSGenericBatchRequest;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
@@ -61,14 +60,13 @@ public class EntityCORE_X12DSGenericBatchRequestImpl extends BaseService {
      * @param context
      * @return RespondingGatewayCrossGatewayBatchSubmissionResponseMessageSecuredRequestType
      */
-    public RespondingGatewayCrossGatewayBatchSubmissionResponseMessageSecuredRequestType batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionSecuredRequestType body, WebServiceContext context) {
-        RespondingGatewayCrossGatewayBatchSubmissionResponseMessageSecuredRequestType oResponse = null;
+    public RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionSecuredRequestType body, WebServiceContext context) {
+        RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType oResponse = null;
         try {
             AssertionType assertion = getAssertion(context, null);
             COREEnvelopeBatchSubmissionResponse oBatchSubmissionResponse = outboundCORE_X12DSGenericBatchRequest.batchSubmitTransaction(body.getCOREEnvelopeBatchSubmission(), assertion, body.getNhinTargetCommunities(), null);
-            oResponse = new RespondingGatewayCrossGatewayBatchSubmissionResponseMessageSecuredRequestType();
+            oResponse = new RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType();
             oResponse.setCOREEnvelopeBatchSubmissionResponse(oBatchSubmissionResponse);
-            oResponse.setNhinTargetCommunities(body.getNhinTargetCommunities());
         } catch (Exception e) {
             LOG.error("Failed to send X12DS request to Nwhin. " + e);
         }
@@ -81,14 +79,12 @@ public class EntityCORE_X12DSGenericBatchRequestImpl extends BaseService {
      * @param context
      * @return RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType
      */
-    public RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionRequestType body, WebServiceContext context) {
-        RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType oResponse = null;
+    public RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionRequestType body, WebServiceContext context) {
+        RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType oResponse = null;
         try {
             COREEnvelopeBatchSubmissionResponse oBatchSubmissionResponse = outboundCORE_X12DSGenericBatchRequest.batchSubmitTransaction(body.getCOREEnvelopeBatchSubmission(), body.getAssertion(), body.getNhinTargetCommunities(), null);
-            oResponse = new RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType();
+            oResponse = new RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType();
             oResponse.setCOREEnvelopeBatchSubmissionResponse(oBatchSubmissionResponse);
-            oResponse.setAssertion(body.getAssertion());
-            oResponse.setNhinTargetCommunities(body.getNhinTargetCommunities());
         } catch (Exception e) {
             LOG.error("Failed to send X12DS request to Nwhin. " + e);
         }

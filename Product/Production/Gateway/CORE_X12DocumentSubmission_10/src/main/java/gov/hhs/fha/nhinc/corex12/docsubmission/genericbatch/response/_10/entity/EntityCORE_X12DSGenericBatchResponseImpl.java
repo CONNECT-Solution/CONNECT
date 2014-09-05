@@ -28,8 +28,7 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response._10.entity
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionResponseMessageSecuredRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionSecuredRequestType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.outbound.OutboundCORE_X12DSGenericBatchResponse;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
@@ -42,7 +41,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  * @author svalluripalli
  */
 public class EntityCORE_X12DSGenericBatchResponseImpl extends BaseService {
-    
+
     private static final Logger LOG = Logger.getLogger(EntityCORE_X12DSGenericBatchResponseImpl.class);
     private OutboundCORE_X12DSGenericBatchResponse outboundCORE_X12DSGenericBatchResponse;
 
@@ -60,15 +59,13 @@ public class EntityCORE_X12DSGenericBatchResponseImpl extends BaseService {
      * @param body
      * @return RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType
      */
-    public RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionRequestType body, WebServiceContext context) {
-        RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType oResponse = null;
+    public RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionRequestType body, WebServiceContext context) {
+        RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType oResponse = null;
         LOG.info("EntityCORE_X12DSGenericBatchResponseImpl.batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionRequestType)");
         try {
             COREEnvelopeBatchSubmissionResponse oBatchSubmissionResponse = outboundCORE_X12DSGenericBatchResponse.batchSubmitTransaction(body.getCOREEnvelopeBatchSubmission(), body.getAssertion(), body.getNhinTargetCommunities(), null);
-            oResponse = new RespondingGatewayCrossGatewayBatchSubmissionResponseMessageRequestType();
+            oResponse = new RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType();
             oResponse.setCOREEnvelopeBatchSubmissionResponse(oBatchSubmissionResponse);
-            oResponse.setAssertion(body.getAssertion());
-            oResponse.setNhinTargetCommunities(body.getNhinTargetCommunities());
         } catch (Exception e) {
             LOG.error("Failed to send X12DS request to Nwhin. " + e);
         }
@@ -80,15 +77,14 @@ public class EntityCORE_X12DSGenericBatchResponseImpl extends BaseService {
      * @param body
      * @return RespondingGatewayCrossGatewayBatchSubmissionResponseMessageSecuredRequestType
      */
-    public RespondingGatewayCrossGatewayBatchSubmissionResponseMessageSecuredRequestType batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionSecuredRequestType body, WebServiceContext context) {
+    public RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionSecuredRequestType body, WebServiceContext context) {
         LOG.info("EntityCORE_X12DSGenericBatchResponseImpl.batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionSecuredRequestType)");
-        RespondingGatewayCrossGatewayBatchSubmissionResponseMessageSecuredRequestType oResponse = null;
+        RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType oResponse = null;
         try {
             AssertionType assertion = getAssertion(context, null);
             COREEnvelopeBatchSubmissionResponse oBatchSubmissionResponse = outboundCORE_X12DSGenericBatchResponse.batchSubmitTransaction(body.getCOREEnvelopeBatchSubmission(), assertion, body.getNhinTargetCommunities(), null);
-            oResponse = new RespondingGatewayCrossGatewayBatchSubmissionResponseMessageSecuredRequestType();
+            oResponse = new RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType();
             oResponse.setCOREEnvelopeBatchSubmissionResponse(oBatchSubmissionResponse);
-            oResponse.setNhinTargetCommunities(body.getNhinTargetCommunities());
         } catch (Exception e) {
             LOG.error("Failed to send X12DS request to Nwhin. " + e);
         }
