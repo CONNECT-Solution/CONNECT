@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request._10.entity;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionResponseMessageSecuredRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionSecuredRequestType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.outbound.OutboundCORE_X12DSGenericBatchRequest;
 import javax.annotation.Resource;
@@ -58,8 +58,13 @@ public class EntityCORE_X12DSGenericBatchRequestSecured implements gov.hhs.fha.n
         this.outboundCORE_X12DSGenericBatchRequest = outboundCORE_X12DSGenericBatchRequest;
     }
 
+    /**
+     * 
+     * @param body
+     * @return RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType
+     */
     @Override
-    public RespondingGatewayCrossGatewayBatchSubmissionResponseMessageSecuredRequestType batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionSecuredRequestType body) {
+    public RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType batchSubmitTransaction(RespondingGatewayCrossGatewayBatchSubmissionSecuredRequestType body) {
         return new EntityCORE_X12DSGenericBatchRequestImpl(outboundCORE_X12DSGenericBatchRequest).batchSubmitTransaction(body, context);
     }
 }
