@@ -28,6 +28,8 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.util.Base64Coder;
+import java.sql.Timestamp;
+import java.util.Date;
 import org.apache.log4j.Logger;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
@@ -68,13 +70,14 @@ public class AdapterCORE_X12DSGenericBatchResponseOrchImpl {
         String str_payload = "<xop:Include href=\"cid:1.urn:uuid:5117AAE1116EA8B87A1200060184692@apache.org\"\n"
             + "xmlns:xop=\"http://www.w3.org/2004/08/xop/include\"/>";
         byte[] payload = str_payload.getBytes();
+        Date currentDate = new Date();
 
         COREEnvelopeBatchSubmissionResponse oResponse = new COREEnvelopeBatchSubmissionResponse();
-        oResponse.setPayloadType("X12_999_Response_005010X231A1");
+        oResponse.setPayloadType("X12_BatchReceiptConfirmation");
         oResponse.setProcessingMode("Batch");
         oResponse.setPayloadID("f81d4fae-7dec-11d0-a765-00a0c91e6bf6");
         oResponse.setPayloadLength(1551254);
-        oResponse.setTimeStamp("2007-08-30T10:20:34Z");
+        oResponse.setTimeStamp(new Timestamp(currentDate.getTime()).toString());
         oResponse.setSenderID("PayerB");
         oResponse.setReceiverID("HospitalA");
         oResponse.setCORERuleVersion("2.2.0");
