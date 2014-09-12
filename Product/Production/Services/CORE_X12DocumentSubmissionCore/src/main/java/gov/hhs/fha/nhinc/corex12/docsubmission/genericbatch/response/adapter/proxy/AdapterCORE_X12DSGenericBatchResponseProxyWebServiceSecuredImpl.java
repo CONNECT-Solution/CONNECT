@@ -30,7 +30,9 @@ import gov.hhs.fha.nhinc.adaptercoresecured.AdapterCOREGenericBatchTransactionSe
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionResponseSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionSecuredRequestType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.service.AdapterCORE_X12DSGenericBatchRequestSecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.corex12.docsubmission.utils.CORE_X12DSAdapterExceptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -85,6 +87,9 @@ public class AdapterCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl imp
                 request.setCOREEnvelopeBatchSubmission(msg);
                 AdapterBatchSubmissionResponseSecuredType adapterResponse = (AdapterBatchSubmissionResponseSecuredType) client.invokePort(AdapterCOREGenericBatchTransactionSecuredPortType.class, "batchSubmitTransaction", request);
                 oResponse = adapterResponse.getCOREEnvelopeBatchSubmissionResponse();
+            } else {
+                oResponse = new COREEnvelopeBatchSubmissionResponse();
+                CORE_X12DSAdapterExceptionBuilder.getInstance().buildCOREEnvelopeGenericBatchErrorResponse(msg, oResponse);
             }
         } catch (Exception ex) {
             LOG.error("Error sending Adapter CORE X12 Doc Submission Response Secured message: " + ex.getMessage(), ex);

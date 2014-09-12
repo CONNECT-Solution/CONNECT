@@ -30,7 +30,9 @@ import gov.hhs.fha.nhinc.adaptercore.AdapterCOREGenericBatchTransactionPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionResponseType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.service.AdapterCORE_X12DSGenericBatchRequestUnsecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.corex12.docsubmission.utils.CORE_X12DSAdapterExceptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -84,10 +86,11 @@ public class AdapterCORE_X12DSGenericBatchRequestProxyWebServiceUnsecuredImpl im
                 requestWrapper.setCOREEnvelopeBatchSubmission(msg);
                 AdapterBatchSubmissionResponseType responseWrapper = (AdapterBatchSubmissionResponseType) client.invokePort(AdapterCOREGenericBatchTransactionPortType.class, "batchSubmitTransaction", requestWrapper);
                 oResponse = responseWrapper.getCOREEnvelopeBatchSubmissionResponse();
+            } else {
+                oResponse = new COREEnvelopeBatchSubmissionResponse();
+                CORE_X12DSAdapterExceptionBuilder.getInstance().buildCOREEnvelopeGenericBatchErrorResponse(msg, oResponse);
             }
         } catch (Exception ex) {
-            // TODO: We need to add error handling here based on CORE X12 DS RealTime use cases
-            // e.g., Adapter not found, timeout, etc.
             LOG.error("Error sending Adapter CORE X12 Doc Submission Request Unsecured message: " + ex.getMessage(), ex);
             oResponse = new COREEnvelopeBatchSubmissionResponse();
             oResponse.setErrorCode(NhincConstants.CORE_X12DS_ACK_ERROR_CODE);
