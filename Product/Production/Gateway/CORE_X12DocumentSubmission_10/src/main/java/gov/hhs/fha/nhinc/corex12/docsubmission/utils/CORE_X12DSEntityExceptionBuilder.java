@@ -39,9 +39,9 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  *
  * @author svalluripalli
  */
-public class NhinTargetCommunitiesValidator extends BaseService {
+public class CORE_X12DSEntityExceptionBuilder extends BaseService {
 
-    private static final Logger LOG = Logger.getLogger(NhinTargetCommunitiesValidator.class);
+    private static final Logger LOG = Logger.getLogger(CORE_X12DSEntityExceptionBuilder.class);
     private static final String ERROR_CODE = "Sender";
     private static final String ERROR_MESSAGE = "NwHIN target communities not specified in entity request";
     private static final String PAYLOAD_TYPE = "CoreEnvelopeError";
@@ -49,7 +49,7 @@ public class NhinTargetCommunitiesValidator extends BaseService {
     /**
      * Singleton Constructor
      */
-    public NhinTargetCommunitiesValidator() {
+    public CORE_X12DSEntityExceptionBuilder() {
     }
 
     /**

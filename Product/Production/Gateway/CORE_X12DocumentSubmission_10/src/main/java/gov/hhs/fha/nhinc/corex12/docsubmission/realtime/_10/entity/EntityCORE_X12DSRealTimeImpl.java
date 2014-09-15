@@ -33,7 +33,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayR
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRealTimeSecuredRequestType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.OutboundCORE_X12DSRealTime;
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.PassthroughOutboundCORE_X12DSRealTime;
-import gov.hhs.fha.nhinc.corex12.docsubmission.utils.NhinTargetCommunitiesValidator;
+import gov.hhs.fha.nhinc.corex12.docsubmission.utils.CORE_X12DSEntityExceptionBuilder;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import javax.xml.ws.WebServiceContext;
 import org.apache.log4j.Logger;
@@ -44,7 +44,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  *
  * @author svalluripalli
  */
-public class EntityCORE_X12DSRealTimeImpl extends NhinTargetCommunitiesValidator {
+public class EntityCORE_X12DSRealTimeImpl extends CORE_X12DSEntityExceptionBuilder {
 
     private static final Logger LOG = Logger.getLogger(EntityCORE_X12DSRealTimeImpl.class);
 

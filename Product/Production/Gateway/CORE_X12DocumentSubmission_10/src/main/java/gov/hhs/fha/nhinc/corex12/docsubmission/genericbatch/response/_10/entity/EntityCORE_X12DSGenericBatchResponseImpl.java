@@ -32,7 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayB
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionSecuredRequestType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.outbound.OutboundCORE_X12DSGenericBatchResponse;
-import gov.hhs.fha.nhinc.corex12.docsubmission.utils.NhinTargetCommunitiesValidator;
+import gov.hhs.fha.nhinc.corex12.docsubmission.utils.CORE_X12DSEntityExceptionBuilder;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import javax.xml.ws.WebServiceContext;
 import org.apache.log4j.Logger;
@@ -43,7 +43,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  *
  * @author svalluripalli
  */
-public class EntityCORE_X12DSGenericBatchResponseImpl extends NhinTargetCommunitiesValidator {
+public class EntityCORE_X12DSGenericBatchResponseImpl extends CORE_X12DSEntityExceptionBuilder {
 
     private static final Logger LOG = Logger.getLogger(EntityCORE_X12DSGenericBatchResponseImpl.class);
     private OutboundCORE_X12DSGenericBatchResponse outboundCORE_X12DSGenericBatchResponse;
