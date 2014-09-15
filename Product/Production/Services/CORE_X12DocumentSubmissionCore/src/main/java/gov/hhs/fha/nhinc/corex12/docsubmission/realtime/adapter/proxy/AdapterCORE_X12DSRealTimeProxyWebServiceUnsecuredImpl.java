@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeResponseType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.service.AdapterCORE_X12DSRealTimeUnsecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.corex12.docsubmission.utils.CORE_X12DSAdapterExceptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -45,7 +46,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  * @author cmay
  *
  */
-public class AdapterCORE_X12DSRealTimeProxyWebServiceUnsecuredImpl implements AdapterCORE_X12DSRealTimeProxy {
+public class AdapterCORE_X12DSRealTimeProxyWebServiceUnsecuredImpl extends CORE_X12DSAdapterExceptionBuilder implements AdapterCORE_X12DSRealTimeProxy {
 
     private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSRealTimeProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
@@ -86,8 +87,8 @@ public class AdapterCORE_X12DSRealTimeProxyWebServiceUnsecuredImpl implements Ad
                 response = responseWrapper.getCOREEnvelopeRealTimeResponse();
 
             } else {
-                // TODO: We need to add error handling here based on CORE X12 DS RealTime use cases
-                // e.g., Adapter not found, timeout, etc.
+                response = new COREEnvelopeRealTimeResponse();
+                buildCOREEnvelopeRealTimeErrorResponse(msg, response);
                 LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_CORE_X12DS_REALTIME_SERVICE_NAME
                     + "); the URL is null.");
             }

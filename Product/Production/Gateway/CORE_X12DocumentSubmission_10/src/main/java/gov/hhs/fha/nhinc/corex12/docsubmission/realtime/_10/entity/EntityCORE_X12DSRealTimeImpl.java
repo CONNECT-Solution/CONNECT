@@ -27,26 +27,32 @@
 package gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRealTimeRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRealTimeResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRealTimeSecuredRequestType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.OutboundCORE_X12DSRealTime;
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.PassthroughOutboundCORE_X12DSRealTime;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.fha.nhinc.corex12.docsubmission.utils.CORE_X12DSEntityExceptionBuilder;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import javax.xml.ws.WebServiceContext;
 import org.apache.log4j.Logger;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
 /**
  *
  * @author svalluripalli
  */
-public class EntityCORE_X12DSRealTimeImpl extends BaseService {
+public class EntityCORE_X12DSRealTimeImpl extends CORE_X12DSEntityExceptionBuilder {
+
     private static final Logger LOG = Logger.getLogger(EntityCORE_X12DSRealTimeImpl.class);
 
     private OutboundCORE_X12DSRealTime outboundCORE_X12DSRealTime;
+
     /**
      *
+     * @param outboundCORE_X12DSRealTime
      */
     public EntityCORE_X12DSRealTimeImpl(OutboundCORE_X12DSRealTime outboundCORE_X12DSRealTime) {
         // TODO: Once injection for outboundCORE_X12DSRealTime is fully implemented, remove this conditional
@@ -64,16 +70,9 @@ public class EntityCORE_X12DSRealTimeImpl extends BaseService {
      * @return RespondingGatewayCrossGatewayRealTimeResponseType
      */
     public RespondingGatewayCrossGatewayRealTimeResponseType realTimeTransaction(RespondingGatewayCrossGatewayRealTimeRequestType body, WebServiceContext context) {
-        RespondingGatewayCrossGatewayRealTimeResponseType response = null;
-        try
-        {
-            COREEnvelopeRealTimeResponse realTimeResponse = outboundCORE_X12DSRealTime.realTimeTransaction(body.getCOREEnvelopeRealTimeRequest(), body.getAssertion(), body.getNhinTargetCommunities(), null);
-            response = new RespondingGatewayCrossGatewayRealTimeResponseType();
-            response.setCOREEnvelopeRealTimeResponse(realTimeResponse);
-        } catch(Exception e)
-        {
-            LOG.error("Failed to send X12DS request to Nwhin.", e);
-        }
+        COREEnvelopeRealTimeResponse realTimeResponse = callOutboundRealTimeTransaction(body.getCOREEnvelopeRealTimeRequest(), body.getAssertion(), body.getNhinTargetCommunities());
+        RespondingGatewayCrossGatewayRealTimeResponseType response = new RespondingGatewayCrossGatewayRealTimeResponseType();
+        response.setCOREEnvelopeRealTimeResponse(realTimeResponse);
         return response;
     }
 
@@ -83,17 +82,25 @@ public class EntityCORE_X12DSRealTimeImpl extends BaseService {
      * @return RespondingGatewayCrossGatewayRealTimeResponseType
      */
     public RespondingGatewayCrossGatewayRealTimeResponseType realTimeTransactionSecured(RespondingGatewayCrossGatewayRealTimeSecuredRequestType body, WebServiceContext context) {
+        AssertionType assertion = getAssertion(context, null);
+        COREEnvelopeRealTimeResponse realTimeResponse = callOutboundRealTimeTransaction(body.getCOREEnvelopeRealTimeRequest(), assertion, body.getNhinTargetCommunities());
         RespondingGatewayCrossGatewayRealTimeResponseType response = new RespondingGatewayCrossGatewayRealTimeResponseType();
-        try
-        {
-            AssertionType assertion = getAssertion(context, null);
-            COREEnvelopeRealTimeResponse realTimeResponse = outboundCORE_X12DSRealTime.realTimeTransaction(body.getCOREEnvelopeRealTimeRequest(), assertion, body.getNhinTargetCommunities(), null);
-            response = new RespondingGatewayCrossGatewayRealTimeResponseType();
-            response.setCOREEnvelopeRealTimeResponse(realTimeResponse);
-        } catch(Exception e)
-        {
+        response.setCOREEnvelopeRealTimeResponse(realTimeResponse);
+        return response;
+    }
+
+    private COREEnvelopeRealTimeResponse callOutboundRealTimeTransaction(COREEnvelopeRealTimeRequest oCOREEnvelopeRealTimeRequest, AssertionType assertion, NhinTargetCommunitiesType target) {
+        COREEnvelopeRealTimeResponse realTimeResponse = null;
+        try {
+            if (null != HomeCommunityMap.getCommunityIdFromTargetCommunities(target) && HomeCommunityMap.getCommunityIdFromTargetCommunities(target).length() > 0) {
+                realTimeResponse = outboundCORE_X12DSRealTime.realTimeTransaction(oCOREEnvelopeRealTimeRequest, assertion, target, null);
+            } else {
+                realTimeResponse = new COREEnvelopeRealTimeResponse();
+                buildCOREEnvelopeRealTimeErrorResponse(oCOREEnvelopeRealTimeRequest, realTimeResponse);
+            }
+        } catch (Exception e) {
             LOG.error("Failed to send X12DS request to Nwhin.", e);
         }
-        return response;
+        return realTimeResponse;
     }
 }

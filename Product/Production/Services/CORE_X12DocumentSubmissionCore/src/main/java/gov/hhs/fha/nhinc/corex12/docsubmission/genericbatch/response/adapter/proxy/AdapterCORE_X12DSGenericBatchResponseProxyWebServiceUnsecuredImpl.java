@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionResponseType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.service.AdapterCORE_X12DSGenericBatchRequestUnsecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.corex12.docsubmission.utils.CORE_X12DSAdapterExceptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -45,7 +46,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  * @author svalluripalli
  *
  */
-public class AdapterCORE_X12DSGenericBatchResponseProxyWebServiceUnsecuredImpl implements AdapterCORE_X12DGenericBatchResponseProxy {
+public class AdapterCORE_X12DSGenericBatchResponseProxyWebServiceUnsecuredImpl extends CORE_X12DSAdapterExceptionBuilder implements AdapterCORE_X12DGenericBatchResponseProxy {
 
     private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSGenericBatchResponseProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
@@ -84,10 +85,11 @@ public class AdapterCORE_X12DSGenericBatchResponseProxyWebServiceUnsecuredImpl i
                 requestWrapper.setCOREEnvelopeBatchSubmission(msg);
                 AdapterBatchSubmissionResponseType responseWrapper = (AdapterBatchSubmissionResponseType) client.invokePort(AdapterCOREGenericBatchTransactionPortType.class, "batchSubmitTransaction", requestWrapper);
                 oResponse = responseWrapper.getCOREEnvelopeBatchSubmissionResponse();
+            } else {
+                oResponse = new COREEnvelopeBatchSubmissionResponse();
+                buildCOREEnvelopeGenericBatchErrorResponse(msg, oResponse);
             }
         } catch (Exception ex) {
-            // TODO: We need to add error handling here based on CORE X12 DS RealTime use cases
-            // e.g., Adapter not found, timeout, etc.
             LOG.error("Error sending Adapter CORE X12 Doc Submission Request Unsecured message: " + ex.getMessage(), ex);
             oResponse = new COREEnvelopeBatchSubmissionResponse();
             oResponse.setErrorCode(NhincConstants.CORE_X12DS_ACK_ERROR_CODE);

@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionResponseSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionSecuredRequestType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.service.AdapterCORE_X12DSGenericBatchRequestSecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.corex12.docsubmission.utils.CORE_X12DSAdapterExceptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -45,7 +46,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  * @author svalluripalli
  *
  */
-public class AdapterCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl implements AdapterCORE_X12DGenericBatchRequestProxy {
+public class AdapterCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl extends CORE_X12DSAdapterExceptionBuilder implements AdapterCORE_X12DGenericBatchRequestProxy {
 
     private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
@@ -74,9 +75,10 @@ public class AdapterCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl impl
     @Override
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
         COREEnvelopeBatchSubmissionResponse oResponse = null;
+        String url = null;
 
         try {
-            String url = oProxyHelper.getAdapterEndPointFromConnectionManager(NhincConstants.ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_SECURED_SERVICE_NAME);
+            url = oProxyHelper.getAdapterEndPointFromConnectionManager(NhincConstants.ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_SECURED_SERVICE_NAME);
             if (NullChecker.isNotNullish(url)) {
                 ServicePortDescriptor<AdapterCOREGenericBatchTransactionSecuredPortType> portDescriptor = new AdapterCORE_X12DSGenericBatchRequestSecuredServicePortDescriptor();
                 CONNECTClient<AdapterCOREGenericBatchTransactionSecuredPortType> client = CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
@@ -86,6 +88,8 @@ public class AdapterCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl impl
                 AdapterBatchSubmissionResponseSecuredType adapterResponse = (AdapterBatchSubmissionResponseSecuredType) client.invokePort(AdapterCOREGenericBatchTransactionSecuredPortType.class, "batchSubmitTransaction", request);
                 oResponse = adapterResponse.getCOREEnvelopeBatchSubmissionResponse();
             } else {
+                oResponse = new COREEnvelopeBatchSubmissionResponse();
+                buildCOREEnvelopeGenericBatchErrorResponse(msg, oResponse);
                 LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_SECURED_SERVICE_NAME + ").  The URL is null.");
             }
         } catch (Exception ex) {
