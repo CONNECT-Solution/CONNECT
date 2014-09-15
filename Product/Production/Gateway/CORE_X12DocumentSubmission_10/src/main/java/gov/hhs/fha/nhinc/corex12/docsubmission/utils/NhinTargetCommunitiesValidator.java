@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.corex12.docsubmission.utils;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import java.sql.Timestamp;
 import java.util.Date;
 import org.apache.log4j.Logger;
@@ -40,48 +39,17 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  *
  * @author svalluripalli
  */
-public class NhinTargetCommunitiesValidator {
+public class NhinTargetCommunitiesValidator extends BaseService {
 
     private static final Logger LOG = Logger.getLogger(NhinTargetCommunitiesValidator.class);
     private static final String ERROR_CODE = "Sender";
     private static final String ERROR_MESSAGE = "NwHIN target communities not specified in entity request";
     private static final String PAYLOAD_TYPE = "CoreEnvelopeError";
-    public static NhinTargetCommunitiesValidator singletonObj;
 
     /**
      * Singleton Constructor
      */
-    private NhinTargetCommunitiesValidator() {
-    }
-
-    /**
-     *
-     * @return NhinTargetCommunitiesValidator
-     */
-    public static NhinTargetCommunitiesValidator getInstance() {
-        if (null == singletonObj) {
-            singletonObj = new NhinTargetCommunitiesValidator();
-        }
-        return singletonObj;
-    }
-
-    /**
-     *
-     * @param oNhinTargetCommunities
-     * @return boolean
-     */
-    public boolean isTargetCommunity(NhinTargetCommunitiesType oNhinTargetCommunities) {
-        boolean isValid = false;
-        if (null != oNhinTargetCommunities && null != oNhinTargetCommunities.getNhinTargetCommunity() && oNhinTargetCommunities.getNhinTargetCommunity().size() > 0) {
-            for (NhinTargetCommunityType oTarget : oNhinTargetCommunities.getNhinTargetCommunity()) {
-                if (null != oTarget && oTarget.getHomeCommunity() != null && oTarget.getHomeCommunity().getHomeCommunityId() != null && oTarget.getHomeCommunity().getHomeCommunityId().length() > 0) {
-                    isValid = true;
-                } else {
-                    isValid = false;
-                }
-            }
-        }
-        return isValid;
+    public NhinTargetCommunitiesValidator() {
     }
 
     /**

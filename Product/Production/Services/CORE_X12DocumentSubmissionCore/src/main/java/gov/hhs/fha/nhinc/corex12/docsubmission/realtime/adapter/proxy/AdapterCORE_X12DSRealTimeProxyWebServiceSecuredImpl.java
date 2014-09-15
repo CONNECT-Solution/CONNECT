@@ -46,7 +46,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  * @author cmay
  *
  */
-public class AdapterCORE_X12DSRealTimeProxyWebServiceSecuredImpl implements AdapterCORE_X12DSRealTimeProxy {
+public class AdapterCORE_X12DSRealTimeProxyWebServiceSecuredImpl extends CORE_X12DSAdapterExceptionBuilder implements AdapterCORE_X12DSRealTimeProxy {
 
     private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSRealTimeProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
@@ -89,7 +89,7 @@ public class AdapterCORE_X12DSRealTimeProxyWebServiceSecuredImpl implements Adap
 
             } else {
                 response = new COREEnvelopeRealTimeResponse();
-                CORE_X12DSAdapterExceptionBuilder.getInstance().buildCOREEnvelopeRealTimeErrorResponse(msg, response);
+                buildCOREEnvelopeRealTimeErrorResponse(msg, response);
                 LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_CORE_X12DS_REALTIME_SECURED_SERVICE_NAME
                     + "); the URL is null.");
             }

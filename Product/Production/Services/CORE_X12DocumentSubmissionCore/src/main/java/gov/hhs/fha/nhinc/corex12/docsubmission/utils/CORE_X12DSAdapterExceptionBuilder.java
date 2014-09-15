@@ -41,7 +41,6 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  */
 public class CORE_X12DSAdapterExceptionBuilder {
    private static final Logger LOG = Logger.getLogger(CORE_X12DSAdapterExceptionBuilder.class); 
-   public static CORE_X12DSAdapterExceptionBuilder obj;
    private static final String ADAPTER_ERROR_CODE = "Receiver";
    private static final String ADAPTER_ERROR_MESSAGE = "Failed to connect to backend adapter to process the message";
    private static final String ADAPTER_PAYLOAD_TYPE = "CoreEnvelopeError";
@@ -49,22 +48,9 @@ public class CORE_X12DSAdapterExceptionBuilder {
    /**
     * Constructor...
     */
-   private CORE_X12DSAdapterExceptionBuilder()
+   public CORE_X12DSAdapterExceptionBuilder()
    {
        
-   }
-   
-   /**
-    * 
-    * @return CORE_X12DSAdapterExceptionBuilder
-    */
-   public static CORE_X12DSAdapterExceptionBuilder getInstance()
-   {
-       if(null == obj)
-       {
-           obj = new CORE_X12DSAdapterExceptionBuilder();
-       }
-       return obj;
    }
    
    /**

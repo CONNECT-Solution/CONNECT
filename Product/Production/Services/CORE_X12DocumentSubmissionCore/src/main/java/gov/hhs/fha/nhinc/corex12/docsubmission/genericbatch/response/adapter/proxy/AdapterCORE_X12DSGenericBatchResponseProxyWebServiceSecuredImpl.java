@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.adaptercoresecured.AdapterCOREGenericBatchTransactionSe
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionResponseSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionSecuredRequestType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.service.AdapterCORE_X12DSGenericBatchRequestSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.corex12.docsubmission.utils.CORE_X12DSAdapterExceptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
@@ -47,7 +46,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  * @author svalluripalli
  *
  */
-public class AdapterCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl implements AdapterCORE_X12DGenericBatchResponseProxy {
+public class AdapterCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl extends CORE_X12DSAdapterExceptionBuilder implements AdapterCORE_X12DGenericBatchResponseProxy {
 
     private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
@@ -89,7 +88,7 @@ public class AdapterCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl imp
                 oResponse = adapterResponse.getCOREEnvelopeBatchSubmissionResponse();
             } else {
                 oResponse = new COREEnvelopeBatchSubmissionResponse();
-                CORE_X12DSAdapterExceptionBuilder.getInstance().buildCOREEnvelopeGenericBatchErrorResponse(msg, oResponse);
+                buildCOREEnvelopeGenericBatchErrorResponse(msg, oResponse);
             }
         } catch (Exception ex) {
             LOG.error("Error sending Adapter CORE X12 Doc Submission Response Secured message: " + ex.getMessage(), ex);

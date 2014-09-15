@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.adaptercoresecured.AdapterCOREGenericBatchTransactionSe
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionResponseSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionSecuredRequestType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.service.AdapterCORE_X12DSGenericBatchRequestSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.corex12.docsubmission.utils.CORE_X12DSAdapterExceptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
@@ -39,7 +38,6 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
@@ -48,7 +46,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  * @author svalluripalli
  *
  */
-public class AdapterCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl implements AdapterCORE_X12DGenericBatchRequestProxy {
+public class AdapterCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl extends CORE_X12DSAdapterExceptionBuilder implements AdapterCORE_X12DGenericBatchRequestProxy {
 
     private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
@@ -91,7 +89,7 @@ public class AdapterCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl impl
                 oResponse = adapterResponse.getCOREEnvelopeBatchSubmissionResponse();
             } else {
                 oResponse = new COREEnvelopeBatchSubmissionResponse();
-                CORE_X12DSAdapterExceptionBuilder.getInstance().buildCOREEnvelopeGenericBatchErrorResponse(msg, oResponse);
+                buildCOREEnvelopeGenericBatchErrorResponse(msg, oResponse);
                 LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_SECURED_SERVICE_NAME + ").  The URL is null.");
             }
         } catch (Exception ex) {

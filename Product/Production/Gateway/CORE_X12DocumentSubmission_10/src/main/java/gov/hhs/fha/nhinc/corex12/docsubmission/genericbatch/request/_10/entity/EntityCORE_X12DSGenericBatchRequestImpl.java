@@ -33,7 +33,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayB
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayBatchSubmissionSecuredRequestType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.outbound.OutboundCORE_X12DSGenericBatchRequest;
 import gov.hhs.fha.nhinc.corex12.docsubmission.utils.NhinTargetCommunitiesValidator;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import javax.xml.ws.WebServiceContext;
 import org.apache.log4j.Logger;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
@@ -43,7 +43,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  *
  * @author svalluripalli
  */
-public class EntityCORE_X12DSGenericBatchRequestImpl extends BaseService {
+public class EntityCORE_X12DSGenericBatchRequestImpl extends NhinTargetCommunitiesValidator {
 
     private static final Logger LOG = Logger.getLogger(EntityCORE_X12DSGenericBatchRequestImpl.class);
     private OutboundCORE_X12DSGenericBatchRequest outboundCORE_X12DSGenericBatchRequest;
@@ -87,11 +87,11 @@ public class EntityCORE_X12DSGenericBatchRequestImpl extends BaseService {
     private COREEnvelopeBatchSubmissionResponse callOutboundBatchSubmitTransaction(COREEnvelopeBatchSubmission oCOREEnvelopeBatchSubmission, AssertionType assertion, NhinTargetCommunitiesType target) {
         COREEnvelopeBatchSubmissionResponse oBatchSubmissionResponse = null;
         try {
-            if (NhinTargetCommunitiesValidator.getInstance().isTargetCommunity(target)) {
+            if (null != HomeCommunityMap.getCommunityIdFromTargetCommunities(target) && HomeCommunityMap.getCommunityIdFromTargetCommunities(target).length() > 0) {
                 oBatchSubmissionResponse = outboundCORE_X12DSGenericBatchRequest.batchSubmitTransaction(oCOREEnvelopeBatchSubmission, assertion, target, null);
             } else {
                 oBatchSubmissionResponse = new COREEnvelopeBatchSubmissionResponse();
-                NhinTargetCommunitiesValidator.getInstance().buildCOREEnvelopeGenericBatchErrorResponse(oCOREEnvelopeBatchSubmission, oBatchSubmissionResponse);
+                buildCOREEnvelopeGenericBatchErrorResponse(oCOREEnvelopeBatchSubmission, oBatchSubmissionResponse);
             }
         } catch (Exception e) {
             LOG.error("Failed to send X12DS request to Nwhin. " + e);
