@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.nhin.proxy
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.nhin.proxy.service.NhinCORE_X12DSGenericBatchResponseServicePortDescriptor;
+import gov.hhs.fha.nhinc.corex12.docsubmission.utils.CORE_X12DSLargePayloadUtils;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -78,6 +79,7 @@ public class NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl implem
         try {
             String url = proxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
                 NhincConstants.CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME, apiLevel);
+            CORE_X12DSLargePayloadUtils.convertFileLocationToDataIfEnabled(msg);
             ServicePortDescriptor<GenericBatchTransactionPort> portDescriptor = new NhinCORE_X12DSGenericBatchResponseServicePortDescriptor();
             CONNECTClient<GenericBatchTransactionPort> client = getCONNECTClientSecured(portDescriptor, assertion,
                 url, targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
