@@ -31,7 +31,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:body>
         <ui:composition template="/resources/Templates/BaseTemplate.xhtml"  >                     
             <ui:define name="menu">
@@ -61,8 +62,8 @@
                             <div class="form-group">
                                 <label for="input-password" class="col-sm-2 control-label">Password:</label>
                                 <div class="col-sm-10">
-                                    <h:inputSecret id="password" value="#{loginBean.password}"
-                                                   class="form-control" required="true" />
+                                      <p:password id="password" value="#{loginBean.password}"
+                                                styleClass="form-control" required="true" />
                                 </div>
                                 <h:message for="password" errorClass="errorMessage" />
                             </div>

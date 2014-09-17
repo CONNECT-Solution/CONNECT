@@ -67,8 +67,9 @@
                                             
                                             <div class="form-group">
                                                 <h:outputLabel class="col-sm-3 control-label" for="password" id="userpasswordLbl" value="Password:" />
-                                                <div class="col-sm-9">
-                                                    <h:inputText id="password" class="form-control" maxlength="20" required="true" value="#{createuserBean.password}" requiredMessage="Password field should be filled" />
+                                                <div class="col-sm-9">                                                    
+                                                    <p:password id="password" value="#{createuserBean.password}"   
+                                                                feedback="true" weakLabel="Weak Password" goodLabel="Good Password" strongLabel="Strong Password"  required="true" maxlength="10" requiredMessage="Password field should be filled" styleClass="form-control" />
                                                     <h:message for="password" style="color:red" />
                                                 </div>
                                             </div>
