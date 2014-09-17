@@ -29,6 +29,9 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.inbound;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.proxy.AdapterCORE_X12DGenericBatchResponseProxy;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.proxy.AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory;
+import gov.hhs.fha.nhinc.corex12.docsubmission.utils.CORE_X12DSLargePayloadUtils;
+import gov.hhs.fha.nhinc.largefile.LargePayloadException;
+import org.apache.log4j.Logger;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 
@@ -38,6 +41,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  */
 public abstract class AbstractInboundCORE_X12DSGenericBatchResponse implements InboundCORE_X12DSGenericBatchResponse {
 
+    private static final Logger LOG = Logger.getLogger(AbstractInboundCORE_X12DSGenericBatchResponse.class);
     private AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory oAdapterFactory;
 
     /**
@@ -77,8 +81,15 @@ public abstract class AbstractInboundCORE_X12DSGenericBatchResponse implements I
      */
     public COREEnvelopeBatchSubmissionResponse sendToAdapter(COREEnvelopeBatchSubmission msg,
         AssertionType assertion) {
-        AdapterCORE_X12DGenericBatchResponseProxy oProxy = oAdapterFactory.getAdapterCORE_X12DocSubmissionProxy();
-        return oProxy.batchSubmitTransaction(msg, assertion);
+        COREEnvelopeBatchSubmissionResponse oResponse = null;
+        try {
+            CORE_X12DSLargePayloadUtils.convertDataToFileLocationIfEnabled(msg);
+            AdapterCORE_X12DGenericBatchResponseProxy oProxy = oAdapterFactory.getAdapterCORE_X12DocSubmissionProxy();
+            oResponse = oProxy.batchSubmitTransaction(msg, assertion);
+            CORE_X12DSLargePayloadUtils.convertFileLocationToDataIfEnabled(oResponse);
+        } catch (LargePayloadException e) {
+            LOG.error("Failed to retrieve data from the file uri in the payload.", e);
+        }
+        return oResponse;
     }
-
 }
