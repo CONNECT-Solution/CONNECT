@@ -39,16 +39,15 @@ import org.junit.Test;
 /**
  * The Class SHA1PasswordServiceTest.
  */
-
 /**
  * @author msw
- * 
+ *
  */
 public class SHA1PasswordServiceTest {
 
     /**
      * Test.
-     * 
+     *
      * @throws PasswordServiceException the password service exception
      * @throws NoSuchAlgorithmException the no such algorithm exception
      * @throws IOException Signals that an I/O exception has occurred.
@@ -64,7 +63,7 @@ public class SHA1PasswordServiceTest {
 
     /**
      * Test that an incorrect password returns false.
-     * 
+     *
      * @throws PasswordServiceException the password service exception
      * @throws NoSuchAlgorithmException the no such algorithm exception
      * @throws IOException Signals that an I/O exception has occurred.
@@ -83,10 +82,6 @@ public class SHA1PasswordServiceTest {
         String salt = "ABCD";// generateRandomSalt();
         String password = "password";
         String sha1 = new String(calculateHash(salt.getBytes(), password.getBytes()));
-
-        System.out.println("salt: ".concat(salt));
-        System.out.println("password: ".concat(password));
-        System.out.println("sha1: ".concat(sha1));
     }
 
     private String generateRandomSalt() {
@@ -113,7 +108,7 @@ public class SHA1PasswordServiceTest {
 
     /**
      * Gets the SHA1 password service.
-     * 
+     *
      * @return the SHA1 password service
      */
     private PasswordService getSHA1PasswordService() {
