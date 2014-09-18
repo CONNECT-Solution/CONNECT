@@ -63,6 +63,26 @@ http://www.springframework.org/schema/aop     http://www.springframework.org/sch
         <meta key="impltype" value="wsunsecured" />
     </bean>
 
+	<!-- Adapter X12 Core DS Exception Builder -->
+    <bean id="CORE_X12DSRequestAdapterExceptionBuilder"
+          name="CORE_X12DSRequestAdapterExceptionBuilder"
+          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.CORE_X12DSRequestAdapterExceptionBuilder"
+          lazy-init="true">
+
+		<property name="payload" value="<xop:Include href=\"cid:1.urn:uuid:5117AAE1116EA8B87A1200060184692@apache.org\"\n"
+            + "xmlns:xop=\"http://www.w3.org/2004/08/xop/include\"/>" />
+		<property name="payloadId" value="f81d4fae-7dec-11d0-a765-00a0c91e6bf6" />
+		<property name="payloadType" value="X12_BatchReceiptConfirmation" />
+		<property name="coreRulesVersion" value="uri:" />
+		<property name="processingMode" value="Batch" />
+		<property name="payloadLength" value="1551254" />
+		<property name="senderId" value="PayerB" />
+		<property name="receiverId" value="HospitalA" />
+		<property name="checkSum" value="43B8485AB5" />
+		<property name="errorCode" value="Success" />
+		<property name="errorMessage" value="None" />		
+    </bean>
+	
     <!--
         Beans defined for adaptercore_x12dsgenericbatchresponse
     -->
@@ -97,6 +117,26 @@ http://www.springframework.org/schema/aop     http://www.springframework.org/sch
         <meta key="default" value="true" />
     </bean>
 
+	<!-- Adapter X12 Core DS Exception Builder -->
+    <bean id="CORE_X12DSResponseAdapterExceptionBuilder"
+          name="CORE_X12DSResponseAdapterExceptionBuilder"
+          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.proxy.CORE_X12DSResponseAdapterExceptionBuilder"
+          lazy-init="true">
+
+		<property name="payload" value="<xop:Include href=\"cid:1.urn:uuid:5117AAE1116EA8B87A1200060184692@apache.org\"\n"
+            + "xmlns:xop=\"http://www.w3.org/2004/08/xop/include\"/>" />
+		<property name="payloadId" value="f81d4fae-7dec-11d0-a765-00a0c91e6bf6" />
+		<property name="payloadType" value="X12_BatchReceiptConfirmation" />
+		<property name="coreRulesVersion" value="uri:" />
+		<property name="processingMode" value="Batch" />
+		<property name="payloadLength" value="1551254" />
+		<property name="senderId" value="PayerB" />
+		<property name="receiverId" value="HospitalA" />
+		<property name="checkSum" value="43B8485AB5" />
+		<property name="errorCode" value="Success" />
+		<property name="errorMessage" value="None" />		
+    </bean>
+	
     <!-- Unsecured web service Implementation -->
     <bean id="adaptercore_x12dsenericbatchresponsewsunsecured"
           name="adaptercore_x12dsenericbatchresponsewsunsecured"
