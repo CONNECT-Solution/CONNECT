@@ -6,6 +6,9 @@
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import org.apache.log4j.Logger;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
@@ -29,10 +32,9 @@ public class CORE_X12DSRequestAdapterExceptionBuilder implements AdapterCORE_X12
     private String checkSum;
     private String errorCode;
     private String errorMessage;
-    
 
     /**
-     * 
+     *
      * @param msg
      * @param assertion
      * @return COREEnvelopeBatchSubmissionResponse
@@ -40,7 +42,20 @@ public class CORE_X12DSRequestAdapterExceptionBuilder implements AdapterCORE_X12
     @Override
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
         LOG.debug("Using Bean Implementation for Adapter X12 Doc Submission request");
-        return new COREEnvelopeBatchSubmissionResponse();
+        COREEnvelopeBatchSubmissionResponse oResponse = new COREEnvelopeBatchSubmissionResponse();
+        oResponse.setCORERuleVersion(getCoreRulesVersion());
+        oResponse.setCheckSum(getCheckSum());
+        oResponse.setErrorCode(getErrorCode());
+        oResponse.setErrorMessage(getErrorMessage());
+        oResponse.setPayload(getPayload().getBytes());
+        oResponse.setPayloadID(getPayloadId());
+        oResponse.setPayloadLength(new Integer(Integer.parseInt(getPayloadLength())));
+        oResponse.setPayloadType(payload);
+        oResponse.setProcessingMode(getProcessingMode());
+        oResponse.setReceiverID(getReceiverId());
+        oResponse.setSenderID(getSenderId());
+        oResponse.setTimeStamp(getTimeStamp());
+        return oResponse;
     }
 
     /**
@@ -152,7 +167,13 @@ public class CORE_X12DSRequestAdapterExceptionBuilder implements AdapterCORE_X12
      * @param timeStamp
      */
     public void setTimeStamp(String timeStamp) {
-        this.timeStamp = timeStamp;
+        if (null != timeStamp && timeStamp.length() > 0) {
+            this.timeStamp = timeStamp;
+        } else {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Calendar cal = Calendar.getInstance();
+            timeStamp = dateFormat.format(cal.getTime());
+        }
     }
 
     /**
@@ -204,7 +225,7 @@ public class CORE_X12DSRequestAdapterExceptionBuilder implements AdapterCORE_X12
     }
 
     /**
-     * 
+     *
      * @return String
      */
     public String getErrorCode() {
@@ -212,15 +233,15 @@ public class CORE_X12DSRequestAdapterExceptionBuilder implements AdapterCORE_X12
     }
 
     /**
-     * 
-     * @param errorCode 
+     *
+     * @param errorCode
      */
     public void setErrorCode(String errorCode) {
         this.errorCode = errorCode;
     }
 
     /**
-     * 
+     *
      * @return String
      */
     public String getErrorMessage() {
@@ -228,10 +249,10 @@ public class CORE_X12DSRequestAdapterExceptionBuilder implements AdapterCORE_X12
     }
 
     /**
-     * 
-     * @param errorMessage 
+     *
+     * @param errorMessage
      */
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
-    }    
+    }
 }
