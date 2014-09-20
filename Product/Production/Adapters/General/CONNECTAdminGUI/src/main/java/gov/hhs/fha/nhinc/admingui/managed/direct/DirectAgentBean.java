@@ -33,10 +33,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * 
+ *
  * @author jasonasmith / sadusumilli
  */
-
 @ManagedBean(name = "directAgentBean")
 @ViewScoped
 @Component
@@ -49,19 +48,29 @@ public class DirectAgentBean {
     private String agentValue;
 
     private Setting setting;
+    private List<Setting> settings;
 
     public List<Setting> getSettings() {
-        return directService.getSetting();
+        if (settings == null) {
+            refreshSetting();
+        }
+        return settings;
     }
 
     public void addSetting() {
         directService.addSetting(agentName, agentValue);
+        refreshSetting();
     }
 
     public void deleteSetting() {
         List<String> deleteNames = new ArrayList<String>();
         deleteNames.add(agentName);
         directService.deleteSetting(deleteNames);
+        refreshSetting();
+    }
+
+    protected void refreshSetting() {
+        settings = directService.getSetting();
     }
 
     public String getAgentName() {
