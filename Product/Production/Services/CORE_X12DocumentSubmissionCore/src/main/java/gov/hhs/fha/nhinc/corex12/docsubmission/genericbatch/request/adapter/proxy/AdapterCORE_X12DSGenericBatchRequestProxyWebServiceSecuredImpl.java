@@ -85,6 +85,7 @@ public class AdapterCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl exte
                 client.enableMtom();
                 AdapterBatchSubmissionSecuredRequestType request = new AdapterBatchSubmissionSecuredRequestType();
                 request.setCOREEnvelopeBatchSubmission(msg);
+                client.enableMtom();
                 AdapterBatchSubmissionResponseSecuredType adapterResponse = (AdapterBatchSubmissionResponseSecuredType) client.invokePort(AdapterCOREGenericBatchTransactionSecuredPortType.class, "batchSubmitTransaction", request);
                 oResponse = adapterResponse.getCOREEnvelopeBatchSubmissionResponse();
             } else {

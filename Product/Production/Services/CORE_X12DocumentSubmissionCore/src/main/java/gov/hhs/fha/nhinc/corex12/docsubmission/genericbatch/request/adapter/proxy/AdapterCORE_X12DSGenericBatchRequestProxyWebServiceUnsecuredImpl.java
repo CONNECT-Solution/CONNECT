@@ -80,9 +80,10 @@ public class AdapterCORE_X12DSGenericBatchRequestProxyWebServiceUnsecuredImpl ex
             if (NullChecker.isNotNullish(url)) {
                 ServicePortDescriptor<AdapterCOREGenericBatchTransactionPortType> portDescriptor = new AdapterCORE_X12DSGenericBatchRequestUnsecuredServicePortDescriptor();
                 CONNECTClient<AdapterCOREGenericBatchTransactionPortType> client = CONNECTClientFactory.getInstance()
-                    .getCONNECTClientUnsecured(portDescriptor, url, assertion);
+                        .getCONNECTClientUnsecured(portDescriptor, url, assertion);
                 AdapterBatchSubmissionRequestType requestWrapper = new AdapterBatchSubmissionRequestType();
                 requestWrapper.setCOREEnvelopeBatchSubmission(msg);
+                client.enableMtom();
                 AdapterBatchSubmissionResponseType responseWrapper = (AdapterBatchSubmissionResponseType) client.invokePort(AdapterCOREGenericBatchTransactionPortType.class, "batchSubmitTransaction", requestWrapper);
                 oResponse = responseWrapper.getCOREEnvelopeBatchSubmissionResponse();
             } else {

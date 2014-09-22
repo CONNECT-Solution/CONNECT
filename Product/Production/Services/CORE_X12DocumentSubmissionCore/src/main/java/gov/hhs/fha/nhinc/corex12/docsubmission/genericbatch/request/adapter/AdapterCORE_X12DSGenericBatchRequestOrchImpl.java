@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import gov.hhs.fha.nhinc.util.Base64Coder;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -68,7 +69,7 @@ public class AdapterCORE_X12DSGenericBatchRequestOrchImpl {
     private COREEnvelopeBatchSubmissionResponse buildAdapterCORE_X12DSGenericBatchResponseMetadata() {
 
         String str_Payload = "<xop:Include href=\"cid:1.urn:uuid:5117AAE1116EA8B87A1200060184692@apache.org\"\n"
-            + "xmlns:xop=\"http://www.w3.org/2004/08/xop/include\"/>";
+                + "xmlns:xop=\"http://www.w3.org/2004/08/xop/include\"/>";
         byte[] payload = str_Payload.getBytes();
         Date currentDate = new Date();
 
@@ -81,7 +82,7 @@ public class AdapterCORE_X12DSGenericBatchRequestOrchImpl {
         oResponse.setSenderID("PayerB");
         oResponse.setReceiverID("HospitalA");
         oResponse.setCORERuleVersion("2.2.0");
-        oResponse.setPayload(payload);
+        oResponse.setPayload(LargeFileUtils.getInstance().convertToDataHandler(payload));
         oResponse.setErrorCode("Success");
         oResponse.setErrorMessage("None");
         return oResponse;
