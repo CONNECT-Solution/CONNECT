@@ -6,6 +6,7 @@
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -47,7 +48,7 @@ public class CORE_X12DSRequestAdapterExceptionBuilder implements AdapterCORE_X12
         oResponse.setCheckSum(getCheckSum());
         oResponse.setErrorCode(getErrorCode());
         oResponse.setErrorMessage(getErrorMessage());
-        oResponse.setPayload(getPayload().getBytes());
+        oResponse.setPayload(LargeFileUtils.getInstance().convertToDataHandler(getPayload()));
         oResponse.setPayloadID(getPayloadId());
         oResponse.setPayloadLength(new Integer(Integer.parseInt(getPayloadLength())));
         oResponse.setPayloadType(payload);

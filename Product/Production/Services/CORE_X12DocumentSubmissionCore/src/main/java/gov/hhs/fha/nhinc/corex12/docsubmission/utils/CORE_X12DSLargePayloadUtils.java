@@ -32,7 +32,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import javax.activation.DataHandler;
 import org.apache.log4j.Logger;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
@@ -56,11 +55,12 @@ public class CORE_X12DSLargePayloadUtils {
         if (fileUtils.isParsePayloadAsFileLocationEnabled()) {
             try {
                 if (request.getPayload() != null) {
-                    String payloadURIString = new String(request.getPayload());
-                    URI payloadUri = new URI(payloadURIString);
-                    File payloadFile = new File(payloadUri);
-                    DataHandler dh = fileUtils.convertToDataHandler(payloadFile);
-                    request.setPayload(fileUtils.convertToBytes(dh));
+                    URI payloadUri = LargeFileUtils.getInstance().parseBase64DataAsUri(request.getPayload());
+                    if (payloadUri != null) {
+                        File payloadFile = new File(payloadUri);
+                        javax.activation.DataHandler dh = fileUtils.convertToDataHandler(payloadFile);
+                        request.setPayload(dh);
+                    }
                 }
             } catch (URISyntaxException e) {
                 throw new LargePayloadException("Unable to locate the file path to create URI.", e);
@@ -77,15 +77,16 @@ public class CORE_X12DSLargePayloadUtils {
      * @throws LargePayloadException
      */
     public static void convertFileLocationToDataIfEnabled(COREEnvelopeBatchSubmissionResponse request) throws LargePayloadException {
-        LOG.info("Begin CORE_X12DSLargePayloadUtils.convertFileLocationToDataIfEnabled(COREEnvelopeBatchSubmissionResponse)");        
+        LOG.info("Begin CORE_X12DSLargePayloadUtils.convertFileLocationToDataIfEnabled(COREEnvelopeBatchSubmissionResponse)");
         if (fileUtils.isParsePayloadAsFileLocationEnabled()) {
             try {
                 if (request.getPayload() != null) {
-                    String payloadURIString = new String(request.getPayload());
-                    URI payloadUri = new URI(payloadURIString);
-                    File payloadFile = new File(payloadUri);
-                    DataHandler dh = fileUtils.convertToDataHandler(payloadFile);
-                    request.setPayload(fileUtils.convertToBytes(dh));
+                    URI payloadUri = LargeFileUtils.getInstance().parseBase64DataAsUri(request.getPayload());
+                    if (payloadUri != null) {
+                        File payloadFile = new File(payloadUri);
+                        javax.activation.DataHandler dh = fileUtils.convertToDataHandler(payloadFile);
+                        request.setPayload(dh);
+                    }
                 }
             } catch (URISyntaxException e) {
                 throw new LargePayloadException("Unable to locate the file path to create URI.", e);
@@ -93,7 +94,7 @@ public class CORE_X12DSLargePayloadUtils {
                 throw new LargePayloadException("Failed to attach payload to message.", e);
             }
         }
-        LOG.info("End CORE_X12DSLargePayloadUtils.convertFileLocationToDataIfEnabled(COREEnvelopeBatchSubmissionResponse)");                
+        LOG.info("End CORE_X12DSLargePayloadUtils.convertFileLocationToDataIfEnabled(COREEnvelopeBatchSubmissionResponse)");
     }
 
     /**
@@ -102,18 +103,17 @@ public class CORE_X12DSLargePayloadUtils {
      * @throws LargePayloadException
      */
     public static void convertDataToFileLocationIfEnabled(COREEnvelopeBatchSubmissionResponse response) throws LargePayloadException {
-        LOG.info("Begin CORE_X12DSLargePayloadUtils.convertDataToFileLocationIfEnabled(COREEnvelopeBatchSubmissionResponse)");                
+        LOG.info("Begin CORE_X12DSLargePayloadUtils.convertDataToFileLocationIfEnabled(COREEnvelopeBatchSubmissionResponse)");
         if (fileUtils.isSavePayloadToFileEnabled()) {
             try {
-                File attachmentFile = fileUtils.generateAttachmentFile();
-                fileUtils.saveDataToFile(fileUtils.convertToDataHandler(response.getPayload()), attachmentFile);
-                DataHandler dh = fileUtils.convertToDataHandler(attachmentFile.toURI().toString());
-                response.setPayload(fileUtils.convertToBytes(dh));
+                File attachmentFile = fileUtils.saveDataToFile(response.getPayload());
+                javax.activation.DataHandler dh = fileUtils.convertToDataHandler(attachmentFile.toURI().toString());
+                response.setPayload(dh);
             } catch (IOException e) {
                 throw new LargePayloadException("Failed to attach payload to message.", e);
             }
         }
-        LOG.info("End CORE_X12DSLargePayloadUtils.convertDataToFileLocationIfEnabled(COREEnvelopeBatchSubmissionResponse)");                        
+        LOG.info("End CORE_X12DSLargePayloadUtils.convertDataToFileLocationIfEnabled(COREEnvelopeBatchSubmissionResponse)");
     }
 
     /**
@@ -122,17 +122,16 @@ public class CORE_X12DSLargePayloadUtils {
      * @throws LargePayloadException
      */
     public static void convertDataToFileLocationIfEnabled(COREEnvelopeBatchSubmission response) throws LargePayloadException {
-        LOG.info("Begin CORE_X12DSLargePayloadUtils.convertDataToFileLocationIfEnabled(COREEnvelopeBatchSubmission)");                        
+        LOG.info("Begin CORE_X12DSLargePayloadUtils.convertDataToFileLocationIfEnabled(COREEnvelopeBatchSubmission)");
         if (fileUtils.isSavePayloadToFileEnabled()) {
             try {
-                File attachmentFile = fileUtils.generateAttachmentFile();
-                fileUtils.saveDataToFile(fileUtils.convertToDataHandler(response.getPayload()), attachmentFile);
-                DataHandler dh = fileUtils.convertToDataHandler(attachmentFile.toURI().toString());
-                response.setPayload(fileUtils.convertToBytes(dh));
+                File attachmentFile = fileUtils.saveDataToFile(response.getPayload());
+                javax.activation.DataHandler dh = fileUtils.convertToDataHandler(attachmentFile.toURI().toString());
+                response.setPayload(dh);
             } catch (IOException e) {
                 throw new LargePayloadException("Failed to attach payload to message.", e);
             }
         }
-        LOG.info("End CORE_X12DSLargePayloadUtils.convertDataToFileLocationIfEnabled(COREEnvelopeBatchSubmission)");                                
+        LOG.info("End CORE_X12DSLargePayloadUtils.convertDataToFileLocationIfEnabled(COREEnvelopeBatchSubmission)");
     }
 }
