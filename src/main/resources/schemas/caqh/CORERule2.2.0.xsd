@@ -1,5 +1,5 @@
-﻿<?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"   xmlns="http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd" targetNamespace="http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd">
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"   xmlns="http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" targetNamespace="http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd">
   <xs:element name="COREEnvelopeRealTimeRequest">
     <xs:complexType>
       <xs:sequence>
@@ -42,7 +42,7 @@
         <xs:element name="ReceiverID" type="xs:string" minOccurs="1" maxOccurs="1"/>
         <xs:element name="CORERuleVersion" type="xs:string" minOccurs="1" maxOccurs="1"/>
         <xs:element name="CheckSum" type="xs:string" minOccurs="1" maxOccurs="1"/>
-        <xs:element name="Payload" type="xs:base64Binary" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="Payload" type="xs:base64Binary" xmime:expectedContentTypes="application/octet-stream"  minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -58,7 +58,7 @@
         <xs:element name="ReceiverID" type="xs:string" minOccurs="1" maxOccurs="1"/>
         <xs:element name="CORERuleVersion" type="xs:string" minOccurs="1" maxOccurs="1"/>
         <xs:element name="CheckSum" type="xs:string" minOccurs="0" maxOccurs="1"/>
-        <xs:element name="Payload" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="Payload" type="xs:base64Binary" xmime:expectedContentTypes="application/octet-stream"  minOccurs="0" maxOccurs="1"/>
         <xs:element name="ErrorCode" type="xs:string" minOccurs="1" maxOccurs="1"/>
         <xs:element name="ErrorMessage" type="xs:string" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
@@ -76,7 +76,7 @@
         <xs:element name="ReceiverID" type="xs:string" minOccurs="1" maxOccurs="1"/>
         <xs:element name="CORERuleVersion" type="xs:string" minOccurs="1" maxOccurs="1"/>
         <xs:element name="CheckSum" type="xs:string" minOccurs="0" maxOccurs="1"/>
-        <xs:element name="Payload" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="Payload" type="xs:base64Binary" xmime:expectedContentTypes="application/octet-stream"  minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -92,7 +92,7 @@
         <xs:element name="ReceiverID" type="xs:string" minOccurs="1" maxOccurs="1"/>
         <xs:element name="CORERuleVersion" type="xs:string" minOccurs="1" maxOccurs="1"/>
         <xs:element name="CheckSum" type="xs:string" minOccurs="0" maxOccurs="1"/>
-        <xs:element name="Payload" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="Payload" type="xs:base64Binary" xmime:expectedContentTypes="application/octet-stream"  minOccurs="0" maxOccurs="1"/>
         <xs:element name="ErrorCode" type="xs:string" minOccurs="1" maxOccurs="1"/>
         <xs:element name="ErrorMessage" type="xs:string" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
@@ -110,7 +110,7 @@
         <xs:element name="ReceiverID" type="xs:string" minOccurs="1" maxOccurs="1"/>
         <xs:element name="CORERuleVersion" type="xs:string" minOccurs="1" maxOccurs="1"/>
         <xs:element name="CheckSum" type="xs:string" minOccurs="0" maxOccurs="1"/>
-        <xs:element name="Payload" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="Payload" type="xs:base64Binary" xmime:expectedContentTypes="application/octet-stream" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -126,7 +126,7 @@
         <xs:element name="ReceiverID" type="xs:string" minOccurs="1" maxOccurs="1"/>
         <xs:element name="CORERuleVersion" type="xs:string" minOccurs="1" maxOccurs="1"/>
         <xs:element name="CheckSum" type="xs:string" minOccurs="0" maxOccurs="1"/>
-        <xs:element name="Payload" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="Payload" type="xs:base64Binary" xmime:expectedContentTypes="application/octet-stream" minOccurs="0" maxOccurs="1"/>
         <xs:element name="ErrorCode" type="xs:string" minOccurs="1" maxOccurs="1"/>
         <xs:element name="ErrorMessage" type="xs:string" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
@@ -144,7 +144,7 @@
         <xs:element name="ReceiverID" type="xs:string" minOccurs="1" maxOccurs="1"/>
         <xs:element name="CORERuleVersion" type="xs:string" minOccurs="1" maxOccurs="1"/>
         <xs:element name="CheckSum" type="xs:string" minOccurs="0" maxOccurs="1"/>
-        <xs:element name="Payload" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="Payload" type="xs:base64Binary" xmime:expectedContentTypes="application/octet-stream"  minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -160,7 +160,7 @@
         <xs:element name="ReceiverID" type="xs:string" minOccurs="1" maxOccurs="1"/>
         <xs:element name="CORERuleVersion" type="xs:string" minOccurs="1" maxOccurs="1"/>
         <xs:element name="CheckSum" type="xs:string" minOccurs="0" maxOccurs="1"/>
-        <xs:element name="Payload" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="Payload" type="xs:base64Binary"  xmime:expectedContentTypes="application/octet-stream" minOccurs="0" maxOccurs="1"/>
         <xs:element name="ErrorCode" type="xs:string"  minOccurs="1" maxOccurs="1"/>
         <xs:element name="ErrorMessage" type="xs:string"  minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
@@ -177,5 +177,3 @@
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>
-
-
