@@ -58,9 +58,13 @@ public class DirectTrustBundleBean {
     private UploadedFile tbCert;
 
     private TrustBundle selectedTb;
+    private List<TrustBundle> trustbundles;
 
     public List<TrustBundle> getTrustBundles() {
-        return directService.getTrustBundles(true);
+        if (trustbundles == null) {
+            refreshTrustBundle();
+        }
+        return trustbundles;
     }
 
     public void deleteTrustBundle() {
@@ -75,6 +79,7 @@ public class DirectTrustBundleBean {
         if (tabs != null) {
             tabs.setDirectTabIndex(3);
         }
+        refreshTrustBundle();
     }
 
     public void addTrustBundle() {
@@ -89,6 +94,7 @@ public class DirectTrustBundleBean {
         tb.setBundleURL(tbUrl);
         tb.setRefreshInterval(refreshValue);
         directService.addTrustBundle(tb);
+        refreshTrustBundle();
     }
 
     public void editTrustBundle() {
@@ -113,6 +119,10 @@ public class DirectTrustBundleBean {
         if (selectedTb != null) {
             RequestContext.getCurrentInstance().execute("tbConfirmDelDlg.show()");
         }
+    }
+
+    protected void refreshTrustBundle() {
+        trustbundles = directService.getTrustBundles(true);
     }
 
     public String getTbName() {

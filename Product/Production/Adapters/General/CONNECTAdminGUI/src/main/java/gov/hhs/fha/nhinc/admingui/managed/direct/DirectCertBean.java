@@ -39,7 +39,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * 
+ *
  * @author jasonasmith
  */
 @ManagedBean(name = "directCertBean")
@@ -55,22 +55,13 @@ public class DirectCertBean {
 
     private DirectCertificate selectedCert;
 
+    private List<DirectCertificate> directCertificate;
+
     public List<DirectCertificate> getCertificates() {
-        ListCertificates cert = new ListCertificates();
-        
-        cert.setLastCertificateId(0);
-        cert.setMaxResutls(0);
-        cert.setOptions(new CertificateGetOptions());
-        
-        List<DirectCertificate> certList = new ArrayList<DirectCertificate>();
-        List<Certificate> certsResponse = directService.listCertificate(cert);
-
-        for (Certificate c : certsResponse) {
-            CertContainer cc = new CertContainer(c.getData());            
-            certList.add(new DirectCertificate(c, cc.getThumbprint()));
+        if (directCertificate == null) {
+            refreshCertificates();
         }
-
-        return certList;
+        return directCertificate;
     }
 
     public void deleteCertificate() {
@@ -79,6 +70,7 @@ public class DirectCertBean {
 
         selectedCert = null;
         directService.deleteCertificate(removeCert);
+        refreshCertificates();
     }
 
     public void certFileUpload(FileUploadEvent event) {
@@ -92,6 +84,7 @@ public class DirectCertBean {
         certificate.setStatus(EntityStatus.NEW);
         addCert.getCerts().add(certificate);
         directService.addCertificate(addCert);
+        refreshCertificates();
     }
 
     public UploadedFile getCertFile() {
@@ -100,6 +93,22 @@ public class DirectCertBean {
 
     public void setCertFile(UploadedFile certFile) {
         this.certFile = certFile;
+    }
+
+    protected void refreshCertificates() {
+        ListCertificates cert = new ListCertificates();
+
+        cert.setLastCertificateId(0);
+        cert.setMaxResutls(0);
+        cert.setOptions(new CertificateGetOptions());
+
+        directCertificate = new ArrayList<DirectCertificate>();
+        List<Certificate> certsResponse = directService.listCertificate(cert);
+
+        for (Certificate c : certsResponse) {
+            CertContainer cc = new CertContainer(c.getData());
+            directCertificate.add(new DirectCertificate(c, cc.getThumbprint()));
+        }
     }
 
     public String getCertStatus() {
