@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
-import gov.hhs.fha.nhinc.util.Base64Coder;
 import java.sql.Timestamp;
 import java.util.Date;
 import org.apache.log4j.Logger;

@@ -24,7 +24,7 @@ http://www.springframework.org/schema/aop     http://www.springframework.org/sch
         Beans defined for adaptercore_x12dsgenericbatchrequest
     -->
     <alias alias="adaptercore_x12dsgenericbatchrequest"
-           name="CORE_X12DSRequestAdapterExceptionBuilder" />
+           name="adaptercore_x12dsenericbatchrequestwsunsecured" />
 
     <!-- No-op Implementation -->
     <bean id="adaptercore_x12dsgenericbatchrequestnoop"
@@ -64,9 +64,9 @@ http://www.springframework.org/schema/aop     http://www.springframework.org/sch
     </bean>
 
 	<!-- Adapter X12 Core DS Exception Builder -->
-    <bean id="CORE_X12DSRequestAdapterExceptionBuilder"
-          name="CORE_X12DSRequestAdapterExceptionBuilder"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.CORE_X12DSRequestAdapterExceptionBuilder"
+    <bean id="adaptercore_x12dsgenericbatchrequestproxybean"
+          name="adaptercore_x12dsgenericbatchrequestproxybean"
+          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.AdapterCORE_X12DSGenericBatchRequestProxyBeanImpl"
           lazy-init="true">
 
 		<property name="payload" value="file:///c:/Temp/test.txt"/>
@@ -86,7 +86,7 @@ http://www.springframework.org/schema/aop     http://www.springframework.org/sch
         Beans defined for adaptercore_x12dsgenericbatchresponse
     -->
     <alias alias="adaptercore_x12dsgenericbatchresponse"
-           name="CORE_X12DSResponseAdapterExceptionBuilder" />
+           name="adaptercore_x12dsgenericbatchresponsesecured" />
 
     <!-- No-op Implementation -->
     <bean id="adaptercore_x12dsgenericbatchresponsenoop"
@@ -117,9 +117,9 @@ http://www.springframework.org/schema/aop     http://www.springframework.org/sch
     </bean>
 
 	<!-- Adapter X12 Core DS Exception Builder -->
-    <bean id="CORE_X12DSResponseAdapterExceptionBuilder"
-          name="CORE_X12DSResponseAdapterExceptionBuilder"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.proxy.CORE_X12DSResponseAdapterExceptionBuilder"
+    <bean id="adaptercore_x12dsgenericbatchresponseproxybean"
+          name="adaptercore_x12dsgenericbatchresponseproxybean"
+          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.proxy.AdapterCORE_X12DSGenericBatchResponseProxyBeanImpl"
           lazy-init="true">
 
 		<property name="payload" value="file:///c:/Temp/test.txt" />
