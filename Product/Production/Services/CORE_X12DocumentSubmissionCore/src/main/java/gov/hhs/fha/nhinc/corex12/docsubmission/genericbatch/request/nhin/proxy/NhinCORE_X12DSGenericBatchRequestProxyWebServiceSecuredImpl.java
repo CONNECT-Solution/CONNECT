@@ -86,8 +86,7 @@ public class NhinCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl impleme
             client.enableMtom();
             response = (COREEnvelopeBatchSubmissionResponse) client.invokePort(GenericBatchTransactionPort.class,
                 "batchSubmitTransaction", msg);
-            if(response!= null && response.getPayload()!=null)
-            {
+            if (response != null && response.getPayload() != null) {
                 CORE_X12DSLargePayloadUtils.convertDataToFileLocationIfEnabled(response);
             }
         } catch (Exception ex) {
