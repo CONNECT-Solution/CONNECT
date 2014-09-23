@@ -86,7 +86,9 @@ public class NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl implem
             client.enableMtom();
             response = (COREEnvelopeBatchSubmissionResponse) client.invokePort(GenericBatchTransactionPort.class,
                 "batchSubmitTransaction", msg);
-            CORE_X12DSLargePayloadUtils.convertDataToFileLocationIfEnabled(response);
+            if (response != null && response.getPayload() != null) {
+                CORE_X12DSLargePayloadUtils.convertDataToFileLocationIfEnabled(response);
+            }
         } catch (Exception ex) {
             // TODO: We need to add error handling here based on CORE X12 DS RealTime use cases
             // e.g., Connection error, etc.

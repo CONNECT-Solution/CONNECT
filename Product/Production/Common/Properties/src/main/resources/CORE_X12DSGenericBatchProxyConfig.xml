@@ -24,7 +24,7 @@ http://www.springframework.org/schema/aop     http://www.springframework.org/sch
         Beans defined for adaptercore_x12dsgenericbatchrequest
     -->
     <alias alias="adaptercore_x12dsgenericbatchrequest"
-           name="adaptercore_x12dsgenericbatchrequestproxybean" />
+           name="adaptercore_x12dsenericbatchrequestwsunsecured" />
 
     <!-- No-op Implementation -->
     <bean id="adaptercore_x12dsgenericbatchrequestnoop"
@@ -86,7 +86,7 @@ http://www.springframework.org/schema/aop     http://www.springframework.org/sch
         Beans defined for adaptercore_x12dsgenericbatchresponse
     -->
     <alias alias="adaptercore_x12dsgenericbatchresponse"
-           name="adaptercore_x12dsgenericbatchresponseproxybean" />
+           name="adaptercore_x12dsgenericbatchresponsesecured" />
 
     <!-- No-op Implementation -->
     <bean id="adaptercore_x12dsgenericbatchresponsenoop"
