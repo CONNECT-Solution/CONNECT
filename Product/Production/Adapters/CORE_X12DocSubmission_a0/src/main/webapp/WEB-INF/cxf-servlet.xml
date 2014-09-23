@@ -52,6 +52,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />            
+            <entry key="mtom-enabled" value="true" />            
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
@@ -61,6 +62,9 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercore" id="AdapterCOREGBRequestUnsecured"    
                     address="/COREGenericBatch/AdapterCOREGenericBatchRequestUnsecured" serviceName="tns:AdapterGenericBatchSubmissionTransaction" endpointName="tns:AdapterGenericBatchSubmissionTransaction_Port"
                     implementor="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.AdapterCORE_X12DSGenericBatchRequestUnsecured" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0GenericBatch.wsdl">
+        <jaxws:properties>
+            <entry key="mtom-enabled" value="true" />
+        </jaxws:properties>
     </jaxws:endpoint> 
     
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercoresecured" id="AdapterCOREGBResponseSecured"
@@ -69,6 +73,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />            
+            <entry key="mtom-enabled" value="true" />                        
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
@@ -78,6 +83,9 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercore" id="AdapterCOREGBResponseUnsecured"    
                     address="/COREGenericBatch/AdapterCOREGenericBatchResponseUnsecured" serviceName="tns:AdapterGenericBatchSubmissionTransaction" endpointName="tns:AdapterGenericBatchSubmissionTransaction_Port"
                     implementor="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.AdapterCORE_X12DSGenericBatchResponseUnsecured" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0GenericBatch.wsdl">
+        <jaxws:properties>
+            <entry key="mtom-enabled" value="true" />
+        </jaxws:properties>
     </jaxws:endpoint> 
 
 </beans>

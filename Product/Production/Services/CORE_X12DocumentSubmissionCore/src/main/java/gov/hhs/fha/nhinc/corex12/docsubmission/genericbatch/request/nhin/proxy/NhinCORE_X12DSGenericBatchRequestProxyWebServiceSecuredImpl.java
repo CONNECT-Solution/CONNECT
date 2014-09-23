@@ -83,8 +83,11 @@ public class NhinCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl impleme
             ServicePortDescriptor<GenericBatchTransactionPort> portDescriptor = new NhinCORE_X12DSGenericBatchResponseServicePortDescriptor();
             CONNECTClient<GenericBatchTransactionPort> client = getCONNECTClientSecured(portDescriptor, assertion,
                 url, targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME);
+            client.enableMtom();
             response = (COREEnvelopeBatchSubmissionResponse) client.invokePort(GenericBatchTransactionPort.class,
                 "batchSubmitTransaction", msg);
+            //CORE_X12DSLargePayloadUtils.convertFileLocationToDataIfEnabled(response);
+            CORE_X12DSLargePayloadUtils.convertDataToFileLocationIfEnabled(response);
         } catch (Exception ex) {
             // TODO: We need to add error handling here based on CORE X12 DS RealTime use cases
             // e.g., Connection error, etc.
