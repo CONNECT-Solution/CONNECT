@@ -23,6 +23,7 @@
         <modules>
             <!--module>CONN-560</module-->
             <module>ValidateConnectionManagerForAllServices</module>
+            <module>X12ErrorHandlingTest</module>
         </modules>
 	</profile>
     </profiles>
