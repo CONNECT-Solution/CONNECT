@@ -9,7 +9,7 @@
         http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.0.xsd
         http://www.springframework.org/schema/tx       http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/jee      http://www.springframework.org/schema/jee/spring-jee-3.0.xsd"
-    default-autowire="byName">
+       default-autowire="byName">
 
     <context:annotation-config />
     <context:component-scan base-package="gov.hhs.fha.nhinc.admingui" />
@@ -17,7 +17,7 @@
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="configLocation">
-            <value>/WEB-INF/hibernate.cfg.xml</value>
+            <value>file:///${nhinc.properties.dir}/hibernate/admingui.hibernate.cfg.xml</value>
         </property>
         <property name="configurationClass">
             <value>org.hibernate.cfg.AnnotationConfiguration</value>
