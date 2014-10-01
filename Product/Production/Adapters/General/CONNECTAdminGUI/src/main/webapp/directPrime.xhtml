@@ -86,7 +86,7 @@
                         <h2 class="subsection-header">Agent Settings</h2>
                         <div class="table-responsive">
                             <h:form id="agent-form">
-                                <p:dataTable id="agentDataTable" var="agent" value="#{directAgentBean.settings}" selection="#{directAgentBean.setting}" rowKey="#{agent.name}" styleClass="table table-striped table-domains">
+                                <p:dataTable id="agentDataTable" var="agent" value="#{directAgentBean.settings}" selection="#{directAgentBean.selectSetting}" rowKey="#{agent.name}" styleClass="table table-striped table-domains">
                                     <p:column headerText="Delete" selectionMode="single" />
                                     <p:column headerText="Name" sortBy="name">
                                         <h:outputText value="#{agent.name}" />
