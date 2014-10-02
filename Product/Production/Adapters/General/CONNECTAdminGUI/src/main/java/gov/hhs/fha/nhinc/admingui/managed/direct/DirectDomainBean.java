@@ -29,9 +29,11 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import org.nhind.config.AddAnchor;
 import org.nhind.config.AddDomain;
@@ -100,10 +102,15 @@ public class DirectDomainBean {
     }
 
     public void deleteDomain() {
-        directService.disassociateTrustBundlesFromDomain(selectedDomain.getId());
-        directService.deleteDomain(selectedDomain);
+        if(domains.size() > 1){
+            directService.disassociateTrustBundlesFromDomain(selectedDomain.getId());
+            directService.deleteDomain(selectedDomain);
+            refreshDomains();
+        }else {
+            FacesContext.getCurrentInstance().addMessage("domainDeleteError",
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Delete Denied. Must always have one active domain."));
+        }
         selectedDomain = null;
-        refreshDomains();
     }
 
     public void addDomain() {

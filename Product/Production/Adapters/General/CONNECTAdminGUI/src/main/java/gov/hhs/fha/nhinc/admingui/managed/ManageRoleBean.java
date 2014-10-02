@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
+import gov.hhs.fha.nhinc.admingui.display.DisplayHolder;
 import static gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE;
 import gov.hhs.fha.nhinc.admingui.services.RoleService;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference;
@@ -35,7 +36,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -76,34 +76,34 @@ public class ManageRoleBean {
      */
     public void accessLevelChanged(final AjaxBehaviorEvent event) {
         RolePreference preference = pagesModel.getRowData().getPreference();
-        
+
         int prefAccess = -1;
         String selectedAccess = pagesModel.getRowData().getSelectedAccessLevel();
-        
-        if(selectedAccess.equals(PageAccessMapping.NO_ACCESS)){
+
+        if (selectedAccess.equals(PageAccessMapping.NO_ACCESS)) {
             prefAccess = -1;
-        }else if(selectedAccess.equals(PageAccessMapping.READ_ONLY)){
+        } else if (selectedAccess.equals(PageAccessMapping.READ_ONLY)) {
             prefAccess = 0;
-        }else if(selectedAccess.equals(PageAccessMapping.READ_WRITE)){
+        } else if (selectedAccess.equals(PageAccessMapping.READ_WRITE)) {
             prefAccess = 1;
         }
-        
+
         preference.setAccess(prefAccess);
-        
+
         boolean updated = roleService.updatePreference(preference);
-        
-        if(updated){
+
+        if (updated) {
             UserRole userRole = getCurrentUser().getUserRole();
-            if(preference.getUserRole().getRoleName().equals(userRole.getRoleName())){
-                for(RolePreference currPref : userRole.getPreferences()){
-                    if(currPref.getPageName().equals(preference.getPageName())){
+            if (preference.getUserRole().getRoleName().equals(userRole.getRoleName())) {
+                for (RolePreference currPref : userRole.getPreferences()) {
+                    if (currPref.getPageName().equals(preference.getPageName())) {
                         currPref.setAccess(prefAccess);
                         break;
                     }
                 }
             }
             FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Access Level Changed."));
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Access Level Changed."));
         }
     }
 
@@ -156,6 +156,10 @@ public class ManageRoleBean {
         List<RolePreference> preferences = roleService.getPreferences(role);
         List<PageAccessMapping> mappings = new ArrayList<PageAccessMapping>();
         for (RolePreference preference : preferences) {
+            if (!DisplayHolder.getInstance().isDirectEnabled()
+                    && preference.getPageName().toLowerCase().contains("direct")) {
+                continue;
+            }
             mappings.add(new PageAccessMapping(preference, this));
         }
         pagesModel = new ListDataModel<PageAccessMapping>(mappings);

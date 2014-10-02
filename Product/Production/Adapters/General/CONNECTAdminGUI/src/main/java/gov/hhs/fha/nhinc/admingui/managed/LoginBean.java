@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
+import gov.hhs.fha.nhinc.admingui.display.DirectDisplayController;
 import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
@@ -63,6 +64,8 @@ public class LoginBean {
 
     /** The is correct. */
     public Boolean isCorrect = false;
+    
+    private static boolean firstTimeLogged = true; 
 
     /** The login service. */
     @Autowired
@@ -159,10 +162,20 @@ public class LoginBean {
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
                 session.setAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE, user);
+                checkDisplays();
             }
         } catch (UserLoginException e) {
             LOG.error(e, e);
         }
         return loggedIn;
     }
+    
+    private void checkDisplays() {
+        if(firstTimeLogged){
+            new DirectDisplayController().checkDirectDisplay();
+            // can add additional checks for enable / disable other displays in the future
+            firstTimeLogged = false;
+        }
+    }
+    
 }
