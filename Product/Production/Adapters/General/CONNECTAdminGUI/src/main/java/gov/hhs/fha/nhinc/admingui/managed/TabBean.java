@@ -28,6 +28,8 @@ package gov.hhs.fha.nhinc.admingui.managed;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.primefaces.component.tabview.TabView;
+import org.primefaces.event.TabChangeEvent;
 
 /**
  *
@@ -92,6 +94,11 @@ public class TabBean {
     public String setDirectTabIndexNavigate(int directTabIndex){
         this.directTabIndex = directTabIndex;
         return "directPrime";
+    }
+    
+    public void onDirectTabChange(TabChangeEvent tEvent){
+        TabView tabView = (TabView) tEvent.getComponent();
+        this.directTabIndex = tabView.getChildren().indexOf(tEvent.getTab());
     }
 
 }

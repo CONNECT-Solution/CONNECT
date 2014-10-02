@@ -41,6 +41,7 @@
 
             <h1 class="section-header">Direct Configuration</h1>
             <p:tabView id="tabview" effect="fade" effectDuration="normal" dynamic="true" activeIndex="#{tabBean.directTabIndex}" styleClass="tabs-override tabs-ovr-purple">
+                <p:ajax event="tabChange" listener="#{tabBean.onDirectTabChange}" />
                 <p:tab title="Domains" closable="false">
                     <div class="content-block">
                         <h2 class="subsection-header">Domain List</h2>
