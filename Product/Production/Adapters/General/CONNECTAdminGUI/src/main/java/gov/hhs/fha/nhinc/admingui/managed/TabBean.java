@@ -96,6 +96,11 @@ public class TabBean {
         return "directPrime";
     }
     
+    /**
+     * Event listener for tab change to set current active index of the 
+     * direct tab view.  Needed since active index is set by menu links as well.
+     * @param tEvent 
+     */
     public void onDirectTabChange(TabChangeEvent tEvent){
         TabView tabView = (TabView) tEvent.getComponent();
         this.directTabIndex = tabView.getChildren().indexOf(tEvent.getTab());
