@@ -41,6 +41,7 @@
 
             <h1 class="section-header">Direct Configuration</h1>
             <p:tabView id="tabview" effect="fade" effectDuration="normal" dynamic="true" activeIndex="#{tabBean.directTabIndex}" styleClass="tabs-override tabs-ovr-purple">
+                <p:ajax event="tabChange" listener="#{tabBean.onDirectTabChange}" />
                 <p:tab title="Domains" closable="false">
                     <div class="content-block">
                         <h2 class="subsection-header">Domain List</h2>
@@ -86,7 +87,7 @@
                         <h2 class="subsection-header">Agent Settings</h2>
                         <div class="table-responsive">
                             <h:form id="agent-form">
-                                <p:dataTable id="agentDataTable" var="agent" value="#{directAgentBean.settings}" selection="#{directAgentBean.setting}" rowKey="#{agent.name}" styleClass="table table-striped table-domains">
+                                <p:dataTable id="agentDataTable" var="agent" value="#{directAgentBean.settings}" selection="#{directAgentBean.selectSetting}" rowKey="#{agent.name}" styleClass="table table-striped table-domains">
                                     <p:column headerText="Delete" selectionMode="single" />
                                     <p:column headerText="Name" sortBy="name">
                                         <h:outputText value="#{agent.name}" />
