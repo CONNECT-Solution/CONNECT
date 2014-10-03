@@ -26,21 +26,19 @@
  */
 package gov.hhs.fha.nhinc.admingui.jee.jsf;
 
+import gov.hhs.fha.nhinc.admingui.display.DisplayHolder;
 import gov.hhs.fha.nhinc.admingui.services.RoleService;
 import gov.hhs.fha.nhinc.admingui.services.RoleServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import javax.servlet.http.HttpSession;
-
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 // TODO: Auto-generated Javadoc
@@ -108,8 +106,11 @@ public class UserAuthorizationListener implements PhaseListener {
             LOG.debug("Current User does not have permission for page, redirecting to status page.");
             NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
             nh.handleNavigation(facesContext, null, STATUS_PAGE_NAV_OUTCOME);
+        } else if(!canAccessDirect(currentPage)){
+            LOG.debug("Direct configuration is not available.");
+            NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
+            nh.handleNavigation(facesContext, null, STATUS_PAGE_NAV_OUTCOME);
         }
-
     }
 
     /*
@@ -138,6 +139,11 @@ public class UserAuthorizationListener implements PhaseListener {
         }else {
             return pageName.toLowerCase();
         }
+    }
+
+    private boolean canAccessDirect(String currentPage) {
+        return !formatPageName(currentPage).equalsIgnoreCase("directprime.xhtml") || 
+                DisplayHolder.getInstance().isDirectEnabled();
     }
 
 }

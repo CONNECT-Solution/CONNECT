@@ -26,39 +26,39 @@ package gov.hhs.fha.nhinc.admingui.proxy;
  */
 public class DirectConfigConstants {
 
-    static final String DIRECT_CONFIG_SERVICE_NAME = "directconfig";
+    public static final String DIRECT_CONFIG_SERVICE_NAME = "directconfig";
 
-    static final String DIRECT_CONFIG_GET_DOMAIN = "getDomain";
-    static final String DIRECT_CONFIG_ADD_DOMAIN = "addDomain";
-    static final String DIRECT_CONFIG_LIST_DOMAINS = "listDomains";
-    static final String DIRECT_CONFIG_UPDATE_DOMAIN = "updateDomain";
-    static final String DIRECT_CONFIG_DELETE_DOMAIN = "removeDomain";
+    public static final String DIRECT_CONFIG_GET_DOMAIN = "getDomain";
+    public static final String DIRECT_CONFIG_ADD_DOMAIN = "addDomain";
+    public static final String DIRECT_CONFIG_LIST_DOMAINS = "listDomains";
+    public static final String DIRECT_CONFIG_UPDATE_DOMAIN = "updateDomain";
+    public static final String DIRECT_CONFIG_DELETE_DOMAIN = "removeDomain";
 
-    static final String DIRECT_CONFIG_ADD_ANCHOR = "addAnchor";
-    static final String DIRECT_CONFIG_DELETE_ANCHOR = "removeAnchors";
-    static final String DIRECT_CONFIG_GET_ANCHORS_FOR_OWNER = "getAnchorsForOwner";
+    public static final String DIRECT_CONFIG_ADD_ANCHOR = "addAnchor";
+    public static final String DIRECT_CONFIG_DELETE_ANCHOR = "removeAnchors";
+    public static final String DIRECT_CONFIG_GET_ANCHORS_FOR_OWNER = "getAnchorsForOwner";
 
-    static final String DIRECT_CONFIG_DELETE_ADDRESS = "removeAddress";
+    public static final String DIRECT_CONFIG_DELETE_ADDRESS = "removeAddress";
 
-    static final String DIRECT_CONFIG_ADD_SETTING = "addSetting";
-    static final String DIRECT_CONFIG_DELETE_SETTING = "deleteSetting";
-    static final String DIRECT_CONFIG_LIST_SETTINGS = "getAllSettings";
+    public static final String DIRECT_CONFIG_ADD_SETTING = "addSetting";
+    public static final String DIRECT_CONFIG_DELETE_SETTING = "deleteSetting";
+    public static final String DIRECT_CONFIG_LIST_SETTINGS = "getAllSettings";
 
-    static final String DIRECT_CONFIG_ADD_CERT = "addCertificates";
-    static final String DIRECT_CONFIG_DELETE_CERT = "removeCertificates";
-    static final String DIRECT_CONFIG_GET_CERTS_FOR_OWNER = "getCertificatesForOwner";
-    static final String DIRECT_CONFIG_LIST_CERTS = "listCertificates";
+    public static final String DIRECT_CONFIG_ADD_CERT = "addCertificates";
+    public static final String DIRECT_CONFIG_DELETE_CERT = "removeCertificates";
+    public static final String DIRECT_CONFIG_GET_CERTS_FOR_OWNER = "getCertificatesForOwner";
+    public static final String DIRECT_CONFIG_LIST_CERTS = "listCertificates";
 
-    static final String DIRECT_CONFIG_ADD_TRUST_BUNDLE = "addTrustBundle";
-    static final String DIRECT_CONFIG_DELETE_TRUST_BUNDLE = "deleteTrustBundles";
-    static final String DIRECT_CONFIG_GET_TRUST_BUNDLES = "getTrustBundles";
-    static final String DIRECT_CONFIG_GET_TRUST_BUNDLE_BY_NAME = "getTrustBundleByName";
-    static final String DIRECT_CONFIG_GET_TRUST_BUNDLES_BY_DOMAIN = "getTrustBundlesByDomain";
-    static final String DIRECT_CONFIG_ASSOCIATE_TRUST_BUNDLE_TO_DOMAIN = "associateTrustBundleToDomain";
-    static final String DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLE_FROM_DOMAIN = "disassociateTrustBundleFromDomain";
-    static final String DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLE_FROM_DOMAINS = "disassociateTrustBundleFromDomains";
-    static final String DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLES_FROM_DOMAIN = "disassociateTrustBundlesFromDomain";
-    static final String DIRECT_CONFIG_UPDATE_TRUST_BUNDLE_ATTRIBUTES = "updateTrustBundleAttributes";
-    static final String DIRECT_CONFIG_REFRESH_TRUST_BUNDLE = "refreshTrustBundle";
-    static final String DIRECT_CONFIG_REMOVE_ADDRESS = "removeAddress";
+    public static final String DIRECT_CONFIG_ADD_TRUST_BUNDLE = "addTrustBundle";
+    public static final String DIRECT_CONFIG_DELETE_TRUST_BUNDLE = "deleteTrustBundles";
+    public static final String DIRECT_CONFIG_GET_TRUST_BUNDLES = "getTrustBundles";
+    public static final String DIRECT_CONFIG_GET_TRUST_BUNDLE_BY_NAME = "getTrustBundleByName";
+    public static final String DIRECT_CONFIG_GET_TRUST_BUNDLES_BY_DOMAIN = "getTrustBundlesByDomain";
+    public static final String DIRECT_CONFIG_ASSOCIATE_TRUST_BUNDLE_TO_DOMAIN = "associateTrustBundleToDomain";
+    public static final String DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLE_FROM_DOMAIN = "disassociateTrustBundleFromDomain";
+    public static final String DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLE_FROM_DOMAINS = "disassociateTrustBundleFromDomains";
+    public static final String DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLES_FROM_DOMAIN = "disassociateTrustBundlesFromDomain";
+    public static final String DIRECT_CONFIG_UPDATE_TRUST_BUNDLE_ATTRIBUTES = "updateTrustBundleAttributes";
+    public static final String DIRECT_CONFIG_REFRESH_TRUST_BUNDLE = "refreshTrustBundle";
+    public static final String DIRECT_CONFIG_REMOVE_ADDRESS = "removeAddress";
 }
