@@ -33,14 +33,16 @@ import javax.mail.internet.MimeMessage;
 import org.apache.log4j.Logger;
 
 /**
- * Handles inbound messages from an external mail client. Inbound messages are un-directified and either - sent to a
- * recipient on an internal mail client - SMTP+Mime - SMTP+XDM - process XDM as XDR - SOAP+XDR
+ * Handles inbound messages from an external mail client. Inbound messages are
+ * un-directified and either - sent to a recipient on an internal mail client -
+ * SMTP+Mime - SMTP+XDM - process XDM as XDR - SOAP+XDR
  */
 public class DirectInboundMsgHandler implements MessageHandler {
 
     private static final Logger LOG = Logger.getLogger(DirectInboundMsgHandler.class);
     /**
-     * Property for the external direct client used to send the outbound message.
+     * Property for the external direct client used to send the outbound
+     * message.
      */
     private final DirectReceiver directReceiver;
 
@@ -61,15 +63,10 @@ public class DirectInboundMsgHandler implements MessageHandler {
         boolean handled = false;
         try {
             directReceiver.receiveInbound(message);
-            //Run the message monitoring logic
-            //handleMessageMonitoring();
             handled = true;
         } catch (Exception e) {
             LOG.error("Exception while processing and sending outbound direct message", e);
         }
         return handled;
     }
-    //protected void handleMessageMonitoring(){
-    //    MessageMonitoringAPI.getInstance().process();
-    //}
 }
