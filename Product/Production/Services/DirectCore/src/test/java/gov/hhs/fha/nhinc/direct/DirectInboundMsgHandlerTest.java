@@ -141,12 +141,6 @@ public class DirectInboundMsgHandlerTest extends DirectBaseTest {
             }
         };
         testInboundMsgHandler = new DirectInboundMsgHandler(directReceiver) {
-            @Override
-            protected void handleMessageMonitoring() {
-                //do nothing for now
-                //need to come up with better unit tests
-                //to to handle message monitoring
-            }
         };
     }
 
@@ -161,12 +155,6 @@ public class DirectInboundMsgHandlerTest extends DirectBaseTest {
             }
         };
         testInboundMsgHandler = new DirectInboundMsgHandler(directReceiver) {
-            @Override
-            protected void handleMessageMonitoring() {
-                //do nothing for now
-                //need to come up with better unit tests
-                //to to handle message monitoring
-            }
         };
     }
 }

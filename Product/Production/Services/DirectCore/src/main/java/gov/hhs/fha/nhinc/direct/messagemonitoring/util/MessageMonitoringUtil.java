@@ -29,11 +29,15 @@ package gov.hhs.fha.nhinc.direct.messagemonitoring.util;
 import static gov.hhs.fha.nhinc.direct.DirectReceiverImpl.X_DIRECT_FINAL_DESTINATION_DELIVERY_HEADER_VALUE;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxyObjectFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -41,7 +45,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
+import org.nhind.config.ConfigurationService;
+import org.nhind.config.Setting;
 import org.nhindirect.common.tx.TxDetailParser;
 import org.nhindirect.common.tx.TxUtil;
 import org.nhindirect.common.tx.impl.DefaultTxDetailParser;
@@ -60,6 +65,12 @@ import org.nhindirect.stagent.NHINDAddressCollection;
  */
 public class MessageMonitoringUtil {
 
+    private static final Logger LOG = Logger.getLogger(MessageMonitoringUtil.class);
+
+    private static final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
+    private static final Class<ConfigurationService> directConfigClazz = ConfigurationService.class;
+    private static final String DIRECT_CONFIG_SERVICE_NAME = "directconfig";
+
     public static final String DISPOSITION_NOTIFICATION_OPTIONS_HEADER_NAME = "Disposition-Notification-Options";
     public static final String DISPOSITION_NOTIFICATION_PROCESSED = "automatic-action/mdn-sent-automatically;processed";
     public static final String DISPOSITION_NOTIFICATION_DISPATCHED = "automatic-action/MDN-sent-automatically;dispatched";
@@ -70,6 +81,14 @@ public class MessageMonitoringUtil {
     public static final int DEFAULT_PROCESSED_MESSAGE_RECEIVE_TIME_LIMIT = 60;
     public static final int DEFAULT_DISPATCHED_MESSAGE_RECEIVE_TIME_LIMIT = 60;
     public static final String DEFAULT_POSTMASTER_EMAIL_ID_PREFIX = "postmaster";
+
+    public static final String DIRECT_SERVICE_NAME_GET_SETTINGS = "getAllSettings";
+    public static final String DIRECT_SERVICE_NAME_GET_SETTING_BY_NAME = "getSettingByName";
+
+    public static final String FAILED_MESSAGE_SUBJECT_PREFIX = "Email Delivery Failed: ";
+    public static final String FAILED_MESSAGE_EMAIL_TEXT = "Email delivery failed for the recipient ";
+    public static final String SUCCESSFUL_MESSAGE_SUBJECT_PREFIX = "Successfully Delivered: ";
+    public static final String SUCCESSFUL_MESSAGE_EMAIL_TEXT = "Message successfully delivered to the recipient ";
 
     /**
      * Returns Mail Recipients as a NHINDAddressCollection
@@ -129,12 +148,10 @@ public class MessageMonitoringUtil {
             }
 
             return new Tx(TxUtil.getMessageType(msg), details);
-        } ///CLOVER:OFF
-        catch (Exception e) {
-            //LOGGER.warn("Failed to parse message to Tx object.", e);
+        } catch (Exception e) {
+            LOG.error("Failed to parse message to Tx object." + e.getMessage());
             return null;
         }
-        ///CLOVER:ON
     }
 
     /**
@@ -145,9 +162,7 @@ public class MessageMonitoringUtil {
      */
     public static String getParentMessageId(MimeMessage msg) {
         final TxDetailParser txParser = new DefaultTxDetailParser();
-
         return getOriginalMessageId(convertMimeMessageToTx(msg, txParser));
-
     }
 
     /**
@@ -230,7 +245,7 @@ public class MessageMonitoringUtil {
         try {
             headers = message.getHeader(DISPOSITION_NOTIFICATION_OPTIONS_HEADER_NAME);
         } catch (MessagingException ex) {
-            Logger.getLogger(MessageMonitoringUtil.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error("Failed:" + ex.getMessage());
         }
         if (headers != null) {
             for (String header : headers) {
@@ -254,94 +269,104 @@ public class MessageMonitoringUtil {
     }
 
     /**
-     * Returns the Outbound Failed message retry count. Reads the system property first, if not found then reads the
-     * gateway properties, if not found then uses the default value.
+     * Returns the Outbound Failed message retry count. Reads the system
+     * property first, if not found then reads the gateway properties, if not
+     * found then uses the default value.
      *
      * @return
      */
     public static int getOutboundFailedMessageRetryCount() {
-        //Check if its there in the Syestem Properties
-        //TODO
-        //Read it from the properties file
-        //TODO
-        //If not found, then use the default value
+        String messageRetryCount = getSetting("OUTBOUND_FAILED_MESSAGE_RETRY_COUNT");
+        LOG.info("Outbound Failed Message Retry Count " + messageRetryCount);
+        if (messageRetryCount != null) {
+            return Integer.parseInt(messageRetryCount);
+        }
         return DEFAULT_OUTBOUND_FAILED_MESSAGE_RETRY_COUNT;
     }
 
     /**
-     * Returns the Inbound Failed message retry count. Reads the system property first, if not found then reads the
-     * gateway properties, if not found then uses the default value.
+     * Returns the Inbound Failed message retry count. Reads the system property
+     * first, if not found then reads the gateway properties, if not found then
+     * uses the default value.
      *
      * @return
      */
     public static int getInboundFailedMessageRetryCount() {
-        //Check if its there in the Syestem Properties
-        //TODO
-        //Read it from the properties file
-        //TODO
+        String messageRetryCount = getSetting("INBOUND_FAILED_MESSAGE_RETRY_COUNT");
+        LOG.info("Inbound Failed Message Retry Count " + messageRetryCount);
+        if (messageRetryCount != null) {
+            return Integer.parseInt(messageRetryCount);
+        }
         //If not found, then use the default value
         return DEFAULT_INBOUND_FAILED_MESSAGE_RETRY_COUNT;
     }
 
     /**
-     * Return true if the notification to edge needs to be sent immediately. Reads the system property first, if not
-     * found then reads the gateway properties, if not found then uses the default value.
+     * Return true if the notification to edge needs to be sent immediately.
+     * Reads the system property first, if not found then reads the gateway
+     * properties, if not found then uses the default value.
      *
      * @return
      */
     public static boolean isNotifyOutboundSecurityFailureImmediate() {
-        //Check if its there in the Syestem Properties
-        //TODO
-        //Read it from the properties file
-        //TODO
+        String notifySecurityFailure = getSetting("NOTIFIY_OUTBOUND_SECURITY_FAILURE_IMMEDIATE");
+        LOG.info("isNotifyOutboundSecurityFailureImmediate() " + notifySecurityFailure);
+        if (notifySecurityFailure != null) {
+            return Boolean.parseBoolean(notifySecurityFailure);
+        }
         //If not found, then use the default value
         return DEFAULT_NOTIFIY_OUTBOUND_SECURITY_FAILURE_IMMEDIATE;
     }
 
-    
     /**
-     * Returns the Processed message receive time limit. Reads the system property first, if not found then reads the
-     * gateway properties, if not found then uses the default value.
+     * Returns the Processed message receive time limit. Reads the system
+     * property first, if not found then reads the gateway properties, if not
+     * found then uses the default value.
      *
      * @return
      */
     public static int getProcessedMessageReceiveTimeLimit() {
-        //Check if its there in the Syestem Properties
-        //TODO
-        //Read it from the properties file
-        //TODO
+        String processedReceiveTimeLimit = getSetting("PROCESSED_MESSAGE_RECEIVE_TIME_LIMIT");
+        LOG.info("processedReceiveTimeLimit " + processedReceiveTimeLimit);
+        if (processedReceiveTimeLimit != null) {
+            return Integer.parseInt(processedReceiveTimeLimit);
+        }
         //If not found, then use the default value
-        return DEFAULT_INBOUND_FAILED_MESSAGE_RETRY_COUNT;
+        return DEFAULT_PROCESSED_MESSAGE_RECEIVE_TIME_LIMIT;
     }
 
     /**
-     * Returns the Processed message receive time limit. Reads the system property first, if not found then reads the
-     * gateway properties, if not found then uses the default value.
+     * Returns the Processed message receive time limit. Reads the system
+     * property first, if not found then reads the gateway properties, if not
+     * found then uses the default value.
      *
      * @return
      */
     public static String getDomainPostmasterEmailId() {
-        //Check if its there in the Syestem Properties
-        //TODO
-        //Read it from the properties file
-        //TODO
+        String postmasterEmailPrefix = getSetting("POSTMASTER_EMAIL_ID_PREFIX");
+        LOG.info("postmasterEmailPrefix " + postmasterEmailPrefix);
+        if (postmasterEmailPrefix != null) {
+            return postmasterEmailPrefix;
+        }
         //If not found, then use the default value
         return DEFAULT_POSTMASTER_EMAIL_ID_PREFIX;
     }
-    
+
     /**
-     * Returns the Dispatched message receive time limit. Reads the system property first, if not found then reads the
-     * gateway properties, if not found then uses the default value.
+     * Returns the Dispatched message receive time limit. Reads the system
+     * property first, if not found then reads the gateway properties, if not
+     * found then uses the default value.
      *
      * @return
      */
     public static int getDispatchedMessageReceiveTimeLimit() {
-        //Check if its there in the Syestem Properties
-        //TODO
-        //Read it from the properties file
-        //TODO
+        String dispatchedReceiveTimeLimit = getSetting("DISPATCHED_MESSAGE_RECEIVE_TIME_LIMIT");
+        LOG.info("dispatchedReceiveTimeLimit " + dispatchedReceiveTimeLimit);
+        if (dispatchedReceiveTimeLimit != null) {
+            return Integer.parseInt(dispatchedReceiveTimeLimit);
+        }
         //If not found, then use the default value
-        return DEFAULT_INBOUND_FAILED_MESSAGE_RETRY_COUNT;
+        return DEFAULT_DISPATCHED_MESSAGE_RECEIVE_TIME_LIMIT;
     }
 
     public static boolean isMessageMonitoringEnabled() {
@@ -356,33 +381,40 @@ public class MessageMonitoringUtil {
      * Return true if the message is a DSN or MDN
      *
      * @param message containing the message to be tested.
-     * @return true if the envelope exists, the message exists and is an MDN Notification or a DSN notification.
+     * @return true if the envelope exists, the message exists and is an MDN
+     * Notification or a DSN notification.
      */
     public static boolean isMdnOrDsn(MimeMessage message) {
         return TxUtil.getMessageType(message).equals(TxMessageType.DSN)
-            || TxUtil.getMessageType(message).equals(TxMessageType.MDN);
+                || TxUtil.getMessageType(message).equals(TxMessageType.MDN);
     }
 
+    /**
+     * Returns true if the Processed MDN is not received on time
+     *
+     * @param createTime message sent time
+     * @return
+     */
     public static boolean isProcessedMDNReceiveTimeLapsed(Date createTime) {
         //check if the currenttime - createTime > the time limit
         long diff = (new Date()).getTime() - createTime.getTime();
-        long diffHours = diff / (60 * 60 * 1000) % 24;
-        long diffDays = diff / (24 * 60 * 60 * 1000);
-        int totalDiffHours = (int) (diffHours + (diffDays * 24));
-        return totalDiffHours > getProcessedMessageReceiveTimeLimit();
+        return diff >= getProcessedMessageReceiveTimeLimit();
     }
 
+    /**
+     * Returns true if the Dispatched MDN is not received on time
+     *
+     * @param createTime message sent time
+     * @return
+     */
     public static boolean isDispatchedMDNReceiveTimeLapsed(Date createTime) {
         //check if the currenttime - createTime > the time limit
         long diff = (new Date()).getTime() - createTime.getTime();
-        long diffHours = diff / (60 * 60 * 1000) % 24;
-        long diffDays = diff / (24 * 60 * 60 * 1000);
-        int totalDiffHours = (int) (diffHours + (diffDays * 24));
-        return totalDiffHours > getDispatchedMessageReceiveTimeLimit();
+        return diff >= getDispatchedMessageReceiveTimeLimit();
     }
 
     public static MimeMessage createMimeMessage(String postMasterEmailId, String subject,
-        String recipient, String text) throws AddressException, MessagingException {
+            String recipient, String text) throws AddressException, MessagingException {
         MimeMessage message = new MimeMessage((Session) null);
         message.setSender(new InternetAddress(postMasterEmailId));
         message.setSubject(subject);
@@ -394,26 +426,121 @@ public class MessageMonitoringUtil {
     }
 
     /**
+     * Returns the default failed message subject prefix
+     *
+     * @return
+     */
+    public static String getFailedMessageSubjectPrefix() {
+        return FAILED_MESSAGE_SUBJECT_PREFIX;
+    }
+
+    /**
+     * Returns the default failed message email text
+     *
+     * @return
+     */
+    public static String getFailedMessageEmailText() {
+        return FAILED_MESSAGE_EMAIL_TEXT;
+    }
+
+    /**
+     * Returns the default successful message subject prefix
+     *
+     * @return
+     */
+    public static String getSuccessfulMessageSubjectPrefix() {
+        return SUCCESSFUL_MESSAGE_SUBJECT_PREFIX;
+    }
+
+    /**
+     * Returns the default successful message email text
+     *
+     * @return
+     */
+    public static String getSuccessfulMessageEmailText() {
+        return SUCCESSFUL_MESSAGE_EMAIL_TEXT;
+    }
+
+    /**
      * Get the Direct edge Proxy
-     * 
+     *
      * @return DirectEdgeProxy implementation to handle the direct edge
      */
     public static DirectEdgeProxy getDirectEdgeProxy() {
         DirectEdgeProxyObjectFactory factory = new DirectEdgeProxyObjectFactory();
         return factory.getDirectEdgeProxy();
     }
+
     /**
      * Returns the domain name from an emailId.
-     * 
+     *
+     * @param emailId
      * @return
      */
-    public static String getDomainFromEmail(String emailId){
-        if (emailId!=null){
-               String[] emailSplit = emailId.split("@");
-               if (emailSplit.length >= 2){
-                   return emailSplit[1];
-               }
+    public static String getDomainFromEmail(String emailId) {
+        if (emailId != null) {
+            String[] emailSplit = emailId.split("@");
+            if (emailSplit.length >= 2) {
+                return emailSplit[1];
+            }
         }
         return null;
+    }
+
+    /**
+     * Get the property value from Setting. Calls the config service to get the
+     * value.
+     *
+     * @param propertyName
+     * @return
+     *
+     */
+    public static String getSetting(String propertyName) {
+        try {
+            Setting setting = (Setting) getClient().invokePort(directConfigClazz, DIRECT_SERVICE_NAME_GET_SETTING_BY_NAME, propertyName);
+            //if setting is not null
+            if (setting != null) {
+                return setting.getValue();
+            }
+        } catch (Exception ex) {
+            //log the message
+            LOG.error("Failed to call getSetting " + ex.getMessage());
+            return null;
+        }
+        return null;
+    }
+
+    /**
+     * Returns all the settings by calling the config service.
+     *
+     * @return
+     *
+     */
+    public static List<Setting> getSettings() {
+        try {
+            return (List<Setting>) getClient().invokePort(directConfigClazz, DIRECT_SERVICE_NAME_GET_SETTINGS);
+
+        } catch (Exception ex) {
+            //log a message
+            LOG.error("Failed to call getSetttings " + ex.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Returns an unsecured Direct WebService client
+     *
+     * @return
+     *
+     */
+    private static CONNECTClient<ConfigurationService> getClient() throws Exception {
+        //get the direct config URL
+        String url = oProxyHelper.getAdapterEndPointFromConnectionManager(DIRECT_CONFIG_SERVICE_NAME);
+        LOG.debug("Direct config URL:" + url);
+        ServicePortDescriptor<ConfigurationService> portDescriptor = new DirectConfigUnsecuredServicePortDescriptor();
+
+        CONNECTClient<ConfigurationService> client = CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(
+                portDescriptor, url, null);
+        return client;
     }
 }

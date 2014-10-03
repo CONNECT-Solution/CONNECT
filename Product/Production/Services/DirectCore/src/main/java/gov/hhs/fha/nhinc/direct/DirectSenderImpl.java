@@ -47,6 +47,7 @@ public class DirectSenderImpl extends DirectAdapter implements DirectSender {
     private static final Logger LOG = Logger.getLogger(DirectSenderImpl.class);
     private static final String MSG_SUBJECT = "DIRECT Message";
     private static final String MSG_TEXT = "DIRECT Message body text";
+
     /**
      * @param externalMailSender used to send messages.
      * @param smtpAgent used to process direct messages.
@@ -73,18 +74,18 @@ public class DirectSenderImpl extends DirectAdapter implements DirectSender {
             errorMessage = e.getMessage();
             //TODO: drop the message to a delete bin directory for future ref
             return;
-        }finally{
+        } finally {
             LOG.debug("Before inserting Outgoing Message");
             //if failed then insert a row with the status failed, which will be
             //used by the Notification piece to send a message to the edge
-            addOutgoingMessage(message,failed,errorMessage);
-            //add an error even. TODO: Make sure the error is logged into the 
+            addOutgoingMessage(message, failed, errorMessage);
+            //add an error event. TODO: Make sure the error is logged into the 
             //even logging
             getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message);
         }
         getDirectEventLogger().log(DirectEventType.END_OUTBOUND_DIRECT, message);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -99,7 +100,8 @@ public class DirectSenderImpl extends DirectAdapter implements DirectSender {
             throw new DirectException("Error building and sending mime message.sendOutboundDirect", e, message);
         }
     }
-    protected void addOutgoingMessage(MimeMessage message, boolean failed, String errorMessage){
-        MessageMonitoringAPI.getInstance().addOutgoingMessage(message,failed, errorMessage);
-    }    
+
+    protected void addOutgoingMessage(MimeMessage message, boolean failed, String errorMessage) {
+        MessageMonitoringAPI.getInstance().addOutgoingMessage(message, failed, errorMessage);
+    }
 }

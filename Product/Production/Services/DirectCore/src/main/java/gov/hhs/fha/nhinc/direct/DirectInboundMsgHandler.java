@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import gov.hhs.fha.nhinc.direct.messagemonitoring.impl.MessageMonitoringAPI;
 import gov.hhs.fha.nhinc.mail.MessageHandler;
 
 import javax.mail.internet.MimeMessage;
@@ -63,14 +62,14 @@ public class DirectInboundMsgHandler implements MessageHandler {
         try {
             directReceiver.receiveInbound(message);
             //Run the message monitoring logic
-            handleMessageMonitoring();
+            //handleMessageMonitoring();
             handled = true;
         } catch (Exception e) {
             LOG.error("Exception while processing and sending outbound direct message", e);
         }
         return handled;
     }
-    protected void handleMessageMonitoring(){
-        MessageMonitoringAPI.getInstance().process();
-    }
+    //protected void handleMessageMonitoring(){
+    //    MessageMonitoringAPI.getInstance().process();
+    //}
 }
