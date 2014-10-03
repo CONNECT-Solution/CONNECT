@@ -31,67 +31,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
-
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <body>
-    <ui:composition xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml">
+    <ui:composition>
         <div class="col-xs-2 sidebar sidebar-scroll">
             <h1 class="page-header">Gateway Administrative Console</h1>
-    
-            <div id="sidenav-status">
-                <h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
-                    Gateway Status
-                </h2>
-                <ul class="nav nav-sidebar sidebar-orange">
-                    <li class="active"><a href="status.xhtml#tab_dash"><i class="glyphicon glyphicon-dashboard"></i> Server Dashboard</a></li>
-                    <li><a href="status.xhtml#tab_stats"><i class="glyphicon glyphicon-stats"></i> Performance Statistics</a></li>
-                    <li><a href="status.xhtml#tab_remotes"><i class="glyphicon glyphicon-list"></i> Remote Gateway List</a></li>
-                </ul>
-            </div>
-    
-            <div id="sidenav-logs">
-                <h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
-                    Activity Logs 
-                </h2>
-                <ul class="nav nav-sidebar sidebar-blue">
-                    <li><a href="logs.xhtml#tab_event"><i class="glyphicon glyphicon-list-alt"></i> Event Logs</a></li>
-                    <li><a href="logs.xhtml#tab_audit"><i class="glyphicon glyphicon-list-alt"></i> Audit Logs</a></li>
-                    <li><a href="logs.xhtml#tab_system"><i class="glyphicon glyphicon-list-alt"></i> System Logs</a></li>
-                </ul>
-            </div>
-    
-            <div id="sidenav-connect">
-                <h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
-                    CONNECT Configuration
-                </h2>
-                <ul class="nav nav-sidebar sidebar-purple">
-                    <li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 1</a></li>
-                    <li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 2</a></li>
-                    <li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 3</a></li>
-                </ul>
-            </div>
-    
-            <div id="sidenav-direct">
-                <h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
-                    Direct Configuration
-                </h2>
-                <ul class="nav nav-sidebar sidebar-purple">
-                    <li><a href="direct.xhtml#tab_domains"><i class="glyphicon glyphicon-cog"></i> Domains</a></li>
-                    <li><a href="direct.xhtml#tab_agent"><i class="glyphicon glyphicon-cog"></i> Agent Settings</a></li>
-                    <li><a href="direct.xhtml#tab_certs"><i class="glyphicon glyphicon-cog"></i> Certificates</a></li>
-                    <li><a href="direct.xhtml#tab_trust"><i class="glyphicon glyphicon-cog"></i> Trust Bundles</a></li>
-                </ul>
-            </div>
-    
-            <div id="sidenav-accts">
-                <h2 class="section-header"><div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
-                    Account Management
-                </h2>
-                <ul class="nav nav-sidebar sidebar-purple">
-                    <li><a href="acctmanage.xhtml#tab_users"><i class="glyphicon glyphicon-user"></i> User Accounts</a></li>
-                    <li><a href="acctmanage.xhtml#tab_certificate"><i class="glyphicon glyphicon-lock"></i> Certificate Management</a></li>
-                </ul>
-            </div>
+            
+            <h:form>
+                <p:panelMenu style="width:100%">
+                    <p:submenu label="Gateway Status" styleClass="sidebar-orange">
+                        <p:menuitem value="Dashboard" action="#{tabBean.setDashboardTabIndexNavigate(0)}" styleClass="glyphicon glyphicon-dashboard" />
+                        <p:menuitem value="Performance Statistics" action="#{tabBean.setDashboardTabIndexNavigate(1)}" styleClass="glyphicon glyphicon-stats" />
+                        <p:menuitem value="Remote Gateway List" action="#{tabBean.setDashboardTabIndexNavigate(2)}" styleClass="glyphicon glyphicon-list" />
+                    </p:submenu>
+                    <p:submenu rendered="#{applicationBean.isDirectEnabled()}" label="Direct Configuration" styleClass="sidebar-purple">
+                        <p:menuitem value="Domains" action="#{tabBean.setDirectTabIndexNavigate(0)}" styleClass="glyphicon glyphicon-globe" />
+                        <p:menuitem value="Agent Settings" action="#{tabBean.setDirectTabIndexNavigate(1)}" styleClass="glyphicon glyphicon-cog" />
+                        <p:menuitem value="Certificates" action="#{tabBean.setDirectTabIndexNavigate(2)}" styleClass="glyphicon glyphicon-list-alt" />
+                        <p:menuitem value="Trust Bundles" action="#{tabBean.setDirectTabIndexNavigate(3)}" styleClass="glyphicon glyphicon-briefcase" />			
+                    </p:submenu>
+                    <p:submenu label="Account Management" styleClass="sidebar-blue">
+                        <p:menuitem value="User Accounts" action="#{tabBean.setAdminTabIndexNavigate(0)}" styleClass="glyphicon glyphicon-user" />
+                        <p:menuitem value="Manage Roles" action="#{tabBean.setAdminTabIndexNavigate(1)}" styleClass="glyphicon glyphicon-lock" />
+                    </p:submenu>
+                </p:panelMenu>
+            </h:form>
             
             <div class="copyright">
                 <ui:insert name="footer">

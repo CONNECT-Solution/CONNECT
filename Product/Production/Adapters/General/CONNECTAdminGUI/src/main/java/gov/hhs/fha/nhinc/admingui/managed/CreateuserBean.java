@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
+import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
@@ -81,7 +82,7 @@ public class CreateuserBean {
     public String addCreateUser() {
         if (createUser()) {
             this.isCreated = true;
-            return "Login";
+            return NavigationConstant.LOGIN_PAGE;
         } else {
             this.isCreated = false;
             return "failed for create user";

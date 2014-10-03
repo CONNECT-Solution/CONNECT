@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
+import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.primefaces.component.tabview.TabView;
@@ -78,7 +79,7 @@ public class TabBean {
 
     public String setDashboardTabIndexNavigate(int dashboardTabIndex) {
         this.dashboardTabIndex = dashboardTabIndex;
-        return "StatusPrime";
+        return NavigationConstant.STATUS_PAGE;
     }
 
     public String setLogsTabIndexNavigate(int logsTabIndex) {
@@ -88,12 +89,12 @@ public class TabBean {
 
     public String setAdminTabIndexNavigate(int adminTabIndex) {
         this.adminTabIndex = adminTabIndex;
-        return "acctmanagePrime";
+        return NavigationConstant.ACCT_MGMT_PAGE;
     }
     
     public String setDirectTabIndexNavigate(int directTabIndex){
         this.directTabIndex = directTabIndex;
-        return "directPrime";
+        return NavigationConstant.DIRECT_PAGE;
     }
     
     /**

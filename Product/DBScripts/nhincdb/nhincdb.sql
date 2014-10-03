@@ -555,27 +555,15 @@ VALUES
 ("status.xhtml", "Status", 0, 1),
 ("status.xhtml", "Status", 0, 2),
 ("status.xhtml", "Status", 0, 3),
-("StatusPrime.xhtml", "Status Prime", 0, 1),
-("StatusPrime.xhtml", "Status Prime", 0, 2),
-("StatusPrime.xhtml", "Status Prime", 0, 3),
 ("acctmanage.xhtml", "Account Management", 0, 1),
 ("acctmanage.xhtml", "Account Management", -1, 2),
 ("acctmanage.xhtml", "Account Management", -1, 3),
-("acctmanagePrime.xhtml", "Account Management Prime", 0, 1),
-("acctmanagePrime.xhtml", "Account Management Prime", -1, 2),
-("acctmanagePrime.xhtml", "Account Management Prime", -1, 3),
-("ManageRole.xhtml", "Manage Role", 0, 1),
-("ManageRole.xhtml", "Manage Role", -1, 2),
-("ManageRole.xhtml", "Manage Role", -1, 3),
+("manageRole.xhtml", "Manage Role", 0, 1),
+("manageRole.xhtml", "Manage Role", -1, 2),
+("manageRole.xhtml", "Manage Role", -1, 3),
 ("direct.xhtml", "Direct Config", 0, 1),
 ("direct.xhtml", "Direct Config", 0, 2),
-("direct.xhtml", "Direct Config", 0, 3),
-("direct_domains_create.xhtml", "Direct Create Domain", 0, 1),
-("direct_domains_create.xhtml", "Direct Create Domain", 0, 2),
-("direct_domains_create.xhtml", "Direct Create Domain", 0, 3),
-("directPrime.xhtml", "Direct Config Prime", 0, 1),
-("directPrime.xhtml", "Direct Config Prime", 0, 2),
-("directPrime.xhtml", "Direct Config Prime", 0, 3);
+("direct.xhtml", "Direct Config", 0, 3);
 
 INSERT INTO adminguidb.UserLogin
 (id, salt, sha1, userName, userRole)
