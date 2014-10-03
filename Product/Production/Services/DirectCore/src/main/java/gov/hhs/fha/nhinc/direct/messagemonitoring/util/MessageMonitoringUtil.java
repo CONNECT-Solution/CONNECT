@@ -32,11 +32,14 @@ import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxyObjectFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
@@ -78,8 +81,8 @@ public class MessageMonitoringUtil {
     public static final int DEFAULT_INBOUND_FAILED_MESSAGE_RETRY_COUNT = 1;
     public static final boolean DEFAULT_NOTIFIY_OUTBOUND_SECURITY_FAILURE_IMMEDIATE = true;
     public static final boolean DEFAULT_MESSAGE_MONITORING_ENABLED = true;
-    public static final int DEFAULT_PROCESSED_MESSAGE_RECEIVE_TIME_LIMIT = 60;
-    public static final int DEFAULT_DISPATCHED_MESSAGE_RECEIVE_TIME_LIMIT = 60;
+    public static final int DEFAULT_PROCESSED_MESSAGE_RECEIVE_TIME_LIMIT = 600000;
+    public static final int DEFAULT_DISPATCHED_MESSAGE_RECEIVE_TIME_LIMIT = 1440000;
     public static final String DEFAULT_POSTMASTER_EMAIL_ID_PREFIX = "postmaster";
 
     public static final String DIRECT_SERVICE_NAME_GET_SETTINGS = "getAllSettings";
@@ -276,10 +279,10 @@ public class MessageMonitoringUtil {
      * @return
      */
     public static int getOutboundFailedMessageRetryCount() {
-        String messageRetryCount = getSetting("OUTBOUND_FAILED_MESSAGE_RETRY_COUNT");
+        int messageRetryCount = getPropertyIntegerValue("OutboundFailedMessageRetryCount");
         LOG.info("Outbound Failed Message Retry Count " + messageRetryCount);
-        if (messageRetryCount != null) {
-            return Integer.parseInt(messageRetryCount);
+        if (messageRetryCount >= 0) {
+            return messageRetryCount;
         }
         return DEFAULT_OUTBOUND_FAILED_MESSAGE_RETRY_COUNT;
     }
@@ -309,13 +312,13 @@ public class MessageMonitoringUtil {
      * @return
      */
     public static boolean isNotifyOutboundSecurityFailureImmediate() {
-        String notifySecurityFailure = getSetting("NOTIFIY_OUTBOUND_SECURITY_FAILURE_IMMEDIATE");
+        String notifySecurityFailure = getPropertyStringValue("NotifyOutboundSecurityFailureImmediate");
         LOG.info("isNotifyOutboundSecurityFailureImmediate() " + notifySecurityFailure);
-        if (notifySecurityFailure != null) {
-            return Boolean.parseBoolean(notifySecurityFailure);
+        if (notifySecurityFailure == null) {
+            return DEFAULT_NOTIFIY_OUTBOUND_SECURITY_FAILURE_IMMEDIATE;
         }
         //If not found, then use the default value
-        return DEFAULT_NOTIFIY_OUTBOUND_SECURITY_FAILURE_IMMEDIATE;
+        return notifySecurityFailure.equals("true");
     }
 
     /**
@@ -326,13 +329,10 @@ public class MessageMonitoringUtil {
      * @return
      */
     public static int getProcessedMessageReceiveTimeLimit() {
-        String processedReceiveTimeLimit = getSetting("PROCESSED_MESSAGE_RECEIVE_TIME_LIMIT");
+        int processedReceiveTimeLimit = getPropertyIntegerValue("ProcessedMessageReceiveTimeLimit");
         LOG.info("processedReceiveTimeLimit " + processedReceiveTimeLimit);
-        if (processedReceiveTimeLimit != null) {
-            return Integer.parseInt(processedReceiveTimeLimit);
-        }
         //If not found, then use the default value
-        return DEFAULT_PROCESSED_MESSAGE_RECEIVE_TIME_LIMIT;
+        return (processedReceiveTimeLimit >= 0) ? processedReceiveTimeLimit : DEFAULT_PROCESSED_MESSAGE_RECEIVE_TIME_LIMIT;
     }
 
     /**
@@ -343,7 +343,8 @@ public class MessageMonitoringUtil {
      * @return
      */
     public static String getDomainPostmasterEmailId() {
-        String postmasterEmailPrefix = getSetting("POSTMASTER_EMAIL_ID_PREFIX");
+        String postmasterEmailPrefix = getPropertyStringValue("PostmasterEmailIdPrefix");
+        //String postmasterEmailPrefix = getSetting("POSTMASTER_EMAIL_ID_PREFIX");
         LOG.info("postmasterEmailPrefix " + postmasterEmailPrefix);
         if (postmasterEmailPrefix != null) {
             return postmasterEmailPrefix;
@@ -360,21 +361,19 @@ public class MessageMonitoringUtil {
      * @return
      */
     public static int getDispatchedMessageReceiveTimeLimit() {
-        String dispatchedReceiveTimeLimit = getSetting("DISPATCHED_MESSAGE_RECEIVE_TIME_LIMIT");
+        int dispatchedReceiveTimeLimit = getPropertyIntegerValue("DispatchedMessageReceiveTimeLimit");
         LOG.info("dispatchedReceiveTimeLimit " + dispatchedReceiveTimeLimit);
-        if (dispatchedReceiveTimeLimit != null) {
-            return Integer.parseInt(dispatchedReceiveTimeLimit);
-        }
         //If not found, then use the default value
-        return DEFAULT_DISPATCHED_MESSAGE_RECEIVE_TIME_LIMIT;
+        return (dispatchedReceiveTimeLimit >= 0) ? dispatchedReceiveTimeLimit : DEFAULT_DISPATCHED_MESSAGE_RECEIVE_TIME_LIMIT;
     }
 
     public static boolean isMessageMonitoringEnabled() {
-
-        //check the system properties
-        //check the property file
-        //not found then return the default value
-        return DEFAULT_MESSAGE_MONITORING_ENABLED;
+        String messageMonitoringEnabled = getPropertyStringValue("MessageMonitoringEnabled");
+        if (messageMonitoringEnabled == null) {
+            return DEFAULT_MESSAGE_MONITORING_ENABLED;
+        } else {
+            return messageMonitoringEnabled.equals("true");
+        }
     }
 
     /**
@@ -398,6 +397,8 @@ public class MessageMonitoringUtil {
     public static boolean isProcessedMDNReceiveTimeLapsed(Date createTime) {
         //check if the currenttime - createTime > the time limit
         long diff = (new Date()).getTime() - createTime.getTime();
+        LOG.info("Processed MDN time difference:" + diff);
+        LOG.info("getProcessedMessageReceiveTimeLimit -->" + getProcessedMessageReceiveTimeLimit());
         return diff >= getProcessedMessageReceiveTimeLimit();
     }
 
@@ -431,6 +432,11 @@ public class MessageMonitoringUtil {
      * @return
      */
     public static String getFailedMessageSubjectPrefix() {
+        String failedMessageSubjectPrefix = getPropertyStringValue("FailedMessageSubjectPrefix");
+        LOG.info("failedMessageSubjectPrefix " + failedMessageSubjectPrefix);
+        if (failedMessageSubjectPrefix != null) {
+            return failedMessageSubjectPrefix;
+        }
         return FAILED_MESSAGE_SUBJECT_PREFIX;
     }
 
@@ -440,6 +446,11 @@ public class MessageMonitoringUtil {
      * @return
      */
     public static String getFailedMessageEmailText() {
+        String failedMessageEmailText = getPropertyStringValue("FailedMessageEmailText");
+        LOG.info("failedMessageEmailText " + failedMessageEmailText);
+        if (failedMessageEmailText != null) {
+            return failedMessageEmailText;
+        }
         return FAILED_MESSAGE_EMAIL_TEXT;
     }
 
@@ -449,6 +460,11 @@ public class MessageMonitoringUtil {
      * @return
      */
     public static String getSuccessfulMessageSubjectPrefix() {
+        String successfulMessageSubjectPrefix = getPropertyStringValue("SuccessfulMessageSubjectPrefix");
+        LOG.info("successfulMessageSubjectPrefix " + successfulMessageSubjectPrefix);
+        if (successfulMessageSubjectPrefix != null) {
+            return successfulMessageSubjectPrefix;
+        }
         return SUCCESSFUL_MESSAGE_SUBJECT_PREFIX;
     }
 
@@ -458,6 +474,11 @@ public class MessageMonitoringUtil {
      * @return
      */
     public static String getSuccessfulMessageEmailText() {
+        String successfulMessageEmailText = getPropertyStringValue("SuccessfulMessageEmailText");
+        LOG.info("successfulMessageEmailText " + successfulMessageEmailText);
+        if (successfulMessageEmailText != null) {
+            return successfulMessageEmailText;
+        }
         return SUCCESSFUL_MESSAGE_EMAIL_TEXT;
     }
 
@@ -503,6 +524,7 @@ public class MessageMonitoringUtil {
                 return setting.getValue();
             }
         } catch (Exception ex) {
+            ex.printStackTrace();
             //log the message
             LOG.error("Failed to call getSetting " + ex.getMessage());
             return null;
@@ -522,6 +544,7 @@ public class MessageMonitoringUtil {
 
         } catch (Exception ex) {
             //log a message
+            ex.printStackTrace();
             LOG.error("Failed to call getSetttings " + ex.getMessage());
             return null;
         }
@@ -542,5 +565,26 @@ public class MessageMonitoringUtil {
         CONNECTClient<ConfigurationService> client = CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(
                 portDescriptor, url, null);
         return client;
+    }
+
+    private static String getPropertyStringValue(String propertyName) {
+        try {
+            return PropertyAccessor.getInstance().getProperty(propertyName);
+        } catch (PropertyAccessException ex) {
+            LOG.info("Proeprty Not found :" + propertyName);
+            return null;
+        }
+    }
+
+    private static int getPropertyIntegerValue(String propertyName) {
+        try {
+            return Integer.parseInt(PropertyAccessor.getInstance().getProperty(propertyName));
+        } catch (PropertyAccessException ex) {
+            LOG.info("Proeprty Not found :" + propertyName);
+            return -1;
+        } catch (NumberFormatException n) {
+            LOG.info("Invalid value for the Proeprty:" + propertyName);
+            return -1;
+        }
     }
 }
