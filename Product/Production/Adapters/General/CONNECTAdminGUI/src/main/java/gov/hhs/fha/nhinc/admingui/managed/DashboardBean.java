@@ -30,6 +30,7 @@ package gov.hhs.fha.nhinc.admingui.managed;
  *
  * @author sadusumilli / jasonasmith
  */
+import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import gov.hhs.fha.nhinc.admingui.dashboard.DashboardObserver;
 import gov.hhs.fha.nhinc.admingui.dashboard.DashboardPanel;
 import gov.hhs.fha.nhinc.admingui.dashboard.DashboardViewResolver;
@@ -94,7 +95,7 @@ public class DashboardBean {
             tabs.setDashboardTabIndex(0);
         }
         
-        return "StatusPrime";       
+        return NavigationConstant.STATUS_PAGE;       
     }
     
     public Dashboard getDashboard() {

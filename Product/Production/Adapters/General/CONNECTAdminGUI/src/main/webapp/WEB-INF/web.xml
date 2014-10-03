@@ -36,13 +36,13 @@
 
     <!-- Welcome page -->
     <welcome-file-list>
-        <welcome-file>Login.xhtml</welcome-file>
+        <welcome-file>login.xhtml</welcome-file>
     </welcome-file-list>
     
     <!-- Error page -->
     <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
-        <location>/Login.xhtml</location>
+        <location>/login.xhtml</location>
     </error-page>
 
     <context-param>

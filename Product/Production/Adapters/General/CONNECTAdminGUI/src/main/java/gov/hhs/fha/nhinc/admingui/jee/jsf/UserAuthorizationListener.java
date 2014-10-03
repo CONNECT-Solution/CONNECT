@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.jee.jsf;
 
+import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import gov.hhs.fha.nhinc.admingui.display.DisplayHolder;
 import gov.hhs.fha.nhinc.admingui.services.RoleService;
 import gov.hhs.fha.nhinc.admingui.services.RoleServiceImpl;
@@ -61,11 +62,6 @@ public class UserAuthorizationListener implements PhaseListener {
 
     /** The Constant USER_INFO_SESSION_ATTRIBUTE. */
     public static final String USER_INFO_SESSION_ATTRIBUTE = "userInfo";
-
-    /** The Constant LOGIN_PAGE_NAV_OUTCOME. */
-    public static final String LOGIN_PAGE_NAV_OUTCOME = "Login";
-    
-    public static final String STATUS_PAGE_NAV_OUTCOME = "StatusPrime";
     
     private RoleService roleService = new RoleServiceImpl();
 
@@ -77,8 +73,7 @@ public class UserAuthorizationListener implements PhaseListener {
 
     public UserAuthorizationListener() {
         noLoginRequiredPages = new ArrayList<String>();
-        noLoginRequiredPages.add("/Login.xhtml");
-        noLoginRequiredPages.add("/Index.xhtml");
+        noLoginRequiredPages.add("/login.xhtml");
     }
 
     /*
@@ -101,15 +96,15 @@ public class UserAuthorizationListener implements PhaseListener {
         if (!noLoginRequiredPages.contains(currentPage) && currentUser == null) {
             LOG.debug("login required and current user is null, redirecting to login page.");
             NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
-            nh.handleNavigation(facesContext, null, LOGIN_PAGE_NAV_OUTCOME);
+            nh.handleNavigation(facesContext, null, NavigationConstant.LOGIN_PAGE);
         }else if(currentUser != null && !roleService.checkRole(formatPageName(currentPage), currentUser)) {
             LOG.debug("Current User does not have permission for page, redirecting to status page.");
             NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
-            nh.handleNavigation(facesContext, null, STATUS_PAGE_NAV_OUTCOME);
+            nh.handleNavigation(facesContext, null, NavigationConstant.STATUS_PAGE);
         } else if(!canAccessDirect(currentPage)){
             LOG.debug("Direct configuration is not available.");
             NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
-            nh.handleNavigation(facesContext, null, STATUS_PAGE_NAV_OUTCOME);
+            nh.handleNavigation(facesContext, null, NavigationConstant.STATUS_PAGE);
         }
     }
 
@@ -142,7 +137,7 @@ public class UserAuthorizationListener implements PhaseListener {
     }
 
     private boolean canAccessDirect(String currentPage) {
-        return !formatPageName(currentPage).equalsIgnoreCase("directprime.xhtml") || 
+        return !formatPageName(currentPage).equalsIgnoreCase(NavigationConstant.DIRECT_XHTML) || 
                 DisplayHolder.getInstance().isDirectEnabled();
     }
 

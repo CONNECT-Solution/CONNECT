@@ -32,7 +32,10 @@ package gov.hhs.fha.nhinc.admingui.constant;
  */
 public class NavigationConstant {
 	
-	public static final String STATUS_PAGE = "StatusPrime";
-	public static final String LOGIN_PAGE = "Login";
-
+	public static final String STATUS_PAGE = "status";
+	public static final String LOGIN_PAGE = "login";
+        public static final String ACCT_MGMT_PAGE = "acctmanage";
+        public static final String DIRECT_PAGE = "direct";
+        public static final String DIRECT_XHTML = "direct.xhtml";
+        
 }

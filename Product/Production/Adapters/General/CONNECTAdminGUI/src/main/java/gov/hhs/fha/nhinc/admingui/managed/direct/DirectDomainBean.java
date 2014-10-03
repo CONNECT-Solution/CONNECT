@@ -25,16 +25,13 @@ import gov.hhs.fha.nhinc.admingui.model.direct.DirectAnchor;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.faces.application.FacesMessage;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-
 import org.nhind.config.AddAnchor;
 import org.nhind.config.AddDomain;
 import org.nhind.config.Address;
@@ -136,6 +133,7 @@ public class DirectDomainBean {
         UpdateDomain updateDomain = new UpdateDomain();
         updateDomain.setDomain(selectedDomain);
         directService.updateDomain(updateDomain);
+        selectedDomain = null;
     }
 
     protected void refreshDomains() {
