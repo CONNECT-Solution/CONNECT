@@ -26,10 +26,14 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxyObjectFactory;
 import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
 import gov.hhs.fha.nhinc.mail.MailSender;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import java.net.MalformedURLException;
+import org.nhindirect.gateway.smtp.SmtpAgentFactory;
 
 import javax.mail.internet.MimeMessage;
 
@@ -39,6 +43,7 @@ import org.nhindirect.gateway.smtp.SmtpAgent;
 import org.nhindirect.stagent.MessageEnvelope;
 import org.nhindirect.stagent.NHINDAddressCollection;
 import org.nhindirect.stagent.mail.notifications.NotificationMessage;
+import java.net.URL;
 
 /**
  * This class adapts the Direct code responsible for processing messages.
@@ -46,71 +51,120 @@ import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 public abstract class DirectAdapter {
 
     private static final Logger LOG = Logger.getLogger(DirectAdapter.class);
-    
+
+    private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
+
+    static final String DIRECT_CONFIG_SERVICE_NAME = "directconfig";
+
     private final MailSender externalMailSender;
-    private final SmtpAgent smtpAgent;
+    private static SmtpAgent smtpAgent = null;
     private final DirectEventLogger directEventLogger;
-    
+
     /**
      * @param externalMailSender external mail sender.
-     * @param smtpAgent used to process direct messages.
      * @param directEventLogger used to log events.
      */
-    public DirectAdapter(MailSender externalMailSender, SmtpAgent smtpAgent, DirectEventLogger directEventLogger) {
+    public DirectAdapter(MailSender externalMailSender, DirectEventLogger directEventLogger) {
         this.externalMailSender = externalMailSender;
-        this.smtpAgent = smtpAgent;
         this.directEventLogger = directEventLogger;
     }
-    
+
     /**
      * Process a direct message and return {@link MessageProcessResult}. If the returned result is null, a Direct Error
      * event is created, and a DirectException is thrown. If the processed message envelope returned is null, a Direct
      * Error event is created with the notification messages if they are available. Then a {@link DirectException} is
      * thrown. This method is guaranteed to return a populated result, otherwise it throws a DirectException.
-     * 
+     *
      * @param message (mime) to be processed.
      * @return message process result, populated with a processed message envelope.
      */
     protected MessageProcessResult process(MimeMessage message) {
-        
+
         MessageProcessResult result = processAsDirectMessage(message);
         MessageEnvelope envelope = result.getProcessedMessage();
         if (envelope == null) {
             throw new DirectException("Result Message Envelope is null: " + getErrorNotificationMsgs(result), message);
         }
-                
+
         return result;
+    }
+
+    /**
+     * The DirectConfig service endpoint is read from internalConnectionInfo and is converted as URL which is the input
+     * argument type for SMPTAgentFactory which creates Agent.
+     *
+     * @return URL, the directConfig url string is converted into URL format.
+     */
+    private URL getUrl() {
+        String urlString = null;
+        URL url = null;
+        try {
+            urlString = oProxyHelper
+                .getAdapterEndPointFromConnectionManager(DIRECT_CONFIG_SERVICE_NAME);
+        } catch (ConnectionManagerException ex) {
+            LOG.error("Error reading directConfig Url cannot be found: " + ex.getMessage());
+        }
+        try {
+            url = new URL(urlString);
+        } catch (MalformedURLException ex) {
+            LOG.error("Error while converting urlString into Url format" + ex.getMessage());
+        }
+        return url;
     }
 
     private MessageProcessResult processAsDirectMessage(MimeMessage mimeMessage) {
         MessageProcessResult result;
         try {
             NHINDAddressCollection collection = DirectAdapterUtils.getNhindRecipients(mimeMessage);
+            URL url = getUrl();
+            smtpAgent = getSmtpAgent(url);
             result = smtpAgent.processMessage(mimeMessage, collection,
-                    DirectAdapterUtils.getNhindSender(mimeMessage));
+                DirectAdapterUtils.getNhindSender(mimeMessage));
         } catch (Exception e) {
             String errorString = "Error occurred while processing message.";
             LOG.error(errorString, e);
             throw new DirectException(errorString, e, mimeMessage);
         }
-        
+
         if (result == null) {
             throw new DirectException("Message Process Result by Direct is null.", mimeMessage);
         }
         return result;
     }
-    
+
+    /**
+     * The SmtpAgentConfig.xml is removed as part of CONN-1213. The direct.appcontext.xml invokes smtpAgent and looks
+     * for ConfigurationService endpoints to be published before the deployment of Direct and this fails in case of
+     * Appservers JBoss,WebLogic and WebSphere whereas GlassFish works.
+     *
+     * CONN-1213: The SmtpAgent is created after the deployment of Direct. Whenever the DirectSender/DirectReceiver is
+     * initiated the SmtpAgent is created and the aAgent is used for furthur processing of Direct Messages. The
+     * SmtpAgent injection is removed from direct.beans.xml whereas ConfigurationService url can be configured in
+     * internalConnectionInfo.xml like any other CONNECT service.
+     *
+     * @param url the directConfig Service url String converted into URL format.
+     * @return SmtpAgent SmtpAgent created to process Direct Messages.
+     */
+    protected SmtpAgent getSmtpAgent(URL url) {
+        if ((smtpAgent != null) && smtpAgent instanceof SmtpAgent) {
+            return smtpAgent;
+        } else {
+            smtpAgent = SmtpAgentFactory.createAgent(url);
+        }
+        return smtpAgent;
+    }
+
     /**
      * @return DirectEdgeProxy implementation to handle the direct edge
      */
     protected DirectEdgeProxy getDirectEdgeProxy() {
         DirectEdgeProxyObjectFactory factory = new DirectEdgeProxyObjectFactory();
         return factory.getDirectEdgeProxy();
-    }    
-    
+    }
+
     /**
      * Log any notification messages that were produced by direct processing.
-     * 
+     *
      * @param result to pull notification messages from
      * @return String representation of notification messages from the result.
      */
@@ -145,5 +199,6 @@ public abstract class DirectAdapter {
      */
     protected DirectEventLogger getDirectEventLogger() {
         return directEventLogger;
-    }    
+    }
+
 }

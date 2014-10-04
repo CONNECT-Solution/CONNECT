@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import gov.hhs.fha.nhinc.event.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.mail.ManageTaskScheduler;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
 import org.apache.log4j.Logger;
@@ -36,21 +35,21 @@ import org.hibernate.SessionFactory;
  * Direct Client Factory responsible for {@link DirectAdapter}.
  */
 public class DirectAdapterFactory extends DirectAdapterEntity {
+
     private static final Logger LOG = Logger.getLogger(DirectAdapterFactory.class);
     private static final String BEAN_NAME_MANAGE_TASK_SCHEDULER = "manageTaskScheduler";
-    
+
     /**
-     * Register Handlers will invoke getInstance, thereby loading the spring
-     * context and task scheduler for polling mail servers.
+     * Register Handlers will invoke getInstance, thereby loading the spring context and task scheduler for polling mail
+     * servers.
      */
-    public void registerHandlers() { 
+    public void registerHandlers() {
         //initialize the HibernateUtil when the Direct Servlet is initialized.. DO NOT Remove this.
-        SessionFactory session = HibernateUtil.getSessionFactory();
+        SessionFactory session = gov.hhs.fha.nhinc.event.persistence.HibernateUtil.getSessionFactory();
+        session = gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil.getSessionFactory();
         LOG.debug("Registering handlers...");
         getDirectReceiver();
     }
-
-    
 
     /**
      * Stop the default Spring Direct TaskScheduler
