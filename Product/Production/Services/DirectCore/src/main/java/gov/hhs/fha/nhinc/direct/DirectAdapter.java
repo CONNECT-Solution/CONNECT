@@ -58,7 +58,6 @@ public abstract class DirectAdapter {
 
     private final MailSender externalMailSender;
     private static SmtpAgent smtpAgent = null;
-    //private SmtpAgent smtpAgent1;
     private final DirectEventLogger directEventLogger;
 
     /**
