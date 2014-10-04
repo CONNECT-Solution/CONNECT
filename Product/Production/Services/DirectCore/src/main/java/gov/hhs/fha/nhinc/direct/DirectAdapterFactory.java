@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil;
-import gov.hhs.fha.nhinc.event.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.mail.ManageTaskScheduler;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
 import org.apache.log4j.Logger;
