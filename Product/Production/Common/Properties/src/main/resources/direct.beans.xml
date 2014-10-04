@@ -12,11 +12,6 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
         http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"> 
 
-    <!-- Set up the Direct SMTP Agent -->
-    <bean id="smtpAgent" class="org.nhindirect.gateway.smtp.SmtpAgentFactory" factory-method="createAgent">
-        <constructor-arg type="java.net.URL" value="http://localhost:8080/CONNECTDirectConfig/ConfigurationService"/>
-    </bean>
-
     <!-- Set up 4 mail clients, for both internal and external, sending and receiving. -->
     <bean id="intMailSender" class="gov.hhs.fha.nhinc.mail.SmtpMailSender">
         <constructor-arg><ref bean="internalMailProperties" /></constructor-arg>
@@ -47,12 +42,10 @@
     <!-- Set up the Direct Adapters - Sending and Receiving -->
     <bean id="directSender" class="gov.hhs.fha.nhinc.direct.DirectSenderImpl">
         <constructor-arg><ref bean="extMailSender" /></constructor-arg>
-        <constructor-arg><ref bean="smtpAgent" /></constructor-arg>
         <constructor-arg ref="directEventLogger" />
     </bean>
     <bean id="directReceiver" class="gov.hhs.fha.nhinc.direct.DirectReceiverImpl">
         <constructor-arg><ref bean="extMailSender" /></constructor-arg>
-        <constructor-arg><ref bean="smtpAgent" /></constructor-arg>
         <constructor-arg ref="directEventLogger" />
     </bean>
 

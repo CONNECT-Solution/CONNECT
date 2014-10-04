@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.direct;
 
 import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
 import gov.hhs.fha.nhinc.direct.event.DirectEventType;
-import gov.hhs.fha.nhinc.direct.messagemonitoring.dao.impl.MessageMonitoringDAOImpl;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.impl.MessageMonitoringAPI;
 import gov.hhs.fha.nhinc.mail.MailSender;
 
@@ -36,7 +35,6 @@ import javax.mail.Address;
 import javax.mail.internet.MimeMessage;
 import org.apache.log4j.Logger;
 
-import org.nhindirect.gateway.smtp.SmtpAgent;
 import org.nhindirect.xd.common.DirectDocuments;
 
 /**
@@ -50,11 +48,10 @@ public class DirectSenderImpl extends DirectAdapter implements DirectSender {
 
     /**
      * @param externalMailSender used to send messages.
-     * @param smtpAgent used to process direct messages.
      * @param directEventLogger used to log direct events.
      */
-    public DirectSenderImpl(MailSender externalMailSender, SmtpAgent smtpAgent, DirectEventLogger directEventLogger) {
-        super(externalMailSender, smtpAgent, directEventLogger);
+    public DirectSenderImpl(MailSender externalMailSender, DirectEventLogger directEventLogger) {
+        super(externalMailSender, directEventLogger);
     }
 
     /**
@@ -79,7 +76,7 @@ public class DirectSenderImpl extends DirectAdapter implements DirectSender {
             //if failed then insert a row with the status failed, which will be
             //used by the Notification piece to send a message to the edge
             addOutgoingMessage(message, failed, errorMessage);
-            //add an error event. TODO: Make sure the error is logged into the 
+            //add an error event. TODO: Make sure the error is logged into the
             //even logging
             getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message);
         }
@@ -94,7 +91,7 @@ public class DirectSenderImpl extends DirectAdapter implements DirectSender {
         MimeMessage message = null;
         try {
             message = new MimeMessageBuilder(getExternalMailSender().getMailSession(), sender, recipients)
-                    .subject(MSG_SUBJECT).text(MSG_TEXT).documents(documents).messageId(messageId).build();
+                .subject(MSG_SUBJECT).text(MSG_TEXT).documents(documents).messageId(messageId).build();
             sendOutboundDirect(message);
         } catch (Exception e) {
             throw new DirectException("Error building and sending mime message.sendOutboundDirect", e, message);

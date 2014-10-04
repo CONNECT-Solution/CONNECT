@@ -38,7 +38,6 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.nhindirect.gateway.smtp.SmtpAgent;
@@ -62,12 +61,13 @@ public class DirectSenderImplTest extends DirectBaseTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        oDirectSenderImpl = new DirectSenderImpl(mockMailSender, mockSmtpAgent, testLogger) {
+        oDirectSenderImpl = new DirectSenderImpl(mockMailSender, testLogger) {
             @Override
             protected MailSender getExternalMailSender() {
                 return mockMailSender;
             }
-            //igonre it for now. Need to come up with better unit tests for this    
+
+            //igonre it for now. Need to come up with better unit tests for this
             @Override
             protected void addOutgoingMessage(MimeMessage message, boolean failed, String errorMessage) {
             }
