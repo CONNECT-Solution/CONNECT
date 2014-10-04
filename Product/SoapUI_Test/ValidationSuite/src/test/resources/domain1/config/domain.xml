@@ -242,6 +242,16 @@
       <property name="serverName" value="localhost" />
     </jdbc-connection-pool>
     <jdbc-resource pool-name="adminguidb_pool" jndi-name="jdbc/adminguidb_datasource" enabled="true" object-type="user"/>
+	<jdbc-connection-pool connection-validation-method="auto-commit" datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" max-pool-size="10" res-type="javax.sql.DataSource" wrap-jdbc-objects="false" name="messagemonitoringdb_pool">
+      <property name="URL" value="jdbc:mysql://localhost/messagemonitoringdb"></property>
+      <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+      <property name="portNumber" value="3306"></property>
+      <property name="databaseName" value="messagemonitoringdb"></property>
+      <property name="User" value="nhincuser"></property>
+      <property name="Password" value="nhincpass"></property>
+      <property name="serverName" value="localhost"></property>
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="messagemonitoringdb_pool" jndi-name="jdbc/messagemonitoringdb_datasource"></jdbc-resource>
   </resources>
   <configs>
     <config name="server-config">
@@ -597,6 +607,7 @@
       <resource-ref ref="jdbc/eventdb_datasource"/>
       <resource-ref ref="jdbc/adminguidb_datasource"/>
       <resource-ref ref="jdbc/configdb_datasource"/>
+	  <resource-ref ref="jdbc/messagemonitoringdb_datasource"></resource-ref>
     </server>
   </servers>
   <property name="administrative.domain.name" value="domain1"/>
