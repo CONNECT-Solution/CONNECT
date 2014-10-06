@@ -5,7 +5,7 @@
         <p:dialog id="domainEditDlg" header="Edit Domain" widgetVar="domainEditDlg" modal="true" dynamic="true" width="80%" height="90%" closeOnEscape="true">
             <div class="content">
                 <p>Use the options below to edit the properties for domain:
-                    <strong><h:outputText value="#{directDomainBean.selectedDomain.domainName}"/></strong>
+                    <strong><h:outputText id="domainNameHeaderOutput" value="#{directDomainBean.selectedDomain.domainName}"/></strong>
                 </p>
                 <p:tabView id="domainEditTabview" effect="fade" effectDuration="normal" dynamic="true" activeIndex="0">
                     <p:tab title="Domain Name">
