@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>CONNECTSolution</artifactId>
-        <version>4.4.0-SNAPSHOT</version>
+        <version>CONNECT_sprint_141</version>
     </parent>
     <artifactId>ThirdParty</artifactId>
     <packaging>pom</packaging>
