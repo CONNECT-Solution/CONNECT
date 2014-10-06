@@ -120,6 +120,9 @@ public class DirectDomainBean {
 
         directService.addDomain(addDomain);
         refreshDomains();
+        this.domainName = null;
+        this.domainPostmaster = null;
+        this.domainStatus = null;
     }
 
     public void showEdit() {
