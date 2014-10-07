@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.nhin.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.Response.helper.ResponseHelper;
+import gov.hhs.fha.nhinc.corex12.docsubmission.utils.CORE_X12DSEntityExceptionBuilder;
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.nhin.proxy.service.NhinCORE_X12DSRealTimeServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
@@ -83,7 +83,7 @@ public class NhinCORE_X12DSRealTimeProxyWebServiceSecuredImpl implements NhinCOR
                 response = (COREEnvelopeRealTimeResponse) client.invokePort(CORETransactions.class,
                     "realTimeTransaction", msg);
             } else {
-                response = ResponseHelper.createErrorResponse(msg, targetHCID);
+                response = CORE_X12DSEntityExceptionBuilder.createErrorResponse(msg, targetHCID);
                 return response;
             }
 
@@ -91,7 +91,7 @@ public class NhinCORE_X12DSRealTimeProxyWebServiceSecuredImpl implements NhinCOR
             // TODO: We need to add error handling here based on CORE X12 DS RealTime use cases
             // e.g., Connection error, etc.
             LOG.error("Error calling realTimeTransaction: " + ex.getMessage(), ex);
-            response = ResponseHelper.createWebServiceErrorResponse(msg, ex.getMessage());
+            response = CORE_X12DSEntityExceptionBuilder.createWebServiceErrorResponse(msg, ex.getMessage());
             return response;
         }
 

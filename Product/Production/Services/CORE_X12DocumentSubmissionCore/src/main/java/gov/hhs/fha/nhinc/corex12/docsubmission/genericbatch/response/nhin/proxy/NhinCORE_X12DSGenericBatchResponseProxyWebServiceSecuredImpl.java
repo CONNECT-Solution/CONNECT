@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.nhin.proxy
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.nhin.proxy.service.NhinCORE_X12DSGenericBatchResponseServicePortDescriptor;
-import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.Response.helper.ResponseHelper;
+import gov.hhs.fha.nhinc.corex12.docsubmission.utils.CORE_X12DSEntityExceptionBuilder;
 import gov.hhs.fha.nhinc.corex12.docsubmission.utils.CORE_X12DSLargePayloadUtils;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
@@ -98,14 +98,14 @@ public class NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl implem
                     CORE_X12DSLargePayloadUtils.convertDataToFileLocationIfEnabled(response);
                 }
             } else {
-                response = ResponseHelper.createErrorResponse(msg, targetHCID);
+                response = CORE_X12DSEntityExceptionBuilder.createErrorResponse(msg, targetHCID);
                 return response;
             }
         } catch (Exception ex) {
             // TODO: We need to add error handling here based on CORE X12 DS RealTime use cases
             // e.g., Connection error, etc.
             LOG.error("Error calling batchSubmitTransaction: " + ex.getMessage(), ex);
-            response = ResponseHelper.createWebServiceErrorResponse(msg, ex.getMessage());
+            response = CORE_X12DSEntityExceptionBuilder.createWebServiceErrorResponse(msg, ex.getMessage());
             return response;
         }
         LOG.info("End NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl.batchSubmitTransaction()");
