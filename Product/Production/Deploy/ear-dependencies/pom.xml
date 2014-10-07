@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.connectopensource</groupId>
@@ -188,8 +188,8 @@
         </dependency>
 
         <!-- Shared JARs - In order for the SKINNY WARs to work you must
-            include each dependency in the EAR manually and the JARS will be magically
-            removed from the WAR's WEB-INF/lib -->
+        include each dependency in the EAR manually and the JARS will be magically
+        removed from the WAR's WEB-INF/lib -->
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DirectCore</artifactId>
@@ -211,7 +211,7 @@
             <optional>true</optional>
         </dependency>
         <!-- Shared JARs - In order for the SKINNY WARs to work you must include each dependency in the EAR manually and 
-            the JARS will be magically removed from the WAR's WEB-INF/lib -->
+        the JARS will be magically removed from the WAR's WEB-INF/lib -->
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
@@ -479,6 +479,12 @@
             <groupId>org.opensaml</groupId>
             <artifactId>xmltooling</artifactId>
             <version>1.3.2-1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bcprov-jdk15</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
