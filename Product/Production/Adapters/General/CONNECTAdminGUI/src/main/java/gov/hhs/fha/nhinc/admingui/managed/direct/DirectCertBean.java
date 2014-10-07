@@ -25,8 +25,10 @@ import gov.hhs.fha.nhinc.admingui.model.direct.DirectCertificate;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.nhind.config.AddCertificates;
 import org.nhind.config.Certificate;
 import org.nhind.config.CertificateGetOptions;
@@ -78,13 +80,19 @@ public class DirectCertBean {
     }
 
     public void addCertificate() {
-        AddCertificates addCert = new AddCertificates();
-        Certificate certificate = new Certificate();
-        certificate.setData(certFile.getContents());
-        certificate.setStatus(EntityStatus.NEW);
-        addCert.getCerts().add(certificate);
-        directService.addCertificate(addCert);
-        refreshCertificates();
+        if (certFile != null) {
+            AddCertificates addCert = new AddCertificates();
+            Certificate certificate = new Certificate();
+            certificate.setData(certFile.getContents());
+            certificate.setStatus(EntityStatus.NEW);
+            addCert.getCerts().add(certificate);
+            directService.addCertificate(addCert);
+            refreshCertificates();
+        } else {
+            FacesContext.getCurrentInstance().addMessage("certificateAddError",
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR",
+                    "Choose and upload a certificate before submitting."));
+        }
     }
 
     public UploadedFile getCertFile() {

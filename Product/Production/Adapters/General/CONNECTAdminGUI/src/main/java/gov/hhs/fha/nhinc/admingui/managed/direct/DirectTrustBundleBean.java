@@ -28,10 +28,8 @@ package gov.hhs.fha.nhinc.admingui.managed.direct;
 
 import gov.hhs.fha.nhinc.admingui.managed.TabBean;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -97,13 +95,16 @@ public class DirectTrustBundleBean {
         tb.setBundleName(tbName);
         tb.setBundleURL(tbUrl);
         tb.setRefreshInterval(refreshValue);
-        tb.setSigningCertificateData(tbCert.getContents());
+
+        if (tbCert != null) {
+            tb.setSigningCertificateData(tbCert.getContents());
+        }
+
         directService.addTrustBundle(tb);
         refreshTrustBundle();
         tbName = null;
         tbUrl = null;
         tbRefreshInterval = null;
-
     }
 
     public void editTrustBundle() {
