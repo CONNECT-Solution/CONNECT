@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.nhin.proxy
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.nhin.proxy.service.NhinCORE_X12DSGenericBatchResponseServicePortDescriptor;
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.Response.helper.ResponseHelper;
 import gov.hhs.fha.nhinc.corex12.docsubmission.utils.CORE_X12DSLargePayloadUtils;
