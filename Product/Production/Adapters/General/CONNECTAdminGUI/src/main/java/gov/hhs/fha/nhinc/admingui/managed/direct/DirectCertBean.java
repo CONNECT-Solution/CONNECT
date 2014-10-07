@@ -80,7 +80,11 @@ public class DirectCertBean {
     public void addCertificate() {
         AddCertificates addCert = new AddCertificates();
         Certificate certificate = new Certificate();
-        certificate.setData(certFile.getContents());
+
+        if (certFile != null) {
+            certificate.setData(certFile.getContents());
+        }
+
         certificate.setStatus(EntityStatus.NEW);
         addCert.getCerts().add(certificate);
         directService.addCertificate(addCert);
