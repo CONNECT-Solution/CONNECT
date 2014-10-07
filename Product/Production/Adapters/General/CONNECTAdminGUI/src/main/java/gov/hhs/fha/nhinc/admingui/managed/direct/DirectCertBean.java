@@ -89,7 +89,7 @@ public class DirectCertBean {
             directService.addCertificate(addCert);
             refreshCertificates();
         } else {
-            FacesContext.getCurrentInstance().addMessage("domainDeleteError",
+            FacesContext.getCurrentInstance().addMessage("certificateAddError",
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR",
                     "Choose and upload a certificate before submitting."));
         }
