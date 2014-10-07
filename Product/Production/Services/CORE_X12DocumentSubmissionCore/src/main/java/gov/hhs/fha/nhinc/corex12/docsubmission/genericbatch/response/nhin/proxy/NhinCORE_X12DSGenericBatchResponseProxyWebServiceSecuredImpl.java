@@ -28,7 +28,9 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.nhin.proxy
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.nhin.proxy.service.NhinCORE_X12DSGenericBatchResponseServicePortDescriptor;
+import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.Response.helper.ResponseHelper;
 import gov.hhs.fha.nhinc.corex12.docsubmission.utils.CORE_X12DSLargePayloadUtils;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
@@ -76,26 +78,36 @@ public class NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl implem
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         LOG.info("Begin NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl.batchSubmitTransaction()");
         COREEnvelopeBatchSubmissionResponse response = null;
+
+        String targetHCID = null;
+        if (targetSystem != null && targetSystem.getHomeCommunity() != null && targetSystem.getHomeCommunity().getHomeCommunityId() != null) {
+            targetHCID = targetSystem.getHomeCommunity().getHomeCommunityId();
+        }
         try {
             String url = proxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
                 NhincConstants.CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME, apiLevel);
-            CORE_X12DSLargePayloadUtils.convertFileLocationToDataIfEnabled(msg);
-            ServicePortDescriptor<GenericBatchTransactionPort> portDescriptor = new NhinCORE_X12DSGenericBatchResponseServicePortDescriptor();
-            CONNECTClient<GenericBatchTransactionPort> client = getCONNECTClientSecured(portDescriptor, assertion,
-                url, targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
-            client.enableMtom();
-            response = (COREEnvelopeBatchSubmissionResponse) client.invokePort(GenericBatchTransactionPort.class,
-                "batchSubmitTransaction", msg);
-            if (response != null && response.getPayload() != null) {
-                CORE_X12DSLargePayloadUtils.convertDataToFileLocationIfEnabled(response);
+            if ((url != null) && (!url.isEmpty())) {
+
+                CORE_X12DSLargePayloadUtils.convertFileLocationToDataIfEnabled(msg);
+                ServicePortDescriptor<GenericBatchTransactionPort> portDescriptor = new NhinCORE_X12DSGenericBatchResponseServicePortDescriptor();
+                CONNECTClient<GenericBatchTransactionPort> client = getCONNECTClientSecured(portDescriptor, assertion,
+                    url, targetHCID, NhincConstants.CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
+                client.enableMtom();
+                response = (COREEnvelopeBatchSubmissionResponse) client.invokePort(GenericBatchTransactionPort.class,
+                    "batchSubmitTransaction", msg);
+                if (response != null && response.getPayload() != null) {
+                    CORE_X12DSLargePayloadUtils.convertDataToFileLocationIfEnabled(response);
+                }
+            } else {
+                response = ResponseHelper.createErrorResponse(msg, targetHCID);
+                return response;
             }
         } catch (Exception ex) {
             // TODO: We need to add error handling here based on CORE X12 DS RealTime use cases
             // e.g., Connection error, etc.
             LOG.error("Error calling batchSubmitTransaction: " + ex.getMessage(), ex);
-            response = new COREEnvelopeBatchSubmissionResponse();
-            response.setErrorMessage(NhincConstants.CORE_X12DS_ACK_ERROR_MSG);
-            response.setErrorCode(NhincConstants.CORE_X12DS_ACK_ERROR_CODE);
+            response = ResponseHelper.createWebServiceErrorResponse(msg, ex.getMessage());
+            return response;
         }
         LOG.info("End NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl.batchSubmitTransaction()");
         return response;
