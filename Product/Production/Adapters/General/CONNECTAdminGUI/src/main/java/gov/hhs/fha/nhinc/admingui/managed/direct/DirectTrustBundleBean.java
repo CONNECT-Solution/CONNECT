@@ -36,6 +36,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import org.nhind.config.Certificate;
 import org.nhind.config.TrustBundle;
+import org.nhind.config.TrustBundleAnchor;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -115,14 +116,26 @@ public class DirectTrustBundleBean {
             cert = new Certificate();
             cert.setData(selectedTb.getSigningCertificateData());
         }
-
         directService.updateTrustBundle(selectedTb.getId(), selectedTb.getBundleName(), selectedTb.getBundleURL(),
                 cert, selectedTb.getRefreshInterval());
+    }
+    
+    public List<TrustBundleAnchor> getSelectedTrustBundleAnchors(){
+        if(selectedTb != null){
+            return selectedTb.getTrustBundleAnchors();
+        }
+        return null;
     }
 
     public void showEdit() {
         if (selectedTb != null) {
             RequestContext.getCurrentInstance().execute("tbEditDlg.show()");
+        }
+    }
+    
+    public void showTrustBundleAnchors() {
+        if(selectedTb != null) {
+             RequestContext.getCurrentInstance().execute("tbAnchorDlg.show()");
         }
     }
 
