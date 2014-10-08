@@ -16,8 +16,6 @@ import javax.mail.Message;
 import javax.mail.internet.MimeMessage;
 
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.junit.Test;
 import static org.mockito.Matchers.anyString;
@@ -51,6 +49,10 @@ public class ImapMailReceiverTest {
             Store getImapsStore() {
                 return mockStore;
             }
+            @Override
+            protected void handleMessageMonitoring() {
+                //do nothing
+            }
         };
         result = receiver.handleMessages(handler);
         
@@ -72,6 +74,10 @@ public class ImapMailReceiverTest {
             @Override
             Store getImapsStore() {
                 return mockStore;
+            }
+            @Override
+            protected void handleMessageMonitoring() {
+                //do nothing
             }
         };
         
@@ -98,6 +104,10 @@ public class ImapMailReceiverTest {
             protected Folder getInbox(Store store) {
                 return mockFolder;
             }
+            @Override
+            protected void handleMessageMonitoring() {
+                //do nothing
+            }
         };
         result = receiver.handleMessages(handler);
         assertEquals(result, 0);
@@ -116,6 +126,10 @@ public class ImapMailReceiverTest {
             @Override
             protected Folder getInbox(Store store) {
                 return mockFolder;
+            }
+            @Override
+            protected void handleMessageMonitoring() {
+                //do nothing
             }
         };
         result = receiver.handleMessages(handler);
@@ -136,6 +150,12 @@ public class ImapMailReceiverTest {
             protected Folder getInbox(Store store) {
                 return mockFolder;
             }
+
+            @Override
+            protected void handleMessageMonitoring() {
+                //do nothing for now
+            }
+            
         };
         result = receiver.handleMessages(handler);
         assertEquals(result, 0);

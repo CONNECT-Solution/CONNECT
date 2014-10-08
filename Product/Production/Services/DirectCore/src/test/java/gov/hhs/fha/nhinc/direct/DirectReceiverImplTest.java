@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
 import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
 import gov.hhs.fha.nhinc.direct.event.DirectEventType;
 import gov.hhs.fha.nhinc.mail.MailSender;
+import java.net.URL;
 import java.util.Collections;
 import javax.mail.Address;
 import javax.mail.Message.RecipientType;
@@ -94,12 +95,14 @@ public class DirectReceiverImplTest {
      */
     private final DirectEdgeProxy proxy = mock(DirectEdgeProxy.class);
 
+    private final DirectAdapter directAdapter = mock(DirectAdapter.class);
+
     /**
      * Test message with no dispatched MDN requested.
      *
      * @throws MessagingException the messaging exception
      */
-    // @Test
+    @Test
     public void testNoDispatchRequest() throws MessagingException {
         Message message = getMessage();
 
@@ -127,7 +130,7 @@ public class DirectReceiverImplTest {
         setCommonExpectations(message);
         when(producer.produce(any(IncomingMessage.class))).thenReturn(
             Collections.singleton(new NotificationMessage("to", "from", new Notification(new Disposition(
-            NotificationType.Dispatched)))));
+                            NotificationType.Dispatched)))));
         runTestOnMessage(message, false);
 
         verify(directEventLogger).log(eq(DirectEventType.BEGIN_INBOUND_DIRECT), any(MimeMessage.class));
@@ -151,7 +154,7 @@ public class DirectReceiverImplTest {
 
         when(producer.produce(any(IncomingMessage.class))).thenReturn(
             Collections.singleton(new NotificationMessage("to", "from", new Notification(new Disposition(
-            NotificationType.Dispatched)))));
+                            NotificationType.Dispatched)))));
 
         runTestOnMessage(message, true);
 
@@ -181,7 +184,7 @@ public class DirectReceiverImplTest {
         when(envelope.getMessage()).thenReturn(message);
         when(result.getNotificationMessages()).thenReturn(
             Collections.singleton(new NotificationMessage("to", "from", new Notification(new Disposition(
-            NotificationType.Processed)))));
+                            NotificationType.Processed)))));
     }
 
     /**
@@ -236,15 +239,20 @@ public class DirectReceiverImplTest {
      * @return the direct receiver impl
      */
     private DirectReceiverImpl getDirectReceiverImpl() {
-        return new DirectReceiverImpl(externalMailSender, smtpAgent, directEventLogger, producer) {
+        return new DirectReceiverImpl(externalMailSender, directEventLogger, producer) {
             /*
              * (non-Javadoc)
-             * 
+             *
              * @see gov.hhs.fha.nhinc.direct.DirectAdapter#getDirectEdgeProxy()
              */
             @Override
             protected DirectEdgeProxy getDirectEdgeProxy() {
                 return proxy;
+            }
+
+            @Override
+            protected SmtpAgent getSmtpAgent(URL url) {
+                return smtpAgent;
             }
         };
     }

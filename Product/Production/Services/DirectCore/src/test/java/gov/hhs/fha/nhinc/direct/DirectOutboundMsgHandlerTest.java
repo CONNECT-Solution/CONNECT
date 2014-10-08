@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
 import gov.hhs.fha.nhinc.mail.MailClientException;
 import gov.hhs.fha.nhinc.mail.MailSender;
 import gov.hhs.fha.nhinc.mail.MessageHandler;
+import java.net.URL;
 import javax.mail.Address;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -54,6 +55,7 @@ public class DirectOutboundMsgHandlerTest extends DirectBaseTest {
     private MailSender mockExtMailSender;
     private DirectSender directSender;
     private MessageHandler testOutboundMsgHandler;
+    private DirectAdapter directAdapter;
 
     /**
      * Verify that the Outbound Message Handler will use the external direct mail client to directify the message. The
@@ -67,14 +69,21 @@ public class DirectOutboundMsgHandlerTest extends DirectBaseTest {
 
         mockSmtpAgent = mock(SmtpAgent.class);
         mockResult = DirectUnitTestUtil.getMockMessageProcessResult(1);
+        directAdapter = mock(DirectAdapter.class);
+        when(directAdapter.getSmtpAgent()).thenReturn(mockSmtpAgent);
         when(mockSmtpAgent.processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class),
             any(NHINDAddress.class))).thenReturn(mockResult);
 
         mockExtMailSender = mock(MailSender.class);
-        directSender = new DirectSenderImpl(mockExtMailSender, mockSmtpAgent, DirectEventLogger.getInstance()) {
-            //igonre it for now. Need to come up with better unit tests for this    
+        directSender = new DirectSenderImpl(mockExtMailSender, DirectEventLogger.getInstance()) {
+            //igonre it for now. Need to come up with better unit tests for this
             @Override
             protected void addOutgoingMessage(MimeMessage message, boolean failed, String errorMessage) {
+            }
+
+            @Override
+            protected SmtpAgent getSmtpAgent(URL url) {
+                return mockSmtpAgent;
             }
         };
         testOutboundMsgHandler = new DirectOutboundMsgHandler(directSender);

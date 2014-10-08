@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.mail;
 
+import gov.hhs.fha.nhinc.direct.messagemonitoring.impl.MessageMonitoringAPI;
 import java.util.Properties;
 
 import javax.mail.Folder;
@@ -91,8 +92,12 @@ public class ImapMailReceiver extends AbstractMailClient implements MailReceiver
             }   
         }   
         LOG.info("Handled " + numberOfMsgsHandled + " messages.");
-
+        
         MailUtils.closeQuietly(store, inbox, MailUtils.FOLDER_EXPUNGE_INBOX_TRUE);
+        LOG.info("Call the message monitoring check here");
+        //call the message monitoring service
+        handleMessageMonitoring();
+
         return numberOfMsgsHandled;
     }
     
@@ -163,5 +168,9 @@ public class ImapMailReceiver extends AbstractMailClient implements MailReceiver
         } catch (NoSuchProviderException e) {
             throw new MailClientException("Exception getting imaps store from session", e);
         }
+    }
+
+    protected void handleMessageMonitoring(){
+        MessageMonitoringAPI.getInstance().process();
     }
 }

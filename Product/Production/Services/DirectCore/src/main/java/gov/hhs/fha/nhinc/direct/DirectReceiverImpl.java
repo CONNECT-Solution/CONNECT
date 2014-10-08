@@ -54,7 +54,6 @@ import org.nhindirect.gateway.GatewayConfiguration;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.gateway.smtp.NotificationSettings;
 import org.nhindirect.gateway.smtp.ReliableDispatchedNotificationProducer;
-import org.nhindirect.gateway.smtp.SmtpAgent;
 import org.nhindirect.gateway.smtp.dsn.impl.FailedDeliveryDSNCreator;
 import org.nhindirect.gateway.smtp.dsn.impl.RejectedRecipientDSNCreatorOptions;
 import org.nhindirect.stagent.IncomingMessage;
@@ -74,8 +73,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
      */
     public static final String X_DIRECT_FINAL_DESTINATION_DELIVERY_HEADER_VALUE = "X-DIRECT-FINAL-DESTINATION-DELIVERY";
     /**
-     * Header name to determine if dispositions are being requested by the
-     * sending STA.
+     * Header name to determine if dispositions are being requested by the sending STA.
      */
     public static final String DISPOSITION_NOTIFICATION_OPTIONS_HEADER_NAME = "Disposition-Notification-Options";
     /**
@@ -101,11 +99,10 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
      * Instantiates a new direct receiver impl.
      *
      * @param externalMailSender used to send mail.
-     * @param smtpAgent used to process direct messages.
      * @param directEventLogger used to log direct events.
      */
-    public DirectReceiverImpl(MailSender externalMailSender, SmtpAgent smtpAgent, DirectEventLogger directEventLogger) {
-        super(externalMailSender, smtpAgent, directEventLogger);
+    public DirectReceiverImpl(MailSender externalMailSender, DirectEventLogger directEventLogger) {
+        super(externalMailSender, directEventLogger);
         NotificationSettings settings = new NotificationSettings();
         dispatchProducer = new ReliableDispatchedNotificationProducer(settings);
     }
@@ -114,13 +111,12 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
      * Instantiates a new direct receiver impl.
      *
      * @param externalMailSender the external mail sender
-     * @param smtpAgent the smtp agent
      * @param directEventLogger the direct event logger
      * @param producer the producer
      */
-    public DirectReceiverImpl(MailSender externalMailSender, SmtpAgent smtpAgent, DirectEventLogger directEventLogger,
-            ReliableDispatchedNotificationProducer producer) {
-        super(externalMailSender, smtpAgent, directEventLogger);
+    public DirectReceiverImpl(MailSender externalMailSender, DirectEventLogger directEventLogger,
+        ReliableDispatchedNotificationProducer producer) {
+        super(externalMailSender, directEventLogger);
         dispatchProducer = producer;
     }
 
@@ -151,7 +147,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
         boolean notificationToEdgeFailed = false;
         String notificationFailureMessage = null;
 
-        //Only send the message to edge client 
+        //Only send the message to edge client
         //1. if its a not a mdn (or)
         //2. if its a mdn and SuppressMDNEdgeNotification flag is false
         if ((isEdgeMDNNotificationEnabled() && isMdn) || (!isMdn)) {
@@ -222,7 +218,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
         String[] parts = StringUtils.split(header, "=");
         if (parts != null && parts.length == 2) {
             if (StringUtils.contains(parts[0], X_DIRECT_FINAL_DESTINATION_DELIVERY_HEADER_VALUE)
-                    && StringUtils.contains(parts[1], "true")) {
+                && StringUtils.contains(parts[1], "true")) {
                 dispatchRequested = true;
             }
         }
@@ -282,8 +278,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
      * @param tx
      * @param notificationFailureMessage
      *
-     * @return returns a collection of DSN messages using message information
-     * provided.
+     * @return returns a collection of DSN messages using message information provided.
      */
     public Collection<MimeMessage> createFailedDeliveryDSNFailureMessage(MimeMessage message, Tx tx, String notificationFailureMessage) throws MessagingException {
         //Default properties can be set in a property file agentSettings.properties
@@ -293,21 +288,21 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
         DSNGenerator generator = new DSNGenerator(RejectedRecipientDSNCreatorOptions.DEFAULT_PREFIX);
         //use the default postmasterbox
         String postmasterMailbox = GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_POSTMASTER,
-                mailet, RejectedRecipientDSNCreatorOptions.DEFAULT_POSTMASTER);
+            mailet, RejectedRecipientDSNCreatorOptions.DEFAULT_POSTMASTER);
         //use the default reporting MTA
         String reportingMta = GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_MTA_NAME,
-                mailet, RejectedRecipientDSNCreatorOptions.DEFAULT_MTA_NAME);
+            mailet, RejectedRecipientDSNCreatorOptions.DEFAULT_MTA_NAME);
         DSNFailureTextBodyPartGenerator textGenerator = new DefaultDSNFailureTextBodyPartGenerator(
-                GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_HEADER,
-                        mailet, HEADER),
-                GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_FOOTER,
-                        mailet, FOOTER),
-                GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_RECIP_TITLE,
-                        mailet, RejectedRecipientDSNCreatorOptions.DEFAULT_FAILED_RECIP_TITLE),
-                RejectedRecipientDSNCreatorOptions.DEFAULT_ERROR_MESSAGE_TITLE,
-                GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_ERROR_MESSAGE,
-                        mailet, ERROR_MESSAGE),
-                HumanReadableTextAssemblerFactory.getInstance());
+            GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_HEADER,
+                mailet, HEADER),
+            GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_FOOTER,
+                mailet, FOOTER),
+            GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_RECIP_TITLE,
+                mailet, RejectedRecipientDSNCreatorOptions.DEFAULT_FAILED_RECIP_TITLE),
+            RejectedRecipientDSNCreatorOptions.DEFAULT_ERROR_MESSAGE_TITLE,
+            GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_ERROR_MESSAGE,
+                mailet, ERROR_MESSAGE),
+            HumanReadableTextAssemblerFactory.getInstance());
 
         FailedDeliveryDSNCreator rejectedDNSCreator = new FailedDeliveryDSNCreator(generator, postmasterMailbox, reportingMta, textGenerator);
         final NHINDAddressCollection xdRecipients = new NHINDAddressCollection();
@@ -381,4 +376,5 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
         LOG.info("Message fromAddress not found.");
         return null;
     }
+
 }

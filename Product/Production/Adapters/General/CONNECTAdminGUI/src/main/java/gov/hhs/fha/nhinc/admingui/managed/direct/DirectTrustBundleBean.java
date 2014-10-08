@@ -96,13 +96,16 @@ public class DirectTrustBundleBean {
         tb.setBundleName(tbName);
         tb.setBundleURL(tbUrl);
         tb.setRefreshInterval(refreshValue);
-        tb.setSigningCertificateData(tbCert.getContents());       
+
+        if (tbCert != null) {
+            tb.setSigningCertificateData(tbCert.getContents());
+        }
+        
         directService.addTrustBundle(tb);
         refreshTrustBundle();
         tbName = null;
         tbUrl = null;
         tbRefreshInterval = null;
-
     }
 
     public void editTrustBundle() {
