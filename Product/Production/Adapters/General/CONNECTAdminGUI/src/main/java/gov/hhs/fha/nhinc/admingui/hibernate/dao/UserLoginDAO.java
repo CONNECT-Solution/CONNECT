@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.admingui.hibernate.dao;
 
 import gov.hhs.fha.nhinc.admingui.model.Login;
+import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
@@ -37,13 +38,10 @@ import java.util.List;
  * 
  */
 public interface UserLoginDAO {
+    
     public UserLogin login(Login login);        
-    /**
-     * 
-     * @param createuser the create user
-     * @return true if successful
-     */
-    public boolean createUser(UserLogin createuser);
+    
+    public boolean createUser(UserLogin createuser) throws UserLoginException;
 
     public UserRole getRole(long role);
 

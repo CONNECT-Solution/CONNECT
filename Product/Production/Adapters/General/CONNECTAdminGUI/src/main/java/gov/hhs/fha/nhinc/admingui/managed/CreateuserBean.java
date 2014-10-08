@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -98,6 +99,9 @@ public class CreateuserBean {
                 createdUser = true;
             }
         } catch (UserLoginException e) {
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage("userAddErrors",
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Can not add user: " + e.getLocalizedMessage(), ""));
             log.error("Error creating user: " + e.getMessage());
         }
         userName = null;

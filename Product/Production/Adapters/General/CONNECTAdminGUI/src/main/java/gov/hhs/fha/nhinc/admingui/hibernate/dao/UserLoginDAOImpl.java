@@ -27,12 +27,11 @@
 package gov.hhs.fha.nhinc.admingui.hibernate.dao;
 
 import gov.hhs.fha.nhinc.admingui.model.Login;
+import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
-
 import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -84,7 +83,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
      * @return true if successful
      */
     @Override
-    public boolean createUser(UserLogin createUser) {
+    public boolean createUser(UserLogin createUser) throws UserLoginException {
 
         Session session = null;
         Transaction tx = null;
@@ -100,6 +99,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
             result = false;
             transactionRollback(tx);
             LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
+            throw new UserLoginException("Could not create new user " + createUser.getUserName(), e);
         } finally {
             closeSession(session, false);
         }
