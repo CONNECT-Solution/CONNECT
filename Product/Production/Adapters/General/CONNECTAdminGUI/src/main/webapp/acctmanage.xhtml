@@ -57,11 +57,11 @@
                                     
                                     <div class="form-block center-block">
                                         <h:form class="form-horizontal" role="form" id="createUserForm">
+                                            <p:messages id="userAddErrors" autoUpdate="true" closable="true" /> 
                                             <div class="form-group">
                                                 <h:outputLabel for="username" class="col-sm-3 control-label" id="usernameLbl" value="New Username:" />
                                                 <div class="col-sm-9">
-                                                    <h:inputText class="form-control" id="username" maxlength="20" required="true" value="#{createuserBean.userName}" requiredMessage="User Name field should be filled" />
-                                                    <h:message for="username" style="color:red" />
+                                                    <p:inputText styleClass="form-control" id="username" maxlength="20" required="true" value="#{createuserBean.userName}" requiredMessage="User name required." />
                                                 </div>
                                             </div>
                                             
@@ -69,8 +69,8 @@
                                                 <h:outputLabel class="col-sm-3 control-label" for="password" id="userpasswordLbl" value="Password:" />
                                                 <div class="col-sm-9">                                                    
                                                     <p:password id="password" value="#{createuserBean.password}"   
-                                                                feedback="true" weakLabel="Weak Password" goodLabel="Good Password" strongLabel="Strong Password"  required="true" maxlength="10" requiredMessage="Password field should be filled" styleClass="form-control" />
-                                                    <h:message for="password" style="color:red" />
+                                                                feedback="true" weakLabel="Weak Password" goodLabel="Good Password" strongLabel="Strong Password"  required="true" maxlength="10" requiredMessage="Password required." styleClass="form-control" />
+          
                                                 </div>
                                             </div>
                                             
