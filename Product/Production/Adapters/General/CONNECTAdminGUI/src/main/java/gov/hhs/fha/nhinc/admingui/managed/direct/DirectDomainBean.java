@@ -89,7 +89,7 @@ public class DirectDomainBean {
 
     private String addressName;
     private String addressEmail;
-
+    
     public List<Domain> getDomains() {
         if (domains == null) {
             refreshDomains();

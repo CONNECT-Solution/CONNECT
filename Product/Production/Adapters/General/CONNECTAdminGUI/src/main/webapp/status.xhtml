@@ -42,12 +42,14 @@
                     <h1 class="section-header">Gateway Status</h1>
                     <!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
                     <p:tabView id="tabview" effect="fade" effectDuration="normal" dynamic="true" activeIndex="#{tabBean.dashboardTabIndex}" styleClass="tabs-override tabs-ovr-orange" > 
-                        <p:tab title="Gateway Monitor" closable="false">
+                        <p:tab title="Gateway Dashboard" closable="false">
                             <ui:insert id="dashboard_status">
                                 <ui:include src="Dashboard.xhtml" />
                             </ui:insert>
                         </p:tab>
-                        <p:tab title="Performance Statistics" closable="false">
+                        <ui:remove>
+                        <!--  Under Development
+                            <p:tab title="Performance Statistics" closable="false">
                             <div class="content-block">
                                 <h2 class="subsection-header">CONNECT Performance Statistics</h2>
                                 <div class="chart-block">
@@ -60,7 +62,8 @@
 									[to be developed]
 								</div>
                             </div>
-                        </p:tab>
+                        </p:tab> -->
+                        </ui:remove>
                         <!-- END: TAB PANE - PERFORMANCE STATISTICS -->
                         <!-- BEGIN: TAB PANE - REMOTE GATEWAYS -->
                         <p:tab title="Remote Gateway" closable="false">

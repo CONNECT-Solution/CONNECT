@@ -201,7 +201,7 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
     public void removeAddress(String addressEmail) throws Exception{
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_REMOVE_ADDRESS, addressEmail);
     }
-
+    
     private CONNECTClient<ConfigurationService> getClient() throws Exception {
 
         String url = oProxyHelper
