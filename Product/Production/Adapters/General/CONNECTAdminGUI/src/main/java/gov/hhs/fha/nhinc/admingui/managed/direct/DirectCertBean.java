@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 import org.nhind.config.AddCertificates;
 import org.nhind.config.Certificate;
 import org.nhind.config.CertificateGetOptions;
@@ -51,7 +52,6 @@ public class DirectCertBean {
     private DirectService directService;
 
     private UploadedFile certFile;
-    private String certStatus;
 
     private DirectCertificate selectedCert;
 
@@ -77,11 +77,11 @@ public class DirectCertBean {
         certFile = event.getFile();
     }
 
-    public void addCertificate() {
+    public void addCertificate(ActionEvent event) {
         AddCertificates addCert = new AddCertificates();
         Certificate certificate = new Certificate();
         certificate.setData(certFile.getContents());
-        certificate.setStatus(EntityStatus.NEW);
+        certificate.setStatus(EntityStatus.ENABLED);
         addCert.getCerts().add(certificate);
         directService.addCertificate(addCert);
         refreshCertificates();
@@ -109,14 +109,6 @@ public class DirectCertBean {
             CertContainer cc = new CertContainer(c.getData());
             directCertificate.add(new DirectCertificate(c, cc.getThumbprint()));
         }
-    }
-
-    public String getCertStatus() {
-        return certStatus;
-    }
-
-    public void setCertStatus(String certStatus) {
-        this.certStatus = certStatus;
     }
 
     public DirectCertificate getSelectedCert() {

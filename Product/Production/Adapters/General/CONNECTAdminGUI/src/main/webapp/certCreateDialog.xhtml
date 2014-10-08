@@ -5,8 +5,9 @@
         <p:dialog id="certCreateDlg" header="Add New Certificate" widgetVar="certDlg" modal="true" dynamic="true" closeOnEscape="true">
             <div class="content">
                 <h3>Add New Certificate</h3>
-               <div class="form-block center-block">
+                <div class="form-block center-block">
                     <h:form id="certDlgForm" class="form form-horizontal">
+                        <p:messages id="certErrorMessages" closable="true" autoUpdate="true" />                       
                         <div class="form-group">
                             <h:outputLabel for="pick-cert" class="col-sm-3 control-label" id="pick-certLbl" value="Certificate:" />
                             <div class="col-sm-9">
@@ -14,19 +15,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <h:outputLabel for="select-cert-status" class="col-sm-3 control-label" id="select-cert-statusLbl" value="Status:" />
-                            <div class="col-sm-9">
-                                <p:selectOneMenu id="select-cert-status" value="#{directCertBean.certStatus}">
-                                    <f:selectItem itemLabel="NEW" itemValue="NEW" />
-                                    <f:selectItem itemLabel="ENABLED" itemValue="ENABLED" />
-                                    <f:selectItem itemLabel="DISABLED" itemValue="DISABLED" />
-                                </p:selectOneMenu>					
-							</div>
-                        </div>
-                        <div class="form-group">
                             <div class="col-sm-12">
                                 <div class="form-button-row">
-                                    <h:commandButton id="submit" class="btn btn-primary" value="Submit" action="#{directCertBean.addCertificate()}"/>
+                                    <p:commandButton id="submit" styleClass="btn btn-primary" value="Submit" ajax="true" update=":tabview:cert-form" actionListener="#{directCertBean.addCertificate}" oncomplete="if(!args.validationFailed){PF('certDlg').hide();}"/>
                                 </div>
                             </div>
                         </div>

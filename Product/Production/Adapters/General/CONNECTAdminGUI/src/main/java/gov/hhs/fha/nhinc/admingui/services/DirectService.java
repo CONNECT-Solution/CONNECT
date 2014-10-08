@@ -59,7 +59,7 @@ public interface DirectService {
     public void deleteAnchor(RemoveAnchors removeAnchors);
 
     public List<Setting> getSetting();
-    public void addSetting(String name, String value);
+    public void addSetting(String name, String value) throws Exception;
     public void deleteSetting(List<String> deleteNames);
 
     public void addCertificate(AddCertificates addcert);

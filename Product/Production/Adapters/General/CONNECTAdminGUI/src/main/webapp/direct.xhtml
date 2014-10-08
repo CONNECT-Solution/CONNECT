@@ -38,8 +38,9 @@
     <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
         <ui:define name="metatag"/>
         <ui:define name="content">
-
+            
             <h1 class="section-header">Direct Configuration</h1>
+            <p:messages id="directErrors" closable="true" globalOnly="true" autoUpdate="true" />
             <p:tabView id="tabview" effect="fade" effectDuration="normal" dynamic="true" activeIndex="#{tabBean.directTabIndex}" styleClass="tabs-override tabs-ovr-purple">
                 <p:ajax event="tabChange" listener="#{tabBean.onDirectTabChange}" />
                 <p:tab title="Domains" closable="false">
@@ -50,9 +51,6 @@
                                 <p:dataTable id="domainDataTable" var="domain" value="#{directDomainBean.domains}" selection="#{directDomainBean.selectedDomain}" rowKey="#{domain.domainName}" styleClass="table table-striped table-domains">
                                     <p:ajax event="rowSelectRadio" update=":domainEditTabview,:domainNameHeaderOutput"/>
                                     <p:column headerText="select" selectionMode="single" />
-                                    <p:column headerText="Status" sortBy="status">
-                                        <h:outputText value="#{domain.status}" styleClass="nowrap" />
-                                    </p:column>
                                     <p:column headerText="Name" sortBy="name">
                                         <h:outputText value="#{domain.domainName}" />
                                     </p:column>
@@ -104,7 +102,7 @@
                                             <p:commandButton update="agentDataTable" value="Delete" actionListener="#{directAgentBean.deleteSetting()}" styleClass="delete-button" icon="ui-icon-closethick"/>
                                         </p:column>
                                         <p:column styleClass="ui-button-rightmost">
-                                            <p:commandButton value="Add New Agent Setting" type="button" onclick="PF('agentDlg').show();" icon="ui-icon-circle-plus" styleClass="add-button pull-right" />
+                                            <p:commandButton value="Add New Agent Setting" type="button" onclick="PF('agentDlg').show();" actionListener="#{directAgentBean.clearError}" icon="ui-icon-circle-plus" styleClass="add-button pull-right" />
                                         </p:column>
                                     </p:row>
                                 </p:panelGrid>
@@ -119,9 +117,6 @@
                             <h:form id="cert-form">
                                 <p:dataTable id="certDataTable" var="cert" value="#{directCertBean.certificates}" selection="#{directCertBean.selectedCert}" rowKey="#{cert.owner}" styleClass="table table-striped table-domains">
                                     <p:column headerText="Delete" selectionMode="single" />
-                                    <p:column headerText="Status" sortBy="status">
-                                        <h:outputText value="#{cert.status}" styleClass="nowrap" />
-                                    </p:column>
                                     <p:column headerText="Owner" sortBy="owner">
                                         <h:outputText value="#{cert.owner}" />
                                     </p:column>

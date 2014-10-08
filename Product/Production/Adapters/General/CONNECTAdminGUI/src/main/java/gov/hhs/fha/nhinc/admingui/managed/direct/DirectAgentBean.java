@@ -27,13 +27,13 @@
 package gov.hhs.fha.nhinc.admingui.managed.direct;
 
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
-
 import java.util.ArrayList;
 import java.util.List;
-
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import org.nhind.config.Setting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -63,12 +63,16 @@ public class DirectAgentBean {
         return settings;
     }
 
-    public void addSetting() {
-        if (agentName != null && agentValue != null) {
+    public void addSetting(ActionEvent event) {
+        try {
             directService.addSetting(agentName, agentValue);
             agentName = null;
             agentValue = null;
             refreshSetting();
+        } catch (Exception ex) {           
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage("agentErrorMessages",
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Setting Add Error: Duplicate Key", ex.getLocalizedMessage()));
         }
     }
 
