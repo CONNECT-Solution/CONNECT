@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.nhin.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.corex12.docsubmission.utils.CORE_X12DSEntityExceptionBuilder;
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.nhin.proxy.service.NhinCORE_X12DSRealTimeServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
@@ -64,30 +65,37 @@ public class NhinCORE_X12DSRealTimeProxyWebServiceSecuredImpl implements NhinCOR
     public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest msg, AssertionType assertion,
         NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
 
-        COREEnvelopeRealTimeResponse response;
+        COREEnvelopeRealTimeResponse response = null;
+        String targetHCID = null;
+        if (targetSystem != null && targetSystem.getHomeCommunity() != null && targetSystem.getHomeCommunity().getHomeCommunityId() != null) {
+            targetHCID = targetSystem.getHomeCommunity().getHomeCommunityId();
+        }
 
         try {
             String url = proxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
                 NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME, apiLevel);
+            if ((url != null) && (!url.isEmpty())) {
+                ServicePortDescriptor<CORETransactions> portDescriptor = new NhinCORE_X12DSRealTimeServicePortDescriptor();
 
-            ServicePortDescriptor<CORETransactions> portDescriptor = new NhinCORE_X12DSRealTimeServicePortDescriptor();
+                CONNECTClient<CORETransactions> client = getCONNECTClientSecured(portDescriptor, assertion,
+                    url, targetHCID, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME);
 
-            CONNECTClient<CORETransactions> client = getCONNECTClientSecured(portDescriptor, assertion,
-                url, targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME);
-
-            response = (COREEnvelopeRealTimeResponse) client.invokePort(CORETransactions.class,
-                "realTimeTransaction", msg);
+                response = (COREEnvelopeRealTimeResponse) client.invokePort(CORETransactions.class,
+                    "realTimeTransaction", msg);
+            } else {
+                response = CORE_X12DSEntityExceptionBuilder.createErrorResponse(msg, targetHCID);
+                return response;
+            }
 
         } catch (Exception ex) {
             // TODO: We need to add error handling here based on CORE X12 DS RealTime use cases
             // e.g., Connection error, etc.
             LOG.error("Error calling realTimeTransaction: " + ex.getMessage(), ex);
-            response = new COREEnvelopeRealTimeResponse();
-
-            response.setErrorMessage(NhincConstants.CORE_X12DS_ACK_ERROR_MSG);
-            response.setErrorCode(NhincConstants.CORE_X12DS_ACK_ERROR_CODE);
+            response = CORE_X12DSEntityExceptionBuilder.createWebServiceErrorResponse(msg, ex.getMessage());
+            return response;
         }
 
         return response;
     }
+
 }
