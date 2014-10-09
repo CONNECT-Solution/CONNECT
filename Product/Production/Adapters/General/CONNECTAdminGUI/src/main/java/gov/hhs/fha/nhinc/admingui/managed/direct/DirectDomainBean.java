@@ -105,7 +105,7 @@ public class DirectDomainBean {
             refreshDomains();
         }else {
             FacesContext.getCurrentInstance().addMessage("domainDeleteError",
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Delete Denied. Must always have one active domain."));
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Delete Denied. Must always have one active domain.", ""));
         }
         selectedDomain = null;
     }

@@ -13,7 +13,7 @@
                             <div class="form-group">
                                 <h:outputLabel for="input-edit-domain" class="col-sm-3 control-label" id="input-edit-domainLbl" value="Domain Name:" />
                                 <div class="col-sm-9">
-                                    <p:inputText styleClass="form-control" id="input-edit-domain" maxlength="255" required="true" value="#{directDomainBean.selectedDomain.domainName}"/>
+                                    <p:inputText styleClass="form-control" id="input-edit-domain" maxlength="255" required="true" value="#{directDomainBean.selectedDomain.domainName}" requiredMessage="Domain Edit Error: Name can not be empty."/>
                                 </div>
                             </div>
                             <div class="form-button-row">

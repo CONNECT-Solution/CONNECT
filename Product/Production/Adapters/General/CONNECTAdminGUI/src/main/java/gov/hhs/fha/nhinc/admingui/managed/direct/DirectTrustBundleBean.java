@@ -109,7 +109,7 @@ public class DirectTrustBundleBean {
         tbRefreshInterval = null;
     }
 
-    public void editTrustBundle() {
+    public void editTrustBundle(ActionEvent event) {
         Certificate cert = null;
 
         if (selectedTb.getSigningCertificateData() != null) {
