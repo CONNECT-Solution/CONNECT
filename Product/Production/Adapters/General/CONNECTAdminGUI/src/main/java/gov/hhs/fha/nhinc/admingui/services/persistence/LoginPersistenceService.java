@@ -37,6 +37,7 @@ import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 public interface LoginPersistenceService {
 
     /**
+     * Logs into the Admin GUI.
      * @param login
      * @return
      * @throws UserLoginException

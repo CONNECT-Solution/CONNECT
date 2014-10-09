@@ -37,30 +37,54 @@ public class DashboardMemory extends DashboardPanelAbstract implements Dashboard
     
     private static final long MB_VALUE = 1048576;
        
+    /**
+     *
+     */
     public DashboardMemory(){
         
     }
     
+    /**
+     *
+     * @param observer
+     * @param closed
+     */
     public DashboardMemory(DashboardObserver observer, boolean closed){
         setObserver(observer);
         setClosed(closed);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public String getType() {
         return type;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTitle() {
         return title;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getDescription() {
         return description;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public DashboardPanel setData() {
         MemoryMXBean memoryBean = ManagementFactory.getMemoryMXBean();  
@@ -76,12 +100,18 @@ public class DashboardMemory extends DashboardPanelAbstract implements Dashboard
         return this;
     }
 
+    /**
+     *
+     */
     @Override
     public void close() {
         setClosed(true);
         getObserver().closePanel(DashboardMemory.class);
     }
     
+    /**
+     *
+     */
     @Override
     public void open() {
         setClosed(false);

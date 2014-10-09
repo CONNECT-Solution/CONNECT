@@ -45,53 +45,105 @@ public class TabBean {
     private int adminTabIndex = 0;
     private int directTabIndex = 0;
 
+    /**
+     *
+     * @return
+     */
     public int getDirectTabIndex() {
         return directTabIndex;
     }
 
+    /**
+     *
+     * @param directTabIndex
+     */
     public void setDirectTabIndex(int directTabIndex) {
         this.directTabIndex = directTabIndex;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getDashboardTabIndex() {
         return dashboardTabIndex;
     }
 
+    /**
+     *
+     * @param dashboardTabIndex
+     */
     public void setDashboardTabIndex(int dashboardTabIndex) {
         this.dashboardTabIndex = dashboardTabIndex;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getLogsTabIndex() {
         return logsTabIndex;
     }
 
+    /**
+     *
+     * @param logsTabIndex
+     */
     public void setLogsTabIndex(int logsTabIndex) {
         this.logsTabIndex = logsTabIndex;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getAdminTabIndex() {
         return adminTabIndex;
     }   
 
+    /**
+     *
+     * @param adminTabIndex
+     */
     public void setAdminTabIndex(int adminTabIndex) {
         this.adminTabIndex = adminTabIndex;
     }
 
+    /**
+     *
+     * @param dashboardTabIndex
+     * @return
+     */
     public String setDashboardTabIndexNavigate(int dashboardTabIndex) {
         this.dashboardTabIndex = dashboardTabIndex;
         return NavigationConstant.STATUS_PAGE;
     }
 
+    /**
+     *
+     * @param logsTabIndex
+     * @return
+     */
     public String setLogsTabIndexNavigate(int logsTabIndex) {
         this.logsTabIndex = logsTabIndex;
         return "logs";
     }
 
+    /**
+     *
+     * @param adminTabIndex
+     * @return
+     */
     public String setAdminTabIndexNavigate(int adminTabIndex) {
         this.adminTabIndex = adminTabIndex;
         return NavigationConstant.ACCT_MGMT_PAGE;
     }
     
+    /**
+     *
+     * @param directTabIndex
+     * @return
+     */
     public String setDirectTabIndexNavigate(int directTabIndex){
         this.directTabIndex = directTabIndex;
         return NavigationConstant.DIRECT_PAGE;

@@ -43,11 +43,19 @@ public class DashboardObserverImpl implements DashboardObserver {
 
     private boolean started = false;
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<DashboardPanel> getOpenDashboardPanels() {
         return openPanels;
     }
 
+    /**
+     *
+     * @param c
+     */
     @Override
     public void closePanel(Class c) {
         DashboardPanel foundPanel = findPanel(c, openPanels);
@@ -56,6 +64,10 @@ public class DashboardObserverImpl implements DashboardObserver {
         }
     }
     
+    /**
+     *
+     * @param c
+     */
     @Override
     public void openPanel(Class c){
         DashboardPanel foundPanel = findPanel(c, closedPanels);
@@ -73,21 +85,36 @@ public class DashboardObserverImpl implements DashboardObserver {
         return null;
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean isStarted(){
         return started;
     }
 
+    /**
+     *
+     * @param panel
+     */
     @Override
     public void openPanel(DashboardPanel panel) {
         openPanels.add(panel);
     }
 
+    /**
+     *
+     * @param user
+     */
     @Override
     public void save(User user) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     *
+     */
     @Override
     public void setDefaultPanels() {
         if (!started) {
@@ -101,11 +128,18 @@ public class DashboardObserverImpl implements DashboardObserver {
         }
     }
 
+    /**
+     *
+     * @param user
+     */
     @Override
     public void setUserPanels(User user) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     *
+     */
     @Override
     public void refreshData() {
         for(DashboardPanel panel : openPanels){
@@ -113,6 +147,10 @@ public class DashboardObserverImpl implements DashboardObserver {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<DashboardPanel> getClosedDashboardPanels() {
         return closedPanels;

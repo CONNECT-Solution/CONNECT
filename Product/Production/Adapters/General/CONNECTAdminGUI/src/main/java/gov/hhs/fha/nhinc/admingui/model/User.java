@@ -45,7 +45,6 @@ public class User extends Login {
      * 
      * @param userName the user name
      * @param password the password
-     * @param role the role
      */
     public User(String userName, String password) {
         super(userName, password);

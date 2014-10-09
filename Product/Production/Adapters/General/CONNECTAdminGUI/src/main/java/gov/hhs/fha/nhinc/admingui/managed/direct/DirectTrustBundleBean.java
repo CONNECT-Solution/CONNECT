@@ -64,6 +64,10 @@ public class DirectTrustBundleBean {
     private TrustBundle selectedTb;
     private List<TrustBundle> trustbundles;
 
+    /**
+     *
+     * @return
+     */
     public List<TrustBundle> getTrustBundles() {
         if (trustbundles == null) {
             refreshTrustBundle();
@@ -71,6 +75,9 @@ public class DirectTrustBundleBean {
         return trustbundles;
     }
 
+    /**
+     *
+     */
     public void deleteTrustBundle() {
         List<Long> ids = new ArrayList<Long>();
         ids.add(selectedTb.getId());
@@ -86,6 +93,10 @@ public class DirectTrustBundleBean {
         refreshTrustBundle();
     }
 
+    /**
+     *
+     * @param event
+     */
     public void addTrustBundle(ActionEvent event) {
         int refreshValue = 0;
 
@@ -109,6 +120,10 @@ public class DirectTrustBundleBean {
         tbRefreshInterval = null;
     }
 
+    /**
+     *
+     * @param event
+     */
     public void editTrustBundle(ActionEvent event) {
         Certificate cert = null;
 
@@ -120,6 +135,10 @@ public class DirectTrustBundleBean {
                 cert, selectedTb.getRefreshInterval());
     }
     
+    /**
+     *
+     * @return
+     */
     public List<TrustBundleAnchor> getSelectedTrustBundleAnchors(){
         if(selectedTb != null){
             return selectedTb.getTrustBundleAnchors();
@@ -127,68 +146,124 @@ public class DirectTrustBundleBean {
         return null;
     }
 
+    /**
+     *
+     */
     public void showEdit() {
         if (selectedTb != null) {
             RequestContext.getCurrentInstance().execute("tbEditDlg.show()");
         }
     }
     
+    /**
+     *
+     */
     public void showTrustBundleAnchors() {
         if(selectedTb != null) {
              RequestContext.getCurrentInstance().execute("tbAnchorDlg.show()");
         }
     }
 
+    /**
+     *
+     */
     public void showDelConfirm() {
         if (selectedTb != null) {
             RequestContext.getCurrentInstance().execute("tbConfirmDelDlg.show()");
         }
     }
 
+    /**
+     *
+     */
     protected void refreshTrustBundle() {
         trustbundles = directService.getTrustBundles(true);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTbName() {
         return tbName;
     }
 
+    /**
+     *
+     * @param tbName
+     */
     public void setTbName(String tbName) {
         this.tbName = tbName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTbUrl() {
         return tbUrl;
     }
 
+    /**
+     *
+     * @param tbUrl
+     */
     public void setTbUrl(String tbUrl) {
         this.tbUrl = tbUrl;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTbRefreshInterval() {
         return tbRefreshInterval;
     }
 
+    /**
+     *
+     * @param tbRefreshInterval
+     */
     public void setTbRefreshInterval(String tbRefreshInterval) {
         this.tbRefreshInterval = tbRefreshInterval;
     }
 
+    /**
+     *
+     * @return
+     */
     public UploadedFile getTbCert() {
         return tbCert;
     }
 
+    /**
+     *
+     * @param tbCert
+     */
     public void setTbCert(UploadedFile tbCert) {
         this.tbCert = tbCert;
     }
 
+    /**
+     *
+     * @param event
+     */
     public void tbCertUpload(FileUploadEvent event) {
         tbCert = event.getFile();
     }
 
+    /**
+     *
+     * @return
+     */
     public TrustBundle getSelectedTb() {
         return selectedTb;
     }
 
+    /**
+     *
+     * @param selectedTb
+     */
     public void setSelectedTb(TrustBundle selectedTb) {
         this.selectedTb = selectedTb;
     }

@@ -33,7 +33,11 @@ import javax.faces.bean.ManagedBean;
 @ApplicationScoped
 public class ApplicationBean {
     
-   public boolean isDirectEnabled(){
+    /**
+     * Checks if direct is enabled for display purposes.
+     * @return
+     */
+    public boolean isDirectEnabled(){
         return DisplayHolder.getInstance().isDirectEnabled();
     }
 

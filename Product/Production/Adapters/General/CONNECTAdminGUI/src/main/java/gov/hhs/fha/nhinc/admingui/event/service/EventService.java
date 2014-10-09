@@ -60,8 +60,16 @@ public interface EventService {
      */
     public List<EventNwhinOrganization> getOutboundOrganizations();
     
+    /**
+     * Gets the latest inbound request.
+     * @return
+     */
     public DatabaseEvent getLatestInbound();
     
+    /**
+     * Gets the latest outbound request.
+     * @return
+     */
     public DatabaseEvent getLatestOutbound();
 
 }

@@ -48,9 +48,17 @@ public class DirectAnchor {
     private boolean isOutgoing;
     private boolean isIncoming;
 
+    /**
+     *
+     */
     public DirectAnchor() {
     }
 
+    /**
+     *
+     * @param anchor
+     * @param trustedDomainOrUser
+     */
     public DirectAnchor(Anchor anchor, String trustedDomainOrUser) {
         this.trustedDomainOrUser = trustedDomainOrUser;
 
@@ -71,90 +79,178 @@ public class DirectAnchor {
         isOutgoing = anchor.isOutgoing();
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTrustedDomainOrUser() {
         return trustedDomainOrUser;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getCertificateId() {
         return certificateId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getOwner() {
         return owner;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getThumbprint() {
         return thumbprint;
     }
 
+    /**
+     *
+     * @return
+     */
     public EntityStatus getStatus() {
         return status;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCreateTime() {
         return createTime;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getValidEndDate() {
         return validEndDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isOutgoing() {
         return isOutgoing;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isIncoming() {
         return isIncoming;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getValidStartDate() {
         return validStartDate;
     }
 
+    /**
+     *
+     * @param trustedDomainOrUser
+     */
     public void setTrustedDomainOrUser(String trustedDomainOrUser) {
         this.trustedDomainOrUser = trustedDomainOrUser;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @param certificateId
+     */
     public void setCertificateId(long certificateId) {
         this.certificateId = certificateId;
     }
 
+    /**
+     *
+     * @param owner
+     */
     public void setOwner(String owner) {
         this.owner = owner;
     }
 
+    /**
+     *
+     * @param thumbprint
+     */
     public void setThumbprint(String thumbprint) {
         this.thumbprint = thumbprint;
     }
 
+    /**
+     *
+     * @param status
+     */
     public void setStatus(EntityStatus status) {
         this.status = status;
     }
 
+    /**
+     *
+     * @param createTime
+     */
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
+    /**
+     *
+     * @param validEndDate
+     */
     public void setValidEndDate(String validEndDate) {
         this.validEndDate = validEndDate;
     }
 
+    /**
+     *
+     * @param validStartDate
+     */
     public void setValidStartDate(String validStartDate) {
         this.validStartDate = validStartDate;
     }
 
+    /**
+     *
+     * @param isOutgoing
+     */
     public void setOutgoing(boolean isOutgoing) {
         this.isOutgoing = isOutgoing;
     }
 
+    /**
+     *
+     * @param isIncoming
+     */
     public void setIncoming(boolean isIncoming) {
         this.isIncoming = isIncoming;
     }

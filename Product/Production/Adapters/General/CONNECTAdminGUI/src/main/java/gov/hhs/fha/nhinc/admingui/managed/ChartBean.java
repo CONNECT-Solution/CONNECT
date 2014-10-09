@@ -35,6 +35,9 @@ public class ChartBean {
 
     private CartesianChartModel model;
 
+    /**
+     *
+     */
     public ChartBean() {
         model = new CartesianChartModel();
         ChartSeries inbound = new ChartSeries();
@@ -67,6 +70,10 @@ public class ChartBean {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public CartesianChartModel getModel() {
         return model;
     }

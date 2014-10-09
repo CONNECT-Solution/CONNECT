@@ -36,30 +36,54 @@ public class DashboardOs extends DashboardPanelAbstract implements DashboardPane
     private static final String OS_KEY = "os.name";
     private static final String OS_VERSION_KEY = "os.version";
        
+    /**
+     *
+     */
     public DashboardOs(){
         
     }
     
+    /**
+     *
+     * @param observer
+     * @param closed
+     */
     public DashboardOs(DashboardObserver observer, boolean closed){
         setObserver(observer);
         setClosed(closed);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public String getType() {
         return type;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTitle() {
         return title;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getDescription() {
         return description;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public DashboardPanel setData() {
         title = System.getProperty(OS_KEY);
@@ -67,12 +91,18 @@ public class DashboardOs extends DashboardPanelAbstract implements DashboardPane
         return this;
     }
 
+    /**
+     *
+     */
     @Override
     public void close() {
         setClosed(true);
         getObserver().closePanel(DashboardOs.class);
     }
     
+    /**
+     *
+     */
     @Override
     public void open() {
         setClosed(false);

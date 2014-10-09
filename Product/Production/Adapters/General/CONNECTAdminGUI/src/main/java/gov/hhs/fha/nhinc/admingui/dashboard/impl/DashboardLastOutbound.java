@@ -46,31 +46,55 @@ public class DashboardLastOutbound extends DashboardPanelAbstract implements Das
     
     private EventService eventService;
     
+    /**
+     *
+     */
     public DashboardLastOutbound(){
         eventService = new EventServiceImpl();
     }
     
+    /**
+     *
+     * @param observer
+     * @param closed
+     */
     public DashboardLastOutbound(DashboardObserver observer, boolean closed){
         setObserver(observer);
         setClosed(closed);
         eventService = new EventServiceImpl();
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public String getType() {
         return type;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTitle() {
         return title;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getDescription() {
         return description;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public DashboardPanel setData() {
         DatabaseEvent event = eventService.getLatestOutbound();
@@ -83,12 +107,18 @@ public class DashboardLastOutbound extends DashboardPanelAbstract implements Das
         return this;
     }
 
+    /**
+     *
+     */
     @Override
     public void close() {
         setClosed(true);
         getObserver().closePanel(DashboardLastOutbound.class);
     }
     
+    /**
+     *
+     */
     @Override
     public void open() {
         setClosed(false);

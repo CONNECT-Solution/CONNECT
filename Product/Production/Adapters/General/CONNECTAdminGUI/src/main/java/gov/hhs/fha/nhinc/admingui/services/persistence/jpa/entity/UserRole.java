@@ -54,34 +54,66 @@ public class UserRole {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "userRole")
     private Set<UserLogin> userLogins = new HashSet<UserLogin>();
 
+    /**
+     *
+     * @return
+     */
     public long getRoleId() {
         return roleId;
     }
 
+    /**
+     *
+     * @param roleId
+     */
     public void setRoleId(long roleId) {
         this.roleId = roleId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getRoleName() {
         return roleName;
     }
 
+    /**
+     *
+     * @param roleName
+     */
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
 
+    /**
+     *
+     * @return
+     */
     public Set<RolePreference> getPreferences() {
         return preferences;
     }
 
+    /**
+     *
+     * @param preferences
+     */
     public void setPreferences(Set<RolePreference> preferences) {
         this.preferences = preferences;
     }
 
+    /**
+     *
+     * @param userLogins
+     */
     public void setUserLogin(Set<UserLogin> userLogins) {
         this.userLogins = userLogins;
     }
     
+    /**
+     *
+     * @param userLogin
+     */
     public void addLogin(UserLogin userLogin){
         userLogins.add(userLogin);
     }

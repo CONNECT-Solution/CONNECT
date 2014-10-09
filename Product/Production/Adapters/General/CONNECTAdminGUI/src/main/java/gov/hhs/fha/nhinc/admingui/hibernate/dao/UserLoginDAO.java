@@ -39,15 +39,45 @@ import java.util.List;
  */
 public interface UserLoginDAO {
     
+    /**
+     *
+     * @param login
+     * @return
+     */
     public UserLogin login(Login login);        
     
+    /**
+     *
+     * @param createuser
+     * @return
+     * @throws UserLoginException
+     */
     public boolean createUser(UserLogin createuser) throws UserLoginException;
 
+    /**
+     *
+     * @param role
+     * @return
+     */
     public UserRole getRole(long role);
 
+    /**
+     *
+     * @return
+     */
     public List<UserRole> getAllRoles();
 
+    /**
+     *
+     * @param role
+     * @return
+     */
     public List<RolePreference> getPreferences(UserRole role);
     
+    /**
+     *
+     * @param preference
+     * @return
+     */
     public boolean updatePreference(RolePreference preference);
 }

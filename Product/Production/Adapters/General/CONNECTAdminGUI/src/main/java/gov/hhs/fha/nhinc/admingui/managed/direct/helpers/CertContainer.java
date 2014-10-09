@@ -14,16 +14,29 @@ import javax.security.auth.x500.X500Principal;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 
+/**
+ *
+ * @author cmay
+ */
 public class CertContainer {
     private X509Certificate cert;
     private Key key;
     private static final Logger LOG = Logger.getLogger(CertContainer.class);
 
+    /**
+     *
+     * @param cert
+     * @param key
+     */
     public CertContainer(X509Certificate cert, Key key) {
         this.cert = cert;
         this.key = key;
     }
 
+    /**
+     *
+     * @param data
+     */
     public CertContainer(byte[] data) {
         ByteArrayInputStream bais = new ByteArrayInputStream(data);
 
@@ -77,14 +90,26 @@ public class CertContainer {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public X509Certificate getCert() {
         return cert;
     }
 
+    /**
+     *
+     * @return
+     */
     public Key getKey() {
         return key;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTrustedEntityName() {
         X500Principal prin = cert.getSubjectX500Principal();
 
@@ -117,6 +142,10 @@ public class CertContainer {
         return address;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getThumbprint() {
         String thumbprint;
         

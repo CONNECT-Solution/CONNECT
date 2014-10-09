@@ -55,42 +55,82 @@ public class RolePreference {
     @JoinColumn(name = "prefRoleId")
     private UserRole userRole;
 
+    /**
+     *
+     * @return
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPageName() {
         return pageName;
     }
 
+    /**
+     *
+     * @param pageName
+     */
     public void setPageName(String pageName) {
         this.pageName = pageName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPageDesc() {
         return pageDesc;
     }
 
+    /**
+     *
+     * @param pageDesc
+     */
     public void setPageDesc(String pageDesc) {
         this.pageDesc = pageDesc;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getAccess() {
         return access;
     }
 
+    /**
+     *
+     * @param access
+     */
     public void setAccess(int access) {
         this.access = access;
     }
 
+    /**
+     *
+     * @return
+     */
     public UserRole getUserRole() {
         return userRole;
     }
 
+    /**
+     *
+     * @param userRole
+     */
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }

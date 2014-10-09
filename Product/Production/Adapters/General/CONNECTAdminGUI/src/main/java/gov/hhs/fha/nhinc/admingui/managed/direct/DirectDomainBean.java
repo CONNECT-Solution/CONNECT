@@ -90,6 +90,10 @@ public class DirectDomainBean {
     private String addressName;
     private String addressEmail;
     
+    /**
+     *
+     * @return
+     */
     public List<Domain> getDomains() {
         if (domains == null) {
             refreshDomains();
@@ -98,6 +102,9 @@ public class DirectDomainBean {
         return domains;
     }
 
+    /**
+     *
+     */
     public void deleteDomain() {
         if(domains.size() > 1){
             directService.disassociateTrustBundlesFromDomain(selectedDomain.getId());
@@ -110,6 +117,10 @@ public class DirectDomainBean {
         selectedDomain = null;
     }
 
+    /**
+     *
+     * @param event
+     */
     public void addDomain(ActionEvent event) {
         AddDomain addDomain = new AddDomain();
         Domain domain = new Domain();
@@ -124,6 +135,9 @@ public class DirectDomainBean {
         this.domainPostmaster = null;
     }
 
+    /**
+     *
+     */
     public void showEdit() {
         if (selectedDomain != null) {
             resetBean();
@@ -131,6 +145,10 @@ public class DirectDomainBean {
         }
     }
 
+    /**
+     *
+     * @param event
+     */
     public void editDomain(ActionEvent event) {
         UpdateDomain updateDomain = new UpdateDomain();
         updateDomain.setDomain(selectedDomain);
@@ -139,14 +157,24 @@ public class DirectDomainBean {
         refreshDomains();
     }
 
+    /**
+     *
+     */
     protected void refreshDomains() {
         domains = directService.getDomains();
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Address> getAddresses() {
         return selectedDomain.getAddress();
     }
 
+    /**
+     *
+     */
     public void addAddress() {
         if (NullChecker.isNotNullish(addressName) && NullChecker.isNotNullish(addressEmail)) {
             Address currentAddress = new Address();
@@ -162,6 +190,9 @@ public class DirectDomainBean {
         addressEmail = null;
     }
 
+    /**
+     *
+     */
     public void deleteAddress() {
         if (selectedAddress != null) {
             boolean removed = directService.removeAddress(selectedAddress.getEmailAddress());
@@ -179,10 +210,17 @@ public class DirectDomainBean {
         selectedAddress = null;
     }
 
+    /**
+     *
+     * @param event
+     */
     public void anchorFileUpload(FileUploadEvent event) {
         anchorCert = event.getFile();
     }
 
+    /**
+     *
+     */
     public void addAnchor() {
         if (anchorCert != null) {
             AddAnchor addAnchor = new AddAnchor();
@@ -201,6 +239,10 @@ public class DirectDomainBean {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public List<DirectAnchor> getAnchors() {
         if (anchors == null) {
             refreshAnchors();
@@ -209,6 +251,9 @@ public class DirectDomainBean {
         return anchors;
     }
 
+    /**
+     *
+     */
     public void deleteAnchor() {
         RemoveAnchors removeAnchors = new RemoveAnchors();
         removeAnchors.getAnchorId().add(getSelectedAnchor().getId());
@@ -218,6 +263,9 @@ public class DirectDomainBean {
         refreshAnchors();
     }
 
+    /**
+     *
+     */
     protected void refreshAnchors() {
         GetAnchorsForOwner getAnchorsForOwner = new GetAnchorsForOwner();
         getAnchorsForOwner.setOwner(getSelectedDomain().getDomainName());
@@ -232,6 +280,9 @@ public class DirectDomainBean {
         }
     }
 
+    /**
+     *
+     */
     public void addTrustBundles() {
         if (namesOfBundlesToAdd != null && namesOfBundlesToAdd.size() > 0) {
             List<TrustBundle> bundlesToAdd = new ArrayList<TrustBundle>();
@@ -254,6 +305,9 @@ public class DirectDomainBean {
         }
     }
 
+    /**
+     *
+     */
     public void disassociateTrustBundle() {
         if (selectedTrustBundle != null) {
             unassociatedTrustBundleNames.add(selectedTrustBundle.getBundleName());
@@ -263,6 +317,10 @@ public class DirectDomainBean {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public List<DirectTrustBundle> getAssociatedTrustBundles() {
         if (associatedTrustBundles == null) {
             refreshTrustBundles();
@@ -271,6 +329,10 @@ public class DirectDomainBean {
         return associatedTrustBundles;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<String> getUnassociatedTrustBundleNames() {
         if (unassociatedTrustBundleNames == null) {
             unassociatedTrustBundleNames = new ArrayList<String>();
@@ -288,6 +350,9 @@ public class DirectDomainBean {
         return unassociatedTrustBundleNames;
     }
 
+    /**
+     *
+     */
     protected void refreshTrustBundles() {
         List<TrustBundleDomainReltn> bundleRelations = directService.getTrustBundlesByDomain(selectedDomain.getId(),
                 false);
@@ -302,122 +367,243 @@ public class DirectDomainBean {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDomainName() {
         return domainName;
     }
 
+    /**
+     *
+     * @param domainName
+     */
     public void setDomainName(String domainName) {
         this.domainName = domainName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDomainPostmaster() {
         return domainPostmaster;
     }
 
+    /**
+     *
+     * @param domainPostmaster
+     */
     public void setDomainPostmaster(String domainPostmaster) {
         this.domainPostmaster = domainPostmaster;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDomainTrustBundle() {
         return domainTrustBundle;
     }
 
+    /**
+     *
+     * @param domainTrustBundle
+     */
     public void setDomainTrustBundle(String domainTrustBundle) {
         this.domainTrustBundle = domainTrustBundle;
     }
 
+    /**
+     *
+     * @return
+     */
     public Domain getSelectedDomain() {
         return selectedDomain;
     }
 
+    /**
+     *
+     * @param selectedDomain
+     */
     public void setSelectedDomain(Domain selectedDomain) {
         this.selectedDomain = selectedDomain;
     }
 
+    /**
+     *
+     * @return
+     */
     public Address getSelectedAddress() {
         return selectedAddress;
     }
 
+    /**
+     *
+     * @param selectedAddress
+     */
     public void setSelectedAddress(Address selectedAddress) {
         this.selectedAddress = selectedAddress;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAddressName() {
         return addressName;
     }
 
+    /**
+     *
+     * @param addressName
+     */
     public void setAddressName(String addressName) {
         this.addressName = addressName;
     }
 
+    /**
+     *
+     * @return
+     */
     public DirectAnchor getSelectedAnchor() {
         return selectedAnchor;
     }
 
+    /**
+     *
+     * @param selectedAnchor
+     */
     public void setSelectedAnchor(DirectAnchor selectedAnchor) {
         this.selectedAnchor = selectedAnchor;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isAnchorIncoming() {
         return anchorIncoming;
     }
 
+    /**
+     *
+     * @param anchorIncoming
+     */
     public void setAnchorIncoming(boolean anchorIncoming) {
         this.anchorIncoming = anchorIncoming;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isAnchorOutgoing() {
         return anchorOutgoing;
     }
 
+    /**
+     *
+     * @param anchorOutgoing
+     */
     public void setAnchorOutgoing(boolean anchorOutgoing) {
         this.anchorOutgoing = anchorOutgoing;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAnchorStatus() {
         return anchorStatus;
     }
 
+    /**
+     *
+     * @param anchorStatus
+     */
     public void setAnchorStatus(String anchorStatus) {
         this.anchorStatus = anchorStatus;
     }
 
+    /**
+     *
+     * @return
+     */
     public DirectTrustBundle getSelectedTrustBundle() {
         return selectedTrustBundle;
     }
 
+    /**
+     *
+     * @param selectedTrustBundle
+     */
     public void setSelectedTrustBundle(DirectTrustBundle selectedTrustBundle) {
         this.selectedTrustBundle = selectedTrustBundle;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<String> getNamesOfBundlesToAdd() {
         return namesOfBundlesToAdd;
     }
 
+    /**
+     *
+     * @param namesOfBundlesToAdd
+     */
     public void setNamesOfBundlesToAdd(List<String> namesOfBundlesToAdd) {
         this.namesOfBundlesToAdd = namesOfBundlesToAdd;
     }
 
+    /**
+     *
+     * @param unassociatedBundleNames
+     */
     public void setUnassociatedTrustBundleNames(List<String> unassociatedBundleNames) {
         this.unassociatedTrustBundleNames = unassociatedBundleNames;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isBundleIncoming() {
         return bundleIncoming;
     }
 
+    /**
+     *
+     * @param bundleIncoming
+     */
     public void setBundleIncoming(boolean bundleIncoming) {
         this.bundleIncoming = bundleIncoming;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isBundleOutgoing() {
         return bundleOutgoing;
     }
 
+    /**
+     *
+     * @param bundleOutgoing
+     */
     public void setBundleOutgoing(boolean bundleOutgoing) {
         this.bundleOutgoing = bundleOutgoing;
     }
 
+    /**
+     *
+     * @param bundles
+     * @return
+     */
     protected List<String> getTrustBundleNames(List<DirectTrustBundle> bundles) {
         List<String> bundleNames = new ArrayList<String>();
 
@@ -428,6 +614,9 @@ public class DirectDomainBean {
         return bundleNames;
     }
 
+    /**
+     *
+     */
     protected void resetBean() {
         selectedAddress = null;
         selectedAnchor = null;
@@ -456,10 +645,18 @@ public class DirectDomainBean {
         addressEmail = null;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAddressEmail() {
         return addressEmail;
     }
 
+    /**
+     *
+     * @param addressEmail
+     */
     public void setAddressEmail(String addressEmail) {
         this.addressEmail = addressEmail;
     }

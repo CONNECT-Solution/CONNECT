@@ -53,6 +53,10 @@ public class DirectServiceImpl implements DirectService {
 
     private static final Logger LOG = Logger.getLogger(DirectServiceImpl.class);
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<Domain> getDomains() {
         List<Domain> domains = null;
@@ -64,6 +68,10 @@ public class DirectServiceImpl implements DirectService {
         return domains;
     }
 
+    /**
+     *
+     * @param domain
+     */
     @Override
     public void updateDomain(UpdateDomain domain) {
         try {
@@ -73,6 +81,10 @@ public class DirectServiceImpl implements DirectService {
         }
     }
 
+    /**
+     *
+     * @param domain
+     */
     @Override
     public void addDomain(AddDomain domain) {
         try {
@@ -82,6 +94,10 @@ public class DirectServiceImpl implements DirectService {
         }
     }
 
+    /**
+     *
+     * @param domain
+     */
     @Override
     public void deleteDomain(Domain domain) {
         try {
@@ -91,6 +107,10 @@ public class DirectServiceImpl implements DirectService {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<Setting> getSetting() {
         List<Setting> listSetting = null;
@@ -102,6 +122,12 @@ public class DirectServiceImpl implements DirectService {
         return listSetting;
     }
 
+    /**
+     *
+     * @param name
+     * @param value
+     * @throws Exception
+     */
     @Override
     public void addSetting(String name, String value) throws Exception {
         try {
@@ -112,6 +138,10 @@ public class DirectServiceImpl implements DirectService {
         }
     }
 
+    /**
+     *
+     * @param deleteNames
+     */
     @Override
     public void deleteSetting(List<String> deleteNames) {
         try {
@@ -121,6 +151,10 @@ public class DirectServiceImpl implements DirectService {
         }
     }
 
+    /**
+     *
+     * @param certificate
+     */
     @Override
     public void addCertificate(AddCertificates certificate) {
         try {
@@ -131,6 +165,10 @@ public class DirectServiceImpl implements DirectService {
 
     }
 
+    /**
+     *
+     * @param removeCert
+     */
     @Override
     public void deleteCertificate(RemoveCertificates removeCert) {
         try {
@@ -140,6 +178,11 @@ public class DirectServiceImpl implements DirectService {
         }
     }
 
+    /**
+     *
+     * @param listCert
+     * @return
+     */
     @Override
     public List<Certificate> listCertificate(ListCertificates listCert) {
         List<Certificate> certs = null;
@@ -151,6 +194,11 @@ public class DirectServiceImpl implements DirectService {
         return certs;
     }
 
+    /**
+     *
+     * @param fetchAnchors
+     * @return
+     */
     @Override
     public List<TrustBundle> getTrustBundles(boolean fetchAnchors) {
         List<TrustBundle> listTB = null;
@@ -162,6 +210,14 @@ public class DirectServiceImpl implements DirectService {
         return listTB;
     }
 
+    /**
+     *
+     * @param trustBundleId
+     * @param trustBundleName
+     * @param trustBundleURL
+     * @param signingCert
+     * @param trustBundleRefreshInterval
+     */
     @Override
     public void updateTrustBundle(long trustBundleId, String trustBundleName, String trustBundleURL,
         Certificate signingCert, int trustBundleRefreshInterval) {
@@ -173,6 +229,10 @@ public class DirectServiceImpl implements DirectService {
         }
     }
 
+    /**
+     *
+     * @param tb
+     */
     @Override
     public void addTrustBundle(TrustBundle tb) {
         try {
@@ -182,6 +242,10 @@ public class DirectServiceImpl implements DirectService {
         }
     }
 
+    /**
+     *
+     * @param ids
+     */
     @Override
     public void deleteTrustBundles(List<Long> ids) {
         try {
@@ -191,6 +255,11 @@ public class DirectServiceImpl implements DirectService {
         }
     }
 
+    /**
+     *
+     * @param bundleName
+     * @return
+     */
     @Override
     public TrustBundle getTrustBundleByName(String bundleName) {
         TrustBundle response = null;
@@ -202,6 +271,12 @@ public class DirectServiceImpl implements DirectService {
         return response;
     }
 
+    /**
+     *
+     * @param domainId
+     * @param fetchAnchors
+     * @return
+     */
     @Override
     public List<TrustBundleDomainReltn> getTrustBundlesByDomain(long domainId, boolean fetchAnchors) {
         List<TrustBundleDomainReltn> bundles = null;
@@ -213,6 +288,10 @@ public class DirectServiceImpl implements DirectService {
         return bundles;
     }
 
+    /**
+     *
+     * @param id
+     */
     @Override
     public void refreshTrustBundle(int id) {
         try {
@@ -222,6 +301,13 @@ public class DirectServiceImpl implements DirectService {
         }
     }
 
+    /**
+     *
+     * @param domainId
+     * @param trustBundleId
+     * @param incoming
+     * @param outgoing
+     */
     @Override
     public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming, boolean outgoing) {
         try {
@@ -231,6 +317,11 @@ public class DirectServiceImpl implements DirectService {
         }
     }
 
+    /**
+     *
+     * @param domainId
+     * @param trustBundleId
+     */
     @Override
     public void disassociateTrustBundleFromDomain(long domainId, long trustBundleId) {
         try {
@@ -240,6 +331,10 @@ public class DirectServiceImpl implements DirectService {
         }
     }
 
+    /**
+     *
+     * @param domainId
+     */
     @Override
     public void disassociateTrustBundlesFromDomain(long domainId) {
         try {
@@ -249,6 +344,10 @@ public class DirectServiceImpl implements DirectService {
         }
     }
 
+    /**
+     *
+     * @param trustBundleId
+     */
     @Override
     public void disassociateTrustBundleFromDomains(long trustBundleId) {
         try {
@@ -258,6 +357,11 @@ public class DirectServiceImpl implements DirectService {
         }
     }
 
+    /**
+     *
+     * @param getAnchorsForOwner
+     * @return
+     */
     @Override
     public List<Anchor> getAnchorsForOwner(GetAnchorsForOwner getAnchorsForOwner) {
         List<Anchor> anchors = null;
@@ -273,6 +377,10 @@ public class DirectServiceImpl implements DirectService {
         return anchors;
     }
 
+    /**
+     *
+     * @param addAnchor
+     */
     @Override
     public void addAnchor(AddAnchor addAnchor) {
         try {
@@ -282,6 +390,10 @@ public class DirectServiceImpl implements DirectService {
         }
     }
 
+    /**
+     *
+     * @param removeAnchors
+     */
     @Override
     public void deleteAnchor(RemoveAnchors removeAnchors) {
         try {
@@ -291,6 +403,11 @@ public class DirectServiceImpl implements DirectService {
         }
     }
     
+    /**
+     *
+     * @param addressEmail
+     * @return
+     */
     @Override
     public boolean removeAddress(String addressEmail){
         boolean removed = true;
