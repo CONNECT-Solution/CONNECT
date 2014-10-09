@@ -3,21 +3,23 @@
 
     <div>
         <p:dialog id="certTbDlg" header="Add New Trust Bundle" widgetVar="tbDlg" modal="true" dynamic="true" width="75%" closeOnEscape="true">
+            <p:panel id="tbPanel">
             <div class="content">
                 <h3>Add New Trust Bundle</h3>
                 <p>Enter the requested information below to add a new trust bundle</p>
                <div class="form-block center-block">
                     <h:form id="tbDlgForm" class="form form-horizontal">
+                        <p:messages id="tbErrorMessages" closable="true" autoUpdate="true" />                        
                         <div class="form-group">
                             <h:outputLabel for="input-tb-name" class="col-sm-3 control-label" id="input-tb-nameLbl" value="Name:" />
                             <div class="col-sm-9">
-                                <h:inputText class="form-control" id="input-tb-name" maxlength="255" required="true" value="#{directTrustBundleBean.tbName}"/>
+                                <p:inputText styleClass="form-control" id="input-tb-name" maxlength="255" required="true" value="#{directTrustBundleBean.tbName}" requiredMessage="Trust bundle name required."/>                            
                             </div>
                         </div>
                         <div class="form-group">
                             <h:outputLabel for="input-tb-url" class="col-sm-3 control-label" id="input-tb-urlLbl" value="Trust Bundle URL:" />
                             <div class="col-sm-9">
-                                <h:inputText class="form-control" id="input-tb-url" maxlength="255" required="true" value="#{directTrustBundleBean.tbUrl}"/>
+                                <p:inputText styleClass="form-control" id="input-tb-url" maxlength="255" required="true" value="#{directTrustBundleBean.tbUrl}" requiredMessage="Trust Bundle URL is required."/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -29,19 +31,25 @@
                         <div class="form-group">
                             <h:outputLabel for="input-tb-refresh" class="col-sm-3 control-label" id="input-tb-refreshLbl" value="Refresh Interval (hours):" />
                             <div class="col-sm-9">
-                                <h:inputText class="form-control" id="input-tb-refresh" maxlength="10" required="true" value="#{directTrustBundleBean.tbRefreshInterval}"/>
+                                <p:inputText styleClass="form-control" id="input-tb-refresh" maxlength="10" required="true" value="#{directTrustBundleBean.tbRefreshInterval}" requiredMessage="Trust Bundle refresh interval required."/>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <div class="form-button-row">
-                                    <h:commandButton id="submit" class="btn btn-primary" value="Submit" action="#{directTrustBundleBean.addTrustBundle()}"/>
+                                    <p:commandButton ajax="true" id="submitAddTb" styleClass="btn btn-primary"  onstart="PF('tbBlock').show()"  value="Submit" update=":tabview:tb-form" actionListener="#{directTrustBundleBean.addTrustBundle}" oncomplete="PF('tbBlock').hide(); if(!args.validationFailed){PF('tbDlg').hide();}"/>
                                 </div>
                             </div>
                         </div>
                     </h:form>
                 </div>
             </div>
+            </p:panel>
+            <p:blockUI block="tbPanel" widgetVar="tbBlock">
+                LOADING<br/>
+                <p:graphicImage library="images" name="loading-bar-gif.gif" />
+            </p:blockUI>
         </p:dialog>
+        
     </div>
 </ui:composition>

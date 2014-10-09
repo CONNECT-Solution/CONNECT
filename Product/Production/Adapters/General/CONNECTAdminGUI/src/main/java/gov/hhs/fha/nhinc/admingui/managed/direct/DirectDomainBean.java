@@ -32,6 +32,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import org.nhind.config.AddAnchor;
 import org.nhind.config.AddDomain;
 import org.nhind.config.Address;
@@ -76,7 +77,6 @@ public class DirectDomainBean {
     private UploadedFile anchorCert;
 
     private String domainName;
-    private String domainStatus;
     private String domainPostmaster;
     private String domainTrustBundle;
 
@@ -89,7 +89,7 @@ public class DirectDomainBean {
 
     private String addressName;
     private String addressEmail;
-
+    
     public List<Domain> getDomains() {
         if (domains == null) {
             refreshDomains();
@@ -105,16 +105,16 @@ public class DirectDomainBean {
             refreshDomains();
         }else {
             FacesContext.getCurrentInstance().addMessage("domainDeleteError",
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Delete Denied. Must always have one active domain."));
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Delete Denied. Must always have one active domain.", ""));
         }
         selectedDomain = null;
     }
 
-    public void addDomain() {
+    public void addDomain(ActionEvent event) {
         AddDomain addDomain = new AddDomain();
         Domain domain = new Domain();
         domain.setDomainName(domainName);
-        domain.setStatus(EntityStatus.NEW);
+        domain.setStatus(EntityStatus.ENABLED);
         domain.setPostMasterEmail(domainPostmaster);
         addDomain.setDomain(domain);
 
@@ -122,7 +122,6 @@ public class DirectDomainBean {
         refreshDomains();
         this.domainName = null;
         this.domainPostmaster = null;
-        this.domainStatus = null;
     }
 
     public void showEdit() {
@@ -132,11 +131,12 @@ public class DirectDomainBean {
         }
     }
 
-    public void editDomain() {
+    public void editDomain(ActionEvent event) {
         UpdateDomain updateDomain = new UpdateDomain();
         updateDomain.setDomain(selectedDomain);
         directService.updateDomain(updateDomain);
         selectedDomain = null;
+        refreshDomains();
     }
 
     protected void refreshDomains() {
@@ -310,14 +310,6 @@ public class DirectDomainBean {
         this.domainName = domainName;
     }
 
-    public String getDomainStatus() {
-        return domainStatus;
-    }
-
-    public void setDomainStatus(String domainStatus) {
-        this.domainStatus = domainStatus;
-    }
-
     public String getDomainPostmaster() {
         return domainPostmaster;
     }
@@ -450,7 +442,6 @@ public class DirectDomainBean {
         anchorCert = null;
 
         domainName = null;
-        domainStatus = null;
         domainPostmaster = null;
         domainTrustBundle = null;
 

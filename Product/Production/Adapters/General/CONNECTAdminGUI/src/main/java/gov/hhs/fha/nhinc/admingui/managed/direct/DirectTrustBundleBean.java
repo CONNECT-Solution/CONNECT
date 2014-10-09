@@ -33,8 +33,10 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import org.nhind.config.Certificate;
 import org.nhind.config.TrustBundle;
+import org.nhind.config.TrustBundleAnchor;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -84,7 +86,7 @@ public class DirectTrustBundleBean {
         refreshTrustBundle();
     }
 
-    public void addTrustBundle() {
+    public void addTrustBundle(ActionEvent event) {
         int refreshValue = 0;
 
         if (tbRefreshInterval != null && tbRefreshInterval.length() > 0) {
@@ -99,7 +101,7 @@ public class DirectTrustBundleBean {
         if (tbCert != null) {
             tb.setSigningCertificateData(tbCert.getContents());
         }
-
+        
         directService.addTrustBundle(tb);
         refreshTrustBundle();
         tbName = null;
@@ -107,21 +109,33 @@ public class DirectTrustBundleBean {
         tbRefreshInterval = null;
     }
 
-    public void editTrustBundle() {
+    public void editTrustBundle(ActionEvent event) {
         Certificate cert = null;
 
         if (selectedTb.getSigningCertificateData() != null) {
             cert = new Certificate();
             cert.setData(selectedTb.getSigningCertificateData());
         }
-
         directService.updateTrustBundle(selectedTb.getId(), selectedTb.getBundleName(), selectedTb.getBundleURL(),
                 cert, selectedTb.getRefreshInterval());
+    }
+    
+    public List<TrustBundleAnchor> getSelectedTrustBundleAnchors(){
+        if(selectedTb != null){
+            return selectedTb.getTrustBundleAnchors();
+        }
+        return null;
     }
 
     public void showEdit() {
         if (selectedTb != null) {
             RequestContext.getCurrentInstance().execute("tbEditDlg.show()");
+        }
+    }
+    
+    public void showTrustBundleAnchors() {
+        if(selectedTb != null) {
+             RequestContext.getCurrentInstance().execute("tbAnchorDlg.show()");
         }
     }
 

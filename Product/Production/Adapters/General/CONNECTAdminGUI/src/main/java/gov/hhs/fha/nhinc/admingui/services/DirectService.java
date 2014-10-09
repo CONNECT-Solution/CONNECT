@@ -25,15 +25,9 @@ import org.nhind.config.AddAnchor;
 import org.nhind.config.AddCertificates;
 import org.nhind.config.AddDomain;
 import org.nhind.config.Anchor;
-import org.nhind.config.AssociateTrustBundleToDomain;
 import org.nhind.config.Certificate;
-import org.nhind.config.DeleteTrustBundles;
-import org.nhind.config.DisassociateTrustBundleFromDomains;
 import org.nhind.config.Domain;
 import org.nhind.config.GetAnchorsForOwner;
-import org.nhind.config.GetTrustBundleByName;
-import org.nhind.config.GetTrustBundles;
-import org.nhind.config.GetTrustBundlesByDomain;
 import org.nhind.config.ListCertificates;
 import org.nhind.config.RemoveAnchors;
 import org.nhind.config.RemoveCertificates;
@@ -41,7 +35,6 @@ import org.nhind.config.Setting;
 import org.nhind.config.TrustBundle;
 import org.nhind.config.TrustBundleDomainReltn;
 import org.nhind.config.UpdateDomain;
-import org.nhind.config.UpdateTrustBundleAttributes;
 
 /**
  *
@@ -59,7 +52,7 @@ public interface DirectService {
     public void deleteAnchor(RemoveAnchors removeAnchors);
 
     public List<Setting> getSetting();
-    public void addSetting(String name, String value);
+    public void addSetting(String name, String value) throws Exception;
     public void deleteSetting(List<String> deleteNames);
 
     public void addCertificate(AddCertificates addcert);

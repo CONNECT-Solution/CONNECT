@@ -103,11 +103,12 @@ public class DirectServiceImpl implements DirectService {
     }
 
     @Override
-    public void addSetting(String name, String value) {
+    public void addSetting(String name, String value) throws Exception {
         try {
             directProxy.addSetting(name, value);
         } catch (Exception ex) {
             LOG.error("Unable to add new setting: " + ex.getMessage());
+            throw ex;
         }
     }
 

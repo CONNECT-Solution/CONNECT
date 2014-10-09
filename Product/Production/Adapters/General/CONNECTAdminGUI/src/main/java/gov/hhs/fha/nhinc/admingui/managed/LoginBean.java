@@ -121,8 +121,9 @@ public class LoginBean {
      */
     public String loginAndNavigate() {
         if (!login()) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username and/or Password not valid...!!!", ""));
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage("loginErrors",
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "The user name or password entered is incorrect.", ""));
             return null;
         }
         return NavigationConstant.STATUS_PAGE;

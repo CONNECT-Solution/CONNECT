@@ -28,6 +28,7 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 import javax.faces.context.FacesContext;
 import org.nhind.config.AddCertificates;
 import org.nhind.config.Certificate;
@@ -53,7 +54,6 @@ public class DirectCertBean {
     private DirectService directService;
 
     private UploadedFile certFile;
-    private String certStatus;
 
     private DirectCertificate selectedCert;
 
@@ -79,16 +79,17 @@ public class DirectCertBean {
         certFile = event.getFile();
     }
 
-    public void addCertificate() {
+    public void addCertificate(ActionEvent event) {
         if (certFile != null) {
             AddCertificates addCert = new AddCertificates();
             Certificate certificate = new Certificate();
             certificate.setData(certFile.getContents());
-            certificate.setStatus(EntityStatus.NEW);
+            certificate.setStatus(EntityStatus.ENABLED);
             addCert.getCerts().add(certificate);
             directService.addCertificate(addCert);
             refreshCertificates();
         } else {
+            FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage("certificateAddError",
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR",
                     "Choose and upload a certificate before submitting."));
@@ -117,14 +118,6 @@ public class DirectCertBean {
             CertContainer cc = new CertContainer(c.getData());
             directCertificate.add(new DirectCertificate(c, cc.getThumbprint()));
         }
-    }
-
-    public String getCertStatus() {
-        return certStatus;
-    }
-
-    public void setCertStatus(String certStatus) {
-        this.certStatus = certStatus;
     }
 
     public DirectCertificate getSelectedCert() {
