@@ -135,6 +135,11 @@ public class DirectTrustBundleBean {
                 cert, selectedTb.getRefreshInterval());
     }
     
+    public void refreshBundle(ActionEvent event) {
+        if(selectedTb != null)
+            directService.refreshTrustBundle(selectedTb.getId());
+    }
+    
     /**
      *
      * @return

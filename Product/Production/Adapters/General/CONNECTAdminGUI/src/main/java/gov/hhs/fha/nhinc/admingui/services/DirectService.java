@@ -173,7 +173,7 @@ public interface DirectService {
      * Refresh the given direct trust bundle by ID.
      * @param id
      */
-    public void refreshTrustBundle(int id);
+    public void refreshTrustBundle(long id);
 
     /**
      * Associate the given direct trust bundle to the given direct domain.

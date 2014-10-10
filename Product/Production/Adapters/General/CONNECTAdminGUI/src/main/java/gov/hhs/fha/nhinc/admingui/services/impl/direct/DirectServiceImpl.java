@@ -293,7 +293,7 @@ public class DirectServiceImpl implements DirectService {
      * @param id
      */
     @Override
-    public void refreshTrustBundle(int id) {
+    public void refreshTrustBundle(long id) {
         try {
             directProxy.refreshTrustBundle(id);
         } catch (Exception ex) {

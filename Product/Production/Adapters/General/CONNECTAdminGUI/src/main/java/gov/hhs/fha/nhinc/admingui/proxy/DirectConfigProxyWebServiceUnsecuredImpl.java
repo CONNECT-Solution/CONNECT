@@ -279,7 +279,7 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
      * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#refreshTrustBundle(int)
      */
     @Override
-    public void refreshTrustBundle(int id) throws Exception {
+    public void refreshTrustBundle(long id) throws Exception {
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_REFRESH_TRUST_BUNDLE, id);
     }
 

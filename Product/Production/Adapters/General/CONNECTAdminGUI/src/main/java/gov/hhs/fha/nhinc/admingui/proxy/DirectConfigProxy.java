@@ -223,7 +223,7 @@ public interface DirectConfigProxy {
      * @param id
      * @throws Exception
      */
-    public void refreshTrustBundle(int id) throws Exception;
+    public void refreshTrustBundle(long id) throws Exception;
 
     /**
      * Direct Config proxy call to update a direct trust bundle with the given parameters.
