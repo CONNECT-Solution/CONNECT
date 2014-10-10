@@ -77,65 +77,26 @@ public class TabBean {
         this.adminTabIndex = adminTabIndex;
     }
 
-    public String navigateToDirectDomainTab() {
-        this.directTabIndex = NavigationConstant.DIRECT_DOMAIN_TAB;
-        return NavigationConstant.DIRECT_PAGE;
-    }
-
-    public String navigateToDirectSettingTab() {
-        this.adminTabIndex = NavigationConstant.DIRECT_SETTING_TAB;
-        return NavigationConstant.DIRECT_PAGE;
-    }
-
-    public String navigateToDirectCertificateTab() {
-        this.directTabIndex = NavigationConstant.DIRECT_CERTIFICATE_TAB;
-        return NavigationConstant.DIRECT_PAGE;
-    }
-
-    public String navigateToDirectTrustbundleTab() {
-        this.directTabIndex = NavigationConstant.DIRECT_TRUSTBUNDLE_TAB;
-        return NavigationConstant.DIRECT_PAGE;
-    }
-
-    public String navigateToAccountMgmtUserAccountTab() {
-        this.adminTabIndex = NavigationConstant.ACCOUNT_MGMT_USERACC_TAB;
-        return NavigationConstant.ACCT_MGMT_PAGE;
-    }
-
-    public String navigateToAccountMgmtManageRoleTab() {
-        this.adminTabIndex = NavigationConstant.ACCOUNT_MGMT_MANAGEROLE_TAB;
-        return NavigationConstant.ACCT_MGMT_PAGE;
-    }
-
-    public String navigateToGatewayDashboardTab() {
-        this.adminTabIndex = NavigationConstant.GATEWAY_DASHBOARD_TAB;
+    public String setDashboardTabIndexNavigate(int dashboardTabIndex) {
+        this.dashboardTabIndex = dashboardTabIndex;
         return NavigationConstant.STATUS_PAGE;
     }
 
-    public String navigateToGatewayRemoteListTab() {
-        this.adminTabIndex = NavigationConstant.GATEWAY_REMOTELIST_TAB;
-        return NavigationConstant.STATUS_PAGE;
+    public String setLogsTabIndexNavigate(int logsTabIndex) {
+        this.logsTabIndex = logsTabIndex;
+        return "logs";
     }
 
-    /* public String setDashboardTabIndexNavigate(int dashboardTabIndex) {
-     this.dashboardTabIndex = dashboardTabIndex;
-     return NavigationConstant.STATUS_PAGE;
-     }
+    public String setAdminTabIndexNavigate(int adminTabIndex) {
+        this.adminTabIndex = adminTabIndex;
+        return NavigationConstant.ACCT_MGMT_PAGE;
+    }
 
-     public String setLogsTabIndexNavigate(int logsTabIndex) {
-     this.logsTabIndex = logsTabIndex;
-     return "logs";
-     }
+    public String setDirectTabIndexNavigate(int directTabIndex) {
+        this.directTabIndex = directTabIndex;
+        return NavigationConstant.DIRECT_PAGE;
+    }
 
-     public String setAdminTabIndexNavigate(int adminTabIndex) {
-     this.adminTabIndex = adminTabIndex;
-     return NavigationConstant.ACCT_MGMT_PAGE;
-     }
-
-     public String setDirectTabIndexNavigate(int directTabIndex) {
-     this.directTabIndex = directTabIndex;
-     return NavigationConstant.DIRECT_PAGE;
-     }*/
     /**
      * Event listener for tab change to set current active index of the direct tab view. Needed since active index is
      * set by menu links as well.
@@ -147,4 +108,37 @@ public class TabBean {
         this.directTabIndex = tabView.getChildren().indexOf(tEvent.getTab());
     }
 
+    // All "navigateTo" functions below were added as a workaround to an Expression Language bug found in WAS 8.5.0.1
+    // For more information, see http://www-01.ibm.com/support/docview.wss?uid=swg1PM72533 (PM72533)
+    public String navigateToDirectDomainTab() {
+        return setDirectTabIndexNavigate(NavigationConstant.DIRECT_DOMAIN_TAB);
+    }
+
+    public String navigateToDirectSettingTab() {
+        return setDirectTabIndexNavigate(NavigationConstant.DIRECT_SETTING_TAB);
+    }
+
+    public String navigateToDirectCertificateTab() {
+        return setDirectTabIndexNavigate(NavigationConstant.DIRECT_CERTIFICATE_TAB);
+    }
+
+    public String navigateToDirectTrustbundleTab() {
+        return setDirectTabIndexNavigate(NavigationConstant.DIRECT_TRUSTBUNDLE_TAB);
+    }
+
+    public String navigateToAccountMgmtUserAccountTab() {
+        return setAdminTabIndexNavigate(NavigationConstant.ACCOUNT_MGMT_USERACC_TAB);
+    }
+
+    public String navigateToAccountMgmtManageRoleTab() {
+        return setAdminTabIndexNavigate(NavigationConstant.ACCOUNT_MGMT_MANAGEROLE_TAB);
+    }
+
+    public String navigateToGatewayDashboardTab() {
+        return setDashboardTabIndexNavigate(NavigationConstant.GATEWAY_DASHBOARD_TAB);
+    }
+
+    public String navigateToGatewayRemoteListTab() {
+        return setDashboardTabIndexNavigate(NavigationConstant.GATEWAY_REMOTELIST_TAB);
+    }
 }
