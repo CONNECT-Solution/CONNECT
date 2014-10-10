@@ -71,9 +71,15 @@ public class DirectTrustBundle {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         createTime = sdf.format(tb.getCreateTime().toGregorianCalendar().getTime());
-        lastSuccessfulRefresh = sdf.format(tb.getLastSuccessfulRefresh().toGregorianCalendar().getTime());
-        lastRefreshAttempt = sdf.format(tb.getLastRefreshAttempt().toGregorianCalendar().getTime());
-
+        
+        if(tb.getLastSuccessfulRefresh() != null) {
+            lastSuccessfulRefresh = sdf.format(tb.getLastSuccessfulRefresh().toGregorianCalendar().getTime());
+        }
+        
+        if(tb.getLastRefreshAttempt() != null) {
+            lastRefreshAttempt = sdf.format(tb.getLastRefreshAttempt().toGregorianCalendar().getTime());
+        }
+        
         lastRefreshError = tb.getLastRefreshError().value();
         refreshInterval = tb.getRefreshInterval();
 

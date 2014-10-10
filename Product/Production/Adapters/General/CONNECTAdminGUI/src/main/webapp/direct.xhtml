@@ -49,7 +49,7 @@
                         <div class="table-responsive">
                             <h:form id="domain-form">
                                 <p:dataTable id="domainDataTable" var="domain" value="#{directDomainBean.domains}" selection="#{directDomainBean.selectedDomain}" rowKey="#{domain.domainName}" styleClass="table table-striped table-domains">
-                                    <p:ajax event="rowSelectRadio" update=":domainEditTabview,:domainNameHeaderOutput"/>
+                                    <p:ajax event="rowSelectRadio" update=":domainEditTabview,:domainNameHeaderOutput" listener="#{directDomainBean.setTrustBundlesForSelectedDomain}"/>
                                     <p:column headerText="select" selectionMode="single" />
                                     <p:column headerText="Name" sortBy="name">
                                         <h:outputText value="#{domain.domainName}" />
