@@ -25,7 +25,7 @@
                         <div class="form-group">
                             <h:outputLabel for="pick-tb" class="col-sm-3 control-label" id="pick-tbLbl" value="Signing Certificate:" />
                             <div class="col-sm-9">
-                                <p:fileUpload id="pick-tb" fileUploadListener="#{directTrustBundleBean.tbCertUpload}" allowTypes="/(\.|\/)(p7b|p7c|p7m)$/" />
+                                <p:fileUpload id="pick-tb" fileUploadListener="#{directTrustBundleBean.tbCertUpload}" allowTypes="/(\.|\/)(der|cer|crt|pem|p12|pfx)$/" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -37,7 +37,7 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <div class="form-button-row">
-                                    <p:commandButton ajax="true" id="submitAddTb" styleClass="btn btn-primary"  onstart="PF('tbBlock').show()"  value="Submit" update=":tabview:tb-form" actionListener="#{directTrustBundleBean.addTrustBundle}" oncomplete="PF('tbBlock').hide(); if(!args.validationFailed){PF('tbDlg').hide();}"/>
+                                    <p:commandButton ajax="true" id="submitAddTb" styleClass="btn btn-primary"  onstart="PF('tbBlock').show()"  value="Submit" update=":tabview:tb-form,tbDlgForm" actionListener="#{directTrustBundleBean.addTrustBundle}" oncomplete="PF('tbBlock').hide(); if(!args.validationFailed){PF('tbDlg').hide();}"/>
                                 </div>
                             </div>
                         </div>
