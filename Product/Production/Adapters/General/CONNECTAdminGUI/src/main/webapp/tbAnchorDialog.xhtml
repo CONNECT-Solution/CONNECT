@@ -1,0 +1,27 @@
+<ui:composition xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <div>
+        <p:dialog id="tbAnchorDlg" header="Trust Bundle Anchors" widgetVar="tbAnchorDlg" modal="true" dynamic="true" width="75%" closeOnEscape="true">
+            <h:form id="tbAnchorDlgForm" class="form form-horizontal">
+                <p:dataTable id="tbAnchors" var="anchor" value="#{directTrustBundleBean.selectedTrustBundleAnchors}" scrollable="true" scrollHeight="400">
+                    <p:column headerText="ID">
+                        <h:outputText value="#{anchor.id}" />
+                    </p:column>
+                    <p:column headerText="Thumbprint">
+                        <h:outputText value="#{anchor.thumbprint}" />
+                    </p:column>
+                    <p:column headerText="Valid Start">
+                        <h:outputText value="#{anchor.validStartDate}" />
+                    </p:column>
+                    <p:column headerText="Valid End">
+                        <h:outputText value="#{anchor.validEndDate}" />
+                    </p:column>
+                </p:dataTable>
+                <p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom" >     
+                    <p:commandButton value="Close" styleClass="add-button" onclick="PF('tbAnchorDlg').hide()" />
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+    </div>
+</ui:composition>

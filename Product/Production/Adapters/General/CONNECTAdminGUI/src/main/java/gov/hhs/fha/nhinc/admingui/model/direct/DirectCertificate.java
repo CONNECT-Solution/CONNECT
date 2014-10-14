@@ -44,9 +44,17 @@ public class DirectCertificate {
     private String validEndDate;
     private String validStartDate;
 
+    /**
+     *
+     */
     public DirectCertificate() {
     }
 
+    /**
+     *
+     * @param cert
+     * @param thumbprint
+     */
     public DirectCertificate(Certificate cert, String thumbprint) {
         this.thumbprint = thumbprint;
 
@@ -63,66 +71,130 @@ public class DirectCertificate {
         validStartDate = sdf.format(cert.getValidStartDate().toGregorianCalendar().getTime());
     }
 
+    /**
+     *
+     * @return
+     */
     public String getThumbprint() {
         return thumbprint;
     }
 
+    /**
+     *
+     * @param thumbprint
+     */
     public void setThumbprint(String thumbprint) {
         this.thumbprint = thumbprint;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public EntityStatus getStatus() {
         return status;
     }
 
+    /**
+     *
+     * @param status
+     */
     public void setStatus(EntityStatus status) {
         this.status = status;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isPrivateKey() {
         return privateKey;
     }
 
+    /**
+     *
+     * @param privateKey
+     */
     public void setPrivateKey(boolean privateKey) {
         this.privateKey = privateKey;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getOwner() {
         return owner;
     }
 
+    /**
+     *
+     * @param owner
+     */
     public void setOwner(String owner) {
         this.owner = owner;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCreateTime() {
         return createTime;
     }
 
+    /**
+     *
+     * @param createTime
+     */
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getValidEndDate() {
         return validEndDate;
     }
 
+    /**
+     *
+     * @param validEndDate
+     */
     public void setValidEndDate(String validEndDate) {
         this.validEndDate = validEndDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getValidStartDate() {
         return validStartDate;
     }
 
+    /**
+     *
+     * @param validStartDate
+     */
     public void setValidStartDate(String validStartDate) {
         this.validStartDate = validStartDate;
     }

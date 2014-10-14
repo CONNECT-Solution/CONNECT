@@ -38,10 +38,18 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private UserLoginDAO userDAO;
     
+    /**
+     * Default constructor.
+     */
     public RoleServiceImpl(){
         
     }
     
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.services.RoleService#checkRole(String, gov.hhs.fha .nhinc.admingui.services.persistence.jpa.entity.UserLogin)
+     */
     @Override
     public boolean checkRole(String pageName, UserLogin user) {
         if(user != null && user.getUserRole() != null && user.getUserRole().getPreferences() != null){
@@ -54,16 +62,31 @@ public class RoleServiceImpl implements RoleService {
         return false;
     }
     
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.services.RoleService#getAllRoles()
+     */
     @Override
     public List<UserRole> getAllRoles(){
         return userDAO.getAllRoles();
     }
     
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.services.RoleService#getPreferences(gov.hhs.fha .nhinc.admingui.services.persistence.jpa.entity.UserRole)
+     */
     @Override
     public List<RolePreference> getPreferences(UserRole role){
         return userDAO.getPreferences(role);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.services.RoleService#updatePreference(gov.hhs.fha .nhinc.admingui.services.persistence.jpa.entity.RolePreference)
+     */
     @Override
     public boolean updatePreference(RolePreference preference) {
         return userDAO.updatePreference(preference);

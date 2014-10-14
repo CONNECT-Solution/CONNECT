@@ -31,14 +31,35 @@ import org.primefaces.event.CloseEvent;
  */
 public interface DashboardViewResolver {
     
+    /**
+     *
+     * @param panelDataList
+     */
     public void setView(List<DashboardPanel> panelDataList);
     
+    /**
+     *
+     * @param event
+     * @param panels
+     */
     public void handleClose(CloseEvent event, List<DashboardPanel> panels);
     
+    /**
+     *
+     * @return
+     */
     public Dashboard getDashboard();
     
+    /**
+     *
+     * @param dashboard
+     */
     public void setDashboard(Dashboard dashboard);
     
+    /**
+     *
+     * @param panel
+     */
     public void addPanel(DashboardPanel panel);
     
 }

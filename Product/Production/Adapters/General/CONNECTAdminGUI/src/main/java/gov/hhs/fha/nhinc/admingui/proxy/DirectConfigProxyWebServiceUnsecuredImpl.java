@@ -57,45 +57,85 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
 
     private final Class<ConfigurationService> directConfigClazz = ConfigurationService.class;
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#getDomain(int)
+     */
     @Override
     public Domain getDomain(Long id) throws Exception {
         return (Domain) getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_GET_DOMAIN, id);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addDomain(org.nhind.config.AddDomain)
+     */
     @Override
     public void addDomain(AddDomain domain) throws Exception {
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ADD_DOMAIN, domain);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#listDomains()
+     */
     @Override
     public List<Domain> listDomains() throws Exception {
         return (List<Domain>) getClient().invokePort(directConfigClazz,
                 DirectConfigConstants.DIRECT_CONFIG_LIST_DOMAINS, null, 0);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#updateDomain(org.nhind.config.UpdateDomain)
+     */
     @Override
     public UpdateDomainResponse updateDomain(UpdateDomain updateDomain) throws Exception {
         return (UpdateDomainResponse) getClient().invokePort(directConfigClazz,
                 DirectConfigConstants.DIRECT_CONFIG_UPDATE_DOMAIN, updateDomain);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#deleteDomain(String)
+     */
     @Override
     public void deleteDomain(String name) throws Exception {
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DELETE_DOMAIN, name);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addAnchor(org.nhind.config.AddAnchor)
+     */
     @Override
     public void addAnchor(AddAnchor addAnchor) throws Exception {
         getClient()
             .invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ADD_ANCHOR, addAnchor.getAnchor());
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#removeAnchors(org.nhind.config.RemoveAnchors)
+     */
     @Override
     public void removeAnchors(RemoveAnchors removeAnchors) throws Exception {
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DELETE_ANCHOR,
             removeAnchors.getAnchorId());
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#getAnchorsForOwner(org.nhind.config.GetAnchorsForOwner)
+     */
     @Override
     public List<Anchor> getAnchorsForOwner(GetAnchorsForOwner getAnchorsForOwner) throws Exception {
         return (List<Anchor>) getClient().invokePort(directConfigClazz,
@@ -103,12 +143,22 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
             getAnchorsForOwner.getOptions());
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addCertificates(org.nhind.config.AddCertificates)
+     */
     @Override
     public void addCertificates(AddCertificates certificate) throws Exception {
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ADD_CERT, certificate.getCerts());
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#removeCertificate(org.nhind.config.RemoveCertificates)
+     */
     @Override
     public void removeCertificate(RemoveCertificates certificate) throws Exception {
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DELETE_CERT,
@@ -116,6 +166,11 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#listCertificates(org.nhind.config.ListCertificates)
+     */
     @Override
     public List<Certificate> listCertificates(ListCertificates listCert) throws Exception {
         return (List<Certificate>) getClient().invokePort(directConfigClazz,
@@ -123,47 +178,93 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
                 listCert.getMaxResutls(), listCert.getOptions());
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addSetting(String, String)
+     */
     @Override
     public void addSetting(String name, String value) throws Exception {
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ADD_SETTING, name, value);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#getSetting()
+     */
     @Override
     public List<Setting> getSetting() throws Exception {
         return (List<Setting>) getClient().invokePort(directConfigClazz,
             DirectConfigConstants.DIRECT_CONFIG_LIST_SETTINGS);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#deleteSetting(List<String>)
+     */
     @Override
     public void deleteSetting(List<String> deleteNames) throws Exception {
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DELETE_SETTING, deleteNames);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addTrustBundle(org.nhind.config.TrustBundle)
+     */
     @Override
     public void addTrustBundle(TrustBundle tb) throws Exception {
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ADD_TRUST_BUNDLE, tb);
     }
 
+    /**
+     *
+     * @param fetchAnchors
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<TrustBundle> getTrustBundles(boolean fetchAnchors) throws Exception {
         return (List<TrustBundle>) getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_GET_TRUST_BUNDLES, fetchAnchors);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#getTrustBundleByName(String)
+     */
     @Override
     public TrustBundle getTrustBundleByName(String bundleName) throws Exception {
         return (TrustBundle) getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_GET_TRUST_BUNDLE_BY_NAME, bundleName);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#getTrustBundleByDomain(long, boolean)
+     */
     @Override
     public List<TrustBundleDomainReltn> getTrustBundlesByDomain(long domainId, boolean fetchAnchors) throws Exception {
         return (List<TrustBundleDomainReltn>) getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_GET_TRUST_BUNDLES_BY_DOMAIN, domainId, fetchAnchors);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#associateTrustBundleToDomain(long, long, boolean, boolean)
+     */
     @Override
     public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming, boolean outgoing) throws Exception {
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ASSOCIATE_TRUST_BUNDLE_TO_DOMAIN, domainId, trustBundleId, incoming, outgoing);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#updateTrustBundleAttributes(long, String, String, org.nhind.config.Certificate, int)
+     */
     @Override
     public void updateTrustBundleAttributes(long trustBundleId, String trustBundleName, String trustBundleURL,
         Certificate signingCert, int trustBundleRefreshInterval) throws Exception {
@@ -172,36 +273,66 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
             trustBundleId, trustBundleName, trustBundleURL, signingCert, trustBundleRefreshInterval);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#refreshTrustBundle(int)
+     */
     @Override
-    public void refreshTrustBundle(int id) throws Exception {
+    public void refreshTrustBundle(long id) throws Exception {
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_REFRESH_TRUST_BUNDLE, id);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#disassociateTrustBundleFromDomain(long, long)
+     */
     @Override
     public void disassociateTrustBundleFromDomain(long domainId, long trustBundleId) throws Exception {
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLE_FROM_DOMAIN, domainId, trustBundleId);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#disassociateTrustBundleFromDomains(long)
+     */
     @Override
     public void disassociateTrustBundleFromDomains(long trustBundleId) throws Exception {
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLE_FROM_DOMAINS, trustBundleId);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#disassociateTrustBundlesFromDomain(long)
+     */
     @Override
     public void disassociateTrustBundlesFromDomain(long domainId) throws Exception {
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLES_FROM_DOMAIN, domainId);
     }
 
+    /**
+     *
+     * @param ids
+     * @throws Exception
+     */
     @Override
     public void deleteTrustBundles(List<Long> ids) throws Exception {
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DELETE_TRUST_BUNDLE, ids);
     }
     
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#removeAddress(String)
+     */
     @Override
     public void removeAddress(String addressEmail) throws Exception{
         getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_REMOVE_ADDRESS, addressEmail);
     }
-
+    
     private CONNECTClient<ConfigurationService> getClient() throws Exception {
 
         String url = oProxyHelper

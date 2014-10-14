@@ -38,6 +38,11 @@ public class PageAccessMapping {
     public static String READ_ONLY = "Read Only";
     public static String READ_WRITE = "Read Write";
 
+    /**
+     *
+     * @param preference
+     * @param pageAccessMapping
+     */
     public PageAccessMapping(RolePreference preference, final ManageRoleBean pageAccessMapping) {
         this.preference = preference;
         availableAccessLevels = new ArrayList<String>();
@@ -63,10 +68,18 @@ public class PageAccessMapping {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public RolePreference getPreference() {
         return preference;
     }
 
+    /**
+     *
+     * @param preference
+     */
     public void setPreference(RolePreference preference) {
         this.preference = preference;
     }

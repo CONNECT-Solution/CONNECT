@@ -20,9 +20,16 @@
         <module>DocumentSubmission_20</module>
         <module>PatientDiscovery_10</module>
         <module>CONNECTGatewayWeb</module>
-        <module>Direct</module>
-    <module>CORE_X12DocumentSubmission_10</module>
-  </modules>
+        <module>CORE_X12DocumentSubmission_10</module>
+    </modules>
+    <profiles>
+        <profile>
+            <id>Direct</id>
+            <modules>
+                <module>Direct</module>
+            </modules>
+        </profile>
+    </profiles>
     <properties>
         <skip.unpack>false</skip.unpack>
     </properties>
@@ -53,15 +60,15 @@
             </exclusions>
         </dependency>
         <dependency>
-              <groupId>javax</groupId>
-              <artifactId>javaee-api</artifactId>
-              <scope>provided</scope>
-          </dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
         </dependency>

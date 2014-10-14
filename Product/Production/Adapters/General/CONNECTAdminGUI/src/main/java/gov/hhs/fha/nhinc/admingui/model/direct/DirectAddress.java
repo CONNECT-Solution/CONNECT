@@ -30,35 +30,67 @@ public class DirectAddress {
     private String endpoint;
     private String type;
 
+    /**
+     *
+     */
     public DirectAddress() {
         
     }
     
+    /**
+     *
+     * @param endpoint
+     * @param type
+     */
     public DirectAddress(String endpoint, String type) {
         this.endpoint = endpoint;
         this.type = type;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getPosition() {
         return position;
     }
 
+    /**
+     *
+     * @param position
+     */
     public void setPosition(int position) {
         this.position = position;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getEndpoint() {
         return endpoint;
     }
 
+    /**
+     *
+     * @param endpoint
+     */
     public void setEndpoint(String endpoint) {
         this.endpoint = endpoint;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     *
+     * @param type
+     */
     public void setType(String type) {
         this.type = type;
     }

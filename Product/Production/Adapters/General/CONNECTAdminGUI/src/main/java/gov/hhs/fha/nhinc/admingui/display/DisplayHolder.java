@@ -32,6 +32,10 @@ public class DisplayHolder {
     private DisplayHolder(){
     }
     
+    /**
+     *
+     * @return
+     */
     public static DisplayHolder getInstance(){
         if(INSTANCE == null){
             INSTANCE = new DisplayHolder();
@@ -41,10 +45,18 @@ public class DisplayHolder {
     
     private boolean directEnabled = true;
 
+    /**
+     *
+     * @return
+     */
     public boolean isDirectEnabled() {
         return directEnabled;
     }
 
+    /**
+     *
+     * @param directEnabled
+     */
     public void setDirectEnabled(boolean directEnabled) {
         this.directEnabled = directEnabled;
     }

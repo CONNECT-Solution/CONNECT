@@ -150,10 +150,18 @@ public class UserLogin {
         this.sha1 = sha1;
     }
     
+    /**
+     *
+     * @return
+     */
     public UserRole getUserRole() {
         return userRole;
     }
 
+    /**
+     *
+     * @param userRole
+     */
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }

@@ -107,6 +107,10 @@ public class ManageRoleBean {
         }
     }
 
+    /**
+     *
+     * @param event
+     */
     public void roleChanged(final AjaxBehaviorEvent event) {
         currentRole = roles.get(selectedRole);
         setPreferences(currentRole);
@@ -130,6 +134,9 @@ public class ManageRoleBean {
         this.pagesModel = pages;
     }
 
+    /**
+     *
+     */
     public void initData() {
         if (selectedRole == null) {
 
@@ -171,22 +178,42 @@ public class ManageRoleBean {
         return (UserLogin) session.getAttribute(USER_INFO_SESSION_ATTRIBUTE);
     }
 
+    /**
+     *
+     * @return
+     */
     public UserRole getCurrentRole() {
         return currentRole;
     }
 
+    /**
+     *
+     * @param currentRole
+     */
     public void setCurrentRole(UserRole currentRole) {
         this.currentRole = currentRole;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getSelectedRole() {
         return selectedRole;
     }
 
+    /**
+     *
+     * @param selectedRole
+     */
     public void setSelectedRole(String selectedRole) {
         this.selectedRole = selectedRole;
     }
 
+    /**
+     *
+     * @return
+     */
     public Set<String> getRoleLabels() {
         return roles.keySet();
     }

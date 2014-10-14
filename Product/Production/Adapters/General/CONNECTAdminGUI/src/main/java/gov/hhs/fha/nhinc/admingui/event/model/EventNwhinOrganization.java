@@ -45,102 +45,202 @@ public class EventNwhinOrganization {
     private int adCount = 0;
     private int directCount = 0;
     
+    /**
+     *
+     * @return
+     */
     public String getOrganizationName() {
         return organizationName;
     }
 
+    /**
+     *
+     * @param organizationName
+     */
     public void setOrganizationName(String organizationName) {
         this.organizationName = organizationName;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getPdCount() {
         return pdSyncCount + pdDefReqCount + pdDefRespCount;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getDqCount() {
         return dqCount;
     }
 
+    /**
+     *
+     * @param dqCount
+     */
     public void setDqCount(int dqCount) {
         this.dqCount = dqCount;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getDrCount() {
         return drCount;
     }
 
+    /**
+     *
+     * @param drCount
+     */
     public void setDrCount(int drCount) {
         this.drCount = drCount;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getDsCount() {
         return dsSyncCount + dsDefReqCount + dsDefRespCount;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPdDefReqCount() {
         return pdDefReqCount;
     }
 
+    /**
+     *
+     * @param pdDefReqCount
+     */
     public void setPdDefReqCount(int pdDefReqCount) {
         this.pdDefReqCount = pdDefReqCount;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPdDefRespCount() {
         return pdDefRespCount;
     }
 
+    /**
+     *
+     * @param pdDefRespCount
+     */
     public void setPdDefRespCount(int pdDefRespCount) {
         this.pdDefRespCount = pdDefRespCount;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPdSyncCount() {
         return pdSyncCount;
     }
 
+    /**
+     *
+     * @param pdSyncCount
+     */
     public void setPdSyncCount(int pdSyncCount) {
         this.pdSyncCount = pdSyncCount;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getDsDefReqCount() {
         return dsDefReqCount;
     }
 
+    /**
+     *
+     * @param dsDefReqCount
+     */
     public void setDsDefReqCount(int dsDefReqCount) {
         this.dsDefReqCount = dsDefReqCount;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getDsDefRespCount() {
         return dsDefRespCount;
     }
 
+    /**
+     *
+     * @param dsDefRespCount
+     */
     public void setDsDefRespCount(int dsDefRespCount) {
         this.dsDefRespCount = dsDefRespCount;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getDsSyncCount() {
         return dsSyncCount;
     }
 
+    /**
+     *
+     * @param dsSyncCount
+     */
     public void setDsSyncCount(int dsSyncCount) {
         this.dsSyncCount = dsSyncCount;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getAdCount() {
         return adCount;
     }
 
+    /**
+     *
+     * @param adCount
+     */
     public void setAdCount(int adCount) {
         this.adCount = adCount;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getDirectCount() {
         return directCount;
     }
 
+    /**
+     *
+     * @param directCount
+     */
     public void setDirectCount(int directCount) {
         this.directCount = directCount;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getTotalCount(){
         return getPdCount() + getDqCount() + getDrCount() + getDsCount() + getAdCount() + getDirectCount();
     }

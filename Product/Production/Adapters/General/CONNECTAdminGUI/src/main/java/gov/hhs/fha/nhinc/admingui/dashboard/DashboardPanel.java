@@ -34,20 +34,50 @@ package gov.hhs.fha.nhinc.admingui.dashboard;
 
 public interface DashboardPanel {
     
+    /**
+     *
+     * @return
+     */
     public String getType();
     
+    /**
+     *
+     * @return
+     */
     public String getTitle();
     
+    /**
+     *
+     * @return
+     */
     public String getDescription();
     
+    /**
+     *
+     * @return
+     */
     public DashboardPanel setData();
     
+    /**
+     *
+     * @return
+     */
     public boolean isClosed();
     
+    /**
+     *
+     */
     public void close();
     
+    /**
+     *
+     */
     public void open();
     
+    /**
+     *
+     * @param observer
+     */
     public void setObserver(DashboardObserver observer);
 
 }

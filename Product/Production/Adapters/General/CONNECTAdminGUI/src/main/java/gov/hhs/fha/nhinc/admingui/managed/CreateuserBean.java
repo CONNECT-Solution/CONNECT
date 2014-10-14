@@ -27,11 +27,11 @@
 package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
-import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -53,7 +53,6 @@ public class CreateuserBean {
     private String userName;
     private String password;
     private String role;
-    public Boolean isCreated = false;
 
     /**
      * The login service.
@@ -81,18 +80,15 @@ public class CreateuserBean {
      */
     public String addCreateUser() {
         if (createUser()) {
-            this.isCreated = true;
-            return NavigationConstant.LOGIN_PAGE;
+            return NavigationConstant.ACCT_MGMT_PAGE;
         } else {
-            this.isCreated = false;
             return "failed for create user";
         }
-
     }
 
     /**
      *
-     * @return boolean flag value
+     * @return boolean representing whether or not user creation was successful
      */
     public boolean createUser() {
         boolean createdUser = false;
@@ -101,16 +97,22 @@ public class CreateuserBean {
             UserLogin userLogin = loginService.addUser(user, Long.parseLong(role));
             if (userLogin != null) {
                 createdUser = true;
-                HttpSession session = getHttpSession();
-                session.setAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE, userLogin);
             }
         } catch (UserLoginException e) {
-            log.error("Error in create user" + e.getMessage());
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage("userAddErrors",
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Can not add user: " + e.getLocalizedMessage(), ""));
+            log.error("Error creating user: " + e.getMessage());
         }
         userName = null;
+        password = null;
         return createdUser;
     }
 
+    /**
+     *
+     * @return
+     */
     protected HttpSession getHttpSession() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         return session;

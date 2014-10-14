@@ -40,10 +40,22 @@ public class DirectDomain {
     private List<DirectAnchor> anchors = new ArrayList<DirectAnchor>();
     private List<DirectTrustBundle> trustBundles = new ArrayList<DirectTrustBundle>();
 
+    /**
+     *
+     */
     public DirectDomain(){
         
     }
     
+    /**
+     *
+     * @param position
+     * @param domainStatus
+     * @param domainName
+     * @param domainPostMaster
+     * @param domainCreated
+     * @param domainUpdated
+     */
     public DirectDomain(int position, String domainStatus, String domainName, String domainPostMaster, String domainCreated, String domainUpdated) {
         this.position = position;
         this.domainStatus = domainStatus;
@@ -53,90 +65,178 @@ public class DirectDomain {
         this.domainUpdated = domainUpdated;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPosition() {
         return position;
     }
 
+    /**
+     *
+     * @param position
+     */
     public void setPosition(int position) {
         this.position = position;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getDomainStatus() {
         return domainStatus;
     }
 
+    /**
+     *
+     * @param domainStatus
+     */
     public void setDomainStatus(String domainStatus) {
         this.domainStatus = domainStatus;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDomainName() {
         return domainName;
     }
 
+    /**
+     *
+     * @param domainName
+     */
     public void setDomainName(String domainName) {
         this.domainName = domainName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDomainPostMaster() {
         return domainPostMaster;
     }
 
+    /**
+     *
+     * @param domainPostMaster
+     */
     public void setDomainPostMaster(String domainPostMaster) {
         this.domainPostMaster = domainPostMaster;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDomainCreated() {
         return domainCreated;
     }
 
+    /**
+     *
+     * @param domainCreated
+     */
     public void setDomainCreated(String domainCreated) {
         this.domainCreated = domainCreated;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDomainUpdated() {
         return domainUpdated;
     }
 
+    /**
+     *
+     * @param domainUpdated
+     */
     public void setDomainUpdated(String domainUpdated) {
         this.domainUpdated = domainUpdated;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<DirectAddress> getAddresses() {
         return addresses;
     }
 
+    /**
+     *
+     * @param addresses
+     */
     public void setAddresses(List<DirectAddress> addresses) {
         this.addresses = addresses;
     }
    
+    /**
+     *
+     * @param address
+     */
     public void addAddress(DirectAddress address){
         addresses.add(address);
     }
 
+    /**
+     *
+     * @return
+     */
     public List<DirectAnchor> getAnchors() {
         return anchors;
     }
 
+    /**
+     *
+     * @param anchors
+     */
     public void setAnchors(List<DirectAnchor> anchors) {
         this.anchors = anchors;
     }
     
+    /**
+     *
+     * @param anchor
+     */
     public void addAnchor(DirectAnchor anchor){
         anchors.add(anchor);
     }
 
+    /**
+     *
+     * @return
+     */
     public List<DirectTrustBundle> getTrustBundles() {
         return trustBundles;
     }
 
+    /**
+     *
+     * @param trustBundles
+     */
     public void setTrustBundles(List<DirectTrustBundle> trustBundles) {
         this.trustBundles = trustBundles;
     }
     
+    /**
+     *
+     * @param tb
+     */
     public void addTrustBundle(DirectTrustBundle tb){
         trustBundles.add(tb);
     }
     
+    /**
+     *
+     * @param tbs
+     */
     public void addTrustBundles(List<DirectTrustBundle> tbs){
         trustBundles.addAll(tbs);
     }

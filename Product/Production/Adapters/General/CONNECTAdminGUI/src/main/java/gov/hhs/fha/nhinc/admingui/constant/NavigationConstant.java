@@ -31,11 +31,22 @@ package gov.hhs.fha.nhinc.admingui.constant;
  *
  */
 public class NavigationConstant {
-	
-	public static final String STATUS_PAGE = "status";
-	public static final String LOGIN_PAGE = "login";
-        public static final String ACCT_MGMT_PAGE = "acctmanage";
-        public static final String DIRECT_PAGE = "direct";
-        public static final String DIRECT_XHTML = "direct.xhtml";
-        
+
+    public static final String STATUS_PAGE = "status";
+    public static final String LOGIN_PAGE = "login";
+    public static final String ACCT_MGMT_PAGE = "acctmanage";
+    public static final String DIRECT_PAGE = "direct";
+    public static final String DIRECT_XHTML = "direct.xhtml";
+
+    public static final int DIRECT_DOMAIN_TAB = 0;
+    public static final int DIRECT_SETTING_TAB = 1;
+    public static final int DIRECT_CERTIFICATE_TAB = 2;
+    public static final int DIRECT_TRUSTBUNDLE_TAB = 3;
+
+    public static final int ACCOUNT_MGMT_USERACC_TAB = 0;
+    public static final int ACCOUNT_MGMT_MANAGEROLE_TAB = 1;
+
+    public static final int GATEWAY_DASHBOARD_TAB = 0;
+    public static final int GATEWAY_REMOTELIST_TAB = 1;
+
 }

@@ -25,8 +25,11 @@ import gov.hhs.fha.nhinc.admingui.model.direct.DirectCertificate;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
+import javax.faces.context.FacesContext;
 import org.nhind.config.AddCertificates;
 import org.nhind.config.Certificate;
 import org.nhind.config.CertificateGetOptions;
@@ -51,12 +54,15 @@ public class DirectCertBean {
     private DirectService directService;
 
     private UploadedFile certFile;
-    private String certStatus;
 
     private DirectCertificate selectedCert;
 
     private List<DirectCertificate> directCertificate;
 
+    /**
+     *
+     * @return
+     */
     public List<DirectCertificate> getCertificates() {
         if (directCertificate == null) {
             refreshCertificates();
@@ -64,6 +70,9 @@ public class DirectCertBean {
         return directCertificate;
     }
 
+    /**
+     *
+     */
     public void deleteCertificate() {
         RemoveCertificates removeCert = new RemoveCertificates();
         removeCert.getCertificateIds().add(selectedCert.getId());
@@ -73,28 +82,54 @@ public class DirectCertBean {
         refreshCertificates();
     }
 
+    /**
+     *
+     * @param event
+     */
     public void certFileUpload(FileUploadEvent event) {
         certFile = event.getFile();
     }
 
-    public void addCertificate() {
-        AddCertificates addCert = new AddCertificates();
-        Certificate certificate = new Certificate();
-        certificate.setData(certFile.getContents());
-        certificate.setStatus(EntityStatus.NEW);
-        addCert.getCerts().add(certificate);
-        directService.addCertificate(addCert);
-        refreshCertificates();
+    /**
+     *
+     * @param event
+     */
+    public void addCertificate(ActionEvent event) {
+        if (certFile != null) {
+            AddCertificates addCert = new AddCertificates();
+            Certificate certificate = new Certificate();
+            certificate.setData(certFile.getContents());
+            certificate.setStatus(EntityStatus.ENABLED);
+            addCert.getCerts().add(certificate);
+            directService.addCertificate(addCert);
+            refreshCertificates();
+        } else {
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage("certificateAddError",
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR",
+                    "Choose and upload a certificate before submitting."));
+        }
     }
 
+    /**
+     *
+     * @return
+     */
     public UploadedFile getCertFile() {
         return certFile;
     }
 
+    /**
+     *
+     * @param certFile
+     */
     public void setCertFile(UploadedFile certFile) {
         this.certFile = certFile;
     }
 
+    /**
+     *
+     */
     protected void refreshCertificates() {
         ListCertificates cert = new ListCertificates();
 
@@ -111,18 +146,18 @@ public class DirectCertBean {
         }
     }
 
-    public String getCertStatus() {
-        return certStatus;
-    }
-
-    public void setCertStatus(String certStatus) {
-        this.certStatus = certStatus;
-    }
-
+    /**
+     *
+     * @return
+     */
     public DirectCertificate getSelectedCert() {
         return selectedCert;
     }
 
+    /**
+     *
+     * @param selectedCert
+     */
     public void setSelectedCert(DirectCertificate selectedCert) {
         this.selectedCert = selectedCert;
     }

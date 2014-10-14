@@ -11,39 +11,20 @@
                         <div class="form-group">
                             <h:outputLabel for="input-domain" class="col-sm-3 control-label" id="input-domainLbl" value="Domain Name:" />
                             <div class="col-sm-9">
-                                <h:inputText class="form-control" id="input-domain" maxlength="255" required="true" value="#{directDomainBean.domainName}"/>
+                                <p:inputText styleClass="form-control" id="input-domain" maxlength="255" required="true" requiredMessage="Domain name required." value="#{directDomainBean.domainName}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <h:outputLabel for="input-email" class="col-sm-3 control-label" id="input-emailLbl" value="Postmaster E-mail Address:" />
                             <div class="col-sm-9">
-                                <h:inputText class="form-control" id="input-email" maxlength="255" required="true" value="#{directDomainBean.domainPostmaster}"/>
+                                <p:inputText styleClass="form-control" id="input-email" maxlength="255" required="true" requiredMessage="Postmaster address required." value="#{directDomainBean.domainPostmaster}"/>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <h:outputLabel for="select-status" class="col-sm-3 control-label" id="select-statusLbl" value="Status:" />
-                            <div class="col-sm-9">
-                                <p:selectOneMenu id="select-status" value="#{directDomainBean.domainStatus}">
-                                    <f:selectItem itemLabel="NEW" itemValue="NEW" />
-                                    <f:selectItem itemLabel="ENABLED" itemValue="ENABLED" />
-                                    <f:selectItem itemLabel="DISABLED" itemValue="DISABLED" />
-                                </p:selectOneMenu>					
-							</div>
-                        </div>
-                        <ui:remove>
-                        <!--<div class="form-group">
-                            <h:outputLabel for="select-tb" class="col-sm-3 control-label" id="select-tbLbl" value="Select Trust Bundle:" />
-                            <div class="col-sm-9">
-                                <p:selectOneMenu id="select-tb" value="#{directDomainBean.domainTrustBundle}">
-                                    <f:selectItems var="tb" value="#{directDomainBean.associatedTrustBundles}" itemLabel="#{tb.tbName}" itemValue="#{tb.tbName}" />       
-                                </p:selectOneMenu>
-                            </div>
-                        </div> -->
-                        </ui:remove>
+                        
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <div class="form-button-row">
-                                    <h:commandButton id="submit" class="btn btn-primary" value="Submit" action="#{directDomainBean.addDomain()}"/>
+                                    <p:commandButton id="submit" ajax="true" styleClass="btn btn-primary" value="Submit" actionListener="#{directDomainBean.addDomain}" update=":tabview:domain-form" oncomplete="PF('domainDlg').hide()" />
                                 </div>
                             </div>
                         </div>

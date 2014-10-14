@@ -35,30 +35,54 @@ public class DashboardAppServer extends DashboardPanelAbstract implements Dashbo
     
     private static final String GLASSFISH_KEY = "glassfish.version";
        
+    /**
+     *
+     */
     public DashboardAppServer(){
         
     }
     
+    /**
+     *
+     * @param observer
+     * @param closed
+     */
     public DashboardAppServer(DashboardObserver observer, boolean closed){
         setObserver(observer);
         setClosed(closed);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public String getType() {
         return type;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTitle() {
         return title;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getDescription() {
         return description;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public DashboardPanel setData() {
         String gfishApp = System.getProperty(GLASSFISH_KEY);
@@ -75,12 +99,18 @@ public class DashboardAppServer extends DashboardPanelAbstract implements Dashbo
         return this;
     }
 
+    /**
+     *
+     */
     @Override
     public void close() {
         setClosed(true);
         getObserver().closePanel(DashboardAppServer.class);
     }
 
+    /**
+     *
+     */
     @Override
     public void open() {
         setClosed(false);

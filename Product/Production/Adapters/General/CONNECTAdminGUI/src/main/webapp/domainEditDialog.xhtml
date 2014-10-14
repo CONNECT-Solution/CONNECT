@@ -13,21 +13,11 @@
                             <div class="form-group">
                                 <h:outputLabel for="input-edit-domain" class="col-sm-3 control-label" id="input-edit-domainLbl" value="Domain Name:" />
                                 <div class="col-sm-9">
-                                    <h:inputText class="form-control" id="input-edit-domain" maxlength="255" required="true" value="#{directDomainBean.selectedDomain.domainName}"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <h:outputLabel for="select-edit-status" class="col-sm-3 control-label" id="select-edit-statusLbl" value="Status:" />
-                                <div class="col-sm-9">
-                                    <p:selectOneMenu id="select-edit-status" value="#{directDomainBean.selectedDomain.status}">
-                                        <f:selectItem itemLabel="NEW" itemValue="NEW" />
-                                        <f:selectItem itemLabel="ENABLED" itemValue="ENABLED" />
-                                        <f:selectItem itemLabel="DISABLED" itemValue="DISABLED" />
-                                    </p:selectOneMenu>
+                                    <p:inputText styleClass="form-control" id="input-edit-domain" maxlength="255" required="true" value="#{directDomainBean.selectedDomain.domainName}" requiredMessage="Domain Edit Error: Name can not be empty."/>
                                 </div>
                             </div>
                             <div class="form-button-row">
-                                <h:commandButton id="submit" class="btn btn-primary" value="Update" action="#{directDomainBean.editDomain()}"/>
+                                <p:commandButton id="submit" ajax="true" update=":tabview:domain-form" styleClass="btn btn-primary" value="Update" actionListener="#{directDomainBean.editDomain}" oncomplete="PF('domainEditDlg').hide()"/>
                             </div>
                         </h:form>
                     </p:tab>
@@ -43,14 +33,14 @@
                                     <h:outputText value="#{address.emailAddress}" />
                                 </p:column>
                             </p:dataTable>
-                            
+
                             <p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
                                 <p:commandButton update="addressDataTable" value="Delete" action="#{directDomainBean.deleteAddress()}" styleClass="delete-button" icon="ui-icon-closethick"/>                          
                             </p:panelGrid> 
                         </h:form>
                         <h:form id="addressesAddForm" class="form form-horizontal">
-                                          
-                                <div class="domain-form-block">
+
+                            <div class="domain-form-block">
                                 <h4>Add Another Address</h4>
                                 <div class="form-group">
                                     <h:outputLabel for="input-address-name" class="col-sm-3 control-label" id="input-address-nameLbl" value="Address Name:" />
@@ -91,13 +81,13 @@
                                     <h:outputText value="#{anchor.validEndDate}" />
                                 </p:column>
                                 <p:column headerText="Status">
-                                    <h:outputText value="#{anchor.status}" />
+                                    <h:outputText value="#{anchor.status}" />                                        
                                 </p:column>
                                 <p:column headerText="Incoming">
                                     <h:outputText value="#{anchor.incoming}" />
                                 </p:column>
                                 <p:column headerText="Outgoing">
-                                    <h:outputText value="#{anchor.outgoing}" />
+                                    <h:outputText value="#{anchor.outgoing}" />                                      
                                 </p:column>
                             </p:dataTable>
                             <p:panelGrid columns="1" styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
@@ -126,7 +116,6 @@
                                     <h:outputLabel for="select-anchor-status" class="col-sm-3 control-label" id="select-anchor-statusLbl" value="Status:" />
                                     <div class="col-sm-9">
                                         <p:selectOneMenu id="select-anchor-status" value="#{directDomainBean.anchorStatus}">
-                                            <f:selectItem itemLabel="NEW" itemValue="NEW" />
                                             <f:selectItem itemLabel="ENABLED" itemValue="ENABLED" />
                                             <f:selectItem itemLabel="DISABLED" itemValue="DISABLED" />
                                         </p:selectOneMenu>

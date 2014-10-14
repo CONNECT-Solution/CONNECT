@@ -27,13 +27,13 @@
 package gov.hhs.fha.nhinc.admingui.managed.direct;
 
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
-
 import java.util.ArrayList;
 import java.util.List;
-
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import org.nhind.config.Setting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -56,6 +56,10 @@ public class DirectAgentBean {
     private Setting selectSetting;
     private List<Setting> settings;
 
+    /**
+     *
+     * @return
+     */
     public List<Setting> getSettings() {
         if (settings == null) {
             refreshSetting();
@@ -63,15 +67,26 @@ public class DirectAgentBean {
         return settings;
     }
 
-    public void addSetting() {
-        if (agentName != null && agentValue != null) {
+    /**
+     *
+     * @param event
+     */
+    public void addSetting(ActionEvent event) {
+        try {
             directService.addSetting(agentName, agentValue);
             agentName = null;
             agentValue = null;
             refreshSetting();
+        } catch (Exception ex) {           
+            FacesContext.getCurrentInstance().validationFailed();
+            FacesContext.getCurrentInstance().addMessage("agentErrorMessages",
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Setting Add Error: Duplicate Key", ex.getLocalizedMessage()));
         }
     }
 
+    /**
+     *
+     */
     public void deleteSetting() {
         if (selectSetting != null) {
             List<String> deleteNames = new ArrayList<String>();
@@ -82,30 +97,57 @@ public class DirectAgentBean {
         }
     }
 
+    /**
+     *
+     */
     protected void refreshSetting() {
         settings = directService.getSetting();
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAgentName() {
         return agentName;
     }
 
+    /**
+     *
+     * @param agentName
+     */
     public void setAgentName(String agentName) {
         this.agentName = agentName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAgentValue() {
         return agentValue;
     }
 
+    /**
+     *
+     * @param agentValue
+     */
     public void setAgentValue(String agentValue) {
         this.agentValue = agentValue;
     }
 
+    /**
+     *
+     * @return
+     */
     public Setting getSelectSetting() {
         return selectSetting;
     }
 
+    /**
+     *
+     * @param selectSetting
+     */
     public void setSelectSetting(Setting selectSetting) {
         this.selectSetting = selectSetting;
     }
