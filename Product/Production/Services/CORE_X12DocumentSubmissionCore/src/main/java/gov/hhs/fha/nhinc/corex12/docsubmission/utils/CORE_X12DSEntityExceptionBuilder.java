@@ -78,7 +78,6 @@ public class CORE_X12DSEntityExceptionBuilder extends BaseService {
      * @param realTimeResponse
      */
     public void buildCOREEnvelopeRealTimeErrorResponse(COREEnvelopeRealTimeRequest oCOREEnvelopeRealTimeRequest, COREEnvelopeRealTimeResponse realTimeResponse) {
-        Date currentDate = new Date();
         realTimeResponse.setCORERuleVersion(oCOREEnvelopeRealTimeRequest.getCORERuleVersion());
         realTimeResponse.setErrorCode(ERROR_CODE);
         realTimeResponse.setErrorMessage(ERROR_MESSAGE);
@@ -87,10 +86,16 @@ public class CORE_X12DSEntityExceptionBuilder extends BaseService {
         realTimeResponse.setProcessingMode(oCOREEnvelopeRealTimeRequest.getProcessingMode());
         realTimeResponse.setReceiverID(oCOREEnvelopeRealTimeRequest.getReceiverID());
         realTimeResponse.setSenderID(oCOREEnvelopeRealTimeRequest.getSenderID());
-        realTimeResponse.setTimeStamp(new Timestamp(currentDate.getTime()).toString());
+        realTimeResponse.setTimeStamp(getTimeStamp().toString());
         realTimeResponse.setPayloadID(oCOREEnvelopeRealTimeRequest.getPayloadID());
     }
 
+    /**
+     *
+     * @param msg RealTimeRequest from Nhin Proxy
+     * @param targetHCID targetHCID extracted from RealTimeRequest
+     * @return COREEnvelopeRealTimeResponse Error Response created from initiating Gateway if community is not found.
+     */
     public static COREEnvelopeRealTimeResponse createErrorResponse(COREEnvelopeRealTimeRequest msg, String targetHCID) {
         COREEnvelopeRealTimeResponse response = new COREEnvelopeRealTimeResponse();
         response.setPayloadType("CoreEnvelopeError");
@@ -99,11 +104,19 @@ public class CORE_X12DSEntityExceptionBuilder extends BaseService {
         response.setCORERuleVersion("2.2.0");
         response.setSenderID(msg.getSenderID());
         response.setReceiverID(msg.getReceiverID());
+        response.setErrorCode(ERROR_CODE);
         response.setErrorMessage("No endpoint available for target community HCID: " + targetHCID);
-        response.setTimeStamp(msg.getTimeStamp());
+        response.setTimeStamp(getTimeStamp().toString());
         return response;
     }
 
+    /**
+     *
+     * @param msg RealTimeRequest from Nhin Proxy
+     * @param message ExceptionMessage from stacktrace
+     * @return COREEnvelopeRealTimeResponse Error Response created if WebServiceException caused while the initiating
+     * Gateway send the request to Responding Gateway.
+     */
     public static COREEnvelopeRealTimeResponse createWebServiceErrorResponse(COREEnvelopeRealTimeRequest msg, String message) {
         COREEnvelopeRealTimeResponse response = new COREEnvelopeRealTimeResponse();
         response.setPayloadType("CoreEnvelopeError");
@@ -112,11 +125,19 @@ public class CORE_X12DSEntityExceptionBuilder extends BaseService {
         response.setCORERuleVersion("2.2.0");
         response.setSenderID(msg.getSenderID());
         response.setReceiverID(msg.getReceiverID());
+        response.setErrorCode(ERROR_CODE);
         response.setErrorMessage(message);
-        response.setTimeStamp(msg.getTimeStamp());
+        response.setTimeStamp(getTimeStamp().toString());
         return response;
     }
 
+    /**
+     *
+     * @param msg COREEnvelopeBatchSubmission from Nhin Proxy
+     * @param targetHCID targetHCID extracted from RealTimeRequest
+     * @return COREEnvelopeBatchSubmissionResponse Error Response created from initiating Gateway if community is not
+     * found.
+     */
     public static COREEnvelopeBatchSubmissionResponse createErrorResponse(COREEnvelopeBatchSubmission msg, String targetHCID) {
         COREEnvelopeBatchSubmissionResponse response = new COREEnvelopeBatchSubmissionResponse();
         response.setCORERuleVersion("2.2.0");
@@ -124,13 +145,21 @@ public class CORE_X12DSEntityExceptionBuilder extends BaseService {
         response.setProcessingMode("Batch");
         response.setSenderID(msg.getSenderID());
         response.setReceiverID(msg.getReceiverID());
-        response.setTimeStamp(msg.getTimeStamp());
+        response.setTimeStamp(getTimeStamp().toString());
         response.setPayloadID(msg.getPayloadID());
         response.setPayload(msg.getPayload());
+        response.setErrorCode(ERROR_CODE);
         response.setErrorMessage("No endpoint available for target community HCID: " + targetHCID);
         return response;
     }
 
+    /**
+     *
+     * @param msg COREEnvelopeBatchSubmission from Nhin Proxy
+     * @param message ExceptionMessage from stacktrace
+     * @return COREEnvelopeBatchSubmissionResponse Error Response created if WebServiceException caused while the
+     * initiating Gateway send the request to Responding Gateway.
+     */
     public static COREEnvelopeBatchSubmissionResponse createWebServiceErrorResponse(COREEnvelopeBatchSubmission msg, String message) {
         COREEnvelopeBatchSubmissionResponse response = new COREEnvelopeBatchSubmissionResponse();
         response.setCORERuleVersion("2.2.0");
@@ -138,10 +167,17 @@ public class CORE_X12DSEntityExceptionBuilder extends BaseService {
         response.setProcessingMode("Batch");
         response.setSenderID(msg.getSenderID());
         response.setReceiverID(msg.getReceiverID());
-        response.setTimeStamp(msg.getTimeStamp());
+        response.setTimeStamp(getTimeStamp().toString());
         response.setPayloadID(msg.getPayloadID());
         response.setPayload(msg.getPayload());
+        response.setErrorCode(ERROR_CODE);
         response.setErrorMessage(message);
         return response;
+    }
+
+    private static Timestamp getTimeStamp() {
+        Date currentDate = new Date();
+        Timestamp timeStamp = new Timestamp(currentDate.getTime());
+        return timeStamp;
     }
 }
