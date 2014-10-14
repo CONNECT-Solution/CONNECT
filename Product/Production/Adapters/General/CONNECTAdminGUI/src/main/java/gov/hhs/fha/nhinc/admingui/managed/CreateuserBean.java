@@ -109,6 +109,10 @@ public class CreateuserBean {
         return createdUser;
     }
 
+    /**
+     *
+     * @return
+     */
     protected HttpSession getHttpSession() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         return session;

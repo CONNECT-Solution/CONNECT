@@ -70,6 +70,7 @@ public interface PasswordService {
      * @param salt the salt
      * @param password the password
      * @return the byte[]
+     * @throws java.io.IOException
      * @throws PasswordServiceException
      */
     public byte[] calculateHash(byte[] salt, byte[] password) throws IOException, PasswordServiceException;

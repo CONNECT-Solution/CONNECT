@@ -30,36 +30,69 @@ public class DirectAgent {
     private String agentName;
     private String agentValue;
     
+    /**
+     *
+     */
     public DirectAgent(){
         
     }
 
+    /**
+     *
+     * @param position
+     * @param agentName
+     * @param agentValue
+     */
     public DirectAgent(int position, String agentName, String agentValue) {
         this.position = position;
         this.agentName = agentName;
         this.agentValue = agentValue;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPosition() {
         return position;
     }
 
+    /**
+     *
+     * @param position
+     */
     public void setPosition(int position) {
         this.position = position;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getAgentName() {
         return agentName;
     }
 
+    /**
+     *
+     * @param agentName
+     */
     public void setAgentName(String agentName) {
         this.agentName = agentName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAgentValue() {
         return agentValue;
     }
 
+    /**
+     *
+     * @param agentValue
+     */
     public void setAgentValue(String agentValue) {
         this.agentValue = agentValue;
     }

@@ -49,7 +49,7 @@
                         <div class="table-responsive">
                             <h:form id="domain-form">
                                 <p:dataTable id="domainDataTable" var="domain" value="#{directDomainBean.domains}" selection="#{directDomainBean.selectedDomain}" rowKey="#{domain.domainName}" styleClass="table table-striped table-domains">
-                                    <p:ajax event="rowSelectRadio" update=":domainEditTabview,:domainNameHeaderOutput"/>
+                                    <p:ajax event="rowSelectRadio" update=":domainEditTabview,:domainNameHeaderOutput" listener="#{directDomainBean.setTrustBundlesForSelectedDomain}"/>
                                     <p:column headerText="select" selectionMode="single" />
                                     <p:column headerText="Name" sortBy="name">
                                         <h:outputText value="#{domain.domainName}" />
@@ -190,7 +190,10 @@
                                         </p:column>
                                         <p:column>
                                             <p:commandButton value="View Anchors" actionListener="#{directTrustBundleBean.showTrustBundleAnchors()}" icon="ui-icon-newwin" styleClass="edit-button" />
-                                        </p:column>                                       
+                                        </p:column>
+                                        <p:column>
+                                            <p:commandButton value="Refresh Bundle" actionListener="#{directTrustBundleBean.refreshBundle}" onstart="PF('tbTabBlock').show()" oncomplete="PF('tbTabBlock').hide()" icon="ui-icon-arrowrefresh-1-e" styleClass="edit-button" />
+                                        </p:column> 
                                         <p:column styleClass="ui-button-rightmost">
                                             <p:commandButton value="Add New Trust Bundle" type="button" onclick="PF('tbDlg').show();" icon="ui-icon-circle-plus" styleClass="add-button pull-right" />
                                         </p:column>
@@ -199,6 +202,10 @@
                             </h:form>
                         </div>
                     </div>
+                    <p:blockUI block="tb-tab" widgetVar="tbTabBlock">
+                        REFRESHING TRUST BUNDLE<br/>
+                        <p:graphicImage library="images" name="loading-bar-gif.gif" />
+                    </p:blockUI>
                 </p:tab>
             </p:tabView>
             <ui:include src="domainCreateDialog.xhtml" />

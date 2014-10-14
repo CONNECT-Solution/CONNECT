@@ -77,10 +77,10 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         return userLogin;
     }
 
-    /**
+    /*
+     * (non-Javadoc)
      * 
-     * @param createUser the create user
-     * @return true if successful
+     * @see gov.hhs.fha.nhinc.admingui.hibernate.dao.UserLoginDAO#createUser(gov.hhs.fha .nhinc.admingui.services.persistence.jpa.entity.UserLogin)
      */
     @Override
     public boolean createUser(UserLogin createUser) throws UserLoginException {
@@ -106,6 +106,11 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         return result;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.hibernate.dao.UserLoginDAO#getRole(long)
+     */
     @Override
     public UserRole getRole(long role) {
         Session session = null;
@@ -124,6 +129,11 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         return result;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.hibernate.dao.UserLoginDAO#getAllRoles()
+     */
     @Override
     public List<UserRole> getAllRoles() {
         Session session = null;
@@ -142,6 +152,11 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         return roles;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.hibernate.dao.UserLoginDAO#getPreferences(gov.hhs.fha .nhinc.admingui.services.persistence.jpa.entity.UserRole)
+     */
     @Override
     public List<RolePreference> getPreferences(UserRole role) {
         Session session = null;
@@ -161,6 +176,11 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         return preferences;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.admingui.hibernate.dao.UserLoginDAO#updatePreferences(gov.hhs.fha .nhinc.admingui.services.persistence.jpa.entity.RolePreference)
+     */
     @Override
     public boolean updatePreference(RolePreference preference) {
         Session session = null;
@@ -185,21 +205,12 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         return updated;
     }
 
-    /**
-     * 
-     * @param tx the transaction
-     */
     private void transactionRollback(Transaction tx) {
         if (tx != null) {
             tx.rollback();
         }
     }
 
-    /**
-     * 
-     * @param session the session
-     * @param flush the boolean
-     */
     private void closeSession(Session session, boolean flush) {
         if (session != null) {
             if (flush) {

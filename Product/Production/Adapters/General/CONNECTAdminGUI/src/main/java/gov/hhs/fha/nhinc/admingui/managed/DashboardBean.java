@@ -47,6 +47,10 @@ import org.primefaces.event.CloseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ *
+ * @author jsmith2
+ */
 @ManagedBean(name = "dashboardBean")
 @RequestScoped
 @Component
@@ -60,14 +64,26 @@ public class DashboardBean {
     
     private List<String> selectedClosedPanels;
     
+    /**
+     *
+     * @return
+     */
     public List<String> getSelectedClosedPanels(){
         return selectedClosedPanels;
     }
     
+    /**
+     *
+     * @param selectedClosedPanels
+     */
     public void setSelectedClosedPanels(List<String> selectedClosedPanels){
         this.selectedClosedPanels = selectedClosedPanels;
     }
     
+    /**
+     *
+     * @return
+     */
     public String addPanels(){
         List<DashboardPanel> openPanels = new ArrayList<DashboardPanel>();
         
@@ -98,6 +114,10 @@ public class DashboardBean {
         return NavigationConstant.STATUS_PAGE;       
     }
     
+    /**
+     *
+     * @return
+     */
     public Dashboard getDashboard() {
         if(!dashboardObserver.isStarted()){
             //TODO Check for User preferences
@@ -111,18 +131,34 @@ public class DashboardBean {
         return dashboardView.getDashboard();
     }
     
+    /**
+     *
+     * @param dashboard
+     */
     public void setDashboard(Dashboard dashboard) {
         dashboardView.setDashboard(dashboard);
     }
     
+    /**
+     *
+     * @return
+     */
     public List<DashboardPanel> getPanels(){
         return dashboardObserver.getOpenDashboardPanels();
     }
     
+    /**
+     *
+     * @param event
+     */
     public void handleClose(CloseEvent event) {
         dashboardView.handleClose(event, getPanels());
     }
     
+    /**
+     *
+     * @return
+     */
     public String getAllProperties(){
         StringBuilder builder = new StringBuilder();
         Set keys = System.getProperties().keySet();
@@ -135,6 +171,10 @@ public class DashboardBean {
         return builder.toString();
     }
     
+    /**
+     *
+     * @return
+     */
     public Map<String, String> getClosedPanels(){
         Map<String, String> closedPanels = new HashMap<String, String>();
 

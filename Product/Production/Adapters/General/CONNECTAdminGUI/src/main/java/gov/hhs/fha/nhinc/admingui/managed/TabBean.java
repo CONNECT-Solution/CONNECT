@@ -45,54 +45,106 @@ public class TabBean {
     private int adminTabIndex = 0;
     private int directTabIndex = 0;
 
+    /**
+     *
+     * @return
+     */
     public int getDirectTabIndex() {
         return directTabIndex;
     }
 
+    /**
+     *
+     * @param directTabIndex
+     */
     public void setDirectTabIndex(int directTabIndex) {
         this.directTabIndex = directTabIndex;
     }
-
+    
+    /**
+     *
+     * @return
+     */
     public int getDashboardTabIndex() {
         return dashboardTabIndex;
     }
 
+    /**
+     *
+     * @param dashboardTabIndex
+     */
     public void setDashboardTabIndex(int dashboardTabIndex) {
         this.dashboardTabIndex = dashboardTabIndex;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getLogsTabIndex() {
         return logsTabIndex;
     }
 
+    /**
+     *
+     * @param logsTabIndex
+     */
     public void setLogsTabIndex(int logsTabIndex) {
         this.logsTabIndex = logsTabIndex;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getAdminTabIndex() {
         return adminTabIndex;
     }
 
+    /**
+     *
+     * @param adminTabIndex
+     */
     public void setAdminTabIndex(int adminTabIndex) {
         this.adminTabIndex = adminTabIndex;
     }
 
+    /**
+     *
+     * @param dashboardTabIndex
+     * @return
+     */
     public String setDashboardTabIndexNavigate(int dashboardTabIndex) {
         this.dashboardTabIndex = dashboardTabIndex;
         return NavigationConstant.STATUS_PAGE;
     }
 
+    /**
+     *
+     * @param logsTabIndex
+     * @return
+     */
     public String setLogsTabIndexNavigate(int logsTabIndex) {
         this.logsTabIndex = logsTabIndex;
         return "logs";
     }
 
+    /**
+     *
+     * @param adminTabIndex
+     * @return
+     */
     public String setAdminTabIndexNavigate(int adminTabIndex) {
         this.adminTabIndex = adminTabIndex;
         return NavigationConstant.ACCT_MGMT_PAGE;
     }
 
-    public String setDirectTabIndexNavigate(int directTabIndex) {
+    /**
+     *
+     * @param directTabIndex
+     * @return
+     */
+    public String setDirectTabIndexNavigate(int directTabIndex){
         this.directTabIndex = directTabIndex;
         return NavigationConstant.DIRECT_PAGE;
     }
@@ -110,34 +162,67 @@ public class TabBean {
 
     // All "navigateTo" functions below were added as a workaround to an Expression Language bug found in WAS 8.5.0.1
     // For more information, see http://www-01.ibm.com/support/docview.wss?uid=swg1PM72533 (PM72533)
+    
+    /**
+     * 
+     * @return 
+     */
     public String navigateToDirectDomainTab() {
         return setDirectTabIndexNavigate(NavigationConstant.DIRECT_DOMAIN_TAB);
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String navigateToDirectSettingTab() {
         return setDirectTabIndexNavigate(NavigationConstant.DIRECT_SETTING_TAB);
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String navigateToDirectCertificateTab() {
         return setDirectTabIndexNavigate(NavigationConstant.DIRECT_CERTIFICATE_TAB);
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String navigateToDirectTrustbundleTab() {
         return setDirectTabIndexNavigate(NavigationConstant.DIRECT_TRUSTBUNDLE_TAB);
     }
-
+    
+    /**
+     * 
+     * @return 
+     */
     public String navigateToAccountMgmtUserAccountTab() {
         return setAdminTabIndexNavigate(NavigationConstant.ACCOUNT_MGMT_USERACC_TAB);
     }
-
+    
+    /**
+     * 
+     * @return 
+     */
     public String navigateToAccountMgmtManageRoleTab() {
         return setAdminTabIndexNavigate(NavigationConstant.ACCOUNT_MGMT_MANAGEROLE_TAB);
     }
-
+    
+    /**
+     * 
+     * @return 
+     */
     public String navigateToGatewayDashboardTab() {
         return setDashboardTabIndexNavigate(NavigationConstant.GATEWAY_DASHBOARD_TAB);
     }
-
+    
+    /**
+     * 
+     * @return 
+     */
     public String navigateToGatewayRemoteListTab() {
         return setDashboardTabIndexNavigate(NavigationConstant.GATEWAY_REMOTELIST_TAB);
     }

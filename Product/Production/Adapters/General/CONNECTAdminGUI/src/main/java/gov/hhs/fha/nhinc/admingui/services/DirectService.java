@@ -42,34 +42,171 @@ import org.nhind.config.UpdateDomain;
  */
 public interface DirectService {
 
+    /**
+     * Get a list of all direct domains.
+     * @return
+     */
     public List<Domain> getDomains();
+
+    /**
+     * Update a direct domain.
+     * @param domain
+     */
     public void updateDomain(UpdateDomain domain);
+
+    /**
+     *
+     * @param domain
+     */
     public void addDomain(AddDomain domain);
+
+    /**
+     * Delete the provided direct domain.
+     * @param domain
+     */
     public void deleteDomain(Domain domain);
 
+    /**
+     *
+     * @param addAnchor
+     */
     public void addAnchor(AddAnchor addAnchor);
+
+    /**
+     * Get all direct anchors for the given owner.
+     * @param getAnchorsForOwner
+     * @return
+     */
     public List<Anchor> getAnchorsForOwner(GetAnchorsForOwner getAnchorsForOwner);
+
+    /**
+     * Delete the given list of direct anchors.
+     * @param removeAnchors
+     */
     public void deleteAnchor(RemoveAnchors removeAnchors);
 
+    /**
+     * Get all direct settings.
+     * @return
+     */
     public List<Setting> getSetting();
+
+    /**
+     * Add the given key value pair as a direct setting.
+     * @param name
+     * @param value
+     * @throws Exception
+     */
     public void addSetting(String name, String value) throws Exception;
+
+    /**
+     * Delete the given direct settings with the given names.
+     * @param deleteNames
+     */
     public void deleteSetting(List<String> deleteNames);
 
+    /**
+     * Add the given direct certificates.
+     * @param addcert
+     */
     public void addCertificate(AddCertificates addcert);
+
+    /**
+     * Remove the given direct certificates.
+     * @param removeCert
+     */
     public void deleteCertificate(RemoveCertificates removeCert);
+
+    /**
+     * Get all direct certificates for the given certificate criteria.
+     * @param listCert
+     * @return
+     */
     public List<Certificate> listCertificate(ListCertificates listCert);
 
+    /**
+     * Get all direct trust bundles with the option of including anchors.
+     * @param fetchAnchors
+     * @return
+     */
     public List<TrustBundle> getTrustBundles(boolean fetchAnchors);
+
+    /**
+     * Get direct trust bundle for the given name.
+     * @param bundleName
+     * @return
+     */
     public TrustBundle getTrustBundleByName(String bundleName);
+
+    /**
+     * Get all direct trust bundles for the given domain with the option of including anchors.
+     * @param domainId
+     * @param fetchAnchors
+     * @return
+     */
     public List<TrustBundleDomainReltn> getTrustBundlesByDomain(long domainId, boolean fetchAnchors);
+
+    /**
+     * Add the given direct trust bundle.
+     * @param b
+     */
     public void addTrustBundle(TrustBundle b);
+
+    /**
+     *
+     * @param ids
+     */
     public void deleteTrustBundles(List<Long> ids);
+
+    /**
+     * Update a direct trust bundle with the given fields.
+     * @param trustBundleId
+     * @param trustBundleName
+     * @param trustBundleURL
+     * @param signingCert
+     * @param trustBundleRefreshInterval
+     */
     public void updateTrustBundle(long trustBundleId, String trustBundleName, String trustBundleURL,
         Certificate signingCert, int trustBundleRefreshInterval);
-    public void refreshTrustBundle(int id);
+
+    /**
+     * Refresh the given direct trust bundle by ID.
+     * @param id
+     */
+    public void refreshTrustBundle(long id);
+
+    /**
+     * Associate the given direct trust bundle to the given direct domain.
+     * @param domainId
+     * @param trustBundleId
+     * @param incoming
+     * @param outgoing
+     */
     public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming, boolean outgoing);
+
+    /**
+     * Disassociate the given direct trust bundle to the given direct domain.
+     * @param domainId
+     * @param trustBundleId
+     */
     public void disassociateTrustBundleFromDomain(long domainId, long trustBundleId);
+
+    /**
+     * Disassociate the given direct trust bundle to all domains.
+     * @param trustBundleId
+     */
     public void disassociateTrustBundleFromDomains(long trustBundleId);
+
+    /**
+     * Disassociate all direct trust bundles to the given domain.
+     * @param domainId
+     */
     public void disassociateTrustBundlesFromDomain(long domainId);
+
+    /**
+     * Delete given domain address.
+     * @param addressEmail
+     * @return
+     */
     public boolean removeAddress(String addressEmail);
 }

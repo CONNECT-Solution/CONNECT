@@ -41,6 +41,9 @@ public class SHA1PasswordService extends AbstractBase64EncodedPasswordService {
 
     public static final String HASH_ALGORITHM = "SHA-1";
 
+    /**
+     *
+     */
     public SHA1PasswordService() {
         super();
     }

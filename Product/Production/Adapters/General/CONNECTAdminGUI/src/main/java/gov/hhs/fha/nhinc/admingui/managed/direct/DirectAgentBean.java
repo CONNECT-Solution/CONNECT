@@ -56,6 +56,10 @@ public class DirectAgentBean {
     private Setting selectSetting;
     private List<Setting> settings;
 
+    /**
+     *
+     * @return
+     */
     public List<Setting> getSettings() {
         if (settings == null) {
             refreshSetting();
@@ -63,6 +67,10 @@ public class DirectAgentBean {
         return settings;
     }
 
+    /**
+     *
+     * @param event
+     */
     public void addSetting(ActionEvent event) {
         try {
             directService.addSetting(agentName, agentValue);
@@ -76,6 +84,9 @@ public class DirectAgentBean {
         }
     }
 
+    /**
+     *
+     */
     public void deleteSetting() {
         if (selectSetting != null) {
             List<String> deleteNames = new ArrayList<String>();
@@ -86,30 +97,57 @@ public class DirectAgentBean {
         }
     }
 
+    /**
+     *
+     */
     protected void refreshSetting() {
         settings = directService.getSetting();
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAgentName() {
         return agentName;
     }
 
+    /**
+     *
+     * @param agentName
+     */
     public void setAgentName(String agentName) {
         this.agentName = agentName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAgentValue() {
         return agentValue;
     }
 
+    /**
+     *
+     * @param agentValue
+     */
     public void setAgentValue(String agentValue) {
         this.agentValue = agentValue;
     }
 
+    /**
+     *
+     * @return
+     */
     public Setting getSelectSetting() {
         return selectSetting;
     }
 
+    /**
+     *
+     * @param selectSetting
+     */
     public void setSelectSetting(Setting selectSetting) {
         this.selectSetting = selectSetting;
     }

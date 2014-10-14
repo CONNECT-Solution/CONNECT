@@ -59,10 +59,17 @@ public class DashboardViewResolverImpl implements DashboardViewResolver {
     private MethodExpression closeExpp;
     private static final String CLOSE_EXPRESSION_VALUE = "#{dashboardBean.handleClose}";
     
+    /**
+     *
+     */
     public DashboardViewResolverImpl() {
 
     }
 
+    /**
+     *
+     * @param panelDataList
+     */
     @Override
     public void setView(List<DashboardPanel> panelDataList) {
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -86,24 +93,45 @@ public class DashboardViewResolverImpl implements DashboardViewResolver {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Dashboard getDashboard() {
         return dashboard;
     }
 
+    /**
+     *
+     * @param dashboard
+     */
     @Override
     public void setDashboard(Dashboard dashboard) {
         this.dashboard = dashboard;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getColumnCount() {
         return columnCount;
     }
 
+    /**
+     *
+     * @param columnCount
+     */
     public void setColumnCount(int columnCount) {
         this.columnCount = columnCount;
     }
 
+    /**
+     *
+     * @param event
+     * @param panels
+     */
     @Override
     public void handleClose(CloseEvent event, List<DashboardPanel> panels) {
         String id = event.getComponent().getId();
@@ -176,6 +204,10 @@ public class DashboardViewResolverImpl implements DashboardViewResolver {
         return closeExpp;
     }
 
+    /**
+     *
+     * @param panelData
+     */
     @Override
     public void addPanel(DashboardPanel panelData) {
         FacesContext fc = FacesContext.getCurrentInstance();

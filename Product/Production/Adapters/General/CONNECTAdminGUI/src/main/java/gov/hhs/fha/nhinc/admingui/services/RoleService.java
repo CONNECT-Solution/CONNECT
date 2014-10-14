@@ -31,12 +31,32 @@ import java.util.List;
  */
 public interface RoleService {
     
+    /**
+     * Checks the user access of a given page based on the roles assigned to the user.
+     * @param pageName Page to access.
+     * @param user User to page access.
+     * @return
+     */
     public boolean checkRole(String pageName, UserLogin user);
     
+    /**
+     * Get all user roles.
+     * @return
+     */
     public List<UserRole> getAllRoles();
     
+    /**
+     * Get all role preferences for a given user role.
+     * @param role
+     * @return
+     */
     public List<RolePreference> getPreferences(UserRole role);
     
+    /**
+     * Update a role preference.
+     * @param preference
+     * @return
+     */
     public boolean updatePreference(RolePreference preference);
     
 }

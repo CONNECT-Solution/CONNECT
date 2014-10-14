@@ -36,30 +36,54 @@ public class DashboardJava extends DashboardPanelAbstract implements DashboardPa
     private static final String JAVA_VERSION_KEY = "java.version";
     private static final String JAVA_VENDOR_KEY = "java.vm.vendor";
        
+    /**
+     *
+     */
     public DashboardJava(){
         
     }
     
+    /**
+     *
+     * @param observer
+     * @param closed
+     */
     public DashboardJava(DashboardObserver observer, boolean closed){
         setObserver(observer);
         setClosed(closed);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public String getType() {
         return type;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTitle() {
         return title;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getDescription() {
         return description;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public DashboardPanel setData() {
         title = System.getProperty(JAVA_VERSION_KEY);
@@ -67,12 +91,18 @@ public class DashboardJava extends DashboardPanelAbstract implements DashboardPa
         return this;
     }
 
+    /**
+     *
+     */
     @Override
     public void close() {
         setClosed(true);
         getObserver().closePanel(DashboardJava.class);
     }
     
+    /**
+     *
+     */
     @Override
     public void open() {
         setClosed(false);

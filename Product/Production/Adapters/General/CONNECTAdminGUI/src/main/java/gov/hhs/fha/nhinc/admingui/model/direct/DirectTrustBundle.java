@@ -49,10 +49,19 @@ public class DirectTrustBundle {
 
     private List<TrustBundleAnchor> anchors;
 
+    /**
+     *
+     */
     public DirectTrustBundle() {
 
     }
 
+    /**
+     *
+     * @param tb
+     * @param incoming
+     * @param outgoing
+     */
     public DirectTrustBundle(TrustBundle tb, boolean incoming, boolean outgoing) {
         id = tb.getId();
 
@@ -62,9 +71,15 @@ public class DirectTrustBundle {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         createTime = sdf.format(tb.getCreateTime().toGregorianCalendar().getTime());
-        lastSuccessfulRefresh = sdf.format(tb.getLastSuccessfulRefresh().toGregorianCalendar().getTime());
-        lastRefreshAttempt = sdf.format(tb.getLastRefreshAttempt().toGregorianCalendar().getTime());
-
+        
+        if(tb.getLastSuccessfulRefresh() != null) {
+            lastSuccessfulRefresh = sdf.format(tb.getLastSuccessfulRefresh().toGregorianCalendar().getTime());
+        }
+        
+        if(tb.getLastRefreshAttempt() != null) {
+            lastRefreshAttempt = sdf.format(tb.getLastRefreshAttempt().toGregorianCalendar().getTime());
+        }
+        
         lastRefreshError = tb.getLastRefreshError().value();
         refreshInterval = tb.getRefreshInterval();
 
@@ -74,98 +89,194 @@ public class DirectTrustBundle {
         anchors = tb.getTrustBundleAnchors();
     }
 
+    /**
+     *
+     * @return
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getBundleName() {
         return bundleName;
     }
 
+    /**
+     *
+     * @param bundleName
+     */
     public void setBundleName(String bundleName) {
         this.bundleName = bundleName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getBundleURL() {
         return bundleURL;
     }
 
+    /**
+     *
+     * @param bundleURL
+     */
     public void setBundleURL(String bundleURL) {
         this.bundleURL = bundleURL;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCheckSum() {
         return checkSum;
     }
 
+    /**
+     *
+     * @param checkSum
+     */
     public void setCheckSum(String checkSum) {
         this.checkSum = checkSum;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCreateTime() {
         return createTime;
     }
 
+    /**
+     *
+     * @param createTime
+     */
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLastSuccessfulRefresh() {
         return lastSuccessfulRefresh;
     }
 
+    /**
+     *
+     * @param lastSuccessfulRefresh
+     */
     public void setLastSuccessfulRefresh(String lastSuccessfulRefresh) {
         this.lastSuccessfulRefresh = lastSuccessfulRefresh;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLastRefreshAttempt() {
         return lastRefreshAttempt;
     }
 
+    /**
+     *
+     * @param lastRefreshAttempt
+     */
     public void setLastRefreshAttempt(String lastRefreshAttempt) {
         this.lastRefreshAttempt = lastRefreshAttempt;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLastRefreshError() {
         return lastRefreshError;
     }
 
+    /**
+     *
+     * @param lastRefreshError
+     */
     public void setLastRefreshError(String lastRefreshError) {
         this.lastRefreshError = lastRefreshError;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getRefreshInterval() {
         return refreshInterval;
     }
 
+    /**
+     *
+     * @param refreshInterval
+     */
     public void setRefreshInterval(int refreshInterval) {
         this.refreshInterval = refreshInterval;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isIncoming() {
         return incoming;
     }
 
+    /**
+     *
+     * @param incoming
+     */
     public void setIncoming(boolean incoming) {
         this.incoming = incoming;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isOutgoing() {
         return outgoing;
     }
 
+    /**
+     *
+     * @param outgoing
+     */
     public void setOutgoing(boolean outgoing) {
         this.outgoing = outgoing;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<TrustBundleAnchor> getAnchors() {
         return anchors;
     }
 
+    /**
+     *
+     * @param anchors
+     */
     public void setAnchors(List<TrustBundleAnchor> anchors) {
         this.anchors = anchors;
     }

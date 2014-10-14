@@ -228,19 +228,35 @@ public class EventServiceImpl implements EventService {
         return newOrg;
     }
 
+    /**
+     *
+     * @return
+     */
     protected DatabaseEventLoggerDao getEventLoggerDao() {
         return new DatabaseEventLoggerDao();
     }
 
+    /**
+     *
+     * @return
+     */
     protected ConnectionManager getConnectionManager() {
         return ConnectionManagerCache.getInstance();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public DatabaseEvent getLatestInbound() {
         return getEventLoggerDao().getLatestEvent(INBOUND_EVENT_TYPE);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public DatabaseEvent getLatestOutbound() {
         return getEventLoggerDao().getLatestEvent(OUTBOUND_EVENT_TYPE);

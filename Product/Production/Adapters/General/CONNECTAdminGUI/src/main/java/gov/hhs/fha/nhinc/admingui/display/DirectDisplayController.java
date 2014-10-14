@@ -43,6 +43,10 @@ public class DirectDisplayController {
 
     private static final Logger LOG = Logger.getLogger(DirectDisplayController.class);
 
+    /**
+     * Determines if direct is currently enabled and therefore direct pages can
+     * be displayed in the Admin GUI.
+     */
     public void checkDirectDisplay() {
         DisplayHolder.getInstance().setDirectEnabled(directConfigEnabled());
     }

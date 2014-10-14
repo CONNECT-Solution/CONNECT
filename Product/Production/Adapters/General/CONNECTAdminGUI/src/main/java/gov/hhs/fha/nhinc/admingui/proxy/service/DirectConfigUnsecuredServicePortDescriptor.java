@@ -32,15 +32,29 @@ public class DirectConfigUnsecuredServicePortDescriptor extends
 
     private String configAction;
     
+    /**
+     * Sets the WS action.
+     * @param configAction
+     */
     public void setWSAddressingAction(String configAction){
         this.configAction = configAction;
     }
     
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.messaging.service.port.SOAP11ServicePortDescriptor#getWSAddressingAction()
+     */
     @Override
     public String getWSAddressingAction() {
         return configAction;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.messaging.service.port.SOAP11ServicePortDescriptor#getPortClass()
+     */
     @Override
     public Class<ConfigurationService> getPortClass() {
         return ConfigurationService.class;

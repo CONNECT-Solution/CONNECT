@@ -50,6 +50,7 @@ public interface LoginService {
      * Adds the user.
      * 
      * @param user the user
+     * @param role
      * @return true, if successful
      * @throws UserLoginException
      */

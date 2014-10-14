@@ -42,7 +42,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-// TODO: Auto-generated Javadoc
 /**
  * The listener interface for receiving userAuthorization events. The class that is interested in processing a
  * userAuthorization event implements this interface, and the object created with that class is registered with a
@@ -71,6 +70,9 @@ public class UserAuthorizationListener implements PhaseListener {
      */
     private static final long serialVersionUID = 4891265644965340362L;
 
+    /**
+     *
+     */
     public UserAuthorizationListener() {
         noLoginRequiredPages = new ArrayList<String>();
         noLoginRequiredPages.add("/login.xhtml");

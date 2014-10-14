@@ -59,6 +59,10 @@ public class DirectCertBean {
 
     private List<DirectCertificate> directCertificate;
 
+    /**
+     *
+     * @return
+     */
     public List<DirectCertificate> getCertificates() {
         if (directCertificate == null) {
             refreshCertificates();
@@ -66,6 +70,9 @@ public class DirectCertBean {
         return directCertificate;
     }
 
+    /**
+     *
+     */
     public void deleteCertificate() {
         RemoveCertificates removeCert = new RemoveCertificates();
         removeCert.getCertificateIds().add(selectedCert.getId());
@@ -75,10 +82,18 @@ public class DirectCertBean {
         refreshCertificates();
     }
 
+    /**
+     *
+     * @param event
+     */
     public void certFileUpload(FileUploadEvent event) {
         certFile = event.getFile();
     }
 
+    /**
+     *
+     * @param event
+     */
     public void addCertificate(ActionEvent event) {
         if (certFile != null) {
             AddCertificates addCert = new AddCertificates();
@@ -96,14 +111,25 @@ public class DirectCertBean {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public UploadedFile getCertFile() {
         return certFile;
     }
 
+    /**
+     *
+     * @param certFile
+     */
     public void setCertFile(UploadedFile certFile) {
         this.certFile = certFile;
     }
 
+    /**
+     *
+     */
     protected void refreshCertificates() {
         ListCertificates cert = new ListCertificates();
 
@@ -120,10 +146,18 @@ public class DirectCertBean {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public DirectCertificate getSelectedCert() {
         return selectedCert;
     }
 
+    /**
+     *
+     * @param selectedCert
+     */
     public void setSelectedCert(DirectCertificate selectedCert) {
         this.selectedCert = selectedCert;
     }

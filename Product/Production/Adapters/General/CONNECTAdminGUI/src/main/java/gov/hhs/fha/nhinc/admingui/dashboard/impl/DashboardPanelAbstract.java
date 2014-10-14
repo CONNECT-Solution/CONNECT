@@ -41,20 +41,36 @@ public abstract class DashboardPanelAbstract implements DashboardPanel {
     
     private DashboardObserver observer;
     
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean isClosed() {
         return closed;
     }
     
+    /**
+     *
+     * @param closed
+     */
     protected void setClosed(boolean closed){
         this.closed = closed;
     }
 
+    /**
+     *
+     * @param observer
+     */
     @Override
     public void setObserver(DashboardObserver observer) {
         this.observer = observer;
     }
     
+    /**
+     *
+     * @return
+     */
     protected DashboardObserver getObserver(){
         return observer;
     }
