@@ -104,7 +104,7 @@ public class CORE_X12DSEntityExceptionBuilder extends BaseService {
         response.setCORERuleVersion("2.2.0");
         response.setSenderID(msg.getSenderID());
         response.setReceiverID(msg.getReceiverID());
-        response.setErrorCode("Sender");
+        response.setErrorCode(ERROR_CODE);
         response.setErrorMessage("No endpoint available for target community HCID: " + targetHCID);
         response.setTimeStamp(getTimeStamp().toString());
         return response;
@@ -125,7 +125,7 @@ public class CORE_X12DSEntityExceptionBuilder extends BaseService {
         response.setCORERuleVersion("2.2.0");
         response.setSenderID(msg.getSenderID());
         response.setReceiverID(msg.getReceiverID());
-        response.setErrorCode("Sender");
+        response.setErrorCode(ERROR_CODE);
         response.setErrorMessage(message);
         response.setTimeStamp(getTimeStamp().toString());
         return response;
@@ -148,7 +148,7 @@ public class CORE_X12DSEntityExceptionBuilder extends BaseService {
         response.setTimeStamp(getTimeStamp().toString());
         response.setPayloadID(msg.getPayloadID());
         response.setPayload(msg.getPayload());
-        response.setErrorCode("Sender");
+        response.setErrorCode(ERROR_CODE);
         response.setErrorMessage("No endpoint available for target community HCID: " + targetHCID);
         return response;
     }
@@ -170,7 +170,7 @@ public class CORE_X12DSEntityExceptionBuilder extends BaseService {
         response.setTimeStamp(getTimeStamp().toString());
         response.setPayloadID(msg.getPayloadID());
         response.setPayload(msg.getPayload());
-        response.setErrorCode("Sender");
+        response.setErrorCode(ERROR_CODE);
         response.setErrorMessage(message);
         return response;
     }
