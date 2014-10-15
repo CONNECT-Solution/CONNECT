@@ -46,7 +46,6 @@
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>Direct</artifactId>
                                     <contextRoot>/Direct</contextRoot>
-                                    <excluded>${direct.excluded}</excluded>
                                     <excluded>true</excluded>
                                 </webModule>
                             </modules>
