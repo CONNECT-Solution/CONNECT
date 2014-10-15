@@ -1,68 +1,68 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.connectopensource</groupId>
-		<artifactId>ear</artifactId>
-		<version>4.4.0-SNAPSHOT</version>
-	</parent>
-	<artifactId>CONNECT-WAS</artifactId>
-	<packaging>ear</packaging>
-	<name>CONNECT IBM WebSphere Enterprise EAR</name>
-	<dependencies>
-		<dependency>
-			<groupId>org.apache.servicemix.bundles</groupId>
-			<artifactId>org.apache.servicemix.bundles.saaj-impl</artifactId>
-			<version>1.3.18_1</version>
-		</dependency>
-	</dependencies>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.connectopensource</groupId>
+        <artifactId>ear</artifactId>
+        <version>4.4.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>CONNECT-WAS</artifactId>
+    <packaging>ear</packaging>
+    <name>CONNECT IBM WebSphere Enterprise EAR</name>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.servicemix.bundles</groupId>
+            <artifactId>org.apache.servicemix.bundles.saaj-impl</artifactId>
+            <version>1.3.18_1</version>
+        </dependency>
+    </dependencies>
 
-	<profiles>
-		<profile>
-			<id>Direct</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<properties>
-				<direct.excluded>false</direct.excluded>
-			</properties>
+    <profiles>
+        <profile>
+            <id>Direct</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <direct.excluded>false</direct.excluded>
+            </properties>
 
-			<!-- direct -->
-			<dependencies>
-				<dependency>
-					<groupId>org.connectopensource</groupId>
-					<artifactId>direct-dependencies</artifactId>
-					<version>${project.parent.version}</version>
-					<type>pom</type>
-				</dependency>
-			</dependencies>
+            <!-- direct -->
+            <dependencies>
+                <dependency>
+                    <groupId>org.connectopensource</groupId>
+                    <artifactId>direct-dependencies</artifactId>
+                    <version>${project.parent.version}</version>
+                    <type>pom</type>
+                </dependency>
+            </dependencies>
 
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-ear-plugin</artifactId>
-						<configuration>
-							<modules combine.children="append">
-								<webModule>
-									<groupId>org.connectopensource</groupId>
-									<artifactId>CONNECTDirectConfig</artifactId>
-									<contextRoot>/CONNECTDirectConfig</contextRoot>
-									<excluded>${direct.excluded}</excluded>
-								</webModule>
-								<webModule>
-									<groupId>org.connectopensource</groupId>
-									<artifactId>Direct</artifactId>
-									<contextRoot>/Direct</contextRoot>
-									<excluded>${direct.excluded}</excluded>
-								</webModule>
-							</modules>
-							<version>6</version>
-							<defaultLibBundleDir>lib</defaultLibBundleDir>
-							<skinnyWars>true</skinnyWars>
-							<includeLibInApplicationXml>false</includeLibInApplicationXml>
-							<packagingExcludes>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-ear-plugin</artifactId>
+                        <configuration>
+                            <modules combine.children="append">
+                                <webModule>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>CONNECTDirectConfig</artifactId>
+                                    <contextRoot>/CONNECTDirectConfig</contextRoot>
+                                    <excluded>${direct.excluded}</excluded>
+                                </webModule>
+                                <webModule>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>Direct</artifactId>
+                                    <contextRoot>/Direct</contextRoot>
+                                    <excluded>${direct.excluded}</excluded>
+                                </webModule>
+                            </modules>
+                            <version>6</version>
+                            <defaultLibBundleDir>lib</defaultLibBundleDir>
+                            <skinnyWars>true</skinnyWars>
+                            <includeLibInApplicationXml>false</includeLibInApplicationXml>
+                            <packagingExcludes>
                                 lib/jetty*,
                                 lib/log4j-over-slf4j*.jar,
                                 lib/js*,
@@ -79,14 +79,14 @@
                                 lib/saaj-impl-1.3.18.jar,
                                 lib/saaj-api-1.3.jar,
                                 lib/Properties-*.jar
-							</packagingExcludes>
+                            </packagingExcludes>
 
-							<!-- this causes all archives to be exploded on server SLOW!!! <includeLibInApplicationXml>true</includeLibInApplicationXml> -->
-						</configuration>
-					</plugin>
-				</plugins>
-				<finalName>${project.artifactId}</finalName>
-			</build>
-		</profile>
-	</profiles>		
+                            <!-- this causes all archives to be exploded on server SLOW!!! <includeLibInApplicationXml>true</includeLibInApplicationXml> -->
+                        </configuration>
+                    </plugin>
+                </plugins>
+                <finalName>${project.artifactId}</finalName>
+            </build>
+        </profile>
+    </profiles>
 </project>
