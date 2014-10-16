@@ -30,39 +30,71 @@ package gov.hhs.fha.nhinc.direct.event;
  * Enumeration of event types for direct event logging.
  */
 public enum DirectEventType {
-    
+
     /**
      * Begin sending outbound direct message.
      */
-    BEGIN_OUTBOUND_DIRECT, 
+    BEGIN_OUTBOUND_DIRECT,
     /**
      * End sending outbound direct message.
      */
-    END_OUTBOUND_DIRECT, 
+    END_OUTBOUND_DIRECT,
     /**
      * Begin handling an inbound direct (non-MDN) message.
      */
-    BEGIN_INBOUND_DIRECT, 
+    BEGIN_INBOUND_DIRECT,
     /**
      * End handling an inbound direct (non-MDN) message.
      */
-    END_INBOUND_DIRECT, 
+    END_INBOUND_DIRECT,
     /**
      * Begin sending an outbound MDN message.
      */
-    BEGIN_OUTBOUND_MDN, 
+    BEGIN_OUTBOUND_MDN,
     /**
      * End sending an outbound MDN message.
      */
-    END_OUTBOUND_MDN, 
+    END_OUTBOUND_MDN,
     /**
      * Begin handling an inbound MDN message.
      */
-    BEGIN_INBOUND_MDN, 
+    BEGIN_INBOUND_MDN,
     /**
      * End handling an inbound MDN message.
      */
-    END_INBOUND_MDN, 
+    END_INBOUND_MDN,
+    /**
+     * Once an inbound MDN processed message is received successfully.
+     */
+    INBOUND_MDN_PROCESSED,
+    /**
+     * Once an inbound MDN dispatched message is received successfully.
+     */
+    INBOUND_MDN_DISPATCHED,
+    /**
+     * Once an inbound MDN Failed message is received successfully.
+     */
+    INBOUND_MDN_FAILED,
+    /**
+     * Once an Outbound MDN processed message is sent.
+     */
+    OUTBOUND_MDN_PROCESSED,
+    /**
+     * Once an Outbound MDN dispatched message is sent.
+     */
+    OUTBOUND_MDN_DISPATCHED,
+    /**
+     * Once an outbound MDN failed message is sent.
+     */
+    OUTBOUND_MDN_FAILED,
+    /**
+     * Once an Successful Edge notification is sent.
+     */
+    DIRECT_EDGE_NOTIFICATION_SUCCESSFUL,
+    /**
+     * Once an Failed Edge notification is sent.
+     */
+    DIRECT_EDGE_NOTIFICATION_FAILED,
     /**
      * An error or exception condition was generated in the Direct Module.
      */

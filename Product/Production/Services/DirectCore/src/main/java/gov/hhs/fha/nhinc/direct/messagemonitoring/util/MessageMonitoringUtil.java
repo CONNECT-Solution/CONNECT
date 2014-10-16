@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxyObjectFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -165,7 +166,18 @@ public class MessageMonitoringUtil {
      */
     public static String getParentMessageId(MimeMessage msg) {
         final TxDetailParser txParser = new DefaultTxDetailParser();
-        return getOriginalMessageId(convertMimeMessageToTx(msg, txParser));
+        String parentMessageId = getOriginalMessageId(convertMimeMessageToTx(msg, txParser));
+        if (NullChecker.isNullish(parentMessageId)) {
+            try {
+                String[] value = msg.getHeader(org.nhindirect.common.mail.MDNStandard.Headers.OriginalMessageID);
+                if (value != null && value.length > 0) {
+                    return value[0];
+                }
+            } catch (MessagingException ex) {
+                return null;
+            }
+        }
+        return parentMessageId;
     }
 
     /**
@@ -415,7 +427,7 @@ public class MessageMonitoringUtil {
     }
 
     public static MimeMessage createMimeMessage(String postMasterEmailId, String subject,
-            String recipient, String text) throws AddressException, MessagingException {
+            String recipient, String text, String messageId) throws AddressException, MessagingException {
         MimeMessage message = new MimeMessage((Session) null);
         message.setSender(new InternetAddress(postMasterEmailId));
         message.setSubject(subject);
@@ -423,6 +435,7 @@ public class MessageMonitoringUtil {
         message.setText(text);
         message.setFrom(new InternetAddress(postMasterEmailId));
         message.setSentDate(new Date());
+        message.setHeader(org.nhindirect.common.mail.MDNStandard.Headers.OriginalMessageID, messageId);
         return message;
     }
 
