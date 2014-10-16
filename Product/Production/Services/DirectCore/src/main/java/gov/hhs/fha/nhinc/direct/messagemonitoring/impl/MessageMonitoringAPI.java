@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.direct.messagemonitoring.impl;
 
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
+import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
+import gov.hhs.fha.nhinc.direct.event.DirectEventType;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.dao.MessageMonitoringDAO;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.dao.MessageMonitoringDAOException;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.dao.impl.MessageMonitoringDAOImpl;
@@ -546,14 +548,20 @@ public class MessageMonitoringAPI {
         String postmasterEmailId = MessageMonitoringUtil.getDomainPostmasterEmailId() + "@" + MessageMonitoringUtil.getDomainFromEmail(trackMessage.getSenderemailid());
         //logic goes here
         DirectEdgeProxy proxy = MessageMonitoringUtil.getDirectEdgeProxy();
-        MimeMessage message;
+        MimeMessage message = null;
         try {
-            message = MessageMonitoringUtil.createMimeMessage(postmasterEmailId, subject, trackMessage.getSenderemailid(), emailText);
+            message = MessageMonitoringUtil.createMimeMessage(postmasterEmailId, subject, trackMessage.getSenderemailid(), emailText, trackMessage.getMessageid());
             proxy.provideAndRegisterDocumentSetB(message);
+            //Log the failed QOS event
+            getDirectEventLogger().log(DirectEventType.DIRECT_EDGE_NOTIFICATION_SUCCESSFUL, message);
         } catch (AddressException ex) {
             LOG.error(ex.getMessage());
+            //if error then log a error event
+            logErrorEvent(message, ex.getMessage());
         } catch (MessagingException ex) {
             LOG.error(ex.getMessage());
+            //if error then log a error event
+            logErrorEvent(message, ex.getMessage());
         }
         LOG.debug("Exiting Message Monitoring API sendSuccessEdgeNotification() method.");
     }
@@ -570,15 +578,37 @@ public class MessageMonitoringAPI {
         String postmasterEmailId = MessageMonitoringUtil.getDomainPostmasterEmailId() + "@" + MessageMonitoringUtil.getDomainFromEmail(trackMessage.getSenderemailid());
         //logic goes here
         DirectEdgeProxy proxy = MessageMonitoringUtil.getDirectEdgeProxy();
-        MimeMessage message;
+        MimeMessage message = null;
         try {
-            message = MessageMonitoringUtil.createMimeMessage(postmasterEmailId, subject, trackMessage.getSenderemailid(), emailText);
+            message = MessageMonitoringUtil.createMimeMessage(postmasterEmailId, subject, trackMessage.getSenderemailid(), emailText, trackMessage.getMessageid());
             proxy.provideAndRegisterDocumentSetB(message);
+            //Log the failed QOS event
+            getDirectEventLogger().log(DirectEventType.DIRECT_EDGE_NOTIFICATION_FAILED, message);
         } catch (AddressException ex) {
             LOG.error(ex.getMessage());
+            //Log the error
+            logErrorEvent(message, ex.getMessage());
         } catch (MessagingException ex) {
             LOG.error(ex.getMessage());
+            //Log the error
+            logErrorEvent(message, ex.getMessage());
         }
         LOG.debug("Exiting Message Monitoring API sendFailedEdgeNotification() method.");
     }
+
+    /**
+     * Returns the Direct event logger instance.
+     *
+     * @return the directEventLogger
+     */
+    private DirectEventLogger getDirectEventLogger() {
+        return DirectEventLogger.getInstance();
+    }
+
+    public void logErrorEvent(MimeMessage message, String errorMessage) {
+        if (message != null) {
+            getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message, errorMessage);
+        }
+    }
+
 }

@@ -70,15 +70,15 @@ public class DirectSenderImpl extends DirectAdapter implements DirectSender {
             failed = true;
             errorMessage = e.getMessage();
             //TODO: drop the message to a delete bin directory for future ref
+            //add an error event. TODO: Make sure the error is logged into the
+            //even logging
+            getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message, errorMessage);
             return;
         } finally {
             LOG.debug("Before inserting Outgoing Message");
             //if failed then insert a row with the status failed, which will be
             //used by the Notification piece to send a message to the edge
             addOutgoingMessage(message, failed, errorMessage);
-            //add an error event. TODO: Make sure the error is logged into the
-            //even logging
-            getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message);
         }
         getDirectEventLogger().log(DirectEventType.END_OUTBOUND_DIRECT, message);
     }
@@ -91,7 +91,7 @@ public class DirectSenderImpl extends DirectAdapter implements DirectSender {
         MimeMessage message = null;
         try {
             message = new MimeMessageBuilder(getExternalMailSender().getMailSession(), sender, recipients)
-                .subject(MSG_SUBJECT).text(MSG_TEXT).documents(documents).messageId(messageId).build();
+                    .subject(MSG_SUBJECT).text(MSG_TEXT).documents(documents).messageId(messageId).build();
             sendOutboundDirect(message);
         } catch (Exception e) {
             throw new DirectException("Error building and sending mime message.sendOutboundDirect", e, message);

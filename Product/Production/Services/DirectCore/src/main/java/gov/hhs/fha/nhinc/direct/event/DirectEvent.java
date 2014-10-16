@@ -26,24 +26,22 @@
  */
 package gov.hhs.fha.nhinc.direct.event;
 
+import com.google.common.collect.ImmutableList;
+import gov.hhs.fha.nhinc.direct.messagemonitoring.util.MessageMonitoringUtil;
 import gov.hhs.fha.nhinc.event.BaseEvent;
-
+import gov.hhs.fha.nhinc.event.Event;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.google.common.collect.ImmutableList;
-import gov.hhs.fha.nhinc.event.Event;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 /**
  * {@link Event} Implementation for Direct.
@@ -59,6 +57,7 @@ public class DirectEvent extends BaseEvent {
      */
     private static final String ACTION = "action";
     private static final String MESSAGE_ID = "message_id";
+    private static final String PARENT_MESSAGE_ID = "parent_message_id";
     private static final String TIMESTAMP = "timestamp";
     private static final String STATUSES = "statuses";
     private static final String ERROR_MSG = "error_msg";
@@ -141,6 +140,15 @@ public class DirectEvent extends BaseEvent {
                 try {
                     addToJSON(jsonDescription, SENDER, message.getSender());
                     addToJSON(jsonDescription, RECIPIENT, message.getAllRecipients());
+                    String parentMessageID = getParentMessageId(message);
+                    //set the parent message ID in the JSON string if its 
+                    //also set it in the transaction id
+                    if (NullChecker.isNotNullish(parentMessageID)) {
+                        addToJSON(jsonDescription, PARENT_MESSAGE_ID, parentMessageID);
+                        event.setTransactionID(parentMessageID);
+                    } else {
+                        event.setTransactionID(message.getMessageID());
+                    }
 
                     String messageId = message.getMessageID();
                     event.setMessageID(messageId);
@@ -172,5 +180,14 @@ public class DirectEvent extends BaseEvent {
 
     private static String formatDateForXml(Date date) {
         return new SimpleDateFormat(XML_DATE_FORMAT, Locale.getDefault()).format(date);
+    }
+
+    private static String getParentMessageId(MimeMessage msg) {
+        try {
+            return MessageMonitoringUtil.getParentMessageId(msg);
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 }
