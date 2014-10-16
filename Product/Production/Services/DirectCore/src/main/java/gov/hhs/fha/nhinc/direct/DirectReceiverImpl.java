@@ -143,7 +143,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
         boolean isMdn = MessageMonitoringUtil.isMdnOrDsn(processedMessage);
         //if its MDN or DSN then log the event and update the tracking information
         if (isMdn) {
-            getDirectEventLogger().log(DirectEventType.BEGIN_INBOUND_MDN, message);
+            getDirectEventLogger().log(DirectEventType.BEGIN_INBOUND_MDN, processedMessage);
             //figure out if its Processed MDN or Dispatched MDN or Failed DSN/MDN
             //Log the events based on that
             if (MessageMonitoringUtil.isIncomingMessageMDNProcessed(processedMessage)) {
@@ -187,7 +187,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
 
         if (isMdn) {
             LOG.info("MDN Processed notification sent to the edge client.");
-            getDirectEventLogger().log(DirectEventType.END_INBOUND_MDN, message);
+            getDirectEventLogger().log(DirectEventType.END_INBOUND_MDN, processedMessage);
         } else {
             try {
                 if (notificationToEdgeFailed) {
