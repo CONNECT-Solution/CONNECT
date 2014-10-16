@@ -126,13 +126,24 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
      */
     @Override
     public void receiveInbound(MimeMessage message) {
+        MessageProcessResult result;
+        //Catch all the errors (can be a security error or any other error)and drop the message for now
+        //TODO: Add a retry logic before dropping the message in the future
+        try {
+            result = process(message);
+        } catch (Exception e) {
+            //if its security error then log the event
+            //TODO: drop the message to a delete bin directory for future ref
+            getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message, e.getMessage());
+            return;
+        }
 
-        MessageProcessResult result = process(message);
         MessageEnvelope processedEnvelope = result.getProcessedMessage();
         Message processedMessage = processedEnvelope.getMessage();
         boolean isMdn = MessageMonitoringUtil.isMdnOrDsn(processedMessage);
         //if its MDN or DSN then log the event and update the tracking information
         if (isMdn) {
+            getDirectEventLogger().log(DirectEventType.BEGIN_INBOUND_MDN, message);
             //figure out if its Processed MDN or Dispatched MDN or Failed DSN/MDN
             //Log the events based on that
             if (MessageMonitoringUtil.isIncomingMessageMDNProcessed(processedMessage)) {
@@ -176,6 +187,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
 
         if (isMdn) {
             LOG.info("MDN Processed notification sent to the edge client.");
+            getDirectEventLogger().log(DirectEventType.END_INBOUND_MDN, message);
         } else {
             try {
                 if (notificationToEdgeFailed) {
