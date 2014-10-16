@@ -136,8 +136,10 @@ public class DirectTrustBundleBean {
     }
     
     public void refreshBundle(ActionEvent event) {
-        if(selectedTb != null)
+        if(selectedTb != null) {
             directService.refreshTrustBundle(selectedTb.getId());
+            refreshTrustBundle();
+        }
     }
     
     /**

@@ -192,7 +192,7 @@
                                             <p:commandButton value="View Anchors" actionListener="#{directTrustBundleBean.showTrustBundleAnchors()}" icon="ui-icon-newwin" styleClass="edit-button" />
                                         </p:column>
                                         <p:column>
-                                            <p:commandButton value="Refresh Bundle" actionListener="#{directTrustBundleBean.refreshBundle}" onstart="PF('tbTabBlock').show()" oncomplete="PF('tbTabBlock').hide()" icon="ui-icon-arrowrefresh-1-e" styleClass="edit-button" />
+                                            <p:commandButton value="Refresh Bundle" update="tbDataTable" actionListener="#{directTrustBundleBean.refreshBundle}" onstart="PF('tbTabBlock').show()" oncomplete="PF('tbTabBlock').hide()" icon="ui-icon-arrowrefresh-1-e" styleClass="edit-button" />
                                         </p:column> 
                                         <p:column styleClass="ui-button-rightmost">
                                             <p:commandButton value="Add New Trust Bundle" type="button" onclick="PF('tbDlg').show();" icon="ui-icon-circle-plus" styleClass="add-button pull-right" />
