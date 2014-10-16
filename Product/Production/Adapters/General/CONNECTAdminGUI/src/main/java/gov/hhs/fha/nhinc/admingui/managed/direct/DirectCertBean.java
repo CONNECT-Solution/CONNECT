@@ -109,6 +109,7 @@ public class DirectCertBean {
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR",
                     "Choose and upload a certificate before submitting."));
         }
+        certFile = null;
     }
 
     /**
