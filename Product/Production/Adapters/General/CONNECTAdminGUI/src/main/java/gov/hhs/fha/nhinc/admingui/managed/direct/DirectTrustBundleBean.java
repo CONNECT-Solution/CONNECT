@@ -111,6 +111,7 @@ public class DirectTrustBundleBean {
 
         if (tbCert != null) {
             tb.setSigningCertificateData(tbCert.getContents());
+            tbCert = null;
         }
         
         directService.addTrustBundle(tb);
@@ -136,8 +137,10 @@ public class DirectTrustBundleBean {
     }
     
     public void refreshBundle(ActionEvent event) {
-        if(selectedTb != null)
+        if(selectedTb != null) {
             directService.refreshTrustBundle(selectedTb.getId());
+            refreshTrustBundle();
+        }
     }
     
     /**
