@@ -111,6 +111,7 @@ public class DirectTrustBundleBean {
 
         if (tbCert != null) {
             tb.setSigningCertificateData(tbCert.getContents());
+            tbCert = null;
         }
         
         directService.addTrustBundle(tb);
