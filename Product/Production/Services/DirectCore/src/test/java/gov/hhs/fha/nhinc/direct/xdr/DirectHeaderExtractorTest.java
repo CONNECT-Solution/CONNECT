@@ -65,7 +65,7 @@ public class DirectHeaderExtractorTest extends DirectBaseTest {
     private static final String SERVER_NAME = "server name";
 
     
-    //@Test(expected = DirectException.class)
+    @Test(expected = DirectException.class)
     public void testGetHeaderProperties_WebServiceContextNull() {
         WebServiceContext context = null;
         
