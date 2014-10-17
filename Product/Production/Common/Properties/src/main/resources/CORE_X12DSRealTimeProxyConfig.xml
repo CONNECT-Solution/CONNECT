@@ -42,6 +42,15 @@
 
         <meta key="impltype" value="java" />
     </bean>
+	
+	<!-- Payload Java Implementation -->
+    <bean id="adaptercore_x12dsrealtimepayloadjava"
+          name="adaptercore_x12dsrealtimepayloadjava"
+          class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.AdapterCORE_X12DSRealTimeProxyJavaPayloadImpl"
+          lazy-init="true">
+
+        <meta key="impltype" value="java" />
+    </bean>
 
     <!-- Secured web service Implementation -->
     <bean id="adaptercore_x12dsrealtimewssecured"

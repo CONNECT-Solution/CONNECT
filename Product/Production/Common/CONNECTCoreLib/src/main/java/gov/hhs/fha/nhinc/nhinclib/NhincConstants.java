@@ -441,6 +441,9 @@ public class NhincConstants {
 
     public static final String CORE_X12DS_ACK_ERROR_MSG = null;
     public static final String CORE_X12DS_ACK_ERROR_CODE = null;
+    
+    //Adapter properties for retrieving X12 RealTime payload
+    public static final String CORE_X12DS_RT_DYNAMIC_DOC_FILE = "x12.realtime.doc.file";
 
     //DocumentQueryTransform Constants
     public static final String EBXML_DOCENTRY_PATIENT_ID = "$XDSDocumentEntryPatientId";
