@@ -132,9 +132,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
         try {
             result = process(message);
         } catch (Exception e) {
-            //if its security error then log the event
             //TODO: drop the message to a delete bin directory for future ref
-            getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message, e.getMessage());
             return;
         }
 
@@ -143,15 +141,14 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
         boolean isMdn = MessageMonitoringUtil.isMdnOrDsn(processedMessage);
         //if its MDN or DSN then log the event and update the tracking information
         if (isMdn) {
-            getDirectEventLogger().log(DirectEventType.BEGIN_INBOUND_MDN, processedMessage);
             //figure out if its Processed MDN or Dispatched MDN or Failed DSN/MDN
             //Log the events based on that
             if (MessageMonitoringUtil.isIncomingMessageMDNProcessed(processedMessage)) {
-                getDirectEventLogger().log(DirectEventType.INBOUND_MDN_PROCESSED, processedMessage);
+                getDirectEventLogger().log(DirectEventType.BEGIN_INBOUND_MDN_PROCESSED, processedMessage);
             } else if (MessageMonitoringUtil.isIncomingMessageMDNDispatched(processedMessage)) {
-                getDirectEventLogger().log(DirectEventType.INBOUND_MDN_DISPATCHED, processedMessage);
+                getDirectEventLogger().log(DirectEventType.BEGIN_INBOUND_MDN_DISPATCHED, processedMessage);
             } else {
-                getDirectEventLogger().log(DirectEventType.INBOUND_MDN_FAILED, processedMessage);
+                getDirectEventLogger().log(DirectEventType.BEGIN_INBOUND_MDN_FAILED, processedMessage);
             }
 
             //Update message monitoring status
@@ -164,8 +161,6 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
         //send the MDN processed back to the receiver if the message is not a mdn
         if (!isMdn) {
             sendMdnProcessed(result);
-            //log the MDN Failed Processed sent event
-            getDirectEventLogger().log(DirectEventType.OUTBOUND_MDN_PROCESSED, processedMessage);
         }
         boolean notificationToEdgeFailed = false;
         String notificationFailureMessage = null;
@@ -187,17 +182,27 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
 
         if (isMdn) {
             LOG.info("MDN Processed notification sent to the edge client.");
-            getDirectEventLogger().log(DirectEventType.END_INBOUND_MDN, processedMessage);
+            //figure out if its Processed MDN or Dispatched MDN or Failed DSN/MDN
+            //Log the events based on that
+            if (MessageMonitoringUtil.isIncomingMessageMDNProcessed(processedMessage)) {
+                getDirectEventLogger().log(DirectEventType.END_INBOUND_MDN_PROCESSED, processedMessage);
+            } else if (MessageMonitoringUtil.isIncomingMessageMDNDispatched(processedMessage)) {
+                getDirectEventLogger().log(DirectEventType.END_INBOUND_MDN_DISPATCHED, processedMessage);
+            } else {
+                getDirectEventLogger().log(DirectEventType.END_INBOUND_MDN_FAILED, processedMessage);
+            }
         } else {
             try {
                 if (notificationToEdgeFailed) {
+                    getDirectEventLogger().log(DirectEventType.BEGIN_OUTBOUND_MDN_FAILED, processedMessage);
                     sendMdnFailed(processedMessage, notificationFailureMessage);
                     //log the MDN Failed notification sent event
-                    getDirectEventLogger().log(DirectEventType.OUTBOUND_MDN_FAILED, processedMessage);
+                    getDirectEventLogger().log(DirectEventType.END_OUTBOUND_MDN_FAILED, processedMessage);
                 } else {
                     sendMdnDispatched(result);
                 }
             } catch (MessagingException e) {
+                getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, processedMessage, e.getMessage());
                 throw new DirectException("Error sending MDN dispatched.", e, message);
             }
             getDirectEventLogger().log(DirectEventType.END_INBOUND_DIRECT, processedMessage);
@@ -226,10 +231,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
                     if (getSmtpAgent() != null) {
                         incomingMessage.setAgent(getSmtpAgent().getAgent());
                         Collection<NotificationMessage> messages = dispatchProducer.produce(incomingMessage);
-                        sendMdns(messages);
-                        //log the MDN dispatched notification sent event
-                        getDirectEventLogger().log(DirectEventType.OUTBOUND_MDN_DISPATCHED, STAMessasge);
-
+                        sendMdns(messages,false);
                     }
                 }
             }
@@ -260,7 +262,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
      */
     private void sendMdnProcessed(MessageProcessResult result) {
         Collection<NotificationMessage> mdnMessages = DirectAdapterUtils.getMdnMessages(result);
-        sendMdns(mdnMessages);
+        sendMdns(mdnMessages,true);
     }
 
     /**
@@ -268,17 +270,17 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
      *
      * @param mdnMessages the mdn messages
      */
-    private void sendMdns(Collection<NotificationMessage> mdnMessages) {
+    private void sendMdns(Collection<NotificationMessage> mdnMessages, boolean processed) {
         if (mdnMessages != null) {
             for (NotificationMessage mdnMessage : mdnMessages) {
-                getDirectEventLogger().log(DirectEventType.BEGIN_OUTBOUND_MDN, mdnMessage);
+                getDirectEventLogger().log((processed?DirectEventType.BEGIN_OUTBOUND_MDN_PROCESSED:DirectEventType.BEGIN_OUTBOUND_MDN_DISPATCHED), mdnMessage);
                 try {
                     MimeMessage message = process(mdnMessage).getProcessedMessage().getMessage();
                     getExternalMailSender().send(mdnMessage.getAllRecipients(), message);
                 } catch (Exception e) {
                     throw new DirectException("Exception sending outbound direct mdn.", e, mdnMessage);
                 }
-                getDirectEventLogger().log(DirectEventType.END_OUTBOUND_MDN, mdnMessage);
+                getDirectEventLogger().log((processed?DirectEventType.END_OUTBOUND_MDN_PROCESSED:DirectEventType.END_OUTBOUND_MDN_DISPATCHED), mdnMessage);
                 LOG.info("MDN notification sent.");
             }
         }

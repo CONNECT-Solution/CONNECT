@@ -110,8 +110,8 @@ public class DirectReceiverImplTest {
         runTestOnMessage(message, false);
 
         verify(directEventLogger).log(eq(DirectEventType.BEGIN_INBOUND_DIRECT), any(MimeMessage.class));
-        verify(directEventLogger).log(eq(DirectEventType.BEGIN_OUTBOUND_MDN), any(MimeMessage.class));
-        verify(directEventLogger).log(eq(DirectEventType.END_OUTBOUND_MDN), any(MimeMessage.class));
+        verify(directEventLogger).log(eq(DirectEventType.BEGIN_OUTBOUND_MDN_PROCESSED), any(MimeMessage.class));
+        verify(directEventLogger).log(eq(DirectEventType.END_OUTBOUND_MDN_PROCESSED), any(MimeMessage.class));
         verify(directEventLogger).log(eq(DirectEventType.END_INBOUND_DIRECT), any(MimeMessage.class));
         verify(smtpAgent, times(2)).processMessage(any(Message.class), any(NHINDAddressCollection.class),
             any(NHINDAddress.class));
@@ -134,8 +134,10 @@ public class DirectReceiverImplTest {
         runTestOnMessage(message, false);
 
         verify(directEventLogger).log(eq(DirectEventType.BEGIN_INBOUND_DIRECT), any(MimeMessage.class));
-        verify(directEventLogger, times(2)).log(eq(DirectEventType.BEGIN_OUTBOUND_MDN), any(MimeMessage.class));
-        verify(directEventLogger, times(2)).log(eq(DirectEventType.END_OUTBOUND_MDN), any(MimeMessage.class));
+        verify(directEventLogger, times(1)).log(eq(DirectEventType.BEGIN_OUTBOUND_MDN_PROCESSED), any(MimeMessage.class));
+        verify(directEventLogger, times(1)).log(eq(DirectEventType.END_OUTBOUND_MDN_PROCESSED), any(MimeMessage.class));
+        verify(directEventLogger, times(1)).log(eq(DirectEventType.BEGIN_OUTBOUND_MDN_DISPATCHED), any(MimeMessage.class));
+        verify(directEventLogger, times(1)).log(eq(DirectEventType.END_OUTBOUND_MDN_DISPATCHED), any(MimeMessage.class));
         verify(directEventLogger).log(eq(DirectEventType.END_INBOUND_DIRECT), any(MimeMessage.class));
         verify(smtpAgent, times(3)).processMessage(any(Message.class), any(NHINDAddressCollection.class),
             any(NHINDAddress.class));
@@ -160,8 +162,8 @@ public class DirectReceiverImplTest {
 
         setCommonExpectations(message);
         verify(directEventLogger).log(eq(DirectEventType.BEGIN_INBOUND_DIRECT), any(MimeMessage.class));
-        verify(directEventLogger).log(eq(DirectEventType.BEGIN_OUTBOUND_MDN), any(MimeMessage.class));
-        verify(directEventLogger).log(eq(DirectEventType.END_OUTBOUND_MDN), any(MimeMessage.class));
+        verify(directEventLogger).log(eq(DirectEventType.BEGIN_OUTBOUND_MDN_PROCESSED), any(MimeMessage.class));
+        verify(directEventLogger).log(eq(DirectEventType.END_OUTBOUND_MDN_PROCESSED), any(MimeMessage.class));
         verify(directEventLogger).log(eq(DirectEventType.END_INBOUND_DIRECT), any(MimeMessage.class));
         verify(smtpAgent, times(2)).processMessage(any(Message.class), any(NHINDAddressCollection.class),
             any(NHINDAddress.class));
