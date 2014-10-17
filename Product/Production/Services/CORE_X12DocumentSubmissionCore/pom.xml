@@ -15,6 +15,11 @@
             <groupId>org.connectopensource</groupId>
             <artifactId>CORERule2_2_0Webervices</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.3.2</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

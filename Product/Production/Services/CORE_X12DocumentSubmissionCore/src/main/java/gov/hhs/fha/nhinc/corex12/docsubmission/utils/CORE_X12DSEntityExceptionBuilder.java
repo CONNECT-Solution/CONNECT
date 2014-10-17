@@ -100,9 +100,7 @@ public class CORE_X12DSEntityExceptionBuilder extends BaseService {
         COREEnvelopeRealTimeResponse response = new COREEnvelopeRealTimeResponse();
         response.setPayloadType("CoreEnvelopeError");
         response.setProcessingMode("RealTime");
-        response.setPayloadID(msg.getPayload());
-        response.setCORERuleVersion("2.2.0");
-        response.setSenderID(msg.getSenderID());
+        response.setPayloadID(msg.getPayloadID());
         response.setReceiverID(msg.getReceiverID());
         response.setErrorCode(ERROR_CODE);
         response.setErrorMessage("No endpoint available for target community HCID: " + targetHCID);
@@ -121,7 +119,7 @@ public class CORE_X12DSEntityExceptionBuilder extends BaseService {
         COREEnvelopeRealTimeResponse response = new COREEnvelopeRealTimeResponse();
         response.setPayloadType("CoreEnvelopeError");
         response.setProcessingMode("RealTime");
-        response.setPayloadID(msg.getPayload());
+        response.setPayloadID(msg.getPayloadID());
         response.setCORERuleVersion("2.2.0");
         response.setSenderID(msg.getSenderID());
         response.setReceiverID(msg.getReceiverID());

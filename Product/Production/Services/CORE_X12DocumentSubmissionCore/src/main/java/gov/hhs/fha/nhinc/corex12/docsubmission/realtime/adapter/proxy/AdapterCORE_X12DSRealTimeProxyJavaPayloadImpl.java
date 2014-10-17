@@ -24,45 +24,46 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter;
+
+package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.Base64Coder;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
+
 /**
- * @author cmay
  *
+ * @author jassmit
  */
-public class AdapterCORE_X12DSRealTimeOrchImpl {
+public class AdapterCORE_X12DSRealTimeProxyJavaPayloadImpl implements AdapterCORE_X12DSRealTimeProxy {
 
-    private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSRealTimeOrchImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSRealTimeProxyJavaPayloadImpl.class);
 
-    private static final String X12_REALTIME_PAYLOAD = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><ClinicalDocument />";
-    
-    
-    /**
-     *
-     * @param coreEnvelopeRealTimeRequest
-     * @param assertion
-     * @return
-     */
+    @Override
     public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest, AssertionType assertion) {
-
-        COREEnvelopeRealTimeResponse oResponse = null;
-        if (coreEnvelopeRealTimeRequest != null) {
-            LOG.trace("Begin AdapterCORE_X12DSRealTimeOrchImpl.realTimeTransaction()");
-            //Call to a method which builds response metadata and returns response
+        LOG.trace("Begin AdapterCORE_X12DSRealTimeProxyJavaPayloadImpl.realTimeTransaction()");
+        
+        COREEnvelopeRealTimeResponse oResponse;
+        if (coreEnvelopeRealTimeRequest != null) {            
             oResponse = buildAdapterCORE_X12DSRealTimeResponseMetadata();
-            //Call for logging inbound
             logAdapterCORE_X12DSRealTimeRequest(coreEnvelopeRealTimeRequest);
-            LOG.trace("End AdapterCORE_X12DSRealTimeOrchImpl.realTimeTransaction()");
         } else {
             oResponse = new COREEnvelopeRealTimeResponse();
             //TODO: Need to add error handling
         }
+        
+        LOG.trace("End AdapterCORE_X12DSRealTimeProxyJavaPayloadImpl.realTimeTransaction()");
         return oResponse;
     }
 
@@ -74,13 +75,33 @@ public class AdapterCORE_X12DSRealTimeOrchImpl {
         oResponse.setTimeStamp("2007-08-30T10:20:34Z");
         oResponse.setSenderID("PayerB");
         oResponse.setReceiverID("HospitalA");
-        oResponse.setCORERuleVersion("2.2.0");
-        oResponse.setPayload(Base64Coder.encodeString(X12_REALTIME_PAYLOAD));
+        oResponse.setCORERuleVersion("2.2.0");       
+        oResponse.setPayload(buildPayload());
+        
         oResponse.setErrorCode("Success");
         oResponse.setErrorMessage("None");
         return oResponse;
     }
+    
+    private String buildPayload() {
+        String payload = null;
+        try {
+            String fileName = getPropertyAccessor().getProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME, NhincConstants.CORE_X12DS_RT_DYNAMIC_DOC_FILE);
+            if (NullChecker.isNotNullish(fileName)) {
+                FileInputStream fStream = new FileInputStream(new File(fileName));
+                byte[] testBytes = IOUtils.toByteArray(fStream);
+                payload = new String(Base64Coder.encode(testBytes));
+            }
 
+        } catch (PropertyAccessException ex) {
+            LOG.warn("Unable to get adapter real time payload: " + ex.getMessage(), ex);
+        } catch (IOException ex) {
+            LOG.warn("Unable to get adapter real time payload: " + ex.getMessage(), ex);
+        }
+
+        return payload;
+    }
+    
     private void logAdapterCORE_X12DSRealTimeRequest(COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest) {
         LOG.info("CORE Paylod Type = " + coreEnvelopeRealTimeRequest.getPayloadType());
         LOG.info("CORE Processing Mode = " + coreEnvelopeRealTimeRequest.getProcessingMode());
@@ -91,5 +112,9 @@ public class AdapterCORE_X12DSRealTimeOrchImpl {
         LOG.info("CORE Rule version = " + coreEnvelopeRealTimeRequest.getCORERuleVersion());
         LOG.debug("CORE Payload = " + Base64Coder.decodeString(coreEnvelopeRealTimeRequest.getPayload()));
     }
-
+    
+    protected PropertyAccessor getPropertyAccessor(){
+        return PropertyAccessor.getInstance();
+    }
+    
 }
