@@ -64,29 +64,53 @@ public enum DirectEventType {
      */
     END_INBOUND_MDN,
     /**
-     * Once an inbound MDN processed message is received successfully.
+     * Begin handling an inbound Processed MDN message.
      */
-    INBOUND_MDN_PROCESSED,
+    BEGIN_INBOUND_MDN_PROCESSED,
     /**
-     * Once an inbound MDN dispatched message is received successfully.
+     * End handling an inbound processed MDN message.
      */
-    INBOUND_MDN_DISPATCHED,
+    END_INBOUND_MDN_PROCESSED,
     /**
-     * Once an inbound MDN Failed message is received successfully.
+     * Begin handling an inbound dispatched MDN message.
      */
-    INBOUND_MDN_FAILED,
+    BEGIN_INBOUND_MDN_DISPATCHED,
     /**
-     * Once an Outbound MDN processed message is sent.
+     * End handling an inbound dispatched MDN message.
      */
-    OUTBOUND_MDN_PROCESSED,
+    END_INBOUND_MDN_DISPATCHED,
     /**
-     * Once an Outbound MDN dispatched message is sent.
+     * Begin handling an inbound Failed MDN message.
      */
-    OUTBOUND_MDN_DISPATCHED,
+    BEGIN_INBOUND_MDN_FAILED,
     /**
-     * Once an outbound MDN failed message is sent.
+     * End handling an inbound Failed MDN message.
      */
-    OUTBOUND_MDN_FAILED,
+    END_INBOUND_MDN_FAILED,
+    /**
+     * Begin handling an Outbound Processed MDN message.
+     */
+    BEGIN_OUTBOUND_MDN_PROCESSED,
+    /**
+     * End handling an Outbound Processed MDN message.
+     */
+    END_OUTBOUND_MDN_PROCESSED,
+    /**
+     * Begin handling an Outbound Dispatched MDN message.
+     */
+    BEGIN_OUTBOUND_MDN_DISPATCHED,
+    /**
+     * Begin handling an Outbound Dispatched MDN message.
+     */
+    END_OUTBOUND_MDN_DISPATCHED,
+    /**
+     * Begin handling an Outbound Failed MDN message.
+     */
+    BEGIN_OUTBOUND_MDN_FAILED,
+    /**
+     * End handling an Outbound Failed MDN message.
+     */
+    END_OUTBOUND_MDN_FAILED,
     /**
      * Once an Successful Edge notification is sent.
      */

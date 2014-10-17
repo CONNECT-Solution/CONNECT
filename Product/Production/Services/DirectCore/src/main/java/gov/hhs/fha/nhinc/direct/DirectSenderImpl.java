@@ -70,9 +70,6 @@ public class DirectSenderImpl extends DirectAdapter implements DirectSender {
             failed = true;
             errorMessage = e.getMessage();
             //TODO: drop the message to a delete bin directory for future ref
-            //add an error event. TODO: Make sure the error is logged into the
-            //even logging
-            getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message, errorMessage);
             return;
         } finally {
             LOG.debug("Before inserting Outgoing Message");
