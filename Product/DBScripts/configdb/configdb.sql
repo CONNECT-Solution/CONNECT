@@ -8,7 +8,7 @@ CREATE DATABASE configdb;
 CREATE TABLE IF NOT EXISTS configdb.domain (
     id SERIAL PRIMARY KEY,
     postmasterAddressId BIGINT,
-    domainName VARCHAR(255) NOT NULL,
+    domainName VARCHAR(255) NOT NULL UNIQUE,
     status INTEGER DEFAULT 0,
     createTime DATETIME NOT NULL,
     updateTime DATETIME
