@@ -56,14 +56,11 @@ import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddDomain;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddDomainResponse;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.UpdateDomain;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.UpdateDomainResponse;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.jws.WebService;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,7 +95,7 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
     @Override
     public AddDomainResponse addDomain(AddDomain domain) throws ConfigurationServiceException {
         dao.add(domain.getDomain());
-        log.info("Added Domain: " + domain.getDomain().getDomainName());
+        log.info("Domain added successfully");
         return new AddDomainResponse();
     }
 
@@ -109,7 +106,7 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
     public UpdateDomainResponse updateDomain(UpdateDomain domain) throws ConfigurationServiceException {
         if (domain != null) {
             dao.update(domain.getDomain());
-            log.info("Modified Domain: " + domain.getDomain().getDomainName());
+            log.info("Domain modified successfully");
         } else {
             log.debug("No domain provided");
         }
@@ -140,7 +137,7 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
     @Override
     public void removeDomain(String domainName) throws ConfigurationServiceException {
         dao.delete(domainName);
-        log.info("Modified Domain: " + domainName);
+        log.info("Domain deleted");
     }
 
     /**
@@ -149,7 +146,7 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
     @Override
     public void removeDomainById(Long domainId) throws ConfigurationServiceException {
         dao.delete(domainId);
-        log.info("Modified Domain: " + domainId);
+        log.info("Modified Domain with id: " + domainId);
     }
 
     /**
