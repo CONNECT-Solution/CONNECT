@@ -35,9 +35,7 @@ import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.impl.SHA1PasswordService;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
-
 import java.io.IOException;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +43,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author msw
- * 
+ *
  */
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -62,7 +60,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     /**
-     * 
+     *
      * @param userLoginDao
      */
     LoginServiceImpl(UserLoginDAO userLoginDao) {
@@ -76,19 +74,14 @@ public class LoginServiceImpl implements LoginService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.admingui.services.LoginService#login(gov.hhs.fha.nhinc .admingui.model.Login)
      */
     @Override
     @Transactional
     public UserLogin login(Login login) throws UserLoginException {
-
         UserLogin user = userLoginDAO.login(login);
-        if (user != null) {
-            log.debug("db user name: ".concat(user.getUserName()));
-            log.debug("db salt: ".concat(user.getSalt()));
-            log.debug("db password: ".concat(user.getSha1()));
-        }
+
         if (user != null && user.getSha1() != null && user.getSalt() != null && login.getPassword() != null) {
             try {
                 boolean loggedIn = passwordService.checkPassword(user.getSha1().getBytes(), login.getPassword()
@@ -106,7 +99,7 @@ public class LoginServiceImpl implements LoginService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.admingui.services.LoginService#addUser(gov.hhs.fha.nhinc.admingui.model.User)
      */
     @Override

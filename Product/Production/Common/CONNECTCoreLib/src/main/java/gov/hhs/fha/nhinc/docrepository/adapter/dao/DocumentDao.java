@@ -26,12 +26,13 @@
  */
 package gov.hhs.fha.nhinc.docrepository.adapter.dao;
 
+import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
+import gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.log4j.Logger;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -40,13 +41,9 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Restrictions;
 
-import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
-import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
-import gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil;
-
 /**
  * Data access object class for Document data
- * 
+ *
  * @author Neil Webb
  */
 public class DocumentDao {
@@ -54,7 +51,7 @@ public class DocumentDao {
 
     /**
      * Save a document record to the database. Insert if document id is null. Update otherwise.
-     * 
+     *
      * @param document Document object to save.
      */
     public void save(Document document) {
@@ -92,7 +89,7 @@ public class DocumentDao {
 
     /**
      * Delete a document
-     * 
+     *
      * @param document Document to delete
      */
     public void delete(Document document) {
@@ -130,7 +127,7 @@ public class DocumentDao {
 
     /**
      * Retrieve a document by identifier
-     * 
+     *
      * @param documentId Document identifier
      * @return Retrieved document
      */
@@ -169,7 +166,7 @@ public class DocumentDao {
 
     /**
      * Retrieves all documents
-     * 
+     *
      * @return All document records
      */
     @SuppressWarnings("unchecked")
@@ -204,7 +201,7 @@ public class DocumentDao {
 
     /**
      * Perform a query for documents
-     * 
+     *
      * @param params Query parameters
      * @return Query results
      */
@@ -245,27 +242,24 @@ public class DocumentDao {
                 Criteria criteria = sess.createCriteria(Document.class);
 
                 if (patientId != null) {
-                    if (LOG.isDebugEnabled()) {
-                        LOG.debug("Document query - patient id: " + patientId);
-                    }
                     criteria.add(Expression.eq("patientId", patientId));
                 }
 
                 if ((classCodes != null) && (!classCodes.isEmpty())) {
                     /**************************************************************
                      * The class code and class code scheme combination can come in two different formats:
-                     * 
+                     *
                      * <ns7:Slot name="$XDSDocumentEntryClassCode"> <ns7:ValueList> <ns7:Value>34133-9</ns7:Value>
                      * </ns7:ValueList> </ns7:Slot> <ns7:Slot name="$XDSDocumentEntryClassCodeScheme"> <ns7:ValueList>
                      * <ns7:Value>2.16.840.1.113883.6.1</ns7:Value> </ns7:ValueList> </ns7:Slot>
-                     * 
+                     *
                      * or
-                     * 
+                     *
                      * <ns7:Slot name="$XDSDocumentEntryClassCode"> <ns7:ValueList> <ns7:Value>(
                      * '34133-9^^2.16.840.1.113883.6.1')</ns7:Value> </ns7:ValueList> </ns7:Slot>
-                     * 
+                     *
                      * The code below can deal with both formats.
-                     * 
+                     *
                      *************************************************************/
                     Criterion criterion = null;
                     for (String classCode : classCodes) {

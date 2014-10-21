@@ -51,13 +51,10 @@ import gov.hhs.fha.nhinc.directconfig.dao.SettingDao;
 import gov.hhs.fha.nhinc.directconfig.entity.Setting;
 import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
 import gov.hhs.fha.nhinc.directconfig.service.SettingService;
-
 import java.util.Arrays;
 import java.util.Collection;
-
 import javax.annotation.PostConstruct;
 import javax.jws.WebService;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,8 +113,8 @@ public class SettingServiceImpl extends SpringBeanAutowiringSupport implements S
     public Setting getSettingByName(String name) throws ConfigurationServiceException {
         Collection<Setting> settings = dao.getByNames(Arrays.asList(name));
 
-        if (settings == null || settings.size() == 0) {
-            log.debug("Could not locate setting: " + name);
+        if (settings == null || settings.isEmpty()) {
+            log.debug("Could not locate setting");
             return null;
         }
 

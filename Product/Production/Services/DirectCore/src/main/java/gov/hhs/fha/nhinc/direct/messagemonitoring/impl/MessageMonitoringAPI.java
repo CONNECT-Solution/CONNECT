@@ -88,7 +88,7 @@ public class MessageMonitoringAPI {
 
     public void updateIncomingMessageNotificationStatus(MimeMessage message) {
         //Always
-        //check if the message monitoring is enabled 
+        //check if the message monitoring is enabled
         if (!MessageMonitoringUtil.isMessageMonitoringEnabled()) {
             LOG.debug("Message Monitoring is not enabled.");
             return;
@@ -248,7 +248,6 @@ public class MessageMonitoringAPI {
         //load the pending outgoing messages to the cache
         for (MonitoredMessage trackMessage : pendingMessages) {
             messageMonitoringCache.put(trackMessage.getMessageid(), trackMessage);
-            LOG.debug("messageID:" + trackMessage.getMessageid());
             LOG.debug("Total child rows for the messageId:" + trackMessage.getMonitoredmessagenotifications().size());
         }
         LOG.debug("Exiting buildCache.");
@@ -319,7 +318,7 @@ public class MessageMonitoringAPI {
             if (trackMessage.getStatus().equals(STATUS_ERROR)) {
                 failedMessages.add(trackMessage);
             } else if (trackMessage.getStatus().equals(STATUS_PENDING)) {
-                //if its pending & if its elapsed then 
+                //if its pending & if its elapsed then
                 //change the status to Error
             }
         }
@@ -460,12 +459,12 @@ public class MessageMonitoringAPI {
     public void process() {
         LOG.debug("Inside Message Monitoring API process() method.");
 
-        //Always check if the message monitoring is enabled 
+        //Always check if the message monitoring is enabled
         if (!MessageMonitoringUtil.isMessageMonitoringEnabled()) {
             LOG.debug("Message Monitoring is not enabled.");
             return;
         }
-        //check all the pending messages and update the status 
+        //check all the pending messages and update the status
         //1. Check if the message is elaspsed and yes then update the status to Failed
         //   else Completed
         //2. Check all the completed /failed messages and set the status

@@ -58,7 +58,6 @@ import gov.hhs.fha.nhinc.directconfig.service.jaxws.UpdateDomain;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.UpdateDomainResponse;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.jws.WebService;
 import org.apache.commons.logging.Log;
@@ -154,13 +153,7 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
      */
     @Override
     public Collection<Domain> listDomains(String lastDomainName, int maxResults) throws ConfigurationServiceException {
-        List<Domain> result = dao.listDomains(lastDomainName, maxResults);
-
-        if (result != null) {
-            log.debug("Exit: " + result.toString());
-        }
-
-        return result;
+        return dao.listDomains(lastDomainName, maxResults);
     }
 
     /**
@@ -168,13 +161,7 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
      */
     @Override
     public Collection<Domain> searchDomain(String domain, EntityStatus status) {
-        List<Domain> result = dao.searchDomain(domain, status);
-
-        if (result != null) {
-            log.debug("Exit: " + result.toString());
-        }
-
-        return result;
+        return dao.searchDomain(domain, status);
     }
 
     /**
@@ -182,12 +169,6 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
      */
     @Override
     public Domain getDomain(Long id) {
-        Domain result = dao.getDomain(id);
-
-        if (result != null) {
-            log.debug("Exit: " + result.toString());
-        }
-
-        return result;
+        return dao.getDomain(id);
     }
 }

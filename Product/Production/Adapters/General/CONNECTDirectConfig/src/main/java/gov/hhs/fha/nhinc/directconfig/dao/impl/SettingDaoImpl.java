@@ -30,13 +30,11 @@ import gov.hhs.fha.nhinc.directconfig.dao.SettingDao;
 import gov.hhs.fha.nhinc.directconfig.dao.helpers.DaoUtils;
 import gov.hhs.fha.nhinc.directconfig.entity.Setting;
 import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
-
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
@@ -46,7 +44,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Implementing class for Setting DAO methods.
- * 
+ *
  * @author Greg Meyer
  */
 @Repository
@@ -85,7 +83,7 @@ public class SettingDaoImpl implements SettingDao {
                     tx.commit();
                 }
 
-                log.debug("Added " + name + ": " + value);
+                log.debug("Setting added successfully");
             } catch (Exception e) {
                 DaoUtils.rollbackTransaction(tx);
                 throw new ConfigurationStoreException(e);

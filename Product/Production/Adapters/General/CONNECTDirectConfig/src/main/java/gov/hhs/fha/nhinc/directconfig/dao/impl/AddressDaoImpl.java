@@ -53,12 +53,10 @@ import gov.hhs.fha.nhinc.directconfig.entity.Address;
 import gov.hhs.fha.nhinc.directconfig.entity.Domain;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
@@ -68,7 +66,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Implementing class for Address DAO methods.
- * 
+ *
  * @author ppyette
  */
 @Repository
@@ -116,7 +114,7 @@ public class AddressDaoImpl implements AddressDao {
                 session = DaoUtils.getSession();
 
                 if (session != null) {
-                    log.debug("Saving address: " + address.getEmailAddress());
+                    log.debug("Saving address");
 
                     tx = session.beginTransaction();
                     session.save(address);
@@ -159,7 +157,7 @@ public class AddressDaoImpl implements AddressDao {
                     entity.setStatus(address.getStatus());
                     entity.setUpdateTime(Calendar.getInstance());
 
-                    log.debug("Merging address: " + entity.getEmailAddress());
+                    log.debug("Merging address");
 
                     session.merge(entity);
                     tx.commit();

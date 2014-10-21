@@ -26,14 +26,6 @@
  */
 package gov.hhs.fha.nhinc.util;
 
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
-
-import org.apache.log4j.Logger;
-import org.uddi.api_v3.BusinessEntity;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -43,13 +35,19 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
+import org.apache.log4j.Logger;
+import org.uddi.api_v3.BusinessEntity;
 
 /**
  * This class is used to map a home community ID to the textual name of the home community. The information is stored in
  * a properties file so that it can be tweaked and changed without having to recompile...
- * 
+ *
  * Added getCommunityIdFromXXX() methods for use in audit logging.
- * 
+ *
  * @author Les Westberg
  * @author venkat.keesara
  */
@@ -62,7 +60,7 @@ public class HomeCommunityMap {
 
     /**
      * This method retrieves the name of the home community baased on the home community Id.
-     * 
+     *
      * @param sHomeCommunityId The home community ID to be looked up.
      * @return The textual name of the home community.
      */
@@ -85,7 +83,7 @@ public class HomeCommunityMap {
 
     /**
      * This method retrieves the first home community id from the target home communities list.
-     * 
+     *
      * @param target
      * @return The home community OID string
      */
@@ -101,7 +99,7 @@ public class HomeCommunityMap {
 
     /**
      * This method retrieves the home community id from the target home system.
-     * 
+     *
      * @param target
      * @return The home community OID string
      */
@@ -118,7 +116,7 @@ public class HomeCommunityMap {
     /**
      * This method retrieves the home community id from the user info found in saml assertion. If not defined in the
      * user info, retrieve the id from the homeCommunityId property of the assertion.
-     * 
+     *
      * @param assertion
      * @return The home community OID string
      */
@@ -144,7 +142,7 @@ public class HomeCommunityMap {
 
     /**
      * This method retrieves the home community id from the homeCommunityId property of the assertion.
-     * 
+     *
      * @param assertion
      * @return
      */
@@ -161,7 +159,7 @@ public class HomeCommunityMap {
 
     /**
      * This method retrieves the community id from the deferred query document request.
-     * 
+     *
      * @param body
      * @return The home community OID string
      */
@@ -175,7 +173,7 @@ public class HomeCommunityMap {
 
     /**
      * This method retrieves the community id from the deferred query document response.
-     * 
+     *
      * @param body
      * @return The home community OID string
      */
@@ -192,7 +190,7 @@ public class HomeCommunityMap {
 
     /**
      * This method retrieves the home community id from the retrieve document request.
-     * 
+     *
      * @param body
      * @return The home community OID string
      */
@@ -207,7 +205,7 @@ public class HomeCommunityMap {
 
     /**
      * This method retrieves the home community id from the deferred retrieve document response.
-     * 
+     *
      * @param body
      * @return The home community OID string
      */
@@ -222,13 +220,12 @@ public class HomeCommunityMap {
 
     /**
      * Formats the home community id by parsing out the 'urn:oid:' prefix if it exists.
-     * 
+     *
      * @param communityId the community id string to format
      * @return the formatted community id
      */
     public static String formatHomeCommunityId(String communityId) {
         if (communityId != null) {
-            LOG.debug("communityId prior to remove urn:oid" + communityId);
             if (communityId.startsWith("urn:oid:")) {
                 communityId = communityId.substring(8);
             }
@@ -238,7 +235,7 @@ public class HomeCommunityMap {
 
     /**
      * Return this gateway's home community id.
-     * 
+     *
      * @return
      */
     public static String getLocalHomeCommunityId() {
@@ -263,24 +260,24 @@ public class HomeCommunityMap {
 
     /**
      * Returns the home community id by with 'urn:oid:' prefix if it doesn't exists.
-     * 
+     *
      * @param communityId the community id string to format
      * @return the formatted community id
      */
     public static String getHomeCommunityIdWithPrefix(String communityId) {
         if (communityId != null) {
-            LOG.debug("communityId prior to adding urn:oid" + communityId);
             if (!communityId.startsWith("urn:oid:")) {
+                LOG.trace("Prefixing communityId with urn:oid");
                 communityId = "urn:oid:" + communityId;
             }
         }
         return communityId;
     }
-    
+
     protected static void setPropertyAccessor(PropertyAccessor propAccessor) {
         propertyAccessor = propAccessor;
     }
-    
+
     protected static void setConnectionManager(ConnectionManagerCache connectionManager) {
         connection = connectionManager;
     }
