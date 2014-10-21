@@ -20,6 +20,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.proxy;
 
+import gov.hhs.fha.nhinc.admingui.services.exception.CreateDomainException;
 import java.util.List;
 import org.nhind.config.AddAnchor;
 import org.nhind.config.AddCertificates;
@@ -45,6 +46,7 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to get direct domain with given ID.
+     *
      * @param id
      * @return
      * @throws Exception
@@ -53,13 +55,16 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to add given direct domain.
+     *
      * @param domain
      * @throws Exception
+     * @throws CreateDomainException
      */
-    public void addDomain(AddDomain domain) throws Exception;
+    public void addDomain(AddDomain domain) throws CreateDomainException;
 
     /**
      * Direct Config proxy call to get all direct domains.
+     *
      * @return
      * @throws Exception
      */
@@ -67,14 +72,17 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to update given direct domain.
+     *
      * @param updateDomain
      * @return
      * @throws Exception
+     * @throws CreateDomainException
      */
-    public UpdateDomainResponse updateDomain(UpdateDomain updateDomain) throws Exception;
+    public UpdateDomainResponse updateDomain(UpdateDomain updateDomain) throws CreateDomainException;
 
     /**
      * Direct Config proxy call to delete direct domain with given name.
+     *
      * @param name
      * @throws Exception
      */
@@ -82,6 +90,7 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to add given direct anchor.
+     *
      * @param addAnchor
      * @throws Exception
      */
@@ -89,6 +98,7 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to delete given anchors.
+     *
      * @param removeAnchors
      * @throws Exception
      */
@@ -96,6 +106,7 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to get direct anchors for given owner.
+     *
      * @param getAnchorsForOwner
      * @return
      * @throws Exception
@@ -104,6 +115,7 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to add a direct setting with given key value pair.
+     *
      * @param name
      * @param Value
      * @throws Exception
@@ -112,6 +124,7 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to get all direct settings.
+     *
      * @return
      * @throws Exception
      */
@@ -119,6 +132,7 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to delete all direct settings with given names.
+     *
      * @param deleteNames
      * @throws Exception
      */
@@ -126,6 +140,7 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to add given direct certificates.
+     *
      * @param certificate
      * @throws Exception
      */
@@ -133,6 +148,7 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to remove given direct certificate.
+     *
      * @param cert
      * @throws Exception
      */
@@ -140,6 +156,7 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to get all direct certificates from given criteria.
+     *
      * @param listCert
      * @return
      * @throws Exception
@@ -148,6 +165,7 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to get all direct trust bundles with option of including anchors.
+     *
      * @param fetchAnchors
      * @return
      * @throws Exception
@@ -156,6 +174,7 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to get all direct trust bundles for given domain with the option of including anchors.
+     *
      * @param domainId
      * @param fetchAnchors
      * @return
@@ -165,6 +184,7 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to get a direct trust bundle with the given name.
+     *
      * @param bundleName
      * @return
      * @throws Exception
@@ -173,6 +193,7 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to add the given direct trust bundle.
+     *
      * @param b
      * @throws Exception
      */
@@ -180,6 +201,7 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to associate a direct trust bundle with a direct domain.
+     *
      * @param domainId
      * @param trustBundleId
      * @param incoming
@@ -190,14 +212,16 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to delete direct trust bundles with the given IDs.
+     *
      * @param ids
      * @throws Exception
      */
     public void deleteTrustBundles(List<Long> ids) throws Exception;
 
     /**
-     * Direct Config proxy call to disassociate the direct trust bundle with the given ID from
-     * the direct domain with the other given ID.
+     * Direct Config proxy call to disassociate the direct trust bundle with the given ID from the direct domain with
+     * the other given ID.
+     *
      * @param domainId
      * @param trustBundleId
      * @throws Exception
@@ -206,6 +230,7 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to disassociate the direct trust bundle with the given ID from all domains.
+     *
      * @param trustBundleId
      * @throws Exception
      */
@@ -213,6 +238,7 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to disassociate all direct trust bundles from the domain with the given ID.
+     *
      * @param domainId
      * @throws Exception
      */
@@ -220,6 +246,7 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to refresh the given direct trust bundle.
+     *
      * @param id
      * @throws Exception
      */
@@ -227,6 +254,7 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to update a direct trust bundle with the given parameters.
+     *
      * @param trustBundleId
      * @param trustBundleName
      * @param trustBundleURL
@@ -239,6 +267,7 @@ public interface DirectConfigProxy {
 
     /**
      * Direct Config proxy call to delete a direct domain address.
+     *
      * @param addressEmail
      * @throws Exception
      */

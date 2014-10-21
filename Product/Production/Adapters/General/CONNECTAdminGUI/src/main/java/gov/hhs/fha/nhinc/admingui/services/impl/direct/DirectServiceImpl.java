@@ -22,6 +22,7 @@ package gov.hhs.fha.nhinc.admingui.services.impl.direct;
 
 import gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
+import gov.hhs.fha.nhinc.admingui.services.exception.CreateDomainException;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.nhind.config.AddAnchor;
@@ -71,26 +72,28 @@ public class DirectServiceImpl implements DirectService {
     /**
      *
      * @param domain
+     * @throws CreateDomainException
      */
     @Override
-    public void updateDomain(UpdateDomain domain) {
+    public void updateDomain(UpdateDomain domain) throws CreateDomainException {
         try {
             directProxy.updateDomain(domain);
         } catch (Exception ex) {
-            LOG.error("Unable to update domain: " + domain.getDomain().getDomainName(), ex);
+            throw new CreateDomainException("Duplicate Domain: " + domain.getDomain().getDomainName(), ex);
         }
     }
 
     /**
      *
      * @param domain
+     * @throws CreateDomainException
      */
     @Override
-    public void addDomain(AddDomain domain) {
+    public void addDomain(AddDomain domain) throws CreateDomainException {
         try {
             directProxy.addDomain(domain);
         } catch (Exception ex) {
-            LOG.error("Unable to add new domain: " + domain.getDomain().getDomainName(), ex);
+            throw new CreateDomainException("Duplicate Domain: " + domain.getDomain().getDomainName(), ex);
         }
     }
 
@@ -402,14 +405,14 @@ public class DirectServiceImpl implements DirectService {
             LOG.error("Unable to remove anchor", ex);
         }
     }
-    
+
     /**
      *
      * @param addressEmail
      * @return
      */
     @Override
-    public boolean removeAddress(String addressEmail){
+    public boolean removeAddress(String addressEmail) {
         boolean removed = true;
         try {
             directProxy.removeAddress(addressEmail);
