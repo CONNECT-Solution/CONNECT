@@ -386,3 +386,7 @@
     (ID, SALT, SHA1, USERNAME)
   VALUES
     (1, "ABCD", "TxMu4SPUdek0XU5NovS9U2llt3Q=", "CONNECTAdmin");
+--------------------------------------------------------
+--  Constraints for Table DOMAIN
+--------------------------------------------------------
+  ALTER TABLE "NHINCUSER"."DOMAIN" ADD CONSTRAINT DOMAIN UNIQUE (DOMAINNAME) ENABLE;
