@@ -160,9 +160,8 @@ public class ManageRoleBean {
     }
 
     private void setPreferences(UserRole role) {
-        List<RolePreference> preferences = roleService.getPreferences(role);
         List<PageAccessMapping> mappings = new ArrayList<PageAccessMapping>();
-        for (RolePreference preference : preferences) {
+        for (RolePreference preference : role.getPreferences()) {
             if (!DisplayHolder.getInstance().isDirectEnabled()
                     && preference.getPageName().toLowerCase().contains("direct")) {
                 continue;

@@ -69,13 +69,6 @@ public interface UserLoginDAO {
 
     /**
      *
-     * @param role
-     * @return
-     */
-    public List<RolePreference> getPreferences(UserRole role);
-    
-    /**
-     *
      * @param preference
      * @return
      */
