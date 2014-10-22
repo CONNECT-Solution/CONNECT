@@ -30,7 +30,7 @@ package gov.hhs.fha.nhinc.admingui.services.exception;
  *
  * @author sadusumilli
  */
-public class CreateDomainException extends Exception {
+public class DomainException extends Exception {
 
     /**
      * The Constant serialVersionUID.
@@ -43,7 +43,7 @@ public class CreateDomainException extends Exception {
      * @param message the message
      * @param cause the cause
      */
-    public CreateDomainException(String message, Throwable cause) {
+    public DomainException(String message, Throwable cause) {
         super(message, cause);
     }
 

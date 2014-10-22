@@ -21,7 +21,7 @@
 package gov.hhs.fha.nhinc.admingui.proxy;
 
 import gov.hhs.fha.nhinc.admingui.proxy.service.DirectConfigUnsecuredServicePortDescriptor;
-import gov.hhs.fha.nhinc.admingui.services.exception.CreateDomainException;
+import gov.hhs.fha.nhinc.admingui.services.exception.DomainException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -74,11 +74,11 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
      * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addDomain(org.nhind.config.AddDomain)
      */
     @Override
-    public void addDomain(AddDomain domain) throws CreateDomainException {
+    public void addDomain(AddDomain domain) throws DomainException {
         try {
             getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ADD_DOMAIN, domain);
         } catch (Exception e) {
-            throw new CreateDomainException("Could not create new domain " + domain.getDomain().getDomainName(), e);
+            throw new DomainException("Could not create new domain " + domain.getDomain().getDomainName(), e);
         }
     }
 
@@ -99,12 +99,12 @@ public class DirectConfigProxyWebServiceUnsecuredImpl implements DirectConfigPro
      * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#updateDomain(org.nhind.config.UpdateDomain)
      */
     @Override
-    public UpdateDomainResponse updateDomain(UpdateDomain updateDomain) throws CreateDomainException {
+    public UpdateDomainResponse updateDomain(UpdateDomain updateDomain) throws DomainException {
         try {
             return (UpdateDomainResponse) getClient().invokePort(directConfigClazz,
                 DirectConfigConstants.DIRECT_CONFIG_UPDATE_DOMAIN, updateDomain);
         } catch (Exception e) {
-            throw new CreateDomainException("Could not update domain " + updateDomain.getDomain().getDomainName(), e);
+            throw new DomainException("Could not update domain " + updateDomain.getDomain().getDomainName(), e);
         }
     }
 

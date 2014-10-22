@@ -20,7 +20,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.proxy;
 
-import gov.hhs.fha.nhinc.admingui.services.exception.CreateDomainException;
+import gov.hhs.fha.nhinc.admingui.services.exception.DomainException;
 import java.util.List;
 import org.nhind.config.AddAnchor;
 import org.nhind.config.AddCertificates;
@@ -58,9 +58,9 @@ public interface DirectConfigProxy {
      *
      * @param domain
      * @throws Exception
-     * @throws CreateDomainException
+     * @throws DomainException
      */
-    public void addDomain(AddDomain domain) throws CreateDomainException;
+    public void addDomain(AddDomain domain) throws DomainException;
 
     /**
      * Direct Config proxy call to get all direct domains.
@@ -76,9 +76,9 @@ public interface DirectConfigProxy {
      * @param updateDomain
      * @return
      * @throws Exception
-     * @throws CreateDomainException
+     * @throws DomainException
      */
-    public UpdateDomainResponse updateDomain(UpdateDomain updateDomain) throws CreateDomainException;
+    public UpdateDomainResponse updateDomain(UpdateDomain updateDomain) throws DomainException;
 
     /**
      * Direct Config proxy call to delete direct domain with given name.

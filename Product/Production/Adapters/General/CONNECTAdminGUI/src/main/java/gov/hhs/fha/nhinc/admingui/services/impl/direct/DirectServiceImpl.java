@@ -22,7 +22,7 @@ package gov.hhs.fha.nhinc.admingui.services.impl.direct;
 
 import gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
-import gov.hhs.fha.nhinc.admingui.services.exception.CreateDomainException;
+import gov.hhs.fha.nhinc.admingui.services.exception.DomainException;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.nhind.config.AddAnchor;
@@ -72,28 +72,28 @@ public class DirectServiceImpl implements DirectService {
     /**
      *
      * @param domain
-     * @throws CreateDomainException
+     * @throws DomainException
      */
     @Override
-    public void updateDomain(UpdateDomain domain) throws CreateDomainException {
+    public void updateDomain(UpdateDomain domain) throws DomainException {
         try {
             directProxy.updateDomain(domain);
         } catch (Exception ex) {
-            throw new CreateDomainException("Duplicate Domain: " + domain.getDomain().getDomainName(), ex);
+            throw new DomainException("Unable to update Domain: " + domain.getDomain().getDomainName(), ex);
         }
     }
 
     /**
      *
      * @param domain
-     * @throws CreateDomainException
+     * @throws DomainException
      */
     @Override
-    public void addDomain(AddDomain domain) throws CreateDomainException {
+    public void addDomain(AddDomain domain) throws DomainException {
         try {
             directProxy.addDomain(domain);
         } catch (Exception ex) {
-            throw new CreateDomainException("Duplicate Domain: " + domain.getDomain().getDomainName(), ex);
+            throw new DomainException("Unable to add new Domain: " + domain.getDomain().getDomainName(), ex);
         }
     }
 

@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.admingui.managed.direct.helpers.CertContainer;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectAnchor;
 import gov.hhs.fha.nhinc.admingui.model.direct.DirectTrustBundle;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
-import gov.hhs.fha.nhinc.admingui.services.exception.CreateDomainException;
+import gov.hhs.fha.nhinc.admingui.services.exception.DomainException;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.ArrayList;
 import java.util.List;
@@ -142,7 +142,7 @@ public class DirectDomainBean {
         try {
             directService.addDomain(addDomain);
             refreshDomains();
-        } catch (CreateDomainException domainException) {
+        } catch (DomainException domainException) {
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage("domainAddErrors",
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Can not add domain: " + domainException.getLocalizedMessage(), ""));
@@ -174,7 +174,7 @@ public class DirectDomainBean {
             directService.updateDomain(updateDomain);
             selectedDomain = null;
             refreshDomains();
-        } catch (CreateDomainException domainException) {
+        } catch (DomainException domainException) {
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage("domainEditErrors",
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Can not update domain: " + domainException.getLocalizedMessage(), ""));
@@ -211,7 +211,7 @@ public class DirectDomainBean {
             updateDomain.setDomain(selectedDomain);
             try {
                 directService.updateDomain(updateDomain);
-            } catch (CreateDomainException domainException) {
+            } catch (DomainException domainException) {
                 LOG.error("Error updating to domain: " + domainException.getMessage());
             }
         }

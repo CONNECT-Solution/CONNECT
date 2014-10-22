@@ -20,7 +20,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.services;
 
-import gov.hhs.fha.nhinc.admingui.services.exception.CreateDomainException;
+import gov.hhs.fha.nhinc.admingui.services.exception.DomainException;
 import java.util.List;
 import org.nhind.config.AddAnchor;
 import org.nhind.config.AddCertificates;
@@ -54,16 +54,16 @@ public interface DirectService {
      * Update a direct domain.
      *
      * @param domain
-     * @throws CreateDomainException
+     * @throws DomainException
      */
-    public void updateDomain(UpdateDomain domain) throws CreateDomainException;
+    public void updateDomain(UpdateDomain domain) throws DomainException;
 
     /**
      *
      * @param domain
-     * @throws CreateDomainException
+     * @throws DomainException
      */
-    public void addDomain(AddDomain domain) throws CreateDomainException;
+    public void addDomain(AddDomain domain) throws DomainException;
 
     /**
      * Delete the provided direct domain.
