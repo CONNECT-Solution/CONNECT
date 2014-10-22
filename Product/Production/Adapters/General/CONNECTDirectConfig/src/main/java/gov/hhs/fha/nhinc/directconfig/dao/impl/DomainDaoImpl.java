@@ -54,13 +54,11 @@ import gov.hhs.fha.nhinc.directconfig.entity.Address;
 import gov.hhs.fha.nhinc.directconfig.entity.Domain;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
@@ -71,7 +69,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Default Spring/JPA implemenation
- * 
+ *
  * @author ppyette
  */
 @Repository
@@ -212,7 +210,7 @@ public class DomainDaoImpl implements DomainDao {
                 DaoUtils.closeSession(session);
             }
         } else {
-            log.warn("No domain matching the name: " + name + " found.  Unable to delete.");
+            log.warn("Unable to delete: No matching domain found.");
         }
     }
 

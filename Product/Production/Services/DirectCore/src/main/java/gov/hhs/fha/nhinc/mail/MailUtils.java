@@ -26,10 +26,8 @@
  */
 package gov.hhs.fha.nhinc.mail;
 
-import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Properties;
-
 import javax.mail.Address;
 import javax.mail.Authenticator;
 import javax.mail.Flags;
@@ -40,7 +38,6 @@ import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -129,11 +126,11 @@ public class MailUtils {
             if (!StringUtils.isBlank(port)) {
                 port = StringUtils.trim(port);
             }
-            
+
             transport.connect(host, Integer.parseInt(port), user, pass);
             transport.sendMessage(message, recipients);
             logHeaders(message);
-        } catch (AssertionError e) { 
+        } catch (AssertionError e) {
             LOG.error("Assertion Error while sending.", e);
             throw e;
         } finally {
@@ -177,7 +174,7 @@ public class MailUtils {
             }
         }
     }
-    
+
     /**
      * Set the deleted flag on a message, log and swallow exceptions. Note: deleted messages must be "expunged" to be
      * removed from server.
@@ -187,8 +184,7 @@ public class MailUtils {
         try {
             message.setFlag(Flags.Flag.DELETED, true);
         } catch (MessagingException e) {
-            LOG.warn("Exception ", e);            
+            LOG.warn("Exception ", e);
         }
     }
-
 }

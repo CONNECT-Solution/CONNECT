@@ -56,14 +56,10 @@ import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddDomain;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddDomainResponse;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.UpdateDomain;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.UpdateDomainResponse;
-
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.jws.WebService;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,7 +94,7 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
     @Override
     public AddDomainResponse addDomain(AddDomain domain) throws ConfigurationServiceException {
         dao.add(domain.getDomain());
-        log.info("Added Domain: " + domain.getDomain().getDomainName());
+        log.info("Domain added successfully");
         return new AddDomainResponse();
     }
 
@@ -109,7 +105,7 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
     public UpdateDomainResponse updateDomain(UpdateDomain domain) throws ConfigurationServiceException {
         if (domain != null) {
             dao.update(domain.getDomain());
-            log.info("Modified Domain: " + domain.getDomain().getDomainName());
+            log.info("Domain modified successfully");
         } else {
             log.debug("No domain provided");
         }
@@ -140,7 +136,7 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
     @Override
     public void removeDomain(String domainName) throws ConfigurationServiceException {
         dao.delete(domainName);
-        log.info("Modified Domain: " + domainName);
+        log.info("Domain deleted");
     }
 
     /**
@@ -149,7 +145,7 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
     @Override
     public void removeDomainById(Long domainId) throws ConfigurationServiceException {
         dao.delete(domainId);
-        log.info("Modified Domain: " + domainId);
+        log.info("Modified Domain with id: " + domainId);
     }
 
     /**
@@ -157,13 +153,7 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
      */
     @Override
     public Collection<Domain> listDomains(String lastDomainName, int maxResults) throws ConfigurationServiceException {
-        List<Domain> result = dao.listDomains(lastDomainName, maxResults);
-
-        if (result != null) {
-            log.debug("Exit: " + result.toString());
-        }
-
-        return result;
+        return dao.listDomains(lastDomainName, maxResults);
     }
 
     /**
@@ -171,13 +161,7 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
      */
     @Override
     public Collection<Domain> searchDomain(String domain, EntityStatus status) {
-        List<Domain> result = dao.searchDomain(domain, status);
-
-        if (result != null) {
-            log.debug("Exit: " + result.toString());
-        }
-
-        return result;
+        return dao.searchDomain(domain, status);
     }
 
     /**
@@ -185,12 +169,6 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
      */
     @Override
     public Domain getDomain(Long id) {
-        Domain result = dao.getDomain(id);
-
-        if (result != null) {
-            log.debug("Exit: " + result.toString());
-        }
-
-        return result;
+        return dao.getDomain(id);
     }
 }

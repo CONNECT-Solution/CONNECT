@@ -54,13 +54,11 @@ import gov.hhs.fha.nhinc.directconfig.entity.Certificate.CertContainer;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
 import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
-
 import java.security.cert.X509Certificate;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
@@ -70,7 +68,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Implementing class for Certificate DAO methods.
- * 
+ *
  * @author ppyette
  */
 @Repository
@@ -108,7 +106,7 @@ public class CertificateDaoImpl implements CertificateDao {
 
                 if (results != null && results.size() > 0) {
                     cert = results.iterator().next();
-                    log.debug("Certificate found: " + cert.getThumbprint());
+                    log.debug("Certificate found");
                 }
             }
         } finally {
@@ -230,7 +228,7 @@ public class CertificateDaoImpl implements CertificateDao {
                 session = DaoUtils.getSession();
 
                 if (session != null) {
-                    log.debug("Saving anchor: " + cert.getThumbprint());
+                    log.debug("Saving anchor");
 
                     tx = session.beginTransaction();
                     session.persist(cert);
@@ -272,7 +270,7 @@ public class CertificateDaoImpl implements CertificateDao {
             Session session = null;
             Transaction tx = null;
 
-            log.debug("Setting " + certs.size() + " certs to status: " + status);
+            log.debug("Setting status on " + certs.size() + " certs");
 
             try {
                 session = DaoUtils.getSession();
@@ -307,7 +305,7 @@ public class CertificateDaoImpl implements CertificateDao {
             Session session = null;
             Transaction tx = null;
 
-            log.debug("Setting " + certs.size() + " certs to status: " + status);
+            log.debug("Setting status on " + certs.size() + " certs");
 
             try {
                 session = DaoUtils.getSession();

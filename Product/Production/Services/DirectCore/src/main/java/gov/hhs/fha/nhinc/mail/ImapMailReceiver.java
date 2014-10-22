@@ -28,43 +28,41 @@ package gov.hhs.fha.nhinc.mail;
 
 import gov.hhs.fha.nhinc.direct.messagemonitoring.impl.MessageMonitoringAPI;
 import java.util.Properties;
-
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
 import javax.mail.Store;
 import javax.mail.internet.MimeMessage;
-
 import org.apache.log4j.Logger;
 
 /**
  * Uses Imap to receive Javamail messages.
  */
 public class ImapMailReceiver extends AbstractMailClient implements MailReceiver {
-    
+
     private static final Logger LOG = Logger.getLogger(ImapMailReceiver.class);
-    
+
     private static final int IMAP_MSG_INDEX_START = 1;
     private static final String DEF_NUM_MSGS_TO_HANDLE = "25";
-    
-    private final boolean deleteUnhandledMsgs;    
+
+    private final boolean deleteUnhandledMsgs;
     private final int maxNumberOfMsgsToHandle;
     private final String imapHost;
-    
+
     private int handlerInvocations = 0;
 
     /**
      * @param mailServerProps
      */
-    public ImapMailReceiver(Properties mailServerProps) {        
+    public ImapMailReceiver(Properties mailServerProps) {
         super(mailServerProps);
         deleteUnhandledMsgs = Boolean.parseBoolean(mailServerProps.getProperty("connect.delete.unhandled.msgs"));
         maxNumberOfMsgsToHandle = Integer.parseInt(mailServerProps.getProperty("connect.max.msgs.in.batch",
                 DEF_NUM_MSGS_TO_HANDLE));
         imapHost = mailServerProps.getProperty("mail.imaps.host");
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -73,15 +71,15 @@ public class ImapMailReceiver extends AbstractMailClient implements MailReceiver
 
         int numberOfMsgsHandled = 0;
         handlerInvocations++;
-        
+
         if (LOG.isDebugEnabled()) {
             LOG.debug("handleMessages() invoked, (" + this.hashCode() + " : " + Thread.currentThread().getId() + "), ["
                     + imapHost + "], handler: " + handler.getClass().getName() + ", invocation count: "
                     + handlerInvocations);
         } else {
-            LOG.info("handleMessages() invoked");            
+            LOG.info("handleMessages() invoked");
         }
-        
+
         Store store = getImapsStore();
         Folder inbox = getInbox(store);
         Message[] messages = getMessages(store, inbox);
@@ -89,10 +87,10 @@ public class ImapMailReceiver extends AbstractMailClient implements MailReceiver
             boolean handledSuccessfully = handleMessage(handler, message);
             if (handledSuccessfully) {
                 numberOfMsgsHandled++;
-            }   
-        }   
+            }
+        }
         LOG.info("Handled " + numberOfMsgsHandled + " messages.");
-        
+
         MailUtils.closeQuietly(store, inbox, MailUtils.FOLDER_EXPUNGE_INBOX_TRUE);
         LOG.info("Call the message monitoring check here");
         //call the message monitoring service
@@ -100,7 +98,7 @@ public class ImapMailReceiver extends AbstractMailClient implements MailReceiver
 
         return numberOfMsgsHandled;
     }
-    
+
     /**
      * @return the handlerInvocations
      */
@@ -115,21 +113,20 @@ public class ImapMailReceiver extends AbstractMailClient implements MailReceiver
         if (!(message instanceof MimeMessage)) {
             return handledSuccessfully;
         }
-        
+
         MimeMessage mimeMessage = (MimeMessage) message;
-        MailUtils.logHeaders(mimeMessage);
 
         handledSuccessfully = handler.handleMessage((MimeMessage) message);
-        
+
         if (handledSuccessfully) {
-            MailUtils.setDeletedQuietly(mimeMessage);            
-        } 
-        
+            MailUtils.setDeletedQuietly(mimeMessage);
+        }
+
         if (!handledSuccessfully && deleteUnhandledMsgs) {
             LOG.warn("Deleting unhandled message (check events and logs for more info)");
             MailUtils.setDeletedQuietly(mimeMessage);
         }
-        
+
         return handledSuccessfully;
     }
 
@@ -142,13 +139,13 @@ public class ImapMailReceiver extends AbstractMailClient implements MailReceiver
             throw new MailClientException("Exception while retrieving messages from inbox.", e);
         }
         return messages;
-    }    
-    
+    }
+
     private int getNumberOfMsgsToHandle(Folder folder) throws MessagingException {
         int numberOfMsgsInFolder = folder.getMessageCount();
         return numberOfMsgsInFolder < maxNumberOfMsgsToHandle ? numberOfMsgsInFolder : maxNumberOfMsgsToHandle;
     }
-    
+
     protected Folder getInbox(Store store) throws MailClientException {
         Folder inbox = null;
         try {
@@ -161,7 +158,7 @@ public class ImapMailReceiver extends AbstractMailClient implements MailReceiver
         }
         return inbox;
     }
-    
+
     Store getImapsStore() throws MailClientException {
         try {
             return getMailSession().getStore("imaps");

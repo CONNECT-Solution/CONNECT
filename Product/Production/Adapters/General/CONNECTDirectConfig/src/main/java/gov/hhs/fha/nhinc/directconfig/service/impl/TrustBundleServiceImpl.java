@@ -57,15 +57,12 @@ import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
 import gov.hhs.fha.nhinc.directconfig.processor.BundleRefreshProcessor;
 import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
 import gov.hhs.fha.nhinc.directconfig.service.TrustBundleService;
-
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-
 import javax.jws.WebParam;
 import javax.jws.WebService;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +71,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  * Implementation of the TrustBundleService
- * 
+ *
  * @author Greg Meyer
  * @since 1.3
  */
@@ -282,11 +279,11 @@ public class TrustBundleServiceImpl extends SpringBeanAutowiringSupport implemen
 
     /*
      * Sends a bundle for refresh, which may include downloading the associated anchors
-     * 
+     *
      * @param bundle the TrustBundle to be refreshed
      */
     private void refreshBundle(TrustBundle bundle) {
-        log.debug("Sending bundle: " + bundle.getBundleName() + " to Manual route for refresh");
+        log.debug("Manually refreshing Trust Bundle");
         bundleRefresh.refreshBundle(bundle);
     }
 }

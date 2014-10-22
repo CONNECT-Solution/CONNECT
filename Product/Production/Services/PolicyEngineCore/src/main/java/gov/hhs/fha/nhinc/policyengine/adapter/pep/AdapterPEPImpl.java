@@ -26,25 +26,6 @@
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pep;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import oasis.names.tc.xacml._2_0.context.schema.os.ActionType;
-import oasis.names.tc.xacml._2_0.context.schema.os.AttributeType;
-import oasis.names.tc.xacml._2_0.context.schema.os.AttributeValueType;
-import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
-import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
-import oasis.names.tc.xacml._2_0.context.schema.os.ResponseType;
-import oasis.names.tc.xacml._2_0.context.schema.os.ResultType;
-import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
-
-import org.apache.log4j.Logger;
-
 import com.sun.identity.saml2.common.SAML2Exception;
 import com.sun.identity.xacml.common.XACMLException;
 import com.sun.identity.xacml.context.Action;
@@ -57,7 +38,6 @@ import com.sun.identity.xacml.context.Resource;
 import com.sun.identity.xacml.context.Response;
 import com.sun.identity.xacml.context.Result;
 import com.sun.identity.xacml.context.Subject;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
@@ -71,6 +51,22 @@ import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyObjectFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import oasis.names.tc.xacml._2_0.context.schema.os.ActionType;
+import oasis.names.tc.xacml._2_0.context.schema.os.AttributeType;
+import oasis.names.tc.xacml._2_0.context.schema.os.AttributeValueType;
+import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
+import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
+import oasis.names.tc.xacml._2_0.context.schema.os.ResponseType;
+import oasis.names.tc.xacml._2_0.context.schema.os.ResultType;
+import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
+import org.apache.log4j.Logger;
 
 /**
  * This class implements the policy engine PEP (Policy Enforcement Point).
@@ -691,7 +687,7 @@ public class AdapterPEPImpl {
             List<String> homeCommunityVals = new ArrayList<String>();
             String homeCommunityId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_GATEWAY,
                     PROPERTY_FILE_KEY_HOME_COMMUNITY);
-            LOG.debug("Adding attribute value: " + homeCommunityId + " for " + XSPA_ENVIRONMENT_LOCALITY);
+            LOG.debug("Adding hcid attribute value for " + XSPA_ENVIRONMENT_LOCALITY);
             homeCommunityVals.add(homeCommunityId);
 
             xspaAttr.setAttributeStringValues(homeCommunityVals);

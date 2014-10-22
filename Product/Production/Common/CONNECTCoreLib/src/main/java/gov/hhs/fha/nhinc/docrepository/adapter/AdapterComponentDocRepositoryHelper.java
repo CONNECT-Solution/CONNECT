@@ -7,16 +7,12 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.activation.DataHandler;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
-
 import org.apache.log4j.Logger;
 
 
@@ -24,7 +20,7 @@ public class AdapterComponentDocRepositoryHelper {
 
 	private static final String VALUE_LIST_SEPERATOR = "~";
 	private static final Logger LOG = Logger.getLogger(AdapterComponentDocRepositoryHelper.class);
-		
+
 	RegistryError setRegistryError(String codeContext, String location, String errorCode,
     		String value){
     	RegistryError error = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryError();
@@ -33,15 +29,15 @@ public class AdapterComponentDocRepositoryHelper {
                 + "DocumentRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet" + location);
     	error.setErrorCode(errorCode);
     	error.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-        error.setValue(value);   	
-        
+        error.setValue(value);
+
         LOG.error("Error Location: " + error.getLocation() + "; \n" + "Error Severity: " + error.getSeverity()
                 + "; \n" + "Error ErrorCode: " + error.getErrorCode() + "; \n" + "Error CodeContext: "
                 + error.getCodeContext());
-        
+
         return error;
     }
-	
+
 	HashMap<String, DataHandler> getDocumentMap(
     		ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
     	// retrieve the documents (base64encoded representation)
@@ -52,14 +48,14 @@ public class AdapterComponentDocRepositoryHelper {
         // when looping through the metadata - we need to associate the metadata
         // with the document (this is done by looking at the XDS Document id attribute).
         HashMap<String, DataHandler> docMap = new HashMap<String, DataHandler>();
-        
+
         for (ProvideAndRegisterDocumentSetRequestType.Document tempDoc : binaryDocs) {
             docMap.put(tempDoc.getId(), tempDoc.getValue());
         }
-        
+
         return docMap;
     }
-	
+
 	long queryRepositoryByPatientId(String sPatId, String sDocId, String sClassCode, String sStatus,
             DocumentService docService) {
         long nhincDocRepositoryDocId = 0;
@@ -78,8 +74,6 @@ public class AdapterComponentDocRepositoryHelper {
         if (NullChecker.isNotNullish(documents)) {
             LOG.debug("queryRepositoryByPatientId " + documents.size() + " documents for patient: " + sPatId);
             for (Document doc : documents) {
-                LOG.debug("Found matching docId: " + doc.getDocumentUniqueId() + " with repository doc id: "
-                        + doc.getDocumentid());
                 LOG.debug("queryRepositoryByPatientId - sDocId: " + sDocId);
                 if (sDocId.equals(doc.getDocumentUniqueId())) {
                     nhincDocRepositoryDocId = doc.getDocumentid();
@@ -90,10 +84,10 @@ public class AdapterComponentDocRepositoryHelper {
 
         return nhincDocRepositoryDocId;
     }
-	
+
 	/**
      * This method extracts metadata from the XDS classification element given the slotname of the metadata item.
-     * 
+     *
      * @param classifications A list of classifications to search through.
      * @param classificationSchemeUUID The classification scheme idendifier to search for.
      * @param slotName The name of the metadata item within the classification element.
@@ -124,7 +118,7 @@ public class AdapterComponentDocRepositoryHelper {
      * value (nodeRepresentation) - the representation of the code (nodeRepresentationName) - the id of the
      * extrinsicObject referenced by the given classification (classificationObject) - the id of the
      * classificationObject element in the request (id)
-     * 
+     *
      * @param classifications A list of classifications to search through.
      * @param classificationSchemeUUID The classification scheme idendifier to search for.
      * @param classificationValueName A string value indicating whether this method should return the classification
@@ -167,7 +161,7 @@ public class AdapterComponentDocRepositoryHelper {
 
     /**
      * Extracts the valueIndex value from an XDS request slot for a given metadata name.
-     * 
+     *
      * @param documentSlots A list of XDS metadata slots
      * @param slotName The name of the slot containing the desired metadata item
      * @param valueIndex For slot multivalued possibilities, the index value desired. If the value is < 0 then all
@@ -221,7 +215,7 @@ public class AdapterComponentDocRepositoryHelper {
 
     /**
      * Extracts the sourcePatientInfo pid value from an XDS request slot for the sourcePatientInfo element.
-     * 
+     *
      * @param documentSlots A list of XDS metadata slots
      * @param patientInfoName The name of the sourcePatientInfo pid containing the desired metadata item
      * @return Returns the value of the first metadata value with the given metadata name. Null if not present.

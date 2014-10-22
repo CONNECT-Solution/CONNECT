@@ -71,15 +71,12 @@ import gov.hhs.fha.nhinc.directconfig.service.jaxws.RemoveAnchorsForOwnerRespons
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.RemoveAnchorsResponse;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.SetAnchorStatusForOwner;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.SetAnchorStatusForOwnerResponse;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.jws.WebService;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -139,8 +136,7 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
         if (anchors != null) {
             for (Anchor anchor : anchors) {
                 if (anchor.getThumbprint().equalsIgnoreCase(getAnchor.getThumbprint())) {
-                    log.debug("Anchor found for " + getAnchor.getOwner() + " with thumbprint: "
-                            + getAnchor.getThumbprint());
+                    log.debug("Anchor found matching supplied owner and thumbprint");
                     getAnchorResponse.setReturn(anchor);
                     break;
                 }
@@ -148,7 +144,7 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
         }
 
         if (getAnchorResponse.getReturn() == null) {
-            log.debug("No anchors found for owner: " + getAnchor.getOwner());
+            log.debug("No anchors found for owner");
         }
 
         return getAnchorResponse;
@@ -215,7 +211,7 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
 
             log.debug("Found " + retList.size() + " incoming anchors");
         } else {
-            log.debug("No anchors found for owner: " + getIncomingAnchors.getOwner());
+            log.debug("No anchors found for owner");
             retList = Collections.emptyList();
         }
 
@@ -245,10 +241,9 @@ public class AnchorServiceImpl extends SpringBeanAutowiringSupport implements An
                 }
             }
 
-            log.debug("Found " + outgoingAnchors.size() + " incoming anchors for owner: "
-                    + getOutgoingAnchors.getOwner());
+            log.debug("Found " + outgoingAnchors.size() + " incoming anchors for owner");
         } else {
-            log.debug("No anchors found for owner: " + getOutgoingAnchors.getOwner());
+            log.debug("No anchors found for owner");
             outgoingAnchors = Collections.emptyList();
         }
 
