@@ -46,13 +46,6 @@ public interface RoleService {
     public List<UserRole> getAllRoles();
     
     /**
-     * Get all role preferences for a given user role.
-     * @param role
-     * @return
-     */
-    public List<RolePreference> getPreferences(UserRole role);
-    
-    /**
      * Update a role preference.
      * @param preference
      * @return

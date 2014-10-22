@@ -75,16 +75,6 @@ public class RoleServiceImpl implements RoleService {
     /*
      * (non-Javadoc)
      * 
-     * @see gov.hhs.fha.nhinc.admingui.services.RoleService#getPreferences(gov.hhs.fha .nhinc.admingui.services.persistence.jpa.entity.UserRole)
-     */
-    @Override
-    public List<RolePreference> getPreferences(UserRole role){
-        return userDAO.getPreferences(role);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see gov.hhs.fha.nhinc.admingui.services.RoleService#updatePreference(gov.hhs.fha .nhinc.admingui.services.persistence.jpa.entity.RolePreference)
      */
     @Override

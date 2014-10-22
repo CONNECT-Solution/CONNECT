@@ -155,30 +155,6 @@ public class UserLoginDAOImpl implements UserLoginDAO {
     /*
      * (non-Javadoc)
      * 
-     * @see gov.hhs.fha.nhinc.admingui.hibernate.dao.UserLoginDAO#getPreferences(gov.hhs.fha .nhinc.admingui.services.persistence.jpa.entity.UserRole)
-     */
-    @Override
-    public List<RolePreference> getPreferences(UserRole role) {
-        Session session = null;
-
-        List<RolePreference> preferences = null;
-
-        try {
-            session = this.sessionFactory.openSession();
-
-            preferences = session.createCriteria(RolePreference.class).add(Restrictions.eq("userRole", role)).list();
-        } catch (HibernateException e) {
-            LOG.error(e, e);
-        } finally {
-            closeSession(session, false);
-        }
-
-        return preferences;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see gov.hhs.fha.nhinc.admingui.hibernate.dao.UserLoginDAO#updatePreferences(gov.hhs.fha .nhinc.admingui.services.persistence.jpa.entity.RolePreference)
      */
     @Override
