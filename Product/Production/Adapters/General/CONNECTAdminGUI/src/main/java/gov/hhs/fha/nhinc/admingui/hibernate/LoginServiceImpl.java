@@ -113,11 +113,11 @@ public class LoginServiceImpl implements LoginService {
     public UserLogin addUser(Login user, long role) throws UserLoginException {
         boolean isCreateUser = false;
         String passwordHash = null;
-        String saltValue = null;
+        byte[] saltValue = null;
         try {
             saltValue = passwordService.generateRandomSalt();
             passwordHash = new String(
-                    passwordService.calculateHash(saltValue.getBytes(), user.getPassword().getBytes()));
+                    passwordService.calculateHash(saltValue, user.getPassword().getBytes()));
 
         } catch (PasswordServiceException e) {
             throw new UserLoginException("Error while calculating hash.", e);
@@ -128,7 +128,7 @@ public class LoginServiceImpl implements LoginService {
         UserLogin userLoginEntity = new UserLogin();
         userLoginEntity.setUserName(user.getUserName());
         userLoginEntity.setSha1(passwordHash);
-        userLoginEntity.setSalt(saltValue);
+        userLoginEntity.setSalt(new String(saltValue));
 
         UserRole userRole = getUserRole(role);
 
