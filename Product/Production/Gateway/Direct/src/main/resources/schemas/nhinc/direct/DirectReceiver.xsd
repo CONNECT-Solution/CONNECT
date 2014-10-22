@@ -13,10 +13,10 @@
     <xs:complexType name="connectCustomMimeMessage">
         <xs:sequence>
             <xs:element minOccurs="0" name="content" type="xs:string"/>
-            <xs:element maxOccurs="unbounded" minOccurs="0" name="receipients" nillable="true" type="xs:string"/>
+            <xs:element maxOccurs="100" minOccurs="0" name="receipients" nillable="true" type="xs:string"/>
             <xs:element minOccurs="0" name="sender" type="xs:string"/>
             <xs:element minOccurs="0" name="subject" type="xs:string"/>
-            <xs:element maxOccurs="unbounded" minOccurs="1" name="headersList" nillable="false" type="tns:headerMap"/>
+            <xs:element maxOccurs="100" minOccurs="1" name="headersList" nillable="false" type="tns:headerMap"/>
         </xs:sequence>
     </xs:complexType>    
     <xs:complexType name="headerMap">
