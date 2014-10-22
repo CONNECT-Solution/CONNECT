@@ -20,6 +20,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -27,7 +28,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -38,19 +38,19 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "UserRole")
-public class UserRole {
-    
+public class UserRole implements Serializable {
+
     @Id
     @Column(name = "ROLEID")
-    @GeneratedValue 
+    @GeneratedValue
     private long roleId;
-    
+
     @Column(name = "ROLENAME")
     private String roleName;
-    
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "userRole")
     private Set<RolePreference> preferences = new HashSet<RolePreference>();
-    
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "userRole")
     private Set<UserLogin> userLogins = new HashSet<UserLogin>();
 
@@ -109,7 +109,7 @@ public class UserRole {
     public void setUserLogin(Set<UserLogin> userLogins) {
         this.userLogins = userLogins;
     }
-    
+
     /**
      *
      * @param userLogin
@@ -117,5 +117,5 @@ public class UserRole {
     public void addLogin(UserLogin userLogin){
         userLogins.add(userLogin);
     }
-    
+
 }

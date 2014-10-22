@@ -20,6 +20,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,22 +36,22 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "PagePreference")
-public class RolePreference {
-    
+public class RolePreference implements Serializable {
+
     @Id
     @Column(name = "PREFID")
-    @GeneratedValue   
+    @GeneratedValue
     private long id;
-    
+
     @Column(name = "PAGENAME")
     private String pageName;
-    
+
     @Column(name = "PAGEDESC")
     private String pageDesc;
-    
+
     @Column(name = "ACCESSPAGE")
     private int access;
-    
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "prefRoleId")
     private UserRole userRole;
@@ -134,5 +135,5 @@ public class RolePreference {
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
-    
+
 }

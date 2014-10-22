@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity;
 
-import javax.persistence.CascadeType;
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,19 +34,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
  * The Class UserLogin.
- * 
+ *
  * @author msw
  */
 // @NamedQueries({ @NamedQuery(name = "findByUserName", query =
 // "SELECT u FROM UserLogin u WHERE u.userName = :userName") })
 @Entity
 @Table(name = "UserLogin")
-public class UserLogin {
+public class UserLogin implements Serializable {
 
     /** The id. */
     @Id
@@ -65,7 +64,7 @@ public class UserLogin {
     /** The sha1. */
     @Column(name = "SHA1")
     private String sha1;
-    
+
     /** The role */
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userRole")
@@ -80,7 +79,7 @@ public class UserLogin {
 
     /**
      * Gets the id.
-     * 
+     *
      * @return the id
      */
     public long getId() {
@@ -89,7 +88,7 @@ public class UserLogin {
 
     /**
      * Sets the id.
-     * 
+     *
      * @param id the id to set
      */
     public void setId(long id) {
@@ -98,7 +97,7 @@ public class UserLogin {
 
     /**
      * Gets the user name.
-     * 
+     *
      * @return the userName
      */
     public String getUserName() {
@@ -107,7 +106,7 @@ public class UserLogin {
 
     /**
      * Sets the user name.
-     * 
+     *
      * @param userName the userName to set
      */
     public void setUserName(String userName) {
@@ -116,7 +115,7 @@ public class UserLogin {
 
     /**
      * Gets the salt.
-     * 
+     *
      * @return the salt
      */
     public String getSalt() {
@@ -125,7 +124,7 @@ public class UserLogin {
 
     /**
      * Sets the salt.
-     * 
+     *
      * @param salt the salt to set
      */
     public void setSalt(String salt) {
@@ -134,7 +133,7 @@ public class UserLogin {
 
     /**
      * Gets the sha1.
-     * 
+     *
      * @return the sha1
      */
     public String getSha1() {
@@ -143,13 +142,13 @@ public class UserLogin {
 
     /**
      * Sets the sha1.
-     * 
+     *
      * @param sha1 the sha1 to set
      */
     public void setSha1(String sha1) {
         this.sha1 = sha1;
     }
-    
+
     /**
      *
      * @return
