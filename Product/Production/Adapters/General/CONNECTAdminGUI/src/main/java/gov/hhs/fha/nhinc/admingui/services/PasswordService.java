@@ -62,7 +62,7 @@ public interface PasswordService {
      *
      * @return the string
      */
-    public String generateRandomSalt();
+    public byte[] generateRandomSalt();
 
     /**
      * Calculate hash.
