@@ -48,6 +48,7 @@
                     <div class="form-block center-block">
                     <h:form id="loginForm" class="form-horizontal" role="form"
 						prependId="false">
+                        <p:panel id="loginPanel" style="border: none">
                         <p:messages id="loginErrors" autoUpdate="true" globalOnly="false" closable="true" />
                             <div class="form-group">
                                 <h:outputLabel for="input-username" class="col-sm-2 control-label" value="User Name:"/>
@@ -72,8 +73,10 @@
                                     </div>
                                 </div>
                             </div>
-                        <p:blockUI trigger="signin" block="signin">
-                            SIGNING IN...
+                    </p:panel>
+                        <p:blockUI trigger="signin" block="loginPanel">
+                            SIGNING IN...<br/>
+                            <p:graphicImage library="images" name="loading-bar-gif.gif" />
                         </p:blockUI>
                         </h:form>
                     </div>

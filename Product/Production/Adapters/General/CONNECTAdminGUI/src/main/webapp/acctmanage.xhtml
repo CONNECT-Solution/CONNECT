@@ -57,18 +57,18 @@
                                     
                                     <div class="form-block center-block">
                                         <h:form class="form-horizontal" role="form" id="createUserForm">
-                                            <p:messages id="userAddErrors" autoUpdate="true" closable="true" /> 
+                                            <p:messages id="userMessages" autoUpdate="true" closable="true" redisplay="false"/> 
                                             <div class="form-group">
                                                 <h:outputLabel for="username" class="col-sm-3 control-label" id="usernameLbl" value="New Username:" />
                                                 <div class="col-sm-9">
-                                                    <p:inputText styleClass="form-control" id="username" maxlength="20" required="true" value="#{createuserBean.userName}" requiredMessage="User name required." />
+                                                    <p:inputText styleClass="form-control" id="username" maxlength="20" required="true" value="#{manageUserBean.userName}" requiredMessage="User name required." />
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group">
                                                 <h:outputLabel class="col-sm-3 control-label" for="password" id="userpasswordLbl" value="Password:" />
                                                 <div class="col-sm-9">                                                    
-                                                    <p:password id="password" value="#{createuserBean.password}"   
+                                                    <p:password id="password" value="#{manageUserBean.password}"   
                                                                 feedback="true" weakLabel="Weak Password" goodLabel="Good Password" strongLabel="Strong Password"  required="true" maxlength="10" requiredMessage="Password required." styleClass="form-control" />
           
                                                 </div>
@@ -77,7 +77,7 @@
                                             <div class="form-group">
                                                 <h:outputLabel for="select-role" class="col-sm-3 control-label" id="roleLbl" value="Role:" />
                                                 <div class="col-sm-9">
-                                                    <h:selectOneMenu class="form-control" id="select-role" value="#{createuserBean.role}">
+                                                    <h:selectOneMenu class="form-control" id="select-role" value="#{manageUserBean.role}">
                                                         <f:selectItem itemLabel="Administrator" itemValue="1"/>
                                                         <f:selectItem itemLabel="Super User" itemValue="2"/>
                                                         <f:selectItem itemLabel="User" itemValue="3"/>
@@ -89,7 +89,7 @@
                                                 <div class="col-sm-12">
                                                     <div class="form-button-row">
                                                         <p:commandButton type="reset" value="Reset" styleClass="btn btn-default" />
-                                                        <p:commandButton id="submit" value="Create User" action="#{createuserBean.addCreateUser()}" styleClass="btn btn-primary" icon="ui-icon-circle-plus" />
+                                                        <p:commandButton id="submit" update=":tabview:usersList:userDataTable, username, password" value="Create User" action="#{manageUserBean.addCreateUser()}" styleClass="btn btn-primary" icon="ui-icon-circle-plus" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -99,7 +99,29 @@
                             </div>
                             <div class="content-block">
                                 <h2 class="subsection-header">Manage Users</h2>
-                                <div class="content">[to be developed]</div>
+                                <div class="content">
+                                    <div class="form-block center-block">
+                                    <h:form id="usersList" class="form-horizontal">
+                                    <p:messages id="userMessages" redisplay="false" autoUpdate="true" closable="true" />
+                                    <p:dataTable id="userDataTable" var="user" value="#{manageUserBean.users}" selection="#{manageUserBean.selectedUser}" rowKey="#{user.userName}" styleClass="table table-striped table-domains">
+                                        <p:column headerText="Delete" selectionMode="single" />
+                                        <p:column headerText="User Name">
+                                            <h:outputText value="#{user.userName}" />
+                                        </p:column>
+                                        <p:column headerText="Role">
+                                            <h:outputText value="#{user.userRole.roleName}" />
+                                        </p:column>
+                                    </p:dataTable>
+                                    <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <div class="form-button-row">
+                                                        <p:commandButton update="userDataTable" value="Delete" actionListener="#{manageUserBean.deleteUser}" styleClass="delete-button" icon="ui-icon-closethick"/>                          
+                                                    </div>
+                                                </div>
+                                    </div>
+                                    </h:form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </p:tab>

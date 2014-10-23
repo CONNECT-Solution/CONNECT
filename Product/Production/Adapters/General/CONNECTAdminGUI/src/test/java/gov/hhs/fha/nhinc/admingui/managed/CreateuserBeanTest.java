@@ -30,9 +30,12 @@ import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -45,7 +48,7 @@ import static org.mockito.Mockito.mock;
  */
 public class CreateuserBeanTest {
 
-    private CreateuserBean createuserBean = null;
+    private ManageUserBean createuserBean = null;
     Login login = new Login();
 
     private final HttpSession session = mock(HttpSession.class);
@@ -75,9 +78,19 @@ public class CreateuserBeanTest {
             public UserLogin addUser(Login user, long role) throws UserLoginException {
                 return new UserLogin();
             }
+
+            @Override
+            public List<UserLogin> getAllUsers() {
+                return new ArrayList<UserLogin>(); 
+            }
+
+            @Override
+            public void deleteUser(UserLogin user) throws UserLoginException {
+                //do nothing 
+            }
         };
 
-        createuserBean = new CreateuserBean(loginservice) {
+        createuserBean = new ManageUserBean(loginservice) {
             @Override
             protected HttpSession getHttpSession() {
 

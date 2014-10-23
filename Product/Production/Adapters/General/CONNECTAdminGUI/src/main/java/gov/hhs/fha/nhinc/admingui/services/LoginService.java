@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.admingui.services;
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
+import java.util.List;
 
 /**
  * The Interface LoginService.
@@ -55,5 +56,17 @@ public interface LoginService {
      * @throws UserLoginException
      */
     public UserLogin addUser(Login user, long role) throws UserLoginException;  
-
+    
+    /**
+     * 
+     * @return 
+     */
+    public List<UserLogin> getAllUsers();
+    
+    /**
+     * 
+     * @param user
+     * @throws UserLoginException 
+     */
+    public void deleteUser(UserLogin user) throws UserLoginException;
 }
