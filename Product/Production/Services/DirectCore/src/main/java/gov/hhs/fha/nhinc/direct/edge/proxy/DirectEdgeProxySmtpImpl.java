@@ -1,9 +1,11 @@
 /**
- * 
+ *
  */
 package gov.hhs.fha.nhinc.direct.edge.proxy;
 
 import gov.hhs.fha.nhinc.direct.DirectException;
+import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
+import gov.hhs.fha.nhinc.direct.event.DirectEventType;
 import gov.hhs.fha.nhinc.mail.MailSender;
 
 import javax.mail.internet.MimeMessage;
@@ -17,7 +19,9 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 public class DirectEdgeProxySmtpImpl implements DirectEdgeProxy {
 
     private final MailSender internalMailSender;
-    
+
+    private DirectEventLogger directEventLogger;
+
     /**
      * @param internalMailSender used to send mail messages.
      */
@@ -37,5 +41,12 @@ public class DirectEdgeProxySmtpImpl implements DirectEdgeProxy {
         }
         return null;
     }
-    
+
+    /**
+     * @return the directEventLogger
+     */
+    protected DirectEventLogger getDirectEventLogger() {
+        return directEventLogger = DirectEventLogger.getInstance();
+    }
+
 }
