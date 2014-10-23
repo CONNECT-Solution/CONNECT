@@ -36,6 +36,7 @@ import gov.hhs.fha.nhinc.admingui.services.impl.SHA1PasswordService;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
 import java.io.IOException;
+import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class LoginServiceImpl implements LoginService {
+
+    public static final String CONNECT_ADMIN_USER = "CONNECTAdmin";
 
     private static final Logger log = Logger.getLogger(LoginServiceImpl.class);
 
@@ -136,6 +139,20 @@ public class LoginServiceImpl implements LoginService {
             return userLoginEntity;
         } else {
             return null;
+        }
+    }
+    
+    @Override
+    public List<UserLogin> getAllUsers(){
+        return userLoginDAO.getAllUsers();
+    }
+    
+    @Override
+    public void deleteUser(UserLogin user) throws UserLoginException{
+        if(!user.getUserName().equals(CONNECT_ADMIN_USER)) {
+            userLoginDAO.deleteUser(user);
+        } else {
+            throw new UserLoginException("Unable to delete " + CONNECT_ADMIN_USER + " user.");
         }
     }
 

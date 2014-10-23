@@ -73,4 +73,9 @@ public interface UserLoginDAO {
      * @return
      */
     public boolean updatePreference(RolePreference preference);
+    
+    public void deleteUser(UserLogin user) throws UserLoginException;
+    
+    public List<UserLogin> getAllUsers();
+    
 }

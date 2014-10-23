@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -179,6 +180,45 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         }
 
         return updated;
+    }
+    
+    @Override
+    public void deleteUser(UserLogin user) throws UserLoginException{
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = this.sessionFactory.openSession();
+            tx = session.beginTransaction();
+            session.delete(user);
+            tx.commit();
+        } catch (HibernateException e) {
+            transactionRollback(tx);
+            LOG.error(e.getMessage(), e);
+            throw new UserLoginException("Unable to delete user: " + e.getLocalizedMessage());
+        } finally {
+            closeSession(session, true);
+        }
+    }
+    
+    @Override
+    public List<UserLogin> getAllUsers(){
+        Session session = null;
+
+        List<UserLogin> users = null;
+
+        try {
+            session = this.sessionFactory.openSession();
+            users = session.createCriteria(UserLogin.class)
+                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                    .list();
+            
+        } catch (HibernateException e) {
+            LOG.error(e, e);
+        } finally {
+            closeSession(session, false);
+        }
+
+        return users;
     }
 
     private void transactionRollback(Transaction tx) {

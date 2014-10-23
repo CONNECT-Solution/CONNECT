@@ -31,10 +31,14 @@ import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,15 +48,19 @@ import org.springframework.stereotype.Component;
  *
  * @author sadusumilli
  */
-@ManagedBean(name = "createuserBean")
+@ManagedBean(name = "manageUserBean")
 @SessionScoped
 @Component
-public class CreateuserBean {
+public class ManageUserBean {
 
-    private static Logger log = Logger.getLogger(CreateuserBean.class);
-    private String userName;
-    private String password;
+    private static Logger log = Logger.getLogger(ManageUserBean.class);
+    private String userName = null;
+    private String password = null;
     private String role;
+    
+    private UserLogin selectedUser;
+    
+    private List<UserLogin> users = new ArrayList<UserLogin>();
 
     /**
      * The login service.
@@ -63,14 +71,14 @@ public class CreateuserBean {
     /**
      * default constructor
      */
-    public CreateuserBean() {
+    public ManageUserBean() {
     }
 
     /**
      *
      * @param loginservice
      */
-    CreateuserBean(LoginService loginservice) {
+    ManageUserBean(LoginService loginservice) {
         this.loginService = loginservice;
     }
 
@@ -106,6 +114,7 @@ public class CreateuserBean {
         }
         userName = null;
         password = null;
+        role = "1";
         return createdUser;
     }
 
@@ -158,5 +167,28 @@ public class CreateuserBean {
      */
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public UserLogin getSelectedUser() {
+        return selectedUser;
+    }
+
+    public void setSelectedUser(UserLogin selectedUser) {
+        this.selectedUser = selectedUser;
+    }
+
+    public List<UserLogin> getUsers() {
+        return loginService.getAllUsers();
+    }
+
+    public void deleteUser(ActionEvent event){
+        if(selectedUser != null){
+            try {
+                loginService.deleteUser(selectedUser);
+            } catch (UserLoginException ex) {
+               FacesContext.getCurrentInstance().addMessage("userMessages", new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                ex.getLocalizedMessage(), "")); 
+            }           
+        }
     }
 }
