@@ -59,6 +59,7 @@ import java.security.PrivateKey;
 import java.security.Security;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Enumeration;
 
@@ -305,7 +306,7 @@ public class Certificate {
     }
 
     private boolean hasData() {
-        return ((data != null) && (!data.equals(NULL_CERT))) ? true : false;
+        return (data != null && !Arrays.equals(data, Certificate.NULL_CERT));
     }
 
     /**

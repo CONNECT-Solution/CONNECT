@@ -53,6 +53,7 @@ import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
 import java.io.ByteArrayInputStream;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -239,7 +240,7 @@ public class TrustBundleAnchor {
     }
 
     private boolean hasData() {
-        return ((anchorData != null) && (!anchorData.equals(Certificate.NULL_CERT))) ? true : false;
+        return ((anchorData != null) && (!Arrays.equals(anchorData, Certificate.NULL_CERT)));
     }
 
     /**

@@ -54,6 +54,7 @@ import java.io.ByteArrayInputStream;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -348,7 +349,6 @@ public class TrustBundle {
     }
 
     private boolean hasData() {
-        return ((signingCertificateData != null) && (!signingCertificateData.equals(Certificate.NULL_CERT))) ? true
-                : false;
+        return ((signingCertificateData != null) && (!Arrays.equals(signingCertificateData, Certificate.NULL_CERT)));
     }
 }
