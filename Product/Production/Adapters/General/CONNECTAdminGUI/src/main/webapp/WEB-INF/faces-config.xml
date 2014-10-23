@@ -7,8 +7,7 @@
     version="2.1">
 
     <application>
-        <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
-         <message-bundle>Message</message-bundle>        
+        <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>            
     </application>
     
     <lifecycle>
