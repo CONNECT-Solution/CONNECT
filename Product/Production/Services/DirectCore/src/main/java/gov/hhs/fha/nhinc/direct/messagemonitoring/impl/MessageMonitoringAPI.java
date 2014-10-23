@@ -53,9 +53,8 @@ import org.nhindirect.common.tx.TxUtil;
 import org.nhindirect.common.tx.model.TxMessageType;
 
 /**
- * All the Message Monitoring API services are exposed through this class. This
- * class will maintain a cache to store all the active messages that are sent
- * out waiting for response.
+ * All the Message Monitoring API services are exposed through this class. This class will maintain a cache to store all
+ * the active messages that are sent out waiting for response.
  *
  * @author Naresh Subramanyan
  */
@@ -88,7 +87,7 @@ public class MessageMonitoringAPI {
 
     public void updateIncomingMessageNotificationStatus(MimeMessage message) {
         //Always
-        //check if the message monitoring is enabled 
+        //check if the message monitoring is enabled
         if (!MessageMonitoringUtil.isMessageMonitoringEnabled()) {
             LOG.debug("Message Monitoring is not enabled.");
             return;
@@ -146,7 +145,7 @@ public class MessageMonitoringAPI {
             }
             Date updatedTime = new Date();
             if (getIncomingMessagesReceivedStatus(tm).equalsIgnoreCase(STATUS_PENDING)
-                    || getIncomingMessagesReceivedStatus(tm).equalsIgnoreCase(STATUS_PROCESSED)) {
+                || getIncomingMessagesReceivedStatus(tm).equalsIgnoreCase(STATUS_PROCESSED)) {
                 tmn.setUpdatetime(updatedTime);
                 getMessageMonitoringDAO().updateMessageNotification(tmn);
             } else {
@@ -228,8 +227,7 @@ public class MessageMonitoringAPI {
     }
 
     /**
-     * Build the Message Monitoring cache from the database tables. This will be
-     * called when the module is initiated.
+     * Build the Message Monitoring cache from the database tables. This will be called when the module is initiated.
      *
      */
     private void buildCache() {
@@ -304,10 +302,9 @@ public class MessageMonitoringAPI {
     }
 
     /**
-     * Returns all the Failed outbound messages. 1. Processed not received for
-     * one or more recipients 2. Dispatched not received for one or more
-     * recipients if notification requested by edge. 3. Got Failed DSN/MDN for
-     * one or more recipients
+     * Returns all the Failed outbound messages. 1. Processed not received for one or more recipients 2. Dispatched not
+     * received for one or more recipients if notification requested by edge. 3. Got Failed DSN/MDN for one or more
+     * recipients
      *
      * @return List
      */
@@ -319,7 +316,7 @@ public class MessageMonitoringAPI {
             if (trackMessage.getStatus().equals(STATUS_ERROR)) {
                 failedMessages.add(trackMessage);
             } else if (trackMessage.getStatus().equals(STATUS_PENDING)) {
-                //if its pending & if its elapsed then 
+                //if its pending & if its elapsed then
                 //change the status to Error
             }
         }
@@ -453,19 +450,19 @@ public class MessageMonitoringAPI {
     }
 
     /**
-     * This method is called by the poller task to monitor & update the message
-     * status and also to notify the edge client with respective status of the
+     * This method is called by the poller task to monitor & update the message status and also to notify the edge
+     * client with respective status of the
      *
      */
     public void process() {
         LOG.debug("Inside Message Monitoring API process() method.");
 
-        //Always check if the message monitoring is enabled 
+        //Always check if the message monitoring is enabled
         if (!MessageMonitoringUtil.isMessageMonitoringEnabled()) {
             LOG.debug("Message Monitoring is not enabled.");
             return;
         }
-        //check all the pending messages and update the status 
+        //check all the pending messages and update the status
         //1. Check if the message is elaspsed and yes then update the status to Failed
         //   else Completed
         //2. Check all the completed /failed messages and set the status
@@ -582,6 +579,7 @@ public class MessageMonitoringAPI {
         try {
             message = MessageMonitoringUtil.createMimeMessage(postmasterEmailId, subject, trackMessage.getSenderemailid(), emailText, trackMessage.getMessageid());
             proxy.provideAndRegisterDocumentSetB(message);
+            getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message);
             //Log the failed QOS event
             getDirectEventLogger().log(DirectEventType.DIRECT_EDGE_NOTIFICATION_FAILED, message);
         } catch (AddressException ex) {
