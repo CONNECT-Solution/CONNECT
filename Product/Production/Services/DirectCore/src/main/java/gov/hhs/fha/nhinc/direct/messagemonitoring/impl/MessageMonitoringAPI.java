@@ -579,7 +579,6 @@ public class MessageMonitoringAPI {
         try {
             message = MessageMonitoringUtil.createMimeMessage(postmasterEmailId, subject, trackMessage.getSenderemailid(), emailText, trackMessage.getMessageid());
             proxy.provideAndRegisterDocumentSetB(message);
-            getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message);
             //Log the failed QOS event
             getDirectEventLogger().log(DirectEventType.DIRECT_EDGE_NOTIFICATION_FAILED, message);
         } catch (AddressException ex) {
