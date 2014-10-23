@@ -54,6 +54,7 @@ import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
 import java.io.ByteArrayInputStream;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.util.Arrays;
 import java.util.Calendar;
 
 /**
@@ -314,7 +315,7 @@ public class Anchor {
     }
 
     private boolean hasData() {
-        return (data != null && !data.equals(Certificate.NULL_CERT)) ? true : false;
+        return (data != null && !Arrays.equals(data, Certificate.NULL_CERT));
     }
 
     /**

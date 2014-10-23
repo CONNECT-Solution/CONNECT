@@ -243,7 +243,7 @@ public class DNSRecord {
 
         DNSRecord rec = (DNSRecord) ob;
 
-        return (rec.dclass == dclass && rec.type == type && rec.name.equals(rec.name) && Arrays.areEqual(rec.getData(),
+        return (rec.dclass == dclass && rec.type == type && rec.name.equals(name) && Arrays.areEqual(rec.getData(),
                 data));
     }
 }
