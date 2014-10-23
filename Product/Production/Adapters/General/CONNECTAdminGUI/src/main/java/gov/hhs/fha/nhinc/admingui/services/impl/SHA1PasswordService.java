@@ -30,6 +30,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Random;
 
 /**
@@ -41,6 +42,8 @@ public class SHA1PasswordService extends AbstractBase64EncodedPasswordService {
 
     public static final String HASH_ALGORITHM = "SHA-1";
 
+    private static final SecureRandom RANDOM = new SecureRandom();
+    
     /**
      *
      */
@@ -71,16 +74,10 @@ public class SHA1PasswordService extends AbstractBase64EncodedPasswordService {
      * 
      * @return string
      */
-    public String generateRandomSalt() {
-        Random rng = new Random();
-        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        int length = 4;
-
-        char[] text = new char[length];
-        for (int i = 0; i < length; i++) {
-            text[i] = characters.charAt(rng.nextInt(characters.length()));
-        }
-        return new String(text);
+    public byte[] generateRandomSalt() {
+        byte[] salt = new byte[16];
+        RANDOM.nextBytes(salt);
+        return salt;
     }
     
     /**

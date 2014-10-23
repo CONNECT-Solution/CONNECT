@@ -44,7 +44,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author msw
- * 
+ *
  */
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -63,7 +63,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     /**
-     * 
+     *
      * @param userLoginDao
      */
     LoginServiceImpl(UserLoginDAO userLoginDao) {
@@ -77,19 +77,14 @@ public class LoginServiceImpl implements LoginService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.admingui.services.LoginService#login(gov.hhs.fha.nhinc .admingui.model.Login)
      */
     @Override
     @Transactional
     public UserLogin login(Login login) throws UserLoginException {
-
         UserLogin user = userLoginDAO.login(login);
-        if (user != null) {
-            log.debug("db user name: ".concat(user.getUserName()));
-            log.debug("db salt: ".concat(user.getSalt()));
-            log.debug("db password: ".concat(user.getSha1()));
-        }
+
         if (user != null && user.getSha1() != null && user.getSalt() != null && login.getPassword() != null) {
             try {
                 boolean loggedIn = passwordService.checkPassword(user.getSha1().getBytes(), login.getPassword()
@@ -107,18 +102,18 @@ public class LoginServiceImpl implements LoginService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.admingui.services.LoginService#addUser(gov.hhs.fha.nhinc.admingui.model.User)
      */
     @Override
     public UserLogin addUser(Login user, long role) throws UserLoginException {
         boolean isCreateUser = false;
         String passwordHash = null;
-        String saltValue = null;
+        byte[] saltValue = null;
         try {
             saltValue = passwordService.generateRandomSalt();
             passwordHash = new String(
-                    passwordService.calculateHash(saltValue.getBytes(), user.getPassword().getBytes()));
+                    passwordService.calculateHash(saltValue, user.getPassword().getBytes()));
 
         } catch (PasswordServiceException e) {
             throw new UserLoginException("Error while calculating hash.", e);
@@ -129,7 +124,7 @@ public class LoginServiceImpl implements LoginService {
         UserLogin userLoginEntity = new UserLogin();
         userLoginEntity.setUserName(user.getUserName());
         userLoginEntity.setSha1(passwordHash);
-        userLoginEntity.setSalt(saltValue);
+        userLoginEntity.setSalt(new String(saltValue));
 
         UserRole userRole = getUserRole(role);
 

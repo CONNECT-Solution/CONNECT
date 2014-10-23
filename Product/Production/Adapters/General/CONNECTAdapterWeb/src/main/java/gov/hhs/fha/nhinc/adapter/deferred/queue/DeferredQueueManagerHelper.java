@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.adapter.deferred.queue;
 
@@ -31,8 +31,8 @@ import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueManagerForceProcessRequestType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueManagerForceProcessResponseType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueRecordType;
-import gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueStatisticsRequestType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueStatisticsDataType;
+import gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueStatisticsRequestType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.DeferredQueueStatisticsResponseType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueRequestType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueResponseType;
@@ -42,18 +42,17 @@ import gov.hhs.fha.nhinc.common.deferredqueuemanager.SuccessOrFailType;
 import gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.PatientDiscoveryDeferredReqQueueProcessResponseType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.format.XMLDateUtil;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.ws.WebServiceContext;
-
 import org.apache.log4j.Logger;
 
 /**
  * Helper class for the web service.
- * 
+ *
  * @author richard.ettema
  */
 public class DeferredQueueManagerHelper {
@@ -66,7 +65,7 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Called via web service interface
-     * 
+     *
      * @param deferredQueueManagerForceProcessRequest
      * @param context
      * @return deferredQueueManagerForceProcessResponse
@@ -91,7 +90,7 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Called via web service interface
-     * 
+     *
      * @param deferredQueueManagerForceProcessRequest
      * @param context
      * @return deferredQueueManagerForceProcessResponse
@@ -117,7 +116,7 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Called via web service interface
-     * 
+     *
      * @param queryDeferredQueueRequest
      * @param context
      * @return queryDeferredQueueResponse
@@ -141,7 +140,7 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Called via web service interface
-     * 
+     *
      * @param retrieveDeferredQueueRequest
      * @param context
      * @return retrieveDeferredQueueResponse
@@ -165,7 +164,7 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Called via web service interface
-     * 
+     *
      * @param deferredQueueStatisticsRequest
      * @param context
      * @return deferredQueueStatisticsResponse
@@ -190,7 +189,7 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Force the deferred queue process
-     * 
+     *
      * @throws DeferredQueueException
      */
     public void forceProcess() throws DeferredQueueException {
@@ -248,7 +247,7 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Force the deferred queue process on a specific request
-     * 
+     *
      * @param messageId
      * @return true - success; false - failure
      * @throws DeferredQueueException
@@ -283,7 +282,7 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Force the deferred queue process on a specific request
-     * 
+     *
      * @param queueRecord
      * @return true - success; false - failure
      * @throws DeferredQueueException
@@ -291,9 +290,6 @@ public class DeferredQueueManagerHelper {
     public boolean forceProcessOnRequest(AsyncMsgRecord queueRecord) throws DeferredQueueException {
         LOG.debug("Start: DeferredQueueManagerHelper.forceProcessOnRequest method - processing deferred request by record.");
         boolean result = false;
-
-        LOG.debug("***** Processing deferred service request for " + queueRecord.getServiceName() + " received at "
-                + queueRecord.getCreationTime() + " *****");
 
         // Call processing based on the service name
         if (queueRecord.getServiceName().equals(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME)) {
@@ -335,7 +331,7 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Process the deferred patient discovery request
-     * 
+     *
      * @param queueRecord
      * @return Deferred Patient Discovery Response
      * @throws DeferredQueueException
@@ -355,7 +351,7 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Call deferred queue dao to query for matching records
-     * 
+     *
      * @param queryDeferredQueueRequest
      * @return found list of queue records
      * @throws DeferredQueueException
@@ -399,7 +395,7 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Call deferred queue dao to retrieve message content for one record
-     * 
+     *
      * @param retrieveDeferredQueueRequest
      * @return found list of queue records with message content populated
      * @throws DeferredQueueException
@@ -456,7 +452,7 @@ public class DeferredQueueManagerHelper {
 
     /**
      * Call deferred queue dao to query for statistics
-     * 
+     *
      * @param deferredQueueStatisticsRequest
      * @return found list of queue statistics records
      * @throws DeferredQueueException

@@ -6,8 +6,9 @@
             <div class="content">
                 <h3>Add New Domain to HISP</h3>
                 <p class="instructions">Enter the requested information below to add a new domain to configure.</p>
-                <div class="form-block center-block">
-                    <h:form id="domainDlgForm" class="form form-horizontal">
+                <div class="form-block center-block">                    
+                    <h:form id="domainDlgForm" class="form form-horizontal" >
+                        <p:messages id="domainAddErrors" autoUpdate="true" closable="true" redisplay="false"/> 
                         <div class="form-group">
                             <h:outputLabel for="input-domain" class="col-sm-3 control-label" id="input-domainLbl" value="Domain Name:" />
                             <div class="col-sm-9">
@@ -19,12 +20,11 @@
                             <div class="col-sm-9">
                                 <p:inputText styleClass="form-control" id="input-email" maxlength="255" required="true" requiredMessage="Postmaster address required." value="#{directDomainBean.domainPostmaster}"/>
                             </div>
-                        </div>
-                        
+                        </div>                        
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <div class="form-button-row">
-                                    <p:commandButton id="submit" ajax="true" styleClass="btn btn-primary" value="Submit" actionListener="#{directDomainBean.addDomain}" update=":tabview:domain-form" oncomplete="PF('domainDlg').hide()" />
+                                    <p:commandButton id="submit" ajax="true" styleClass="btn btn-primary" value="Submit" actionListener="#{directDomainBean.addDomain}" update=":tabview:domain-form,domainDlgForm" oncomplete="PF('domainDlg').hide()" />
                                 </div>
                             </div>
                         </div>

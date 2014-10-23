@@ -53,7 +53,6 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleRefreshError;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleThumbprint;
 import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
 import gov.hhs.fha.nhinc.directconfig.processor.BundleRefreshProcessor;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -72,7 +71,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
-
 import javax.annotation.PostConstruct;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -80,7 +78,6 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -101,7 +98,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
  * CA. This is useful in developement environments and is not recommended in a production environment. By default, this
  * feature is disable, but can be enabled using the
  * {@link DefaultBundleRefreshProcessorImpl#BUNDLE_REFRESH_PROCESSOR_ALLOW_DOWNLOAD_FROM_UNTRUSTED} options parameter.
- * 
+ *
  * @author Greg Meyer
  * @since 1.3
  */
@@ -277,7 +274,7 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
 
     /**
      * Converts a trust raw trust bundle byte array into a collection of {@link X509Certificate} objects.
-     * 
+     *
      * @param rawBundle The raw representation of the bundle. This generally the raw byte string downloaded from the
      *            bundle's URL.
      * @param existingBundle The configured bundle object in the DAO. This object may contain the signing certificate
@@ -348,7 +345,7 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
             } catch (Exception e) {
                 dao.updateLastUpdateError(existingBundle.getId(), processAttemptStart,
                         BundleRefreshError.INVALID_BUNDLE_FORMAT);
-                log.warn("Failed to extract anchors from downloaded bundle at URL " + existingBundle.getBundleURL());
+                log.warn("Failed to extract anchors from downloaded bundle.");
             } finally {
                 IOUtils.closeQuietly(inStream);
             }
@@ -359,7 +356,7 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
 
     /**
      * Downloads a bundle from the bundle's URL and returns the result as a byte array.
-     * 
+     *
      * @param bundle The bundle that will be downloaded.
      * @param processAttempStart The time that the update process started.
      * @return A byte array representing the raw data of the bundle.
@@ -397,10 +394,10 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
             retVal = outStream.toByteArray();
         } catch (SocketTimeoutException e) {
             dao.updateLastUpdateError(bundle.getId(), processAttempStart, BundleRefreshError.DOWNLOAD_TIMEOUT);
-            log.warn("Failed to download bundle from URL " + bundle.getBundleURL(), e);
+            log.warn("Failed to download bundle", e);
         } catch (Exception e) {
             dao.updateLastUpdateError(bundle.getId(), processAttempStart, BundleRefreshError.NOT_FOUND);
-            log.warn("Failed to download bundle from URL " + bundle.getBundleURL(), e);
+            log.warn("Failed to download bundle", e);
         } finally {
             IOUtils.closeQuietly(inputStream);
             IOUtils.closeQuietly(outStream);

@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.admindistribution;
 
-import org.apache.log4j.Logger;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
@@ -38,6 +36,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -151,7 +150,7 @@ public class AdminDistributionHelper {
 
         return null;
     }
-    
+
     /** This method read pasased in property value from gateway.property and returns boolean.
      * @param propertyName The Property name passed in to read property value from gateway.properties.
      * @return true or false value from gateway.properties for that specific property.
@@ -181,7 +180,6 @@ public class AdminDistributionHelper {
             LOG.error("Unable to retrieve " + propertyName + " from Gateway.properties");
             LOG.error(ex);
         }
-        LOG.debug("begin Gateway property: " + propertyName + " - " + result);
         return result;
     }
 

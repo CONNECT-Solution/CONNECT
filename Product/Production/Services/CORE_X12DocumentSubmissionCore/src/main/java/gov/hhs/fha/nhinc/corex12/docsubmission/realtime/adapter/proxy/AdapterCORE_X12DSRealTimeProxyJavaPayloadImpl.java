@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.Base64Coder;
+import gov.hhs.fha.nhinc.util.StreamUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -85,10 +86,11 @@ public class AdapterCORE_X12DSRealTimeProxyJavaPayloadImpl implements AdapterCOR
     
     private String buildPayload() {
         String payload = null;
+        FileInputStream fStream = null;
         try {
             String fileName = getPropertyAccessor().getProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME, NhincConstants.CORE_X12DS_RT_DYNAMIC_DOC_FILE);
             if (NullChecker.isNotNullish(fileName)) {
-                FileInputStream fStream = new FileInputStream(new File(fileName));
+                fStream = new FileInputStream(new File(fileName));
                 byte[] testBytes = IOUtils.toByteArray(fStream);
                 payload = new String(Base64Coder.encode(testBytes));
             }
@@ -97,6 +99,8 @@ public class AdapterCORE_X12DSRealTimeProxyJavaPayloadImpl implements AdapterCOR
             LOG.warn("Unable to get adapter real time payload: " + ex.getMessage(), ex);
         } catch (IOException ex) {
             LOG.warn("Unable to get adapter real time payload: " + ex.getMessage(), ex);
+        } finally {
+            StreamUtils.closeStreamSilently(fStream);
         }
 
         return payload;
