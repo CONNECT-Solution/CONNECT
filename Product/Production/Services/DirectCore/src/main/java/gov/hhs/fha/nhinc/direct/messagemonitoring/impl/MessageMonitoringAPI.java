@@ -53,9 +53,8 @@ import org.nhindirect.common.tx.TxUtil;
 import org.nhindirect.common.tx.model.TxMessageType;
 
 /**
- * All the Message Monitoring API services are exposed through this class. This
- * class will maintain a cache to store all the active messages that are sent
- * out waiting for response.
+ * All the Message Monitoring API services are exposed through this class. This class will maintain a cache to store all
+ * the active messages that are sent out waiting for response.
  *
  * @author Naresh Subramanyan
  */
@@ -146,7 +145,7 @@ public class MessageMonitoringAPI {
             }
             Date updatedTime = new Date();
             if (getIncomingMessagesReceivedStatus(tm).equalsIgnoreCase(STATUS_PENDING)
-                    || getIncomingMessagesReceivedStatus(tm).equalsIgnoreCase(STATUS_PROCESSED)) {
+                || getIncomingMessagesReceivedStatus(tm).equalsIgnoreCase(STATUS_PROCESSED)) {
                 tmn.setUpdatetime(updatedTime);
                 getMessageMonitoringDAO().updateMessageNotification(tmn);
             } else {
@@ -228,8 +227,7 @@ public class MessageMonitoringAPI {
     }
 
     /**
-     * Build the Message Monitoring cache from the database tables. This will be
-     * called when the module is initiated.
+     * Build the Message Monitoring cache from the database tables. This will be called when the module is initiated.
      *
      */
     private void buildCache() {
@@ -303,10 +301,9 @@ public class MessageMonitoringAPI {
     }
 
     /**
-     * Returns all the Failed outbound messages. 1. Processed not received for
-     * one or more recipients 2. Dispatched not received for one or more
-     * recipients if notification requested by edge. 3. Got Failed DSN/MDN for
-     * one or more recipients
+     * Returns all the Failed outbound messages. 1. Processed not received for one or more recipients 2. Dispatched not
+     * received for one or more recipients if notification requested by edge. 3. Got Failed DSN/MDN for one or more
+     * recipients
      *
      * @return List
      */
@@ -452,8 +449,8 @@ public class MessageMonitoringAPI {
     }
 
     /**
-     * This method is called by the poller task to monitor & update the message
-     * status and also to notify the edge client with respective status of the
+     * This method is called by the poller task to monitor & update the message status and also to notify the edge
+     * client with respective status of the
      *
      */
     public void process() {

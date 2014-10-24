@@ -88,9 +88,10 @@ public class DirectSenderImpl extends DirectAdapter implements DirectSender {
         MimeMessage message = null;
         try {
             message = new MimeMessageBuilder(getExternalMailSender().getMailSession(), sender, recipients)
-                    .subject(MSG_SUBJECT).text(MSG_TEXT).documents(documents).messageId(messageId).build();
+                .subject(MSG_SUBJECT).text(MSG_TEXT).documents(documents).messageId(messageId).build();
             sendOutboundDirect(message);
         } catch (Exception e) {
+            getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message, e.getMessage());
             throw new DirectException("Error building and sending mime message.sendOutboundDirect", e, message);
         }
     }

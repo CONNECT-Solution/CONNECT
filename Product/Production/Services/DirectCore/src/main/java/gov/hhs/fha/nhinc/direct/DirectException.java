@@ -33,7 +33,6 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
 
-
 /**
  * Exceptions for {@link MimeMessageBuilder}.
  */
@@ -45,7 +44,7 @@ public class DirectException extends RuntimeException {
 
     /**
      * Constructor.
-     * 
+     *
      * @param message for the exception
      * @param cause chained exception
      * @param mimeMessage associated with the exception for event logging.
@@ -53,12 +52,11 @@ public class DirectException extends RuntimeException {
     public DirectException(String message, Throwable cause, MimeMessage mimeMessage) {
         super(message, cause);
         LOG.error(message, cause);
-        directEventLogger.log(DirectEventType.DIRECT_ERROR, mimeMessage, message + cause.getMessage());
     }
 
     /**
      * Constructor.
-     * 
+     *
      * @param message for the exception
      * @param mimeMessage associated with the exception for event logging.
      */
@@ -68,10 +66,9 @@ public class DirectException extends RuntimeException {
         directEventLogger.log(DirectEventType.DIRECT_ERROR, mimeMessage, message);
     }
 
-    
     /**
      * Constructor.
-     * 
+     *
      * @param message for the exception
      * @param cause chained exception
      */
@@ -83,7 +80,7 @@ public class DirectException extends RuntimeException {
 
     /**
      * Constructor.
-     * 
+     *
      * @param message for the exception
      */
     public DirectException(String message) {
@@ -94,6 +91,7 @@ public class DirectException extends RuntimeException {
 
     /**
      * Statically inject a {@link DirectEventLogger}.
+     *
      * @param directEventLogger the directEventLogger to set
      */
     public static void setDirectEventLogger(DirectEventLogger directEventLogger) {
