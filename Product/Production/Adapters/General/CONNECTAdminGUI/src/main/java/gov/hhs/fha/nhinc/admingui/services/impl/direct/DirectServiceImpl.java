@@ -49,9 +49,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class DirectServiceImpl implements DirectService {
 
-    //@Autowired
-    //private final DirectConfigProxy directProxy = getDirectConfigProxy();
-
     private static final Logger LOG = Logger.getLogger(DirectServiceImpl.class);
 
     /**

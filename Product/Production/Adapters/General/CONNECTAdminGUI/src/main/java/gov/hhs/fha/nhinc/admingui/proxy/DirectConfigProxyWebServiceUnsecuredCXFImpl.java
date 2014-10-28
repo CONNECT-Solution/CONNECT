@@ -57,7 +57,6 @@ import org.springframework.stereotype.Service;
  * @author jasonasmith
  */
 @SuppressWarnings("unchecked")
-@Service
 public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfigProxy {
 
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
