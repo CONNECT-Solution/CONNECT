@@ -195,7 +195,7 @@ public class AdapterCORE_X12DSGenericBatchRequestProxyBeanImpl implements Adapte
         } else {
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             Calendar cal = Calendar.getInstance();
-            timeStamp = dateFormat.format(cal.getTime());
+            this.timeStamp = dateFormat.format(cal.getTime());
         }
     }
 
