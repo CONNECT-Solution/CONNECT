@@ -8,7 +8,6 @@
 
     <wls:container-descriptor>
         <wls:prefer-application-packages>
-            <package-name>javax.jws.*</package-name>
             <package-name>org.apache.cxf.*</package-name>
             <package-name>org.apache.geronimo.webservices.*</package-name>
             <package-name>org.apache.jcp.*</package-name>
@@ -17,9 +16,6 @@
             <package-name>org.apache.xml.*</package-name>
             <package-name>org.apache.xalan.*</package-name>
             <package-name>org.apache.log4j.*</package-name>
-            <package-name>javax.xml.ws.*</package-name>
-            <package-name>javax.xml.soap.*</package-name>
-            <package-name>javax.xml.crypto.*</package-name>
             <package-name>org.springframework.*</package-name>
             <package-name>antlr.*</package-name>
             <package-name>net.sf.cglib.*</package-name>

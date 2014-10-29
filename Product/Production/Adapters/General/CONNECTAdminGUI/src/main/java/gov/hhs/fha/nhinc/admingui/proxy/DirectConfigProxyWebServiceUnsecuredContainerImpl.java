@@ -47,7 +47,6 @@ import org.nhind.config.TrustBundle;
 import org.nhind.config.TrustBundleDomainReltn;
 import org.nhind.config.UpdateDomain;
 import org.nhind.config.UpdateDomainResponse;
-import org.springframework.stereotype.Service;
 
 /**
  *
@@ -58,6 +57,7 @@ public class DirectConfigProxyWebServiceUnsecuredContainerImpl implements Direct
 
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
     
+    private static ConfigurationServiceImplService cfService;
 
     /*
      * (non-Javadoc)
@@ -333,15 +333,17 @@ public class DirectConfigProxyWebServiceUnsecuredContainerImpl implements Direct
    
     private ConfigurationServiceImplService getConfigService() throws ConnectionManagerException, MalformedURLException{
         String url = oProxyHelper.getAdapterEndPointFromConnectionManager(DirectConfigConstants.DIRECT_CONFIG_SERVICE_NAME);
-
-        ConfigurationServiceImplService cfService = new ConfigurationServiceImplService(new URL(url+"?wsdl"));
+        
+        if(cfService == null) {
+            cfService = new ConfigurationServiceImplService(new URL(url+"?wsdl"));
+        }
+        
         return cfService;
     }
 
     @Override
     public boolean pingDirectConfig(String url) throws Exception {
-        ConfigurationServiceImplService cfService = new ConfigurationServiceImplService(new URL(url+"?wsdl"));
-        int count = cfService.getConfigurationServiceImplPort().getDomainCount();
+        getConfigService().getConfigurationServiceImplPort().getDomainCount();
         return true;
     }
 }
