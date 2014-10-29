@@ -6,11 +6,16 @@
  
  GRANT RESOURCE,CONNECT to nhincuser;
  
+ CREATE USER configuser identified by configpass;
+  
+ GRANT RESOURCE,CONNECT to configuser;
+ 
 --------------------------------------------------------
 --  DDL for Sequence HIBERNATE_SEQUENCE
 --------------------------------------------------------
 
    CREATE SEQUENCE  "NHINCUSER"."HIBERNATE_SEQUENCE"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 2961 CACHE 20 NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "CONFIGUSER"."HIBERNATE_SEQUENCE"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 2961 CACHE 20 NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Table AA_TO_HOME_COMMUNITY_MAPPING
 --------------------------------------------------------
@@ -250,12 +255,393 @@
 	"SHA1" VARCHAR2(100 BYTE),
 	"USERNAME" VARCHAR2(100 BYTE)
    ) ;
+   
+--------------------------------------------------------
+--  DDL for Table Domain
+--------------------------------------------------------
+  CREATE TABLE "CONFIGUSER"."DOMAIN"
+  ( "ID" NUMBER(11,0),
+	"POSTMASTERADDRESSID" NUMBER(19, 0),
+    "DOMAINNAME" VARCHAR2(200 BYTE),
+    "STATUS" NUMBER(10, 0),
+    "CREATETIME" DATE,
+    "UPDATETIME" DATE
+	);
+	
+-- -----------------------------------------------------
+-- DDL for Table ADDRESS
+-- -----------------------------------------------------
+
+CREATE TABLE "CONFIGUSER"."ADDRESS" (
+    "ID" NUMBER(11,0),
+    "EMAILADDRESSS" VARCHAR2(200 BYTE),
+    "DISPLAYNAME" VARCHAR2(100 BYTE),
+    "ENDPOINT" VARCHAR2(200 BYTE),
+    "TYPE" VARCHAR2(10 BYTE),
+    "STATUS" NUMBER(10, 0) DEFAULT 0,
+    "CREATETIME" DATE,
+    "UPDATETIME" DATE,
+    "DOMAINID" NUMBER(19, 0) NOT NULL  
+);
+
+-- -----------------------------------------------------
+-- DDL for Table ANCHOR
+-- -----------------------------------------------------
+
+CREATE TABLE "CONFIGUSER"."ANCHOR" (
+    "ID" NUMBER(11, 0),
+    "CERTIFICATEID" NUMBER(19, 0),
+    "OWNER" VARCHAR2(200 BYTE),
+    "THUMBPRINT" VARCHAR2(64 BYTE),
+    "CERTIFICATEDATA" BLOB,
+    "VALIDSTARTDATE" DATE,
+    "VALIDENDDATE" DATE,
+    "INCOMING" NUMBER(1)  DEFAULT 1,
+    "OUTGOING" NUMBER(1)  DEFAULT 1,
+    "STATUS" NUMBER(10, 0) DEFAULT 0,
+    "CREATETIME" DATE 
+);
+
+-- -----------------------------------------------------
+-- DDL for Table CERTIFICATE
+-- -----------------------------------------------------
+
+CREATE TABLE "CONFIGUSER"."CERTIFICATE" (
+    "ID" NUMBER(11,0),
+    "OWNER" VARCHAR2(200 BYTE),
+    "THUMBPRINT" VARCHAR2(64 BYTE),
+    "CERTIFICATEDATA" BLOB,
+    "VALIDSTARTDATE" DATE,
+    "VALIDENDDATE" DATE ,
+    "PRIVATEKEY" NUMBER(1)  DEFAULT 0,
+    "STATUS" NUMBER(10, 0) DEFAULT 0,
+    "CREATETIME" DATE 
+);
+
+-- -----------------------------------------------------
+-- DDL for Table SETTING
+-- -----------------------------------------------------
+
+CREATE TABLE "CONFIGUSER"."SETTING" (
+    "ID" NUMBER(11,0),
+    "NAME" VARCHAR2(200 BYTE),
+    "VALUE" VARCHAR2(4000 BYTE),
+    "STATUS" NUMBER(10, 0) DEFAULT 0,
+    "CREATETIME" DATE NOT NULL,
+    "UPDATETIME" DATE
+);
+
+-- -----------------------------------------------------
+-- DDL for Table TRUSTBUNDLE
+-- -----------------------------------------------------
+
+CREATE TABLE "CONFIGUSER"."TRUSTBUNDLE" (
+    "ID" NUMBER(11,0),
+    "BUNDLENAME" VARCHAR2(200 BYTE),
+    "BUNDLEURL" VARCHAR2(200 BYTE),
+    "BUNDLECHECKSUM" VARCHAR2(200 BYTE),
+    "LASTREFRESHATTEMPT" DATE,
+    "LASTSUCCESSFULREFRESH" DATE,
+    "REFRESHINTERVAL" NUMBER(10, 0),
+    "LASTREFRESHERROR" NUMBER(10, 0),
+    "SIGNINGCERTIFICATEDATA" BLOB,
+    "CREATETIME" DATE 
+);
+
+-- -----------------------------------------------------
+-- DDL for Table TRUSTBUNDLEANCHOR
+-- -----------------------------------------------------
+
+CREATE TABLE "CONFIGUSER"."TRUSTBUNDLEANCHOR" (
+    "ID" NUMBER(11,0),
+    "ANCHORDATA" BLOB,
+    "THUMBPRINT" VARCHAR2(64 BYTE),
+    "VALIDSTARTDATE" DATE,
+    "VALIDENDDATE" DATE,
+    "TRUSTBUNDLEID" NUMBER(19,0) 
+);
+
+-- -----------------------------------------------------
+-- DDL for Table TRUSTBUNDLEDOAMINRELTN
+-- -----------------------------------------------------
+
+CREATE TABLE "CONFIGUSER"."TRUSTBUNDLEDOMAINRELTN" (
+    "ID" NUMBER(11,0),
+    "INCOMING" NUMBER(1) DEFAULT 1,
+    "OUTGOING" NUMBER(1) DEFAULT 1,
+    "DOMAIN_ID" NUMBER(19,0),
+    "TRUST_BUNDLE_ID" NUMBER(19,0) 
+);
+
+-- -----------------------------------------------------
+-- DDL for Table CERTPOLICY
+-- -----------------------------------------------------
+
+CREATE TABLE "CONFIGUSER"."CERTPOLICY" (
+    "ID" NUMBER(11,0),
+    "CREATETIME" DATE,
+    "LEXICON" NUMBER(19,0),
+    "POLICYDATA" BLOB,
+    "POLICYNAME" VARCHAR2(200 BYTE)
+);
+
+-- -----------------------------------------------------
+-- Table `configdb`.`certpolicygroup`
+-- -----------------------------------------------------
+
+CREATE TABLE "CONFIGUSER"."CERTPOLICYGROUP" (
+    "ID" NUMBER(11,0),
+    "CREATETIME" DATE ,
+    "POLICYGROUPNAME" VARCHAR2(200 BYTE)
+);
+
+-- -----------------------------------------------------
+-- Table `configdb`.`certpolicygroupdomainreltn`
+-- -----------------------------------------------------
+
+CREATE TABLE "CONFIGUSER"."CERTPOLICYGROUPDOMAINRELTN" (
+    "ID" NUMBER(11,0),
+    "POLICY_GROUP_ID" NUMBER(19,0),
+    "DOMAIN_ID" NUMBER(19,0) NOT NULL
+);
+
+-- -----------------------------------------------------
+-- Table `configdb`.`certpolicygroupreltn`
+-- -----------------------------------------------------
+
+CREATE TABLE "CONFIGUSER"."CERTPOLICYGROUPRELTN" (
+    "ID" NUMBER(11,0),
+    "INCOMING" NUMBER(4,0),
+    "OUTGOING" NUMBER(4,0),
+    "POLICYUSE" NUMBER(10,0) ,
+    "CERTPOLICYID" NUMBER(19,0),
+    "CERTPOLICYGROUPID" NUMBER(19,0)
+);
+
+-- -----------------------------------------------------
+-- Table `configdb`.`dnsrecord`
+-- -----------------------------------------------------
+
+CREATE TABLE "CONFIGUSER"."DNSRECORD" (
+    "ID" NUMBER(11,0),
+    "CREATETIME" DATE NOT NULL,
+    "DATA" BLOB,
+    "DCLASS" NUMBER(10,0),
+    "NAME" VARCHAR2(200 BYTE),
+    "TTL" NUMBER(19,0),
+    "TYPE" NUMBER(10,0)
+);
+
+-- end configdb
+
+------------------------------------------------------------------
+--   ADMINGUIDB TABLES
+------------------------------------------------------------------
+-- -----------------------------------------------------
+-- Table USERROLE
+-- -----------------------------------------------------
+CREATE TABLE "NHINCUSER"."USERROLE" (
+	"ROLEID" NUMBER(11,0),
+	"ROLENAME" VARCHAR2(100 BYTE) NOT NULL
+);
+
+-- -----------------------------------------------------
+-- Table PagePreference
+-- -----------------------------------------------------
+
+CREATE TABLE "NHINCUSER"."PAGEPREFERENCE" (
+	"PREFID" NUMBER(11,0),
+	"PAGENAME"   VARCHAR2(100 BYTE) NOT NULL,
+	"PAGEDESC"  VARCHAR2(100 BYTE) NOT NULL,
+	"ACCESSPAGE" NUMBER(19,0) NOT NULL,
+	"PREFROLEID" NUMBER(19,0) NOT NULL
+);
+
+CREATE TABLE "NHINCUSER"."MONITOREDMESSAGE" (
+  "ID" NUMBER(19,0),
+  "SENDEREMAILID"  VARCHAR2(200 BYTE) DEFAULT NULL,
+  "SUBJECT"  VARCHAR2(200 BYTE) DEFAULT NULL,
+  "MESSAGEID"   VARCHAR2(100 BYTE),
+  "RECIPIENTS"  VARCHAR2(2000 BYTE) DEFAULT NULL,
+  "DELIVERYREQUESTED" NUMBER(3) DEFAULT '0',
+  "STATUS" VARCHAR2(30 BYTE) DEFAULT NULL,
+  "CREATETIME" DATE DEFAULT NULL,
+  "UPDATETIME" DATE DEFAULT NULL
+);
+
+
+CREATE TABLE "NHINCUSER"."MONITOREDMESSAGENOTIFICATION" (
+  "ID" NUMBER(19,0),
+  "EMAILID" VARCHAR2(255),
+  "MESSAGEID" VARCHAR2(100) DEFAULT NULL,
+  "MONITOREDMESSAGEID" NUMBER(19,0),
+  "STATUS" VARCHAR2(30) ,
+  "CREATETIME" DATE DEFAULT NULL,
+  "UPDATETIME" DATE DEFAULT NULL
+);
+
+--------------------------------------------------------
+--  Constraints for Table Domain
+--------------------------------------------------------
+  ALTER TABLE "CONFIGUSER"."DOMAIN" ADD PRIMARY KEY ("ID") ENABLE;
+  ALTER TABLE "CONFIGUSER"."DOMAIN" MODIFY ("DOMAINNAME" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."DOMAIN" MODIFY ("CREATETIME" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."DOMAIN" ADD CONSTRAINT DOMAIN UNIQUE ("DOMAINNAME") ENABLE;
+  
+--------------------------------------------------------
+--  DDL for Index fk_domainId
+--------------------------------------------------------
+  CREATE UNIQUE INDEX "CONFIGUSER"."fk_domainId" ON "CONFIGUSER"."ADDRESS" ("DOMAINID" ASC);
+    
+--------------------------------------------------------
+--  Constraints for Table ADDRESS
+--------------------------------------------------------
+  ALTER TABLE "CONFIGUSER"."ADDRESS" ADD PRIMARY KEY ("ID") ENABLE;
+  ALTER TABLE "CONFIGUSER"."ADDRESS" MODIFY ("CREATETIME" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."ADDRESS" ADD CONSTRAINT FK_DOMAINID FOREIGN KEY (DOMAINID) REFERENCES "CONFIGUSER"."DOMAIN" (ID) ENABLE;
+
+--------------------------------------------------------
+--  Constraints for Table ANCHOR
+-------------------------------------------------------- 
+  ALTER TABLE "CONFIGUSER"."ANCHOR" ADD PRIMARY KEY ("ID") ENABLE;
+  ALTER TABLE "CONFIGUSER"."ANCHOR" MODIFY ("CERTIFICATEID" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."ANCHOR" MODIFY ("OWNER" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."ANCHOR" MODIFY ("THUMBPRINT" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."ANCHOR" MODIFY ("CERTIFICATEDATA" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."ANCHOR" MODIFY ("VALIDSTARTDATE" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."ANCHOR" MODIFY ("VALIDENDDATE" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."ANCHOR" MODIFY ("INCOMING"  NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."ANCHOR" MODIFY ("OUTGOING" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."ANCHOR" MODIFY ("CREATETIME" NOT NULL ENABLE);
+  
+--------------------------------------------------------
+--  Constraints for Table CERTIFICATE
+--------------------------------------------------------
+  ALTER TABLE "CONFIGUSER"."CERTIFICATE" ADD PRIMARY KEY ("ID") ENABLE;
+  ALTER TABLE "CONFIGUSER"."CERTIFICATE" MODIFY ("OWNER" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."CERTIFICATE" MODIFY ("THUMBPRINT" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."CERTIFICATE" MODIFY ("VALIDSTARTDATE" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."CERTIFICATE" MODIFY ("VALIDENDDATE" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."CERTIFICATE" MODIFY ("CERTIFICATEDATA" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."CERTIFICATE" MODIFY ("PRIVATEKEY" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."CERTIFICATE" MODIFY ("STATUS" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."CERTIFICATE" MODIFY ("CREATETIME" NOT NULL ENABLE);
+  
+-------------------------------------------------------------
+--  Constraints for Table SETTING
+-------------------------------------------------------------
+  ALTER TABLE "CONFIGUSER"."SETTING" ADD PRIMARY KEY ("ID") ENABLE;
+  
+--------------------------------------------------------
+--  Constraints for Table TRUSTBUNDLE
+--------------------------------------------------------
+  ALTER TABLE "CONFIGUSER"."TRUSTBUNDLE" ADD PRIMARY KEY ("ID") ENABLE;
+  ALTER TABLE "CONFIGUSER"."TRUSTBUNDLE" MODIFY ("BUNDLENAME" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."TRUSTBUNDLE" MODIFY ("BUNDLEURL" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."TRUSTBUNDLE" MODIFY ("BUNDLECHECKSUM" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."TRUSTBUNDLE" MODIFY ("CREATETIME" NOT NULL ENABLE);
+  
+--------------------------------------------------------
+--  DDL for Index fk_trustbundleId
+--------------------------------------------------------
+  CREATE UNIQUE INDEX "CONFIGUSER"."fk_trustbundleId" ON "CONFIGUSER"."TRUSTBUNDLEANCHOR" ("TRUSTBUNDLEID" ASC);
+  
+--------------------------------------------------------
+--  Constraints for Table TRUSTBUNDLEANCHOR
+--------------------------------------------------------
+  ALTER TABLE "CONFIGUSER"."TRUSTBUNDLEANCHOR" ADD PRIMARY KEY ("ID") ENABLE;
+  ALTER TABLE "CONFIGUSER"."TRUSTBUNDLEANCHOR" MODIFY ("ANCHORDATA" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."TRUSTBUNDLEANCHOR" MODIFY ("THUMBPRINT" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."TRUSTBUNDLEANCHOR" MODIFY ("VALIDSTARTDATE" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."TRUSTBUNDLEANCHOR" MODIFY ("VALIDENDDATE" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."TRUSTBUNDLEANCHOR" MODIFY ("TRUSTBUNDLEID" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."TRUSTBUNDLEANCHOR" ADD CONSTRAINT fk_trustbundleId FOREIGN KEY (trustbundleId) REFERENCES configdb.trustbundle(id) ON DELETE NO ACTION ON UPDATE NO ACTION
+
+  
+ 
+-----------------------------------------------------------
+--  Constraints for Table TRUSTBUNDLEDOMAINRELTN
+-----------------------------------------------------------
+	
+  ALTER TABLE "CONFIGUSER"."TRUSTBUNDLEDOMAINRELTN" ADD PRIMARY KEY ("ID") ENABLE;
+  ALTER TABLE "CONFIGUSER"."TRUSTBUNDLEDOMAINRELTN" MODIFY ("INCOMING" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."TRUSTBUNDLEDOMAINRELTN" MODIFY ("OUTGOING" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."TRUSTBUNDLEDOMAINRELTN" MODIFY ("DOMAIN_ID" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."TRUSTBUNDLEDOMAINRELTN" MODIFY ("TRUST_BUNDLE_ID" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."TRUSTBUNDLEDOMAINRELTN" ADD CONSTRAINT fk_domain_id FOREIGN KEY (DOMAIN_ID) REFERENCES CONFIGUSER.DOMAIN("ID");
+  ALTER TABLE "CONFIGUSER"."TRUSTBUNDLEDOMAINRELTN" ADD CONSTRAINT fk_trust_bundle_id FOREIGN KEY (TRUST_BUNDLE_ID) REFERENCES CONFIGUSER.trustbundle(id);
+	
+-----------------------------------------------------------
+--  Constraints for Table CERTPOLICY
+-----------------------------------------------------------	
+
+  ALTER TABLE "CONFIGUSER"."CERTPOLICY" ADD PRIMARY KEY ("ID") ENABLE;
+  ALTER TABLE "CONFIGUSER"."CERTPOLICY" MODIFY ("CREATETIME" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."CERTPOLICY" MODIFY ("LEXICON" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."CERTPOLICY" MODIFY ("POLICYDATA" NOT NULL ENABLE);
+  
+-----------------------------------------------------------
+--  Constraints for Table CERTPOLICYGROUP
+-----------------------------------------------------------	
+
+  ALTER TABLE "CONFIGUSER"."CERTPOLICYGROUP" ADD PRIMARY KEY ("ID") ENABLE;
+  ALTER TABLE "CONFIGUSER"."CERTPOLICYGROUP" MODIFY ("CREATETIME" NOT NULL ENABLE);
+  
+  
+----------------------------------------------------------
+--  Constraints for Table CERTPOLICYGROUPDOMAINRELTN
+-----------------------------------------------------------	
+  ALTER TABLE "CONFIGUSER"."CERTPOLICYGROUPDOMAINRELTN" ADD PRIMARY KEY ("ID") ENABLE;
+  ALTER TABLE "CONFIGUSER"."CERTPOLICYGROUPDOMAINRELTN" MODIFY ("POLICY_GROUP_ID" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."CERTPOLICYGROUPDOMAINRELTN" ADD CONSTRAINT fk_cert_domain_id FOREIGN KEY ("DOMAIN_ID") REFERENCES "CONFIGUSER"."DOMAIN"("ID");
+  
+  ALTER TABLE "CONFIGUSER"."CERTPOLICYGROUPDOMAINRELTN" ADD CONSTRAINT fk_cert_policy_group_id FOREIGN KEY ("POLICY_GROUP_ID") REFERENCES "CONFIGUSER"."CERTPOLICYGROUP"("ID");
+  
+
+-----------------------------------------------------------
+--  Constraints for Table CERTPOLICYGROUPRELTN
+-----------------------------------------------------------	
+  ALTER TABLE "CONFIGUSER"."CERTPOLICYGROUPRELTN" ADD PRIMARY KEY ("ID") ENABLE;
+  ALTER TABLE "CONFIGUSER"."CERTPOLICYGROUPRELTN" MODIFY ("POLICYUSE" NOT NULL ENABLE);
+  ALTER TABLE "CONFIGUSER"."CERTPOLICYGROUPRELTN" MODIFY ("CERTPOLICYID" NOT NULL ENABLE);  
+  ALTER TABLE "CONFIGUSER"."CERTPOLICYGROUPRELTN" MODIFY ("CERTPOLICYGROUPID" NOT NULL ENABLE); 
+  ALTER TABLE "CONFIGUSER"."CERTPOLICYGROUPRELTN" ADD CONSTRAINT fk_cert_policy_id FOREIGN KEY ("CERTPOLICYID") REFERENCES "CONFIGUSER"."CERTPOLICY"("ID");
+  ALTER TABLE "CONFIGUSER"."CERTPOLICYGROUPRELTN" ADD CONSTRAINT fk_cert_policy_reltn_group_id FOREIGN KEY ("CERTPOLICYGROUPID") REFERENCES "CONFIGUSER"."CERTPOLICYGROUP"("ID");
+  
+-----------------------------------------------------------
+--  Constraints for Table DNSRECORD
+-----------------------------------------------------------
+  ALTER TABLE "CONFIGUSER"."DNSRECORD" ADD PRIMARY KEY ("ID") ENABLE;
+  
+-----------------------------------------------------------
+--  Constraints for Table USERROLE
+-----------------------------------------------------------  
+  ALTER TABLE "NHINCUSER"."USERROLE" ADD PRIMARY KEY ("ROLEID") ENABLE;
+  ALTER TABLE "NHINCUSER"."USERROLE" ADD CONSTRAINT USERROLE UNIQUE ("ROLENAME") ENABLE;
+  
+-----------------------------------------------------------
+--  Constraints for Table PAGEPREFERENCE
+----------------------------------------------------------- 
+  ALTER TABLE "NHINCUSER"."PAGEPREFERENCE" ADD PRIMARY KEY ("PREFID") ENABLE;
+  ALTER TABLE "NHINCUSER"."PAGEPREFERENCE" ADD CONSTRAINT fk_role_pref FOREIGN KEY (prefRoleId) REFERENCES "NHINCUSER"."USERROLE"("ROLEID");
+-----------------------------------------------------------
+--  Constraints for Table MONITOREDMESSAGE
+----------------------------------------------------------- 	
+	
+  ALTER TABLE "NHINCUSER"."MONITOREDMESSAGE" ADD PRIMARY KEY ("ID") ENABLE;
+  ALTER TABLE "NHINCUSER"."MONITOREDMESSAGE" MODIFY ("ID" NOT NULL ENABLE);
+ 
+----------------------------------------------------------- 
+--  Constraints for Table MONITOREDMESSAGENOTIFICATION
+----------------------------------------------------------- 
+  ALTER TABLE "NHINCUSER"."MONITOREDMESSAGENOTIFICATION" MODIFY ("STATUS" NOT NULL ENABLE);
+  ALTER TABLE "NHINCUSER"."MONITOREDMESSAGENOTIFICATION" ADD CONSTRAINT fk_monitoredmessageId FOREIGN KEY (MONITOREDMESSAGEID) REFERENCES "NHINCUSER"."MONITOREDMESSAGE"("ID") ;
+		
 --------------------------------------------------------
 --  DDL for Index MESSAGEID_IDX
 --------------------------------------------------------
-
-  CREATE UNIQUE INDEX "NHINCUSER"."MESSAGEID_IDX" ON "NHINCUSER"."TRANSACTIONREPOSITORY" ("MESSAGEID") 
-  ;
+  CREATE UNIQUE INDEX "NHINCUSER"."MESSAGEID_IDX" ON "NHINCUSER"."TRANSACTIONREPOSITORY" ("MESSAGEID");
+  
 --------------------------------------------------------
 --  Constraints for Table CORRELATEDIDENTIFIERS
 --------------------------------------------------------
@@ -385,8 +771,81 @@
   INSERT INTO NHINCUSER.USERLOGIN
     (ID, SALT, SHA1, USERNAME)
   VALUES
-    (1, "ABCD", "TxMu4SPUdek0XU5NovS9U2llt3Q=", "CONNECTAdmin");
---------------------------------------------------------
---  Constraints for Table DOMAIN
---------------------------------------------------------
-  ALTER TABLE "NHINCUSER"."DOMAIN" ADD CONSTRAINT DOMAIN UNIQUE (DOMAINNAME) ENABLE;
+    (1, 'ABCD', 'TxMu4SPUdek0XU5NovS9U2llt3Q=', 'CONNECTAdmin');
+	
+  INSERT INTO NHINCUSER.USERROLE
+    (ROLEID, ROLENAME)
+  VALUES
+    (1, 'ADMIN');
+	
+  INSERT INTO NHINCUSER.USERROLE
+    (ROLEID, ROLENAME)
+  VALUES
+    (2, 'SUPER USER');
+    
+  INSERT INTO NHINCUSER.USERROLE
+    (ROLEID, ROLENAME)
+  VALUES
+    (3, 'USER');
+
+
+ INSERT INTO NHINCUSER.PAGEPREFERENCE
+   (PREFID, PAGENAME, PAGEDESC, ACCESSPAGE, PREFROLEID)
+   VALUES
+    (1, 'status.xhtml', 'Status', 0, 1);
+ 
+ INSERT INTO NHINCUSER.PAGEPREFERENCE
+   (PREFID, PAGENAME, PAGEDESC, ACCESSPAGE, PREFROLEID)
+   VALUES
+    (2,'status.xhtml', 'Status', 0, 2);
+
+ INSERT INTO NHINCUSER.PAGEPREFERENCE
+   (PREFID,PAGENAME, PAGEDESC, ACCESSPAGE, PREFROLEID)
+   VALUES
+    (3,'status.xhtml', 'Status', 0, 3);
+    
+ INSERT INTO NHINCUSER.PAGEPREFERENCE
+   (PREFID, PAGENAME, PAGEDESC, ACCESSPAGE, PREFROLEID)
+   VALUES
+    (4, 'acctmanage.xhtml', 'Account Management', 0, 1);
+    
+ INSERT INTO NHINCUSER.PAGEPREFERENCE
+   (PREFID, PAGENAME, PAGEDESC, ACCESSPAGE, PREFROLEID)
+   VALUES
+    (5, 'acctmanage.xhtml', 'Account Management', -1, 2);
+    
+ INSERT INTO NHINCUSER.PAGEPREFERENCE
+   (PREFID, PAGENAME, PAGEDESC, ACCESSPAGE, PREFROLEID)
+   VALUES
+    (6, 'acctmanage.xhtml', 'Account Management', -1, 3);
+
+ INSERT INTO NHINCUSER.PAGEPREFERENCE
+   (PREFID, PAGENAME, PAGEDESC, ACCESSPAGE, PREFROLEID)
+   VALUES
+    (7, 'manageRole.xhtml', 'Manage Role', 0, 1);
+
+ INSERT INTO NHINCUSER.PAGEPREFERENCE
+   (PREFID,PAGENAME, PAGEDESC, ACCESSPAGE, PREFROLEID)
+   VALUES
+    (8, 'manageRole.xhtml', 'Manage Role', -1, 2);
+
+ INSERT INTO NHINCUSER.PAGEPREFERENCE
+   (PREFID, PAGENAME, PAGEDESC, ACCESSPAGE, PREFROLEID)
+   VALUES
+    (9, 'manageRole.xhtml', 'Manage Role', -1, 3);
+
+ INSERT INTO NHINCUSER.PAGEPREFERENCE
+   (PREFID, PAGENAME, PAGEDESC, ACCESSPAGE, PREFROLEID)
+   VALUES
+    (10, 'direct.xhtml', 'Direct Config', 0, 1);
+
+ INSERT INTO NHINCUSER.PAGEPREFERENCE
+   (PREFID, PAGENAME, PAGEDESC, ACCESSPAGE, PREFROLEID)
+   VALUES
+    (11, 'direct.xhtml', 'Direct Config', 0, 2);
+
+ INSERT INTO NHINCUSER.PAGEPREFERENCE
+   (PREFID, PAGENAME, PAGEDESC, ACCESSPAGE, PREFROLEID)
+   VALUES
+    (12, 'direct.xhtml', 'Direct Config', 0, 3);
+ COMMIT;
