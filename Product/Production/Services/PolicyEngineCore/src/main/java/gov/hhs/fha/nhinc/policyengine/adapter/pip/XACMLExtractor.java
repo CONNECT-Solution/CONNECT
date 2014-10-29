@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
@@ -32,11 +32,9 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriterionTyp
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyMetadataType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.UserIdFormatType;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import oasis.names.tc.xacml._2_0.policy.schema.os.EffectType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.EnvironmentMatchType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.EnvironmentType;
@@ -46,28 +44,37 @@ import oasis.names.tc.xacml._2_0.policy.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.RuleType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectMatchType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectType;
-
 import org.w3c.dom.Element;
 
 /**
  * This class contains extractor code for extracting data from the XACML.
- * 
+ *
  * @author Les Westberg
  */
 public class XACMLExtractor {
     private static final String HL7_DATE_ONLY_FORMAT = "yyyyMMdd";
-
-    private static final SimpleDateFormat oHL7DateOnlyFormatter = new SimpleDateFormat(HL7_DATE_ONLY_FORMAT);
     private static final String HL7_DATE_TIME_FORMAT = "yyyyMMddHHmmssZ";
-    private static final SimpleDateFormat oHL7DateTimeFormatter = new SimpleDateFormat(HL7_DATE_TIME_FORMAT);
     private static final String XML_DATE_ONLY_FORMAT = "yyyy-MM-dd";
-    private static final SimpleDateFormat oXMLDateOnlyFormatter = new SimpleDateFormat(XML_DATE_ONLY_FORMAT);
     private static final String XML_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-    private static final SimpleDateFormat oXMLDateTimeFormatter = new SimpleDateFormat(XML_DATE_TIME_FORMAT);
+
+    private final SimpleDateFormat oHL7DateOnlyFormatter;
+    private final SimpleDateFormat oHL7DateTimeFormatter;
+    private final SimpleDateFormat oXMLDateOnlyFormatter;
+    private final SimpleDateFormat oXMLDateTimeFormatter;
+
+    /**
+     * Default constructor
+     */
+    public XACMLExtractor() {
+        oHL7DateOnlyFormatter = new SimpleDateFormat(HL7_DATE_ONLY_FORMAT);
+        oHL7DateTimeFormatter = new SimpleDateFormat(HL7_DATE_TIME_FORMAT);
+        oXMLDateOnlyFormatter = new SimpleDateFormat(XML_DATE_ONLY_FORMAT);
+        oXMLDateTimeFormatter = new SimpleDateFormat(XML_DATE_TIME_FORMAT);
+    }
 
     /**
      * This method extracts the policy OID from the consent XACML object.
-     * 
+     *
      * @param oConsentXACML Th XACML consent information
      * @return The Policy OID that was in the XACML.
      */
@@ -86,7 +93,7 @@ public class XACMLExtractor {
      * This method looks at the XACML and determines if it represents just a simple opt-in/opt-out value. This can be
      * determined if it has only one rule and if tha rule contains no fine-grained data - but simply has an effect of
      * Permit or Deny.
-     * 
+     *
      * @param oConsentXACML The XACML form of the patient consent.
      * @return TRUE if this consent represents just a simple opt-in or opt-out value.
      */
@@ -117,7 +124,7 @@ public class XACMLExtractor {
      * This method extracts a simple opt-in/opt-out setting. A simple opt-in or opt-out setting occurs if there is
      * exactly one fine-grained rule and if that rule has only a Permit or Deny without any other criteria. If this is
      * the case and the rule is a "Permit" then true is returned. Otherwise false is returned.
-     * 
+     *
      * @param oConsentXACML The XACML form of the patient consent.
      * @return True if there is one simple rule that specifies permit for all conditions, false in all other cases.
      */
@@ -149,7 +156,7 @@ public class XACMLExtractor {
     /**
      * This method looks for the specified attribute within the Resource section and returns its value in the form of a
      * string.
-     * 
+     *
      * @param oRule The rule that is being looked at.
      * @param sAttributeId The ID of the desired attribute
      * @return The value associated with that attribute
@@ -189,7 +196,7 @@ public class XACMLExtractor {
 
     /**
      * This method looks for the User ID subject and returns the user ID format.
-     * 
+     *
      * @param oRule The rule that is being looked at.
      * @return The type of user ID in the record.
      */
@@ -235,7 +242,7 @@ public class XACMLExtractor {
     /**
      * This method looks for the specified attribute within the Subject section and returns its value in the form of a
      * string.
-     * 
+     *
      * @param oRule The rule that is being looked at.
      * @param sAttributeId The ID of the desired attribute
      * @return The value associated with that attribute
@@ -275,7 +282,7 @@ public class XACMLExtractor {
     /**
      * This method looks for the specified attribute within the Environment section and returns its value in the form of
      * a string.
-     * 
+     *
      * @param oRule The rule that is being looked at.
      * @param sAttributeId The ID of the desired attribute
      * @return The value associated with that attribute
@@ -314,7 +321,7 @@ public class XACMLExtractor {
 
     /**
      * This method creates a date formatted according to HL7 from a date/time in default XML format.
-     * 
+     *
      * @param sXMLDateTime The date or date-time in XML format.
      * @return The date or date-time in HL7 default format.
      */
@@ -355,7 +362,7 @@ public class XACMLExtractor {
 
     /**
      * This extracts the information for one instnce of a FineGrainedPolicyCriterion from the Rule.
-     * 
+     *
      * @param oRule The rule being checked.
      * @return An instance of the FineGrainedPolicyCriterion that was creatd from the data in the rule.
      */
@@ -488,7 +495,7 @@ public class XACMLExtractor {
     /**
      * This method extracts the fine grained policy information from the XACML consent information and returns it in a
      * form to be placed in the PatientPreferences object.
-     * 
+     *
      * @param oConsentXACML The XACML form of the patient consent.
      * @return The FineGrainedPolicyCriteria object containing the fine grained consent information.
      */
@@ -535,7 +542,7 @@ public class XACMLExtractor {
     /**
      * This method extracts the patient ID and assigning authority from the XACML and places the data into the correct
      * location of the patient preferences object.
-     * 
+     *
      * @param oConsentXACML The XACML consent information
      * @param oPtPref The patient preferences object.
      */
@@ -589,7 +596,7 @@ public class XACMLExtractor {
 
     /**
      * This method extracts the patient preferences data from the XACML.
-     * 
+     *
      * @param oConsentXACML The XACML consent information
      * @return The patient preferences.
      */

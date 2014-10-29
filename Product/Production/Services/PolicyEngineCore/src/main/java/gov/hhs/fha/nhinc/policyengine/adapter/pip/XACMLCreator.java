@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
@@ -30,13 +30,14 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriterionTyp
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.UserIdFormatType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import oasis.names.tc.xacml._2_0.policy.schema.os.ActionMatchType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.ActionType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.ActionsType;
@@ -56,31 +57,38 @@ import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectMatchType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectsType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.TargetType;
-
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-
-import org.w3c.dom.Element;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * This class is used to create the XACML policy object.
- * 
+ *
  * @author Les Westberg
  */
 public class XACMLCreator {
     private static final String HL7_DATE_ONLY_FORMAT = "yyyyMMdd";
-    private static final SimpleDateFormat oHL7DateOnlyFormatter = new SimpleDateFormat(HL7_DATE_ONLY_FORMAT);
     private static final String HL7_DATE_TIME_FORMAT = "yyyyMMddHHmmssZ";
-    private static final SimpleDateFormat oHL7DateTimeFormatter = new SimpleDateFormat(HL7_DATE_TIME_FORMAT);
     private static final String XML_DATE_ONLY_FORMAT = "yyyy-MM-dd";
-    private static final SimpleDateFormat oXMLDateOnlyFormatter = new SimpleDateFormat(XML_DATE_ONLY_FORMAT);
     private static final String XML_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-    private static final SimpleDateFormat oXMLDateTimeFormatter = new SimpleDateFormat(XML_DATE_TIME_FORMAT);
+
+    private final SimpleDateFormat oHL7DateOnlyFormatter;
+    private final SimpleDateFormat oHL7DateTimeFormatter;
+    private final SimpleDateFormat oXMLDateOnlyFormatter;
+    private final SimpleDateFormat oXMLDateTimeFormatter;
+
+    /**
+     * Default constructor
+     */
+    public XACMLCreator() {
+        oHL7DateOnlyFormatter = new SimpleDateFormat(HL7_DATE_ONLY_FORMAT);
+        oHL7DateTimeFormatter = new SimpleDateFormat(HL7_DATE_TIME_FORMAT);
+        oXMLDateOnlyFormatter = new SimpleDateFormat(XML_DATE_ONLY_FORMAT);
+        oXMLDateTimeFormatter = new SimpleDateFormat(XML_DATE_TIME_FORMAT);
+    }
 
     /**
      * This method constructs a Action that will be placed in the XACML target.
-     * 
+     *
      * @param sMatchId The value to use for the match ID.
      * @param sDataType The value to use for the data type.
      * @param sAttributeId The value to be used for the attribute Id.
@@ -116,7 +124,7 @@ public class XACMLCreator {
 
     /**
      * This method constructs a resource that will be placed in a rule.
-     * 
+     *
      * @param sPatientId The patient ID of the patient
      * @param sAssigningAuthority The assigning authority of associated with the patient iD.
      * @return
@@ -173,7 +181,7 @@ public class XACMLCreator {
 
     /**
      * This method constructs a resource that will be placed in a rule.
-     * 
+     *
      * @param sMatchId The value to use for the match ID.
      * @param sDataType The value to use for the data type.
      * @param sAttributeId The value to be used for the attribute Id.
@@ -221,7 +229,7 @@ public class XACMLCreator {
 
     /**
      * This method constructs a subject that will be placed in a rule.
-     * 
+     *
      * @param sMatchId The value to use for the match ID.
      * @param sDataType The value to use for the data type.
      * @param sAttributeId The value to be used for the attribute Id.
@@ -257,7 +265,7 @@ public class XACMLCreator {
 
     /**
      * This method constructs an Environment criteria that will be placed in the XACML target.
-     * 
+     *
      * @param sMatchId The value to use for the match ID.
      * @param sDataType The value to use for the data type.
      * @param sAttributeId The value to be used for the attribute Id.
@@ -294,9 +302,9 @@ public class XACMLCreator {
 
     /**
      * This formats a string that represents the patient ID in the format of:
-     * 
+     *
      * <nhin:PatientId root="1.1" extension="11111" />
-     * 
+     *
      * @param oPtPref The patient preference information.
      * @return
      */
@@ -326,7 +334,7 @@ public class XACMLCreator {
 
     /**
      * This method creates an date formatted according to XML default from a HL7 date/time format.
-     * 
+     *
      * @param sHL7DateTime The date or date-time in HL7 format.
      * @return The date or date-time in XML default format.
      */
@@ -367,7 +375,7 @@ public class XACMLCreator {
 
     /**
      * This method creates the Rule associated with a single instance of a fine grained criterion.
-     * 
+     *
      * @param iRuleId The ID number for this rule.
      * @param oCriterion The patient Preferneces
      * @return The rule representing a single fine grained policy settings.
@@ -568,7 +576,7 @@ public class XACMLCreator {
 
     /**
      * This method creates the Rule associated with the patient Opt In/Opt Out settings.
-     * 
+     *
      * @param iRuleId The ID number for this rule.
      * @param oPtPref The patient Preferneces
      * @return The rule showing the patient Opt in Opt Out settings.
@@ -601,7 +609,7 @@ public class XACMLCreator {
 
     /**
      * This method creates the XACML policy document that represents the patient's consent preference information.
-     * 
+     *
      * @param oPtPref The patient's consent preference information.
      * @return The XACML Policy that represents this consent information.
      * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This exception is thrown if any error
