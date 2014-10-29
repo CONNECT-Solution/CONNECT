@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+    <alias alias="directconfigwsclient" name="directconfigcxfwsclient" />
+
+    <!-- CXF Web Service Client -->
+    <bean class="gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxyWebServiceUnsecuredCXFImpl" id="directconfigcxfwsclient" name="directconfigcxfwsclient"> 
+        <meta key="impltype" value="java"/>
+    </bean> 
+
+    <!-- JAX-WS Web Service Client. Uses the default JAX-WS implementation provided by the App Server Container -->
+    <bean class="gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxyWebServiceUnsecuredContainerImpl" id="directconfigcontainerwsclient" name="directconfigcontainerwsclient"> 
+        <meta key="impltype" value="java"/>
+    </bean> 
+
+</beans>

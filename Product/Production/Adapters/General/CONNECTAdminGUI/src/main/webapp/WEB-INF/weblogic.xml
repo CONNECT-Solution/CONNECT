@@ -7,9 +7,41 @@
      http://xmlns.oracle.com/weblogic/weblogic-web-app  http://xmlns.oracle.com/weblogic/weblogic-web-app/1.3/weblogic-web-app.xsd">
 
     <wls:container-descriptor>
-        <wls:prefer-web-inf-classes>true</wls:prefer-web-inf-classes>
+        <wls:prefer-application-packages>
+            <package-name>javax.jws.*</package-name>
+            <package-name>org.apache.cxf.*</package-name>
+            <package-name>org.apache.geronimo.webservices.*</package-name>
+            <package-name>org.apache.jcp.*</package-name>
+            <package-name>org.apache.ws.*</package-name>
+            <package-name>org.apache.xerces.*</package-name>
+            <package-name>org.apache.xml.*</package-name>
+            <package-name>org.apache.xalan.*</package-name>
+            <package-name>org.apache.log4j.*</package-name>
+            <package-name>javax.xml.ws.*</package-name>
+            <package-name>javax.xml.soap.*</package-name>
+            <package-name>javax.xml.crypto.*</package-name>
+            <package-name>org.springframework.*</package-name>
+            <package-name>antlr.*</package-name>
+            <package-name>net.sf.cglib.*</package-name>
+            <package-name>org.hibernate.*</package-name>
+            <package-name>org.objectweb.asm.*</package-name>
+            <package-name>org.opensaml.*</package-name>
+            <package-name>com.ctc.wstx.*</package-name>
+            <package-name>org.codehaus.stax2.*</package-name>
+            <package-name>com.sun.xml.messaging.saaj.*</package-name>
+            <package-name>com.google.common.*</package-name>
+            <package-name>org.bouncycastle.*</package-name>
+            <package-name>javax.faces.*</package-name> 
+            <package-name>com.sun.faces.*</package-name> 
+            <package-name>com.bea.faces.*</package-name>
+        </wls:prefer-application-packages>
+        <wls:prefer-application-resources> 
+            <resource-name>javax.faces.*</resource-name> 
+            <resource-name>com.sun.faces.*</resource-name> 
+            <resource-name>com.bea.faces.*</resource-name> 
+            <resource-name>META-INF/services/javax.servlet.ServletContainerInitializer</resource-name>
+        </wls:prefer-application-resources>
     </wls:container-descriptor>
-
     <wls:jsp-descriptor>
         <wls:keepgenerated>true</wls:keepgenerated>
     </wls:jsp-descriptor>

@@ -272,4 +272,12 @@ public interface DirectConfigProxy {
      * @throws Exception
      */
     public void removeAddress(String addressEmail) throws Exception;
+
+    /**
+     * Service to check if Direct is deployed as part of CONNECT.
+     * @param url Direct Configuration web service URL
+     * @return 
+     * @throws Exception
+     */
+    public boolean pingDirectConfig(String url) throws Exception;
 }

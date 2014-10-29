@@ -438,7 +438,7 @@ public class NhincConstants {
     public static final String ADAPTER_CORE_X12DS_GENERICBATCH_RESPONSE_SECURED_SERVICE_NAME = "adaptercore_x12dsgenericbatchresponsesecured";
 
     public static final String CORE_X12DS_GENERICBATCH_PROXY_CONFIG_FILE_NAME = "CORE_X12DSGenericBatchProxyConfig.xml";
-
+    public static final String ADMIN_GUI_PROXY_CONFIG_FILE_NAME = "AdminGUIProxyConfig.xml";
     public static final String CORE_X12DS_ACK_ERROR_MSG = null;
     public static final String CORE_X12DS_ACK_ERROR_CODE = null;
     
