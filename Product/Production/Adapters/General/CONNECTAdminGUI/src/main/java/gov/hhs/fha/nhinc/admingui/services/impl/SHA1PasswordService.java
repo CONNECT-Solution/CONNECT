@@ -72,7 +72,7 @@ public class SHA1PasswordService extends AbstractBase64EncodedPasswordService {
 
      /**
      *
-     * @return string
+     * @return the salt value
      */
     @Override
     public byte[] generateRandomSalt() {
