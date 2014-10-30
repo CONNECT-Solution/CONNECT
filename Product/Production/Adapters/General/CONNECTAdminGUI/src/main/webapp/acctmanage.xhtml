@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  /* 
+  /*
    * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
-   * All rights reserved. 
+   * All rights reserved.
    *
-   * Redistribution and use in source and binary forms, with or without  
-   * modification, are permitted provided that the following conditions are met:  
-   *     * Redistributions of source code must retain the above  
-   *       copyright notice, this list of conditions and the following disclaimer. 
-   *     * Redistributions in binary form must reproduce the above copyright  
-   *       notice, this list of conditions and the following disclaimer in the documentation  
-   *       and/or other materials provided with the distribution.  
-   *     * Neither the name of the United States Government nor the  
-   *       names of its contributors may be used to endorse or promote products  
-   *       derived from this software without specific prior written permission.  
-   * 
-   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND  
-   * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED  
-   * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE  
-   * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY  
-   * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES  
-   * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  
-   * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND  
-   * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT  
-   * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS  
+   * Redistribution and use in source and binary forms, with or without
+   * modification, are permitted provided that the following conditions are met:
+   *     * Redistributions of source code must retain the above
+   *       copyright notice, this list of conditions and the following disclaimer.
+   *     * Redistributions in binary form must reproduce the above copyright
+   *       notice, this list of conditions and the following disclaimer in the documentation
+   *       and/or other materials provided with the distribution.
+   *     * Neither the name of the United States Government nor the
+   *       names of its contributors may be used to endorse or promote products
+   *       derived from this software without specific prior written permission.
+   *
+   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+   * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+   * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+   * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+   * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+   * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+   * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+   * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-   */ 
+   */
 -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
 <h:body>
     <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
         <f:metadata>
@@ -51,29 +51,37 @@
                         <div class="tab-pane active" id="users">
                             <div class="content-block">
                                 <h2 class="subsection-header">Create User</h2>
-                                
+
                                 <div class="content">
                                     <p>Create a new User Account by entering the required information in the fields below:</p>
-                                    
+
                                     <div class="form-block center-block">
                                         <h:form class="form-horizontal" role="form" id="createUserForm">
-                                            <p:messages id="userMessages" autoUpdate="true" closable="true" redisplay="false"/> 
+                                            <p:messages id="userMessages" autoUpdate="true" closable="true" redisplay="false"/>
                                             <div class="form-group">
                                                 <h:outputLabel for="username" class="col-sm-3 control-label" id="usernameLbl" value="New Username:" />
                                                 <div class="col-sm-9">
                                                     <p:inputText styleClass="form-control" id="username" maxlength="20" required="true" value="#{manageUserBean.userName}" requiredMessage="User name required." />
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="form-group">
                                                 <h:outputLabel class="col-sm-3 control-label" for="password" id="userpasswordLbl" value="Password:" />
-                                                <div class="col-sm-9">                                                    
-                                                    <p:password id="password" value="#{manageUserBean.password}"   
-                                                                feedback="true" weakLabel="Weak Password" goodLabel="Good Password" strongLabel="Strong Password"  required="true" maxlength="10" requiredMessage="Password required." styleClass="form-control" />
-          
+                                                <div class="col-sm-9">
+                                                    <p:password id="password" value="#{manageUserBean.password}"
+                                                                feedback="true" weakLabel="Weak Password" goodLabel="Good Password" strongLabel="Strong Password"
+                                                                match="confirmPassword" required="true" maxlength="10" requiredMessage="Password required."
+                                                                validatorMessage="Passwords must match." styleClass="form-control" />
                                                 </div>
                                             </div>
-                                            
+
+                                            <div class="form-group">
+                                                <h:outputLabel class="col-sm-3 control-label" for="confirmPassword" id="confirmUserpasswordLbl" value="Confirm Password:" />
+                                                <div class="col-sm-9">
+                                                    <p:password id="confirmPassword" value="#{manageUserBean.password}" maxlength="10" styleClass="form-control" />
+                                                </div>
+                                            </div>
+
                                             <div class="form-group">
                                                 <h:outputLabel for="select-role" class="col-sm-3 control-label" id="roleLbl" value="Role:" />
                                                 <div class="col-sm-9">
@@ -84,12 +92,12 @@
                                                     </h:selectOneMenu>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="form-group">
                                                 <div class="col-sm-12">
                                                     <div class="form-button-row">
                                                         <p:commandButton type="reset" value="Reset" styleClass="btn btn-default" />
-                                                        <p:commandButton id="submit" update=":tabview:usersList:userDataTable, username, password" value="Create User" action="#{manageUserBean.addCreateUser()}" styleClass="btn btn-primary" icon="ui-icon-circle-plus" />
+                                                        <p:commandButton id="submit" update=":tabview:usersList:userDataTable, username, password, confirmPassword" value="Create User" action="#{manageUserBean.addCreateUser()}" styleClass="btn btn-primary" icon="ui-icon-circle-plus" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -113,11 +121,11 @@
                                         </p:column>
                                     </p:dataTable>
                                     <div class="form-group">
-                                                <div class="col-sm-12">
-                                                    <div class="form-button-row">
-                                                        <p:commandButton update="userDataTable" value="Delete" actionListener="#{manageUserBean.deleteUser}" styleClass="delete-button" icon="ui-icon-closethick"/>                          
-                                                    </div>
-                                                </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-button-row">
+                                                <p:commandButton update="userDataTable" value="Delete" actionListener="#{manageUserBean.deleteUser}" styleClass="delete-button" icon="ui-icon-closethick"/>
+                                            </div>
+                                        </div>
                                     </div>
                                     </h:form>
                                     </div>
@@ -126,26 +134,26 @@
                         </div>
                     </p:tab>
                     <!-- END: TAB PANE - USER ACCOUNTS -->
-                    
-                    <!-- BEGIN: TAB PANE - MANAGE ROLES -->        
+
+                    <!-- BEGIN: TAB PANE - MANAGE ROLES -->
                     <p:tab title="Manage Roles" closable="false">
                         <div class="content-block">
                             <h2 class="subsection-header">Manage User Roles</h2>
                             <div class="content">
                                 <h:form id="manageRoleForm" prependId="false">
-                                    <div class="content-block">   
+                                    <div class="content-block">
                                         <h2 class="subsection-header-select">
-                                        	Edit Page Level Access for: 
+                                            Edit Page Level Access for:
                                             <div class="divManageRole">
                                                 <h:selectOneMenu value="#{manageRoleBean.selectedRole}" class="form-control">
                                                     <p:ajax event="change" listener="#{manageRoleBean.roleChanged}" update="pagesTable"/>
-                                                    <f:selectItem itemLabel="Select Role" noSelectionOption="true" />  
+                                                    <f:selectItem itemLabel="Select Role" noSelectionOption="true" />
                                                     <f:selectItems value="#{manageRoleBean.roleLabels}" var="role" itemLabel="#{role}" itemValue="#{role}"/>
                                                 </h:selectOneMenu>
                                             </div>
                                         </h2>
-                                        <div class="table-responsive">                      
-                                            <p:dataTable id="pagesTable" var="page" value="#{manageRoleBean.pages}" resizableColumns="true" styleClass="table table-striped table-remotegateways">                          
+                                        <div class="table-responsive">
+                                            <p:dataTable id="pagesTable" var="page" value="#{manageRoleBean.pages}" resizableColumns="true" styleClass="table table-striped table-remotegateways">
                                                 <p:column headerText="Page Name">
                                                     <h:outputText value="#{page.preference.pageDesc}" />
                                                 </p:column>
@@ -158,10 +166,10 @@
                                             </p:dataTable>
                                         </div>
                                     </div>
-                                    
+
                                     <p:messages id="messages" showDetail="true" autoUpdate="true">
                                         <p:effect type="fade" event="load" delay="1000" />
-                                    </p:messages>               
+                                    </p:messages>
                                 </h:form>
                             </div>
                         </div>
