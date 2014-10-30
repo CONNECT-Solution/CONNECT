@@ -48,7 +48,6 @@ THE POSSIBILITY OF SUCH DAMAGE.
 package gov.hhs.fha.nhinc.directconfig.entity.helpers;
 
 import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -75,9 +74,9 @@ public class BundleThumbprint {
         if (bytes == null) {
             throw new IllegalArgumentException();
         }
-        
+
         final BundleThumbprint retVal = new BundleThumbprint(bytes);
-        
+
         return retVal;
     }
 
@@ -126,13 +125,22 @@ public class BundleThumbprint {
      * {@inheritDoc}
      */
     public boolean equals(Object obj) {
-        if (!(obj instanceof Thumbprint)) {
-            return false;
-        }
-        
-        final BundleThumbprint compareTo = (BundleThumbprint)obj;
+        boolean isEqual = false;
 
-        // deep compare
-        return Arrays.equals(compareTo.digest, digest);
+        if (obj instanceof BundleThumbprint) {
+            final BundleThumbprint compareTo = (BundleThumbprint) obj;
+
+            // deep compare
+            isEqual = Arrays.equals(compareTo.digest, digest);
+        }
+
+        return isEqual;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Arrays.hashCode(this.digest);
+        return hash;
     }
 }
