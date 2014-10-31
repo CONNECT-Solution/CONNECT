@@ -270,6 +270,15 @@
             </properties>
         </profile>
         <profile>
+            <id>Direct</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <direct.excluded>false</direct.excluded>
+            </properties>
+        </profile>
+        <profile>
             <id>GUI</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
