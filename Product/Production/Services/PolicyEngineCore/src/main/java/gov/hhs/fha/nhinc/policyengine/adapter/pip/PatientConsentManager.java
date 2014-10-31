@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
@@ -44,13 +44,10 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
-
 import oasis.names.tc.ebxml_regrep.xsd.lcm._3.SubmitObjectsRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -59,14 +56,13 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.PolicyType;
-
 import org.apache.log4j.Logger;
 import org.hl7.v3.II;
 import org.hl7.v3.POCDMT000040ClinicalDocument;
 
 /**
  * This class manages the patient consent form. It stores or retrieves the patient consent document from the repository.
- * 
+ *
  * @author Les Westberg
  */
 public class PatientConsentManager {
@@ -78,10 +74,11 @@ public class PatientConsentManager {
     /**
      * This method saves the patient consent information to the document repository. It will overwrite anything that is
      * currently there.
-     * 
+     *
      * @param oPtPref The patient consent preferences.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This exception is thrown if there is an
-     *             error storing.
+     * @throws gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException This exception is thrown if there is an
+       *             error storing.
+     * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException
      */
     public void storePatientConsent(PatientPreferencesType oPtPref) throws AdapterPIPException, PropertyAccessException {
 
@@ -100,7 +97,7 @@ public class PatientConsentManager {
             LOG.info("Created XACML Doc with policy OID: " + oConsentXACML.getPolicyId());
 
             String sDocOID = null;
-            if ((oPtPref != null) && (oPtPref.getAssigningAuthority() != null) && (oPtPref.getPatientId() != null)) {
+            if (oPtPref.getAssigningAuthority() != null && oPtPref.getPatientId() != null) {
                 sDocOID = retrievePatientConsentDocumentIdByPatientId(oPtPref.getPatientId(),
                         oPtPref.getAssigningAuthority());
                 LOG.info("storePatientConsent - sDocOID: " + sDocOID);
@@ -137,7 +134,7 @@ public class PatientConsentManager {
                     }
                 }
 
-                if (olDocIds2Store != null && !olDocIds2Store.isEmpty()) {
+                if (!olDocIds2Store.isEmpty()) {
                     CdaPdfCreator oPdfCreator = new CdaPdfCreator();
                     CdaPdfSerializer oPdfSerializer = new CdaPdfSerializer();
                     List<POCDMT000040ClinicalDocument> olPdfs = oPdfCreator.createCDA(oPtPref);
@@ -161,7 +158,6 @@ public class PatientConsentManager {
             } else {
                 LOG.info("No Binary Policy Documents are contained in the patient preferences.");
             }
-
         } else {
             String sErrorMessage = "failed to store patient consent.  The patient preference was null.";
             LOG.error(sErrorMessage);
@@ -195,11 +191,11 @@ public class PatientConsentManager {
 
     /**
      * This method stores the patient preference document to the repository.
-     * 
+     *
      * @param oPtPref The patient preference information.
      * @param sPrefDoc The consent document.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This exception is thrown if there is an
-     *             error.
+     * @throws gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException This exception is thrown if there is an
+       *             error.
      */
     private void storeCPPToRepositoryUsingXDSb(PatientPreferencesType oPtPref, String sPrefDoc,
             String sUniqueDocumentId, String sMimeType) throws AdapterPIPException, PropertyAccessException {
@@ -217,47 +213,54 @@ public class PatientConsentManager {
     }
 
     /**
-     * 
+     *
      * @param sPrefDoc
      * @param oPtPref
      * @return boolean
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
+     * @throws gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException
      */
     private void saveCPPDoc(String sPrefDoc, PatientPreferencesType oPtPref, String sUniqueDocumentId, String sMimeType)
             throws AdapterPIPException, PropertyAccessException {
         LOG.info("------ Begin PatientConsentManager.saveCPPDoc ------");
 
-        // Create a raw data document to be stored
-        ProvideAndRegisterDocumentSetRequestType oRequest = new ProvideAndRegisterDocumentSetRequestType();
-        ProvideAndRegisterDocumentSetRequestType.Document oDoc = createDocumentRawData(sPrefDoc, sUniqueDocumentId);
-        LOG.info("Raw document created with ID: " + sUniqueDocumentId);
-        oRequest.getDocument().add(oDoc);
+        if (oPtPref != null) {
+            // Create a raw data document to be stored
+            ProvideAndRegisterDocumentSetRequestType oRequest = new ProvideAndRegisterDocumentSetRequestType();
+            ProvideAndRegisterDocumentSetRequestType.Document oDoc = createDocumentRawData(sPrefDoc, sUniqueDocumentId);
+            LOG.info("Raw document created with ID: " + sUniqueDocumentId);
+            oRequest.getDocument().add(oDoc);
 
-        if ((oDoc != null) && (oDoc.getValue() != null) & (oPtPref != null)) {
-            if (oPtPref.getFineGrainedPolicyMetadata() == null) {
-                oPtPref.setFineGrainedPolicyMetadata(new FineGrainedPolicyMetadataType());
+            if (oDoc != null && oDoc.getValue() != null) {
+                if (oPtPref.getFineGrainedPolicyMetadata() == null) {
+                    oPtPref.setFineGrainedPolicyMetadata(new FineGrainedPolicyMetadataType());
+                }
+
+                oPtPref.getFineGrainedPolicyMetadata().setSize(String.valueOf(sPrefDoc.getBytes().length));
             }
 
-            oPtPref.getFineGrainedPolicyMetadata().setSize(String.valueOf(sPrefDoc.getBytes().length));
-        }
-
-        // If a matching document id is found the target will not be empty
-        String sTargetObject = checkCPPMetaFromRepositoryUsingXDSb(oPtPref.getPatientId(),
+            // If a matching document id is found the target will not be empty
+            String sTargetObject = checkCPPMetaFromRepositoryUsingXDSb(oPtPref.getPatientId(),
                 oPtPref.getAssigningAuthority(), sUniqueDocumentId, sMimeType);
-        String sHomeCommunityId = PropertyAccessor.getInstance().getProperty("gateway", "localHomeCommunityId");
-        PatientConsentDocumentBuilderHelper oPatConsentDocBuilderHelper = new PatientConsentDocumentBuilderHelper();
-        SubmitObjectsRequest oSubmitObjectRequest = oPatConsentDocBuilderHelper.createSubmitObjectRequest(
+            String sHomeCommunityId = PropertyAccessor.getInstance().getProperty("gateway", "localHomeCommunityId");
+            PatientConsentDocumentBuilderHelper oPatConsentDocBuilderHelper = new PatientConsentDocumentBuilderHelper();
+            SubmitObjectsRequest oSubmitObjectRequest = oPatConsentDocBuilderHelper.createSubmitObjectRequest(
                 sTargetObject, sHomeCommunityId, sUniqueDocumentId, sMimeType, oPtPref);
-        oRequest.setSubmitObjectsRequest(oSubmitObjectRequest);
+            oRequest.setSubmitObjectsRequest(oSubmitObjectRequest);
 
-        RegistryResponseType oRegistryResponse = invokeDocRepositoryProvideAndRegisterDocumentSetB(oRequest);
+            RegistryResponseType oRegistryResponse = invokeDocRepositoryProvideAndRegisterDocumentSetB(oRequest);
 
-        if (oRegistryResponse != null && oRegistryResponse.getStatus() != null
-                && !oRegistryResponse.getStatus().equals("")) {
-            LOG.info("Patient Consent Document saved to repository Successfully");
+            if (oRegistryResponse != null) {
+                if (oRegistryResponse.getStatus() != null && !oRegistryResponse.getStatus().equals("")) {
+                    LOG.info("Patient Consent Document saved to repository Successfully");
+                } else {
+                    throw new AdapterPIPException("Unable to save Patient Consent Document"
+                        + oRegistryResponse.getRegistryErrorList().getRegistryError().get(0).getValue());
+                }
+            } else {
+                throw new AdapterPIPException("Did not receive a Registry Response.");
+            }
         } else {
-            throw new AdapterPIPException("Unable to Save patient Consent Document"
-                    + oRegistryResponse.getRegistryErrorList().getRegistryError().get(0).getValue());
+            throw new AdapterPIPException("Patient Preferences was null.");
         }
 
         LOG.info("------ End PatientConsentManager.saveCPPDoc ------");
@@ -265,7 +268,7 @@ public class PatientConsentManager {
 
     /**
      * This method is used internal by saveCPPDoc creates Document with rawData and document unique id
-     * 
+     *
      * @param sPrefDoc
      * @param sDocUniqueId
      * @return ProvideAndRegisterDocumentSetRequestType.Document
@@ -287,11 +290,11 @@ public class PatientConsentManager {
 
     /**
      * To verify a XAML Document already persists in database
-     * 
+     *
      * @param sPatientId The Patient identifier
      * @param sAssigningAuthority The assigning authority
      * @return boolean
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
+     * @throws gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException
      */
     private String checkCPPMetaFromRepositoryUsingXDSb(String sPatientId, String sAssigningAuthority,
             String sUniqueDocumentId, String sMimeType) throws AdapterPIPException {
@@ -361,16 +364,13 @@ public class PatientConsentManager {
     }
 
     /**
-     * This method retrieves the patient consent information from the repository based on a document Id. It does this by
-     * first using the document ID to retrieve the patient ID. Then it uses the patient ID to retrieve the consent
-     * information.
-     * 
-     * @param sPatientId The ID of the patient.
-     * @param sAssigningAuthority The assigning authority associated with the patient ID. Currently it is not really
-     *            used, but here if it is needed.
+     *
+     * @param sHomeCommunityId
+     * @param sRepositoryId
+     * @param sDocumentUniqueId
      * @return The patient consent preferences.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This error is thrown if there are any
-     *             issues retrieving the document.
+     * @throws gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException This error is thrown if there are any
+       *             issues retrieving the document.
      */
     public PatientPreferencesType retrievePatientConsentByDocId(String sHomeCommunityId, String sRepositoryId,
             String sDocumentUniqueId) throws AdapterPIPException {
@@ -407,7 +407,7 @@ public class PatientConsentManager {
     /**
      * This method takes the given Document ID and does a query against the repository to find out the patient ID for
      * this patient. It returns that patient ID.
-     * 
+     *
      * @param sDocumentUniqueId The document ID of an existing document in the repository.
      * @param sRepositoryId The repository ID of the repository where the document is stored.
      * @return The patient ID of the patient.
@@ -473,13 +473,13 @@ public class PatientConsentManager {
 
     /**
      * This method retrieves the patient consent information from the repository based on patient Id.
-     * 
+     *
      * @param sPatientId The ID of the patient.
      * @param sAssigningAuthority The assigning authority associated with the patient ID. Currently it is not really
      *            used, but here if it is needed.
      * @return The patient consent preferences.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This error is thrown if there are any
-     *             issues retrieving the document.
+     * @throws gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException This error is thrown if there are any
+       *             issues retrieving the document.
      */
     public PatientPreferencesType retrievePatientConsentByPatientId(String sPatientId, String sAssigningAuthority)
             throws AdapterPIPException {
@@ -527,11 +527,11 @@ public class PatientConsentManager {
 
     /**
      * This operation retrieves the currently stored patient consent information from the repository.
-     * 
+     *
      * @param sPatientId The ID of the patient.
      * @param sAssigningAuthority The Assigning authority
      * @return The document information.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException The error if one occurs.
+     * @throws gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException The error if one occurs.
      */
     private List<CPPDocumentInfo> retrieveCPPFromRepositoryUsingXDSb(String sPatientId, String sAssigningAuthority)
             throws AdapterPIPException {
@@ -567,11 +567,11 @@ public class PatientConsentManager {
     /**
      * This method retrieves the document identifier information from the repository for the Consumer Preferences
      * document for this patient.
-     * 
+     *
      * @param sPatientId The patient ID of the patient.
      * @param sAssigningAuthority The assigning authority
      * @return The document identifiers for the CPP document
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This error is thrown if any problem occurs
+     * @throws gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException This error is thrown if any problem occurs
      *             getting the data.
      */
     private List<DocumentRequest> retrieveCPPDocIdentifiers(String sPatientId, String sAssigningAuthority)
@@ -595,11 +595,11 @@ public class PatientConsentManager {
 
     /**
      * This method takes the document identifiers for the CPP document and retrieves the document from the repository.
-     * 
+     *
      * @param oDocRequest The document identifiers.
      * @param oCPPDocInfo Document object to hold results
      * @return void.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This is thrown if there are any errors.
+     * @throws gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException This is thrown if there are any errors.
      */
     private void retrieveCPPDoc(DocumentRequest oDocRequest, CPPDocumentInfo oCPPDocInfo) throws AdapterPIPException {
         String sPrefDoc = "";
@@ -625,10 +625,10 @@ public class PatientConsentManager {
 
     /**
      * This operation returns the Patient CPP document in XML form that it extracts from the Response.
-     * 
-     * @param oResponse The response that was recieved from the repository.
+     *
+     * @param oResponse The response that was received from the repository.
      * @return The XML form of the patient CPP.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This is thrown if there are any errors.
+     * @throws gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException This is thrown if there are any errors.
      */
     private String extractFineGrainedPrefDoc(DocumentRequest oDocRequest, RetrieveDocumentSetResponseType oResponse)
             throws AdapterPIPException {
@@ -698,10 +698,10 @@ public class PatientConsentManager {
     /**
      * This method takes the XML Patient preference CDA documents and it populates the PtPref with the information it
      * finds in it.
-     * 
+     *
      * @param olDocInfo The list of patient preference documents
      * @return The patient preferences from the document.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
+     * @throws gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException
      */
     private PatientPreferencesType populateConsentInfo(List<CPPDocumentInfo> olDocInfo) throws AdapterPIPException {
         LOG.info("--------------- Begin populateConsentInfo ---------------");
@@ -728,7 +728,7 @@ public class PatientConsentManager {
 
         }
         // patient is required to have a fine-grained policy to continue with binary document
-        if (bHasFineGrained && oPtPref != null) {
+        if (bHasFineGrained) {
             LOG.info("Begin extraction for Binary documents");
             BinaryDocumentPolicyCriteriaType oBinDocPolicyCriteriaType = new BinaryDocumentPolicyCriteriaType();
             List<BinaryDocumentPolicyCriterionType> olBinDocPolicyCriteria = oBinDocPolicyCriteriaType
@@ -736,8 +736,9 @@ public class PatientConsentManager {
 
             // Add Binary extraction for each document that contains a pdf
             for (CPPDocumentInfo oDocInfo : olDocInfo) {
-                LOG.info(oDocInfo.lDocumentId + " has " + oDocInfo.olConsentPdf.size() + " pdf");
-                if (oDocInfo != null && oDocInfo.olConsentPdf != null && !oDocInfo.olConsentPdf.isEmpty()) {
+                if (oDocInfo.olConsentPdf != null && !oDocInfo.olConsentPdf.isEmpty()) {
+                    LOG.info(oDocInfo.lDocumentId + " has " + oDocInfo.olConsentPdf.size() + " pdf");
+
                     List<String> olConsentPdf = oDocInfo.olConsentPdf;
                     for (String sConsentPdf : olConsentPdf) {
                         CdaPdfSerializer oSerializer = new CdaPdfSerializer();
@@ -775,7 +776,6 @@ public class PatientConsentManager {
      * This class is an inner class used to hold the document along with its set of identifiers. For internal purposes.
      */
     private class CPPDocumentInfo {
-
         long lDocumentId = 0; // note this is only used by our internal document repository service
         String sHomeCommunityId = "";
         String sRepositoryId = "";
@@ -783,5 +783,4 @@ public class PatientConsentManager {
         String sConsentXACML = "";
         List<String> olConsentPdf = new ArrayList<String>();
     }
-
 }

@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
@@ -40,12 +40,11 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
-
 import org.apache.log4j.Logger;
 
 /**
  * Utility Methods for AdhocQuery requests and responses
- * 
+ *
  * @author Neil Webb
  */
 public class QueryUtil {
@@ -54,10 +53,10 @@ public class QueryUtil {
 
     /**
      * This method extracts the patient ID from the AdhocQueryResponse message and returns it.
-     * 
+     *
      * @param oResponse The AdhocQueryResponse message from the repository.
      * @return The patient ID in the response message.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This is thrown if any issues occur.
+     * @throws gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException This is thrown if any issues occur.
      */
     public String extractPatientId(AdhocQueryResponse oResponse) throws AdapterPIPException {
         String sPatientId = "";
@@ -104,11 +103,11 @@ public class QueryUtil {
     /**
      * This method takes the parameters and creates an AdhocQueryRequest message that can be used to retrieve the meta
      * data about this document.
-     * 
+     *
      * @param sDocumentUniqueId The unique ID of the document.
      * @param sRepositoryId The repository ID where the document is stored.
      * @return The AdhocQueryRequest containing the search information.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This is thrown if there is an error.
+     * @throws gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException This is thrown if there is an error.
      */
     public AdhocQueryRequest createPatientIdQuery(String sDocumentUniqueId, String sRepositoryId)
             throws AdapterPIPException {
@@ -164,11 +163,11 @@ public class QueryUtil {
 
     /**
      * This method will create the DocumentRequests (Document IDs) from the AdhocQueryResponse object.
-     * 
+     *
      * @param oResponse The AdhocQueryResponse that contains the document ids.
      * @return The list of DocumentRequests containing the document ids, note list may be empty if no DocumentRequests
      *         are built
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException Any error in the process of conversion.
+     * @throws gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException Any error in the process of conversion.
      */
     public List<DocumentRequest> createDocumentRequest(AdhocQueryResponse oResponse) throws AdapterPIPException {
         List<DocumentRequest> olDocReq = new ArrayList<DocumentRequest>();
@@ -193,51 +192,56 @@ public class QueryUtil {
                     String sDocumentId = "";
                     String sHL7PatientId = "";
 
-                    // Home Community ID
-                    // -------------------
-                    if ((oExtObj != null) && (oExtObj.getHome() != null) && (oExtObj.getHome().length() > 0)) {
-                        sHomeCommunityId = oExtObj.getHome().trim();
-                    } else if ((oExtObj.getSlot() != null) && (oExtObj.getSlot().size() > 0)) {
-                        List<SlotType1> olSlot = oExtObj.getSlot();
-                        for (SlotType1 oSlot : olSlot) {
-                            if ((oSlot.getName() != null)
-                                    && (oSlot.getName().equals(CDAConstants.SLOT_NAME_SOURCE_PATIENT_ID))
-                                    && (oSlot.getValueList() != null) && (oSlot.getValueList().getValue() != null)
-                                    && (oSlot.getValueList().getValue().size() > 0)
-                                    && (oSlot.getValueList().getValue().get(0).length() > 0)) {
-                                sHL7PatientId = oSlot.getValueList().getValue().get(0).trim();
-                                sHomeCommunityId = PatientIdFormatUtil.parseCommunityId(sHL7PatientId);
-                            }
-                        } // for (SlotType1 oSlot : olSlot)
-                    } // if ((oExtObj.getSlot() != null) && ...
+                    if (oExtObj != null) {
+                        // Home Community ID
+                        // -------------------
+                        if (oExtObj.getHome() != null && oExtObj.getHome().length() > 0) {
+                            sHomeCommunityId = oExtObj.getHome().trim();
+                        } else if (oExtObj.getSlot() != null && oExtObj.getSlot().size() > 0) {
+                            List<SlotType1> olSlot = oExtObj.getSlot();
+                            for (SlotType1 oSlot : olSlot) {
+                                if (oSlot.getName() != null
+                                    && oSlot.getName().equals(CDAConstants.SLOT_NAME_SOURCE_PATIENT_ID)
+                                    && oSlot.getValueList() != null
+                                    && oSlot.getValueList().getValue() != null
+                                    && oSlot.getValueList().getValue().size() > 0
+                                    && oSlot.getValueList().getValue().get(0).length() > 0) {
 
-                    // Repository ID
-                    // ---------------
-                    if ((oExtObj.getSlot() != null) && (oExtObj.getSlot().size() > 0)) {
-                        List<SlotType1> olSlot = oExtObj.getSlot();
-                        for (SlotType1 oSlot : olSlot) {
-                            if ((oSlot.getName() != null)
-                                    && (oSlot.getName().equals(CDAConstants.SLOT_NAME_REPOSITORY_UNIQUE_ID))
-                                    && (oSlot.getValueList() != null) && (oSlot.getValueList().getValue() != null)
-                                    && (oSlot.getValueList().getValue().size() > 0)
-                                    && (oSlot.getValueList().getValue().get(0).length() > 0)) {
-                                sRepositoryId = oSlot.getValueList().getValue().get(0).trim();
-                            }
-                        } // for (SlotType1 oSlot : olSlot)
-                    } // if ((oExtObj.getSlot() != null) && ...
+                                    sHL7PatientId = oSlot.getValueList().getValue().get(0).trim();
+                                    sHomeCommunityId = PatientIdFormatUtil.parseCommunityId(sHL7PatientId);
+                                }
+                            } // for (SlotType1 oSlot : olSlot)
+                        } // if ((oExtObj.getSlot() != null) && ...
 
-                    // Document Unique ID
-                    // -------------------
-                    if ((oExtObj.getExternalIdentifier() != null) && (oExtObj.getExternalIdentifier().size() > 0)) {
-                        List<ExternalIdentifierType> olExtId = oExtObj.getExternalIdentifier();
-                        for (ExternalIdentifierType oExtId : olExtId) {
-                            if ((oExtId.getIdentificationScheme() != null)
+                        // Repository ID
+                        // ---------------
+                        if (oExtObj.getSlot() != null && oExtObj.getSlot().size() > 0) {
+                            List<SlotType1> olSlot = oExtObj.getSlot();
+                            for (SlotType1 oSlot : olSlot) {
+                                if (oSlot.getName() != null
+                                    && oSlot.getName().equals(CDAConstants.SLOT_NAME_REPOSITORY_UNIQUE_ID)
+                                    && oSlot.getValueList() != null
+                                    && oSlot.getValueList().getValue() != null
+                                    && oSlot.getValueList().getValue().size() > 0
+                                    && oSlot.getValueList().getValue().get(0).length() > 0) {
+                                    sRepositoryId = oSlot.getValueList().getValue().get(0).trim();
+                                }
+                            } // for (SlotType1 oSlot : olSlot)
+                        } // if ((oExtObj.getSlot() != null) && ...
+
+                        // Document Unique ID
+                        // -------------------
+                        if ((oExtObj.getExternalIdentifier() != null) && (oExtObj.getExternalIdentifier().size() > 0)) {
+                            List<ExternalIdentifierType> olExtId = oExtObj.getExternalIdentifier();
+                            for (ExternalIdentifierType oExtId : olExtId) {
+                                if ((oExtId.getIdentificationScheme() != null)
                                     && (oExtId.getIdentificationScheme().equals(CDAConstants.DOCUMENT_ID_IDENT_SCHEME))
                                     && (oExtId.getValue() != null) && (oExtId.getValue().length() > 0)) {
-                                sDocumentId = oExtId.getValue().trim();
-                            }
-                        } // for (ExternalIdentifierType oExtid : olExtId)
-                    } // if ((oExtObj.getExternalIdentifier() != null) &&
+                                    sDocumentId = oExtId.getValue().trim();
+                                }
+                            } // for (ExternalIdentifierType oExtid : olExtId)
+                        } // if ((oExtObj.getExternalIdentifier() != null) &&
+                    }
 
                     DocumentRequest oDocRequest = new DocumentRequest();
                     oDocRequest.setHomeCommunityId(sHomeCommunityId);
@@ -255,12 +259,12 @@ public class QueryUtil {
     /**
      * This method creates the AdhocQueryRequest that is used to retreive the meta data about the CPP document in the
      * repository.
-     * 
+     *
      * @param sPatientId The patient ID.
      * @param sAssigningAuthority The assigning authority
      * @return The AdhocQueryRequest used to retrieve the document meta data.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This exception is thrown if there is an
-     *             error.
+     * @throws gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException This exception is thrown if there is an
+       *             error.
      */
     public AdhocQueryRequest createAdhocQueryRequest(String sPatientId, String sAssigningAuthority)
             throws AdapterPIPException {

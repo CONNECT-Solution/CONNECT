@@ -67,7 +67,7 @@ public class ManageRoleBean {
 
     private String selectedRole;
 
-    private HashMap<String, UserRole> roles = new HashMap<String, UserRole>();
+    private final HashMap<String, UserRole> roles = new HashMap<String, UserRole>();
 
     /**
      * Access level changed.
@@ -155,7 +155,7 @@ public class ManageRoleBean {
 
             selectedRole = currentRole.getRoleName();
 
-            setPreferences(user.getUserRole());
+            setPreferences(currentRole);
         }
     }
 
