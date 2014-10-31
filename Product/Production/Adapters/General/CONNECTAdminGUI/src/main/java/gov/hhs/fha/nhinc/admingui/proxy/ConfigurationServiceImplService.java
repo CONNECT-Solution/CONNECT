@@ -20,12 +20,8 @@
  */
 package gov.hhs.fha.nhinc.admingui.proxy;
 
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import javax.xml.ws.WebEndpoint;
@@ -48,17 +44,12 @@ public class ConfigurationServiceImplService
     private final static WebServiceException CONFIGURATIONSERVICEIMPLSERVICE_EXCEPTION;
     private final static QName CONFIGURATIONSERVICEIMPLSERVICE_QNAME = new QName("http://nhind.org/config", "ConfigurationServiceImplService");
 
-    private static final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
-    
     static {
         URL url = null;
         WebServiceException e = null;
         try {
-            String sUrl = oProxyHelper.getAdapterEndPointFromConnectionManager(DirectConfigConstants.DIRECT_CONFIG_SERVICE_NAME);
-            url = new URL(sUrl);
+            url = new URL("http://localhost:8080/CONNECTDirectConfig/ConfigurationService?wsdl");
         } catch (MalformedURLException ex) {
-            e = new WebServiceException(ex);
-        } catch (ConnectionManagerException ex) {
             e = new WebServiceException(ex);
         }
         CONFIGURATIONSERVICEIMPLSERVICE_WSDL_LOCATION = url;
@@ -71,6 +62,22 @@ public class ConfigurationServiceImplService
 
     public ConfigurationServiceImplService(WebServiceFeature... features) {
         super(__getWsdlLocation(), CONFIGURATIONSERVICEIMPLSERVICE_QNAME);
+    }
+
+    public ConfigurationServiceImplService(URL wsdlLocation) {
+        super(wsdlLocation, CONFIGURATIONSERVICEIMPLSERVICE_QNAME);
+    }
+
+    public ConfigurationServiceImplService(URL wsdlLocation, WebServiceFeature... features) {
+        super(wsdlLocation, CONFIGURATIONSERVICEIMPLSERVICE_QNAME);
+    }
+
+    public ConfigurationServiceImplService(URL wsdlLocation, QName serviceName) {
+        super(wsdlLocation, serviceName);
+    }
+
+    public ConfigurationServiceImplService(URL wsdlLocation, QName serviceName, WebServiceFeature... features) {
+        super(wsdlLocation, serviceName);
     }
 
     /**

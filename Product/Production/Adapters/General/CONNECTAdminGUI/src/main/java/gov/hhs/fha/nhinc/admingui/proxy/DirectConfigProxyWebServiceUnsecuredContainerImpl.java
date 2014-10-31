@@ -56,8 +56,8 @@ import org.nhind.config.UpdateDomainResponse;
 public class DirectConfigProxyWebServiceUnsecuredContainerImpl implements DirectConfigProxy {
 
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
-    
-    private static ConfigurationServiceImplService cfService = new ConfigurationServiceImplService();
+
+    private static ConfigurationServiceImplService cfService;
 
     /*
      * (non-Javadoc)
@@ -66,7 +66,7 @@ public class DirectConfigProxyWebServiceUnsecuredContainerImpl implements Direct
      */
     @Override
     public Domain getDomain(Long id) throws Exception {
-          return getConfigService().getConfigurationServiceImplPort().getDomain(id);
+        return getConfigService().getConfigurationServiceImplPort().getDomain(id);
     }
 
     /*
@@ -76,7 +76,7 @@ public class DirectConfigProxyWebServiceUnsecuredContainerImpl implements Direct
      */
     @Override
     public void addDomain(AddDomain domain) throws DomainException {
-                try {
+        try {
             getConfigService().getConfigurationServiceImplPort().addDomain(domain);
         } catch (Exception e) {
             throw new DomainException("Could not create new domain " + domain.getDomain().getDomainName(), e);
@@ -215,7 +215,7 @@ public class DirectConfigProxyWebServiceUnsecuredContainerImpl implements Direct
      */
     @Override
     public void addTrustBundle(TrustBundle tb) throws Exception {
-     getConfigService().getConfigurationServiceImplPort().addTrustBundle(tb);
+        getConfigService().getConfigurationServiceImplPort().addTrustBundle(tb);
     }
 
     /**
@@ -266,7 +266,7 @@ public class DirectConfigProxyWebServiceUnsecuredContainerImpl implements Direct
      */
     @Override
     public void updateTrustBundleAttributes(long trustBundleId, String trustBundleName, String trustBundleURL,
-        Certificate signingCert, int trustBundleRefreshInterval) throws Exception {
+            Certificate signingCert, int trustBundleRefreshInterval) throws Exception {
         getConfigService().getConfigurationServiceImplPort().updateTrustBundleAttributes(trustBundleId, trustBundleName, trustBundleURL, signingCert, trustBundleRefreshInterval);
     }
 
@@ -297,7 +297,7 @@ public class DirectConfigProxyWebServiceUnsecuredContainerImpl implements Direct
      */
     @Override
     public void disassociateTrustBundleFromDomains(long trustBundleId) throws Exception {
-           getConfigService().getConfigurationServiceImplPort().disassociateTrustBundlesFromDomain(trustBundleId);
+        getConfigService().getConfigurationServiceImplPort().disassociateTrustBundlesFromDomain(trustBundleId);
     }
 
     /*
@@ -319,19 +319,25 @@ public class DirectConfigProxyWebServiceUnsecuredContainerImpl implements Direct
     public void deleteTrustBundles(List<Long> ids) throws Exception {
         getConfigService().getConfigurationServiceImplPort().deleteTrustBundles(ids);
     }
-    
+
     /*
      * (non-Javadoc)
      * 
      * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#removeAddress(String)
      */
     @Override
-    public void removeAddress(String addressEmail) throws Exception{
+    public void removeAddress(String addressEmail) throws Exception {
         getConfigService().getConfigurationServiceImplPort().removeAddress(addressEmail);
     }
-    
-   
-    protected ConfigurationServiceImplService getConfigService() throws ConnectionManagerException, MalformedURLException{
+
+    private ConfigurationServiceImplService getConfigService() throws ConnectionManagerException, MalformedURLException {
+        synchronized (this) {
+            if (cfService == null) {
+                String url = oProxyHelper.getAdapterEndPointFromConnectionManager(DirectConfigConstants.DIRECT_CONFIG_SERVICE_NAME);
+                cfService = new ConfigurationServiceImplService(new URL(url + "?wsdl"));
+            }
+        }
+
         return cfService;
     }
 
