@@ -57,7 +57,7 @@ public class DirectConfigProxyWebServiceUnsecuredContainerImpl implements Direct
 
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
     
-    private static ConfigurationServiceImplService cfService = new ConfigurationServiceImplService();
+    private static ConfigurationServiceImplService cfService;
 
     /*
      * (non-Javadoc)
@@ -331,7 +331,13 @@ public class DirectConfigProxyWebServiceUnsecuredContainerImpl implements Direct
     }
     
    
-    protected ConfigurationServiceImplService getConfigService() throws ConnectionManagerException, MalformedURLException{
+    private ConfigurationServiceImplService getConfigService() throws ConnectionManagerException, MalformedURLException{
+        String url = oProxyHelper.getAdapterEndPointFromConnectionManager(DirectConfigConstants.DIRECT_CONFIG_SERVICE_NAME);
+        
+        if(cfService == null) {
+            cfService = new ConfigurationServiceImplService(new URL(url+"?wsdl"));
+        }
+        
         return cfService;
     }
 
