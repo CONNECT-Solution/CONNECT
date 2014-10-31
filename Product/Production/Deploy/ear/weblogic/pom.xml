@@ -10,6 +10,7 @@
     <artifactId>CONNECT-WL</artifactId>
     <packaging>ear</packaging>
     <name>CONNECT Oracle WebLogic EAR</name>
+
     <dependencies>
         <dependency>
             <groupId>com.sun.xml.messaging.saaj</groupId>
@@ -136,19 +137,10 @@
                                     <excluded>${direct.excluded}</excluded>
                                 </webModule>
                             </modules>
-                            <version>5</version>
+                            <version>6</version>
                             <defaultLibBundleDir>lib</defaultLibBundleDir>
                             <skinnyWars>true</skinnyWars>
                             <includeLibInApplicationXml>false</includeLibInApplicationXml>
-                            <packagingExcludes>
-                                lib/geronimo-stax-api-*.jar,
-                                lib/jsr173-*.jar,
-                                lib/geronimo-servlet_3.0_spec-1.0.jar,
-                                lib/servlet-api-2.5.jar,
-                                lib/Properties-*.jar
-                            </packagingExcludes>
-
-                            <!-- this causes all archives to be exploded on server SLOW!!! <includeLibInApplicationXml>true</includeLibInApplicationXml> -->
                         </configuration>
                     </plugin>
                 </plugins>
@@ -157,4 +149,28 @@
         </profile>
     </profiles>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <configuration>
+                    <version>6</version>
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
+                    <includeLibInApplicationXml>false</includeLibInApplicationXml>
+                    <skinnyWars>true</skinnyWars>
+                    <packagingExcludes>
+                        lib/geronimo-stax-api-*.jar,
+                        lib/jsr173-*.jar,
+                        lib/geronimo-servlet_3.0_spec-1.0.jar,
+                        lib/servlet-api-2.5.jar,
+                        lib/Properties-*.jar
+                    </packagingExcludes>
+
+                    <!-- this causes all archives to be exploded on server SLOW!!! <includeLibInApplicationXml>true</includeLibInApplicationXml> -->
+                </configuration>
+            </plugin>
+        </plugins>
+        <finalName>${project.artifactId}</finalName>
+    </build>
 </project>
