@@ -50,7 +50,7 @@
                                     <excluded>${direct.excluded}</excluded>
                                 </webModule>
                             </modules>
-                            <version>5</version>
+                            <version>6</version>
                             <defaultLibBundleDir>lib</defaultLibBundleDir>
                             <skinnyWars>true</skinnyWars>
                             <packagingExcludes>
@@ -65,5 +65,4 @@
             </build>
         </profile>
     </profiles>
-
 </project>
