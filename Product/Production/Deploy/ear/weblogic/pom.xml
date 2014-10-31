@@ -161,7 +161,7 @@
                     <skinnyWars>true</skinnyWars>
                     <packagingExcludes>
                         lib/geronimo-stax-api-*.jar,
-                        lib/jsr173-*.jar,
+                        lib/jsr173*.jar,
                         lib/geronimo-servlet_3.0_spec-1.0.jar,
                         lib/servlet-api-2.5.jar,
                         lib/Properties-*.jar
