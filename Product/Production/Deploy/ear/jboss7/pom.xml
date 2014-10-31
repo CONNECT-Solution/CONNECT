@@ -9,6 +9,7 @@
     <artifactId>CONNECT-JB7</artifactId>
     <packaging>ear</packaging>
     <name>CONNECT Jboss7 EAR</name>
+
     <profiles>
         <profile>
             <id>Direct</id>
@@ -49,7 +50,7 @@
                                     <excluded>true</excluded>
                                 </webModule>
                             </modules>
-                            <version>5</version>
+                            <version>6</version>
                             <defaultLibBundleDir>lib</defaultLibBundleDir>
                             <skinnyWars>true</skinnyWars>
                             <packagingExcludes>
