@@ -128,16 +128,20 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
         MessageProcessResult result;
         //Catch all the errors (can be a security error or any other error)and drop the message for now
         //TODO: Add a retry logic before dropping the message in the future
+        boolean isMdn = MessageMonitoringUtil.isMdnOrDsn(message);
         try {
+            if (!isMdn){
+              getDirectEventLogger().log(DirectEventType.BEGIN_INBOUND_DIRECT, message);  
+            }
             result = process(message);
         } catch (Exception e) {
             //TODO: drop the message to a delete bin directory for future ref
+            getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message, e.getMessage());
             return;
         }
 
         MessageEnvelope processedEnvelope = result.getProcessedMessage();
         Message processedMessage = processedEnvelope.getMessage();
-        boolean isMdn = MessageMonitoringUtil.isMdnOrDsn(processedMessage);
         //if its MDN or DSN then log the event and update the tracking information
         if (isMdn) {
             //figure out if its Processed MDN or Dispatched MDN or Failed DSN/MDN
@@ -149,12 +153,9 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
             } else {
                 getDirectEventLogger().log(DirectEventType.BEGIN_INBOUND_MDN_FAILED, processedMessage);
             }
-
             //Update message monitoring status
             MessageMonitoringAPI.getInstance().updateIncomingMessageNotificationStatus(processedMessage);
 
-        } else {
-            getDirectEventLogger().log(DirectEventType.BEGIN_INBOUND_DIRECT, processedMessage);
         }
 
         //send the MDN processed back to the receiver if the message is not a mdn
