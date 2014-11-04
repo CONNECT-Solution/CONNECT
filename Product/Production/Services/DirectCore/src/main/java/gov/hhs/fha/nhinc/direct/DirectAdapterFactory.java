@@ -48,9 +48,9 @@ public class DirectAdapterFactory extends DirectAdapterEntity {
         //initialize the HibernateUtil when the Direct Servlet is initialized.. DO NOT Remove this.
         SessionFactory session = gov.hhs.fha.nhinc.event.persistence.HibernateUtil.getSessionFactory();
         session = gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil.getSessionFactory();
-        LOG.debug("Registering event Loggers");
+        LOG.trace("Registering event Loggers");
         EventLoggerFactory.getInstance().registerLoggers();
-        LOG.debug("Registering handlers...");
+        LOG.trace("Registering handlers...");
         getDirectReceiver();
     }
 
