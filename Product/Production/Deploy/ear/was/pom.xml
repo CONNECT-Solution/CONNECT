@@ -10,6 +10,7 @@
     <artifactId>CONNECT-WAS</artifactId>
     <packaging>ear</packaging>
     <name>CONNECT IBM WebSphere Enterprise EAR</name>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.servicemix.bundles</groupId>
@@ -61,32 +62,46 @@
                             <version>6</version>
                             <defaultLibBundleDir>lib</defaultLibBundleDir>
                             <skinnyWars>true</skinnyWars>
-                            <includeLibInApplicationXml>false</includeLibInApplicationXml>
-                            <packagingExcludes>
-                                lib/jetty*,
-                                lib/log4j-over-slf4j*.jar,
-                                lib/js*,
-                                lib/jul-to-slf4j*,
-                                lib/mimepull*,
-                                lib/velocity-1.5*,
-                                lib/xercesImpl-2.10.0.jar,
-                                lib/xml-apis-*,
-                                lib/activation-*.jar,
-                                lib/geronimo-jms_1.1_spec-1.1.1.jar,
-                                lib/geronimo-servlet_3.0_spec-1.0.jar,
-                                lib/geronimo-javamail_1.4_spec-1.7.1.jar,
-                                lib/servlet-api-2.5.jar,
-                                lib/saaj-impl-1.3.18.jar,
-                                lib/saaj-api-1.3.jar,
-                                lib/Properties-*.jar
-                            </packagingExcludes>
-
-                            <!-- this causes all archives to be exploded on server SLOW!!! <includeLibInApplicationXml>true</includeLibInApplicationXml> -->
                         </configuration>
                     </plugin>
                 </plugins>
-                <finalName>${project.artifactId}</finalName>
             </build>
         </profile>
     </profiles>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <configuration>
+                    <version>6</version>
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
+                    <includeLibInApplicationXml>false</includeLibInApplicationXml>
+                    <skinnyWars>true</skinnyWars>
+                    <packagingExcludes>
+                        lib/jetty*,
+                        lib/log4j-over-slf4j*.jar,
+                        lib/js*,
+                        lib/jul-to-slf4j*,
+                        lib/mimepull*,
+                        lib/velocity-1.5*,
+                        lib/xercesImpl-2.10.0.jar,
+                        lib/xml-apis-*,
+                        lib/activation-*.jar,
+                        lib/geronimo-jms_1.1_spec-1.1.1.jar,
+                        lib/geronimo-servlet_3.0_spec-1.0.jar,
+                        lib/geronimo-javamail_1.4_spec-1.7.1.jar,
+                        lib/servlet-api-2.5.jar,
+                        lib/saaj-impl-1.3.18.jar,
+                        lib/saaj-api-1.3.jar,
+                        lib/Properties-*.jar
+                    </packagingExcludes>
+
+                    <!-- this causes all archives to be exploded on server SLOW!!! <includeLibInApplicationXml>true</includeLibInApplicationXml> -->
+                </configuration>
+            </plugin>
+        </plugins>
+        <finalName>${project.artifactId}</finalName>
+    </build>
 </project>

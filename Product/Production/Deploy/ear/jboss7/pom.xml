@@ -9,6 +9,7 @@
     <artifactId>CONNECT-JB7</artifactId>
     <packaging>ear</packaging>
     <name>CONNECT Jboss7 EAR</name>
+
     <profiles>
         <profile>
             <id>Direct</id>
