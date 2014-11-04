@@ -335,7 +335,7 @@
                                     <excluded>${x12.excluded}</excluded>
                                 </webModule>
                             </modules>
-                            <version>6</version>
+                            <version>5</version>
                             <defaultLibBundleDir>lib</defaultLibBundleDir>
                             <skinnyWars>true</skinnyWars>
                             <packagingExcludes>
