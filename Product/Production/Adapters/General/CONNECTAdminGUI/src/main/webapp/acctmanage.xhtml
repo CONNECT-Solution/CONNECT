@@ -97,7 +97,7 @@
                                                 <div class="col-sm-12">
                                                     <div class="form-button-row">
                                                         <p:commandButton type="reset" value="Reset" styleClass="btn btn-default" />
-                                                        <p:commandButton id="submit" update=":tabview:usersList:userDataTable, username, password, confirmPassword" value="Create User" action="#{manageUserBean.addCreateUser()}" styleClass="btn btn-primary" icon="ui-icon-circle-plus" />
+                                                        <p:commandButton id="submit" update=":tabview:usersList:userDataTable, username, password, confirmPassword, userMessages" value="Create User" action="#{manageUserBean.addCreateUser()}" styleClass="btn btn-primary" icon="ui-icon-circle-plus" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -159,7 +159,7 @@
                                                 </p:column>
                                                 <p:column headerText="Page Level Access">
                                                     <h:selectOneMenu value="#{page.selectedAccessLevel}" label="#{page.selectedAccessLevel}" class="form-control" style="width:auto;">
-                                                        <p:ajax event="change" listener="#{manageRoleBean.accessLevelChanged}" />
+                                                        <p:ajax event="change" listener="#{manageRoleBean.accessLevelChanged}" update=":tabview:manageRoleForm" />
                                                         <f:selectItems value="#{page.availableAccessLevels}" var="access" itemLabel="#{access}" itemValue="#{access}"/>
                                                     </h:selectOneMenu>
                                                 </p:column>

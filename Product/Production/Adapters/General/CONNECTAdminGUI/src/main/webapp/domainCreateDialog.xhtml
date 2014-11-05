@@ -24,7 +24,7 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <div class="form-button-row">
-                                    <p:commandButton id="submit" ajax="true" styleClass="btn btn-primary" value="Submit" actionListener="#{directDomainBean.addDomain}" update=":tabview:domain-form,domainDlgForm" oncomplete="PF('domainDlg').hide()" />
+                                    <p:commandButton id="submit" ajax="true" styleClass="btn btn-primary" value="Submit" actionListener="#{directDomainBean.addDomain}" update=":tabview:domain-form,domainDlgForm, domainAddErrors" oncomplete="PF('domainDlg').hide()" />
                                 </div>
                             </div>
                         </div>

@@ -22,7 +22,7 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <div class="form-button-row">
-                                    <p:commandButton id="submit" styleClass="btn btn-primary" update=":tabview:agent-form, input-agent-value, input-agent-key" value="Submit" actionListener="#{directAgentBean.addSetting}" oncomplete="if(!args.validationFailed){PF('agentDlg').hide();}" />
+                                    <p:commandButton id="submit" styleClass="btn btn-primary" update=":tabview:agent-form, input-agent-value, input-agent-key, agentErrorMessages" value="Submit" actionListener="#{directAgentBean.addSetting}" oncomplete="if(!args.validationFailed){PF('agentDlg').hide();}" />
                                 </div>
                             </div>
                         </div>
