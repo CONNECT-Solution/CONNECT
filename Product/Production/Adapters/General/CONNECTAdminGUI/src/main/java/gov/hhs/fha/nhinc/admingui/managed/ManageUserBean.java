@@ -186,7 +186,7 @@ public class ManageUserBean {
             try {
                 loginService.deleteUser(selectedUser);
             } catch (UserLoginException ex) {
-               FacesContext.getCurrentInstance().addMessage("userMessages", new FacesMessage(FacesMessage.SEVERITY_ERROR,
+               FacesContext.getCurrentInstance().addMessage("userDeleteMessages", new FacesMessage(FacesMessage.SEVERITY_WARN,
                 ex.getLocalizedMessage(), "")); 
             }           
         }
