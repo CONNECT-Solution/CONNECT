@@ -30,7 +30,7 @@
                             <div class="col-sm-12">
                                 <div class="form-button-row">
                                     <p:commandButton id="cancelTbEdit" value="Cancel" icon="ui-icon-closethick" styleClass="delete-button" oncomplete="if(!args.validationFailed){PF('tbEditDlg').hide();}" />
-                                    <p:commandButton id="submitTbEdit" ajax="true" styleClass="btn btn-primary" value="Update" update=":tabview:tb-form" actionListener="#{directTrustBundleBean.editTrustBundle}" oncomplete="if(!args.validationFailed){PF('tbEditDlg').hide();}"/>
+                                    <p:commandButton id="submitTbEdit" ajax="true" styleClass="btn btn-primary" value="Update" update=":tabview:tb-form,tbEditErrors" actionListener="#{directTrustBundleBean.editTrustBundle}" oncomplete="if(!args.validationFailed){PF('tbEditDlg').hide();}"/>
                                 </div>
                             </div>
                         </div>

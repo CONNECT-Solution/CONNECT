@@ -37,7 +37,7 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <div class="form-button-row">
-                                    <p:commandButton ajax="true" id="submitAddTb" styleClass="btn btn-primary"  onstart="PF('tbBlock').show()"  value="Submit" update=":tabview:tb-form,tbDlgForm" actionListener="#{directTrustBundleBean.addTrustBundle}" oncomplete="PF('tbBlock').hide(); if(!args.validationFailed){PF('tbDlg').hide();}"/>
+                                    <p:commandButton ajax="true" id="submitAddTb" styleClass="btn btn-primary"  onstart="PF('tbBlock').show()"  value="Submit" update=":tabview:tb-form,tbDlgForm,tbErrorMessages" actionListener="#{directTrustBundleBean.addTrustBundle}" oncomplete="PF('tbBlock').hide(); if(!args.validationFailed){PF('tbDlg').hide();}"/>
                                 </div>
                             </div>
                         </div>

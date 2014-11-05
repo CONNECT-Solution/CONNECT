@@ -18,7 +18,7 @@
                                 </div>
                             </div>
                             <div class="form-button-row">
-                                <p:commandButton id="submit" ajax="true" update=":tabview:domain-form" styleClass="btn btn-primary" value="Update" actionListener="#{directDomainBean.editDomain}" oncomplete="PF('domainEditDlg').hide()"/>
+                                <p:commandButton id="submit" ajax="true" update=":tabview:domain-form, domainEditErrors" styleClass="btn btn-primary" value="Update" actionListener="#{directDomainBean.editDomain}" oncomplete="PF('domainEditDlg').hide()"/>
                             </div>
                         </h:form>
                     </p:tab>
@@ -40,7 +40,6 @@
                             </p:panelGrid> 
                         </h:form>
                         <h:form id="addressesAddForm" class="form form-horizontal">
-
                             <div class="domain-form-block">
                                 <h4>Add Another Address</h4>
                                 <div class="form-group">
@@ -56,9 +55,9 @@
                                     </div>
                                 </div>
                                 <div class="form-button-row">
-                                    <p:commandButton value="Add Address" update="input-address-email, input-address-name, :domainEditTabview:addressesShowForm:addressDataTable" action="#{directDomainBean.addAddress()}" styleClass="btn btn-primary" />
+                                    <p:commandButton value="Add Address" update="input-address-email, input-address-name, :domainEditTabview:addressesShowForm:addressDataTable, addressAddErrors" action="#{directDomainBean.addAddress()}" styleClass="btn btn-primary" />
                                 </div>
-                            </div>
+                            </div>    
                         </h:form>
                     </p:tab>
                     <p:tab title="Anchors">

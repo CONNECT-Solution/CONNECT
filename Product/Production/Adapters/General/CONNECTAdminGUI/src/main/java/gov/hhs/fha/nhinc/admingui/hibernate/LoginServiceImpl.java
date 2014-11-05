@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.admingui.hibernate;
 
 import gov.hhs.fha.nhinc.admingui.hibernate.dao.UserLoginDAO;
+import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
 import gov.hhs.fha.nhinc.admingui.services.PasswordService;
@@ -37,6 +38,8 @@ import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
 import java.io.IOException;
 import java.util.List;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -148,15 +151,24 @@ public class LoginServiceImpl implements LoginService {
     }
     
     @Override
-    public void deleteUser(UserLogin user) throws UserLoginException{
-        if(!user.getUserName().equals(CONNECT_ADMIN_USER)) {
-            userLoginDAO.deleteUser(user);
-        } else {
+    public void deleteUser(UserLogin user) throws UserLoginException {
+        UserLogin currentUser = getCurrentUser();
+        if (user.getUserName().equals(CONNECT_ADMIN_USER)) {
             throw new UserLoginException("Unable to delete " + CONNECT_ADMIN_USER + " user.");
+        } else if (currentUser != null && user.getUserName().equals(currentUser.getUserName())) {
+            throw new UserLoginException("Unable to delete current user: " + user.getUserName());
+        } else {
+            userLoginDAO.deleteUser(user);
         }
     }
 
     private UserRole getUserRole(long role) {
         return userLoginDAO.getRole(role);
+    }
+    
+    private UserLogin getCurrentUser() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+        return (UserLogin) session.getAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE);
     }
 }
