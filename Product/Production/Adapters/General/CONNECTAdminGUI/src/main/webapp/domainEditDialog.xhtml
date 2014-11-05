@@ -40,25 +40,24 @@
                             </p:panelGrid> 
                         </h:form>
                         <h:form id="addressesAddForm" class="form form-horizontal">
-                            <p:messages id="addressAddErrors" autoUpdate="true" closable="true" redisplay="false"/> 
                             <div class="domain-form-block">
                                 <h4>Add Another Address</h4>
                                 <div class="form-group">
                                     <h:outputLabel for="input-address-name" class="col-sm-3 control-label" id="input-address-nameLbl" value="Address Name:" />
                                     <div class="col-sm-9">
-                                        <p:inputText required="true" requiredMessage="Address name required." maxlength="100" styleClass="form-control" id="input-address-name" value="#{directDomainBean.addressName}" />   
+                                        <p:inputText required="false" maxlength="100" styleClass="form-control" id="input-address-name" value="#{directDomainBean.addressName}" />   
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <h:outputLabel for="input-address-email" class="col-sm-3 control-label" id="input-address-typeLbl" value="Address Email:" />
                                     <div class="col-sm-9">
-                                        <p:inputText required="true" requiredMessage="Address value required." maxlength="255" styleClass="form-control" id="input-address-email" value="#{directDomainBean.addressEmail}" />
+                                        <p:inputText required="false" maxlength="255" styleClass="form-control" id="input-address-email" value="#{directDomainBean.addressEmail}" />
                                     </div>
                                 </div>
                                 <div class="form-button-row">
                                     <p:commandButton value="Add Address" update="input-address-email, input-address-name, :domainEditTabview:addressesShowForm:addressDataTable, addressAddErrors" action="#{directDomainBean.addAddress()}" styleClass="btn btn-primary" />
                                 </div>
-                            </div>
+                            </div>    
                         </h:form>
                     </p:tab>
                     <p:tab title="Anchors">
