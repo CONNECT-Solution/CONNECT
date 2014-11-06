@@ -1221,7 +1221,7 @@
 
   <xs:complexType name="trustBundleDomainReltn">
     <xs:sequence>
-      <xs:element ref="tns:domain" minOccurs="0"/>
+      <xs:element name="domain" type="tns:domain" minOccurs="0"/>
       <xs:element name="id" type="xs:long"/>
       <xs:element name="incoming" type="xs:boolean"/>
       <xs:element name="outgoing" type="xs:boolean"/>
