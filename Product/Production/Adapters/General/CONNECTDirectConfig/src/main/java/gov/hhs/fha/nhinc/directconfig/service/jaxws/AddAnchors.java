@@ -60,7 +60,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "addAnchor", propOrder = { "anchor" })
 public class AddAnchors {
 
-    @XmlElement(namespace = "http://nhind.org/config")
+    @XmlElement(namespace = "")
     private Collection<Anchor> anchor;
 
     /**
