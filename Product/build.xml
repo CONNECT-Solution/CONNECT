@@ -1,104 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="NHINC" basedir=".">
 
-    <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"
+	<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"
              classpath="../ThirdParty/ant/AntExtraLibs/xmltask-1.16.jar"/>
 
-    <property environment="env" />
+	<property environment="env" />
 
-    <script language="javascript">
-        <![CDATA[
+	<script language="javascript">
+		<![CDATA[
       importClass(java.io.File);
       var codeLinePath = new File(self.getLocation().getFileName()).getParentFile().getParent();
       project.setProperty("codeline.directory.path", codeLinePath);
      ]]>
-    </script>
+	</script>
 
-    <property name="root.project.directory.path" value="${codeline.directory.path}/Product" />
+	<property name="root.project.directory.path" value="${codeline.directory.path}/Product" />
 
-    <import file="./Install/deploy.xml" />
-    
-    <condition property="progress-filepath" value="${java.io.tmpdir}/ant-progress.txt">
-        <not>
-            <isset property="progress-filepath" />
-        </not>
-    </condition>
+	<import file="./Install/deploy.xml" />
 
-    <target name="deploy" depends="copy.deployable.artifacts" description="Deploy all projects: run ant help for more info...">
-        <antcall target="deploy.to.production" />
-    </target>
+	<condition property="progress-filepath" value="${java.io.tmpdir}/ant-progress.txt">
+		<not>
+			<isset property="progress-filepath" />
+		</not>
+	</condition>
 
-    <target name="copy.deployable.artifacts">
-        <delete dir="${deployment.binaries.dir}" />
-        <mkdir dir="${deployment.binaries.dir}" />
-        <delete dir="${deployment.dir}/ValidationSuite" />
-        <mkdir dir="${deployment.dir}/ValidationSuite" />
+	<target name="deploy" depends="copy.deployable.artifacts" description="Deploy all projects: run ant help for more info...">
+		<antcall target="deploy.to.production" />
+	</target>
 
-        <copy todir="${deployment.dir}/${deployment.environment.configuration.dir.name}" verbose="true" overwrite="true">
-            <fileset dir="${root.project.directory.path}/Production/Common/Properties" />
-        </copy>
+	<target name="copy.deployable.artifacts">
+		<delete dir="${deployment.binaries.dir}" />
+		<mkdir dir="${deployment.binaries.dir}" />
+		<delete dir="${deployment.dir}/ValidationSuite" />
+		<mkdir dir="${deployment.dir}/ValidationSuite" />
 
-        <copy todir="${deployment.interfaces.dir}" verbose="true" overwrite="true">
-            <fileset dir="${root.project.directory.path}/Production/Common/Interfaces/src" />
-        </copy>
+		<copy todir="${deployment.dir}/${deployment.environment.configuration.dir.name}" verbose="true" overwrite="true">
+			<fileset dir="${root.project.directory.path}/Production/Common/Properties" />
+		</copy>
 
-        <copy todir="${deployment.dir}/ValidationSuite" verbose="true" overwrite="true">
-            <fileset dir="${root.project.directory.path}/SoapUI_Test/ValidationSuite" />
-        </copy>
-    </target>
+		<copy todir="${deployment.interfaces.dir}" verbose="true" overwrite="true">
+			<fileset dir="${root.project.directory.path}/Production/Common/Interfaces/src" />
+		</copy>
 
-    <target name="dist" description="Create the binary distribution" depends="-maven.version, -git.revision">
-        <echo message="Building binary distribution for maven version=${maven_version}, git version=${repository.version}."/>
-        <echo message="Must be run after a mvn build that includes all application server profiles."/>
-        <property name="dist.artifact.dir" value="./target" />
-        <property name="maven_root" value="${user.home}/.m2/repository/org/connectopensource" />
-        <property name="dist.zip.filename" value="CONNECT-${maven_version}.zip" />
+		<copy todir="${deployment.dir}/ValidationSuite" verbose="true" overwrite="true">
+			<fileset dir="${root.project.directory.path}/SoapUI_Test/ValidationSuite" />
+		</copy>
+	</target>
 
-        <delete dir="${dist.artifact.dir}" failonerror="false" />
-        <mkdir dir="${dist.artifact.dir}" />
+	<target name="dist" description="Create the binary distribution" depends="-maven.version, -git.revision">
+		<echo message="Building binary distribution for maven version=${maven_version}, git version=${repository.version}."/>
+		<echo message="Must be run after a mvn build that includes all application server profiles."/>
+		<property name="dist.artifact.dir" value="./target" />
+		<property name="maven_root" value="${user.home}/.m2/repository/org/connectopensource" />
+		<property name="dist.zip.filename" value="CONNECT-${maven_version}.zip" />
 
-        <manifest file="${dist.artifact.dir}/version.txt">
-            <attribute name="Maven-Release-Version" value="${maven_version}"/>
-            <attribute name="Git-Repository-Version" value="${repository.version}"/>
-        </manifest>
+		<delete dir="${dist.artifact.dir}" failonerror="false" />
+		<mkdir dir="${dist.artifact.dir}" />
 
-        <zip zipfile="${dist.artifact.dir}/${dist.zip.filename}">
-            <zipfileset dir="${maven_root}/" includes="CONNECT*/${maven_version}/CONNECT*${maven_version}.ear" />
-        	<zipfileset file="${user.home}/.m2/repository/mysql/mysql-connector-java/5.1.10/mysql-connector-java-5.1.10.jar" />
-            <zipfileset prefix="Properties" src="${maven_root}/Properties/${maven_version}/Properties-${maven_version}.jar" excludes="**/META-INF/**/*" />
-            <zipfileset prefix="DBScripts" src="${maven_root}/DBScripts/${maven_version}/DBScripts-${maven_version}.jar" excludes="**/META-INF/**/*" />
-            <zipfileset prefix="FileUtils" file="${maven_root}/FileUtils/${maven_version}/FileUtils-${maven_version}.jar" />
-            <zipfileset prefix="ValidationSuite" dir="SoapUI_Test/ValidationSuite">
-                <include name="src/test/resources/chaincerts/**" />
-                <include name="*.xml" />
-                <include name="*.properties" />
-                <exclude name="pom.xml" />
-            </zipfileset>
-            <zipfileset prefix="target/wsdl" dir="SoapUI_Test/target/wsdl/"/>
-            <zipfileset prefix="target/schemas" dir="SoapUI_Test/target/schemas/"/>
-            <zipfileset prefix="glassfish_templates" dir="./Install/GlassFish/templates" />
-            <zipfileset file="${dist.artifact.dir}/version.txt"/>
-        </zip>
-    </target>
+		<manifest file="${dist.artifact.dir}/version.txt">
+			<attribute name="Maven-Release-Version" value="${maven_version}"/>
+			<attribute name="Git-Repository-Version" value="${repository.version}"/>
+		</manifest>
 
-    <target name="-maven.version" description="Store maven pom version in ${maven_version}.">
-        <xmltask source="pom.xml" >
-           <copy path="//*[local-name() = 'version']/text()" property="maven_version"/>
-        </xmltask>
-    </target>
+		<zip zipfile="${dist.artifact.dir}/${dist.zip.filename}">
+			<zipfileset dir="${maven_root}/" includes="CONNECT*/${maven_version}/CONNECT*${maven_version}.ear" />
+			<zipfileset dir="${maven_root}/" includes="CONNECTAdminGUI/${maven_version}/CONNECTAdminGUI*${maven_version}.war" />
+			<zipfileset dir="${maven_root}/" includes="Direct/${maven_version}/Direct*${maven_version}.war" />
+			<zipfileset file="${user.home}/.m2/repository/mysql/mysql-connector-java/5.1.10/mysql-connector-java-5.1.10.jar" />
+			<zipfileset prefix="Properties" src="${maven_root}/Properties/${maven_version}/Properties-${maven_version}.jar" excludes="**/META-INF/**/*" />
+			<zipfileset prefix="DBScripts" src="${maven_root}/DBScripts/${maven_version}/DBScripts-${maven_version}.jar" excludes="**/META-INF/**/*" />
+			<zipfileset prefix="FileUtils" file="${maven_root}/FileUtils/${maven_version}/FileUtils-${maven_version}.jar" />
+			<zipfileset prefix="ValidationSuite" dir="SoapUI_Test/ValidationSuite">
+				<include name="src/test/resources/chaincerts/**" />
+				<include name="*.xml" />
+				<include name="*.properties" />
+				<exclude name="pom.xml" />
+			</zipfileset>
+			<zipfileset prefix="target/wsdl" dir="SoapUI_Test/target/wsdl/"/>
+			<zipfileset prefix="target/schemas" dir="SoapUI_Test/target/schemas/"/>
+			<zipfileset prefix="glassfish_templates" dir="./Install/GlassFish/templates" />
+			<zipfileset file="${dist.artifact.dir}/version.txt"/>
+		</zip>
+	</target>
 
-    <target name="-git.revision" description="Store git revision in ${repository.version}">
-        <exec executable="git" outputproperty="git.revision" failifexecutionfails="false" errorproperty="">
-            <arg value="describe"/>
-            <arg value="--tags"/>
-            <arg value="--always"/>
-            <arg value="HEAD"/>
-        </exec>
-        <condition property="repository.version" value="${git.revision}" else="unknown">
-            <and>
-                <isset property="git.revision"/>
-                <length string="${git.revision}" trim="yes" length="0" when="greater"/>
-            </and>
-        </condition>
-    </target>
+	<target name="-maven.version" description="Store maven pom version in ${maven_version}.">
+		<xmltask source="pom.xml" >
+			<copy path="//*[local-name() = 'version']/text()" property="maven_version"/>
+		</xmltask>
+	</target>
+
+	<target name="-git.revision" description="Store git revision in ${repository.version}">
+		<exec executable="git" outputproperty="git.revision" failifexecutionfails="false" errorproperty="">
+			<arg value="describe"/>
+			<arg value="--tags"/>
+			<arg value="--always"/>
+			<arg value="HEAD"/>
+		</exec>
+		<condition property="repository.version" value="${git.revision}" else="unknown">
+			<and>
+				<isset property="git.revision"/>
+				<length string="${git.revision}" trim="yes" length="0" when="greater"/>
+			</and>
+		</condition>
+	</target>
 </project>
