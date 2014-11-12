@@ -22,6 +22,7 @@ package gov.hhs.fha.nhinc.admingui.dashboard.impl;
 
 import gov.hhs.fha.nhinc.admingui.dashboard.DashboardObserver;
 import gov.hhs.fha.nhinc.admingui.dashboard.DashboardPanel;
+import javax.servlet.ServletContext;
 
 /**
  *
@@ -29,11 +30,11 @@ import gov.hhs.fha.nhinc.admingui.dashboard.DashboardPanel;
  */
 public class DashboardAppServer extends DashboardPanelAbstract implements DashboardPanel {
     
-    private final String type = "APP SERVER";
+    private final String type = "APP SERVER INFO";
     private String title;
     private String description;
     
-    private static final String GLASSFISH_KEY = "glassfish.version";
+    private ServletContext sContext;
        
     /**
      *
@@ -78,6 +79,11 @@ public class DashboardAppServer extends DashboardPanelAbstract implements Dashbo
     public String getDescription() {
         return description;
     }
+    
+    public DashboardPanel setContext(ServletContext context) {
+        sContext = context;
+        return this;
+    }
 
     /**
      *
@@ -85,17 +91,11 @@ public class DashboardAppServer extends DashboardPanelAbstract implements Dashbo
      */
     @Override
     public DashboardPanel setData() {
-        String gfishApp = System.getProperty(GLASSFISH_KEY);
+        description = sContext.getServerInfo();
         
-        if(gfishApp != null && !gfishApp.isEmpty()){
-            description = gfishApp;
-            return this;
+        if(description.length() > 100) {
+            description = description.substring(0, 100).concat("...");
         }
-        
-        //TODO add checks for other app servers.
-        
-        description = "Unknown";
-        
         return this;
     }
 

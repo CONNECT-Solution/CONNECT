@@ -29,6 +29,7 @@ import gov.hhs.fha.nhinc.admingui.dashboard.impl.DashboardOs;
 import gov.hhs.fha.nhinc.admingui.model.User;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.ServletContext;
 import org.springframework.stereotype.Service;
 
 /**
@@ -41,7 +42,14 @@ public class DashboardObserverImpl implements DashboardObserver {
     private final List<DashboardPanel> openPanels = new ArrayList<DashboardPanel>();
     private final List<DashboardPanel> closedPanels = new ArrayList<DashboardPanel>();
 
+    private ServletContext context;
+    
     private boolean started = false;
+    
+    @Override
+    public void setContext(ServletContext context) {
+        this.context = context;
+    }
 
     /**
      *
@@ -123,7 +131,7 @@ public class DashboardObserverImpl implements DashboardObserver {
             openPanels.add(new DashboardMemory(this, false).setData());
             openPanels.add(new DashboardOs(this, false).setData());
             openPanels.add(new DashboardJava(this, false).setData());
-            openPanels.add(new DashboardAppServer(this, true).setData());
+            openPanels.add(new DashboardAppServer(this, true).setContext(context).setData());
             started = true;
         }
     }
