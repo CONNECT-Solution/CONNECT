@@ -93,7 +93,9 @@ public class DashboardAppServer extends DashboardPanelAbstract implements Dashbo
     public DashboardPanel setData() {
         description = sContext.getServerInfo();
         
-        if(description.length() > 100) {
+        if(description == null || description.isEmpty()) {
+            description = "Unknown";
+        } else if(description.length() > 100) {
             description = description.substring(0, 100).concat("...");
         }
         return this;
