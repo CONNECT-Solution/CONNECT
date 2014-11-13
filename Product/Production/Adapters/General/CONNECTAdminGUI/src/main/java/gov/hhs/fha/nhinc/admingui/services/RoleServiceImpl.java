@@ -20,6 +20,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.services;
 
+import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import gov.hhs.fha.nhinc.admingui.hibernate.dao.UserLoginDAO;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
@@ -53,12 +54,16 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public boolean checkRole(String pageName, UserLogin user) {
         if(user != null && user.getUserRole() != null && user.getUserRole().getPreferences() != null){
+            if(pageName.equalsIgnoreCase(NavigationConstant.STATUS_PAGE.concat(".xhtml"))) {
+                return true;
+            }
+            
             for(RolePreference preference : user.getUserRole().getPreferences()){
                 if(preference.getPageName().equalsIgnoreCase(pageName)){
                     return preference.getAccess() >= 0;
                 }
             }
-        }
+        } 
         return false;
     }
     

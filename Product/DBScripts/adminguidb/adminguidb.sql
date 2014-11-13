@@ -50,15 +50,9 @@ VALUES
 INSERT INTO adminguidb.PagePreference
 (pageName, pageDesc, accessPage, prefRoleId)
 VALUES
-("status.xhtml", "Status", 0, 1),
-("status.xhtml", "Status", 0, 2),
-("status.xhtml", "Status", 0, 3),
 ("acctmanage.xhtml", "Account Management", 0, 1),
 ("acctmanage.xhtml", "Account Management", -1, 2),
 ("acctmanage.xhtml", "Account Management", -1, 3),
-("manageRole.xhtml", "Manage Role", 0, 1),
-("manageRole.xhtml", "Manage Role", -1, 2),
-("manageRole.xhtml", "Manage Role", -1, 3),
 ("direct.xhtml", "Direct Config", 0, 1),
 ("direct.xhtml", "Direct Config", 0, 2),
 ("direct.xhtml", "Direct Config", 0, 3);
