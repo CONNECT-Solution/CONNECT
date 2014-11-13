@@ -20,6 +20,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.dashboard.impl;
 
+import gov.hhs.fha.nhinc.admingui.application.ApplicationInfo;
 import gov.hhs.fha.nhinc.admingui.dashboard.DashboardObserver;
 import gov.hhs.fha.nhinc.admingui.dashboard.DashboardPanel;
 import javax.servlet.ServletContext;
@@ -33,8 +34,6 @@ public class DashboardAppServer extends DashboardPanelAbstract implements Dashbo
     private final String type = "APP SERVER INFO";
     private String title;
     private String description;
-    
-    private ServletContext sContext;
        
     /**
      *
@@ -79,11 +78,6 @@ public class DashboardAppServer extends DashboardPanelAbstract implements Dashbo
     public String getDescription() {
         return description;
     }
-    
-    public DashboardPanel setContext(ServletContext context) {
-        sContext = context;
-        return this;
-    }
 
     /**
      *
@@ -91,7 +85,7 @@ public class DashboardAppServer extends DashboardPanelAbstract implements Dashbo
      */
     @Override
     public DashboardPanel setData() {
-        description = sContext.getServerInfo();
+        description = ApplicationInfo.getInstance().getServerInfo();
         
         if(description == null || description.isEmpty()) {
             description = "Unknown";

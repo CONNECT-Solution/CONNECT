@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.admingui.dashboard;
 
 import gov.hhs.fha.nhinc.admingui.model.User;
 import java.util.List;
-import javax.servlet.ServletContext;
 
 /**
  *
@@ -37,12 +36,6 @@ import javax.servlet.ServletContext;
 
 
 public interface DashboardObserver {
-    
-    /**
-     * Sets the current context.
-     * @param context 
-     */
-    public void setContext(ServletContext context);
     
     /**
      * Gets all open Admin GUI dashboard panels.

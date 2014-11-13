@@ -30,6 +30,7 @@ package gov.hhs.fha.nhinc.admingui.managed;
  *
  * @author sadusumilli / jasonasmith
  */
+import gov.hhs.fha.nhinc.admingui.application.ApplicationInfo;
 import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import gov.hhs.fha.nhinc.admingui.dashboard.DashboardObserver;
 import gov.hhs.fha.nhinc.admingui.dashboard.DashboardPanel;
@@ -39,10 +40,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
 import org.primefaces.component.dashboard.Dashboard;
 import org.primefaces.event.CloseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,7 @@ import org.springframework.stereotype.Component;
 @RequestScoped
 @Component
 public class DashboardBean {
-
+    
     @Autowired
     private DashboardObserver dashboardObserver;
 
@@ -121,7 +122,6 @@ public class DashboardBean {
      */
     public Dashboard getDashboard() {
         if (!dashboardObserver.isStarted()) {
-            dashboardObserver.setContext(getContext());
             dashboardObserver.setDefaultPanels();
         } else {
             dashboardObserver.refreshData();
@@ -184,10 +184,6 @@ public class DashboardBean {
         }
 
         return closedPanels;
-    }
-    
-    private ServletContext getContext(){
-        return (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
     }
 
 }
