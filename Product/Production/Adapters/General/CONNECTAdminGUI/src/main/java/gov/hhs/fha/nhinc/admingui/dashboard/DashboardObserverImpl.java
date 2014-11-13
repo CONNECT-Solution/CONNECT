@@ -40,7 +40,7 @@ public class DashboardObserverImpl implements DashboardObserver {
 
     private final List<DashboardPanel> openPanels = new ArrayList<DashboardPanel>();
     private final List<DashboardPanel> closedPanels = new ArrayList<DashboardPanel>();
-
+    
     private boolean started = false;
 
     /**

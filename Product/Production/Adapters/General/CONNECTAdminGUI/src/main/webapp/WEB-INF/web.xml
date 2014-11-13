@@ -16,6 +16,10 @@
     <listener>
         <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
     </listener>
+    
+    <listener>
+        <listener-class>gov.hhs.fha.nhinc.admingui.application.listener.ApplicationListener</listener-class>
+    </listener>
 
     <context-param>
         <param-name>org.apache.myfaces.SUPPORT_JSP_AND_FACES_EL</param-name>

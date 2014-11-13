@@ -30,6 +30,7 @@ package gov.hhs.fha.nhinc.admingui.managed;
  *
  * @author sadusumilli / jasonasmith
  */
+import gov.hhs.fha.nhinc.admingui.application.ApplicationInfo;
 import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import gov.hhs.fha.nhinc.admingui.dashboard.DashboardObserver;
 import gov.hhs.fha.nhinc.admingui.dashboard.DashboardPanel;
@@ -39,6 +40,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -55,82 +57,81 @@ import org.springframework.stereotype.Component;
 @RequestScoped
 @Component
 public class DashboardBean {
-
-    @Autowired 
-    private DashboardObserver dashboardObserver;
     
     @Autowired
+    private DashboardObserver dashboardObserver;
+
+    @Autowired
     private DashboardViewResolver dashboardView;
-    
+
     private List<String> selectedClosedPanels;
-    
+
     /**
      *
      * @return
      */
-    public List<String> getSelectedClosedPanels(){
+    public List<String> getSelectedClosedPanels() {
         return selectedClosedPanels;
     }
-    
+
     /**
      *
      * @param selectedClosedPanels
      */
-    public void setSelectedClosedPanels(List<String> selectedClosedPanels){
+    public void setSelectedClosedPanels(List<String> selectedClosedPanels) {
         this.selectedClosedPanels = selectedClosedPanels;
     }
-    
+
     /**
      *
      * @return
      */
-    public String addPanels(){
+    public String addPanels() {
         List<DashboardPanel> openPanels = new ArrayList<DashboardPanel>();
         
         try {
-        for(DashboardPanel panel : dashboardObserver.getClosedDashboardPanels()){
-            for(String type : getSelectedClosedPanels()){
-                if(type.equals(panel.getType())){
-                    openPanels.add(panel);
+            for (DashboardPanel panel : dashboardObserver.getClosedDashboardPanels()) {
+                for (String type : getSelectedClosedPanels()) {
+                    if (type.equals(panel.getType())) {
+                        openPanels.add(panel);
+                    }
                 }
             }
-        }
-        
-        for(DashboardPanel panel : openPanels){
-            panel.open();
-        }
-        
-        } catch(Exception e){
+
+            for (DashboardPanel panel : openPanels) {
+                panel.open();
+            }
+
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
+
         TabBean tabs = (TabBean) FacesContext.getCurrentInstance().
-            getExternalContext().getSessionMap().get("tabBean");
-        
-        if(tabs != null){
+                getExternalContext().getSessionMap().get("tabBean");
+
+        if (tabs != null) {
             tabs.setDashboardTabIndex(0);
         }
-        
-        return NavigationConstant.STATUS_PAGE;       
+
+        return NavigationConstant.STATUS_PAGE;
     }
-    
+
     /**
      *
      * @return
      */
     public Dashboard getDashboard() {
-        if(!dashboardObserver.isStarted()){
-            //TODO Check for User preferences
+        if (!dashboardObserver.isStarted()) {
             dashboardObserver.setDefaultPanels();
-        }else {
+        } else {
             dashboardObserver.refreshData();
         }
-        
+
         dashboardView.setView(getPanels());
-        
+
         return dashboardView.getDashboard();
     }
-    
+
     /**
      *
      * @param dashboard
@@ -138,15 +139,15 @@ public class DashboardBean {
     public void setDashboard(Dashboard dashboard) {
         dashboardView.setDashboard(dashboard);
     }
-    
+
     /**
      *
      * @return
      */
-    public List<DashboardPanel> getPanels(){
+    public List<DashboardPanel> getPanels() {
         return dashboardObserver.getOpenDashboardPanels();
     }
-    
+
     /**
      *
      * @param event
@@ -154,35 +155,35 @@ public class DashboardBean {
     public void handleClose(CloseEvent event) {
         dashboardView.handleClose(event, getPanels());
     }
-    
+
     /**
      *
      * @return
      */
-    public String getAllProperties(){
+    public String getAllProperties() {
         StringBuilder builder = new StringBuilder();
         Set keys = System.getProperties().keySet();
-        
-        for(Object key : keys){
+
+        for (Object key : keys) {
             builder.append((String) key).append(" : ")
-                .append((String) System.getProperty((String) key)).append("\n");
+                    .append((String) System.getProperty((String) key)).append("\n");
         }
-        
+
         return builder.toString();
     }
-    
+
     /**
      *
      * @return
      */
-    public Map<String, String> getClosedPanels(){
+    public Map<String, String> getClosedPanels() {
         Map<String, String> closedPanels = new HashMap<String, String>();
 
-        for(DashboardPanel panel : dashboardObserver.getClosedDashboardPanels()){
+        for (DashboardPanel panel : dashboardObserver.getClosedDashboardPanels()) {
             closedPanels.put(panel.getType(), panel.getType());
         }
-        
+
         return closedPanels;
     }
-    
+
 }
