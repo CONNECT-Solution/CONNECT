@@ -67,7 +67,7 @@
                                 <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
                                     <p:row>
                                         <p:column>
-                                            <p:commandButton value="Delete" actionListener="#{directDomainBean.deleteDomain()}" update="domainDataTable" styleClass="delete-button" icon="ui-icon-closethick" />
+                                            <p:commandButton value="Delete" actionListener="#{directDomainBean.deleteDomain()}" update="domainDataTable,domainDeleteError" styleClass="delete-button" icon="ui-icon-closethick" />
                                         </p:column>
                                         <p:column>
                                             <p:commandButton value="Edit Domain" actionListener="#{directDomainBean.showEdit()}" styleClass="edit-button" icon="ui-icon-pencil" />
