@@ -44,18 +44,20 @@ public class InitServlet extends HttpServlet {
 
     /**
      * {@inheritDoc}
+     * @param config
+     * @throws javax.servlet.ServletException
      */
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         LOG.debug("Direct InitServlet start...");
-        new DirectAdapterFactory().registerHandlers();        
+        new DirectAdapterFactory().registerHandlers();
     }
 
     @Override
     public void destroy() {
         super.destroy();
-        //Stops the Spring Direct Task Scheduler Thread
-        new DirectAdapterFactory().stopTaskScheduler();
+        //destroy all the resources opened explicitly
+        new DirectAdapterFactory().stopAll();
     }
 }
