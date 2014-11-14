@@ -40,7 +40,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
@@ -58,6 +57,7 @@ import org.nhindirect.common.tx.model.Tx;
 import org.nhindirect.common.tx.model.TxDetail;
 import org.nhindirect.common.tx.model.TxDetailType;
 import org.nhindirect.common.tx.model.TxMessageType;
+import org.nhindirect.gateway.smtp.GatewayState;
 import org.nhindirect.stagent.AddressSource;
 import org.nhindirect.stagent.NHINDAddress;
 import org.nhindirect.stagent.NHINDAddressCollection;
@@ -93,6 +93,8 @@ public class MessageMonitoringUtil {
     public static final String FAILED_MESSAGE_EMAIL_TEXT = "Email delivery failed for the recipient ";
     public static final String SUCCESSFUL_MESSAGE_SUBJECT_PREFIX = "Successfully Delivered: ";
     public static final String SUCCESSFUL_MESSAGE_EMAIL_TEXT = "Message successfully delivered to the recipient ";
+    public static final String AGENT_SETTINGS_CACHE_REFRESH_TIME = "AgentSettingsCacheRefreshTime";
+    public static final String AGENT_SETTINGS_CACHE_REFRESH_ACTIVE = "AgentSettingsCacheRefreshActive";
 
     /**
      * Returns Mail Recipients as a NHINDAddressCollection
@@ -598,6 +600,66 @@ public class MessageMonitoringUtil {
         } catch (NumberFormatException n) {
             LOG.info("Invalid value for the Proeprty:" + propertyName);
             return -1;
+        }
+    }
+
+    /**
+     * Update the Agent Settings Cache
+     * 
+     */
+    public static void updateAgentSettingsCacheTimeoutValue() {
+        GatewayState gatewayState = GatewayState.getInstance();
+        //Read the agentSettingsCacheRefreshTime property from gateway.properties
+        int agentSettingsCacheRefreshTime = getAgentSettingsCacheRefreshTime();
+        LOG.trace("AgentSettingsCacheRefreshTime agentSettingsCacheRefreshTime value:" + agentSettingsCacheRefreshTime);
+        boolean refreshRequired = (!(gatewayState.getSettingsUpdateInterval() == (agentSettingsCacheRefreshTime/1000)));
+
+        //set the Settings Update Interval value only if the proeprty value retrieved is greater than zero
+        if ((agentSettingsCacheRefreshTime > 0) && refreshRequired && gatewayState.isAgentSettingManagerRunning()) {
+            gatewayState.stopAgentSettingsManager();
+            gatewayState.setSettingsUpdateInterval(agentSettingsCacheRefreshTime / 1000);
+            gatewayState.startAgentSettingsManager();
+            LOG.trace("Abent Settings Cache refreshed..");
+        }
+    }
+
+    /**
+     * Returns the AgentSettingsCacheRefreshTime property value from Gateway
+     * properties file. If not found, returns -1
+     *
+     * @return
+     */
+    public static int getAgentSettingsCacheRefreshTime() {
+        try {
+            if (getAgentSettingsCacheRefreshActive()) {
+                return Integer.parseInt(PropertyAccessor.getInstance().getProperty(AGENT_SETTINGS_CACHE_REFRESH_TIME));
+            }
+            return -1;
+        } catch (PropertyAccessException ex) {
+            LOG.info("Proeprty Not found :" + AGENT_SETTINGS_CACHE_REFRESH_TIME);
+            return -1;
+        } catch (NumberFormatException n) {
+            LOG.info("Invalid value for the Proeprty:" + AGENT_SETTINGS_CACHE_REFRESH_TIME);
+            return -1;
+        }
+    }
+
+    /**
+     * Returns the AgentSettingsCacheRefreshActive property value from Gateway
+     * properties file. If not found, returns false
+     *
+     * @return
+     */
+    public static boolean getAgentSettingsCacheRefreshActive(){
+        try {
+            String agentSettingsCacheRefreshActive = PropertyAccessor.getInstance().getProperty(AGENT_SETTINGS_CACHE_REFRESH_ACTIVE);
+            return (agentSettingsCacheRefreshActive != null) && (agentSettingsCacheRefreshActive.equals("true"));
+        } catch (PropertyAccessException ex) {
+            LOG.info("Proeprty Not found :" + AGENT_SETTINGS_CACHE_REFRESH_ACTIVE);
+            return false;
+        } catch (NumberFormatException n) {
+            LOG.info("Invalid value for the Proeprty:" + AGENT_SETTINGS_CACHE_REFRESH_ACTIVE);
+            return false;
         }
     }
 }
