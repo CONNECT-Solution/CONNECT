@@ -8770,9 +8770,9 @@ if(context.findProperty("PassThruOn").toBoolean()){
             <urn1:haveSignature>false</urn1:haveSignature>
             <urn1:haveWitnessSignature>false</urn1:haveWitnessSignature>
             <urn1:homeCommunity>
-               <urn1:description>InternalTest1</urn1:description>
-               <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
-               <urn1:name>InternalTest1</urn1:name>
+               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
             <urn1:personName>
                <urn1:familyName>Smith</urn1:familyName>
@@ -8907,9 +8907,9 @@ if(context.findProperty("PassThruOn").toBoolean()){
                </urn1:personName>
                <urn1:userName>kskagerb</urn1:userName>
                <urn1:org>
-                  <urn1:description>InternalTest2</urn1:description>
-                  <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
-                  <urn1:name>InternalTest2</urn1:name>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
                </urn1:org>
                <urn1:roleCoded>
                   <urn1:code>307969004</urn1:code>
@@ -8961,9 +8961,9 @@ if(context.findProperty("PassThruOn").toBoolean()){
         <urn:NhinTargetCommunities>
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description>InternalTest2</urn1:description>
-                  <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
-                  <urn1:name>InternalTest2</urn1:name>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
                </urn1:homeCommunity>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
@@ -9009,9 +9009,9 @@ if(context.findProperty("PassThruOn").toBoolean()){
             <urn1:haveSignature>false</urn1:haveSignature>
             <urn1:haveWitnessSignature>false</urn1:haveWitnessSignature>
             <urn1:homeCommunity>
-               <urn1:description>InternalTest1</urn1:description>
-               <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
-               <urn1:name>InternalTest1</urn1:name>
+               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
             <urn1:personName>
                <urn1:familyName>Smith</urn1:familyName>
@@ -9146,9 +9146,9 @@ if(context.findProperty("PassThruOn").toBoolean()){
                </urn1:personName>
                <urn1:userName>kskagerb</urn1:userName>
                <urn1:org>
-                  <urn1:description>InternalTest2</urn1:description>
-                  <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
-                  <urn1:name>InternalTest2</urn1:name>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
                </urn1:org>
                <urn1:roleCoded>
                   <urn1:code>307969004</urn1:code>
@@ -9204,9 +9204,9 @@ if(context.findProperty("PassThruOn").toBoolean()){
         <urn:NhinTargetCommunities>
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description>InternalTest2</urn1:description>
-                  <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
-                  <urn1:name>InternalTest2</urn1:name>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
                </urn1:homeCommunity>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
