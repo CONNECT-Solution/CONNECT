@@ -168,7 +168,7 @@ public abstract class DirectAdapter {
             smtpAgent = SmtpAgentFactory.createAgent(url);
             if (MessageMonitoringUtil.getAgentSettingsCacheRefreshActive()) {
                 GatewayState gatewayState = GatewayState.getInstance();
-                //Update timout seconds
+                //Update timeout seconds
                 MessageMonitoringUtil.updateAgentSettingsCacheTimeoutValue();
                 //start Agent Settings Manager
                 //set smtpAgent and smtp agent config
@@ -176,14 +176,14 @@ public abstract class DirectAdapter {
                 gatewayState.setSmptAgentConfig(SmptAgentConfigFactory.createSmtpAgentConfig(url, null, null));
                 //if the agent settings manager is running then stop it and start it again
                 if (gatewayState.isAgentSettingManagerRunning()) {
-                    LOG.trace("Stop Agent Settings Manager");
+                    LOG.debug("Stop Agent Settings Manager");
                     gatewayState.stopAgentSettingsManager();
                 }
                 //start the Agent Settings Manager
-                LOG.trace("Start Agent Settings Manager");
+                LOG.debug("Start Agent Settings Manager");
                 gatewayState.startAgentSettingsManager();
             } else {
-                LOG.trace("Agent Settings Manager not enabled");
+                LOG.debug("Agent Settings Manager not enabled");
             }
         }
         return smtpAgent;

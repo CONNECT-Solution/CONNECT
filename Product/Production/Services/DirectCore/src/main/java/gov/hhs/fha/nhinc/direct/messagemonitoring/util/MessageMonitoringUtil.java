@@ -586,7 +586,7 @@ public class MessageMonitoringUtil {
         try {
             return PropertyAccessor.getInstance().getProperty(propertyName);
         } catch (PropertyAccessException ex) {
-            LOG.info("Proeprty Not found :" + propertyName);
+            LOG.info("Property Not found :" + propertyName);
             return null;
         }
     }
@@ -595,7 +595,7 @@ public class MessageMonitoringUtil {
         try {
             return Integer.parseInt(PropertyAccessor.getInstance().getProperty(propertyName));
         } catch (PropertyAccessException ex) {
-            LOG.info("Proeprty Not found :" + propertyName);
+            LOG.info("Property Not found :" + propertyName);
             return -1;
         } catch (NumberFormatException n) {
             LOG.info("Invalid value for the Proeprty:" + propertyName);
