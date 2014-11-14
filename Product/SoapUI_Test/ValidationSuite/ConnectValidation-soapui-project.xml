@@ -1246,7 +1246,7 @@ if(passthruValue != null){
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
-            <urn5:Document id="Document01">UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</urn5:Document>
+            <urn5:Document id="Document01">${#Project#DSDocument}</urn5:Document>
          </urn:ProvideAndRegisterDocumentSetRequest>
       </urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
    </soap:Body>
@@ -2178,7 +2178,7 @@ if(passthruValue != null){
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
-            <urn5:Document id="Document01">UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</urn5:Document>
+            <urn5:Document id="Document01">${#Project#DSDocument}</urn5:Document>
          </urn:ProvideAndRegisterDocumentSetRequest>
       </urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
    </soap:Body>
@@ -4625,7 +4625,7 @@ if(passthruValue != null){
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri>
                   <!--Optional:-->
-                  <urn2:contentData>LDLIHAPIISDALKDF902383K1182K4J49DFNF3KR0482HJ1029F393</urn2:contentData>
+                  <urn2:contentData>${#Project#ADContentData}</urn2:contentData>
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -5146,7 +5146,7 @@ if(passthruValue != null){
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
-            <urn5:Document id="Document01">UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</urn5:Document>
+            <urn5:Document id="Document01">${#Project#DSDocument}</urn5:Document>
          </urn:ProvideAndRegisterDocumentSetRequest>
       </urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
    </soap:Body>
@@ -6067,7 +6067,7 @@ if(passthruValue != null){
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
-            <urn5:Document id="Document01">UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</urn5:Document>
+            <urn5:Document id="Document01">${#Project#DSDocument}</urn5:Document>
          </urn:ProvideAndRegisterDocumentSetRequest>
       </urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
    </soap:Body>
@@ -8453,7 +8453,7 @@ if(passthruValue != null){
                   <!--Optional:-->
                   <urn2:uri>?</urn2:uri>
                   <!--Optional:-->
-                  <urn2:contentData>LDLIHAPIISDALKDF902383K1182K4J49DFNF3KR0482HJ1029F393</urn2:contentData>
+                  <urn2:contentData>${#Project#ADContentData}</urn2:contentData>
                </urn2:nonXMLContent>
                <!--You may enter ANY elements at this point-->
             </urn2:contentObject>
@@ -8506,7 +8506,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
             <SenderID>HospitalA</SenderID>
             <ReceiverID>PayerB</ReceiverID>
             <CORERuleVersion>2.2.0</CORERuleVersion>
-            <Payload>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxDbGluaWNhbERvY3VtZW50IG1vb2RDb2RlPSJFVk4iIHhtbG5zPSJ1cm46aGw3LW9yZzp2MyINCiAgICB4bWxuczp4c2k9Imh0</Payload>
+            <Payload>${#Project#X12RealTimePayload}</Payload>
          </cor:COREEnvelopeRealTimeRequest>
         <urn:assertion>
             <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
@@ -8745,7 +8745,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
             <ReceiverID>PayerB</ReceiverID>
             <CORERuleVersion>2.2.0</CORERuleVersion>
             <CheckSum>43B8485AB5</CheckSum>
-            <Payload>cid:60987661826</Payload>
+            <Payload>${#Project#X12GenericBatchPayload}</Payload>
          </cor:COREEnvelopeBatchSubmission>
         <urn:assertion>
             <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
@@ -8984,7 +8984,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
             <ReceiverID>PayerB</ReceiverID>
             <CORERuleVersion>2.2.0</CORERuleVersion>
             <CheckSum>43B8485AB5</CheckSum>
-            <Payload>cid:60987661826</Payload>
+            <Payload>${#Project#X12GenericBatchPayload}</Payload>
          </cor:COREEnvelopeBatchSubmission>
         <urn:assertion>
             <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
@@ -9227,7 +9227,10 @@ if(context.findProperty("PassThruOn").toBoolean()){
 
 
 
-	
+    <con:property><con:name>ADContentData</con:name><con:value>LDLIHAPIISDALKDF902383K1182K4J49DFNF3KR0482HJ1029F393</con:value></con:property>
+    <con:property><con:name>DSDocument</con:name><con:value>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</con:value></con:property>
+    <con:property><con:name>X12GenericBatchPayload</con:name><con:value>cid:60987661826</con:value></con:property>
+    <con:property><con:name>X12RealTimePayload</con:name><con:value>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxDbGluaWNhbERvY3VtZW50IG1vb2RDb2RlPSJFVk4iIHhtbG5zPSJ1cm46aGw3LW9yZzp2MyINCiAgICB4bWxuczp4c2k9Imh0</con:value></con:property>
 	
 	<con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property>
 
