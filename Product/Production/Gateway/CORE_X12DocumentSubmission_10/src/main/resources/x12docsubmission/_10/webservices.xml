@@ -49,6 +49,9 @@
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
+            <entry key="ws-security.timestamp.validator">
+                <bean class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.callback.cxf.largefile.CoreX12GenericBatchTimestampValidator" />
+            </entry>
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
@@ -67,6 +70,9 @@
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
+            <entry key="ws-security.timestamp.validator">
+                <bean class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.callback.cxf.largefile.CoreX12GenericBatchTimestampValidator" />
+            </entry>
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
