@@ -52,7 +52,7 @@ import org.apache.ws.security.validate.Validator;
 public class TimestampValidator implements Validator {
 
     private static final Logger LOG = Logger.getLogger(TimestampValidator.class);
-    protected static long INVALID_LONG_VALUE = -1;
+    protected static final long INVALID_LONG_VALUE = -1;
 
     /**
      * Validate the credential argument. It must contain a non-null Timestamp.
