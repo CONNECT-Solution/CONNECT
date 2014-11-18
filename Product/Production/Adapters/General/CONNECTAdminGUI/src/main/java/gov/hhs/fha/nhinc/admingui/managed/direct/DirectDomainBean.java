@@ -635,6 +635,9 @@ public class DirectDomainBean {
         anchorOutgoing = true;
         anchorStatus = null;
 
+        associatedTrustBundles = null;
+        unassociatedTrustBundleNames = null;
+        namesOfBundlesToAdd = null;
         bundleIncoming = true;
         bundleOutgoing = true;
 
