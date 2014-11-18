@@ -523,6 +523,7 @@ public class DirectDomainBean {
      * @return
      */
     public List<DirectTrustBundle> getAssociatedTrustBundles() {
+        refreshTrustBundles(selectedDomain.getId());
         return associatedTrustBundles;
     }
 
@@ -531,6 +532,7 @@ public class DirectDomainBean {
      * @return
      */
     public List<String> getUnassociatedTrustBundleNames() {
+        refreshTrustBundles(selectedDomain.getId());
         return unassociatedTrustBundleNames;
     }
 
@@ -633,6 +635,9 @@ public class DirectDomainBean {
         anchorOutgoing = true;
         anchorStatus = null;
 
+        associatedTrustBundles = null;
+        unassociatedTrustBundleNames = null;
+        namesOfBundlesToAdd = null;
         bundleIncoming = true;
         bundleOutgoing = true;
 
