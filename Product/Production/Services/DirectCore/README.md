@@ -46,7 +46,7 @@ The Processed MDN is handled in the same manner as any other incoming message an
 internal mail server. As part of the CONNECT 4.4 release, CONNECT Direct supports receiving and sending 
 dispatched MDNs when the Direct mail sender requests for a delivery notification. This is in addition to the
 default processed MDN, which is required as per the Direct Specification. The Dispatched MDN is handled in the 
-same manner as any other incoming message and ultimately arrives at the internal mail server. As part of the 
+same manner as any other incoming message and ultimately arrives at the internal mail server.
 
 A second Edge Protocol is available. It is the SOAP Edge Protocol and it acts in
 the same way as any other CONNECT adapter. A URL endpoint is provisioned in the CONNECT gateway
@@ -187,7 +187,10 @@ Once the application configuration has been completed and the application deploy
         <task:scheduled ref="outboundMessagePoller" method="poll" cron="0,30 * * * * *"/>
         <task:scheduled ref="inboundMessagePoller" method="poll" cron="15,45 * * * * *"/>
     </task:scheduled-tasks>
-    <task:scheduler id="directScheduler" / -->
+    <task:scheduler id="directScheduler" />
+    <bean id="manageTaskScheduler" class="gov.hhs.fha.nhinc.mail.ManageTaskScheduler" init-method="init" destroy-method="clean">
+        <constructor-arg ref="directScheduler"/>
+    </bean-->
     
 to:
 
@@ -196,6 +199,9 @@ to:
         <task:scheduled ref="inboundMessagePoller" method="poll" cron="15,45 * * * * *"/>
     </task:scheduled-tasks>
     <task:scheduler id="directScheduler" />
+    <bean id="manageTaskScheduler" class="gov.hhs.fha.nhinc.mail.ManageTaskScheduler" init-method="init" destroy-method="clean">
+        <constructor-arg ref="directScheduler"/>
+    </bean>
 
 Gateway Configuration
 ---------------------
