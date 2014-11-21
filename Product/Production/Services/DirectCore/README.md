@@ -165,7 +165,7 @@ To build an EAR file with only the CONNECT Direct feature, from `<CONNECT git ro
      
 This command also interacts with other profiles, for example to build CONNECT with Direct, Patient Discovery, Query for Documents, and Document Retrieve, on Websphere, execute:
 
-	mvn clean install -P Direct,PD,DQ,RD,websphere
+	mvn clean install -P Direct,PD,DQ,RD,was
 	
 ###Deploying CONNECT from a Direct perspective
     
@@ -238,64 +238,36 @@ The rest of the properties are used by Javamail:
 Agent configuration consists of setting the runtime parameters for security and trust agents. As part of CONNECT 4.4, configuration of smtp Agent Settings are no longer supported through the smtp.agent.config.xml configuration file. All the Config agent settings are stored in the ConfigDB database and are configured through the CONNECT AdminGUI. The CONNECT AdminGUI allows system users to configure the following entities which are used by the Direct code integrated with the CONNECT Gateway Direct HISP:
 
       1. Domains
-      2. Certificates
+      2. Certificates (Key Pair)
+      3. Public Certificates
       3. Trust Anchors
       4. Trust Bundles
       5. Agent Settings
 
+By default, CONNECT comes with a domain direct.example.org and additional domains can be created or configured using the CONNECT AdminGUI. The trust anchors are the CA signing certs for the domains that we wish to exchange messages with. The following are the two ways we can configure trust anchors:
+
+* Uploading the trust anchors through the CONNECT AdminGUI from the Domain-->Anchor page
+* Referencing a KeyStore with trust anchors (configured through CONNECT AdminGUI)
+
+Public certificates can be discovered through the following ways:
+
+* DNS
+* Uploading the public certs trhough the CONNECT AdminGUI from the Certificates page
+* Referencing a KeyStore with public certificates
+
+Private certificates can be configured to be be stored/retrieved in one of the following:
+
+* Uploading the Key Pair (as PKCS12 format) trhough CONNECT AdminGUI from the certificates page
+* Referencing a KeyStore with the public/private key pair
+
+
 Please refer to the [CONNECT AdminGUI user guide](https://connectopensource.atlassian.net/wiki/x/EQD9), for more information.
 
 
-###Configuring the Smtp Agent in XML
-
---> smtp.agent.config.xml : _defines domains, trust anchors and keystores used by the Direct code integrated with the CONNECT Gateway Direct HISP._
-
-A single _SmtpAgentConfig/Domains/AnchorStore_ is used to specify the keystore containing CA signing certs for the domains we wish to exchange messages with:
-
-      <AnchorStore type="Uniform" storeType="KeyStore" file="/path/to/direct.anchorstore.jks" filePass="changeit" privKeyPass="changeit"/>    
-
-Each domain managed by this CONNECT Gateway Direct HISP will have an _SmtpAgentConfig/Domains/Domain_ entry like:
-
-      <Domain name="direct.connectopensource.org" postmaster="postmaster@direct.connectopensource.org">
-
-_SmtpAgentConfig/Domains/Domain/IncomingTrustAnchors/Anchor_ defines an incoming trust anchor where the name attribute specifies the alias in the keystore. _SmtpAgentConfig/Domains/Domain/OutgoingTrustAnchors/Anchor_ defines an outgoing trust anchor where the name attribute specifies the alias in the keystore. There will be an entry for each HISP we want to talk to:
-
-	<IncomingTrustAnchors> 
-		<Anchor name="direct.hispdev1.hispdirect.com"/>
-		<!-- ... -->
-	</IncomingTrustAnchors>  
-	<OutgoingTrustAnchors> 
-		<Anchor name="direct.hispdev1.hispdirect.com"/>
-		<!-- ... -->        
-	</OutgoingTrustAnchors>            
-
-The _SmtpAgentConfig/PublicCertStores_ section is used to define how public certificates are discovered. They could be loaded locally, we can use DNS and/or LDAP:  
-
-	<PublicCertStores>
-		<PublicCertStore type="Keystore" file="/path/to/direct.publicstore.jks" filePass="changeit" privKeyPass="changeit"/>
-		<PublicCertStore type="DNS" />
-	</PublicCertStores>
-
-The _SmtpAgentConfig/PrivateCertStore_ section tells us where the private certificates are stored:  
-
-	<PrivateCertStore type="Keystore" file="/path/to/direct.privatestore.jks" filePass="changeit" privKeyPass="changeit"/>
-
-_SmtpAgentConfig/RawMessageSettings,OutgoingMessagesSettings,IncomingMessagesSettings,BadMessagesSettings_ define folder locations are used for staging and storing messages on the filesystem: 
-
-	<RawMessageSettings saveFolder="RawMsgFolder"/>
-	<OutgoingMessagesSettings saveFolder="OutgoingMsgFolder"/>
-	<IncomingMessagesSettings saveFolder="IncomingMsgFolder"/>
-	<BadMessagesSettings saveFolder="BadMsgFolder"/>  
-
-Use _SmtpAgentConfig/MDNSettings_ to define MDN autoresponse behavior:
-
-	<MDNSettings autoResponse="true" productName="NHIN Direct Security Agent">
-		<Text><![CDATA[This is a CDATA subject]]></Text>
-	</MDNSettings>
 
 __Links:__  
 [http://wiki.directproject.org/smtp+gateway+configuration](http://wiki.directproject.org/smtp+gateway+configuration)  
-[http://api.nhindirect.org/java/site/gateway/2.0/users-guide/smtp-depl-xmlconfig.html](http://api.nhindirect.org/java/site/gateway/2.0/users-guide/smtp-depl-xmlconfig.html)
+[http://api.nhindirect.org/java/site/gateway/3.0.1/users-guide/](http://api.nhindirect.org/java/site/gateway/3.0.1/users-guide/)
 
 ###Configuring Mail Pollers
 --> direct.appcontext.xml : _used to schedule the mail pollers._
