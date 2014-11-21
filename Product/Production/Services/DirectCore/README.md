@@ -1,6 +1,6 @@
 Direct Overview
 ===============
-The CONNECT 4.1 implementation of Direct has several interconnecting parts. This is an overview of
+The CONNECT 4.4 implementation of Direct has several interconnecting parts. This is an overview of
 how those parts interact and their basic configuration. Further details regarding configurations can be
 found in subsequent sections of this readme.
 
@@ -32,7 +32,7 @@ Two pollers run at regular intervals that check for any new emails to process. O
 internal mail server for any emails from the Source, and another checks the external mail server for any
 emails from other HISPs.
 
-It is useful to look at an example of how CONNECT 4.1 would send a Direct message in this scenario. A
+It is useful to look at an example of how CONNECT 4.4 would send a Direct message in this scenario. A
 Direct message is initiated as an email sent from a mailbox on the internal mail server. The internal poller
 checks the internal mail server and picks up the outgoing message. CONNECT processes (encryption, logging, etc.)
 the message and then sends it to the Destination's HISP via the external mail server.
@@ -41,11 +41,12 @@ On the other side, when CONNECT is receiving a message, the external poller chec
 server and picks up the incoming message. CONNECT processes (decryption, logging, etc.) the message
 and then sends it to the internal mail server for use by the Destination. A key action on the receiving side
 is that the Destination HISP sends an MDN Processed notification upon successful receipt, decryption
-and trust validation of a Direct message, That MDN arrives in the Source's HISP's external email server.
-The MDN is handled in the same manner as any other incoming message and ultimately arrives at the
-internal mail server. While the Applicability Statement indicates that additional MDNs may be sent to
-indicate further progress processing the message, they are not required and were not included in this
-release of CONNECT. 
+and trust validation of a Direct message, That Processed MDN arrives in the Source's HISP's external email server.
+The Processed MDN is handled in the same manner as any other incoming message and ultimately arrives at the
+internal mail server. As part of the CONNECT 4.4 release, CONNECT Direct supports receiving and sending 
+dispatched MDNs when the Direct mail sender requests for a delivery notification. This is in addition to the
+default processed MDN, which is required as per the Direct Specification. The Dispatched MDN is handled in the 
+same manner as any other incoming message and ultimately arrives at the internal mail server. As part of the 
 
 A second Edge Protocol is available. It is the SOAP Edge Protocol and it acts in
 the same way as any other CONNECT adapter. A URL endpoint is provisioned in the CONNECT gateway
@@ -73,13 +74,14 @@ References:
 https://developer.connectopensource.org/display/CONNECTWIKI/Approach+for+Direct+Implementation
 https://developer.connectopensource.org/display/CONNECT40/Direct+Integration 
 https://developer.connectopensource.org/display/CONNECT40/Direct
+https://connectopensource.atlassian.net/wiki/display/CONNECTWIKI/Approach+for+Direct+Quality+of+Service+Enhancements
 
 Setting up CONNECT as a Direct HISP
 ===================================
 
 ###Security Policy Files
 
-This is now a 4.1 prerequisite -- see main README
+This is now a CONNECT 4.4 prerequisite -- see main README
 
 Download the jars from:
 
@@ -231,6 +233,17 @@ The rest of the properties are used by Javamail:
 	# imap
 	mail.imaps.host=imap-internal.direct.example.org
 	mail.imaps.port=993
+
+###Configuring the Smtp Agent settings
+Agent configuration consists of setting the runtime parameters for security and trust agents. As part of CONNECT 4.4, configuration of smtp Agent Settings are no longer supported through the smtp.agent.config.xml configuration file. All the Config agent settings are stored in the ConfigDB database and are configured through the CONNECT AdminGUI. The CONNECT AdminGUI allows system users to configure the following entities which are used by the Direct code integrated with the CONNECT Gateway Direct HISP:
+
+      1. Domains
+      2. Certificates
+      3. Trust Anchors
+      4. Trust Bundles
+      5. Agent Settings
+
+Please refer to the [CONNECT AdminGUI user guide](https://connectopensource.atlassian.net/wiki/x/EQD9), for more information.
 
 
 ###Configuring the Smtp Agent in XML
