@@ -5,7 +5,7 @@
 
 <glassfish-web-app>
     <context-root/>
-    <class-loader delegate="true" />
+    <class-loader delegate="false" />
 
     <jsp-config>
         <property name="keepgenerated" value="true" />

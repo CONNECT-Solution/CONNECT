@@ -56,12 +56,10 @@ public class DocumentRetrieveClient {
 
     public String retriveDocument(DocumentInformation documentInformation) {
         try {
-            NhinTargetCommunitiesType target = new NhinTargetCommunitiesType();
             String url = getUrl();
             if (NullChecker.isNotNullish(url)) {
                 RespondingGatewayCrossGatewayRetrieveRequestType request = createCrossGatewayRetrieveRequest(documentInformation);
 
-                request.setNhinTargetCommunities(target);
                 EntityDocRetrieveProxyWebServiceUnsecuredImpl instance = new EntityDocRetrieveProxyWebServiceUnsecuredImpl();
                 RetrieveDocumentSetResponseType response = instance.respondingGatewayCrossGatewayRetrieve(
                         request.getRetrieveDocumentSetRequest(), request.getAssertion(),
