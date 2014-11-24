@@ -70,7 +70,7 @@
                                             <p:commandButton value="Delete" actionListener="#{directDomainBean.deleteDomain()}" update="domainDataTable,domainDeleteError" styleClass="delete-button" icon="ui-icon-closethick" />
                                         </p:column>
                                         <p:column>
-                                            <p:commandButton value="Edit Domain" actionListener="#{directDomainBean.showEdit()}" styleClass="edit-button" icon="ui-icon-pencil" />
+                                            <p:commandButton value="Edit Domain" actionListener="#{directDomainBean.showEdit()}" update=":domainEditTabview:domain-tb-form:tb-domainDataTable,:domainEditTabview:domain-tb-form:select-domain-tbs" styleClass="edit-button" icon="ui-icon-pencil" />
                                         </p:column>
                                         <p:column styleClass="ui-button-rightmost">
                                             <p:commandButton value="Create New Domain" type="button" onclick="PF('domainDlg').show();" styleClass="add-button pull-right" icon="ui-icon-circle-plus" />

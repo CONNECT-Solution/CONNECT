@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2014, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -52,7 +52,7 @@ import org.apache.ws.security.validate.Validator;
 public class TimestampValidator implements Validator {
 
     private static final Logger LOG = Logger.getLogger(TimestampValidator.class);
-    private static long INVALID_LONG_VALUE = -1;
+    protected static final long INVALID_LONG_VALUE = -1;
 
     /**
      * Validate the credential argument. It must contain a non-null Timestamp.

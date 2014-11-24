@@ -147,7 +147,11 @@ public class NhincConstants {
     public static final String TIMESTAMP_TIME_TO_LIVE = "TimeStampTimeToLive";
     public static final String TIMESTAMP_STRICT = "TimeStampStrict";
     public static final String TIMESTAMP_FUTURE_TIME_TO_LIVE = "FutureTimeToLive";
-
+    //X12 Generic Batch Specific Timestamp validator values
+    public static final String X12_GENERIC_BATCH_TIMESTAMP_TIME_TO_LIVE = "CoreX12GenericBatchTimeStampTimeToLive";
+    public static final String X12_GENERIC_BATCH_TIMESTAMP_STRICT = "CoreX12GenericBatchTimeStampStrict";
+    public static final String X12_GENERIC_BATCH_TIMESTAMP_FUTURE_TIME_TO_LIVE = "CoreX12GenericBatchFutureTimeToLive";
+    
     // Response Message Interceptor Constants
     public static final String RESPONSE_MESSAGE_ID_KEY = "RESPONSE_MESSAGE_ID";
     public static final String RESPONSE_MESSAGE_ID_LIST_KEY = "RESPONSE_MESSAGE_ID_LIST";

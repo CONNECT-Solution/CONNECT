@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.mail;
 
+import gov.hhs.fha.nhinc.direct.messagemonitoring.util.MessageMonitoringUtil;
+
 /**
  * Uses a mail client and handler to poll and handle mail messages from a server.
  */
@@ -49,6 +51,8 @@ public abstract class AbstractMailPoller {
      */
     public void poll() {
         try {
+            //Update the Agent Settings Cache value
+            MessageMonitoringUtil.updateAgentSettingsCacheTimeoutValue();
             mailReceiver.handleMessages(messageHandler);
         } catch (MailClientException e) {
             handleException(e);
