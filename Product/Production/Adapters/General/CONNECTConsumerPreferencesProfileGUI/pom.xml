@@ -11,6 +11,11 @@
     
     <dependencies>
         <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
         </dependency>

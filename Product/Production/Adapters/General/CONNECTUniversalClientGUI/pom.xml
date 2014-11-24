@@ -12,6 +12,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.owasp.esapi</groupId>
+            <artifactId>esapi</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
         </dependency>
