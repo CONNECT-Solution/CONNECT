@@ -181,7 +181,7 @@ The Local HISP private/public key pair can be configured in the Agent Settings u
 Below are the steps to generate a Direct keystore:
 
      #Generate the Direct KeyStore key pair (DirectKeyStore.jks)
-     keytool -v -genkey -keyalg RSA -keysize 1024 -keystore DirectKeyStore.jks -keypass changeit -storepass changeit -validity 3650 -alias direct.example.org -dname &quot;cn=direct.example.org&quot;"
+     keytool -v -genkey -keyalg RSA -keysize 1024 -keystore DirectKeyStore.jks -keypass changeit -storepass changeit -validity 3650 -alias direct.example.org -dname "cn=direct.example.org"
 For Storage Type WS, the following are the steps to configure the Direct Gateway Agent:
 1. Convert the direct keystore into PKCS12 (.p12) format.
 
