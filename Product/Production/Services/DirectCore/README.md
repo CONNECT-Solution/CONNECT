@@ -183,6 +183,7 @@ Below are the steps to generate a Direct keystore:
      #Generate the Direct KeyStore key pair (DirectKeyStore.jks)
      keytool -v -genkey -keyalg RSA -keysize 1024 -keystore DirectKeyStore.jks -keypass changeit -storepass changeit -validity 3650 -alias direct.example.org -dname "cn=direct.example.org"
 For Storage Type WS, the following are the steps to configure the Direct Gateway Agent:
+
 1. Convert the direct keystore into PKCS12 (.p12) format.
 
         # create a PKCS12 file (direct.p12) from Direct KeyStore (DirectKeyStore.jks)
@@ -329,7 +330,9 @@ CONNECT Direct caches all the Smtp agent settings during the server startup. The
     AgentSettingsCacheRefreshActive=true
 
 ###Configuring QOS settings
-CONNECT Direct Quality Of Service (QOS) enhancement supports tracking and monitoring of outgoing Direct messages. The outgoing Message Monitoring and tracking can be configured throguh different properties defined in the gateway.properties. The Message monitoring and traacking can be enabled or disabled through the "MessageMonitoringEnabled" property and by default its enabled. Currently Quality of Service (QOS) is not supported for SOAP/XDR based edge client systems and the property "MessageMonitoringEnabled" should be set to false in this case. The time limit before the Processed and Dispatched MDNs should be received from the Destination HISP can be configured through "ProcessedMessageReceiveTimeLimit" and "DispatchedMessageReceiveTimeLimit" properties. The default values are 1 hour and 24 hours respectively. The properties "OutboundFailedMessageRetryCount", "InboundFailedMessageRetryCount" and "NotifyOutboundSecurityFailureImmediate" are for future use and currently not used.
+CONNECT Direct Quality Of Service (QOS) enhancement supports tracking and monitoring of outgoing Direct messages. The outgoing Message monitoring and tracking can be configured throguh different properties defined in the gateway.properties. The Message monitoring and traacking can be enabled or disabled through the "MessageMonitoringEnabled" property and by default its enabled. Currently Quality of Service (QOS) is not supported for SOAP/XDR based edge client systems and the property "MessageMonitoringEnabled" should be set to false in this case. 
+
+The time limit before the Processed and Dispatched MDNs should be received from the Destination HISP can be configured through "ProcessedMessageReceiveTimeLimit" and "DispatchedMessageReceiveTimeLimit" properties. The default values are 1 hour and 24 hours respectively. The properties "OutboundFailedMessageRetryCount", "InboundFailedMessageRetryCount" and "NotifyOutboundSecurityFailureImmediate" are for future use and currently not used.
     #Direct Message Monitoring properties
     PostmasterEmailIdPrefix=postmaster
     OutboundFailedMessageRetryCount=1
