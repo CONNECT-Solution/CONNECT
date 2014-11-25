@@ -157,7 +157,7 @@ This command also interacts with other profiles, for example to build CONNECT wi
 	
 ###Deploying CONNECT from a Direct perspective
     
-When running `ant install` to create a local glassfish instance, only the default domain "direct.example.org" is configurred in the agent settings by default.
+When running `ant install` to create a local glassfish instance, only the default domain "direct.example.org" is configurred in the agent settings by default. To deploy CONNECT to other application servers, the same instructions apply with or without the Direct feature enabled with one exception. Updates to configurations outlined in the below sections of this README.md will need to be completed before deploying the application.
 
 ####Configuring the Smtp Agent settings
 Agent configuration consists of setting the runtime parameters for security and trust agents. As part of CONNECT 4.4, configuration of smtp Agent Settings are no longer supported through the smtp.agent.config.xml configuration file. All the Config agent settings are stored in the ConfigDB database and are configured through the CONNECT AdminGUI. The CONNECT AdminGUI allows system users to configure the following entities which are used by the Direct code integrated with the CONNECT Gateway Direct HISP:
@@ -172,7 +172,8 @@ By default, CONNECT comes with a domain direct.example.org and additional domain
 Please refer to the [CONNECT AdminGUI user guide](https://connectopensource.atlassian.net/wiki/x/EQD9), for more information.
 
 #####Configure local HISP Private Key
-The Local HISP private/public key pair can be configured in the Agent Settings using the CONNECT AadminGUI. CONNECT Direct supports multiple ways of storing the local HISP private key, the following are the three supported Storage Types:
+The Local HISP private/public key pair can be configured in the Agent Settings using the CONNECT AdminGUI. CONNECT Direct supports three Storage Types for holding the local HISP private key:
+
 1. WS  -- the key pair stored in the ConfigDB database and this is the default value
 2. KEYSTORE -- the key pair stored in a Keystore file and referenced
 3. LDAP -- the key pair stored in a LDAP server and referenced
@@ -200,7 +201,8 @@ For Storage Type KEYSTORE, the following properties should be added from CONNECT
 The PrivateStoreType property can also have more than one type value, the values are delimited by comma (example, PublicStoreType="KEYSTORE, WS"), but make sure the respective properties are also configured.
 
 #####Configure Public Certificates of trusted HISPs
-The  Public Certificate can be configured in the Agent Settings using the CONNECT AadminGUI. CONNECT Direct supports multiple ways of discovering the public certificate of the Destination HISPs, the following are the four supported discovery types:
+The  Public Certificate can be configured in the Agent Settings using the CONNECT AdminGUI. CONNECT Direct supports four ways to discover the public certificate of the Destination HISP:
+
 1. DNS -- the public certificate of the Destination HISP is located through DNS lookup and this is the default value. 
 2. WS  -- the public certificate stored in the ConfigDB database
 2. KEYSTORE -- the public certificate stored in a Keystore file and referenced
@@ -226,7 +228,8 @@ For the Type KEYSTORE, the following properties should be added from CONNECT Adm
 The PublicStoreType property can also have more than one type value, the values are delimited by comma (example, PublicStoreType="KEYSTORE, WS"), but make sure the respective properties are also configured.
 
 ###Configure Trust Anchors of trusted HISPs
-The trust anchors are the CA signing certs for the HISP domains that we wish to exchange messages with. The Trust anchors can be configured in the Agent Settings using the CONNECT AadminGUI. CONNECT Direct supports multiple ways of storing the Destination HISPs anchor certificate, the following are the three supported Storage Type:
+The trust anchors are the CA signing certs for the HISP domains that we wish to exchange messages with. The Trust anchors can be configured in the Agent Settings using the CONNECT AdminGUI. CONNECT Direct supports three Storage Types for holding the Destination HISPs anchor certificates:
+
 1. WS  -- the key pair stored in the ConfigDB database and this is the default value
 2. KEYSTORE -- the key pair stored in a Keystore file and referenced
 3. LDAP -- the key pair stored in a LDAP server and referenced
@@ -252,12 +255,9 @@ For Storage Type KEYSTORE, the following properties should be added from CONNECT
 The AnchorStoreType property can also have more than one type value, the values are delimited by comma (example, AnchorStoreType="KEYSTORE, WS"), but make sure the respective properties are also configured.
 
 ###Configure Trust Bundles
-Trust Bundles are a collection of trust anchor certificates. Trust bundles are packaged into a single file using the PKCS7 standard and distributed via a known URL (the location is discovered out of band). Trust bundles are configured from the Trust Bundles tab through CONNECT AdminGUI. In order to use a Trust Bundle, it has to be associated to the domain through Domain Trust Bundle association page(From CONNECT AdminGUI --> Domains tab (Edit Domain) --> Trust Bundeles tab).
+Trust Bundles are a collection of trust anchor certificates. Trust bundles are packaged into a single file using the PKCS7 standard and distributed via a known URL (the location is discovered out of band). Trust bundles are configured from the Trust Bundles tab through CONNECT AdminGUI. In order to use a Trust Bundle, it has to be associated to the domain through Domain Trust Bundle association page(From CONNECT AdminGUI --> Domains tab (Edit Domain) --> Trust Bundles tab).
 
-__Note:__ When deploying to glassfish using the ant scripts, any changes made to the glassfish config directory will be overwritten with the configs from the CONNECT properties jar.
-
-To deploy CONNECT to other application servers, the same instructions apply with or without the Direct feature enabled with one exception. Updates to configurations outlined in the below sections of this README.md will need to be completed before deploying the application.
-
+###Configure Direct Pollers
 Once the application configuration has been completed and the application deploys successfully, regardless of the target application server, the "pollers" will need to be enabled. The pollers are disabled by default because there is no feasable way at this point to deploy and configure all of the necessary Direct HISP components automatically. Update `<nhinc.properties.dir>/direct.appcontext.xml` from:
 
     <!-- task:scheduled-tasks scheduler="directScheduler">
