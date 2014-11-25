@@ -167,12 +167,75 @@ This command also interacts with other profiles, for example to build CONNECT wi
     
 When running `ant install` to create a local glassfish instance, only the default domain "direct.example.org" is configurred in the agent settings by default.
 #####Configure local HISP Private Key
-The Local HISP private/public key pair can be configured in the Agent Settings using the below.
-     #Generate PKCS12 key pair
-     
-#####Configure public keys of trusted HISPs
-  
-#####Configure trust anchors of trusted HISPs
+The Local HISP private/public key pair can be configured in the Agent Settings using the CONNECT AadminGUI. CONNECT Direct supports multiple ways of storing the local HISP private key, the following are the three supported Storage Types:
+1. WS  -- the key pair stored in the ConfigDB database and this is the default value
+2. KEYSTORE -- the key pair stored in a Keystore file and referenced
+3. LDAP -- the key pair stored in a LDAP server and referenced
+
+Below are the steps to generate a Direct keystore:
+     #Generate the Direct KeyStore key pair (DirectKeyStore.jks)
+     keytool #TODO
+For Storage Type WS, the following are the steps to configure the Direct Gateway Agent:
+1. Convert the direct keystore into PKCS12 (.p12) format.
+        # create a PKCS12 file (direct.p12) from Direct KeyStore (DirectKeyStore.jks)
+        #TODO
+2. Add the direct.p12 file through CONNECT AdminGUI from "Certificates" tab. Please refer to the AdminGUI User Manual for more information.
+
+For Storage Type KEYSTORE, the following properties should be added from CONNECT AdminGUI --> Settings, to Configure Direct Gateway Agent:
+
+        PrivateStoreType="KEYSTORE"
+        PrivateStoreFile="path/keystorefilename" (eg: C:\\config\\directkeystore.jks)
+
+The PrivateStoreType property can also have more than one type value, the values are delimited by comma (example, PublicStoreType="KEYSTORE, WS"), but make sure the respective properties are also configured.
+
+#####Configure Public Certificates of trusted HISPs
+The  Public Certificate can be configured in the Agent Settings using the CONNECT AadminGUI. CONNECT Direct supports multiple ways of discovering the public certificate of the Destination HISPs, the following are the four supported discovery types:
+1. DNS -- the public certificate of the Destination HISP is located through DNS lookup and this is the default value. 
+2. WS  -- the public certificate stored in the ConfigDB database
+2. KEYSTORE -- the public certificate stored in a Keystore file and referenced
+3. LDAP -- the public certificate stored in a LDAP server and referenced
+
+Below are the steps to generate a Direct Public keystore:
+     #Generate the Direct KeyStore key pair (DirectKeyStore.jks)
+     keytool #TODO
+
+All the trusted HISPs Public Certificate dicovery is done throgh DNS by default, no further configuration is required for this type. 
+For the dicovery Type WS, all the trusted HISPs public certificates should be added through the CONNECT AdminGUI Certificates tab and the following property should be added from Setttings tab through CONNECT AdminGUI.
+
+       PublicStoreType="WS"
+
+For the Type KEYSTORE, the following properties should be added from CONNECT AdminGUI --> Settings, to Configure Direct Gateway Agent. The keystore mentioned in the property PublicKeyStoreFile should also have also have all the trusted Destination HISP Public Certificates.
+
+        PublicStoreType="KEYSTORE"
+        PublicKeyStoreFile="path/keystorefilename" (eg: C:\\config\\PublicKeyStore.jks)
+        PublicKeyStoreFilePass="changeit"
+
+The PublicStoreType property can also have more than one type value, the values are delimited by comma (example, PublicStoreType="KEYSTORE, WS"), but make sure the respective properties are also configured.
+
+###Configure trust anchors of trusted HISPs
+The Local HISP private/public key pair can be configured in the Agent Settings using the CONNECT AadminGUI. CONNECT Direct supports multiple ways of storing the local HISP private key, the following are the three supported Storage Type:
+1. WS  -- the key pair stored in the ConfigDB database and this is the default value
+2. KEYSTORE -- the key pair stored in a Keystore file and referenced
+3. LDAP -- the key pair stored in a LDAP server and referenced
+
+Below are the steps to generate a Direct Anchor keystore:
+     #Generate the Direct KeyStore key pair (DirectKeyStore.jks)
+     keytool #TODO
+
+For the Storage Type WS, all the trusted HISPs Anchor certificates should be added through the CONNECT AdminGUI Domains--> Edit Domain-->Anchors tab.
+
+For Storage Type KEYSTORE, the following properties should be added from CONNECT AdminGUI --> Settings, to Configure Direct Gateway Agent. The keystore mentioend in the propertey AnchorKeyStoreFile should also have also have all the trusted Destination HISP Anchors. All the trusted Destination HISPs Anchor certiface "Common Name" should be added as a comma delimited value for the properties <local HISP domain>IncomingAnchorAliases and <local HISP domain>OutgoingAnchorAliases, in order for Direct to communicate with the Destination HISPs.
+
+        AnchorStoreType="KEYSTORE"
+        AnchorKeyStoreFile="path/keystorefilename" (eg: C:\\config\\Anchors.jks)
+        AnchorKeyStoreFilePass="changeit"
+        AnchorResolverType="Multidomain"
+        # Should have <local HISP domain>IncomingAnchorAliases as the key and comma delimited Cert Common Name as value
+        direct.example.orgIncomingAnchorAliases="direct.sitenv.org_ca" eg (direct.sitenv.org_ca,direct.testdirect.org)
+        # Should have <local HISP domain>OutgoingAnchorAliases as the key and comma delimited Cert Common Name as value
+        direct.example.orgOutgoingAnchorAliases="direct.sitenv.org_ca" eg (direct.sitenv.org_ca,direct.testdirect.org)
+
+The AnchorStoreType property can also have more than one type value, the values are delimited by comma (example, AnchorStoreType="KEYSTORE, WS"), but make sure the respective properties are also configured.
 
 __Note:__ When deploying to glassfish using the ant scripts, any changes made to the glassfish config directory will be overwritten with the configs from the CONNECT properties jar.
 
