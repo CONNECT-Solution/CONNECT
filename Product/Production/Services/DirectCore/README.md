@@ -11,8 +11,7 @@ in turn exchange with one another. CONNECT provides the technical capabilities a
 it implements SMTP using the Direct Project specifications that allow HISPs to communicate to one
 another, and in addition it supports Edge Protocols that allow clients to communicate with the HISP.
 
-A typical flow of a Direct message would involve a Source client -> Source's HISP -> Destination's HISP -> Destination's Client.
-For example, a Source client initiates a message using the SOAP+XDR edge protocol
+A typical flow of a Direct message would involve a Source client -> Source's HISP -> Destination's HISP -> Destination's Client. For example, a Source client initiates a message using the SOAP+XDR edge protocol
 that is sent via the Source's HISP (the CONNECT instance) to the Destination's HISP, A Message
 Disposition Notification (MDN) is sent from the Destination's HISP and received by the Source's HISP as
 an acknowledgement of receipt by the Destination's HISP. Similarly, when acting as a Destination's HISP
@@ -44,9 +43,7 @@ is that the Destination HISP sends an MDN Processed notification upon successful
 and trust validation of a Direct message, That Processed MDN arrives in the Source's HISP's external email server.
 The Processed MDN is handled in the same manner as any other incoming message and ultimately arrives at the
 internal mail server. As part of the CONNECT 4.4 release, CONNECT Direct supports receiving and sending 
-dispatched MDNs when the Direct mail sender requests for a delivery notification. This is in addition to the
-default processed MDN, which is required as per the Direct Specification. The Dispatched MDN is handled in the 
-same manner as any other incoming message and ultimately arrives at the internal mail server.
+dispatched MDNs and also Failed Delivery Status Notifications(DSN). The dispatched MDNs are sent when the Direct mail sender requests for a delivery notification. This is in addition to the default processed MDN, which is required as per the Direct Specification. The Dispatched MDN and Failed DSN are handled in the same manner as any other incoming messages and ultimately arrives at the internal mail server. The MDNs and DSNs are exchanged between the two HISP Direct Gateways and are not visible to the edge client. As part of the Quality Of Service (QOS) enhancement, a custom notification is sent to the edge client after a successful delivery or failed delivery or no response from the Destination HISP within a specified time limit by the Message Monitoring module. The external poller also calls the Message Monitoring module to track and monitor outgoing Direct emails and sends out an notification to the edge client based on outcome of the email delivery.
 
 A second Edge Protocol is available. It is the SOAP Edge Protocol and it acts in
 the same way as any other CONNECT adapter. A URL endpoint is provisioned in the CONNECT gateway
@@ -117,7 +114,6 @@ The external mail server is used by the CONNECT Gateway to send outbound direct 
 
 Both mail servers must support SMTP/TLS and IMAPS.
 
-
 DNS (RFC4398)
 -------------
 
@@ -169,13 +165,14 @@ This command also interacts with other profiles, for example to build CONNECT wi
 	
 ###Deploying CONNECT from a Direct perspective
     
-When running `ant install` to create a local glassfish instance, certificates are automatically generated and placed in the following default stores (which are configurable through the `local.install.properties` file:
-
-    achors.jks - to store the trust anchors of trusted HISPs.
-    example-store.jks - to store the public keys of trusted HISPs.
-    exmple-key.jks - to store the local HISP private key.
-	
-As part of the `ant deploy.connect` command (which is executed as part of `ant install`) stores are referenced via the `smtp.agent.config.xml`.
+When running `ant install` to create a local glassfish instance, only the default domain "direct.example.org" is configurred in the agent settings by default.
+#####Configure local HISP Private Key
+The Local HISP private/public key pair can be configured in the Agent Settings using the below.
+     #Generate PKCS12 key pair
+     
+#####Configure public keys of trusted HISPs
+  
+#####Configure trust anchors of trusted HISPs
 
 __Note:__ When deploying to glassfish using the ant scripts, any changes made to the glassfish config directory will be overwritten with the configs from the CONNECT properties jar.
 
@@ -266,14 +263,32 @@ Private certificates can be configured to be be stored/retrieved in one of the f
 * Uploading the Key Pair (as PKCS12 format) trhough CONNECT AdminGUI from the certificates page
 * Referencing a KeyStore with the public/private key pair
 
-
 Please refer to the [CONNECT AdminGUI user guide](https://connectopensource.atlassian.net/wiki/x/EQD9), for more information.
-
-
 
 __Links:__  
 [http://wiki.directproject.org/smtp+gateway+configuration](http://wiki.directproject.org/smtp+gateway+configuration)  
 [http://api.nhindirect.org/java/site/gateway/3.0.1/users-guide/](http://api.nhindirect.org/java/site/gateway/3.0.1/users-guide/)
+
+###Configuring the Smtp Agent Cache
+CONNECT Direct caches all the Smtp agent settings during the server startup. The cahche can be configured to refresh eveny 'n' milli seconds using the property "AgentSettingsCacheRefreshTime" which is defined in gateway.properties. The default value is 5 minutes. Whenever a Agent Setting Entity is changed/added/removed, the Direct Gateway will take 'AgentSettingsCacheRefreshTime' milli seconds to take effect. The cache refresh can be enabled or disabled using the proeprty AgentSettingsCacheRefreshActive, by default the cache refresh is enabled. Please note setting the AgentSettingsCacheRefreshTime very low may hamper the performance of the Direct Gateway.
+
+    # Agent Settings Cache Refresh time in milli seconds, 60000=1 minute 300000=5 minutes
+    AgentSettingsCacheRefreshTime=300000
+    AgentSettingsCacheRefreshActive=true
+
+###Configuring QOS settings
+CONNECT Direct Quality Of Service (QOS) enhancement supports tracking and monitoring of outgoing Direct messages. The outgoing Message Monitoring and tracking can be configured throguh different properties defined in the gateway.properties. The Message monitoring and traacking can be enabled or disabled through the "MessageMonitoringEnabled" property and by default its enabled. Currently Quality of Service (QOS) is not supported for SOAP/XDR based edge client systems and the property "MessageMonitoringEnabled" should be set to false in this case. The time limit before the Processed and Dispatched MDNs should be received from the Destination HISP can be configured through "ProcessedMessageReceiveTimeLimit" and "DispatchedMessageReceiveTimeLimit" properties. The default values are 1 hour and 24 hours respectively. The properties "OutboundFailedMessageRetryCount", "InboundFailedMessageRetryCount" and "NotifyOutboundSecurityFailureImmediate" are for future use and currently not used.
+    #Direct Message Monitoring properties
+    PostmasterEmailIdPrefix=postmaster
+    OutboundFailedMessageRetryCount=1
+    InboundFailedMessageRetryCount=1
+    NotifyOutboundSecurityFailureImmediate=true
+    MessageMonitoringEnabled=true
+    # Time Limit in milli seconds 1 minute=60 seconds = 60000 milli seconds
+    # 1 Hour
+    ProcessedMessageReceiveTimeLimit=3600000
+    # 24 hours
+    DispatchedMessageReceiveTimeLimit=86400000
 
 ###Configuring Mail Pollers
 --> direct.appcontext.xml : _used to schedule the mail pollers._
