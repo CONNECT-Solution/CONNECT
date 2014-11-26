@@ -1,6 +1,6 @@
 Direct Overview
 ===============
-The CONNECT 4.1 implementation of Direct has several interconnecting parts. This is an overview of
+The CONNECT 4.4 implementation of Direct has several interconnecting parts. This is an overview of
 how those parts interact and their basic configuration. Further details regarding configurations can be
 found in subsequent sections of this readme.
 
@@ -11,8 +11,7 @@ in turn exchange with one another. CONNECT provides the technical capabilities a
 it implements SMTP using the Direct Project specifications that allow HISPs to communicate to one
 another, and in addition it supports Edge Protocols that allow clients to communicate with the HISP.
 
-A typical flow of a Direct message would involve a Source client -> Source's HISP -> Destination's HISP -> Destination's Client.
-For example, a Source client initiates a message using the SOAP+XDR edge protocol
+A typical flow of a Direct message would involve a Source client -> Source's HISP -> Destination's HISP -> Destination's Client. For example, a Source client initiates a message using the SOAP+XDR edge protocol
 that is sent via the Source's HISP (the CONNECT instance) to the Destination's HISP, A Message
 Disposition Notification (MDN) is sent from the Destination's HISP and received by the Source's HISP as
 an acknowledgement of receipt by the Destination's HISP. Similarly, when acting as a Destination's HISP
@@ -32,29 +31,28 @@ Two pollers run at regular intervals that check for any new emails to process. O
 internal mail server for any emails from the Source, and another checks the external mail server for any
 emails from other HISPs.
 
-It is useful to look at an example of how CONNECT 4.1 would send a Direct message in this scenario. A
+It is useful to look at an example of how CONNECT 4.4 would send a Direct message in this scenario. A
 Direct message is initiated as an email sent from a mailbox on the internal mail server. The internal poller
 checks the internal mail server and picks up the outgoing message. CONNECT processes (encryption, logging, etc.)
 the message and then sends it to the Destination's HISP via the external mail server.
 
-On the other side, when CONNECT is receiving a message, the external poller checks the external mail
-server and picks up the incoming message. CONNECT processes (decryption, logging, etc.) the message
+On the other side, when CONNECT is receiving a Direct message, the external poller checks the external mail
+server and picks up the incoming Direct message. CONNECT processes (decryption, logging, etc.) the Direct message
 and then sends it to the internal mail server for use by the Destination. A key action on the receiving side
 is that the Destination HISP sends an MDN Processed notification upon successful receipt, decryption
-and trust validation of a Direct message, That MDN arrives in the Source's HISP's external email server.
-The MDN is handled in the same manner as any other incoming message and ultimately arrives at the
-internal mail server. While the Applicability Statement indicates that additional MDNs may be sent to
-indicate further progress processing the message, they are not required and were not included in this
-release of CONNECT. 
+and trust validation of a Direct message, that Processed MDN arrives in the Source's HISP's external email server.
+The Processed MDN is handled in the same manner as any other incoming message and ultimately arrives at the
+local HISP Direct gateway. As part of the CONNECT 4.4 release, CONNECT Direct supports receiving and sending 
+dispatched MDNs and also Failed Delivery Status Notifications (DSNs). The dispatched MDNs are sent when the Direct mail sender requests for a delivery notification. This is in addition to the default processed MDN, which is required per the Applicability Statement for Secure Health Transport. The Dispatched MDN and Failed DSN are handled in the same manner as any other incoming messages and ultimately arrives in the local HISP Direct Gateway. The MDNs and DSNs are exchanged between the two HISP Direct Gateways and are not visible to the edge client. As part of the Quality Of Service (QOS) enhancement, a custom notification is sent to the edge client after a successful delivery or failed delivery or no response from the Destination HISP within a specified time limit by the Message Monitoring module. The Message Monitoring Module utilizes the MDNs/DSNs received and also the message sent time to calculate and notify the edge client about the status of the direct message sent out. The external poller also calls the Message Monitoring module to track and monitor outgoing Direct emails and sends out an notification to the edge client based on outcome of the email delivery.
 
-A second Edge Protocol is available. It is the SOAP Edge Protocol and it acts in
-the same way as any other CONNECT adapter. A URL endpoint is provisioned in the CONNECT gateway
+A second Edge Protocol, SOAP, is available. It behaves the same way as other CONNECT adapters. A URL endpoint is provisioned in the CONNECT gateway
 that accepts SOAP XDR messages. The gateway processes the message and sends it out as an SMTP
 Direct message via the external mailbox, in the same manner as with the SMTP Edge Protocol. In this
 case it is possible that there is no internal mail server at all. Messages could be only initiated via SOAP.
 However, note that as long as both Edge Protocols are available, a Direct message can be initiated with
-either Edge Protocol and this is a valid use case. (A third, Java Edge Protocol exists as described in the
-Direct readme. However it is outside the scope of this introduction.)
+either Edge Protocol and this is a valid use case. 
+
+A third, Java Edge Protocol exists as described in the Direct readme, however it is outside the scope of this introduction.
 
 Just as outgoing messages can utilize the SOAP Edge Protocol, so can incoming Direct messages.
 CONNECT is configured to use a particular Edge Protocol for incoming messages via a Spring
@@ -66,20 +64,20 @@ internalConnectionInfo.xml.
 As mentioned above, the gateway processes messages regardless of which Edge Protocol initiates the message. In addition to providing security for the messages, the gateway also
 performs two types of logging; Audit logging and Event logging. Audit logging is implemented via the Direct
 Java Reference Implementations log4j audit messages. Event Logging is an easy way to determine if a Direct 
-message has been processed fully and if the MDN has been received. Please see the CONNECT Event Logging
-documentation for more details (3rd link below).
+message has been processed fully and if the MDN has been received.
 
 References:  
-https://developer.connectopensource.org/display/CONNECTWIKI/Approach+for+Direct+Implementation
-https://developer.connectopensource.org/display/CONNECT40/Direct+Integration 
-https://developer.connectopensource.org/display/CONNECT40/Direct
+[Approach for Direct Quality of Service Enhancements](https://connectopensource.atlassian.net/wiki/x/KwGD)  
+[Approach for Direct Implementation](https://connectopensource.atlassian.net/wiki/x/AQCD)   
+[Direct Integration](https://connectopensource.atlassian.net/wiki/x/UICh)   
+[Direct](https://connectopensource.atlassian.net/wiki/x/NoCh)   
 
 Setting up CONNECT as a Direct HISP
 ===================================
 
 ###Security Policy Files
 
-This is now a 4.1 prerequisite -- see main README
+This is now a CONNECT 4.4 prerequisite -- see main [README](https://github.com/CONNECT-Solution/CONNECT/blob/CONNECT/README.md)
 
 Download the jars from:
 
@@ -89,21 +87,14 @@ Install under:
 
 	$JAVA_HOME/jre/lib/security 
 
-###Maven
-
-Direct is currently disabled in the deployment pom.xml file. In order to enable it...  
---> .../Product/Production/Deploy/ear/pom.xml : _maven pom for the deployment._ 
-
-    <direct.excluded>false</direct.excluded>
-
 Mail Servers
 ------------
 
-For this step 2 mail servers are needed. 
+For this step two mail servers are needed. 
 
 ###Internal Mail Server
 
-The internal mail server can be used by users at the gateway to initiate Direct messages by sending an email. Routing rules are put in place to drop outgoing messages which need to be processed by Direct into the Inbox of the CONNECT Gateway mail account. These rules typically match the domain of the recipient against a list of HISP domains which the Gateway is allowed to exchange messages.
+The internal mail server can be used by users at the gateway to initiate Direct messages by sending an email. Routing rules are put in place to drop outgoing messages which need to be processed by Direct into the Inbox of the CONNECT Gateway mail account. These rules typically match the domain of the recipient against a list of HISP domains with which the Gateway is allowed to exchange messages.
 
 This internal mail server can also be used as an SMTP edge client when the CONNECT Gateway is configured to handle inbound messages this way. In that manner inbound messages will be mailed to the recipient at the HISP. 
 
@@ -115,7 +106,6 @@ The external mail server is used by the CONNECT Gateway to send outbound direct 
 
 Both mail servers must support SMTP/TLS and IMAPS.
 
-
 DNS (RFC4398)
 -------------
 
@@ -123,7 +113,7 @@ DNS (RFC4398)
 * DNS Solution which supports editing the Zone File.  
 * PKIX Certificates signed by a CA.
 
-In order for your CONNECT Gateway Direct HISP's public certificate to be discoverable, it must be available via DNS (or LDAP which is beyond the scope of this). Your DNS Service must support editing the Zone File. The public certificate will be converted to conform to a TYPE37 Zone File entry according to the spec RFC4398.  
+In order for your CONNECT Gateway Direct HISP's public certificate to be discoverable, it must be available via DNS or LDAP. Your DNS Service must support editing the Zone File. The public certificate will be converted to conform to a TYPE37 Zone File entry according to the spec RFC4398. Please note the information related to configuring and setting up the Public Certificate in LDAP is beyond the scope of this document.
 
 The following steps can be used to achieve this:
 
@@ -161,31 +151,124 @@ To build an EAR file with only the CONNECT Direct feature, from `<CONNECT git ro
 
 	mvn clean install -P Direct
      
-This command also interacts with other profiles, for example to build CONNECT with Direct, Patient Discovery, Query for Documents, and Document Retrieve, on Websphere, execute:
+This command also interacts with other profiles, for example to build CONNECT with Direct, Patient Discovery, Query for Documents, and Document Retrieve, on WebSphere, execute:
 
-	mvn clean install -P Direct,PD,DQ,RD,websphere
+	mvn clean install -P Direct,PD,DQ,RD,was
 	
 ###Deploying CONNECT from a Direct perspective
     
-When running `ant install` to create a local glassfish instance, certificates are automatically generated and placed in the following default stores (which are configurable through the `local.install.properties` file:
+When running `ant install` to create a local Glassfish instance, only the default domain "direct.example.org" is configured in the agent settings by default. To deploy CONNECT to other application servers, the same instructions apply with or without the Direct feature enabled with one exception. Updates to configurations outlined in the below sections of this README.md will need to be completed before deploying the application.
 
-    achors.jks - to store the trust anchors of trusted HISPs.
-    example-store.jks - to store the public keys of trusted HISPs.
-    exmple-key.jks - to store the local HISP private key.
-	
-As part of the `ant deploy.connect` command (which is executed as part of `ant install`) stores are referenced via the `smtp.agent.config.xml`.
+####Configuring the SMTP Agent settings
+Agent configuration consists of setting the runtime parameters for security and trust agents. As part of CONNECT 4.4, configuration of SMTP Agent Settings are no longer supported through the smtp.agent.config.xml configuration file. All the Config agent settings are stored in the ConfigDB database and are configured through the CONNECT AdminGUI. The CONNECT AdminGUI allows system users to configure the following entities which are used by the Direct code integrated with the CONNECT Gateway Direct HISP:
 
-__Note:__ When deploying to glassfish using the ant scripts, any changes made to the glassfish config directory will be overwritten with the configs from the CONNECT properties jar.
+      1. Domains
+      2. Certificates (Key Pair)
+      3. Public Certificates
+      3. Trust Anchors
+      4. Trust Bundles
+      5. Agent Settings
+By default, CONNECT comes with a domain direct.example.org and additional domains can be created or configured using the CONNECT AdminGUI.
+Please refer to the [CONNECT AdminGUI user guide](https://connectopensource.atlassian.net/wiki/x/EQD9), for more information.
 
-To deploy CONNECT to other application servers, the same instructions apply with or without the Direct feature enabled with one exception. Updates to configurations outlined in the below sections of this README.md will need to be completed before deploying the application.
+#####Configure local HISP Private Key
+The Local HISP private/public key pair can be configured in the Agent Settings using the CONNECT AdminGUI. CONNECT Direct supports three Storage Types for holding the local HISP private key:
 
+1. WS  -- the key pair stored in the ConfigDB database and this is the default value
+2. KEYSTORE -- the key pair stored in a KeyStore file and referenced
+3. LDAP -- the key pair stored in a LDAP server and referenced
+
+Below are the steps to generate a Direct KeyStore:
+
+     #Generate the Direct KeyStore key pair (DirectKeyStore.jks)
+     keytool -v -genkey -keyalg RSA -keysize 1024 -keystore DirectKeyStore.jks -keypass changeit -storepass changeit -validity 3650 -alias direct.example.org -dname "cn=direct.example.org"
+For Storage Type WS, the following are the steps to configure the Direct Gateway Agent:
+
+1. Convert the direct keystore into PKCS12 (.p12) format.
+
+        # create a PKCS12 file (direct.p12) from Direct KeyStore (DirectKeyStore.jks)
+        keytool -importkeystore -srckeystore directkeystore.jks -srcstoretype JKS -deststoretype PKCS12 -destkeystore direct.p12
+        # Remove the keystopre pass using openssl
+        openssl pkcs12 -in directkeystore.p12 -nodes -out temp.pem
+        # Enter twice without entering any password
+        openssl pkcs12 -export -in temp.pem  -out direct-unprotected.p12
+2. Add the direct-unprotected.p12 file through CONNECT AdminGUI from "Certificates" tab. Please refer to the AdminGUI User Manual for more information.
+
+For Storage Type KEYSTORE, the following properties should be added from CONNECT AdminGUI --> Settings, to Configure Direct Gateway Agent:
+
+        PrivateStoreType="KEYSTORE"
+        PrivateStoreFile="path/keystorefilename" (eg: C:\\config\\directkeystore.jks)
+
+The PrivateStoreType property can also have more than one type value, the values are delimited by comma (example, PublicStoreType="KEYSTORE, WS"), but make sure the respective properties are also configured.
+
+#####Configure Public Certificates of trusted HISPs
+The  Public Certificate can be configured in the Agent Settings using the CONNECT AdminGUI. CONNECT Direct supports four ways to discover the public certificate of the Destination HISP:
+
+1. DNS -- the public certificate of the Destination HISP is located through DNS lookup and this is the default value. 
+2. WS  -- the public certificate stored in the ConfigDB database
+2. KEYSTORE -- the public certificate stored in a KeyStore file and referenced
+3. LDAP -- the public certificate stored in a LDAP server and referenced
+
+Below are the steps to generate a Direct Public keystore:
+
+     #Generate the Public Direct KeyStore(PublicDirectKeyStore.jks) by imporing a public cert
+     # The below sample imports direct.testdirect.org Public certificate into the KeyStore PublicDirectKeyStore.jks
+     keytool -v -import -keypass changeit -noprompt -trustcacerts -alias direct.testdirect.org -file direct_testdirect_org.cer -keystore PublicDirectKeyStore.jks -storepass changeit
+
+All the trusted HISPs Public Certificate discovery is done through DNS by default, no further configuration is required for this type. 
+For the discovery Type WS, all the trusted HISPs public certificates should be added through the CONNECT AdminGUI Certificates tab and the following property should be added from Settings tab through CONNECT AdminGUI.
+
+       PublicStoreType="WS"
+
+For the Type KEYSTORE, the following properties should be added from CONNECT AdminGUI --> Settings, to Configure Direct Gateway Agent. The KeyStore mentioned in the property PublicKeyStoreFile should also have also have all the trusted Destination HISP Public Certificates.
+
+        PublicStoreType="KEYSTORE"
+        PublicKeyStoreFile="path/keystorefilename" (eg: C:\\config\\PublicKeyStore.jks)
+        PublicKeyStoreFilePass="changeit"
+
+The PublicStoreType property can also have more than one type value, the values are delimited by comma (example, PublicStoreType="KEYSTORE, WS"), but make sure the respective properties are also configured.
+
+#####Configure Trust Anchors of trusted HISPs
+The trust anchors are the CA signing certs for the HISP domains that we wish to exchange messages with. The Trust anchors can be configured in the Agent Settings using the CONNECT AdminGUI. CONNECT Direct supports three Storage Types for holding the Destination HISPs anchor certificates:
+
+1. WS  -- the key pair stored in the ConfigDB database and this is the default value
+2. KEYSTORE -- the key pair stored in a Keystore file and referenced
+3. LDAP -- the key pair stored in a LDAP server and referenced
+
+Below are the steps to generate a Direct Anchor keystore:
+
+     #Generate the Anchor KeyStore (Anchors.jks) by importing an anchor certificate into Anchors.jks
+     keytool -v -import -keypass changeit -noprompt -trustcacerts -alias direct.example.org -file direct_testdirect_org.cer -keystore Anchors.jks -storepass changeit
+
+For the Storage Type WS, all the trusted HISPs Anchor certificates should be added through the CONNECT AdminGUI Domains--> Edit Domain-->Anchors tab.
+
+For Storage Type KEYSTORE, the following properties should be added from CONNECT AdminGUI --> Settings, to Configure Direct Gateway Agent. The KeyStore mentioned in the property AnchorKeyStoreFile should also have also have all the trusted Destination HISP Anchors. All the trusted Destination HISPs Anchor certificate "Common Name" should be added as a comma delimited value for the properties <local HISP domain>IncomingAnchorAliases and <local HISP domain>OutgoingAnchorAliases, in order for Direct to communicate with the Destination HISPs.
+
+        AnchorStoreType="KEYSTORE"
+        AnchorKeyStoreFile="path/keystorefilename" (eg: C:\\config\\Anchors.jks)
+        AnchorKeyStoreFilePass="changeit"
+        AnchorResolverType="Multidomain"
+        # Should have <local HISP domain>IncomingAnchorAliases as the key and comma delimited Cert Common Name as value
+        direct.example.orgIncomingAnchorAliases="direct.sitenv.org_ca" eg (direct.sitenv.org_ca,direct.testdirect.org)
+        # Should have <local HISP domain>OutgoingAnchorAliases as the key and comma delimited Cert Common Name as value
+        direct.example.orgOutgoingAnchorAliases="direct.sitenv.org_ca" eg (direct.sitenv.org_ca,direct.testdirect.org)
+
+The AnchorStoreType property can also have more than one type value, the values are delimited by comma (example, AnchorStoreType="KEYSTORE, WS"), but make sure the respective properties are also configured.
+
+#####Configure Trust Bundles
+Trust Bundles are a collection of trust anchor certificates. Trust bundles are packaged into a single file using the PKCS7 standard and distributed via a known URL (the location is discovered out of band). Trust bundles are configured from the Trust Bundles tab through CONNECT AdminGUI. In order to use a Trust Bundle, it has to be associated to the domain through Domain Trust Bundle association page(From CONNECT AdminGUI --> Domains tab (Edit Domain) --> Trust Bundles tab).
+
+###Configure Direct Pollers
 Once the application configuration has been completed and the application deploys successfully, regardless of the target application server, the "pollers" will need to be enabled. The pollers are disabled by default because there is no feasable way at this point to deploy and configure all of the necessary Direct HISP components automatically. Update `<nhinc.properties.dir>/direct.appcontext.xml` from:
 
     <!-- task:scheduled-tasks scheduler="directScheduler">
         <task:scheduled ref="outboundMessagePoller" method="poll" cron="0,30 * * * * *"/>
         <task:scheduled ref="inboundMessagePoller" method="poll" cron="15,45 * * * * *"/>
     </task:scheduled-tasks>
-    <task:scheduler id="directScheduler" / -->
+    <task:scheduler id="directScheduler" />
+    <bean id="manageTaskScheduler" class="gov.hhs.fha.nhinc.mail.ManageTaskScheduler" init-method="init" destroy-method="clean">
+        <constructor-arg ref="directScheduler"/>
+    </bean-->
     
 to:
 
@@ -194,6 +277,9 @@ to:
         <task:scheduled ref="inboundMessagePoller" method="poll" cron="15,45 * * * * *"/>
     </task:scheduled-tasks>
     <task:scheduler id="directScheduler" />
+    <bean id="manageTaskScheduler" class="gov.hhs.fha.nhinc.mail.ManageTaskScheduler" init-method="init" destroy-method="clean">
+        <constructor-arg ref="directScheduler"/>
+    </bean>
 
 Gateway Configuration
 ---------------------
@@ -232,60 +318,36 @@ The rest of the properties are used by Javamail:
 	mail.imaps.host=imap-internal.direct.example.org
 	mail.imaps.port=993
 
-
-###Configuring the Smtp Agent in XML
-
---> smtp.agent.config.xml : _defines domains, trust anchors and keystores used by the Direct code integrated with the CONNECT Gateway Direct HISP._
-
-A single _SmtpAgentConfig/Domains/AnchorStore_ is used to specify the keystore containing CA signing certs for the domains we wish to exchange messages with:
-
-      <AnchorStore type="Uniform" storeType="KeyStore" file="/path/to/direct.anchorstore.jks" filePass="changeit" privKeyPass="changeit"/>    
-
-Each domain managed by this CONNECT Gateway Direct HISP will have an _SmtpAgentConfig/Domains/Domain_ entry like:
-
-      <Domain name="direct.connectopensource.org" postmaster="postmaster@direct.connectopensource.org">
-
-_SmtpAgentConfig/Domains/Domain/IncomingTrustAnchors/Anchor_ defines an incoming trust anchor where the name attribute specifies the alias in the keystore. _SmtpAgentConfig/Domains/Domain/OutgoingTrustAnchors/Anchor_ defines an outgoing trust anchor where the name attribute specifies the alias in the keystore. There will be an entry for each HISP we want to talk to:
-
-	<IncomingTrustAnchors> 
-		<Anchor name="direct.hispdev1.hispdirect.com"/>
-		<!-- ... -->
-	</IncomingTrustAnchors>  
-	<OutgoingTrustAnchors> 
-		<Anchor name="direct.hispdev1.hispdirect.com"/>
-		<!-- ... -->        
-	</OutgoingTrustAnchors>            
-
-The _SmtpAgentConfig/PublicCertStores_ section is used to define how public certificates are discovered. They could be loaded locally, we can use DNS and/or LDAP:  
-
-	<PublicCertStores>
-		<PublicCertStore type="Keystore" file="/path/to/direct.publicstore.jks" filePass="changeit" privKeyPass="changeit"/>
-		<PublicCertStore type="DNS" />
-	</PublicCertStores>
-
-The _SmtpAgentConfig/PrivateCertStore_ section tells us where the private certificates are stored:  
-
-	<PrivateCertStore type="Keystore" file="/path/to/direct.privatestore.jks" filePass="changeit" privKeyPass="changeit"/>
-
-_SmtpAgentConfig/RawMessageSettings,OutgoingMessagesSettings,IncomingMessagesSettings,BadMessagesSettings_ define folder locations are used for staging and storing messages on the filesystem: 
-
-	<RawMessageSettings saveFolder="RawMsgFolder"/>
-	<OutgoingMessagesSettings saveFolder="OutgoingMsgFolder"/>
-	<IncomingMessagesSettings saveFolder="IncomingMsgFolder"/>
-	<BadMessagesSettings saveFolder="BadMsgFolder"/>  
-
-Use _SmtpAgentConfig/MDNSettings_ to define MDN autoresponse behavior:
-
-	<MDNSettings autoResponse="true" productName="NHIN Direct Security Agent">
-		<Text><![CDATA[This is a CDATA subject]]></Text>
-	</MDNSettings>
-
 __Links:__  
 [http://wiki.directproject.org/smtp+gateway+configuration](http://wiki.directproject.org/smtp+gateway+configuration)  
-[http://api.nhindirect.org/java/site/gateway/2.0/users-guide/smtp-depl-xmlconfig.html](http://api.nhindirect.org/java/site/gateway/2.0/users-guide/smtp-depl-xmlconfig.html)
+[http://api.nhindirect.org/java/site/gateway/3.0.1/users-guide/](http://api.nhindirect.org/java/site/gateway/3.0.1/users-guide/)
+
+###Configuring the SMTP Agent Cache
+CONNECT Direct caches all the SMTP agent settings during the server startup. The cache can be configured to refresh every 'n' milli seconds using the property "AgentSettingsCacheRefreshTime" which is defined in gateway.properties. The default value is 5 minutes. Whenever a Agent Setting Entity is changed/added/removed, the Direct Gateway will take 'AgentSettingsCacheRefreshTime' milli seconds to take effect. The cache refresh can be enabled or disabled using the property AgentSettingsCacheRefreshActive, by default the cache refresh is enabled. Please note setting the AgentSettingsCacheRefreshTime very low may hamper the performance of the Direct Gateway.
+
+    # Agent Settings Cache Refresh time in milli seconds, 60000=1 minute 300000=5 minutes
+    AgentSettingsCacheRefreshTime=300000
+    AgentSettingsCacheRefreshActive=true
+
+###Configuring QOS settings
+CONNECT Direct Quality Of Service (QOS) enhancement supports tracking and monitoring of outgoing Direct messages. The outgoing Message monitoring and tracking can be configured throguh different properties defined in the gateway.properties. The Message monitoring and tracking can be enabled or disabled through the "MessageMonitoringEnabled" property and by default its enabled. Currently Quality of Service (QOS) is not supported for SOAP/XDR based edge client systems and the property "MessageMonitoringEnabled" should be set to false in this case. 
+
+The time limit before the Processed and Dispatched MDNs should be received from the Destination HISP can be configured through "ProcessedMessageReceiveTimeLimit" and "DispatchedMessageReceiveTimeLimit" properties. The default values are 1 hour and 24 hours respectively. The properties "OutboundFailedMessageRetryCount", "InboundFailedMessageRetryCount" and "NotifyOutboundSecurityFailureImmediate" are for future use and currently not used.
+
+    #Direct Message Monitoring properties
+    PostmasterEmailIdPrefix=postmaster
+    OutboundFailedMessageRetryCount=1
+    InboundFailedMessageRetryCount=1
+    NotifyOutboundSecurityFailureImmediate=true
+    MessageMonitoringEnabled=true
+    # Time Limit in milli seconds 1 minute=60 seconds = 60000 milli seconds
+    # 1 Hour
+    ProcessedMessageReceiveTimeLimit=3600000
+    # 24 hours
+    DispatchedMessageReceiveTimeLimit=86400000
 
 ###Configuring Mail Pollers
---> direct.appcontext.xml : _used to schedule the mail pollers._
+direct.appcontext.xml : _used to schedule the mail pollers._
 
 Both internal and external mail servers must be polled for messages as a scheduled task. CONNECT Gateway Direct HISP uses spring task scheduling to achieve this. The polling task will run as often as you like, according to the format specified in the cron attribute. Note that values of `connect.max.msgs.in.batch` along with the cron entry can be tweaked to even out load and improve performance depending on hardware and infrastructure requirements.
 
@@ -310,7 +372,7 @@ __Links:__
 
 ###Edge Client Configuration
 
-The following section is used to configure how inbound direct messages are handled (smtp/soap/java) after an inbound direct message is processed. 
+The following section is used to configure how inbound direct messages are handled (SMTP/soap/java) after an inbound direct message is processed. 
 
 --> DirectEdgeClientProxyConfig.xml : _Used to determine which edge client will be used to handle processed inbound direct messages._
 
@@ -381,7 +443,7 @@ Web Service Headers:
         <d:to>gm2552@direct.securehealthemail.com</d:to>
     </d:addressBlock>
 	
-Messages received on this interface are transformed into an XDM package and sent as an attachment. Please see the following table regardling the full and mimimum metadata set requirements:
+Messages received on this interface are transformed into an XDM package and sent as an attachment. Please see the following table regarding the full and minimum metadata set requirements:
 
     * Metadata Attribute           XDS     Minimal Metadata
     * -----------------------------------------------------
@@ -401,7 +463,7 @@ Messages received on this interface are transformed into an XDM package and sent
     * uniqueId                     R       R
 
 
-Due to the paradigm shift between a synchronous SOAP+XDR message and an ansynchronous SMTP/MDN messages, a sucessful response status from this service only means that a message was sent. Currently, adopters will have to check the event logging for the status of MDN messages.
+Due to the paradigm shift between a synchronous SOAP+XDR message and an asynchronous SMTP/MDN messages, a successful response status from this service only means that a message was sent. Currently, adopters will have to check the event logging for the status of MDN messages.
 
 Helpful Links
 -------------
