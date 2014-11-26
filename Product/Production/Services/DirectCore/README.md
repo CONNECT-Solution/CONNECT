@@ -157,10 +157,10 @@ This command also interacts with other profiles, for example to build CONNECT wi
 	
 ###Deploying CONNECT from a Direct perspective
     
-When running `ant install` to create a local glassfish instance, only the default domain "direct.example.org" is configurred in the agent settings by default. To deploy CONNECT to other application servers, the same instructions apply with or without the Direct feature enabled with one exception. Updates to configurations outlined in the below sections of this README.md will need to be completed before deploying the application.
+When running `ant install` to create a local glassfish instance, only the default domain "direct.example.org" is configured in the agent settings by default. To deploy CONNECT to other application servers, the same instructions apply with or without the Direct feature enabled with one exception. Updates to configurations outlined in the below sections of this README.md will need to be completed before deploying the application.
 
-####Configuring the Smtp Agent settings
-Agent configuration consists of setting the runtime parameters for security and trust agents. As part of CONNECT 4.4, configuration of smtp Agent Settings are no longer supported through the smtp.agent.config.xml configuration file. All the Config agent settings are stored in the ConfigDB database and are configured through the CONNECT AdminGUI. The CONNECT AdminGUI allows system users to configure the following entities which are used by the Direct code integrated with the CONNECT Gateway Direct HISP:
+####Configuring the SMTP Agent settings
+Agent configuration consists of setting the runtime parameters for security and trust agents. As part of CONNECT 4.4, configuration of SMTP Agent Settings are no longer supported through the smtp.agent.config.xml configuration file. All the Config agent settings are stored in the ConfigDB database and are configured through the CONNECT AdminGUI. The CONNECT AdminGUI allows system users to configure the following entities which are used by the Direct code integrated with the CONNECT Gateway Direct HISP:
 
       1. Domains
       2. Certificates (Key Pair)
@@ -228,7 +228,7 @@ For the Type KEYSTORE, the following properties should be added from CONNECT Adm
 
 The PublicStoreType property can also have more than one type value, the values are delimited by comma (example, PublicStoreType="KEYSTORE, WS"), but make sure the respective properties are also configured.
 
-###Configure Trust Anchors of trusted HISPs
+#####Configure Trust Anchors of trusted HISPs
 The trust anchors are the CA signing certs for the HISP domains that we wish to exchange messages with. The Trust anchors can be configured in the Agent Settings using the CONNECT AdminGUI. CONNECT Direct supports three Storage Types for holding the Destination HISPs anchor certificates:
 
 1. WS  -- the key pair stored in the ConfigDB database and this is the default value
@@ -237,7 +237,7 @@ The trust anchors are the CA signing certs for the HISP domains that we wish to 
 
 Below are the steps to generate a Direct Anchor keystore:
 
-     #Generate the Anchor KeyStore (Anchors.jks) by importing an acnhor certificate into Anchors.jks
+     #Generate the Anchor KeyStore (Anchors.jks) by importing an anchor certificate into Anchors.jks
      keytool -v -import -keypass changeit -noprompt -trustcacerts -alias direct.example.org -file direct_testdirect_org.cer -keystore Anchors.jks -storepass changeit
 
 For the Storage Type WS, all the trusted HISPs Anchor certificates should be added through the CONNECT AdminGUI Domains--> Edit Domain-->Anchors tab.
@@ -255,7 +255,7 @@ For Storage Type KEYSTORE, the following properties should be added from CONNECT
 
 The AnchorStoreType property can also have more than one type value, the values are delimited by comma (example, AnchorStoreType="KEYSTORE, WS"), but make sure the respective properties are also configured.
 
-###Configure Trust Bundles
+#####Configure Trust Bundles
 Trust Bundles are a collection of trust anchor certificates. Trust bundles are packaged into a single file using the PKCS7 standard and distributed via a known URL (the location is discovered out of band). Trust bundles are configured from the Trust Bundles tab through CONNECT AdminGUI. In order to use a Trust Bundle, it has to be associated to the domain through Domain Trust Bundle association page(From CONNECT AdminGUI --> Domains tab (Edit Domain) --> Trust Bundles tab).
 
 ###Configure Direct Pollers
@@ -322,8 +322,8 @@ __Links:__
 [http://wiki.directproject.org/smtp+gateway+configuration](http://wiki.directproject.org/smtp+gateway+configuration)  
 [http://api.nhindirect.org/java/site/gateway/3.0.1/users-guide/](http://api.nhindirect.org/java/site/gateway/3.0.1/users-guide/)
 
-###Configuring the Smtp Agent Cache
-CONNECT Direct caches all the Smtp agent settings during the server startup. The cache can be configured to refresh eveny 'n' milli seconds using the property "AgentSettingsCacheRefreshTime" which is defined in gateway.properties. The default value is 5 minutes. Whenever a Agent Setting Entity is changed/added/removed, the Direct Gateway will take 'AgentSettingsCacheRefreshTime' milli seconds to take effect. The cache refresh can be enabled or disabled using the proeprty AgentSettingsCacheRefreshActive, by default the cache refresh is enabled. Please note setting the AgentSettingsCacheRefreshTime very low may hamper the performance of the Direct Gateway.
+###Configuring the SMTP Agent Cache
+CONNECT Direct caches all the SMTP agent settings during the server startup. The cache can be configured to refresh eveny 'n' milli seconds using the property "AgentSettingsCacheRefreshTime" which is defined in gateway.properties. The default value is 5 minutes. Whenever a Agent Setting Entity is changed/added/removed, the Direct Gateway will take 'AgentSettingsCacheRefreshTime' milli seconds to take effect. The cache refresh can be enabled or disabled using the proeprty AgentSettingsCacheRefreshActive, by default the cache refresh is enabled. Please note setting the AgentSettingsCacheRefreshTime very low may hamper the performance of the Direct Gateway.
 
     # Agent Settings Cache Refresh time in milli seconds, 60000=1 minute 300000=5 minutes
     AgentSettingsCacheRefreshTime=300000
@@ -333,6 +333,7 @@ CONNECT Direct caches all the Smtp agent settings during the server startup. The
 CONNECT Direct Quality Of Service (QOS) enhancement supports tracking and monitoring of outgoing Direct messages. The outgoing Message monitoring and tracking can be configured throguh different properties defined in the gateway.properties. The Message monitoring and traacking can be enabled or disabled through the "MessageMonitoringEnabled" property and by default its enabled. Currently Quality of Service (QOS) is not supported for SOAP/XDR based edge client systems and the property "MessageMonitoringEnabled" should be set to false in this case. 
 
 The time limit before the Processed and Dispatched MDNs should be received from the Destination HISP can be configured through "ProcessedMessageReceiveTimeLimit" and "DispatchedMessageReceiveTimeLimit" properties. The default values are 1 hour and 24 hours respectively. The properties "OutboundFailedMessageRetryCount", "InboundFailedMessageRetryCount" and "NotifyOutboundSecurityFailureImmediate" are for future use and currently not used.
+
     #Direct Message Monitoring properties
     PostmasterEmailIdPrefix=postmaster
     OutboundFailedMessageRetryCount=1
@@ -371,7 +372,7 @@ __Links:__
 
 ###Edge Client Configuration
 
-The following section is used to configure how inbound direct messages are handled (smtp/soap/java) after an inbound direct message is processed. 
+The following section is used to configure how inbound direct messages are handled (SMTP/soap/java) after an inbound direct message is processed. 
 
 --> DirectEdgeClientProxyConfig.xml : _Used to determine which edge client will be used to handle processed inbound direct messages._
 
