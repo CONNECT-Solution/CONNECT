@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>org.connectopensource</groupId>
+  <artifactId>CONNECTCommonTypesLib</artifactId>
+  <version>4.1.1-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <timestamp>20141107.170949</timestamp>
+      <buildNumber>1</buildNumber>
+    </snapshot>
+    <lastUpdated>20141107170949</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>4.1.1-20141107.170949-1</value>
+        <updated>20141107170949</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>4.1.1-20141107.170949-1</value>
+        <updated>20141107170949</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>

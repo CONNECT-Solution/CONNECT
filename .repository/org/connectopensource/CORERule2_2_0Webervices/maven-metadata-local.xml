@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>org.connectopensource</groupId>
+  <artifactId>CORERule2_2_0Webervices</artifactId>
+  <versioning>
+    <versions>
+      <version>4.0.9-SNAPSHOT</version>
+      <version>4.1.0-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20141126193518</lastUpdated>
+  </versioning>
+</metadata>
