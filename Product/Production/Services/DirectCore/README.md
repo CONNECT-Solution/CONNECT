@@ -151,13 +151,13 @@ To build an EAR file with only the CONNECT Direct feature, from `<CONNECT git ro
 
 	mvn clean install -P Direct
      
-This command also interacts with other profiles, for example to build CONNECT with Direct, Patient Discovery, Query for Documents, and Document Retrieve, on Websphere, execute:
+This command also interacts with other profiles, for example to build CONNECT with Direct, Patient Discovery, Query for Documents, and Document Retrieve, on WebSphere, execute:
 
 	mvn clean install -P Direct,PD,DQ,RD,was
 	
 ###Deploying CONNECT from a Direct perspective
     
-When running `ant install` to create a local glassfish instance, only the default domain "direct.example.org" is configured in the agent settings by default. To deploy CONNECT to other application servers, the same instructions apply with or without the Direct feature enabled with one exception. Updates to configurations outlined in the below sections of this README.md will need to be completed before deploying the application.
+When running `ant install` to create a local Glassfish instance, only the default domain "direct.example.org" is configured in the agent settings by default. To deploy CONNECT to other application servers, the same instructions apply with or without the Direct feature enabled with one exception. Updates to configurations outlined in the below sections of this README.md will need to be completed before deploying the application.
 
 ####Configuring the SMTP Agent settings
 Agent configuration consists of setting the runtime parameters for security and trust agents. As part of CONNECT 4.4, configuration of SMTP Agent Settings are no longer supported through the smtp.agent.config.xml configuration file. All the Config agent settings are stored in the ConfigDB database and are configured through the CONNECT AdminGUI. The CONNECT AdminGUI allows system users to configure the following entities which are used by the Direct code integrated with the CONNECT Gateway Direct HISP:
@@ -175,10 +175,10 @@ Please refer to the [CONNECT AdminGUI user guide](https://connectopensource.atla
 The Local HISP private/public key pair can be configured in the Agent Settings using the CONNECT AdminGUI. CONNECT Direct supports three Storage Types for holding the local HISP private key:
 
 1. WS  -- the key pair stored in the ConfigDB database and this is the default value
-2. KEYSTORE -- the key pair stored in a Keystore file and referenced
+2. KEYSTORE -- the key pair stored in a KeyStore file and referenced
 3. LDAP -- the key pair stored in a LDAP server and referenced
 
-Below are the steps to generate a Direct keystore:
+Below are the steps to generate a Direct KeyStore:
 
      #Generate the Direct KeyStore key pair (DirectKeyStore.jks)
      keytool -v -genkey -keyalg RSA -keysize 1024 -keystore DirectKeyStore.jks -keypass changeit -storepass changeit -validity 3650 -alias direct.example.org -dname "cn=direct.example.org"
@@ -206,7 +206,7 @@ The  Public Certificate can be configured in the Agent Settings using the CONNEC
 
 1. DNS -- the public certificate of the Destination HISP is located through DNS lookup and this is the default value. 
 2. WS  -- the public certificate stored in the ConfigDB database
-2. KEYSTORE -- the public certificate stored in a Keystore file and referenced
+2. KEYSTORE -- the public certificate stored in a KeyStore file and referenced
 3. LDAP -- the public certificate stored in a LDAP server and referenced
 
 Below are the steps to generate a Direct Public keystore:
@@ -215,12 +215,12 @@ Below are the steps to generate a Direct Public keystore:
      # The below sample imports direct.testdirect.org Public certificate into the KeyStore PublicDirectKeyStore.jks
      keytool -v -import -keypass changeit -noprompt -trustcacerts -alias direct.testdirect.org -file direct_testdirect_org.cer -keystore PublicDirectKeyStore.jks -storepass changeit
 
-All the trusted HISPs Public Certificate dicovery is done throgh DNS by default, no further configuration is required for this type. 
-For the dicovery Type WS, all the trusted HISPs public certificates should be added through the CONNECT AdminGUI Certificates tab and the following property should be added from Setttings tab through CONNECT AdminGUI.
+All the trusted HISPs Public Certificate discovery is done through DNS by default, no further configuration is required for this type. 
+For the discovery Type WS, all the trusted HISPs public certificates should be added through the CONNECT AdminGUI Certificates tab and the following property should be added from Settings tab through CONNECT AdminGUI.
 
        PublicStoreType="WS"
 
-For the Type KEYSTORE, the following properties should be added from CONNECT AdminGUI --> Settings, to Configure Direct Gateway Agent. The keystore mentioned in the property PublicKeyStoreFile should also have also have all the trusted Destination HISP Public Certificates.
+For the Type KEYSTORE, the following properties should be added from CONNECT AdminGUI --> Settings, to Configure Direct Gateway Agent. The KeyStore mentioned in the property PublicKeyStoreFile should also have also have all the trusted Destination HISP Public Certificates.
 
         PublicStoreType="KEYSTORE"
         PublicKeyStoreFile="path/keystorefilename" (eg: C:\\config\\PublicKeyStore.jks)
@@ -242,7 +242,7 @@ Below are the steps to generate a Direct Anchor keystore:
 
 For the Storage Type WS, all the trusted HISPs Anchor certificates should be added through the CONNECT AdminGUI Domains--> Edit Domain-->Anchors tab.
 
-For Storage Type KEYSTORE, the following properties should be added from CONNECT AdminGUI --> Settings, to Configure Direct Gateway Agent. The keystore mentioend in the propertey AnchorKeyStoreFile should also have also have all the trusted Destination HISP Anchors. All the trusted Destination HISPs Anchor certiface "Common Name" should be added as a comma delimited value for the properties <local HISP domain>IncomingAnchorAliases and <local HISP domain>OutgoingAnchorAliases, in order for Direct to communicate with the Destination HISPs.
+For Storage Type KEYSTORE, the following properties should be added from CONNECT AdminGUI --> Settings, to Configure Direct Gateway Agent. The KeyStore mentioned in the property AnchorKeyStoreFile should also have also have all the trusted Destination HISP Anchors. All the trusted Destination HISPs Anchor certificate "Common Name" should be added as a comma delimited value for the properties <local HISP domain>IncomingAnchorAliases and <local HISP domain>OutgoingAnchorAliases, in order for Direct to communicate with the Destination HISPs.
 
         AnchorStoreType="KEYSTORE"
         AnchorKeyStoreFile="path/keystorefilename" (eg: C:\\config\\Anchors.jks)
@@ -323,14 +323,14 @@ __Links:__
 [http://api.nhindirect.org/java/site/gateway/3.0.1/users-guide/](http://api.nhindirect.org/java/site/gateway/3.0.1/users-guide/)
 
 ###Configuring the SMTP Agent Cache
-CONNECT Direct caches all the SMTP agent settings during the server startup. The cache can be configured to refresh eveny 'n' milli seconds using the property "AgentSettingsCacheRefreshTime" which is defined in gateway.properties. The default value is 5 minutes. Whenever a Agent Setting Entity is changed/added/removed, the Direct Gateway will take 'AgentSettingsCacheRefreshTime' milli seconds to take effect. The cache refresh can be enabled or disabled using the proeprty AgentSettingsCacheRefreshActive, by default the cache refresh is enabled. Please note setting the AgentSettingsCacheRefreshTime very low may hamper the performance of the Direct Gateway.
+CONNECT Direct caches all the SMTP agent settings during the server startup. The cache can be configured to refresh every 'n' milli seconds using the property "AgentSettingsCacheRefreshTime" which is defined in gateway.properties. The default value is 5 minutes. Whenever a Agent Setting Entity is changed/added/removed, the Direct Gateway will take 'AgentSettingsCacheRefreshTime' milli seconds to take effect. The cache refresh can be enabled or disabled using the property AgentSettingsCacheRefreshActive, by default the cache refresh is enabled. Please note setting the AgentSettingsCacheRefreshTime very low may hamper the performance of the Direct Gateway.
 
     # Agent Settings Cache Refresh time in milli seconds, 60000=1 minute 300000=5 minutes
     AgentSettingsCacheRefreshTime=300000
     AgentSettingsCacheRefreshActive=true
 
 ###Configuring QOS settings
-CONNECT Direct Quality Of Service (QOS) enhancement supports tracking and monitoring of outgoing Direct messages. The outgoing Message monitoring and tracking can be configured throguh different properties defined in the gateway.properties. The Message monitoring and traacking can be enabled or disabled through the "MessageMonitoringEnabled" property and by default its enabled. Currently Quality of Service (QOS) is not supported for SOAP/XDR based edge client systems and the property "MessageMonitoringEnabled" should be set to false in this case. 
+CONNECT Direct Quality Of Service (QOS) enhancement supports tracking and monitoring of outgoing Direct messages. The outgoing Message monitoring and tracking can be configured throguh different properties defined in the gateway.properties. The Message monitoring and tracking can be enabled or disabled through the "MessageMonitoringEnabled" property and by default its enabled. Currently Quality of Service (QOS) is not supported for SOAP/XDR based edge client systems and the property "MessageMonitoringEnabled" should be set to false in this case. 
 
 The time limit before the Processed and Dispatched MDNs should be received from the Destination HISP can be configured through "ProcessedMessageReceiveTimeLimit" and "DispatchedMessageReceiveTimeLimit" properties. The default values are 1 hour and 24 hours respectively. The properties "OutboundFailedMessageRetryCount", "InboundFailedMessageRetryCount" and "NotifyOutboundSecurityFailureImmediate" are for future use and currently not used.
 
@@ -443,7 +443,7 @@ Web Service Headers:
         <d:to>gm2552@direct.securehealthemail.com</d:to>
     </d:addressBlock>
 	
-Messages received on this interface are transformed into an XDM package and sent as an attachment. Please see the following table regardling the full and mimimum metadata set requirements:
+Messages received on this interface are transformed into an XDM package and sent as an attachment. Please see the following table regarding the full and minimum metadata set requirements:
 
     * Metadata Attribute           XDS     Minimal Metadata
     * -----------------------------------------------------
@@ -463,7 +463,7 @@ Messages received on this interface are transformed into an XDM package and sent
     * uniqueId                     R       R
 
 
-Due to the paradigm shift between a synchronous SOAP+XDR message and an ansynchronous SMTP/MDN messages, a sucessful response status from this service only means that a message was sent. Currently, adopters will have to check the event logging for the status of MDN messages.
+Due to the paradigm shift between a synchronous SOAP+XDR message and an asynchronous SMTP/MDN messages, a successful response status from this service only means that a message was sent. Currently, adopters will have to check the event logging for the status of MDN messages.
 
 Helpful Links
 -------------
