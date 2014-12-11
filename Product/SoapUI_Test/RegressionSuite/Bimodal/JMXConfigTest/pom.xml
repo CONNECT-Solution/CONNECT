@@ -2,12 +2,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.connectopensource</groupId>
-        <artifactId>NewFeature</artifactId>
+        <artifactId>Bimodal</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
-    <artifactId>JMXConfig</artifactId>
+    <artifactId>JMXConfigTest</artifactId>
     <packaging>jar</packaging>
-    <name>Maven 3 soapUI JMXConfig</name>
+    <name>Maven 3 soapUI JMXConfigTest</name>
     <properties>
         <skip.unpack>false</skip.unpack>
         <soapui.testFailIgnore>true</soapui.testFailIgnore>
@@ -85,14 +85,14 @@
                     </configuration>
                     <executions>
                             <execution>
-                                <id>JMXConfig-soapui-project.xml</id>
+                                <id>JMXConfigTest-soapui-project.xml</id>
                                 <phase>integration-test</phase>
                                 <goals>
                                     <goal>test</goal>
                                 </goals>
                                 <configuration>
-                                    <projectFile>${basedir}/JMXConfig-soapui-project.xml</projectFile>
-                                    <outputFolder>${project.build.directory}/soapui/output/JMXConfig</outputFolder>
+                                    <projectFile>${basedir}/JMXConfigTest-soapui-project.xml</projectFile>
+                                    <outputFolder>${project.build.directory}/soapui/output/JMXConfigTest</outputFolder>
                                 </configuration>
                             </execution>
                             <execution>
