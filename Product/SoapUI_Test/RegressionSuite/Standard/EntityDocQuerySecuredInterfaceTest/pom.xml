@@ -2,12 +2,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.connectopensource</groupId>
-        <artifactId>NewFeature</artifactId>
+        <artifactId>Standard</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
-    <artifactId>CONN-892</artifactId>
+    <artifactId>EntityDocQuerySecuredInterfaceTest</artifactId>
     <packaging>jar</packaging>
-    <name>Maven 3 soapUI CONN-892</name>
+    <name>Maven 3 soapUI EntityDocQuerySecuredInterfaceTest</name>
     <properties>
         <skip.unpack>false</skip.unpack>
         <soapui.testFailIgnore>true</soapui.testFailIgnore>
@@ -85,13 +85,13 @@
                     </configuration>
                     <executions>
                             <execution>
-                                <id>CONN-892-soapui-project.xml</id>
+                                <id>EntityDocQuerySecuredInterfaceTest-soapui-project.xml</id>
                                 <phase>integration-test</phase>
                                 <goals>
                                     <goal>test</goal>
                                 </goals>
                                 <configuration>
-                                    <projectFile>${basedir}/CONN-892-soapui-project.xml</projectFile>
+                                    <projectFile>${basedir}/EntityDocQuerySecuredInterfaceTest-soapui-project.xml</projectFile>
                                     <outputFolder>${project.build.directory}/soapui/output/CONN-892</outputFolder>
                                 </configuration>
                             </execution>
