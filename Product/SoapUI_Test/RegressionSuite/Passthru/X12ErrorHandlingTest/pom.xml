@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.connectopensource</groupId>
-        <artifactId>NewFeature</artifactId>
+        <artifactId>Passthru</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
     <artifactId>X12ErrorHandlingTest</artifactId>
