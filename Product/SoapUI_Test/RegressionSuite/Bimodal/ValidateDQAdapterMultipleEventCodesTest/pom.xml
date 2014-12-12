@@ -6,9 +6,9 @@
         <artifactId>Bimodal</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
-    <artifactId>CONN-470</artifactId>
+    <artifactId>ValidateDQAdapterMultipleEventCodesTest</artifactId>
     <packaging>jar</packaging>
-    <name>Maven 3 soapUI CONN-470</name>
+    <name>Maven 3 soapUI ValidateDQAdapterMultipleEventCodesTest</name>
     <properties>
     </properties>
     <pluginRepositories>
@@ -80,13 +80,13 @@
                     </configuration>
                 <executions>
                     <execution>
-                        <id>CONN-470-soapui-project</id>
+                        <id>ValidateDQAdapterMultipleEventCodesTest-soapui-project</id>
                         <phase>integration-test</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <projectFile>${basedir}/CONN-470-soapui-project.xml</projectFile>
+                            <projectFile>${basedir}/ValidateDQAdapterMultipleEventCodesTest-soapui-project.xml</projectFile>
                             <outputFolder>${project.build.directory}/soapui/output</outputFolder>
                         </configuration>
                     </execution>
