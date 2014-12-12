@@ -612,12 +612,15 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
 			</con:request>
 		</con:config> 
 		</con:testStep>
-		<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag.
+		<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag for Nhin Outbound Request. The Nhin Inbound Response Soap Header should have RelatesTo tag.
   1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRRequest_Service (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-  B) Look for Soap Header and within Soap Header RelatesTo should not be there.
+  B) Look for  Nhin Outbound Request Soap Header and within Soap Header RelatesTo should not be there.
+  C) Search the log file and look for &lt;Action xmlns="http://www.w3.org/2005/08/addressing">urn:nhin:Deferred:ProvideAndRegisterDocumentSet-bAcknowledgement&lt;/Action>
+  D) Look for  Nhin Inbound Response Soap Header and within Soap Header RelatesTo should be there.
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header for Nhin Outbound Request.
+RelatesTo exists within the Soap Header for Nhin Inbound Response.</con:expectedResult></con:config></con:testStep>
 	<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -628,19 +631,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:07:17Z</con:value>
+		<con:value>2014-12-12T16:41:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:17:17Z</con:value>
+		<con:value>2014-12-12T16:51:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:07:17</con:value>
+		<con:value>12/12/2014 16:41:50</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2015-01-11T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -1020,12 +1023,15 @@ if(passthruValue != null){
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag.
+<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag for Nhin Outbound Request. The Nhin Inbound Response Soap Header should have RelatesTo tag.
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRResponse_Service (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-  B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
+  B) Look for  Nhin Outbound Request Soap Header and within Soap Header RelatesTo should not be there.
+  C) Search the log file and look for &lt;Action xmlns="http://www.w3.org/2005/08/addressing">urn:nhin:Deferred:ProvideAndRegisterDocumentSet-bResponseAcknowledgement&lt;/Action>
+  D) Look for  Nhin Inbound Response Soap Header and within Soap Header RelatesTo should be there.
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header for Nhin Outbound Request.
+RelatesTo exists within the Soap Header for Nhin Inbound Response.</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -1036,19 +1042,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:07:42Z</con:value>
+		<con:value>2014-12-12T17:09:37Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:17:42Z</con:value>
+		<con:value>2014-12-12T17:19:37Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:07:42</con:value>
+		<con:value>12/12/2014 17:09:37</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2015-01-11T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 </con:testCase>
@@ -1554,12 +1560,15 @@ if(passthruValue != null){
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag.
+<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag for Nhin Outbound Request. The Nhin Inbound Response Soap Header should have RelatesTo tag.
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
- B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
+  B) Look for  Nhin Outbound Request Soap Header and within Soap Header RelatesTo should not be there.
+  C) Search the log file and look for &lt;Action xmlns="http://www.w3.org/2005/08/addressing">urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-bResponse&lt;/Action>
+  D) Look for  Nhin Inbound Response Soap Header and within Soap Header RelatesTo should be there.
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header for Nhin Outbound Request.
+RelatesTo exists within the Soap Header for Nhin Inbound Response.</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -1570,19 +1579,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:07:45Z</con:value>
+		<con:value>2014-12-12T17:12:41Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:17:45Z</con:value>
+		<con:value>2014-12-12T17:22:41Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:07:45</con:value>
+		<con:value>12/12/2014 17:12:41</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2015-01-11T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -1931,12 +1940,15 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag.
+<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag for Nhin Outbound Request. The Nhin Inbound Response Soap Header should have RelatesTo tag.
 1. Check the content Type in Nhin Outbound and Inbound Message
-  A) Search the log file and look for https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncReq (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
- B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
+ A) Search the log file and look for https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncReq (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
+ B) Look for  Nhin Outbound Request Soap Header and within Soap Header RelatesTo should not be there. 
+ C) Search the log file and look for &lt;Action xmlns="http://www.w3.org/2005/08/addressing">urn:hl7-org:v3:MCCI_IN000002UV01&lt;/Action>
+ D) Look for  Nhin Inbound Response Soap Header and within Soap Header RelatesTo should be there.
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header for Nhin Outbound Request.
+RelatesTo exists within the Soap Header for Nhin Inbound Response.</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
@@ -1946,19 +1958,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:07:49Z</con:value>
+		<con:value>2014-12-12T17:13:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:17:49Z</con:value>
+		<con:value>2014-12-12T17:23:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:07:49</con:value>
+		<con:value>12/12/2014 17:13:49</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2015-01-11T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -2333,12 +2345,15 @@ if(passthruValue != null){
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag.
+<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag for Nhin Outbound Request. The Nhin Inbound Response Soap Header should have RelatesTo tag.
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncResp (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-  B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
+  B) Look for  Nhin Outbound Request Soap Header and within Soap Header RelatesTo should not be there.
+  C) Search the log file and look for &lt;Action xmlns="http://www.w3.org/2005/08/addressing">urn:hl7-org:v3:MCCI_IN000002UV01&lt;/Action>
+  D) Look for  Nhin Inbound Response Soap Header and within Soap Header RelatesTo should be there.
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header for Nhin Outbound Request.
+RelatesTo exists within the Soap Header for Nhin Inbound Response.</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -2349,19 +2364,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:01Z</con:value>
+		<con:value>2014-12-12T17:15:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:01Z</con:value>
+		<con:value>2014-12-12T17:25:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:01</con:value>
+		<con:value>12/12/2014 17:15:28</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2015-01-11T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -2871,12 +2886,15 @@ context.withSql('PatientCorrelationDB') { sql ->
 		assert pdCorrelations == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 		}</script></con:config>
 </con:testStep>		
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag.
+<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag for Nhin Outbound Request. The Nhin Inbound Response Soap Header should have RelatesTo tag.
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-  B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
+  B) Look for  Nhin Outbound Request Soap Header and within Soap Header RelatesTo should not be there.
+  C) Search the log file and look for &lt;Action xmlns="http://www.w3.org/2005/08/addressing">urn:hl7-org:v3:PRPA_IN201306UV02:CrossGatewayPatientDiscovery&lt;/Action>
+  D) Look for  Nhin Inbound Response Soap Header and within Soap Header RelatesTo should be there.
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header for Nhin Outbound Request.
+RelatesTo exists within the Soap Header for Nhin Inbound Response.</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -2888,19 +2906,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:04Z</con:value>
+		<con:value>2014-12-12T16:24:15Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:04Z</con:value>
+		<con:value>2014-12-12T16:34:15Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:04</con:value>
+		<con:value>12/12/2014 16:24:15</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2015-01-11T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -3266,12 +3284,15 @@ if(passthruValue != null){
 </con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag.
+<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag for Nhin Outbound Request. The Nhin Inbound Response Soap Header should have RelatesTo tag.
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/DocumentQuery/3_0/NhinService/RespondingGateway_Query_Service/DocQuery (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-  B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
+  B) Look for  Nhin Outbound Request Soap Header and within Soap Header RelatesTo should not be there.
+  C) Search the log file and look for &lt;Action xmlns="http://www.w3.org/2005/08/addressing">urn:ihe:iti:2007:CrossGatewayQueryResponse&lt;/Action>
+  D) Look for  Nhin Inbound Response Soap Header and within Soap Header RelatesTo should be there.
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header for Nhin Outbound Request.
+RelatesTo exists within the Soap Header for Nhin Inbound Response.</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -3282,19 +3303,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:10Z</con:value>
+		<con:value>2014-12-12T16:27:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:10Z</con:value>
+		<con:value>2014-12-12T16:37:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:10</con:value>
+		<con:value>12/12/2014 16:27:59</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2015-01-11T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -3617,12 +3638,14 @@ if(passthruValue != null){
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag.
+<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag for Nhin Outbound Request. The Nhin Inbound Response Soap Header should have RelatesTo tag.
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/DocumentRetrieve/3_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-  B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
-  
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
+  B) Look for  Nhin Outbound Request Soap Header and within Soap Header RelatesTo should not be there.
+  C) Search the log and look for &lt;Action xmlns="http://www.w3.org/2005/08/addressing">urn:ihe:iti:2007:CrossGatewayRetrieveResponse&lt;/Action>
+  D) Look for  Nhin Inbound Response Soap Header and within Soap Header RelatesTo should be there.
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header for Nhin Outbound Request.
+RelatesTo exists within the Soap Header for Nhin Inbound Response.</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -3637,19 +3660,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:13Z</con:value>
+		<con:value>2014-12-12T16:30:38Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:13Z</con:value>
+		<con:value>2014-12-12T16:40:38Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:13</con:value>
+		<con:value>12/12/2014 16:30:38</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2015-01-11T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -4036,11 +4059,12 @@ if(passthruValue != null){
 </con:config>
 </con:testStep>
 <con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>10000</delay></con:config></con:testStep>
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag.
+<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag for Nhin Outbound Request. The Nhin Inbound Response Soap Header should have RelatesTo tag.
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/AdminDistribution/2_0/NhinService/NhinAdminDist (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-  B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
+  B) Look for Nhin Outbound Request Soap Header and within Soap Header RelatesTo should not be there.
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header for Nhin Outbound Request.
+</con:expectedResult></con:config></con:testStep>
 <con:setupScript>
 nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
@@ -4052,19 +4076,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:16Z</con:value>
+		<con:value>2014-12-12T16:34:08Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:16Z</con:value>
+		<con:value>2014-12-12T16:44:08Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:16</con:value>
+		<con:value>12/12/2014 16:34:08</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2015-01-11T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 </con:testCase>
@@ -4582,12 +4606,15 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
 		</con:request>
 	</con:config>
 </con:testStep>	
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag.
+<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag for Nhin Outbound Request. The Nhin Inbound Response Soap Header should have RelatesTo tag.
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRRequest_Service (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-  B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
+  B) Look for  Nhin Outbound Request Soap Header and within Soap Header RelatesTo should not be there.
+  C) Search the log file and look for &lt;soap:Header>&lt;Action xmlns="http://www.w3.org/2005/08/addressing">urn:ihe:iti:xdr:2007:XDRRequestAcknowledgementMessage&lt;/Action>
+  D) Look for  Nhin Inbound Response Soap Header and within Soap Header RelatesTo should be there.
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header for Nhin Outbound Request.
+RelatesTo exists within the Soap Header for Nhin Inbound Response.</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -4598,19 +4625,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:13:51Z</con:value>
+		<con:value>2014-12-12T17:19:52Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:23:51Z</con:value>
+		<con:value>2014-12-12T17:29:52Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:13:51</con:value>
+		<con:value>12/12/2014 17:19:52</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2015-01-11T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -4981,12 +5008,15 @@ if(passthruValue != null){
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag.
+<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag for Nhin Outbound Request. The Nhin Inbound Response Soap Header should have RelatesTo tag.
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRResponse_Service (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-  B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
+  B) Look for  Nhin Outbound Request Soap Header and within Soap Header RelatesTo should not be there. 
+  C) Search the log file and look for &lt;Action xmlns="http://www.w3.org/2005/08/addressing">urn:ihe:iti:xdr:2007:XDRResponseAcknowledgementMessage&lt;/Action>
+  D) Look for  Nhin Inbound Response Soap Header and within Soap Header RelatesTo should be there.
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header for Nhin Outbound Request.
+RelatesTo exists within the Soap Header for Nhin Inbound Response.</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -4997,19 +5027,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:13:52Z</con:value>
+		<con:value>2014-12-12T17:25:08Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:23:52Z</con:value>
+		<con:value>2014-12-12T17:35:08Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:13:52</con:value>
+		<con:value>12/12/2014 17:25:08</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2015-01-11T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 </con:testCase>
@@ -5514,12 +5544,15 @@ if(passthruValue != null){
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag.
+<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag for Nhin Outbound Request. The Nhin Inbound Response Soap Header should have RelatesTo tag.
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/DocumentSubmission/1_1/DocumentRepositoryXDR_Service (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-  B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
+  B) Look for  Nhin Outbound Request Soap Header and within Soap Header RelatesTo should not be there.
+  C) Search the log file and look for &lt;Action xmlns="http://www.w3.org/2005/08/addressing">urn:ihe:iti:xdr:2007:ProvideAndRegisterDocumentSet-bResponse&lt;/Action>
+  D) Look for  Nhin Inbound Response Soap Header and within Soap Header RelatesTo should be there.
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header for Nhin Outbound Request.
+RelatesTo exists within the Soap Header for Nhin Inbound Response.</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -5530,19 +5563,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:13:53Z</con:value>
+		<con:value>2014-12-12T17:37:31Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:23:53Z</con:value>
+		<con:value>2014-12-12T17:47:31Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:13:53</con:value>
+		<con:value>12/12/2014 17:37:31</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2015-01-11T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -5896,12 +5929,15 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag.
+<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag for Nhin Outbound Request. The Nhin Inbound Response Soap Header should have RelatesTo tag.
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncReq (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-  B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
+  B) Look for  Nhin Outbound Request Soap Header and within Soap Header RelatesTo should not be there.
+  C) Search the log file and look for &lt;Action xmlns="http://www.w3.org/2005/08/addressing">urn:hl7-org:v3:MCCI_IN000002UV01&lt;/Action>
+  D) Look for  Nhin Inbound Response Soap Header and within Soap Header RelatesTo should be there.
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header for Nhin Outbound Request.
+RelatesTo exists within the Soap Header for Nhin Inbound Response.</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -5909,7 +5945,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 }</con:tearDownScript>
-<con:properties><con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-02-27T01:13:54Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-02-27T01:23:54Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/27/2013 01:13:54</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-03-29T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
+<con:properties><con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2014-12-12T17:41:58Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2014-12-12T17:51:58Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>12/12/2014 17:41:58</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-01-11T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
 </con:testCase>
 
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="a873f53b-f81b-4529-b866-ccad8f7a0e4a" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
@@ -6282,12 +6318,16 @@ if(passthruValue != null){
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag.
+<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag for Nhin Outbound Request. The Nhin Inbound Response Soap Header should have RelatesTo tag.
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncResp (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-  B) Look for Soap Header and within Soap Header RelatesTo should not be there.
+  B) Look for  Nhin Outbound Request Soap Header and within Soap Header RelatesTo should not be there.
+  C) Search the log file and look for &lt;Action xmlns="http://www.w3.org/2005/08/addressing">urn:hl7-org:v3:MCCI_IN000002UV01&lt;/Action>
+  D) D) Look for  Nhin Inbound Response Soap Header and within Soap Header RelatesTo should be there.
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
+  
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header for Nhin Outbound Request.
+RelatesTo exists within the Soap Header for Nhin Inbound Response.</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -6295,7 +6335,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 }</con:tearDownScript>
-<con:properties><con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-02-27T01:13:55Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-02-27T01:23:55Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/27/2013 01:13:55</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-03-29T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
+<con:properties><con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2014-12-12T17:50:40Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2014-12-12T18:00:40Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>12/12/2014 17:50:40</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-01-11T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="db617e16-46c1-4f66-9e29-bac17e0a5a44" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
 	<con:settings/>
@@ -6803,12 +6843,15 @@ context.withSql('PatientCorrelationDB') { sql ->
 		assert pdCorrelations == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 		}</script></con:config>
 		</con:testStep>
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag.
+<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag for Nhin Outbound Request. The Nhin Inbound Response Soap Header should have RelatesTo tag.
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-  B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
+  B) Look for  Nhin Outbound Request Soap Header and within Soap Header RelatesTo should not be there. 
+  C) Search the log file and look for &lt;Action xmlns="http://www.w3.org/2005/08/addressing">urn:hl7-org:v3:PRPA_IN201306UV02:CrossGatewayPatientDiscovery&lt;/Action>
+  D) Look for  Nhin Inbound Response Soap Header and within Soap Header RelatesTo should be there.
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header for Nhin Outbound Request.
+RelatesTo exists within the Soap Header for Nhin Inbound Response.</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -6817,7 +6860,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 	nhinc.FileUtils.restoreFile(dir, "PatientDiscoveryProxyConfig.xml", log);
 }</con:tearDownScript>
-<con:properties><con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-02-27T01:13:56Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-02-27T01:23:56Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/27/2013 01:13:56</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-03-29T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
+<con:properties><con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2014-12-12T17:53:39Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2014-12-12T18:03:39Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>12/12/2014 17:53:39</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-01-11T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="a9707ab4-3b2c-484c-a302-24ab8377c2a4" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
 	<con:settings/>
@@ -7180,12 +7223,15 @@ if(passthruValue != null){
 </con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag.
+<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag for Nhin Outbound Request. The Nhin Inbound Response Soap Header should have RelatesTo tag.
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
+  C) Search the log file and look for &lt;Action xmlns="http://www.w3.org/2005/08/addressing">urn:ihe:iti:2007:CrossGatewayQueryResponse&lt;/Action>
+  D) Look for  Nhin Inbound Response Soap Header and within Soap Header RelatesTo should be there.
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header for Nhin Outbound Request.
+RelatesTo exists within the Soap Header for Nhin Inbound Response.</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -7198,7 +7244,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-02-27T01:13:58Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-02-27T01:23:58Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/27/2013 01:13:58</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-03-29T00:00:00Z</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2014-12-12T17:56:41Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2014-12-12T18:06:41Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>12/12/2014 17:56:41</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-01-11T00:00:00Z</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="3a630f37-d9fc-4fd2-bc44-bc0b04246222" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
@@ -7515,12 +7561,15 @@ if(passthruValue != null){
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag.
+<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag for Nhin Outbound Request. The Nhin Inbound Response Soap Header should have RelatesTo tag.
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/DocumentRetrieve/2_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-  B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
+  B) Look for  Nhin Outbound Request Soap Header and within Soap Header RelatesTo should not be there.
+  C) Search the log file and look for &lt;Action xmlns="http://www.w3.org/2005/08/addressing">urn:ihe:iti:2007:CrossGatewayRetrieveResponse&lt;/Action>
+  D) Look for  Nhin Inbound Response Soap Header and within Soap Header RelatesTo should be there.
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header for Nhin Outbound Request.
+RelatesTo exists within the Soap Header for Nhin Inbound Response.</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -7535,19 +7584,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:13:59Z</con:value>
+		<con:value>2014-12-12T18:00:09Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:23:59Z</con:value>
+		<con:value>2014-12-12T18:10:09Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:13:59</con:value>
+		<con:value>12/12/2014 18:00:09</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2015-01-11T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -7936,12 +7985,13 @@ if(passthruValue != null){
 </con:config>
 </con:testStep>
 <con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>10000</delay></con:config></con:testStep>
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag.
+<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Soap Header should not have RelatesTo tag for Nhin Outbound Request. The Nhin Inbound Response Soap Header should have RelatesTo tag.
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/AdminDistribution/1_0/NhinService/NhinAdminDist (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header for Nhin Outbound Request.
+</con:expectedResult></con:config></con:testStep>
 <con:setupScript>
 nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
@@ -8075,7 +8125,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	
 	
 	
-	<con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property>
+	<con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>C://glassfish3//glassfish//domains//domain1//config//nhin</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property>
 
 
 	
