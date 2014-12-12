@@ -1,44 +1,42 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.connectopensource</groupId>
-		<artifactId>RegressionSuite</artifactId>
-		<version>4.5.0-SNAPSHOT</version>
-	</parent>
-	<artifactId>Bimodal</artifactId>
-	<packaging>pom</packaging>
-	<name>Maven 3 soapUI Bimodal Regression Tests</name>
-	<properties>
-		<soapui.testFailIgnore>true</soapui.testFailIgnore>
-	</properties>
-	<profiles>
-	<profile>
-	    <id>regression-testing</id>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.connectopensource</groupId>
+        <artifactId>RegressionSuite</artifactId>
+        <version>4.5.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>Bimodal</artifactId>
+    <packaging>pom</packaging>
+    <name>Maven 3 soapUI Bimodal Regression Tests</name>
+    <properties>
+        <soapui.testFailIgnore>true</soapui.testFailIgnore>
+    </properties>
+    <profiles>
+        <profile>
+            <id>regression-testing</id>
             <activation>
                 <property>
                     <name>regression</name>
                 </property>
             </activation>
-        <modules>
-            <module>CONN-443</module>
-            <module>XDRAdapterTests</module>
-            <module>AdapterPatientDiscoveryAsyncReq</module>
-            <module>AdapterPatientDiscoveryAsyncReqError</module>
-            <module>AdapterPatientDiscoveryAsyncResp</module>
-            <module>AdapterPolicyEngineSAMLConformanceTests</module>
-            <module>AdapterRegistryErrorListMissingTest</module>
-            <!--module>CONN-376</module>
-            <module>CONN-377</module-->
-            <module>CONN-470</module>
-            <module>CONN-478</module>
-            <module>ConnectionManagerTest</module>
-            <module>DocRegistryAndRepository</module>
-            <module>DocumentRetrieveXDSErrorValidation</module>
-            <module>GW-406-949</module>
-            <!--module>Gateway-2085</module-->
-            <module>QueryByState</module>
-        </modules>
-	</profile>
+            <modules>
+                <module>CONN-443</module>
+                <module>XDRAdapterTests</module>
+                <module>AdapterPatientDiscoveryAsyncReq</module>
+                <module>AdapterPatientDiscoveryAsyncReqError</module>
+                <module>AdapterPatientDiscoveryAsyncResp</module>
+                <module>AdapterPolicyEngineSAMLConformanceTests</module>
+                <module>AdapterRegistryErrorListMissingTest</module>
+                <module>CONN-470</module>
+                <module>CONN-478</module>
+                <module>ConnectionManagerTest</module>
+                <module>DocRegistryAndRepository</module>
+                <module>DocumentRetrieveXDSErrorValidation</module>
+                <module>GW-406-949</module>
+                <module>QueryByState</module>
+                <module>ValidateSAMLResourceURIAttributeTest</module>
+            </modules>
+        </profile>
     </profiles>
 </project>

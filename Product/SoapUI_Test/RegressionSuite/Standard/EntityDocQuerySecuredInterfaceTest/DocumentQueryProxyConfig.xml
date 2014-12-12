@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+">
+<!-- 
+	The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
+	in the description separated with a comma like the following sample: {somebean,anotherbean}
+-->
+	<description>Beans included in this file: {nhindocquery,entitydocquery,passthrudocquery,adapterdocquery, adapterdocumentregistry}</description>
+
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+    <context:annotation-config />
+
+    <import resource="classpath:CONNECT-context.xml"/>
+    <import resource="classpath:eventlogging.xml"/>
+
+	<!-- Beans defined : nhindocquery -->
+	
+	<alias alias="nhindocquery" name="nhindocquerywssecured" />
+	
+	<!-- No-op Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyNoOpImpl" id="nhindocquerynoop" name="nhindocquerynoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyWebServiceSecuredImpl" id="nhindocquerywssecured" name="nhindocquerywssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+
+
+	<!-- Beans defined : entitydocquery -->
+	
+	<alias alias="entitydocquery" name="entitydocquerywssecured" />
+	
+	<!-- No-op Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.entity.proxy.EntityDocQueryProxyNoOpImpl" id="entitydocquerynoop" name="entitydocquerynoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Java Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.entity.proxy.EntityDocQueryProxyJavaImpl" id="entitydocqueryjava" name="entitydocqueryjava"> 
+		<meta key="impltype" value="java"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.entity.proxy.EntityDocQueryProxyWebServiceSecuredImpl" id="entitydocquerywssecured" name="entitydocquerywssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.entity.proxy.EntityDocQueryProxyWebServiceUnsecuredImpl" id="entitydocquerywsunsecured" name="entitydocquerywsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean> 
+
+
+    <!-- Beans defined : adapterdocquery -->
+    
+    <alias alias="adapterdocquery" name="adapterdocquerywssecured" />
+	
+    <!-- No-op Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyNoOpImpl" id="adapterdocquerynoop" name="adapterdocquerynoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Java Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyJavaImpl" id="adapterdocqueryjava" name="adapterdocqueryjava"> 
+		<meta key="impltype" value="java"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyWebServiceSecuredImpl" id="adapterdocquerywssecured" name="adapterdocquerywssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyWebServiceUnsecuredImpl" id="adapterdocquerywsunsecured" name="adapterdocquerywsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean>
+	
+	
+	
+	<!-- Beans defined: adapterdocumentregistry -->
+	
+	<alias alias="adapterdocumentregistry" name="adapterdocumentregistrywsunsecured" />
+
+    <!-- No-op Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxyNoOpImpl" id="adapterdocumentregistrynoop" name="adapterdocumentregistrynoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Java Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxyJavaImpl" id="adapterdocumentregistryjava" name="adapterdocumentregistryjava"> 
+		<meta key="impltype" value="java"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl" id="adapterdocumentregistrywsunsecured" name="adapterdocumentregistrywsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+		<meta key="default" value="true"/>
+	</bean>
+    
+	
+
+</beans>

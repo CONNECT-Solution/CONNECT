@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<businessDetail xmlns="urn:uddi-org:api_v3" xmlns:ns2="http://www.w3.org/2000/09/xmldsig#">
+    <businessEntity businessKey="uddi:testnhincnode:1.1">
+        <name xml:lang="en">DoD</name>
+        <businessServices>
+
+            <!--  Document Submission  -->
+
+            <businessService serviceKey="uddi:testnhincnode:DocSubmission">
+                <name xml:lang="en">DocSubmission</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmission" serviceKey="uddi:testnhincnode:DocSubmission">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/1_1/DocumentRepositoryXDR_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="DocSubmission" keyValue="DocSubmission"/>
+                </categoryBag>
+            </businessService>
+            <businessService serviceKey="uddi:testnhincnode:DocSubmissionDeferredReq">
+                <name xml:lang="en">DocSubmissionDeferredReq</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmissionDeferredReq" serviceKey="uddi:testnhincnode:DocSubmissionDeferredReq">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRRequest_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="DocSubmissionDeferredReq" keyValue="DocSubmissionDeferredReq"/>
+                </categoryBag>
+            </businessService>
+            <businessService serviceKey="uddi:testnhincnode:DocSubmissionDeferredResp">
+                <name xml:lang="en">DocSubmissionDeferredResp</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmissionDeferredResp" serviceKey="uddi:testnhincnode:DocSubmissionDeferredResp">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRResponse_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="DocSubmissionDeferredResp" keyValue="DocSubmissionDeferredResp"/>
+                </categoryBag>
+            </businessService>
+
+        </businessServices>
+        <identifierBag>
+            <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="urn:oid:1.1"/>
+        </identifierBag>
+        <categoryBag>
+            <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="New York" keyValue="US-NY"/>
+            <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
+        </categoryBag>
+    </businessEntity>
+
+    <!--  Gateway 2.2  -->
+
+    <businessEntity businessKey="uddi:testnhincnode:2.2">
+        <name xml:lang="en">DoD</name>
+        <businessServices>
+
+            <!--  Document Submission  -->
+
+            <businessService serviceKey="uddi:testnhincnode:DocSubmission">
+                <name xml:lang="en">DocSubmission</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmission" serviceKey="uddi:testnhincnode:DocSubmission">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/1_1/DocumentRepositoryXDR_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="DocSubmission" keyValue="DocSubmission"/>
+                </categoryBag>
+            </businessService>
+            <businessService serviceKey="uddi:testnhincnode:DocSubmissionDeferredReq">
+                <name xml:lang="en">DocSubmissionDeferredReq</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmissionDeferredReq" serviceKey="uddi:testnhincnode:DocSubmissionDeferredReq">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRRequest_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="DocSubmissionDeferredReq" keyValue="DocSubmissionDeferredReq"/>
+                </categoryBag>
+            </businessService>
+            <businessService serviceKey="uddi:testnhincnode:DocSubmissionDeferredResp">
+                <name xml:lang="en">DocSubmissionDeferredResp</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmissionDeferredResp" serviceKey="uddi:testnhincnode:DocSubmissionDeferredResp">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRResponse_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="DocSubmissionDeferredResp" keyValue="DocSubmissionDeferredResp"/>
+                </categoryBag>
+            </businessService>
+	</businessServices>
+
+        <identifierBag>
+            <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="urn:oid:2.2"/>
+        </identifierBag>
+        <categoryBag>
+            <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="New York" keyValue="US-NY"/>
+            <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
+        </categoryBag>
+    </businessEntity>
+</businessDetail>
