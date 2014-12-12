@@ -21,22 +21,21 @@
                 </property>
             </activation>
         <modules>
-            <module>CONN-443</module>
+            <module>ValidateDQDRMultispecSupportTest</module>
+            <module>ValidatePDCountryCodeTest</module>
+            <module>ValidateDQAdapterMultipleEventCodesTest</module>
+            <module>ConnectionManagerTest</module>
+            <module>DocRegistryAndRepository</module>
+            <module>DocumentRetrieveXDSErrorValidation</module>
+            <module>ValidatePDCommunicationErrorHandlingTest</module>
             <module>XDRAdapterTests</module>
             <module>AdapterPatientDiscoveryAsyncReq</module>
             <module>AdapterPatientDiscoveryAsyncReqError</module>
             <module>AdapterPatientDiscoveryAsyncResp</module>
             <module>AdapterPolicyEngineSAMLConformanceTests</module>
             <module>AdapterRegistryErrorListMissingTest</module>
-            <!--module>CONN-376</module>
-            <module>CONN-377</module-->
-            <module>CONN-470</module>
-            <module>CONN-478</module>
-            <module>ConnectionManagerTest</module>
-            <module>DocRegistryAndRepository</module>
-            <module>DocumentRetrieveXDSErrorValidation</module>
-            <module>GW-406-949</module>
-            <!--module>Gateway-2085</module-->
+            <!--module>ValidateQDMessageSpecVersionTest</module>
+            <module>ValidateRDMessageSpecVersion</module-->
             <module>QueryByState</module>
         </modules>
 	</profile>
