@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package gov.hhs.fha.nhinc.patientdiscovery.configuration.jmx;
 
@@ -8,46 +8,68 @@ import gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean;
 
 /**
  * @author achidambaram
- * 
+ *
  */
 public abstract class AbstractPDDeferredRequestWebServicesMXBean extends AbstractWebServicesMXBean {
 
-    /** The Constant NHIN_PD_BEAN_NAME. */
+    /**
+     * The Constant NHIN_PD_BEAN_NAME.
+     */
     private static final String NHIN_PD_BEAN_NAME = "nhinPDReq";
 
-    /** The Constant ENTITY_UNSECURED_PD_BEAN_NAME. */
+    /**
+     * The Constant ENTITY_UNSECURED_PD_BEAN_NAME.
+     */
     private static final String ENTITY_UNSECURED_PD_BEAN_NAME = "entityPDReqUnsecured";
 
-    /** The Constant ENTITY_SECURED_PD_BEAN_NAME. */
+    /**
+     * The Constant ENTITY_SECURED_PD_BEAN_NAME.
+     */
     private static final String ENTITY_SECURED_PD_BEAN_NAME = "entityPDReqSecured";
 
-    /** The Constant DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME. */
-    public static final String DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.request.StandardOutboundPatientDiscoveryDeferredRequest";
+    /**
+     * The Constant DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME.
+     */
+    public static final String DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.request.StandardInboundPatientDiscoveryDeferredRequest";
 
-    /** The Constant DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME. */
+    /**
+     * The Constant DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME.
+     */
     public static final String DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.request.PassthroughInboundPatientDiscoveryDeferredRequest";
 
-    /** The Constant DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME. */
-    public static final String DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request.StandardInboundPatientDiscoveryDeferredRequest";
+    /**
+     * The Constant DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME.
+     */
+    public static final String DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request.StandardOutboundPatientDiscoveryDeferredRequest";
 
-    /** The Constant DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME. */
+    /**
+     * The Constant DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME.
+     */
     public static final String DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request.PassthroughOutboundPatientDiscoveryDeferredRequest";
 
-    /** The Constant Standard_OutboundOrch_PDDeferredRequest_BEAN_NAME. */
+    /**
+     * The Constant Standard_OutboundOrch_PDDeferredRequest_BEAN_NAME.
+     */
     private static final String StdOutbound_PD_Bean_Name = "stdPDReqOutbound";
 
-    /** The Constant Passthrough_OutboundOrch_PDDeferredRequest_BEAN_NAME. */
+    /**
+     * The Constant Passthrough_OutboundOrch_PDDeferredRequest_BEAN_NAME.
+     */
     private static final String PtOutbound_PD_Bean_Name = "ptPDReqOutbound";
 
-    /** The Constant Standard_InboundOrch_PDDeferredRequest_BEAN_NAME. */
+    /**
+     * The Constant Standard_InboundOrch_PDDeferredRequest_BEAN_NAME.
+     */
     private static final String StdInbound_PD_Bean_Name = "stdPDReqInbound";
 
-    /** The Constant Passthrough_InboundOrch_PDDeferredRequest_BEAN_NAME. */
+    /**
+     * The Constant Passthrough_InboundOrch_PDDeferredRequest_BEAN_NAME.
+     */
     private static final String PtInbound_PD_Bean_Name = "ptPDReqInbound";
 
     /**
      * Constructor for AbstractPDWebServicesMXBean.
-     * 
+     *
      * @param sc the sc
      */
     public AbstractPDDeferredRequestWebServicesMXBean(ServletContext sc) {
@@ -56,7 +78,7 @@ public abstract class AbstractPDDeferredRequestWebServicesMXBean extends Abstrac
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getNhinBeanName()
      */
     @Override
@@ -66,7 +88,7 @@ public abstract class AbstractPDDeferredRequestWebServicesMXBean extends Abstrac
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getStandardOutboundBeanName()
      */
     @Override
@@ -76,7 +98,7 @@ public abstract class AbstractPDDeferredRequestWebServicesMXBean extends Abstrac
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getPassthroughOutboundBeanName()
      */
     @Override
@@ -86,7 +108,7 @@ public abstract class AbstractPDDeferredRequestWebServicesMXBean extends Abstrac
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getStandardInboundBeanName()
      */
     @Override
@@ -96,7 +118,7 @@ public abstract class AbstractPDDeferredRequestWebServicesMXBean extends Abstrac
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getPassthroughInboundBeanName()
      */
     @Override
@@ -106,7 +128,7 @@ public abstract class AbstractPDDeferredRequestWebServicesMXBean extends Abstrac
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getEntityUnsecuredBeanName()
      */
     @Override
@@ -116,7 +138,7 @@ public abstract class AbstractPDDeferredRequestWebServicesMXBean extends Abstrac
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getEntitySecuredBeanName()
      */
     @Override
@@ -127,7 +149,7 @@ public abstract class AbstractPDDeferredRequestWebServicesMXBean extends Abstrac
     /**
      * Configure outbound Standard implementation. This method is abstract because subclass implementations must use
      * actual types as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
-     * 
+     *
      * @param className the class name
      * @throws InstantiationException the instantiation exception
      * @throws IllegalAccessException the illegal access exception
@@ -135,12 +157,12 @@ public abstract class AbstractPDDeferredRequestWebServicesMXBean extends Abstrac
      */
     @Override
     public abstract void configureOutboundStdImpl() throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException;
+        ClassNotFoundException;
 
     /**
      * Configure outbound Passthrough implementation. This method is abstract because subclass implementations must use
      * actual types as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
-     * 
+     *
      * @param className the class name
      * @throws InstantiationException the instantiation exception
      * @throws IllegalAccessException the illegal access exception
@@ -148,12 +170,12 @@ public abstract class AbstractPDDeferredRequestWebServicesMXBean extends Abstrac
      */
     @Override
     public abstract void configureOutboundPtImpl() throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException;
+        ClassNotFoundException;
 
     /**
      * Configure Inbound Standard implementation. This method is abstract because subclass implementations must use
      * actual types as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
-     * 
+     *
      * @param className the class name
      * @throws InstantiationException the instantiation exception
      * @throws IllegalAccessException the illegal access exception
@@ -161,12 +183,12 @@ public abstract class AbstractPDDeferredRequestWebServicesMXBean extends Abstrac
      */
     @Override
     public abstract void configureInboundStdImpl() throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException;
+        ClassNotFoundException;
 
     /**
      * Configure Inbound Passthrough implementation. This method is abstract because subclass implementations must use
      * actual types as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
-     * 
+     *
      * @param className the class name
      * @throws InstantiationException the instantiation exception
      * @throws IllegalAccessException the illegal access exception
@@ -174,11 +196,11 @@ public abstract class AbstractPDDeferredRequestWebServicesMXBean extends Abstrac
      */
     @Override
     public abstract void configureInboundPtImpl() throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException;
+        ClassNotFoundException;
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isInboundPassthru()
      */
     @Override
@@ -186,7 +208,7 @@ public abstract class AbstractPDDeferredRequestWebServicesMXBean extends Abstrac
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isOutboundPassthru()
      */
     @Override
