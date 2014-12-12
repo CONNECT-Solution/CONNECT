@@ -1,49 +1,49 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.connectopensource</groupId>
-		<artifactId>RegressionSuite</artifactId>
-		<version>4.5.0-SNAPSHOT</version>
-	</parent>
-	<artifactId>Standard</artifactId>
-	<packaging>pom</packaging>
-	<name>Maven 3 soapUI Standard Regression Tests</name>
-	<properties>
-		<soapui.testFailIgnore>true</soapui.testFailIgnore>
-	</properties>
-	<profiles>
-	<profile>
-	    <id>regression-testing</id>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.connectopensource</groupId>
+        <artifactId>RegressionSuite</artifactId>
+        <version>4.5.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>Standard</artifactId>
+    <packaging>pom</packaging>
+    <name>Maven 3 soapUI Standard Regression Tests</name>
+    <properties>
+        <soapui.testFailIgnore>true</soapui.testFailIgnore>
+    </properties>
+    <profiles>
+        <profile>
+            <id>regression-testing</id>
             <activation>
                 <property>
                     <name>regression</name>
                 </property>
             </activation>
-        <modules>
-            <module>Admin-Distribution-Standard</module>
-            <module>AuditLogging-Standard</module>
-            <module>DocQueryErrorCodesStandard</module>
-            <module>DocQueryFanoutTestTarget</module>
-            <module>DocQueryOnDemand</module>
-            <module>DocQuerytestsforUDDI</module>
-            <module>EntityDocQuery</module>
-            <module>EntityDocRetrieve</module>
-            <module>EntityPolicyEngineTest</module>
-            <module>EntityXDRTests</module>
-            <module>EventLogging-Standard</module>
-            <module>NHINCPatientDiscoveryMAA</module>
-            <module>PatientCorrelation</module>
-            <module>PatientDiscoveryDB</module>
-            <module>PatientDiscoveryInternalErrorMessageIdTest</module>
-            <module>XDRAsyncRequestInbound-Tests</module>
-            <module>XDRAsyncRequestOutbound-Tests</module>
-			<module>EntityDocQuerySecuredInterfaceTest</module>
-			<module>EntityDocRetrieveSecuredInterfaceTest</module>
-			<module>DQDROnDemandAndStableDocumentRetrievalTest</module>
-			<module>PDSAMLIssuerWithX509SubjectNameTest</module>
-			<module>ValidateConnectionManagerForAllServices</module>
-        </modules>
-	</profile>
+            <modules>
+                <module>Admin-Distribution-Standard</module>
+                <module>AuditLogging-Standard</module>
+                <module>DocQueryErrorCodesStandard</module>
+                <module>DocQueryFanoutTestTarget</module>
+                <module>DocQueryOnDemand</module>
+                <module>DocQuerytestsforUDDI</module>
+                <module>EntityDocQuery</module>
+                <module>EntityDocRetrieve</module>
+                <module>EntityPolicyEngineTest</module>
+                <module>EntityXDRTests</module>
+                <module>EventLogging-Standard</module>
+                <module>NHINCPatientDiscoveryMAA</module>
+                <module>PatientCorrelation</module>
+                <module>PatientDiscoveryDB</module>
+                <module>PatientDiscoveryInternalErrorMessageIdTest</module>
+                <module>XDRAsyncRequestInbound-Tests</module>
+                <module>XDRAsyncRequestOutbound-Tests</module>
+                <module>EntityDocQuerySecuredInterfaceTest</module>
+                <module>EntityDocRetrieveSecuredInterfaceTest</module>
+                <module>DQDROnDemandAndStableDocumentRetrievalTest</module>
+                <module>PDSAMLIssuerWithX509SubjectNameTest</module>
+                <module>ValidateConnectionManagerForAllServices</module>
+            </modules>
+        </profile>
     </profiles>
 </project>
