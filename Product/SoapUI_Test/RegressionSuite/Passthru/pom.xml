@@ -30,6 +30,7 @@
             <module>EventLogging-Passthrough</module>
             <!--module>NHINCReceivingXDRAsyncRequestTests</module>
             <module>NHINCReceivingXDRAsyncResponseTests</module-->
+			<module>X12ErrorHandlingTest</module>
         </modules>
 	</profile>
     </profiles>

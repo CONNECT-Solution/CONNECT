@@ -38,6 +38,7 @@
             <module>GW-406-949</module>
             <!--module>Gateway-2085</module-->
             <module>QueryByState</module>
+			<module>ValidateSAMLResourceURIAttributeTest</module>
         </modules>
 	</profile>
     </profiles>
