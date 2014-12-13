@@ -6,9 +6,9 @@
         <artifactId>Bimodal</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
-    <artifactId>CONN-377</artifactId>
+    <artifactId>ValidatePDCountryCodeTest</artifactId>
     <packaging>jar</packaging>
-    <name>Maven 3 soapUI CONN-377</name>
+    <name>Maven 3 soapUI ValidatePDCountryCodeTest</name>
     <properties>
     </properties>
     <pluginRepositories>
@@ -80,13 +80,13 @@
                     </configuration>
                 <executions>
                     <execution>
-                        <id>CONN-377-soapui-project</id>
+                        <id>ValidatePDCountryCodeTest-soapui-project</id>
                         <phase>integration-test</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <projectFile>${basedir}/CONN-377-soapui-project.xml</projectFile>
+                            <projectFile>${basedir}/ValidatePDCountryCodeTest-soapui-project.xml</projectFile>
                             <outputFolder>${project.build.directory}/soapui/output</outputFolder>
                         </configuration>
                     </execution>

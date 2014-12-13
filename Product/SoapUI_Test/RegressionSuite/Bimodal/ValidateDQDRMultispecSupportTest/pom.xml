@@ -6,9 +6,9 @@
         <artifactId>Bimodal</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
-    <artifactId>CONN-478</artifactId>
+    <artifactId>ValidateDQDRMultispecSupportTest</artifactId>
     <packaging>jar</packaging>
-    <name>Maven 3 soapUI CONN-478</name>
+    <name>Maven 3 soapUI ValidateDQDRMultispecSupportTest</name>
     <properties>
     </properties>
     <pluginRepositories>
@@ -21,7 +21,7 @@
         <plugins>
             <plugin>
                 <groupId>com.github.redfish4ktc.soapui</groupId>
-        <artifactId>maven-soapui-extension-plugin</artifactId>
+                <artifactId>maven-soapui-extension-plugin</artifactId>
                 <version>4.5.1.2</version>
                     <dependencies>
                         <dependency>
@@ -80,13 +80,13 @@
                     </configuration>
                 <executions>
                     <execution>
-                        <id>CONN-478-soapui-project</id>
+                        <id>ValidateDQDRMultispecSupportTest-soapui-project</id>
                         <phase>integration-test</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <projectFile>${basedir}/CONN-478-soapui-project.xml</projectFile>
+                            <projectFile>${basedir}/ValidateDQDRMultispecSupportTest-soapui-project.xml</projectFile>
                             <outputFolder>${project.build.directory}/soapui/output</outputFolder>
                         </configuration>
                     </execution>
