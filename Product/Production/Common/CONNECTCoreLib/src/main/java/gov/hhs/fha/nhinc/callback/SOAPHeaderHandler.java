@@ -82,6 +82,11 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
             } else {
                 LOG.debug("Will not adjust messageID on inbound request");
             }
+
+			if (isOutboundMessage.booleanValue()) {
+				LOG.info("Add http://www.w3.org/2001/XMLSchema namespace not used at all. This is nonsense.");
+				oMessage.getSOAPPart().getEnvelope().addNamespaceDeclaration("xs", "http://www.w3.org/2001/XMLSchema");
+			}
         } catch (Exception e) {
             LOG.error(e.getMessage());
         }
