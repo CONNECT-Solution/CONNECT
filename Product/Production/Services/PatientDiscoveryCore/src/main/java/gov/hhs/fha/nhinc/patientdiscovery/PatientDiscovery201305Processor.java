@@ -619,7 +619,8 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         authorOrPerformer.setAssignedDevice(assignedDeviceJAXBElement);
 
         if (response != null && response.getControlActProcess() != null
-                && response.getControlActProcess().getAuthorOrPerformer() != null) {
+                && response.getControlActProcess().getAuthorOrPerformer() != null
+				&& response.getControlActProcess().getAuthorOrPerformer().size() == 0) {
             response.getControlActProcess().getAuthorOrPerformer().add(authorOrPerformer);
         }
         return response;
