@@ -56,6 +56,9 @@
                         <p:menuitem value="User Accounts" action="#{tabBean.navigateToAccountMgmtUserAccountTab()}" styleClass="glyphicon glyphicon-user" />
                         <p:menuitem value="Manage Roles" action="#{tabBean.navigateToAccountMgmtManageRoleTab()}" styleClass="glyphicon glyphicon-lock" />
                     </p:submenu>
+                    <p:submenu label="Connection Management" styleClass="sidebar-purple" >
+                        <p:menuitem value="View External Connections" action="#{tabBean.navigateToConnectionManagement()}" styleClass="glyphicon glyphicon-eye-open" />
+                    </p:submenu>
                 </p:panelMenu>
             </h:form>
             

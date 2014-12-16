@@ -37,6 +37,7 @@ public class NavigationConstant {
     public static final String ACCT_MGMT_PAGE = "acctmanage";
     public static final String DIRECT_PAGE = "direct";
     public static final String DIRECT_XHTML = "direct.xhtml";
+    public static final String CM_PAGE = "connectionManager";
 
     public static final int DIRECT_DOMAIN_TAB = 0;
     public static final int DIRECT_SETTING_TAB = 1;
