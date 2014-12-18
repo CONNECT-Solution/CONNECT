@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -43,19 +43,19 @@ import javax.xml.ws.handler.soap.SOAPMessageContext;
 import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.async.AddressingHeaderCreator;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
+ * Handles various soap header values including adding mustUnderstand to action if missing and
+ * adding messageId if missing and modifying it with appropriate prefix.
  * 
- * @author rayj
+ * @author rayj / jsmith
  */
 public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
     private static final Logger LOG = Logger.getLogger(SOAPHeaderHandler.class);
-    private static final String WSA_NS = "http://www.w3.org/2005/08/addressing";
     private static final String MESSAGE_ID_CONTEXT = "com.sun.xml.ws.addressing.response.messageID";
-    private static final String MESSAGE_ID = "MessageID";
-
 
     /* (non-Javadoc)
      * @see javax.xml.ws.handler.soap.SOAPHandler#getHeaders()
@@ -77,22 +77,25 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
             SOAPMessage oMessage = messageContext.getMessage();
             SOAPHeader oHeader = oMessage.getSOAPHeader();
 
-            if (isOutboundMessage.booleanValue() && (!messageContext.containsKey(MESSAGE_ID_CONTEXT))) {
+            if (isOutboundMessage && (!messageContext.containsKey(MESSAGE_ID_CONTEXT))) {
                 adjustMessageId(messageContext, oHeader);
             } else {
                 LOG.debug("Will not adjust messageID on inbound request");
             }
-        } catch (Exception e) {
+
+            if (isOutboundMessage) {
+                addMustUnderstandAttribute(oHeader);
+            }
+        } catch (SOAPException e) {
             LOG.error(e.getMessage());
         }
 
         return true;
     }
 
-
     /**
      * This method updates the messageID if found to be in an illegal format.
-     * 
+     *
      * @param messageContext
      * @param oHeader
      * @throws SOAPException
@@ -105,17 +108,19 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
             messageId = generateMessageId();
         } else if (illegalUUID(messageId, "uuid:")) {
             messageId = "urn:" + messageId;
-		} else if (!legalMessageId(messageId)) {
+        } else if (!legalMessageId(messageId)) {
             messageId = "urn:uuid:" + messageId;
         }
 
         // Steps that need to be performed
-        SOAPElement oMessageIdElem = getFirstChild(oHeader, MESSAGE_ID, WSA_NS);
+        SOAPElement oMessageIdElem = getFirstChild(oHeader, NhincConstants.WS_SOAP_HEADER_MESSAGE_ID,
+                NhincConstants.WS_ADDRESSING_URL);
         if (oMessageIdElem != null) {
             oMessageIdElem.setTextContent(messageId);
         } else {
             SOAPFactory soapFactory = SOAPFactory.newInstance();
-            oMessageIdElem = soapFactory.createElement(MESSAGE_ID, "", WSA_NS);
+            oMessageIdElem = soapFactory.createElement(NhincConstants.WS_SOAP_HEADER_MESSAGE_ID, "", 
+                    NhincConstants.WS_ADDRESSING_URL);
             oMessageIdElem.setTextContent(messageId);
 
             if (oHeader != null) {
@@ -126,10 +131,12 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
     /**
      * Returns a header object with a particular local name and namespace.
+     *
      * @param header The header object from the message
      * @param name The local name of the element being searched for
      * @param ns The namespace of the object being searched for
-     * @return The first instance that matches the localname and namespace or return null
+     * @return The first instance that matches the localname and namespace or
+     * return null
      */
     private SOAPElement getFirstChild(SOAPHeader header, String name, String ns) {
         SOAPElement result = null;
@@ -147,6 +154,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
     /**
      * Check if UUID starts with an illegal prefix ("uuid:")
+     *
      * @param messageId
      * @param illegalPrefix
      * @return
@@ -157,6 +165,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
     /**
      * Returns true if the messageID starts with a legal prefix ("urn:uuid")
+     *
      * @param messageId
      * @return
      */
@@ -166,23 +175,48 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
     /**
      * Method handles a fault if one occurs
+     *
      * @param context
      * @return
      */
-    public boolean handleFault(SOAPMessageContext context) {
+    public boolean handleFault(SOAPMessageContext messageContext) {
         LOG.warn("SoapHeaderHandler.handleFault");
+
+        Boolean isOutboundMessage = (Boolean) messageContext.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
+        try {
+            SOAPMessage oMessage = messageContext.getMessage();
+            SOAPHeader oHeader = oMessage.getSOAPHeader();
+
+            if (isOutboundMessage) {
+                addMustUnderstandAttribute(oHeader);
+            }
+        } catch (SOAPException ex) {
+            LOG.warn("Exception adding mustunderstand to fault: " + ex.getMessage());
+        }
+
         return true;
     }
 
     /**
-     * 
+     *
      * @param context
      */
     public void close(MessageContext context) {
         LOG.debug("SoapHeaderHandler.close");
     }
-    
-    protected String generateMessageId(){
-    	return AddressingHeaderCreator.generateMessageId();
+
+    protected String generateMessageId() {
+        return AddressingHeaderCreator.generateMessageId();
+    }
+
+    private void addMustUnderstandAttribute(SOAPHeader oHeader) throws SOAPException {
+        SOAPElement action = getFirstChild(oHeader, NhincConstants.WS_SOAP_HEADER_ACTION, 
+                NhincConstants.WS_ADDRESSING_URL);
+        
+        if (action != null && !action.hasAttribute(NhincConstants.WS_SOAP_ATTR_MUSTUNDERSTAND)) {
+            QName mustUnderstandQ = new QName(NhincConstants.WS_SOAP_ENV_URL, 
+                    NhincConstants.WS_SOAP_ATTR_MUSTUNDERSTAND, NhincConstants.WS_SOAP_ENV_PREFIX);
+            action.addAttribute(mustUnderstandQ, Boolean.TRUE.toString());
+        }
     }
 }

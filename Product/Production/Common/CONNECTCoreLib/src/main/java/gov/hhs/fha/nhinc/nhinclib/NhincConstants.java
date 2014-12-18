@@ -308,11 +308,14 @@ public class NhincConstants {
     public static final String ADAPTER_COMPONENT_MPI_SECURED_SERVICE_NAME = "adaptercomponentmpisecuredservice";
     // SOAP Headers
     public static final String HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE = "SoapMessage";
+    public static final String WS_SOAP_ENV_URL = "http://www.w3.org/2003/05/soap-envelope";
+    public static final String WS_SOAP_ENV_PREFIX = "soap";
     public static final String WS_ADDRESSING_URL = "http://www.w3.org/2005/08/addressing";
     public static final String WS_ADDRESSING_URL_ANONYMOUS = "http://www.w3.org/2005/08/addressing/anonymous";
     public static final String WS_SOAP_HEADER_ACTION = "Action";
     public static final String WS_RETRIEVE_DOCUMENT_ACTION = "urn:ihe:iti:2007:RetrieveDocumentSet";
     public static final String WS_PROVIDE_AND_REGISTER_DOCUMENT_ACTION = "urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b";
+    public static final String WS_SOAP_ATTR_MUSTUNDERSTAND = "mustUnderstand";
     public static final String WS_SOAP_HEADER_TO = "To";
     public static final String WS_SOAP_HEADER_REPLYTO = "ReplyTo";
     public static final String WS_SOAP_HEADER_ADDRESS = "Address";
