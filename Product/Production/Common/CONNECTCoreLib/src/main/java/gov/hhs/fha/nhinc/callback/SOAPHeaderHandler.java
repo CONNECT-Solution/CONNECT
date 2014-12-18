@@ -47,8 +47,10 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
- *
- * @author rayj
+ * Handles various soap header values including adding mustUnderstand to action if missing and
+ * adding messageId if missing and modifying it with appropriate prefix.
+ * 
+ * @author rayj / jsmith
  */
 public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
