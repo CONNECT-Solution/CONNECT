@@ -13,6 +13,8 @@
     <properties>
         <checkstyle.skip>false</checkstyle.skip>
         <cxf.version>2.7.3</cxf.version>
+        <connect.webservices.version>4.1.0-SNAPSHOT</connect.webservices.version>
+        <connect.commontypes.version>4.1.0-SNAPSHOT</connect.commontypes.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <connect.common.properties>Dev</connect.common.properties>
         <skip.cobertura>false</skip.cobertura>
@@ -320,87 +322,87 @@
             <dependency>
                 <groupId>org.connectopensource</groupId>
                 <artifactId>CONNECTCommonTypesLib</artifactId>
-                <version>4.1.1-SNAPSHOT</version>
+                <version>${connect.commontypes.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.connectopensource</groupId>
                 <artifactId>AdapterAuthenticationWebservices</artifactId>
-                <version>4.1.0-SNAPSHOT</version>
+                <version>${connect.webservices.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.connectopensource</groupId>
                 <artifactId>AdminDistributionWebservices</artifactId>
-                <version>4.1.0-SNAPSHOT</version>
+                <version>${connect.webservices.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.connectopensource</groupId>
                 <artifactId>AuditRepositoryWebservices</artifactId>
-                <version>4.1.0-SNAPSHOT</version>
+                <version>${connect.webservices.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.connectopensource</groupId>
                 <artifactId>ComponentWebservices</artifactId>
-                <version>4.1.0-SNAPSHOT</version>
+                <version>${connect.webservices.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.connectopensource</groupId>
                 <artifactId>ConnectionManagerWebservices</artifactId>
-                <version>4.1.0-SNAPSHOT</version>
+                <version>${connect.webservices.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.connectopensource</groupId>
                 <artifactId>CORERule2_2_0Webervices</artifactId>
-                <version>4.1.0-SNAPSHOT</version>
+                <version>${connect.webservices.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.connectopensource</groupId>
                 <artifactId>DirectWebservices</artifactId>
-                <version>4.1.0-SNAPSHOT</version>
+                <version>${connect.webservices.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.connectopensource</groupId>
                 <artifactId>DocRegistryWebservices</artifactId>
-                <version>4.1.0-SNAPSHOT</version>
+                <version>${connect.webservices.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.connectopensource</groupId>
                 <artifactId>DocRepositoryWebservices</artifactId>
-                <version>4.1.0-SNAPSHOT</version>
+                <version>${connect.webservices.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.connectopensource</groupId>
                 <artifactId>DocumentQueryWebservices</artifactId>
-                <version>4.1.0-SNAPSHOT</version>
+                <version>${connect.webservices.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.connectopensource</groupId>
                 <artifactId>DocumentRetrieveWebservices</artifactId>
-                <version>4.1.0-SNAPSHOT</version>
+                <version>${connect.webservices.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.connectopensource</groupId>
                 <artifactId>DocumentSubmissionWebervices</artifactId>
-                <version>4.1.0-SNAPSHOT</version>
+                <version>${connect.webservices.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.connectopensource</groupId>
                 <artifactId>PatientCorrelationWebservices</artifactId>
-                <version>4.1.0-SNAPSHOT</version>
+                <version>${connect.webservices.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.connectopensource</groupId>
                 <artifactId>PatientDiscoveryWebservices</artifactId>
-                <version>4.1.0-SNAPSHOT</version>
+                <version>${connect.webservices.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.connectopensource</groupId>
                 <artifactId>PolicyEngineWebservices</artifactId>
-                <version>4.1.0-SNAPSHOT</version>
+                <version>${connect.webservices.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.connectopensource</groupId>
                 <artifactId>RedactionEngineWebservices</artifactId>
-                <version>4.1.0-SNAPSHOT</version>
+                <version>${connect.webservices.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
