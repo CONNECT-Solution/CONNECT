@@ -475,6 +475,28 @@
                         </plugins>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>com.github.redfish4ktc.soapui</groupId>
+                    <artifactId>maven-soapui-extension-plugin</artifactId>
+                    <version>4.5.1.2</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>mysql</groupId>
+                            <artifactId>mysql-connector-java</artifactId>
+                            <version>5.1.6</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>CONNECTCommonTypesLib</artifactId>
+                            <version>${connect.commontypes.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>FileUtils</artifactId>
+                            <version>4.5.0-SNAPSHOT</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -555,6 +577,16 @@
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
     </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>eviwarePluginRepository</id>
+            <url>http://www.soapui.org/repository/maven2/</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>sonatype-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </pluginRepository>
+    </pluginRepositories>
     <profiles>
         <profile>
             <id>quick</id>
