@@ -139,6 +139,7 @@ public class NhincConstants {
     public static final String CONCURRENT_POOL_SIZE = "ConcurrentPoolSize";
     public static final String LARGEJOB_POOL_SIZE = "LargeJobPoolSize";
     public static final String LARGEJOB_SIZE_PERCENT = "LargeJobSizePercent";
+    public static final String HL7_PREFIX_FOR_ATTR_PROPERTY = "hl7PrefixForAttributes";
 
     // Streaming Large Files Constants
     public static final String PARSE_PAYLOAD_AS_FILE_URI_OUTBOUND = "ParsePayloadAsFileURIOutbound";
