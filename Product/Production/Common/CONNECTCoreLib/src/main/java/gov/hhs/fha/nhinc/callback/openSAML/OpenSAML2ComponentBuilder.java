@@ -707,20 +707,21 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         boolean hasHl7prefix = getHl7PrefixProperty();
         
         if (code != null) {
-            userRoleAttributes.put(createHl7QName(SamlConstants.HL7_NAMESPACE_URI, SamlConstants.CE_CODE_ID, hasHl7prefix), code);
+            userRoleAttributes.put(createHl7QName(SamlConstants.CE_CODE_ID, hasHl7prefix), code);
         }
 
         if (codeSystem != null) {
-            userRoleAttributes.put(createHl7QName(SamlConstants.HL7_NAMESPACE_URI, SamlConstants.CE_CODESYS_ID, hasHl7prefix), codeSystem);
+            userRoleAttributes.put(createHl7QName(SamlConstants.CE_CODESYS_ID, hasHl7prefix), codeSystem);
         }
 
         if (codeSystemName != null) {
-            userRoleAttributes.put(createHl7QName(SamlConstants.HL7_NAMESPACE_URI, SamlConstants.CE_CODESYSNAME_ID, hasHl7prefix), codeSystemName);
+            userRoleAttributes.put(createHl7QName(SamlConstants.CE_CODESYSNAME_ID, hasHl7prefix), codeSystemName);
         }
 
         if (displayName != null) {
-            userRoleAttributes.put(createHl7QName(SamlConstants.HL7_NAMESPACE_URI, SamlConstants.CE_DISPLAYNAME_ID, hasHl7prefix), displayName);
+            userRoleAttributes.put(createHl7QName(SamlConstants.CE_DISPLAYNAME_ID, hasHl7prefix), displayName);
         }
+        
         userRoleAttributes.put(new QName(SamlConstants.HL7_TYPE_NAMESPACE_URI, SamlConstants.HL7_TYPE_LOCAL_PART,
             SamlConstants.HL7_TYPE_PREFIX), SamlConstants.HL7_TYPE_KEY_VALUE);
 
@@ -729,8 +730,8 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
     }
     
-    QName createHl7QName(String namespace, String name, boolean hasPrefix) {
-        return hasPrefix ? new QName(namespace, name, SamlConstants.HL7_PREFIX) : new QName(namespace, name);
+    QName createHl7QName(String name, boolean hasPrefix) {
+        return hasPrefix ? new QName(SamlConstants.HL7_NAMESPACE_URI, name, SamlConstants.HL7_PREFIX) : new QName(name);
     }
     
     boolean getHl7PrefixProperty(){
