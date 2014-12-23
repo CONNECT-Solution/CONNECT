@@ -111,8 +111,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="PRPA_MT201306UV02.MatchAlgorithm">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="value" type="ANY" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="semanticsText" type="ST" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="value" type="ST_explicit" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="semanticsText" type="ST_explicit" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -147,8 +147,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="PRPA_MT201306UV02.MinimumDegreeMatch">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="value" type="ANY" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="semanticsText" type="ST" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="value" type="INT" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="semanticsText" type="ST_explicit" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
