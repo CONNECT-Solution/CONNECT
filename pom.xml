@@ -99,6 +99,9 @@ By advancing the adoption of interoperable health IT systems and health informat
                     <artifactId>dependency-check-maven</artifactId>
                     <!-- Skipping 1.2.7 due to CPEAnalyzer ClassCastException bug -->
                     <version>1.2.6</version>
+                    <configuration>
+                        <format>ALL</format>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
