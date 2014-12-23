@@ -3126,6 +3126,16 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
                   <urn:statusCode code="new"/>
                   <urn:responseModalityCode code="R"/>
                   <urn:responsePriorityCode code="I"/>
+                  <urn:matchCriterionList>
+                     <urn:matchAlgorithm>
+                        <urn:value>"XYZ MatchAlgorithm"</urn:value>
+                        <urn:semanticsText>MatchAlgorithm</urn:semanticsText>
+                     </urn:matchAlgorithm>
+                     <urn:minimumDegreeMatch>
+                        <urn:value>99</urn:value>
+                        <urn:semanticsText>MinimumDegreeMatch</urn:semanticsText>
+                     </urn:minimumDegreeMatch>
+                  </urn:matchCriterionList>
                   <urn:parameterList>
                      <urn:livingSubjectAdministrativeGender>
                         <urn:value code="${#Project#Gender}"/>
@@ -3151,7 +3161,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
-            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -3317,9 +3327,9 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
          <urn:NhinTargetCommunities>
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-               <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
-               <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
-               <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
                </urn1:homeCommunity>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
@@ -3510,21 +3520,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-11-13T16:53:50Z</con:value>
+		<con:value>2014-12-21T22:38:31Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-11-13T17:03:50Z</con:value>
+		<con:value>2014-12-21T22:48:31Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>11/13/2013 16:53:50</con:value>
+		<con:value>12/21/2014 22:38:31</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-12-13T00:00:00Z</con:value>
+		<con:value>2015-01-20T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="801f7f15-5164-41c3-907f-9c0a9db42262" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
