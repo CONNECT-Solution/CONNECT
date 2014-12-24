@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.properties;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Properties;
 import java.util.Set;
 
@@ -255,6 +256,11 @@ public class PropertyAccessor implements IPropertyAcessor {
      */
     public synchronized String getPropertyFileURL() {
         return fileUtilities.getPropertyFileURL();
+    }
+    
+    public synchronized void saveProperties(String propertyFile) throws IOException {
+        String propFilePathAndName = fileUtilities.getPropertyFileLocation(propertyFile);
+        propertyFileDAO.store(propertyFile, propFilePathAndName);
     }
 
     /**

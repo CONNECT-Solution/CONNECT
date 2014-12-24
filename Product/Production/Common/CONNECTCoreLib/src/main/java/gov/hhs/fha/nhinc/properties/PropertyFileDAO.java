@@ -28,10 +28,9 @@ package gov.hhs.fha.nhinc.properties;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.StreamUtils;
-import gov.hhs.fha.nhinc.util.StringUtil;
 
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -39,7 +38,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.Set;
-
 import org.apache.log4j.Logger;
 
 /**
@@ -68,6 +66,13 @@ public class PropertyFileDAO {
             throw new PropertyAccessException(sMessage, e);
         }
         propertyFilesHashmap.put(propertyFileName, properties);
+    }
+    
+    public void store(String file, String path) throws IOException {       
+        FileOutputStream out = new FileOutputStream(path);        
+        propertyFilesHashmap.get(file).store(out, null);
+              
+        StreamUtils.closeReaderSilently(out);
     }
     
     public void loadPropertyFile(File propertyFile, String propertyFileName) throws PropertyAccessException {                       
