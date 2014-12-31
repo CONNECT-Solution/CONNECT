@@ -11,4 +11,13 @@
     <jsp-config>
         <property name="keepgenerated" value="true" />
     </jsp-config>
+
+    <resource-ref>
+        <res-ref-name>jdbc/adminguidb_datasource</res-ref-name>
+        <jndi-name>jdbc/adminguidb_datasource</jndi-name>
+    </resource-ref>
+    <resource-ref>
+        <res-ref-name>jdbc/eventdb_datasource</res-ref-name>
+        <jndi-name>jdbc/eventdb_datasource</jndi-name>
+    </resource-ref>
 </glassfish-web-app>

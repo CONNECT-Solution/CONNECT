@@ -10,4 +10,17 @@
     <jsp-config>
         <property name="keepgenerated" value="true" />
     </jsp-config>
+
+    <resource-ref>
+        <res-ref-name>jdbc/assigningauthoritydb_datasource</res-ref-name>
+        <jndi-name>jdbc/assigningauthoritydb_datasource</jndi-name>
+    </resource-ref>
+    <resource-ref>
+        <res-ref-name>jdbc/auditrepo_datasource</res-ref-name>
+        <jndi-name>jdbc/auditrepo_datasource</jndi-name>
+    </resource-ref>
+    <resource-ref>
+        <res-ref-name>jdbc/patientcorrelationdb_datasource</res-ref-name>
+        <jndi-name>jdbc/patientcorrelationdb_datasource</jndi-name>
+    </resource-ref>
 </glassfish-web-app>

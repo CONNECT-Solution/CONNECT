@@ -9,4 +9,9 @@
     <jsp-config>
         <property name="keepgenerated" value="true" />
     </jsp-config>
+
+    <resource-ref>
+        <res-ref-name>jdbc/asyncmsgs_datasource</res-ref-name>
+        <jndi-name>jdbc/asyncmsgs_datasource</jndi-name>
+    </resource-ref>
 </glassfish-web-app>
