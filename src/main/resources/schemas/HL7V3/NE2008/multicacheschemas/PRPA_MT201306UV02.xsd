@@ -150,10 +150,7 @@
             <xs:group ref="InfrastructureRootElements"/>
             <xs:element name="value"  minOccurs="1" maxOccurs="1">
                 <xs:simpleType >
-                    <xs:restriction base="xs:integer">
-                        <xs:minInclusive value="0"/>
-                        <xs:maxInclusive value="100"/>
-                    </xs:restriction>
+                    <xs:restriction base="xs:integer"/>
                 </xs:simpleType>
             </xs:element>
             <xs:element name="semanticsText" type="ST_explicit" minOccurs="1" maxOccurs="1"/>
