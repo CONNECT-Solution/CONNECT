@@ -3520,19 +3520,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2014-12-21T22:38:31Z</con:value>
+		<con:value>2015-01-06T16:21:53Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2014-12-21T22:48:31Z</con:value>
+		<con:value>2015-01-06T16:31:53Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/21/2014 22:38:31</con:value>
+		<con:value>01/06/2015 16:21:53</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2015-01-20T00:00:00Z</con:value>
+		<con:value>2015-02-05T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -6954,8 +6954,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	
-	<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint><con:request><![CDATA[
-		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+	<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Patient Discovery">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
@@ -6997,6 +6996,16 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
                   <urn:statusCode code="new"/>
                   <urn:responseModalityCode code="R"/>
                   <urn:responsePriorityCode code="I"/>
+                  <urn:matchCriterionList>
+                     <urn:matchAlgorithm>
+                        <urn:value>"XYZ MatchAlgorithm"</urn:value>
+                        <urn:semanticsText>MatchAlgorithm</urn:semanticsText>
+                     </urn:matchAlgorithm>
+                     <urn:minimumDegreeMatch>
+                        <urn:value>99</urn:value>
+                        <urn:semanticsText>MinimumDegreeMatch</urn:semanticsText>
+                     </urn:minimumDegreeMatch>
+                  </urn:matchCriterionList>
                   <urn:parameterList>
                      <urn:livingSubjectAdministrativeGender>
                         <urn:value code="${#Project#Gender}"/>
@@ -7022,7 +7031,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
-            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -7188,9 +7197,9 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
          <urn:NhinTargetCommunities>
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-               <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
-               <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
-               <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
                </urn1:homeCommunity>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
@@ -7377,7 +7386,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 	nhinc.FileUtils.restoreFile(dir, "PatientDiscoveryProxyConfig.xml", log);
 }</con:tearDownScript>
-<con:properties><con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2014-08-28T11:09:12Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2014-08-28T11:19:12Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>08/28/2014 11:09:12</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2014-09-27T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
+<con:properties><con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2015-01-06T16:23:40Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2015-01-06T16:33:40Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/06/2015 16:23:40</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-02-05T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="a9707ab4-3b2c-484c-a302-24ab8377c2a4" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
 	<con:settings/>
@@ -9331,7 +9340,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	
 	
 	
-	<con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>urn:oid:1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property>
+	<con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>C://glassfish3//glassfish//domains//domain1//config//nhin</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>urn:oid:1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property>
 
 
 	
