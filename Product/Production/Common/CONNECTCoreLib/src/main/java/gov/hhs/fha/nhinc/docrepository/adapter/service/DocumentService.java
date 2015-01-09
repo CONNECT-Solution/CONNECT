@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.docrepository.adapter.service;
 
@@ -45,21 +45,20 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 
 import org.apache.log4j.Logger;
 
-
-
 /**
  * Persistence service for Document records
- * 
+ *
  * @author Neil Webb
  */
 public class DocumentService {
+
     private static final Logger LOG = Logger.getLogger(DocumentService.class);
     private DocumentDao documentDao = new DocumentDao();
     private EventCodeDao eventCodeDao = new EventCodeDao();
-    
+
     /**
      * Save a document record.
-     * 
+     *
      * @param document Document object to save.
      */
     public void saveDocument(Document document) {
@@ -101,17 +100,14 @@ public class DocumentService {
                 String documentStr = "";
                 try {
                     String sHash = "";
-                    documentStr =  StringUtil.convertToStringUTF8(document.getRawData());
+                    documentStr = StringUtil.convertToStringUTF8(document.getRawData());
                     sHash = SHA1HashCode.calculateSHA1(documentStr);
                     if (LOG.isDebugEnabled()) {
-                        LOG.debug("Created Hash Code: " + sHash + " for string: " + documentStr);
+                        LOG.debug("Successfully created Hash Code for string");
                     }
                     document.setHash(sHash);
-                } 
-                catch (Throwable t) {
-                    String sError = "Failed to create SHA-1 Hash code.  Error: " + t.getMessage() + "Data Text: "
-                            + documentStr;
-                    LOG.error(sError, t);
+                } catch (Throwable t) {
+                    LOG.error("Failed to create SHA-1 Hash code for Data Text.  Error:" + t.getMessage(), t);
                 }
             } else {
                 document.setHash("");
@@ -125,7 +121,7 @@ public class DocumentService {
 
     /**
      * Delete a document
-     * 
+     *
      * @param document Document to delete
      * @throws DocumentServiceException
      */
@@ -144,7 +140,7 @@ public class DocumentService {
                 document = docs.get(0);
             } else {
                 throw new DocumentServiceException("Single document match not found for document unique id: "
-                        + document.getDocumentUniqueId());
+                    + document.getDocumentUniqueId());
             }
         } else {
             if (document == null) {
@@ -159,7 +155,7 @@ public class DocumentService {
 
     /**
      * Retrieve a document by identifier
-     * 
+     *
      * @param documentId Document identifier
      * @return Retrieved document
      */
@@ -170,7 +166,7 @@ public class DocumentService {
 
     /**
      * Retrieves all documents
-     * 
+     *
      * @return All document records
      */
     public List<Document> getAllDocuments() {
@@ -180,7 +176,7 @@ public class DocumentService {
 
     /**
      * Document query
-     * 
+     *
      * @param params Document query parameters
      * @return Query results
      */
@@ -194,8 +190,7 @@ public class DocumentService {
             if (NullChecker.isNotNullish(queryMatchDocs) && NullChecker.isNotNullish(eventCodeMatchDocs)) {
                 // Both doc parameter and event code query doc matches found. Return union of collections
                 documents = createUnion(queryMatchDocs, eventCodeMatchDocs);
-            } 
-            else {
+            } else {
                 // Only event code match docs found.
                 documents = eventCodeMatchDocs;
             }
@@ -213,8 +208,8 @@ public class DocumentService {
         Set<Document> documentSet = new HashSet<Document>();
         if (NullChecker.isNotNullish(eventCodeParams)) {
             EventCodeDao eventCodeDao = getEventCodeDao();
-            eventCodes = eventCodeDao.eventCodeQuery(slots);  
-             if (eventCodes != null && (!eventCodes.isEmpty())) {
+            eventCodes = eventCodeDao.eventCodeQuery(slots);
+            if (eventCodes != null && (!eventCodes.isEmpty())) {
                 for (EventCode ec : eventCodes) {
                     if (ec != null) {
                         documentSet.add(ec.getDocument());
@@ -255,14 +250,13 @@ public class DocumentService {
         }
         return containsDoc;
     }
-    
-    protected DocumentDao getDocumentDao(){
-    	return documentDao;
+
+    protected DocumentDao getDocumentDao() {
+        return documentDao;
     }
-    
-    protected EventCodeDao getEventCodeDao(){
-    	return eventCodeDao;
+
+    protected EventCodeDao getEventCodeDao() {
+        return eventCodeDao;
     }
-    
-    
+
 }
