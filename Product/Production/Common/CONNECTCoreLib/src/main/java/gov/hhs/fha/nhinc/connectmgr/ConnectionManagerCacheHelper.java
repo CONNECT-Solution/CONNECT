@@ -44,10 +44,10 @@ public class ConnectionManagerCacheHelper {
 
 	private static final Logger LOG = Logger.getLogger(ConnectionManagerCacheHelper.class);
 	
-	private static String UDDI_SPEC_VERSION_KEY = "uddi:nhin:versionofservice";
-	private static String UDDI_HOME_COMMUNITY_ID_KEY = "uddi:nhin:nhie:homecommunityid";
-	private static String UDDI_STATE_KEY = "uddi:uddi.org:ubr:categorization:iso3166";
-	private static String UDD_SERVICE_NAMES_KEY = "uddi:nhin:standard-servicenames";
+	public static String UDDI_SPEC_VERSION_KEY = "uddi:nhin:versionofservice";
+	public static String UDDI_HOME_COMMUNITY_ID_KEY = "uddi:nhin:nhie:homecommunityid";
+	public static String UDDI_STATE_KEY = "uddi:uddi.org:ubr:categorization:iso3166";
+	public static String UDD_SERVICE_NAMES_KEY = "uddi:nhin:standard-servicenames";
 
     /**
      * This method merge the businessServices from the uddiEntity to the internalEntity.

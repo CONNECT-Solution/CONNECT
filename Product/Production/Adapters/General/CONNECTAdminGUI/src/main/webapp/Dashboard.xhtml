@@ -13,10 +13,10 @@
     <h:body>
         <ui:composition id="admin_comp">
             <ui:remove>
-				<f:facet id="pr-override-facet" name="last">
-					<h:outputStylesheet name="css/pr-override.css" />
-				</f:facet>
-			</ui:remove>
+                <f:facet id="pr-override-facet" name="last">
+                    <h:outputStylesheet name="css/pr-override.css" />
+                </f:facet>
+            </ui:remove>
 
             <p:outputPanel autoUpdate="true">
 
@@ -36,8 +36,8 @@
                 <p:outputPanel id="dashboard_output_panel">
                     <p:dashboard id="admingui_dashboard" binding="#{dashboardBean.dashboard}" styleClass="admin-dashboard" />
                 </p:outputPanel>
-				
-				<div class="clearfix"></div>
+
+                <div class="clearfix"></div>
 
             </p:outputPanel>
         </ui:composition>
