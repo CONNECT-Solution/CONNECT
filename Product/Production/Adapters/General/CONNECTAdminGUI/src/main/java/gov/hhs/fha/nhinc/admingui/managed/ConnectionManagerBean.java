@@ -89,7 +89,7 @@ public class ConnectionManagerBean {
     }
 
     public String getSelectedEntityName() {
-        String name = "--";
+        String name = NULL_DISPLAY;
         if (selectedEntity != null && selectedEntity.getName() != null
                 && !selectedEntity.getName().isEmpty()) {
             name = selectedEntity.getName().get(0).getValue();
