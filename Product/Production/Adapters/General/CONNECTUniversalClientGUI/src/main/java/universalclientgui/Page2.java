@@ -966,7 +966,6 @@ public class Page2 extends AbstractPageBean {
         try {
             TransformerFactory tFactory = TransformerFactory.newInstance();
             tFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-            tFactory.setFeature(XMLConstants.ACCESS_EXTERNAL_DTD, false);
 
             Transformer transformer = tFactory.newTransformer(new StreamSource(xsl));
             transformer.transform(new StreamSource(xml), new StreamResult(output));
