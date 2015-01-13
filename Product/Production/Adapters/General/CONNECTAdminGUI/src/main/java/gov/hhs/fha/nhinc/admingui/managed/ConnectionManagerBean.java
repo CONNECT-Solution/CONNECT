@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
 import gov.hhs.fha.nhinc.admingui.services.PingService;
 import gov.hhs.fha.nhinc.admingui.services.impl.PingServiceImpl;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCacheHelper;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -60,163 +61,161 @@ import org.uddi.api_v3.KeyedReference;
 public class ConnectionManagerBean {
 
     private static final Logger LOG = Logger.getLogger(ConnectionManagerBean.class);
-    
+
     private final HashMap<String, BusinessEntity> externalEntities = new HashMap<String, BusinessEntity>();
     private final List<String> entityNames = new ArrayList<String>();
-    
+
     //TODO Display local entity endpoints (internal and external).
     private BusinessEntity localEntity;
-    
+
     private BusinessEntity selectedEntity;
     private String selectedEntityName;
-    
+
     private List<ConnectionEndpoint> endpoints;
     private ConnectionEndpoint selectedEndpoint;
-    
+
     private final PingService pingService = new PingServiceImpl();
-    
-    private static final String HCID_TMODEL_KEY = "uddi:nhin:nhie:homecommunityid";
-    private static final String REGION_TMODEL_KEY = "uddi:uddi.org:ubr:categorization:iso3166";
+
     private static final String DATE_FORMAT = "MM-dd-yy hh:mm:ss";
-    
+    private static final String NULL_DISPLAY = "--";
+
     @PostConstruct
     public void init() {
         refresh();
     }
-    
-    public List<String> getEntityNames(){
+
+    public List<String> getEntityNames() {
         return entityNames;
     }
-    
+
     public String getSelectedEntityName() {
         String name = "--";
-        if(selectedEntity != null && selectedEntity.getName() != null
+        if (selectedEntity != null && selectedEntity.getName() != null
                 && !selectedEntity.getName().isEmpty()) {
             name = selectedEntity.getName().get(0).getValue();
         }
         return name;
     }
-    
+
     public void setSelectedEntityName(String selectedEntityName) {
-        if(selectedEntityName != null) {
+        if (selectedEntityName != null) {
             this.selectedEntityName = selectedEntityName;
             selectedEntity = externalEntities.get(this.selectedEntityName);
         }
     }
-    
-    public BusinessEntity getSelectedEntity(){
+
+    public BusinessEntity getSelectedEntity() {
         return selectedEntity;
     }
-    
-    public String getSelectedEntityDescription(){
-        String description = "--";
-        
-        if(selectedEntity != null && selectedEntity.getDescription() != null && !selectedEntity.getDescription().isEmpty()) {
+
+    public String getSelectedEntityDescription() {
+        String description = NULL_DISPLAY;
+
+        if (selectedEntity != null && selectedEntity.getDescription() != null && !selectedEntity.getDescription().isEmpty()) {
             description = selectedEntity.getDescription().get(0).getValue();
         }
-        
+
         return description;
     }
-    
-    public String getSelectedEntityRegions(){
-        String regions = "--";
-        if(selectedEntity != null && selectedEntity.getCategoryBag() != null
+
+    public String getSelectedEntityRegions() {
+        String regions = NULL_DISPLAY;
+        if (selectedEntity != null && selectedEntity.getCategoryBag() != null
                 && selectedEntity.getCategoryBag().getKeyedReference() != null
                 && !selectedEntity.getCategoryBag().getKeyedReference().isEmpty()) {
             StringBuilder regionBuilder = new StringBuilder();
-            for(KeyedReference ref : selectedEntity.getCategoryBag().getKeyedReference()){
-               if(ref.getTModelKey().equals(REGION_TMODEL_KEY)) {
-                   regionBuilder.append(ref.getKeyName()).append(", ");
-               }
+            for (KeyedReference ref : selectedEntity.getCategoryBag().getKeyedReference()) {
+                if (ref.getTModelKey().equals(ConnectionManagerCacheHelper.UDDI_STATE_KEY)) {
+                    regionBuilder.append(ref.getKeyName()).append(", ");
+                }
             }
-            if(regionBuilder.length() > 0) {
+            if (regionBuilder.length() > 0) {
                 regions = regionBuilder.substring(0, regionBuilder.length() - 2);
             }
         }
         return regions;
     }
-    
-    public String getSelectedEntityContact(){
-        String contactValue = "--";
-        
-        if(selectedEntity != null && selectedEntity.getContacts() != null && selectedEntity.getContacts().getContact() != null
+
+    public String getSelectedEntityContact() {
+        String contactValue = NULL_DISPLAY;
+
+        if (selectedEntity != null && selectedEntity.getContacts() != null && selectedEntity.getContacts().getContact() != null
                 && !selectedEntity.getContacts().getContact().isEmpty()) {
             Contact contact = selectedEntity.getContacts().getContact().get(0);
-            
-            if(contact.getPersonName() != null && !contact.getPersonName().isEmpty()) {
+
+            if (contact.getPersonName() != null && !contact.getPersonName().isEmpty()) {
                 contactValue = contact.getPersonName().get(0).getValue();
             }
         }
-        
+
         return contactValue;
     }
-    
-    public String getSelectedEntityHcid(){
-        String hcid = "--";
-        if(selectedEntity != null && selectedEntity.getIdentifierBag() != null
+
+    public String getSelectedEntityHcid() {
+        String hcid = NULL_DISPLAY;
+        if (selectedEntity != null && selectedEntity.getIdentifierBag() != null
                 && selectedEntity.getIdentifierBag().getKeyedReference() != null
                 && !selectedEntity.getIdentifierBag().getKeyedReference().isEmpty()) {
-           for(KeyedReference ref : selectedEntity.getIdentifierBag().getKeyedReference()) {
-               if(ref.getTModelKey().equals(HCID_TMODEL_KEY)) {
-                   hcid = ref.getKeyValue();
-               }
-           } 
+            for (KeyedReference ref : selectedEntity.getIdentifierBag().getKeyedReference()) {
+                if (ref.getTModelKey().equals(ConnectionManagerCacheHelper.UDDI_HOME_COMMUNITY_ID_KEY)) {
+                    hcid = ref.getKeyValue();
+                }
+            }
         }
         return hcid;
     }
-    
-    public void ping(){
-        if(selectedEndpoint != null) {
+
+    public void ping() {
+        if (selectedEndpoint != null) {
             boolean status = pingService.ping(selectedEndpoint.getServiceUrl());
-            Date timestamp = new Date();
-            EndpointManagerCache.getInstance().addOrUpdateEndPoint(selectedEndpoint.getServiceUrl(), timestamp, status);
+            EndpointManagerCache.getInstance().addOrUpdateEndpoint(selectedEndpoint.getServiceUrl(), new Date(), status);
         }
     }
-    
-    public List<ConnectionEndpoint> getEndpoints(){
+
+    public List<ConnectionEndpoint> getEndpoints() {
         endpoints = new ArrayList<ConnectionEndpoint>();
-        if(selectedEntity != null && selectedEntity.getBusinessKey() != null
+        if (selectedEntity != null && selectedEntity.getBusinessKey() != null
                 && selectedEntity.getBusinessServices().getBusinessService() != null
                 && !selectedEntity.getBusinessServices().getBusinessService().isEmpty()) {
-            for(BusinessService bService : selectedEntity.getBusinessServices().getBusinessService()) {
-                if(bService.getBindingTemplates() != null && bService.getBindingTemplates().getBindingTemplate() != null) { 
-                    for(BindingTemplate template : bService.getBindingTemplates().getBindingTemplate()) {
+            for (BusinessService bService : selectedEntity.getBusinessServices().getBusinessService()) {
+                if (bService.getBindingTemplates() != null && bService.getBindingTemplates().getBindingTemplate() != null) {
+                    for (BindingTemplate template : bService.getBindingTemplates().getBindingTemplate()) {
                         String url = template.getAccessPoint().getValue();
                         String version = getSpecVersion(template.getCategoryBag());
                         EndpointManagerCache.EndpointCacheInfo info = EndpointManagerCache.getInstance().getEndpointInfo(url);
-                        
+
                         String timestamp = null;
                         String status = "None";
-                        
-                        if(info != null) {
+
+                        if (info != null) {
                             timestamp = DateUtils.formatDate(info.getTimestamp(), DATE_FORMAT);
-                            status = info.isPingResult() ? "Pass" : "Fail";
-                        }                         
+                            status = info.isSuccessfulPing() ? "Pass" : "Fail";
+                        }
                         endpoints.add(new ConnectionEndpoint(bService.getName().get(0).getValue(), url, version, status, timestamp));
-                    } 
-                }    
+                    }
+                }
             }
         }
         return endpoints;
     }
-    
-    public void refreshConnections(){
+
+    public void refreshConnections() {
         refresh();
     }
-    
+
     private void refresh() {
         try {
             List<BusinessEntity> externalEntityList = ConnectionManagerCache.getInstance().getAllBusinessEntities();
             String localHcid = PropertyAccessor.getInstance().getProperty(NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
-            
-            for(int i = 0; i < externalEntityList.size(); i++) {
+
+            for (int i = 0; i < externalEntityList.size(); i++) {
                 BusinessEntity entity = externalEntityList.get(i);
-                if(entity.getIdentifierBag() != null && entity.getIdentifierBag().getKeyedReference() != null
-                        && !entity.getIdentifierBag().getKeyedReference().isEmpty()){
-                    if(isLocalEntity(entity.getIdentifierBag().getKeyedReference(), localHcid)){
+                if (entity.getIdentifierBag() != null && entity.getIdentifierBag().getKeyedReference() != null
+                        && !entity.getIdentifierBag().getKeyedReference().isEmpty()) {
+                    if (isLocalEntity(entity.getIdentifierBag().getKeyedReference(), localHcid)) {
                         localEntity = entity;
                     } else if (entity.getName() != null && !entity.getName().isEmpty()) {
-                        externalEntities.put(entity.getName().get(0).getValue(), entity);                      
+                        externalEntities.put(entity.getName().get(0).getValue(), entity);
                     }
                 }
             }
@@ -225,30 +224,30 @@ public class ConnectionManagerBean {
         } catch (PropertyAccessException ex) {
             LOG.error(ex, ex);
         }
-        
+
         entityNames.addAll(externalEntities.keySet());
-        if(!entityNames.isEmpty()) {
+        if (!entityNames.isEmpty()) {
             selectedEntity = externalEntities.get(entityNames.get(0));
         }
     }
-       
+
     private boolean isLocalEntity(List<KeyedReference> references, String localHcid) {
-        for(KeyedReference ref : references) {
-            if(ref.getTModelKey().equalsIgnoreCase(HCID_TMODEL_KEY)
+        for (KeyedReference ref : references) {
+            if (ref.getTModelKey().equalsIgnoreCase(ConnectionManagerCacheHelper.UDDI_HOME_COMMUNITY_ID_KEY)
                     && formatHcid(localHcid).equals(formatHcid(ref.getKeyValue()))) {
                 return true;
             }
         }
         return false;
     }
-    
-    private String formatHcid(String hcid){
+
+    private String formatHcid(String hcid) {
         String formattedHcid = hcid;
-        if(hcid.startsWith(NhincConstants.HCID_PREFIX)) {
+        if (hcid.startsWith(NhincConstants.HCID_PREFIX)) {
             formattedHcid = hcid.substring(NhincConstants.HCID_PREFIX.length(), hcid.length());
         }
         return formattedHcid;
-    }    
+    }
 
     public ConnectionEndpoint getSelectedEndpoint() {
         return selectedEndpoint;
@@ -267,7 +266,7 @@ public class ConnectionManagerBean {
                 }
             }
         }
-        return "-";
+        return NULL_DISPLAY;
     }
- 
+
 }

@@ -36,7 +36,7 @@ import java.util.Date;
  */
 public interface EndpointManager {
     
-    public void addOrUpdateEndPoint(String url, Date timestamp, boolean pingResult);
+    public void addOrUpdateEndpoint(String url, Date timestamp, boolean pingResult);
     
     public EndpointManagerCache.EndpointCacheInfo getEndpointInfo(String url);
     
