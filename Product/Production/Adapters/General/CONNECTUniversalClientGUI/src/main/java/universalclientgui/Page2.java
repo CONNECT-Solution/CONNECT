@@ -1,32 +1,39 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package universalclientgui;
 
+import com.sun.rave.web.ui.appbase.AbstractPageBean;
+import com.sun.webui.jsf.component.Calendar;
+import com.sun.webui.jsf.component.Hyperlink;
+import com.sun.webui.jsf.component.StaticText;
+import com.sun.webui.jsf.component.Tab;
+import com.sun.webui.jsf.component.TabSet;
+import com.sun.webui.jsf.component.TextField;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
@@ -45,7 +52,6 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7Extractors;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -56,13 +62,15 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
-
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.XMLConstants;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
-
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -74,21 +82,13 @@ import org.hl7.v3.PRPAMT201310UV02OtherIDs;
 import org.hl7.v3.PRPAMT201310UV02Patient;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 
-import com.sun.rave.web.ui.appbase.AbstractPageBean;
-import com.sun.webui.jsf.component.Calendar;
-import com.sun.webui.jsf.component.Hyperlink;
-import com.sun.webui.jsf.component.StaticText;
-import com.sun.webui.jsf.component.Tab;
-import com.sun.webui.jsf.component.TabSet;
-import com.sun.webui.jsf.component.TextField;
-
 /**
  * <p>
  * Page bean that corresponds to a similarly named JSP page. This class contains component definitions (and
  * initialization code) for all components that you have defined on this page, as well as lifecycle methods and event
  * handlers where you may add behavior to respond to incoming events.
  * </p>
- * 
+ *
  * @version Page2.java
  * @version Created on Aug 7, 2009, 6:03:45 PM
  * @author vvickers
@@ -343,7 +343,7 @@ public class Page2 extends AbstractPageBean {
      * navigation. Customize this method to acquire resources that will be needed for event handlers and lifecycle
      * methods, whether or not this page is performing post back processing.
      * </p>
-     * 
+     *
      * <p>
      * Note that, if the current request is a postback, the property values of the components do <strong>not</strong>
      * represent any values submitted with this request. Instead, they represent the property values that were saved for
@@ -432,7 +432,7 @@ public class Page2 extends AbstractPageBean {
      * <p>
      * Return a reference to the scoped data bean.
      * </p>
-     * 
+     *
      * @return reference to the scoped data bean
      */
     protected RequestBean1 getRequestBean1() {
@@ -443,7 +443,7 @@ public class Page2 extends AbstractPageBean {
      * <p>
      * Return a reference to the scoped data bean.
      * </p>
-     * 
+     *
      * @return reference to the scoped data bean
      */
     protected SessionBean1 getSessionBean1() {
@@ -454,7 +454,7 @@ public class Page2 extends AbstractPageBean {
      * <p>
      * Return a reference to the scoped data bean.
      * </p>
-     * 
+     *
      * @return reference to the scoped data bean
      */
     protected ApplicationBean1 getApplicationBean1() {
@@ -711,7 +711,7 @@ public class Page2 extends AbstractPageBean {
         if (foundPatient != null) {
             searchData.setPatientID(foundPatient.getPatientId());
         }
-        
+
         return null;
     }
 
@@ -862,7 +862,7 @@ public class Page2 extends AbstractPageBean {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public String getDocQueryResults() {
@@ -954,7 +954,7 @@ public class Page2 extends AbstractPageBean {
     }
 
     /**
-     * 
+     *
      * @param xml
      * @param xsl
      * @return
@@ -964,15 +964,13 @@ public class Page2 extends AbstractPageBean {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 
         try {
-
             TransformerFactory tFactory = TransformerFactory.newInstance();
+            tFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+            tFactory.setFeature(XMLConstants.ACCESS_EXTERNAL_DTD, false);
 
-            Transformer transformer = tFactory.newTransformer(new javax.xml.transform.stream.StreamSource(xsl));
-
-            transformer.transform(new javax.xml.transform.stream.StreamSource(xml),
-                    new javax.xml.transform.stream.StreamResult(output));
-
-        } catch (Exception e) {
+            Transformer transformer = tFactory.newTransformer(new StreamSource(xsl));
+            transformer.transform(new StreamSource(xml), new StreamResult(output));
+        } catch (TransformerException e) {
             LOG.error("Exception in transforming xml to html", e);
         }
 
