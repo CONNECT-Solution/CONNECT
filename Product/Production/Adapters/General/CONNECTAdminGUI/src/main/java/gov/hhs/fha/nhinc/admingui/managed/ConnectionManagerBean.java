@@ -28,18 +28,13 @@ package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.application.EndpointManagerCache;
 import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
+import gov.hhs.fha.nhinc.admingui.services.PingService;
+import gov.hhs.fha.nhinc.admingui.services.impl.PingServiceImpl;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.util.StreamUtils;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -47,8 +42,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
 import org.apache.http.impl.cookie.DateUtils;
 import org.apache.log4j.Logger;
 import org.uddi.api_v3.BindingTemplate;
@@ -67,18 +60,24 @@ import org.uddi.api_v3.KeyedReference;
 public class ConnectionManagerBean {
 
     private static final Logger LOG = Logger.getLogger(ConnectionManagerBean.class);
-
-    private static final String WSDL_SUFFIX = "?wsdl";
     
     private final HashMap<String, BusinessEntity> externalEntities = new HashMap<String, BusinessEntity>();
     private final List<String> entityNames = new ArrayList<String>();
     
+    //TODO Display local entity endpoints (internal and external).
     private BusinessEntity localEntity;
+    
     private BusinessEntity selectedEntity;
     private String selectedEntityName;
     
     private List<ConnectionEndpoint> endpoints;
     private ConnectionEndpoint selectedEndpoint;
+    
+    private final PingService pingService = new PingServiceImpl();
+    
+    private static final String HCID_TMODEL_KEY = "uddi:nhin:nhie:homecommunityid";
+    private static final String REGION_TMODEL_KEY = "uddi:uddi.org:ubr:categorization:iso3166";
+    private static final String DATE_FORMAT = "MM-dd-yy hh:mm:ss";
     
     @PostConstruct
     public void init() {
@@ -126,7 +125,7 @@ public class ConnectionManagerBean {
                 && !selectedEntity.getCategoryBag().getKeyedReference().isEmpty()) {
             StringBuilder regionBuilder = new StringBuilder();
             for(KeyedReference ref : selectedEntity.getCategoryBag().getKeyedReference()){
-               if(ref.getTModelKey().equals("uddi:uddi.org:ubr:categorization:iso3166")) {
+               if(ref.getTModelKey().equals(REGION_TMODEL_KEY)) {
                    regionBuilder.append(ref.getKeyName()).append(", ");
                }
             }
@@ -158,7 +157,7 @@ public class ConnectionManagerBean {
                 && selectedEntity.getIdentifierBag().getKeyedReference() != null
                 && !selectedEntity.getIdentifierBag().getKeyedReference().isEmpty()) {
            for(KeyedReference ref : selectedEntity.getIdentifierBag().getKeyedReference()) {
-               if(ref.getTModelKey().equals("uddi:nhin:nhie:homecommunityid")) {
+               if(ref.getTModelKey().equals(HCID_TMODEL_KEY)) {
                    hcid = ref.getKeyValue();
                }
            } 
@@ -168,7 +167,7 @@ public class ConnectionManagerBean {
     
     public void ping(){
         if(selectedEndpoint != null) {
-            boolean status = pingService(selectedEndpoint.getServiceUrl());
+            boolean status = pingService.ping(selectedEndpoint.getServiceUrl());
             Date timestamp = new Date();
             EndpointManagerCache.getInstance().addOrUpdateEndPoint(selectedEndpoint.getServiceUrl(), timestamp, status);
         }
@@ -190,7 +189,7 @@ public class ConnectionManagerBean {
                         String status = "None";
                         
                         if(info != null) {
-                            timestamp = DateUtils.formatDate(info.getTimestamp(), "MM-dd-yy hh:mm:ss");
+                            timestamp = DateUtils.formatDate(info.getTimestamp(), DATE_FORMAT);
                             status = info.isPingResult() ? "Pass" : "Fail";
                         }                         
                         endpoints.add(new ConnectionEndpoint(bService.getName().get(0).getValue(), url, version, status, timestamp));
@@ -235,7 +234,7 @@ public class ConnectionManagerBean {
        
     private boolean isLocalEntity(List<KeyedReference> references, String localHcid) {
         for(KeyedReference ref : references) {
-            if(ref.getTModelKey().equalsIgnoreCase("uddi:nhin:nhie:homecommunityid")
+            if(ref.getTModelKey().equalsIgnoreCase(HCID_TMODEL_KEY)
                     && formatHcid(localHcid).equals(formatHcid(ref.getKeyValue()))) {
                 return true;
             }
@@ -249,40 +248,7 @@ public class ConnectionManagerBean {
             formattedHcid = hcid.substring(NhincConstants.HCID_PREFIX.length(), hcid.length());
         }
         return formattedHcid;
-    }   
-
-    public boolean pingService(String url) {
-        InputStream is = null;
-        InputStreamReader isReader = null;
-        BufferedReader in = null;
-        try {
-            URL webserviceUrl = new URL(prepUrl(url));
-            HttpsURLConnection.setDefaultHostnameVerifier(getHostNameVerifier());
-            HttpURLConnection con = (HttpURLConnection) webserviceUrl.openConnection();
-
-            is = con.getInputStream();
-            isReader = new InputStreamReader(is);
-
-            in = new BufferedReader(isReader);
-            String inputLine;
-            StringBuilder pingOutput = new StringBuilder();
-
-            while ((inputLine = in.readLine()) != null) {
-                pingOutput.append(inputLine);
-            }
-
-            LOG.info(pingOutput.toString());
-            con.disconnect();
-            return true;
-        } catch (IOException ex) {
-            LOG.warn(ex, ex);
-        } finally {
-            StreamUtils.closeStreamSilently(is);
-            StreamUtils.closeFileSilently(isReader);
-            StreamUtils.closeFileSilently(in);
-        }
-        return false;
-    }
+    }    
 
     public ConnectionEndpoint getSelectedEndpoint() {
         return selectedEndpoint;
@@ -303,21 +269,5 @@ public class ConnectionManagerBean {
         }
         return "-";
     }
-
-    private String prepUrl(String serviceUrl) {
-        if (!serviceUrl.endsWith(WSDL_SUFFIX)) {
-            serviceUrl = serviceUrl.concat(WSDL_SUFFIX);
-        }
-        return serviceUrl;
-    }
-
-    private HostnameVerifier getHostNameVerifier() {
-        return new javax.net.ssl.HostnameVerifier(){
-            @Override
-            public boolean verify(String hostname, 
-                    javax.net.ssl.SSLSession sslSession) {
-                return true;
-            }
-        };
-    }
+ 
 }
