@@ -148,11 +148,7 @@
     <xs:complexType name="PRPA_MT201306UV02.MinimumDegreeMatch">
         <xs:sequence>
             <xs:group ref="InfrastructureRootElements"/>
-            <xs:element name="value"  minOccurs="1" maxOccurs="1">
-                <xs:simpleType >
-                    <xs:restriction base="xs:integer"/>
-                </xs:simpleType>
-            </xs:element>
+            <xs:element name="value" type="INT" minOccurs="1" maxOccurs="1"/>
             <xs:element name="semanticsText" type="ST_explicit" minOccurs="1" maxOccurs="1"/>
         </xs:sequence>
         <xs:attributeGroup ref="InfrastructureRootAttributes"/>
