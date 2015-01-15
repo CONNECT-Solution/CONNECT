@@ -3132,7 +3132,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
                         <urn:semanticsText>MatchAlgorithm</urn:semanticsText>
                      </urn:matchAlgorithm>
                      <urn:minimumDegreeMatch>
-                        <urn:value>99</urn:value>
+                        <urn:value type="INT" value="99"/>
                         <urn:semanticsText>MinimumDegreeMatch</urn:semanticsText>
                      </urn:minimumDegreeMatch>
                   </urn:matchCriterionList>
@@ -7002,7 +7002,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
                         <urn:semanticsText>MatchAlgorithm</urn:semanticsText>
                      </urn:matchAlgorithm>
                      <urn:minimumDegreeMatch>
-                        <urn:value>99</urn:value>
+                        <urn:value type="INT" value="99"/>
                         <urn:semanticsText>MinimumDegreeMatch</urn:semanticsText>
                      </urn:minimumDegreeMatch>
                   </urn:matchCriterionList>
