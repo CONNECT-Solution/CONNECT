@@ -2,15 +2,17 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Product</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
+
     <artifactId>SoapUI_Test</artifactId>
     <name>${project.artifactId}</name>
     <packaging>pom</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <ear.path>${org.connectopensource:CONNECT-GF:ear}</ear.path>
@@ -27,11 +29,13 @@
         <jmx.port>8686</jmx.port>
         <mysql.root.password>NHIE-Gateway</mysql.root.password>
     </properties>
+
     <modules>
         <module>FileUtils</module>
         <module>ValidationSuite</module>
         <module>RegressionSuite</module>
     </modules>
+
     <dependencies>
         <dependency>
             <groupId>org.connectopensource</groupId>
@@ -40,6 +44,7 @@
             <type>ear</type>
         </dependency>
     </dependencies>
+
     <build>
         <pluginManagement>
             <plugins>
@@ -76,8 +81,7 @@
                 <executions>
                     <execution>
                         <id>unpack-soapui-test-resources</id>
-                        <!-- Using the initialize phase because it is before 
-                        the generate sources phase -->
+                        <!-- Using the initialize phase because it is before the generate sources phase -->
                         <phase>pre-integration-test</phase>
                         <goals>
                             <goal>unpack</goal>
@@ -85,7 +89,7 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <!-- Artifact that Holds our custom templates -->
+                                    <!-- Artifact that holds our custom templates -->
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>Properties</artifactId>
                                     <version>${project.parent.version}</version>
@@ -114,7 +118,6 @@
                             <outputDirectory>${project.build.directory}/</outputDirectory>
                         </configuration>
                     </execution>
-
                     <execution>
                         <id>unpack-soapui-wsdl-resources</id>
                         <phase>pre-integration-test</phase>

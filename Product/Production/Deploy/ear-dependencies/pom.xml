@@ -2,15 +2,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Deploy</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
+
     <artifactId>ear-dependencies</artifactId>
-    <packaging>pom</packaging>
     <name>CONNECT EAR - Dependencies</name>
+    <packaging>pom</packaging>
+    <modelVersion>4.0.0</modelVersion>
     <description>CONNECT EAR - Dependencies</description>
 
     <dependencies>
@@ -187,10 +188,6 @@
             <type>war</type>
             <optional>true</optional>
         </dependency>
-
-        <!-- Shared JARs - In order for the SKINNY WARs to work you must
-        include each dependency in the EAR manually and the JARS will be magically
-        removed from the WAR's WEB-INF/lib -->
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTAdminGUI</artifactId>
@@ -198,8 +195,8 @@
             <type>war</type>
             <optional>true</optional>
         </dependency>
-        <!-- Shared JARs - In order for the SKINNY WARs to work you must include each dependency in the EAR manually and 
-        the JARS will be magically removed from the WAR's WEB-INF/lib -->
+
+        <!-- Shared JARs - For skinny WARs, explicitly include each dependency in the EAR -->
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
@@ -366,7 +363,7 @@
             <version>1.0.1.Final</version>
         </dependency>
         <dependency>
-            <!-- Used to include the asm it needs in a private package space. -->
+            <!-- Used to include the asm it needs in a private package space -->
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
         </dependency>
@@ -518,6 +515,7 @@
             <artifactId>activation</artifactId>
         </dependency>
     </dependencies>
+
     <profiles>
         <profile>
             <id>Direct</id>

@@ -7,11 +7,12 @@
         <artifactId>General</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
+
     <artifactId>CONNECTConsumerPreferencesProfileGUI</artifactId>
-    <packaging>war</packaging>
     <name>CONNECT Consumer Preferences Profile GUI</name>
-    
+    <packaging>war</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
     <dependencies>
         <dependency>
             <groupId>commons-fileupload</groupId>
@@ -32,7 +33,7 @@
             <artifactId>AdapterAuthenticationCore</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
-		<dependency>
+        <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>Properties</artifactId>
             <version>${project.parent.version}</version>
@@ -110,9 +111,8 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
     <build>
         <finalName>${project.artifactId}</finalName>
-        <plugins>
-        </plugins>
     </build>
 </project>

@@ -7,11 +7,12 @@
         <artifactId>Services</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
+
     <artifactId>DocumentQueryCore</artifactId>
-    <packaging>jar</packaging>
     <name>CONNECT Document Query Core</name>
-    
+    <packaging>jar</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
     <dependencies>
         <dependency>
             <groupId>org.connectopensource</groupId>
@@ -37,6 +38,4 @@
             <artifactId>DocumentQueryWebservices</artifactId>
         </dependency>
     </dependencies>
-    <build>
-    </build>
 </project>

@@ -7,11 +7,12 @@
         <artifactId>Services</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
+
     <artifactId>PolicyEngineCore</artifactId>
-    <packaging>jar</packaging>
     <name>CONNECT Policy Engine Core</name>
-    
+    <packaging>jar</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
     <dependencies>
         <dependency>
             <groupId>org.forgerock.openam</groupId>
@@ -22,17 +23,18 @@
             <artifactId>PolicyEngineWebservices</artifactId>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
-                <!-- Used to pull gateway.properties file from the shared 
+                <!-- Used to pull gateway.properties file from the shared
                     resource JAR -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
                         <id>unpack-test-resources</id>
-                        <!-- Using the initialize phase because it is before 
+                        <!-- Using the initialize phase because it is before
                             the generate sources phase -->
                         <phase>initialize</phase>
                         <goals>

@@ -2,16 +2,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Deploy</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
+
     <artifactId>ear</artifactId>
-    <packaging>pom</packaging>
     <name>CONNECT EAR - Dependencies</name>
+    <packaging>pom</packaging>
+    <modelVersion>4.0.0</modelVersion>
     <description>CONNECT EAR - Dependencies</description>
+
     <properties>
         <skip.unpack>true</skip.unpack>
         <ad.excluded>true</ad.excluded>
@@ -24,6 +26,7 @@
         <admingui.excluded>true</admingui.excluded>
         <x12.excluded>true</x12.excluded>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.connectopensource</groupId>
@@ -80,7 +83,9 @@
             <type>pom</type>
         </dependency>
     </dependencies>
+
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -222,8 +227,8 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>${project.artifactId}</finalName>
     </build>
+
     <profiles>
         <profile>
             <id>PD</id>
@@ -317,6 +322,7 @@
             </dependencies>
 
             <build>
+                <finalName>${project.artifactId}</finalName>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -347,7 +353,6 @@
                         </configuration>
                     </plugin>
                 </plugins>
-                <finalName>${project.artifactId}</finalName>
             </build>
         </profile>
     </profiles>

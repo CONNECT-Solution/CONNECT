@@ -7,12 +7,16 @@
         <artifactId>Product</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
+
     <artifactId>Production</artifactId>
+    <name>${project.artifactId}</name>
     <packaging>pom</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
     <properties>
         <skip.unpack>true</skip.unpack>
     </properties>
+
     <modules>
         <module>Common</module>
         <module>Services</module>
@@ -20,6 +24,7 @@
         <module>Gateway</module>
         <module>Deploy</module>
     </modules>
+
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
@@ -70,8 +75,8 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
     <build>
-       
         <plugins>
             <plugin>
                 <!-- Used to pull XSD files from the JAR -->
@@ -80,7 +85,7 @@
                 <executions>
                     <execution>
                         <id>unpack-gateway-properties</id>
-                        <!-- Using the initialize phase because it is before 
+                        <!-- Using the initialize phase because it is before
                             the generate sources phase -->
                         <phase>initialize</phase>
                         <goals>
@@ -101,10 +106,8 @@
                             <outputDirectory>${project.build.directory}/test-classes/</outputDirectory>
                         </configuration>
                     </execution>
-                    
                 </executions>
             </plugin>
-           
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
@@ -175,9 +178,10 @@
                 </executions>
             </plugin>
         </plugins>
+
         <pluginManagement>
             <plugins>
-                <!--This plugin's configuration is used to store Eclipse 
+                <!--This plugin's configuration is used to store Eclipse
                     m2e settings only. It has no influence on the Maven build itself. -->
                 <plugin>
                     <groupId>org.eclipse.m2e</groupId>

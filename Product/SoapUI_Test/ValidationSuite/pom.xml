@@ -2,19 +2,22 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>SoapUI_Test</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
+
     <artifactId>ValidationSuite</artifactId>
-    <packaging>jar</packaging>
     <name>Maven 3 soapUI ValidationSuite</name>
+    <packaging>jar</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
     <properties>
         <skip.unpack>false</skip.unpack>
         <soapui.testFailIgnore>true</soapui.testFailIgnore>
     </properties>
+
     <profiles>
         <profile>
             <id>validation-testing</id>
@@ -141,7 +144,7 @@
                                     <skip>${skip.unpack}</skip>
                                     <artifactItems>
                                         <artifactItem>
-                                            <!-- Artifact that Holds our custom templates -->
+                                            <!-- Artifact that holds our custom templates -->
                                             <groupId>org.connectopensource</groupId>
                                             <artifactId>Properties</artifactId>
                                             <version>${project.parent.version}</version>
@@ -214,8 +217,7 @@
                         </executions>
                     </plugin>
 
-                    <!--- create the Properties jar from the nhinc Properties Dir for Build. Refer CONN-1212 for more info. -->
-
+                    <!--- Create the Properties jar from the nhinc properties directory for build. Refer to CONN-1212 for more info. -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-jar-plugin</artifactId>
@@ -236,9 +238,9 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <!-- copy configdb.hibernate.build.cfg.xml to nhinc-properties-dir to configdb.hibernate.cfg.xml. The 
-                        embedded GF has a classloader issue with antlr jar loaded by CONNECTDirectConfig. A work around solution that can proceed 
-                        build avoiding classloader issues.Please Refer CONN-1212 for furthur details. -->
+                    <!-- Copy configdb.hibernate.build.cfg.xml to nhinc-properties-dir, renaming to configdb.hibernate.cfg.xml.
+                        This is a workaround for embedded GlassFish v3, which has a classloader issue with the antlr jar loaded by
+                        CONNECTDirectConfig. Refer to CONN-1212 for more info. -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
@@ -294,7 +296,6 @@
                                         <copy file="${project.build.directory}/test-classes/chaincerts/cacerts.jks"
                                             todir="${project.build.directory}/domain1/lib/classes/" />
                                     </target>
-
                                 </configuration>
                             </execution>
                         </executions>

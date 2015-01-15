@@ -7,10 +7,16 @@
         <artifactId>Production</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
+
     <artifactId>Gateway</artifactId>
     <name>${project.artifactId}</name>
     <packaging>pom</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
+    <properties>
+        <skip.unpack>false</skip.unpack>
+    </properties>
+
     <modules>
         <module>AdminDistribution_10</module>
         <module>AdminDistribution_20</module>
@@ -24,6 +30,7 @@
         <module>CONNECTGatewayWeb</module>
         <module>CORE_X12DocumentSubmission_10</module>
     </modules>
+
     <profiles>
         <profile>
             <id>Direct</id>
@@ -32,9 +39,7 @@
             </modules>
         </profile>
     </profiles>
-    <properties>
-        <skip.unpack>false</skip.unpack>
-    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.connectopensource</groupId>
@@ -110,11 +115,11 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-        </dependency> 
+        </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
             <scope>test</scope>
-        </dependency>  
+        </dependency>
     </dependencies>
 </project>

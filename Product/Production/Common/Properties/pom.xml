@@ -7,23 +7,26 @@
         <artifactId>Common</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
+
     <artifactId>Properties</artifactId>
     <name>${project.artifactId}</name>
+    <packaging>jar</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
     <properties>
         <log4jDefaultLevel>INFO</log4jDefaultLevel>
     </properties>
-    <packaging>jar</packaging>
+
     <build>
-    <resources>
-        <resource>
-            <directory>src/main/resources</directory>
-            <excludes>
-                <exclude>**/direct*</exclude>
-                <exclude>**/Direct*</exclude>
-            </excludes>
-        </resource>
-    </resources>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>**/direct*</exclude>
+                    <exclude>**/Direct*</exclude>
+                </excludes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -69,6 +72,7 @@
             </plugin>
         </plugins>
     </build>
+
     <profiles>
         <profile>
             <id>Direct</id>
@@ -77,8 +81,8 @@
                     <resource>
                         <directory>src/main/resources</directory>
                     </resource>
-               </resources>
+                </resources>
             </build>
-       </profile>
+        </profile>
     </profiles>
 </project>

@@ -2,41 +2,36 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>Gateway</artifactId>
         <groupId>org.connectopensource</groupId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.connectopensource</groupId>
     <artifactId>CORE_X12DocumentSubmission_10</artifactId>
-    <version>4.5.0-SNAPSHOT</version>
-    <packaging>war</packaging>
-
     <name>CONNECT Gateway - ${project.artifactId}</name>
+    <packaging>war</packaging>
+    <modelVersion>4.0.0</modelVersion>
 
     <dependencies>
         <dependency>
             <groupId>org.connectopensource</groupId>
-            <artifactId>CORE_X12DocumentSubmissionCore</artifactId>   
-            <version>${project.parent.version}</version>         
+            <artifactId>CORE_X12DocumentSubmissionCore</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
-    
+
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
-                <!-- Used to pull gateway.properties file from the shared 
-                resource JAR -->
+                <!-- Used to pull gateway.properties file from the shared resource JAR -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
                         <id>unpack-test-resources</id>
-                        <!-- Using the initialize phase because it is before 
-                        the generate sources phase -->
+                        <!-- Using the initialize phase because it is before the generate sources phase -->
                         <phase>initialize</phase>
                         <goals>
                             <goal>unpack</goal>
@@ -44,7 +39,7 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <!-- Artifact that Holds our custom templates -->
+                                    <!-- Artifact that holds our custom templates -->
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>Properties</artifactId>
                                     <version>${project.parent.version}</version>
@@ -61,11 +56,8 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <packagingExcludes>WEB-INF/classes/xml-resources/**</packagingExcludes>
-                    <webResources>
-                    </webResources>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>

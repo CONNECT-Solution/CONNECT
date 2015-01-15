@@ -8,10 +8,10 @@
         <version>4.5.0-SNAPSHOT</version>
     </parent>
 
-    <modelVersion>4.0.0</modelVersion>
     <artifactId>CONNECTAdminGUI</artifactId>
-    <packaging>war</packaging>
     <name>CONNECT Administration GUI</name>
+    <packaging>war</packaging>
+    <modelVersion>4.0.0</modelVersion>
 
     <dependencies>
         <dependency>
@@ -44,8 +44,7 @@
                     <artifactId>asm-attrs</artifactId>
                 </exclusion>
                 <exclusion>
-                    <!-- exclude and use <artifactId>cglib-nodep</artifactId> to include the asm it needs in a private package
-                        space. -->
+                    <!-- Exclude and use cglib-nodep to include the asm it needs in a private package space -->
                     <groupId>cglib</groupId>
                     <artifactId>cglib</artifactId>
                 </exclusion>
@@ -57,7 +56,7 @@
         </dependency>
 
         <dependency>
-            <!-- Used to include the asm it needs in a private package space. -->
+            <!-- Used to include the asm it needs in a private package space -->
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
         </dependency>

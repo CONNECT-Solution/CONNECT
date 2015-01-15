@@ -2,11 +2,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
     <groupId>org.connectopensource</groupId>
     <artifactId>CONNECTSolution</artifactId>
     <version>4.5.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
     <name>CONNECT Solution</name>
     <url>www.connectopensource.org</url>
     <description>CONNECT is an open source software solution that supports health information exchange – both locally and at the national level. CONNECT uses Nationwide Health Information Network standards and governance to make sure that health information exchanges are compatible with other exchanges being set up throughout the country.
@@ -15,28 +16,34 @@ CONNECT can be used to:
 Set up a health information exchange within an organization
 Tie a health information exchange into a regional network of health information exchanges using Nationwide Health Information Network standards
 By advancing the adoption of interoperable health IT systems and health information exchanges, the country will better be able to achieve the goal of making sure all citizens have electronic health records by 2014. Health data will be able to follow a patient across the street or across the country.</description>
+
     <properties>
         <git.username>CONNECT-Solution</git.username>
     </properties>
+
     <scm>
         <connection>scm:git:git@github.com:${git.username}/CONNECT.git</connection>
         <developerConnection>scm:git:git@github.com:${git.username}/CONNECT.git</developerConnection>
         <url>https://github.com/${git.username}/CONNECT</url>
         <tag>HEAD</tag>
     </scm>
+
     <modules>
         <module>ThirdParty</module>
         <module>Product</module>
     </modules>
+
     <licenses>
         <license>
             <name>CONNECT License Agreement</name>
             <url>http://www.connectopensource.org/product/licensing</url>
         </license>
     </licenses>
+
     <prerequisites>
         <maven>3.0.4</maven>
     </prerequisites>
+
     <distributionManagement>
         <site>
             <id>github-pages-site</id>
@@ -44,6 +51,7 @@ By advancing the adoption of interoperable health IT systems and health informat
             <url>site/${project.version}</url>
         </site>
     </distributionManagement>
+
     <build>
         <pluginManagement>
             <plugins>
@@ -108,6 +116,7 @@ By advancing the adoption of interoperable health IT systems and health informat
                 </plugin>
             </plugins>
         </pluginManagement>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -121,7 +130,7 @@ By advancing the adoption of interoperable health IT systems and health informat
                 <artifactId>maven-site-plugin</artifactId>
                 <dependencies>
                     <dependency>
-                        <!-- | allows markdown syntax for site generation. 
+                        <!-- | allows markdown syntax for site generation.
                             To use it place files below | src/site/markdown/[filename].md -->
                         <groupId>org.apache.maven.doxia</groupId>
                         <artifactId>doxia-module-markdown</artifactId>
@@ -141,7 +150,7 @@ By advancing the adoption of interoperable health IT systems and health informat
                                 <linkOnly>true</linkOnly>
                             </configuration>
                         </plugin>
-                        <!-- <plugin> <groupId>org.apache.maven.plugins</groupId> 
+                        <!-- <plugin> <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-javadoc-plugin</artifactId> <version>2.9</version> </plugin> -->
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
@@ -212,6 +221,7 @@ By advancing the adoption of interoperable health IT systems and health informat
             </plugin>
         </plugins>
     </build>
+
     <profiles>
         <profile>
             <id>github-site-deploy</id>
@@ -220,18 +230,18 @@ By advancing the adoption of interoperable health IT systems and health informat
             </properties>
             <build>
                 <plugins>
-                    <!-- <plugin> <groupId>com.github.github</groupId> <artifactId>downloads-maven-plugin</artifactId> 
-                        <version>0.6</version> <configuration> <description>Official ${project.name} 
-                        build of the ${project.version} release</description> <override>true</override> 
-                        <includeAttached>true</includeAttached> <server>github</server> </configuration> 
-                        <executions> <execution> <goals> <goal>upload</goal> </goals> <phase>install</phase> 
+                    <!-- <plugin> <groupId>com.github.github</groupId> <artifactId>downloads-maven-plugin</artifactId>
+                        <version>0.6</version> <configuration> <description>Official ${project.name}
+                        build of the ${project.version} release</description> <override>true</override>
+                        <includeAttached>true</includeAttached> <server>github</server> </configuration>
+                        <executions> <execution> <goals> <goal>upload</goal> </goals> <phase>install</phase>
                         </execution> </executions> </plugin> -->
                     <plugin>
                         <groupId>com.github.github</groupId>
                         <artifactId>site-maven-plugin</artifactId>
                         <version>0.7</version>
                         <configuration>
-                            <!-- this does the trick to place every module 
+                            <!-- this does the trick to place every module
                                 in the correct subfolder -->
                             <path>${project.distributionManagement.site.url}</path>
                             <merge>${github.site.merge}</merge>

@@ -7,10 +7,11 @@
         <artifactId>Services</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
+
     <artifactId>DirectCoreTest</artifactId>
-    <packaging>jar</packaging>
     <name>CONNECT Direct Core Test</name>
+    <packaging>jar</packaging>
+    <modelVersion>4.0.0</modelVersion>
 
     <dependencies>
         <dependency>
@@ -18,27 +19,26 @@
             <artifactId>greenmail</artifactId>
         </dependency>
         <dependency>
-        	<groupId>org.connectopensource</groupId>
-        	<artifactId>DirectCore</artifactId>
-        	<version>${project.parent.version}</version>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DirectCore</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-            <artifactId>maven-clean-plugin</artifactId>
-            <version>2.5</version>
-            <configuration>
-                <filesets>
-                    <fileset>
-                        <directory>tmp</directory>
-                        <followSymlinks>false</followSymlinks>
-                    </fileset>
-                </filesets>
-            </configuration>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>tmp</directory>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                    </filesets>
+                </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>

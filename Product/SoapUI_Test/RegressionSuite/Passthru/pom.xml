@@ -2,18 +2,21 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>RegressionSuite</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
+
     <artifactId>Passthru</artifactId>
-    <packaging>pom</packaging>
     <name>Maven 3 soapUI Passthru Regression Tests</name>
+    <packaging>pom</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
     <properties>
         <soapui.testFailIgnore>true</soapui.testFailIgnore>
     </properties>
+
     <profiles>
         <profile>
             <id>regression-testing</id>
@@ -24,7 +27,7 @@
             </activation>
             <modules>
                 <module>Admin-Distribution-Passthrough</module>
-               <!--<module>AuditLogging-Passthrough</module>-->
+                <!--module>AuditLogging-Passthrough</module-->
                 <module>DocQueryAdditionalStoredQueries</module>
                 <module>DocQueryRetrieveSelfTest</module>
                 <module>DocQueryXDSErrors</module>

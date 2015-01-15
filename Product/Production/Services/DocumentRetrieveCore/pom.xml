@@ -7,11 +7,12 @@
         <artifactId>Services</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
+
     <artifactId>DocumentRetrieveCore</artifactId>
-    <packaging>jar</packaging>
     <name>CONNECT Document Retrieve Core</name>
-    
+    <packaging>jar</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
     <dependencies>
         <dependency>
             <groupId>org.connectopensource</groupId>
@@ -33,8 +34,9 @@
             <artifactId>DocumentRetrieveWebservices</artifactId>
         </dependency>
     </dependencies>
+
     <build>
-        <plugins>            
+        <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>

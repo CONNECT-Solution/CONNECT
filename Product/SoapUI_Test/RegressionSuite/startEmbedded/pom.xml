@@ -2,18 +2,21 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>RegressionSuite</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
+
     <artifactId>startEmbedded</artifactId>
-    <packaging>jar</packaging>
     <name>Start Embedded Glassfish</name>
+    <packaging>jar</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
     <properties>
         <soapui.testFailIgnore>true</soapui.testFailIgnore>
     </properties>
+
     <profiles>
         <profile>
             <id>embedded-testing</id>
@@ -60,8 +63,7 @@
                             </execution>
                             <execution>
                                 <id>unpack-nhin-properties</id>
-                                <!-- Using the initialize phase because it
-                                    is before the generate sources phase -->
+                                <!-- Using the initialize phase because it is before the generate sources phase -->
                                 <phase>process-resources</phase>
                                 <goals>
                                     <goal>unpack</goal>
@@ -70,8 +72,7 @@
                                     <skip>${skip.unpack}</skip>
                                     <artifactItems>
                                         <artifactItem>
-                                            <!-- Artifact that Holds our
-                                                custom templates -->
+                                            <!-- Artifact that holds our custom templates -->
                                             <groupId>org.connectopensource</groupId>
                                             <artifactId>Properties</artifactId>
                                             <version>${project.parent.version}</version>
@@ -191,8 +192,7 @@
                                     <skip>${skip.unpack}</skip>
                                     <artifactItems>
                                         <artifactItem>
-                                            <!-- Artifact that Holds our
-                                                SQL scripts -->
+                                            <!-- Artifact that holds our SQL scripts -->
                                             <groupId>org.connectopensource</groupId>
                                             <artifactId>DBScripts</artifactId>
                                             <version>${project.parent.version}</version>
@@ -264,4 +264,3 @@
         </profile>
     </profiles>
 </project>
-

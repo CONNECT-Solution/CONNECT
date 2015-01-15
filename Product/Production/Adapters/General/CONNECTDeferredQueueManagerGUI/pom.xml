@@ -7,11 +7,12 @@
         <artifactId>General</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
+
     <artifactId>CONNECTDeferredQueueManagerGUI</artifactId>
-    <packaging>war</packaging>
     <name>CONNECT Deferred Queue Manager GUI</name>
-    
+    <packaging>war</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
     <dependencies>
         <dependency>
             <groupId>org.connectopensource</groupId>
@@ -64,7 +65,7 @@
             <groupId>com.sun.faces.extensions</groupId>
             <artifactId>jsf-extensions-common</artifactId>
         </dependency>
-       
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -90,9 +91,8 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
     <build>
         <finalName>${project.artifactId}</finalName>
-        <plugins>
-        </plugins>
     </build>
 </project>
