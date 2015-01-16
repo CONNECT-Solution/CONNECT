@@ -27,7 +27,9 @@
 package gov.hhs.fha.nhinc.callback.openSAML;
 
 import gov.hhs.fha.nhinc.callback.SamlConstants;
-
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
@@ -37,10 +39,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import javax.xml.namespace.QName;
 import org.apache.log4j.Logger;
-
 import org.joda.time.DateTime;
 import org.opensaml.Configuration;
 import org.opensaml.DefaultBootstrap;
@@ -83,7 +83,7 @@ import org.opensaml.xml.signature.SignatureConstants;
  * @author bhumphrey
  */
 public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
-
+    
     /**
      * The authn statement builder.
      */
@@ -703,28 +703,44 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     public XSAny createHL7Attribute(String name, String code, String codeSystem, String codeSystemName,
         String displayName) {
         Map<QName, String> userRoleAttributes = new HashMap<QName, String>();
-
+        
+        boolean hasHl7prefix = getHl7PrefixProperty();
+        
         if (code != null) {
-            userRoleAttributes.put(new QName(SamlConstants.HL7_NAMESPACE_URI, SamlConstants.CE_CODE_ID, SamlConstants.HL7_PREFIX), code);
+            userRoleAttributes.put(createHl7QName(SamlConstants.CE_CODE_ID, hasHl7prefix), code);
         }
 
         if (codeSystem != null) {
-            userRoleAttributes.put(new QName(SamlConstants.HL7_NAMESPACE_URI, SamlConstants.CE_CODESYS_ID, SamlConstants.HL7_PREFIX), codeSystem);
+            userRoleAttributes.put(createHl7QName(SamlConstants.CE_CODESYS_ID, hasHl7prefix), codeSystem);
         }
 
         if (codeSystemName != null) {
-            userRoleAttributes.put(new QName(SamlConstants.HL7_NAMESPACE_URI, SamlConstants.CE_CODESYSNAME_ID, SamlConstants.HL7_PREFIX), codeSystemName);
+            userRoleAttributes.put(createHl7QName(SamlConstants.CE_CODESYSNAME_ID, hasHl7prefix), codeSystemName);
         }
 
         if (displayName != null) {
-            userRoleAttributes.put(new QName(SamlConstants.HL7_NAMESPACE_URI, SamlConstants.CE_DISPLAYNAME_ID, SamlConstants.HL7_PREFIX), displayName);
+            userRoleAttributes.put(createHl7QName(SamlConstants.CE_DISPLAYNAME_ID, hasHl7prefix), displayName);
         }
+        
         userRoleAttributes.put(new QName(SamlConstants.HL7_TYPE_NAMESPACE_URI, SamlConstants.HL7_TYPE_LOCAL_PART,
             SamlConstants.HL7_TYPE_PREFIX), SamlConstants.HL7_TYPE_KEY_VALUE);
 
         XSAny attributeValue = createAttributeValue(SamlConstants.HL7_NAMESPACE_URI, name, SamlConstants.HL7_PREFIX, userRoleAttributes);
         return attributeValue;
 
+    }
+    
+    QName createHl7QName(String name, boolean hasPrefix) {
+        return hasPrefix ? new QName(SamlConstants.HL7_NAMESPACE_URI, name, SamlConstants.HL7_PREFIX) : new QName(name);
+    }
+    
+    boolean getHl7PrefixProperty(){
+        try {
+            return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.HL7_PREFIX_FOR_ATTR_PROPERTY);
+        } catch (PropertyAccessException ex) {
+            LOG.warn(ex.getLocalizedMessage());
+        }
+        return false;
     }
 
     /**
