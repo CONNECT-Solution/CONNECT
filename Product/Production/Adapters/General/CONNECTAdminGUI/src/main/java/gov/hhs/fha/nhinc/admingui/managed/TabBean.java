@@ -226,4 +226,8 @@ public class TabBean {
     public String navigateToGatewayRemoteListTab() {
         return setDashboardTabIndexNavigate(NavigationConstant.GATEWAY_REMOTELIST_TAB);
     }
+    
+    public String navigateToConnectionManagement() {
+        return NavigationConstant.CM_PAGE;
+    }
 }

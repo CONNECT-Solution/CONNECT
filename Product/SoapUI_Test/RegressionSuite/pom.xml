@@ -1,33 +1,33 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.connectopensource</groupId>
-		<artifactId>SoapUI_Test</artifactId>
-		<version>4.4.0-SNAPSHOT</version>
-	</parent>
-	<artifactId>RegressionSuite</artifactId>
-	<packaging>pom</packaging>
-	<name>Maven 3 soapUI RegressionSuite</name>
-	<properties>
-		<soapui.testFailIgnore>true</soapui.testFailIgnore>
-	</properties>
-	<profiles>
-	<profile>
-	    <id>regression-testing</id>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.connectopensource</groupId>
+        <artifactId>SoapUI_Test</artifactId>
+        <version>4.4.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>RegressionSuite</artifactId>
+    <packaging>pom</packaging>
+    <name>Maven 3 soapUI RegressionSuite</name>
+    <properties>
+        <soapui.testFailIgnore>true</soapui.testFailIgnore>
+    </properties>
+    <profiles>
+        <profile>
+            <id>regression-testing</id>
             <activation>
                 <property>
                     <name>regression</name>
                 </property>
             </activation>
             <modules>
-	        <!--module>startEmbedded</module-->
+                <!--module>startEmbedded</module-->
                 <module>Standard</module>
                 <module>Passthru</module>
                 <module>Bimodal</module>
                 <module>NewFeature</module>
                 <!--module>stopEmbedded</module-->
             </modules>
-	   </profile>
+        </profile>
     </profiles>
 </project>

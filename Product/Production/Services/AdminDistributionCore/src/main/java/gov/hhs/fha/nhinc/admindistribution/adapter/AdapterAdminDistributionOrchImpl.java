@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.admindistribution.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 import java.net.URI;
 import java.util.List;
@@ -40,17 +41,16 @@ import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.apache.log4j.Logger;
 
 /**
- * 
+ *
  * @author dunnek
  */
 public class AdapterAdminDistributionOrchImpl {
+
     private static final Logger LOG = Logger.getLogger(AdapterAdminDistributionOrchImpl.class);
 
     /**
-     * @param body
-     *            Emergency Message Distribution Element transaction received.
-     * @param assertion
-     *            Assertion received.
+     * @param body Emergency Message Distribution Element transaction received.
+     * @param assertion Assertion received.
      */
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         LOG.info("Received Alert Message");
@@ -61,19 +61,19 @@ public class AdapterAdminDistributionOrchImpl {
 
         try {
             if (LargeFileUtils.getInstance().isSavePayloadToFileEnabled()) {
-                LOG.info("Configured to save payload to file. Will try to parse content as File URI.");
+                LOG.debug("Configured to save payload to file. Will try to parse content as File URI.");
 
                 List<ContentObjectType> contentObjectList = body.getContentObject();
 
                 for (ContentObjectType co : contentObjectList) {
                     if (co.getNonXMLContent() != null) {
                         DataHandler data = co.getNonXMLContent().getContentData();
-                        URI paylaodURI = LargeFileUtils.getInstance().parseBase64DataAsUri(data);
-                        LOG.info("Payload Content: " + paylaodURI);
-
+                        URI payloadURI = LargeFileUtils.getInstance().parseBase64DataAsUri(data);
+                        if (NullChecker.isNotNullish(payloadURI.toString())) {
+                            LOG.debug("Successfully parsed payload URI from Base64");
+                        }
                     }
                 }
-
             }
         } catch (Exception e) {
             LOG.error("Failed to parse payload as URI.", e);

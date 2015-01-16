@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project name="DirectMessageTestingWithEventLogging" resourceRoot="" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config"><con:description>Sometimes the delays set in the testcases may not be enough. 
+So we need to make sure the email the required MDNs/messages are received before we count event logs. 
+Otherwise the event log count checking may fail.</con:description><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="ConfigurationServiceImplPortBinding" type="wsdl" bindingName="{http://impl.service.config.nhindirect.org/}ConfigurationServiceImplPortBinding" soapVersion="1_1" anonymous="optional" definition="${projectDir}/wsdl/ConfigurationServiceImplService.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:AddAddress" name="addAddress" bindingOperationName="addAddress" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:AddAnchor" name="addAnchor" bindingOperationName="addAnchor" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:AddCertificates" name="addCertificates" bindingOperationName="addCertificates" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:AddDNS" name="addDNS" bindingOperationName="addDNS" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:AddDomain" name="addDomain" bindingOperationName="addDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:AddPolicy" name="addPolicy" bindingOperationName="addPolicy" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:AddPolicyGroup" name="addPolicyGroup" bindingOperationName="addPolicyGroup" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:AddPolicyUseToGroup" name="addPolicyUseToGroup" bindingOperationName="addPolicyUseToGroup" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:AddSetting" name="addSetting" bindingOperationName="addSetting" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:AddTrustBundle" name="addTrustBundle" bindingOperationName="addTrustBundle" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:AssociatePolicyGroupToDomain" name="associatePolicyGroupToDomain" bindingOperationName="associatePolicyGroupToDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:AssociateTrustBundleToDomain" name="associateTrustBundleToDomain" bindingOperationName="associateTrustBundleToDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:Contains" name="contains" bindingOperationName="contains" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:DeletePolicies" name="deletePolicies" bindingOperationName="deletePolicies" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:DeletePolicyGroups" name="deletePolicyGroups" bindingOperationName="deletePolicyGroups" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:DeleteSetting" name="deleteSetting" bindingOperationName="deleteSetting" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:DeleteTrustBundles" name="deleteTrustBundles" bindingOperationName="deleteTrustBundles" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:DisassociatePolicyGroupFromDomain" name="disassociatePolicyGroupFromDomain" bindingOperationName="disassociatePolicyGroupFromDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:DisassociatePolicyGroupFromDomains" name="disassociatePolicyGroupFromDomains" bindingOperationName="disassociatePolicyGroupFromDomains" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:DisassociatePolicyGroupsFromDomain" name="disassociatePolicyGroupsFromDomain" bindingOperationName="disassociatePolicyGroupsFromDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:DisassociateTrustBundleFromDomain" name="disassociateTrustBundleFromDomain" bindingOperationName="disassociateTrustBundleFromDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:DisassociateTrustBundleFromDomains" name="disassociateTrustBundleFromDomains" bindingOperationName="disassociateTrustBundleFromDomains" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:DisassociateTrustBundlesFromDomain" name="disassociateTrustBundlesFromDomain" bindingOperationName="disassociateTrustBundlesFromDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAddressCount" name="getAddressCount" bindingOperationName="getAddressCount" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAddresss" name="getAddresss" bindingOperationName="getAddresss" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAllSettings" name="getAllSettings" bindingOperationName="getAllSettings" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAnchor" name="getAnchor" bindingOperationName="getAnchor" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAnchors" name="getAnchors" bindingOperationName="getAnchors" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAnchorsForOwner" name="getAnchorsForOwner" bindingOperationName="getAnchorsForOwner" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetCertificate" name="getCertificate" bindingOperationName="getCertificate" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetCertificates" name="getCertificates" bindingOperationName="getCertificates" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetCertificatesForOwner" name="getCertificatesForOwner" bindingOperationName="getCertificatesForOwner" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetDNSByName" name="getDNSByName" bindingOperationName="getDNSByName" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetDNSByNameAndType" name="getDNSByNameAndType" bindingOperationName="getDNSByNameAndType" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetDNSByRecordId" name="getDNSByRecordId" bindingOperationName="getDNSByRecordId" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetDNSByRecordIds" name="getDNSByRecordIds" bindingOperationName="getDNSByRecordIds" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetDNSByType" name="getDNSByType" bindingOperationName="getDNSByType" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetDNSCount" name="getDNSCount" bindingOperationName="getDNSCount" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetDomain" name="getDomain" bindingOperationName="getDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetDomainCount" name="getDomainCount" bindingOperationName="getDomainCount" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetDomains" name="getDomains" bindingOperationName="getDomains" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetIncomingAnchors" name="getIncomingAnchors" bindingOperationName="getIncomingAnchors" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetOutgoingAnchors" name="getOutgoingAnchors" bindingOperationName="getOutgoingAnchors" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetPolicies" name="getPolicies" bindingOperationName="getPolicies" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetPolicyById" name="getPolicyById" bindingOperationName="getPolicyById" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetPolicyByName" name="getPolicyByName" bindingOperationName="getPolicyByName" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetPolicyGroupById" name="getPolicyGroupById" bindingOperationName="getPolicyGroupById" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetPolicyGroupByName" name="getPolicyGroupByName" bindingOperationName="getPolicyGroupByName" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetPolicyGroupDomainReltns" name="getPolicyGroupDomainReltns" bindingOperationName="getPolicyGroupDomainReltns" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetPolicyGroups" name="getPolicyGroups" bindingOperationName="getPolicyGroups" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetPolicyGroupsByDomain" name="getPolicyGroupsByDomain" bindingOperationName="getPolicyGroupsByDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetSettingByName" name="getSettingByName" bindingOperationName="getSettingByName" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetSettingsByNames" name="getSettingsByNames" bindingOperationName="getSettingsByNames" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetTrustBundleById" name="getTrustBundleById" bindingOperationName="getTrustBundleById" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetTrustBundleByName" name="getTrustBundleByName" bindingOperationName="getTrustBundleByName" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetTrustBundles" name="getTrustBundles" bindingOperationName="getTrustBundles" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetTrustBundlesByDomain" name="getTrustBundlesByDomain" bindingOperationName="getTrustBundlesByDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ListAddresss" name="listAddresss" bindingOperationName="listAddresss" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ListAnchors" name="listAnchors" bindingOperationName="listAnchors" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ListCertificates" name="listCertificates" bindingOperationName="listCertificates" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:listDomains" name="listDomains" bindingOperationName="listDomains" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RefreshTrustBundle" name="refreshTrustBundle" bindingOperationName="refreshTrustBundle" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RemoveAddress" name="removeAddress" bindingOperationName="removeAddress" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RemoveAnchors" name="removeAnchors" bindingOperationName="removeAnchors" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RemoveAnchorsForOwner" name="removeAnchorsForOwner" bindingOperationName="removeAnchorsForOwner" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RemoveCertificates" name="removeCertificates" bindingOperationName="removeCertificates" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RemoveCertificatesForOwner" name="removeCertificatesForOwner" bindingOperationName="removeCertificatesForOwner" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RemoveDNS" name="removeDNS" bindingOperationName="removeDNS" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RemoveDNSByRecordId" name="removeDNSByRecordId" bindingOperationName="removeDNSByRecordId" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RemoveDNSByRecordIds" name="removeDNSByRecordIds" bindingOperationName="removeDNSByRecordIds" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RemoveDomain" name="removeDomain" bindingOperationName="removeDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RemoveDomainById" name="removeDomainById" bindingOperationName="removeDomainById" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:RemovePolicyUseFromGroup" name="removePolicyUseFromGroup" bindingOperationName="removePolicyUseFromGroup" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:SearchDomain" name="searchDomain" bindingOperationName="searchDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:SetAnchorStatusForOwner" name="setAnchorStatusForOwner" bindingOperationName="setAnchorStatusForOwner" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:SetCertificateStatus" name="setCertificateStatus" bindingOperationName="setCertificateStatus" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:SetCertificateStatusForOwner" name="setCertificateStatusForOwner" bindingOperationName="setCertificateStatusForOwner" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:UpdateAddress" name="updateAddress" bindingOperationName="updateAddress" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:UpdateDNS" name="updateDNS" bindingOperationName="updateDNS" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:UpdateDomain" name="updateDomain" bindingOperationName="updateDomain" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:UpdateGroupAttributes" name="updateGroupAttributes" bindingOperationName="updateGroupAttributes" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:UpdateLastUpdateError" name="updateLastUpdateError" bindingOperationName="updateLastUpdateError" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:UpdatePolicyAttributes" name="updatePolicyAttributes" bindingOperationName="updatePolicyAttributes" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:UpdateSetting" name="updateSetting" bindingOperationName="updateSetting" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:UpdateTrustBundleAttributes" name="updateTrustBundleAttributes" bindingOperationName="updateTrustBundleAttributes" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:UpdateTrustBundleSigningCertificate" name="updateTrustBundleSigningCertificate" bindingOperationName="updateTrustBundleSigningCertificate" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="DirectEventLogging TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingTrustBundles" searchProperties="true" id="cc66aaea-e866-4e46-86bf-f1e63ca138de"><con:settings/><con:testStep type="request" name="ChangeAnchorStoreTypeToWS"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>addSetting</con:operation><con:request name="ChangeAnchorStoreTypeToWS"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:addSetting>
+         <name>AnchorStoreType</name>
+         <value>WS</value>
+      </con:addSetting>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Set Incoming Outgoing Traffic Value"><con:settings/><con:config><script>testRunner.testCase.testSuite.project.setPropertyValue( "IncomingTraffic", "1") ;
+testRunner.testCase.testSuite.project.setPropertyValue( "OutgoingTraffic", "1") ;
+</script></con:config></con:testStep><con:testStep type="groovy" name="Clear Event Table"><con:settings/><con:config><script>context.withSql(context.findProperty('EventDB')) { sql -> 
+			sql.execute('delete from '+context.findProperty('EventTable'))
+			}</script></con:config></con:testStep><con:testStep type="request" name="DisassociateTrustBundleFromDomain"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>disassociateTrustBundleFromDomain</con:operation><con:request name="DisassociateTrustBundleFromDomain"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:disassociateTrustBundleFromDomain>
+         <domainId>${#Project#DomainId}</domainId>
+         <trustBundleId>${#Project#TrustBundleID}</trustBundleId>
+      </con:disassociateTrustBundleFromDomain>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="GroovyScriptAssertion" name="Script Assertion"><con:configuration/></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="AssociateTrustBundleToDomain"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>associateTrustBundleToDomain</con:operation><con:request name="AssociateTrustBundleToDomain"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:associateTrustBundleToDomain>
+         <domainId>${#Project#DomainId}</domainId>
+         <trustBundleId>${#Project#TrustBundleID}</trustBundleId>
+         <incoming>${#Project#IncomingTraffic}</incoming>
+         <outgoing>${#Project#OutgoingTraffic}</outgoing>
+      </con:associateTrustBundleToDomain>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Anchors For Owner"><con:settings/><con:config><script>context.withSql(context.findProperty('ConfigDB')) { sql -> 
+			sql.execute('delete from '+context.findProperty('AnchorTable')+' where owner = "'+context.findProperty('AnchorOwner')+'"')
+			}</script></con:config></con:testStep><con:testStep type="groovy" name="SendEmail"><con:settings/><con:config><script>context.sendEmailSmtps("Content","Sending smtp messagae using trust bundles in database","alamelu@direct.connectopensource.org", "provider1@direct.sitenv.org", "54.85.35.69", "587","direct", context.findProperty('password'));
+</script></con:config></con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>40000</delay></con:config></con:testStep><con:testStep type="manualTestStep" name="Check Processed And Dispatched MDNs"><con:description>Verify the email account to see if you got the Dispatched and Processed MDNs.</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Should have received the Dispatched and Processed MDNs in the email client</con:expectedResult></con:config></con:testStep><con:testStep type="groovy" name="Count Event Table Rows"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
+	assert 7 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_DIRECT"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_OUTBOUND_DIRECT"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_MDN_PROCESSED"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_MDN_PROCESSED"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_MDN_DISPATCHED"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_MDN_DISPATCHED"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="DIRECT_EDGE_NOTIFICATION_SUCCESSFUL"')[0]
+	
+}</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2014-12-12T21:28:11Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2014-12-12T21:38:11Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>12/12/2014 21:28:11</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-01-11T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingWSAnchors" searchProperties="true" id="fc64836a-683f-4469-b79e-b86d2d2328a7"><con:settings/><con:testStep type="request" name="ChangeAnchorStoreTypeToWS"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>addSetting</con:operation><con:request name="ChangeAnchorStoreTypeToWS"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:addSetting>
+         <name>AnchorStoreType</name>
+         <value>WS</value>
+      </con:addSetting>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Set Incoming Outgoing Traffic Value"><con:settings/><con:config><script>testRunner.testCase.testSuite.project.setPropertyValue( "IncomingTraffic", "0") ;
+testRunner.testCase.testSuite.project.setPropertyValue( "OutgoingTraffic", "0") ;
+</script></con:config></con:testStep><con:testStep type="groovy" name="Clear Event Table"><con:settings/><con:config><script>context.withSql(context.findProperty('EventDB')) { sql -> 
+			sql.execute('delete from '+context.findProperty('EventTable'))
+			}</script></con:config></con:testStep><con:testStep type="request" name="DisassociateTrustBundleFromDomain"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>disassociateTrustBundleFromDomain</con:operation><con:request name="DisassociateTrustBundleFromDomain"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:disassociateTrustBundleFromDomain>
+         <domainId>${#Project#DomainId}</domainId>
+         <trustBundleId>${#Project#TrustBundleID}</trustBundleId>
+      </con:disassociateTrustBundleFromDomain>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="AddAnchors"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>addAnchor</con:operation><con:request name="AddAnchors"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:addAnchor>
+         <anchor>
+            <certificateId>1</certificateId>
+            <data>MIIDazCCAtSgAwIBAgIBATANBgkqhkiG9w0BAQUFADBvMQswCQYDVQQGEwJVUzERMA8GA1UECBMIVmlyZ2luaWExEDAOBgNVBAcTB0ZhaXJmYXgxEDAOBgNVBAoTB0NPTk5FQ1QxKTAnBgNVBAMTIERpcmVjdCBDb25uZWN0b3BlbnNvdXJjZSBSb290IENBMB4XDTEzMTIwNTAwNDAzMVoXDTIzMTIwMzAwNDAzMVowgYYxCzAJBgNVBAYTAlVTMREwDwYDVQQIDAhWaXJnaW5pYTEQMA4GA1UECgwHQ09OTkVDVDElMCMGA1UEAwwcZGlyZWN0LmNvbm5lY3RvcGVuc291cmNlLm9yZzErMCkGCSqGSIb3DQEJARYcZGlyZWN0LmNvbm5lY3RvcGVuc291cmNlLm9yZzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAN1bojWSDyXnkZuTCCXhO5LP2SgKMlm8IIafrOQ1D/HTLH4OshtoB0Ugq286ayK7Wkc9xM6lwdd2VElZ8nwEk0HU1tvV4oIgtplN2st1oRA4BymI674i1L/3xsqTALcut+9v+0wo5Z2M20wXEpXqfjYQZVgscqWXc3/8f2ETDBAbMtpJblAovFcAkOEWW4PJzlLAaPCMyQIpv9au0cwoCP6kEXR83kLGg4m45stGCEdQh+H+nLaazrvtechb7+Kh9S0g4BBCGLwXTgd81O+Z73ZMKB5PpeEdf+LuOY43vJumLr9MguatcqaWvQtYO/dHzUy52hHEQApgZlQRHbGM+XMCAwEAAaN7MHkwCQYDVR0TBAIwADAsBglghkgBhvhCAQ0EHxYdT3BlblNTTCBHZW5lcmF0ZWQgQ2VydGlmaWNhdGUwHQYDVR0OBBYEFHWUUv4NNyDf8oJ5Rc8S/nd5Lm9yMB8GA1UdIwQYMBaAFK1tIb8XcV1JKf/QtMAGKoZucq/UMA0GCSqGSIb3DQEBBQUAA4GBAHJyszQ8Bk5TkBvHpia8O26lnoL9e3wQutt2wltmgczw+MEDQbRAms+oSXQNdywYRpePeZJBhk2vGDsKcQeASm6lxpiMXqgaJvBFLMuWuGdDS5vCyChcp/C2TIJWfq/HPHjv94OnVWU03PdRVCsG6DMtec4fuJ6kupRu29fewLIS</data>
+            <incoming>1</incoming>
+            <outgoing>1</outgoing>
+            <owner>direct.connectopensource.org</owner>
+            <status>ENABLED</status>
+         </anchor>
+         <anchor>
+            <certificateId>2</certificateId>
+            <data>MIIBzjCCATegAwIBAgIIdHvEwD63/8QwDQYJKoZIhvcNAQEFBQAwHzEdMBsGA1UEAwwUZGlyZWN0LnNpdGVudi5vcmdfY2EwHhcNMTMwNzA1MTgzOTI2WhcNMjExMTI1MTkzOTI2WjAfMR0wGwYDVQQDDBRkaXJlY3Quc2l0ZW52Lm9yZ19jYTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAjGSYUkyiDOMMYzxTwq4QjtMEiyAvZFToGEN9FT8l53eNS2yOgPa3kpBbzbXv5UiEoE8kutjJ+E7xyBgn+asdW2agOa3KYwPgbrffe5cay5hqkbwRKPud22CJBt0WAJUCY9weYBsDAWRdl/I6vda+cMBT6z5J7ms5+vtYwaRpKwMCAwEAAaMTMBEwDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0BAQUFAAOBgQCBvIxK5DX+W+0Ve9XibSffa95yLwFb5f0oB59WQ9l/gOnA6DD/TD4j3L51PdY4QAkXaWEvE+mMeIrQ4TGE84uhCn5e5yhbepVXBvJRloQEd/QIqwLxqMGeT7ac/jAgQ/aoexJmlo/pkkFuNvdPiypd97PM8FhSBt7EUZnZqUb7mw==</data>
+            <incoming>1</incoming>
+            <outgoing>1</outgoing>
+            <owner>direct.connectopensource.org</owner>
+            <status>ENABLED</status>
+         </anchor>
+         <anchor>
+            <certificateId>3</certificateId>
+            <data>MIIDczCCAlugAwIBAgIIP1IH+Wz1SawwDQYJKoZIhvcNAQEFBQAwbzEvMC0GA1UEAwwmZGlyZWN0cmkuY29ubmVjdG9wZW5zb3VyY2Uub3JnIFJvb3QgQ0ExCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJWQTEQMA4GA1UEBwwHRmFpcmZheDEQMA4GA1UECgwHQ09OTkVDVDAeFw0xNDAyMjUxNTAzNTJaFw0yNDAyMjMxNTAzNTJaMG8xLzAtBgNVBAMMJmRpcmVjdHJpLmNvbm5lY3RvcGVuc291cmNlLm9yZyBSb290IENBMQswCQYDVQQGEwJVUzELMAkGA1UECAwCVkExEDAOBgNVBAcMB0ZhaXJmYXgxEDAOBgNVBAoMB0NPTk5FQ1QwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDI6EG3c09wPR1avdt2is6/zUWgnuq+IcFrUm1Yi2O8SVCHsgtDZWOw+VocUAZe3qmtdbGvsMa5dMtyl6jL0LQDOw9gSPNIIHbHgkRURjRaJJrLsxGc8/9P9I8l0aI7O/qEe3E3z2ev4v5tChKFy8M2ai/dmFKgOFbgip97J+8qtiEQchssLbOseL8wFjE8manA35TEpokHLZdjAMT57JqQTvz3WKM0i2qnmPjljrP2F7cVtOa8gelZV79uEh0rIj2Wneb2PtkZ9ceblqczz+Tgno31xxQywisapucdzl1lEHcFiHpZCjJlAHR7EZHcRIbPkcPrlltT37iSpDeT2GPfAgMBAAGjEzARMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQEFBQADggEBAAQHK/h86XYdloEuYOOvpPj53C6Z9hb5MNT4M2mHVnlvBwSxiydaUdzO7+riOLZzhVsKpTJn3/tS5vgTYBglHMo3n6KIH0/oMsIrhPsPfVomQALdHLe06mdjAHNUzsuIwmWRvwGxoFthjRwEwC3uannbOBC3uK5dXGzg6HfkMlZnD/OmBk654AShjQHEZjWpuDnI3/wSpgn78Eu8MDcrO3UC59DCirrANPa5klgrm8RzKKUw2G/Es6QgpemT0nSATitPhFt3szOfecwKVG/bv44p3odGD6oyj4CHtTfclLv7cVsrtMTyPryvA9I8m9kFMJiY2INTegXNtQrvKUf82Zk=</data>
+            <incoming>1</incoming>
+            <outgoing>1</outgoing>
+            <owner>direct.connectopensource.org</owner>
+            <status>ENABLED</status>
+         </anchor>
+      </con:addAnchor>
+   </soapenv:Body>
+</soapenv:Envelope>
+]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="SendEmail"><con:settings/><con:config><script>context.sendEmailSmtps("Content","Sending smtp messagae using anchors in database","alamelu@direct.connectopensource.org", "provider1@direct.sitenv.org", "54.85.35.69", "587","direct",context.findProperty('password'));
+</script></con:config></con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>40000</delay></con:config></con:testStep><con:testStep type="manualTestStep" name="Check Dispatched and Processed MDNs"><con:description>Verify the email account to see if you got the Dispatched MDN.</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Should have received the Dispatched MDN</con:expectedResult></con:config></con:testStep><con:testStep type="groovy" name="Count Event Table Rows"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
+	assert 7 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_DIRECT"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_OUTBOUND_DIRECT"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_MDN_PROCESSED"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_MDN_PROCESSED"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_MDN_DISPATCHED"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_MDN_DISPATCHED"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="DIRECT_EDGE_NOTIFICATION_SUCCESSFUL"')[0]
+	
+}</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2014-12-12T21:55:15Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2014-12-12T22:05:15Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>12/12/2014 21:55:15</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-01-11T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingKeystoreAnchors" searchProperties="true" id="08e0b12c-46c6-46c6-a0cd-de239665cd2d"><con:settings/><con:testStep type="groovy" name="Clear Event Table"><con:settings/><con:config><script>context.withSql(context.findProperty('EventDB')) { sql -> 
+			sql.execute('delete from '+context.findProperty('EventTable'))
+			}</script></con:config></con:testStep><con:testStep type="request" name="DisassociateTrustBundleFromDomain"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>disassociateTrustBundleFromDomain</con:operation><con:request name="DisassociateTrustBundleFromDomain"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:disassociateTrustBundleFromDomain>
+         <domainId>${#Project#DomainId}</domainId>
+         <trustBundleId>${#Project#TrustBundleID}</trustBundleId>
+      </con:disassociateTrustBundleFromDomain>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Anchors For Owner"><con:settings/><con:config><script>context.withSql(context.findProperty('ConfigDB')) { sql -> 
+			sql.execute('delete from '+context.findProperty('AnchorTable')+' where owner = "'+context.findProperty('AnchorOwner')+'"')
+			}</script></con:config></con:testStep><con:testStep type="request" name="ChangeAnchorStoreTypeToKeyStore"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>addSetting</con:operation><con:request name="ChangeAnchorStoreTypeToKeyStore"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:addSetting>
+         <name>AnchorStoreType</name>
+         <value>Keystore</value>
+      </con:addSetting>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="SetAnchorStoreLocation"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>addSetting</con:operation><con:request name="SetAnchorStoreLocation"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:addSetting>
+         <name>AnchorKeyStoreFile</name>
+         <value>${#Project#AnchorKeyStoreFileLocation}</value>
+      </con:addSetting>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="SetAnchorStorePassword"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>addSetting</con:operation><con:request name="SetAnchorStorePassword"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:addSetting>
+         <name>AnchorStorePassword</name>
+         <value>${#Project#AnchorStorePassword}</value>
+      </con:addSetting>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="SendEmail"><con:settings/><con:config><script>context.sendEmailSmtps("Content","Sending smtp message without using the trust stores and anchors in database","alamelu@direct.connectopensource.org", "provider1@direct.sitenv.org", "54.85.35.69", "587","direct",context.findProperty('password'));
+</script></con:config></con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>40000</delay></con:config></con:testStep><con:testStep type="manualTestStep" name="Check Dispatched and Processed MDNs"><con:description>Verify the email account to see if you got the Dispatched MDN.</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Should have received the Dispatched and Processed MDNs</con:expectedResult></con:config></con:testStep><con:testStep type="groovy" name="Count Event Table Rows"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
+	assert 7 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_DIRECT"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_OUTBOUND_DIRECT"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_MDN_PROCESSED"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_MDN_PROCESSED"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_MDN_DISPATCHED"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_MDN_DISPATCHED"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="DIRECT_EDGE_NOTIFICATION_SUCCESSFUL"')[0]
+}</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2014-12-13T03:09:49Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2014-12-13T03:19:49Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>12/13/2014 03:09:49</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-01-12T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ReceiveDirectMessageUsingTrustBundles" searchProperties="true" id="ac57106b-6ba6-4837-8d49-3c635715ec2d"><con:settings/><con:testStep type="request" name="ChangeAnchorStoreTypeToWS"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>addSetting</con:operation><con:request name="ChangeAnchorStoreTypeToWS"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:addSetting>
+         <name>AnchorStoreType</name>
+         <value>WS</value>
+      </con:addSetting>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Set Incoming Outgoing Traffic Value"><con:settings/><con:config><script>testRunner.testCase.testSuite.project.setPropertyValue( "IncomingTraffic", "1") ;
+testRunner.testCase.testSuite.project.setPropertyValue( "OutgoingTraffic", "1") ;
+</script></con:config></con:testStep><con:testStep type="request" name="DisassociateTrustBundleFromDomain"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>disassociateTrustBundleFromDomain</con:operation><con:request name="DisassociateTrustBundleFromDomain"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:disassociateTrustBundleFromDomain>
+         <domainId>${#Project#DomainId}</domainId>
+         <trustBundleId>${#Project#TrustBundleID}</trustBundleId>
+      </con:disassociateTrustBundleFromDomain>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Clear Event Table"><con:settings/><con:config><script>context.withSql(context.findProperty('EventDB')) { sql -> 
+			sql.execute('delete from '+context.findProperty('EventTable'))
+			}</script></con:config></con:testStep><con:testStep type="request" name="AssociateTrustBundleToDomain"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>associateTrustBundleToDomain</con:operation><con:request name="AssociateTrustBundleToDomain"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:associateTrustBundleToDomain>
+         <domainId>${#Project#DomainId}</domainId>
+         <trustBundleId>${#Project#TrustBundleID}</trustBundleId>
+         <incoming>${#Project#IncomingTraffic}</incoming>
+         <outgoing>${#Project#OutgoingTraffic}</outgoing>
+      </con:associateTrustBundleToDomain>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Anchors For Owner"><con:settings/><con:config><script>context.withSql(context.findProperty('ConfigDB')) { sql -> 
+			sql.execute('delete from '+context.findProperty('AnchorTable')+' where owner = "'+context.findProperty('AnchorOwner')+'"')
+			}</script></con:config></con:testStep><con:testStep type="manualTestStep" name="Send an email from sitenv"><con:description>1. Go to the web site http://sitenv.org/web/site/home
+2. Click on View Details button under Transport Sandbox section
+3. Click on Direct Transport Test Tool
+4. Enter your Direct email address in the Enter Your Endpoint Name text box
+5. Click on Pick Sample button and select a sample C-CDA file
+6. Click on Send message button</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Wait till the email is received and displayed in the inbox.
+Check for 4 rows in the event table.</con:expectedResult></con:config></con:testStep><con:testStep type="groovy" name="Count Event Table Rows"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
+	assert 4 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_MDN_PROCESSED"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_OUTBOUND_MDN_PROCESSED"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_DIRECT"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_DIRECT"')[0]
+}</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2014-12-12T21:45:23Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2014-12-12T21:55:23Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>12/12/2014 21:45:23</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-01-11T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ReceiveDirectMessageUsingWSAnchors" searchProperties="true" id="5cf06114-0514-479c-9513-14f7fc854e35"><con:settings/><con:testStep type="request" name="ChangeAnchorStoreTypeToWS"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>addSetting</con:operation><con:request name="ChangeAnchorStoreTypeToWS"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:addSetting>
+         <name>AnchorStoreType</name>
+         <value>WS</value>
+      </con:addSetting>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Set Incoming Outgoing Traffic Value"><con:settings/><con:config><script>testRunner.testCase.testSuite.project.setPropertyValue( "IncomingTraffic", "1") ;
+testRunner.testCase.testSuite.project.setPropertyValue( "OutgoingTraffic", "1") ;
+</script></con:config></con:testStep><con:testStep type="groovy" name="Clear Event Table"><con:settings/><con:config><script>context.withSql(context.findProperty('EventDB')) { sql -> 
+			sql.execute('delete from '+context.findProperty('EventTable'))
+			}</script></con:config></con:testStep><con:testStep type="request" name="DisassociateTrustBundleFromDomain"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>disassociateTrustBundleFromDomain</con:operation><con:request name="DisassociateTrustBundleFromDomain"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:disassociateTrustBundleFromDomain>
+         <domainId>${#Project#DomainId}</domainId>
+         <trustBundleId>${#Project#TrustBundleID}</trustBundleId>
+      </con:disassociateTrustBundleFromDomain>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="AddAnchors"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>addAnchor</con:operation><con:request name="AddAnchors"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:addAnchor>
+         <anchor>
+            <certificateId>1</certificateId>
+            <data>MIIDazCCAtSgAwIBAgIBATANBgkqhkiG9w0BAQUFADBvMQswCQYDVQQGEwJVUzERMA8GA1UECBMIVmlyZ2luaWExEDAOBgNVBAcTB0ZhaXJmYXgxEDAOBgNVBAoTB0NPTk5FQ1QxKTAnBgNVBAMTIERpcmVjdCBDb25uZWN0b3BlbnNvdXJjZSBSb290IENBMB4XDTEzMTIwNTAwNDAzMVoXDTIzMTIwMzAwNDAzMVowgYYxCzAJBgNVBAYTAlVTMREwDwYDVQQIDAhWaXJnaW5pYTEQMA4GA1UECgwHQ09OTkVDVDElMCMGA1UEAwwcZGlyZWN0LmNvbm5lY3RvcGVuc291cmNlLm9yZzErMCkGCSqGSIb3DQEJARYcZGlyZWN0LmNvbm5lY3RvcGVuc291cmNlLm9yZzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAN1bojWSDyXnkZuTCCXhO5LP2SgKMlm8IIafrOQ1D/HTLH4OshtoB0Ugq286ayK7Wkc9xM6lwdd2VElZ8nwEk0HU1tvV4oIgtplN2st1oRA4BymI674i1L/3xsqTALcut+9v+0wo5Z2M20wXEpXqfjYQZVgscqWXc3/8f2ETDBAbMtpJblAovFcAkOEWW4PJzlLAaPCMyQIpv9au0cwoCP6kEXR83kLGg4m45stGCEdQh+H+nLaazrvtechb7+Kh9S0g4BBCGLwXTgd81O+Z73ZMKB5PpeEdf+LuOY43vJumLr9MguatcqaWvQtYO/dHzUy52hHEQApgZlQRHbGM+XMCAwEAAaN7MHkwCQYDVR0TBAIwADAsBglghkgBhvhCAQ0EHxYdT3BlblNTTCBHZW5lcmF0ZWQgQ2VydGlmaWNhdGUwHQYDVR0OBBYEFHWUUv4NNyDf8oJ5Rc8S/nd5Lm9yMB8GA1UdIwQYMBaAFK1tIb8XcV1JKf/QtMAGKoZucq/UMA0GCSqGSIb3DQEBBQUAA4GBAHJyszQ8Bk5TkBvHpia8O26lnoL9e3wQutt2wltmgczw+MEDQbRAms+oSXQNdywYRpePeZJBhk2vGDsKcQeASm6lxpiMXqgaJvBFLMuWuGdDS5vCyChcp/C2TIJWfq/HPHjv94OnVWU03PdRVCsG6DMtec4fuJ6kupRu29fewLIS</data>
+            <incoming>1</incoming>
+            <outgoing>1</outgoing>
+            <owner>direct.connectopensource.org</owner>
+            <status>ENABLED</status>
+         </anchor>
+         <anchor>
+            <certificateId>2</certificateId>
+            <data>MIIBzjCCATegAwIBAgIIdHvEwD63/8QwDQYJKoZIhvcNAQEFBQAwHzEdMBsGA1UEAwwUZGlyZWN0LnNpdGVudi5vcmdfY2EwHhcNMTMwNzA1MTgzOTI2WhcNMjExMTI1MTkzOTI2WjAfMR0wGwYDVQQDDBRkaXJlY3Quc2l0ZW52Lm9yZ19jYTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAjGSYUkyiDOMMYzxTwq4QjtMEiyAvZFToGEN9FT8l53eNS2yOgPa3kpBbzbXv5UiEoE8kutjJ+E7xyBgn+asdW2agOa3KYwPgbrffe5cay5hqkbwRKPud22CJBt0WAJUCY9weYBsDAWRdl/I6vda+cMBT6z5J7ms5+vtYwaRpKwMCAwEAAaMTMBEwDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0BAQUFAAOBgQCBvIxK5DX+W+0Ve9XibSffa95yLwFb5f0oB59WQ9l/gOnA6DD/TD4j3L51PdY4QAkXaWEvE+mMeIrQ4TGE84uhCn5e5yhbepVXBvJRloQEd/QIqwLxqMGeT7ac/jAgQ/aoexJmlo/pkkFuNvdPiypd97PM8FhSBt7EUZnZqUb7mw==</data>
+            <incoming>1</incoming>
+            <outgoing>1</outgoing>
+            <owner>direct.connectopensource.org</owner>
+            <status>ENABLED</status>
+         </anchor>
+         <anchor>
+            <certificateId>3</certificateId>
+            <data>MIIDczCCAlugAwIBAgIIP1IH+Wz1SawwDQYJKoZIhvcNAQEFBQAwbzEvMC0GA1UEAwwmZGlyZWN0cmkuY29ubmVjdG9wZW5zb3VyY2Uub3JnIFJvb3QgQ0ExCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJWQTEQMA4GA1UEBwwHRmFpcmZheDEQMA4GA1UECgwHQ09OTkVDVDAeFw0xNDAyMjUxNTAzNTJaFw0yNDAyMjMxNTAzNTJaMG8xLzAtBgNVBAMMJmRpcmVjdHJpLmNvbm5lY3RvcGVuc291cmNlLm9yZyBSb290IENBMQswCQYDVQQGEwJVUzELMAkGA1UECAwCVkExEDAOBgNVBAcMB0ZhaXJmYXgxEDAOBgNVBAoMB0NPTk5FQ1QwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDI6EG3c09wPR1avdt2is6/zUWgnuq+IcFrUm1Yi2O8SVCHsgtDZWOw+VocUAZe3qmtdbGvsMa5dMtyl6jL0LQDOw9gSPNIIHbHgkRURjRaJJrLsxGc8/9P9I8l0aI7O/qEe3E3z2ev4v5tChKFy8M2ai/dmFKgOFbgip97J+8qtiEQchssLbOseL8wFjE8manA35TEpokHLZdjAMT57JqQTvz3WKM0i2qnmPjljrP2F7cVtOa8gelZV79uEh0rIj2Wneb2PtkZ9ceblqczz+Tgno31xxQywisapucdzl1lEHcFiHpZCjJlAHR7EZHcRIbPkcPrlltT37iSpDeT2GPfAgMBAAGjEzARMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQEFBQADggEBAAQHK/h86XYdloEuYOOvpPj53C6Z9hb5MNT4M2mHVnlvBwSxiydaUdzO7+riOLZzhVsKpTJn3/tS5vgTYBglHMo3n6KIH0/oMsIrhPsPfVomQALdHLe06mdjAHNUzsuIwmWRvwGxoFthjRwEwC3uannbOBC3uK5dXGzg6HfkMlZnD/OmBk654AShjQHEZjWpuDnI3/wSpgn78Eu8MDcrO3UC59DCirrANPa5klgrm8RzKKUw2G/Es6QgpemT0nSATitPhFt3szOfecwKVG/bv44p3odGD6oyj4CHtTfclLv7cVsrtMTyPryvA9I8m9kFMJiY2INTegXNtQrvKUf82Zk=</data>
+            <incoming>1</incoming>
+            <outgoing>1</outgoing>
+            <owner>direct.connectopensource.org</owner>
+            <status>ENABLED</status>
+         </anchor>
+      </con:addAnchor>
+   </soapenv:Body>
+</soapenv:Envelope>
+]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="manualTestStep" name="Send an email from sitenv"><con:description>1. Go to the web site http://sitenv.org/web/site/home
+2. Click on View Details button under Transport Sandbox section
+3. Click on Direct Transport Test Tool
+4. Enter your Direct email address in the Enter Your Endpoint Name text box
+5. Click on Pick Sample button and select a sample C-CDA file
+6. Click on Send message button</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Wait till the email is received and displayed in the inbox.
+Check for 4 rows in the event table.</con:expectedResult></con:config></con:testStep><con:testStep type="groovy" name="Count Event Table Rows"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
+	assert 4 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_DIRECT"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_DIRECT"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_MDN_PROCESSED"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_OUTBOUND_MDN_PROCESSED"')[0]
+}</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2014-12-12T21:58:25Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2014-12-12T22:08:25Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>12/12/2014 21:58:25</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-01-11T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ReceiveDirectMessageUsingKeystoreAnchors" searchProperties="true" id="9af2d502-f038-423e-90f3-cc55a3e63e75"><con:settings/><con:testStep type="groovy" name="Clear Event Table"><con:settings/><con:config><script>context.withSql(context.findProperty('EventDB')) { sql -> 
+			sql.execute('delete from '+context.findProperty('EventTable'))
+			}</script></con:config></con:testStep><con:testStep type="request" name="DisassociateTrustBundleFromDomain"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>disassociateTrustBundleFromDomain</con:operation><con:request name="DisassociateTrustBundleFromDomain"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:disassociateTrustBundleFromDomain>
+         <domainId>${#Project#DomainId}</domainId>
+         <trustBundleId>${#Project#TrustBundleID}</trustBundleId>
+      </con:disassociateTrustBundleFromDomain>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Anchors For Owner"><con:settings/><con:config><script>context.withSql(context.findProperty('ConfigDB')) { sql -> 
+			sql.execute('delete from '+context.findProperty('AnchorTable')+' where owner = "'+context.findProperty('AnchorOwner')+'"')
+			}</script></con:config></con:testStep><con:testStep type="request" name="ChangeAnchorStoreTypeToKeyStore"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>addSetting</con:operation><con:request name="ChangeAnchorStoreTypeToKeyStore"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:addSetting>
+         <name>AnchorStoreType</name>
+         <value>Keystore</value>
+      </con:addSetting>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="SetAnchorStoreLocation"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>addSetting</con:operation><con:request name="SetAnchorStoreLocation"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:addSetting>
+         <name>AnchorKeyStoreFile</name>
+         <value>${#Project#AnchorKeyStoreFileLocation}</value>
+      </con:addSetting>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="SetAnchorStorePassword"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ConfigurationServiceImplPortBinding</con:interface><con:operation>addSetting</con:operation><con:request name="SetAnchorStorePassword"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://nhind.org/config">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:addSetting>
+         <name>AnchorStorePassword</name>
+         <value>${#Project#AnchorStorePassword}</value>
+      </con:addSetting>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="manualTestStep" name="Send and Email to Direct"><con:description>1. Go to the web site http://sitenv.org/web/site/home
+2. Click on View Details button under Transport Sandbox section
+3. Click on Direct Transport Test Tool
+4. Enter your Direct email address in the Enter Your Endpoint Name text box
+5. Click on Pick Sample button and select a sample C-CDA file
+6. Click on Send message button</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Wait till the email is received and displayed in the inbox.
+Check for 4 rows in the event table.</con:expectedResult></con:config></con:testStep><con:testStep type="groovy" name="Count Event Table Rows"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
+	assert 4 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_DIRECT"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_DIRECT"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_MDN_PROCESSED"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_OUTBOUND_MDN_PROCESSED"')[0]
+}</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2014-12-13T03:04:54Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2014-12-13T03:14:54Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>12/13/2014 03:04:54</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-01-12T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:properties/></con:testSuite><con:properties><con:property><con:name>AnchorKeyStoreFileLocation</con:name><con:value>C://glassfish3//glassfish//domains//domain1//config</con:value></con:property><con:property><con:name>AnchorOwner</con:name><con:value>direct.connectopensource.org</con:value></con:property><con:property><con:name>AnchorStorePassword</con:name><con:value>changeit</con:value></con:property><con:property><con:name>AnchorTable</con:name><con:value>Anchor</con:value></con:property><con:property><con:name>ConfigDB</con:name><con:value>configdb</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DomainID</con:name><con:value>1</con:value></con:property><con:property><con:name>EventDB</con:name><con:value>eventdb</con:value></con:property><con:property><con:name>EventTable</con:name><con:value>event</con:value></con:property><con:property><con:name>IncomingTraffic</con:name><con:value>0</con:value></con:property><con:property><con:name>OutgoingTraffic</con:name><con:value>0</con:value></con:property><con:property><con:name>TrustBundleID</con:name><con:value>4</con:value></con:property><con:property><con:name>password</con:name><con:value/></con:property></con:properties><con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
+def propertiesFile = new File(propertiesFilename)
+if (propertiesFile.exists()) {
+	def props = new Properties()
+	props.load(new FileInputStream(propertiesFile))
+	props.each { key, value ->
+	    project.setPropertyValue(key, value)
+	}
+}
+
+TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
+def testRunListener = [
+afterRun: { testRunner, runContext -> },
+afterStep: { testRunner, runContext, result -> },
+beforeStep: { testRunner, runContext -> },
+beforeStep: { testRunner, runContext, testStep -> },
+beforeRun: { testRunner, runContext -> 
+use (org.codehaus.groovy.runtime.TimeCategory) {
+def startDate = 5.minutes.ago
+def endDate = 5.minutes.from.now
+def expireDate = 30.days.from.now
+
+def df = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+def dfSig = "MM/dd/yyyy' 'HH:mm:ss"
+
+runContext.testCase.setPropertyValue("startDate", startDate.format(df))
+runContext.testCase.setPropertyValue("endDate", endDate.format(df))
+runContext.testCase.setPropertyValue("sigDate", startDate.format(dfSig))
+runContext.testCase.setPropertyValue("expireDate", expireDate.format(df))
+}
+}   
+] as com.eviware.soapui.model.testsuite.TestRunListener
+
+project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListener)
+
+
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+return delegate.getProperty(propertyName) ?:
+delegate.testCase.getPropertyValue(propertyName) ?:
+delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
+delegate.testCase.testSuite.project.getPropertyValue(propertyName)
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
+def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
+def host = delegate.findProperty('DBHost')
+def port = delegate.findProperty('DBPort')
+def user = delegate.findProperty('DBUser')
+def pass = delegate.findProperty('DBPass')
+
+def connectString = "jdbc:mysql://${host}:${port}/${dbName}"
+def sql = groovy.sql.Sql.newInstance(connectString, user, pass, "com.mysql.jdbc.Driver");
+try {
+block(sql)
+} finally {
+sql.close()
+}
+}
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Properties;
+
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.sendEmailStarttls = { message,subject,fromAddress, toAddress, host, port, username, password  ->
+  def vMessage = delegate.findProperty("message");
+  def vSubject = delegate.findProperty("subject");
+  def vFromAddress = delegate.findProperty("fromAddress");
+  def vToAddress = delegate.findProperty("toAddress");
+  def vHost = delegate.findProperty("host");
+  def vPort = delegate.findProperty("port");
+  
+  log.info "Inside sendEmail method";
+
+  Properties mprops = new Properties();
+  mprops.put( "mail.smtp.host", host);
+  mprops.put("mail.smtp.starttls.enable", "true");
+  mprops.put("mail.smtp.auth", "true");
+  mprops.put("mail.debug", "true");
+  mprops.put("mail.store.protocol", "pop3");
+  mprops.put("mail.transport.protocol", "smtps");
+
+log.info "Inside sendEmail method 123333";
+	Session session = Session.getInstance( mprops, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+          }
+        });
+        log.info "Inside sendEmail method 123433333 step4";
+			Message msg = new MimeMessage( session );
+			msg.setFrom( new InternetAddress( context.expand( fromAddress ) ) );
+			msg.setRecipients( Message.RecipientType.TO, InternetAddress.parse( context.expand( toAddress ), false ) );
+			msg.setSubject(context.expand( subject ) );
+			msg.setText( context.expand( message ) );
+			msg.setHeader( "X-Mailer", "soapUI EMail TestStep" );
+			msg.setHeader( "Disposition-Notification-Options", "X-DIRECT-FINAL-DESTINATION-DELIVERY: optional, true" );
+			msg.setSentDate( new Date() );
+
+			Transport.send( msg );
+			//result.setStatus( TestStepStatus.OK );
+
+  return true;
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.sendEmailSmtp = { message,subject,fromAddress, toAddress, host, port, username, password  ->
+  def vMessage = delegate.findProperty("message");
+  def vSubject = delegate.findProperty("subject");
+  def vFromAddress = delegate.findProperty("fromAddress");
+  def vToAddress = delegate.findProperty("toAddress");
+  def vHost = delegate.findProperty("host");
+  def vPort = delegate.findProperty("port");
+  
+  log.info "Inside sendEmail method";
+
+  Properties mprops = new Properties();
+  mprops.setProperty("mail.transport.protocol","smtp");
+  mprops.setProperty("mail.host",host);
+  mprops.put("mail.smtp.auth", "true");
+  mprops.put("mail.debug", "true");
+
+log.info "Inside sendEmail method 123333";
+	Session session = Session.getInstance( mprops, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+          }
+        });
+        log.info "Inside sendEmail method 123433333 step4";
+			Message msg = new MimeMessage( session ){
+				
+				  protected void updateMessageID() throws MessagingException {
+	                     setHeader("Message-ID", "Naresh1233232");
+                      }
+				};
+
+			
+			msg.setFrom( new InternetAddress( context.expand( fromAddress ) ) );
+			msg.setRecipients( Message.RecipientType.TO, InternetAddress.parse( context.expand( toAddress ), false ) );
+			msg.setSubject(context.expand( subject ) );
+			msg.setText( context.expand( message ) );
+			msg.setHeader( "X-Mailer", "soapUI EMail TestStep" );
+			msg.setHeader("message-id", "naresh1234567");
+			msg.setHeader( "Disposition-Notification-Options", "X-DIRECT-FINAL-DESTINATION-DELIVERY: optional, true" );
+			msg.setSentDate( new Date() );
+
+			Transport.send( msg );
+			//result.setStatus( TestStepStatus.OK );
+
+  return true;
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.sendEmailSmtps = { message,subject,fromAddress, toAddress, host, port, username, password  ->
+  def vMessage = delegate.findProperty("message");
+  def vSubject = delegate.findProperty("subject");
+  def vFromAddress = delegate.findProperty("fromAddress");
+  def vToAddress = delegate.findProperty("toAddress");
+  def vHost = delegate.findProperty("host");
+  def vPort = delegate.findProperty("port");
+  
+  log.info "Inside sendEmail method";
+
+  Properties mprops = new Properties();
+    //mprops.put("mail.smtp.protocol", "smtp");
+    //mprops.put("mail.smtp.starttls.enable", "true");
+    mprops.put("mail.smtp.host", host);
+    mprops.put("mail.smtp.port", "587");
+    mprops.put("mail.smtp.starttls.enable","false");
+    mprops.put("mail.smtp.auth", "true");
+    //mprops.put("mail.smtp.socketFactory.port", "587");
+    //mprops.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+    //mprops.put("mail.smtp.socketFactory.fallback", "false");
+
+log.info "Inside sendEmail method 123333";
+	Session session = Session.getInstance( mprops, new javax.mail.Authenticator() {
+           protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+          }
+        });
+        log.info "Inside sendEmail method 123433333 step4";
+			Message msg = new MimeMessage( session );
+			msg.setFrom( new InternetAddress( context.expand( fromAddress ) ) );
+			msg.setRecipients( Message.RecipientType.TO, InternetAddress.parse( context.expand( toAddress ), false ) );
+			msg.setSubject(context.expand( subject ) );
+			msg.setText( context.expand( message ) );
+			msg.setHeader( "X-Mailer", "soapUI EMail TestStep" );
+			msg.setHeader( "Disposition-Notification-Options", "X-DIRECT-FINAL-DESTINATION-DELIVERY: optional, true" );
+			msg.setSentDate( new Date() );
+
+			Transport.send( msg );
+			//result.setStatus( TestStepStatus.OK );
+
+  return true;
+}</con:afterLoadScript><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>
