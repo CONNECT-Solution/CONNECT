@@ -182,6 +182,24 @@ body {
 	height:100%;
 	background:#00b0f0;
 }
+.sidebar .ui-panelmenu-panel.sidebar-red li.active a:after {
+	content:"";
+	position:absolute;
+	top:0;
+	left:0;
+	width:7px;
+	height:100%;
+	background:#dd0000;
+}
+.sidebar .ui-panelmenu-panel.sidebar-green li.active a:after {
+	content:"";
+	position:absolute;
+	top:0;
+	left:0;
+	width:7px;
+	height:100%;
+	background:#00dd00;
+}
 
 
 
@@ -340,6 +358,28 @@ body {
 }
 .ui-tabs.tabs-override.tabs-ovr-blue .ui-tabs-nav li.ui-state-hover a {
 	background:#00b0f0;
+	color:#ffffff;
+}
+.ui-tabs.tabs-override.tabs-ovr-red .ui-tabs-nav {
+	border-bottom:5px solid #dd0000;
+}
+.ui-tabs.tabs-override.tabs-ovr-red .ui-tabs-nav li.ui-tabs-selected {
+	background:#dd0000;
+	color:#ffffff;
+}
+.ui-tabs.tabs-override.tabs-ovr-red .ui-tabs-nav li.ui-state-hover a {
+	background:#dd0000;
+	color:#ffffff;
+}
+.ui-tabs.tabs-override.tabs-ovr-green .ui-tabs-nav {
+	border-bottom:5px solid #00dd00;
+}
+.ui-tabs.tabs-override.tabs-ovr-green .ui-tabs-nav li.ui-tabs-selected {
+	background:#00dd00;
+	color:#ffffff;
+}
+.ui-tabs.tabs-override.tabs-ovr-green .ui-tabs-nav li.ui-state-hover a {
+	background:#00dd00;
 	color:#ffffff;
 }
 
@@ -557,6 +597,57 @@ body {
 	border-top:1px solid #ddd;
 	border-bottom:1px solid #ddd;
 	border-right:none;
+}
+
+
+/* -- CONNECTION MANAGER -- */
+div[id*="cmOrgForm"].ui-selectonemenu .ui-selectonemenu-trigger {
+	box-sizing:content-box;
+}
+div[id*="cmOrgForm"].ui-selectonemenu .ui-selectonemenu-trigger .ui-icon {
+	margin-top: 8px;
+}
+div[id*="cmOrgForm"].ui-widget-content.ui-panel {
+	padding:0px;
+	border:none;
+}
+div[id*="cmOrgForm"].ui-panel .ui-panel-content {
+	margin-bottom:20px;
+	background:#eeeeee;
+}
+div[id*="cmOrgForm"].ui-panel .ui-panel-content table td p {
+	margin:0px;
+}
+div[id*="cmOrgForm"] table.ui-panelgrid-domain {
+	border:none;
+}
+.main-content .table-orgs {
+	padding:0px;
+}
+.main-content .table-orgs .ui-widget-header {
+	background:none;
+}
+.ui-datatable-scrollable-body {
+	overflow-y:auto;
+	overflow-x:hidden;
+}
+.main-content .table-orgs thead th, .main-content .table-orgs tbody td {
+	width:auto !important;
+}
+.main-content .table-orgs thead th:first-child+th+th, .main-content .table-orgs tbody td:first-child+td+td {
+	width:40% !important;
+}
+.main-content .table-orgs tbody td span[style*="green"], .main-content .table-orgs tbody td span[style*="red"] {
+	font-weight:bold;font-size:17px;
+}
+.main-content .table-orgs tbody td span[style*="green"]:before, .main-content .table-orgs tbody td span[style*="red"]:before {
+	margin-right:3px;vertical-align:top;font-family:'Glyphicons Halflings';
+}
+.main-content .table-orgs tbody td span[style*="green"]:before {
+	content:"\e084";
+}
+.main-content .table-orgs tbody td span[style*="red"]:before {
+	content:"\e083";
 }
 
 
