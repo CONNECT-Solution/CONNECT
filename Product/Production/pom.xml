@@ -26,11 +26,13 @@
     </modules>
 
     <dependencies>
+        <!-- Java EE API -->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
-            <scope>provided</scope>
         </dependency>
+
+        <!-- Logging -->
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
@@ -39,39 +41,37 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
         </dependency>
+
+        <!-- Guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
         </dependency>
+
+        <!-- Testing -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jmock</groupId>
             <artifactId>jmock</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jmock</groupId>
             <artifactId>jmock-legacy</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jmock</groupId>
             <artifactId>jmock-junit4</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>net.sourceforge.saxon</groupId>
             <artifactId>saxonhe</artifactId>
-            <version>9.2.1.5</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -85,8 +85,7 @@
                 <executions>
                     <execution>
                         <id>unpack-gateway-properties</id>
-                        <!-- Using the initialize phase because it is before
-                            the generate sources phase -->
+                        <!-- Using the initialize phase because it is before the generate sources phase -->
                         <phase>initialize</phase>
                         <goals>
                             <goal>unpack</goal>
@@ -95,7 +94,7 @@
                             <skip>${skip.unpack}</skip>
                             <artifactItems>
                                 <artifactItem>
-                                    <!-- Artifact that Holds our custom templates -->
+                                    <!-- Artifact that holds our custom templates -->
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>Properties</artifactId>
                                     <version>${project.parent.version}</version>
@@ -135,12 +134,12 @@
                     <systemProperties>
                         <property>
                             <name>com.sun.aas.instanceRoot</name>
-                            <!-- <value>${project.baseUri}/test-classes/</value> -->
+                            <!--value>${project.baseUri}/test-classes/</value-->
                             <value>${project.build.testOutputDirectory}</value>
                         </property>
                         <property>
                             <name>nhinc.properties.dir</name>
-                            <!-- <value>${project.baseUri}/test-classes/</value> -->
+                            <!--value>${project.baseUri}/test-classes/</value-->
                             <value>${project.build.testOutputDirectory}</value>
                         </property>
                     </systemProperties>
@@ -181,8 +180,8 @@
 
         <pluginManagement>
             <plugins>
-                <!--This plugin's configuration is used to store Eclipse
-                    m2e settings only. It has no influence on the Maven build itself. -->
+                <!-- This plugin's configuration is only used to store Eclipse
+                     m2e settings; it has no influence on the Maven build itself -->
                 <plugin>
                     <groupId>org.eclipse.m2e</groupId>
                     <artifactId>lifecycle-mapping</artifactId>
@@ -192,15 +191,9 @@
                             <pluginExecutions>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>
-                                            org.apache.maven.plugins
-                                        </groupId>
-                                        <artifactId>
-                                            maven-dependency-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [2.5.1,)
-                                        </versionRange>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-dependency-plugin</artifactId>
+                                        <versionRange>[2.5.1,)</versionRange>
                                         <goals>
                                             <goal>unpack</goal>
                                         </goals>
@@ -212,12 +205,8 @@
                                 <pluginExecution>
                                     <pluginExecutionFilter>
                                         <groupId>org.apache.cxf</groupId>
-                                        <artifactId>
-                                            cxf-codegen-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [2.6.0,)
-                                        </versionRange>
+                                        <artifactId>cxf-codegen-plugin</artifactId>
+                                        <versionRange>[2.6.0,)</versionRange>
                                         <goals>
                                             <goal>wsdl2java</goal>
                                         </goals>

@@ -15,6 +15,7 @@
     <description>Document Query - Dependencies</description>
 
     <dependencies>
+        <!-- CONNECT WARs -->
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DocumentQuery_20</artifactId>

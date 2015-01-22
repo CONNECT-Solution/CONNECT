@@ -15,6 +15,7 @@
     <description>Retrieve Document  - Dependencies</description>
 
     <dependencies>
+        <!-- CONNECT WARs -->
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DocumentRetrieve_20</artifactId>

@@ -14,11 +14,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <dependencies>
+        <!-- CONNECT Modules / Web Services -->
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DocumentSubmissionCore</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+
+        <!-- Testing -->
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DocumentSubmissionCore</artifactId>

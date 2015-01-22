@@ -13,10 +13,6 @@
     <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
 
-    <properties>
-        <openam.version>10.0.1</openam.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.connectopensource</groupId>
@@ -33,32 +29,31 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>org.opensaml</groupId>
-            <artifactId>opensaml</artifactId>
-            <version>2.5.1-1</version>
-        </dependency>
+
+        <!-- Spring Framework -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-expression</artifactId>
-            <version>3.0.7.RELEASE</version>
+        </dependency>
+
+        <!-- Security -->
+        <dependency>
+            <groupId>org.opensaml</groupId>
+            <artifactId>opensaml</artifactId>
         </dependency>
         <dependency>
             <groupId>org.forgerock.openam</groupId>
             <artifactId>clientsdk</artifactId>
-            <version>${openam.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.forgerock.openam</groupId>
             <artifactId>fedlib</artifactId>
-            <version>${openam.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.identity</groupId>
             <artifactId>opensso</artifactId>
-            <version>1.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

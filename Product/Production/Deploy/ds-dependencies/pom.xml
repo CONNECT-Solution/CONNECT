@@ -15,6 +15,7 @@
     <description>Document Submission - Dependencies</description>
 
     <dependencies>
+        <!-- CONNECT WARs -->
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DocumentSubmission_11</artifactId>
