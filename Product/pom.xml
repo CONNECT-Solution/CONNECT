@@ -13,8 +13,8 @@
     <properties>
         <checkstyle.skip>false</checkstyle.skip>
         <cxf.version>2.7.3</cxf.version>
-        <connect.webservices.version>4.1.0-SNAPSHOT</connect.webservices.version>
-        <connect.commontypes.version>4.1.1-SNAPSHOT</connect.commontypes.version>
+        <connect.webservices.version>4.1.0</connect.webservices.version>
+        <connect.commontypes.version>4.1.1</connect.commontypes.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <connect.common.properties>Dev</connect.common.properties>
         <skip.cobertura>false</skip.cobertura>
