@@ -7,16 +7,17 @@
         <version>7</version>
     </parent>
     <groupId>org.connectopensource</groupId>
-    <version>4.1.2-SNAPSHOT</version>
+    <version>4.1.0A</version>
     <artifactId>CONNECTCommonTypesLib</artifactId>
     <packaging>jar</packaging>
     <name>CONNECT common types</name>
+
 
     <scm>
         <connection>scm:git:git@github.com:${git.username}/Common-Types.git</connection>
         <developerConnection>scm:git:git@github.com:${git.username}/Common-Types.git</developerConnection>
         <url>https://github.com/${git.username}/Common-Types</url>
-        <tag>HEAD</tag>
+      <tag>4.1.0A</tag>
     </scm>
 
     <developers>
@@ -32,18 +33,7 @@
             <url>http://www.connectopensource.org/product/licensing</url>
         </license>
     </licenses>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
-
+    
     <dependencies>
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
@@ -63,13 +53,13 @@
         </resources>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
+             <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-release-plugin</artifactId>
+              <version>2.4</version>
+              <configuration>
                     <pushChanges>false</pushChanges>
-                </configuration>
-            </plugin>
+              </configuration>
+          </plugin>
             <plugin>
                 <groupId>org.jvnet.jaxb2.maven2</groupId>
                 <artifactId>maven-jaxb2-plugin</artifactId>
@@ -120,16 +110,8 @@
                     <testTarget>1.6</testTarget>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <!-- use baseVersion instead of unique timestamp version to support skinny WARS -->
-                    <outputFileNameMapping>@{artifactId}@-@{baseVersion}@.@{extension}@</outputFileNameMapping>
-                </configuration>
-            </plugin>
         </plugins>
-    </build>
+        </build>
     <pluginRepositories>
         <pluginRepository>
             <id>apache-snapshots</id>
