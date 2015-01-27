@@ -4,12 +4,12 @@
     <parent>
         <artifactId>Gateway</artifactId>
         <groupId>org.connectopensource</groupId>
-        <version>4.4.1-SNAPSHOT</version>
+        <version>4.4.1</version>
     </parent>
 
     <groupId>org.connectopensource</groupId>
     <artifactId>CORE_X12DocumentSubmission_10</artifactId>
-    <version>4.4.1-SNAPSHOT</version>
+    <version>4.4.1</version>
     <packaging>war</packaging>
 
     <name>CONNECT Gateway - ${project.artifactId}</name>
