@@ -225,6 +225,12 @@ div[id^="modal-"] .form-block {
 	font-size:16px;
 	font-weight:bold;
 }
+.main h2.header-no-text {
+	height:10px;
+	line-height:10px;
+	margin:0px;
+	padding:0px;
+}
 .main h3 {
 	margin:0px 0px 15px;
 }

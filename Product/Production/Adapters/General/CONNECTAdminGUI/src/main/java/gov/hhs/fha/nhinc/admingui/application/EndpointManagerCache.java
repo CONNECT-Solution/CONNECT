@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.admingui.application;
 
 import java.util.Collection;
@@ -36,53 +35,53 @@ import java.util.HashMap;
  * @author jassmit
  */
 public class EndpointManagerCache implements EndpointManager {
-    
-    private static final HashMap<String, EndpointCacheInfo> endpointCache = new HashMap<String,EndpointCacheInfo>();
-    
+
+    private static final HashMap<String, EndpointCacheInfo> endpointCache = new HashMap<String, EndpointCacheInfo>();
+
     private EndpointManagerCache() {
     }
-    
+
     public static EndpointManagerCache getInstance() {
         return EndpointManagerCacheHolder.INSTANCE;
     }
-    
+
     @Override
-    public void addOrUpdateEndPoint(String url, Date timestamp, boolean pingResult) {
+    public void addOrUpdateEndpoint(String url, Date timestamp, boolean pingResult) {
         endpointCache.put(url, new EndpointCacheInfo(url, timestamp, pingResult));
     }
-    
+
     @Override
     public EndpointCacheInfo getEndpointInfo(String url) {
         return endpointCache.get(url);
     }
-    
+
     @Override
-    public void loadCache(Collection<EndpointCacheInfo> endpoints){
-        for(EndpointCacheInfo endpoint : endpoints) {
+    public void loadCache(Collection<EndpointCacheInfo> endpoints) {
+        for (EndpointCacheInfo endpoint : endpoints) {
             endpointCache.put(endpoint.getUrl(), endpoint);
         }
     }
-    
+
     @Override
-    public Collection getAllCache(){
+    public Collection getAllCache() {
         return endpointCache.values();
     }
-    
+
     private static class EndpointManagerCacheHolder {
 
         private static final EndpointManagerCache INSTANCE = new EndpointManagerCache();
     }
-    
+
     public class EndpointCacheInfo {
-        
+
         private String url;
         private Date timestamp;
-        private boolean pingResult;
+        private boolean successfulPing;
 
-        public EndpointCacheInfo(String url, Date timestamp, boolean pingResult) {
+        public EndpointCacheInfo(String url, Date timestamp, boolean successfulPing) {
             this.url = url;
             this.timestamp = timestamp;
-            this.pingResult = pingResult;
+            this.successfulPing = successfulPing;
         }
 
         public String getUrl() {
@@ -101,13 +100,13 @@ public class EndpointManagerCache implements EndpointManager {
             this.timestamp = timestamp;
         }
 
-        public boolean isPingResult() {
-            return pingResult;
+        public boolean isSuccessfulPing() {
+            return successfulPing;
         }
 
-        public void setPingResult(boolean pingResult) {
-            this.pingResult = pingResult;
+        public void setSuccessfulPing(boolean successfulPing) {
+            this.successfulPing = successfulPing;
         }
-     
+
     }
 }

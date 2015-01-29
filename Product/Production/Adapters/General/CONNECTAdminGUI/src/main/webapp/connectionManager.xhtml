@@ -39,107 +39,121 @@
         <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
             <ui:define name="metatag"></ui:define>
             <ui:define name="content">
-                <h:form id="cmOrgForm">
-                    <h1 class="section-header">Connection Manager</h1>
+                <h1 class="section-header">Connection Manager</h1>
+                
+                <!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
+                <p:tabView id="tabview" effect="fade" effectDuration="normal" dynamic="true" activeIndex="0" styleClass="tabs-override tabs-ovr-red">
+                    <!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
+                    <div class="tab-content" id="tab-content">
+                        <!-- BEGIN: TAB PANE - EXTERNAL CONNECTIONS -->
+                        <p:tab title="External Connections"  closable="false">
+                            <div class="tab-pane active" id="external">
+                                <div class="content-block">
+                                    <h2 class="subsection-header header-no-text"></h2>
 
+                                    <div class="content">
+                                        <p>Select an Organization from the menu below to view its details and External Connections.</p>
 
-
-                    <p:panel id="orgPanel" widgetVar="orgPanel" style="width: 100%; margin: 0 auto;">
-                        <p:panelGrid styleClass="ui-panelgrid-domain">
-                            <p:row><p:column><p><b>Organizations</b></p></p:column>
-
-                                <p:column>
-                                    <p:selectOneMenu id="selectOrg" filter="true" filterMatchMode="startsWith" value="#{connectionManagerBean.selectedEntityName}"
-                                                     effect="fade">
-                                        <p:ajax event="change" update="entityNameValue, entityHcidValue, entityDescValue, entityContactValue, entityRegionValue, endpointTable" />
-                                        <f:selectItems value="#{connectionManagerBean.entityNames}" var="name" itemLabel="#{name}" itemValue="#{name}" />
-                                    </p:selectOneMenu>
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column>
-                                    <p:outputLabel for="entityNameValue" value="Name: " />
-                                </p:column>
-                                <p:column>
-                                    <h:outputText id="entityNameValue" value="#{connectionManagerBean.selectedEntityName}" />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel for="entityHcidValue" value="HCID: " />
-                                </p:column>
-                                <p:column>
-                                    <h:outputText id="entityHcidValue" value="#{connectionManagerBean.selectedEntityHcid}" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column>
-                                    <p:outputLabel for="entityDescValue" value="Description: " />
-                                </p:column>
-                                <p:column>
-                                    <h:outputText id="entityDescValue" value="#{connectionManagerBean.selectedEntityDescription}" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column>
-                                    <p:outputLabel for="entityContactValue" value="Contact: " />
-                                </p:column>
-                                <p:column>
-                                    <h:outputText id="entityContactValue" value="#{connectionManagerBean.selectedEntityContact}" />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel for="entityRegionValue" value="Regions: " />
-                                </p:column>
-                                <p:column>
-                                    <h:outputText id="entityRegionValue" value="#{connectionManagerBean.selectedEntityRegions}" />
-                                </p:column>
-                            </p:row>
-                        </p:panelGrid>
-                    </p:panel>
-
-                    <div class="table-responsive">
-                        <p:dataTable id="endpointTable" widgetVar="endpointTable" scrollable="true" scrollHeight="300" var="endpoint" 
-                                     value="#{connectionManagerBean.endpoints}" selection="#{connectionManagerBean.selectedEndpoint}" rowKey="#{endpoint.serviceUrl}" styleClass="table table-striped table-domains">
-                            <p:column selectionMode="single"/>
-                            <p:column headerText="Service Name">
-                                <h:outputText value="#{endpoint.name}" />
-                            </p:column>
-                            <p:column headerText="URL">
-                                <h:outputText value="#{endpoint.serviceUrl}" />
-                            </p:column>
-                            <p:column headerText="Version">
-                                <h:outputText value="#{endpoint.serviceSpec}" />
-                            </p:column>
-                            <p:column headerText="Ping Status">
-                                <h:outputText rendered="#{endpoint.pingStatus == 'Pass'}" value="PASS" style="color: green" />
-                                <h:outputText rendered="#{endpoint.pingStatus == 'Fail'}" value="FAIL" style="color: red" />
-                                <h:outputText rendered="#{endpoint.pingStatus == 'None'}" value="--" />
-                            </p:column>
-                            <p:column headerText="Last Ping">
-                                <h:outputText value="#{endpoint.pingTimestamp}" />
-                            </p:column>
-
-                        </p:dataTable>
+                                       <div class="form-block center-block" style="padding:0px;">
+                                            <h:form class="form-horizontal" role="form" id="cmOrgForm">
+                                                <p:panel id="orgPanel" widgetVar="orgPanel" style="width: 100%; margin: 0 auto;">
+                                                    <p:panelGrid styleClass="ui-panelgrid-domain">
+                                                        <p:row>
+                                                            <p:column><p><b>Organizations:</b></p></p:column>
+                                                            <p:column>
+                                                                <p:selectOneMenu id="selectOrg" filter="true" filterMatchMode="startsWith" value="#{connectionManagerBean.selectedEntityName}" effect="fade">
+                                                                    <p:ajax event="change" update="entityNameValue, entityHcidValue, entityDescValue, entityContactValue, entityRegionValue, endpointTable" />
+                                                                    <f:selectItems value="#{connectionManagerBean.entityNames}" var="name" itemLabel="#{name}" itemValue="#{name}" />
+                                                                </p:selectOneMenu>
+                                                            </p:column>
+                                                        </p:row>
+                                                        <p:row>
+                                                            <p:column>
+                                                                <p:outputLabel for="entityNameValue" value="Name: " />
+                                                            </p:column>
+                                                            <p:column>
+                                                                <h:outputText id="entityNameValue" value="#{connectionManagerBean.selectedEntityName}" />
+                                                            </p:column>
+                                                            <p:column>
+                                                                <p:outputLabel for="entityHcidValue" value="HCID: " />
+                                                            </p:column>
+                                                            <p:column>
+                                                                <h:outputText id="entityHcidValue" value="#{connectionManagerBean.selectedEntityHcid}" />
+                                                            </p:column>
+                                                        </p:row>
+                                                        <p:row>
+                                                            <p:column>
+                                                                <p:outputLabel for="entityDescValue" value="Description: " />
+                                                            </p:column>
+                                                            <p:column>
+                                                                <h:outputText id="entityDescValue" value="#{connectionManagerBean.selectedEntityDescription}" />
+                                                            </p:column>
+                                                        </p:row>
+                                                        <p:row>
+                                                            <p:column>
+                                                                <p:outputLabel for="entityContactValue" value="Contact: " />
+                                                            </p:column>
+                                                            <p:column>
+                                                                <h:outputText id="entityContactValue" value="#{connectionManagerBean.selectedEntityContact}" />
+                                                            </p:column>
+                                                            <p:column>
+                                                                <p:outputLabel for="entityRegionValue" value="Regions: " />
+                                                            </p:column>
+                                                            <p:column>
+                                                                <h:outputText id="entityRegionValue" value="#{connectionManagerBean.selectedEntityRegions}" />
+                                                            </p:column>
+                                                        </p:row>
+                                                    </p:panelGrid>
+                                                </p:panel>
+                            
+                                                <div class="table-responsive table-orgs">
+                                                    <p:dataTable id="endpointTable" widgetVar="endpointTable" scrollable="true" scrollHeight="300" var="endpoint" value="#{connectionManagerBean.endpoints}" selection="#{connectionManagerBean.selectedEndpoint}" rowKey="#{endpoint.serviceUrl}" styleClass="table table-striped table-domains">
+                                                        <p:column selectionMode="single" />
+                                                        <p:column headerText="Service Name">
+                                                            <h:outputText value="#{endpoint.name}" />
+                                                        </p:column>
+                                                        <p:column headerText="URL">
+                                                            <h:outputText value="#{endpoint.serviceUrl}" />
+                                                        </p:column>
+                                                        <p:column headerText="Version">
+                                                            <h:outputText value="#{endpoint.serviceSpec}" />
+                                                        </p:column>
+                                                        <p:column headerText="Ping Status">
+                                                            <h:outputText rendered="#{endpoint.pingStatus == 'Pass'}" value="PASS" style="color: green" />
+                                                            <h:outputText rendered="#{endpoint.pingStatus == 'Fail'}" value="FAIL" style="color: red" />
+                                                            <h:outputText rendered="#{endpoint.pingStatus == 'None'}" value="--" />
+                                                        </p:column>
+                                                        <p:column headerText="Last Ping">
+                                                            <h:outputText value="#{endpoint.pingTimestamp}" />
+                                                        </p:column>
+                                                    </p:dataTable>
+                                                </div>
+                           
+                                                <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
+                                                    <p:row>
+                                                        <p:column>
+                                                            <p:commandButton id="refresh-command" value="Refresh Connections" action="#{connectionManagerBean.refreshConnections()}" update="entityNameValue, entityHcidValue, entityDescValue, entityContactValue, entityRegionValue, endpointTable" styleClass="edit-button" icon="ui-icon-refresh" />
+                                                        </p:column>
+                                                        <p:column styleClass="ui-button-rightmost">
+                                                            <p:commandButton id="ping-command" value="Ping Service" action="#{connectionManagerBean.ping()}" update=":tabview:cmOrgForm:endpointTable" styleClass="add-button pull-right" icon="ui-icon-search" />
+                                                        </p:column>
+                                                    </p:row>
+                                                </p:panelGrid>
+                                                
+                                                <p:blockUI trigger="ping-command" block="orgPanel">
+                                                    LOADING...<br/>
+                                                    <p:graphicImage library="images" name="loading-bar-gif.gif" />
+                                                </p:blockUI>
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p:tab>
+                        <!-- END: TAB PANE - EXTERNAL CONNECTIONS -->
+                        
                     </div>
-
-                    <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
-                        <p:row>
-                            <p:column>
-                                <p:commandButton id="ping-command" value="Ping Service" action="#{connectionManagerBean.ping()}" update=":cmOrgForm:endpointTable" styleClass="add-button" icon="ui-icon-search" />
-                            </p:column>
-                            <p:column>
-                                <p:commandButton id="refresh-command" value="Refresh Connections" action="#{connectionManagerBean.refreshConnections()}" 
-                                                 update="entityNameValue, entityHcidValue, entityDescValue, entityContactValue, entityRegionValue, endpointTable" styleClass="edit-button pull-right" icon="ui-icon-refresh" />
-                            </p:column>
-                        </p:row>
-                    </p:panelGrid>
-                    
-                    <p:blockUI trigger="ping-command" block="endpointTable">
-                            LOADING...<br/>
-                            <p:graphicImage library="images" name="loading-bar-gif.gif" />
-                        </p:blockUI>
-
-                </h:form>
-
-
+                </p:tabView>            
             </ui:define>
         </ui:composition>
     </h:body>

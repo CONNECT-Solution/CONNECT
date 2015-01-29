@@ -59,10 +59,6 @@
             <artifactId>commons-io</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DirectWebservices</artifactId>
         </dependency>

@@ -25,23 +25,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package gov.hhs.fha.nhinc.admingui.application;
-
-import java.util.Collection;
-import java.util.Date;
+package gov.hhs.fha.nhinc.admingui.services;
 
 /**
  *
  * @author jassmit
  */
-public interface EndpointManager {
+public interface PingService {
     
-    public void addOrUpdateEndpoint(String url, Date timestamp, boolean pingResult);
     
-    public EndpointManagerCache.EndpointCacheInfo getEndpointInfo(String url);
-    
-    public void loadCache(Collection<EndpointManagerCache.EndpointCacheInfo> endpoints);
-    
-    public Collection getAllCache();
-    
+    public boolean ping(String url);
 }
