@@ -20,10 +20,9 @@
  */
 package gov.hhs.fha.nhinc.admingui.model.direct;
 
+import gov.hhs.fha.nhinc.direct.config.Certificate;
+import gov.hhs.fha.nhinc.direct.config.EntityStatus;
 import java.text.SimpleDateFormat;
-
-import org.nhind.config.Certificate;
-import org.nhind.config.EntityStatus;
 
 /**
  *
@@ -62,7 +61,7 @@ public class DirectCertificate {
 
         status = cert.getStatus();
         privateKey = cert.isPrivateKey();
-        
+
         owner = cert.getOwner();
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");

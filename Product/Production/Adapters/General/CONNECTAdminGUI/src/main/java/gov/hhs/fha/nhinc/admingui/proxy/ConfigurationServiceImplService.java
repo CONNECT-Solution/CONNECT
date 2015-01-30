@@ -81,25 +81,25 @@ public class ConfigurationServiceImplService
     }
 
     /**
-     * 
+     *
      * @return
      *     returns ConfigurationService
      */
     @WebEndpoint(name = "ConfigurationServiceImplPort")
-    public org.nhind.config.ConfigurationService getConfigurationServiceImplPort() {
-        return super.getPort(new QName("http://nhind.org/config", "ConfigurationServiceImplPort"), org.nhind.config.ConfigurationService.class);
+    public gov.hhs.fha.nhinc.direct.config.ConfigurationService getConfigurationServiceImplPort() {
+        return super.getPort(new QName("http://nhind.org/config", "ConfigurationServiceImplPort"), gov.hhs.fha.nhinc.direct.config.ConfigurationService.class);
     }
 
     /**
-     * 
+     *
      * @param features
      *     A list of {@link javax.xml.ws.WebServiceFeature} to configure on the proxy.  Supported features not in the <code>features</code> parameter will have their default values.
      * @return
      *     returns ConfigurationService
      */
     @WebEndpoint(name = "ConfigurationServiceImplPort")
-    public org.nhind.config.ConfigurationService getConfigurationServiceImplPort(WebServiceFeature... features) {
-        return super.getPort(new QName("http://nhind.org/config", "ConfigurationServiceImplPort"), org.nhind.config.ConfigurationService.class, features);
+    public gov.hhs.fha.nhinc.direct.config.ConfigurationService getConfigurationServiceImplPort(WebServiceFeature... features) {
+        return super.getPort(new QName("http://nhind.org/config", "ConfigurationServiceImplPort"), gov.hhs.fha.nhinc.direct.config.ConfigurationService.class, features);
     }
 
     private static URL __getWsdlLocation() {

@@ -28,29 +28,27 @@ package gov.hhs.fha.nhinc.admingui.proxy;
 
 import gov.hhs.fha.nhinc.admingui.proxy.service.DirectConfigUnsecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.admingui.services.exception.DomainException;
+import gov.hhs.fha.nhinc.direct.config.AddAnchor;
+import gov.hhs.fha.nhinc.direct.config.AddCertificates;
+import gov.hhs.fha.nhinc.direct.config.AddDomain;
+import gov.hhs.fha.nhinc.direct.config.Anchor;
+import gov.hhs.fha.nhinc.direct.config.Certificate;
+import gov.hhs.fha.nhinc.direct.config.ConfigurationService;
+import gov.hhs.fha.nhinc.direct.config.Domain;
+import gov.hhs.fha.nhinc.direct.config.GetAnchorsForOwner;
+import gov.hhs.fha.nhinc.direct.config.ListCertificates;
+import gov.hhs.fha.nhinc.direct.config.RemoveAnchors;
+import gov.hhs.fha.nhinc.direct.config.RemoveCertificates;
+import gov.hhs.fha.nhinc.direct.config.Setting;
+import gov.hhs.fha.nhinc.direct.config.TrustBundle;
+import gov.hhs.fha.nhinc.direct.config.TrustBundleDomainReltn;
+import gov.hhs.fha.nhinc.direct.config.UpdateDomain;
+import gov.hhs.fha.nhinc.direct.config.UpdateDomainResponse;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
 import java.util.List;
-import org.nhind.config.AddAnchor;
-import org.nhind.config.AddCertificates;
-import org.nhind.config.AddDomain;
-import org.nhind.config.Anchor;
-import org.nhind.config.Certificate;
-import org.nhind.config.ConfigurationService;
-import org.nhind.config.Domain;
-import org.nhind.config.GetAnchorsForOwner;
-import org.nhind.config.ListCertificates;
-import org.nhind.config.RemoveAnchors;
-import org.nhind.config.RemoveCertificates;
-import org.nhind.config.Setting;
-import org.nhind.config.TrustBundle;
-import org.nhind.config.TrustBundleDomainReltn;
-import org.nhind.config.UpdateDomain;
-import org.nhind.config.UpdateDomainResponse;
-import org.springframework.stereotype.Service;
 
 /**
  *
@@ -76,7 +74,7 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addDomain(org.nhind.config.AddDomain)
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addDomain(gov.hhs.fha.nhinc.direct.config.AddDomain)
      */
     @Override
     public void addDomain(AddDomain domain) throws DomainException {
@@ -101,7 +99,7 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#updateDomain(org.nhind.config.UpdateDomain)
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#updateDomain(gov.hhs.fha.nhinc.direct.config.UpdateDomain)
      */
     @Override
     public UpdateDomainResponse updateDomain(UpdateDomain updateDomain) throws DomainException {
@@ -126,7 +124,7 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addAnchor(org.nhind.config.AddAnchor)
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addAnchor(gov.hhs.fha.nhinc.direct.config.AddAnchor)
      */
     @Override
     public void addAnchor(AddAnchor addAnchor) throws Exception {
@@ -137,7 +135,7 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#removeAnchors(org.nhind.config.RemoveAnchors)
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#removeAnchors(gov.hhs.fha.nhinc.direct.config.RemoveAnchors)
      */
     @Override
     public void removeAnchors(RemoveAnchors removeAnchors) throws Exception {
@@ -148,7 +146,7 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#getAnchorsForOwner(org.nhind.config.GetAnchorsForOwner)
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#getAnchorsForOwner(gov.hhs.fha.nhinc.direct.config.GetAnchorsForOwner)
      */
     @Override
     public List<Anchor> getAnchorsForOwner(GetAnchorsForOwner getAnchorsForOwner) throws Exception {
@@ -160,7 +158,7 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addCertificates(org.nhind.config.AddCertificates)
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addCertificates(gov.hhs.fha.nhinc.direct.config.AddCertificates)
      */
     @Override
     public void addCertificates(AddCertificates certificate) throws Exception {
@@ -171,7 +169,7 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#removeCertificate(org.nhind.config.RemoveCertificates)
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#removeCertificate(gov.hhs.fha.nhinc.direct.config.RemoveCertificates)
      */
     @Override
     public void removeCertificate(RemoveCertificates certificate) throws Exception {
@@ -183,7 +181,7 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#listCertificates(org.nhind.config.ListCertificates)
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#listCertificates(gov.hhs.fha.nhinc.direct.config.ListCertificates)
      */
     @Override
     public List<Certificate> listCertificates(ListCertificates listCert) throws Exception {
@@ -226,7 +224,7 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addTrustBundle(org.nhind.config.TrustBundle)
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addTrustBundle(gov.hhs.fha.nhinc.direct.config.TrustBundle)
      */
     @Override
     public void addTrustBundle(TrustBundle tb) throws Exception {
@@ -277,7 +275,7 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#updateTrustBundleAttributes(long, String, String, org.nhind.config.Certificate, int)
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#updateTrustBundleAttributes(long, String, String, gov.hhs.fha.nhinc.direct.config.Certificate, int)
      */
     @Override
     public void updateTrustBundleAttributes(long trustBundleId, String trustBundleName, String trustBundleURL,
