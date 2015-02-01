@@ -48,22 +48,8 @@
                                     <value>${basedir}/src/main/resources/ext</value>
                                 </property>
                             </soapuiProperties>
-                            <exportAll>true</exportAll>
-                            <printReport>true</printReport>
-                            <junitReport>true</junitReport>
-                            <coverage>false</coverage>
-                            <testFailIgnore>${soapui.testFailIgnore}</testFailIgnore>
-                            <saveAfterRun>false</saveAfterRun>
-                            <host>${host}:${port}</host>
                             <testSuite>${test.suite}</testSuite>
                             <testCase>${test.case}</testCase>
-                            <projectProperties>
-                                <value>GatewayPropDir=${properties.dir}</value>
-                                <value>DBHost=${db.host}</value>
-                                <value>DBPass=${db.password}</value>
-                                <value>DBPort=${db.port}</value>
-                                <value>DBUser=${db.user}</value>
-                            </projectProperties>
                         </configuration>
                         <executions>
                             <execution>
@@ -193,6 +179,27 @@
                                     </artifactItems>
                                 </configuration>
                             </execution>
+                            <execution>
+                                <id>unpack-sql-scripts</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <skip>${skip.unpack}</skip>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <!-- Artifact that holds our SQL scripts -->
+                                            <groupId>org.connectopensource</groupId>
+                                            <artifactId>DBScripts</artifactId>
+                                            <version>${project.parent.version}</version>
+                                            <type>jar</type>
+                                        </artifactItem>
+                                    </artifactItems>
+                                    <includes>**/*</includes>
+                                    <outputDirectory>${project.build.directory}/DBScripts/</outputDirectory>
+                                </configuration>
+                            </execution>
                         </executions>
                     </plugin>
                     <plugin>
@@ -265,33 +272,6 @@
                                         <copy file="${project.build.directory}/test-classes/chaincerts/gateway.jks" todir="${project.build.directory}/domain1/lib/classes/" />
                                         <copy file="${project.build.directory}/test-classes/chaincerts/cacerts.jks" todir="${project.build.directory}/domain1/lib/classes/" />
                                     </target>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>unpack-sql-scripts</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                                <configuration>
-                                    <skip>${skip.unpack}</skip>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <!-- Artifact that holds our SQL scripts -->
-                                            <groupId>org.connectopensource</groupId>
-                                            <artifactId>DBScripts</artifactId>
-                                            <version>${project.parent.version}</version>
-                                            <type>jar</type>
-                                        </artifactItem>
-                                    </artifactItems>
-                                    <includes>**/*</includes>
-                                    <outputDirectory>${project.build.directory}/DBScripts/</outputDirectory>
                                 </configuration>
                             </execution>
                         </executions>

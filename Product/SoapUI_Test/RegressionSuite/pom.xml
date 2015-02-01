@@ -35,4 +35,35 @@
             </modules>
         </profile>
     </profiles>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.github.redfish4ktc.soapui</groupId>
+                    <artifactId>maven-soapui-extension-plugin</artifactId>
+                    <configuration>
+                        <exportAll>true</exportAll>
+                        <printReport>true</printReport>
+                        <junitReport>true</junitReport>
+                        <coverage>false</coverage>
+                        <testFailIgnore>${soapui.testFailIgnore}</testFailIgnore>
+                        <saveAfterRun>false</saveAfterRun>
+                        <host>${host}:${port}</host>
+                        <projectProperties>
+                            <value>GatewayPropDir=${properties.dir}</value>
+                            <value>DBHost=${db.host}</value>
+                            <value>DBPass=${db.password}</value>
+                            <value>DBPort=${db.port}</value>
+                            <value>DBUser=${db.user}</value>
+                            <value>ASUsername=${as.username}</value>
+                            <value>ASPassword=${as.password}</value>
+                            <value>JMXHost=${jmx.host}</value>
+                            <value>JMXPort=${jmx.port}</value>
+                        </projectProperties>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
