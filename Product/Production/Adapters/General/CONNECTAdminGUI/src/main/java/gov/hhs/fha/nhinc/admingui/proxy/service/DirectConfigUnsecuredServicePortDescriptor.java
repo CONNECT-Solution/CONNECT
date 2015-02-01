@@ -20,18 +20,18 @@
  */
 package gov.hhs.fha.nhinc.admingui.proxy.service;
 
+import gov.hhs.fha.nhinc.direct.config.ConfigurationService;
 import gov.hhs.fha.nhinc.messaging.service.port.SOAP11ServicePortDescriptor;
-import org.nhind.config.ConfigurationService;
 
 /**
  *
  * @author jasonasmith
  */
-public class DirectConfigUnsecuredServicePortDescriptor extends 
+public class DirectConfigUnsecuredServicePortDescriptor extends
     SOAP11ServicePortDescriptor<ConfigurationService> {
 
     private String configAction;
-    
+
     /**
      * Sets the WS action.
      * @param configAction
@@ -39,10 +39,10 @@ public class DirectConfigUnsecuredServicePortDescriptor extends
     public void setWSAddressingAction(String configAction){
         this.configAction = configAction;
     }
-    
+
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.SOAP11ServicePortDescriptor#getWSAddressingAction()
      */
     @Override
@@ -52,12 +52,12 @@ public class DirectConfigUnsecuredServicePortDescriptor extends
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.SOAP11ServicePortDescriptor#getPortClass()
      */
     @Override
     public Class<ConfigurationService> getPortClass() {
         return ConfigurationService.class;
     }
-    
+
 }

@@ -21,22 +21,22 @@
 package gov.hhs.fha.nhinc.admingui.proxy;
 
 import gov.hhs.fha.nhinc.admingui.services.exception.DomainException;
+import gov.hhs.fha.nhinc.direct.config.AddAnchor;
+import gov.hhs.fha.nhinc.direct.config.AddCertificates;
+import gov.hhs.fha.nhinc.direct.config.AddDomain;
+import gov.hhs.fha.nhinc.direct.config.Anchor;
+import gov.hhs.fha.nhinc.direct.config.Certificate;
+import gov.hhs.fha.nhinc.direct.config.Domain;
+import gov.hhs.fha.nhinc.direct.config.GetAnchorsForOwner;
+import gov.hhs.fha.nhinc.direct.config.ListCertificates;
+import gov.hhs.fha.nhinc.direct.config.RemoveAnchors;
+import gov.hhs.fha.nhinc.direct.config.RemoveCertificates;
+import gov.hhs.fha.nhinc.direct.config.Setting;
+import gov.hhs.fha.nhinc.direct.config.TrustBundle;
+import gov.hhs.fha.nhinc.direct.config.TrustBundleDomainReltn;
+import gov.hhs.fha.nhinc.direct.config.UpdateDomain;
+import gov.hhs.fha.nhinc.direct.config.UpdateDomainResponse;
 import java.util.List;
-import org.nhind.config.AddAnchor;
-import org.nhind.config.AddCertificates;
-import org.nhind.config.AddDomain;
-import org.nhind.config.Anchor;
-import org.nhind.config.Certificate;
-import org.nhind.config.Domain;
-import org.nhind.config.GetAnchorsForOwner;
-import org.nhind.config.ListCertificates;
-import org.nhind.config.RemoveAnchors;
-import org.nhind.config.RemoveCertificates;
-import org.nhind.config.Setting;
-import org.nhind.config.TrustBundle;
-import org.nhind.config.TrustBundleDomainReltn;
-import org.nhind.config.UpdateDomain;
-import org.nhind.config.UpdateDomainResponse;
 
 /**
  *
@@ -276,7 +276,7 @@ public interface DirectConfigProxy {
     /**
      * Service to check if Direct is deployed as part of CONNECT.
      * @param url Direct Configuration web service URL
-     * @return 
+     * @return
      * @throws Exception
      */
     public boolean pingDirectConfig(String url) throws Exception;

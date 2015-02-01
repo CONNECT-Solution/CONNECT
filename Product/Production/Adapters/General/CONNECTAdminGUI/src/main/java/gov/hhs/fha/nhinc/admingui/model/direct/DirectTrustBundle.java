@@ -20,10 +20,10 @@
  */
 package gov.hhs.fha.nhinc.admingui.model.direct;
 
+import gov.hhs.fha.nhinc.direct.config.TrustBundle;
+import gov.hhs.fha.nhinc.direct.config.TrustBundleAnchor;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import org.nhind.config.TrustBundle;
-import org.nhind.config.TrustBundleAnchor;
 
 /**
  *
@@ -71,15 +71,15 @@ public class DirectTrustBundle {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         createTime = sdf.format(tb.getCreateTime().toGregorianCalendar().getTime());
-        
+
         if(tb.getLastSuccessfulRefresh() != null) {
             lastSuccessfulRefresh = sdf.format(tb.getLastSuccessfulRefresh().toGregorianCalendar().getTime());
         }
-        
+
         if(tb.getLastRefreshAttempt() != null) {
             lastRefreshAttempt = sdf.format(tb.getLastRefreshAttempt().toGregorianCalendar().getTime());
         }
-        
+
         lastRefreshError = tb.getLastRefreshError().value();
         refreshInterval = tb.getRefreshInterval();
 

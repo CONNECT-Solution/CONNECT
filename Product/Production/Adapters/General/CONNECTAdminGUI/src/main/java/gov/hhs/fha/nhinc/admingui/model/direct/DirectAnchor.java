@@ -20,10 +20,9 @@
  */
 package gov.hhs.fha.nhinc.admingui.model.direct;
 
+import gov.hhs.fha.nhinc.direct.config.Anchor;
+import gov.hhs.fha.nhinc.direct.config.EntityStatus;
 import java.text.SimpleDateFormat;
-
-import org.nhind.config.Anchor;
-import org.nhind.config.EntityStatus;
 
 /**
  *

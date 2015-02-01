@@ -21,21 +21,21 @@
 package gov.hhs.fha.nhinc.admingui.services;
 
 import gov.hhs.fha.nhinc.admingui.services.exception.DomainException;
+import gov.hhs.fha.nhinc.direct.config.AddAnchor;
+import gov.hhs.fha.nhinc.direct.config.AddCertificates;
+import gov.hhs.fha.nhinc.direct.config.AddDomain;
+import gov.hhs.fha.nhinc.direct.config.Anchor;
+import gov.hhs.fha.nhinc.direct.config.Certificate;
+import gov.hhs.fha.nhinc.direct.config.Domain;
+import gov.hhs.fha.nhinc.direct.config.GetAnchorsForOwner;
+import gov.hhs.fha.nhinc.direct.config.ListCertificates;
+import gov.hhs.fha.nhinc.direct.config.RemoveAnchors;
+import gov.hhs.fha.nhinc.direct.config.RemoveCertificates;
+import gov.hhs.fha.nhinc.direct.config.Setting;
+import gov.hhs.fha.nhinc.direct.config.TrustBundle;
+import gov.hhs.fha.nhinc.direct.config.TrustBundleDomainReltn;
+import gov.hhs.fha.nhinc.direct.config.UpdateDomain;
 import java.util.List;
-import org.nhind.config.AddAnchor;
-import org.nhind.config.AddCertificates;
-import org.nhind.config.AddDomain;
-import org.nhind.config.Anchor;
-import org.nhind.config.Certificate;
-import org.nhind.config.Domain;
-import org.nhind.config.GetAnchorsForOwner;
-import org.nhind.config.ListCertificates;
-import org.nhind.config.RemoveAnchors;
-import org.nhind.config.RemoveCertificates;
-import org.nhind.config.Setting;
-import org.nhind.config.TrustBundle;
-import org.nhind.config.TrustBundleDomainReltn;
-import org.nhind.config.UpdateDomain;
 
 /**
  *
