@@ -26,7 +26,7 @@
                 </property>
             </activation>
             <properties>
-                <properties.dir>${project.build.directory}/nhinc-properites-dir</properties.dir>
+                <properties.dir>${project.build.directory}/nhinc-properties-dir</properties.dir>
             </properties>
             <build>
                 <plugins>

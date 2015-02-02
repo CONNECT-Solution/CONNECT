@@ -98,7 +98,7 @@
                 </property>
             </activation>
             <properties>
-                <properties.dir>${project.build.directory}/nhinc-properites-dir</properties.dir>
+                <properties.dir>${project.build.directory}/nhinc-properties-dir</properties.dir>
             </properties>
             <build>
                 <plugins>
@@ -152,7 +152,7 @@
                                         </artifactItem>
                                     </artifactItems>
                                     <includes>**/*</includes>
-                                    <outputDirectory>${project.build.directory}/nhinc-properites-dir/</outputDirectory>
+                                    <outputDirectory>${project.build.directory}/nhinc-properties-dir/</outputDirectory>
                                 </configuration>
                             </execution>
                             <execution>
@@ -172,6 +172,27 @@
                                             <type>jar</type>
                                         </artifactItem>
                                     </artifactItems>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>unpack-sql-scripts</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <skip>${skip.unpack}</skip>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <!-- Artifact that holds our SQL scripts -->
+                                            <groupId>org.connectopensource</groupId>
+                                            <artifactId>DBScripts</artifactId>
+                                            <version>${project.parent.version}</version>
+                                            <type>jar</type>
+                                        </artifactItem>
+                                    </artifactItems>
+                                    <includes>**/*</includes>
+                                    <outputDirectory>${project.build.directory}/DBScripts/</outputDirectory>
                                 </configuration>
                             </execution>
                         </executions>
@@ -232,20 +253,20 @@
                                 <!-- The configuration of the plugin -->
                                 <configuration>
                                     <finalName>Properties</finalName>
-                                    <classesDirectory>${project.build.directory}/nhinc-properites-dir/</classesDirectory>
+                                    <classesDirectory>${project.build.directory}/nhinc-properties-dir/</classesDirectory>
                                     <outputDirectory>${project.build.directory}/domain1/lib/</outputDirectory>
                                 </configuration>
                             </execution>
                         </executions>
                     </plugin>
-                    <!-- Copy configdb.hibernate.build.cfg.xml to nhinc-properties-dir, renaming to configdb.hibernate.cfg.xml.
-                        This is a workaround for embedded GlassFish v3, which has a classloader issue with the antlr jar loaded by
-                        CONNECTDirectConfig. Refer to CONN-1212 for more info. -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
                         <executions>
                             <execution>
+                                <!-- Copy configdb.hibernate.build.cfg.xml to nhinc-properties-dir, renaming to configdb.hibernate.cfg.xml.
+                                     This is a workaround for embedded GlassFish v3, which has a classloader issue with the antlr jar
+                                     loaded by CONNECTDirectConfig. Refer to CONN-1212 for more info. -->
                                 <id>copy-configdb.hibernate.build.cfg.xml</id>
                                 <phase>process-test-resources</phase>
                                 <goals>
@@ -254,18 +275,12 @@
                                 <configuration>
                                     <target>
                                         <copy
-                                            file="${project.build.directory}/nhinc-properites-dir/hibernate/configdb.hibernate.build.cfg.xml"
-                                            tofile="${project.build.directory}/nhinc-properites-dir/hibernate/configdb.hibernate.cfg.xml"
+                                            file="${project.build.directory}/nhinc-properties-dir/hibernate/configdb.hibernate.build.cfg.xml"
+                                            tofile="${project.build.directory}/nhinc-properties-dir/hibernate/configdb.hibernate.cfg.xml"
                                             overwrite="true" />
                                     </target>
                                 </configuration>
                             </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <executions>
                             <execution>
                                 <id>create-docroot</id>
                                 <phase>process-test-resources</phase>
@@ -296,33 +311,6 @@
                                         <copy file="${project.build.directory}/test-classes/chaincerts/cacerts.jks"
                                             todir="${project.build.directory}/domain1/lib/classes/" />
                                     </target>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>unpack-sql-scripts</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                                <configuration>
-                                    <skip>${skip.unpack}</skip>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <!-- Artifact that Holds our SQL scripts -->
-                                            <groupId>org.connectopensource</groupId>
-                                            <artifactId>DBScripts</artifactId>
-                                            <version>${project.parent.version}</version>
-                                            <type>jar</type>
-                                        </artifactItem>
-                                    </artifactItems>
-                                    <includes>**/*</includes>
-                                    <outputDirectory>${project.build.directory}/DBScripts/</outputDirectory>
                                 </configuration>
                             </execution>
                         </executions>

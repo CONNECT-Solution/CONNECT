@@ -341,7 +341,7 @@
         <jvm-options>-XX:MaxPermSize=1024m</jvm-options>
         <jvm-options>-Dlog4j.configuration=file:${project.build.directory}/domain1/config/log4j.properties</jvm-options>
         <jvm-options>-Dwsdl.path=file:${project.build.directory}/domain1/config/nhin/wsdl/</jvm-options>
-        <jvm-options>-Dnhinc.properties.dir=${project.build.directory}/nhinc-properites-dir</jvm-options>
+        <jvm-options>-Dnhinc.properties.dir=${project.build.directory}/nhinc-properties-dir</jvm-options>
         <jvm-options>-Djavax.net.ssl.keyStore=${project.build.directory}/domain1/config/gateway.jks</jvm-options>
         <jvm-options>-Djavax.net.ssl.keyStoreType=JKS</jvm-options>
         <jvm-options>-Djavax.net.ssl.trustStoreType=JKS</jvm-options>
