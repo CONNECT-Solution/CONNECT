@@ -28,15 +28,15 @@ package gov.hhs.fha.nhinc.admingui.managed.direct;
 
 import gov.hhs.fha.nhinc.admingui.managed.TabBean;
 import gov.hhs.fha.nhinc.admingui.services.DirectService;
+import gov.hhs.fha.nhinc.direct.config.Certificate;
+import gov.hhs.fha.nhinc.direct.config.TrustBundle;
+import gov.hhs.fha.nhinc.direct.config.TrustBundleAnchor;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import org.nhind.config.Certificate;
-import org.nhind.config.TrustBundle;
-import org.nhind.config.TrustBundleAnchor;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -113,7 +113,7 @@ public class DirectTrustBundleBean {
             tb.setSigningCertificateData(tbCert.getContents());
             tbCert = null;
         }
-        
+
         directService.addTrustBundle(tb);
         refreshTrustBundle();
         tbName = null;
@@ -135,14 +135,14 @@ public class DirectTrustBundleBean {
         directService.updateTrustBundle(selectedTb.getId(), selectedTb.getBundleName(), selectedTb.getBundleURL(),
                 cert, selectedTb.getRefreshInterval());
     }
-    
+
     public void refreshBundle(ActionEvent event) {
         if(selectedTb != null) {
             directService.refreshTrustBundle(selectedTb.getId());
             refreshTrustBundle();
         }
     }
-    
+
     /**
      *
      * @return
@@ -162,7 +162,7 @@ public class DirectTrustBundleBean {
             RequestContext.getCurrentInstance().execute("tbEditDlg.show()");
         }
     }
-    
+
     /**
      *
      */
