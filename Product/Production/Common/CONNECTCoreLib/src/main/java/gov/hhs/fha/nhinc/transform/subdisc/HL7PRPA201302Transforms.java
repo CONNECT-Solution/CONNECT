@@ -45,8 +45,10 @@ public class HL7PRPA201302Transforms {
     private static PRPAIN201302UV02 result = null;
     private static String localDeviceId = null;
 
+    private static HL7MessageIdGenerator idGenerator = new HL7MessageIdGenerator();
+
     public static PRPAIN201302UV02 createPRPA201302(PRPAMT201301UV02Patient patient, String remotePatId,
-        String remoteDeviceId, String senderOID, String receiverOID) {
+            String remoteDeviceId, String senderOID, String receiverOID) {
         result = new PRPAIN201302UV02();
         localDeviceId = patient.getId().get(0).getRoot();
         setHeaderFields(senderOID, receiverOID);
@@ -58,7 +60,7 @@ public class HL7PRPA201302Transforms {
     }
 
     public static PRPAIN201302UV02 createPRPA201302(PRPAMT201310UV02Patient patient, String remotePatId,
-        String remoteDeviceId, String senderOID, String receiverOID) {
+            String remoteDeviceId, String senderOID, String receiverOID) {
         result = new PRPAIN201302UV02();
         localDeviceId = patient.getId().get(0).getRoot();
         setHeaderFields(senderOID, receiverOID);
@@ -72,7 +74,7 @@ public class HL7PRPA201302Transforms {
     private static void setHeaderFields(String senderOID, String receiverOID) {
         // Create the 201302 message header fields
         result.setITSVersion(HL7Constants.ITS_VERSION);
-        result.setId(HL7MessageIdGenerator.generateHL7MessageId(localDeviceId));
+        result.setId(idGenerator.generateHL7MessageId(localDeviceId));
         result.setCreationTime(HL7DataTransformHelper.creationTimeFactory());
         result.setInteractionId(HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT, "PRPA_IN201302UV"));
         result.setProcessingCode(HL7DataTransformHelper.CSFactory("T"));
@@ -87,19 +89,19 @@ public class HL7PRPA201302Transforms {
     }
 
     public static PRPAIN201302UV02MFMIMT700701UV01ControlActProcess createMFMIMT700701UV01ControlActProcess(
-        PRPAMT201301UV02Patient patient, String remotePatId, String remoteDeviceId) {
+            PRPAMT201301UV02Patient patient, String remotePatId, String remoteDeviceId) {
         PRPAIN201302UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201302UV02MFMIMT700701UV01ControlActProcess();
 
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
         controlActProcess.setCode(HL7DataTransformHelper.CDFactory("PRPA_TE201302UV"));
 
         controlActProcess.getSubject().add(
-            createPRPAIN201302UVMFMIMT700701UV01Subject1(patient, remotePatId, remoteDeviceId));
+                createPRPAIN201302UVMFMIMT700701UV01Subject1(patient, remotePatId, remoteDeviceId));
         return controlActProcess;
     }
 
     public static PRPAIN201302UV02MFMIMT700701UV01ControlActProcess createMFMIMT700701UV01ControlActProcess(
-        PRPAMT201310UV02Patient patient, String remotePatId, String remoteDeviceId) {
+            PRPAMT201310UV02Patient patient, String remotePatId, String remoteDeviceId) {
         PRPAIN201302UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201302UV02MFMIMT700701UV01ControlActProcess();
 
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
@@ -107,38 +109,38 @@ public class HL7PRPA201302Transforms {
         controlActProcess.setCode(HL7DataTransformHelper.CDFactory("PRPA_TE201302UV"));
 
         controlActProcess.getSubject().add(
-            createPRPAIN201302UVMFMIMT700701UV01Subject1(patient, remotePatId, remoteDeviceId));
+                createPRPAIN201302UVMFMIMT700701UV01Subject1(patient, remotePatId, remoteDeviceId));
         return controlActProcess;
     }
 
     public static PRPAIN201302UV02MFMIMT700701UV01Subject1 createPRPAIN201302UVMFMIMT700701UV01Subject1(
-        PRPAMT201301UV02Patient patient, String remotePatId, String remoteDeviceId) {
+            PRPAMT201301UV02Patient patient, String remotePatId, String remoteDeviceId) {
         PRPAIN201302UV02MFMIMT700701UV01Subject1 subject1 = new PRPAIN201302UV02MFMIMT700701UV01Subject1();
 
         subject1.getTypeCode().add("SUBJ");
         subject1.setContextConductionInd(false);
 
         subject1.setRegistrationEvent(createPRPAIN201302UVMFMIMT700701UV01RegistrationEvent(patient, remotePatId,
-            remoteDeviceId));
+                remoteDeviceId));
 
         return subject1;
     }
 
     public static PRPAIN201302UV02MFMIMT700701UV01Subject1 createPRPAIN201302UVMFMIMT700701UV01Subject1(
-        PRPAMT201310UV02Patient patient, String remotePatId, String remoteDeviceId) {
+            PRPAMT201310UV02Patient patient, String remotePatId, String remoteDeviceId) {
         PRPAIN201302UV02MFMIMT700701UV01Subject1 subject1 = new PRPAIN201302UV02MFMIMT700701UV01Subject1();
 
         subject1.getTypeCode().add("SUBJ");
         subject1.setContextConductionInd(false);
 
         subject1.setRegistrationEvent(createPRPAIN201302UVMFMIMT700701UV01RegistrationEvent(patient, remotePatId,
-            remoteDeviceId));
+                remoteDeviceId));
 
         return subject1;
     }
 
     public static PRPAIN201302UV02MFMIMT700701UV01RegistrationEvent createPRPAIN201302UVMFMIMT700701UV01RegistrationEvent(
-        PRPAMT201301UV02Patient patient, String remotePatId, String remoteDeviceId) {
+            PRPAMT201301UV02Patient patient, String remotePatId, String remoteDeviceId) {
         PRPAIN201302UV02MFMIMT700701UV01RegistrationEvent regevent = new PRPAIN201302UV02MFMIMT700701UV01RegistrationEvent();
 
         regevent.getClassCode().add("REG");
@@ -158,7 +160,7 @@ public class HL7PRPA201302Transforms {
     }
 
     public static PRPAIN201302UV02MFMIMT700701UV01RegistrationEvent createPRPAIN201302UVMFMIMT700701UV01RegistrationEvent(
-        PRPAMT201310UV02Patient patient, String remotePatId, String remoteDeviceId) {
+            PRPAMT201310UV02Patient patient, String remotePatId, String remoteDeviceId) {
         PRPAIN201302UV02MFMIMT700701UV01RegistrationEvent regevent = new PRPAIN201302UV02MFMIMT700701UV01RegistrationEvent();
 
         regevent.getClassCode().add("REG");
@@ -178,22 +180,26 @@ public class HL7PRPA201302Transforms {
     }
 
     public static PRPAIN201302UV02MFMIMT700701UV01Subject2 createPRPAIN201302UVMFMIMT700701UV01Subject2(
-        PRPAMT201301UV02Patient patient, String remotePatId, String remoteDeviceId) {
+            PRPAMT201301UV02Patient patient, String remotePatId, String remoteDeviceId) {
         PRPAIN201302UV02MFMIMT700701UV01Subject2 subject = new PRPAIN201302UV02MFMIMT700701UV01Subject2();
 
         subject.setPatient(HL7PatientTransforms.create201302Patient(remotePatId, remoteDeviceId,
-            patient.getPatientPerson(), patient.getId().get(0)));
+                patient.getPatientPerson(), patient.getId().get(0)));
 
         return subject;
     }
 
     public static PRPAIN201302UV02MFMIMT700701UV01Subject2 createPRPAIN201302UVMFMIMT700701UV01Subject2(
-        PRPAMT201310UV02Patient patient, String remotePatId, String remoteDeviceId) {
+            PRPAMT201310UV02Patient patient, String remotePatId, String remoteDeviceId) {
         PRPAIN201302UV02MFMIMT700701UV01Subject2 subject = new PRPAIN201302UV02MFMIMT700701UV01Subject2();
 
         subject.setPatient(HL7PatientTransforms.create201302Patient(patient.getPatientPerson(), remotePatId,
-            remoteDeviceId, patient.getId().get(0)));
+                remoteDeviceId, patient.getId().get(0)));
 
         return subject;
+    }
+
+    protected void setHL7MessageIdGenerator(HL7MessageIdGenerator idGenerator) {
+        this.idGenerator = idGenerator;
     }
 }

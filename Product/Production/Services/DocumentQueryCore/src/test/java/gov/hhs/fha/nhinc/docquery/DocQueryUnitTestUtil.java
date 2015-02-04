@@ -51,7 +51,7 @@ public class DocQueryUnitTestUtil {
     public static synchronized void setUpGatewayProperties() {
         try {
             PropertyAccessor.getInstance().setPropertyFileLocation("" + getClassPath() + "/local");
-            PropertyAccessor.getInstance().forceRefresh("gateway");
+            PropertyAccessor.getInstance().setPropertyFile("gateway", true);
         } catch (Exception e) {
             e.printStackTrace();
             fail(e.getMessage());

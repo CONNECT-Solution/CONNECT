@@ -75,7 +75,7 @@ public class StandardOutboundDocQueryTest {
     @Test
     public void testrespondingGatewayCrossGatewayQueryforNullEndPoint() throws Exception {
 
-        DocQueryUnitTestUtil.setUpGatewayProperties();
+        //DocQueryUnitTestUtil.setUpGatewayProperties();
         
         AggregationStrategy strategy = mock(AggregationStrategy.class);
 
@@ -91,6 +91,11 @@ public class StandardOutboundDocQueryTest {
             @Override
             protected DocQueryAuditLog getAuditLogger() {
                 return mockAuditLogger;
+            }
+            
+            @Override
+            protected String getSenderHcid(){
+                return SENDING_HCID_FORMATTED;
             }
         };
 
@@ -120,6 +125,10 @@ public class StandardOutboundDocQueryTest {
             @Override
             protected DocQueryAuditLog getAuditLogger() {
                 return mockAuditLogger;
+            }
+            @Override
+            protected String getSenderHcid(){
+                return SENDING_HCID_FORMATTED;
             }
         };
 
@@ -200,7 +209,7 @@ public class StandardOutboundDocQueryTest {
     
     @Test
     public void testWithPolicyFailures() throws Exception {
-        DocQueryUnitTestUtil.setUpGatewayProperties();
+        //DocQueryUnitTestUtil.setUpGatewayProperties();
         
         AggregationStrategy strategy = mock(AggregationStrategy.class);
 
@@ -216,6 +225,10 @@ public class StandardOutboundDocQueryTest {
             @Override
             protected DocQueryAuditLog getAuditLogger() {
                 return mockAuditLogger;
+            }
+            @Override
+            protected String getSenderHcid(){
+                return SENDING_HCID_FORMATTED;
             }
         };
         
@@ -239,7 +252,7 @@ public class StandardOutboundDocQueryTest {
     
     @Test
     public void testWithMixOfPolicyFailures() throws Exception {
-        DocQueryUnitTestUtil.setUpGatewayProperties();
+        //DocQueryUnitTestUtil.setUpGatewayProperties();
         
         AggregationStrategy strategy = mock(AggregationStrategy.class);
 
@@ -255,6 +268,10 @@ public class StandardOutboundDocQueryTest {
             @Override
             protected DocQueryAuditLog getAuditLogger() {
                 return mockAuditLogger;
+            }
+            @Override
+            protected String getSenderHcid(){
+                return SENDING_HCID_FORMATTED;
             }
         };
         

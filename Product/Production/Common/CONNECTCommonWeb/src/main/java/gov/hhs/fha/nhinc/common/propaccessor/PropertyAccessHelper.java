@@ -38,12 +38,6 @@ import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyNamesResponseType;
 import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyNamesRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertiesResponseType;
 import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertiesRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetRefreshDurationResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetRefreshDurationRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetDurationBeforeNextRefreshResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetDurationBeforeNextRefreshRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.ForceRefreshResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.ForceRefreshRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyFileLocationResponseType;
 import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyFileLocationRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.DumpPropsToLogResponseType;
@@ -187,71 +181,6 @@ public class PropertyAccessHelper {
 
         if (bHasProps) {
             oOutput.setProperties(oProperties);
-        }
-
-        return oOutput;
-    }
-
-    /**
-     * This will return the in milliseconds the refresh duration on the property file. A setting of -1 means it never
-     * refreshes.
-     * 
-     * @param input The name of the property file.
-     * @return the refresh duration for the property file.
-     */
-    public static GetRefreshDurationResponseType getRefreshDuration(GetRefreshDurationRequestType input)
-            throws PropertyAccessException {
-        GetRefreshDurationResponseType oOutput = new GetRefreshDurationResponseType();
-
-        if ((input != null) && (input.getPropertyFile() != null) && (input.getPropertyFile().length() > 0)) {
-            String sPropertyFile = input.getPropertyFile();
-
-            int iValue = PropertyAccessor.getInstance().getRefreshDuration(sPropertyFile);
-            oOutput.setDurationMillis(iValue);
-        }
-
-        return oOutput;
-    }
-
-    /**
-     * This will return the duration in milliseconds before the next refresh of the properties file. A value of -1
-     * indicates that no refresh will occur.
-     * 
-     * @param input The name of the property file.
-     * @return The number of milliseconds before the next refresh will occur.
-     */
-    public static GetDurationBeforeNextRefreshResponseType getDurationBeforeNextRefresh(
-            GetDurationBeforeNextRefreshRequestType input) throws PropertyAccessException {
-        GetDurationBeforeNextRefreshResponseType oOutput = new GetDurationBeforeNextRefreshResponseType();
-
-        if ((input != null) && (input.getPropertyFile() != null) && (input.getPropertyFile().length() > 0)) {
-            String sPropertyFile = input.getPropertyFile();
-
-            int iValue = PropertyAccessor.getInstance().getDurationBeforeNextRefresh(sPropertyFile);
-            oOutput.setDurationMillis(iValue);
-        }
-
-        return oOutput;
-    }
-
-    /**
-     * If a property file has been cached, this will force a refresh of the property file. If a property file is not
-     * cached, then this operation will do nothing.
-     * 
-     * @param input The name of the property file.
-     * @return true if the property file was refreshed.
-     */
-    public static ForceRefreshResponseType forceRefresh(ForceRefreshRequestType input) throws PropertyAccessException {
-        ForceRefreshResponseType oOutput = new ForceRefreshResponseType();
-
-        if ((input != null) && (input.getPropertyFile() != null) && (input.getPropertyFile().length() > 0)) {
-            String sPropertyFile = input.getPropertyFile();
-
-            PropertyAccessor.getInstance().forceRefresh(sPropertyFile);
-
-            // If we got here without an exception, then we refreshed.
-            // ----------------------------------------------------------
-            oOutput.setRefreshed(true);
         }
 
         return oOutput;

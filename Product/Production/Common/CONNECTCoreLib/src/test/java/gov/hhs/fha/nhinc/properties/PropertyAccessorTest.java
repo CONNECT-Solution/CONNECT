@@ -58,7 +58,6 @@ public class PropertyAccessorTest {
     private static final String PROPERTY_VALUE_STRING = "propertyValueString";
     private static final boolean PROPERTY_VALUE_BOOLEAN = true;
     private static final long PROPERTY_VALUE_LONG = 10;    
-    private static final int REFRESH_DURATION = 1000;
         
     protected Mockery context = new JUnit4Mockery() {
         {
@@ -66,12 +65,14 @@ public class PropertyAccessorTest {
         }
     };
     final PropertyFileDAO mockFileDAO = context.mock(PropertyFileDAO.class);
-    final PropertyFileRefreshHandler mockRefreshHandler = context.mock(PropertyFileRefreshHandler.class);
     
     @Before
     public void setMockFileDAOExpectations() throws PropertyAccessException {
         context.checking(new Expectations() {
             {
+                allowing(mockFileDAO).containsPropFile(with(any(String.class)));
+                will(returnValue(true));
+                
                 allowing(mockFileDAO).getProperty(with(any(String.class)), with(any(String.class)));
                 will(returnValue(PROPERTY_VALUE_STRING));
                 
@@ -90,26 +91,6 @@ public class PropertyAccessorTest {
                 allowing(mockFileDAO).loadPropertyFile(with(any(File.class)), with(any(String.class)));
                 
                 allowing(mockFileDAO).printToLog(with(any(String.class)));
-            }
-        });
-    }
-       
-    @Before
-    public void setMockRefreshHandlerExpectations() throws PropertyAccessException {
-        context.checking(new Expectations() {
-            {
-                allowing(mockRefreshHandler).getRefreshDuration(with(any(String.class)));
-                will(returnValue(REFRESH_DURATION));
-                
-                allowing(mockRefreshHandler).needsRefresh(with(any(String.class)));
-                will(returnValue(true));
-                
-                allowing(mockRefreshHandler).addRefreshInfo(with(any(String.class)), with(any(String.class)));
-                
-                allowing(mockRefreshHandler).getDurationBeforeNextRefresh(with(any(String.class)));
-                will(returnValue(REFRESH_DURATION));
-                
-                allowing(mockRefreshHandler).printToLog(with(any(String.class)));
             }
         });
     }
@@ -167,30 +148,6 @@ public class PropertyAccessorTest {
     }
     
     @Test
-    public void testGetRefreshDuration() throws PropertyAccessException {
-        PropertyAccessor propAccessor = createPropertyAccessor();
-        
-        int refreshDuration = propAccessor.getRefreshDuration(PROPERTY_FILE_NAME);
-        assertEquals(REFRESH_DURATION, refreshDuration);
-    }
-    
-    @Test
-    public void testGetDurationBeforeNextRefresh() throws PropertyAccessException {
-        PropertyAccessor propAccessor = createPropertyAccessor();
-        
-        int nextRefresh = propAccessor.getDurationBeforeNextRefresh(PROPERTY_FILE_NAME);
-        assertEquals(REFRESH_DURATION, nextRefresh);
-    }
-    
-    @Test(expected=PropertyAccessException.class)
-    public void testValidateInput() throws PropertyAccessException {
-        PropertyAccessor propAccessor = createPropertyAccessor();
-        
-        propAccessor.forceRefresh(PROPERTY_FILE_NAME);
-        propAccessor.forceRefresh(null);
-    }
-    
-    @Test
     public void testGetPropertyFileLocation() throws PropertyAccessException {
         PropertyAccessor propAccessor = createPropertyAccessor();
         
@@ -213,10 +170,6 @@ public class PropertyAccessorTest {
                 return mockFileDAO;
             }
             
-            protected PropertyFileRefreshHandler createPropertyFileRefreshHandler() {
-                return mockRefreshHandler;
-            }
-            
             protected PropertyAccessorFileUtilities createPropertyAccessorFileUtilities() {
                 return new PropertyAccessorFileUtilities() {
                     public String getPropertyFileLocation(String propertyFileName) {
@@ -225,7 +178,7 @@ public class PropertyAccessorTest {
                 };
             }
         };
-        propAccessor.setPropertyFile(PROPERTY_FILE_NAME);
+        propAccessor.setPropertyFile(PROPERTY_FILE_NAME, false);
         
         return propAccessor;
     }

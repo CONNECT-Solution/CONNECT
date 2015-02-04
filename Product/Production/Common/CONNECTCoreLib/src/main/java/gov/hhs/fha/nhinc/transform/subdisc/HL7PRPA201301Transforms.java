@@ -62,6 +62,8 @@ import org.hl7.v3.XActMoodIntentEvent;
  */
 public class HL7PRPA201301Transforms {
 
+    private static HL7MessageIdGenerator idGenerator = new HL7MessageIdGenerator();
+    
     public static PRPAIN201301UV02 createPRPA201301(PRPAMT201301UV02Patient patient, String localDeviceId,
         String senderOID, String receiverOID) {
         PRPAIN201301UV02 result = createPRPA201301Headers(localDeviceId);
@@ -82,7 +84,7 @@ public class HL7PRPA201301Transforms {
         PRPAIN201301UV02 result = new PRPAIN201301UV02();
         // Create the 201301 message header fields
         result.setITSVersion(HL7Constants.ITS_VERSION);
-        result.setId(HL7MessageIdGenerator.generateHL7MessageId(localDeviceId));
+        result.setId(idGenerator.generateHL7MessageId(localDeviceId));
         result.setCreationTime(HL7DataTransformHelper.creationTimeFactory());
         result.setInteractionId(HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT, "PRPA_IN201301UV"));
         result.setProcessingCode(HL7DataTransformHelper.CSFactory("T"));
@@ -541,5 +543,9 @@ public class HL7PRPA201301Transforms {
 
         return result;
 
+    }
+    
+    protected void setHL7MessageIdGenerator(HL7MessageIdGenerator idGenerator) {
+        this.idGenerator = idGenerator;
     }
 }

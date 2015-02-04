@@ -7,7 +7,6 @@ package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -48,14 +47,11 @@ public class PropertyBean {
 
         try {
             PropertyAccessor.getInstance().setProperty("gateway", selectedProp.key, newValue);
-            PropertyAccessor.getInstance().saveProperties("gateway");
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Property value changed for " + selectedProp.key
                             + " from " + oldValue + " to " + newValue + "."));
         } catch (PropertyAccessException ex) {
 
-        } catch (IOException ex) {
-           
         }
     }
 

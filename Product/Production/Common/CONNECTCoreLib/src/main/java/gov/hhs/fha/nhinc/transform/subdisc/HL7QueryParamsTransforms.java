@@ -53,12 +53,14 @@ import org.hl7.v3.TELExplicit;
  * @author Jon Hoppesch
  */
 public class HL7QueryParamsTransforms {
+    
+    private static HL7MessageIdGenerator idGenerator = new HL7MessageIdGenerator();
 
     public static JAXBElement<PRPAMT201306UV02QueryByParameter> createQueryParams(PRPAMT201301UV02Patient patient,
             String localDeviceId) {
         PRPAMT201306UV02QueryByParameter params = new PRPAMT201306UV02QueryByParameter();
 
-        params.setQueryId(HL7MessageIdGenerator.generateHL7MessageId(localDeviceId));
+        params.setQueryId(idGenerator.generateHL7MessageId(localDeviceId));
         params.setStatusCode(HL7DataTransformHelper.CSFactory("new"));
         params.setResponseModalityCode(HL7DataTransformHelper.CSFactory("R"));
         params.setResponsePriorityCode(HL7DataTransformHelper.CSFactory("I"));
@@ -211,5 +213,9 @@ public class HL7QueryParamsTransforms {
         }
 
         return subjectTele;
+    }
+    
+    protected void setHL7MessageIdGenerator(HL7MessageIdGenerator idGenerator) {
+        this.idGenerator = idGenerator;
     }
 }

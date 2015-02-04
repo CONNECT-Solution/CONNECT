@@ -29,9 +29,9 @@ package gov.hhs.fha.nhinc.properties;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Properties;
 import java.util.Set;
+import org.apache.log4j.Logger;
 
 /**
  * This class is a POJO class that is used to access properties within a property file.
@@ -39,18 +39,17 @@ import java.util.Set;
  * @author msw
  */
 public class PropertyAccessor implements IPropertyAcessor {
-    private static final String CACHE_REFRESH_DURATION = "CacheRefreshDuration";
     
-    private PropertyFileRefreshHandler refreshHandler;    
     private PropertyFileDAO propertyFileDAO;    
     private PropertyAccessorFileUtilities fileUtilities;
     private String propertyFileName = "gateway";
+    
+    private static final Logger LOG = Logger.getLogger(PropertyAccessor.class);
     
     /**
      * Default constructor.
      */
     protected PropertyAccessor() {
-        refreshHandler = createPropertyFileRefreshHandler();   
         propertyFileDAO = createPropertyFileDAO();
         fileUtilities = createPropertyAccessorFileUtilities();   
     }
@@ -65,16 +64,23 @@ public class PropertyAccessor implements IPropertyAcessor {
     }
     
     public static PropertyAccessor getInstance(String propertyFileName) {
-        getInstance().setPropertyFile(propertyFileName);
+        getInstance().setPropertyFile(propertyFileName, false);
         return getInstance();
     } 
     
     /**
-     * @param propertyFile The name of the property file. This is the name of the file without a path and without the
+     * @param propertyFileName The name of the property file. This is the name of the file without a path and without the
      *            ".properties" extension. Examples of this would be "connection" or "gateway".
      **/
-    public synchronized void setPropertyFile(String propertyFileName) {
+    public synchronized void setPropertyFile(String propertyFileName, boolean reload) {
         this.propertyFileName = propertyFileName;
+        if(!propertyFileDAO.containsPropFile(propertyFileName)) {
+            try {
+                loadPropertyFile(propertyFileName, reload);
+            } catch(PropertyAccessException ex) {
+                LOG.warn("Unable to load property file: " + propertyFileName);
+            }
+        }
     }
        
     /**
@@ -92,7 +98,7 @@ public class PropertyAccessor implements IPropertyAcessor {
     @Override
     public synchronized String getProperty(String propertyFile, String propertyName) throws PropertyAccessException {                
         validateInput(propertyFile, propertyName);
-        checkForRefreshAndLoad(propertyFile);
+        loadPropertyFile(propertyFile, false);
 
         return propertyFileDAO.getProperty(propertyFile, propertyName);
     }
@@ -113,7 +119,7 @@ public class PropertyAccessor implements IPropertyAcessor {
     }
     
     public synchronized boolean getPropertyBoolean(String propertyName) throws PropertyAccessException {
-    	return getPropertyBoolean(propertyFileName, propertyName);
+        return getPropertyBoolean(propertyFileName, propertyName);
     }
     
     /**
@@ -125,6 +131,7 @@ public class PropertyAccessor implements IPropertyAcessor {
      * @throws PropertyAccessException the property access exception
      */
     public void setProperty(String propertyFileName, String key, String value) throws PropertyAccessException {
+        loadPropertyFile(propertyFileName, false);
         propertyFileDAO.setProperty(propertyFileName, key, value);
     }
 
@@ -139,7 +146,7 @@ public class PropertyAccessor implements IPropertyAcessor {
      */
     public synchronized boolean getPropertyBoolean(String propertyFile, String propertyName) throws PropertyAccessException {
         validateInput(propertyFile, propertyName);
-        checkForRefreshAndLoad(propertyFile);
+        loadPropertyFile(propertyFile, false);
 
         return propertyFileDAO.getPropertyBoolean(propertyFile, propertyName);
     }
@@ -155,7 +162,7 @@ public class PropertyAccessor implements IPropertyAcessor {
      */
     public synchronized long getPropertyLong(String propertyFile, String propertyName) throws PropertyAccessException {
         validateInput(propertyFile, propertyName);
-        checkForRefreshAndLoad(propertyFile);
+        loadPropertyFile(propertyFile, false);
 
         return propertyFileDAO.getPropertyLong(propertyFile, propertyName);
     }
@@ -169,7 +176,7 @@ public class PropertyAccessor implements IPropertyAcessor {
      */
     public synchronized final Set<String> getPropertyNames(String propertyFile) throws PropertyAccessException {
         validateInput(propertyFile);
-        checkForRefreshAndLoad(propertyFile);
+        loadPropertyFile(propertyFile, false);
 
         return propertyFileDAO.getPropertyNames(propertyFile);
     }
@@ -190,50 +197,9 @@ public class PropertyAccessor implements IPropertyAcessor {
      */
     public synchronized final Properties getProperties(String propertyFile) throws PropertyAccessException {
         validateInput(propertyFile);
-        checkForRefreshAndLoad(propertyFile);
-
+        loadPropertyFile(propertyFile, false);
+        
         return propertyFileDAO.getProperties(propertyFile);
-    }
-
-    /**
-     * This will return the in milliseconds the refresh duration on the property file. A setting of -1 means it never
-     * refreshes.
-     * 
-     * @param propertyFile The name of the property file.
-     * @throws PropertyAccessException This is thrown if an error occurs accessing the property.
-     */
-    public synchronized int getRefreshDuration(String propertyFile) throws PropertyAccessException {
-        validateInput(propertyFile);
-        checkForRefreshAndLoad(propertyFile);
-
-        return refreshHandler.getRefreshDuration(propertyFile);
-    }
-
-    /**
-     * This will return the duration in milliseconds before the next refresh of the properties file. A value of -1
-     * indicates that no refresh will occur.
-     * 
-     * @param propertyFile The name of the property file.
-     * @throws PropertyAccessException This is thrown if an error occurs accessing the property.
-     */
-    public synchronized int getDurationBeforeNextRefresh(String propertyFile) throws PropertyAccessException {
-        validateInput(propertyFile);
-        checkForRefreshAndLoad(propertyFile);
-        
-        return refreshHandler.getDurationBeforeNextRefresh(propertyFile);
-    }
-
-    /**
-     * If a property file has been cached, this will force a refresh of the property file. If a property file is not
-     * cached, then this operation will do nothing.
-     * 
-     * @param propertyFile The name of the property file.
-     * @throws PropertyAccessException This is thrown if an error occurs accessing the property.
-     */
-    public synchronized void forceRefresh(String propertyFile) throws PropertyAccessException {
-        validateInput(propertyFile);
-        
-        loadPropertyFile(propertyFile);
     }
    
     /**
@@ -258,11 +224,6 @@ public class PropertyAccessor implements IPropertyAcessor {
         return fileUtilities.getPropertyFileURL();
     }
     
-    public synchronized void saveProperties(String propertyFile) throws IOException {
-        String propFilePathAndName = fileUtilities.getPropertyFileLocation(propertyFile);
-        propertyFileDAO.store(propertyFile, propFilePathAndName);
-    }
-
     /**
      * This method dumps the properties and associated values for a properties file to the log file.
      * 
@@ -271,8 +232,8 @@ public class PropertyAccessor implements IPropertyAcessor {
      */
     public void dumpPropsToLog(String propertyFile) throws PropertyAccessException {
         validateInput(propertyFile);
+        loadPropertyFile(propertyFile, false);
         
-        refreshHandler.printToLog(propertyFile);
         propertyFileDAO.printToLog(propertyFile);
     }
     
@@ -282,10 +243,6 @@ public class PropertyAccessor implements IPropertyAcessor {
         }    
     }
     
-    protected PropertyFileRefreshHandler createPropertyFileRefreshHandler() {
-        return new PropertyFileRefreshHandler();
-    }
-    
     protected PropertyFileDAO createPropertyFileDAO() {
         return new PropertyFileDAO();
     }
@@ -293,44 +250,20 @@ public class PropertyAccessor implements IPropertyAcessor {
     protected PropertyAccessorFileUtilities createPropertyAccessorFileUtilities() {
         return new PropertyAccessorFileUtilities();
     }
-    
-    /**
-     * This method loads the property file and sets the refresh time. If the property: "CacheRefreshDuration" is found
-     * in the property file, then it will set it as follows: If the value is "-1", then
-     * 
-     * @param propertyFile The name of the property file to be loaded.
-     * @param refreshInfo The refresh information that we already know - this may be null if this is the first time the file
-     *            is being loaded.
-     * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException This exception is thrown if it cannot load the
-     *             property file for some reason.
-     */
-    private synchronized void loadPropertyFile(String propertyFile) throws PropertyAccessException {
-        String propFilePathAndName = fileUtilities.getPropertyFileLocation(propertyFile);
-               
-        File propertyFileLocation = new File(propFilePathAndName);        
-  //      propertyFileDAO.loadPropertyFile(Thread.currentThread().getContextClassLoader().getResourceAsStream(propertyFile), propertyFile);
-        propertyFileDAO.loadPropertyFile(propertyFileLocation, propertyFile);
-        String cacheRefreshDuration = propertyFileDAO.getProperty(propertyFile, CACHE_REFRESH_DURATION);
-        refreshHandler.addRefreshInfo(propertyFile, cacheRefreshDuration);
-    }
-
-    /**
-     * This method will check to see if the property file needs to be refreshed and if it does, it will reload it.
-     * Otherwise it will leave it as is.
-     * 
-     * @param propertyFile The name of the property file that is being checked and possibly loaded.
-     * @throws PropertyAccessException If an error occurs during the load process, this exception is thrown.
-     */
-    private synchronized void checkForRefreshAndLoad(String propertyFile) throws PropertyAccessException {        
-        if (refreshHandler.needsRefresh(propertyFile)) {
-            loadPropertyFile(propertyFile);
-        }
-    }
   
     private void isPropertyStringValid(String property) throws PropertyAccessException {        
         if (NullChecker.isNullish(property)) {
             throw new PropertyAccessException("Invalid property name value: " + property);
         }        
+    }
+    
+    private synchronized void loadPropertyFile(String propertyFile, boolean reload) throws PropertyAccessException {
+        if(!propertyFileDAO.containsPropFile(propertyFile) || reload) {
+            String propFilePathAndName = fileUtilities.getPropertyFileLocation(propertyFile);
+               
+            File propertyFileLocation = new File(propFilePathAndName);        
+            propertyFileDAO.loadPropertyFile(propertyFileLocation, propertyFile);
+        }
     }
 
 }

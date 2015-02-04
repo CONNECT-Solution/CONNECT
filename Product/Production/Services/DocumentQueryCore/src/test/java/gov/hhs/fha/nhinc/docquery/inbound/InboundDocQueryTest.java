@@ -97,7 +97,7 @@ public class InboundDocQueryTest {
     protected void verifyInboundDocQuery(AssertionType assertion, String sendingHcid,
             InboundDocQuery inboundDocQuery, int adapterAuditInvocations) {
 
-        DocQueryUnitTestUtil.setUpGatewayProperties();
+        //DocQueryUnitTestUtil.setUpGatewayProperties();
         
         AdhocQueryResponse actualResponse = inboundDocQuery.respondingGatewayCrossGatewayQuery(request, assertion);
 
