@@ -896,6 +896,8 @@
                 <module>weblogic</module>
             </modules>
         </profile>
+
+        <!-- JBoss 7 -->
         <profile>
             <id>jboss7</id>
             <modules>
