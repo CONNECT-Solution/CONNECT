@@ -41,7 +41,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.docquery.AdhocQueryResponseAsserter;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
-import gov.hhs.fha.nhinc.docquery.DocQueryUnitTestUtil;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.entity.Aggregate;
@@ -74,8 +73,6 @@ public class StandardOutboundDocQueryTest {
 
     @Test
     public void testrespondingGatewayCrossGatewayQueryforNullEndPoint() throws Exception {
-
-        //DocQueryUnitTestUtil.setUpGatewayProperties();
         
         AggregationStrategy strategy = mock(AggregationStrategy.class);
 
@@ -209,7 +206,6 @@ public class StandardOutboundDocQueryTest {
     
     @Test
     public void testWithPolicyFailures() throws Exception {
-        //DocQueryUnitTestUtil.setUpGatewayProperties();
         
         AggregationStrategy strategy = mock(AggregationStrategy.class);
 
@@ -252,8 +248,7 @@ public class StandardOutboundDocQueryTest {
     
     @Test
     public void testWithMixOfPolicyFailures() throws Exception {
-        //DocQueryUnitTestUtil.setUpGatewayProperties();
-        
+
         AggregationStrategy strategy = mock(AggregationStrategy.class);
 
         AdhocQueryRequest adhocQueryRequest = new AdhocQueryRequest();

@@ -40,7 +40,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
-import gov.hhs.fha.nhinc.docquery.DocQueryUnitTestUtil;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
@@ -96,8 +95,6 @@ public class InboundDocQueryTest {
 
     protected void verifyInboundDocQuery(AssertionType assertion, String sendingHcid,
             InboundDocQuery inboundDocQuery, int adapterAuditInvocations) {
-
-        //DocQueryUnitTestUtil.setUpGatewayProperties();
         
         AdhocQueryResponse actualResponse = inboundDocQuery.respondingGatewayCrossGatewayQuery(request, assertion);
 
