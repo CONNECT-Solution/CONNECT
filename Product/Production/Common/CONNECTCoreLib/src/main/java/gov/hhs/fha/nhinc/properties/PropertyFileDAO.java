@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.properties;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -58,6 +59,8 @@ public class PropertyFileDAO {
         try {
             properties.setReloadingStrategy(new FileChangedReloadingStrategy());
             properties.load(propertyFile);
+            properties.setFile(propertyFile);
+            properties.setAutoSave(true);
 
             propertyFilesHashmap.put(propertyFileName, properties);
         } catch (ConfigurationException e) {
@@ -89,13 +92,21 @@ public class PropertyFileDAO {
     public void setProperty(String propertyFileName, String key, Object value) throws PropertyAccessException {
         PropertiesConfiguration props = propertyFilesHashmap.get(propertyFileName);
         if (props != null) {
-            try {
-                props.setProperty(key, value);
-                props.save();
-            } catch (ConfigurationException e) {
-                throw new PropertyAccessException(e.getMessage(), e);
+            props.setProperty(key, value);
+            Date now = new Date();
+            props.getLayout().setHeaderComment("Updated " + propertyFileName + ".properties at: " + now.toString());
+        }
+    }
+    
+    public String getPropertyComment(String propertyFileName, String key) {
+        PropertiesConfiguration props = propertyFilesHashmap.get(propertyFileName);
+        if(props != null && props.getLayout() != null) {
+            String comment = props.getLayout().getComment(key);
+            if(NullChecker.isNotNullish(comment) && !comment.startsWith("!")) {
+                return comment.replaceAll("#", "");
             }
         }
+        return "";
     }
 
     public boolean getPropertyBoolean(String propertyFileName, String propertyName) throws PropertyAccessException {
