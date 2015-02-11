@@ -1,20 +1,26 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>General</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
+
     <artifactId>CONNECTUniversalClientGUI</artifactId>
-    <packaging>war</packaging>
     <name>CONNECT Universal Client GUI</name>
+    <packaging>war</packaging>
+    <modelVersion>4.0.0</modelVersion>
 
     <dependencies>
+        <!-- Java EE API -->
         <dependency>
-            <groupId>org.owasp.esapi</groupId>
-            <artifactId>esapi</artifactId>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
         </dependency>
+
+        <!-- CONNECT Modules / Web Services -->
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
@@ -49,11 +55,20 @@
             <artifactId>Properties</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+
+        <!-- Security -->
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <scope>provided</scope>
+            <groupId>org.owasp.esapi</groupId>
+            <artifactId>esapi</artifactId>
         </dependency>
+
+        <!-- Apache Commons -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+        </dependency>
+
+        <!-- Legacy JSF -->
         <dependency>
             <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
             <artifactId>jsfcl</artifactId>
@@ -87,40 +102,32 @@
             <artifactId>jsf-extensions-common</artifactId>
         </dependency>
 
+        <!-- Testing -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.jmock</groupId>
             <artifactId>jmock-legacy</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jmock</groupId>
             <artifactId>jmock-junit4</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>1.2.2</version>
-        </dependency>
     </dependencies>
+
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.0.0.RC0</version>
                 <dependencies>
                     <dependency>
                         <groupId>com.sun.faces</groupId>
@@ -135,17 +142,18 @@
                     <dependency>
                         <groupId>mysql</groupId>
                         <artifactId>mysql-connector-java</artifactId>
-                        <version>5.1.17</version>
+                        <version>5.1.10</version>
                     </dependency>
                 </dependencies>
             </plugin>
         </plugins>
     </build>
+
     <profiles>
         <profile>
             <id>testing</id>
             <properties>
-                <nhinc.properties.dir>${project.build.directory}/nhinc-properites-dir/</nhinc.properties.dir>
+                <nhinc.properties.dir>${project.build.directory}/nhinc-properties-dir/</nhinc.properties.dir>
             </properties>
             <build>
                 <plugins>
@@ -156,8 +164,7 @@
                         <executions>
                             <execution>
                                 <id>unpack-nhin-properties</id>
-                                <!-- Using the initialize phase because it 
-                                    is before the generate sources phase -->
+                                <!-- Using the initialize phase because it is before the generate sources phase -->
                                 <phase>process-resources</phase>
                                 <goals>
                                     <goal>unpack</goal>
@@ -165,8 +172,7 @@
                                 <configuration>
                                     <artifactItems>
                                         <artifactItem>
-                                            <!-- Artifact that Holds our 
-                                                custom templates -->
+                                            <!-- Artifact that holds our custom templates -->
                                             <groupId>org.connectopensource</groupId>
                                             <artifactId>Properties</artifactId>
                                             <version>${project.parent.version}</version>

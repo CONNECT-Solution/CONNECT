@@ -1,20 +1,26 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>General</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
+
     <artifactId>CONNECTConsumerPreferencesProfileGUI</artifactId>
-    <packaging>war</packaging>
     <name>CONNECT Consumer Preferences Profile GUI</name>
-    
+    <packaging>war</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
     <dependencies>
+        <!-- Java EE API -->
         <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>1.2</version>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
         </dependency>
+
+        <!-- CONNECT Modules / Web Services -->
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
@@ -29,7 +35,7 @@
             <artifactId>AdapterAuthenticationCore</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
-		<dependency>
+        <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>Properties</artifactId>
             <version>${project.parent.version}</version>
@@ -44,11 +50,14 @@
             <artifactId>PolicyEngineCore</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+
+        <!-- Apache Commons -->
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <scope>provided</scope>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
         </dependency>
+
+        <!-- Legacy JSF -->
         <dependency>
             <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
             <artifactId>jsfcl</artifactId>
@@ -81,24 +90,11 @@
             <groupId>com.sun.faces.extensions</groupId>
             <artifactId>jsf-extensions-common</artifactId>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
+
+        <!-- Testing -->
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock-legacy</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock-junit4</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -106,10 +102,21 @@
             <artifactId>slf4j-log4j12</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jmock</groupId>
+            <artifactId>jmock-legacy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jmock</groupId>
+            <artifactId>jmock-junit4</artifactId>
+        </dependency>
     </dependencies>
+
     <build>
         <finalName>${project.artifactId}</finalName>
-        <plugins>
-        </plugins>
     </build>
 </project>

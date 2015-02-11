@@ -4,22 +4,16 @@
 
     <parent>
         <groupId>org.connectopensource</groupId>
-        <artifactId>Production</artifactId>
+        <artifactId>Deploy</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>Common</artifactId>
-    <name>${project.artifactId}</name>
-    <packaging>pom</packaging>
+    <artifactId>CONNECT-JB7</artifactId>
+    <name>CONNECT JBoss7 EAR</name>
+    <packaging>ear</packaging>
     <modelVersion>4.0.0</modelVersion>
 
-    <properties>
-        <skip.unpack>true</skip.unpack>
-    </properties>
-
-    <modules>
-        <module>Properties</module>
-        <module>CONNECTCoreLib</module>
-        <module>CONNECTCommonWeb</module>
-    </modules>
+    <build>
+        <finalName>${project.artifactId}</finalName>
+    </build>
 </project>

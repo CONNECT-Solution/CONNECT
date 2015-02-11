@@ -1,16 +1,22 @@
-<?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Product</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
+
     <artifactId>Production</artifactId>
+    <name>${project.artifactId}</name>
     <packaging>pom</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
     <properties>
         <skip.unpack>true</skip.unpack>
     </properties>
+
     <modules>
         <module>Common</module>
         <module>Services</module>
@@ -18,12 +24,15 @@
         <module>Gateway</module>
         <module>Deploy</module>
     </modules>
+
     <dependencies>
+        <!-- Java EE API -->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
-            <scope>provided</scope>
         </dependency>
+
+        <!-- Logging -->
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
@@ -32,44 +41,42 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
         </dependency>
+
+        <!-- Guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
         </dependency>
+
+        <!-- Testing -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jmock</groupId>
             <artifactId>jmock</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jmock</groupId>
             <artifactId>jmock-legacy</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jmock</groupId>
             <artifactId>jmock-junit4</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>net.sourceforge.saxon</groupId>
             <artifactId>saxonhe</artifactId>
-            <version>9.2.1.5</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
+
     <build>
-       
         <plugins>
             <plugin>
                 <!-- Used to pull XSD files from the JAR -->
@@ -78,8 +85,7 @@
                 <executions>
                     <execution>
                         <id>unpack-gateway-properties</id>
-                        <!-- Using the initialize phase because it is before 
-                            the generate sources phase -->
+                        <!-- Using the initialize phase because it is before the generate sources phase -->
                         <phase>initialize</phase>
                         <goals>
                             <goal>unpack</goal>
@@ -88,7 +94,7 @@
                             <skip>${skip.unpack}</skip>
                             <artifactItems>
                                 <artifactItem>
-                                    <!-- Artifact that Holds our custom templates -->
+                                    <!-- Artifact that holds our custom templates -->
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>Properties</artifactId>
                                     <version>${project.parent.version}</version>
@@ -99,10 +105,8 @@
                             <outputDirectory>${project.build.directory}/test-classes/</outputDirectory>
                         </configuration>
                     </execution>
-                    
                 </executions>
             </plugin>
-           
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
@@ -130,12 +134,12 @@
                     <systemProperties>
                         <property>
                             <name>com.sun.aas.instanceRoot</name>
-                            <!-- <value>${project.baseUri}/test-classes/</value> -->
+                            <!--value>${project.baseUri}/test-classes/</value-->
                             <value>${project.build.testOutputDirectory}</value>
                         </property>
                         <property>
                             <name>nhinc.properties.dir</name>
-                            <!-- <value>${project.baseUri}/test-classes/</value> -->
+                            <!--value>${project.baseUri}/test-classes/</value-->
                             <value>${project.build.testOutputDirectory}</value>
                         </property>
                     </systemProperties>
@@ -173,10 +177,11 @@
                 </executions>
             </plugin>
         </plugins>
+
         <pluginManagement>
             <plugins>
-                <!--This plugin's configuration is used to store Eclipse 
-                    m2e settings only. It has no influence on the Maven build itself. -->
+                <!-- This plugin's configuration is only used to store Eclipse
+                     m2e settings; it has no influence on the Maven build itself -->
                 <plugin>
                     <groupId>org.eclipse.m2e</groupId>
                     <artifactId>lifecycle-mapping</artifactId>
@@ -186,15 +191,9 @@
                             <pluginExecutions>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>
-                                            org.apache.maven.plugins
-                                        </groupId>
-                                        <artifactId>
-                                            maven-dependency-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [2.5.1,)
-                                        </versionRange>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-dependency-plugin</artifactId>
+                                        <versionRange>[2.5.1,)</versionRange>
                                         <goals>
                                             <goal>unpack</goal>
                                         </goals>
@@ -206,12 +205,8 @@
                                 <pluginExecution>
                                     <pluginExecutionFilter>
                                         <groupId>org.apache.cxf</groupId>
-                                        <artifactId>
-                                            cxf-codegen-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [2.6.0,)
-                                        </versionRange>
+                                        <artifactId>cxf-codegen-plugin</artifactId>
+                                        <versionRange>[2.6.0,)</versionRange>
                                         <goals>
                                             <goal>wsdl2java</goal>
                                         </goals>
