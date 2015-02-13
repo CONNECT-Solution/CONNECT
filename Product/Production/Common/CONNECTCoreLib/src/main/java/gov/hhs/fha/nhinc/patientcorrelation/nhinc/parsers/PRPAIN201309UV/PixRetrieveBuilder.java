@@ -40,7 +40,9 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.SemanticsTextHelper;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.SenderReceiverHelper;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.UniqueIdHelper;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBElement;
@@ -112,7 +114,7 @@ public class PixRetrieveBuilder {
         return pixRetrieve;
     }
 
-    private  List<String> extractTargetAssigningAuthorities(
+    protected  List<String> extractTargetAssigningAuthorities(
             RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest) {
         // if assigning authorities are present, use those. If not, convert home community to assigning authority
         List<String> targetAssigningAuthorities = retrievePatientCorrelationsRequest.getTargetAssigningAuthority();
@@ -120,8 +122,9 @@ public class PixRetrieveBuilder {
         if (NullChecker.isNullish(targetAssigningAuthorities)) {
             List<String> targetHomeCommunities = retrievePatientCorrelationsRequest.getTargetHomeCommunity();
             if (NullChecker.isNotNullish(targetHomeCommunities)) {
+                List<String> targetCommunitiesWithoutPrefix =stripCommunityIdsPrefix(targetHomeCommunities);
                 targetAssigningAuthorities = aaMappingHelper
-                        .lookupAssigningAuthorities(targetHomeCommunities);
+                        .lookupAssigningAuthorities(targetCommunitiesWithoutPrefix);
             }
         }
 
@@ -234,5 +237,19 @@ public class PixRetrieveBuilder {
         patientIdentifier.getValue().add(IIHelper.IIFactory(qualifiedSubjectIdentifier));
         patientIdentifier.setSemanticsText(SemanticsTextHelper.createSemanticsText("Patient.Id"));
         return patientIdentifier;
+    }
+    
+    protected List<String> stripCommunityIdsPrefix(List<String> targetCommunities)
+    {
+        if (NullChecker.isNotNullish(targetCommunities))
+        {
+            List<String> targetCommunityIds = new ArrayList<String>();
+            for(String homeCommunityId : targetCommunities)
+            {            
+                targetCommunityIds.add(HomeCommunityMap.formatHomeCommunityId(homeCommunityId));
+            }  
+            return targetCommunityIds;
+        }
+        return null; 
     }
 }
