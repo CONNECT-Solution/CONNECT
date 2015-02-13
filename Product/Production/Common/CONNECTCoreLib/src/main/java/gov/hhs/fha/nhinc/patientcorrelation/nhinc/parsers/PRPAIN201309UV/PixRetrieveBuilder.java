@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV;
 
@@ -40,7 +40,9 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.SemanticsTextHelper;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.SenderReceiverHelper;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.UniqueIdHelper;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBElement;
@@ -58,11 +60,11 @@ import org.hl7.v3.XActMoodIntentEvent;
 import org.hl7.v3.XParticipationAuthorPerformer;
 
 /**
- * 
+ *
  * @author rayj
  */
 public class PixRetrieveBuilder {
-    
+
     private AssigningAuthorityHomeCommunityMappingHelper aaMappingHelper;
 
     public static final String ControlActProcessCode = "PRPA_TE201309UV";
@@ -73,17 +75,12 @@ public class PixRetrieveBuilder {
     private static final String ITSVersion = "XML_1.0";
     private static final String MoodCodeValue = "EVN";
 
-    
-    
     /**
-     * 
+     *
      */
     public PixRetrieveBuilder() {
         aaMappingHelper = new AssigningAuthorityHomeCommunityMappingHelper();
     }
-    
-    
-    
 
     /**
      * @param aaMappingHelper
@@ -92,18 +89,15 @@ public class PixRetrieveBuilder {
         this.aaMappingHelper = aaMappingHelper;
     }
 
-
-
-
-    public  PRPAIN201309UV02 createPixRetrieve(
-            RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest) {
+    public PRPAIN201309UV02 createPixRetrieve(
+        RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest) {
         List<String> targetAssigningAuthorities = extractTargetAssigningAuthorities(retrievePatientCorrelationsRequest);
         PRPAIN201309UV02 pixRetrieve = createTransmissionWrapper("1.1", null);
 
         PRPAIN201309UV02QUQIMT021001UV01ControlActProcess controlActProcess = createBaseControlActProcess();
 
         PRPAMT201307UV02QueryByParameter queryByParameter = createQueryByParameter(
-                retrievePatientCorrelationsRequest.getQualifiedPatientIdentifier(), targetAssigningAuthorities);
+            retrievePatientCorrelationsRequest.getQualifiedPatientIdentifier(), targetAssigningAuthorities);
         JAXBElement<PRPAMT201307UV02QueryByParameter> createQueryByParameterElement = createQueryByParameterElement(queryByParameter);
         controlActProcess.setQueryByParameter(createQueryByParameterElement);
 
@@ -112,8 +106,8 @@ public class PixRetrieveBuilder {
         return pixRetrieve;
     }
 
-    private  List<String> extractTargetAssigningAuthorities(
-            RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest) {
+    protected List<String> extractTargetAssigningAuthorities(
+        RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest) {
         // if assigning authorities are present, use those. If not, convert home community to assigning authority
         List<String> targetAssigningAuthorities = retrievePatientCorrelationsRequest.getTargetAssigningAuthority();
 
@@ -121,7 +115,7 @@ public class PixRetrieveBuilder {
             List<String> targetHomeCommunities = retrievePatientCorrelationsRequest.getTargetHomeCommunity();
             if (NullChecker.isNotNullish(targetHomeCommunities)) {
                 targetAssigningAuthorities = aaMappingHelper
-                        .lookupAssigningAuthorities(targetHomeCommunities);
+                    .lookupAssigningAuthorities(stripCommunityIdsPrefix(targetHomeCommunities));
             }
         }
 
@@ -136,7 +130,7 @@ public class PixRetrieveBuilder {
         JAXBElement<COCTMT090100UV01AssignedPerson> assignedPersonElement;
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "assignedPerson");
         assignedPersonElement = new JAXBElement<COCTMT090100UV01AssignedPerson>(xmlqname,
-                COCTMT090100UV01AssignedPerson.class, assignedPerson);
+            COCTMT090100UV01AssignedPerson.class, assignedPerson);
 
         return assignedPersonElement;
     }
@@ -152,7 +146,7 @@ public class PixRetrieveBuilder {
     }
 
     private static PRPAMT201307UV02ParameterList createParameterList(
-            QualifiedSubjectIdentifierType qualifiedSubjectIdentifier, List<String> targetAssigningAuthorities) {
+        QualifiedSubjectIdentifierType qualifiedSubjectIdentifier, List<String> targetAssigningAuthorities) {
         PRPAMT201307UV02ParameterList parameterList = new PRPAMT201307UV02ParameterList();
         PRPAMT201307UV02PatientIdentifier patId = createPatientIdentifier(qualifiedSubjectIdentifier);
         parameterList.getPatientIdentifier().add(patId);
@@ -199,7 +193,7 @@ public class PixRetrieveBuilder {
     }
 
     private static PRPAMT201307UV02QueryByParameter createQueryByParameter(
-            QualifiedSubjectIdentifierType qualifiedSubjectIdentifier, List<String> targetAssigningAuthorities) {
+        QualifiedSubjectIdentifierType qualifiedSubjectIdentifier, List<String> targetAssigningAuthorities) {
         PRPAMT201307UV02QueryByParameter queryByParameter = new PRPAMT201307UV02QueryByParameter();
         queryByParameter.setQueryId(UniqueIdHelper.createUniqueId("1.1"));
         queryByParameter.setStatusCode(CSHelper.buildCS("new"));
@@ -209,11 +203,11 @@ public class PixRetrieveBuilder {
     }
 
     private static JAXBElement<PRPAMT201307UV02QueryByParameter> createQueryByParameterElement(
-            PRPAMT201307UV02QueryByParameter queryByParameter) {
+        PRPAMT201307UV02QueryByParameter queryByParameter) {
         JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameterElement;
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "queryByParameter");
         queryByParameterElement = new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
-                PRPAMT201307UV02QueryByParameter.class, new PRPAMT201307UV02QueryByParameter());
+            PRPAMT201307UV02QueryByParameter.class, new PRPAMT201307UV02QueryByParameter());
         queryByParameterElement.setValue(queryByParameter);
         return queryByParameterElement;
     }
@@ -229,10 +223,21 @@ public class PixRetrieveBuilder {
     }
 
     private static PRPAMT201307UV02PatientIdentifier createPatientIdentifier(
-            QualifiedSubjectIdentifierType qualifiedSubjectIdentifier) {
+        QualifiedSubjectIdentifierType qualifiedSubjectIdentifier) {
         PRPAMT201307UV02PatientIdentifier patientIdentifier = new PRPAMT201307UV02PatientIdentifier();
         patientIdentifier.getValue().add(IIHelper.IIFactory(qualifiedSubjectIdentifier));
         patientIdentifier.setSemanticsText(SemanticsTextHelper.createSemanticsText("Patient.Id"));
         return patientIdentifier;
+    }
+
+    protected List<String> stripCommunityIdsPrefix(List<String> targetCommunities) {
+        if (NullChecker.isNotNullish(targetCommunities)) {
+            List<String> targetCommunityIds = new ArrayList<String>();
+            for (String homeCommunityId : targetCommunities) {
+                targetCommunityIds.add(HomeCommunityMap.formatHomeCommunityId(homeCommunityId));
+            }
+            return targetCommunityIds;
+        }
+        return null;
     }
 }
