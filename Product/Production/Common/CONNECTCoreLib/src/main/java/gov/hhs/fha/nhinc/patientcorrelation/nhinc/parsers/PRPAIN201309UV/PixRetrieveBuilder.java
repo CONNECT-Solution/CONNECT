@@ -114,9 +114,8 @@ public class PixRetrieveBuilder {
         if (NullChecker.isNullish(targetAssigningAuthorities)) {
             List<String> targetHomeCommunities = retrievePatientCorrelationsRequest.getTargetHomeCommunity();
             if (NullChecker.isNotNullish(targetHomeCommunities)) {
-                List<String> targetCommunitiesWithoutPrefix = stripCommunityIdsPrefix(targetHomeCommunities);
                 targetAssigningAuthorities = aaMappingHelper
-                    .lookupAssigningAuthorities(targetCommunitiesWithoutPrefix);
+                    .lookupAssigningAuthorities(stripCommunityIdsPrefix(targetHomeCommunities));
             }
         }
 
