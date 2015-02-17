@@ -1,14 +1,17 @@
-<?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Bimodal</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
+
     <artifactId>DocumentRetrieveXDSErrorValidation</artifactId>
-    <packaging>jar</packaging>
     <name>Maven 3 soapUI DocumentRetrieveXDSErrorValidation</name>
+    <packaging>jar</packaging>
+    <modelVersion>4.0.0</modelVersion>
 
     <build>
         <plugins>
@@ -32,13 +35,6 @@
                             <value>${basedir}/../../src/main/resources/ext</value>
                         </property>
                     </soapuiProperties>
-                    <exportAll>true</exportAll>
-                    <printReport>true</printReport>
-                    <junitReport>true</junitReport>
-                    <coverage>false</coverage>
-                    <testFailIgnore>${soapui.testFailIgnore}</testFailIgnore>
-                    <saveAfterRun>false</saveAfterRun>
-                    <host>${host}:${port}</host>
                     <testSuite>${test.suite}</testSuite>
                     <testCase>${test.case}</testCase>
                     <projectProperties>

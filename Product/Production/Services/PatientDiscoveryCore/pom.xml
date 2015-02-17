@@ -1,16 +1,20 @@
-<?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Services</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
+
     <artifactId>PatientDiscoveryCore</artifactId>
-    <packaging>jar</packaging>
     <name>CONNECT Patient Discovery Core</name>
-    
+    <packaging>jar</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
     <dependencies>
+        <!-- CONNECT Modules / Web Services -->
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>AuditRepositoryCore</artifactId>
@@ -22,35 +26,39 @@
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <scope>test</scope>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>PatientDiscoveryWebservices</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
-        </dependency>
+
+        <!-- Spring Framework -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
         </dependency>
+
+        <!-- AOP -->
         <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>PatientDiscoveryWebservices</artifactId>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+        </dependency>
+
+        <!-- Testing -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
-                <!-- Used to pull gateway.properties file from the shared 
-                    resource JAR -->
+                <!-- Used to pull gateway.properties file from the shared resource JAR -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
                         <id>unpack-test-resources</id>
-                        <!-- Using the initialize phase because it is before 
-                            the generate sources phase -->
+                        <!-- Using the initialize phase because it is before the generate sources phase -->
                         <phase>initialize</phase>
                         <goals>
                             <goal>unpack</goal>
@@ -58,7 +66,7 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <!-- Artifact that Holds our custom templates -->
+                                    <!-- Artifact that holds our custom templates -->
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>Properties</artifactId>
                                     <version>${project.parent.version}</version>

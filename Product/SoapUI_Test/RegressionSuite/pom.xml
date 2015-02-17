@@ -1,17 +1,22 @@
-<?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>SoapUI_Test</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
+
     <artifactId>RegressionSuite</artifactId>
-    <packaging>pom</packaging>
     <name>Maven 3 soapUI RegressionSuite</name>
+    <packaging>pom</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
     <properties>
         <soapui.testFailIgnore>true</soapui.testFailIgnore>
     </properties>
+
     <profiles>
         <profile>
             <id>regression-testing</id>
@@ -30,4 +35,35 @@
             </modules>
         </profile>
     </profiles>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.github.redfish4ktc.soapui</groupId>
+                    <artifactId>maven-soapui-extension-plugin</artifactId>
+                    <configuration>
+                        <exportAll>true</exportAll>
+                        <printReport>true</printReport>
+                        <junitReport>true</junitReport>
+                        <coverage>false</coverage>
+                        <testFailIgnore>${soapui.testFailIgnore}</testFailIgnore>
+                        <saveAfterRun>false</saveAfterRun>
+                        <host>${host}:${port}</host>
+                        <projectProperties>
+                            <value>GatewayPropDir=${properties.dir}</value>
+                            <value>DBHost=${db.host}</value>
+                            <value>DBPass=${db.password}</value>
+                            <value>DBPort=${db.port}</value>
+                            <value>DBUser=${db.user}</value>
+                            <value>ASUsername=${as.username}</value>
+                            <value>ASPassword=${as.password}</value>
+                            <value>JMXHost=${jmx.host}</value>
+                            <value>JMXPort=${jmx.port}</value>
+                        </projectProperties>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>

@@ -499,9 +499,6 @@ CREATE TABLE IF NOT EXISTS eventdb.event (
 COMMENT = 'Event Logging';
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON eventdb.* to nhincuser;
-
-GRANT SELECT,INSERT,UPDATE,DELETE ON *.* TO 'nhincuser'@'localhost' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
-GRANT SELECT,INSERT,UPDATE,DELETE ON *.* TO 'nhincuser'@'127.0.0.1' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
 -- end eventdb
 
 -- begin adminguidb
@@ -570,11 +567,6 @@ VALUES
 GRANT SELECT,INSERT,UPDATE,DELETE ON adminguidb.* to nhincuser;
 -- end adminguidb
 
-GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'localhost' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'127.0.0.1' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'{host name}' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
-FLUSH PRIVILEGES;
-
 -- begin message monitoringdb
 CREATE DATABASE messagemonitoringdb;
 
@@ -607,6 +599,11 @@ CREATE TABLE messagemonitoringdb.monitoredmessagenotification (
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON messagemonitoringdb.* to nhincuser;
 -- end message monitoring db
+
+GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'localhost' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'127.0.0.1' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'{host name}' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
 
 -- -----------------------------------------------------
 -- The following is a workaround that is required for

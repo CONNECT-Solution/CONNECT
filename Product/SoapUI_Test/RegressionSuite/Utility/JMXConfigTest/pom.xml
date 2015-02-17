@@ -1,17 +1,23 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Bimodal</artifactId>
         <version>4.5.0-SNAPSHOT</version>
     </parent>
+
     <artifactId>JMXConfigTest</artifactId>
-    <packaging>jar</packaging>
     <name>Maven 3 soapUI JMXConfigTest</name>
+    <packaging>jar</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
     <properties>
         <skip.unpack>false</skip.unpack>
         <soapui.testFailIgnore>true</soapui.testFailIgnore>
     </properties>
+
     <profiles>
         <profile>
             <id>validation-testing</id>
@@ -42,22 +48,8 @@
                                     <value>${basedir}/src/main/resources/ext</value>
                                 </property>
                             </soapuiProperties>
-                            <exportAll>true</exportAll>
-                            <printReport>true</printReport>
-                            <junitReport>true</junitReport>
-                            <coverage>false</coverage>
-                            <testFailIgnore>${soapui.testFailIgnore}</testFailIgnore>
-                            <saveAfterRun>false</saveAfterRun>
-                            <host>${host}:${port}</host>
                             <testSuite>${test.suite}</testSuite>
                             <testCase>${test.case}</testCase>
-                            <projectProperties>
-                                <value>GatewayPropDir=${properties.dir}</value>
-                                <value>DBHost=${db.host}</value>
-                                <value>DBPass=${db.password}</value>
-                                <value>DBPort=${db.port}</value>
-                                <value>DBUser=${db.user}</value>
-                            </projectProperties>
                         </configuration>
                         <executions>
                             <execution>
@@ -92,7 +84,7 @@
                 </property>
             </activation>
             <properties>
-                <properties.dir>${project.build.directory}/nhinc-properites-dir</properties.dir>
+                <properties.dir>${project.build.directory}/nhinc-properties-dir</properties.dir>
             </properties>
             <build>
                 <plugins>
@@ -129,8 +121,7 @@
                             </execution>
                             <execution>
                                 <id>unpack-nhin-properties</id>
-                                <!-- Using the initialize phase because it
-                                    is before the generate sources phase -->
+                                <!-- Using the initialize phase because it is before the generate sources phase -->
                                 <phase>process-resources</phase>
                                 <goals>
                                     <goal>unpack</goal>
@@ -139,8 +130,7 @@
                                     <skip>${skip.unpack}</skip>
                                     <artifactItems>
                                         <artifactItem>
-                                            <!-- Artifact that Holds our
-                                                custom templates -->
+                                            <!-- Artifact that holds our custom templates -->
                                             <groupId>org.connectopensource</groupId>
                                             <artifactId>Properties</artifactId>
                                             <version>${project.parent.version}</version>
@@ -148,7 +138,7 @@
                                         </artifactItem>
                                     </artifactItems>
                                     <includes>**/*</includes>
-                                    <outputDirectory>${project.build.directory}/nhinc-properites-dir/</outputDirectory>
+                                    <outputDirectory>${project.build.directory}/nhinc-properties-dir/</outputDirectory>
                                 </configuration>
                             </execution>
                             <execution>

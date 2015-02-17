@@ -1,8 +1,4 @@
 /**
- * 
- */
-
-/**
 *Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
 *All rights reserved.
 *
