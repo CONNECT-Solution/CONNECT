@@ -43,7 +43,6 @@ public class PropertyAccessor implements IPropertyAcessor {
 
     private PropertyFileDAO propertyFileDAO;
     private PropertyAccessorFileUtilities fileUtilities;
-    private String propertyFileName = "gateway";
 
     private static final Logger LOG = Logger.getLogger(PropertyAccessor.class);
 
@@ -65,24 +64,18 @@ public class PropertyAccessor implements IPropertyAcessor {
         return SingletonHolder.INSTANCE;
     }
 
-    public static PropertyAccessor getInstance(String propertyFileName) {
-        getInstance().setPropertyFile(propertyFileName, false);
-        return getInstance();
-    }
-
     /**
      * @param propertyFileName The name of the property file. This is the name
      * of the file without a path and without the ".properties" extension.
      * Examples of this would be "connection" or "gateway".
      *
      */
-    public synchronized void setPropertyFile(String propertyFileName, boolean reload) {
-        this.propertyFileName = propertyFileName;
+    public synchronized void setPropertyFile(String propertyFileName) {
         if (!propertyFileDAO.containsPropFile(propertyFileName)) {
             try {
-                loadPropertyFile(propertyFileName, reload);
+                loadPropertyFile(propertyFileName);
             } catch (PropertyAccessException ex) {
-                LOG.warn("Unable to load property file: " + propertyFileName);
+                LOG.warn("Unable to load property file: " + propertyFileName, ex);
             }
         }
     }
@@ -108,33 +101,9 @@ public class PropertyAccessor implements IPropertyAcessor {
     @Override
     public synchronized String getProperty(String propertyFile, String propertyName) throws PropertyAccessException {
         validateInput(propertyFile, propertyName);
-        loadPropertyFile(propertyFile, false);
+        loadPropertyFile(propertyFile);
 
         return propertyFileDAO.getProperty(propertyFile, propertyName);
-    }
-
-    /**
-     * This method returns the value of the given property that is located
-     * within the given property file. If the properties have been cached and
-     * the cache is still fresh, then it will return the value from the cache.
-     * If the properties are cached, but the cache is not fresh, then the cache
-     * will be updated with the current values in the properties file and then
-     * the property will be returned. If the properties for that file are not
-     * cached at all, the property will be retrieved from the properties file
-     * and returned.
-     *
-     * @param propertyName This is the name of the property within the property
-     * file.
-     * @throws PropertyAccessException This is thrown if an error occurs
-     * accessing the property.
-     */
-    @Override
-    public synchronized String getProperty(String propertyName) throws PropertyAccessException {
-        return getProperty(propertyFileName, propertyName);
-    }
-
-    public synchronized boolean getPropertyBoolean(String propertyName) throws PropertyAccessException {
-        return getPropertyBoolean(propertyFileName, propertyName);
     }
 
     /**
@@ -146,13 +115,13 @@ public class PropertyAccessor implements IPropertyAcessor {
      * @throws PropertyAccessException the property access exception
      */
     public void setProperty(String propertyFileName, String key, String value) throws PropertyAccessException {
-        loadPropertyFile(propertyFileName, false);
+        loadPropertyFile(propertyFileName);
 
         propertyFileDAO.setProperty(propertyFileName, key, value);
     }
     
     public String getPropertyComment(String propertyFileName, String key) throws PropertyAccessException {
-        loadPropertyFile(propertyFileName, false);
+        loadPropertyFile(propertyFileName);
         
         return propertyFileDAO.getPropertyComment(propertyFileName, key);
     }
@@ -170,7 +139,7 @@ public class PropertyAccessor implements IPropertyAcessor {
      */
     public synchronized boolean getPropertyBoolean(String propertyFile, String propertyName) throws PropertyAccessException {
         validateInput(propertyFile, propertyName);
-        loadPropertyFile(propertyFile, false);
+        loadPropertyFile(propertyFile);
 
         return propertyFileDAO.getPropertyBoolean(propertyFile, propertyName);
     }
@@ -189,7 +158,7 @@ public class PropertyAccessor implements IPropertyAcessor {
      */
     public synchronized long getPropertyLong(String propertyFile, String propertyName) throws PropertyAccessException {
         validateInput(propertyFile, propertyName);
-        loadPropertyFile(propertyFile, false);
+        loadPropertyFile(propertyFile);
 
         return propertyFileDAO.getPropertyLong(propertyFile, propertyName);
     }
@@ -204,7 +173,7 @@ public class PropertyAccessor implements IPropertyAcessor {
      */
     public synchronized final Set<String> getPropertyNames(String propertyFile) throws PropertyAccessException {
         validateInput(propertyFile);
-        loadPropertyFile(propertyFile, false);
+        loadPropertyFile(propertyFile);
 
         return propertyFileDAO.getPropertyNames(propertyFile);
     }
@@ -231,7 +200,7 @@ public class PropertyAccessor implements IPropertyAcessor {
      */
     public synchronized final Properties getProperties(String propertyFile) throws PropertyAccessException {
         validateInput(propertyFile);
-        loadPropertyFile(propertyFile, false);
+        loadPropertyFile(propertyFile);
 
         return propertyFileDAO.getProperties(propertyFile);
     }
@@ -270,7 +239,7 @@ public class PropertyAccessor implements IPropertyAcessor {
      */
     public void dumpPropsToLog(String propertyFile) throws PropertyAccessException {
         validateInput(propertyFile);
-        loadPropertyFile(propertyFile, false);
+        loadPropertyFile(propertyFile);
 
         propertyFileDAO.printToLog(propertyFile);
     }
@@ -295,8 +264,8 @@ public class PropertyAccessor implements IPropertyAcessor {
         }
     }
 
-    private synchronized void loadPropertyFile(String propertyFile, boolean reload) throws PropertyAccessException {
-        if (!propertyFileDAO.containsPropFile(propertyFile) || reload) {
+    private synchronized void loadPropertyFile(String propertyFile) throws PropertyAccessException {
+        if (!propertyFileDAO.containsPropFile(propertyFile)) {
             String propFilePathAndName = fileUtilities.getPropertyFileLocation(propertyFile);
 
             File propertyFileLocation = new File(propFilePathAndName);

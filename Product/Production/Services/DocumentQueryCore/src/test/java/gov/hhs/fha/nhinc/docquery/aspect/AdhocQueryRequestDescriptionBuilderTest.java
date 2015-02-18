@@ -59,14 +59,14 @@ public class AdhocQueryRequestDescriptionBuilderTest extends BaseDescriptionBuil
         final PropertyAccessor mockProperties = mock(PropertyAccessor.class);
         builder = new AdhocQueryRequestDescriptionBuilder(){
             @Override
-            protected PropertyAccessor getPropertyAccessor(String fileName){
+            protected PropertyAccessor getPropertyAccessor(){
                 return mockProperties;
             }
         };
         assertion = new AssertionType();
         assertionExtractor = mock(AssertionDescriptionExtractor.class);
         
-        when(mockProperties.getProperty(anyString())).thenReturn(null);
+        when(mockProperties.getProperty(anyString(), anyString())).thenReturn(null);
         when(assertionExtractor.getInitiatingHCID(assertion)).thenReturn("hcid");
         when(assertionExtractor.getNPI(assertion)).thenReturn("npi");
     }

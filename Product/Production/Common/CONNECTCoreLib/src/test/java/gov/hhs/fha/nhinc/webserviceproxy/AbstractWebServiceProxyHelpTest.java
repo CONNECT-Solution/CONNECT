@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.webserviceproxy;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 
@@ -80,7 +81,7 @@ public abstract class AbstractWebServiceProxyHelpTest {
         context.checking(new Expectations() {
 
             {
-                oneOf(mock).getProperty(property);
+                oneOf(mock).getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, property);
                 will(action);
             }
         });

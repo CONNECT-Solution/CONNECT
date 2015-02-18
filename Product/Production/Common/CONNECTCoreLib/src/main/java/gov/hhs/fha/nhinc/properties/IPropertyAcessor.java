@@ -28,10 +28,14 @@ package gov.hhs.fha.nhinc.properties;
 
 public interface IPropertyAcessor {
 
-    public String getProperty(String sPropertyName) throws PropertyAccessException;
+    
     
     public String getProperty(String propertyFile, String propertyName) throws PropertyAccessException;
     
-    public boolean getPropertyBoolean(String sPropertName) throws PropertyAccessException;
+    public boolean getPropertyBoolean(String propertyFile, String propertyName) throws PropertyAccessException;
+    
+    public void setProperty(String propertyFileName, String key, String value) throws PropertyAccessException;
+    
+    public String getPropertyComment(String propertyFileName, String key) throws PropertyAccessException;
 
 }

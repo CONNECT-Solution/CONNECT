@@ -60,7 +60,8 @@ public class PropertyFileDAO {
             properties.setReloadingStrategy(new FileChangedReloadingStrategy());
             properties.load(propertyFile);
             properties.setFile(propertyFile);
-            properties.setAutoSave(true);
+            properties.setAutoSave(false);
+            properties.refresh();
 
             propertyFilesHashmap.put(propertyFileName, properties);
         } catch (ConfigurationException e) {
@@ -95,6 +96,11 @@ public class PropertyFileDAO {
             props.setProperty(key, value);
             Date now = new Date();
             props.getLayout().setHeaderComment("Updated " + propertyFileName + ".properties at: " + now.toString());
+            try {
+                props.save();
+            } catch (ConfigurationException ex) {
+                throw new PropertyAccessException(ex.getMessage(), ex);
+            }
         }
     }
     

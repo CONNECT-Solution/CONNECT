@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.webserviceproxy;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -78,16 +79,16 @@ public class WebServiceProxyHelperInvokePortTest extends AbstractWebServiceProxy
     public void before() throws PropertyAccessException {
         context.checking(new Expectations() {
             {
-                oneOf(mockPropertyAccessor).getProperty(WebServiceProxyHelperProperties.CONFIG_KEY_TIMEOUT);
+                oneOf(mockPropertyAccessor).getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, WebServiceProxyHelperProperties.CONFIG_KEY_TIMEOUT);
                 will(returnValue("0"));
 
-                oneOf(mockPropertyAccessor).getProperty(WebServiceProxyHelperProperties.CONFIG_KEY_RETRYATTEMPTS);
+                oneOf(mockPropertyAccessor).getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, WebServiceProxyHelperProperties.CONFIG_KEY_RETRYATTEMPTS);
                 will(returnValue("0"));
 
-                oneOf(mockPropertyAccessor).getProperty(WebServiceProxyHelperProperties.CONFIG_KEY_RETRYDELAY);
+                oneOf(mockPropertyAccessor).getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, WebServiceProxyHelperProperties.CONFIG_KEY_RETRYDELAY);
                 will(returnValue("10"));
 
-                exactly(3).of(mockPropertyAccessor).getProperty(WebServiceProxyHelperProperties.CONFIG_KEY_EXCEPTION);
+                exactly(3).of(mockPropertyAccessor).getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, WebServiceProxyHelperProperties.CONFIG_KEY_EXCEPTION);
                 will(returnValue("SocketTimeoutException"));
 
             }

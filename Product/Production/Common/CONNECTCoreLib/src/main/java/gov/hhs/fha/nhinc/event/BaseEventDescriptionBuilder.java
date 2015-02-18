@@ -145,7 +145,7 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
     protected final void setLocalResponder() {
         try {
             String hcid
-                = getPropertyAccessor(NhincConstants.GATEWAY_PROPERTY_FILE).getProperty(NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+                = getPropertyAccessor().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
 
             if (NullChecker.isNotNullish(hcid)) {
                 List<String> responders = new ArrayList<String>();
@@ -157,8 +157,8 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
         }
     }
 
-    protected PropertyAccessor getPropertyAccessor(String fileName) {
-        return PropertyAccessor.getInstance(fileName);
+    protected PropertyAccessor getPropertyAccessor() {
+        return PropertyAccessor.getInstance();
     }
 
     @Override

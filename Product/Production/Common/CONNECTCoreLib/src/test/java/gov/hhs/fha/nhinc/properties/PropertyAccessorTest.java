@@ -96,7 +96,7 @@ public class PropertyAccessorTest {
         PropertyAccessor propAccessor = PropertyAccessor.getInstance();
         assertNotNull(propAccessor);
         
-        propAccessor = PropertyAccessor.getInstance(PROPERTY_FILE_NAME);
+        propAccessor = PropertyAccessor.getInstance();
         assertNotNull(propAccessor);        
     }
     
@@ -104,7 +104,7 @@ public class PropertyAccessorTest {
     public void testGetProperty() throws PropertyAccessException {
         PropertyAccessor propAccessor = createPropertyAccessor();
         
-        String propertyValue = propAccessor.getProperty(PROPERTY_NAME);
+        String propertyValue = propAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_NAME);
         assertEquals(PROPERTY_VALUE_STRING, propertyValue);
         
         propertyValue = propAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_NAME);
@@ -115,7 +115,7 @@ public class PropertyAccessorTest {
     public void testGetPropertyBoolean() throws PropertyAccessException {
         PropertyAccessor propAccessor = createPropertyAccessor();
         
-        boolean propertyValue = propAccessor.getPropertyBoolean(PROPERTY_NAME);
+        boolean propertyValue = propAccessor.getPropertyBoolean(PROPERTY_FILE_NAME, PROPERTY_NAME);
         assertEquals(PROPERTY_VALUE_BOOLEAN, propertyValue);        
     }
     
@@ -174,7 +174,7 @@ public class PropertyAccessorTest {
                 };
             }
         };
-        propAccessor.setPropertyFile(PROPERTY_FILE_NAME, false);
+        propAccessor.setPropertyFile(PROPERTY_FILE_NAME);
         
         return propAccessor;
     }
