@@ -232,10 +232,6 @@ public class PropertyAccessHelper {
      * information. It will completely overwrite the current file with the new properties information. If the file does
      * not exist, it will create it. This writes the property file to the NHINC properties directory.
      * 
-     * WARNING: If a property file is currently cached in memory - the file will not be re-read until the next time the
-     * cache refreshes its property from the file based on the criteria that was put in place when the properties were
-     * last loaded from file. This is based on setting of the "CacheRefreshDuration" property in the property file.
-     * 
      * NOTE THAT THERE MUST BE AT LEAST ONE PROPERTY TO WRITE.
      * 
      * @param part1 The name of the property file and the properties to write.
@@ -286,10 +282,6 @@ public class PropertyAccessHelper {
      * This method deletes the specified properties file. Note: It will completely delete the file from the NHINC
      * properties directory.
      * 
-     * WARNING: If a property file is currently cached in memory - the file will not be removed from memory until the
-     * next time the cache refreshes its property from the file based on the criteria that was put in place when the
-     * properties were last loaded from file. This is based on setting of the "CacheRefreshDuration" property in the
-     * property file.
      * 
      * @param part1 The name of the property file to be deleted without the ".properties" extension.
      * @return True if this succeeds.
