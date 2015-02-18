@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss-web>
+    <context-root>/CONNECTAdminGUI</context-root>
     <resource-ref>
         <res-ref-name>jdbc/adminguidb_datasource</res-ref-name>
         <jndi-name>java:/jdbc/adminguidb_datasource</jndi-name>
