@@ -45,6 +45,16 @@ public class HL7AckTransforms {
     public static final String ACK_TYPE_CODE_ACCEPT = "CA";
     public static final String ACK_TYPE_CODE_ERROR = "CE";
 
+    private static HL7MessageIdGenerator idGenerator = new HL7MessageIdGenerator();
+    
+    public HL7AckTransforms() {
+        
+    }
+    
+    HL7AckTransforms(HL7MessageIdGenerator idGenerator) {
+        this.idGenerator = idGenerator;
+    }
+    
     /**
      * Create acknowledgment accept message from patient discovery request.
      * 
@@ -185,7 +195,7 @@ public class HL7AckTransforms {
 
         // Create the Ack message header fields
         ackMsg.setITSVersion(HL7Constants.ITS_VERSION);
-        ackMsg.setId(HL7MessageIdGenerator.generateHL7MessageId(localDeviceId));
+        ackMsg.setId(idGenerator.generateHL7MessageId(localDeviceId));
         ackMsg.setCreationTime(HL7DataTransformHelper.creationTimeFactory());
         ackMsg.setInteractionId(HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT, "MCCIIN000002UV01"));
         ackMsg.setProcessingCode(HL7DataTransformHelper.CSFactory("T"));
@@ -365,5 +375,5 @@ public class HL7AckTransforms {
 
         return root;
     }
-
+    
 }

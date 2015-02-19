@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
  *
  * Redistribution and use in source and binary forms, with or without 
@@ -22,20 +22,48 @@
  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+package gov.hhs.fha.nhinc.admingui.model;
+
+/**
+ *
+ * @author jassmit
  */
-package gov.hhs.fha.nhinc.properties;
+public class PropValue {
+    private String key;
+    private String value;
+    private String text;
 
-public interface IPropertyAcessor {
+    public PropValue(String key, String value, String text) {
+        this.key = key;
+        this.value = value;
+        this.text = text;
+    }
 
-    
-    
-    public String getProperty(String propertyFile, String propertyName) throws PropertyAccessException;
-    
-    public boolean getPropertyBoolean(String propertyFile, String propertyName) throws PropertyAccessException;
-    
-    public void setProperty(String propertyFileName, String key, String value) throws PropertyAccessException;
-    
-    public String getPropertyComment(String propertyFileName, String key) throws PropertyAccessException;
+    public String getKey() {
+        return key;
+    }
 
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+    
 }

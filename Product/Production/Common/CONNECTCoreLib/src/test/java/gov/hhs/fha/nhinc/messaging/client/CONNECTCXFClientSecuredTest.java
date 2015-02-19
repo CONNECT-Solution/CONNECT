@@ -30,6 +30,7 @@ import static org.junit.Assert.assertEquals;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.decorator.MTOMServiceEndpointDecoratorTest;
 import gov.hhs.fha.nhinc.messaging.service.decorator.SAMLServiceEndpointDecoratorTest;
+import gov.hhs.fha.nhinc.messaging.service.decorator.TimeoutServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.TimeoutServiceEndpointDecoratorTest;
 import gov.hhs.fha.nhinc.messaging.service.decorator.URLServiceEndpointDecoratorTest;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SoapResponseServiceEndpointDecoratorTest;
@@ -39,9 +40,13 @@ import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsSecurityServiceEndpoi
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -61,6 +66,17 @@ public class CONNECTCXFClientSecuredTest {
     private final WsAddressingServiceEndpointDecoratorTest addressTest = new WsAddressingServiceEndpointDecoratorTest();
     private final WsSecurityServiceEndpointDecoratorTest securityTest = new WsSecurityServiceEndpointDecoratorTest();
 
+    private static final int TIMEOUT = 100;
+    
+    @Before
+    public void setUpTest(){
+        try {
+            PropertyAccessor.getInstance().setProperty(NhincConstants.GATEWAY_PROPERTY_FILE, TimeoutServiceEndpointDecorator.CONFIG_KEY_TIMEOUT, Integer.toString(TIMEOUT));
+        } catch (PropertyAccessException ex) {
+            System.out.println("Unable to set in memory property for timeout decorator.");
+        }
+    }
+    
     /**
      * This test ensures that the interceptor count is the same no matter how many times the decorator is called on the
      * constructor.
@@ -101,7 +117,7 @@ public class CONNECTCXFClientSecuredTest {
         CONNECTClient<TestServicePortType> client = createClient(url, assertion, wsAddressingTo);
         
         // default configuration
-        timeoutTest.verifyTimeoutIsSet(client);
+        timeoutTest.verifyTimeoutIsSet(client, TIMEOUT);
         responseTest.verifySoapResponseInInterceptor(client);
         urlTest.verifyURLConfiguration(client, url);
 
@@ -129,7 +145,7 @@ public class CONNECTCXFClientSecuredTest {
         client.enableMtom();
         
         // default configuration
-        timeoutTest.verifyTimeoutIsSet(client);
+        timeoutTest.verifyTimeoutIsSet(client, TIMEOUT);
         responseTest.verifySoapResponseInInterceptor(client);
         urlTest.verifyURLConfiguration(client, url);
 

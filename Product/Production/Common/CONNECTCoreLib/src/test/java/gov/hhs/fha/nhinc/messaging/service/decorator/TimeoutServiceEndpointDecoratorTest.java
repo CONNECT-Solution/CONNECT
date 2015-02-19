@@ -32,8 +32,6 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTTestClient;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortType;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import java.util.Map;
 
@@ -46,34 +44,21 @@ import org.junit.Test;
  */
 public class TimeoutServiceEndpointDecoratorTest {
 
+    private static final int TIMEOUT = 100;
+    
     @Test
     public void testTimeoutIsSet() {
         CONNECTClient<TestServicePortType> client = createClient();
 
-        verifyTimeoutIsSet(client);
+        verifyTimeoutIsSet(client, TIMEOUT);
     }
 
-    public void verifyTimeoutIsSet(CONNECTClient<?> client) {
-        int timeout = getTimeoutFromConfig();
-        
+    public void verifyTimeoutIsSet(CONNECTClient<?> client, int timeout) {
         Map<String, Object> requestContext = ((javax.xml.ws.BindingProvider) client.getPort()).getRequestContext();        
         HTTPClientPolicy clientPolicy = (HTTPClientPolicy) requestContext.get(HTTPClientPolicy.class.getName());
         
         assertEquals(timeout, clientPolicy.getConnectionTimeout());
         assertEquals(timeout, clientPolicy.getReceiveTimeout());
-    }
-    
-    private int getTimeoutFromConfig() {
-        int timeout = 0;
-        try {
-            String sValue = PropertyAccessor.getInstance().getProperty(TimeoutServiceEndpointDecorator.CONFIG_KEY_TIMEOUT);
-            if (NullChecker.isNotNullish(sValue)) {
-                timeout = Integer.parseInt(sValue);
-            }
-        } catch (Exception ex) {
-            // Do Nothing
-        }
-        return timeout;
     }
 
     private CONNECTClient<TestServicePortType> createClient() {
@@ -81,7 +66,12 @@ public class TimeoutServiceEndpointDecoratorTest {
                 new TestServicePortDescriptor());
 
         ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
-        serviceEndpoint = new TimeoutServiceEndpointDecorator<TestServicePortType>(serviceEndpoint);
+        serviceEndpoint = new TimeoutServiceEndpointDecorator<TestServicePortType>(serviceEndpoint) {
+            @Override
+            int getTimeoutFromConfig() {
+                return TIMEOUT;
+            }
+        };
         serviceEndpoint.configure();
 
         return testClient;

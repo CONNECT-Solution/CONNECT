@@ -33,13 +33,12 @@ import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -50,7 +49,7 @@ import org.springframework.stereotype.Component;
  * @author sadusumilli
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 @Component
 public class LoginBean {
 
@@ -161,13 +160,19 @@ public class LoginBean {
             if (user != null) {
                 loggedIn = true;
                 FacesContext facesContext = FacesContext.getCurrentInstance();
-                HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+                ExternalContext externalContext = facesContext.getExternalContext();
+                externalContext.invalidateSession();
+                HttpSession session = (HttpSession) externalContext.getSession(true);
                 session.setAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE, user);
                 checkDisplays();
             }
         } catch (UserLoginException e) {
             LOG.error(e, e);
         }
+        
+        userName = null;
+        password = null;
+        
         return loggedIn;
     }
     

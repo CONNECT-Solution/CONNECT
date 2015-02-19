@@ -30,10 +30,6 @@ import gov.hhs.fha.nhinc.common.propertyaccess.DeletePropertyFileRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.DeletePropertyFileResponseType;
 import gov.hhs.fha.nhinc.common.propertyaccess.DumpPropsToLogRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.DumpPropsToLogResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.ForceRefreshRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.ForceRefreshResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetDurationBeforeNextRefreshRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetDurationBeforeNextRefreshResponseType;
 import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertiesRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertiesResponseType;
 import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyBooleanRequestType;
@@ -44,8 +40,6 @@ import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyNamesRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyNamesResponseType;
 import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetRefreshDurationRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetRefreshDurationResponseType;
 import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileResponseType;
 
@@ -152,67 +146,6 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
     }
 
     /**
-     * This will return the in milliseconds the refresh duration on the property file. A setting of -1 means it never
-     * refreshes.
-     * 
-     * @param getRefreshDurationRequest The name of the property file.
-     * @return the refresh duration for the property file.
-     */
-    public GetRefreshDurationResponseType getRefreshDuration(GetRefreshDurationRequestType getRefreshDurationRequest) {
-        GetRefreshDurationResponseType oOutput = null;
-
-        try {
-            oOutput = PropertyAccessHelper.getRefreshDuration(getRefreshDurationRequest);
-        } catch (Exception e) {
-            String sMessage = "Failed to retrieve refresh duration.  Exception: " + e.getMessage();
-            LOG.error(sMessage, e);
-        }
-
-        return oOutput;
-    }
-
-    /**
-     * This will return the duration in milliseconds before the next refresh of the properties file. A value of -1
-     * indicates that no refresh will occur.
-     * 
-     * @param getDurationBeforeNextRefreshRequest The name of the property file.
-     * @return The number of milliseconds before the next refresh will occur.
-     */
-    public GetDurationBeforeNextRefreshResponseType getDurationBeforeNextRefresh(
-            GetDurationBeforeNextRefreshRequestType getDurationBeforeNextRefreshRequest) {
-        GetDurationBeforeNextRefreshResponseType oOutput = null;
-
-        try {
-            oOutput = PropertyAccessHelper.getDurationBeforeNextRefresh(getDurationBeforeNextRefreshRequest);
-        } catch (Exception e) {
-            String sMessage = "Failed to retrieve duration before next refresh.  Exception: " + e.getMessage();
-            LOG.error(sMessage, e);
-        }
-
-        return oOutput;
-    }
-
-    /**
-     * If a property file has been cached, this will force a refresh of the property file. If a property file is not
-     * cached, then this operation will do nothing.
-     * 
-     * @param forceRefreshRequest The name of the property file.
-     * @return true if the property file was refreshed.
-     */
-    public ForceRefreshResponseType forceRefresh(ForceRefreshRequestType forceRefreshRequest) {
-        ForceRefreshResponseType oOutput = null;
-
-        try {
-            oOutput = PropertyAccessHelper.forceRefresh(forceRefreshRequest);
-        } catch (Exception e) {
-            String sMessage = "Failed to force refresh.  Exception: " + e.getMessage();
-            LOG.error(sMessage, e);
-        }
-
-        return oOutput;
-    }
-
-    /**
      * This method will return the location of the property files. Essentially it will return the value in the
      * nhinc.properties.dir system variable.
      * 
@@ -257,9 +190,6 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
      * information. It will completely overwrite the current file with the new properties information. If the file does
      * not exist, it will create it. This writes the property file to the NHINC properties directory.
      * 
-     * WARNING: If a property file is currently cached in memory - the file will not be re-read until the next time the
-     * cache refreshes its property from the file based on the criteria that was put in place when the properties were
-     * last loaded from file. This is based on setting of the "CacheRefreshDuration" property in the property file.
      * 
      * @param writePropertyFileRequest The name of the property file and the properties to write.
      * @return True if this succeeds.
@@ -281,10 +211,6 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
      * This method deletes the specified properties file. Note: It will completely delete the file from the NHINC
      * properties directory.
      * 
-     * WARNING: If a property file is currently cached in memory - the file will not be removed from memory until the
-     * next time the cache refreshes its property from the file based on the criteria that was put in place when the
-     * properties were last loaded from file. This is based on setting of the "CacheRefreshDuration" property in the
-     * property file.
      * 
      * @param deletePropertyFileRequest The name of the property file to be deleted without the ".properties" extension.
      * @return True if this succeeds.

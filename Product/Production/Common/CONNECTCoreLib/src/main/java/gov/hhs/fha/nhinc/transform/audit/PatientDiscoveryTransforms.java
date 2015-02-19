@@ -1133,7 +1133,7 @@ public class PatientDiscoveryTransforms {
     protected String getLocalHCID() {
         String hcid = StringUtils.EMPTY;
         try {
-            hcid = PropertyAccessor.getInstance().getProperty(NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+            hcid = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException e) {
             LOG.error("Could not retrieve local HCID from gateway.properties", e);
         }

@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.webserviceproxy;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -99,7 +100,7 @@ public class WebServiceProxyHelperProperties {
     private String getExceptionTextFromConfig() {
         String configValue = "";
         try {
-            configValue = propertyAccessor.getProperty(CONFIG_KEY_EXCEPTION);
+            configValue = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, CONFIG_KEY_EXCEPTION);
             LOG.debug("Retrieved from config file (" + CONFIG_FILE + ".properties) " + CONFIG_KEY_EXCEPTION + "='"
                     + configValue + "')");
         } catch (PropertyAccessException ex) {
@@ -122,7 +123,7 @@ public class WebServiceProxyHelperProperties {
     private int getRetryAttemptsFromConfig() {
         int retryAttempts = 0;
         try {
-            String sValue = propertyAccessor.getProperty(CONFIG_KEY_RETRYATTEMPTS);
+            String sValue = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, CONFIG_KEY_RETRYATTEMPTS);
             LOG.debug("Retrieved from config file (" + CONFIG_FILE + ".properties) " + CONFIG_KEY_RETRYATTEMPTS + "='"
                     + sValue + "')");
             if (NullChecker.isNotNullish(sValue)) {
@@ -152,7 +153,7 @@ public class WebServiceProxyHelperProperties {
     private int getRetryDelayFromConfig() {
         int retryDelay = 0;
         try {
-            String sValue = propertyAccessor.getProperty(CONFIG_KEY_RETRYDELAY);
+            String sValue = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, CONFIG_KEY_RETRYDELAY);
             LOG.debug("Retrieved from config file (" + CONFIG_FILE + ".properties) " + CONFIG_KEY_RETRYDELAY + "='"
                     + sValue + "')");
             if (NullChecker.isNotNullish(sValue)) {
@@ -183,7 +184,7 @@ public class WebServiceProxyHelperProperties {
     private int getTimeoutFromConfig() {
         int timeout = 0;
         try {
-            String sValue = propertyAccessor.getProperty(CONFIG_KEY_TIMEOUT);
+            String sValue = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, CONFIG_KEY_TIMEOUT);
             LOG.debug("Retrieved from config file (" + CONFIG_FILE + ".properties) " + CONFIG_KEY_TIMEOUT + "='"
                     + sValue + "')");
             if (NullChecker.isNotNullish(sValue)) {
@@ -212,7 +213,7 @@ public class WebServiceProxyHelperProperties {
         String propertyName = "";
         try {
             propertyName = serviceName + "." + CONFIG_KEY_REQUESTTIMEOUT;
-            String sValue = propertyAccessor.getProperty(propertyName);
+            String sValue = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
             LOG.debug("Retrieved from config file (" + CONFIG_FILE + ".properties) " + propertyName + "='" + sValue
                     + "')");
             if (NullChecker.isNotNullish(sValue)) {

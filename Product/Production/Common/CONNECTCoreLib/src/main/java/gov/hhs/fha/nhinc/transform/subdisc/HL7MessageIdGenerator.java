@@ -49,7 +49,7 @@ public class HL7MessageIdGenerator {
      * @param myDeviceId
      * @return messageId
      */
-    public static II generateHL7MessageId(String myDeviceId) {
+    public II generateHL7MessageId(String myDeviceId) {
         II messageId = new II();
 
         if (NullChecker.isNullish(myDeviceId)) {
@@ -67,13 +67,13 @@ public class HL7MessageIdGenerator {
      *
      * @return messageId
      */
-    public static II generateHL7MessageId() {
+    public II generateHL7MessageId() {
         String deviceId = getDefaultLocalDeviceId();
 
         return generateHL7MessageId(deviceId);
     }
 
-    private static String getDefaultLocalDeviceId() {
+    protected String getDefaultLocalDeviceId() {
         String defaultLocalId = "";
 
         try {

@@ -736,7 +736,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     
     boolean getHl7PrefixProperty(){
         try {
-            return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.HL7_PREFIX_FOR_ATTR_PROPERTY);
+            return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HL7_PREFIX_FOR_ATTR_PROPERTY);
         } catch (PropertyAccessException ex) {
             LOG.warn(ex.getLocalizedMessage());
         }

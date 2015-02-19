@@ -470,7 +470,7 @@
                 <version>2.0.1</version>
                 <exclusions>
                     <!-- The following list should be changed to a single transitive
-                         dependency exclude upon upgrade to Maven 3.2.x -->
+                    dependency exclude upon upgrade to Maven 3.2.x -->
                     <exclusion>
                         <groupId>org.owasp.antisamy</groupId>
                         <artifactId>antisamy</artifactId>
@@ -564,6 +564,11 @@
                 <groupId>commons-collections</groupId>
                 <artifactId>commons-collections</artifactId>
                 <version>3.2.1</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-configuration</groupId>
+                <artifactId>commons-configuration</artifactId>
+                <version>1.9</version>
             </dependency>
             <dependency>
                 <groupId>commons-validator</groupId>
@@ -725,7 +730,7 @@
             </dependency>
 
             <!-- The following dependencies have been historically included with CONNECT,
-                 but their use cannot be identified with the maven dependency plugin -->
+            but their use cannot be identified with the maven dependency plugin -->
             <dependency>
                 <groupId>net.jcip</groupId>
                 <artifactId>jcip-annotations</artifactId>
@@ -747,7 +752,7 @@
                 <version>0.3.9</version>
                 <exclusions>
                     <!-- The following list should be changed to a single transitive
-                         dependency exclude upon upgrade to Maven 3.2.x -->
+                    dependency exclude upon upgrade to Maven 3.2.x -->
                     <exclusion>
                         <groupId>commons-httpclient</groupId>
                         <artifactId>commons-httpclient</artifactId>

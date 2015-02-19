@@ -115,7 +115,7 @@ public abstract class UDDIFindBusinessProxyBase implements UDDIFindBusinessProxy
         int maxResults; //default value
         try {
             String resultEntry = 
-                PropertyAccessor.getInstance(NhincConstants.GATEWAY_PROPERTY_FILE).getProperty(NhincConstants.MAX_UDDI_RESULTS_PROPERTY);
+                PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.MAX_UDDI_RESULTS_PROPERTY);
             if(NullChecker.isNotNullish(resultEntry)){
                 maxResults = Integer.parseInt(resultEntry);
             }else {

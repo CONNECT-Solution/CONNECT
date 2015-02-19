@@ -1,8 +1,4 @@
 /**
- * 
- */
-
-/**
 *Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
 *All rights reserved.
 *
@@ -58,7 +54,6 @@ public class PropertyAccessorTest {
     private static final String PROPERTY_VALUE_STRING = "propertyValueString";
     private static final boolean PROPERTY_VALUE_BOOLEAN = true;
     private static final long PROPERTY_VALUE_LONG = 10;    
-    private static final int REFRESH_DURATION = 1000;
         
     protected Mockery context = new JUnit4Mockery() {
         {
@@ -66,12 +61,14 @@ public class PropertyAccessorTest {
         }
     };
     final PropertyFileDAO mockFileDAO = context.mock(PropertyFileDAO.class);
-    final PropertyFileRefreshHandler mockRefreshHandler = context.mock(PropertyFileRefreshHandler.class);
     
     @Before
     public void setMockFileDAOExpectations() throws PropertyAccessException {
         context.checking(new Expectations() {
             {
+                allowing(mockFileDAO).containsPropFile(with(any(String.class)));
+                will(returnValue(true));
+                
                 allowing(mockFileDAO).getProperty(with(any(String.class)), with(any(String.class)));
                 will(returnValue(PROPERTY_VALUE_STRING));
                 
@@ -93,33 +90,13 @@ public class PropertyAccessorTest {
             }
         });
     }
-       
-    @Before
-    public void setMockRefreshHandlerExpectations() throws PropertyAccessException {
-        context.checking(new Expectations() {
-            {
-                allowing(mockRefreshHandler).getRefreshDuration(with(any(String.class)));
-                will(returnValue(REFRESH_DURATION));
-                
-                allowing(mockRefreshHandler).needsRefresh(with(any(String.class)));
-                will(returnValue(true));
-                
-                allowing(mockRefreshHandler).addRefreshInfo(with(any(String.class)), with(any(String.class)));
-                
-                allowing(mockRefreshHandler).getDurationBeforeNextRefresh(with(any(String.class)));
-                will(returnValue(REFRESH_DURATION));
-                
-                allowing(mockRefreshHandler).printToLog(with(any(String.class)));
-            }
-        });
-    }
     
     @Test
     public void testgetInstance() {
         PropertyAccessor propAccessor = PropertyAccessor.getInstance();
         assertNotNull(propAccessor);
         
-        propAccessor = PropertyAccessor.getInstance(PROPERTY_FILE_NAME);
+        propAccessor = PropertyAccessor.getInstance();
         assertNotNull(propAccessor);        
     }
     
@@ -127,7 +104,7 @@ public class PropertyAccessorTest {
     public void testGetProperty() throws PropertyAccessException {
         PropertyAccessor propAccessor = createPropertyAccessor();
         
-        String propertyValue = propAccessor.getProperty(PROPERTY_NAME);
+        String propertyValue = propAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_NAME);
         assertEquals(PROPERTY_VALUE_STRING, propertyValue);
         
         propertyValue = propAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_NAME);
@@ -138,7 +115,7 @@ public class PropertyAccessorTest {
     public void testGetPropertyBoolean() throws PropertyAccessException {
         PropertyAccessor propAccessor = createPropertyAccessor();
         
-        boolean propertyValue = propAccessor.getPropertyBoolean(PROPERTY_NAME);
+        boolean propertyValue = propAccessor.getPropertyBoolean(PROPERTY_FILE_NAME, PROPERTY_NAME);
         assertEquals(PROPERTY_VALUE_BOOLEAN, propertyValue);        
     }
     
@@ -167,30 +144,6 @@ public class PropertyAccessorTest {
     }
     
     @Test
-    public void testGetRefreshDuration() throws PropertyAccessException {
-        PropertyAccessor propAccessor = createPropertyAccessor();
-        
-        int refreshDuration = propAccessor.getRefreshDuration(PROPERTY_FILE_NAME);
-        assertEquals(REFRESH_DURATION, refreshDuration);
-    }
-    
-    @Test
-    public void testGetDurationBeforeNextRefresh() throws PropertyAccessException {
-        PropertyAccessor propAccessor = createPropertyAccessor();
-        
-        int nextRefresh = propAccessor.getDurationBeforeNextRefresh(PROPERTY_FILE_NAME);
-        assertEquals(REFRESH_DURATION, nextRefresh);
-    }
-    
-    @Test(expected=PropertyAccessException.class)
-    public void testValidateInput() throws PropertyAccessException {
-        PropertyAccessor propAccessor = createPropertyAccessor();
-        
-        propAccessor.forceRefresh(PROPERTY_FILE_NAME);
-        propAccessor.forceRefresh(null);
-    }
-    
-    @Test
     public void testGetPropertyFileLocation() throws PropertyAccessException {
         PropertyAccessor propAccessor = createPropertyAccessor();
         
@@ -211,10 +164,6 @@ public class PropertyAccessorTest {
         PropertyAccessor propAccessor = new PropertyAccessor() {
             protected PropertyFileDAO createPropertyFileDAO() {
                 return mockFileDAO;
-            }
-            
-            protected PropertyFileRefreshHandler createPropertyFileRefreshHandler() {
-                return mockRefreshHandler;
             }
             
             protected PropertyAccessorFileUtilities createPropertyAccessorFileUtilities() {

@@ -44,6 +44,7 @@ public class TabBean {
     private int logsTabIndex = 0;
     private int adminTabIndex = 0;
     private int directTabIndex = 0;
+    private int propIndex = 0;
 
     /**
      *
@@ -211,6 +212,10 @@ public class TabBean {
         return setAdminTabIndexNavigate(NavigationConstant.ACCOUNT_MGMT_MANAGEROLE_TAB);
     }
     
+    public String navigateToGatewayPropTab() {
+        return setGatewayPropertyTabAndNavigate(0);
+    }
+    
     /**
      * 
      * @return 
@@ -230,4 +235,18 @@ public class TabBean {
     public String navigateToConnectionManagement() {
         return NavigationConstant.CM_PAGE;
     }
+    
+    public String setGatewayPropertyTabAndNavigate(int i) {
+        this.propIndex = i;
+        return "properties";
+    }
+
+    public int getPropIndex() {
+        return propIndex;
+    }
+
+    public void setPropIndex(int propIndex) {
+        this.propIndex = propIndex;
+    }
+    
 }

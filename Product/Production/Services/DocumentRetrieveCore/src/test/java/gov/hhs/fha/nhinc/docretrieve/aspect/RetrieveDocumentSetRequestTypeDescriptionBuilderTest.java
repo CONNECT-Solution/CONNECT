@@ -60,14 +60,14 @@ public class RetrieveDocumentSetRequestTypeDescriptionBuilderTest extends BaseDe
         final PropertyAccessor mockProperties = mock(PropertyAccessor.class);
         builder = new RetrieveDocumentSetRequestTypeDescriptionBuilder(){
             @Override
-            protected PropertyAccessor getPropertyAccessor(String fileName){
+            protected PropertyAccessor getPropertyAccessor(){
                 return mockProperties;
             }
         };
         request = new RetrieveDocumentSetRequestType();
         assertion = new AssertionType();
         assertionExtractor = mock(AssertionDescriptionExtractor.class);
-        when(mockProperties.getProperty(anyString())).thenReturn(null);
+        when(mockProperties.getProperty(anyString(), anyString())).thenReturn(null);
         when(assertionExtractor.getInitiatingHCID(assertion)).thenReturn("hcid");
         when(assertionExtractor.getNPI(assertion)).thenReturn("npi");
     }

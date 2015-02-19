@@ -93,7 +93,7 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
         LOG.trace("EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
         AdhocQueryResponse response = null;
 
-        String sendingHCID = HomeCommunityMap.getLocalHomeCommunityId();
+        String sendingHCID = getSenderHcid();
         auditRequestFromAdapter(adhocQueryRequest, assertion, sendingHCID);
 
         OutboundDocQueryAggregate aggregate = new OutboundDocQueryAggregate();
@@ -170,6 +170,10 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
     private void auditResponseToAdapter(AdhocQueryResponse response, AssertionType assertion, String sendingHCID) {
         getAuditLogger().auditDQResponse(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, sendingHCID);
+    }
+    
+    protected String getSenderHcid(){
+        return HomeCommunityMap.getLocalHomeCommunityId();
     }
 
 }

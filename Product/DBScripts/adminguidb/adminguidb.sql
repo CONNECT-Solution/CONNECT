@@ -58,7 +58,10 @@ VALUES
 ("direct.xhtml", "Direct Config", 0, 3),
 ("connectionManager.xhtml", "Connection Management", 0, 1),
 ("connectionManager.xhtml", "Connection Management", 0, 2),
-("connectionManager.xhtml", "Connection Management", 0, 3);
+("connectionManager.xhtml", "Connection Management", 0, 3),
+("properties.xhtml", "CONNECT Properties", 0, 1),
+("properties.xhtml", "CONNECT Properties", 0, 2),
+("properties.xhtml", "CONNECT Properties", 0, 3);
 
 
 INSERT INTO adminguidb.UserLogin

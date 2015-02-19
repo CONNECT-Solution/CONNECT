@@ -79,7 +79,7 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
 
         auditRequestFromNhin(msg, assertion, senderHcid);
 
-        AdhocQueryResponse resp = processDocQuery(msg, assertion, HomeCommunityMap.getLocalHomeCommunityId());
+        AdhocQueryResponse resp = processDocQuery(msg, assertion, getLocalHomeCommunityId());
 
         auditResponseToNhin(resp, assertion, senderHcid);
 
@@ -97,7 +97,7 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
     AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String requestCommunityID) {
         AdhocQueryResponse resp = null;
 
-        String respondingHcid = HomeCommunityMap.getLocalHomeCommunityId();
+        String respondingHcid = getLocalHomeCommunityId();
         
         auditRequestToAdapter(msg, assertion, respondingHcid);            
 
@@ -137,6 +137,10 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
                         NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, requestCommunityID);
 
         return ack;
+    }
+    
+    protected String getLocalHomeCommunityId(){
+        return HomeCommunityMap.getLocalHomeCommunityId();
     }
 
 }

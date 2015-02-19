@@ -28,6 +28,7 @@
 package gov.hhs.fha.nhinc.messaging.service.decorator;
 
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -63,10 +64,10 @@ public class TimeoutServiceEndpointDecorator<T> extends ServiceEndpointDecorator
         httpClientPolicy.setConnectionTimeout(timeout);
     }
 
-    private int getTimeoutFromConfig() {
+    int getTimeoutFromConfig() {
         int timeout = 0;
         try {
-            String sValue = PropertyAccessor.getInstance().getProperty(CONFIG_KEY_TIMEOUT);
+            String sValue = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, CONFIG_KEY_TIMEOUT);
             if (NullChecker.isNotNullish(sValue)) {
                 timeout = Integer.parseInt(sValue);
             }

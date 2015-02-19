@@ -38,7 +38,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
@@ -58,7 +57,7 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
 	 *
 	 */
     public CONNECTOrchestrationBase() {
-        propertyAcessor = PropertyAccessor.getInstance(NhincConstants.GATEWAY_PROPERTY_FILE);
+        propertyAcessor = PropertyAccessor.getInstance();
     }
 
     /**

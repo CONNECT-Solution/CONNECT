@@ -34,14 +34,16 @@ import org.hl7.v3.*;
  * @author Jon Hoppesch
  */
 public class HL7PRPA201305Transforms {
-
+    
+    private static HL7MessageIdGenerator idGenerator = new HL7MessageIdGenerator();
+    
     public static PRPAIN201305UV02 createPRPA201305(PRPAMT201301UV02Patient patient, String senderOID,
             String receiverOID, String localDeviceId) {
         PRPAIN201305UV02 result = new PRPAIN201305UV02();
 
         // Create the 201305 message header fields
         result.setITSVersion(HL7Constants.ITS_VERSION);
-        result.setId(HL7MessageIdGenerator.generateHL7MessageId(localDeviceId));
+        result.setId(idGenerator.generateHL7MessageId(localDeviceId));
         result.setCreationTime(HL7DataTransformHelper.creationTimeFactory());
         result.setInteractionId(HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT, "PRPA_IN201305UV02"));
         result.setProcessingCode(HL7DataTransformHelper.CSFactory("P"));
@@ -89,5 +91,8 @@ public class HL7PRPA201305Transforms {
 
         return controlActProcess;
     }
-
+    
+    protected void setHL7MessageIdGenerator(HL7MessageIdGenerator idGenerator) {
+        this.idGenerator = idGenerator;
+    }
 }

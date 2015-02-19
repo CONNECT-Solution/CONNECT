@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxyObjectFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -584,7 +585,7 @@ public class MessageMonitoringUtil {
 
     private static String getPropertyStringValue(String propertyName) {
         try {
-            return PropertyAccessor.getInstance().getProperty(propertyName);
+            return PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
         } catch (PropertyAccessException ex) {
             LOG.info("Property Not found :" + propertyName);
             return null;
@@ -593,7 +594,7 @@ public class MessageMonitoringUtil {
 
     private static int getPropertyIntegerValue(String propertyName) {
         try {
-            return Integer.parseInt(PropertyAccessor.getInstance().getProperty(propertyName));
+            return Integer.parseInt(PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName));
         } catch (PropertyAccessException ex) {
             LOG.info("Property Not found :" + propertyName);
             return -1;
@@ -632,7 +633,7 @@ public class MessageMonitoringUtil {
     public static int getAgentSettingsCacheRefreshTime() {
         try {
             if (getAgentSettingsCacheRefreshActive()) {
-                return Integer.parseInt(PropertyAccessor.getInstance().getProperty(AGENT_SETTINGS_CACHE_REFRESH_TIME));
+                return Integer.parseInt(PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, AGENT_SETTINGS_CACHE_REFRESH_TIME));
             }
             return -1;
         } catch (PropertyAccessException ex) {
@@ -652,7 +653,7 @@ public class MessageMonitoringUtil {
      */
     public static boolean getAgentSettingsCacheRefreshActive(){
         try {
-            String agentSettingsCacheRefreshActive = PropertyAccessor.getInstance().getProperty(AGENT_SETTINGS_CACHE_REFRESH_ACTIVE);
+            String agentSettingsCacheRefreshActive = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, AGENT_SETTINGS_CACHE_REFRESH_ACTIVE);
             return (agentSettingsCacheRefreshActive != null) && (agentSettingsCacheRefreshActive.equals("true"));
         } catch (PropertyAccessException ex) {
             LOG.info("Proeprty Not found :" + AGENT_SETTINGS_CACHE_REFRESH_ACTIVE);

@@ -61,6 +61,8 @@ public class HL7PRPA201310Transforms {
     private static final String REG_EVENT_MOOD_CODE = "REG";
     private static final String REG_EVENT_STATUS_CODE = "active";
     private static final String CONTROL_QUERY_RESPONSE_CODE = "OK";
+    
+    private static HL7MessageIdGenerator idGenerator = new HL7MessageIdGenerator();
 
     public static PRPAIN201310UV02 createFaultPRPA201310() {
         return createPRPA201310("", "", "", "", "", null);
@@ -95,7 +97,7 @@ public class HL7PRPA201310Transforms {
         PRPAIN201310UV02 message = new PRPAIN201310UV02();
 
         message.setITSVersion(HL7Constants.ITS_VERSION);
-        message.setId(HL7MessageIdGenerator.generateHL7MessageId(localDeviceId));
+        message.setId(idGenerator.generateHL7MessageId(localDeviceId));
         message.setCreationTime(HL7DataTransformHelper.creationTimeFactory());
         message.setInteractionId(HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT,
                 INTERACTION_ID_EXTENSION));
@@ -201,7 +203,7 @@ public class HL7PRPA201310Transforms {
 
         PRPAMT201307UV02QueryByParameter queryParams = new PRPAMT201307UV02QueryByParameter();
 
-        queryParams.setQueryId(HL7MessageIdGenerator.generateHL7MessageId(null));
+        queryParams.setQueryId(idGenerator.generateHL7MessageId(null));
         queryParams.setStatusCode(HL7DataTransformHelper.CSFactory("new"));
 
         PRPAMT201307UV02ParameterList paramList = new PRPAMT201307UV02ParameterList();
@@ -220,5 +222,9 @@ public class HL7PRPA201310Transforms {
         queryAck.setQueryId(queryParam.getQueryId());
         queryAck.setQueryResponseCode(HL7DataTransformHelper.CSFactory(CONTROL_QUERY_RESPONSE_CODE));
         return queryAck;
+    }
+    
+    protected void setHL7MessageIdGenerator(HL7MessageIdGenerator idGenerator) {
+        this.idGenerator = idGenerator;
     }
 }
