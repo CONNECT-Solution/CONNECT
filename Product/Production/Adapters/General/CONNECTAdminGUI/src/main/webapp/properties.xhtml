@@ -63,28 +63,28 @@
 
                                                 <p:dataTable id="props" value="#{propertyBean.properties}" editable="true" editMode="cell" scrollable="true" 
                                                              scrollHeight="500" var="prop" styleClass="table table-striped" widgetVar="cellProps" sortMode="Single">
-                                                        <p:ajax event="cellEdit" listener="#{propertyBean.onValueEdit}" update=":propsTabview:gatewayPropForm:props" />
+                                                    <p:ajax event="cellEdit" listener="#{propertyBean.onValueEdit}" update=":propsTabview:gatewayPropForm:props" />
 
-                                                        <p:column headerText="Key" sortBy="key">
-                                                            <h:outputText value="#{prop.key}" />
-                                                        </p:column>
-                                                        <p:column headerText="Description">
-                                                            <h:outputText value="#{prop.text}" />
-                                                        </p:column>
-                                                        <p:column headerText="Value">
-                                                            <p:cellEditor>
-                                                                <f:facet name="output"><h:outputText value="#{prop.value}" /></f:facet>
-                                                                <f:facet name="input"><p:inputText id="propValueInput" value="#{prop.value}" style="width:100%"/></f:facet>
-                                                            </p:cellEditor>
-                                                        </p:column>
+                                                    <p:column headerText="Key" sortBy="key">
+                                                        <h:outputText value="#{prop.key}" />
+                                                    </p:column>
+                                                    <p:column headerText="Description">
+                                                        <h:outputText value="#{prop.text}" />
+                                                    </p:column>
+                                                    <p:column headerText="Value">
+                                                        <p:cellEditor>
+                                                            <f:facet name="output"><h:outputText value="#{prop.value}" /></f:facet>
+                                                            <f:facet name="input"><p:inputText id="propValueInput" value="#{prop.value}" style="width:100%"/></f:facet>
+                                                        </p:cellEditor>
+                                                    </p:column>
 
-                                                    </p:dataTable>
+                                                </p:dataTable>
                                             </h:form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                    </p:tab>
+                        </p:tab>
                     </div>
                 </p:tabView>
 
