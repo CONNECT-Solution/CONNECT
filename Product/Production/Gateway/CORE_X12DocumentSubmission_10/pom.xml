@@ -38,6 +38,7 @@
                             <goal>unpack</goal>
                         </goals>
                         <configuration>
+                            <skip>${skip.unpack}</skip>
                             <artifactItems>
                                 <artifactItem>
                                     <!-- Artifact that holds our custom templates -->
