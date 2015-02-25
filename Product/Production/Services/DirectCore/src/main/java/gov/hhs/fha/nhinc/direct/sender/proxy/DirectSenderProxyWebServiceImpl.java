@@ -33,7 +33,6 @@ import gov.hhs.fha.nhinc.direct.DirectConstants;
 import gov.hhs.fha.nhinc.direct.DirectSenderPortType;
 import gov.hhs.fha.nhinc.direct.DirectSenderService;
 import java.io.IOException;
-import java.util.logging.Level;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -58,7 +57,7 @@ public class DirectSenderProxyWebServiceImpl {
     public void sendOutboundDirect(MimeMessage message) {
         LOG.debug("Begin DirectSenderUnsecuredProxy.sendOutboundDirect(MimeMessage)");
 
-        try { // Call Web Service Operation        
+        try { // Call Web Service Operation
             String url = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(DirectConstants.DIRECT_SENDER_SERVICE_NAME);
             DirectSenderPortType port = getPort(url);
             gov.hhs.fha.nhinc.direct.SendoutMessage parameters = new gov.hhs.fha.nhinc.direct.SendoutMessage();
@@ -74,7 +73,7 @@ public class DirectSenderProxyWebServiceImpl {
         } catch (MessagingException ex) {
             LOG.error("DirectSender WebService Failed :" + ex.getMessage());
         } catch (ConnectionManagerException ex) {
-            java.util.logging.Logger.getLogger(DirectSenderProxyWebServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error("DirectSender WebService Failed :" + ex.getMessage());
         }
         LOG.debug("End DirectSenderUnsecuredProxy.sendOutboundDirect(MimeMessage)");
     }

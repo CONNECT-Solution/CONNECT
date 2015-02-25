@@ -26,27 +26,6 @@
  */
 package gov.hhs.fha.nhinc.async;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.sql.Blob;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-
-import org.apache.log4j.Logger;
-import org.hibernate.Hibernate;
-import org.hl7.v3.MCCIIN000002UV01;
-import org.hl7.v3.PIXConsumerMCCIIN000002UV01RequestType;
-import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
-
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -56,10 +35,27 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
 import gov.hhs.fha.nhinc.util.StreamUtils;
 import gov.hhs.fha.nhinc.util.StringUtil;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.logging.Level;
+import java.sql.Blob;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLStreamException;
+import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
+import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.PIXConsumerMCCIIN000002UV01RequestType;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 
 /**
  * This class provides methods to manage the async message record during its lifecycle.
@@ -292,26 +288,26 @@ public class AsyncMessageProcessHelper {
         AssertionType copy = null;
         ByteArrayOutputStream baOutStrm = null;
         ByteArrayInputStream baInStrm = null;
-        
+
         try {
             JAXBUnmarshallingUtil util = new JAXBUnmarshallingUtil();
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommon");
             Marshaller marshaller = jc.createMarshaller();
-            
+
             baOutStrm = new ByteArrayOutputStream();
             gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory();
             JAXBElement<AssertionType> oJaxbElement = factory.createAssertion(orig);
-            
+
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
 
             Unmarshaller unmarshaller = jc.createUnmarshaller();
             baInStrm = new ByteArrayInputStream(buffer);
-            JAXBElement<AssertionType> oJaxbElementCopy = 
+            JAXBElement<AssertionType> oJaxbElementCopy =
                     (JAXBElement<AssertionType>) unmarshaller.unmarshal(util.getSafeStreamReaderFromInputStream(baInStrm));
             copy = oJaxbElementCopy.getValue();
-            
+
         } catch (JAXBException e) {
             LOG.error("Exception during copyAssertionTypeObject conversion :" + e, e);
         } catch (XMLStreamException e) {
@@ -351,7 +347,7 @@ public class AsyncMessageProcessHelper {
         } catch (IOException e) {
             LOG.error("Exception during marshalAssertionTypeObject conversion :" + e, e);
         }
-        
+
         return returnValue;
     }
 
