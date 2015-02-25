@@ -23,12 +23,11 @@
         <!-- CONNECT Modules / Web Services -->
         <dependency>
             <groupId>org.connectopensource</groupId>
-            <artifactId>CONNECTCommonTypesLib</artifactId>
+            <artifactId>CONNECTCoreLib</artifactId>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
-            <artifactId>CONNECTCoreLib</artifactId>
-            <version>${project.parent.version}</version>
+            <artifactId>CONNECTCommonTypesLib</artifactId>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
@@ -40,12 +39,20 @@
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
         </dependency>
 
         <!-- Legacy JSF -->
         <dependency>
             <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
             <artifactId>jsfcl</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
@@ -54,10 +61,12 @@
         <dependency>
             <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
             <artifactId>dataprovider</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
             <artifactId>errorhandler</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
@@ -66,33 +75,17 @@
         <dependency>
             <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
             <artifactId>webui-jsf-suntheme</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.faces.extensions</groupId>
             <artifactId>jsf-extensions-dynamic-faces</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.faces.extensions</groupId>
             <artifactId>jsf-extensions-common</artifactId>
-        </dependency>
-
-        <!-- Testing -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock-legacy</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock-junit4</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <scope>test</scope>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 

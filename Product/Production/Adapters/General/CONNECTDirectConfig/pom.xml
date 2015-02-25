@@ -14,33 +14,22 @@
     <modelVersion>4.0.0</modelVersion>
 
     <dependencies>
+        <!-- Java EE APIs -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+        </dependency>
+
         <!-- CONNECT Modules / Web Services -->
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCoreLib</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
 
-        <!-- Spring framework -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-        </dependency>
+        <!-- Spring Framework -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-asm</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -54,6 +43,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 
         <!-- Persistence -->
         <dependency>
@@ -64,29 +58,33 @@
             <!-- Used for EnumType -->
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-annotations</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- Parsing & Code Generation -->
         <dependency>
-            <!-- Used to include the asm it needs in a private package space -->
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>antlr</groupId>
             <artifactId>antlr</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- CXF -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-bundle</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- XML -->
         <dependency>
             <groupId>org.apache.santuario</groupId>
             <artifactId>xmlsec</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- Apache Commons -->
@@ -101,16 +99,24 @@
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- Logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-jdk14</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
@@ -119,6 +125,7 @@
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- Direct Dependencies -->
@@ -128,7 +135,12 @@
         </dependency>
         <dependency>
             <groupId>org.nhind</groupId>
+            <artifactId>direct-policy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.nhind</groupId>
             <artifactId>direct-common</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- Security -->
@@ -141,49 +153,41 @@
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-impl</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-xjc</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- JavaBeans Activation Library -->
         <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
-        </dependency>
-
-        <!-- Apache Commons -->
-        <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- Mail -->
         <dependency>
             <groupId>org.apache.james</groupId>
             <artifactId>apache-mailet-base</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>bouncycastle</groupId>
+            <artifactId>bcmail-jdk15</artifactId>
         </dependency>
 
-        <!-- Testing -->
+        <!-- DNS -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.activation</groupId>
-                    <artifactId>activation</artifactId>
-                </exclusion>
-            </exclusions>
-            <scope>test</scope>
+            <groupId>dnsjava</groupId>
+            <artifactId>dnsjava</artifactId>
         </dependency>
     </dependencies>
 

@@ -14,10 +14,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <dependencies>
-        <!-- CONNECT Modules / Web Services -->
+        <!-- Testing -->
+        <dependency>
+            <groupId>net.sourceforge.saxon</groupId>
+            <artifactId>saxonhe</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
-            <artifactId>RedactionEngineWebservices</artifactId>
+            <artifactId>CONNECTCoreLib</artifactId>
+            <version>${project.parent.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

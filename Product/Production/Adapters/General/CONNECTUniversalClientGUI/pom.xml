@@ -23,12 +23,7 @@
         <!-- CONNECT Modules / Web Services -->
         <dependency>
             <groupId>org.connectopensource</groupId>
-            <artifactId>CONNECTCommonTypesLib</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCoreLib</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
@@ -52,26 +47,45 @@
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
+            <artifactId>PatientCorrelationCore</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>CONNECTCommonTypesLib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
             <artifactId>Properties</artifactId>
             <version>${project.parent.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- Security -->
         <dependency>
             <groupId>org.owasp.esapi</groupId>
             <artifactId>esapi</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- XML -->
+        <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
         </dependency>
 
         <!-- Apache Commons -->
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- Legacy JSF -->
         <dependency>
             <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
             <artifactId>jsfcl</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
@@ -80,10 +94,12 @@
         <dependency>
             <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
             <artifactId>dataprovider</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
             <artifactId>errorhandler</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
@@ -92,33 +108,23 @@
         <dependency>
             <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
             <artifactId>webui-jsf-suntheme</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.faces.extensions</groupId>
             <artifactId>jsf-extensions-dynamic-faces</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.faces.extensions</groupId>
             <artifactId>jsf-extensions-common</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
-        <!-- Testing -->
+        <!-- Logging -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock-legacy</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock-junit4</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <scope>test</scope>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
         </dependency>
     </dependencies>
 
