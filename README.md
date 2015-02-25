@@ -105,7 +105,7 @@ You can also specify explicitly what services are included in the ear by passing
         $ cd Product/Production/Deploy/
         $ mvn clean install -P PD
 
-You can find more details about build the source at: [Build the Source](https://connectopensource.atlassian.net/wiki/display/CONNECT4/Building+CONNECT+4.4+from+Source)
+You can find more details about build at: [Build the Source](https://connectopensource.atlassian.net/wiki/display/CONNECT4/Building+CONNECT+4.4+from+Source)
         
 ######Altering targeted application server
 For some application server deployments the generated .ear needs different dependencies. Follow below wiki links for CONNECT supported application server build and deployment steps.
