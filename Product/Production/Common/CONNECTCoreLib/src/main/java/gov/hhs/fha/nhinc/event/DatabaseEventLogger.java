@@ -28,7 +28,14 @@ package gov.hhs.fha.nhinc.event;
 
 import gov.hhs.fha.nhinc.event.dao.DatabaseEventLoggerDao;
 import gov.hhs.fha.nhinc.event.model.DatabaseEvent;
-
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Use the database to log events.
@@ -36,9 +43,12 @@ import gov.hhs.fha.nhinc.event.model.DatabaseEvent;
 public class DatabaseEventLogger extends EventLogger {
 
     private final DatabaseEventLoggerDao databaseEventLoggerDao;
-    
+
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DatabaseEventLogger.class);
+
     /**
      * Constructor.
+     *
      * @param databaseEventLoggerDao database event logger dao
      */
     public DatabaseEventLogger(DatabaseEventLoggerDao databaseEventLoggerDao) {
@@ -59,7 +69,7 @@ public class DatabaseEventLogger extends EventLogger {
      */
     @Override
     void recordEvent(EventManager manager, Event event) {
-        
+
         if (event != null) {
             DatabaseEvent dbEvent = new DatabaseEvent();
             dbEvent.setEventName(event.getEventName());
@@ -69,8 +79,19 @@ public class DatabaseEventLogger extends EventLogger {
             dbEvent.setServiceType(event.getServiceType());
             dbEvent.setInitiatorHcid(event.getInitiatorHcid());
             dbEvent.setRespondingHcid(event.getRespondingHcid());
-            
+            dbEvent.setEventTime(getFormattedEventTime());
             databaseEventLoggerDao.insertEvent(dbEvent);
         }
+    }
+
+    public Date getFormattedEventTime() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        try {
+            date = dateFormat.parse(dateFormat.format(date));
+        } catch (ParseException ex) {
+            LOG.error("EventTime could not be parsed: " + ex.getMessage());
+        }
+        return date;
     }
 }

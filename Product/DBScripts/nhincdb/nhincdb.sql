@@ -629,4 +629,8 @@ UPDATE address SET id = 2 WHERE id = 1;
 
 UPDATE domain SET postmasterAddressId = 2 WHERE id = 1;
 
+USE eventdb;
+LOCK TABLES event WRITE;
+ALTER TABLE event MODIFY COLUMN eventTime timestamp null;
+
 UNLOCK TABLES;
