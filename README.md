@@ -5,6 +5,11 @@ CONNECT is an open source software solution that supports health information exc
 
 This software solution was initially developed by federal agencies to support their health-related missions, but it is now available to all organizations and can be used to help set up health information exchanges and share data using nationally-recognized interoperability standards.
 
+License
+-------
+
+CONNECT is released under the: [License](https://connectopensource.atlassian.net/wiki/x/mQCD)
+
 Uses
 ----
 CONNECT can be used to:
@@ -76,10 +81,10 @@ For further build and deploy instructions go here: [Build the Source](https://co
 ######Altering targeted application server
 For some application server deployments the generated .ear needs different dependencies. Follow the wiki links below for CONNECT supported application server build and deployment steps.
 
-  * GlassFish: [Glassfish Install](https://connectopensource.atlassian.net/wiki/display/CONNECT4/Building+CONNECT+4.4+from+Source) 
-  * WebSphere: [WebSphere Setup](https://connectopensource.atlassian.net/wiki/pages/viewpage.action?pageId=17203313)
-  * JBoss7: [JBoss7 Setup](https://connectopensource.atlassian.net/wiki/pages/viewpage.action?pageId=26214665)
-  * WebLogic: [WebLogic Setup](https://connectopensource.atlassian.net/wiki/pages/viewpage.action?pageId=17203304)
+  * GlassFish: [Glassfish Install](https://connectopensource.atlassian.net/wiki/x/ZIAGAQ) 
+  * WebSphere: [WebSphere Setup](https://connectopensource.atlassian.net/wiki/x/cYAGAQ)
+  * JBoss7: [JBoss7 Setup](https://connectopensource.atlassian.net/wiki/x/CQGQAQ)
+  * WebLogic: [WebLogic Setup](https://connectopensource.atlassian.net/wiki/x/aIAGAQ)
 
 ####Chain of Trust Certificates
 Unlike testing with the embedded glassfish and chain of trust certificates, 'ant install' generates self signed certificates at deploy time. In order to switch over to chain of trust certs follow these directions (it is recommended to back up your self signed certs first):
@@ -132,7 +137,7 @@ Set the property "GatewayPropDir" in ConnectValidation-soapui-project.properties
 
 Run the Validation Suite project file ConnectValidation-soapui-project.xml via SoapUI's command line runner testrunner.sh (or testrunner.bat in Windows).
 
-You can find more details at: [Connect Validation Suite](https://connectopensource.atlassian.net/wiki/display/CONNECT4/Validating+CONNECT+Installation)
+You can find more details at: [Connect Validation Suite](https://connectopensource.atlassian.net/wiki/x/I4Ch)
 
 ##Setting up SoapUI
 Install SoapUI v4.5.1.
@@ -155,9 +160,4 @@ Then open your browser and view [file:///tmp/fullsite/index.html]
 Contributing
 ------------
 
-Please checkout [code contribution](https://connectopensource.atlassian.net/wiki/display/CONNECTWIKI/How+to+Contribute+Code) for guidelines about how to contribute.
-
-License
--------
-
-CONNECT is released under the: [License](./LICENSE) 
+Please checkout [code contribution](https://connectopensource.atlassian.net/wiki/x/7gCD) for guidelines about how to contribute.
