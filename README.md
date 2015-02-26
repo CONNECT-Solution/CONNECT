@@ -56,56 +56,22 @@ Before you get started, you'll need the following installed and set up:
 Supported versions of tools information at: [Prerequisites](https://connectopensource.atlassian.net/wiki/display/CONNECT4/Building+CONNECT+4.4+from+Source)  
 
 ###Building from source
-To build all CONNECT modules from source, run:
-
-Windows Users:
-
-        $ set MAVEN_OPTS='-Xmx5000m -XX:MaxPermSize=1024m'
-
-OSX / Linux Users:
-
-        $ export MAVEN_OPTS='-Xmx5000m -XX:MaxPermSize=1024m'
-
-Everyone:
+To build CONNECT from source run:
 
         $ cd <CONNECT_CLONE_DIR>
         $ mvn clean install
 
 ####Building an ear
-All services profiles are active by default, so to build a GlassFish ear containing all services, except for Direct, X12 just execute:
-
-        $ cd <CONNECT_CLONE_DIR>
-        $ mvn clean install
-
-If you want to exclude a service, in this case Patient Discovery, you can turn off the profile by adding a "!" to the name of the service profile you'd like to exclude (needs to be escaped with "\" char on *NIX) platforms:
+All services profiles are active by default, if you want to exclude a service, in this case Patient Discovery, you can turn off the profile by adding a "!" to the name of the service profile you'd like to exclude (needs to be escaped with "\" char on *NIX) platforms:
 
         $ mvn clean install -P \!PD
-
-Available service profiles which can be excluded from the generated ear (use value within parentheses):
-* Admin Distribution (AD)
-* Patient Discovery (PD)
-* Document Query (DQ)
-* Document Submission (DS)
-* Document Retrieve (DR)
-* Direct(Direct)
-* CONNECTUniversalClientGUI, CONNECTConsumerPreferencesProfileGUI, CONNECTDeferredQueueManagerGUI (GUI)
-
-After CONNECT has been built from the clone directory, you can alter the composition of the CONNECT.ear at any time by turning off any combination of the available profiles as a comma-separated list
-
-        $ cd <CONNECT_CLONE_DIR>
-        $ mvn clean install -P \!PD,\!DQ,\!DR -f Product/Production/Deploy/pom.xml
-
-OR
-
-        $ cd Product/Production/Deploy/
-        $ mvn clean install -P \!PD,\!DQ,\!DR
 
 You can also specify explicitly what services are included in the ear by passing in the individual profiles.  For example, if you only want to include PD:
 
         $ cd Product/Production/Deploy/
         $ mvn clean install -P PD
 
-You can find more details about build at: [Build the Source](https://connectopensource.atlassian.net/wiki/display/CONNECT4/Building+CONNECT+4.4+from+Source)
+For further build and deploy instructions go here: [Build the Source](https://connectopensource.atlassian.net/wiki/x/YoAGAQ)
         
 ######Altering targeted application server
 For some application server deployments the generated .ear needs different dependencies. Follow the wiki links below for CONNECT supported application server build and deployment steps.
@@ -188,20 +154,10 @@ Then open your browser and view [file:///tmp/fullsite/index.html]
 
 Contributing
 ------------
-1. Fork it
-2. Clone the repo (`git clone --recursive <REPO_URL>/CONNECT.git`)
-3. If you already have the repo and need to update to the latest, use `git pull`
-4. Create a branch (`git checkout -b my_feature`)
-5. Commit your changes (`git commit -am "Added new feature"`)
-6. Push to the branch (`git push origin my_feature`)
-7. Open a [Pull Request][]
 
-[Pull Request]: https://github.com/CONNECT-Solution/CONNECT/pulls
-[Download Maven]: http://maventest.apache.org/download.html
-[Install Maven]: http://maventest.apache.org/download.html#Installation
-[Eclipse]: http://www.eclipse.org/downloads/
-[ant 1.7.1]: http://archive.apache.org/dist/ant/binaries/apache-ant-1.7.1-bin.zip
-[egit plugin]: http://www.eclipse.org/egit/download/
-[m2eclipse plugin]: http://eclipse.org/m2e/
-[MySQL 5.1.x]: http://dev.mysql.com/downloads/mysql/5.1.html
+Please checkout [code contribution](https://connectopensource.atlassian.net/wiki/display/CONNECTWIKI/How+to+Contribute+Code)for guidelines about how to contribute.
 
+License
+-------
+
+CONNECT is released under the: [License](./LICENSE) 
