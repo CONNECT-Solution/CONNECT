@@ -45,7 +45,7 @@
                                     <p:menuitem>
                                         <p:graphicImage value="resources/images/logo-connect-108x40.png"/>
                                     </p:menuitem>
-                                    <p:submenu label="Logged in as #{loginBean.userName}">
+                                    <p:submenu label="Logged in as #{manageUserBean.currentUser}">
                                         <p:menuitem value="Log out" action="#{loginBean.logout}" ajax="false"/>
                                     </p:submenu>
                                     <p:submenu icon="ui-icon-wrench">
