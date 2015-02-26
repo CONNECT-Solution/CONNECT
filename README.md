@@ -88,7 +88,6 @@ Available service profiles which can be excluded from the generated ear (use val
 * Document Retrieve (DR)
 * Direct(Direct)
 * CONNECTUniversalClientGUI, CONNECTConsumerPreferencesProfileGUI, CONNECTDeferredQueueManagerGUI (GUI)
-* AdapterDocRegistry2Soap12Web, AdapterDocRepository2Soap12Web (HIEOS)
 
 After CONNECT has been built from the clone directory, you can alter the composition of the CONNECT.ear at any time by turning off any combination of the available profiles as a comma-separated list
 
@@ -127,23 +126,19 @@ The certificates that come in the CONNECT source do not include a Certificate Re
         <jvm-options>-Dcom.sun.net.ssl.checkRevocation=false</jvm-options>
         <jvm-options>-Dcom.sun.security.enableCRLDP=false</jvm-options>
 
-Usage
------
-TK
-
 Testing
 -------
 ###Run the Validation Suite as part of install
 At the end of the mvn install process, an embedded GlassFish instance will start and the Validation Suite will run against it. The maven scripts automatically stand up the embedded glassfish using trust chain certificates:
 
-        $ cd <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite
+        $ cd <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite at: 
         $ mvn clean install
 
 ###Run the Validation Suite via Maven sript
 The Validation Suite can be run via a Maven script against a standalone installation of the application server:
 
         $ cd <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite
-        $ mvn verify -Dstandalone -Dproperties.dir=<applicaiton server configuration dir>
+        $ mvn verify -Dstandalone -Dproperties.dir=<application server configuration dir>
 
 Several properties can be passed for mvn verify:
 
@@ -169,6 +164,8 @@ The Validation Suite can be run with SoapUI. First, follow the instructions "Set
 Set the property "GatewayPropDir" in ConnectValidation-soapui-project.properties in the Validation Suite directory. This should be set to the gateway configuration directory. For GlassFish this is <GlassFish home>/domains/domain1/config/nhin; there is an equivalent in WebSphere, JBoss and WebLogic.
 
 Run the Validation Suite project file ConnectValidation-soapui-project.xml via SoapUI's command line runner testrunner.sh (or testrunner.bat in Windows).
+
+You can find more details at: [Connect Validation Suite](https://connectopensource.atlassian.net/wiki/display/CONNECT4/Validating+CONNECT+Installation)
 
 ##Setting up SoapUI
 Install SoapUI v4.5.1.
