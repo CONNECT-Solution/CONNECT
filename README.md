@@ -57,6 +57,7 @@ Supported versions of tools information at: [Prerequisites](https://connectopens
 
 ###Building from source
 To build CONNECT from source run:
+
         $ cd <CONNECT_CLONE_DIR>
         $ mvn clean install
 
