@@ -57,7 +57,6 @@ Supported versions of tools information at: [Prerequisites](https://connectopens
 
 ###Building from source
 To build CONNECT from source run:
-
         $ cd <CONNECT_CLONE_DIR>
         $ mvn clean install
 
@@ -155,7 +154,7 @@ Then open your browser and view [file:///tmp/fullsite/index.html]
 Contributing
 ------------
 
-Please checkout [code contribution](https://connectopensource.atlassian.net/wiki/display/CONNECTWIKI/How+to+Contribute+Code)for guidelines about how to contribute.
+Please checkout [code contribution](https://connectopensource.atlassian.net/wiki/display/CONNECTWIKI/How+to+Contribute+Code) for guidelines about how to contribute.
 
 License
 -------
