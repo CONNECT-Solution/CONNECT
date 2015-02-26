@@ -53,7 +53,7 @@
         <!-- CXF -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-bundle</artifactId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
         </dependency>
 
         <!-- Spring Framework -->

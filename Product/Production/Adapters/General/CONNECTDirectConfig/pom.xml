@@ -73,13 +73,6 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- CXF -->
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-bundle</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
         <!-- XML -->
         <dependency>
             <groupId>org.apache.santuario</groupId>
