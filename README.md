@@ -29,12 +29,12 @@ History
 -------
 * 4.4 released December 2014
 * 4.3 released March 2014
-* 4.2 released
-* 4.1 released
+* 4.2 released August 2013
+* 4.1 released April 2013
 * 4.0 released February 2013
 * 3.3 released March 2012
 
-For more information, about CONNECT's history see [HISTORY.md](./HISTORY.md)
+For more information about CONNECT's history, see [HISTORY.md](./HISTORY.md)
 
 Getting Started
 ---------------
@@ -71,7 +71,7 @@ Everyone:
         $ mvn clean install
 
 ####Building an ear
-All services profiles are active by default, so to build an ear containing all services, except for Direct, X12 just execute:
+All services profiles are active by default, so to build a GlassFish ear containing all services, except for Direct, X12 just execute:
 
         $ cd <CONNECT_CLONE_DIR>
         $ mvn clean install
@@ -108,12 +108,12 @@ You can also specify explicitly what services are included in the ear by passing
 You can find more details about build at: [Build the Source](https://connectopensource.atlassian.net/wiki/display/CONNECT4/Building+CONNECT+4.4+from+Source)
         
 ######Altering targeted application server
-For some application server deployments the generated .ear needs different dependencies. Follow below wiki links for CONNECT supported application server build and deployment steps.
+For some application server deployments the generated .ear needs different dependencies. Follow the wiki links below for CONNECT supported application server build and deployment steps.
 
-  * Setup GlassFish, MySQL & Deploy CONNECT:[Glassfish Install](https://connectopensource.atlassian.net/wiki/display/CONNECT4/Building+CONNECT+4.4+from+Source) 
-  * WebSphere, MySQL & Deploy CONNECT:[WebSphere Setup](https://connectopensource.atlassian.net/wiki/pages/viewpage.action?pageId=17203313)
-  * JBoss7, MySQL & Deploy CONNECT:[JBoss7 Setup](https://connectopensource.atlassian.net/wiki/pages/viewpage.action?pageId=26214665)
-  * WebLogic, MySQL & Deploy CONNECT:[WebLogic Setup](https://connectopensource.atlassian.net/wiki/pages/viewpage.action?pageId=17203304)
+  * GlassFish: [Glassfish Install](https://connectopensource.atlassian.net/wiki/display/CONNECT4/Building+CONNECT+4.4+from+Source) 
+  * WebSphere: [WebSphere Setup](https://connectopensource.atlassian.net/wiki/pages/viewpage.action?pageId=17203313)
+  * JBoss7: [JBoss7 Setup](https://connectopensource.atlassian.net/wiki/pages/viewpage.action?pageId=26214665)
+  * WebLogic: [WebLogic Setup](https://connectopensource.atlassian.net/wiki/pages/viewpage.action?pageId=17203304)
 
 ####Chain of Trust Certificates
 Unlike testing with the embedded glassfish and chain of trust certificates, 'ant install' generates self signed certificates at deploy time. In order to switch over to chain of trust certs follow these directions (it is recommended to back up your self signed certs first):
@@ -166,7 +166,7 @@ Alternatively, any of these properties can be set in your maven settings.xml fil
 ###Run the Validation Suite via SoapUI
 The Validation Suite can be run with SoapUI. First, follow the instructions "Setting up SoapUI" below.
 
-Set the property "GatewayPropDir" in ConnectValidation-soapui-project.properties in the Validation Suite directory. This should be set to the gateway configuration directory. For GlassFish this is <GlassFish home>/domains/domain1/config/nhin; there is an equivalent in WebSphere,JBoss and WebLogic.
+Set the property "GatewayPropDir" in ConnectValidation-soapui-project.properties in the Validation Suite directory. This should be set to the gateway configuration directory. For GlassFish this is <GlassFish home>/domains/domain1/config/nhin; there is an equivalent in WebSphere, JBoss and WebLogic.
 
 Run the Validation Suite project file ConnectValidation-soapui-project.xml via SoapUI's command line runner testrunner.sh (or testrunner.bat in Windows).
 
