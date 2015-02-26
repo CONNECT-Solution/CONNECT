@@ -22,18 +22,18 @@
         <module>AdapterAuthenticationCore</module>
         <module>AuditRepositoryCore</module>
         <module>ConnectionManagerCore</module>
-        <module>DocRegistryCore</module>
+        <module>RedactionEngineCore</module>
         <module>DocRepositoryCore</module>
         <module>PatientCorrelationCore</module>
         <module>PolicyEngineCore</module>
-        <module>RedactionEngineCore</module>
+        <module>SharedEngineCore</module>
+        <module>DocumentQueryCore</module>
+        <module>DocRegistryCore</module>
         <module>PatientDiscoveryCore</module>
         <module>DocumentSubmissionCore</module>
         <module>CORE_X12DocumentSubmissionCore</module>
         <module>DocumentRetrieveCore</module>
-        <module>DocumentQueryCore</module>
         <module>AdminDistributionCore</module>
-        <module>SharedEngineCore</module>
     </modules>
 
     <profiles>
@@ -53,32 +53,4 @@
             </modules>
         </profile>
     </profiles>
-
-    <dependencies>
-        <!-- CONNECT Modules / Web Services -->
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>CONNECTCommonTypesLib</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>CONNECTCoreLib</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-
-        <!-- Testing -->
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>CONNECTCoreLib</artifactId>
-            <version>${project.parent.version}</version>
-            <type>test-jar</type>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>Properties</artifactId>
-            <version>${project.parent.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 </project>

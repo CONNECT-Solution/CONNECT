@@ -20,6 +20,18 @@
             <artifactId>CORE_X12DocumentSubmissionCore</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>CONNECTCoreLib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>CONNECTCommonTypesLib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>CORERule2_2_0Webervices</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

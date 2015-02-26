@@ -20,11 +20,15 @@
         <skip.cobertura>true</skip.cobertura>
         <skip.source>true</skip.source>
     </properties>
+
     <dependencies>
+        <!-- Logging -->
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
         </dependency>
+
+        <!-- Apache Commons -->
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>

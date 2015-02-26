@@ -1,4 +1,4 @@
-  /*
+/*
  * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -33,7 +33,6 @@ import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -57,9 +56,9 @@ public class ManageUserBean {
     private String userName = null;
     private String password = null;
     private String role;
-    
+
     private UserLogin selectedUser;
-    
+
     private List<UserLogin> users = new ArrayList<UserLogin>();
 
     /**
@@ -187,8 +186,8 @@ public class ManageUserBean {
                 loginService.deleteUser(selectedUser);
             } catch (UserLoginException ex) {
                FacesContext.getCurrentInstance().addMessage("userDeleteMessages", new FacesMessage(FacesMessage.SEVERITY_WARN,
-                ex.getLocalizedMessage(), "")); 
-            }           
+                ex.getLocalizedMessage(), ""));
+            }
         }
     }
 }

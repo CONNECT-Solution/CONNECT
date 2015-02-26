@@ -14,20 +14,26 @@
     <modelVersion>4.0.0</modelVersion>
 
     <dependencies>
+        <!-- CONNECT Modules / Web Services -->
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCoreLib</artifactId>
-            <version>${project.parent.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.hibernate</groupId>
                     <artifactId>hibernate</artifactId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>activation</artifactId>
                     <groupId>javax.activation</groupId>
+                    <artifactId>activation</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <!-- XML -->
+        <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
         </dependency>
 
         <!-- Spring Framework -->
@@ -40,6 +46,7 @@
         <dependency>
             <groupId>org.opensaml</groupId>
             <artifactId>opensaml</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.forgerock.openam</groupId>
