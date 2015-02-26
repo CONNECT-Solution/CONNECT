@@ -13,7 +13,7 @@ CONNECT can be used to:
 * Tie a health information exchange into a regional network of health information exchanges using Nationwide Health Information Network standards
 * Send and receive Direct messages, see: [Setting up CONNECT as a Direct HISP](./../../../../README.md)
 
-By advancing the adoption of interoperable health IT systems and health information exchanges, the country will better be able to achieve the goal of making sure all citizens have electronic health records by 2014. Health data will be able to follow a patient across the street or across the country.
+By advancing the adoption of interoperable health IT systems and health information exchanges, the country will better be able to achieve the goal of making sure all providers have access to patient health data. Health data will be able to follow a patient across the street or across the country.
 
 Solution
 --------
@@ -132,10 +132,10 @@ Testing
 ###Run the Validation Suite as part of install
 At the end of the mvn install process, an embedded GlassFish instance will start and the Validation Suite will run against it. The maven scripts automatically stand up the embedded glassfish using trust chain certificates:
 
-        $ cd <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite at: 
+        $ cd <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite 
         $ mvn clean install
 
-###Run the Validation Suite via Maven sript
+###Run the Validation Suite via Maven script
 The Validation Suite can be run via a Maven script against a standalone installation of the application server:
 
         $ cd <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite
@@ -150,7 +150,7 @@ Several properties can be passed for mvn verify:
         -Ddb.user=<database user name> -- defaults to nhincuser
         -Ddb.password=<database password> -- defaults to nhincpass
         -Dtest.suite=<g0 or g1>
-        -Dtest.case=<test case name> -- one of "Document Submission Deferred Req", "Document Submission Deferred Resp", "Document Submission", "Patient Discovery Deferred Req", "Patient Discovery Deferred Resp", "Patient Discovery", "Document Query", "Document Retrieve", "Subscribe", "Notify", "Unsubscribe", "Admin Distribution"
+        -Dtest.case=<test case name> -- one of "Document Submission Deferred Req", "Document Submission Deferred Resp", "Document Submission", "Patient Discovery Deferred Req", "Patient Discovery Deferred Resp", "Patient Discovery", "Document Query", "Document Retrieve", "Admin Distribution"
 		
 Alternatively, any of these properties can be set in your maven settings.xml file, and they will be propagated to all your builds.  Here is an example showing the mysql.root.password property set to a non-default value:
 
