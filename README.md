@@ -11,7 +11,7 @@ CONNECT can be used to:
 
 * Set up a health information exchange within an organization
 * Tie a health information exchange into a regional network of health information exchanges using Nationwide Health Information Network standards
-* Send and receive Direct messages, see: [Setting up CONNECT as a Direct HISP](https://github.com/CONNECT-Solution/CONNECT/blob/CONNECT_integration/Product/Production/Services/DirectCore/README.md)
+* Send and receive Direct messages, see: [Setting up CONNECT as a Direct HISP](./../../../../README.md)
 
 By advancing the adoption of interoperable health IT systems and health information exchanges, the country will better be able to achieve the goal of making sure all citizens have electronic health records by 2014. Health data will be able to follow a patient across the street or across the country.
 
@@ -43,7 +43,7 @@ Before you get started, you'll need the following installed and set up:
 * [Java (JDK) 7](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 * [Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files](http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html)
   * Install under $JAVA_HOME/jre/lib/security
-* [Maven 3.0.5+](http://maven.apache.org/download.html)    See [installation instructions](http://maven.apache.org/download.html#Installation).
+* [Maven](http://maven.apache.org/download.html)    See [installation instructions](http://maven.apache.org/download.html#Installation).
 * [MySQL 5.1.x](http://dev.mysql.com/downloads/mysql/5.1.html#downloads)
 * Application Server (Below are Supported Servers)
   * [GlassFish v3.1.2.2]
@@ -51,8 +51,9 @@ Before you get started, you'll need the following installed and set up:
   * [WebSphere Enterprise 8.5.5.3](http://www.ibm.com/developerworks/downloads/ws/wasdevelopers/)
   * [WebLogic 12c (12.1.1)](http://www.oracle.com/technetwork/middleware/ias/downloads/wls-main-097127.html)
   * [JBoss 7.1.1 Final](http://jbossas.jboss.org/downloads/)
-* [Apache Ant v1.7.1](http://ant.apache.org/)
+* [Apache Ant](http://ant.apache.org/)
 
+Supported versions of tools information at: [Prerequisites](https://connectopensource.atlassian.net/wiki/display/CONNECT4/Building+CONNECT+4.4+from+Source)  
 
 ###Building from source
 To build all CONNECT modules from source, run:
