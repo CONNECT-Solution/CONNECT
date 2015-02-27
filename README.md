@@ -43,23 +43,6 @@ For more information about CONNECT's history, see [HISTORY.md](./HISTORY.md)
 
 Getting Started
 ---------------
-###Prerequisites
-Before you get started, you'll need the following installed and set up:
-* [Java (JDK) 7](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-* [Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files](http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html)
-  * Install under $JAVA_HOME/jre/lib/security
-* [Maven](http://maven.apache.org/download.html)    See [installation instructions](http://maven.apache.org/download.html#Installation).
-* [MySQL 5.1.x](http://dev.mysql.com/downloads/mysql/5.1.html#downloads)
-* Application Server (Below are Supported Servers)
-  * [GlassFish v3.1.2.2]
-(https://glassfish.java.net/downloads/3.1.2.2-final.html)
-  * [WebSphere Enterprise 8.5.5.3](http://www.ibm.com/developerworks/downloads/ws/wasdevelopers/)
-  * [WebLogic 12c (12.1.1)](http://www.oracle.com/technetwork/middleware/ias/downloads/wls-main-097127.html)
-  * [JBoss 7.1.1 Final](http://jbossas.jboss.org/downloads/)
-* [Apache Ant](http://ant.apache.org/)
-
-Supported versions of tools information at: [Prerequisites](https://connectopensource.atlassian.net/wiki/display/CONNECT4/Building+CONNECT+4.4+from+Source)  
-
 ###Building from source
 To build CONNECT from source run:
 
@@ -76,27 +59,8 @@ You can also specify explicitly what services are included in the ear by passing
         $ cd Product/Production/Deploy/
         $ mvn clean install -P PD
 
-For further build and deploy instructions go here: [Build the Source](https://connectopensource.atlassian.net/wiki/x/YoAGAQ)
-        
-######Altering targeted application server
-For some application server deployments the generated .ear needs different dependencies. Follow the wiki links below for CONNECT supported application server build and deployment steps.
-
-  * GlassFish: [Glassfish Install](https://connectopensource.atlassian.net/wiki/x/ZIAGAQ) 
-  * WebSphere: [WebSphere Setup](https://connectopensource.atlassian.net/wiki/x/cYAGAQ)
-  * JBoss7: [JBoss7 Setup](https://connectopensource.atlassian.net/wiki/x/CQGQAQ)
-  * WebLogic: [WebLogic Setup](https://connectopensource.atlassian.net/wiki/x/aIAGAQ)
-
-####Chain of Trust Certificates
-Unlike testing with the embedded glassfish and chain of trust certificates, 'ant install' generates self signed certificates at deploy time. In order to switch over to chain of trust certs follow these directions (it is recommended to back up your self signed certs first):
-
-        $ asadmin stop-domain domain1
-        $ cp <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite/src/test/resources/chaincerts/*.jks <GLASSFISH_HOME>/domains/domain1/config/
-        $ asadmin start-domain domain1
-        
-The certificates that come in the CONNECT source do not include a Certificate Revocation List, therefore the following `domain.xml` properties need to be set to false:
-
-        <jvm-options>-Dcom.sun.net.ssl.checkRevocation=false</jvm-options>
-        <jvm-options>-Dcom.sun.security.enableCRLDP=false</jvm-options>
+For more information on CONNECT supported application servers build and deployment visit: [Installation Instructions](https://connectopensource.atlassian.net/wiki/x/YoAGAQ) page.
+       
 
 Testing
 -------
