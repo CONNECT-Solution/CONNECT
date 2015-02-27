@@ -5,10 +5,10 @@ CONNECT is an open source software solution that supports health information exc
 
 This software solution was initially developed by federal agencies to support their health-related missions, but it is now available to all organizations and can be used to help set up health information exchanges and share data using nationally-recognized interoperability standards.
 
-Revised BSD License
+License
 -------
 
-CONNECT is released under the [BSD](https://connectopensource.atlassian.net/wiki/x/mQCD) .
+CONNECT is released under the [BSD](https://connectopensource.atlassian.net/wiki/x/mQCD).
 
 Uses
 ----
