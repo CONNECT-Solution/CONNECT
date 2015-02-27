@@ -8,7 +8,7 @@ This software solution was initially developed by federal agencies to support th
 Revised BSD License
 -------
 
-CONNECT is released under the [BSD].(https://connectopensource.atlassian.net/wiki/x/mQCD)
+CONNECT is released under the [BSD](https://connectopensource.atlassian.net/wiki/x/mQCD) .
 
 Uses
 ----
