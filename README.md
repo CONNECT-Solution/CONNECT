@@ -5,10 +5,10 @@ CONNECT is an open source software solution that supports health information exc
 
 This software solution was initially developed by federal agencies to support their health-related missions, but it is now available to all organizations and can be used to help set up health information exchanges and share data using nationally-recognized interoperability standards.
 
-License
+Revised BSD License
 -------
 
-CONNECT is released under the: [License](https://connectopensource.atlassian.net/wiki/x/mQCD)
+CONNECT is released under the [BSD].(https://connectopensource.atlassian.net/wiki/x/mQCD)
 
 Uses
 ----
@@ -16,7 +16,7 @@ CONNECT can be used to:
 
 * Set up a health information exchange within an organization
 * Tie a health information exchange into a regional network of health information exchanges using Nationwide Health Information Network standards
-* Send and receive Direct messages, see: [Setting up CONNECT as a Direct HISP](/Product/Production/Services/DirectCore/README.md)
+* Send and receive Direct messages; see: [Setting up CONNECT as a Direct HISP](/Product/Production/Services/DirectCore/README.md)
 
 By advancing the adoption of interoperable health IT systems and health information exchanges, the country will better be able to achieve the goal of making sure all providers have access to patient health data. Health data will be able to follow a patient across the street or across the country.
 
@@ -101,7 +101,7 @@ Set the property "GatewayPropDir" in ConnectValidation-soapui-project.properties
 
 Run the Validation Suite project file ConnectValidation-soapui-project.xml via SoapUI's command line runner testrunner.sh (or testrunner.bat in Windows).
 
-You can find more details at: [Connect Validation Suite](https://connectopensource.atlassian.net/wiki/x/I4Ch)
+You can find more details at: [CONNECT Validation Suite](https://connectopensource.atlassian.net/wiki/x/I4Ch)
 
 ##Setting up SoapUI
 Install SoapUI v4.5.1.
