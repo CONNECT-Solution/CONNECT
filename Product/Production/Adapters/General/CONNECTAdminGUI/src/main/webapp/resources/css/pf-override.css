@@ -171,7 +171,7 @@ body {
 	left:0;
 	width:7px;
 	height:100%;
-	background:#8064a2;
+	background:#8000a0;
 }
 .sidebar .ui-panelmenu-panel.sidebar-blue li.active a:after {
 	content:"";
@@ -198,7 +198,7 @@ body {
 	left:0;
 	width:7px;
 	height:100%;
-	background:#00dd00;
+	background:#00aa40;
 }
 
 
@@ -339,14 +339,14 @@ body {
 	color:#ffffff;
 }
 .ui-tabs.tabs-override.tabs-ovr-purple .ui-tabs-nav {
-	border-bottom:5px solid #8064a2;
+	border-bottom:5px solid #8000a0;
 }
 .ui-tabs.tabs-override.tabs-ovr-purple .ui-tabs-nav li.ui-tabs-selected {
-	background:#8064a2;
+	background:#8000a0;
 	color:#ffffff;
 }
 .ui-tabs.tabs-override.tabs-ovr-purple .ui-tabs-nav li.ui-state-hover a {
-	background:#8064a2;
+	background:#8000a0;
 	color:#ffffff;
 }
 .ui-tabs.tabs-override.tabs-ovr-blue .ui-tabs-nav {
@@ -372,14 +372,14 @@ body {
 	color:#ffffff;
 }
 .ui-tabs.tabs-override.tabs-ovr-green .ui-tabs-nav {
-	border-bottom:5px solid #00dd00;
+	border-bottom:5px solid #00aa40;
 }
 .ui-tabs.tabs-override.tabs-ovr-green .ui-tabs-nav li.ui-tabs-selected {
-	background:#00dd00;
+	background:#00aa40;
 	color:#ffffff;
 }
 .ui-tabs.tabs-override.tabs-ovr-green .ui-tabs-nav li.ui-state-hover a {
-	background:#00dd00;
+	background:#00aa40;
 	color:#ffffff;
 }
 
@@ -601,6 +601,10 @@ body {
 
 
 /* -- CONNECTION MANAGER -- */
+/* -- GATEWAY PROPERTIES -- */
+
+hr.hr-divider {margin-bottom:10px;border-top:2px solid #ddd;}
+
 div[id*="cmOrgForm"].ui-selectonemenu .ui-selectonemenu-trigger {
 	box-sizing:content-box;
 }
@@ -621,10 +625,14 @@ div[id*="cmOrgForm"].ui-panel .ui-panel-content table td p {
 div[id*="cmOrgForm"] table.ui-panelgrid-domain {
 	border:none;
 }
-.main-content .table-orgs {
+
+.main-content div[class^='table-responsive'][class*='table-'] .ui-datatable-scrollable table, .main-content div[class*='table-responsive.table-'] .ui-datatable-sticky table {
+	table-layout:auto !important;
+}
+.main-content .table-orgs, .main-content .table-props {
 	padding:0px;
 }
-.main-content .table-orgs .ui-widget-header {
+.main-content .table-orgs .ui-widget-header, .main-content .table-props .ui-widget-header {
 	background:none;
 }
 .ui-datatable-scrollable-body {
@@ -632,10 +640,21 @@ div[id*="cmOrgForm"] table.ui-panelgrid-domain {
 	overflow-x:hidden;
 }
 .main-content .table-orgs thead th, .main-content .table-orgs tbody td {
-	width:auto !important;
+	width:/*auto !important*/;
+}
+.main-content .table-orgs thead th:first-child, .main-content .table-orgs tbody td:first-child {
+	width:36px !important;
 }
 .main-content .table-orgs thead th:first-child+th+th, .main-content .table-orgs tbody td:first-child+td+td {
 	width:40% !important;
+}
+/*.main-content .table-orgs thead th:first-child+th+th+th, .main-content .table-orgs thead th:first-child+th+th+th+th, .main-content .table-orgs thead th:first-child+th+th+th+th+th,
+.main-content .table-orgs tbody td:first-child+td+td+td, .main-content .table-orgs tbody td:first-child+td+td+td+td, .main-content .table-orgs tbody td:first-child+td+td+td+td+td  {
+	width:13% !important;
+}*/
+.main-content .table-props thead th:first-child, .main-content .table-props tbody td:first-child {
+	width:/*20% !important*/;
+	text-align:left;
 }
 .main-content .table-orgs tbody td span[style*="green"], .main-content .table-orgs tbody td span[style*="red"] {
 	font-weight:bold;font-size:17px;
@@ -649,7 +668,6 @@ div[id*="cmOrgForm"] table.ui-panelgrid-domain {
 .main-content .table-orgs tbody td span[style*="red"]:before {
 	content:"\e083";
 }
-
 
 
 /* -- ACCOUNT MANAGEMENT STYLES ----------------------------------------------*/
