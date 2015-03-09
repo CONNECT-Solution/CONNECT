@@ -16,7 +16,7 @@
     <listener>
         <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
     </listener>
-    
+
     <listener>
         <listener-class>gov.hhs.fha.nhinc.admingui.application.listener.ApplicationListener</listener-class>
     </listener>
@@ -40,7 +40,7 @@
     <welcome-file-list>
         <welcome-file>login.xhtml</welcome-file>
     </welcome-file-list>
-    
+
     <!-- Error page -->
     <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
@@ -61,6 +61,12 @@
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Production</param-value>
+    </context-param>
+
+    <!-- Change to "false" when modifying / debugging -->
+    <context-param>
+        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
     </context-param>
 
     <context-param>
@@ -95,7 +101,7 @@
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
     </resource-ref>
-    
+
     <filter>
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <filter-class>
