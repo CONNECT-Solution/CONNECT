@@ -43,13 +43,14 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.uddi.api_v3.Name;
 import org.apache.log4j.Logger;
 import org.uddi.api_v3.BindingTemplate;
 import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.BusinessService;
+import org.uddi.api_v3.IdentifierBag;
 import org.uddi.api_v3.KeyedReference;
+import org.uddi.api_v3.Name;
 
 /**
  * This class is used to manage the Connection Manager's cache. It handles both internal connection settings and UDDI
@@ -931,4 +932,55 @@ public class ConnectionManagerCache implements ConnectionManager {
         }
         return endpointUrlList;
     }
+    
+    public boolean updateInternalServiceUrl(String serviceName, String url) throws Exception {
+        String sHomeCommunityId = getHomeCommunityFromPropFile();
+        String sHomeCommunityIDwithoutPrefix = HomeCommunityMap.formatHomeCommunityId(sHomeCommunityId);
+        String sHomeCommunityIDWithPrefix = HomeCommunityMap.getHomeCommunityIdWithPrefix(sHomeCommunityId);
+        
+        BusinessEntity internalBusinessEntity;
+        
+        ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
+        
+        BusinessEntity internalEntity = null;
+        if (m_hInternalConnectInfo.containsKey(sHomeCommunityIDwithoutPrefix)) {
+            internalEntity = m_hInternalConnectInfo.get(sHomeCommunityIDwithoutPrefix);
+        } else if (m_hInternalConnectInfo.containsKey(sHomeCommunityIDWithPrefix)){
+            internalEntity = m_hInternalConnectInfo.get(sHomeCommunityIDWithPrefix);
+        } else {
+            return false;
+        }
+        
+        BusinessService service = helper.getBusinessServiceByServiceName(internalEntity, serviceName);
+        
+        String keyValue = "uddi:nhincnode:" + serviceName.toLowerCase();
+        BindingTemplate serviceUrl = helper.findBindingTemplateByKey(service, keyValue, keyValue);
+        
+        serviceUrl.getAccessPoint().setUseType(url);
+        
+        BusinessDetail detail = getInternalConnectionManagerDAO().loadBusinessDetail();
+        
+        for(BusinessEntity savedEntity : detail.getBusinessEntity()) {
+            String identifier = getHcidFromIdentifierBag(savedEntity);
+            if(identifier != null && (identifier.equals(sHomeCommunityIDwithoutPrefix) || identifier.equals(sHomeCommunityIDWithPrefix))) {
+                detail.getBusinessEntity().remove(savedEntity);
+                detail.getBusinessEntity().add(internalEntity);
+                break;
+            }
+        }
+        
+        getInternalConnectionManagerDAO().saveBusinessDetail(detail);
+        
+        return true;
+    }
+    
+    private String getHcidFromIdentifierBag(BusinessEntity entity) {
+        for(KeyedReference ref : entity.getIdentifierBag().getKeyedReference()) {
+            if(ref.getKeyName().equals("uddi:nhin:nhie:homecommunityid")) {
+                return ref.getKeyValue();
+            }
+        }
+        return null;
+    }
+    
 }
