@@ -938,8 +938,6 @@ public class ConnectionManagerCache implements ConnectionManager {
         String sHomeCommunityIDwithoutPrefix = HomeCommunityMap.formatHomeCommunityId(sHomeCommunityId);
         String sHomeCommunityIDWithPrefix = HomeCommunityMap.getHomeCommunityIdWithPrefix(sHomeCommunityId);
         
-        BusinessEntity internalBusinessEntity;
-        
         ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
         
         BusinessEntity internalEntity = null;
@@ -953,10 +951,9 @@ public class ConnectionManagerCache implements ConnectionManager {
         
         BusinessService service = helper.getBusinessServiceByServiceName(internalEntity, serviceName);
         
-        String keyValue = "uddi:nhincnode:" + serviceName.toLowerCase();
-        BindingTemplate serviceUrl = helper.findBindingTemplateByKey(service, keyValue, keyValue);
+        BindingTemplate serviceUrl = helper.findBindingTemplateByKey(service, AdapterEndpointManager.ADAPTER_API_LEVEL_KEY, NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0.name());
         
-        serviceUrl.getAccessPoint().setUseType(url);
+        serviceUrl.getAccessPoint().setValue(url);
         
         BusinessDetail detail = getInternalConnectionManagerDAO().loadBusinessDetail();
         
@@ -976,7 +973,7 @@ public class ConnectionManagerCache implements ConnectionManager {
     
     private String getHcidFromIdentifierBag(BusinessEntity entity) {
         for(KeyedReference ref : entity.getIdentifierBag().getKeyedReference()) {
-            if(ref.getKeyName().equals("uddi:nhin:nhie:homecommunityid")) {
+            if(ref.getTModelKey().equals("uddi:nhin:nhie:homecommunityid")) {
                 return ref.getKeyValue();
             }
         }

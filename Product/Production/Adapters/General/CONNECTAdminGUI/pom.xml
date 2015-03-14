@@ -215,6 +215,15 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
         </dependency>
+        
+        <!-- FHIR -->
+        
+        <dependency>
+            <groupId>me.fhir</groupId>
+            <artifactId>fhir-0.81</artifactId>
+            <version>2382-SNAPSHOT</version>
+        </dependency>
+        
     </dependencies>
 
     <repositories>
@@ -223,6 +232,11 @@
             <name>PrimeFaces Maven Repository</name>
             <url>http://repository.primefaces.org</url>
             <layout>default</layout>
+        </repository>
+        <repository>
+            <id>sonatype repo</id>
+            <name>FHIR Snapshot Repo</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
     </repositories>
 

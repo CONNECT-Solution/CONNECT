@@ -1214,3 +1214,31 @@ div[id*="cmOrgForm"] table.ui-panelgrid-domain {
 		width:auto;
 	}
 }
+
+.ringPanelGrid tr, .ringPanelGrid td {
+    border: none;
+}
+
+.ringOfFhir-background .ui-widget-header {
+    background-color: #254061;
+}
+
+.ping-button {
+	background-color: #e77b22 !important;
+	color: #ffffff !important;
+	border-color: #e46c0a !important;
+}
+.ping-button:hover {
+	background-color:#e46c0a !important;
+}
+
+.main-content .table-resources, .main-content .table-props {
+	padding:0px;
+}
+.main-content .table-resources .ui-widget-header, .main-content .table-props .ui-widget-header {
+	background:none;
+}
+
+.main-content .table-resources thead th:first-child, .main-content .table-resources tbody td:first-child {
+	width:35% !important;
+}
