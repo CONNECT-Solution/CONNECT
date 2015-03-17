@@ -25,6 +25,7 @@
  */
 package gov.hhs.fha.nhinc.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,8 +50,30 @@ public class Patient {
     private String patientId;
     private String domain;
     private String aaId;
+    private String organization;// the organization Home community Id
 
     public List<DocumentMetadataResult> patientDocuments;
+
+    public Patient() {
+        this.firstName = "";
+        this.lastName = "";
+        this.middleName = "";
+        this.birthDate = "";
+        this.gender = "";
+        this.ssn = "";
+        this.streetAddr = "";
+        this.city = "";
+        this.state = "";
+        this.zip = "";
+        this.phone = "";
+        this.dLicense = "";
+        this.pid = "";
+        this.patientId = "";
+        this.domain = "";
+        this.aaId = "";
+        this.organization = "";
+        this.patientDocuments = new ArrayList<DocumentMetadataResult>();
+    }
 
     public List<DocumentMetadataResult> getPatientDocuments() {
         return patientDocuments;
@@ -188,22 +211,31 @@ public class Patient {
         this.aaId = aaId;
     }
 
-    public void setEmptyStrings() {
-        this.birthDate = "";
-        this.firstName = "";
-        this.middleName = "";
-        this.lastName = "";
-        this.gender = "";
-        this.pid = "";
-        this.domain = "";
-        this.streetAddr = "";
-        this.city = "";
-        this.state = "";
-        this.zip = "";
-        this.phone = "";
-        this.ssn = "";
-        this.dLicense = "";
-        this.patientId = "";
-        this.aaId = "";
+    public String getOrganization() {
+        return organization;
     }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
+
+    /*public void setEmptyStrings() {
+     this.birthDate = "";
+     this.firstName = "";
+     this.middleName = "";
+     this.lastName = "";
+     this.gender = "";
+     this.pid = "";
+     this.domain = "";
+     this.streetAddr = "";
+     this.city = "";
+     this.state = "";
+     this.zip = "";
+     this.phone = "";
+     this.ssn = "";
+     this.dLicense = "";
+     this.patientId = "";
+     this.aaId = "";
+     this.organization = "";
+     }*/
 }

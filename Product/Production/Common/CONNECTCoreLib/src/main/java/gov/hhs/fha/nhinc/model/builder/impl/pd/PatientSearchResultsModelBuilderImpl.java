@@ -95,7 +95,6 @@ public class PatientSearchResultsModelBuilderImpl extends
             PRPAMT201310UV02Person person = msgPatient.getPatientPerson()
                 .getValue();
             Patient patient = new Patient();
-            patient.setEmptyStrings();
 
             extractNames(person, patient);
             extractPidAndAAId(msgPatient, patient);

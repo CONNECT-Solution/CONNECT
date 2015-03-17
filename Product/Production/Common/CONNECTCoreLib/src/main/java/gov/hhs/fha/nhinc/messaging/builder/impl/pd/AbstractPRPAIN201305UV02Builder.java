@@ -38,8 +38,8 @@ import javax.xml.bind.JAXBElement;
 import gov.hhs.fha.nhinc.messaging.builder.PRPAIN201305UV02Builder;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import org.hl7.v3.ActClassControlAct;
 import org.hl7.v3.COCTMT090300UV01AssignedDevice;
@@ -59,7 +59,7 @@ import org.hl7.v3.XActMoodIntentEvent;
 public abstract class AbstractPRPAIN201305UV02Builder implements PRPAIN201305UV02Builder {
 
     private PRPAIN201305UV02 request = null;
-
+    private static final String PROPERTY_FILE = "gateway";
     private static final String LOCAL_HCID_KEY = "localHomeCommunityId";
 
     @Override
@@ -70,7 +70,7 @@ public abstract class AbstractPRPAIN201305UV02Builder implements PRPAIN201305UV0
         try {
             buildControlActProcess();
         } catch (PropertyAccessException ex) {
-            Logger.getLogger(AbstractPRPAIN201305UV02Builder.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AbstractPRPAIN201305UV02Builder.class.getName()).log(Level.FATAL, null, ex);
         }
     }
 
@@ -91,7 +91,7 @@ public abstract class AbstractPRPAIN201305UV02Builder implements PRPAIN201305UV0
         try {
             id.setRoot(getLocalHcid());
         } catch (PropertyAccessException ex) {
-            Logger.getLogger(AbstractPRPAIN201305UV02Builder.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AbstractPRPAIN201305UV02Builder.class.getName()).log(Level.FATAL, null, ex);
         }
         representedOrg.getId().add(id);
 
@@ -134,6 +134,6 @@ public abstract class AbstractPRPAIN201305UV02Builder implements PRPAIN201305UV0
     }
 
     protected String getLocalHcid() throws PropertyAccessException {
-        return PropertyAccessor.getInstance().getProperty("gateway", LOCAL_HCID_KEY);
+        return PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, LOCAL_HCID_KEY);
     }
 }

@@ -30,7 +30,6 @@ package gov.hhs.fha.nhinc.admingui.services.impl;
  * @author tjafri
  */
 import org.apache.log4j.Logger;
-import gov.hhs.fha.nhinc.messaging.builder.PRPAIN201305UV02Builder;
 import gov.hhs.fha.nhinc.messaging.builder.impl.pd.PRPAIN201305UV02BuilderImpl;
 import gov.hhs.fha.nhinc.model.Patient;
 import gov.hhs.fha.nhinc.model.PatientSearchResults;
@@ -42,9 +41,8 @@ import gov.hhs.fha.nhinc.messaging.director.impl.PatientDiscoveryMessageDirector
 import gov.hhs.fha.nhinc.messaging.builder.impl.AssertionBuilderImpl;
 import gov.hhs.fha.nhinc.messaging.builder.impl.NhinTargetCommunitiesBuilderImpl;
 import gov.hhs.fha.nhinc.model.builder.impl.pd.PatientSearchResultsModelBuilderImpl;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxyWebServiceUnsecuredImpl;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
@@ -53,22 +51,19 @@ public class PatientServiceImpl implements PatientService {
 
     private PatientSearchResultsModelBuilder resultsBuilder;
     private PatientDiscoveryMessageDirector pdMessageDirector;
-
     private static Logger LOG = Logger.getLogger(PatientServiceImpl.class);
-    private static final String PROPERTY_FILE = "gateway";
-    private static final String PROPERTY_HCID = "localHomeCommunityId";
 
+    @Override
     public PatientSearchResults queryPatient(Patient query) throws PatientSearchException {
 
         LOG.trace("Entering PatientServiceImpl.queryPatient()");
         pdMessageDirector = new PatientDiscoveryMessageDirectorImpl();
         pdMessageDirector.setAssertionBuilder(new AssertionBuilderImpl());
         NhinTargetCommunitiesBuilderImpl targetCommunity = new NhinTargetCommunitiesBuilderImpl();
-        try {
-            targetCommunity.setTarget(HomeCommunityMap.formatHomeCommunityId(PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, PROPERTY_HCID)));
-        } catch (PropertyAccessException ex) {
-            LOG.error(ex);
+        if (NullChecker.isNullish(query.getOrganization())) {
+            throw new PatientSearchException("Organization is a required field");
         }
+        targetCommunity.setTarget(HomeCommunityMap.formatHomeCommunityId(query.getOrganization()));
         pdMessageDirector.setTargetCommunitiesBuilder(targetCommunity);
 
         setPRPAINBuilder(query);
@@ -84,8 +79,8 @@ public class PatientServiceImpl implements PatientService {
     }
 
     protected void setPRPAINBuilder(Patient query) {
-        PRPAIN201305UV02Builder builder = new PRPAIN201305UV02BuilderImpl();
-        ((PRPAIN201305UV02BuilderImpl) builder).setPatient(query);
+        PRPAIN201305UV02BuilderImpl builder = new PRPAIN201305UV02BuilderImpl();
+        builder.setPatient(query);
         pdMessageDirector.setPRPAIN201305UV02Builder(builder);
     }
 }

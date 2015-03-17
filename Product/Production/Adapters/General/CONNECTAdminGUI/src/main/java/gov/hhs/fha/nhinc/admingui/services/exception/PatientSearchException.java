@@ -33,6 +33,10 @@ public class PatientSearchException extends Exception {
 
     private static final long serialVersionUID = -7305314798069891184L;
 
+    public PatientSearchException(String message) {
+        super(message);
+    }
+
     public PatientSearchException(String message, Throwable cause) {
         super(message, cause);
     }

@@ -38,6 +38,7 @@ public class DocumentMetadata {
     private String documentType;
     private Date startTime;
     private Date endTime;
+    private String organization; //organization home community Id
 
     public String getPatientId() {
         return patientId;
@@ -85,4 +86,11 @@ public class DocumentMetadata {
         this.endTime = endTime;
     }
 
+    public String getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
 }
