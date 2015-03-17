@@ -218,24 +218,4 @@ public class Patient {
     public void setOrganization(String organization) {
         this.organization = organization;
     }
-
-    /*public void setEmptyStrings() {
-     this.birthDate = "";
-     this.firstName = "";
-     this.middleName = "";
-     this.lastName = "";
-     this.gender = "";
-     this.pid = "";
-     this.domain = "";
-     this.streetAddr = "";
-     this.city = "";
-     this.state = "";
-     this.zip = "";
-     this.phone = "";
-     this.ssn = "";
-     this.dLicense = "";
-     this.patientId = "";
-     this.aaId = "";
-     this.organization = "";
-     }*/
 }
