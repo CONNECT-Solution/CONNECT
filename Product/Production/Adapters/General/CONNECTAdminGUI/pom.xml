@@ -33,6 +33,16 @@
             <groupId>org.connectopensource</groupId>
             <artifactId>DirectWebservices</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>PatientDiscoveryCore</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DocumentQueryCore</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
 
         <!-- Persistence -->
         <dependency>
