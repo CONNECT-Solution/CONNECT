@@ -37,6 +37,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
+ * This class extends from AbstractAssertionBuilder and implements the AssertionBuilderinterface.
+ * <p>
+ * The assertions are read from assertioninfo.properties file.
  *
  * @author tjafri
  */

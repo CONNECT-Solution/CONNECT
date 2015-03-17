@@ -33,6 +33,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * This class builds the NhinTargetCommunities tag for PD-DQ-DR request
  *
  * @author tjafri
  */

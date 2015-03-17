@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.messaging.builder.impl.pd;
 import gov.hhs.fha.nhinc.model.Patient;
 import gov.hhs.fha.nhinc.messaging.builder.PRPAIN201305UV02Builder;
 import javax.xml.bind.JAXBElement;
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.Logger;
 import org.hl7.v3.CE;
 import org.hl7.v3.CS;
@@ -46,6 +47,7 @@ import org.hl7.v3.PRPAMT201306UV02ParameterList;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 
 /**
+ * This class builds a PRPAIN201305UV02 request.
  *
  * @author tjafri
  */
@@ -113,25 +115,8 @@ public class PRPAIN201305UV02BuilderImpl extends AbstractPRPAIN201305UV02Builder
             setGender(parameterList);
         }
 
-        if (patient.getStreetAddr() != null || patient.getCity() != null || patient.getState() != null
-            || patient.getZip() != null) {
-            setAddress(parameterList, factory);
-        }
-
-        if (patient.getPhone() != null) {
-            setPhone(parameterList);
-        }
-
         if (patient.getPid() != null && patient.getDomain() != null) {
             setPid(parameterList);
-        }
-
-        if (patient.getSsn() != null) {
-            setSsn(parameterList);
-        }
-
-        if (patient.getdLicense() != null) {
-            setDLicense(parameterList);
         }
 
         return parameterList;
@@ -185,12 +170,12 @@ public class PRPAIN201305UV02BuilderImpl extends AbstractPRPAIN201305UV02Builder
 
     private void setAddress(PRPAMT201306UV02ParameterList parameterList,
         ObjectFactory factory) {
-        // TODO Auto-generated method stub
+        throw new NotImplementedException("Method not supported yet");
 
     }
 
     private void setPhone(PRPAMT201306UV02ParameterList parameterList) {
-        // TODO Auto-generated method stub
+        throw new NotImplementedException("Method not supported yet");
 
     }
 
@@ -204,12 +189,12 @@ public class PRPAIN201305UV02BuilderImpl extends AbstractPRPAIN201305UV02Builder
     }
 
     private void setSsn(PRPAMT201306UV02ParameterList parameterList) {
-        // TODO Auto-generated method stub
+        throw new NotImplementedException("Method not supported yet");
 
     }
 
     private void setDLicense(PRPAMT201306UV02ParameterList parameterList) {
-        // TODO Auto-generated method stub
+        throw new NotImplementedException("Method not supported yet");
 
     }
 }

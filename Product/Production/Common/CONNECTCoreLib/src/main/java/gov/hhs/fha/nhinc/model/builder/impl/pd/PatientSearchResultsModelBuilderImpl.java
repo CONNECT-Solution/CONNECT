@@ -26,6 +26,10 @@
 package gov.hhs.fha.nhinc.model.builder.impl.pd;
 
 /**
+ * PatientSearchResultsModelBuilderImpl process a PD response.
+ * <p>
+ * Currently it process firstName, lastNaeme,middleName, dateOfBirth, gender, address, assigningAuthorityId and patient
+ * Id
  *
  * @author tjafri
  */
@@ -38,6 +42,7 @@ import gov.hhs.fha.nhinc.model.Patient;
 import gov.hhs.fha.nhinc.model.PatientSearchResults;
 import gov.hhs.fha.nhinc.model.builder.AbstractPatientSearchResultsModelBuilder;
 import gov.hhs.fha.nhinc.model.builder.PatientSearchResultsModelBuilder;
+import org.apache.commons.lang.NotImplementedException;
 import org.hl7.v3.AdxpExplicitCity;
 import org.hl7.v3.AdxpExplicitPostalCode;
 import org.hl7.v3.AdxpExplicitState;
@@ -103,7 +108,6 @@ public class PatientSearchResultsModelBuilderImpl extends
             extractTelephone(person, patient);
             extractGender(person, patient);
             extractDob(person, patient);
-            extractDriverLicense(person, patient);
             results.addPatient(patient);
         }
     }
@@ -216,7 +220,7 @@ public class PatientSearchResultsModelBuilderImpl extends
 
     private void extractDriverLicense(PRPAMT201310UV02Person person,
         Patient patient) {
-        // TODO Auto-generated method stub
+        throw new NotImplementedException("Method not supported yet");
 
     }
 }

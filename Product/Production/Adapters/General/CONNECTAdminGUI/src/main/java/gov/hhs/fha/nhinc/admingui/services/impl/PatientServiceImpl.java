@@ -47,12 +47,29 @@ import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
+/**
+ * PatientServiceImpl is responsible for building a PRPAIN201305UV02 and making a PatientDiscovery call by employing
+ * EntityPatientDiscoveryProxyWebServiceUnsecuredImpl.
+ *
+ * @author tjafri
+ */
 public class PatientServiceImpl implements PatientService {
 
     private PatientSearchResultsModelBuilder resultsBuilder;
     private PatientDiscoveryMessageDirector pdMessageDirector;
     private static Logger LOG = Logger.getLogger(PatientServiceImpl.class);
 
+    /**
+     * Returns PatientSearchResults object
+     * <p>
+     * Usage: Patient p = new Patient(); p.setFirstName("abc"); p.setLastName("xyz"); p.setOrganization("urn:oid:2.2");
+     * queryPatient(p);
+     *
+     * @param query Patient object populated with patient search criteria.
+     * @return PatientSearchResults
+     * @see Patient
+     * @see PatientSearchResults
+     */
     @Override
     public PatientSearchResults queryPatient(Patient query) throws PatientSearchException {
 

@@ -37,13 +37,11 @@
             <groupId>org.connectopensource</groupId>
             <artifactId>PatientDiscoveryCore</artifactId>
             <version>${project.parent.version}</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DocumentQueryCore</artifactId>
             <version>${project.parent.version}</version>
-            <type>jar</type>
         </dependency>
 
         <!-- Persistence -->
