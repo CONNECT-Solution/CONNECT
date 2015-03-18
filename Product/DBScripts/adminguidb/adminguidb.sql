@@ -61,7 +61,10 @@ VALUES
 ("connectionManager.xhtml", "Connection Management", 0, 3),
 ("properties.xhtml", "CONNECT Properties", 0, 1),
 ("properties.xhtml", "CONNECT Properties", 0, 2),
-("properties.xhtml", "CONNECT Properties", 0, 3);
+("properties.xhtml", "CONNECT Properties", 0, 3),
+("fhir.xhtml", "FHIR Resources", 0, 1),
+("fhir.xhtml", "FHIR Resources", 0, 2),
+("fhir.xhtml", "FHIR Resources", 0, 3);
 
 
 INSERT INTO adminguidb.UserLogin

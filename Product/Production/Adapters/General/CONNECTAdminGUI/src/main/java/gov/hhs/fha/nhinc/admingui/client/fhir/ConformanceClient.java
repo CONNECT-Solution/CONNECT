@@ -14,15 +14,13 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.log4j.Logger;
 import org.hl7.fhir.instance.client.EFhirClientException;
 import org.hl7.fhir.instance.client.FeedFormat;
 import org.hl7.fhir.instance.client.ResourceAddress;
-import org.hl7.fhir.instance.client.ResourceFormat;
 import org.hl7.fhir.instance.client.ResourceRequest;
 import org.hl7.fhir.instance.client.TagParser;
 import org.hl7.fhir.instance.formats.JsonParser;
@@ -42,46 +40,40 @@ public class ConformanceClient {
 
     public static String DEFAULT_CHARSET = "utf-8";
     
-    public Conformance getConformanceStatement(String baseServiceUrl) throws URISyntaxException {
+    private static final Logger LOG = Logger.getLogger(ConformanceClient.class);
+    
+    public Conformance getConformanceStatement(String baseServiceUrl) throws URISyntaxException {  
         ResourceAddress resourceAddress = new ResourceAddress(baseServiceUrl);
-        return (Conformance) issueGetResourceRequest(resourceAddress.resolveMetadataUri(),  ResourceFormat.RESOURCE_XML.getHeader()).getResource();
+        return (Conformance) issueGetResourceRequest(resourceAddress.resolveMetadataUri(), ResourceFormat.RESOURCE_XML.getHeader()).getResource();
     }
     
-    protected static <T extends Resource> ResourceRequest<T> issueGetResourceRequest(URI resourceUri, String resourceFormat) {
+    protected static <T extends Resource> ResourceRequest<T> issueGetResourceRequest(URI resourceUri, String format) {
 		HttpGet httpget = new HttpGet(resourceUri);
-		return issueResourceRequest(resourceFormat, httpget);
+		return issueResourceRequest(format, httpget);
 	}
 
-    protected static <T extends Resource> ResourceRequest<T> issueResourceRequest(String resourceFormat, HttpUriRequest request) {
-        configureFhirRequest(request, resourceFormat);
+    protected static <T extends Resource> ResourceRequest<T> issueResourceRequest(String format, HttpUriRequest request) {
+        configureFhirRequest(format, request);
         HttpResponse response = sendRequest(request);
         
-        T resource = unmarshalResource(response, resourceFormat);
+        T resource = unmarshalResource(response, format);
         AtomEntry<T> atomEntry = buildAtomEntry(response, resource);
         return new ResourceRequest<T>(atomEntry, response.getStatusLine().getStatusCode());
     }
 
-    protected static void configureFhirRequest(HttpRequest request, String format) {
+    protected static void configureFhirRequest(String resourceFormat, HttpRequest request) {
         request.addHeader("User-Agent", "Java FHIR Client for FHIR");
-        request.addHeader("Accept", format);
-        request.addHeader("Content-Type", format + ";charset=" + DEFAULT_CHARSET);
+        
+        LOG.info("Resource format: " + resourceFormat + ", Feed Format: " + FeedFormat.FEED_XML.getHeader());
+        request.addHeader("Accept", resourceFormat);
+        request.addHeader("Accept", FeedFormat.FEED_XML.getHeader());
+        request.addHeader("Content-Type", ResourceFormat.RESOURCE_XML.getHeader() + ";charset=" + DEFAULT_CHARSET);
         request.addHeader("Accept-Charset", DEFAULT_CHARSET);
-    }
-    
-    protected static HttpResponse sendPayload(HttpEntityEnclosingRequestBase request, byte[] payload) {
-        HttpResponse response = null;
-        try {
-            HttpClient httpclient = new DefaultHttpClient();
-            request.setEntity(new ByteArrayEntity(payload));
-            response = httpclient.execute(request);
-        } catch (IOException ioe) {
-            throw new EFhirClientException("Error sending HTTP Post/Put Payload", ioe);
-        }
-        return response;
     }
     
     protected static HttpResponse sendRequest(HttpUriRequest request) {
 		HttpResponse response = null;
+        LOG.info("Conformance request method: " + request.getURI().getQuery());
 		try {
 			HttpClient httpclient = new DefaultHttpClient();
 			response = httpclient.execute(request);
