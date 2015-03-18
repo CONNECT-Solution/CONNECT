@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.xdsb.helper.XDSbConstants.IdentificationScheme;
 import gov.hhs.fha.nhinc.xdsb.helper.XDSbConstants.ResponseSlotName;
 import gov.hhs.fha.nhinc.model.DocumentMetadataResult;
 import gov.hhs.fha.nhinc.model.builder.DocumentMetadataResultModelBuilder;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -73,12 +74,13 @@ class DocumentMetadataResultModelBuilderImpl implements DocumentMetadataResultMo
         String serviceStartTime = helper.getSingleSlotValue(ResponseSlotName.serviceStartTime, extrinsicObject);
         String serviceStopTime = helper.getSingleSlotValue(ResponseSlotName.serviceStopTime, extrinsicObject);
         try {
-            result.setCreationDate(formatDatePretty(creationDate));
-            result.setServiceStartTime(formatDateTimePretty(serviceStartTime));
-            result.setServiceStopTime(formatDateTimePretty(serviceStopTime));
+            result.setCreationDate(getDateTime(creationDate));
+            result.setServiceStartTime(getDateTime(serviceStartTime));
+            result.setServiceStopTime(getDateTime(serviceStopTime));
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         String repositoryId = helper.getSingleSlotValue(ResponseSlotName.repositoryUniqueId, extrinsicObject);
         result.setRepositoryId(repositoryId);
 
@@ -119,34 +121,17 @@ class DocumentMetadataResultModelBuilderImpl implements DocumentMetadataResultMo
     }
 
     /**
-     * Format date time pretty.
+     * Creates a Date object from String
      *
-     * @param date the date
-     * @return the string
+     * @param String the date
+     * @return the java.util.Date
      * @throws ParseException the parse exception
      */
-    private String formatDateTimePretty(String date) throws ParseException {
-        String prettyDateTime = null;
+    private Date getDateTime(String date) throws ParseException {
+        Date formattedDate = null;
         if (!StringUtils.isBlank(date)) {
-            Date dDate = new SimpleDateFormat("yyyyMMddHHmmss").parse(date);
-            prettyDateTime = new SimpleDateFormat("M dd, yyyy, HH:mm Z").format(dDate);
+            formattedDate = new SimpleDateFormat(NhincConstants.DATE_PARSE_FORMAT).parse(date);
         }
-        return prettyDateTime;
-    }
-
-    /**
-     * Format date pretty.
-     *
-     * @param date the date
-     * @return the string
-     * @throws ParseException the parse exception
-     */
-    private String formatDatePretty(String date) throws ParseException {
-        String prettyDate = null;
-        if (!StringUtils.isBlank(date)) {
-            Date dDate = new SimpleDateFormat("yyyyMMdd").parse(date);
-            prettyDate = new SimpleDateFormat("dd/MMMM/yyyy").format(dDate);
-        }
-        return prettyDate;
+        return formattedDate;
     }
 }

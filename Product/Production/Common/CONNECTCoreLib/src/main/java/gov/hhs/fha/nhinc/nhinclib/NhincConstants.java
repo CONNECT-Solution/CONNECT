@@ -152,7 +152,7 @@ public class NhincConstants {
     public static final String X12_GENERIC_BATCH_TIMESTAMP_TIME_TO_LIVE = "CoreX12GenericBatchTimeStampTimeToLive";
     public static final String X12_GENERIC_BATCH_TIMESTAMP_STRICT = "CoreX12GenericBatchTimeStampStrict";
     public static final String X12_GENERIC_BATCH_TIMESTAMP_FUTURE_TIME_TO_LIVE = "CoreX12GenericBatchFutureTimeToLive";
-    
+
     // Response Message Interceptor Constants
     public static final String RESPONSE_MESSAGE_ID_KEY = "RESPONSE_MESSAGE_ID";
     public static final String RESPONSE_MESSAGE_ID_LIST_KEY = "RESPONSE_MESSAGE_ID_LIST";
@@ -449,7 +449,7 @@ public class NhincConstants {
     public static final String ADMIN_GUI_PROXY_CONFIG_FILE_NAME = "AdminGUIProxyConfig.xml";
     public static final String CORE_X12DS_ACK_ERROR_MSG = null;
     public static final String CORE_X12DS_ACK_ERROR_CODE = null;
-    
+
     //Adapter properties for retrieving X12 RealTime payload
     public static final String CORE_X12DS_RT_DYNAMIC_DOC_FILE = "x12.realtime.doc.file";
 
@@ -479,6 +479,9 @@ public class NhincConstants {
     public static final String JMX_DOCUMENT_QUERY_30_BEAN_NAME = "org.connectopensource.mbeans:type=DocumentQuery30WebServices";
     public static final String JMX_DOCUMENT_QUERY_20_BEAN_NAME = "org.connectopensource.mbeans:type=DocumentQuery20WebServices";
     public static final String JMX_PATIENT_DISCOVERY_10_BEAN_NAME = "org.connectopensource.mbeans:type=PatientDiscovery10WebServices";
+
+    // Standard Format for parsing String into Date
+    public static final String DATE_PARSE_FORMAT = "yyyyMMddHHmmss";
 
     /* -- End Document Retrieve deferred Service Name -- */
     private NhincConstants() {

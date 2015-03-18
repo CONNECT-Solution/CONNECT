@@ -90,71 +90,71 @@ public class XDSbConstants {
     public enum RegistryStoredQueryParameter {
 
         /**
-         * The $ xds document entry patient id.
+         * The $ XDS document entry patient id.
          */
         $XDSDocumentEntryPatientId,
         /**
-         * The $ xds document entry class code.
+         * The $ XDS document entry class code.
          */
         $XDSDocumentEntryClassCode,
         /**
-         * The $ xds document entry type code.
+         * The $ XDS document entry type code.
          */
         $XDSDocumentEntryTypeCode,
         /**
-         * The $ xds document entry practice setting code.
+         * The $ XDS document entry practice setting code.
          */
         $XDSDocumentEntryPracticeSettingCode,
         /**
-         * The $ xds document entry creation time from.
+         * The $ XDS document entry creation time from.
          */
         $XDSDocumentEntryCreationTimeFrom,
         /**
-         * The $ xds document entry creation time to.
+         * The $ XDS document entry creation time to.
          */
         $XDSDocumentEntryCreationTimeTo,
         /**
-         * The $ xds document entry service start time from.
+         * The $ XDS document entry service start time from.
          */
         $XDSDocumentEntryServiceStartTimeFrom,
         /**
-         * The $ xds document entry service start time to.
+         * The $ XDS document entry service start time to.
          */
         $XDSDocumentEntryServiceStartTimeTo,
         /**
-         * The $ xds document entry service stop time from.
+         * The $ XDS document entry service stop time from.
          */
         $XDSDocumentEntryServiceStopTimeFrom,
         /**
-         * The $ xds document entry service stop time to.
+         * The $ XDS document entry service stop time to.
          */
         $XDSDocumentEntryServiceStopTimeTo,
         /**
-         * The $ xds document entry healthcare facility type code.
+         * The $ XDS document entry healthcare facility type code.
          */
         $XDSDocumentEntryHealthcareFacilityTypeCode,
         /**
-         * The $ xds document entry event code list.
+         * The $ XDS document entry event code list.
          */
         $XDSDocumentEntryEventCodeList,
         /**
-         * The $ xds document entry confidentiality code.
+         * The $ XDS document entry confidentiality code.
          */
         $XDSDocumentEntryConfidentialityCode,
         /**
-         * The $ xds document entry author person.
+         * The $ XDS document entry author person.
          */
         $XDSDocumentEntryAuthorPerson,
         /**
-         * The $ xds document entry format code.
+         * The $ XDS document entry format code.
          */
         $XDSDocumentEntryFormatCode,
         /**
-         * The $ xds document entry status.
+         * The $ XDS document entry status.
          */
         $XDSDocumentEntryStatus,
         /**
-         * The $ xds document entry Class Code Scheme
+         * The $ XDS document entry Class Code Scheme
          */
         $XDSDocumentEntryClassCodeScheme
     }
@@ -205,7 +205,7 @@ public class XDSbConstants {
          * From string.
          *
          * @param valueString the value string
-         * @return the xDS query status
+         * @return the XDS query status
          */
         public static XDSQueryStatus fromString(String valueString) {
             if (valueString != null) {
@@ -287,7 +287,7 @@ public class XDSbConstants {
         private String value = null;
 
         /**
-         * Instantiates a new xD sb stored query.
+         * Instantiates a new XDSb stored query.
          *
          * @param value the value
          */
@@ -309,7 +309,7 @@ public class XDSbConstants {
          * From string.
          *
          * @param valueString the value string
-         * @return the xD sb stored query
+         * @return the XDSb stored query
          */
         public static XDSbStoredQuery fromString(String valueString) {
             if (valueString != null) {
@@ -386,7 +386,7 @@ public class XDSbConstants {
         private String value = null;
 
         /**
-         * Instantiates a new xD sb stored query.
+         * Instantiates a new XDSb ClassificationScheme.
          *
          * @param value the value
          */
@@ -408,7 +408,7 @@ public class XDSbConstants {
          * From string.
          *
          * @param valueString the value string
-         * @return the xD sb stored query
+         * @return the XSDb constant for the given ClassificationScheme value
          */
         public static ClassificationScheme fromString(String valueString) {
             if (valueString != null) {
@@ -432,11 +432,6 @@ public class XDSbConstants {
          */
         private String value = null;
 
-        /**
-         * Instantiates a new xD sb stored query.
-         *
-         * @param value the value
-         */
         IdentificationScheme(String value) {
             this.value = value;
         }
@@ -455,7 +450,7 @@ public class XDSbConstants {
          * From string.
          *
          * @param valueString the value string
-         * @return the xD sb stored query
+         * @return the XDSb constant for the given identificationScheme value
          */
         public static IdentificationScheme fromString(String valueString) {
             if (valueString != null) {

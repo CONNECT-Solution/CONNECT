@@ -25,6 +25,7 @@
  */
 package gov.hhs.fha.nhinc.model;
 
+import java.util.Date;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -56,17 +57,17 @@ public class DocumentMetadataResult {
     /**
      * The creation date.
      */
-    private String creationDate;
+    private Date creationDate;
 
     /**
      * The service start time.
      */
-    private String serviceStartTime;
+    private Date serviceStartTime;
 
     /**
      * The service stop time.
      */
-    private String serviceStopTime;
+    private Date serviceStopTime;
 
     /**
      * The availability status.
@@ -180,7 +181,7 @@ public class DocumentMetadataResult {
      *
      * @return the creationDate
      */
-    public String getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
@@ -189,7 +190,7 @@ public class DocumentMetadataResult {
      *
      * @param creationDate the creationDate to set
      */
-    public void setCreationDate(String creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -198,7 +199,7 @@ public class DocumentMetadataResult {
      *
      * @return the serviceStartTime
      */
-    public String getServiceStartTime() {
+    public Date getServiceStartTime() {
         return serviceStartTime;
     }
 
@@ -207,7 +208,7 @@ public class DocumentMetadataResult {
      *
      * @param serviceStartTime the serviceStartTime to set
      */
-    public void setServiceStartTime(String serviceStartTime) {
+    public void setServiceStartTime(Date serviceStartTime) {
         this.serviceStartTime = serviceStartTime;
     }
 
@@ -216,7 +217,7 @@ public class DocumentMetadataResult {
      *
      * @return the serviceStopTime
      */
-    public String getServiceStopTime() {
+    public Date getServiceStopTime() {
         return serviceStopTime;
     }
 
@@ -225,7 +226,7 @@ public class DocumentMetadataResult {
      *
      * @param serviceStopTime the serviceStopTime to set
      */
-    public void setServiceStopTime(String serviceStopTime) {
+    public void setServiceStopTime(Date serviceStopTime) {
         this.serviceStopTime = serviceStopTime;
     }
 
@@ -366,7 +367,7 @@ public class DocumentMetadataResult {
             builder.append(documentTypeCode);
         }
 
-        if (!StringUtils.isBlank(serviceStartTime) && !StringUtils.isBlank(serviceStopTime)) {
+        if (serviceStartTime != null && serviceStopTime != null) {
             builder.append(" from ");
             builder.append(serviceStartTime);
             builder.append(" to ");

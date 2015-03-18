@@ -25,6 +25,7 @@
  */
 package gov.hhs.fha.nhinc.xdsb.helper;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.xdsb.helper.XDSbConstants.RegistryStoredQueryParameter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -95,7 +96,7 @@ public class XDSbAdhocQueryRequestHelperImpl implements XDSbAdhocQueryRequestHel
     public String formatXDSbDate(Date date) {
         String sFormattedDate = null;
         if (date != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            SimpleDateFormat sdf = new SimpleDateFormat(NhincConstants.DATE_PARSE_FORMAT);
             sFormattedDate = sdf.format(date);
             sFormattedDate = StringUtils.stripEnd(sFormattedDate, "0000000000");
             sFormattedDate = StringUtils.stripEnd(sFormattedDate, "00000000");

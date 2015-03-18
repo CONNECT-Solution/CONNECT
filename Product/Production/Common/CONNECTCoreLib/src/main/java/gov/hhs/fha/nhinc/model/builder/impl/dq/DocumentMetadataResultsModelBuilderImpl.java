@@ -88,7 +88,7 @@ public class DocumentMetadataResultsModelBuilderImpl implements DocumentMetadata
     }
 
     @Override
-    public void addend(DocumentMetadataResult documentMetadataResult) {
+    public void add(DocumentMetadataResult documentMetadataResult) {
         resultsHolder.add(documentMetadataResult);
     }
 

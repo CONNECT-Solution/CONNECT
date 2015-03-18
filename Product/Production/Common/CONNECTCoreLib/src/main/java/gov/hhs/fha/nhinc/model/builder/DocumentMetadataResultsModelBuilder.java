@@ -36,11 +36,11 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 public interface DocumentMetadataResultsModelBuilder extends ModelBuilder {
 
     /**
-     * Addend.
+     * Add. Adds the DocumentMetadataResult object to the list maintained by DocumentMetadataResultsModelBuilder.
      *
      * @param documentMetadataResult the document metadata result
      */
-    public void addend(DocumentMetadataResult documentMetadataResult);
+    public void add(DocumentMetadataResult documentMetadataResult);
 
     /**
      * Sets the adhoc query response.
