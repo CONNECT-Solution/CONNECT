@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docretrieve.model.builder.impl.dr;
+package gov.hhs.fha.nhinc.docretrieve.model.builder.impl;
 
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieveResults;
 import gov.hhs.fha.nhinc.docretrieve.model.builder.DocumentRetrieveResultsModelBuilder;
@@ -34,8 +34,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.activation.DataHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -43,7 +42,7 @@ import org.slf4j.LoggerFactory;
  */
 public class DocumentRetrieveResultsModelBuilderImpl implements DocumentRetrieveResultsModelBuilder {
 
-    private static final Logger LOG = (Logger) LoggerFactory.getLogger(DocumentRetrieveResultsModelBuilderImpl.class);
+    private static final Logger LOG = Logger.getLogger(DocumentRetrieveResultsModelBuilderImpl.class);
 
     private DocumentRetrieveResults results = null;
 
@@ -63,7 +62,7 @@ public class DocumentRetrieveResultsModelBuilderImpl implements DocumentRetrieve
     public void build() {
         results = new DocumentRetrieveResults();
         DocumentResponse docResponse = getRetrieveDocumentResponse(response);
-        if (response != null) {
+        if (docResponse != null) {
             results.setDocumentId(docResponse.getDocumentUniqueId());
             results.setHCID(docResponse.getHomeCommunityId());
             results.setRepositoryId(docResponse.getRepositoryUniqueId());

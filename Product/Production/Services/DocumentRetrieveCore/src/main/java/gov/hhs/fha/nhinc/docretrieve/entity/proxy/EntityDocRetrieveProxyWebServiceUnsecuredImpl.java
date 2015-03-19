@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,16 +45,30 @@ import org.apache.log4j.Logger;
 
 /**
  *
+ * Entity DocumentRetrieve Unsecured implementation returns the RetrieveDocumentSetResponseType Response.
+ *
  * @author dunnek
  */
 public class EntityDocRetrieveProxyWebServiceUnsecuredImpl implements EntityDocRetrieveProxy {
 
     private static final Logger LOG = Logger.getLogger(EntityDocRetrieveProxyWebServiceUnsecuredImpl.class);
 
+    /**
+     *
+     * @return generated EntityDocRetrieve service
+     */
     protected EntityDocRetrieve getWebService() {
         return new EntityDocRetrieve();
     }
 
+    /**
+     * The returned document will be having MTOM inline document attachment.
+     *
+     * @param body RetrieveDocumentSetRequestType DocumentRetrieve Request
+     * @param assertion Assertion object having assertion values
+     * @param targets NhinTarget Communities
+     * @return RetrieveDocumentSetResponseType Document Retrieve Response.
+     */
     @Override
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
         AssertionType assertion, NhinTargetCommunitiesType targets) {
@@ -83,6 +97,12 @@ public class EntityDocRetrieveProxyWebServiceUnsecuredImpl implements EntityDocR
 
     }
 
+    /**
+     * This method returns the url of the provided service.
+     *
+     * @param serviceName to make a look up on ConnectionInfo files.
+     * @return String url from the ConnectionInfo files.
+     */
     protected String getUrl(String serviceName) {
         String result = "";
         try {
@@ -95,10 +115,22 @@ public class EntityDocRetrieveProxyWebServiceUnsecuredImpl implements EntityDocR
         return result;
     }
 
+    /**
+     *
+     * @return WebServiceProxyHelper
+     */
     protected WebServiceProxyHelper getWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
+    /**
+     * This method returns the unsecured cxf client to make Entity calls.
+     *
+     * @param portDescriptor ServicePortDescriptor to get client
+     * @param url endpoint url of the service
+     * @param assertion Assertion object having assertion values.
+     * @return
+     */
     protected CONNECTClient<EntityDocRetrievePortType> getCONNECTClientUnsecured(
         ServicePortDescriptor<EntityDocRetrievePortType> portDescriptor, String url, AssertionType assertion) {
 

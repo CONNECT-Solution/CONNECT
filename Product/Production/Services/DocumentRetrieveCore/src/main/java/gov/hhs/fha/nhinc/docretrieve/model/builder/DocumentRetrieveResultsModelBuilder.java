@@ -37,15 +37,19 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 public interface DocumentRetrieveResultsModelBuilder extends ModelBuilder {
 
     /**
+     * This method returns DocumentRetrieveResults (DocumentRetrieveResults has HCID,DocumentId,RepositoiryId,document
+     * and document Mime Type) built from DocumentRetrieve Response
      *
-     * @return Return DocumentRetrieve Results built from DocumentRetrieve Response
+     * @return Return DocumentRetrieve
      */
     public DocumentRetrieveResults getDocumentRetrieveResultsModel();
 
     /**
+     * Set the DocumentRetrieve RetrieveDocumentSetResponseType to set the values for DocumentRetrieve bean returned to
+     * UI interface.
      *
-     * @param response Set the DocumentRetrieve RetrieveDocumentSetResponseType to set the values for DocumentRetrieve
-     * bean returned to UI interface.
+     * @param response RetrieveDocumentSetResponseType
+     *
      */
     public void setRetrieveDocumentSetResponseType(RetrieveDocumentSetResponseType response);
 

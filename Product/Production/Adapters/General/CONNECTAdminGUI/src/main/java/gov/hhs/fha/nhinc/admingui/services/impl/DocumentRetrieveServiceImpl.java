@@ -33,21 +33,26 @@ import gov.hhs.fha.nhinc.docretrieve.messaging.builder.DocumentRetrieveRequestBu
 import gov.hhs.fha.nhinc.messaging.builder.NhinTargetCommunitiesBuilder;
 import gov.hhs.fha.nhinc.messaging.builder.impl.AssertionBuilderImpl;
 import gov.hhs.fha.nhinc.messaging.builder.impl.NhinTargetCommunitiesBuilderImpl;
-import gov.hhs.fha.nhinc.docretrieve.messaging.builder.impl.dr.DocumentRetrieveRequestBuilderImpl;
-import gov.hhs.fha.nhinc.docretrieve.messaging.director.impl.RetrieveDocumentMessageDirectorImpl;
+import gov.hhs.fha.nhinc.docretrieve.messaging.builder.impl.DocumentRetrieveRequestBuilderImpl;
+import gov.hhs.fha.nhinc.docretrieve.messaging.director.impl.DocumentRetrieveMessageDirectorImpl;
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieveResults;
 import gov.hhs.fha.nhinc.docretrieve.model.builder.DocumentRetrieveResultsModelBuilder;
-import gov.hhs.fha.nhinc.docretrieve.model.builder.impl.dr.DocumentRetrieveResultsModelBuilderImpl;
+import gov.hhs.fha.nhinc.docretrieve.model.builder.impl.DocumentRetrieveResultsModelBuilderImpl;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
+ * DocumentRetrieveServiceImpl call CONNECT DocumentRetrieve Unsecured Entity interface and return the
+ * DocumentRetrieveResults having HCID,DocumentUniqueId,RepositoryId,Document and Document MimeType back to the UI. This
+ * class wires up DocumentRetrieveRequest Builder and set DocumentRterieve Entity Request with Assertion,
+ * TragetCommunities and the DocumentRetrieve Request built and those are all performed within various private methods.
+ *
  *
  * @author achidamb
  */
 public class DocumentRetrieveServiceImpl implements DocumentRetrieveService {
 
-    private RetrieveDocumentMessageDirectorImpl messageDirector;
+    private DocumentRetrieveMessageDirectorImpl messageDirector;
     private DocumentRetrieveResultsModelBuilder docRetrieveResults;
 
     @Override
@@ -60,8 +65,8 @@ public class DocumentRetrieveServiceImpl implements DocumentRetrieveService {
         return docRetrieveResults.getDocumentRetrieveResultsModel();
     }
 
-    private RetrieveDocumentMessageDirectorImpl setMessageDirector(DocumentRetrieve documentModel) {
-        messageDirector = new RetrieveDocumentMessageDirectorImpl();
+    private DocumentRetrieveMessageDirectorImpl setMessageDirector(DocumentRetrieve documentModel) {
+        messageDirector = new DocumentRetrieveMessageDirectorImpl();
         AssertionBuilder assertionBuilder = new AssertionBuilderImpl();
         messageDirector.setAssertionBuilder(assertionBuilder);
         messageDirector.setTargetCommunitiesBuilder(setNhinTarget(documentModel));
@@ -74,7 +79,7 @@ public class DocumentRetrieveServiceImpl implements DocumentRetrieveService {
         DocumentRetrieveRequestBuilder request = new DocumentRetrieveRequestBuilderImpl();
         request.setDocumentId(documentModel.getDocumentId());
         request.setHCID(documentModel.getHCID());
-        request.setRepositoryId(documentModel.getRepoitoryId());
+        request.setRepositoryId(documentModel.getRepositoryId());
         request.build();
         return request;
     }

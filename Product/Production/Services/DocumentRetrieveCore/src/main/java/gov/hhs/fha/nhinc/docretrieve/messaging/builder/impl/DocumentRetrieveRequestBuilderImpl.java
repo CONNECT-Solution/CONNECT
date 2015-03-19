@@ -24,49 +24,57 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docretrieve.messaging.director.impl;
+package gov.hhs.fha.nhinc.docretrieve.messaging.builder.impl;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.docretrieve.messaging.builder.DocumentRetrieveRequestBuilder;
-import gov.hhs.fha.nhinc.docretrieve.messaging.director.RetrieveDocumentMessageDirector;
-import gov.hhs.fha.nhinc.messaging.director.impl.AbstractMessageDirector;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 
 /**
  *
  * @author achidamb
  */
-public class RetrieveDocumentMessageDirectorImpl extends AbstractMessageDirector implements RetrieveDocumentMessageDirector {
+public class DocumentRetrieveRequestBuilderImpl implements DocumentRetrieveRequestBuilder {
 
-    private RespondingGatewayCrossGatewayRetrieveRequestType request;
+    private String hcid;
+    private String repositoryId;
+    private String documentId;
 
-    private DocumentRetrieveRequestBuilder documentRetrieveBuilder;
+    private RetrieveDocumentSetRequestType retrieveRequest;
 
     @Override
-    public RespondingGatewayCrossGatewayRetrieveRequestType getMessage() {
-        return request;
+    public RetrieveDocumentSetRequestType getMessage() {
+        return retrieveRequest;
+    }
+
+    @Override
+    public void setHCID(String HCID) {
+        this.hcid = HCID;
+    }
+
+    @Override
+    public void setRepositoryId(String repositoryId) {
+        this.repositoryId = repositoryId;
+    }
+
+    @Override
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
     }
 
     @Override
     public void build() {
-        request = new RespondingGatewayCrossGatewayRetrieveRequestType();
-        if (documentRetrieveBuilder != null && documentRetrieveBuilder.getMessage() != null) {
-            request.setRetrieveDocumentSetRequest(documentRetrieveBuilder.getMessage());
-        }
-        if (assertionBuilder != null) {
-            assertionBuilder.build();
-            request.setAssertion(assertionBuilder.getAssertion());
-        }
-
-        if (targetBuilder != null) {
-            targetBuilder.build();
-            request.setNhinTargetCommunities(targetBuilder.getNhinTargetCommunities());
-        }
+        retrieveRequest = new RetrieveDocumentSetRequestType();
+        retrieveRequest.getDocumentRequest().add(buildDocumentRequest());
 
     }
 
-    @Override
-    public void setDocumentRetrieveBuilder(DocumentRetrieveRequestBuilder documentRetrieverBuilder) {
-        this.documentRetrieveBuilder = documentRetrieverBuilder;
+    private DocumentRequest buildDocumentRequest() {
+        DocumentRequest retrieveDocumentRequest = new DocumentRequest();
+        retrieveDocumentRequest.setHomeCommunityId(hcid);
+        retrieveDocumentRequest.setRepositoryUniqueId(repositoryId);
+        retrieveDocumentRequest.setDocumentUniqueId(documentId);
+        return retrieveDocumentRequest;
     }
 
 }

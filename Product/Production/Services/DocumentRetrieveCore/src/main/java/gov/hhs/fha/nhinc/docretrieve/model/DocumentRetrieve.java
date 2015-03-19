@@ -33,56 +33,62 @@ package gov.hhs.fha.nhinc.docretrieve.model;
  */
 public class DocumentRetrieve {
 
-    private String repoitoryId;
+    private String repositoryId;
     private String documentId;
-    private String HCID;
+    private String hcid;
 
     /**
+     * Return the RepositoryId to build DocumentRetrieve Request.
      *
-     * @return Return the RepositoryId to build DocumentRetrieve Request.
+     * @return repoitoryId
      */
-    public String getRepoitoryId() {
-        return repoitoryId;
+    public String getRepositoryId() {
+        return repositoryId;
     }
 
     /**
+     * Set the RepositoryId from UI.
      *
-     * @param repoitoryId Set the RepositoryId from UI.
+     * @param repoitoryId
      */
-    public void setRepoitoryId(String repoitoryId) {
-        this.repoitoryId = repoitoryId;
+    public void setRepositoryId(String repositoryId) {
+        this.repositoryId = repositoryId;
     }
 
     /**
+     * DocumentId Return the UniqueDocumentId to build DocumentRetrieve Request.
      *
-     * @return DocumentId Return the UniqueDocumentId to build DocumentRetrieve Request.
+     * @return documentId
      */
     public String getDocumentId() {
         return documentId;
     }
 
     /**
+     * Set the UniqueDocumentId from UI.
      *
-     * @param documentId Set the UniqueDocumentId from UI.
+     * @param documentId
      */
     public void setDocumentId(String documentId) {
         this.documentId = documentId;
     }
 
     /**
+     * Return the HCID(target community) to build DocumentRetrieve Request.
      *
-     * @return Return the HCID(target community) to build DocumentRetrieve Request.
+     * @return hcid
      */
     public String getHCID() {
-        return HCID;
+        return hcid;
     }
 
     /**
+     * Set the HCID from UI.
      *
-     * @param HCID Set the HCID from UI.
+     * @param hcid
      */
-    public void setHCID(String HCID) {
-        this.HCID = HCID;
+    public void setHCID(String hcid) {
+        this.hcid = hcid;
     }
 
 }

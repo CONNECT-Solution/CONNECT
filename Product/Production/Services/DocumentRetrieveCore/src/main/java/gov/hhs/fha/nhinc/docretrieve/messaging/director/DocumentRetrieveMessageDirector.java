@@ -36,32 +36,33 @@ import gov.hhs.fha.nhinc.messaging.builder.NhinTargetCommunitiesBuilder;
  *
  * @author achidamb
  */
-public interface RetrieveDocumentMessageDirector extends Builder {
+public interface DocumentRetrieveMessageDirector extends Builder {
 
     /**
+     * Entity DocumentRetrieve Message
      *
-     * @return ENtity DOcumentRetrieve Message
+     * @return RespondingGatewayCrossGatewayRetrieveRequestType
      */
     public RespondingGatewayCrossGatewayRetrieveRequestType getMessage();
 
     /**
      * Sets the document Retrieve builder.
      *
-     * @param drBuilder Set RetrieveDocumentSetRequestType to the Entity DocumentRetrieve Request.
+     * @param drBuilder
      */
     public void setDocumentRetrieveBuilder(DocumentRetrieveRequestBuilder drBuilder);
 
     /**
      * Sets the assertion builder.
      *
-     * @param assertionBuilder Set Assertion to the Entity DocumentRetrieve Request.
+     * @param assertionBuilder
      */
     public void setAssertionBuilder(AssertionBuilder assertionBuilder);
 
     /**
      * Sets the target communities builder.
      *
-     * @param targetBuilder Set Nhintargetcommunities to the Entity DocumentRetrieve Request.
+     * @param targetBuilder
      */
     public void setTargetCommunitiesBuilder(NhinTargetCommunitiesBuilder targetBuilder);
 

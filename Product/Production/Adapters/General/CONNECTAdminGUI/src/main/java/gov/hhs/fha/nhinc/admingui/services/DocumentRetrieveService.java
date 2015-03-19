@@ -38,7 +38,7 @@ public interface DocumentRetrieveService {
     /**
      *
      * @param documentModel received from UI to build DoucmentRetrieve Request to retrieve from Repository.
-     * @return DoucmentRterieveResults bean having HCID,RepositoryId,DOucmentUniqueId,Document and MimeType from
+     * @return DoucmentRetrieveResults bean have HCID,RepositoryId,DocumentUniqueId,Document and MimeType from
      * DocumentRetrieve Response.
      */
     public DocumentRetrieveResults retrieveDocuments(DocumentRetrieve documentModel);

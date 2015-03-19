@@ -36,26 +36,30 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 public interface DocumentRetrieveRequestBuilder extends Builder {
 
     /**
+     * The DocumentRetrieve Request will be returned
      *
-     * @return The DocumentRetrieve Request will be returned
+     * @return RetrieveDocumentSetRequestType DocumentRetrieve Request
      */
     public RetrieveDocumentSetRequestType getMessage();
 
     /**
+     * sets the HCID for the DocumentRetrieve Request
      *
-     * @param HCID sets the HCID for the DocumentRetrieve Request
+     * @param hcid HomeCommunityId
      */
-    public void setHCID(String HCID);
+    public void setHCID(String hcid);
 
     /**
+     * sets the RepositoryId of the DocumentRetrieve Request
      *
-     * @param repositoryId sets the RepositoryId of the DocumentRetrieve Request
+     * @param repositoryId
      */
     public void setRepositoryId(String repositoryId);
 
     /**
+     * sets the documentUniqueId of the DocumentRetrieve Request to be retrieved
      *
-     * @param documentId sets the documentUniqueId of the DocumentRetrieve Request to be retrieved
+     * @param documentId
      */
     public void setDocumentId(String documentId);
 

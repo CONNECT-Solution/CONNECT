@@ -24,57 +24,49 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docretrieve.messaging.builder.impl.dr;
+package gov.hhs.fha.nhinc.docretrieve.messaging.director.impl;
 
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.docretrieve.messaging.builder.DocumentRetrieveRequestBuilder;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
+import gov.hhs.fha.nhinc.docretrieve.messaging.director.DocumentRetrieveMessageDirector;
+import gov.hhs.fha.nhinc.messaging.director.impl.AbstractMessageDirector;
 
 /**
  *
  * @author achidamb
  */
-public class DocumentRetrieveRequestBuilderImpl implements DocumentRetrieveRequestBuilder {
+public class DocumentRetrieveMessageDirectorImpl extends AbstractMessageDirector implements DocumentRetrieveMessageDirector {
 
-    private String HCID;
-    private String repositoryId;
-    private String documentId;
+    private RespondingGatewayCrossGatewayRetrieveRequestType request;
 
-    private RetrieveDocumentSetRequestType retrieveRequest;
+    private DocumentRetrieveRequestBuilder documentRetrieveBuilder;
 
     @Override
-    public RetrieveDocumentSetRequestType getMessage() {
-        return retrieveRequest;
-    }
-
-    @Override
-    public void setHCID(String HCID) {
-        this.HCID = HCID;
-    }
-
-    @Override
-    public void setRepositoryId(String repositoryId) {
-        this.repositoryId = repositoryId;
-    }
-
-    @Override
-    public void setDocumentId(String documentId) {
-        this.documentId = documentId;
+    public RespondingGatewayCrossGatewayRetrieveRequestType getMessage() {
+        return request;
     }
 
     @Override
     public void build() {
-        retrieveRequest = new RetrieveDocumentSetRequestType();
-        retrieveRequest.getDocumentRequest().add(buildDocumentRequest());
+        request = new RespondingGatewayCrossGatewayRetrieveRequestType();
+        if (documentRetrieveBuilder != null && documentRetrieveBuilder.getMessage() != null) {
+            request.setRetrieveDocumentSetRequest(documentRetrieveBuilder.getMessage());
+        }
+        if (assertionBuilder != null) {
+            assertionBuilder.build();
+            request.setAssertion(assertionBuilder.getAssertion());
+        }
+
+        if (targetBuilder != null) {
+            targetBuilder.build();
+            request.setNhinTargetCommunities(targetBuilder.getNhinTargetCommunities());
+        }
 
     }
 
-    private DocumentRequest buildDocumentRequest() {
-        DocumentRequest retrieveDocumentRequest = new DocumentRequest();
-        retrieveDocumentRequest.setHomeCommunityId(HCID);
-        retrieveDocumentRequest.setRepositoryUniqueId(repositoryId);
-        retrieveDocumentRequest.setDocumentUniqueId(documentId);
-        return retrieveDocumentRequest;
+    @Override
+    public void setDocumentRetrieveBuilder(DocumentRetrieveRequestBuilder documentRetrieverBuilder) {
+        this.documentRetrieveBuilder = documentRetrieverBuilder;
     }
 
 }
