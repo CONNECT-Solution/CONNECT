@@ -23,17 +23,38 @@
  *(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
-
-import gov.hhs.fha.nhinc.admingui.services.exception.DocumentMetadataException;
-import gov.hhs.fha.nhinc.docquery.model.DocumentMetadata;
-import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResults;
+package gov.hhs.fha.nhinc.patientdiscovery.model.builder;
 
 /**
  *
  * @author tjafri
  */
-public interface DocumentQueryService {
+import java.util.ArrayList;
+import java.util.List;
 
-    public DocumentMetadataResults queryForDocuments(DocumentMetadata query) throws DocumentMetadataException;
+import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
+import org.hl7.v3.PRPAMT201310UV02Patient;
+
+public abstract class AbstractPatientSearchResultsModelBuilder {
+
+    protected List<PRPAIN201306UV02MFMIMT700711UV01Subject1> getSubjects(PRPAIN201306UV02 response) {
+        List<PRPAIN201306UV02MFMIMT700711UV01Subject1> subjects = new ArrayList<PRPAIN201306UV02MFMIMT700711UV01Subject1>();
+        if (response != null && response.getControlActProcess() != null) {
+            subjects = response.getControlActProcess().getSubject();
+        }
+        return subjects;
+    }
+
+    protected PRPAMT201310UV02Patient getSubject1Patient(PRPAIN201306UV02MFMIMT700711UV01Subject1 subject) {
+        PRPAMT201310UV02Patient patient = new PRPAMT201310UV02Patient();
+        if (subject != null && subject.getRegistrationEvent() != null
+            && subject.getRegistrationEvent().getSubject1() != null
+            && subject.getRegistrationEvent().getSubject1().getPatient() != null
+            && subject.getRegistrationEvent().getSubject1().getPatient().getPatientPerson() != null
+            && subject.getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue() != null) {
+            patient = subject.getRegistrationEvent().getSubject1().getPatient();
+        }
+        return patient;
+    }
 }

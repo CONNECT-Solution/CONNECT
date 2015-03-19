@@ -23,17 +23,46 @@
  *(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.docquery.messaging.director;
 
-import gov.hhs.fha.nhinc.admingui.services.exception.DocumentMetadataException;
-import gov.hhs.fha.nhinc.docquery.model.DocumentMetadata;
-import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResults;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
+import gov.hhs.fha.nhinc.docquery.builder.AdhocQueryRequestBuilder;
+import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
+import gov.hhs.fha.nhinc.messaging.builder.Builder;
+import gov.hhs.fha.nhinc.messaging.builder.NhinTargetCommunitiesBuilder;
 
 /**
  *
  * @author tjafri
  */
-public interface DocumentQueryService {
+public interface EntityDocumentQueryMessageDirector extends Builder {
 
-    public DocumentMetadataResults queryForDocuments(DocumentMetadata query) throws DocumentMetadataException;
+    /**
+     * Gets the message.
+     *
+     * @return the message
+     */
+    public RespondingGatewayCrossGatewayQueryRequestType getMessage();
+
+    /**
+     * Sets the document query builder.
+     *
+     * @param dqBuilder the new document query builder
+     */
+    public void setDocumentQueryBuilder(AdhocQueryRequestBuilder dqBuilder);
+
+    /**
+     * Sets the assertion builder.
+     *
+     * @param assertionBuilder the new assertion builder
+     */
+    public void setAssertionBuilder(AssertionBuilder assertionBuilder);
+
+    /**
+     * Sets the target communities builder.
+     *
+     * @param targetBuilder the new target communities builder
+     */
+    public void setTargetCommunitiesBuilder(NhinTargetCommunitiesBuilder targetBuilder);
+
 }

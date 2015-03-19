@@ -23,17 +23,58 @@
  *(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.docquery.messaging.director.impl;
 
-import gov.hhs.fha.nhinc.admingui.services.exception.DocumentMetadataException;
-import gov.hhs.fha.nhinc.docquery.model.DocumentMetadata;
-import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResults;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
+import gov.hhs.fha.nhinc.docquery.builder.AdhocQueryRequestBuilder;
+import gov.hhs.fha.nhinc.docquery.messaging.director.EntityDocumentQueryMessageDirector;
+import gov.hhs.fha.nhinc.messaging.director.AbstractMessageDirector;
 
 /**
  *
  * @author tjafri
  */
-public interface DocumentQueryService {
+public class EntityDocumentQueryMessageDirectorImpl extends AbstractMessageDirector implements
+    EntityDocumentQueryMessageDirector {
 
-    public DocumentMetadataResults queryForDocuments(DocumentMetadata query) throws DocumentMetadataException;
+    /**
+     * The message.
+     */
+    private RespondingGatewayCrossGatewayQueryRequestType message = null;
+
+    /**
+     * The dq builder.
+     */
+    private AdhocQueryRequestBuilder dqBuilder = null;
+
+    @Override
+    public RespondingGatewayCrossGatewayQueryRequestType getMessage() {
+        return message;
+    }
+
+    @Override
+    public void build() {
+        message = new RespondingGatewayCrossGatewayQueryRequestType();
+
+        if (dqBuilder != null) {
+            dqBuilder.build();
+            message.setAdhocQueryRequest(dqBuilder.getMessage());
+        }
+
+        if (assertionBuilder != null) {
+            assertionBuilder.build();
+            message.setAssertion(assertionBuilder.getAssertion());
+        }
+
+        if (targetBuilder != null) {
+            targetBuilder.build();
+            message.setNhinTargetCommunities(targetBuilder.getNhinTargetCommunities());
+        }
+    }
+
+    @Override
+    public void setDocumentQueryBuilder(AdhocQueryRequestBuilder dqBuilder) {
+        this.dqBuilder = dqBuilder;
+    }
+
 }

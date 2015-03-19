@@ -23,17 +23,27 @@
  *(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.docquery.model.builder;
 
-import gov.hhs.fha.nhinc.admingui.services.exception.DocumentMetadataException;
-import gov.hhs.fha.nhinc.docquery.model.DocumentMetadata;
-import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResults;
+import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResult;
+import gov.hhs.fha.nhinc.messaging.builder.ModelBuilder;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 
 /**
  *
  * @author tjafri
  */
-public interface DocumentQueryService {
+public interface DocumentMetadataResultModelBuilder extends ModelBuilder {
 
-    public DocumentMetadataResults queryForDocuments(DocumentMetadata query) throws DocumentMetadataException;
+    /**
+     * Gets the document metadata result.
+     *
+     * @return the document metadata result
+     */
+    public DocumentMetadataResult getDocumentMetadataResult();
+
+    /**
+     * Sets the registry object type.
+     */
+    public void setRegistryObjectType(ExtrinsicObjectType registryObject);
 }

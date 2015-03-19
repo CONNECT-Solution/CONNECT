@@ -23,17 +23,22 @@
  *(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.patientdiscovery.messaging.builder;
 
-import gov.hhs.fha.nhinc.admingui.services.exception.DocumentMetadataException;
-import gov.hhs.fha.nhinc.docquery.model.DocumentMetadata;
-import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResults;
+import gov.hhs.fha.nhinc.messaging.builder.Builder;
+import org.hl7.v3.PRPAIN201305UV02;
 
 /**
  *
  * @author tjafri
  */
-public interface DocumentQueryService {
+public interface PRPAIN201305UV02Builder extends Builder {
 
-    public DocumentMetadataResults queryForDocuments(DocumentMetadata query) throws DocumentMetadataException;
+    /**
+     * Gets the message.
+     *
+     * @return the message
+     */
+    public PRPAIN201305UV02 getMessage();
+
 }

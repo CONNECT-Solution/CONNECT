@@ -23,17 +23,46 @@
  *(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.patientdiscovery.messaging.director;
 
-import gov.hhs.fha.nhinc.admingui.services.exception.DocumentMetadataException;
-import gov.hhs.fha.nhinc.docquery.model.DocumentMetadata;
-import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResults;
+import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
+import gov.hhs.fha.nhinc.messaging.builder.Builder;
+import gov.hhs.fha.nhinc.messaging.builder.NhinTargetCommunitiesBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.messaging.builder.PRPAIN201305UV02Builder;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 /**
  *
  * @author tjafri
  */
-public interface DocumentQueryService {
+public interface PatientDiscoveryMessageDirector extends Builder {
 
-    public DocumentMetadataResults queryForDocuments(DocumentMetadata query) throws DocumentMetadataException;
+    /**
+     * Gets the message.
+     *
+     * @return the message
+     */
+    public RespondingGatewayPRPAIN201305UV02RequestType getMessage();
+
+    /**
+     * Sets the PRPAIN201305UV02 builder.
+     *
+     * @param pdBuilder the new pRPAI n201305 u v02 builder
+     */
+    public void setPRPAIN201305UV02Builder(PRPAIN201305UV02Builder pdBuilder);
+
+    /**
+     * Sets the assertion builder.
+     *
+     * @param assertionBuilder the new assertion builder
+     */
+    public void setAssertionBuilder(AssertionBuilder assertionBuilder);
+
+    /**
+     * Sets the target communities builder.
+     *
+     * @param targetBuilder the new target communities builder
+     */
+    public void setTargetCommunitiesBuilder(NhinTargetCommunitiesBuilder targetBuilder);
+
 }

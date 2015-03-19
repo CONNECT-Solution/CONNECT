@@ -30,17 +30,17 @@ package gov.hhs.fha.nhinc.admingui.services.impl;
  * @author tjafri
  */
 import org.apache.log4j.Logger;
-import gov.hhs.fha.nhinc.messaging.builder.impl.pd.PRPAIN201305UV02BuilderImpl;
-import gov.hhs.fha.nhinc.model.Patient;
-import gov.hhs.fha.nhinc.model.PatientSearchResults;
-import gov.hhs.fha.nhinc.model.builder.PatientSearchResultsModelBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.messaging.builder.impl.PRPAIN201305UV02BuilderImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
+import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
+import gov.hhs.fha.nhinc.patientdiscovery.model.builder.PatientSearchResultsModelBuilder;
 import gov.hhs.fha.nhinc.admingui.services.PatientService;
 import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
-import gov.hhs.fha.nhinc.messaging.director.PatientDiscoveryMessageDirector;
-import gov.hhs.fha.nhinc.messaging.director.impl.PatientDiscoveryMessageDirectorImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.messaging.director.PatientDiscoveryMessageDirector;
+import gov.hhs.fha.nhinc.patientdiscovery.messaging.director.impl.PatientDiscoveryMessageDirectorImpl;
 import gov.hhs.fha.nhinc.messaging.builder.impl.AssertionBuilderImpl;
 import gov.hhs.fha.nhinc.messaging.builder.impl.NhinTargetCommunitiesBuilderImpl;
-import gov.hhs.fha.nhinc.model.builder.impl.pd.PatientSearchResultsModelBuilderImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.model.builder.impl.PatientSearchResultsModelBuilderImpl;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxyWebServiceUnsecuredImpl;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;

@@ -23,17 +23,39 @@
  *(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.docquery.model.builder;
 
-import gov.hhs.fha.nhinc.admingui.services.exception.DocumentMetadataException;
-import gov.hhs.fha.nhinc.docquery.model.DocumentMetadata;
+import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResult;
 import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResults;
+import gov.hhs.fha.nhinc.messaging.builder.ModelBuilder;
+
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 /**
  *
  * @author tjafri
  */
-public interface DocumentQueryService {
+public interface DocumentMetadataResultsModelBuilder extends ModelBuilder {
 
-    public DocumentMetadataResults queryForDocuments(DocumentMetadata query) throws DocumentMetadataException;
+    /**
+     * Add. Adds the DocumentMetadataResult object to the list maintained by DocumentMetadataResultsModelBuilder.
+     *
+     * @param documentMetadataResult the document metadata result
+     */
+    public void add(DocumentMetadataResult documentMetadataResult);
+
+    /**
+     * Sets the adhoc query response.
+     *
+     * @param response the new adhoc query response
+     */
+    public void setAdhocQueryResponse(AdhocQueryResponse response);
+
+    /**
+     * Gets the results.
+     *
+     * @return the results
+     */
+    public DocumentMetadataResults getResults();
+
 }

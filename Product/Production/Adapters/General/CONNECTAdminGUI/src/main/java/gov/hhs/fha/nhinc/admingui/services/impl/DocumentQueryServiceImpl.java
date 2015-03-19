@@ -27,16 +27,16 @@ package gov.hhs.fha.nhinc.admingui.services.impl;
 
 import gov.hhs.fha.nhinc.admingui.services.DocumentQueryService;
 import gov.hhs.fha.nhinc.admingui.services.exception.DocumentMetadataException;
-import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.docquery.entity.proxy.EntityDocQueryProxyWebServiceUnsecuredImpl;
-import gov.hhs.fha.nhinc.messaging.builder.AdhocQueryRequestBuilder;
+import gov.hhs.fha.nhinc.docquery.builder.AdhocQueryRequestBuilder;
 import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
 import gov.hhs.fha.nhinc.messaging.builder.impl.AssertionBuilderImpl;
 import gov.hhs.fha.nhinc.messaging.builder.impl.NhinTargetCommunitiesBuilderImpl;
-import gov.hhs.fha.nhinc.model.DocumentMetadata;
-import gov.hhs.fha.nhinc.model.DocumentMetadataResults;
-import gov.hhs.fha.nhinc.model.builder.DocumentMetadataResultsModelBuilder;
+import gov.hhs.fha.nhinc.docquery.model.DocumentMetadata;
+import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResults;
+import gov.hhs.fha.nhinc.docquery.model.builder.DocumentMetadataResultsModelBuilder;
+
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.util.ArrayList;

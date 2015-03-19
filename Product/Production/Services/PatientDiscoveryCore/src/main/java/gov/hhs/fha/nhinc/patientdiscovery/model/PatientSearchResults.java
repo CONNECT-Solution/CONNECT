@@ -23,17 +23,32 @@
  *(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.patientdiscovery.model;
 
-import gov.hhs.fha.nhinc.admingui.services.exception.DocumentMetadataException;
-import gov.hhs.fha.nhinc.docquery.model.DocumentMetadata;
-import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResults;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author tjafri
  */
-public interface DocumentQueryService {
+public class PatientSearchResults {
 
-    public DocumentMetadataResults queryForDocuments(DocumentMetadata query) throws DocumentMetadataException;
+    private List<Patient> patients = new ArrayList<Patient>();
+
+    public void setPatientList(List<Patient> patients) {
+        this.patients = patients;
+    }
+
+    public List<Patient> getPatientList() {
+        return this.patients;
+    }
+
+    public boolean isPatientListEmpty() {
+        return patients.isEmpty();
+    }
+
+    public void addPatient(Patient patient) {
+        patients.add(patient);
+    }
 }

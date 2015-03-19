@@ -23,17 +23,38 @@
  *(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.messaging.director;
 
-import gov.hhs.fha.nhinc.admingui.services.exception.DocumentMetadataException;
-import gov.hhs.fha.nhinc.docquery.model.DocumentMetadata;
-import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResults;
+import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
+import gov.hhs.fha.nhinc.messaging.builder.NhinTargetCommunitiesBuilder;
 
 /**
  *
  * @author tjafri
  */
-public interface DocumentQueryService {
+public abstract class AbstractMessageDirector {
 
-    public DocumentMetadataResults queryForDocuments(DocumentMetadata query) throws DocumentMetadataException;
+    /**
+     * The assertion builder.
+     */
+    protected AssertionBuilder assertionBuilder = null;
+
+    /**
+     * The target builder.
+     */
+    protected NhinTargetCommunitiesBuilder targetBuilder = null;
+
+    /* (non-Javadoc)
+     * @see org.cahih.messaging.builder.EntityDocumentQueryMessageBuilder#setAssertionBuilder(org.cahih.messaging.builder.AssertionBuilder)
+     */
+    public void setAssertionBuilder(AssertionBuilder assertionBuilder) {
+        this.assertionBuilder = assertionBuilder;
+    }
+
+    /* (non-Javadoc)
+     * @see org.cahih.messaging.builder.EntityDocumentQueryMessageBuilder#setTargetCommunitiesBuilder(org.cahih.messaging.builder.NhinTargetCommunitiesBuilder)
+     */
+    public void setTargetCommunitiesBuilder(NhinTargetCommunitiesBuilder targetBuilder) {
+        this.targetBuilder = targetBuilder;
+    }
 }

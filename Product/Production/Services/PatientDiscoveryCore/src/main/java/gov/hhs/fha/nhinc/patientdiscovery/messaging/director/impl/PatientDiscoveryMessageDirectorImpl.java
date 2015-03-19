@@ -23,17 +23,62 @@
  *(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.patientdiscovery.messaging.director.impl;
 
-import gov.hhs.fha.nhinc.admingui.services.exception.DocumentMetadataException;
-import gov.hhs.fha.nhinc.docquery.model.DocumentMetadata;
-import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResults;
+import gov.hhs.fha.nhinc.messaging.director.AbstractMessageDirector;
+import gov.hhs.fha.nhinc.patientdiscovery.messaging.builder.PRPAIN201305UV02Builder;
+import gov.hhs.fha.nhinc.patientdiscovery.messaging.director.PatientDiscoveryMessageDirector;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 /**
  *
  * @author tjafri
  */
-public interface DocumentQueryService {
+public class PatientDiscoveryMessageDirectorImpl extends AbstractMessageDirector implements
+    PatientDiscoveryMessageDirector {
 
-    public DocumentMetadataResults queryForDocuments(DocumentMetadata query) throws DocumentMetadataException;
+    /**
+     * The message.
+     */
+    private RespondingGatewayPRPAIN201305UV02RequestType message = null;
+
+    /**
+     * The pd builder.
+     */
+    private PRPAIN201305UV02Builder pdBuilder = null;
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.cahih.messaging.builder.EntityPatientDiscoveryMessageBuilder#getMessage()
+     */
+    @Override
+    public RespondingGatewayPRPAIN201305UV02RequestType getMessage() {
+        return message;
+    }
+
+    @Override
+    public void build() {
+        message = new RespondingGatewayPRPAIN201305UV02RequestType();
+        if (pdBuilder != null) {
+            pdBuilder.build();
+            message.setPRPAIN201305UV02(pdBuilder.getMessage());
+        }
+
+        if (assertionBuilder != null) {
+            assertionBuilder.build();
+            message.setAssertion(assertionBuilder.getAssertion());
+        }
+
+        if (targetBuilder != null) {
+            targetBuilder.build();
+            message.setNhinTargetCommunities(targetBuilder.getNhinTargetCommunities());
+        }
+    }
+
+    @Override
+    public void setPRPAIN201305UV02Builder(PRPAIN201305UV02Builder pdBuilder) {
+        this.pdBuilder = pdBuilder;
+    }
+
 }
