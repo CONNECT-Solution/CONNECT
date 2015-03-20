@@ -46,37 +46,22 @@
                     <p:tabView id="tabview" effect="fade" effectDuration="normal" dynamic="true" styleClass="tabs-override tabs-ovr-orange" > 
                         <p:tab title="FHIR Resources" closable="false">
 
-
-                            <p:ring id="ringOfFhir" value="#{fhirResourceBean.fhirResources}" var="fResource" easing="easeOutSine" styleClass="ringOfFhir-background">
-                                <p:panelGrid id="ringOfFhirGrid" style="width: 100%; text-align: center;" styleClass="ringPanelGrid">
-                                    <f:facet name="header">
-                                        <p:row>
-                                            <p:column colspan="1">
-                                                <p:graphicImage value="resources/images/#{fResource.image}" />
-                                            </p:column>
-                                        </p:row>
-                                    </f:facet>
-                                    <p:row>
-                                        <p:column colspan="1" >
-                                            <h:outputText value="#{fResource.displayName}" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column colspan="1" >
-                                            <h:outputLabel value="" for="input-url" styleClass="glyphicon glyphicon-edit"/>
-                                            <p:inplace id="fhirInplaceUrl" editor="true">
-                                                <h:inputText id="input-url" value="#{fResource.url}" valueChangeListener="#{fhirResourceBean.onUrlChange}" />
-                                            </p:inplace>
-                                        </p:column>
-                                    </p:row>
-
-                                    <p:row>
-                                        <p:column colspan="1" >
-                                            <p:commandButton value="Ping" action="#{fhirResourceBean.pingForConformance(fResource.url)}" styleClass="ping-button" icon="ui-icon-signal-diag" oncomplete="PF('conformanceDialog').show();" update=":conformanceForm" />
-                                        </p:column>
-                                    </p:row>
-
-                                </p:panelGrid>
+                            <p:ring id="ringFHIR" value="#{fhirResourceBean.fhirResources}" var="fResource" easing="easeOutSine">
+                                <p:outputPanel layout="block">
+                                    <div class="ringFHIR-header">
+                                        <p:graphicImage value="resources/images/#{fResource.image}" />
+                                        <br />
+                                        <h:outputText value="#{fResource.displayName}" />
+                                    </div>
+                                    <div class="ringFHIR-content">
+                                        <h:outputLabel value="" for="input-url" styleClass="glyphicon glyphicon-edit"/>
+                                        <p:inplace id="fhirInplaceUrl" editor="true">
+                                            <h:inputText id="input-url" value="#{fResource.url}" valueChangeListener="#{fhirResourceBean.onUrlChange}" />
+                                        </p:inplace>
+                                        <br/>
+                                        <p:commandButton value="Ping" action="#{fhirResourceBean.pingForConformance(fResource.url)}" styleClass="ringFHIR-btn-ping" icon="ui-icon-signal-diag" oncomplete="PF('conformanceDialog').show();" update=":conformanceForm" />
+                                    </div>
+                                </p:outputPanel>
                             </p:ring>
                         </p:tab>
                     </p:tabView>
@@ -135,7 +120,7 @@
 
                                 </p:dataTable>
                                 </div>
-                                <p:commandButton value="Close" action="#{fhirResourceBean.clearDialog}" oncomplete="PF('conformanceDialog').hide();" icon="ui-icon-circle-close" styleClass="add-button pull-right" />
+                                <p:commandButton value="Close" action="#{fhirResourceBean.clearDialog}" oncomplete="PF('conformanceDialog').hide();" icon="ui-icon-circle-close" styleClass="btn btn-primary pull-right" />
                             </h:form>
                         </div>
                     </div>

@@ -154,6 +154,9 @@ h2.form-signin-heading img {
 	overflow-y:hidden; /* USE "scroll" FOR DEFAULT SCROLLER - USE "hidden" FOR PERFECT SCROLL BAR SCRIPT */
 	overflow-x:hidden;
 	border-right:1px solid #10253f;
+	background-image:url('../resources/images/logo-connect-icon-transparent.png');
+	background-repeat:no-repeat;
+	background-position:90% 10px;
 }
 
 .copyright {
@@ -668,7 +671,12 @@ span.enabled {
 
 
 
-/* -- RESPONSIVE @MEDIA STYLES -----------------------------------------------*/
+/* -- RESPONSIVE @MEDIA STYLES ----------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* -- THESE HAVE BEEN CONSOLIDATED INTO THE PF-OVERRIDE.CSS FILE ------------- */
+/* -- Please make any @media CSS changes to the styles in that file ---------- */
+/* --------------------------------------------------------------------------- */
+
 @media (max-width: 1100px) {
 	.sidebar h1.page-header {
 		font-size:22px;
@@ -722,7 +730,7 @@ span.enabled {
 	}
 }
 
-
+/* -- END OF RESPONSIVE @MEDIA STYLES ----------------------------------------------- */
 
 
 
