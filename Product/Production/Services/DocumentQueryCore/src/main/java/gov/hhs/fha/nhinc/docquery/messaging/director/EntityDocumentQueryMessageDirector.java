@@ -23,25 +23,46 @@
  *(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.docquery.messaging.director;
 
-import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
-import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
-import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
+import gov.hhs.fha.nhinc.docquery.builder.AdhocQueryRequestBuilder;
+import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
+import gov.hhs.fha.nhinc.messaging.builder.Builder;
+import gov.hhs.fha.nhinc.messaging.builder.NhinTargetCommunitiesBuilder;
 
 /**
- * The Interface PatientService.
  *
- * @author tabassumjafri
+ * @author tjafri
  */
-public interface PatientService {
+public interface EntityDocumentQueryMessageDirector extends Builder {
 
     /**
-     * Query patient.
+     * Gets the message.
      *
-     * @param query the query
-     * @return the patient search results
+     * @return the message
      */
-    public PatientSearchResults queryPatient(Patient patient) throws PatientSearchException;
+    public RespondingGatewayCrossGatewayQueryRequestType getMessage();
+
+    /**
+     * Sets the document query builder.
+     *
+     * @param dqBuilder the new document query builder
+     */
+    public void setDocumentQueryBuilder(AdhocQueryRequestBuilder dqBuilder);
+
+    /**
+     * Sets the assertion builder.
+     *
+     * @param assertionBuilder the new assertion builder
+     */
+    public void setAssertionBuilder(AssertionBuilder assertionBuilder);
+
+    /**
+     * Sets the target communities builder.
+     *
+     * @param targetBuilder the new target communities builder
+     */
+    public void setTargetCommunitiesBuilder(NhinTargetCommunitiesBuilder targetBuilder);
 
 }

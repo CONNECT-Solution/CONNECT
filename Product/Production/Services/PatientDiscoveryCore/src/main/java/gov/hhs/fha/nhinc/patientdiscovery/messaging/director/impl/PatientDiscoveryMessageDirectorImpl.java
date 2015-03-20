@@ -23,25 +23,62 @@
  *(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.patientdiscovery.messaging.director.impl;
 
-import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
-import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
-import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
+import gov.hhs.fha.nhinc.messaging.director.AbstractMessageDirector;
+import gov.hhs.fha.nhinc.patientdiscovery.messaging.builder.PRPAIN201305UV02Builder;
+import gov.hhs.fha.nhinc.patientdiscovery.messaging.director.PatientDiscoveryMessageDirector;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 /**
- * The Interface PatientService.
  *
- * @author tabassumjafri
+ * @author tjafri
  */
-public interface PatientService {
+public class PatientDiscoveryMessageDirectorImpl extends AbstractMessageDirector implements
+    PatientDiscoveryMessageDirector {
 
     /**
-     * Query patient.
-     *
-     * @param query the query
-     * @return the patient search results
+     * The message.
      */
-    public PatientSearchResults queryPatient(Patient patient) throws PatientSearchException;
+    private RespondingGatewayPRPAIN201305UV02RequestType message = null;
+
+    /**
+     * The pd builder.
+     */
+    private PRPAIN201305UV02Builder pdBuilder = null;
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.cahih.messaging.builder.EntityPatientDiscoveryMessageBuilder#getMessage()
+     */
+    @Override
+    public RespondingGatewayPRPAIN201305UV02RequestType getMessage() {
+        return message;
+    }
+
+    @Override
+    public void build() {
+        message = new RespondingGatewayPRPAIN201305UV02RequestType();
+        if (pdBuilder != null) {
+            pdBuilder.build();
+            message.setPRPAIN201305UV02(pdBuilder.getMessage());
+        }
+
+        if (assertionBuilder != null) {
+            assertionBuilder.build();
+            message.setAssertion(assertionBuilder.getAssertion());
+        }
+
+        if (targetBuilder != null) {
+            targetBuilder.build();
+            message.setNhinTargetCommunities(targetBuilder.getNhinTargetCommunities());
+        }
+    }
+
+    @Override
+    public void setPRPAIN201305UV02Builder(PRPAIN201305UV02Builder pdBuilder) {
+        this.pdBuilder = pdBuilder;
+    }
 
 }

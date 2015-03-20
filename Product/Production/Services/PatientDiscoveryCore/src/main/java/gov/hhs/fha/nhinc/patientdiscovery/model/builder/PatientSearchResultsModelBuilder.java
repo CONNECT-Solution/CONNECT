@@ -23,25 +23,19 @@
  *(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
-
-import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
-import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
-import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
+package gov.hhs.fha.nhinc.patientdiscovery.model.builder;
 
 /**
- * The Interface PatientService.
  *
- * @author tabassumjafri
+ * @author tjafri
  */
-public interface PatientService {
+import gov.hhs.fha.nhinc.messaging.builder.ModelBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
+import org.hl7.v3.PRPAIN201306UV02;
 
-    /**
-     * Query patient.
-     *
-     * @param query the query
-     * @return the patient search results
-     */
-    public PatientSearchResults queryPatient(Patient patient) throws PatientSearchException;
+public interface PatientSearchResultsModelBuilder extends ModelBuilder {
 
+    public void setMessage(PRPAIN201306UV02 message);
+
+    public PatientSearchResults getPatientSearchResultModel();
 }

@@ -23,25 +23,71 @@
  *(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.docquery.builder;
 
-import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
-import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
-import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
+import gov.hhs.fha.nhinc.messaging.builder.Builder;
+import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbConstants.ReturnType;
+import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbConstants.XDSbStoredQuery;
+import java.util.Date;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
 /**
- * The Interface PatientService.
  *
- * @author tabassumjafri
+ * @author tjafri
  */
-public interface PatientService {
+public interface AdhocQueryRequestBuilder extends Builder {
 
     /**
-     * Query patient.
+     * Gets the message.
      *
-     * @param query the query
-     * @return the patient search results
+     * @return the message
      */
-    public PatientSearchResults queryPatient(Patient patient) throws PatientSearchException;
+    public AdhocQueryRequest getMessage();
+
+    /**
+     * Gets the query type.
+     *
+     * @return the query type
+     */
+    public XDSbStoredQuery getQueryId();
+
+    /**
+     * Sets the return composed objects.
+     *
+     * @param bool the new return composed objects
+     */
+    public void setReturnComposedObjects(boolean bool);
+
+    /**
+     * Sets the return type.
+     *
+     * @param returnType the new return type
+     */
+    public void setReturnType(ReturnType returnType);
+
+    /**
+     * @param patientId
+     */
+    public void setPatientId(String patientId);
+
+    /**
+     * @param documentTypeCode
+     */
+    public void setDocumentTypeCode(String documentTypeCode);
+
+    /**
+     * @param startTime
+     */
+    public void setCreationTimeFrom(Date startTime);
+
+    /**
+     * @param endTime
+     */
+    public void setCreationTimeTo(Date endTime);
+
+    /**
+     * @param patientIdRoot
+     */
+    public void setPatientIdRoot(String patientIdRoot);
 
 }

@@ -23,25 +23,47 @@
  *(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.docquery.model;
 
-import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
-import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
-import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * The Interface PatientService.
  *
- * @author tabassumjafri
+ * @author tjafri
  */
-public interface PatientService {
+public class DocumentMetadataResults {
 
     /**
-     * Query patient.
-     *
-     * @param query the query
-     * @return the patient search results
+     * The results.
      */
-    public PatientSearchResults queryPatient(Patient patient) throws PatientSearchException;
+    private List<DocumentMetadataResult> results = new ArrayList<DocumentMetadataResult>();
+
+    /**
+     * Gets the results.
+     *
+     * @return the results
+     */
+    public List<DocumentMetadataResult> getResults() {
+        return results;
+    }
+
+    /**
+     * Sets the results.
+     *
+     * @param results the new results
+     */
+    public void setResults(List<DocumentMetadataResult> results) {
+        this.results = results;
+    }
+
+    /**
+     * Adds the result.
+     *
+     * @param result the result
+     */
+    public void addResult(DocumentMetadataResult result) {
+        results.add(result);
+    }
 
 }

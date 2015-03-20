@@ -23,25 +23,21 @@
  *(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
-
-import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
-import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
-import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
+package gov.hhs.fha.nhinc.admingui.services.exception;
 
 /**
- * The Interface PatientService.
  *
- * @author tabassumjafri
+ * @author tjafri
  */
-public interface PatientService {
+public class DocumentMetadataException extends Exception {
 
-    /**
-     * Query patient.
-     *
-     * @param query the query
-     * @return the patient search results
-     */
-    public PatientSearchResults queryPatient(Patient patient) throws PatientSearchException;
+    private static final long serialVersionUID = 8227365831869601142L;
 
+    public DocumentMetadataException(String message) {
+        super(message);
+    }
+
+    public DocumentMetadataException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

@@ -23,25 +23,27 @@
  *(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.docquery.model.builder;
 
-import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
-import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
-import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
+import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResult;
+import gov.hhs.fha.nhinc.messaging.builder.ModelBuilder;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 
 /**
- * The Interface PatientService.
  *
- * @author tabassumjafri
+ * @author tjafri
  */
-public interface PatientService {
+public interface DocumentMetadataResultModelBuilder extends ModelBuilder {
 
     /**
-     * Query patient.
+     * Gets the document metadata result.
      *
-     * @param query the query
-     * @return the patient search results
+     * @return the document metadata result
      */
-    public PatientSearchResults queryPatient(Patient patient) throws PatientSearchException;
+    public DocumentMetadataResult getDocumentMetadataResult();
 
+    /**
+     * Sets the registry object type.
+     */
+    public void setRegistryObjectType(ExtrinsicObjectType registryObject);
 }
