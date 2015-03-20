@@ -23,25 +23,74 @@
  *(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.docquery.model;
 
-import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
-import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
-import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
+import java.util.Date;
 
 /**
- * The Interface PatientService.
  *
- * @author tabassumjafri
+ * @author tjafri
  */
-public interface PatientService {
+public class DocumentMetadata {
+
+    private String patientId;
+    private String patientIdRoot;
+    private String documentType;
+    private Date startTime;
+    private Date endTime;
+    private String organization; //organization home community Id
+
+    public String getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
+    }
 
     /**
-     * Query patient.
-     *
-     * @param query the query
-     * @return the patient search results
+     * @return the patientIdRoot
      */
-    public PatientSearchResults queryPatient(Patient patient) throws PatientSearchException;
+    public String getPatientIdRoot() {
+        return patientIdRoot;
+    }
 
+    /**
+     * @param patientIdRoot the patientIdRoot to set
+     */
+    public void setPatientIdRoot(String patientIdRoot) {
+        this.patientIdRoot = patientIdRoot;
+    }
+
+    public String getDocumentType() {
+        return documentType;
+    }
+
+    public void setDocumentType(String documentType) {
+        this.documentType = documentType;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
 }

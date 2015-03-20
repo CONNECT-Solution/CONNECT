@@ -23,25 +23,59 @@
  *(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.docquery.xdsb.helper;
 
-import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
-import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
-import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
+import java.util.Date;
+import java.util.List;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
 /**
- * The Interface PatientService.
  *
- * @author tabassumjafri
+ * @author tjafri
  */
-public interface PatientService {
+public interface XDSbAdhocQueryRequestHelper {
 
     /**
-     * Query patient.
+     * Creates a slot with the given name and a single value. If a slot already exists, its value will be replaced with
+     * the passed in value, even in cases where there are multiple existing values. For example, if a slot exists with 3
+     * values, and this method is invoked the resulting slot will have a single value.
      *
-     * @param query the query
-     * @return the patient search results
+     * @param slotName the slot name
+     * @param value the value
+     * @param message the message
      */
-    public PatientSearchResults queryPatient(Patient patient) throws PatientSearchException;
+    public void createOrReplaceSlotValue(XDSbConstants.RegistryStoredQueryParameter slotName, String value,
+        AdhocQueryRequest message);
+
+    /**
+     * Format date in UTC representation with no trailing zeros.
+     *
+     * @param date the date
+     * @return the string
+     */
+    public String formatXDSbDate(Date date);
+
+    /**
+     * Creates the single quote delimited value.
+     *
+     * @param value the value
+     * @return the string
+     */
+    public String createSingleQuoteDelimitedValue(String value);
+
+    /**
+     * Creates the single quote delimited list.
+     *
+     * @param values the values
+     * @return the list
+     */
+    public String createSingleQuoteDelimitedListValue(List<String> values);
+
+    /**
+     * @param documentTypeCode
+     * @param string
+     * @return
+     */
+    public String createCodeSchemeValue(String documentTypeCode, String string);
 
 }

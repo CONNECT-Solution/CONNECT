@@ -25,23 +25,15 @@
  */
 package gov.hhs.fha.nhinc.admingui.services;
 
-import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
-import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
-import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
+import gov.hhs.fha.nhinc.admingui.services.exception.DocumentMetadataException;
+import gov.hhs.fha.nhinc.docquery.model.DocumentMetadata;
+import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResults;
 
 /**
- * The Interface PatientService.
  *
- * @author tabassumjafri
+ * @author tjafri
  */
-public interface PatientService {
+public interface DocumentQueryService {
 
-    /**
-     * Query patient.
-     *
-     * @param query the query
-     * @return the patient search results
-     */
-    public PatientSearchResults queryPatient(Patient patient) throws PatientSearchException;
-
+    public DocumentMetadataResults queryForDocuments(DocumentMetadata query) throws DocumentMetadataException;
 }

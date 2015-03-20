@@ -23,25 +23,61 @@
  *(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.docquery.builder.impl;
 
-import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
-import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
-import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
+import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbConstants.ReturnType;
+import gov.hhs.fha.nhinc.docquery.builder.AdhocQueryRequestBuilder;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.ResponseOptionType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
 
 /**
- * The Interface PatientService.
  *
- * @author tabassumjafri
+ * @author tjafri
  */
-public interface PatientService {
+public abstract class AbstractAdhocQueryRequestBuilder implements AdhocQueryRequestBuilder {
 
     /**
-     * Query patient.
-     *
-     * @param query the query
-     * @return the patient search results
+     * The request.
      */
-    public PatientSearchResults queryPatient(Patient patient) throws PatientSearchException;
+    private AdhocQueryRequest request = null;
 
+    /**
+     * The return composed objects.
+     */
+    private boolean returnComposedObjects = true;
+
+    /**
+     * The return type.
+     */
+    private ReturnType returnType = ReturnType.LeafClass;
+
+    @Override
+    public void build() {
+        request = new AdhocQueryRequest();
+
+        ResponseOptionType responseOption = new ResponseOptionType();
+        responseOption.setReturnComposedObjects(returnComposedObjects);
+        responseOption.setReturnType(returnType.toString());
+        request.setResponseOption(responseOption);
+
+        AdhocQueryType adhocQuery = new AdhocQueryType();
+        adhocQuery.setId(getQueryId().toString());
+        request.setAdhocQuery(adhocQuery);
+    }
+
+    @Override
+    public AdhocQueryRequest getMessage() {
+        return request;
+    }
+
+    @Override
+    public void setReturnComposedObjects(boolean bool) {
+        this.returnComposedObjects = bool;
+    }
+
+    @Override
+    public void setReturnType(ReturnType returnType) {
+        this.returnType = returnType;
+    }
 }
