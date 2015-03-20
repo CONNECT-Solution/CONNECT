@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import org.apache.log4j.Logger;
 import org.hl7.fhir.instance.model.Conformance;
@@ -57,7 +58,7 @@ public class FhirResourceBean {
 
     private static final Logger LOG = Logger.getLogger(FhirResourceBean.class);
 
-    private String conformanceDesc;   
+    private String conformanceDesc;
     private List<ConformanceResource> confResources = new ArrayList<ConformanceResource>();
 
     @Autowired
@@ -69,18 +70,17 @@ public class FhirResourceBean {
         }
         return fhirResources;
     }
-
+    
     public void onUrlChange(ValueChangeEvent event) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ResourceInfo resource = context.getApplication().evaluateExpressionGet(context, "#{fResource}", ResourceInfo.class);
+
         if (!event.getNewValue().equals(event.getOldValue())) {
-            for (ResourceInfo resource : fhirResources) {
-                if (resource.getUrl().equals(event.getOldValue())) {
-                    try {
-                        fhirService.updateUrl(resource.getServiceName(), (String) event.getNewValue());
-                        resource.setUrl((String) event.getNewValue());
-                    } catch (Exception ex) {
-                        LOG.warn("Unable to set new url value for resource: " + resource.getServiceName() + " with value: " + event.getNewValue(), ex);
-                    }
-                }
+            try {
+                fhirService.updateUrl(resource.getServiceName(), (String) event.getNewValue());
+                resource.setUrl((String) event.getNewValue());
+            } catch (Exception ex) {
+                LOG.warn("Unable to set new url value for resource: " + resource.getServiceName() + " with value: " + event.getNewValue(), ex);
             }
         }
     }
@@ -97,10 +97,10 @@ public class FhirResourceBean {
                     conformanceDesc = "No Description for: " + baseUri;
                 }
 
-                if(NullChecker.isNotNullish(conformance.getRest())) {
+                if (NullChecker.isNotNullish(conformance.getRest())) {
                     populateFromRest(conformance.getRest());
                 }
-                
+
             } else {
                 conformanceDesc = "Unable to retrieve Conformance resource for base: " + baseUri;
             }
@@ -108,7 +108,7 @@ public class FhirResourceBean {
             LOG.error("Could not get conformance statement due to: " + ex.getMessage(), ex);
         }
     }
-    
+
     public void clearDialog() {
         conformanceDesc = null;
         confResources.clear();
@@ -129,24 +129,24 @@ public class FhirResourceBean {
     public void setConfResources(List<ConformanceResource> confResources) {
         this.confResources = confResources;
     }
-    
+
     public boolean hasResources() {
         return confResources != null && !confResources.isEmpty();
     }
 
     private void populateFromRest(List<ConformanceRestComponent> rest) {
-        for(ConformanceRestComponent component : rest) {
-            if(NullChecker.isNotNullish(component.getResource())) {
+        for (ConformanceRestComponent component : rest) {
+            if (NullChecker.isNotNullish(component.getResource())) {
                 populateConfResources(component.getResource());
             }
         }
     }
-    
+
     private void populateConfResources(List<ConformanceRestResourceComponent> resources) {
-        for(ConformanceRestResourceComponent resource : resources) {
+        for (ConformanceRestResourceComponent resource : resources) {
             ConformanceResource builtResource = new ConformanceResource();
             builtResource.setName(resource.getTypeSimple());
-            if(NullChecker.isNotNullish(resource.getOperation())) {
+            if (NullChecker.isNotNullish(resource.getOperation())) {
                 populateOperations(builtResource, resource.getOperation());
             }
             confResources.add(builtResource);
@@ -154,22 +154,29 @@ public class FhirResourceBean {
     }
 
     private void populateOperations(ConformanceResource builtResource, List<ConformanceRestResourceOperationComponent> operations) {
-        for(ConformanceRestResourceOperationComponent operation : operations) {
-            if(operation.getCode() != null) {
+        for (ConformanceRestResourceOperationComponent operation : operations) {
+            if (operation.getCode() != null) {
                 switch (operation.getCode().getValue()) {
-                    case create: builtResource.setSupportingCreate(true);
+                    case create:
+                        builtResource.setSupportingCreate(true);
                         break;
-                    case read: builtResource.setSupportingRead(true);
+                    case read:
+                        builtResource.setSupportingRead(true);
                         break;
-                    case vread: builtResource.setSupportingVRead(true);
+                    case vread:
+                        builtResource.setSupportingVRead(true);
                         break;
-                    case validate: builtResource.setSupportingValidate(true);
+                    case validate:
+                        builtResource.setSupportingValidate(true);
                         break;
-                    case delete: builtResource.setSupportingDelete(true);
+                    case delete:
+                        builtResource.setSupportingDelete(true);
                         break;
-                    case update: builtResource.setSupportingUpdate(true);
+                    case update:
+                        builtResource.setSupportingUpdate(true);
                         break;
-                    case searchtype: builtResource.setSupportingSearchType(true);
+                    case searchtype:
+                        builtResource.setSupportingSearchType(true);
                         break;
                 }
             }
