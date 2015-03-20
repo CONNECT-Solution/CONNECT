@@ -92,8 +92,7 @@ public class ConformanceClient {
         request.addHeader("User-Agent", "Java FHIR Client for FHIR");
 
         LOG.info("Resource format: " + resourceFormat + ", Feed Format: " + FeedFormat.FEED_XML.getHeader());
-        request.addHeader("Accept", resourceFormat);
-        request.addHeader("Accept", FeedFormat.FEED_XML.getHeader());
+        request.addHeader("Accept", resourceFormat + ", " + FeedFormat.FEED_XML.getHeader());
         request.addHeader("Content-Type", ResourceFormat.RESOURCE_XML.getHeader() + ";charset=" + DEFAULT_CHARSET);
         request.addHeader("Accept-Charset", DEFAULT_CHARSET);
     }
