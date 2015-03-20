@@ -88,7 +88,7 @@ public class FhirResourceBean {
     /**
      * Passes url from ring item to FhirResourceService and sets view for conformance data.
      *
-     * @param baseUri
+     * @param url
      */
     public void pingForConformance(String url) {
         confView = fhirService.getConformance(url);
