@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed.fhir;
 
-import gov.hhs.fha.nhinc.admingui.client.fhir.ConformanceClient;
 import gov.hhs.fha.nhinc.admingui.model.fhir.ConformanceResource;
+import gov.hhs.fha.nhinc.admingui.model.fhir.ConformanceView;
 import gov.hhs.fha.nhinc.admingui.model.fhir.ResourceInfo;
 import gov.hhs.fha.nhinc.admingui.services.FhirResourceService;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -38,14 +38,11 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import org.apache.log4j.Logger;
-import org.hl7.fhir.instance.model.Conformance;
-import org.hl7.fhir.instance.model.Conformance.ConformanceRestComponent;
-import org.hl7.fhir.instance.model.Conformance.ConformanceRestResourceComponent;
-import org.hl7.fhir.instance.model.Conformance.ConformanceRestResourceOperationComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
+ * Backing bean for FHIR Resource service updating including conformance ping and editing url for service.
  *
  * @author jassmit
  */
@@ -55,11 +52,9 @@ import org.springframework.stereotype.Component;
 public class FhirResourceBean {
 
     private List<ResourceInfo> fhirResources;
+    private ConformanceView confView;
 
     private static final Logger LOG = Logger.getLogger(FhirResourceBean.class);
-
-    private String conformanceDesc;
-    private List<ConformanceResource> confResources = new ArrayList<ConformanceResource>();
 
     @Autowired
     private FhirResourceService fhirService;
@@ -70,7 +65,12 @@ public class FhirResourceBean {
         }
         return fhirResources;
     }
-    
+
+    /**
+     * Listener for url changes to edit a FHIR resource url via the FhirResourceService.
+     *
+     * @param event
+     */
     public void onUrlChange(ValueChangeEvent event) {
         FacesContext context = FacesContext.getCurrentInstance();
         ResourceInfo resource = context.getApplication().evaluateExpressionGet(context, "#{fResource}", ResourceInfo.class);
@@ -85,102 +85,48 @@ public class FhirResourceBean {
         }
     }
 
-    public void pingForConformance(String baseUri) {
-        ConformanceClient fhirClient = new ConformanceClient();
-        Conformance conformance;
-        try {
-            conformance = fhirClient.getConformanceStatement(baseUri);
-            if (conformance != null) {
-                if (NullChecker.isNotNullish(conformance.getDescriptionSimple())) {
-                    conformanceDesc = conformance.getDescriptionSimple();
-                } else {
-                    conformanceDesc = "No Description for: " + baseUri;
-                }
-
-                if (NullChecker.isNotNullish(conformance.getRest())) {
-                    populateFromRest(conformance.getRest());
-                }
-
-            } else {
-                conformanceDesc = "Unable to retrieve Conformance resource for base: " + baseUri;
-            }
-        } catch (Exception ex) {
-            LOG.error("Could not get conformance statement due to: " + ex.getMessage(), ex);
-        }
+    /**
+     * Passes url from ring item to FhirResourceService and sets view for conformance data.
+     *
+     * @param baseUri
+     */
+    public void pingForConformance(String url) {
+        confView = fhirService.getConformance(url);
     }
 
     public void clearDialog() {
-        conformanceDesc = null;
-        confResources.clear();
+        confView = null;
     }
 
     public String getConformanceDesc() {
-        return conformanceDesc;
+        String desc = null;
+        if (confView != null) {
+            desc = confView.getConformanceDesc();
+        }
+        return desc;
     }
 
     public void setConformanceDesc(String conformanceDesc) {
-        this.conformanceDesc = conformanceDesc;
+        if (confView != null) {
+            confView.setConformanceDesc(conformanceDesc);
+        }
     }
 
     public List<ConformanceResource> getConfResources() {
-        return confResources;
+        if (confView != null) {
+            return confView.getConfResources();
+        }
+        return new ArrayList<ConformanceResource>();
     }
 
     public void setConfResources(List<ConformanceResource> confResources) {
-        this.confResources = confResources;
+        if (confView != null) {
+            confView.setConfResources(confResources);
+        }
     }
 
     public boolean hasResources() {
-        return confResources != null && !confResources.isEmpty();
-    }
-
-    private void populateFromRest(List<ConformanceRestComponent> rest) {
-        for (ConformanceRestComponent component : rest) {
-            if (NullChecker.isNotNullish(component.getResource())) {
-                populateConfResources(component.getResource());
-            }
-        }
-    }
-
-    private void populateConfResources(List<ConformanceRestResourceComponent> resources) {
-        for (ConformanceRestResourceComponent resource : resources) {
-            ConformanceResource builtResource = new ConformanceResource();
-            builtResource.setName(resource.getTypeSimple());
-            if (NullChecker.isNotNullish(resource.getOperation())) {
-                populateOperations(builtResource, resource.getOperation());
-            }
-            confResources.add(builtResource);
-        }
-    }
-
-    private void populateOperations(ConformanceResource builtResource, List<ConformanceRestResourceOperationComponent> operations) {
-        for (ConformanceRestResourceOperationComponent operation : operations) {
-            if (operation.getCode() != null) {
-                switch (operation.getCode().getValue()) {
-                    case create:
-                        builtResource.setSupportingCreate(true);
-                        break;
-                    case read:
-                        builtResource.setSupportingRead(true);
-                        break;
-                    case vread:
-                        builtResource.setSupportingVRead(true);
-                        break;
-                    case validate:
-                        builtResource.setSupportingValidate(true);
-                        break;
-                    case delete:
-                        builtResource.setSupportingDelete(true);
-                        break;
-                    case update:
-                        builtResource.setSupportingUpdate(true);
-                        break;
-                    case searchtype:
-                        builtResource.setSupportingSearchType(true);
-                        break;
-                }
-            }
-        }
+        return confView != null && NullChecker.isNotNullish(confView.getConfResources());
     }
 
 }

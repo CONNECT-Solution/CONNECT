@@ -28,7 +28,7 @@
 package gov.hhs.fha.nhinc.admingui.model.fhir;
 
 /**
- *
+ * View data for a given FHIR Resource service including resource name, url and display text image.
  * @author jassmit
  */
 public class ResourceInfo {

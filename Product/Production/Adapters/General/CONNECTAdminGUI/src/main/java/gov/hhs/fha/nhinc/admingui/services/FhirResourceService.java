@@ -27,6 +27,7 @@
 
 package gov.hhs.fha.nhinc.admingui.services;
 
+import gov.hhs.fha.nhinc.admingui.model.fhir.ConformanceView;
 import gov.hhs.fha.nhinc.admingui.model.fhir.ResourceInfo;
 import java.util.List;
 
@@ -36,9 +37,25 @@ import java.util.List;
  */
 public interface FhirResourceService {
     
+    /**
+     * Loads resource information from config file.
+     * @return 
+     */
     public List<ResourceInfo> loadResources();
     
+    /**
+     * Updates the url for a FHIR resource to a config file.
+     * 
+     * @param serviceName
+     * @param url
+     * @throws Exception 
+     */
     public void updateUrl(String serviceName, String url) throws Exception;
     
-    public String getConformance(String url);
+    /**
+     * Pulls conformance information for a given resource url using a FHIR client.
+     * @param url
+     * @return 
+     */
+    public ConformanceView getConformance(String url);
 }

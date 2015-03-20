@@ -27,6 +27,9 @@
 
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
+import gov.hhs.fha.nhinc.admingui.client.fhir.ConformanceClient;
+import gov.hhs.fha.nhinc.admingui.model.fhir.ConformanceResource;
+import gov.hhs.fha.nhinc.admingui.model.fhir.ConformanceView;
 import gov.hhs.fha.nhinc.admingui.model.fhir.ResourceInfo;
 import gov.hhs.fha.nhinc.admingui.services.FhirResourceService;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
@@ -37,10 +40,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.hl7.fhir.instance.model.Conformance;
 import org.springframework.stereotype.Service;
 
 /**
- *
+ * Service for updating FHIR resource url and pulling Conformance resource.
+ * 
  * @author jassmit
  */
 @Service
@@ -60,6 +65,9 @@ public class FhirResourceServiceImpl implements FhirResourceService {
     
     private static final Logger LOG = Logger.getLogger(FhirResourceServiceImpl.class);
     
+    /**
+     * {@inheritDoc} 
+     */
     @Override
     public List<ResourceInfo> loadResources() {
         List<ResourceInfo> resources = new ArrayList<ResourceInfo>();
@@ -82,14 +90,32 @@ public class FhirResourceServiceImpl implements FhirResourceService {
         return resources;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateUrl(String serviceName, String url) throws Exception {
         ConnectionManagerCache.getInstance().updateInternalServiceUrl(serviceName, url);
     }
 
+    /**
+     * {@inheritDoc} 
+     */
     @Override
-    public String getConformance(String url) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ConformanceView getConformance(String url) {
+        ConformanceClient fhirClient = new ConformanceClient();
+        ConformanceView view = null;
+        try {
+            Conformance conformance = fhirClient.getConformanceStatement(url);
+            if(conformance != null) {
+                view = new ConformanceView();
+                view.setConformanceDesc(conformance.getDescriptionSimple());
+                view.setConfResources(populateFromRest(conformance.getRest()));
+            }
+        } catch (Exception ex) {
+            LOG.error("Could not get conformance statement due to: " + ex.getMessage(), ex);
+        }
+        return view;
     }
     
     protected String getUrl(String serviceName) {
@@ -99,6 +125,59 @@ public class FhirResourceServiceImpl implements FhirResourceService {
             LOG.warn("Unable to access resource url for service: " + serviceName, ex);
         }
         return null;
+    }
+    
+    private List<ConformanceResource> populateFromRest(List<Conformance.ConformanceRestComponent> rest) {
+        List<ConformanceResource> confResources = new ArrayList<ConformanceResource>();
+        for (Conformance.ConformanceRestComponent component : rest) {
+            if (NullChecker.isNotNullish(component.getResource())) {
+                confResources.addAll(populateConfResources(component.getResource()));
+            }
+        }
+        return confResources;
+    }
+
+    private List<ConformanceResource> populateConfResources(List<Conformance.ConformanceRestResourceComponent> resources) {
+        List<ConformanceResource> confResources = new ArrayList<ConformanceResource>();
+        for (Conformance.ConformanceRestResourceComponent resource : resources) {
+            ConformanceResource builtResource = new ConformanceResource();
+            builtResource.setName(resource.getTypeSimple());
+            if (NullChecker.isNotNullish(resource.getOperation())) {
+                populateOperations(builtResource, resource.getOperation());
+            }
+            confResources.add(builtResource);
+        }
+        return confResources;
+    }
+
+    private void populateOperations(ConformanceResource builtResource, List<Conformance.ConformanceRestResourceOperationComponent> operations) {
+        for (Conformance.ConformanceRestResourceOperationComponent operation : operations) {
+            if (operation.getCode() != null) {
+                switch (operation.getCode().getValue()) {
+                    case create:
+                        builtResource.setSupportingCreate(true);
+                        break;
+                    case read:
+                        builtResource.setSupportingRead(true);
+                        break;
+                    case vread:
+                        builtResource.setSupportingVRead(true);
+                        break;
+                    case validate:
+                        builtResource.setSupportingValidate(true);
+                        break;
+                    case delete:
+                        builtResource.setSupportingDelete(true);
+                        break;
+                    case update:
+                        builtResource.setSupportingUpdate(true);
+                        break;
+                    case searchtype:
+                        builtResource.setSupportingSearchType(true);
+                        break;
+                }
+            }
+        }
     }
     
 }
