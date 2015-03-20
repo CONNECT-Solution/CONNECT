@@ -23,9 +23,11 @@
     - buttons
 	- tables
 	- dialogs
+07. FHIR RING STYLES
 
 99. RESPONSIVE @MEDIA
     - set different styles at different browser window sizes
+	- NOTE: Includes styles consolidated from the DASHBOARD.CSS file!
 
 =============================================================================
 
@@ -155,6 +157,15 @@ body {
 	font-size:14px;
 }
 
+.sidebar .ui-panelmenu-panel.sidebar-red li.active a:after {
+	content:"";
+	position:absolute;
+	top:0;
+	left:0;
+	width:7px;
+	height:100%;
+	background:#dd0000;
+}
 .sidebar .ui-panelmenu-panel.sidebar-orange li.active a:after {
 	content:"";
 	position:absolute;
@@ -164,14 +175,23 @@ body {
 	height:100%;
 	background:#e46c0a;
 }
-.sidebar .ui-panelmenu-panel.sidebar-purple li.active a:after {
+.sidebar .ui-panelmenu-panel.sidebar-yellow li.active a:after {
 	content:"";
 	position:absolute;
 	top:0;
 	left:0;
 	width:7px;
 	height:100%;
-	background:#8000a0;
+	background:#d0d000;
+}
+.sidebar .ui-panelmenu-panel.sidebar-green li.active a:after {
+	content:"";
+	position:absolute;
+	top:0;
+	left:0;
+	width:7px;
+	height:100%;
+	background:#00aa40;
 }
 .sidebar .ui-panelmenu-panel.sidebar-blue li.active a:after {
 	content:"";
@@ -182,23 +202,41 @@ body {
 	height:100%;
 	background:#00b0f0;
 }
-.sidebar .ui-panelmenu-panel.sidebar-red li.active a:after {
+.sidebar .ui-panelmenu-panel.sidebar-dkblue li.active a:after {
 	content:"";
 	position:absolute;
 	top:0;
 	left:0;
 	width:7px;
 	height:100%;
-	background:#dd0000;
+	background:#3030cc;
 }
-.sidebar .ui-panelmenu-panel.sidebar-green li.active a:after {
+.sidebar .ui-panelmenu-panel.sidebar-purple li.active a:after {
 	content:"";
 	position:absolute;
 	top:0;
 	left:0;
 	width:7px;
 	height:100%;
-	background:#00aa40;
+	background:#8000a0;
+}
+.sidebar .ui-panelmenu-panel.sidebar-magenta li.active a:after {
+	content:"";
+	position:absolute;
+	top:0;
+	left:0;
+	width:7px;
+	height:100%;
+	background:#ec008c;
+}
+.sidebar .ui-panelmenu-panel.sidebar-teal li.active a:after {
+	content:"";
+	position:absolute;
+	top:0;
+	left:0;
+	width:7px;
+	height:100%;
+	background:#00be96;
 }
 
 
@@ -327,6 +365,18 @@ body {
 .ui-tabs.tabs-override ul.ui-tabs-nav li.ui-tabs-selected a {
 	color:#ffffff;
 }
+
+.ui-tabs.tabs-override.tabs-ovr-red .ui-tabs-nav {
+	border-bottom:5px solid #dd0000;
+}
+.ui-tabs.tabs-override.tabs-ovr-red .ui-tabs-nav li.ui-tabs-selected {
+	background:#dd0000;
+	color:#ffffff;
+}
+.ui-tabs.tabs-override.tabs-ovr-red .ui-tabs-nav li.ui-state-hover a {
+	background:#dd0000;
+	color:#ffffff;
+}
 .ui-tabs.tabs-override.tabs-ovr-orange .ui-tabs-nav {
 	border-bottom:5px solid #e46c0a;
 }
@@ -338,15 +388,26 @@ body {
 	background:#e46c0a;
 	color:#ffffff;
 }
-.ui-tabs.tabs-override.tabs-ovr-purple .ui-tabs-nav {
-	border-bottom:5px solid #8000a0;
+.ui-tabs.tabs-override.tabs-ovr-yellow .ui-tabs-nav {
+	border-bottom:5px solid #d0d000;
 }
-.ui-tabs.tabs-override.tabs-ovr-purple .ui-tabs-nav li.ui-tabs-selected {
-	background:#8000a0;
+.ui-tabs.tabs-override.tabs-ovr-yellow .ui-tabs-nav li.ui-tabs-selected {
+	background:#d0d000;
 	color:#ffffff;
 }
-.ui-tabs.tabs-override.tabs-ovr-purple .ui-tabs-nav li.ui-state-hover a {
-	background:#8000a0;
+.ui-tabs.tabs-override.tabs-ovr-yellow .ui-tabs-nav li.ui-state-hover a {
+	background:#d0d000;
+	color:#ffffff;
+}
+.ui-tabs.tabs-override.tabs-ovr-green .ui-tabs-nav {
+	border-bottom:5px solid #00aa40;
+}
+.ui-tabs.tabs-override.tabs-ovr-green .ui-tabs-nav li.ui-tabs-selected {
+	background:#00aa40;
+	color:#ffffff;
+}
+.ui-tabs.tabs-override.tabs-ovr-green .ui-tabs-nav li.ui-state-hover a {
+	background:#00aa40;
 	color:#ffffff;
 }
 .ui-tabs.tabs-override.tabs-ovr-blue .ui-tabs-nav {
@@ -360,26 +421,48 @@ body {
 	background:#00b0f0;
 	color:#ffffff;
 }
-.ui-tabs.tabs-override.tabs-ovr-red .ui-tabs-nav {
-	border-bottom:5px solid #dd0000;
+.ui-tabs.tabs-override.tabs-ovr-dkblue .ui-tabs-nav {
+	border-bottom:5px solid #3030cc;
 }
-.ui-tabs.tabs-override.tabs-ovr-red .ui-tabs-nav li.ui-tabs-selected {
-	background:#dd0000;
+.ui-tabs.tabs-override.tabs-ovr-dkblue .ui-tabs-nav li.ui-tabs-selected {
+	background:#3030cc;
 	color:#ffffff;
 }
-.ui-tabs.tabs-override.tabs-ovr-red .ui-tabs-nav li.ui-state-hover a {
-	background:#dd0000;
+.ui-tabs.tabs-override.tabs-ovr-dkblue .ui-tabs-nav li.ui-state-hover a {
+	background:#3030cc;
 	color:#ffffff;
 }
-.ui-tabs.tabs-override.tabs-ovr-green .ui-tabs-nav {
-	border-bottom:5px solid #00aa40;
+.ui-tabs.tabs-override.tabs-ovr-purple .ui-tabs-nav {
+	border-bottom:5px solid #8000a0;
 }
-.ui-tabs.tabs-override.tabs-ovr-green .ui-tabs-nav li.ui-tabs-selected {
-	background:#00aa40;
+.ui-tabs.tabs-override.tabs-ovr-purple .ui-tabs-nav li.ui-tabs-selected {
+	background:#8000a0;
 	color:#ffffff;
 }
-.ui-tabs.tabs-override.tabs-ovr-green .ui-tabs-nav li.ui-state-hover a {
-	background:#00aa40;
+.ui-tabs.tabs-override.tabs-ovr-purple .ui-tabs-nav li.ui-state-hover a {
+	background:#8000a0;
+	color:#ffffff;
+}
+.ui-tabs.tabs-override.tabs-ovr-magenta .ui-tabs-nav {
+	border-bottom:5px solid #ec008c;
+}
+.ui-tabs.tabs-override.tabs-ovr-magenta .ui-tabs-nav li.ui-tabs-selected {
+	background:#ec008c;
+	color:#ffffff;
+}
+.ui-tabs.tabs-override.tabs-ovr-magenta .ui-tabs-nav li.ui-state-hover a {
+	background:#ec008c;
+	color:#ffffff;
+}
+.ui-tabs.tabs-override.tabs-ovr-teal .ui-tabs-nav {
+	border-bottom:5px solid #00be96;
+}
+.ui-tabs.tabs-override.tabs-ovr-teal .ui-tabs-nav li.ui-tabs-selected {
+	background:#00be96;
+	color:#ffffff;
+}
+.ui-tabs.tabs-override.tabs-ovr-teal .ui-tabs-nav li.ui-state-hover a {
+	background:#00be96;
 	color:#ffffff;
 }
 
@@ -640,7 +723,7 @@ div[id*="cmOrgForm"] table.ui-panelgrid-domain {
 	overflow-x:hidden;
 }
 .main-content .table-orgs thead th, .main-content .table-orgs tbody td {
-	width:/*auto !important*/;
+	/*width:auto !important;*/
 }
 .main-content .table-orgs thead th:first-child, .main-content .table-orgs tbody td:first-child {
 	width:36px !important;
@@ -653,7 +736,7 @@ div[id*="cmOrgForm"] table.ui-panelgrid-domain {
 	width:13% !important;
 }*/
 .main-content .table-props thead th:first-child, .main-content .table-props tbody td:first-child {
-	width:/*20% !important*/;
+	/*width:20% !important;*/
 	text-align:left;
 }
 .main-content .table-orgs tbody td span[style*="green"], .main-content .table-orgs tbody td span[style*="red"] {
@@ -667,6 +750,21 @@ div[id*="cmOrgForm"] table.ui-panelgrid-domain {
 }
 .main-content .table-orgs tbody td span[style*="red"]:before {
 	content:"\e083";
+}
+
+
+/* -- GATEWAY PROPERTIES TABLE -- */
+.main-content .table-resources, 
+.main-content .table-props {
+	padding:0px;
+}
+.main-content .table-resources .ui-widget-header, 
+.main-content .table-props .ui-widget-header {
+	background:none;
+}
+.main-content .table-resources thead th:first-child, 
+.main-content .table-resources tbody td:first-child {
+	width:35% !important;
 }
 
 
@@ -864,6 +962,7 @@ div[id*="cmOrgForm"] table.ui-panelgrid-domain {
 	word-wrap: break-word;
 	word-break: normal;
 }
+
 
 
 /* -- DOMAIN CONFIG MODAL STYLES -- CREATE DOMAIN / EDIT DOMAIN -- */
@@ -1138,15 +1237,124 @@ div[id*="cmOrgForm"] table.ui-panelgrid-domain {
 }
 
 
+/* -- FHIR RING STYLES -----------------------------------------------*/
+.ringPanelGrid tr, .ringPanelGrid td {
+    border: none;
+}
+.ringOfFhir-background .ui-widget-header {
+    background-color: #254061;
+}
+.ping-button {
+	background-color: #e77b22 !important;
+	color: #ffffff !important;
+	border-color: #e46c0a !important;
+}
+.ping-button:hover {
+	background-color:#e46c0a !important;
+}
+
+
+ul[id*='ringFHIR'].ui-ring {
+	width:auto;
+	margin:0;
+}
+ul[id*='ringFHIR'] .ui-ring-item {
+	height:auto !important;
+	width:auto !important;
+	border:1px solid #252e65;
+	text-align:center;
+}
+ul[id*='ringFHIR'] .ringFHIR-header {
+    padding:10px;
+	background:#252e65;
+	color:#ffffff;
+	text-align:center;
+	text-shadow:none;
+}
+ul[id*='ringFHIR'] .ringFHIR-header img {
+    width:50%;
+	margin:5px 0px 10px;
+	text-shadow:none;
+}
+ul[id*='ringFHIR'] .ringFHIR-content {
+    padding:10px;
+	text-align:center;
+	text-shadow:none;
+	white-space:nowrap;
+	background:#c4c4c4 linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
+	background:#c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+	background:#c4c4c4 -moz-linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#DDFFFFFF, endColorstr=#00FFFFFF);
+	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#DDFFFFFF, endColorstr=#00FFFFFF)";
+}
+ul[id*='ringFHIR'] .ringFHIR-content label {
+	margin-right:3px;
+}
+.ringFHIR-btn-ping {
+	margin:5px 0px;
+	background:#b42a2e !important;
+	color:#ffffff !important;
+	border:1px solid #b42a2e !important;
+	text-shadow:none !important;
+	box-shadow:none;
+	white-space:nowrap;
+}
+.ringFHIR-btn-ping:hover {
+	background:#942023 !important;
+	color:#ffffff !important;
+	border:1px solid #b42a2e !important;
+	box-shadow:none !important;
+}
+.ringFHIR-btn-ping .ui-icon {
+	background-image:url("../resources/images/ui-icons_ffffff_256x240.png");
+}
+
+
+#conformanceDialog .ui-widget-header {
+	background:#e3ebf5;
+	color:#333;
+	font-weight:bold;
+	font-size:18px;
+	text-shadow:none; /* 0px 1px 0px rgba(255,255,255,0.7) */
+}
+#conformanceDialog .form-block {
+	padding:10px;
+}
+#conformanceDialog .btn-primary {
+	background:none;
+	background:#428bca;
+	color:#ffffff;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	font-weight:bold;
+	text-shadow:none;
+	box-shadow:none;
+}
+#conformanceDialog .btn-primary:hover {
+	background-color:#3276b1;
+	border-color:#285e8e;
+	color:#ffffff;
+}
+#conformanceDialog .btn-primary .ui-icon {
+	background-image:url("../resources/images/ui-icons_ffffff_256x240.png");
+}
+
+
+
 /* -- RESPONSIVE @MEDIA STYLES -----------------------------------------------*/
 @media (max-width: 1100px) {
 	.sidebar h1.page-header {
 		font-size:22px;
 	}
+	.sidebar-scroll {
+		background-position:95% 22px;
+	}
 }
 @media (max-width: 1033px) {
 	.sidebar h1.page-header {
 		font-size:18px;
+	}
+	.sidebar-scroll {
+		background-position:80% 15px;
 	}
 	.admin-dashboard .ui-panel-titlebar {
 		position:relative;
@@ -1170,47 +1378,72 @@ div[id*="cmOrgForm"] table.ui-panelgrid-domain {
 }
 @media (max-width: 1000px) {
 	.sidebar h1.page-header {
-		font-size:20px;
+		/*font-size:20px;*/
+	}
+	.sidebar-scroll {
+			background-position:50% 15px;
 	}
 }
 @media (max-width: 900px) {
 	.sidebar h1.page-header {
 		font-size:18px;
 	}
+	/* -- BootStrap STYLE DEPRECATED for FOLLOWING PrimeFaces ELEMENT -- */
+	.sidebar h2.section-header {font-size:10px;}
 	.sidebar h3.ui-panelmenu-header { /* h2.section-header */
 		font-size:10px;
 	}
+	/* -- BootStrap STYLE DEPRECATED for FOLLOWING PrimeFaces ELEMENT -- */
+	.sidebar ul.nav li a {font-size:13px;}
 	.sidebar ul.ui-menu-list li a, .sidebar ul.ui-menu-list li a .ui-menuitem-text { /* ul.nav li a */
 		font-size:13px;
 	}
 	.navbar {
 		min-height:30px;
 	}
+	/* -- BootStrap STYLE DEPRECATED for FOLLOWING PrimeFaces ELEMENT -- */
+	.nav-section-tabs ul.nav li {line-height:30px;}
 	.ui-tabs.tabs-override ul.ui-tabs-nav li { /* .nav-section-tabs ul.nav li */
 		line-height:30px;
 	}
-	.ui-tabs.tabs-override ul.ui-tabs-nav li a { /* .nav-section-tabs ul.nav li */
+	/* -- BootStrap STYLE DEPRECATED for FOLLOWING PrimeFaces ELEMENT -- */
+	.nav-section-tabs ul.nav li a {padding:10px 15px;font-size:14px;}
+	.ui-tabs.tabs-override ul.ui-tabs-nav li a { /* .nav-section-tabs ul.nav li a */
 		padding:10px 15px;
 		font-size:14px;
 	}
 	.main h2.subsection-header {
 		padding:12px;
 	}
+	.main-content table[class*="table-"] td {
+		font-size:14px;
+	}
 }
 @media (max-width: 800px) {
 	.sidebar h1.page-header {
 		font-size:16px;
 	}
+	/* -- BootStrap STYLE DEPRECATED for FOLLOWING PrimeFaces ELEMENT -- */
+	.nav-section-tabs ul.nav li {width:120px;}
 	.ui-tabs.tabs-override ul.ui-tabs-nav li { /* .nav-section-tabs ul.nav li */
 		width:120px;
 		white-space:normal;
 	}
-	.ui-tabs.tabs-override ul.ui-tabs-nav li a { /* .nav-section-tabs ul.nav li */
+	/* -- BootStrap STYLE DEPRECATED for FOLLOWING PrimeFaces ELEMENT -- */
+	.nav-section-tabs ul.nav li a {padding:7px 13px;font-size:13px;}
+	.ui-tabs.tabs-override ul.ui-tabs-nav li a { /* .nav-section-tabs ul.nav li a */
 		padding:7px 13px;
 		font-size:13px;
 		line-height:1.428571429;
 	}
+	/* -- BootStrap STYLE DEPRECATED for FOLLOWING PrimeFaces ELEMENT -- */
+	#domains .nav-section-tabs ul.nav li {width:auto;}
 	#domains .ui-tabs ul.ui-tabs-nav li {
 		width:auto;
 	}
 }
+
+
+
+
+/* -- RESPONSIVE @MEDIA STYLES -- FROM DASHBOARD.CSS -----------------------------------------------*/

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /* 
+   * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+   * All rights reserved. 
+   *
+   * Redistribution and use in source and binary forms, with or without  
+   * modification, are permitted provided that the following conditions are met:  
+   *     * Redistributions of source code must retain the above  
+   *       copyright notice, this list of conditions and the following disclaimer. 
+   *     * Redistributions in binary form must reproduce the above copyright  
+   *       notice, this list of conditions and the following disclaimer in the documentation  
+   *       and/or other materials provided with the distribution.  
+   *     * Neither the name of the United States Government nor the  
+   *       names of its contributors may be used to endorse or promote products  
+   *       derived from this software without specific prior written permission.  
+   * 
+   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND  
+   * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED  
+   * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE  
+   * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY  
+   * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES  
+   * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  
+   * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND  
+   * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT  
+   * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS  
+   * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+   */ 
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:body>	
+        <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
+            <ui:define name="metatag"></ui:define>
+            <ui:define name="content">
+                
+                <h:form id="fhirForm">
+                    <div style="background: #ffffff">
+                    <p:graphicImage value="resources/images/fusion.png" style="padding: 30px 40px 30px;" />
+                    </div>
+                    <p:tabView id="tabview" effect="fade" effectDuration="normal" dynamic="true" styleClass="tabs-override tabs-ovr-orange" > 
+                        <p:tab title="FHIR Resources" closable="false">
+
+                            <p:ring id="ringFHIR" value="#{fhirResourceBean.fhirResources}" var="fResource" easing="easeOutSine">
+                                <p:outputPanel layout="block">
+                                    <div class="ringFHIR-header">
+                                        <p:graphicImage value="resources/images/#{fResource.image}" />
+                                        <br />
+                                        <h:outputText value="#{fResource.displayName}" />
+                                    </div>
+                                    <div class="ringFHIR-content">
+                                        <h:outputLabel value="" for="input-url" styleClass="glyphicon glyphicon-edit"/>
+                                        <p:inplace id="fhirInplaceUrl" editor="true">
+                                            <h:inputText id="input-url" value="#{fResource.url}" valueChangeListener="#{fhirResourceBean.onUrlChange}" />
+                                        </p:inplace>
+                                        <br/>
+                                        <p:commandButton value="Ping" action="#{fhirResourceBean.pingForConformance(fResource.url)}" styleClass="ringFHIR-btn-ping" icon="ui-icon-signal-diag" oncomplete="PF('conformanceDialog').show();" update=":conformanceForm" />
+                                    </div>
+                                </p:outputPanel>
+                            </p:ring>
+                        </p:tab>
+                    </p:tabView>
+                </h:form>
+
+                <p:dialog id="conformanceDialog" header="Conformance" closable="false" widgetVar="conformanceDialog" modal="true" dynamic="true" width="70%" height="500" closeOnEscape="true">
+                    <div class="content">
+
+                        <div class="form-block center-block">
+                            <h:form id="conformanceForm" >
+
+                                <h:outputText value="#{fhirResourceBean.conformanceDesc}" />
+                                <p:separator />
+                                
+                                <div class="table-responsive table-resources">
+                                <p:dataTable id="conformanceTable" widgetVar="conformanceTable" scrollable="true" value="#{fhirResourceBean.confResources}" var="confResource" scrollHeight="300" styleClass="table table-striped table-domains" >
+
+                                    <p:column headerText="Resource">
+                                        <h:outputText value="#{confResource.name}" />
+                                    </p:column>
+
+                                    <p:column headerText="Create" >
+                                        <h:outputText rendered="#{confResource.supportingCreate}" value="" style="color: green" styleClass="glyphicon glyphicon-ok-sign" />
+                                        <h:outputText rendered="#{not confResource.supportingCreate}" value="--" />
+                                    </p:column>
+
+                                    <p:column headerText="Delete" >
+                                        <h:outputText rendered="#{confResource.supportingDelete}" value="" style="color: green" styleClass="glyphicon glyphicon-ok-sign" />
+                                        <h:outputText rendered="#{not confResource.supportingDelete}" value="--" />
+                                    </p:column>
+
+                                    <p:column headerText="Update" >
+                                        <h:outputText rendered="#{confResource.supportingUpdate}" value="" style="color: green" styleClass="glyphicon glyphicon-ok-sign" />
+                                        <h:outputText rendered="#{not confResource.supportingUpdate}" value="--" />
+                                    </p:column>
+
+                                    <p:column headerText="Read" >
+                                        <h:outputText rendered="#{confResource.supportingUpdate}" value="" style="color: green" styleClass="glyphicon glyphicon-ok-sign" />
+                                        <h:outputText rendered="#{not confResource.supportingUpdate}" value="--" />
+                                    </p:column>
+
+                                    <p:column headerText="VRead" >
+                                        <h:outputText rendered="#{confResource.supportingVRead}" value="" style="color: green" styleClass="glyphicon glyphicon-ok-sign" />
+                                        <h:outputText rendered="#{not confResource.supportingVRead}" value="--" />
+                                    </p:column>
+
+                                    <p:column headerText="Search" >
+                                        <h:outputText rendered="#{confResource.supportingSearchType}" value="" style="color: green" styleClass="glyphicon glyphicon-ok-sign" />
+                                        <h:outputText rendered="#{not confResource.supportingSearchType}" value="--" />
+                                    </p:column>
+
+                                    <p:column headerText="Validate" >
+                                        <h:outputText rendered="#{confResource.supportingValidate}" value="" style="color: green" styleClass="glyphicon glyphicon-ok-sign" />
+                                        <h:outputText rendered="#{!confResource.supportingValidate}" value="--" />
+                                    </p:column>
+
+                                </p:dataTable>
+                                </div>
+                                <p:commandButton value="Close" action="#{fhirResourceBean.clearDialog}" oncomplete="PF('conformanceDialog').hide();" icon="ui-icon-circle-close" styleClass="btn btn-primary pull-right" />
+                            </h:form>
+                        </div>
+                    </div>
+                </p:dialog>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
