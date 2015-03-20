@@ -43,6 +43,11 @@
             <artifactId>DocumentQueryCore</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DocumentRetrieveCore</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
 
         <!-- Persistence -->
         <dependency>
