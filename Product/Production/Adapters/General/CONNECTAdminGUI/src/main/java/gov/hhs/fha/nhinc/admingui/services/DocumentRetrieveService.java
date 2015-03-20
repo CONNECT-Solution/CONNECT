@@ -36,8 +36,9 @@ import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieveResults;
 public interface DocumentRetrieveService {
 
     /**
+     * received from UI to build DoucmentRetrieve Request to retrieve from Repository
      *
-     * @param documentModel received from UI to build DoucmentRetrieve Request to retrieve from Repository.
+     * @param documentModel DocumentRetrieve UI values passed.
      * @return DoucmentRetrieveResults bean have HCID,RepositoryId,DocumentUniqueId,Document and MimeType from
      * DocumentRetrieve Response.
      */
