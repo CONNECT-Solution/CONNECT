@@ -220,8 +220,8 @@
         
         <dependency>
             <groupId>me.fhir</groupId>
-            <artifactId>fhir-0.81</artifactId>
-            <version>2382-SNAPSHOT</version>
+            <artifactId>fhir-0.12</artifactId>
+            <version>0.3</version>
         </dependency>
         
     </dependencies>
@@ -232,11 +232,6 @@
             <name>PrimeFaces Maven Repository</name>
             <url>http://repository.primefaces.org</url>
             <layout>default</layout>
-        </repository>
-        <repository>
-            <id>sonatype repo</id>
-            <name>FHIR Snapshot Repo</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
     </repositories>
 
