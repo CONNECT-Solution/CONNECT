@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.docretrieve.messaging.director.impl;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.docretrieve.messaging.builder.DocumentRetrieveRequestBuilder;
 import gov.hhs.fha.nhinc.docretrieve.messaging.director.DocumentRetrieveMessageDirector;
-import gov.hhs.fha.nhinc.messaging.director.impl.AbstractMessageDirector;
+import gov.hhs.fha.nhinc.messaging.director.AbstractMessageDirector;
 
 /**
  *
