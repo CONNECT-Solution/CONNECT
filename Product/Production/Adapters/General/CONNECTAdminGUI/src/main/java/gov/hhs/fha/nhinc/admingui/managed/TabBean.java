@@ -236,9 +236,21 @@ public class TabBean {
         return NavigationConstant.CM_PAGE;
     }
     
+    /**
+     * 
+     * @return 
+     */
+    public String navigateToPatientDiscoveryTab() {
+        return setPatientSearchTabAndNavigate(0);
+    }
     public String setGatewayPropertyTabAndNavigate(int i) {
         this.propIndex = i;
-        return "properties";
+        return NavigationConstant.PROPERTIES_PAGE;
+    }
+    
+    public String setPatientSearchTabAndNavigate(int i) {
+        this.propIndex = i;
+        return NavigationConstant.PATIENT_SEARCH_PAGE;
     }
 
     public int getPropIndex() {
