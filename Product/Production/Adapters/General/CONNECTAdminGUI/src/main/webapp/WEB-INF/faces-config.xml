@@ -70,6 +70,13 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
-    
+    <navigation-rule>
+        <from-view-id>/*</from-view-id>
+        <navigation-case>
+            <from-outcome>patientDiscovery</from-outcome>
+            <to-view-id>/patientDiscovery.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
     
 </faces-config>

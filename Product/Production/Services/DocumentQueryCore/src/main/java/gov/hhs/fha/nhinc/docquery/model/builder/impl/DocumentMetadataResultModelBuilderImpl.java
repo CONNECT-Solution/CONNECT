@@ -40,6 +40,7 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
+import org.apache.log4j.Logger;
 
 /**
  * This class parses the DQ query response.
@@ -47,6 +48,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
  * @author tjafri
  */
 class DocumentMetadataResultModelBuilderImpl implements DocumentMetadataResultModelBuilder {
+
+    private static final Logger LOG = Logger.getLogger(DocumentMetadataResultModelBuilderImpl.class);
 
     /**
      * The result.
@@ -74,12 +77,54 @@ class DocumentMetadataResultModelBuilderImpl implements DocumentMetadataResultMo
         String creationDate = helper.getSingleSlotValue(ResponseSlotName.creationTime, extrinsicObject);
         String serviceStartTime = helper.getSingleSlotValue(ResponseSlotName.serviceStartTime, extrinsicObject);
         String serviceStopTime = helper.getSingleSlotValue(ResponseSlotName.serviceStopTime, extrinsicObject);
+        //language code
+        result.setLanguageCode(helper.getSingleSlotValue(ResponseSlotName.languageCode, extrinsicObject));
+        //Legal Authenticator
+        result.setLegalAuthenticator(helper.getSingleSlotValue(ResponseSlotName.legalAuthenticator, extrinsicObject));
+        //Intended Recipient
+        result.setIntendedRecipient(helper.getSingleSlotValue(ResponseSlotName.intendedRecipient, extrinsicObject));
+        //size
+        try {
+            String documentSize = helper.getSingleSlotValue(ResponseSlotName.size, extrinsicObject);
+            int size = Integer.parseInt(documentSize);
+            result.setSize(size);
+        } catch (Exception e) {
+            LOG.error("Failed to convert the String to int:" + e.getMessage());
+        }
+        //source Patient ID
+        result.setSourcePatientId(helper.getSingleSlotValue(ResponseSlotName.sourcePatientId, extrinsicObject));
+        //URI
+        result.setURI(helper.getSingleSlotValue(ResponseSlotName.URI, extrinsicObject));
+        
+        //hash
+        result.setHash(helper.getSingleSlotValue(ResponseSlotName.hash, extrinsicObject));
+        //home
+        result.setHome(extrinsicObject.getHome());
+
+        result.setOpague(extrinsicObject.isIsOpaque());
+        //ID
+        result.setId(extrinsicObject.getId());
+        //mimeType
+        result.setMimeType(extrinsicObject.getMimeType());
+        //Object Type
+        result.setObjectType(extrinsicObject.getObjectType());
+
+        result.setStatus(extrinsicObject.getStatus());
+        //Name
+        if ((extrinsicObject.getName() != null) & (extrinsicObject.getName().getLocalizedString().size() > 0)) {
+            result.setName(extrinsicObject.getName().getLocalizedString().get(0).getValue());
+        }
+        //Description
+        if ((extrinsicObject.getDescription() != null) & (extrinsicObject.getDescription().getLocalizedString().size() > 0)) {
+            result.setDescription(extrinsicObject.getDescription().getLocalizedString().get(0).getValue());
+        }
+
         try {
             result.setCreationDate(getDateTime(creationDate));
             result.setServiceStartTime(getDateTime(serviceStartTime));
             result.setServiceStopTime(getDateTime(serviceStopTime));
         } catch (ParseException e) {
-            e.printStackTrace();
+            LOG.error("Failed to convert the String to Date:" + e.getMessage());
         }
 
         String repositoryId = helper.getSingleSlotValue(ResponseSlotName.repositoryUniqueId, extrinsicObject);
@@ -99,6 +144,10 @@ class DocumentMetadataResultModelBuilderImpl implements DocumentMetadataResultMo
         result.setAuthorPerson(authorPerson);
         String authorInstitution = helper.getSingleSlotValue("authorInstitution", author);
         result.setAuthorInstitution(authorInstitution);
+        String authorRole = helper.getSingleSlotValue("authorRole", author);
+        result.setAuthorRole(authorRole);
+        String authorSpecialty = helper.getSingleSlotValue("authorSpecialty", author);
+        result.setAuthorSpecialty(authorSpecialty);
 
         // external ids
         String documentId = helper.getExternalIdentifierValue(IdentificationScheme.uniqueId, extrinsicObject);

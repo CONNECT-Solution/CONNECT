@@ -563,7 +563,10 @@ VALUES
 ("properties.xhtml", "CONNECT Properties", 0, 3),
 ("fhir.xhtml", "FHIR Resources", 0, 1),
 ("fhir.xhtml", "FHIR Resources", 0, 2),
-("fhir.xhtml", "FHIR Resources", 0, 3);
+("fhir.xhtml", "FHIR Resources", 0, 3),
+("patientDiscovery.xhtml", "Universal Client", 0, 1),
+("patientDiscovery.xhtml", "Universal Client", 0, 2),
+("patientDiscovery.xhtml", "Universal Client", 0, 3);
 
 
 INSERT INTO adminguidb.UserLogin

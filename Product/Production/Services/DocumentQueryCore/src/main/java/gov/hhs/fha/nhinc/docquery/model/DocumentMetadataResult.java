@@ -100,9 +100,79 @@ public class DocumentMetadataResult {
     private String authorInstitution;
 
     /**
+     * The author Role.
+     */
+    private String authorRole;
+
+    /**
+     * The author Specialty.
+     */
+    private String authorSpecialty;
+    
+    /**
      * The event codes.
      */
     private String eventCodes;
+
+    /**
+     * The Coding Scheme.
+     */
+    private String codingScheme;
+    
+    /**
+     * The Coding Scheme Name.
+     */
+    private String codingSchemeName;
+    
+    /**
+     * The Hash.
+     */
+    private String hash;
+    
+    /**
+     * The intendedRecipient.
+     */
+    private String intendedRecipient;
+
+    /**
+     * The Language Code.
+     */
+    private String languageCode;
+
+    /**
+     * The Legal Authenticator.
+     */
+    private String legalAuthenticator;
+
+    /**
+     * The name.
+     */
+    private String name;
+
+    private String description;
+
+    /**
+     * The mimeType.
+     */
+    private String mimeType;
+    
+    private boolean Opague;
+    
+    private int Size;
+    
+    private String sourcePatientId;
+    
+    private String URI;
+    
+    private String status;
+    
+    private String objectType;
+    
+    private String home;
+    
+    private String id;
+        
+    
 
     /**
      * Gets the patient id.
@@ -374,5 +444,271 @@ public class DocumentMetadataResult {
             builder.append(serviceStopTime);
         }
         return builder.toString();
+    }
+
+    /**
+     * @return the authorRole
+     */
+    public String getAuthorRole() {
+        return authorRole;
+    }
+
+    /**
+     * @param authorRole the authorRole to set
+     */
+    public void setAuthorRole(String authorRole) {
+        this.authorRole = authorRole;
+    }
+
+    /**
+     * @return the authorSpecialty
+     */
+    public String getAuthorSpecialty() {
+        return authorSpecialty;
+    }
+
+    /**
+     * @param authorSpecialty the authorSpecialty to set
+     */
+    public void setAuthorSpecialty(String authorSpecialty) {
+        this.authorSpecialty = authorSpecialty;
+    }
+
+    /**
+     * @return the codingScheme
+     */
+    public String getCodingScheme() {
+        return codingScheme;
+    }
+
+    /**
+     * @param codingScheme the codingScheme to set
+     */
+    public void setCodingScheme(String codingScheme) {
+        this.codingScheme = codingScheme;
+    }
+
+    /**
+     * @return the codingSchemeName
+     */
+    public String getCodingSchemeName() {
+        return codingSchemeName;
+    }
+
+    /**
+     * @param codingSchemeName the codingSchemeName to set
+     */
+    public void setCodingSchemeName(String codingSchemeName) {
+        this.codingSchemeName = codingSchemeName;
+    }
+
+    /**
+     * @return the hash
+     */
+    public String getHash() {
+        return hash;
+    }
+
+    /**
+     * @param hash the hash to set
+     */
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
+    /**
+     * @return the intendedRecipient
+     */
+    public String getIntendedRecipient() {
+        return intendedRecipient;
+    }
+
+    /**
+     * @param intendedRecipient the intendedRecipient to set
+     */
+    public void setIntendedRecipient(String intendedRecipient) {
+        this.intendedRecipient = intendedRecipient;
+    }
+
+    /**
+     * @return the languageCode
+     */
+    public String getLanguageCode() {
+        return languageCode;
+    }
+
+    /**
+     * @param languageCode the languageCode to set
+     */
+    public void setLanguageCode(String languageCode) {
+        this.languageCode = languageCode;
+    }
+
+    /**
+     * @return the legalAuthenticator
+     */
+    public String getLegalAuthenticator() {
+        return legalAuthenticator;
+    }
+
+    /**
+     * @param legalAuthenticator the legalAuthenticator to set
+     */
+    public void setLegalAuthenticator(String legalAuthenticator) {
+        this.legalAuthenticator = legalAuthenticator;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * @return the mimeType
+     */
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    /**
+     * @param mimeType the mimeType to set
+     */
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
+    }
+
+    /**
+     * @return the Opague
+     */
+    public boolean isOpague() {
+        return Opague;
+    }
+
+    /**
+     * @param Opague the Opague to set
+     */
+    public void setOpague(boolean Opague) {
+        this.Opague = Opague;
+    }
+
+    /**
+     * @return the Size
+     */
+    public int getSize() {
+        return Size;
+    }
+
+    /**
+     * @param Size the Size to set
+     */
+    public void setSize(int Size) {
+        this.Size = Size;
+    }
+
+    /**
+     * @return the sourcePatientId
+     */
+    public String getSourcePatientId() {
+        return sourcePatientId;
+    }
+
+    /**
+     * @param sourcePatientId the sourcePatientId to set
+     */
+    public void setSourcePatientId(String sourcePatientId) {
+        this.sourcePatientId = sourcePatientId;
+    }
+
+    /**
+     * @return the URI
+     */
+    public String getURI() {
+        return URI;
+    }
+
+    /**
+     * @param URI the URI to set
+     */
+    public void setURI(String URI) {
+        this.URI = URI;
+    }
+
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    /**
+     * @return the objectType
+     */
+    public String getObjectType() {
+        return objectType;
+    }
+
+    /**
+     * @param objectType the objectType to set
+     */
+    public void setObjectType(String objectType) {
+        this.objectType = objectType;
+    }
+
+    /**
+     * @return the home
+     */
+    public String getHome() {
+        return home;
+    }
+
+    /**
+     * @param home the home to set
+     */
+    public void setHome(String home) {
+        this.home = home;
+    }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 }

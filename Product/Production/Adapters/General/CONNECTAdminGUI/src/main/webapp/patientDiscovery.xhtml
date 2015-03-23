@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /* 
+   * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+   * All rights reserved. 
+   *
+   * Redistribution and use in source and binary forms, with or without  
+   * modification, are permitted provided that the following conditions are met:  
+   *     * Redistributions of source code must retain the above  
+   *       copyright notice, this list of conditions and the following disclaimer. 
+   *     * Redistributions in binary form must reproduce the above copyright  
+   *       notice, this list of conditions and the following disclaimer in the documentation  
+   *       and/or other materials provided with the distribution.  
+   *     * Neither the name of the United States Government nor the  
+   *       names of its contributors may be used to endorse or promote products  
+   *       derived from this software without specific prior written permission.  
+   * 
+   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND  
+   * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED  
+   * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE  
+   * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY  
+   * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES  
+   * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  
+   * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND  
+   * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT  
+   * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS  
+   * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+   */ 
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:body>	
+        <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
+            <ui:define name="metatag"></ui:define>
+            <ui:define name="content">
+                <h1 class="section-header">Universal Client</h1>
+                <p:tabView id="patientSearchTabView" activeIndex="#{patientSearchBean.activeIndex}" cache="false" effect="fade" effectDuration="normal" dynamic="true" styleClass="tabs-override tabs-ovr-green">
+                    <div class="tab-content">
+                        <p:tab title="Patient Search"  closable="false">
+                            <h:form class="form-horizontal" role="form" id="patientDiecovryForm" prependId="false">
+                                <p:panelGrid styleClass="ui-panelgrid-admin" style="margin: 0;border:0 none;padding-top: 0;margin-top: 0;margin-bottom: 0;padding-bottom: 0">
+                                    <p:row>
+                                        <p:column style="vertical-align:top;">
+                                            <p:commandButton id="StartOver" type="submit" value="Start Over" styleClass="btn-default" update=":patientSearchTabView" action="#{patientSearchBean.startOver()}" immediate="true"/>
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid >
+                                <div class="tab-pane active" id="patient">
+                                    <div class="content-block">
+                                        <h2 class="subsection-header">Search Wizard</h2>
+                                        <div class="content" >
+                                            <p:graphicImage value="resources/images/PatientQueryHeader.png" height="60" width="100%"/>
+                                            <div class="form-block center-block">
+                                                <p:messages id="PatientCriteria" autoUpdate="true" closable="true" severity="error" redisplay="false" />
+                                                <div class="form-group">
+                                                    <h:outputLabel for="organization" class="col-sm-3 control-label" id="labelOraganization" value="Organization:" />
+                                                    <div class="col-sm-9">
+                                                        <h:selectOneMenu class="form-control" id="organization" value="#{patientSearchBean.organization}" required="true" requiredMessage="Organization required.">
+                                                            <f:selectItem itemLabel="---" itemValue="#{null}" noSelectionOption="true" />
+                                                            <f:selectItems value="#{patientSearchBean.organizationList}"/>
+                                                        </h:selectOneMenu>
+                                                        <p:tooltip id="toolTipOrganization" for="organization" showEvent="focus" hideEvent="blur" value="Organization from where you want to search the Patient." />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel for="inputFirstName" class="col-sm-3 control-label" id="labelFirstName" value="First Name:" />
+                                                    <div class="col-sm-9">
+                                                        <p:inputText styleClass="form-control" value="#{patientSearchBean.firstName}" id="inputFirstName" maxlength="20" required="true" requiredMessage="First Name required."/>
+                                                    </div>
+                                                    <p:tooltip id="toolTipInputFirstName" for="inputFirstName" showEvent="focus" hideEvent="blur" value="First Name of the Patient." />
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel for="inputLastName" class="col-sm-3 control-label" id="labelLastName" value="Last Name:" />
+                                                    <div class="col-sm-9">
+                                                        <p:inputText styleClass="form-control" value="#{patientSearchBean.lastName}" id="inputLastName" maxlength="20" required="true" requiredMessage="Last Name required." />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel for="inputDateOfBirth" class="col-sm-3 control-label" id="labelDateOfBirth" value="Date Of Birth:" />
+                                                    <div class="col-sm-9">
+                                                        <p:calendar id="inputDateOfBirth" value="#{patientSearchBean.dateOfBirth}" showOn="button" pattern="MM/dd/yyyy" required="true" requiredMessage="Date Of Birth Required"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel for="inputGender" class="col-sm-3 control-label" id="labelGender" value="Gender"/>
+                                                    <div class="col-sm-9">
+                                                        <h:selectOneMenu class="form-control" id="inputGender" value="#{patientSearchBean.gender}" required="true" requiredMessage="Gender required." >
+                                                            <f:selectItem itemLabel="---" itemValue="#{null}" noSelectionOption="true" />
+                                                            <f:selectItems value="#{patientSearchBean.genderList}"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-button-row">
+                                                            <p:commandButton id="ResetPatientTab" value="Clear" styleClass="btn btn-primary" action="#{patientSearchBean.clearPatientTab()}" immediate="true" update=":patientSearchTabView"/>
+                                                            <p:commandButton id="searchPatient" update=":patientSearchTabView, patientResult" value="Search" styleClass="add-button pull-right" icon="ui-icon-search" action="#{patientSearchBean.searchPatient()}"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-12">
+                                                        <p:outputLabel value="#{patientSearchBean.patientMessage}" style="font-size: large"/>
+                                                        <h:dataTable id="patientResult" value="#{patientSearchBean.patientList}" var="patient" styleClass="table table-striped table-remotegateways" rendered="#{patientSearchBean.patientFound}">
+                                                            <h:column>
+                                                                <!-- column header -->
+                                                                <f:facet name="header">Name</f:facet>
+                                                                <!-- row record -->
+                                                                #{patient.name}
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Patient ID</f:facet>
+                                                                    #{patient.patientId}
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Organization</f:facet>
+                                                                    #{patient.organization}
+                                                            </h:column> 
+                                                            <h:column>
+                                                                <f:facet name="header"></f:facet>
+                                                                <p:commandButton id="viewDetails1" value="View Details" styleClass="add-button pull-right" icon="ui-icon-search" action="#{patientSearchBean.switchTab()}" update=":patientSearchTabView"/>
+                                                            </h:column>
+                                                        </h:dataTable>                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </p:tab>
+                        <p:tab title="Document Search"  closable="false" disabled="#{patientSearchBean.enablePatientqueryTab()}">
+                            <h:form class="form-horizontal" role="form" id="documentSearchForm">
+                                <p:panelGrid styleClass="ui-panelgrid-admin" style="margin: 0;border:0 none;padding-top: 0;margin-top: 0;margin-bottom: 0;padding-bottom: 0">
+                                    <p:row>
+                                        <p:column style="vertical-align:top;">
+                                            <p:commandButton id="StartOverDQ" value="Start Over" update=":patientSearchTabView" styleClass="btn-default" action="#{patientSearchBean.startOver()}" immediate="true"/>
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                                <div class="tab-pane active" id="DocumentSearch">
+                                    <div class="content-block">
+                                        <h2 class="subsection-header">Search Wizard</h2>
+                                        <div class="content">
+                                            <p:graphicImage value="resources/images/DocumentQueryHeader.png"  height="60" width="100%"/>
+                                            <div class="form-block center-block">
+                                                <p:spacer height="1"/>
+                                                <p:separator/>
+                                                <h3>Current Patient Details</h3>
+                                                <p:panel id="orgPanel" widgetVar="orgPanel" style="width: 100%; margin: 0;border:0 none;">
+                                                    <p:panelGrid styleClass="ui-panelgrid-domain" style="margin: 0;border:0 none;" columns="6">
+                                                        <p:outputLabel value="Name:" />
+                                                        <h:outputText  value="#{patientSearchBean.patientList[0].name}" />
+                                                        <p:outputLabel value="Patient ID:" />
+                                                        <h:outputText  value="#{patientSearchBean.patientList[0].patientId}" />
+                                                        <p:outputLabel value="Organization:" />
+                                                        <h:outputText value="#{patientSearchBean.patientList[0].organization}" />
+                                                        <p:outputLabel value="Gender:" />
+                                                        <h:outputText  value="#{patientSearchBean.patientList[0].gender}"/>
+                                                        <p:outputLabel value="Date Of Birth:" />
+                                                        <h:outputText value="#{patientSearchBean.patientList[0].dateOfBirth}">
+                                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                        </h:outputText>
+                                                        <p:outputLabel value="Phone:" />
+                                                        <h:outputText value="(703) 227-5000" />
+                                                    </p:panelGrid>
+                                                </p:panel>
+                                                <p:separator/>
+                                                <h3>Enter Document Query Details</h3>
+                                                <p:messages id="DocumentSearchCriteria" autoUpdate="true" closable="true" severity="error" redisplay="false" />
+
+                                                <div class="form-group">
+                                                    <h:outputLabel for="documentTypeList" class="col-sm-3 control-label" id="labelDocumentTypeList" value="Document Type:" />
+                                                    <div class="col-sm-9">
+                                                        <p:selectCheckboxMenu id="documentTypeList" styleClass="form-control" value="#{patientSearchBean.queryDocuments}" label="Document Types" panelStyle="width:220px" required="false" requiredMessage="Document Type requried.">
+                                                            <f:selectItems value="#{patientSearchBean.documentTypeList}"/>
+                                                        </p:selectCheckboxMenu>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel for="inputDateRangeFrom" class="col-sm-3 control-label" id="labelDateRangeFrom" value="Date Range From:" />
+                                                    <div class="col-sm-9">
+                                                        <p:calendar id="inputDateRangeFrom" showOn="button" pattern="MM/dd/yyyy" value="#{patientSearchBean.documentRangeFrom}" required="false" requiredMessage="Date Range From required."/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel for="inputDateRangeTo" class="col-sm-3 control-label" id="labelDateRangeTo" value="To:" />
+
+                                                    <div class="col-sm-9">
+                                                        <p:calendar id="inputDateRangeTo" showOn="button" pattern="MM/dd/yyyy" value="#{patientSearchBean.documentRangeTo}" required="false" requiredMessage="Date Range To required."/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-button-row">
+                                                            <p:commandButton id="ResetDocumentQeryTab" value="Clear" styleClass="add-button" action="#{patientSearchBean.clearDocumentQueryTab()}" immediate="true" update=":patientSearchTabView"/>
+                                                            <p:commandButton id="documentQuerySearch" update=":patientSearchTabView,patientDocumentResult,patientDocumentMessage" value="Search" styleClass="add-button pull-right" icon="ui-icon-search" action="#{patientSearchBean.searchPatientDocument()}"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <p:outputLabel id="patientDocumentMessage" value="#{patientSearchBean.documentMessage}" style="font-size: large"/>
+                                                    <h:dataTable id="patientDocumentResult" value="#{patientSearchBean.documentList}" var="patientDocument" styleClass="table table-striped table-remotegateways" rendered="#{patientSearchBean.documentFound}" style="margin: 0;border:0 none;padding-top: 0;margin-top: 0;margin-bottom: 0;padding-bottom: 0">
+                                                        <h:column>
+                                                            <!-- column header -->
+                                                            <f:facet name="header">Document ID</f:facet>
+                                                            <!-- row record -->
+                                                            #{patientDocument.documentId}
+                                                        </h:column>
+
+                                                        <h:column>
+                                                            <f:facet name="header">Document Type</f:facet>
+                                                                #{patientDocument.contentType}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Title</f:facet>
+                                                                #{patientDocument.name}
+                                                        </h:column> 
+                                                        <h:column>
+                                                            <f:facet name="header">Author</f:facet>
+                                                                #{patientDocument.authorPerson}
+                                                        </h:column> 
+                                                        <h:column>
+                                                            <f:facet name="header">Size</f:facet>
+                                                                #{patientDocument.size}
+                                                        </h:column> 
+                                                        <h:column>
+                                                            <f:facet name="header"></f:facet>
+                                                            <p:commandButton id="showMetadata" value="Metadata" styleClass="add-button pull-right" icon="ui-icon-circle-plus" oncomplete="PF('docMetadataWindow').show()" update=":patientSearchTabView,:documentMetadataDialog">
+                                                                <f:setPropertyActionListener target="#{patientSearchBean.selectedDocument}" value="#{patientDocument.documentIndex}"/>
+                                                            </p:commandButton>
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header"></f:facet>
+                                                            <p:commandButton id="viewDocument" value="Open" styleClass="add-button pull-right" icon="ui-icon-circle-plus" action="#{patientSearchBean.retrieveDocument()}" oncomplete="PF('documentContent').show();" update=":documentDialog">
+                                                                <f:setPropertyActionListener target="#{patientSearchBean.selectedDocument}" value="#{patientDocument.documentIndex}"/>
+                                                            </p:commandButton>    
+                                                        </h:column>
+                                                    </h:dataTable>                                                       
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </p:tab>                
+                    </div>
+                </p:tabView>           
+                <div  class="modal-copyright-prime">
+                    <p:dialog header="Document Metadata" widgetVar="docMetadataWindow" id="documentMetadataDialog"  width="700px" showEffect="clip" hideEffect="clip" modal="true">
+                        <p:separator/>
+                        <h3>Document Metadata Information</h3>
+                        <p:panel id="DocumentMetadataPanel" widgetVar="DQMetadataPanel" style="width: 100%; margin: 0;border:0 none; padding-top: 0;margin-top: 0;margin-bottom: 0;padding-bottom: 0">
+                            <p:panelGrid styleClass="ui-panelgrid-domain" style="margin: 0;border:0 none;" columns="6">
+                                <p:outputLabel value="Author Person:" />
+                                <h:outputText  value="#{patientSearchBean.selectedCurrentDocument.authorPerson}" />
+                                <p:outputLabel value="Author Role:" />
+                                <h:outputText  value="#{patientSearchBean.selectedCurrentDocument.authorRole}" />
+                                <p:outputLabel value="Author Speciality:" />
+                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.authorSpecialty}" />
+                                <p:outputLabel value="Author Institution" />
+                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.authorInstitution}" />
+                                <p:outputLabel value="Content Type:" />
+                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.contentType}"/>
+                                <p:outputLabel value="Size:" />
+                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.size}"/>
+                                <p:outputLabel value="URI:" />
+                                <h:outputText  value="#{patientSearchBean.selectedCurrentDocument.URI}"/>
+                                <p:outputLabel value="Creation Time:" />
+                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.creationTime}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HHmmss" />
+                                </h:outputText>
+                                <p:outputLabel value="Service Start Time:" />
+                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.serviceStartTime}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HHmmss" />
+                                </h:outputText>
+                                <p:outputLabel value="Service Stop Time:" />
+                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.serviceStopTime}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HHmmss" />
+                                </h:outputText>
+                                <p:outputLabel value="Source Patient ID:" />
+                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.sourcePatientId}"/>
+                            </p:panelGrid>
+                        </p:panel>
+                        <p:separator/>
+                    </p:dialog>   
+                </div>
+                <div  class="modal-copyright-prime"  style="height:95%; width:90%; top: 2%; left: 2%">
+                    <p:dialog header="Document Content" widgetVar="documentContent" id="documentDialog"  style="height:95% !important; width:90% !important; top:1% !important; left: 1% !important;" modal="true" >
+                        <p:separator/>
+                        <h3>Document Information for Document ID #{patientSearchBean.selectedCurrentDocument.documentId}</h3>
+                        <p:panel id="documentContentPanel" style="width: 70%; margin: 0;border:0 none; padding-top: 0;margin-top: 0;margin-bottom: 0;padding-bottom: 0">
+                            <p:panelGrid styleClass="ui-panelgrid-domain" style="margin: 0;border:0 none;padding-top: 0;margin-top: 0;margin-bottom: 0;padding-bottom: 0" columns="6">
+                                <p:outputLabel value="Document ID:" />
+                                <h:outputText  value="#{patientSearchBean.selectedCurrentDocument.documentId}" />
+                                <p:outputLabel value="Source Patient Id:" />
+                                <h:outputText  value="#{patientSearchBean.selectedCurrentDocument.sourcePatientId}" />
+                                <p:outputLabel value="Document Name:" />
+                                <h:outputText  value="#{patientSearchBean.selectedCurrentDocument.name}" />
+                                <p:outputLabel value="Document Description:" />
+                                <h:outputText  value="#{patientSearchBean.selectedCurrentDocument.description}" />
+                                <p:outputLabel value="Content Type:" />
+                                <h:outputText  value="#{patientSearchBean.selectedCurrentDocument.contentType}" />
+                                <p:outputLabel value="Document Size:" />
+                                <h:outputText  value="#{patientSearchBean.selectedCurrentDocument.size}" />
+                                <p:outputLabel value="Document Creation Datetime:" />
+                                <h:outputText  value="#{patientSearchBean.selectedCurrentDocument.creationTime}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HHmmss" />
+                                </h:outputText>
+                            </p:panelGrid>
+                        </p:panel>
+                        <p:separator/>
+                        <p:commandButton id="downloadDocument" value="Download" styleClass="btn-default" immediate="true" rendered="false"/>
+                        <br/>
+                        <p:inputTextarea  autoResize="false" readonly="true" rows="35" value="#{patientSearchBean.documentList[patientSearchBean.selectedDocument].document}" style ="height:70% !important;width:100% !important;" rendered="#{patientSearchBean.renderDocumentText}"/>
+                        <!--All image files should be displayed displayed here-->
+                        <p:scrollPanel rendered="#{patientSearchBean.renderDocumentimage}" style ="height:90% !important;width:100% !important;">
+                            <p:graphicImage value="#{patientSearchBean.documentImage}" height="1000px" style ="height:90% !important;width:100% !important;"/>
+                        </p:scrollPanel>
+                        <p:media value="#{patientSearchBean.documentPdf}" rendered="#{patientSearchBean.renderDocumentPdf}" player="pdf" style="height: 800px; width: 100%;"/>
+                        <p:outputLabel value="Document Can't be displayed." style="font-size: large" rendered="#{patientSearchBean.renderDcoumentNotSupported}"/>
+
+                    </p:dialog>   
+                </div>
+                <p:hotkey bind="esc" handler="documentContent.hide();docMetadataWindow.hide();statusDialogBar.hide()" />
+                <p:ajaxStatus onstart="PF('statusDialogBar').show()" onsuccess="PF('statusDialogBar').hide()" />
+                <div  class="modal-copyright-prime">
+                    <p:dialog widgetVar="statusDialogBar" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                        <h:outputText value="Loading...."/>
+                        <p:graphicImage library="images" name="loading-bar-gif.gif" />
+                    </p:dialog>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

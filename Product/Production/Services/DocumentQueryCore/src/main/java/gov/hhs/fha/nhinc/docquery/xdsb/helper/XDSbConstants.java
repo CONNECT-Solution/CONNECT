@@ -80,7 +80,11 @@ public class XDSbConstants {
         /**
          * The uri.
          */
-        URI
+        URI,
+        /**
+         * The intended Recipient.
+         */
+        intendedRecipient
     }
 
     /**
@@ -347,6 +351,7 @@ public class XDSbConstants {
          * The Author.
          */
         Author("urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d"),
+
         /**
          * The class code.
          */
