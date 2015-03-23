@@ -156,13 +156,13 @@ public class DocumentMetadataResult {
      */
     private String mimeType;
     
-    private boolean Opague;
+    private boolean Opaque;
     
-    private int Size;
+    private int size;
     
     private String sourcePatientId;
     
-    private String URI;
+    private String uri;
     
     private String status;
     
@@ -604,28 +604,28 @@ public class DocumentMetadataResult {
      * @return the Opague
      */
     public boolean isOpague() {
-        return Opague;
+        return Opaque;
     }
 
     /**
      * @param Opague the Opague to set
      */
     public void setOpague(boolean Opague) {
-        this.Opague = Opague;
+        this.Opaque = Opague;
     }
 
     /**
      * @return the Size
      */
     public int getSize() {
-        return Size;
+        return size;
     }
 
     /**
      * @param Size the Size to set
      */
     public void setSize(int Size) {
-        this.Size = Size;
+        this.size = Size;
     }
 
     /**
@@ -646,14 +646,14 @@ public class DocumentMetadataResult {
      * @return the URI
      */
     public String getURI() {
-        return URI;
+        return uri;
     }
 
     /**
      * @param URI the URI to set
      */
     public void setURI(String URI) {
-        this.URI = URI;
+        this.uri = URI;
     }
 
     /**

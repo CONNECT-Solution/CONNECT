@@ -41,6 +41,7 @@ import gov.hhs.fha.nhinc.docquery.model.builder.impl.DocumentMetadataResultsMode
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieveResults;
 import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
+import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import org.apache.log4j.Logger;
@@ -54,8 +55,6 @@ import org.apache.log4j.Logger;
 public class GatewayService {
 
     private static final Logger LOG = Logger.getLogger(GatewayService.class);
-
-    private static final String PATIENT_DOB_FORMAT = "yyyyMMdd";
 
     private PatientService patientService;
     private DocumentQueryService documentQueryService;
@@ -91,7 +90,7 @@ public class GatewayService {
         //set the orgainization
         patientBean.setOrganization(patientQuerySearch.getOrganization());
         //set birth date in YYYYMMDD
-        DateFormat df = new SimpleDateFormat(PATIENT_DOB_FORMAT);
+        DateFormat df = new SimpleDateFormat(UTCDateUtil.DATE_ONLY_FORMAT);
         patientBean.setBirthDate(df.format(patientQuerySearch.getDateOfBirth()));
         //set the first name
         patientBean.setFirstName(patientQuerySearch.getFirstName());

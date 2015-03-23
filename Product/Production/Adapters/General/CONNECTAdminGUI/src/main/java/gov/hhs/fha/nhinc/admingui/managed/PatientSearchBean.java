@@ -380,7 +380,7 @@ public class PatientSearchBean {
      */
     public List<Document> getDocumentList() {
         //always return the list from the patient object
-        if (getSelectedCurrentPatient() != null){
+        if (getSelectedCurrentPatient() != null) {
             return getSelectedCurrentPatient().getDocumentList();
         }
         //return the empty list if the patient object is empty
@@ -508,14 +508,7 @@ public class PatientSearchBean {
         List<SelectItem> localDocumentTypeList = new ArrayList<SelectItem>();
         localDocumentTypeList.add(new SelectItem("Prescription", "Prescription"));
         localDocumentTypeList.add(new SelectItem("Discharge Summary", "Discharge Summary"));
-        localDocumentTypeList.add(new SelectItem("Transfer of care referral note", "Discharge Summary"));
-
-        //Load document types from the property file
-        //localDocumentTypeList.put("Prescription", "Prescription");
-        //localDocumentTypeList.put("Discharge Summary", "Discharge Summary");
-        //localDocumentTypeList.put("Radiology Study Reports", "Radiology Study Reports");
-        //localDocumentTypeList.put("Transfer of care referral note", "Transfer of care referral note");
-        //localDocumentTypeList.put("Cardiology Studies", "Cardiology Studies");
+        localDocumentTypeList.add(new SelectItem("Transfer of care referral note", "Transfer of care referral note"));
         return localDocumentTypeList;
     }
 
@@ -539,7 +532,7 @@ public class PatientSearchBean {
      * @return Patient
      */
     public Patient getSelectedCurrentPatient() {
-        if (this.getPatientList().isEmpty()){
+        if (this.getPatientList().isEmpty()) {
             return new Patient();
         }
         return this.getPatientList().get(selectedPatient);
