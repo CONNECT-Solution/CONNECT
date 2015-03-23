@@ -106,5 +106,8 @@ public class AuditDataTransformConstants {
     public static final String EVENT_ID_CODE_SYS_NAME_XDRREQUEST = "XDRREQUEST";
     public static final String EVENT_ID_DISPLAY_NAME_XDRREQUEST = "XDR Request";
     public static final String EVENT_ID_CODE_SYS_NAME_XDRRESPONSE = "XDRRESPONSE";
+    //CORE X12 Constants....
+    public static final String EVENT_ID_CODE_SYS_NAME_X12 = "X12";
+    public static final String EVENT_ID_DISPLAY_NAME_X12REALTIME = "CAQH CORE X12 Document Submission";    
 
 }
