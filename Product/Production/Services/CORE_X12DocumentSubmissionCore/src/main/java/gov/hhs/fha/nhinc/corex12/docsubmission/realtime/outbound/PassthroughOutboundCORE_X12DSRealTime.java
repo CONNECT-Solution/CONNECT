@@ -30,8 +30,10 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
+import gov.hhs.fha.nhinc.corex12.docsubmission.audit.COREX12AuditLogger;
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.entity.OutboundCORE_X12DSRealTimeDelegate;
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.entity.OutboundCORE_X12DSRealTimeOrchestratable;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
@@ -43,26 +45,40 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 public class PassthroughOutboundCORE_X12DSRealTime implements OutboundCORE_X12DSRealTime {
 
     private OutboundCORE_X12DSRealTimeDelegate dsDelegate = new OutboundCORE_X12DSRealTimeDelegate();
+    private COREX12AuditLogger auditLogger = new COREX12AuditLogger();
 
     public PassthroughOutboundCORE_X12DSRealTime() {
         super();
     }
 
-    public PassthroughOutboundCORE_X12DSRealTime(OutboundCORE_X12DSRealTimeDelegate dsDelegate) {
+    /**
+     *
+     * @param dsDelegate
+     * @param auditLogger
+     */
+    public PassthroughOutboundCORE_X12DSRealTime(OutboundCORE_X12DSRealTimeDelegate dsDelegate, COREX12AuditLogger auditLogger) {
         this.dsDelegate = dsDelegate;
+        this.auditLogger = auditLogger;
     }
 
+    /**
+     *
+     * @param body
+     * @param assertion
+     * @param targets
+     * @param urlInfo
+     * @return COREEnvelopeRealTimeResponse
+     */
     @Override
     public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest body, AssertionType assertion,
         NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-
         NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
             targets);
-
+        this.auditRequestToNhin(body, assertion, targetSystem);
         OutboundCORE_X12DSRealTimeOrchestratable dsOrchestratable = createOrchestratable(dsDelegate, body, targetSystem, assertion);
         COREEnvelopeRealTimeResponse response = ((OutboundCORE_X12DSRealTimeOrchestratable) dsDelegate.process(dsOrchestratable))
             .getResponse();
-
+        this.auditResponseFromNhin(response, assertion, targetSystem);
         return response;
     }
 
@@ -75,5 +91,15 @@ public class PassthroughOutboundCORE_X12DSRealTime implements OutboundCORE_X12DS
         core_x12dsOrchestratable.setTarget(targetSystem);
 
         return core_x12dsOrchestratable;
+    }
+
+    private void auditRequestToNhin(COREEnvelopeRealTimeRequest body, AssertionType assertion,
+        NhinTargetSystemType targetSystem) {
+        auditLogger.auditCoreX12RealtimeRequest(body, assertion, targetSystem, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+    }
+
+    private void auditResponseFromNhin(COREEnvelopeRealTimeResponse body, AssertionType assertion,
+        NhinTargetSystemType targetSystem) {
+        auditLogger.auditCoreX12RealtimeRespponse(body, assertion, targetSystem, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, true);
     }
 }

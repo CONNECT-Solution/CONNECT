@@ -28,6 +28,11 @@
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
+            <artifactId>AuditRepositoryCore</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
         </dependency>
         <dependency>
