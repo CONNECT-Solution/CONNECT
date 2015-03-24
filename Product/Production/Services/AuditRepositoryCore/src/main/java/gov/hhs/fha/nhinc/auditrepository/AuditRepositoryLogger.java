@@ -1130,4 +1130,41 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
         LOG.debug("End AuditRepositoryLogger.logNhinCoreX12RealtimeRequest(...)");
         return oAuditMes;
     }
+    
+    /**
+     * 
+     * @param message
+     * @param assertion
+     * @param target
+     * @param direction
+     * @param _interface
+     * @return LogEventRequestType
+     */
+    public LogEventRequestType logAdapterCoreX12RealtimeRequest(COREEnvelopeRealTimeRequest message, AssertionType assertion, NhinTargetSystemType target,
+            String direction) {
+        LOG.debug("Entering AuditRepositoryLogger.logAdapterCoreX12RealtimeRequest(...)");
+        LogEventRequestType oAuditMes = null;
+        oAuditMes = coreX12Realtime.transformRequestToAuditMsg(message, assertion, target, direction, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
+        LOG.debug("End AuditRepositoryLogger.logAdapterCoreX12RealtimeRequest(...)");
+        return oAuditMes;
+    }
+    
+    /**
+     * 
+     * @param message
+     * @param assertion
+     * @param target
+     * @param direction
+     * @param _interface
+     * @param isRequesting
+     * @return LogEventRequestType
+     */
+    public LogEventRequestType logAdapterCoreX12RealtimeResponse(COREEnvelopeRealTimeResponse message, AssertionType assertion, NhinTargetSystemType target,
+            String direction, String _interface, boolean isRequesting) {
+        LOG.debug("Entering AuditRepositoryLogger.logAdapterCoreX12RealtimeResponse(...)");
+        LogEventRequestType oAuditMes = null;
+        oAuditMes = coreX12Realtime.transformResponseToAuditMsg(message, assertion, target, direction, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, isRequesting);
+        LOG.debug("End AuditRepositoryLogger.logAdapterCoreX12RealtimeResponse(...)");
+        return oAuditMes;
+    }
 }

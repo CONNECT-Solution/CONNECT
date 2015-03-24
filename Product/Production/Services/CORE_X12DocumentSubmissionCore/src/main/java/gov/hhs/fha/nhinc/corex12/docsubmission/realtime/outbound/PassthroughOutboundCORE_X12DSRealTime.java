@@ -95,11 +95,11 @@ public class PassthroughOutboundCORE_X12DSRealTime implements OutboundCORE_X12DS
 
     private void auditRequestToNhin(COREEnvelopeRealTimeRequest body, AssertionType assertion,
         NhinTargetSystemType targetSystem) {
-        auditLogger.auditCoreX12RealtimeRequest(body, assertion, targetSystem, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        auditLogger.auditNhinCoreX12RealtimeRequest(body, assertion, targetSystem, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
 
     private void auditResponseFromNhin(COREEnvelopeRealTimeResponse body, AssertionType assertion,
         NhinTargetSystemType targetSystem) {
-        auditLogger.auditCoreX12RealtimeRespponse(body, assertion, targetSystem, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, true);
+        auditLogger.auditNhinCoreX12RealtimeRespponse(body, assertion, targetSystem, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, true);
     }
 }

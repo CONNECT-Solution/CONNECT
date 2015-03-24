@@ -46,14 +46,14 @@ public class COREX12AuditLogger {
     private static final Logger LOG = Logger.getLogger(COREX12AuditLogger.class);
 
     /**
-     * 
+     *
      * @param message
      * @param assertion
      * @param target
-     * @param direction 
+     * @param direction
      */
-    public void auditCoreX12RealtimeRequest(COREEnvelopeRealTimeRequest message, AssertionType assertion, NhinTargetSystemType target,
-            String direction) {
+    public void auditNhinCoreX12RealtimeRequest(COREEnvelopeRealTimeRequest message, AssertionType assertion, NhinTargetSystemType target,
+        String direction) {
         LOG.debug("---Begin COREX12AuditLogger.auditCoreX12RealtimeRequest()---");
         // Set up the audit logging request message
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
@@ -67,14 +67,14 @@ public class COREX12AuditLogger {
     }
 
     /**
-     * 
+     *
      * @param message
      * @param assertion
      * @param target
-     * @param direction 
+     * @param direction
      */
-    public void auditCoreX12RealtimeRespponse(COREEnvelopeRealTimeResponse message, AssertionType assertion, NhinTargetSystemType target,
-            String direction, boolean isRequesting) {
+    public void auditNhinCoreX12RealtimeRespponse(COREEnvelopeRealTimeResponse message, AssertionType assertion, NhinTargetSystemType target,
+        String direction, boolean isRequesting) {
         LOG.debug("---Begin COREX12AuditLogger.auditCoreX12RealtimeRespponse()---");
         // Set up the audit logging request message
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
@@ -85,6 +85,48 @@ public class COREX12AuditLogger {
             LOG.error("Core X12 Realtime Respponse auditLogMsg is null");
         }
         LOG.debug("---End COREX12AuditLogger.auditCoreX12RealtimeRespponse()---");
+    }
+
+    /**
+     *
+     * @param message
+     * @param assertion
+     * @param target
+     * @param direction
+     */
+    public void auditAdapterCoreX12RealtimeRequest(COREEnvelopeRealTimeRequest message, AssertionType assertion, NhinTargetSystemType target,
+        String direction) {
+        LOG.debug("---Begin COREX12AuditLogger.auditAdapterCoreX12RealtimeRequest()---");
+        // Set up the audit logging request message
+        AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+        LogEventRequestType auditLogMsg = auditLogger.logAdapterCoreX12RealtimeRequest(message, assertion, target, direction);
+        if (auditLogMsg != null && auditLogMsg.getAuditMessage() != null) {
+            audit(auditLogMsg, assertion);
+        } else {
+            LOG.error("Core X12 Realtime Request auditLogMsg is null");
+        }
+        LOG.debug("---End COREX12AuditLogger.auditAdapterCoreX12RealtimeRequest()---");
+    }
+
+    /**
+     *
+     * @param message
+     * @param assertion
+     * @param target
+     * @param direction
+     */
+    public void auditAdapterCoreX12RealtimeRespponse(COREEnvelopeRealTimeResponse message, AssertionType assertion, NhinTargetSystemType target,
+        String direction, boolean isRequesting) {
+        LOG.debug("---Begin COREX12AuditLogger.audiAdaptertCoreX12RealtimeRespponse()---");
+        // Set up the audit logging request message
+        AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+        LogEventRequestType auditLogMsg = auditLogger.logAdapterCoreX12RealtimeResponse(message, assertion, target, direction, direction, isRequesting);
+        if (auditLogMsg != null && auditLogMsg.getAuditMessage() != null) {
+            audit(auditLogMsg, assertion);
+        } else {
+            LOG.error("Core X12 Realtime Respponse auditLogMsg is null");
+        }
+        LOG.debug("---End COREX12AuditLogger.auditAdapterCoreX12RealtimeRespponse()---");
     }
 
     /**
