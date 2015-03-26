@@ -103,28 +103,24 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
     private final AdminDistTransforms adAuditTransformer = new AdminDistTransforms();
     private final DocumentQueryTransforms dqAuditTransforms = new DocumentQueryTransforms();
     private NotifyTransforms transformLib = new NotifyTransforms();
-    private final COREX12RealtimeTransforms coreX12Realtime = new COREX12RealtimeTransforms();
+    private final COREX12RealtimeTransforms x12AuditTransformer = new COREX12RealtimeTransforms();
 
     /**
-     * Constructor code for the AuditRepositoryLogger. This instantiates the
-     * object.
+     * Constructor code for the AuditRepositoryLogger. This instantiates the object.
      */
     public AuditRepositoryLogger() {
     }
 
     /**
-     * This method will create the generic Audit Log Message from a NHIN Patient
-     * Discovery Request.
+     * This method will create the generic Audit Log Message from a NHIN Patient Discovery Request.
      *
      * @param message The Patient Discovery Request message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logNhinPatientDiscAck(MCCIIN000002UV01 message, AssertionType assertion,
-            String direction, String _interface) {
+        String direction, String _interface) {
         LOG.debug("Entering AuditRepositoryLogger.logNhinPatientDiscReq(...)");
         LogEventRequestType auditMsg = null;
         auditMsg = pdAuditTransformer.transformAck2AuditMsg(message, assertion, direction, _interface);
@@ -133,253 +129,215 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
     }
 
     /**
-     * This method will create the generic Audit Log Message from a NHIN Patient
-     * Discovery Request.
+     * This method will create the generic Audit Log Message from a NHIN Patient Discovery Request.
      *
      * @param message The Patient Discovery Request message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
+     * @param direction The direction this message is going (Inbound or Outbound)
      * @param _type The type of service (Synchronous or Deferred)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logNhinPatientDiscReq(PRPAIN201305UV02 message, AssertionType assertion,
-            String direction, String _type) {
+        String direction, String _type) {
         LOG.debug("Entering AuditRepositoryLogger.logNhinPatientDiscReq(...)");
         LogEventRequestType auditMsg = null;
         auditMsg = pdAuditTransformer.transformNhinPRPAIN201305RequestToAuditMsg(message, assertion, direction,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, _type, null);
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE, _type, null);
         LOG.debug("Exiting AuditRepositoryLogger.logNhinPatientDiscReq(...)");
         return auditMsg;
     }
 
     /**
-     * This method will create the generic Audit Log Message from a NHIN Patient
-     * Discovery Response.
+     * This method will create the generic Audit Log Message from a NHIN Patient Discovery Response.
      *
      * @param message The Patient Discovery Response message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
+     * @param direction The direction this message is going (Inbound or Outbound)
      * @param _type The type of service (Synchronous or Deferred)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logNhinPatientDiscResp(PRPAIN201306UV02 message, AssertionType assertion,
-            String direction, String _type) {
+        String direction, String _type) {
         LOG.debug("Entering AuditRepositoryLogger.logNhinPatientDiscResp(...)");
         LogEventRequestType auditMsg = null;
         auditMsg = pdAuditTransformer.transformNhinPRPAIN201306ResponseToAuditMsg(message, assertion, direction,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, _type);
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE, _type);
         LOG.debug("Exiting AuditRepositoryLogger.logNhinPatientDiscResp(...)");
         return auditMsg;
     }
 
     /**
-     * This method will create the generic Audit Log Message from an Adapter
-     * Patient Discovery Request.
+     * This method will create the generic Audit Log Message from an Adapter Patient Discovery Request.
      *
      * @param message The Patient Discovery Request message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
+     * @param direction The direction this message is going (Inbound or Outbound)
      * @param _type The type of service (Synchronous or Deferred)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logAdapterPatientDiscReq(PRPAIN201305UV02 message, AssertionType assertion,
-            String direction, String _type) {
+        String direction, String _type) {
         LOG.debug("Entering AuditRepositoryLogger.logAdapterPatientDiscReq(...)");
         LogEventRequestType auditMsg = null;
         auditMsg = pdAuditTransformer.transformAdapterPRPAIN201305RequestToAuditMsg(message, assertion, direction,
-                NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, _type, null);
+            NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, _type, null);
         LOG.debug("Exiting AuditRepositoryLogger.logAdapterPatientDiscReq(...)");
         return auditMsg;
     }
 
     /**
-     * This method will create the generic Audit Log Message from an Adapter
-     * Patient Discovery Response.
+     * This method will create the generic Audit Log Message from an Adapter Patient Discovery Response.
      *
      * @param message The Patient Discovery Response message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
+     * @param direction The direction this message is going (Inbound or Outbound)
      * @param _type The type of service (Synchronous or Deferred)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logAdapterPatientDiscResp(PRPAIN201306UV02 message, AssertionType assertion,
-            String direction, String _type) {
+        String direction, String _type) {
         LOG.debug("Entering AuditRepositoryLogger.logAdapterPatientDiscResp(...)");
         LogEventRequestType auditMsg = null;
         auditMsg = pdAuditTransformer.transformNhinPRPAIN201306ResponseToAuditMsg(message, assertion, direction,
-                NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, _type);
+            NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, _type);
         LOG.debug("Exiting AuditRepositoryLogger.logAdapterPatientDiscResp(...)");
         return auditMsg;
     }
 
     /**
-     * This method will create the generic Audit Log Message from an Entity
-     * Patient Discovery Request.
+     * This method will create the generic Audit Log Message from an Entity Patient Discovery Request.
      *
      * @param message The Patient Discovery Request message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
+     * @param direction The direction this message is going (Inbound or Outbound)
      * @param _type The type of service (Synchronous or Deferred)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logEntityPatientDiscReq(RespondingGatewayPRPAIN201305UV02RequestType message,
-            AssertionType assertion, String direction, String _type, String _process) {
+        AssertionType assertion, String direction, String _type, String _process) {
         LOG.debug("Entering AuditRepositoryLogger.logEntityPatientDiscReq(...)");
         LogEventRequestType auditMsg = null;
         auditMsg = pdAuditTransformer.transformEntityPRPAIN201305RequestToAuditMsg(message, assertion, direction,
-                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, _type, _process);
+            NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, _type, _process);
         LOG.debug("Exiting AuditRepositoryLogger.logEntityPatientDiscReq(...)");
         return auditMsg;
     }
 
     /**
-     * This method will create the generic Audit Log Message from an Entity
-     * Patient Discovery Response.
+     * This method will create the generic Audit Log Message from an Entity Patient Discovery Response.
      *
      * @param message The Patient Discovery Response message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
+     * @param direction The direction this message is going (Inbound or Outbound)
      * @param _type The type of service (Synchronous or Deferred)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logEntityPatientDiscResp(RespondingGatewayPRPAIN201306UV02ResponseType message,
-            AssertionType assertion, String direction, String _type) {
+        AssertionType assertion, String direction, String _type) {
         LOG.debug("Entering AuditRepositoryLogger.logEntityPatientDiscResp(...)");
         LogEventRequestType auditMsg = null;
         auditMsg = pdAuditTransformer.transformEntityPRPAIN201306ResponseToAuditMsg(message, assertion, direction,
-                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, _type);
+            NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, _type);
         LOG.debug("Exiting AuditRepositoryLogger.logEntityPatientDiscResp(...)");
         return auditMsg;
     }
 
     /**
-     * This method will create the generic Audit Log Message from an Entity
-     * Patient Discovery Async Response.
+     * This method will create the generic Audit Log Message from an Entity Patient Discovery Async Response.
      *
-     * @param message The Patient Discovery Async Response message to be audit
-     * logged.
+     * @param message The Patient Discovery Async Response message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
+     * @param direction The direction this message is going (Inbound or Outbound)
      * @param _type The type of service (Synchronous or Deferred)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logEntityPatientDiscAsyncResp(RespondingGatewayPRPAIN201306UV02RequestType message,
-            AssertionType assertion, String direction, String _type) {
+        AssertionType assertion, String direction, String _type) {
         LOG.debug("Entering AuditRepositoryLogger.logEntityPatientDiscAsyncResp(...)");
         LogEventRequestType auditMsg = null;
         auditMsg = pdAuditTransformer.transformEntityPRPAIN201306AsyncResponseToAuditMsg(message, assertion, direction,
-                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, _type);
+            NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, _type);
         LOG.debug("Exiting AuditRepositoryLogger.logEntityPatientDiscAsyncResp(...)");
         return auditMsg;
     }
 
     /**
-     * This method will create the generic Audit Log Message from an Entity XDR
-     * Request.
+     * This method will create the generic Audit Log Message from an Entity XDR Request.
      *
      * @param message The XDR Request message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logEntityXDRReq(
-            RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType message, AssertionType assertion,
-            String direction) {
+        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType message, AssertionType assertion,
+        String direction) {
         LOG.debug("Entering AuditRepositoryLogger.logEntityXDRReq(...)");
         LogEventRequestType auditMsg = xdrAuditTransformer.transformRequestToAuditMsg(message.getProvideAndRegisterDocumentSetRequest(),
-                assertion, null, direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+            assertion, null, direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
         LOG.debug("Exiting AuditRepositoryLogger.logEntityXDRReq(...)");
         return auditMsg;
     }
 
     /**
-     * This method will create the generic Audit Log message from an Audit XDR
-     * Response.
+     * This method will create the generic Audit Log message from an Audit XDR Response.
      *
      * @param response The Registry Response message to be audit logged
      * @param assertion The assertion of the message to be audit logged
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logAdapterXDRResponse(RegistryResponseType response, AssertionType assertion,
-            String direction) {
+        String direction) {
         LOG.debug("Entering AuditRepositoryLogger.logAdapterXDRResponse(...)");
         LogEventRequestType auditMsg = xdrAuditTransformer.transformResponseToAuditMsg(response, assertion, null,
-                direction, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, true);
+            direction, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, true);
         LOG.debug("Exiting AuditRepositoryLogger.logAdapterXDRResponse(...)");
         return auditMsg;
     }
 
     /**
-     * This method will create the generic Audit Log message from an Entity XDR
-     * Response.
+     * This method will create the generic Audit Log message from an Entity XDR Response.
      *
      * @param response The Registry Response message to be audit logged
      * @param assertion The assertion of the message to be audit logged
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logEntityXDRResponse(RegistryResponseType response, AssertionType assertion,
-            String direction) {
+        String direction) {
         LOG.debug("Entering AuditRepositoryLogger.logEntityXDRResponse(...)");
         LogEventRequestType auditMsg = xdrAuditTransformer.transformResponseToAuditMsg(response, assertion, null,
-                direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, true);
+            direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, true);
         LOG.debug("Exiting AuditRepositoryLogger.logEntityXDRResponse(...)");
         return auditMsg;
     }
 
     /**
-     * This method will create the generic Audit Log Message from an Entity XDR
-     * Request Response.
+     * This method will create the generic Audit Log Message from an Entity XDR Request Response.
      *
      * @param response The XDR Request Response message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logEntityXDRResponseRequest(
-            gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType response,
-            AssertionType assertion, String direction) {
+        gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType response,
+        AssertionType assertion, String direction) {
         LOG.debug("Entering AuditRepositoryLogger.logEntityXDRResponse(...)");
         LogEventRequestType auditMsg = xdrAuditTransformer.transformRequestToAuditMsg(response, assertion, null,
-                direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+            direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
         LOG.debug("Exiting AuditRepositoryLogger.logEntityXDRResponse(...)");
         return auditMsg;
     }
 
     /**
-     * This method will create the generic Audit Log Message from a document
-     * query request.
+     * This method will create the generic Audit Log Message from a document query request.
      *
      * @param message The Document Query Request message to be audit logged.
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @param _interface The interface this message is being received/sent on
-     * (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logAdhocQuery(AdhocQueryMessageType message, String direction, String _interface) {
         LOG.debug("Entering AuditRepositoryLogger.logAdhocQuery(...)");
@@ -387,20 +345,16 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
     }
 
     /**
-     * This method will create the generic Audit Log Message from a document
-     * query request.
+     * This method will create the generic Audit Log Message from a document query request.
      *
      * @param message The Document Query Request message to be audit logged.
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @param _interface The interface this message is being received/sent on
-     * (Entity, Adapter, or Nhin)
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
      * @param responseCommunityId
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logAdhocQuery(AdhocQueryMessageType message, String direction, String _interface,
-            String responseCommunityId) {
+        String responseCommunityId) {
         LOG.debug("Entering AuditRepositoryLogger.logAdhocQuery(...)");
         LogEventRequestType auditMsg = null;
         LogAdhocQueryRequestType logReqMsg = new LogAdhocQueryRequestType();
@@ -413,37 +367,29 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
     }
 
     /**
-     * This method will create the generic Audit Log Message from a document
-     * query response.
+     * This method will create the generic Audit Log Message from a document query response.
      *
      * @param message The Document Query Response message to be audit logged.
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @param _interface The interface this message is being received/sent on
-     * (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logAdhocQueryResult(AdhocQueryResponseMessageType message, String direction,
-            String _interface) {
+        String _interface) {
         return this.logAdhocQueryResult(message, direction, _interface, null);
     }
 
     /**
-     * This method will create the generic Audit Log Message from a document
-     * query response.
+     * This method will create the generic Audit Log Message from a document query response.
      *
      * @param message The Document Query Response message to be audit logged.
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @param _interface The interface this message is being received/sent on
-     * (Entity, Adapter, or Nhin)
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
      * @param requestCommunityID
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logAdhocQueryResult(AdhocQueryResponseMessageType message, String direction,
-            String _interface, String requestCommunityID) {
+        String _interface, String requestCommunityID) {
         LOG.debug("Entering AuditRepositoryLogger.logAdhocQueryResult(...)");
         LogEventRequestType auditMsg = null;
         LogAdhocQueryResultRequestType logReqMsg = new LogAdhocQueryResultRequestType();
@@ -456,44 +402,36 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
     }
 
     /**
-     * This method will create the generic Audit Log Message from a document
-     * query deferred acknowledgment.
+     * This method will create the generic Audit Log Message from a document query deferred acknowledgment.
      *
      * @param acknowledgement The DocQuery Acknowledgment
      * @param assertion The Assertion Class containing SAML information
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @param _interface The interface this message is being received/sent on
-     * (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logAdhocQueryDeferredAck(DocQueryAcknowledgementType acknowledgement,
-            AssertionType assertion, String direction, String _interface) {
+        AssertionType assertion, String direction, String _interface) {
         LOG.debug("Entering AuditRepositoryLogger.logAdhocQueryResult(...)");
         return logAdhocQueryDeferredAck(acknowledgement, assertion, direction, _interface, null);
     }
 
     /**
-     * This method will create the generic Audit Log Message from a document
-     * query deferred acknowledgment.
+     * This method will create the generic Audit Log Message from a document query deferred acknowledgment.
      *
      * @param acknowledgement The DocQuery Acknowledgment
      * @param assertion The Assertion Class containing SAML information
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @param _interface The interface this message is being received/sent on
-     * (Entity, Adapter, or Nhin)
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
      * @param requestCommunityID The Request Community ID
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logAdhocQueryDeferredAck(DocQueryAcknowledgementType acknowledgement,
-            AssertionType assertion, String direction, String _interface, String requestCommunityID) {
+        AssertionType assertion, String direction, String _interface, String requestCommunityID) {
         LOG.debug("Entering AuditRepositoryLogger.logAdhocQueryResult(...)");
         LogEventRequestType auditMsg = null;
         auditMsg = dqAuditTransforms.transformAcknowledgementToAuditMsg(acknowledgement, assertion, direction,
-                _interface, requestCommunityID);
+            _interface, requestCommunityID);
         LOG.debug("Exiting AuditRepositoryLogger.logAdhocQueryResult(...)");
         return auditMsg;
     }
@@ -511,7 +449,7 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      */
     @Override
     public LogEventRequestType logDocRetrieve(DocRetrieveMessageType message, String direction, String _interface,
-            String responseCommunityID) {
+        String responseCommunityID) {
         LOG.debug("Entering AuditRepositoryLogger.logDocRetrieve(...)");
         LogEventRequestType auditMsg = null;
         LogDocRetrieveRequestType logReqMsg = new LogDocRetrieveRequestType();
@@ -528,7 +466,7 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      */
     @Override
     public LogEventRequestType logDocRetrieveResult(DocRetrieveResponseMessageType message, String direction,
-            String _interface) {
+        String _interface) {
         return logDocRetrieveResult(message, direction, _interface, null);
     }
 
@@ -537,7 +475,7 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      */
     @Override
     public LogEventRequestType logDocRetrieveResult(DocRetrieveResponseMessageType message, String direction,
-            String _interface, String requestCommunityID) {
+        String _interface, String requestCommunityID) {
         LOG.debug("Entering AuditRepositoryLogger.logDocRetrieveResult(...)");
         LogEventRequestType auditMsg = null;
         LogDocRetrieveResultRequestType logReqMsg = new LogDocRetrieveResultRequestType();
@@ -550,19 +488,15 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
     }
 
     /**
-     * This method will create the generic Audit Log Message from an audit query
-     * request.
+     * This method will create the generic Audit Log Message from an audit query request.
      *
      * @param message The Audit Query Request message to be audit logged.
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @param _interface The interface this message is being received/sent on
-     * (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logFindAuditEvents(FindAuditEventsMessageType message, String direction,
-            String _interface) {
+        String _interface) {
         LOG.debug("Entering AuditRepositoryLogger.logFindAuditEvents(...)");
         LogEventRequestType auditMsg = null;
         LogFindAuditEventsRequestType logReqMsg = new LogFindAuditEventsRequestType();
@@ -575,19 +509,15 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
     }
 
     /**
-     * This method will create the generic Audit Log Message from an audit query
-     * response.
+     * This method will create the generic Audit Log Message from an audit query response.
      *
      * @param message The Audit Query Response message to be audit logged.
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @param _interface The interface this message is being received/sent on
-     * (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logFindAuditEventsResult(FindAuditEventsResponseMessageType message, String direction,
-            String _interface) {
+        String _interface) {
         LOG.debug("Entering AuditRepositoryLogger.logFindAuditEventsResult(...)");
         LogEventRequestType auditMsg = null;
         LogFindAuditEventsResultRequestType logReqMsg = new LogFindAuditEventsResultRequestType();
@@ -600,16 +530,12 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
     }
 
     /**
-     * This method will create the generic Audit Log Message from a Nhin
-     * Subscribe request.
+     * This method will create the generic Audit Log Message from a Nhin Subscribe request.
      *
      * @param message The Nhin Subscribe Request message to be audit logged.
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @param _interface The interface this message is being received/sent on
-     * (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logNhinSubscribeRequest(SubscribeRequestType message, String direction, String _interface) {
         LOG.debug("Entering AuditRepositoryLogger.logNhinSubscribeRequest(...)");
@@ -626,16 +552,12 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
     }
 
     /**
-     * This method will create the generic Audit Log Message from a Nhin notify
-     * request.
+     * This method will create the generic Audit Log Message from a Nhin notify request.
      *
      * @param message The Nhin Notify Request message to be audit logged.
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @param _interface The interface this message is being received/sent on
-     * (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logNhinNotifyRequest(NotifyRequestType message, String direction, String _interface) {
         LOG.debug("Entering AuditRepositoryLogger.logNhinNotifyRequest(...)");
@@ -651,19 +573,15 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
     }
 
     /**
-     * This method will create the generic Audit Log Message from a Nhin
-     * unsubscribe request.
+     * This method will create the generic Audit Log Message from a Nhin unsubscribe request.
      *
      * @param message The Nhin Unsubscribe Request message to be audit logged.
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @param _interface The interface this message is being received/sent on
-     * (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logNhinUnsubscribeRequest(UnsubscribeRequestType message, String direction,
-            String _interface) {
+        String _interface) {
         LOG.debug("Entering AuditRepositoryLogger.logNhinUnsubscribeRequest(...)");
         LogEventRequestType auditMsg = null;
         UnsubscribeTransforms transformLib = new UnsubscribeTransforms();
@@ -677,19 +595,15 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
     }
 
     /**
-     * This method will create the generic Audit Log Message from an unsubscribe
-     * response.
+     * This method will create the generic Audit Log Message from an unsubscribe response.
      *
      * @param message The Unsubscribe Response message to be audit logged.
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @param _interface The interface this message is being received/sent on
-     * (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logUnsubscribeResponse(UnsubscribeResponseMessageType message, String direction,
-            String _interface) {
+        String _interface) {
         LOG.debug("Entering AuditRepositoryLogger.logUnsubscribeResponse(...)");
         LogEventRequestType auditMsg = null;
         LogUnsubscribeResponseType logReqMsg = new LogUnsubscribeResponseType();
@@ -703,19 +617,15 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
     }
 
     /**
-     * This method will create the generic Audit Log Message from a subscribe
-     * response.
+     * This method will create the generic Audit Log Message from a subscribe response.
      *
      * @param message The Subscribe Response message to be audit logged.
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @param _interface The interface this message is being received/sent on
-     * (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logSubscribeResponse(SubscribeResponseMessageType message, String direction,
-            String _interface) {
+        String _interface) {
         LOG.debug("Entering AuditRepositoryLogger.logSubscribeResponse(...)");
         LogEventRequestType auditMsg = null;
         LogSubscribeResponseType logReqMsg = new LogSubscribeResponseType();
@@ -729,20 +639,15 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
     }
 
     /**
-     * This method will create the generic Audit Log Message from an entity
-     * document subscribe request.
+     * This method will create the generic Audit Log Message from an entity document subscribe request.
      *
-     * @param message The Entity Document Subscribe Request message to be audit
-     * logged.
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @param _interface The interface this message is being received/sent on
-     * (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @param message The Entity Document Subscribe Request message to be audit logged.
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logEntityDocSubscribeRequest(EntityDocumentSubscribeRequestMessageType message,
-            String direction, String _interface) {
+        String direction, String _interface) {
         LOG.debug("Entering AuditRepositoryLogger.logEntityDocSubscribeRequest(...)");
         LogEventRequestType auditMsg = null;
         LogEntityDocumentSubscribeRequestType logReqMsg = new LogEntityDocumentSubscribeRequestType();
@@ -755,20 +660,15 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
     }
 
     /**
-     * This method will create the generic Audit Log Message from an entity CDC
-     * subscribe request.
+     * This method will create the generic Audit Log Message from an entity CDC subscribe request.
      *
-     * @param message The Entity CDC Subscribe Request message to be audit
-     * logged.
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @param _interface The interface this message is being received/sent on
-     * (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @param message The Entity CDC Subscribe Request message to be audit logged.
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logEntityCdcSubscribeRequest(EntityCdcSubscribeRequestMessageType message,
-            String direction, String _interface) {
+        String direction, String _interface) {
         LOG.debug("Entering AuditRepositoryLogger.logEntityCdcSubscribeRequest(...)");
         LogEventRequestType auditMsg = null;
         LogEntityCdcSubscribeRequestType logReqMsg = new LogEntityCdcSubscribeRequestType();
@@ -781,20 +681,15 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
     }
 
     /**
-     * This method will create the generic Audit Log Message from an entity
-     * document notify request.
+     * This method will create the generic Audit Log Message from an entity document notify request.
      *
-     * @param message The Entity Document Notify Request message to be audit
-     * logged.
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @param _interface The interface this message is being received/sent on
-     * (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @param message The Entity Document Notify Request message to be audit logged.
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logEntityDocNotifyRequest(EntityDocumentNotifyRequestMessageType message,
-            String direction, String _interface) {
+        String direction, String _interface) {
         LOG.debug("Entering AuditRepositoryLogger.logEntityDocNotifyRequest(...)");
         LogEventRequestType auditMsg = null;
         LogEntityDocumentNotifyRequestType logReqMsg = new LogEntityDocumentNotifyRequestType();
@@ -807,19 +702,15 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
     }
 
     /**
-     * This method will create the generic Audit Log Message from an entity CDC
-     * notify request.
+     * This method will create the generic Audit Log Message from an entity CDC notify request.
      *
      * @param message The Entity CDC Notify Request message to be audit logged.
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @param _interface The interface this message is being received/sent on
-     * (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logEntityCdcNotifyRequest(EntityCdcNotifyRequestMessageType message, String direction,
-            String _interface) {
+        String _interface) {
         LOG.debug("Entering AuditRepositoryLogger.logEntityCdcNotifyRequest(...)");
         LogEventRequestType auditMsg = null;
         LogEntityCdcNotifyRequestType logReqMsg = new LogEntityCdcNotifyRequestType();
@@ -832,19 +723,15 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
     }
 
     /**
-     * This method will create the generic Audit Log Message from an entity
-     * notify response.
+     * This method will create the generic Audit Log Message from an entity notify response.
      *
      * @param message The Entity Notify Response message to be audit logged.
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @param _interface The interface this message is being received/sent on
-     * (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logEntityNotifyResponse(EntityNotifyResponseMessageType message, String direction,
-            String _interface) {
+        String _interface) {
         LOG.debug("Entering AuditRepositoryLogger.logEntityNotifyResponse(...)");
         LogEventRequestType auditMsg = null;
         LogEntityNotifyResponseType logReqMsg = new LogEntityNotifyResponseType();
@@ -861,12 +748,11 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      *
      * @param message The generic XDR Request message
      * @param assertion The assertion to be audited
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
+     * @param direction The direction this message is going (Inbound or Outbound)
      * @return
      */
     public LogEventRequestType logXDRReq(ProvideAndRegisterDocumentSetRequestType message, AssertionType assertion,
-            NhinTargetSystemType target, String direction) {
+        NhinTargetSystemType target, String direction) {
         LOG.debug("Entering AuditRepositoryLogger.logNhinXDRReq(...)");
         if (message == null) {
             LOG.error("Message is null");
@@ -874,7 +760,7 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
         }
         XDRTransforms auditTransformer = new XDRTransforms();
         LogEventRequestType auditMsg = auditTransformer.transformRequestToAuditMsg(message, assertion, target, direction,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         LOG.debug("Exiting AuditRepositoryLogger.logNhinXDRReq(...)");
         return auditMsg;
     }
@@ -884,12 +770,11 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      *
      * @param message The generic XDR Request message
      * @param assertion The assertion to be audited
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
+     * @param direction The direction this message is going (Inbound or Outbound)
      * @return
      */
     public LogEventRequestType logAdapterXDRReq(ProvideAndRegisterDocumentSetRequestType message, AssertionType assertion,
-            String direction) {
+        String direction) {
         LOG.debug("Entering AuditRepositoryLogger.logAdapterXDRReq(...)");
         LogEventRequestType auditMsg = null;
 
@@ -900,7 +785,7 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
 
         XDRTransforms auditTransformer = new XDRTransforms();
         auditMsg = auditTransformer.transformRequestToAuditMsg(message, assertion, null, direction,
-                NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
+            NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
 
         LOG.debug("Exiting AuditRepositoryLogger.logAdapterXDRReq(...)");
         return auditMsg;
@@ -911,17 +796,16 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      *
      * @param message The generic secured XDR Request message
      * @param assertion The assertion to be audited
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
+     * @param direction The direction this message is going (Inbound or Outbound)
      * @return
      */
     public LogEventRequestType logXDRReq(
-            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType message,
-            AssertionType assertion, NhinTargetSystemType target, String direction) {
+        gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType message,
+        AssertionType assertion, NhinTargetSystemType target, String direction) {
         LOG.debug("Entering AuditRepositoryLogger.logXDRReq(...)");
         XDRTransforms auditTransformer = new XDRTransforms();
         LogEventRequestType auditMsg = auditTransformer.transformRequestToAuditMsg(message, assertion, target,
-                direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+            direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         LOG.debug("Exiting AuditRepositoryLogger.logNhinXDRReq(...)");
         return auditMsg;
     }
@@ -931,35 +815,30 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      *
      * @param message The generic XDR Response message
      * @param assertion The assertion to be audited
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
+     * @param direction The direction this message is going (Inbound or Outbound)
      * @return
      */
     public LogEventRequestType logNhinXDRResponse(RegistryResponseType message, AssertionType assertion,
-            NhinTargetSystemType target, String direction, boolean isRequesting) {
+        NhinTargetSystemType target, String direction, boolean isRequesting) {
         LOG.debug("Entering AuditRepositoryLogger.logNhinXDRResponse(...)");
         LogEventRequestType auditMsg = null;
         XDRTransforms auditTransformer = new XDRTransforms();
         auditMsg = auditTransformer.transformResponseToAuditMsg(message, assertion, target, direction,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, isRequesting);
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE, isRequesting);
         LOG.debug("Exiting AuditRepositoryLogger.logNhinXDRResponse(...)");
         return auditMsg;
     }
 
     /**
-     * This method will create the generic Audit Log Message from an entity
-     * unsubscribe request.
+     * This method will create the generic Audit Log Message from an entity unsubscribe request.
      *
      * @param message The Entity Unsubscribe Request message to be audit logged.
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @param _interface The interface this message is being received/sent on
-     * (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logEntityUnsubscribeRequest(EntityUnsubscribeRequestMessageType message,
-            String direction, String _interface) {
+        String direction, String _interface) {
         LOG.debug("Entering AuditRepositoryLogger.logEntityUnsubscribeRequest(...)");
         LogEventRequestType auditMsg = null;
         LogEntityUnsubscribeRequestType logReqMsg = new LogEntityUnsubscribeRequestType();
@@ -977,16 +856,15 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      *
      * @param acknowledgement The XDR Acknowledgement to be audited
      * @param assertion The assertion to be audited
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
+     * @param direction The direction this message is going (Inbound or Outbound)
      * @param action The type of the current message (Request or Response)
      * @return
      */
     public LogEventRequestType logAcknowledgement(XDRAcknowledgementType acknowledgement, AssertionType assertion,
-            NhinTargetSystemType target, String direction, String action) {
+        NhinTargetSystemType target, String direction, String action) {
         LOG.debug("Entering AuditRepositoryLogger.logAcknowledgement(...)");
         LogEventRequestType auditMsg = xdrAuditTransformer.transformAcknowledgementToAuditMsg(acknowledgement,
-                assertion, target, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, action);
+            assertion, target, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, action);
 
         LOG.debug("Exiting AuditRepositoryLogger.logAcknowledgement(...)");
         return auditMsg;
@@ -997,16 +875,15 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      *
      * @param acknowledgement The XDR Acknowledgement to be audited
      * @param assertion The assertion to be audited
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
+     * @param direction The direction this message is going (Inbound or Outbound)
      * @param action The type of the current message (Request or Response)
      * @return
      */
     public LogEventRequestType logAdapterAcknowledgement(XDRAcknowledgementType acknowledgement, AssertionType assertion,
-            String direction, String action) {
+        String direction, String action) {
         LOG.debug("Entering AuditRepositoryLogger.logAdapterAcknowledgement(...)");
         LogEventRequestType auditMsg = xdrAuditTransformer.transformAcknowledgementToAuditMsg(acknowledgement,
-                assertion, null, direction, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, action);
+            assertion, null, direction, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, action);
         LOG.debug("Exiting AuditRepositoryLogger.logAdapterAcknowledgement(...)");
         return auditMsg;
     }
@@ -1016,41 +893,37 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      *
      * @param acknowledgement The XDR Acknowledgement to be audited
      * @param assertion The assertion to be audited
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
+     * @param direction The direction this message is going (Inbound or Outbound)
      * @param action The type of the current message (Request or Response)
      * @return
      */
     public LogEventRequestType logEntityAcknowledgement(XDRAcknowledgementType acknowledgement,
-            AssertionType assertion, String direction, String action) {
+        AssertionType assertion, String direction, String action) {
         LOG.debug("Entering AuditRepositoryLogger.logAcknowledgement(...)");
         LogEventRequestType auditMsg = xdrAuditTransformer.transformAcknowledgementToAuditMsg(acknowledgement,
-                assertion, null, direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, action);
+            assertion, null, direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, action);
         LOG.debug("Exiting AuditRepositoryLogger.logAcknowledgement(...)");
         return auditMsg;
     }
 
     /**
-     * This method will create the generic Audit Log Message from an Entity
-     * Patient Discovery Response.
+     * This method will create the generic Audit Log Message from an Entity Patient Discovery Response.
      *
      * @param message The Patient Discovery Response message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @return A generic audit log message that can be passed to the Audit
-     * Repository
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logEntityAdminDist(
-            gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType message,
-            AssertionType assertion, String direction) {
+        gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType message,
+        AssertionType assertion, String direction) {
         LOG.trace("Entering AuditRepositoryLogger.logEntityPatientDiscResp(...)");
 
         LogEventRequestType auditMsg = null;
         try {
             EDXLDistribution body = message.getEDXLDistribution();
             auditMsg = adAuditTransformer.transformEDXLDistributionRequestToAuditMsg(body, assertion, direction,
-                    NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
         } catch (NullPointerException ex) {
             LOG.error("The Incoming Send Alert message was Null", ex);
         }
@@ -1065,14 +938,12 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      * @param message The Admin Distribution message to be audited
      * @param assertion The assertion to be audited
      * @param target
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @param _interface The interface this message is sent from(NHIN, Adapter,
-     * or Entity)
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is sent from(NHIN, Adapter, or Entity)
      * @return
      */
     public LogEventRequestType logNhincAdminDist(EDXLDistribution message, AssertionType assertion,
-            NhinTargetSystemType target, String direction, String _interface) {
+        NhinTargetSystemType target, String direction, String _interface) {
 
         return adAuditTransformer.transformEDXLDistributionRequestToAuditMsg(message, assertion, target, direction, _interface);
     }
@@ -1082,20 +953,18 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      *
      * @param message The Admin Distribution message to be audited
      * @param assertion The assertion to be audited
-     * @param direction The direction this message is going (Inbound or
-     * Outbound)
-     * @param _interface The interface this message is sent from(NHIN, Adapter,
-     * or Entity)
+     * @param direction The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is sent from(NHIN, Adapter, or Entity)
      * @return
      */
     public LogEventRequestType logNhincAdminDist(EDXLDistribution message, AssertionType assertion, String direction,
-            String _interface) {
+        String _interface) {
 
         return adAuditTransformer.transformEDXLDistributionRequestToAuditMsg(message, assertion, direction, _interface);
     }
 
     /**
-     * 
+     *
      * @param message
      * @param assertion
      * @param target
@@ -1104,16 +973,16 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      * @return LogEventRequestType
      */
     public LogEventRequestType logNhinCoreX12RealtimeRequest(COREEnvelopeRealTimeRequest message, AssertionType assertion, NhinTargetSystemType target,
-            String direction) {
+        String direction) {
         LOG.debug("Entering AuditRepositoryLogger.logNhinCoreX12RealtimeRequest(...)");
         LogEventRequestType oAuditMes = null;
-        oAuditMes = coreX12Realtime.transformRequestToAuditMsg(message, assertion, target, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        oAuditMes = x12AuditTransformer.transformRequestToAuditMsg(message, assertion, target, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         LOG.debug("End AuditRepositoryLogger.logNhinCoreX12RealtimeRequest(...)");
         return oAuditMes;
     }
-    
+
     /**
-     * 
+     *
      * @param message
      * @param assertion
      * @param target
@@ -1123,16 +992,16 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      * @return LogEventRequestType
      */
     public LogEventRequestType logNhinCoreX12RealtimeResponse(COREEnvelopeRealTimeResponse message, AssertionType assertion, NhinTargetSystemType target,
-            String direction, String _interface, boolean isRequesting) {
+        String direction, String _interface, boolean isRequesting) {
         LOG.debug("Entering AuditRepositoryLogger.logNhinCoreX12RealtimeRequest(...)");
         LogEventRequestType oAuditMes = null;
-        oAuditMes = coreX12Realtime.transformResponseToAuditMsg(message, assertion, target, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, isRequesting);
+        oAuditMes = x12AuditTransformer.transformResponseToAuditMsg(message, assertion, target, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, isRequesting);
         LOG.debug("End AuditRepositoryLogger.logNhinCoreX12RealtimeRequest(...)");
         return oAuditMes;
     }
-    
+
     /**
-     * 
+     *
      * @param message
      * @param assertion
      * @param target
@@ -1141,16 +1010,16 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      * @return LogEventRequestType
      */
     public LogEventRequestType logAdapterCoreX12RealtimeRequest(COREEnvelopeRealTimeRequest message, AssertionType assertion, NhinTargetSystemType target,
-            String direction) {
+        String direction) {
         LOG.debug("Entering AuditRepositoryLogger.logAdapterCoreX12RealtimeRequest(...)");
         LogEventRequestType oAuditMes = null;
-        oAuditMes = coreX12Realtime.transformRequestToAuditMsg(message, assertion, target, direction, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
+        oAuditMes = x12AuditTransformer.transformRequestToAuditMsg(message, assertion, target, direction, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
         LOG.debug("End AuditRepositoryLogger.logAdapterCoreX12RealtimeRequest(...)");
         return oAuditMes;
     }
-    
+
     /**
-     * 
+     *
      * @param message
      * @param assertion
      * @param target
@@ -1160,10 +1029,10 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      * @return LogEventRequestType
      */
     public LogEventRequestType logAdapterCoreX12RealtimeResponse(COREEnvelopeRealTimeResponse message, AssertionType assertion, NhinTargetSystemType target,
-            String direction, String _interface, boolean isRequesting) {
+        String direction, String _interface, boolean isRequesting) {
         LOG.debug("Entering AuditRepositoryLogger.logAdapterCoreX12RealtimeResponse(...)");
         LogEventRequestType oAuditMes = null;
-        oAuditMes = coreX12Realtime.transformResponseToAuditMsg(message, assertion, target, direction, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, isRequesting);
+        oAuditMes = x12AuditTransformer.transformResponseToAuditMsg(message, assertion, target, direction, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, isRequesting);
         LOG.debug("End AuditRepositoryLogger.logAdapterCoreX12RealtimeResponse(...)");
         return oAuditMes;
     }

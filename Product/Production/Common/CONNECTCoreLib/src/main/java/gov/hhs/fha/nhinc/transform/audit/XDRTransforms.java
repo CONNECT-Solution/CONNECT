@@ -465,7 +465,7 @@ public class XDRTransforms {
         return false;
     }
 
-    protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion) {
+    public boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion) {
         boolean bReturnVal = false;
 
         if ((oAssertion != null) && (oAssertion.getUserInfo() != null)) {

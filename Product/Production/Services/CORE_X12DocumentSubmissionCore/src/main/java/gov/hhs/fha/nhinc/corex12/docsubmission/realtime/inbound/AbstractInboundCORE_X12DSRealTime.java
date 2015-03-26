@@ -71,9 +71,9 @@ public abstract class AbstractInboundCORE_X12DSRealTime implements InboundCORE_X
     @Override
     public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest body,
         AssertionType assertion) {
-
+        auditRequestFromNhin(body, assertion);
         COREEnvelopeRealTimeResponse oResponsse = processCORE_X12DocSubmission(body, assertion);
-
+        auditResponseToNhin(oResponsse, assertion);
         return oResponsse;
     }
 

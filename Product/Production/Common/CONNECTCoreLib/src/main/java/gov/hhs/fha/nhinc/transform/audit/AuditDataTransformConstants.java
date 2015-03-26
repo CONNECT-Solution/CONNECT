@@ -45,6 +45,7 @@ public class AuditDataTransformConstants {
     public static final Short PARTICIPANT_OJB_TYPE_CODE_PERSON = 1;
     public static final Short PARTICIPANT_OJB_TYPE_CODE_SYSTEM = 2;
     public static final Short PARTICIPANT_OJB_TYPE_CODE_ROLE_PATIENT = 1;
+    public static final Short PARTICIPANT_OJB_TYPE_CODE_ROLE_X12 = 20;
     public static final Short PARTICIPANT_OJB_TYPE_CODE_ROLE_DATA_REPO = 17;
     public static final String PARTICIPANT_OJB_ID_TYPE_CODE_PATIENTNUM = "2";
     public static final String PARTICIPANT_OJB_ID_TYPE_CODE_REPORTNUM = "9";

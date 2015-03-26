@@ -488,7 +488,7 @@ public class XDRTransformsTest {
         XDRTransforms result = new XDRTransforms() {
 
             @Override
-            protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion) {
+            public boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion) {
                 return false;
             }
 
@@ -503,7 +503,7 @@ public class XDRTransformsTest {
         XDRTransforms result = new XDRTransforms() {
 
             @Override
-            protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion) {
+            public boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion) {
                 return false;
             }
 
