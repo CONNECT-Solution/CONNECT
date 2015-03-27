@@ -29,6 +29,7 @@ import gov.hhs.fha.nhinc.messaging.builder.Builder;
 import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbConstants.ReturnType;
 import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbConstants.XDSbStoredQuery;
 import java.util.Date;
+import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
 /**
@@ -73,7 +74,7 @@ public interface AdhocQueryRequestBuilder extends Builder {
     /**
      * @param documentTypeCode
      */
-    public void setDocumentTypeCode(String documentTypeCode);
+    public void setDocumentTypeCode(List<String> documentTypeCode);
 
     /**
      * @param startTime
