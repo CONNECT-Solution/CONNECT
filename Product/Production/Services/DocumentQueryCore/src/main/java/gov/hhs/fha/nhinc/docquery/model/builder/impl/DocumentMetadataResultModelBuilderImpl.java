@@ -98,10 +98,10 @@ class DocumentMetadataResultModelBuilderImpl implements DocumentMetadataResultMo
         result.setObjectType(extrinsicObject.getObjectType());
 
         result.setStatus(extrinsicObject.getStatus());
-        if ((extrinsicObject.getName() != null) & (extrinsicObject.getName().getLocalizedString().size() > 0)) {
+        if ((extrinsicObject.getName() != null) && (extrinsicObject.getName().getLocalizedString().size() > 0)) {
             result.setName(extrinsicObject.getName().getLocalizedString().get(0).getValue());
         }
-        if ((extrinsicObject.getDescription() != null) & (extrinsicObject.getDescription().getLocalizedString().size() > 0)) {
+        if ((extrinsicObject.getDescription() != null) && (extrinsicObject.getDescription().getLocalizedString().size() > 0)) {
             result.setDescription(extrinsicObject.getDescription().getLocalizedString().get(0).getValue());
         }
 

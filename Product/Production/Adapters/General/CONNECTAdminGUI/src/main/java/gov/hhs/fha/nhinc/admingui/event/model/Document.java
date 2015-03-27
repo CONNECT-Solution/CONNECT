@@ -68,12 +68,14 @@ public class Document {
 
     private byte[] documentContent;
     private boolean documentRetrieved;
-    
+
     private String document;
 
     private String contentType;
     // document content type PDF, XLSX, TXT, XML
     private String documentType;
+
+    private String documentClassCode;
 
     public Document() {
         this.documentRetrieved = false;
@@ -363,7 +365,7 @@ public class Document {
      * @return the documentId
      */
     public String getDocumentId() {
-        return documentId;
+        return (documentId == null) ? URI : documentId;
     }
 
     /**
@@ -419,7 +421,7 @@ public class Document {
      * @return the documentType
      */
     public String getDocumentType() {
-        return documentType;
+        return (documentType == null) ? documentClassCode : documentType;
     }
 
     /**
@@ -463,6 +465,20 @@ public class Document {
      */
     public void setDocumentIndex(int documentIndex) {
         this.documentIndex = documentIndex;
+    }
+
+    /**
+     * @return the documentClassCode
+     */
+    public String getDocumentClassCode() {
+        return documentClassCode;
+    }
+
+    /**
+     * @param documentClassCode the documentClassCode to set
+     */
+    public void setDocumentClassCode(String documentClassCode) {
+        this.documentClassCode = documentClassCode;
     }
 
 }
