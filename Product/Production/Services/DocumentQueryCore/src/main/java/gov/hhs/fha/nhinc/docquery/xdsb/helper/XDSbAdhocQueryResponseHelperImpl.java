@@ -97,7 +97,7 @@ public class XDSbAdhocQueryResponseHelperImpl implements XDSbAdhocQueryResponseH
     @Override
     public String getClassificationValue(ClassificationScheme classification, ExtrinsicObjectType extrinsicObject) {
         RegistryObjectType registryObjectType = getClassification(classification, extrinsicObject);
-        if ((registryObjectType != null) && (registryObjectType instanceof ClassificationType)) {
+        if (registryObjectType != null && (registryObjectType instanceof ClassificationType)) {
             return ((ClassificationType) registryObjectType).getNodeRepresentation();
         }
         return null;
