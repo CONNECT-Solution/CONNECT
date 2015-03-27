@@ -26,7 +26,7 @@
 package gov.hhs.fha.nhinc.patientdiscovery.messaging.builder.impl;
 
 import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
-import gov.hhs.fha.nhinc.patientdiscovery.messaging.builder.PRPAIN201305UV02Builder;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import javax.xml.bind.JAXBElement;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.Logger;
@@ -51,8 +51,7 @@ import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
  *
  * @author tjafri
  */
-public class PRPAIN201305UV02BuilderImpl extends AbstractPRPAIN201305UV02Builder
-    implements PRPAIN201305UV02Builder {
+public class PRPAIN201305UV02BuilderImpl extends AbstractPRPAIN201305UV02Builder {
 
     private Patient patient;
 
@@ -196,5 +195,10 @@ public class PRPAIN201305UV02BuilderImpl extends AbstractPRPAIN201305UV02Builder
     private void setDLicense(PRPAMT201306UV02ParameterList parameterList) {
         throw new NotImplementedException("Method not supported yet");
 
+    }
+
+    @Override
+    protected String getRemoteHcid() {
+        return HomeCommunityMap.formatHomeCommunityId(patient.getOrganization());
     }
 }
