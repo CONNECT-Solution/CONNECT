@@ -247,7 +247,7 @@ public class GatewayService {
             patientDocument.setRepositoryUniqueId(documentMetadataResult.getRepositoryId());
             patientDocument.setDocumentIndex(documentIndex);
             patientDocument.setDocumentClassCode(documentMetadataResult.getDocumentClassCode());
-            patientDocument.setURI(documentMetadataResult.getURI());
+            patientDocument.setUri(documentMetadataResult.getUri());
 
             patientDocument.setSize(documentMetadataResult.getSize());
             patientDocument.setHash(documentMetadataResult.getHash());

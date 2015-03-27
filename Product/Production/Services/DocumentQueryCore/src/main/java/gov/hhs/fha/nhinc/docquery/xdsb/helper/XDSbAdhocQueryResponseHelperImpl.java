@@ -58,12 +58,11 @@ public class XDSbAdhocQueryResponseHelperImpl implements XDSbAdhocQueryResponseH
 
     @Override
     public String getSingleSlotValue(String customSlotName, IdentifiableType identifiableType) {
-        if (identifiableType != null) {
-            List<SlotType1> slots = identifiableType.getSlot();
-            for (SlotType1 s : slots) {
+        if (identifiableType != null && (identifiableType.getSlot() != null)) {
+            for (SlotType1 s : identifiableType.getSlot()) {
                 if (StringUtils.equalsIgnoreCase(customSlotName, s.getName()) && s.getValueList() != null) {
                     ValueListType vlt = s.getValueList();
-                    if ((vlt.getValue() != null) && (!vlt.getValue().isEmpty())){
+                    if (vlt.getValue() != null && !vlt.getValue().isEmpty()){
                         return vlt.getValue().get(0);
                     }
                 }
@@ -98,7 +97,6 @@ public class XDSbAdhocQueryResponseHelperImpl implements XDSbAdhocQueryResponseH
     @Override
     public String getClassificationValue(ClassificationScheme classification, ExtrinsicObjectType extrinsicObject) {
         RegistryObjectType registryObjectType = getClassification(classification, extrinsicObject);
-        ClassificationType classType = null;
         if ((registryObjectType != null) && (registryObjectType instanceof ClassificationType)) {
             return ((ClassificationType) registryObjectType).getNodeRepresentation();
         }

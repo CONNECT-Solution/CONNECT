@@ -87,7 +87,7 @@ class DocumentMetadataResultModelBuilderImpl implements DocumentMetadataResultMo
             LOG.error("Failed to convert the String to int:" + e.getMessage());
         }
         result.setSourcePatientId(helper.getSingleSlotValue(ResponseSlotName.sourcePatientId, extrinsicObject));
-        result.setURI(helper.getSingleSlotValue(ResponseSlotName.URI, extrinsicObject));
+        result.setUri(helper.getSingleSlotValue(ResponseSlotName.URI, extrinsicObject));
         
         result.setHash(helper.getSingleSlotValue(ResponseSlotName.hash, extrinsicObject));
         result.setHome(extrinsicObject.getHome());

@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.admingui.event.model;
 
 import java.util.Date;
-import org.apache.commons.codec.binary.Base64;
 
 /**
  * POJO class to render the results back to the UI
@@ -50,7 +49,7 @@ public class Document {
     private String sourcePatientId;
     //not sure if we need this
     private String sourcePatientInfo;
-    private String URI;
+    private String uri;
     private String repositoryUniqueId;
     private String Name;
     private String Description;
@@ -70,9 +69,7 @@ public class Document {
     private boolean documentRetrieved;
 
     private String document;
-
     private String contentType;
-    // document content type PDF, XLSX, TXT, XML
     private String documentType;
 
     private String documentClassCode;
@@ -222,17 +219,17 @@ public class Document {
     }
 
     /**
-     * @return the URI
+     * @return the uri
      */
-    public String getURI() {
-        return URI;
+    public String getUri() {
+        return uri;
     }
 
     /**
-     * @param URI the URI to set
+     * @param uri the uri to set
      */
-    public void setURI(String URI) {
-        this.URI = URI;
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
     /**
@@ -365,7 +362,9 @@ public class Document {
      * @return the documentId
      */
     public String getDocumentId() {
-        return (documentId == null) ? URI : documentId;
+        //workaround for now, once the CONNECT FHIR adapter supports
+        //documentId, we will remove this logic
+        return (documentId == null) ? uri : documentId;
     }
 
     /**
@@ -421,6 +420,8 @@ public class Document {
      * @return the documentType
      */
     public String getDocumentType() {
+        //workaround for now, once the CONNECT FHIR adapter supports
+        //documentType, we will remove this logic
         return (documentType == null) ? documentClassCode : documentType;
     }
 
