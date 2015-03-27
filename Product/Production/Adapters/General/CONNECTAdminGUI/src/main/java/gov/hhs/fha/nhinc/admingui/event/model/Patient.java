@@ -33,14 +33,14 @@ import java.util.List;
 /**
  *
  * POJO class used by the UI to render the data
- * 
+ *
  * @author Naresh Subramanyan
  */
 public class Patient {
-    
-   //used in the UI
+
+    //used in the UI
     private int patientIndex;
-    
+
     private String firstName;
     private String lastName;
     private Date dateOfBirth;
@@ -61,13 +61,12 @@ public class Patient {
     private String drivinglicense;
     private String assigningAuthorityId;
     private String domain;
-    
+
     private List<Document> documentList;
 
     public Patient() {
         this.documentList = new ArrayList<Document>();
     }
-
 
     /**
      * @return the firstName
@@ -159,7 +158,7 @@ public class Patient {
      * @return the name
      */
     public String getName() {
-        return firstName + " "+lastName;
+        return firstName + " " + lastName;
     }
 
     /**
@@ -175,10 +174,10 @@ public class Patient {
     public void setPatientId(String patientId) {
         this.patientId = patientId;
     }
-    
-    public void clearAll(){
+
+    public void clearAll() {
         //clear the patient info
-        
+
         //clear the document info
     }
 
@@ -342,5 +341,5 @@ public class Patient {
     public void setDomain(String domain) {
         this.domain = domain;
     }
-    
+
 }

@@ -26,8 +26,9 @@
  */
 package gov.hhs.fha.nhinc.admingui.event.model;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import org.apache.commons.codec.binary.Base64;
 
 /**
  * POJO class to render the results back to the UI
@@ -46,7 +47,8 @@ public class Document {
     private String legalAuthenticator;
     private Date serviceStartTime;
     private Date serviceStopTime;
-    private int size;
+    //private int size;
+    private double size;
     private String sourcePatientId;
     //not sure if we need this
     private String sourcePatientInfo;
@@ -62,18 +64,25 @@ public class Document {
     private String authorSpecialty;
     private String codingScheme;
     private String codingSchemeName;
-    //unique ID from document 
+    //unique ID from document
     private String documentId;
     private String patientId;
 
     private byte[] documentContent;
     private boolean documentRetrieved;
-    
+
     private String document;
 
     private String contentType;
     // document content type PDF, XLSX, TXT, XML
     private String documentType;
+
+    private String confidentialityCode;
+    private String entryUUID;
+    private String healthcareFacilityTypeCode;
+    private String documentTypeCode;
+    private String documentClassCode;
+    private String documentFormatCode;
 
     public Document() {
         this.documentRetrieved = false;
@@ -84,6 +93,7 @@ public class Document {
      */
     public Date getCreationTime() {
         return creationTime;
+
     }
 
     /**
@@ -91,6 +101,20 @@ public class Document {
      */
     public void setCreationTime(Date creationTime) {
         this.creationTime = creationTime;
+    }
+
+    /**
+     *
+     * @return the formattedDate
+     */
+    public String getCreationTimeUiDisplay() {
+        String formattedDate = null;
+        if (this.getCreationTime() != null) {
+            Date currentDate = this.getCreationTime();
+            SimpleDateFormat dateformat = new SimpleDateFormat("MM/dd/yyyy");
+            formattedDate = dateformat.format(currentDate);
+        }
+        return formattedDate;
     }
 
     /**
@@ -180,14 +204,14 @@ public class Document {
     /**
      * @return the size
      */
-    public int getSize() {
-        return size;
+    public double getSize() {
+        return Double.parseDouble(new DecimalFormat("##.##").format(size / 1024));
     }
 
     /**
      * @param size the size to set
      */
-    public void setSize(int size) {
+    public void setSize(double size) {
         this.size = size;
     }
 
@@ -463,6 +487,54 @@ public class Document {
      */
     public void setDocumentIndex(int documentIndex) {
         this.documentIndex = documentIndex;
+    }
+
+    public String getConfidentialityCode() {
+        return confidentialityCode;
+    }
+
+    public void setConfidentialityCode(String confidentialityCode) {
+        this.confidentialityCode = confidentialityCode;
+    }
+
+    public String getEntryUUID() {
+        return entryUUID;
+    }
+
+    public void setEntryUUID(String entryUUID) {
+        this.entryUUID = entryUUID;
+    }
+
+    public String getHealthcareFacilityTypeCode() {
+        return healthcareFacilityTypeCode;
+    }
+
+    public void setHealthcareFacilityTypeCode(String healthcareFacilityTypeCode) {
+        this.healthcareFacilityTypeCode = healthcareFacilityTypeCode;
+    }
+
+    public String getDocumentTypeCode() {
+        return documentTypeCode;
+    }
+
+    public void setDocumentTypeCode(String documentTypeCode) {
+        this.documentTypeCode = documentTypeCode;
+    }
+
+    public String getDocumentClassCode() {
+        return documentClassCode;
+    }
+
+    public void setDocumentClassCode(String documentClassCode) {
+        this.documentClassCode = documentClassCode;
+    }
+
+    public String getDocumentFormatCode() {
+        return documentFormatCode;
+    }
+
+    public void setDocumentFormatCode(String documentFormatCode) {
+        this.documentFormatCode = documentFormatCode;
     }
 
 }
