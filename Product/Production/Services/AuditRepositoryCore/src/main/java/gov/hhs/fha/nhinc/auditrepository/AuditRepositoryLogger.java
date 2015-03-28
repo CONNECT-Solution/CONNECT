@@ -66,7 +66,6 @@ import gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommoninternalorch.UnsubscribeRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.transform.audit.AdminDistTransforms;
-import gov.hhs.fha.nhinc.transform.audit.COREX12RealtimeTransforms;
 import gov.hhs.fha.nhinc.transform.audit.DocumentQueryTransforms;
 import gov.hhs.fha.nhinc.transform.audit.DocumentRetrieveTransforms;
 import gov.hhs.fha.nhinc.transform.audit.FindAuditEventsTransforms;
@@ -82,8 +81,6 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 import org.apache.log4j.Logger;
-import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
-import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -103,7 +100,6 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
     private final AdminDistTransforms adAuditTransformer = new AdminDistTransforms();
     private final DocumentQueryTransforms dqAuditTransforms = new DocumentQueryTransforms();
     private NotifyTransforms transformLib = new NotifyTransforms();
-    private final COREX12RealtimeTransforms x12AuditTransformer = new COREX12RealtimeTransforms();
 
     /**
      * Constructor code for the AuditRepositoryLogger. This instantiates the object.
@@ -961,79 +957,5 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
         String _interface) {
 
         return adAuditTransformer.transformEDXLDistributionRequestToAuditMsg(message, assertion, direction, _interface);
-    }
-
-    /**
-     *
-     * @param message
-     * @param assertion
-     * @param target
-     * @param direction
-     * @param _interface
-     * @return LogEventRequestType
-     */
-    public LogEventRequestType logNhinCoreX12RealtimeRequest(COREEnvelopeRealTimeRequest message, AssertionType assertion, NhinTargetSystemType target,
-        String direction) {
-        LOG.debug("Entering AuditRepositoryLogger.logNhinCoreX12RealtimeRequest(...)");
-        LogEventRequestType oAuditMes = null;
-        oAuditMes = x12AuditTransformer.transformRequestToAuditMsg(message, assertion, target, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-        LOG.debug("End AuditRepositoryLogger.logNhinCoreX12RealtimeRequest(...)");
-        return oAuditMes;
-    }
-
-    /**
-     *
-     * @param message
-     * @param assertion
-     * @param target
-     * @param direction
-     * @param _interface
-     * @param isRequesting
-     * @return LogEventRequestType
-     */
-    public LogEventRequestType logNhinCoreX12RealtimeResponse(COREEnvelopeRealTimeResponse message, AssertionType assertion, NhinTargetSystemType target,
-        String direction, String _interface, boolean isRequesting) {
-        LOG.debug("Entering AuditRepositoryLogger.logNhinCoreX12RealtimeRequest(...)");
-        LogEventRequestType oAuditMes = null;
-        oAuditMes = x12AuditTransformer.transformResponseToAuditMsg(message, assertion, target, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, isRequesting);
-        LOG.debug("End AuditRepositoryLogger.logNhinCoreX12RealtimeRequest(...)");
-        return oAuditMes;
-    }
-
-    /**
-     *
-     * @param message
-     * @param assertion
-     * @param target
-     * @param direction
-     * @param _interface
-     * @return LogEventRequestType
-     */
-    public LogEventRequestType logAdapterCoreX12RealtimeRequest(COREEnvelopeRealTimeRequest message, AssertionType assertion, NhinTargetSystemType target,
-        String direction) {
-        LOG.debug("Entering AuditRepositoryLogger.logAdapterCoreX12RealtimeRequest(...)");
-        LogEventRequestType oAuditMes = null;
-        oAuditMes = x12AuditTransformer.transformRequestToAuditMsg(message, assertion, target, direction, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
-        LOG.debug("End AuditRepositoryLogger.logAdapterCoreX12RealtimeRequest(...)");
-        return oAuditMes;
-    }
-
-    /**
-     *
-     * @param message
-     * @param assertion
-     * @param target
-     * @param direction
-     * @param _interface
-     * @param isRequesting
-     * @return LogEventRequestType
-     */
-    public LogEventRequestType logAdapterCoreX12RealtimeResponse(COREEnvelopeRealTimeResponse message, AssertionType assertion, NhinTargetSystemType target,
-        String direction, String _interface, boolean isRequesting) {
-        LOG.debug("Entering AuditRepositoryLogger.logAdapterCoreX12RealtimeResponse(...)");
-        LogEventRequestType oAuditMes = null;
-        oAuditMes = x12AuditTransformer.transformResponseToAuditMsg(message, assertion, target, direction, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, isRequesting);
-        LOG.debug("End AuditRepositoryLogger.logAdapterCoreX12RealtimeResponse(...)");
-        return oAuditMes;
     }
 }

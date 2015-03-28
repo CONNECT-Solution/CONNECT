@@ -24,14 +24,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.transform.audit;
+package gov.hhs.fha.nhinc.corex12.docsubmission.audit;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.CodedValueType;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
-import com.services.nhinc.schema.auditmessage.TypeValuePairType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -66,7 +65,7 @@ public class COREX12RealtimeTransforms {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
 
-        LOG.debug("Begin COREX12RealtimeTransforms -> transformRequestToAuditMsg() -- NHIN");
+        LOG.trace("Begin COREX12RealtimeTransforms -> transformRequestToAuditMsg() -- NHIN");
         if (request == null) {
             LOG.error("Requst Object was null");
             return null;
@@ -109,7 +108,7 @@ public class COREX12RealtimeTransforms {
         result.setDirection(direction);
         result.setInterface(_interface);
 
-        LOG.debug("end transformRequestToAuditMsg() -- NHIN");
+        LOG.trace("end transformRequestToAuditMsg() -- NHIN");
         return result;
     }
 
@@ -125,6 +124,7 @@ public class COREX12RealtimeTransforms {
      */
     public LogEventRequestType transformResponseToAuditMsg(COREEnvelopeRealTimeResponse response, AssertionType assertion,
         NhinTargetSystemType target, String direction, String _interface, boolean isRequesting) {
+        LOG.trace("Begin transformResponseToAuditMsg() -- NHIN");
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
 
@@ -169,7 +169,7 @@ public class COREX12RealtimeTransforms {
         result.setDirection(direction);
         result.setInterface(_interface);
 
-        LOG.debug("end transformResponseToAuditMsg() -- NHIN");
+        LOG.trace("end transformResponseToAuditMsg() -- NHIN");
 
         return result;
     }
@@ -239,37 +239,38 @@ public class COREX12RealtimeTransforms {
     }
 
     private boolean areRequiredRequestFieldsNull(COREEnvelopeRealTimeResponse msg) {
-        if (msg.getPayloadType() == null || msg.getPayloadType().length() <= 0) {
+
+        if (NullChecker.isNullish(msg.getPayloadType())) {
             LOG.error("CORE X12 Realtime PayloadType is empty...");
             return true;
         }
 
-        if (msg.getProcessingMode() == null || msg.getProcessingMode().length() <= 0) {
+        if (NullChecker.isNullish(msg.getProcessingMode())) {
             LOG.error("CORE X12 Realtime ProcessingMode is empty...");
             return true;
         }
 
-        if (msg.getPayloadID() == null || msg.getPayloadID().length() <= 0) {
+        if (NullChecker.isNullish(msg.getPayloadID())) {
             LOG.error("CORE X12 Realtime PayloadID is empty...");
             return true;
         }
 
-        if (msg.getTimeStamp() == null || msg.getTimeStamp().length() <= 0) {
+        if (NullChecker.isNullish(msg.getTimeStamp())) {
             LOG.error("CORE X12 Realtime TimeStamp is empty...");
             return true;
         }
 
-        if (msg.getSenderID() == null || msg.getSenderID().length() <= 0) {
+        if (NullChecker.isNullish(msg.getSenderID())) {
             LOG.error("CORE X12 Realtime SenderID is empty...");
             return true;
         }
 
-        if (msg.getReceiverID() == null || msg.getReceiverID().length() <= 0) {
+        if (NullChecker.isNullish(msg.getReceiverID())) {
             LOG.error("CORE X12 Realtime ReceiverID is empty...");
             return true;
         }
 
-        if (msg.getCORERuleVersion() == null || msg.getCORERuleVersion().length() <= 0) {
+        if (NullChecker.isNullish(msg.getCORERuleVersion())) {
             LOG.error("CORE X12 Realtime CORERuleVersion is empty...");
             return true;
         }
