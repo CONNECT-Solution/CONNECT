@@ -31,6 +31,7 @@ import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.CodedValueType;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
+import com.services.nhinc.schema.auditmessage.TypeValuePairType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -39,6 +40,13 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformConstants;
 import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformHelper;
 import gov.hhs.fha.nhinc.transform.audit.XDRTransforms;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
+import java.io.ByteArrayOutputStream;
+import java.util.logging.Level;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import org.apache.log4j.Logger;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
@@ -304,6 +312,8 @@ public class COREX12RealtimeTransforms {
 
     private ParticipantObjectIdentificationType getParticipantObjectIdentificationType(Object msg) {
         String payloadId = null;
+        byte[] byteArray = null;
+
         /* Assign ParticipationObjectIdentification */
         ParticipantObjectIdentificationType participantObject = new ParticipantObjectIdentificationType();
         // Set the Partipation Object Id (patient id)
@@ -317,6 +327,10 @@ public class COREX12RealtimeTransforms {
         } else {
             return participantObject;
         }
+        byteArray = marshallToByteArray(msg);
+        TypeValuePairType oType = new TypeValuePairType();
+        oType.setValue(byteArray);
+        participantObject.getParticipantObjectDetail().add(oType);
 
         // Set the Participation Object Typecode
         participantObject.setParticipantObjectTypeCode(AuditDataTransformConstants.PARTICIPANT_OJB_TYPE_CODE_SYSTEM);
@@ -330,6 +344,41 @@ public class COREX12RealtimeTransforms {
         participantObject.setParticipantObjectIDTypeCode(partObjIdTypeCode);
 
         return participantObject;
+    }
+
+    private static byte[] marshallToByteArray(Object msg) {
+        byte[] bObject = null;
+        COREEnvelopeRealTimeRequest oRequestNoPayload = null;
+        COREEnvelopeRealTimeResponse oResponseNoPayload = null;
+        javax.xml.namespace.QName xmlqname = null;
+        JAXBContextHandler oHandler = new JAXBContextHandler();
+        try {
+            JAXBContext jc = oHandler.getJAXBContext("org.caqh.soap.wsdl.corerule2_2_0");
+            Marshaller marshaller = jc.createMarshaller();
+            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+            baOutStrm.reset();
+            if (msg instanceof COREEnvelopeRealTimeRequest) {
+                oRequestNoPayload = (COREEnvelopeRealTimeRequest) msg;
+                oRequestNoPayload.setPayload("");
+                xmlqname = new javax.xml.namespace.QName("urn:org:caqh:soap:wsdl:corerule2_2_0", "COREEnvelopeRealTimeRequest");
+                JAXBElement<org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest> element = new JAXBElement<org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest>(xmlqname, COREEnvelopeRealTimeRequest.class, oRequestNoPayload);
+                marshaller.marshal(element, baOutStrm);
+                bObject = baOutStrm.toByteArray();
+            }
+
+            if (msg instanceof COREEnvelopeRealTimeResponse) {
+                oResponseNoPayload = (COREEnvelopeRealTimeResponse) msg;
+                oResponseNoPayload.setPayload("");
+                xmlqname = new javax.xml.namespace.QName("urn:org:caqh:soap:wsdl:corerule2_2_0", "COREEnvelopeRealTimeResponse");
+                JAXBElement<org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse> element = new JAXBElement<org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse>(xmlqname, COREEnvelopeRealTimeResponse.class, oResponseNoPayload);
+                marshaller.marshal(element, baOutStrm);
+                bObject = baOutStrm.toByteArray();
+            }
+
+        } catch (JAXBException ex) {
+            throw new RuntimeException(ex.getCause());
+        }
+        return bObject;
     }
 
     private AuditSourceIdentificationType getAuditSourceIdentificationType(String communityId) {
