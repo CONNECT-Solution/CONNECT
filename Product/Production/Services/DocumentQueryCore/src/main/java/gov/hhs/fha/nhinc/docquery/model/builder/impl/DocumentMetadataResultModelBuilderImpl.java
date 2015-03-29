@@ -87,7 +87,7 @@ class DocumentMetadataResultModelBuilderImpl implements DocumentMetadataResultMo
             LOG.error("Failed to convert the String to int:" + e.getMessage());
         }
         result.setSourcePatientId(helper.getSingleSlotValue(ResponseSlotName.sourcePatientId, extrinsicObject));
-        result.setURI(helper.getSingleSlotValue(ResponseSlotName.URI, extrinsicObject));
+        result.setUri(helper.getSingleSlotValue(ResponseSlotName.URI, extrinsicObject));
         
         result.setHash(helper.getSingleSlotValue(ResponseSlotName.hash, extrinsicObject));
         result.setHome(extrinsicObject.getHome());
@@ -98,10 +98,10 @@ class DocumentMetadataResultModelBuilderImpl implements DocumentMetadataResultMo
         result.setObjectType(extrinsicObject.getObjectType());
 
         result.setStatus(extrinsicObject.getStatus());
-        if ((extrinsicObject.getName() != null) & (extrinsicObject.getName().getLocalizedString().size() > 0)) {
+        if ((extrinsicObject.getName() != null) && (extrinsicObject.getName().getLocalizedString().size() > 0)) {
             result.setName(extrinsicObject.getName().getLocalizedString().get(0).getValue());
         }
-        if ((extrinsicObject.getDescription() != null) & (extrinsicObject.getDescription().getLocalizedString().size() > 0)) {
+        if ((extrinsicObject.getDescription() != null) && (extrinsicObject.getDescription().getLocalizedString().size() > 0)) {
             result.setDescription(extrinsicObject.getDescription().getLocalizedString().get(0).getValue());
         }
 
