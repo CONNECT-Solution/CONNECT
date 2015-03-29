@@ -38,7 +38,7 @@ import javax.xml.bind.JAXBElement;
 import gov.hhs.fha.nhinc.patientdiscovery.messaging.builder.PRPAIN201305UV02Builder;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import org.apache.log4j.Level;
+import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import org.apache.log4j.Logger;
 
 import org.hl7.v3.ActClassControlAct;
@@ -58,6 +58,8 @@ import org.hl7.v3.XActMoodIntentEvent;
 
 public abstract class AbstractPRPAIN201305UV02Builder implements PRPAIN201305UV02Builder {
 
+    private static final Logger LOG = Logger.getLogger(AbstractPRPAIN201305UV02Builder.class);
+
     private PRPAIN201305UV02 request = null;
     private static final String PROPERTY_FILE = "gateway";
     private static final String LOCAL_HCID_KEY = "localHomeCommunityId";
@@ -70,7 +72,7 @@ public abstract class AbstractPRPAIN201305UV02Builder implements PRPAIN201305UV0
         try {
             buildControlActProcess();
         } catch (PropertyAccessException ex) {
-            Logger.getLogger(AbstractPRPAIN201305UV02Builder.class.getName()).log(Level.FATAL, null, ex);
+            LOG.error("Error getting the Local HCID:" + ex.getMessage());
         }
     }
 
@@ -84,34 +86,21 @@ public abstract class AbstractPRPAIN201305UV02Builder implements PRPAIN201305UV0
         MCCIMT000100UV01Receiver receiver = new MCCIMT000100UV01Receiver();
         sender.setTypeCode(CommunicationFunctionType.SND);
         receiver.setTypeCode(CommunicationFunctionType.RCV);
-        MCCIMT000100UV01Device device = new MCCIMT000100UV01Device();
-        MCCIMT000100UV01Agent asAgent = new MCCIMT000100UV01Agent();
-        MCCIMT000100UV01Organization representedOrg = new MCCIMT000100UV01Organization();
-        II id = new II();
+        String localHCID = null;
         try {
-            id.setRoot(getLocalHcid());
+            localHCID = getLocalHcid();
         } catch (PropertyAccessException ex) {
-            Logger.getLogger(AbstractPRPAIN201305UV02Builder.class.getName()).log(Level.FATAL, null, ex);
+            LOG.error("Error getting the Local HCID:" + ex.getMessage());
         }
-        representedOrg.getId().add(id);
-
-        JAXBElement<MCCIMT000100UV01Organization> representedOrgJax
-            = new org.hl7.v3.ObjectFactory().createMCCIMT000100UV01AgentRepresentedOrganization(representedOrg);
-        asAgent.setRepresentedOrganization(representedOrgJax);
-        JAXBElement<MCCIMT000100UV01Agent> asAgentJax
-            = new org.hl7.v3.ObjectFactory().createMCCIMT000100UV01DeviceAsAgent(asAgent);
-        device.setAsAgent(asAgentJax);
-
-        sender.setDevice(device);
-        receiver.setDevice(device);
-
+        sender.setDevice(getDevice(localHCID));
+        receiver.setDevice(getDevice(getRemoteHcid()));
         request.getReceiver().add(receiver);
         request.setSender(sender);
     }
 
     protected void buildCreationTime() {
         TSExplicit creationTime = new TSExplicit();
-        DateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+        DateFormat format = new SimpleDateFormat(UTCDateUtil.DATE_FORMAT_UTC);
         creationTime.setValue(format.format(new Date()));
         request.setCreationTime(creationTime);
     }
@@ -136,4 +125,23 @@ public abstract class AbstractPRPAIN201305UV02Builder implements PRPAIN201305UV0
     protected String getLocalHcid() throws PropertyAccessException {
         return PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, LOCAL_HCID_KEY);
     }
+
+    private MCCIMT000100UV01Device getDevice(String hcid) {
+        MCCIMT000100UV01Device device = new MCCIMT000100UV01Device();
+        MCCIMT000100UV01Agent asAgent = new MCCIMT000100UV01Agent();
+        MCCIMT000100UV01Organization representedOrg = new MCCIMT000100UV01Organization();
+        II id = new II();
+        id.setRoot(hcid);
+        representedOrg.getId().add(id);
+
+        JAXBElement<MCCIMT000100UV01Organization> representedOrgJax
+            = new org.hl7.v3.ObjectFactory().createMCCIMT000100UV01AgentRepresentedOrganization(representedOrg);
+        asAgent.setRepresentedOrganization(representedOrgJax);
+        JAXBElement<MCCIMT000100UV01Agent> asAgentJax
+            = new org.hl7.v3.ObjectFactory().createMCCIMT000100UV01DeviceAsAgent(asAgent);
+        device.setAsAgent(asAgentJax);
+        return device;
+    }
+
+    protected abstract String getRemoteHcid();
 }
