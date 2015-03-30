@@ -521,7 +521,7 @@ public class PatientSearchBean {
 
         try {
             //Load the documentType.properties file
-            Properties localDocumentTypeProperties = PropertyAccessor.getInstance().getProperties(NhincConstants.DOCUMET_TYPE_PROPERTY_FILE);
+            Properties localDocumentTypeProperties = PropertyAccessor.getInstance().getProperties(NhincConstants.DOCUMENT_TYPE_PROPERTY_FILE);
             Iterator<Entry<Object, Object>> it = localDocumentTypeProperties.entrySet().iterator();
             while (it.hasNext()) {
                 Entry<Object, Object> property = it.next();

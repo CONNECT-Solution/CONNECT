@@ -484,7 +484,7 @@ public class NhincConstants {
     public static final String DATE_PARSE_FORMAT = "yyyyMMddHHmmss";
 
     //Document Type property for UClient
-    public static final String DOCUMET_TYPE_PROPERTY_FILE = "documentTypes";
+    public static final String DOCUMENT_TYPE_PROPERTY_FILE = "documentTypes";
 
     /* -- End Document Retrieve deferred Service Name -- */
     private NhincConstants() {
