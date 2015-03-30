@@ -41,6 +41,7 @@ import gov.hhs.fha.nhinc.docquery.model.builder.impl.DocumentMetadataResultsMode
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieveResults;
 import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
+import static gov.hhs.fha.nhinc.util.StreamUtils.closeStreamSilently;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -48,10 +49,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
 import javax.faces.context.FacesContext;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
 
 /**
@@ -175,9 +178,8 @@ public class GatewayService {
      * @param patientQuerySearch
      *
      * @return true if the document retrieval is successful else false
-     * @throws java.io.IOException
      */
-    public boolean retrieveDocument(PatientSearchBean patientQuerySearch) throws IOException {
+    public boolean retrieveDocument(PatientSearchBean patientQuerySearch) {
         //set the document retrieve request values document id, organization and respository id
         DocumentRetrieve docRetrieve = new DocumentRetrieve();
         docRetrieve.setDocumentId(patientQuerySearch.getSelectedCurrentDocument().getDocumentId());
@@ -194,7 +196,7 @@ public class GatewayService {
                 byte[] convertXmlToHtml = null;
                 if (xsl != null) {
                     convertXmlToHtml = convertXMLToHTML(xml, xsl);
-                    xsl.close();
+                    closeStreamSilently(xsl);
                 }
                 patientQuerySearch.getSelectedCurrentDocument().setDocumentContent(convertXmlToHtml);
             } else {
@@ -213,7 +215,7 @@ public class GatewayService {
 
         try {
             TransformerFactory tFactory = TransformerFactory.newInstance();
-            Transformer transformer = tFactory.newTransformer(new javax.xml.transform.stream.StreamSource(xsl));
+            Transformer transformer = tFactory.newTransformer(new StreamSource(xsl));
             transformer.transform(new javax.xml.transform.stream.StreamSource(xml),
                 new javax.xml.transform.stream.StreamResult(output));
 

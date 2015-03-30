@@ -174,12 +174,8 @@ public class PatientSearchBean {
         if (this.getDocumentList().get(getSelectedDocument()).isDocumentRetrieved()) {
             return;
         }
-        try {
-            //Call the NwHIN RD to get the documents
-            documentFound = GatewayService.getInstance().retrieveDocument(this);
-        } catch (IOException ex) {
-            LOG.error("Failed to retrieve Documents");
-        }
+        //Call the NwHIN RD to get the documents
+        documentFound = GatewayService.getInstance().retrieveDocument(this);
     }
 
     /**
@@ -526,7 +522,8 @@ public class PatientSearchBean {
         try {
             //Load the documentType.properties file
             Properties localDocumentTypeProperties = PropertyAccessor.getInstance().getProperties(NhincConstants.DOCUMET_TYPE_PROPERTY_FILE);
-            for (Iterator<Entry<Object, Object>> it = localDocumentTypeProperties.entrySet().iterator(); it.hasNext();) {
+            Iterator<Entry<Object, Object>> it = localDocumentTypeProperties.entrySet().iterator();
+            while (it.hasNext()) {
                 Entry<Object, Object> property = it.next();
                 localDocumentTypeList.add(new SelectItem((String) property.getKey(), (String) property.getValue()));
             }
