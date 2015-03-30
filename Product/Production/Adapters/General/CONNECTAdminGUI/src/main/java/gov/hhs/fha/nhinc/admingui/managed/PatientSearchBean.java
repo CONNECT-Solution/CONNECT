@@ -33,12 +33,20 @@ import gov.hhs.fha.nhinc.admingui.services.GatewayService;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCacheHelper;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
@@ -87,6 +95,7 @@ public class PatientSearchBean {
     private boolean renderDocumentPdf;
     private boolean renderDocumentText;
     private boolean renderDcoumentNotSupported;
+    private String displayOrganizationName;
 
     //For Lookup..should be moved to a different managed bean
     private List<SelectItem> documentTypeList;
@@ -165,8 +174,12 @@ public class PatientSearchBean {
         if (this.getDocumentList().get(getSelectedDocument()).isDocumentRetrieved()) {
             return;
         }
-        //Call the NwHIN RD to get the documents
-        documentFound = GatewayService.getInstance().retrieveDocument(this);
+        try {
+            //Call the NwHIN RD to get the documents
+            documentFound = GatewayService.getInstance().retrieveDocument(this);
+        } catch (IOException ex) {
+            LOG.error("Failed to retrieve Documents");
+        }
     }
 
     /**
@@ -479,11 +492,14 @@ public class PatientSearchBean {
                     }
                     //add it to the organizationList
                     localOrganizationList.put(homeCommunityName, homeCommunityId);
+                    //added to display orgnaization name in UI
+                    displayOrganizationName = homeCommunityName;
                 }
             }
         } catch (ConnectionManagerException ex) {
             LOG.error("Failed to retrieve Business Entities from UDDI file.");
         }
+        LOG.info("Organization name to display in ui:" + homeCommunityName);
         return localOrganizationList;
     }
 
@@ -506,9 +522,17 @@ public class PatientSearchBean {
      */
     private List<SelectItem> populateDocumentTypes() {
         List<SelectItem> localDocumentTypeList = new ArrayList<SelectItem>();
-        localDocumentTypeList.add(new SelectItem("Prescription", "Prescription"));
-        localDocumentTypeList.add(new SelectItem("Discharge Summary", "Discharge Summary"));
-        localDocumentTypeList.add(new SelectItem("Transfer of care referral note", "Transfer of care referral note"));
+
+        try {
+            //Load the documentType.properties file
+            Properties localDocumentTypeProperties = PropertyAccessor.getInstance().getProperties(NhincConstants.DOCUMET_TYPE_PROPERTY_FILE);
+            for (Iterator<Entry<Object, Object>> it = localDocumentTypeProperties.entrySet().iterator(); it.hasNext();) {
+                Entry<Object, Object> property = it.next();
+                localDocumentTypeList.add(new SelectItem((String) property.getKey(), (String) property.getValue()));
+            }
+        } catch (PropertyAccessException ex) {
+            LOG.error("Not able to load the document types from the property file:" + ex.getMessage());
+        }
         return localDocumentTypeList;
     }
 
@@ -603,4 +627,21 @@ public class PatientSearchBean {
     public boolean isRenderDcoumentNotSupported() {
         return !(isRenderDocumentPdf() || isRenderDocumentText() || isRenderDocumentimage());
     }
+
+    /**
+     *
+     * @return displayOrganizationName
+     */
+    public String getDisplayOrganizationName() {
+        return displayOrganizationName;
+    }
+
+    /**
+     *
+     * @param displayOrganizationName the displayOrganizationName to set
+     */
+    public void setDisplayOrganizationName(String displayOrganizationName) {
+        this.displayOrganizationName = displayOrganizationName;
+    }
+
 }

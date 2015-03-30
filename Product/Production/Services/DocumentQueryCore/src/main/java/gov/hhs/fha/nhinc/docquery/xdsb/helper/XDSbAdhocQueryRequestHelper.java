@@ -48,6 +48,18 @@ public interface XDSbAdhocQueryRequestHelper {
         AdhocQueryRequest message);
 
     /**
+     * Creates a slot with the given name and a single value. If a slot already exists, its value will be replaced with
+     * the passed in value, even in cases where there are multiple existing values. For example, if a slot exists with 3
+     * values, and this method is invoked the resulting slot will have a single value.
+     *
+     * @param slotName the slot name
+     * @param value the value
+     * @param message the message
+     */
+    public void createOrReplaceSlotValue(XDSbConstants.RegistryStoredQueryParameter slotName, List<String> value,
+        AdhocQueryRequest message);
+
+    /**
      * Format date in UTC representation with no trailing zeros.
      *
      * @param date the date
@@ -72,10 +84,10 @@ public interface XDSbAdhocQueryRequestHelper {
     public String createSingleQuoteDelimitedListValue(List<String> values);
 
     /**
-     * @param documentTypeCode
+     * @param documentTypeCode the documentTypeCode
      * @param string
-     * @return
+     * @return the list
      */
-    public String createCodeSchemeValue(String documentTypeCode, String string);
+    public List<String> createCodeSchemeValue(List<String> documentTypeCode, String string);
 
 }

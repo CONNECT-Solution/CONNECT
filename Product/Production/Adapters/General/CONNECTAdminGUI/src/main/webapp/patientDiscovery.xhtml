@@ -120,7 +120,7 @@
                                                             </h:column>
                                                             <h:column>
                                                                 <f:facet name="header">Organization</f:facet>
-                                                                    #{patient.organization}
+                                                                   #{patientSearchBean.displayOrganizationName}
                                                             </h:column> 
                                                             <h:column>
                                                                 <f:facet name="header"></f:facet>
@@ -161,7 +161,7 @@
                                                         <p:outputLabel value="Patient ID:" />
                                                         <h:outputText  value="#{patientSearchBean.patientList[0].patientId}" />
                                                         <p:outputLabel value="Organization:" />
-                                                        <h:outputText value="#{patientSearchBean.patientList[0].organization}" />
+                                                        <h:outputText value="#{patientSearchBean.displayOrganizationName}}" />
                                                         <p:outputLabel value="Gender:" />
                                                         <h:outputText  value="#{patientSearchBean.patientList[0].gender}"/>
                                                         <p:outputLabel value="Date Of Birth:" />
@@ -218,7 +218,7 @@
                                                         </h:column>
 
                                                         <h:column>
-                                                            <f:facet name="header">Document Type</f:facet>
+                                                            <f:facet name="header">Content Type</f:facet>
                                                                 #{patientDocument.contentType}
                                                         </h:column>
                                                         <h:column>
@@ -230,7 +230,7 @@
                                                                 #{patientDocument.authorPerson}
                                                         </h:column> 
                                                         <h:column>
-                                                            <f:facet name="header">Size</f:facet>
+                                                            <f:facet name="header">Size(KB)</f:facet>
                                                                 #{patientDocument.size}
                                                         </h:column> 
                                                         <h:column>
@@ -256,86 +256,76 @@
                     </div>
                 </p:tabView>           
                 <div  class="modal-copyright-prime">
-                    <p:dialog header="Document Metadata" widgetVar="docMetadataWindow" id="documentMetadataDialog"  width="700px" showEffect="clip" hideEffect="clip" modal="true">
+                    <p:dialog header="#{patientSearchBean.selectedCurrentDocument.documentType} for #{patientSearchBean.patientList[0].name} Created by #{patientSearchBean.selectedCurrentDocument.authorPerson} on #{patientSearchBean.selectedCurrentDocument.creationTimeUiDisplay}" widgetVar="docMetadataWindow" id="documentMetadataDialog"  width="700px" showEffect="clip" hideEffect="clip" modal="true">
                         <p:separator/>
-                        <h3>Document Metadata Information</h3>
                         <p:panel id="DocumentMetadataPanel" widgetVar="DQMetadataPanel" style="width: 100%; margin: 0;border:0 none; padding-top: 0;margin-top: 0;margin-bottom: 0;padding-bottom: 0">
                             <p:panelGrid styleClass="ui-panelgrid-domain" style="margin: 0;border:0 none;" columns="6">
-                                <p:outputLabel value="Author Person:" />
-                                <h:outputText  value="#{patientSearchBean.selectedCurrentDocument.authorPerson}" />
-                                <p:outputLabel value="Author Role:" />
-                                <h:outputText  value="#{patientSearchBean.selectedCurrentDocument.authorRole}" />
-                                <p:outputLabel value="Author Speciality:" />
-                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.authorSpecialty}" />
-                                <p:outputLabel value="Author Institution" />
-                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.authorInstitution}" />
-                                <p:outputLabel value="Content Type:" />
-                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.contentType}"/>
-                                <p:outputLabel value="Size:" />
-                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.size}"/>
-                                <p:outputLabel value="URI:" />
-                                <h:outputText  value="#{patientSearchBean.selectedCurrentDocument.uri}"/>
-                                <p:outputLabel value="Creation Time:" />
+                                <p:outputLabel value="Document Title:" />
+                                <h:outputText  value="#{patientSearchBean.selectedCurrentDocument.name}" />
+                                <p:outputLabel value="Creation Date:" />
                                 <h:outputText value="#{patientSearchBean.selectedCurrentDocument.creationTime}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy HHmmss" />
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                                 </h:outputText>
                                 <p:outputLabel value="Service Start Time:" />
                                 <h:outputText value="#{patientSearchBean.selectedCurrentDocument.serviceStartTime}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy HHmmss" />
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                                 </h:outputText>
                                 <p:outputLabel value="Service Stop Time:" />
                                 <h:outputText value="#{patientSearchBean.selectedCurrentDocument.serviceStopTime}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy HHmmss" />
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:MM:ss" />
                                 </h:outputText>
-                                <p:outputLabel value="Source Patient ID:" />
-                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.sourcePatientId}"/>
+                                <p:outputLabel value="Document Id:" />
+                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.documentId}"/>
+                                <p:outputLabel value="Content Type:" />
+                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.contentType}"/>
+                                <p:outputLabel value="Size(KB):" />
+                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.size}"/>
+                                <p:outputLabel value="Document Type Code:" />
+                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.documentTypeCode}"/>
+                                <p:outputLabel value="Document Class Code:" />
+                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.documentClassCode}"/>
+                                <p:outputLabel value="Document Format Code:" />
+                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.documentFormatCode}"/>
+                                <p:outputLabel value="Author Person:" />
+                                <h:outputText  value="#{patientSearchBean.selectedCurrentDocument.authorPerson}" />
+                                <p:outputLabel value="Author Institution" />
+                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.authorInstitution}" />
+                                <p:outputLabel value="Confidentiality Code:" />
+                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.confidentialityCode}"/>
+                                <p:outputLabel value="Entry UUID:" />
+                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.entryUUID}"/>
+                                <p:outputLabel value="Healthcare Facility Type Code:" />
+                                <h:outputText value="#{patientSearchBean.selectedCurrentDocument.healthcareFacilityTypeCode}"/>
                             </p:panelGrid>
                         </p:panel>
                         <p:separator/>
                     </p:dialog>   
                 </div>
                 <div  class="modal-copyright-prime"  style="height:95%; width:90%; top: 2%; left: 2%">
-                    <p:dialog header="Document Content" widgetVar="documentContent" id="documentDialog"  style="height:95% !important; width:90% !important; top:1% !important; left: 1% !important;" modal="true" >
-                        <p:separator/>
-                        <h3>Document Information for Document ID #{patientSearchBean.selectedCurrentDocument.documentId}</h3>
-                        <p:panel id="documentContentPanel" style="width: 70%; margin: 0;border:0 none; padding-top: 0;margin-top: 0;margin-bottom: 0;padding-bottom: 0">
-                            <p:panelGrid styleClass="ui-panelgrid-domain" style="margin: 0;border:0 none;padding-top: 0;margin-top: 0;margin-bottom: 0;padding-bottom: 0" columns="6">
-                                <p:outputLabel value="Document ID:" />
-                                <h:outputText  value="#{patientSearchBean.selectedCurrentDocument.documentId}" />
-                                <p:outputLabel value="Source Patient Id:" />
-                                <h:outputText  value="#{patientSearchBean.selectedCurrentDocument.sourcePatientId}" />
-                                <p:outputLabel value="Document Name:" />
-                                <h:outputText  value="#{patientSearchBean.selectedCurrentDocument.name}" />
-                                <p:outputLabel value="Document Description:" />
-                                <h:outputText  value="#{patientSearchBean.selectedCurrentDocument.description}" />
-                                <p:outputLabel value="Content Type:" />
-                                <h:outputText  value="#{patientSearchBean.selectedCurrentDocument.contentType}" />
-                                <p:outputLabel value="Document Size:" />
-                                <h:outputText  value="#{patientSearchBean.selectedCurrentDocument.size}" />
-                                <p:outputLabel value="Document Creation Datetime:" />
-                                <h:outputText  value="#{patientSearchBean.selectedCurrentDocument.creationTime}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy HHmmss" />
-                                </h:outputText>
-                            </p:panelGrid>
-                        </p:panel>
-                        <p:separator/>
+                    <p:dialog header="#{patientSearchBean.selectedCurrentDocument.documentType} for #{patientSearchBean.patientList[0].name} Created by #{patientSearchBean.selectedCurrentDocument.authorPerson} on #{patientSearchBean.selectedCurrentDocument.creationTimeUiDisplay} widgetVar="documentContent" id="documentDialog"  style="height:95% !important; width:90% !important; top:1% !important; left: 1% !important;" modal="true" >                     
                         <p:commandButton id="downloadDocument" value="Download" styleClass="btn-default" immediate="true" rendered="false"/>
                         <br/>
-                        <p:inputTextarea  autoResize="false" readonly="true" rows="35" value="#{patientSearchBean.documentList[patientSearchBean.selectedDocument].document}" style ="height:70% !important;width:100% !important;" rendered="#{patientSearchBean.renderDocumentText}"/>
-                        <!--All image files should be displayed displayed here-->
+                        <p:scrollPanel id="documentxml" rendered="#{patientSearchBean.renderDocumentText}"  style="height:90% !important;width:100% !important;" >
+                            <p:inputTextarea  autoResize="false" readonly="true" rows="60" value="#{patientSearchBean.documentList[patientSearchBean.selectedDocument].document}" style ="height:70% !important;width:100% !important;" rendered="#{patientSearchBean.renderDocumentText}"/>
+                        </p:scrollPanel>                        
+                        <!--All image files should be displayed here-->
                         <p:scrollPanel rendered="#{patientSearchBean.renderDocumentimage}" style ="height:90% !important;width:100% !important;">
-                            <p:graphicImage value="#{patientSearchBean.documentImage}" height="1000px" style ="height:90% !important;width:100% !important;"/>
+                            <p:graphicImage value="#{patientSearchBean.documentImage}" height="2000px" style ="height:90% !important;width:100% !important;"/>
                         </p:scrollPanel>
                         <p:media value="#{patientSearchBean.documentPdf}" rendered="#{patientSearchBean.renderDocumentPdf}" player="pdf" style="height: 800px; width: 100%;"/>
                         <p:outputLabel value="Document Can't be displayed." style="font-size: large" rendered="#{patientSearchBean.renderDcoumentNotSupported}"/>
 
+                        
                     </p:dialog>   
                 </div>
                 <p:hotkey bind="esc" handler="documentContent.hide();docMetadataWindow.hide();statusDialogBar.hide()" />
                 <p:ajaxStatus onstart="PF('statusDialogBar').show()" onsuccess="PF('statusDialogBar').hide()" />
                 <div  class="modal-copyright-prime">
                     <p:dialog widgetVar="statusDialogBar" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-                        <h:outputText value="Loading...."/>
+                        <h:outputText value="SEARCHING PATIENT....." rendered="#{empty patientSearchBean.patientList}" style="text-align: center"/>
+                        <h:outputText value="SEARCHING PATIENT DOCUMENT....." rendered="#{not empty patientSearchBean.patientList}" />
+                        <h:outputText value="OPENING PATIENT DOCUMENT....." rendered="#{patientSearchBean.documentFound}" />
+                        <br/>    
                         <p:graphicImage library="images" name="loading-bar-gif.gif" />
                     </p:dialog>
                 </div>

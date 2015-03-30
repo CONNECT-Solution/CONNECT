@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admingui.event.model;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -45,7 +47,7 @@ public class Document {
     private String legalAuthenticator;
     private Date serviceStartTime;
     private Date serviceStopTime;
-    private int size;
+    private double size;
     private String sourcePatientId;
     //not sure if we need this
     private String sourcePatientInfo;
@@ -61,7 +63,7 @@ public class Document {
     private String authorSpecialty;
     private String codingScheme;
     private String codingSchemeName;
-    //unique ID from document 
+    //unique ID from document
     private String documentId;
     private String patientId;
 
@@ -73,6 +75,11 @@ public class Document {
     private String documentType;
 
     private String documentClassCode;
+    private String confidentialityCode;
+    private String entryUUID;
+    private String healthcareFacilityTypeCode;
+    private String documentTypeCode;
+    private String documentFormatCode;
 
     public Document() {
         this.documentRetrieved = false;
@@ -90,6 +97,20 @@ public class Document {
      */
     public void setCreationTime(Date creationTime) {
         this.creationTime = creationTime;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getCreationTimeUiDisplay() {
+        String formattedDate = null;
+        if (this.getCreationTime() != null) {
+            Date currentDate = this.getCreationTime();
+            SimpleDateFormat dateformat = new SimpleDateFormat("MM/dd/yyyy");
+            formattedDate = dateformat.format(currentDate);
+        }
+        return formattedDate;
     }
 
     /**
@@ -179,14 +200,14 @@ public class Document {
     /**
      * @return the size
      */
-    public int getSize() {
-        return size;
+    public double getSize() {
+        return Double.parseDouble(new DecimalFormat("##.##").format(size / 1024));
     }
 
     /**
      * @param size the size to set
      */
-    public void setSize(int size) {
+    public void setSize(double size) {
         this.size = size;
     }
 
@@ -480,6 +501,86 @@ public class Document {
      */
     public void setDocumentClassCode(String documentClassCode) {
         this.documentClassCode = documentClassCode;
+    }
+
+    /**
+     *
+     * @return the confidentialityCode
+     */
+    public String getConfidentialityCode() {
+        return confidentialityCode;
+    }
+
+    /**
+     *
+     * @param confidentialityCode the confidentialityCode to set
+     */
+    public void setConfidentialityCode(String confidentialityCode) {
+        this.confidentialityCode = confidentialityCode;
+    }
+
+    /**
+     *
+     * @return the entry UUID
+     */
+    public String getEntryUUID() {
+        return entryUUID;
+    }
+
+    /**
+     *
+     * @param entryUUID the entryUUID to set
+     */
+    public void setEntryUUID(String entryUUID) {
+        this.entryUUID = entryUUID;
+    }
+
+    /**
+     *
+     * @return healthcareFacilityTypeCode
+     */
+    public String getHealthcareFacilityTypeCode() {
+        return healthcareFacilityTypeCode;
+    }
+
+    /**
+     *
+     * @param healthcareFacilityTypeCode the healcareFacilityTypeCode to set
+     */
+    public void setHealthcareFacilityTypeCode(String healthcareFacilityTypeCode) {
+        this.healthcareFacilityTypeCode = healthcareFacilityTypeCode;
+    }
+
+    /**
+     *
+     * @return documentTypeCode
+     */
+    public String getDocumentTypeCode() {
+        return documentTypeCode;
+    }
+
+    /**
+     *
+     * @param documentTypeCode the documentTypeCode to set
+     */
+    public void setDocumentTypeCode(String documentTypeCode) {
+        this.documentTypeCode = documentTypeCode;
+    }
+
+    /**
+     *
+     * @return documentFormatCode
+     */
+    public String getDocumentFormatCode() {
+        return documentFormatCode;
+    }
+
+    /**
+     *
+     * @param documentFormatCode the documentFormatCode to set
+     */
+    public void setDocumentFormatCode(String documentFormatCode) {
+        this.documentFormatCode = documentFormatCode;
     }
 
 }
