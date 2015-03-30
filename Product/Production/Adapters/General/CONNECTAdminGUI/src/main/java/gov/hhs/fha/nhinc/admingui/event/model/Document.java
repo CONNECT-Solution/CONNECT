@@ -100,20 +100,6 @@ public class Document {
     }
 
     /**
-     *
-     * @return
-     */
-    public String getCreationTimeUiDisplay() {
-        String formattedDate = null;
-        if (this.getCreationTime() != null) {
-            Date currentDate = this.getCreationTime();
-            SimpleDateFormat dateformat = new SimpleDateFormat("MM/dd/yyyy");
-            formattedDate = dateformat.format(currentDate);
-        }
-        return formattedDate;
-    }
-
-    /**
      * @return the hash
      */
     public String getHash() {

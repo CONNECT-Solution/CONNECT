@@ -38,6 +38,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -531,6 +532,22 @@ public class PatientSearchBean {
             LOG.error("Not able to load the document types from the property file:" + ex.getMessage());
         }
         return localDocumentTypeList;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getCreationTimeUiDisplay() {
+        String formattedDate = null;
+        if (!this.getDocumentList().isEmpty()) {
+            if (this.getDocumentList().get(selectedDocument).getCreationTime() != null) {
+                Date currentDate = this.getDocumentList().get(selectedDocument).getCreationTime();
+                SimpleDateFormat dateformat = new SimpleDateFormat("MM/dd/yyyy");
+                formattedDate = dateformat.format(currentDate);
+            }
+        }
+        return formattedDate;
     }
 
     /**

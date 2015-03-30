@@ -256,7 +256,7 @@
                     </div>
                 </p:tabView>           
                 <div  class="modal-copyright-prime">
-                    <p:dialog header="#{patientSearchBean.selectedCurrentDocument.documentType} for #{patientSearchBean.patientList[0].name} Created by #{patientSearchBean.selectedCurrentDocument.authorPerson} on #{patientSearchBean.selectedCurrentDocument.creationTimeUiDisplay}" widgetVar="docMetadataWindow" id="documentMetadataDialog"  width="1100px" showEffect="clip" hideEffect="clip" modal="true">
+                    <p:dialog header="#{patientSearchBean.selectedCurrentDocument.documentType} for #{patientSearchBean.patientList[0].name} Created by #{patientSearchBean.selectedCurrentDocument.authorPerson} on #{patientSearchBean.creationTimeUiDisplay}" widgetVar="docMetadataWindow" id="documentMetadataDialog"  width="1100px" showEffect="clip" hideEffect="clip" modal="true">
                         <p:separator/>
                         <p:panel id="DocumentMetadataPanel" widgetVar="DQMetadataPanel" style="width: 100%; margin: 0;border:0 none; padding-top: 0;margin-top: 0;margin-bottom: 0;padding-bottom: 0">
                             <p:panelGrid styleClass="ui-panelgrid-domain" style="margin: 0;border:0 none;" columns="6">
@@ -302,7 +302,7 @@
                     </p:dialog>   
                 </div>
                 <div  class="modal-copyright-prime"  style="height:95%; width:90%; top: 2%; left: 2%">
-                    <p:dialog header="#{patientSearchBean.selectedCurrentDocument.documentType} for #{patientSearchBean.patientList[0].name} Created by #{patientSearchBean.selectedCurrentDocument.authorPerson} on #{patientSearchBean.selectedCurrentDocument.creationTimeUiDisplay}" widgetVar="documentContent" id="documentDialog"  style="height:95% !important; width:90% !important; top:1% !important; left: 1% !important;" modal="true" >
+                    <p:dialog header="#{patientSearchBean.selectedCurrentDocument.documentType} for #{patientSearchBean.patientList[0].name} Created by #{patientSearchBean.selectedCurrentDocument.authorPerson} on #{patientSearchBean.creationTimeUiDisplay}" widgetVar="documentContent" id="documentDialog"  style="height:95% !important; width:90% !important; top:1% !important; left: 1% !important;" modal="true" >
                         <p:commandButton id="downloadDocument" value="Download" styleClass="btn-default" immediate="true" rendered="false"/>
                         <br/>
                         <p:scrollPanel id="documentxml" rendered="#{patientSearchBean.renderDocumentText}"  style="height:90% !important;width:100% !important;" >
@@ -323,8 +323,7 @@
                 <div  class="modal-copyright-prime">
                     <p:dialog widgetVar="statusDialogBar" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
                         <h:outputText value="SEARCHING PATIENT....." rendered="#{empty patientSearchBean.patientList}" style="text-align: center"/>
-                        <h:outputText value="SEARCHING PATIENT DOCUMENT....." rendered="#{not empty patientSearchBean.patientList}" />
-                        <h:outputText value="OPENING PATIENT DOCUMENT....." rendered="#{patientSearchBean.documentFound}" />
+                        <h:outputText value="GETTING DOCUMENT....." rendered="#{not empty patientSearchBean.patientList}" />
                         <br/>    
                         <p:graphicImage library="images" name="loading-bar-gif.gif" />
                     </p:dialog>
