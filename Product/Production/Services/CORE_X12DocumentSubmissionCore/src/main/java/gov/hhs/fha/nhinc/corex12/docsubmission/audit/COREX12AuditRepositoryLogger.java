@@ -31,6 +31,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import org.apache.log4j.Logger;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
@@ -42,6 +44,7 @@ public class COREX12AuditRepositoryLogger {
 
     private static final Logger LOG = Logger.getLogger(COREX12AuditRepositoryLogger.class);
     private final COREX12RealtimeTransforms x12AuditTransformer = new COREX12RealtimeTransforms();
+    private final COREX12BatchAuditTransforms x12BatchAuditTransformer = new COREX12BatchAuditTransforms();
 
     /**
      *
@@ -114,6 +117,72 @@ public class COREX12AuditRepositoryLogger {
         LogEventRequestType oAuditMes = null;
         oAuditMes = x12AuditTransformer.transformResponseToAuditMsg(message, assertion, target, direction, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, isRequesting);
         LOG.debug("End AuditRepositoryLogger.logAdapterCoreX12RealtimeResponse(...)");
+        return oAuditMes;
+    }
+
+    /**
+     *
+     * @param message
+     * @param assertion
+     * @param target
+     * @param direction
+     * @return LogEventRequestType
+     */
+    public LogEventRequestType logNhinCoreX12BatchRequest(COREEnvelopeBatchSubmission message, AssertionType assertion, NhinTargetSystemType target, String direction) {
+        LOG.trace("Entering COREX12AuditRepositoryLogger.logNhinCoreX12BatchRequest(...)");
+        LogEventRequestType oAuditMes = x12BatchAuditTransformer.transformBatchRequestToAuditMsg(message, assertion, target, direction, direction);
+        LOG.trace("End COREX12AuditRepositoryLogger.logNhinCoreX12BatchRequest(...)");
+        return oAuditMes;
+    }
+
+    /**
+     *
+     * @param message
+     * @param assertion
+     * @param target
+     * @param direction
+     * @param _interface
+     * @param isRequesting
+     * @return LogEventRequestType
+     */
+    public LogEventRequestType logNhinCoreX12BatchResponse(COREEnvelopeBatchSubmissionResponse message, AssertionType assertion, NhinTargetSystemType target, String direction, String _interface, boolean isRequesting) {
+        LOG.trace("Entering COREX12AuditRepositoryLogger.logNhinCoreX12BatchResponse(...)");
+        LogEventRequestType oAuditMes = x12BatchAuditTransformer.transformBatchResponseToAuditMsg(message, assertion, target, direction, _interface, isRequesting);
+        LOG.trace("End COREX12AuditRepositoryLogger.logNhinCoreX12BatchResponse(...)");
+        return oAuditMes;
+    }
+
+    /**
+     *
+     * @param message
+     * @param assertion
+     * @param target
+     * @param direction
+     * @param _interface
+     * @param isRequesting
+     * @return LogEventRequestType
+     */
+    public LogEventRequestType logAdapterCoreX12BatchRequest(COREEnvelopeBatchSubmission message, AssertionType assertion, NhinTargetSystemType target, String direction, String _interface, boolean isRequesting) {
+        LOG.trace("Entering COREX12AuditRepositoryLogger.logAdapterCoreX12BatchRequest(...)");
+        LogEventRequestType oAuditMes = x12BatchAuditTransformer.transformBatchRequestToAuditMsg(message, assertion, target, direction, direction);
+        LOG.trace("End COREX12AuditRepositoryLogger.logAdapterCoreX12BatchRequest(...)");
+        return oAuditMes;
+    }
+
+    /**
+     *
+     * @param message
+     * @param assertion
+     * @param target
+     * @param direction
+     * @param _interface
+     * @param isRequesting
+     * @return LogEventRequestType
+     */
+    public LogEventRequestType logAdapterCoreX12BatchResponse(COREEnvelopeBatchSubmissionResponse message, AssertionType assertion, NhinTargetSystemType target, String direction, String _interface, boolean isRequesting) {
+        LOG.trace("Entering COREX12AuditRepositoryLogger.logAdapterCoreX12BatchResponse(...)");
+        LogEventRequestType oAuditMes = x12BatchAuditTransformer.transformBatchResponseToAuditMsg(message, assertion, target, direction, _interface, isRequesting);
+        LOG.trace("End COREX12AuditRepositoryLogger.logAdapterCoreX12BatchResponse(...)");
         return oAuditMes;
     }
 }

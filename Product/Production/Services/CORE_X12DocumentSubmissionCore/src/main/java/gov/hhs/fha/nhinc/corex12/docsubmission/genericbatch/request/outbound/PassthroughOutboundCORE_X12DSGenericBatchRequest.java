@@ -30,11 +30,15 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
+import gov.hhs.fha.nhinc.corex12.docsubmission.audit.COREX12AuditLogger;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.entity.OutboundCORE_X12DSGenericBatchRequestDelegate;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.entity.OutboundCORE_X12DSGenericBatchRequestOrchestratable;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
 /**
  * @author svalluripalli
@@ -43,6 +47,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 public class PassthroughOutboundCORE_X12DSGenericBatchRequest implements OutboundCORE_X12DSGenericBatchRequest {
 
     private OutboundCORE_X12DSGenericBatchRequestDelegate dsDelegate = new OutboundCORE_X12DSGenericBatchRequestDelegate();
+    private COREX12AuditLogger auditLogger = new COREX12AuditLogger();
 
     /**
      * Constructor..
@@ -96,5 +101,15 @@ public class PassthroughOutboundCORE_X12DSGenericBatchRequest implements Outboun
         core_x12dsOrchestratable.setRequest(request);
         core_x12dsOrchestratable.setTarget(targetSystem);
         return core_x12dsOrchestratable;
+    }
+    
+    private void auditRequestToNhin(COREEnvelopeRealTimeRequest body, AssertionType assertion,
+        NhinTargetSystemType targetSystem) {
+        auditLogger.auditNhinCoreX12RealtimeRequest(body, assertion, targetSystem, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+    }
+
+    private void auditResponseFromNhin(COREEnvelopeRealTimeResponse body, AssertionType assertion,
+        NhinTargetSystemType targetSystem) {
+        auditLogger.auditNhinCoreX12RealtimeRespponse(body, assertion, targetSystem, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, true);
     }
 }

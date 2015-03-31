@@ -36,13 +36,20 @@ import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformConstants;
 import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformHelper;
 import gov.hhs.fha.nhinc.transform.audit.XDRTransforms;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import java.io.ByteArrayOutputStream;
-import java.util.logging.Level;
+import java.lang.management.ManagementFactory;
+import java.net.InetAddress;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.UnknownHostException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -95,13 +102,20 @@ public class COREX12RealtimeTransforms {
         auditMsg = new AuditMessageType();
 
         // Create EventIdentification
-        CodedValueType eventID = getCodedValueTypeForXDRResponse();
+        CodedValueType eventID = AuditDataTransformHelper.createCodeValueType(AuditDataTransformConstants.EVENT_ID_CODE_X12, "",
+            AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_X12);
 
         EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventID);
+        oEventIdentificationType.getEventTypeCode().add(AuditDataTransformHelper.createCodeValueType(AuditDataTransformConstants.EVENT_ID_CODE_SYS_CODE_X12, "",
+            AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_X12, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_X12REALTIME));
         auditMsg.setEventIdentification(oEventIdentificationType);
 
-        AuditMessageType.ActiveParticipant participant = getActiveParticipant(assertion.getUserInfo());
-        auditMsg.getActiveParticipant().add(participant);
+        AuditMessageType.ActiveParticipant participantHumanFactor = getActiveParticipant(assertion.getUserInfo());
+        AuditMessageType.ActiveParticipant participantSource = getActiveParticipantSource();
+        AuditMessageType.ActiveParticipant participantDestination = getActiveParticipantDestination(target);
+        auditMsg.getActiveParticipant().add(participantHumanFactor);
+        auditMsg.getActiveParticipant().add(participantSource);
+        auditMsg.getActiveParticipant().add(participantDestination);
 
         /* Assign ParticipationObjectIdentification */
         ParticipantObjectIdentificationType participantObject = getParticipantObjectIdentificationType(request);
@@ -157,12 +171,17 @@ public class COREX12RealtimeTransforms {
         auditMsg = new AuditMessageType();
 
         // Create EventIdentification
-        CodedValueType eventID = getCodedValueTypeForXDRResponse();
+        CodedValueType eventID = AuditDataTransformHelper.createCodeValueType(AuditDataTransformConstants.EVENT_ID_CODE_X12, "",
+            AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_X12);
         EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventID);
+        oEventIdentificationType.getEventTypeCode().add(AuditDataTransformHelper.createCodeValueType(AuditDataTransformConstants.EVENT_ID_CODE_SYS_CODE_X12, "",
+            AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_X12, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_X12REALTIME));
         auditMsg.setEventIdentification(oEventIdentificationType);
 
-        AuditMessageType.ActiveParticipant participant = getActiveParticipant(assertion.getUserInfo());
-        auditMsg.getActiveParticipant().add(participant);
+        AuditMessageType.ActiveParticipant participantSource = getActiveParticipantSource();
+        AuditMessageType.ActiveParticipant participantDestination = getActiveParticipantDestination(target);
+        auditMsg.getActiveParticipant().add(participantSource);
+        auditMsg.getActiveParticipant().add(participantDestination);
 
         /* Assign ParticipationObjectIdentification */
         ParticipantObjectIdentificationType participantObject = getParticipantObjectIdentificationType(response);
@@ -285,32 +304,140 @@ public class COREX12RealtimeTransforms {
         return false;
     }
 
-    private CodedValueType getCodedValueTypeForXDRResponse() {
-        // Create EventIdentification
-        CodedValueType eventID = AuditDataTransformHelper.createEventId(
-            AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_X12,
-            AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_X12REALTIME,
-            AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_X12,
-            AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_X12REALTIME);
-        return eventID;
-    }
-
-    private EventIdentificationType getEventIdentificationType(CodedValueType eventID) {
+    protected EventIdentificationType getEventIdentificationType(CodedValueType eventID) {
         EventIdentificationType oEventIdentificationType = AuditDataTransformHelper.createEventIdentification(
             AuditDataTransformConstants.EVENT_ACTION_CODE_READ,
             AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID);
         return oEventIdentificationType;
     }
 
-    private AuditMessageType.ActiveParticipant getActiveParticipant(UserType oUserInfo) {
+    protected AuditMessageType.ActiveParticipant getActiveParticipant(UserType oUserInfo) {
         // Create Active Participant Section
         // create a method to call the AuditDataTransformHelper - one expectation
-        AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(
-            oUserInfo, true);
+        AuditMessageType.ActiveParticipant participant = createActiveParticipantFromUser(
+            oUserInfo, Boolean.TRUE);
+        if (null != oUserInfo.getRoleCoded()) {
+            participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(oUserInfo.getRoleCoded().getCode(), oUserInfo.getRoleCoded().getCodeSystem(),
+                "", oUserInfo.getRoleCoded().getDisplayName()));
+        }
         return participant;
     }
 
-    private ParticipantObjectIdentificationType getParticipantObjectIdentificationType(Object msg) {
+    /**
+     * Create the
+     * <code>AuditMessageType.ActiveParticipant</code> for an audit log record.
+     *
+     * @param userInfo
+     * @param userIsReq
+     * @return <code>AuditMessageType.ActiveParticipant</code>
+     */
+    private static AuditMessageType.ActiveParticipant createActiveParticipantFromUser(UserType userInfo,
+        Boolean userIsReq) {
+        String ipAddr = null;
+        AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
+
+        if (ipAddr == null) {
+            try {
+                ipAddr = InetAddress.getLocalHost().getHostAddress();
+            } catch (UnknownHostException ex) {
+                LOG.error("UnknownHostException thrown getting local host address.", ex);
+                return null;
+            }
+        }
+
+        // Set the User Id
+        String userId = null;
+        if (userInfo != null && userInfo.getUserName() != null && userInfo.getUserName().length() > 0) {
+            userId = userInfo.getUserName();
+        }
+
+        if (userId != null) {
+            participant.setUserID(userId);
+        }
+
+        // If specified, set the User Name
+        String userName = null;
+        if (userInfo != null && userInfo.getPersonName() != null) {
+            if (userInfo.getPersonName().getGivenName() != null && userInfo.getPersonName().getGivenName().length() > 0) {
+                userName = userInfo.getPersonName().getGivenName();
+            }
+
+            if (userInfo.getPersonName().getFamilyName() != null
+                && userInfo.getPersonName().getFamilyName().length() > 0) {
+                if (userName != null) {
+                    userName += (" " + userInfo.getPersonName().getFamilyName());
+                } else {
+                    userName = userInfo.getPersonName().getFamilyName();
+                }
+            }
+        }
+        if (userName != null) {
+            participant.setUserName(userName);
+        }
+
+        // Set the UserIsRequester Flag
+        participant.setUserIsRequestor(userIsReq);
+        return participant;
+    }
+
+    protected AuditMessageType.ActiveParticipant getActiveParticipantSource() {
+        AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
+        participant.setUserID(AuditDataTransformConstants.ACTIVE_PARTICPANT_USER_ID_SOURCE);
+        participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
+        try {
+            String ipAddr = InetAddress.getLocalHost().getHostAddress();
+            participant.setNetworkAccessPointID(ipAddr);
+            participant.setNetworkAccessPointTypeCode(AuditDataTransformConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_IP);
+        } catch (UnknownHostException ex) {
+            LOG.warn("UnknownHostException thrown getting local host address.", ex);
+            return null;
+        }
+
+        participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(AuditDataTransformConstants.ACTIVE_PARTICPANT_ROLE_CODE_CDE, "",
+            AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, AuditDataTransformConstants.ACTIVE_PARTICPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
+        participant.setUserIsRequestor(Boolean.TRUE);
+        return participant;
+    }
+
+    protected AuditMessageType.ActiveParticipant getActiveParticipantDestination(NhinTargetSystemType target) {
+        String strUrl = null;
+        String strHost = null;
+        AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
+        if (null != target) {
+            if (NullChecker.isNotNullish(target.getUrl())) {
+                strUrl = target.getUrl();
+            } else {
+                ConnectionManagerCache cm = ConnectionManagerCache.getInstance();
+                try {
+                    strUrl = cm.getEndpointURLFromNhinTarget(target, NhincConstants.NHIN_CORE_X12DS_REALTIME_SECURED_SERVICE_NAME);
+                } catch (ConnectionManagerException ex) {
+                    LOG.error(ex);
+                }
+            }
+        }
+
+        if (null != strUrl) {
+            try {
+                URL url = new URL(strUrl);
+                participant.setUserID(strUrl);
+                strHost = url.getHost();
+                participant.setNetworkAccessPointID(strHost);
+                if (Character.isDigit(strHost.charAt(0))) {
+                    participant.setNetworkAccessPointTypeCode(AuditDataTransformConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_IP);
+                } else {
+                    participant.setNetworkAccessPointTypeCode(AuditDataTransformConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME);
+                }
+            } catch (MalformedURLException ex) {
+                LOG.error(ex);
+            }
+        }
+        participant.setUserIsRequestor(Boolean.FALSE);
+        participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(AuditDataTransformConstants.ACTIVE_PARTICIPANT_ROLLE_CODE__DEST, "",
+            AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, AuditDataTransformConstants.ACTIVE_PARTICPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME));
+        return participant;
+    }
+
+    protected ParticipantObjectIdentificationType getParticipantObjectIdentificationType(Object msg) {
         String payloadId = null;
         byte[] byteArray = null;
 
@@ -341,6 +468,8 @@ public class COREX12RealtimeTransforms {
         // Set the Participation Object Id Type code
         CodedValueType partObjIdTypeCode = new CodedValueType();
         partObjIdTypeCode.setCode(AuditDataTransformConstants.PARTICIPANT_OJB_ID_TYPE_CODE_PATIENTNUM);
+        partObjIdTypeCode.setCodeSystemName(AuditDataTransformConstants.CAQH_x12_CONNECTIVITY_CODED_SYS_NAME);
+        partObjIdTypeCode.setDisplayName(AuditDataTransformConstants.CAQH_x12_CONNECTIVITY_CODED_SYS_DISPLAY_NAME);
         participantObject.setParticipantObjectIDTypeCode(partObjIdTypeCode);
 
         return participantObject;
@@ -353,14 +482,13 @@ public class COREX12RealtimeTransforms {
         javax.xml.namespace.QName xmlqname = null;
         JAXBContextHandler oHandler = new JAXBContextHandler();
         try {
-            JAXBContext jc = oHandler.getJAXBContext("org.caqh.soap.wsdl.corerule2_2_0");
+            JAXBContext jc = oHandler.getJAXBContext(AuditDataTransformConstants.CORE_X12_JAXB_CONTEXT);
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-            baOutStrm.reset();
             if (msg instanceof COREEnvelopeRealTimeRequest) {
                 oRequestNoPayload = (COREEnvelopeRealTimeRequest) msg;
                 oRequestNoPayload.setPayload("");
-                xmlqname = new javax.xml.namespace.QName("urn:org:caqh:soap:wsdl:corerule2_2_0", "COREEnvelopeRealTimeRequest");
+                xmlqname = new javax.xml.namespace.QName(AuditDataTransformConstants.CORE_X12_NAMESPACE_URI, AuditDataTransformConstants.CORE_X12_REQUEST_LOCALPART);
                 JAXBElement<org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest> element = new JAXBElement<org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest>(xmlqname, COREEnvelopeRealTimeRequest.class, oRequestNoPayload);
                 marshaller.marshal(element, baOutStrm);
                 bObject = baOutStrm.toByteArray();
@@ -369,19 +497,18 @@ public class COREX12RealtimeTransforms {
             if (msg instanceof COREEnvelopeRealTimeResponse) {
                 oResponseNoPayload = (COREEnvelopeRealTimeResponse) msg;
                 oResponseNoPayload.setPayload("");
-                xmlqname = new javax.xml.namespace.QName("urn:org:caqh:soap:wsdl:corerule2_2_0", "COREEnvelopeRealTimeResponse");
+                xmlqname = new javax.xml.namespace.QName(AuditDataTransformConstants.CORE_X12_NAMESPACE_URI, AuditDataTransformConstants.CORE_X12_RESPONSE_LOCALPART);
                 JAXBElement<org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse> element = new JAXBElement<org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse>(xmlqname, COREEnvelopeRealTimeResponse.class, oResponseNoPayload);
                 marshaller.marshal(element, baOutStrm);
                 bObject = baOutStrm.toByteArray();
             }
-
         } catch (JAXBException ex) {
             throw new RuntimeException(ex.getCause());
         }
         return bObject;
     }
 
-    private AuditSourceIdentificationType getAuditSourceIdentificationType(String communityId) {
+    protected AuditSourceIdentificationType getAuditSourceIdentificationType(String communityId) {
         return AuditDataTransformHelper.createAuditSourceIdentification(communityId, communityId);
     }
 }

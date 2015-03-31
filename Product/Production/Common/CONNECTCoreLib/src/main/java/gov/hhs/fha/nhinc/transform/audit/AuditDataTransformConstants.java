@@ -42,6 +42,7 @@ public class AuditDataTransformConstants {
     public static final Integer EVENT_OUTCOME_INDICATOR_SERIOUS_FAILURE = 8;
     public static final Integer EVENT_OUTCOME_INDICATOR_MAJOR_FAILURE = 12;
     public static final Short NETWORK_ACCESSOR_PT_TYPE_CODE_IP = 2;
+    public static final Short NETWORK_ACCESSOR_PT_TYPE_CODE_NAME = 1;
     public static final Short PARTICIPANT_OJB_TYPE_CODE_PERSON = 1;
     public static final Short PARTICIPANT_OJB_TYPE_CODE_SYSTEM = 2;
     public static final Short PARTICIPANT_OJB_TYPE_CODE_ROLE_PATIENT = 1;
@@ -108,7 +109,20 @@ public class AuditDataTransformConstants {
     public static final String EVENT_ID_DISPLAY_NAME_XDRREQUEST = "XDR Request";
     public static final String EVENT_ID_CODE_SYS_NAME_XDRRESPONSE = "XDRRESPONSE";
     //CORE X12 Constants....
-    public static final String EVENT_ID_CODE_SYS_NAME_X12 = "X12";
-    public static final String EVENT_ID_DISPLAY_NAME_X12REALTIME = "CAQH CORE X12 Document Submission";    
-
+    public static final String EVENT_ID_CODE_X12 = "110112";
+    public static final String EVENT_ID_DISPLAY_NAME_X12 = "Export";
+    public static final String EVENT_ID_CODE_SYS_CODE_X12 = "X12";
+    public static final String EVENT_ID_CODE_SYS_NAME_X12 = "CAQH CORE Transactions";
+    public static final String EVENT_ID_DISPLAY_NAME_X12REALTIME = "NwHIN CAQH CORE X12 Document Submission";    
+    public static final String ACTIVE_PARTICPANT_USER_ID_SOURCE = "anonymous";
+    public static final String ACTIVE_PARTICPANT_ROLE_CODE_CDE = "110153";
+    public static final String ACTIVE_PARTICIPANT_ROLLE_CODE__DEST = "110152";
+    public static final String ACTIVE_PARTICPANT_ROLE_CODE_SOURCE_DISPLAY_NAME = "Source";
+    public static final String ACTIVE_PARTICPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME = "Destination";
+    public static final String CORE_X12_NAMESPACE_URI = "urn:org:caqh:soap:wsdl:corerule2_2_0";
+    public static final String CORE_X12_JAXB_CONTEXT = "org.caqh.soap.wsdl.corerule2_2_0";
+    public static final String CORE_X12_REQUEST_LOCALPART = "COREEnvelopeRealTimeRequest";
+    public static final String CORE_X12_RESPONSE_LOCALPART = "COREEnvelopeRealTimeResponse";
+    public static final String CAQH_x12_CONNECTIVITY_CODED_SYS_NAME = "CAQH CORE Connectivity Metadata";
+    public static final String CAQH_x12_CONNECTIVITY_CODED_SYS_DISPLAY_NAME = "Payload Identifier";
 }

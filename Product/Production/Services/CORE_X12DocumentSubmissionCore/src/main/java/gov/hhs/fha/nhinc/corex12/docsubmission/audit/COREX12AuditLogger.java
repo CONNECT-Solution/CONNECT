@@ -33,6 +33,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import org.apache.log4j.Logger;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
@@ -123,6 +125,84 @@ public class COREX12AuditLogger {
             LOG.error("Core X12 Realtime Respponse auditLogMsg is null");
         }
         LOG.trace("---End COREX12AuditLogger.auditAdapterCoreX12RealtimeRespponse()---");
+    }
+
+    /**
+     *
+     * @param message
+     * @param assertion
+     * @param target
+     * @param direction
+     */
+    public void auditNhinCoreX12BatchRequest(COREEnvelopeBatchSubmission message, AssertionType assertion, NhinTargetSystemType target,
+        String direction) {
+        LOG.trace("---Begin COREX12AuditLogger.auditNhinCoreX12BatchRequest()---");
+        LogEventRequestType auditLogMsg = auditLogger.logNhinCoreX12BatchRequest(message, assertion, target, direction);
+        if (auditLogMsg != null && auditLogMsg.getAuditMessage() != null) {
+            audit(auditLogMsg, assertion);
+        } else {
+            LOG.error("Core X12 Nhin Batch Request auditLogMsg is null");
+        }
+        LOG.trace("---End COREX12AuditLogger.auditNhinCoreX12BatchRequest()---");
+    }
+
+    /**
+     *
+     * @param message
+     * @param assertion
+     * @param target
+     * @param direction
+     * @param isRequesting
+     */
+    public void auditNhinCoreX12BatchRespponse(COREEnvelopeBatchSubmissionResponse message, AssertionType assertion, NhinTargetSystemType target,
+        String direction, boolean isRequesting) {
+        LOG.trace("---Begin COREX12AuditLogger.auditNhinCoreX12BatchRespponse()---");
+        LogEventRequestType auditLogMsg = auditLogger.logNhinCoreX12BatchResponse(message, assertion, target, direction, direction, isRequesting);
+        if (auditLogMsg != null && auditLogMsg.getAuditMessage() != null) {
+            audit(auditLogMsg, assertion);
+        } else {
+            LOG.error("Core X12 Nhin Batch Response auditLogMsg is null");
+        }
+        LOG.trace("---End COREX12AuditLogger.auditNhinCoreX12BatchRespponse()---");
+    }
+
+    /**
+     *
+     * @param message
+     * @param assertion
+     * @param target
+     * @param direction
+     */
+    public void auditAdapterCoreX12BatchRequest(COREEnvelopeBatchSubmission message, AssertionType assertion, NhinTargetSystemType target,
+        String direction) {
+        LOG.trace("---Begin COREX12AuditLogger.auditAdapterCoreX12BatchRequest()---");
+        LogEventRequestType auditLogMsg = auditLogger.logAdapterCoreX12BatchRequest(message, assertion, target, direction, direction, Boolean.TRUE);
+        if (auditLogMsg != null && auditLogMsg.getAuditMessage() != null) {
+            audit(auditLogMsg, assertion);
+        } else {
+            LOG.error("Core X12 Adapter Batch Request auditLogMsg is null");
+        }
+        LOG.trace("---End COREX12AuditLogger.auditAdapterCoreX12BatchRequest()---");
+    }
+
+    /**
+     *
+     * @param message
+     * @param assertion
+     * @param target
+     * @param direction
+     * @param isRequesting
+     */
+    public void auditAdapterCoreX12BatchRespponse(COREEnvelopeBatchSubmissionResponse message, AssertionType assertion, NhinTargetSystemType target,
+        String direction, boolean isRequesting) {
+        LOG.trace("---Begin COREX12AuditLogger.auditAdapterCoreX12BatchRespponse()---");
+        LogEventRequestType auditLogMsg = auditLogger.logAdapterCoreX12BatchResponse(message, assertion, target, direction, direction, isRequesting);
+        if (auditLogMsg != null && auditLogMsg.getAuditMessage() != null) {
+            audit(auditLogMsg, assertion);
+        } else {
+            LOG.error("Core X12 Adapter Batch Response auditLogMsg is null");
+        }
+        LOG.trace("---End COREX12AuditLogger.auditAdapterCoreX12BatchRespponse()---");
     }
 
     /**
