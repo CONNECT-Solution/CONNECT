@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbConstants.XDSQueryStatus;
 import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbConstants.XDSbStoredQuery;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import org.apache.commons.lang.StringUtils;
 
@@ -41,6 +42,8 @@ import org.apache.commons.lang.StringUtils;
  * @author tjafri
  */
 public class FindDocumentsAdhocQueryRequestBuilder extends AbstractAdhocQueryRequestBuilder {
+
+    private final String loincSchemaCode = "2.16.840.1.113883.6.1";
 
     /**
      * The helper.
@@ -82,7 +85,7 @@ public class FindDocumentsAdhocQueryRequestBuilder extends AbstractAdhocQueryReq
     /**
      * The document type code.
      */
-    private String documentTypeCode = null;
+    private List<String> documentTypeCode = null;
 
     /**
      * Instantiates a new find documents adhoc query request builder.
@@ -133,10 +136,11 @@ public class FindDocumentsAdhocQueryRequestBuilder extends AbstractAdhocQueryReq
             helper.createOrReplaceSlotValue(RegistryStoredQueryParameter.$XDSDocumentEntryCreationTimeTo,
                 helper.formatXDSbDate(creationTimeTo), request);
         }
-        if (!StringUtils.isBlank(documentTypeCode)) {
-            helper.createOrReplaceSlotValue(RegistryStoredQueryParameter.$XDSDocumentEntryTypeCode,
-                helper.createCodeSchemeValue(documentTypeCode, "LOINC"), request);
+        if (!documentTypeCode.isEmpty()) {
+            helper.createOrReplaceSlotValue(RegistryStoredQueryParameter.$XDSDocumentEntryClassCode,
+                helper.createCodeSchemeValue(documentTypeCode, loincSchemaCode), request);
         }
+
     }
 
     @Override
@@ -189,7 +193,7 @@ public class FindDocumentsAdhocQueryRequestBuilder extends AbstractAdhocQueryReq
      * @param documentTypeCode the new document type code
      */
     @Override
-    public void setDocumentTypeCode(String documentTypeCode) {
+    public void setDocumentTypeCode(List<String> documentTypeCode) {
         this.documentTypeCode = documentTypeCode;
     }
 

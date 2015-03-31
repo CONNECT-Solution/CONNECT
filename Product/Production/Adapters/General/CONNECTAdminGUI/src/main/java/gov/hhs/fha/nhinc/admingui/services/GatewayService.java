@@ -41,9 +41,20 @@ import gov.hhs.fha.nhinc.docquery.model.builder.impl.DocumentMetadataResultsMode
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieveResults;
 import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
+import static gov.hhs.fha.nhinc.util.StreamUtils.closeStreamSilently;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import javax.faces.context.FacesContext;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
 
 /**
@@ -130,9 +141,11 @@ public class GatewayService {
         //and end time
         DocumentMetadata document = new DocumentMetadata();
         //document type
-        //document.setDocumentType("");
-        //document.setStartTime(null);
-        //document.setEndTime(null);
+        document.setDocumentType(patientQuerySearch.getQueryDocuments());
+        //set the document range from date
+        document.setStartTime(patientQuerySearch.getDocumentRangeFrom());
+        //set the document range to date
+        document.setEndTime(patientQuerySearch.getDocumentRangeTo());
         //set the organization
         document.setOrganization(patientQuerySearch.getSelectedCurrentPatient().getOrganization());
         //set the Patient Id
@@ -175,15 +188,42 @@ public class GatewayService {
 
         //Call the NwHIN service to retrieve the document
         DocumentRetrieveResults response = documentRetrieveService.retrieveDocuments(docRetrieve);
-        //set the retrieved document to the UI patient bean 
+        //set the retrieved document to the UI patient bean
         if (response.getDocument() != null) {
-            //patientQuerySearch.getSelectedCurrentDocument().setContentType(response.getContentType());
-            patientQuerySearch.getSelectedCurrentDocument().setDocumentContent(response.getDocument());
+            if (response.getContentType().contains("text/xml")) {
+                InputStream xsl = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/WEB-INF/CDA.xsl");
+                InputStream xml = new ByteArrayInputStream(response.getDocument());
+                byte[] convertXmlToHtml = null;
+                if (xsl != null) {
+                    convertXmlToHtml = convertXMLToHTML(xml, xsl);
+                    closeStreamSilently(xsl);
+                }
+                patientQuerySearch.getSelectedCurrentDocument().setDocumentContent(convertXmlToHtml);
+            } else {
+                patientQuerySearch.getSelectedCurrentDocument().setDocumentContent(response.getDocument());
+            }
             patientQuerySearch.getSelectedCurrentDocument().setDocumentRetrieved(true);
             LOG.debug("Successfully retrieved the content of document with documentid:" + response.getContentType());
             return true;
         }
         return false;
+    }
+
+    private byte[] convertXMLToHTML(InputStream xml, InputStream xsl) {
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+        try {
+            TransformerFactory tFactory = TransformerFactory.newInstance();
+            Transformer transformer = tFactory.newTransformer(new StreamSource(xsl));
+            transformer.transform(new javax.xml.transform.stream.StreamSource(xml),
+                new javax.xml.transform.stream.StreamResult(output));
+
+        } catch (TransformerException e) {
+            LOG.error("Exception in transforming from xml to html", e);
+        }
+
+        return output.toByteArray();
     }
 
     /**
