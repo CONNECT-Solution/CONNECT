@@ -59,8 +59,9 @@ import org.hl7.fhir.instance.model.Resource;
 
 /**
  * Modified FHIR client taken from reference client used strictly for Conformance resource lookup.
- * 
- * @see <a href="https://github.com/cnanjo/FhirJavaReferenceClient">https://github.com/cnanjo/FhirJavaReferenceClient</a>
+ *
+ * @see
+ * <a href="https://github.com/cnanjo/FhirJavaReferenceClient">https://github.com/cnanjo/FhirJavaReferenceClient</a>
  * @author jassmit
  */
 public class ConformanceClient {
@@ -95,6 +96,7 @@ public class ConformanceClient {
         request.addHeader("Accept", resourceFormat + ", " + FeedFormat.FEED_XML.getHeader());
         request.addHeader("Content-Type", ResourceFormat.RESOURCE_XML.getHeader() + ";charset=" + DEFAULT_CHARSET);
         request.addHeader("Accept-Charset", DEFAULT_CHARSET);
+        request.addHeader("Accept-Encoding", "deflate"); // Added to pull conformance from HAPI.
     }
 
     protected static HttpResponse sendRequest(HttpUriRequest request) {
@@ -114,7 +116,7 @@ public class ConformanceClient {
         T resource = null;
         InputStream instream = null;
         HttpEntity entity = response.getEntity();
-        if (entity != null && entity.getContentLength() > 0) {
+        if (entity != null) {
             try {
                 instream = entity.getContent();
                 resource = (T) getParser(format).parse(instream);
