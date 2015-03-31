@@ -161,7 +161,7 @@
                                                         <p:outputLabel value="Patient ID:" />
                                                         <h:outputText  value="#{patientSearchBean.patientList[0].patientId}" />
                                                         <p:outputLabel value="Organization:" />
-                                                        <h:outputText value="#{patientSearchBean.displayOrganizationName}}" />
+                                                        <h:outputText value="#{patientSearchBean.displayOrganizationName}" />
                                                         <p:outputLabel value="Gender:" />
                                                         <h:outputText  value="#{patientSearchBean.patientList[0].gender}"/>
                                                         <p:outputLabel value="Date Of Birth:" />
@@ -323,7 +323,7 @@
                 <div  class="modal-copyright-prime">
                     <p:dialog widgetVar="statusDialogBar" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
                         <h:outputText value="SEARCHING PATIENT....." rendered="#{empty patientSearchBean.patientList}" style="text-align: center"/>
-                        <h:outputText value="GETTING DOCUMENT....." rendered="#{not empty patientSearchBean.patientList}" />
+                        <h:outputText value="GETTING DOCUMENT....." rendered="#{not empty patientSearchBean.patientList}" />                        
                         <br/>    
                         <p:graphicImage library="images" name="loading-bar-gif.gif" />
                     </p:dialog>
