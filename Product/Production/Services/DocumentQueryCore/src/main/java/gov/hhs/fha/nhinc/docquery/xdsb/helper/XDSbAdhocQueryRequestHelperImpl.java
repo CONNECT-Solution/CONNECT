@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.docquery.xdsb.helper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbConstants.RegistryStoredQueryParameter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -130,13 +131,33 @@ public class XDSbAdhocQueryRequestHelperImpl implements XDSbAdhocQueryRequestHel
     }
 
     @Override
-    public String createCodeSchemeValue(String documentTypeCode, String scheme) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("('");
-        builder.append(documentTypeCode);
-        builder.append("^^");
-        builder.append(scheme);
-        builder.append("')");
-        return builder.toString();
+    public List<String> createCodeSchemeValue(List<String> documentTypeCode, String schema) {
+        List<String> docType = new ArrayList<String>();
+        for (String docTypeCode : documentTypeCode) {
+            StringBuilder builder = new StringBuilder();
+            builder.append("('");
+            builder.append(docTypeCode);
+            builder.append("^^");
+            builder.append(schema);
+            builder.append("')");
+            docType.add(builder.toString());
+        }
+        return docType;
+    }
+
+    @Override
+    public void createOrReplaceSlotValue(RegistryStoredQueryParameter slotName, List<String> value, AdhocQueryRequest message) {
+
+        if (message != null && message.getAdhocQuery() != null && message.getAdhocQuery().getSlot() != null) {
+            for (SlotType1 slot : message.getAdhocQuery().getSlot()) {
+                if (slot != null) {
+                    if (StringUtils.equalsIgnoreCase(slot.getName(), slotName.toString())) {
+                        message.getAdhocQuery().getSlot().remove(slot);
+                        break;
+                    }
+                }
+            }
+            message.getAdhocQuery().getSlot().add(createSlot(slotName, value));
+        }
     }
 }

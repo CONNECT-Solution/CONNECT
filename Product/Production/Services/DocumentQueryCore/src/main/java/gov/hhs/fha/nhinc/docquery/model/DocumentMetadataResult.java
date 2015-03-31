@@ -643,17 +643,17 @@ public class DocumentMetadataResult {
     }
 
     /**
-     * @return the URI
+     * @return the uri
      */
-    public String getURI() {
+    public String getUri() {
         return uri;
     }
 
     /**
-     * @param URI the URI to set
+     * @param uri the uri to set
      */
-    public void setURI(String URI) {
-        this.uri = URI;
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
     /**

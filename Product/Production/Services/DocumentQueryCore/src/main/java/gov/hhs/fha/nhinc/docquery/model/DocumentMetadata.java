@@ -26,6 +26,7 @@
 package gov.hhs.fha.nhinc.docquery.model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -35,7 +36,7 @@ public class DocumentMetadata {
 
     private String patientId;
     private String patientIdRoot;
-    private String documentType;
+    private List<String> documentType;
     private Date startTime;
     private Date endTime;
     private String organization; //organization home community Id
@@ -62,11 +63,11 @@ public class DocumentMetadata {
         this.patientIdRoot = patientIdRoot;
     }
 
-    public String getDocumentType() {
+    public List<String> getDocumentType() {
         return documentType;
     }
 
-    public void setDocumentType(String documentType) {
+    public void setDocumentType(List<String> documentType) {
         this.documentType = documentType;
     }
 

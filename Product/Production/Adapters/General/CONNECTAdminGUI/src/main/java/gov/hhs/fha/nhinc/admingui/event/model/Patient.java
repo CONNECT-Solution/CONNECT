@@ -48,7 +48,6 @@ public class Patient {
     private String SSN;
     private String organization;
     private String organizationName;
-    private String name;
     private String patientId;
     //Not sure if we need these fields, Remove it if we don't
     //need it
