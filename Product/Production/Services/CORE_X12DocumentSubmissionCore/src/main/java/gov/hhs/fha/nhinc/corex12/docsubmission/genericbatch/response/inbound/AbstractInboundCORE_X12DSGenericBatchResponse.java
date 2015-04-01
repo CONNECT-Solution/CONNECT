@@ -27,10 +27,12 @@
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.inbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.corex12.docsubmission.audit.COREX12AuditLogger;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.proxy.AdapterCORE_X12DGenericBatchResponseProxy;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.proxy.AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory;
 import gov.hhs.fha.nhinc.corex12.docsubmission.utils.CORE_X12DSLargePayloadUtils;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import org.apache.log4j.Logger;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
@@ -43,13 +45,15 @@ public abstract class AbstractInboundCORE_X12DSGenericBatchResponse implements I
 
     private static final Logger LOG = Logger.getLogger(AbstractInboundCORE_X12DSGenericBatchResponse.class);
     private AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory oAdapterFactory;
+    private COREX12AuditLogger auditLogger;
 
     /**
      *
      * @param adapterFactory
      */
-    public AbstractInboundCORE_X12DSGenericBatchResponse(AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory adapterFactory) {
+    public AbstractInboundCORE_X12DSGenericBatchResponse(AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory adapterFactory, COREX12AuditLogger auditLogger) {
         oAdapterFactory = adapterFactory;
+        this.auditLogger = auditLogger;
     }
 
     /**
@@ -70,7 +74,10 @@ public abstract class AbstractInboundCORE_X12DSGenericBatchResponse implements I
     @Override
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg,
         AssertionType assertion) {
-        return processGenericBatchSubmitTransaction(msg, assertion);
+        auditRequestFromNhin(msg, assertion);
+        COREEnvelopeBatchSubmissionResponse oResponse = processGenericBatchSubmitTransaction(msg, assertion);
+        auditResponseToNhin(oResponse, assertion);
+        return oResponse;
     }
 
     /**
@@ -91,5 +98,22 @@ public abstract class AbstractInboundCORE_X12DSGenericBatchResponse implements I
             LOG.error("Failed to retrieve data from the file uri in the payload.", e);
         }
         return oResponse;
+    }
+
+    protected void auditRequestFromNhin(COREEnvelopeBatchSubmission request, AssertionType assertion) {
+
+        auditLogger.auditNhinCoreX12BatchRequest(request, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+    }
+
+    protected void auditResponseToNhin(COREEnvelopeBatchSubmissionResponse oResponsse, AssertionType assertion) {
+        auditLogger.auditNhinCoreX12BatchRespponse(oResponsse, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, false);
+    }
+
+    protected void auditRequestToAdapter(COREEnvelopeBatchSubmission request, AssertionType assertion) {
+        auditLogger.auditAdapterCoreX12BatchRequest(request, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+    }
+
+    protected void auditResponseFromAdapter(COREEnvelopeBatchSubmissionResponse oResponsse, AssertionType assertion) {
+        auditLogger.auditAdapterCoreX12BatchRespponse(oResponsse, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, true);
     }
 }

@@ -593,7 +593,7 @@ CREATE TABLE messagemonitoringdb.monitoredmessage (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-
+USE messagemonitoringdb;
 CREATE TABLE messagemonitoringdb.monitoredmessagenotification (
   id bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Unique identifier',
   emailid varchar(255) NOT NULL COMMENT 'notification email identifier',

@@ -27,8 +27,10 @@
 package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.inbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.corex12.docsubmission.audit.COREX12AuditLogger;
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.AdapterCORE_X12DSRealTimeProxy;
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.AdapterCORE_X12DSRealTimeProxyObjectFactory;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
@@ -39,25 +41,68 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 public abstract class AbstractInboundCORE_X12DSRealTime implements InboundCORE_X12DSRealTime {
 
     private AdapterCORE_X12DSRealTimeProxyObjectFactory adapterFactory;
+    private COREX12AuditLogger auditLogger;
 
-    public AbstractInboundCORE_X12DSRealTime(AdapterCORE_X12DSRealTimeProxyObjectFactory adapterFactory) {
+    /**
+     *
+     * @param adapterFactory
+     * @param auditLogger
+     */
+    public AbstractInboundCORE_X12DSRealTime(AdapterCORE_X12DSRealTimeProxyObjectFactory adapterFactory, COREX12AuditLogger auditLogger) {
         this.adapterFactory = adapterFactory;
+        this.auditLogger = auditLogger;
     }
 
+    /**
+     *
+     * @param body
+     * @param assertion
+     * @return COREEnvelopeRealTimeResponse
+     */
     abstract COREEnvelopeRealTimeResponse processCORE_X12DocSubmission(COREEnvelopeRealTimeRequest body,
         AssertionType assertion);
 
+    /**
+     *
+     * @param body
+     * @param assertion
+     * @return COREEnvelopeRealTimeResponse
+     */
     @Override
     public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest body,
         AssertionType assertion) {
-
-        return processCORE_X12DocSubmission(body, assertion);
+        auditRequestFromNhin(body, assertion);
+        COREEnvelopeRealTimeResponse oResponsse = processCORE_X12DocSubmission(body, assertion);
+        auditResponseToNhin(oResponsse, assertion);
+        return oResponsse;
     }
 
+    /**
+     *
+     * @param request
+     * @param assertion
+     * @return COREEnvelopeRealTimeResponse
+     */
     protected COREEnvelopeRealTimeResponse sendToAdapter(COREEnvelopeRealTimeRequest request,
         AssertionType assertion) {
 
         AdapterCORE_X12DSRealTimeProxy proxy = adapterFactory.getAdapterCORE_X12DocSubmissionProxy();
         return proxy.realTimeTransaction(request, assertion);
+    }
+
+    protected void auditRequestFromNhin(COREEnvelopeRealTimeRequest request, AssertionType assertion) {
+        auditLogger.auditNhinCoreX12RealtimeRequest(request, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+    }
+
+    protected void auditResponseToNhin(COREEnvelopeRealTimeResponse oResponsse, AssertionType assertion) {
+        auditLogger.auditNhinCoreX12RealtimeRespponse(oResponsse, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, false);
+    }
+
+    protected void auditRequestToAdapter(COREEnvelopeRealTimeRequest request, AssertionType assertion) {
+        auditLogger.auditAdapterCoreX12RealtimeRequest(request, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+    }
+
+    protected void auditResponseFromAdapter(COREEnvelopeRealTimeResponse oResponsse, AssertionType assertion) {
+        auditLogger.auditAdapterCoreX12RealtimeRespponse(oResponsse, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, true);
     }
 }
