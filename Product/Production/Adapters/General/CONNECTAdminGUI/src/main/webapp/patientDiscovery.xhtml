@@ -126,7 +126,7 @@
                                                                 </h:column>
                                                                 <h:column>
                                                                     <f:facet name="header">Organization</f:facet>
-                                                                        #{patient.organization}
+                                                                        #{patient.organizationName}
                                                                 </h:column> 
                                                                 <h:column>
                                                                     <f:facet name="header"></f:facet>
@@ -172,7 +172,7 @@
                                                             <p:outputLabel value="Patient ID:" />
                                                             <h:outputText  value="#{patientSearchBean.patientList[0].patientId}" />
                                                             <p:outputLabel value="Organization:" />
-                                                            <h:outputText value="#{patientSearchBean.patientList[0].organization}" />
+                                                            <h:outputText value="#{patientSearchBean.patientList[0].organizationName}" />
                                                             <p:outputLabel value="Gender:" />
                                                             <h:outputText  value="#{patientSearchBean.patientList[0].gender}"/>
                                                             <p:outputLabel value="Date Of Birth:" />
@@ -275,7 +275,7 @@
 
                 <!-- BEGIN:  MODAL CONTENT - METADATA -->
                 <div class="modal-copyright-prime modal-uc-docs">
-                    <p:dialog header="#{patientSearchBean.selectedCurrentDocument.documentType} for #{patientSearchBean.patientList[0].name} Created by #{patientSearchBean.selectedCurrentDocument.authorPerson} on #{patientSearchBean.creationTimeUiDisplay}"  widgetVar="docMetadataWindow" id="documentMetadataDialog" showEffect="clip" hideEffect="clip" modal="true">
+                    <p:dialog header="#{patientSearchBean.selectedCurrentDocument.documentType} for #{patientSearchBean.patientList[0].name} Created by #{patientSearchBean.selectedCurrentDocument.authorPerson} on #{patientSearchBean.creationTimeUiDisplay}" widgetVar="docMetadataWindow" id="documentMetadataDialog" showEffect="clip" hideEffect="clip" modal="true">
                         <p:panel id="DocumentMetadataPanel" widgetVar="DQMetadataPanel">
                             <p:panelGrid styleClass="ui-panelgrid-domain">
                                 <p:row>
@@ -285,16 +285,8 @@
                                     <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.authorRole}" /></p:column>
                                     <p:column><p:outputLabel value="Author Speciality:" /></p:column>
                                     <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.authorSpecialty}" /></p:column>
-                                    <p:column><p:outputLabel value="Author Institution" /></p:column>
+                                    <p:column><p:outputLabel value="Author Institution:" /></p:column>
                                     <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.authorInstitution}" /></p:column>
-                                </p:row>
-                                <p:row>
-                                    <p:column><p:outputLabel value="Content Type:" /></p:column>
-                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.contentType}"/></p:column>
-                                    <p:column><p:outputLabel value="Size:" /></p:column>
-                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.size}"/></p:column>
-                                    <p:column colspan="3"><p:outputLabel value="URI:" /></p:column>
-                                    <p:column><h:outputText  value="#{patientSearchBean.selectedCurrentDocument.uri}"/></p:column>
                                 </p:row>
                                 <p:row>
                                     <p:column><p:outputLabel value="Source Patient ID:" /></p:column>
@@ -318,6 +310,14 @@
                                         </h:outputText>
                                     </p:column>
                                 </p:row>
+                                <p:row>
+                                    <p:column><p:outputLabel value="Content Type:" /></p:column>
+                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.contentType}"/></p:column>
+                                    <p:column><p:outputLabel value="Size:" /></p:column>
+                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.size}"/></p:column>
+                                    <p:column><p:outputLabel value="URI:" /></p:column>
+                                    <p:column colspan="3"><h:outputText value="#{patientSearchBean.selectedCurrentDocument.uri}"/></p:column>
+                                </p:row>
                             </p:panelGrid>
                         </p:panel>
                     </p:dialog>   
@@ -326,28 +326,26 @@
 
                 <!-- BEGIN:  MODAL CONTENT - DOCUMENTS -->
                 <div class="modal-copyright-prime modal-uc-docs">
-                    <p:dialog header="#{patientSearchBean.selectedCurrentDocument.documentType} for #{patientSearchBean.patientList[0].name} Created by #{patientSearchBean.selectedCurrentDocument.authorPerson} on #{patientSearchBean.creationTimeUiDisplay}" widgetVar="documentContent" id="documentDialog" style="height:95% !important; width:90% !important; top:1% !important; left: 1% !important;" modal="true" >
-                        <p:commandButton id="downloadDocument" value="Download" styleClass="btn-default" immediate="true" rendered="false"/>
-                        <br/>
-                        <p:scrollPanel id="documentxml" rendered="#{patientSearchBean.renderDocumentText}" style="height:90% !important;width:100% !important;" >
-                            <p:inputTextarea autoResize="false" readonly="true" rows="60" value="#{patientSearchBean.documentList[patientSearchBean.selectedDocument].document}" style ="height:70% !important;width:100% !important;" rendered="#{patientSearchBean.renderDocumentText}"/>
-                        </p:scrollPanel>
-                        <!--All image files should be displayed here-->
-                        <p:scrollPanel rendered="#{patientSearchBean.renderDocumentimage}" style ="height:90% !important;width:100% !important;">
-                            <p:graphicImage value="#{patientSearchBean.documentImage}" height="2000px" style ="height:90% !important;width:100% !important;"/>
-                        </p:scrollPanel>
-                        <p:media value="#{patientSearchBean.documentPdf}" rendered="#{patientSearchBean.renderDocumentPdf}" player="pdf" style="height: 800px; width: 100%;"/>
-                        <p:outputLabel value="Document Can't be displayed." style="font-size: large" rendered="#{patientSearchBean.renderDcoumentNotSupported}"/>
+                    <p:dialog header="#{patientSearchBean.selectedCurrentDocument.documentType} for #{patientSearchBean.patientList[0].name} Created by #{patientSearchBean.selectedCurrentDocument.authorPerson} on #{patientSearchBean.creationTimeUiDisplay}" widgetVar="documentContent" id="documentDialog" modal="true" >
+                        <div class="uc-doc-list">
+                            <p:commandButton id="downloadDocument" value="Download" styleClass="btn-default" immediate="true" rendered="false"/>
+                            <p:inputTextarea autoResize="false" readonly="true" rows="35" value="#{patientSearchBean.documentList[patientSearchBean.selectedDocument].document}" rendered="#{patientSearchBean.renderDocumentText}"/>
+                            <!--All image files should be displayed displayed here-->
+                            <p:scrollPanel rendered="#{patientSearchBean.renderDocumentimage}">
+                                <p:graphicImage value="#{patientSearchBean.documentImage}" />
+                            </p:scrollPanel>
+                            <p:media value="#{patientSearchBean.documentPdf}" rendered="#{patientSearchBean.renderDocumentPdf}" player="pdf" styleClass="uc-doc-pdf" />
+                            <p:outputLabel value="Document can't be displayed." rendered="#{patientSearchBean.renderDcoumentNotSupported}"/>
+                        </div>
                     </p:dialog>
                 </div>
                 <!-- END:  MODAL CONTENT - DOCUMENTS -->
 
                 <p:hotkey bind="esc" handler="documentContent.hide();docMetadataWindow.hide();statusDialogBar.hide()" />
                 <p:ajaxStatus onstart="PF('statusDialogBar').show()" onsuccess="PF('statusDialogBar').hide()" />
-                <div class="modal-copyright-prime">
+                <div class="modal-copyright-prime" style="text-align:center;">
                     <p:dialog widgetVar="statusDialogBar" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-
-                        <h:outputText value="SEARCHING PATIENT....." rendered="#{empty patientSearchBean.patientList}" style="text-align: center"/>
+                        <h:outputText value="SEARCHING PATIENT....." rendered="#{empty patientSearchBean.patientList}" />
                         <h:outputText value="GETTING DOCUMENT....." rendered="#{not empty patientSearchBean.patientList}" />                        
                         <br/>    
                         <p:graphicImage library="images" name="loading-bar-gif.gif" />

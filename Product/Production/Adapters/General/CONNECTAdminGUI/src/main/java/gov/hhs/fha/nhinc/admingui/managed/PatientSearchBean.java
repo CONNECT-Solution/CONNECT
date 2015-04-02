@@ -68,9 +68,9 @@ public class PatientSearchBean {
 
     //Generic Variables, can be moved to a constant file
     private static final String PATIENT_FOUND = "Patient Record Found:";
-    private static final String PATIENT_NOT_FOUND = "Patient Not Found";
-    private static final String DOCUMENT_NOT_FOUND = "No Documents Found";
-    private static final String DOCUMENT_FOUND = "Documents Found";
+    private static final String PATIENT_NOT_FOUND = "Patient Not Found.";
+    private static final String DOCUMENT_NOT_FOUND = "No Documents Found.";
+    private static final String DOCUMENT_FOUND = "Documents Found:";
     private static final String CONTENT_TYPE_IMAGE_PNG = "image/png";
     private static final String CONTENT_TYPE_IMAGE_JPEG = "image/jpeg";
     private static final String CONTENT_TYPE_IMAGE_GIF = "image/gif";

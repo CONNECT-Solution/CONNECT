@@ -1370,13 +1370,14 @@ ul[id*='ringFHIR'] .ringFHIR-content label {
 	margin-left:20px;
 	margin-right:5px;
 	padding-right:10px;
-	border:none;
-	border-radius:0;
 	background:#bbbbbb;
 	color:#ffffff;
+	border:none;
+	border-radius:0;
+	font-size:14px;
 	font-weight:bold;
 	text-shadow:none;
-	font-size:14px;
+	box-shadow:none;
 }
 .uc-progress button.ui-state-default:before {
     position:absolute;
@@ -1389,6 +1390,7 @@ ul[id*='ringFHIR'] .ringFHIR-content label {
     left:-20px;
     top: 0px;
 	content:"";
+	/* -moz-transform: scale(.9999); HACK TO SMOOTH CSS SHAPE IN FIREFOX */
 }
 .uc-progress button.ui-state-hover {
 	border:none;
@@ -1396,13 +1398,13 @@ ul[id*='ringFHIR'] .ringFHIR-content label {
 	box-shadow:none;
 }
 .uc-progress button.ui-state-hover:before {
-	border-right: 20px solid #000000;
+	border-right:20px solid #000000;
 }
 .uc-progress button.ui-state-focus {
 	border:none;
 	box-shadow:none;
 }
-
+/*
 .uc-start-over {
     padding-left:20px;
 	margin-right:5px !important;
@@ -1433,6 +1435,7 @@ ul[id*='ringFHIR'] .ringFHIR-content label {
 .uc-start-over.uc-active div {
 	background-color:#000000;
 }
+*/
 
 .uc-pd {
 	padding-left:0px;
@@ -1449,6 +1452,7 @@ ul[id*='ringFHIR'] .ringFHIR-content label {
     right:-20px;
     top: 0px;
 	content:"";
+	-moz-transform: scale(.9999); /* HACK TO SMOOTH CSS SHAPE IN FIREFOX */
 }
 .uc-pd div {
 	height:40px;
@@ -1459,7 +1463,7 @@ ul[id*='ringFHIR'] .ringFHIR-content label {
 	font-style:normal;
 }
 .uc-pd.uc-active:after {
-	border-left: 20px solid #00be96;
+	border-left:20px solid #00be96;
 }
 .uc-pd.uc-active div {
 	background-color:#00be96;
@@ -1482,6 +1486,7 @@ ul[id*='ringFHIR'] .ringFHIR-content label {
     left:0px;
     top: 0px;
 	content:"";
+	-moz-transform: scale(.9999); /* HACK TO SMOOTH CSS SHAPE IN FIREFOX */
 }
 .uc-qd div {
 	height:40px;
@@ -1492,8 +1497,9 @@ ul[id*='ringFHIR'] .ringFHIR-content label {
 	font-style:normal;
 }
 .uc-qd.uc-active:before {
-	border-top:20px solid #00be96;
-	border-bottom:20px solid #00be96;
+    border:20px solid #00be96;
+    border-left:20px solid transparent;
+    border-right:0px solid transparent
 }
 .uc-qd.uc-active div {
 	background-color:#00be96;
@@ -1617,7 +1623,9 @@ ul[id*='ringFHIR'] .ringFHIR-content label {
 .uc-details .ui-panel .ui-panel-content {
 	padding:0px;
 }
-
+.uc-details table label {
+	margin-bottom:0px;
+}
 
 .modal-uc-docs > div {
 	width:90% !important;
@@ -1650,7 +1658,7 @@ ul[id*='ringFHIR'] .ringFHIR-content label {
 	margin-bottom:0px;
 }
 .modal-uc-docs .uc-doc-list {
-	height:300px;
+	height:500px; /* 300px */
 	overflow:auto;
 }
 .modal-uc-docs textarea,
@@ -1660,7 +1668,7 @@ ul[id*='ringFHIR'] .ringFHIR-content label {
 }
 .modal-uc-docs textarea,
 .modal-uc-docs .uc-doc-pdf {
-	height:300px;
+	height:500px; /* 300px */
 }
 
 

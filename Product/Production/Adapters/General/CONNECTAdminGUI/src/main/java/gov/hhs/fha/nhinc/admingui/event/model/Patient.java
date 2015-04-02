@@ -201,6 +201,14 @@ public class Patient {
     public String getOrganizationName() {
         return organizationName;
     }
+    
+    /**
+     * 
+     * @param organizationName 
+     */
+    public void setOrganizationName(String organizationName) {
+        this.organizationName = organizationName;
+    }
 
     /**
      * @return the assigningAuthorityId

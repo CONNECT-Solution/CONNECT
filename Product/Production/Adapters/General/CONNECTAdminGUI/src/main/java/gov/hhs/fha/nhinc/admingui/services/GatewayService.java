@@ -255,6 +255,7 @@ public class GatewayService {
             //Other patient information
             patient.setDomain(retrievedPatient.getDomain());
             patient.setOrganization(patientQuerySearch.getOrganization());
+            patient.setOrganizationName(getCommunityName(patientQuerySearch, patientQuerySearch.getOrganization()));
             patient.setPatientId(retrievedPatient.getPid());
             patient.setAssigningAuthorityId(retrievedPatient.getAaId());
             patientQuerySearch.getPatientList().add(patient);
