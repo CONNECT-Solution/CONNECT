@@ -1340,6 +1340,339 @@ ul[id*='ringFHIR'] .ringFHIR-content label {
 
 
 
+/* -- UNIVERSAL CLIENT STYLES -----------------------------------------------*/
+#patientSearchTabView .form-block {
+	padding:20px 0px 10px;
+}
+#patientSearchTabView h3,
+#patientSearchTabView .form-group label.ui-outputlabel,
+.modal-uc-docs h3 {
+	font-size:20px;
+	font-weight:normal;
+}
+
+.uc-progress {
+	width:100%;
+	height:40px;
+	line-height:40px;
+	white-space:nowrap;
+}
+.uc-progress > div {
+	float:left;
+	position:relative;
+	height:40px;
+	line-height:40px;
+}
+
+.uc-progress button.ui-state-default {
+	height:40px;
+	line-height:40px;
+	margin-left:20px;
+	margin-right:5px;
+	padding-right:10px;
+	background:#bbbbbb;
+	color:#ffffff;
+	border:none;
+	border-radius:0;
+	font-size:14px;
+	font-weight:bold;
+	text-shadow:none;
+	box-shadow:none;
+}
+.uc-progress button.ui-state-default:before {
+    position:absolute;
+	width: 0;
+    height: 0;
+    line-height: 0;
+    border: 20px solid transparent;
+    border-right: 20px solid #bbbbbb;
+    border-left:0px solid transparent;
+    left:-20px;
+    top: 0px;
+	content:"";
+	/* -moz-transform: scale(.9999); HACK TO SMOOTH CSS SHAPE IN FIREFOX */
+}
+.uc-progress button.ui-state-hover {
+	border:none;
+	background:#000000;
+	box-shadow:none;
+}
+.uc-progress button.ui-state-hover:before {
+	border-right:20px solid #000000;
+}
+.uc-progress button.ui-state-focus {
+	border:none;
+	box-shadow:none;
+}
+/*
+.uc-start-over {
+    padding-left:20px;
+	margin-right:5px !important;
+}
+.uc-start-over:before {
+    position:absolute;
+	width: 0;
+    height: 0;
+    line-height: 0;
+    border: 20px solid transparent;
+    border-right: 20px solid #bbbbbb;
+    border-left:0px solid transparent;
+    left:0px;
+    top: 0px;
+	content:"";
+}
+.uc-start-over div {
+	height:40px;
+	line-height:40px;
+	padding:0px 20px 0px 15px;
+    background-color:#bbbbbb;
+	color:#ffffff;
+	font-style:normal;
+}
+.uc-start-over.uc-active:before {
+	border-right: 20px solid #000000;
+}
+.uc-start-over.uc-active div {
+	background-color:#000000;
+}
+*/
+
+.uc-pd {
+	padding-left:0px;
+	margin-right:7px;
+}
+.uc-pd:after {
+    position:absolute;
+	width: 0;
+    height: 0;
+    line-height: 0;
+    border: 20px solid transparent;
+    border-left: 20px solid #bbbbbb;
+    border-right:0px solid transparent;
+    right:-20px;
+    top: 0px;
+	content:"";
+	-moz-transform: scale(.9999); /* HACK TO SMOOTH CSS SHAPE IN FIREFOX */
+}
+.uc-pd div {
+	height:40px;
+	line-height:40px;
+	padding:0px 15px 0px 20px;
+    background-color:#bbbbbb;
+	color:#ffffff;
+	font-style:normal;
+}
+.uc-pd.uc-active:after {
+	border-left:20px solid #00be96;
+}
+.uc-pd.uc-active div {
+	background-color:#00be96;
+}
+
+.uc-qd {
+	float:none !important;
+	width:auto;
+	overflow:hidden;
+	padding-left:20px;
+}
+.uc-qd:before {
+    position:absolute;
+	width: 0;
+    height: 0;
+    line-height: 0;
+    border: 20px solid #bbbbbb;
+    border-left: 20px solid transparent;
+    border-right:0px solid transparent;
+    left:0px;
+    top: 0px;
+	content:"";
+	-moz-transform: scale(.9999); /* HACK TO SMOOTH CSS SHAPE IN FIREFOX */
+}
+.uc-qd div {
+	height:40px;
+	line-height:40px;
+	padding:0px 20px 0px 15px;
+    background-color:#bbbbbb;
+	color:#ffffff;
+	font-style:normal;
+}
+.uc-qd.uc-active:before {
+    border:20px solid #00be96;
+    border-left:20px solid transparent;
+    border-right:0px solid transparent
+}
+.uc-qd.uc-active div {
+	background-color:#00be96;
+}
+
+.uc-search-result-title:after {
+	/*content:':';*/
+}
+
+.ui-state-default.btn-continue {
+	background:#00be96 !important;
+	color:#ffffff;
+	border:none;
+	font-size:14px;
+	font-weight:bold;
+	text-shadow:none;
+	box-shadow:none;
+}
+.ui-state-default.btn-continue .ui-icon {
+	background-image:url("../resources/images/ui-icons_ffffff_256x240.png");
+}
+.ui-state-default.btn-continue.ui-state-hover {
+	border:none;
+	background:#00a682 !important;
+	box-shadow:none;
+}
+.ui-state-default.btn-continue.ui-state-focus {
+	border:none;
+	box-shadow:none;
+}
+.ui-state-default.btn-continue span.ui-button-text {
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+.ui-state-default.btn-metadata {
+	background:#bbbbbb !important;
+	color:#ffffff;
+	border:none;
+	font-size:14px;
+	font-weight:bold;
+	text-shadow:none;
+	box-shadow:none;
+}
+.ui-state-default.btn-metadata .ui-icon {
+	background-image:url("../resources/images/ui-icons_ffffff_256x240.png");
+}
+.ui-state-default.btn-metadata.ui-state-hover {
+	border:none;
+	background:#aaaaaa !important;
+	box-shadow:none;
+}
+.ui-state-default.btn-metadata.ui-state-focus {
+	border:none;
+	box-shadow:none;
+}
+.ui-state-default.btn-metadata span.ui-button-text {
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+#patientSearchTabView .ui-selectcheckboxmenu, 
+#patientSearchTabView .ui-selectcheckboxmenu-trigger {
+	padding:0px;
+	background:#cccccc;
+	color:#333333;
+	border:1px solid #aaaaaa;
+	text-shadow:none;
+	box-shadow:none;
+}
+#patientSearchTabView .ui-selectcheckboxmenu:hover, 
+#patientSearchTabView .ui-selectcheckboxmenu-trigger:hover {
+	border:1px solid #999999;
+}
+#patientSearchTabView .ui-selectcheckboxmenu a {
+	text-shadow:none;
+}
+#patientSearchTabView label.ui-selectcheckboxmenu-label {
+    margin:0px;
+	padding:7px 35px 6px 15px; /* 5px 30px 5px 10px */
+	border-radius:0;
+}
+#patientSearchTabView label.ui-selectcheckboxmenu-label.ui-state-hover {
+    background:#bbbbbb;
+	box-shadow:none;
+}
+#patientSearchTabView .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger {
+	width:auto;
+	padding:6px 3px;
+	border-style:none none none solid;
+}
+#patientSearchTabView .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger.ui-state-hover {
+	background:#bbbbbb;
+}
+
+#patientSearchTabView .form-inline-row > div[class^='col-'] {
+	padding-right:0px;
+}
+#patientSearchTabView .form-inline-row label {
+	margin-right:5px;
+}
+#patientSearchTabView button.ui-datepicker-trigger {
+	margin-right:10px;
+}
+
+.main-content #patientSearchTabView div[class*="table-"] td {
+	word-wrap:normal;
+	word-break:normal;
+}
+
+.uc-details {
+	margin-bottom:20px;
+	padding:15px;
+	background:#eeeeee;
+}
+.uc-details .ui-panel {
+	padding:0px;
+	background:transparent;
+	border:none;
+}
+.uc-details .ui-panel .ui-panel-content {
+	padding:0px;
+}
+.uc-details table label {
+	margin-bottom:0px;
+}
+
+.modal-uc-docs > div {
+	width:90% !important;
+}
+.modal-uc-docs .ui-dialog .ui-dialog-content {
+	padding:20px;
+}
+#documentMetadataDialog .ui-panel {
+	padding:0px;
+	background:transparent;
+	border:none;
+}
+#documentMetadataDialog .ui-panel .ui-panel-content {
+	padding:0px;
+}
+#documentMetadataDialog table,
+#documentDialog table {
+	border:none;
+}
+#documentDialog table {
+	padding:0px;
+}
+#documentMetadataDialog table td,
+#documentDialog table td {
+	padding-bottom:10px;
+	border-top:1px solid #ddd !important;
+}
+#documentMetadataDialog table label,
+#documentDialog table label {
+	margin-bottom:0px;
+}
+.modal-uc-docs .uc-doc-list {
+	height:500px; /* 300px */
+	overflow:auto;
+}
+.modal-uc-docs textarea,
+.modal-uc-docs .uc-doc-pdf,
+.modal-uc-docs img {
+	width:100%;
+}
+.modal-uc-docs textarea,
+.modal-uc-docs .uc-doc-pdf {
+	height:500px; /* 300px */
+}
+
+
+
 /* -- RESPONSIVE @MEDIA STYLES -----------------------------------------------*/
 @media (max-width: 1100px) {
 	.sidebar h1.page-header {

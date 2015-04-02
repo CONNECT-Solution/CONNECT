@@ -255,6 +255,7 @@ public class GatewayService {
             //Other patient information
             patient.setDomain(retrievedPatient.getDomain());
             patient.setOrganization(patientQuerySearch.getOrganization());
+            patient.setOrganizationName(getCommunityName(patientQuerySearch, patientQuerySearch.getOrganization()));
             patient.setPatientId(retrievedPatient.getPid());
             patient.setAssigningAuthorityId(retrievedPatient.getAaId());
             patientQuerySearch.getPatientList().add(patient);
@@ -304,5 +305,14 @@ public class GatewayService {
             patientQuerySearch.getSelectedCurrentPatient().getDocumentList().add(patientDocument);
             documentIndex++;
         }
+    }
+    
+    private String getCommunityName(PatientSearchBean searchBean, String hcid) {
+        for(String name : searchBean.getOrganizationList().keySet()) {
+            if(hcid.equals(searchBean.getOrganizationList().get(name))) {
+                return name;
+            }
+        }
+        return null;
     }
 }

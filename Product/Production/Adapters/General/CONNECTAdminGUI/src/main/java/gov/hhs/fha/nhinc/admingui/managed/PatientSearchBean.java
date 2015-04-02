@@ -37,8 +37,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,7 +46,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
-import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
@@ -71,12 +68,9 @@ public class PatientSearchBean {
 
     //Generic Variables, can be moved to a constant file
     private static final String PATIENT_FOUND = "Patient Record Found:";
-    private static final String PATIENT_NOT_FOUND = "Patient Not Found";
-    private static final String DOCUMENT_NOT_FOUND = "No Documents Found";
-    private static final String DOCUMENT_FOUND = "Documents Found";
-    private static final String PATIENT_SEARCH_LOAD_MESSAGE = "Searching Patient....";
-    private static final String DOCUMENT_SEARCH_LOAD_MESSAGE = "Searching Patient Documents....";
-    private static final String DISPLAYING_LOAD_MESSAGE = "Retrieving Patient Document....";
+    private static final String PATIENT_NOT_FOUND = "Patient Not Found.";
+    private static final String DOCUMENT_NOT_FOUND = "No Documents Found.";
+    private static final String DOCUMENT_FOUND = "Documents Found:";
     private static final String CONTENT_TYPE_IMAGE_PNG = "image/png";
     private static final String CONTENT_TYPE_IMAGE_JPEG = "image/jpeg";
     private static final String CONTENT_TYPE_IMAGE_GIF = "image/gif";
