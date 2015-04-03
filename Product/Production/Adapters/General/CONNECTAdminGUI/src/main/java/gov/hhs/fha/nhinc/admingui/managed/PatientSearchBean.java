@@ -75,7 +75,7 @@ public class PatientSearchBean {
     private int activeIndex = 0;
     private Document selectedCurrentDocument;
 
-    private String DocumentXml;
+    private String documentXml;
     private StreamedContent documentImage;
     private StreamedContent documentPdf;
     private boolean renderDocumentimage;
