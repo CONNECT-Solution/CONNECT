@@ -45,11 +45,9 @@ import static gov.hhs.fha.nhinc.util.StreamUtils.closeStreamSilently;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
 import javax.faces.context.FacesContext;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -70,6 +68,17 @@ public class GatewayService {
     private PatientService patientService;
     private DocumentQueryService documentQueryService;
     private DocumentRetrieveService documentRetrieveService;
+    //Should be moved to a constant file later
+    public static final String CONTENT_TYPE_IMAGE_PNG = "image/png";
+    public static final String CONTENT_TYPE_IMAGE_JPEG = "image/jpeg";
+    public static final String CONTENT_TYPE_IMAGE_GIF = "image/gif";
+    public static final String CONTENT_TYPE_TEXT_XML = "text/xml";
+    public static final String CONTENT_TYPE_TEXT_PLAIN = "text/plain";
+    public static final String CONTENT_TYPE_TEXT_HTML = "text/html";
+    public static final String CONTENT_TYPE_APPLICATION_XML = "application/xml";
+    public static final String CONTENT_TYPE_APPLICATION_XHTML_XML = "application/xhtml+xml";
+    public static final String CONTENT_TYPE_APPLICATION_OCTET_STREAM = "application/octet-stream";
+    public static final String CONTENT_TYPE_APPLICATION_PDF = "application/pdf";
 
     private GatewayService() {
         //create the Service implementation instances
@@ -190,7 +199,9 @@ public class GatewayService {
         DocumentRetrieveResults response = documentRetrieveService.retrieveDocuments(docRetrieve);
         //set the retrieved document to the UI patient bean
         if (response.getDocument() != null) {
-            if (response.getContentType().contains("text/xml")) {
+            if ((response.getContentType() != null) && (response.getContentType().equals(CONTENT_TYPE_APPLICATION_XML)
+                || response.getContentType().equals(CONTENT_TYPE_TEXT_HTML) || response.getContentType().equals(CONTENT_TYPE_TEXT_PLAIN)
+                || response.getContentType().equals(CONTENT_TYPE_TEXT_XML))) {
                 InputStream xsl = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/WEB-INF/CDA.xsl");
                 InputStream xml = new ByteArrayInputStream(response.getDocument());
                 byte[] convertXmlToHtml = null;
@@ -306,10 +317,10 @@ public class GatewayService {
             documentIndex++;
         }
     }
-    
+
     private String getCommunityName(PatientSearchBean searchBean, String hcid) {
-        for(String name : searchBean.getOrganizationList().keySet()) {
-            if(hcid.equals(searchBean.getOrganizationList().get(name))) {
+        for (String name : searchBean.getOrganizationList().keySet()) {
+            if (hcid.equals(searchBean.getOrganizationList().get(name))) {
                 return name;
             }
         }

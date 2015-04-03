@@ -27,14 +27,14 @@
    * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    */ 
 -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
+
     <h:body>	
         <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
             <ui:define name="metatag"></ui:define>
@@ -275,7 +275,7 @@
 
                 <!-- BEGIN:  MODAL CONTENT - METADATA -->
                 <div class="modal-copyright-prime modal-uc-docs">
-                    <p:dialog header="#{patientSearchBean.selectedCurrentDocument.documentType} for #{patientSearchBean.patientList[0].name} Created by #{patientSearchBean.selectedCurrentDocument.authorPerson} on #{patientSearchBean.creationTimeUiDisplay}" widgetVar="docMetadataWindow" id="documentMetadataDialog" showEffect="clip" hideEffect="clip" modal="true">
+                    <p:dialog header="#{patientSearchBean.documentInfoModalWindowHeader}" widgetVar="docMetadataWindow" id="documentMetadataDialog" showEffect="clip" hideEffect="clip" modal="true">
                         <p:panel id="DocumentMetadataPanel" widgetVar="DQMetadataPanel">
                             <p:panelGrid styleClass="ui-panelgrid-domain">
                                 <p:row>
@@ -326,15 +326,15 @@
 
                 <!-- BEGIN:  MODAL CONTENT - DOCUMENTS -->
                 <div class="modal-copyright-prime modal-uc-docs">
-                    <p:dialog header="#{patientSearchBean.selectedCurrentDocument.documentType} for #{patientSearchBean.patientList[0].name} Created by #{patientSearchBean.selectedCurrentDocument.authorPerson} on #{patientSearchBean.creationTimeUiDisplay}" widgetVar="documentContent" id="documentDialog" modal="true" >
+                    <p:dialog header="#{patientSearchBean.documentInfoModalWindowHeader}" widgetVar="documentContent" id="documentDialog" modal="true" >
                         <div class="uc-doc-list">
                             <p:commandButton id="downloadDocument" value="Download" styleClass="btn-default" immediate="true" rendered="false"/>
-                            <p:inputTextarea autoResize="false" readonly="true" rows="35" value="#{patientSearchBean.documentList[patientSearchBean.selectedDocument].document}" rendered="#{patientSearchBean.renderDocumentText}"/>
+                            <h:outputText value=" #{patientSearchBean.documentXml}" escape="false" rendered="#{patientSearchBean.renderDocumentText}"/>
                             <!--All image files should be displayed displayed here-->
                             <p:scrollPanel rendered="#{patientSearchBean.renderDocumentimage}">
-                                <p:graphicImage value="#{patientSearchBean.documentImage}" />
+                                <p:graphicImage value="#{patientSearchBean.documentImage}" cache="false"/>
                             </p:scrollPanel>
-                            <p:media value="#{patientSearchBean.documentPdf}" rendered="#{patientSearchBean.renderDocumentPdf}" player="pdf" styleClass="uc-doc-pdf" />
+                            <p:media value="#{patientSearchBean.documentPdf}" rendered="#{patientSearchBean.renderDocumentPdf}" player="pdf" styleClass="uc-doc-pdf" cache="false"/>
                             <p:outputLabel value="Document can't be displayed." rendered="#{patientSearchBean.renderDcoumentNotSupported}"/>
                         </div>
                     </p:dialog>

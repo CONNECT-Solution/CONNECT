@@ -71,20 +71,14 @@ public class PatientSearchBean {
     private static final String PATIENT_NOT_FOUND = "Patient Not Found.";
     private static final String DOCUMENT_NOT_FOUND = "No Documents Found.";
     private static final String DOCUMENT_FOUND = "Documents Found:";
-    private static final String CONTENT_TYPE_IMAGE_PNG = "image/png";
-    private static final String CONTENT_TYPE_IMAGE_JPEG = "image/jpeg";
-    private static final String CONTENT_TYPE_IMAGE_GIF = "image/gif";
-    private static final String CONTENT_TYPE_TEXT_XML = "text/xml";
-    private static final String CONTENT_TYPE_TEXT_PLAIN = "text/plain";
-    private static final String CONTENT_TYPE_TEXT_HTML = "text/html";
-    private static final String CONTENT_TYPE_APPLICATION_XML = "application/xml";
-    private static final String CONTENT_TYPE_APPLICATION_XHTML_XML = "application/xhtml+xml";
-    private static final String CONTENT_TYPE_APPLICATION_OCTET_STREAM = "application/octet-stream";
-    private static final String CONTENT_TYPE_APPLICATION_PDF = "application/pdf";
+    private static final String PATIENT_SEARCH_LOAD_MESSAGE = "Searching Patient....";
+    private static final String DOCUMENT_SEARCH_LOAD_MESSAGE = "Searching Patient Documents....";
+    private static final String DISPLAYING_LOAD_MESSAGE = "Retrieving Patient Document....";
 
     private int activeIndex = 0;
     private Document selectedCurrentDocument;
 
+    private String DocumentXml;
     private StreamedContent documentImage;
     private StreamedContent documentPdf;
     private boolean renderDocumentimage;
@@ -116,6 +110,9 @@ public class PatientSearchBean {
     private String documentMessage;
     private List<String> querySelectedDocuments;
     private int selectedDocument;
+    private String documentTypeName;
+
+    private String documentInfoModalWindowHeader;
 
     //TODO: Temporary should be removed, should use the patient object documentList
     private List<Document> documentList;
@@ -586,8 +583,8 @@ public class PatientSearchBean {
 
     public StreamedContent getDocumentImage() {
         //return the content only if its an image file
-        if ((getSelectedCurrentDocument().getContentType() != null) && (getSelectedCurrentDocument().getContentType().equals(CONTENT_TYPE_IMAGE_PNG)
-            || getSelectedCurrentDocument().getContentType().equals(CONTENT_TYPE_IMAGE_GIF) || getSelectedCurrentDocument().getContentType().equals(CONTENT_TYPE_IMAGE_JPEG))) {
+        if ((getSelectedCurrentDocument().getContentType() != null) && (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_PNG)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_GIF) || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_JPEG))) {
             byte[] imageInByteArray = getSelectedCurrentDocument().getDocumentContent();
             return new DefaultStreamedContent(new ByteArrayInputStream(imageInByteArray), getSelectedCurrentDocument().getContentType());
         }
@@ -598,24 +595,24 @@ public class PatientSearchBean {
      * @return the renderDocumentimage
      */
     public boolean isRenderDocumentimage() {
-        return (getSelectedCurrentDocument().getContentType() != null) && (getSelectedCurrentDocument().getContentType().equals(CONTENT_TYPE_IMAGE_PNG)
-            || getSelectedCurrentDocument().getContentType().equals(CONTENT_TYPE_IMAGE_GIF) || getSelectedCurrentDocument().getContentType().equals(CONTENT_TYPE_IMAGE_JPEG));
+        return (getSelectedCurrentDocument().getContentType() != null) && (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_PNG)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_GIF) || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_JPEG));
     }
 
     /**
      * @return the renderDocumentPdf
      */
     public boolean isRenderDocumentPdf() {
-        return (getSelectedCurrentDocument().getContentType() != null) && (getSelectedCurrentDocument().getContentType().equals(CONTENT_TYPE_APPLICATION_PDF));
+        return (getSelectedCurrentDocument().getContentType() != null) && (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_PDF));
     }
 
     /**
      * @return the renderDocumentText
      */
     public boolean isRenderDocumentText() {
-        return (getSelectedCurrentDocument().getContentType() != null) && (getSelectedCurrentDocument().getContentType().equals(CONTENT_TYPE_APPLICATION_XML)
-            || getSelectedCurrentDocument().getContentType().equals(CONTENT_TYPE_TEXT_HTML) || getSelectedCurrentDocument().getContentType().equals(CONTENT_TYPE_TEXT_PLAIN)
-            || getSelectedCurrentDocument().getContentType().equals(CONTENT_TYPE_TEXT_XML));
+        return (getSelectedCurrentDocument().getContentType() != null) && (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_XML)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML) || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML));
     }
 
     /**
@@ -623,9 +620,22 @@ public class PatientSearchBean {
      */
     public StreamedContent getDocumentPdf() {
         //return the content only if its an pdf file
-        if ((getSelectedCurrentDocument().getContentType() != null) && (getSelectedCurrentDocument().getContentType().equals(CONTENT_TYPE_APPLICATION_PDF))) {
+        if ((getSelectedCurrentDocument().getContentType() != null) && (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_PDF))) {
             byte[] imageInByteArray = getSelectedCurrentDocument().getDocumentContent();
             return new DefaultStreamedContent(new ByteArrayInputStream(imageInByteArray), getSelectedCurrentDocument().getContentType());
+        }
+        return null;
+    }
+
+    /**
+     * @return the documentPdf
+     */
+    public String getDocumentXml() {
+        //return the content only if its an pdf file
+        if ((getSelectedCurrentDocument().getContentType() != null) && (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_XML)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML) || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML))) {
+            return (new String(getSelectedCurrentDocument().getDocumentContent()));
         }
         return null;
     }
@@ -653,4 +663,31 @@ public class PatientSearchBean {
         this.displayOrganizationName = displayOrganizationName;
     }
 
+    /**
+     * @return the documentTypeName
+     */
+    public String getDocumentTypeName() {
+        //
+        if (getSelectedCurrentDocument().getDocumentType() != null) {
+            return getDocumentTypeNameFromTheStaticList(getSelectedCurrentDocument().getDocumentType());
+        }
+        return null;
+    }
+
+    private String getDocumentTypeNameFromTheStaticList(String documentType) {
+        for (SelectItem localDocumentTypeList : documentTypeList) {
+            if (localDocumentTypeList.getValue().equals(documentType)) {
+                return localDocumentTypeList.getLabel();
+            }
+        }
+        return "Unknown Document";
+    }
+
+    /**
+     * @return the documentInfoModalWindowHeader
+     */
+    public String getDocumentInfoModalWindowHeader() {
+        String localAuthorPerson = getSelectedCurrentDocument().getAuthorPerson() == null ? "Unknown" : getSelectedCurrentDocument().getAuthorPerson();
+        return getDocumentTypeName() + " for " + getSelectedCurrentPatient().getName() + " Created by " + localAuthorPerson + " on " + getCreationTimeUiDisplay();
+    }
 }
