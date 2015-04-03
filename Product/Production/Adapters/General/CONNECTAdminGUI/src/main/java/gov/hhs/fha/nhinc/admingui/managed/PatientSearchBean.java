@@ -71,9 +71,6 @@ public class PatientSearchBean {
     private static final String PATIENT_NOT_FOUND = "Patient Not Found.";
     private static final String DOCUMENT_NOT_FOUND = "No Documents Found.";
     private static final String DOCUMENT_FOUND = "Documents Found:";
-    private static final String PATIENT_SEARCH_LOAD_MESSAGE = "Searching Patient....";
-    private static final String DOCUMENT_SEARCH_LOAD_MESSAGE = "Searching Patient Documents....";
-    private static final String DISPLAYING_LOAD_MESSAGE = "Retrieving Patient Document....";
 
     private int activeIndex = 0;
     private Document selectedCurrentDocument;
@@ -628,7 +625,7 @@ public class PatientSearchBean {
     }
 
     /**
-     * @return the documentPdf
+     * @return the XML Clinical document in HTML format
      */
     public String getDocumentXml() {
         //return the content only if its an pdf file
@@ -667,7 +664,6 @@ public class PatientSearchBean {
      * @return the documentTypeName
      */
     public String getDocumentTypeName() {
-        //
         if (getSelectedCurrentDocument().getDocumentType() != null) {
             return getDocumentTypeNameFromTheStaticList(getSelectedCurrentDocument().getDocumentType());
         }
@@ -687,7 +683,6 @@ public class PatientSearchBean {
      * @return the documentInfoModalWindowHeader
      */
     public String getDocumentInfoModalWindowHeader() {
-        String localAuthorPerson = getSelectedCurrentDocument().getAuthorPerson() == null ? "Unknown" : getSelectedCurrentDocument().getAuthorPerson();
-        return getDocumentTypeName() + " for " + getSelectedCurrentPatient().getName() + " Created by " + localAuthorPerson + " on " + getCreationTimeUiDisplay();
+        return getDocumentTypeName() + " for " + getSelectedCurrentPatient().getName();
     }
 }
