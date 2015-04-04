@@ -111,6 +111,7 @@ public class FhirResourceServiceImpl implements FhirResourceService {
                 view = new ConformanceView();
                 view.setConformanceDesc(conformance.getDescriptionSimple());
                 view.setConfResources(populateFromRest(conformance.getRest()));
+                view.setConformanceUrl(url);
             }
         } catch (Exception ex) {
             LOG.error("Could not get conformance statement due to: " + ex.getMessage(), ex);
