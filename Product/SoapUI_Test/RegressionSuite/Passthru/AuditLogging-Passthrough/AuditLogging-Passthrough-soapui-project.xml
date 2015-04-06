@@ -7826,7 +7826,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint>
+	<con:endpoint>${#TestSuite#Endpoint-DocQuery}</con:endpoint>
 	<con:request><![CDATA[
 		
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
