@@ -40,7 +40,7 @@
             <activation>
                 <property>
                     <name>testDirect</name>
-                    <value>yes</value>
+                    <value>true</value>
                 </property>
             </activation>
             <modules>
