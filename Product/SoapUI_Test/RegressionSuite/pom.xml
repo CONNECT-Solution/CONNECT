@@ -34,6 +34,20 @@
                 <!--module>stopEmbedded</module-->
             </modules>
         </profile>
+		
+        <profile>
+            <id>direct-testing</id>
+            <activation>
+                <property>
+                    <name>testDirect</name>
+                    <value>yes</value>
+                </property>
+            </activation>
+            <modules>
+                <module>Direct</module>
+            </modules>
+        </profile>
+		
     </profiles>
 
     <build>
