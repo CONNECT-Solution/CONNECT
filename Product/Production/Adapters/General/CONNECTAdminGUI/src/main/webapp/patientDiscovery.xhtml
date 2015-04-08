@@ -69,7 +69,6 @@
                                                             <f:selectItem itemLabel="---" itemValue="#{null}" noSelectionOption="true" />
                                                             <f:selectItems value="#{patientSearchBean.organizationList}"/>
                                                         </h:selectOneMenu>
-                                                        <p:tooltip id="toolTipOrganization" for="organization" showEvent="focus" hideEvent="blur" value="Organization from where you want to search the Patient." />
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -227,10 +226,12 @@
                                                     <div class="table-responsive table-props">
                                                         <h:dataTable id="patientDocumentResult" value="#{patientSearchBean.documentList}" var="patientDocument" styleClass="table table-striped table-domains" rendered="#{patientSearchBean.documentFound}">
                                                             <h:column>
-                                                                <!-- column header -->
                                                                 <f:facet name="header">Document ID</f:facet>
-                                                                <!-- row record -->
-                                                                #{patientDocument.documentId}
+                                                                    #{patientDocument.documentId}
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Document Type</f:facet>
+                                                                    #{patientDocument.documentTypeName}
                                                             </h:column>
                                                             <h:column>
                                                                 <f:facet name="header">Content Type</f:facet>
@@ -241,12 +242,14 @@
                                                                     #{patientDocument.name}
                                                             </h:column> 
                                                             <h:column>
-                                                                <f:facet name="header">Author</f:facet>
-                                                                    #{patientDocument.authorPerson}
+                                                                <f:facet name="header">Creation Time</f:facet>
+                                                                <h:outputText value="#{patientDocument.creationTime}">
+                                                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                                                </h:outputText>
                                                             </h:column> 
                                                             <h:column>
-                                                                <f:facet name="header">Size(KB)</f:facet>
-                                                                    #{patientDocument.size}
+                                                                <f:facet name="header">Size</f:facet>
+                                                                    #{patientDocument.sizeAsString}
                                                             </h:column>
                                                             <h:column>
                                                                 <f:facet name="header"></f:facet>
@@ -274,21 +277,21 @@
                 <!-- END:  MAIN TAB SECTION -->
 
                 <!-- BEGIN:  MODAL CONTENT - METADATA -->
-                <div class="modal-copyright-prime modal-uc-docs">
+                <div class="modal-copyright-prime modal-uc-metadata">
                     <p:dialog header="#{patientSearchBean.documentInfoModalWindowHeader}" widgetVar="docMetadataWindow" id="documentMetadataDialog" showEffect="clip" hideEffect="clip" modal="true">
                         <p:panel id="DocumentMetadataPanel" widgetVar="DQMetadataPanel">
                             <p:panelGrid styleClass="ui-panelgrid-domain">
                                 <p:row>
-                                    <p:column><p:outputLabel value="Author:" /></p:column>
-                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.authorPerson}" /></p:column>
-                                    <p:column><p:outputLabel value="Author Role:" /></p:column>
-                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.authorRole}" /></p:column>
-                                    <p:column><p:outputLabel value="Author Speciality:" /></p:column>
-                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.authorSpecialty}" /></p:column>
-                                    <p:column><p:outputLabel value="Author Institution:" /></p:column>
-                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.authorInstitution}" /></p:column>
+                                    <p:column><p:outputLabel value="Document ID:" /></p:column>
+                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.uri}"/></p:column>
+                                    <p:column><p:outputLabel value="Document Type:" /></p:column>
+                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.documentTypeName}"/></p:column>
+                                    <p:column><p:outputLabel value="Content Type:" /></p:column>
+                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.contentType}"/></p:column>
                                 </p:row>
                                 <p:row>
+                                    <p:column><p:outputLabel value="Size:" /></p:column>
+                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.sizeAsString}"/></p:column>
                                     <p:column><p:outputLabel value="Source Patient ID:" /></p:column>
                                     <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.sourcePatientId}"/></p:column>
                                     <p:column><p:outputLabel value="Creation Time:" /></p:column>
@@ -297,6 +300,8 @@
                                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                                         </h:outputText>
                                     </p:column>
+                                </p:row>
+                                <p:row>
                                     <p:column><p:outputLabel value="Service Start Time:" /></p:column>
                                     <p:column>
                                         <h:outputText value="#{patientSearchBean.selectedCurrentDocument.serviceStartTime}">
@@ -309,14 +314,16 @@
                                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                                         </h:outputText>
                                     </p:column>
+                                    <p:column><p:outputLabel value="Author:" /></p:column>
+                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.authorPerson}" /></p:column>
                                 </p:row>
                                 <p:row>
-                                    <p:column><p:outputLabel value="Content Type:" /></p:column>
-                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.contentType}"/></p:column>
-                                    <p:column><p:outputLabel value="Size:" /></p:column>
-                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.size}"/></p:column>
-                                    <p:column><p:outputLabel value="URI:" /></p:column>
-                                    <p:column colspan="3"><h:outputText value="#{patientSearchBean.selectedCurrentDocument.uri}"/></p:column>
+                                    <p:column><p:outputLabel value="Author Role:" /></p:column>
+                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.authorRole}" /></p:column>
+                                    <p:column><p:outputLabel value="Author Speciality:" /></p:column>
+                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.authorSpecialty}" /></p:column>
+                                    <p:column><p:outputLabel value="Author Institution:" /></p:column>
+                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.authorInstitution}" /></p:column>
                                 </p:row>
                             </p:panelGrid>
                         </p:panel>
@@ -326,7 +333,7 @@
 
                 <!-- BEGIN:  MODAL CONTENT - DOCUMENTS -->
                 <div class="modal-copyright-prime modal-uc-docs">
-                    <p:dialog header="#{patientSearchBean.documentInfoModalWindowHeader}" widgetVar="documentContent" id="documentDialog" modal="true" >
+                    <p:dialog header="#{patientSearchBean.documentInfoModalWindowHeader}" widgetVar="documentContent" id="documentDialog" modal="true" style="height:80%;">
                         <div class="uc-doc-list">
                             <p:commandButton id="downloadDocument" value="Download" styleClass="btn-default" immediate="true" rendered="false"/>
                             <h:outputText value=" #{patientSearchBean.documentXml}" escape="false" rendered="#{patientSearchBean.renderDocumentText}"/>
