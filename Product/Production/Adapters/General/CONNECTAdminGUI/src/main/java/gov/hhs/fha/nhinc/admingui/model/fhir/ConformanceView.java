@@ -37,6 +37,7 @@ import java.util.List;
 public class ConformanceView {
     
     private String conformanceDesc;
+    private String conformanceUrl;
     private List<ConformanceResource> confResources = new ArrayList<ConformanceResource>();
 
     public String getConformanceDesc() {
@@ -54,6 +55,13 @@ public class ConformanceView {
     public void setConfResources(List<ConformanceResource> confResources) {
         this.confResources = confResources;
     }
-    
+
+    public String getConformanceUrl() {
+        return conformanceUrl;
+    }
+
+    public void setConformanceUrl(String conformanceUrl) {
+        this.conformanceUrl = conformanceUrl;
+    }
     
 }

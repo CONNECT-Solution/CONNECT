@@ -59,7 +59,7 @@
                                             <h:inputText id="input-url" value="#{fResource.url}" valueChangeListener="#{fhirResourceBean.onUrlChange}" />
                                         </p:inplace>
                                         <br/>
-                                        <p:commandButton value="Ping" action="#{fhirResourceBean.pingForConformance(fResource.url)}" styleClass="ringFHIR-btn-ping" icon="ui-icon-signal-diag" oncomplete="PF('conformanceDialog').show();" update=":conformanceForm" />
+                                        <p:commandButton value="Ping" action="#{fhirResourceBean.pingForConformance(fResource.url)}" styleClass="ringFHIR-btn-ping" icon="ui-icon-signal-diag" oncomplete="PF('conformanceDialog').show();" update=":conformanceDialog" />
                                     </div>
                                 </p:outputPanel>
                             </p:ring>
@@ -67,7 +67,7 @@
                     </p:tabView>
                 </h:form>
 
-                <p:dialog id="conformanceDialog" header="Conformance" closable="false" widgetVar="conformanceDialog" modal="true" dynamic="true" width="70%" height="500" closeOnEscape="true">
+                <p:dialog id="conformanceDialog" header="Conformance for #{fhirResourceBean.conformanceUrl}" closable="false" widgetVar="conformanceDialog" modal="true" dynamic="true" width="70%" height="500" closeOnEscape="true">
                     <div class="content">
 
                         <div class="form-block center-block">
