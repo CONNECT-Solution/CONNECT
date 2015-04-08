@@ -282,26 +282,28 @@
                         <p:panel id="DocumentMetadataPanel" widgetVar="DQMetadataPanel">
                             <p:panelGrid styleClass="ui-panelgrid-domain">
                                 <p:row>
+                                    <p:column><p:outputLabel value="Title:" /></p:column>
+                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.name}"/></p:column>
                                     <p:column><p:outputLabel value="Document ID:" /></p:column>
                                     <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.uri}"/></p:column>
                                     <p:column><p:outputLabel value="Document Type:" /></p:column>
                                     <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.documentTypeName}"/></p:column>
-                                    <p:column><p:outputLabel value="Content Type:" /></p:column>
-                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.contentType}"/></p:column>
                                 </p:row>
                                 <p:row>
+                                    <p:column><p:outputLabel value="Content Type:" /></p:column>
+                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.contentType}"/></p:column>
                                     <p:column><p:outputLabel value="Size:" /></p:column>
                                     <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.sizeAsString}"/></p:column>
                                     <p:column><p:outputLabel value="Source Patient ID:" /></p:column>
                                     <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.sourcePatientId}"/></p:column>
+                                </p:row>
+                                <p:row>
                                     <p:column><p:outputLabel value="Creation Time:" /></p:column>
                                     <p:column>
                                         <h:outputText value="#{patientSearchBean.selectedCurrentDocument.creationTime}">
                                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                                         </h:outputText>
                                     </p:column>
-                                </p:row>
-                                <p:row>
                                     <p:column><p:outputLabel value="Service Start Time:" /></p:column>
                                     <p:column>
                                         <h:outputText value="#{patientSearchBean.selectedCurrentDocument.serviceStartTime}">
@@ -314,16 +316,14 @@
                                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                                         </h:outputText>
                                     </p:column>
-                                    <p:column><p:outputLabel value="Author:" /></p:column>
-                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.authorPerson}" /></p:column>
                                 </p:row>
                                 <p:row>
+                                    <p:column><p:outputLabel value="Author:" /></p:column>
+                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.authorPerson}" /></p:column>
                                     <p:column><p:outputLabel value="Author Role:" /></p:column>
                                     <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.authorRole}" /></p:column>
                                     <p:column><p:outputLabel value="Author Speciality:" /></p:column>
                                     <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.authorSpecialty}" /></p:column>
-                                    <p:column><p:outputLabel value="Author Institution:" /></p:column>
-                                    <p:column><h:outputText value="#{patientSearchBean.selectedCurrentDocument.authorInstitution}" /></p:column>
                                 </p:row>
                             </p:panelGrid>
                         </p:panel>
