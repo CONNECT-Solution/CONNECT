@@ -54,6 +54,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
+import javax.ws.rs.core.MediaType;
 
 /**
  * Singleton Interface class between UI and the backend services. provides high level APIs for calling PD, DQ, RD etc.
@@ -68,17 +69,20 @@ public class GatewayService {
     private PatientService patientService;
     private DocumentQueryService documentQueryService;
     private DocumentRetrieveService documentRetrieveService;
+
     //Should be moved to a constant file later
-    public static final String CONTENT_TYPE_IMAGE_PNG = "image/png";
-    public static final String CONTENT_TYPE_IMAGE_JPEG = "image/jpeg";
-    public static final String CONTENT_TYPE_IMAGE_GIF = "image/gif";
-    public static final String CONTENT_TYPE_TEXT_XML = "text/xml";
-    public static final String CONTENT_TYPE_TEXT_PLAIN = "text/plain";
-    public static final String CONTENT_TYPE_TEXT_HTML = "text/html";
-    public static final String CONTENT_TYPE_APPLICATION_XML = "application/xml";
-    public static final String CONTENT_TYPE_APPLICATION_XHTML_XML = "application/xhtml+xml";
-    public static final String CONTENT_TYPE_APPLICATION_OCTET_STREAM = "application/octet-stream";
+    public static final String CONTENT_TYPE_IMAGE_PNG = org.springframework.http.MediaType.IMAGE_PNG.toString();
+    public static final String CONTENT_TYPE_IMAGE_JPEG = org.springframework.http.MediaType.IMAGE_JPEG.toString();
+    public static final String CONTENT_TYPE_IMAGE_GIF = org.springframework.http.MediaType.IMAGE_GIF.toString();
+
+    public static final String CONTENT_TYPE_TEXT_XML = MediaType.TEXT_XML;
+    public static final String CONTENT_TYPE_TEXT_PLAIN = MediaType.TEXT_PLAIN;
+    public static final String CONTENT_TYPE_TEXT_HTML = MediaType.TEXT_HTML;
+    public static final String CONTENT_TYPE_APPLICATION_XML = MediaType.APPLICATION_XML;
+    public static final String CONTENT_TYPE_APPLICATION_XHTML_XML = MediaType.APPLICATION_XHTML_XML;
+    public static final String CONTENT_TYPE_APPLICATION_OCTET_STREAM = MediaType.APPLICATION_OCTET_STREAM;
     public static final String CONTENT_TYPE_APPLICATION_PDF = "application/pdf";
+    public static final String DEFAULT_XSL_FILE = "/WEB-INF/CDA.xsl";
 
     private GatewayService() {
         //create the Service implementation instances
@@ -202,7 +206,7 @@ public class GatewayService {
             if ((response.getContentType() != null) && (response.getContentType().equals(CONTENT_TYPE_APPLICATION_XML)
                 || response.getContentType().equals(CONTENT_TYPE_TEXT_HTML) || response.getContentType().equals(CONTENT_TYPE_TEXT_PLAIN)
                 || response.getContentType().equals(CONTENT_TYPE_TEXT_XML))) {
-                InputStream xsl = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/WEB-INF/CDA.xsl");
+                InputStream xsl = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream(DEFAULT_XSL_FILE);
                 InputStream xml = new ByteArrayInputStream(response.getDocument());
                 byte[] convertXmlToHtml = null;
                 if (xsl != null) {
@@ -301,6 +305,11 @@ public class GatewayService {
             patientDocument.setDocumentClassCode(documentMetadataResult.getDocumentClassCode());
             patientDocument.setUri(documentMetadataResult.getUri());
 
+            //populate document type name from the static list
+            //this logic needs to be revisited after the demo
+            if (patientDocument.getDocumentType() != null) {
+                patientDocument.setDocumentTypeName(patientQuerySearch.getDocumentTypeNameFromTheStaticList(patientDocument.getDocumentType()));
+            }
             patientDocument.setSize(documentMetadataResult.getSize());
             patientDocument.setHash(documentMetadataResult.getHash());
             patientDocument.setContentType(documentMetadataResult.getMimeType());

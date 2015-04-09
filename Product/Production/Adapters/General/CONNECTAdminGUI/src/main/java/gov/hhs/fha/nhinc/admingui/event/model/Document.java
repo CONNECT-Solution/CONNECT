@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.admingui.event.model;
 
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -36,7 +34,8 @@ import java.util.Date;
  * @author Naresh Subramanyan
  */
 public class Document {
-
+    
+    private final String SIZE_IN_KILO_BYTES = "KB";
     private Date creationTime;
     private String hash;
     //used in the UI
@@ -47,7 +46,7 @@ public class Document {
     private String legalAuthenticator;
     private Date serviceStartTime;
     private Date serviceStopTime;
-    private double size;
+    private int size;
     private String sourcePatientId;
     //not sure if we need this
     private String sourcePatientInfo;
@@ -80,6 +79,7 @@ public class Document {
     private String healthcareFacilityTypeCode;
     private String documentTypeCode;
     private String documentFormatCode;
+    private String documentTypeName;
 
     public Document() {
         this.documentRetrieved = false;
@@ -186,15 +186,19 @@ public class Document {
     /**
      * @return the size
      */
-    public double getSize() {
-        return Double.parseDouble(new DecimalFormat("##.##").format(size / 1024));
+    public int getSize() {
+        return size / 1024;
     }
 
     /**
-     * @param size the size to set
+     * @param size the size to se
      */
-    public void setSize(double size) {
+    public void setSize(int size) {
         this.size = size;
+    }
+    
+    public String getSizeAsString(){
+        return getSize()+" "+SIZE_IN_KILO_BYTES;
     }
 
     /**
@@ -567,6 +571,20 @@ public class Document {
      */
     public void setDocumentFormatCode(String documentFormatCode) {
         this.documentFormatCode = documentFormatCode;
+    }
+
+    /**
+     * @return the documentTypeName
+     */
+    public String getDocumentTypeName() {
+        return documentTypeName;
+    }
+
+    /**
+     * @param documentTypeName the documentTypeName to set
+     */
+    public void setDocumentTypeName(String documentTypeName) {
+        this.documentTypeName = documentTypeName;
     }
 
 }

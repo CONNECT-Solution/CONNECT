@@ -1627,10 +1627,17 @@ ul[id*='ringFHIR'] .ringFHIR-content label {
 	margin-bottom:0px;
 }
 
+.modal-uc-metadata > div {
+	width:auto;
+	height:auto;
+}
 .modal-uc-docs > div {
 	width:90% !important;
+	height:90% !important;
 }
+.modal-uc-metadata .ui-dialog .ui-dialog-content, 
 .modal-uc-docs .ui-dialog .ui-dialog-content {
+	height:90% !important;
 	padding:20px;
 }
 #documentMetadataDialog .ui-panel {
@@ -1658,7 +1665,7 @@ ul[id*='ringFHIR'] .ringFHIR-content label {
 	margin-bottom:0px;
 }
 .modal-uc-docs .uc-doc-list {
-	height:500px; /* 300px */
+	height:100%; /* 300px */
 	overflow:auto;
 }
 .modal-uc-docs textarea,
@@ -1668,7 +1675,7 @@ ul[id*='ringFHIR'] .ringFHIR-content label {
 }
 .modal-uc-docs textarea,
 .modal-uc-docs .uc-doc-pdf {
-	height:500px; /* 300px */
+	height:100%; /* 300px */
 }
 
 

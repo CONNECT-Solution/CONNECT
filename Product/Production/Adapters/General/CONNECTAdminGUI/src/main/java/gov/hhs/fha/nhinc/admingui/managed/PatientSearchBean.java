@@ -670,7 +670,7 @@ public class PatientSearchBean {
         return null;
     }
 
-    private String getDocumentTypeNameFromTheStaticList(String documentType) {
+    public String getDocumentTypeNameFromTheStaticList(String documentType) {
         for (SelectItem localDocumentTypeList : documentTypeList) {
             if (localDocumentTypeList.getValue().equals(documentType)) {
                 return localDocumentTypeList.getLabel();
