@@ -34,8 +34,8 @@ import java.util.Date;
  * @author Naresh Subramanyan
  */
 public class Document {
-    
-    private final String SIZE_IN_KILO_BYTES = "KB";
+
+    private final String KILOBYTE_LABEL = "KB";
     private Date creationTime;
     private String hash;
     //used in the UI
@@ -191,14 +191,14 @@ public class Document {
     }
 
     /**
-     * @param size the size to se
+     * @param size the size to set
      */
     public void setSize(int size) {
         this.size = size;
     }
-    
-    public String getSizeAsString(){
-        return getSize()+" "+SIZE_IN_KILO_BYTES;
+
+    public String getSizeAsString() {
+        return getSize() + " " + KILOBYTE_LABEL;
     }
 
     /**
