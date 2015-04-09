@@ -195,7 +195,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <div class="col-sm-3 control-label" style="font-weight:bold;">Date Range:</div>
+                                                    <div class="col-sm-3 control-label" style="font-weight:bold;">Document Creation Date Range:</div>
                                                     <div class="col-sm-9">
                                                         <div class="form-group form-inline-row">
                                                             <div class="col-xs-12">
@@ -353,9 +353,9 @@
                 <div class="modal-copyright-prime" style="text-align:center;">
                     <p:dialog widgetVar="statusDialogBar" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
                         <h:outputText value="SEARCHING PATIENT....." rendered="#{empty patientSearchBean.patientList}" />
-                        <h:outputText value="GETTING DOCUMENT....." rendered="#{not empty patientSearchBean.patientList}" />                        
+                        <h:outputText value="GETTING DOCUMENT....." rendered="#{not empty patientSearchBean.patientList}" />
                         <br/>    
-                        <p:graphicImage library="images" name="loading-bar-gif.gif" />
+                        <p:graphicImage library="images" name="uc-progress.gif" />
                     </p:dialog>
                 </div>
             </ui:define>
