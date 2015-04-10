@@ -20,7 +20,7 @@
   You may obtain a copy of the License at  http://www.apache.org/licenses/LICENSE-2.0 
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:n1="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <xsl:output method="html" indent="yes" version="4.01" encoding="ISO-8859-1" doctype-system="http://www.w3.org/TR/html4/strict.dtd" doctype-public="-//W3C//DTD HTML 4.01//EN"/>
+    <xsl:output method="html" indent="yes" version="4.01" encoding="ISO-8859-1"/>
     <!-- global variable title -->
    <xsl:variable name="title">
         <xsl:choose>
@@ -1425,10 +1425,10 @@
                 <xsl:value-of select="$name/n1:given"/>
                 <xsl:text> </xsl:text>
                 <xsl:value-of select="$name/n1:family"/>
-                <xsl:if test="$name/n1:suffix">
+                <!--xsl:if test="$name/n1:suffix">
                     <xsl:text>, </xsl:text>
                     <xsl:value-of select="$name/n1:suffix"/>
-                </xsl:if>
+                </xsl:if-->
             </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="$name"/>
@@ -1671,6 +1671,9 @@
                 <xsl:when test="$code/@code='CHILD'">
                     <xsl:text>(Child)</xsl:text>
                 </xsl:when>
+                <xsl:when test="$code/@code='SON'">
+                    <xsl:text>(Son)</xsl:text>
+                </xsl:when>
                 <xsl:when test="$code/@code='EXT'">
                     <xsl:text>(Extended family member)</xsl:text>
                 </xsl:when>
@@ -1679,6 +1682,9 @@
                 </xsl:when>
                 <xsl:when test="$code/@code='SIGOTHR'">
                     <xsl:text>(Significant other)</xsl:text>
+                </xsl:when>
+                <xsl:when test="$code/@code='HUSB'">
+                    <xsl:text>(Partner)</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:text>{$code/@code='</xsl:text>

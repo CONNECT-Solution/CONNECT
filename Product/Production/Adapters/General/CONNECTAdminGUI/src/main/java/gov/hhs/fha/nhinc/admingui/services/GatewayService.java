@@ -310,6 +310,8 @@ public class GatewayService {
             if (patientDocument.getDocumentType() != null) {
                 patientDocument.setDocumentTypeName(patientQuerySearch.getDocumentTypeNameFromTheStaticList(patientDocument.getDocumentType()));
             }
+            //for the demo set the value from the patient
+            patientDocument.setSourcePatientId(patientQuerySearch.getSelectedCurrentPatient().getPatientId());
             patientDocument.setSize(documentMetadataResult.getSize());
             patientDocument.setHash(documentMetadataResult.getHash());
             patientDocument.setContentType(documentMetadataResult.getMimeType());
