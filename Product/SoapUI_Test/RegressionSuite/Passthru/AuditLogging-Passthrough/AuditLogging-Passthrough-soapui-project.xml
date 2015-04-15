@@ -8902,7 +8902,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="COREX12RealTimeTransaction" searchProperties="true" id="1b6166ee-edc1-4a5a-8962-6d3e6ded4397"><con:settings/><con:testStep type="groovy" name="Clear Audit Logs" disabled="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="COREX12RealTimeTransaction" searchProperties="true" id="1b6166ee-edc1-4a5a-8962-6d3e6ded4397" disabled="true"><con:settings/><con:testStep type="groovy" name="Clear Audit Logs" disabled="true">
 		<con:settings/>
 		<con:config>
 			<script>context.withSql(context.findProperty('AuditRepoDB')) { sql -> 
