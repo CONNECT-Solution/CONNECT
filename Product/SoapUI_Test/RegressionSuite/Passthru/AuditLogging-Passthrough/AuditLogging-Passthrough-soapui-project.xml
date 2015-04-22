@@ -9146,7 +9146,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayRealTimeRequest>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance" disabled="true"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="{http://schemas.xmlsoap.org/wsdl/}RealTimeTransaction" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Verify Audit Logs">
+</soap:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance" disabled="true"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="{http://schemas.xmlsoap.org/wsdl/}RealTimeTransaction" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Verify Audit Logs" disabled="true">
 	<con:settings/>
 	<con:config><script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 4 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
@@ -9155,7 +9155,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 3 and messageType="Nhin Outbound" and communityId="1.1"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 4 and messageType="Nhin Inbound" and communityId="2.2"')[0]
 }</script></con:config>
-</con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-2.2"><con:settings/><con:config><script>context.withSql('AuditRepoDB') {sql ->
+</con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-2.2" disabled="true"><con:settings/><con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -9170,26 +9170,71 @@ parsedXmlMessage.EventIdentification.find{
 	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
 	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
 }
-parsedXmlMessage.ActiveParticipant.each{	
-	assert it.@UserID in [ context.findProperty( "ActiveParticipant.@UserID" ), context.findProperty( "ActiveParticipant_Source.@UserID" ), context.findProperty( "ActiveParticipant_Dest.@UserID" ) ]
-	assert it.@UserIsRequestor in [ context.findProperty( "ActiveParticipant.@UserIsRequestor" ), context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" ), context.findProperty("ActiveParticipant_Dest.@UserIsRequestor" ) ]
-} 
-assert parsedXmlMessage.ActiveParticipant.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
-assert parsedXmlMessage.ActiveParticipant.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
-parsedXmlMessage.ActiveParticipant.@NetworkAccessPointID.each{	
-	assert it.@NetworkAccessPointID in [context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" ), context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" ) ]
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[0].each{ node -> 
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant.@UserID" )
+	     }
+	      if(!node.@AlternativeUserID.isEmpty()){
+	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant.@AlternativeUserID" )
+	     }
+        	assert node.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant.@UserIsRequestor" )
+	     if(!node.RoleIDCode.isEmpty()){
+   	     	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant.RoleIDCode.@code" )
+	     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant.RoleIDCode.@codeSystemName" )
+	     }
+	}
 }
-parsedXmlMessage.ActiveParticipant.@NetworkAccessPointTypeCode.each{	
-	assert it.@NetworkAccessPointTypeCode in [context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" ), context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" ) ]
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
+	     }
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserNamee" )
+	     }
+     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
+     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+   	 	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" )
+          if(!node.RoleIDCode.isEmpty()){
+     		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
+     		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
+	     }
+	}
 }
-parsedXmlMessage.ActiveParticipant.RoleIDCode.each{
-	assert it.@code in [ context.findProperty( "ActiveParticipant.RoleIDCode.@code" ), context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" ) , context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" ) ]
-	assert it.@codeSystemName in [  context.findProperty( "ActiveParticipant.RoleIDCode.@codeSystemName" ), context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" ), context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" ) ]
-	assert it.@displayName in [ context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" ), context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" ), context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" ) ]
+if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[2].each{ node ->
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )
+	     }
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
+	     }
+   	     if(!node.@AlternativeUserID.isEmpty()){
+	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
+	     }
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
+     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+          if(!node.RoleIDCode.isEmpty()){
+     		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
+     		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
+	     }
+	}
 }
 parsedXmlMessage.AuditSourceIdentification.find{
-	assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
-	assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )
+		if(!it.@AuditEnterpriseSiteID.isEmpty()){
+			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
+		}
+		if(!it.@AuditSourceTypeCode.isEmpty()){
+			log.info "inside auditsourcetype code" + it.@AuditSourceTypeCode
+			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
+		}
+		if(!it.@AuditSourceID.isEmpty()){
+			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
+		}
 }
 parsedXmlMessage.ParticipantObjectIdentification.find{
 	assert it.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
@@ -9198,9 +9243,11 @@ parsedXmlMessage.ParticipantObjectIdentification.find{
 	assert it.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
 	assert it.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
 	assert it.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
-	assert it.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
-}
-}</script></con:config></con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinInbound-2.2"><con:settings/><con:config><script>context.withSql('AuditRepoDB') {sql ->
+	if(!it.ParticipantObjectDetail.@value.isEmpty()){
+		assert it.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
+	}
+} 
+}]]></script></con:config></con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinInbound-2.2" disabled="true"><con:settings/><con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Inbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Inbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Inbound)
 
@@ -9215,26 +9262,71 @@ parsedXmlMessage.EventIdentification.find{
 	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
 	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
 }
-parsedXmlMessage.ActiveParticipant.each{	
-	assert it.@UserID in [ context.findProperty( "ActiveParticipant.@UserID" ), context.findProperty( "ActiveParticipant_Source.@UserID" ), context.findProperty( "ActiveParticipant_Dest.@UserID" ) ]
-	assert it.@UserIsRequestor in [ context.findProperty( "ActiveParticipant.@UserIsRequestor" ), context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" ), context.findProperty("ActiveParticipant_Dest.@UserIsRequestor" ) ]
-} 
-assert parsedXmlMessage.ActiveParticipant.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
-assert parsedXmlMessage.ActiveParticipant.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
-parsedXmlMessage.ActiveParticipant.@NetworkAccessPointID.each{	
-	assert it.@NetworkAccessPointID in [context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" ), context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" ) ]
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[0].each{ node -> 
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant.@UserID" )
+	     }
+	      if(!node.@AlternativeUserID.isEmpty()){
+	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant.@AlternativeUserID" )
+	     }
+        	assert node.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant.@UserIsRequestor" )
+	     if(!node.RoleIDCode.isEmpty()){
+   	     	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant.RoleIDCode.@code" )
+	     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant.RoleIDCode.@codeSystemName" )
+	     }
+	}
 }
-parsedXmlMessage.ActiveParticipant.@NetworkAccessPointTypeCode.each{	
-	assert it.@NetworkAccessPointTypeCode in [context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" ), context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" ) ]
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
+	     }
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserNamee" )
+	     }
+     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
+     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+   	 	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" )
+          if(!node.RoleIDCode.isEmpty()){
+     		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
+     		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
+	     }
+	}
 }
-parsedXmlMessage.ActiveParticipant.RoleIDCode.each{
-	assert it.@code in [ context.findProperty( "ActiveParticipant.RoleIDCode.@code" ), context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" ) , context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" ) ]
-	assert it.@codeSystemName in [  context.findProperty( "ActiveParticipant.RoleIDCode.@codeSystemName" ), context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" ), context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" ) ]
-	assert it.@displayName in [ context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" ), context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" ), context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" ) ]
+if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[2].each{ node ->
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )
+	     }
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
+	     }
+   	     if(!node.@AlternativeUserID.isEmpty()){
+	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
+	     }
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
+     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+          if(!node.RoleIDCode.isEmpty()){
+     		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
+     		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
+	     }
+	}
 }
 parsedXmlMessage.AuditSourceIdentification.find{
-	assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
-	assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )
+		if(!it.@AuditEnterpriseSiteID.isEmpty()){
+			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
+		}
+		if(!it.@AuditSourceTypeCode.isEmpty()){
+			log.info "inside auditsourcetype code" + it.@AuditSourceTypeCode
+			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
+		}
+		if(!it.@AuditSourceID.isEmpty()){
+			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
+		}
 }
 parsedXmlMessage.ParticipantObjectIdentification.find{
 	assert it.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
@@ -9243,9 +9335,11 @@ parsedXmlMessage.ParticipantObjectIdentification.find{
 	assert it.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
 	assert it.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
 	assert it.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
-	assert it.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
-}
-}</script></con:config></con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-1.1"><con:settings/><con:config><script>context.withSql('AuditRepoDB') {sql ->
+	if(!it.ParticipantObjectDetail.@value.isEmpty()){
+		assert it.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
+	}
+} 
+}]]></script></con:config></con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-1.1" disabled="true"><con:settings/><con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -9260,26 +9354,71 @@ parsedXmlMessage.EventIdentification.find{
 	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
 	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
 }
-parsedXmlMessage.ActiveParticipant.each{	
-	assert it.@UserID in [ context.findProperty( "ActiveParticipant.@UserID" ), context.findProperty( "ActiveParticipant_Source.@UserID" ), context.findProperty( "ActiveParticipant_Dest.@UserID" ) ]
-	assert it.@UserIsRequestor in [ context.findProperty( "ActiveParticipant.@UserIsRequestor" ), context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" ), context.findProperty("ActiveParticipant_Dest.@UserIsRequestor" ) ]
-} 
-assert parsedXmlMessage.ActiveParticipant.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
-assert parsedXmlMessage.ActiveParticipant.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
-parsedXmlMessage.ActiveParticipant.@NetworkAccessPointID.each{	
-	assert it.@NetworkAccessPointID in [context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" ), context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" ) ]
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[0].each{ node -> 
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant.@UserID" )
+	     }
+	      if(!node.@AlternativeUserID.isEmpty()){
+	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant.@AlternativeUserID" )
+	     }
+        	assert node.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant.@UserIsRequestor" )
+	     if(!node.RoleIDCode.isEmpty()){
+   	     	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant.RoleIDCode.@code" )
+	     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant.RoleIDCode.@codeSystemName" )
+	     }
+	}
 }
-parsedXmlMessage.ActiveParticipant.@NetworkAccessPointTypeCode.each{	
-	assert it.@NetworkAccessPointTypeCode in [context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" ), context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" ) ]
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
+	     }
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserNamee" )
+	     }
+     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
+     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+   	 	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" )
+          if(!node.RoleIDCode.isEmpty()){
+     		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
+     		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
+	     }
+	}
 }
-parsedXmlMessage.ActiveParticipant.RoleIDCode.each{
-	assert it.@code in [ context.findProperty( "ActiveParticipant.RoleIDCode.@code" ), context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" ) , context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" ) ]
-	assert it.@codeSystemName in [  context.findProperty( "ActiveParticipant.RoleIDCode.@codeSystemName" ), context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" ), context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" ) ]
-	assert it.@displayName in [ context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" ), context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" ), context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" ) ]
+if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[2].each{ node ->
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )
+	     }
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
+	     }
+   	     if(!node.@AlternativeUserID.isEmpty()){
+	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
+	     }
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
+     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+          if(!node.RoleIDCode.isEmpty()){
+     		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
+     		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
+	     }
+	}
 }
 parsedXmlMessage.AuditSourceIdentification.find{
-	assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
-	assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )
+		if(!it.@AuditEnterpriseSiteID.isEmpty()){
+			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
+		}
+		if(!it.@AuditSourceTypeCode.isEmpty()){
+			log.info "inside auditsourcetype code" + it.@AuditSourceTypeCode
+			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
+		}
+		if(!it.@AuditSourceID.isEmpty()){
+			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
+		}
 }
 parsedXmlMessage.ParticipantObjectIdentification.find{
 	assert it.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
@@ -9288,9 +9427,11 @@ parsedXmlMessage.ParticipantObjectIdentification.find{
 	assert it.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
 	assert it.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
 	assert it.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
-	//assert it.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
-}
-}</script></con:config></con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinInbound-1.1"><con:settings/><con:config><script>context.withSql('AuditRepoDB') {sql ->
+	if(!it.ParticipantObjectDetail.@value.isEmpty()){
+		assert it.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
+	}
+} 
+}]]></script></con:config></con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinInbound-1.1" disabled="true"><con:settings/><con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Inbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Inbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Inbound)
 
@@ -9305,26 +9446,71 @@ parsedXmlMessage.EventIdentification.find{
 	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
 	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
 }
-parsedXmlMessage.ActiveParticipant.each{	
-	assert it.@UserID in [ context.findProperty( "ActiveParticipant.@UserID" ), context.findProperty( "ActiveParticipant_Source.@UserID" ), context.findProperty( "ActiveParticipant_Dest.@UserID" ) ]
-	assert it.@UserIsRequestor in [ context.findProperty( "ActiveParticipant.@UserIsRequestor" ), context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" ), context.findProperty("ActiveParticipant_Dest.@UserIsRequestor" ) ]
-} 
-assert parsedXmlMessage.ActiveParticipant.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
-assert parsedXmlMessage.ActiveParticipant.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
-parsedXmlMessage.ActiveParticipant.@NetworkAccessPointID.each{	
-	assert it.@NetworkAccessPointID in [context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" ), context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" ) ]
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[0].each{ node -> 
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant.@UserID" )
+	     }
+	      if(!node.@AlternativeUserID.isEmpty()){
+	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant.@AlternativeUserID" )
+	     }
+        	assert node.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant.@UserIsRequestor" )
+	     if(!node.RoleIDCode.isEmpty()){
+   	     	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant.RoleIDCode.@code" )
+	     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant.RoleIDCode.@codeSystemName" )
+	     }
+	}
 }
-parsedXmlMessage.ActiveParticipant.@NetworkAccessPointTypeCode.each{	
-	assert it.@NetworkAccessPointTypeCode in [context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" ), context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" ) ]
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
+	     }
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserNamee" )
+	     }
+     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
+     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+   	 	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" )
+          if(!node.RoleIDCode.isEmpty()){
+     		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
+     		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
+	     }
+	}
 }
-parsedXmlMessage.ActiveParticipant.RoleIDCode.each{
-	assert it.@code in [ context.findProperty( "ActiveParticipant.RoleIDCode.@code" ), context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" ) , context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" ) ]
-	assert it.@codeSystemName in [  context.findProperty( "ActiveParticipant.RoleIDCode.@codeSystemName" ), context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" ), context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" ) ]
-	assert it.@displayName in [ context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" ), context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" ), context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" ) ]
+if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[2].each{ node ->
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )
+	     }
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
+	     }
+   	     if(!node.@AlternativeUserID.isEmpty()){
+	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
+	     }
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
+     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+          if(!node.RoleIDCode.isEmpty()){
+     		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
+     		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
+	     }
+	}
 }
 parsedXmlMessage.AuditSourceIdentification.find{
-	assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
-	assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )
+		if(!it.@AuditEnterpriseSiteID.isEmpty()){
+			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
+		}
+		if(!it.@AuditSourceTypeCode.isEmpty()){
+			log.info "inside auditsourcetype code" + it.@AuditSourceTypeCode
+			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
+		}
+		if(!it.@AuditSourceID.isEmpty()){
+			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
+		}
 }
 parsedXmlMessage.ParticipantObjectIdentification.find{
 	assert it.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
@@ -9333,9 +9519,11 @@ parsedXmlMessage.ParticipantObjectIdentification.find{
 	assert it.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
 	assert it.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
 	assert it.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
-	//assert it.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
-}
-}</script></con:config></con:testStep><con:setupScript>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+	if(!it.ParticipantObjectDetail.@value.isEmpty()){
+		assert it.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
+	}
+} 
+}]]></script></con:config></con:testStep><con:setupScript>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
 def propertiesFilename = projectPath + "/COREX12RealTimeTransaction.properties"
 def propertiesFile = new File(propertiesFilename)
@@ -9345,7 +9533,7 @@ if (propertiesFile.exists()) {
  props.each { key, value ->
      testCase.setPropertyValue(key, value)
  }
-}</con:setupScript><con:properties><con:property><con:name>startDate</con:name><con:value>2015-04-14T16:40:03Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2015-04-14T16:50:03Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/14/2015 16:40:03</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-05-14T00:00:00Z</con:value></con:property><con:property><con:name>ActiveParticipant.@UserIsRequestor</con:name><con:value>true</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name><con:value>urn:oid:1.1</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>EventIdentification.EventID.@code</con:name><con:value>110112</con:value></con:property><con:property><con:name>EventIdentification.@EventDateTime</con:name><con:value>2015-04-02T13:47:30.199Z</con:value></con:property><con:property><con:name>ActiveParticipant.@AlternativeUserID</con:name><con:value>19233@192.168.1.2</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>EventIdentification.EventID.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name><con:value>f81d4fae-7dec-11d0-a765-00a0c91e6bf6</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole</con:name><con:value>20</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@displayName</con:name><con:value>NwHIN CAQH CORE X12 Document Submission</con:value></con:property><con:property><con:name>&lt;!--Source--></con:name><con:value/></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectDetail.@value</con:name><con:value>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxuczM6Q09SRUVudmVsb3BlUmVhbFRpbWVSZXF1ZXN0IHhtbG5zOm5zMj0iaHR0cDovL3d3dy5jYXFoLm9yZy9TT0FQL1dTREwvQ09SRVJ1bGUyLjIuMC54c2QiIHhtbG5zOm5zMz0idXJuOm9yZzpjYXFoOnNvYXA6d3NkbDpjb3JlcnVsZTJfMl8wIj48UGF5bG9hZFR5cGU+WDEyXzI3MF9SZXF1ZXN0XzAwNTAxMFgyNzlBMTwvUGF5bG9hZFR5cGU+PFByb2Nlc3NpbmdNb2RlPlJlYWxUaW1lPC9Qcm9jZXNzaW5nTW9kZT48UGF5bG9hZElEPmY4MWQ0ZmFlLTdkZWMtMTFkMC1hNzY1LTAwYTBjOTFlNmJmNjwvUGF5bG9hZElEPjxUaW1lU3RhbXA+MjAwNy0wOC0zMFQxMDoyMDozNFo8L1RpbWVTdGFtcD48U2VuZGVySUQ+SG9zcGl0YWxBPC9TZW5kZXJJRD48UmVjZWl2ZXJJRD5QYXllckI8L1JlY2VpdmVySUQ+PENPUkVSdWxlVmVyc2lvbj4yLjIuMDwvQ09SRVJ1bGVWZXJzaW9uPjxQYXlsb2FkPjwvUGF5bG9hZD48L25zMzpDT1JFRW52ZWxvcGVSZWFsVGltZVJlcXVlc3Q+</con:value></con:property><con:property><con:name>EventIdentification.@EventActionCode</con:name><con:value>R</con:value></con:property><con:property><con:name>&lt;!--Destination--></con:name><con:value/></con:property><con:property><con:name>ActiveParticipant.@UserID</con:name><con:value>kskagerb</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name><con:value>Payload Identifier</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@code</con:name><con:value>X12</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name><con:value>f81d4fae-7dec-11d0-a765-00a0c91e6bf6</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name><con:value>CAQH CORE Transactions</con:value></con:property><con:property><con:name>AuditMessage.xmlns</con:name><con:value>http://nhinc.services.com/schema/auditmessage</con:value></con:property><con:property><con:name>EventIdentification.EventID.@displayName</con:name><con:value>Export</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@codeSystemName</con:name><con:value>SNOMED_CT</con:value></con:property><con:property><con:name>EventIdentification.@EventOutcomeIndicator</con:name><con:value>0</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@displayName</con:name><con:value>Public Health</con:value></con:property><con:property><con:name>ActiveParticipant.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name><con:value>CAQH CORE Connectivity Metadata</con:value></con:property><con:property><con:name>ActiveParticipant.@NetworkAccessPointID</con:name><con:value>192.168.1.5</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@code</con:name><con:value>307969004</con:value></con:property><con:property><con:name>ActiveParticipant.@NetworkAccessPointTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>&lt;!--Human</con:name><con:value>Requestor--></con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserID</con:name><con:value>https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/X12DocumentSubmission_Service</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserID</con:name><con:value>19233@192.168.1.2</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name><con:value>110152</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name><con:value>false</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@AlternativeUserID</con:name><con:value>19233@192.168.1.2</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name><con:value>Destination</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name><con:value>192.168.1.5</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name><con:value>Source</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name><con:value>192.168.1.2</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name><con:value>110153</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserIsRequestor</con:name><con:value>true</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="COREX12BatchSubmitRequest" searchProperties="true" id="3f784de6-1c71-4791-b592-e2db4c2a41d5" disabled="true"><con:settings/><con:testStep type="groovy" name="Clear Audit Logs">
+}</con:setupScript><con:properties><con:property><con:name>startDate</con:name><con:value>2015-04-22T19:40:03Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2015-04-22T19:50:03Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/22/2015 19:40:03</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-05-22T00:00:00Z</con:value></con:property><con:property><con:name>ActiveParticipant.@UserIsRequestor</con:name><con:value>true</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name><con:value>urn:oid:1.1</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>EventIdentification.EventID.@code</con:name><con:value>110112</con:value></con:property><con:property><con:name>EventIdentification.@EventDateTime</con:name><con:value>2015-04-02T13:47:30.199Z</con:value></con:property><con:property><con:name>ActiveParticipant.@AlternativeUserID</con:name><con:value>19233@192.168.1.1</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>EventIdentification.EventID.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name><con:value>f81d4fae-7dec-11d0-a765-00a0c91e6bf6</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole</con:name><con:value>20</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@displayName</con:name><con:value>NwHIN CAQH CORE X12 Document Submission</con:value></con:property><con:property><con:name>&lt;!--Source--></con:name><con:value/></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectDetail.@value</con:name><con:value>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxuczM6Q09SRUVudmVsb3BlUmVhbFRpbWVSZXF1ZXN0IHhtbG5zOm5zMj0iaHR0cDovL3d3dy5jYXFoLm9yZy9TT0FQL1dTREwvQ09SRVJ1bGUyLjIuMC54c2QiIHhtbG5zOm5zMz0idXJuOm9yZzpjYXFoOnNvYXA6d3NkbDpjb3JlcnVsZTJfMl8wIj48UGF5bG9hZFR5cGU+WDEyXzI3MF9SZXF1ZXN0XzAwNTAxMFgyNzlBMTwvUGF5bG9hZFR5cGU+PFByb2Nlc3NpbmdNb2RlPlJlYWxUaW1lPC9Qcm9jZXNzaW5nTW9kZT48UGF5bG9hZElEPmY4MWQ0ZmFlLTdkZWMtMTFkMC1hNzY1LTAwYTBjOTFlNmJmNjwvUGF5bG9hZElEPjxUaW1lU3RhbXA+MjAwNy0wOC0zMFQxMDoyMDozNFo8L1RpbWVTdGFtcD48U2VuZGVySUQ+SG9zcGl0YWxBPC9TZW5kZXJJRD48UmVjZWl2ZXJJRD5QYXllckI8L1JlY2VpdmVySUQ+PENPUkVSdWxlVmVyc2lvbj4yLjIuMDwvQ09SRVJ1bGVWZXJzaW9uPjxQYXlsb2FkPjwvUGF5bG9hZD48L25zMzpDT1JFRW52ZWxvcGVSZWFsVGltZVJlcXVlc3Q+</con:value></con:property><con:property><con:name>EventIdentification.@EventActionCode</con:name><con:value>R</con:value></con:property><con:property><con:name>&lt;!--Destination--></con:name><con:value/></con:property><con:property><con:name>ActiveParticipant.@UserID</con:name><con:value>kskagerb</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name><con:value>Payload Identifier</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@code</con:name><con:value>X12</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name><con:value>f81d4fae-7dec-11d0-a765-00a0c91e6bf6</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name><con:value>CAQH CORE Transactions</con:value></con:property><con:property><con:name>AuditMessage.xmlns</con:name><con:value>http://nhinc.services.com/schema/auditmessage</con:value></con:property><con:property><con:name>EventIdentification.EventID.@displayName</con:name><con:value>Export</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@codeSystemName</con:name><con:value>SNOMED_CT</con:value></con:property><con:property><con:name>EventIdentification.@EventOutcomeIndicator</con:name><con:value>0</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@displayName</con:name><con:value>Public Health</con:value></con:property><con:property><con:name>ActiveParticipant.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name><con:value>CAQH CORE Connectivity Metadata</con:value></con:property><con:property><con:name>ActiveParticipant.@NetworkAccessPointID</con:name><con:value>192.168.1.5</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@code</con:name><con:value>307969004</con:value></con:property><con:property><con:name>ActiveParticipant.@NetworkAccessPointTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>&lt;!--Human</con:name><con:value>Requestor--></con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserID</con:name><con:value>https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/X12DocumentSubmission_Service</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserID</con:name><con:value>19233@192.168.1.2</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name><con:value>110152</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name><con:value>false</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@AlternativeUserID</con:name><con:value>19233@192.168.1.2</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name><con:value>Destination</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name><con:value>192.168.1.5</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name><con:value>Source</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name><con:value>192.168.1.2</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name><con:value>110153</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserIsRequestor</con:name><con:value>true</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name><con:value>19233@192.168.1.2</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectName</con:name><con:value/></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectDataLifeCycle</con:name><con:value/></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name><con:value>1010</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectSensitivity</con:name><con:value/></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectQuery</con:name><con:value/></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="COREX12BatchSubmitRequest" searchProperties="true" id="3f784de6-1c71-4791-b592-e2db4c2a41d5" disabled="true"><con:settings/><con:testStep type="groovy" name="Clear Audit Logs" disabled="true">
 		<con:settings/>
 		<con:config>
 			<script>context.withSql(context.findProperty('AuditRepoDB')) { sql -> 
@@ -9591,7 +9779,7 @@ if (propertiesFile.exists()) {
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayBatchSubmissionRequest>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance" disabled="true"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="{http://schemas.xmlsoap.org/wsdl/}BatchSubmitTransaction" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Verify Audit Logs">
+</soap:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" name="Schema Compliance" disabled="true"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="{http://schemas.xmlsoap.org/wsdl/}BatchSubmitTransaction" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Verify Audit Logs" disabled="true">
 	<con:settings/>
 	<con:config>
 		<script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
@@ -9602,16 +9790,385 @@ if (propertiesFile.exists()) {
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 4 and messageType="Nhin Inbound" and communityId="2.2"')[0]
 }</script>
 </con:config>
-</con:testStep><con:testStep type="groovy" name="Verify Message"><con:settings/><con:config><script>context.withSql('AuditRepoDB') {sql ->
-	def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
-
-//parsing raw longblob xml message
+</con:testStep><con:testStep type="groovy" name="Verify Message-NhinOutbound-2.2" disabled="true"><con:settings/><con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
-//getting EventTypeCode.code attribute value to do an assertion comparison
-def verifyXmlCodeAttribute = parsedXmlMessage.EventIdentification.EventTypeCode.@code
-assert verifyXmlCodeAttribute == 'X12'
-	
-}</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2015-04-02T01:55:29Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2015-04-02T02:05:29Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/02/2015 01:55:29</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-05-02T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="COREX12BatchSubmitResponse" searchProperties="true" id="a0a08ba6-6ed3-4fc7-bcb0-fa781265bef8" disabled="true"><con:settings/><con:testStep type="groovy" name="Clear Audit Logs">
+
+parsedXmlMessage.EventIdentification.find{
+	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
+	assert it.@EventDateTime == context.findProperty( "EventIdentification.@EventDateTime" )
+     assert it.@EventOutcomeIndicator == context.findProperty( "EventIdentification.@EventOutcomeIndicator" )
+	assert it.EventID.@code == context.findProperty( "EventIdentification.EventID.@code" )
+	assert it.EventID.@codeSystemName == context.findProperty( "EventIdentification.EventID.@codeSystemName" )
+	assert it.EventID.@displayName == context.findProperty( "EventIdentification.EventID.@displayName" )
+	assert it.EventTypeCode.@code == context.findProperty( "EventIdentification.EventTypeCode.@code" )
+	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
+	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
+}
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[0].each{ node -> 
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant.@UserID" )
+	     }
+	      if(!node.@AlternativeUserID.isEmpty()){
+	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant.@AlternativeUserID" )
+	     }
+        	assert node.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant.@UserIsRequestor" )
+	     if(!node.RoleIDCode.isEmpty()){
+   	     	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant.RoleIDCode.@code" )
+	     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant.RoleIDCode.@codeSystemName" )
+	     }
+	}
+}
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
+	     }
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserNamee" )
+	     }
+     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
+     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+   	 	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" )
+          if(!node.RoleIDCode.isEmpty()){
+     		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
+     		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
+	     }
+	}
+}
+if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[2].each{ node ->
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )
+	     }
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
+	     }
+   	     if(!node.@AlternativeUserID.isEmpty()){
+	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
+	     }
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
+     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+          if(!node.RoleIDCode.isEmpty()){
+     		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
+     		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
+	     }
+	}
+}
+parsedXmlMessage.AuditSourceIdentification.find{
+		if(!it.@AuditEnterpriseSiteID.isEmpty()){
+			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
+		}
+		if(!it.@AuditSourceTypeCode.isEmpty()){
+			log.info "inside auditsourcetype code" + it.@AuditSourceTypeCode
+			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
+		}
+		if(!it.@AuditSourceID.isEmpty()){
+			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
+		}
+}
+parsedXmlMessage.ParticipantObjectIdentification.find{
+	assert it.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
+	assert it.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
+	assert it.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )
+	assert it.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
+	assert it.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
+	assert it.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
+	if(!it.ParticipantObjectDetail.@value.isEmpty()){
+		assert it.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
+	}
+} 
+}]]></script></con:config></con:testStep><con:testStep type="groovy" name="Verify Message-NhinInbound-2.2" disabled="true"><con:settings/><con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+def nhinAuditMessage_22_Inbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Inbound" and communityId="2.2"')[0]
+def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Inbound)
+
+parsedXmlMessage.EventIdentification.find{
+	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
+	assert it.@EventDateTime == context.findProperty( "EventIdentification.@EventDateTime" )
+     assert it.@EventOutcomeIndicator == context.findProperty( "EventIdentification.@EventOutcomeIndicator" )
+	assert it.EventID.@code == context.findProperty( "EventIdentification.EventID.@code" )
+	assert it.EventID.@codeSystemName == context.findProperty( "EventIdentification.EventID.@codeSystemName" )
+	assert it.EventID.@displayName == context.findProperty( "EventIdentification.EventID.@displayName" )
+	assert it.EventTypeCode.@code == context.findProperty( "EventIdentification.EventTypeCode.@code" )
+	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
+	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
+}
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[0].each{ node -> 
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant.@UserID" )
+	     }
+	      if(!node.@AlternativeUserID.isEmpty()){
+	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant.@AlternativeUserID" )
+	     }
+        	assert node.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant.@UserIsRequestor" )
+	     if(!node.RoleIDCode.isEmpty()){
+   	     	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant.RoleIDCode.@code" )
+	     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant.RoleIDCode.@codeSystemName" )
+	     }
+	}
+}
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
+	     }
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserNamee" )
+	     }
+     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
+     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+   	 	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" )
+          if(!node.RoleIDCode.isEmpty()){
+     		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
+     		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
+	     }
+	}
+}
+if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[2].each{ node ->
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )
+	     }
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
+	     }
+   	     if(!node.@AlternativeUserID.isEmpty()){
+	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
+	     }
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
+     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+          if(!node.RoleIDCode.isEmpty()){
+     		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
+     		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
+	     }
+	}
+}
+parsedXmlMessage.AuditSourceIdentification.find{
+		if(!it.@AuditEnterpriseSiteID.isEmpty()){
+			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
+		}
+		if(!it.@AuditSourceTypeCode.isEmpty()){
+			log.info "inside auditsourcetype code" + it.@AuditSourceTypeCode
+			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
+		}
+		if(!it.@AuditSourceID.isEmpty()){
+			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
+		}
+}
+parsedXmlMessage.ParticipantObjectIdentification.find{
+	assert it.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
+	assert it.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
+	assert it.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )
+	assert it.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
+	assert it.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
+	assert it.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
+	if(!it.ParticipantObjectDetail.@value.isEmpty()){
+		assert it.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
+	}
+} 
+}]]></script></con:config></con:testStep><con:testStep type="groovy" name="Verify Message-NhinOutbound-1.1" disabled="true"><con:settings/><con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
+def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+parsedXmlMessage.EventIdentification.find{
+	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
+	assert it.@EventDateTime == context.findProperty( "EventIdentification.@EventDateTime" )
+     assert it.@EventOutcomeIndicator == context.findProperty( "EventIdentification.@EventOutcomeIndicator" )
+	assert it.EventID.@code == context.findProperty( "EventIdentification.EventID.@code" )
+	assert it.EventID.@codeSystemName == context.findProperty( "EventIdentification.EventID.@codeSystemName" )
+	assert it.EventID.@displayName == context.findProperty( "EventIdentification.EventID.@displayName" )
+	assert it.EventTypeCode.@code == context.findProperty( "EventIdentification.EventTypeCode.@code" )
+	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
+	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
+}
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[0].each{ node -> 
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant.@UserID" )
+	     }
+	      if(!node.@AlternativeUserID.isEmpty()){
+	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant.@AlternativeUserID" )
+	     }
+        	assert node.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant.@UserIsRequestor" )
+	     if(!node.RoleIDCode.isEmpty()){
+   	     	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant.RoleIDCode.@code" )
+	     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant.RoleIDCode.@codeSystemName" )
+	     }
+	}
+}
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
+	     }
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserNamee" )
+	     }
+     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
+     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+   	 	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" )
+          if(!node.RoleIDCode.isEmpty()){
+     		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
+     		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
+	     }
+	}
+}
+if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[2].each{ node ->
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )
+	     }
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
+	     }
+   	     if(!node.@AlternativeUserID.isEmpty()){
+	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
+	     }
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
+     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+          if(!node.RoleIDCode.isEmpty()){
+     		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
+     		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
+	     }
+	}
+}
+parsedXmlMessage.AuditSourceIdentification.find{
+		if(!it.@AuditEnterpriseSiteID.isEmpty()){
+			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
+		}
+		if(!it.@AuditSourceTypeCode.isEmpty()){
+			log.info "inside auditsourcetype code" + it.@AuditSourceTypeCode
+			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
+		}
+		if(!it.@AuditSourceID.isEmpty()){
+			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
+		}
+}
+parsedXmlMessage.ParticipantObjectIdentification.find{
+	assert it.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
+	assert it.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
+	assert it.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )
+	assert it.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
+	assert it.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
+	assert it.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
+	if(!it.ParticipantObjectDetail.@value.isEmpty()){
+		assert it.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
+	}
+} 
+}]]></script></con:config></con:testStep><con:testStep type="groovy" name="Verify Message-NhinInbound-1.1" disabled="true"><con:settings/><con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+def nhinAuditMessage_11_Inbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Inbound" and communityId="1.1"')[0]
+def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Inbound)
+
+parsedXmlMessage.EventIdentification.find{
+	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
+	assert it.@EventDateTime == context.findProperty( "EventIdentification.@EventDateTime" )
+     assert it.@EventOutcomeIndicator == context.findProperty( "EventIdentification.@EventOutcomeIndicator" )
+	assert it.EventID.@code == context.findProperty( "EventIdentification.EventID.@code" )
+	assert it.EventID.@codeSystemName == context.findProperty( "EventIdentification.EventID.@codeSystemName" )
+	assert it.EventID.@displayName == context.findProperty( "EventIdentification.EventID.@displayName" )
+	assert it.EventTypeCode.@code == context.findProperty( "EventIdentification.EventTypeCode.@code" )
+	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
+	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
+}
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[0].each{ node -> 
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant.@UserID" )
+	     }
+	      if(!node.@AlternativeUserID.isEmpty()){
+	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant.@AlternativeUserID" )
+	     }
+        	assert node.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant.@UserIsRequestor" )
+	     if(!node.RoleIDCode.isEmpty()){
+   	     	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant.RoleIDCode.@code" )
+	     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant.RoleIDCode.@codeSystemName" )
+	     }
+	}
+}
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
+	     }
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserNamee" )
+	     }
+     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
+     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+   	 	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" )
+          if(!node.RoleIDCode.isEmpty()){
+     		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
+     		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
+	     }
+	}
+}
+if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[2].each{ node ->
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )
+	     }
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
+	     }
+   	     if(!node.@AlternativeUserID.isEmpty()){
+	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
+	     }
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
+     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+          if(!node.RoleIDCode.isEmpty()){
+     		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
+     		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
+	     }
+	}
+}
+parsedXmlMessage.AuditSourceIdentification.find{
+		if(!it.@AuditEnterpriseSiteID.isEmpty()){
+			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
+		}
+		if(!it.@AuditSourceTypeCode.isEmpty()){
+			log.info "inside auditsourcetype code" + it.@AuditSourceTypeCode
+			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
+		}
+		if(!it.@AuditSourceID.isEmpty()){
+			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
+		}
+}
+parsedXmlMessage.ParticipantObjectIdentification.find{
+	assert it.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
+	assert it.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
+	assert it.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )
+	assert it.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
+	assert it.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
+	assert it.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
+	if(!it.ParticipantObjectDetail.@value.isEmpty()){
+		assert it.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
+	}
+} 
+}]]></script></con:config></con:testStep><con:setupScript>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectPath = groovyUtils.projectPath
+def propertiesFilename = projectPath + "/COREX12BatchSubmitRequest.properties"
+def propertiesFile = new File(propertiesFilename)
+if (propertiesFile.exists()) {
+ def props = new Properties()
+ props.load(new FileInputStream(propertiesFile))
+ props.each { key, value ->
+     testCase.setPropertyValue(key, value)
+ }
+}</con:setupScript><con:properties><con:property><con:name>startDate</con:name><con:value>2015-04-22T19:40:54Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2015-04-22T19:50:54Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/22/2015 19:40:54</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-05-22T00:00:00Z</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name><con:value>110152</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>&lt;!--Destination--></con:name><con:value/></con:property><con:property><con:name>ActiveParticipant_Dest.@UserID</con:name><con:value>https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/X12DocumentSubmission_Service</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name><con:value>false</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@AlternativeUserID</con:name><con:value>19233@192.168.1.2</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@code</con:name><con:value>X12</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name><con:value>CAQH CORE Transactions</con:value></con:property><con:property><con:name>ActiveParticipant.@UserIsRequestor</con:name><con:value>true</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name><con:value>Destination</con:value></con:property><con:property><con:name>&lt;!--Human</con:name><con:value>Requestor--></con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name><con:value>192.168.1.5</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name><con:value>Payload Identifier</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name><con:value>Source</con:value></con:property><con:property><con:name>ActiveParticipant.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name><con:value>192.168.1.2</con:value></con:property><con:property><con:name>EventIdentification.@EventActionCode</con:name><con:value>R</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name><con:value>110153</con:value></con:property><con:property><con:name>EventIdentification.EventID.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name><con:value>urn:oid:1.1</con:value></con:property><con:property><con:name>EventIdentification.EventID.@displayName</con:name><con:value>Export</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole</con:name><con:value>20</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@codeSystemName</con:name><con:value>SNOMED_CT</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@displayName</con:name><con:value>NwHIN CAQH CORE X12 Document Submission</con:value></con:property><con:property><con:name>EventIdentification.EventID.@code</con:name><con:value>110112</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@code</con:name><con:value>307969004</con:value></con:property><con:property><con:name>EventIdentification.@EventDateTime</con:name><con:value>2015-04-02T13:47:30.199Z</con:value></con:property><con:property><con:name>EventIdentification.@EventOutcomeIndicator</con:name><con:value>0</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name><con:value>CAQH CORE Connectivity Metadata</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserIsRequestor</con:name><con:value>true</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@displayName</con:name><con:value>Public Health</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserID</con:name><con:value>19233@192.168.1.2</con:value></con:property><con:property><con:name>AuditMessage.xmlns</con:name><con:value>http://nhinc.services.com/schema/auditmessage</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name><con:value>f81d4fae-7dec-11d0-a765-00a0c91e6bf6</con:value></con:property><con:property><con:name>&lt;!--Source--></con:name><con:value/></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name><con:value>f81d4fae-7dec-11d0-a765-00a0c91e6bf6</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectDetail.@value</con:name><con:value>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxuczM6Q09SRUVudmVsb3BlUmVhbFRpbWVSZXF1ZXN0IHhtbG5zOm5zMj0iaHR0cDovL3d3dy5jYXFoLm9yZy9TT0FQL1dTREwvQ09SRVJ1bGUyLjIuMC54c2QiIHhtbG5zOm5zMz0idXJuOm9yZzpjYXFoOnNvYXA6d3NkbDpjb3JlcnVsZTJfMl8wIj48UGF5bG9hZFR5cGU+WDEyXzI3MF9SZXF1ZXN0XzAwNTAxMFgyNzlBMTwvUGF5bG9hZFR5cGU+PFByb2Nlc3NpbmdNb2RlPlJlYWxUaW1lPC9Qcm9jZXNzaW5nTW9kZT48UGF5bG9hZElEPmY4MWQ0ZmFlLTdkZWMtMTFkMC1hNzY1LTAwYTBjOTFlNmJmNjwvUGF5bG9hZElEPjxUaW1lU3RhbXA+MjAwNy0wOC0zMFQxMDoyMDozNFo8L1RpbWVTdGFtcD48U2VuZGVySUQ+SG9zcGl0YWxBPC9TZW5kZXJJRD48UmVjZWl2ZXJJRD5QYXllckI8L1JlY2VpdmVySUQ+PENPUkVSdWxlVmVyc2lvbj4yLjIuMDwvQ09SRVJ1bGVWZXJzaW9uPjxQYXlsb2FkPjwvUGF5bG9hZD48L25zMzpDT1JFRW52ZWxvcGVSZWFsVGltZVJlcXVlc3Q+</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>ActiveParticipant.@UserID</con:name><con:value>kskagerb</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectName</con:name><con:value/></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectDataLifeCycle</con:name><con:value/></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name><con:value>1010</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant.@AlternativeUserID</con:name><con:value>19233@192.168.1.1</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectSensitivity</con:name><con:value/></con:property><con:property><con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name><con:value>19233@192.168.1.2</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectQuery</con:name><con:value/></con:property><con:property><con:name>ActiveParticipant_Dest.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="COREX12BatchSubmitResponse" searchProperties="true" id="a0a08ba6-6ed3-4fc7-bcb0-fa781265bef8" disabled="true"><con:settings/><con:testStep type="groovy" name="Clear Audit Logs">
 		<con:settings/>
 		<con:config>
 			<script>context.withSql(context.findProperty('AuditRepoDB')) { sql -> 
