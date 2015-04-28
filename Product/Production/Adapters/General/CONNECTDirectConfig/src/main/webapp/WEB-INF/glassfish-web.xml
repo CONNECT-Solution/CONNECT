@@ -12,7 +12,7 @@
     </jsp-config>
 
     <resource-ref>
-        <res-ref-name>jdbc/transrepo_datasource</res-ref-name>
-        <jndi-name>jdbc/transrepo_datasource</jndi-name>
+        <res-ref-name>jdbc/configdb_datasource</res-ref-name>
+        <jndi-name>jdbc/configdb_datasource</jndi-name>
     </resource-ref>
 </glassfish-web-app>
