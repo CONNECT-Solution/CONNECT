@@ -10506,7 +10506,7 @@ parsedXmlMessage.ParticipantObjectIdentification.find{
 		assert it.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
 	}
 } 
-}</script></con:config></con:testStep><con:testStep type="groovy" name="Verify Message-NhinInbound-2.2" disabled="true"><con:settings/><con:config><script>context.withSql('AuditRepoDB') {sql ->
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Verify Message-NhinInbound-2.2" disabled="true"><con:settings/><con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Inbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Inbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Inbound)
 
@@ -10521,8 +10521,24 @@ parsedXmlMessage.EventIdentification.find{
 	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
 	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
 }
-if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() &amp;&amp; parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[0].each{ node ->
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[0].each{ node -> 
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant.@UserID" )
+	     }
+	      if(!node.@AlternativeUserID.isEmpty()){
+	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant.@AlternativeUserID" )
+	     }
+        	assert node.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant.@UserIsRequestor" )
+	     if(!node.RoleIDCode.isEmpty()){
+   	     	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant.RoleIDCode.@code" )
+	     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant.RoleIDCode.@codeSystemName" )
+	     }
+	}
+}
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
 	     if(!node.@UserID.isEmpty()){
 	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
 	     }
@@ -10539,8 +10555,8 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() &am
 	     }
 	}
 }
-if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() &amp;&amp; parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[1].each{ node ->
+if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[2].each{ node ->
 	     if(!node.@UserID.isEmpty()){
 	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )
 	     }
@@ -10582,7 +10598,7 @@ parsedXmlMessage.ParticipantObjectIdentification.find{
 		assert it.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
 	}
 } 
-}</script></con:config></con:testStep><con:testStep type="groovy" name="Verify Message-NhinOutbound-1.1" disabled="true"><con:settings/><con:config><script>context.withSql('AuditRepoDB') {sql ->
+}]]></script></con:config></con:testStep><con:testStep type="groovy" name="Verify Message-NhinOutbound-1.1" disabled="true"><con:settings/><con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -10597,8 +10613,24 @@ parsedXmlMessage.EventIdentification.find{
 	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
 	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
 }
-if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() &amp;&amp; parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[0].each{ node ->
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[0].each{ node -> 
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant.@UserID" )
+	     }
+	      if(!node.@AlternativeUserID.isEmpty()){
+	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant.@AlternativeUserID" )
+	     }
+        	assert node.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant.@UserIsRequestor" )
+	     if(!node.RoleIDCode.isEmpty()){
+   	     	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant.RoleIDCode.@code" )
+	     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant.RoleIDCode.@codeSystemName" )
+	     }
+	}
+}
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
 	     if(!node.@UserID.isEmpty()){
 	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
 	     }
@@ -10615,8 +10647,8 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() &am
 	     }
 	}
 }
-if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() &amp;&amp; parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[1].each{ node ->
+if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[2].each{ node ->
 	     if(!node.@UserID.isEmpty()){
 	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )
 	     }
@@ -10658,7 +10690,7 @@ parsedXmlMessage.ParticipantObjectIdentification.find{
 		assert it.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
 	}
 } 
-}</script></con:config></con:testStep><con:testStep type="groovy" name="Verify Message-NhinInbound-1.1" disabled="true"><con:settings/><con:config><script>context.withSql('AuditRepoDB') {sql ->
+}]]></script></con:config></con:testStep><con:testStep type="groovy" name="Verify Message-NhinInbound-1.1" disabled="true"><con:settings/><con:config><script>context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Inbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Inbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Inbound)
 
