@@ -43,6 +43,10 @@
                         <value>DBPass=${db.password}</value>
                         <value>DBPort=${db.port}</value>
                         <value>DBUser=${db.user}</value>
+                        <value>RemoteDBHost=${db.remote.host}</value>
+                        <value>RemoteDBPass=${db.remote.password}</value>
+                        <value>RemoteDBPort=${db.remote.port}</value>
+                        <value>RemoteDBUser=${db.remote.user}</value>
                         <value>ASUsername=admin</value>
                         <value>ASPassword=adminadmin</value>
                         <value>JMXHost=localhost</value>
