@@ -281,15 +281,14 @@ public class MessageMonitoringUtil {
      *
      * @return
      */
-    private static boolean checkHeaderForDispatchedRequest(String header) {
+    public static boolean checkHeaderForDispatchedRequest(String header) {
         //TODO: need a beeter approcah to verify the value
         return StringUtils.contains(header, X_DIRECT_FINAL_DESTINATION_DELIVERY_HEADER_VALUE) && StringUtils.contains(header, "true");
     }
 
     /**
-     * Returns the Outbound Failed message retry count. Reads the system
-     * property first, if not found then reads the gateway properties, if not
-     * found then uses the default value.
+     * Returns the Outbound Failed message retry count. Reads the system property first, if not found then reads the
+     * gateway properties, if not found then uses the default value.
      *
      * @return
      */
@@ -303,9 +302,8 @@ public class MessageMonitoringUtil {
     }
 
     /**
-     * Returns the Inbound Failed message retry count. Reads the system property
-     * first, if not found then reads the gateway properties, if not found then
-     * uses the default value.
+     * Returns the Inbound Failed message retry count. Reads the system property first, if not found then reads the
+     * gateway properties, if not found then uses the default value.
      *
      * @return
      */
@@ -320,9 +318,8 @@ public class MessageMonitoringUtil {
     }
 
     /**
-     * Return true if the notification to edge needs to be sent immediately.
-     * Reads the system property first, if not found then reads the gateway
-     * properties, if not found then uses the default value.
+     * Return true if the notification to edge needs to be sent immediately. Reads the system property first, if not
+     * found then reads the gateway properties, if not found then uses the default value.
      *
      * @return
      */
@@ -337,9 +334,8 @@ public class MessageMonitoringUtil {
     }
 
     /**
-     * Returns the Processed message receive time limit. Reads the system
-     * property first, if not found then reads the gateway properties, if not
-     * found then uses the default value.
+     * Returns the Processed message receive time limit. Reads the system property first, if not found then reads the
+     * gateway properties, if not found then uses the default value.
      *
      * @return
      */
@@ -351,9 +347,8 @@ public class MessageMonitoringUtil {
     }
 
     /**
-     * Returns the Processed message receive time limit. Reads the system
-     * property first, if not found then reads the gateway properties, if not
-     * found then uses the default value.
+     * Returns the Processed message receive time limit. Reads the system property first, if not found then reads the
+     * gateway properties, if not found then uses the default value.
      *
      * @return
      */
@@ -369,9 +364,8 @@ public class MessageMonitoringUtil {
     }
 
     /**
-     * Returns the Dispatched message receive time limit. Reads the system
-     * property first, if not found then reads the gateway properties, if not
-     * found then uses the default value.
+     * Returns the Dispatched message receive time limit. Reads the system property first, if not found then reads the
+     * gateway properties, if not found then uses the default value.
      *
      * @return
      */
@@ -395,12 +389,11 @@ public class MessageMonitoringUtil {
      * Return true if the message is a DSN or MDN
      *
      * @param message containing the message to be tested.
-     * @return true if the envelope exists, the message exists and is an MDN
-     * Notification or a DSN notification.
+     * @return true if the envelope exists, the message exists and is an MDN Notification or a DSN notification.
      */
     public static boolean isMdnOrDsn(MimeMessage message) {
         return TxUtil.getMessageType(message).equals(TxMessageType.DSN)
-                || TxUtil.getMessageType(message).equals(TxMessageType.MDN);
+            || TxUtil.getMessageType(message).equals(TxMessageType.MDN);
     }
 
     /**
@@ -430,7 +423,7 @@ public class MessageMonitoringUtil {
     }
 
     public static MimeMessage createMimeMessage(String postMasterEmailId, String subject,
-            String recipient, String text, String messageId) throws AddressException, MessagingException {
+        String recipient, String text, String messageId) throws AddressException, MessagingException {
         MimeMessage message = new MimeMessage((Session) null);
         message.setSender(new InternetAddress(postMasterEmailId));
         message.setSubject(subject);
@@ -525,8 +518,7 @@ public class MessageMonitoringUtil {
     }
 
     /**
-     * Get the property value from Setting. Calls the config service to get the
-     * value.
+     * Get the property value from Setting. Calls the config service to get the value.
      *
      * @param propertyName
      * @return
@@ -579,7 +571,7 @@ public class MessageMonitoringUtil {
         ServicePortDescriptor<ConfigurationService> portDescriptor = new DirectConfigUnsecuredServicePortDescriptor();
 
         CONNECTClient<ConfigurationService> client = CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(
-                portDescriptor, url, null);
+            portDescriptor, url, null);
         return client;
     }
 
@@ -606,14 +598,14 @@ public class MessageMonitoringUtil {
 
     /**
      * Update the Agent Settings Cache
-     * 
+     *
      */
     public static void updateAgentSettingsCacheTimeoutValue() {
         GatewayState gatewayState = GatewayState.getInstance();
         //Read the agentSettingsCacheRefreshTime property from gateway.properties
         int agentSettingsCacheRefreshTime = getAgentSettingsCacheRefreshTime();
         LOG.trace("AgentSettingsCacheRefreshTime agentSettingsCacheRefreshTime value:" + agentSettingsCacheRefreshTime);
-        boolean refreshRequired = (!(gatewayState.getSettingsUpdateInterval() == (agentSettingsCacheRefreshTime/1000)));
+        boolean refreshRequired = (!(gatewayState.getSettingsUpdateInterval() == (agentSettingsCacheRefreshTime / 1000)));
 
         //set the Settings Update Interval value only if the proeprty value retrieved is greater than zero
         if ((agentSettingsCacheRefreshTime > 0) && refreshRequired && gatewayState.isAgentSettingManagerRunning()) {
@@ -625,8 +617,7 @@ public class MessageMonitoringUtil {
     }
 
     /**
-     * Returns the AgentSettingsCacheRefreshTime property value from Gateway
-     * properties file. If not found, returns -1
+     * Returns the AgentSettingsCacheRefreshTime property value from Gateway properties file. If not found, returns -1
      *
      * @return
      */
@@ -646,12 +637,12 @@ public class MessageMonitoringUtil {
     }
 
     /**
-     * Returns the AgentSettingsCacheRefreshActive property value from Gateway
-     * properties file. If not found, returns false
+     * Returns the AgentSettingsCacheRefreshActive property value from Gateway properties file. If not found, returns
+     * false
      *
      * @return
      */
-    public static boolean getAgentSettingsCacheRefreshActive(){
+    public static boolean getAgentSettingsCacheRefreshActive() {
         try {
             String agentSettingsCacheRefreshActive = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, AGENT_SETTINGS_CACHE_REFRESH_ACTIVE);
             return (agentSettingsCacheRefreshActive != null) && (agentSettingsCacheRefreshActive.equals("true"));
