@@ -73,8 +73,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
      */
     public static final String X_DIRECT_FINAL_DESTINATION_DELIVERY_HEADER_VALUE = "X-DIRECT-FINAL-DESTINATION-DELIVERY";
     /**
-     * Header name to determine if dispositions are being requested by the
-     * sending STA.
+     * Header name to determine if dispositions are being requested by the sending STA.
      */
     public static final String DISPOSITION_NOTIFICATION_OPTIONS_HEADER_NAME = "Disposition-Notification-Options";
     /**
@@ -116,7 +115,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
      * @param producer the producer
      */
     public DirectReceiverImpl(MailSender externalMailSender, DirectEventLogger directEventLogger,
-            ReliableDispatchedNotificationProducer producer) {
+        ReliableDispatchedNotificationProducer producer) {
         super(externalMailSender, directEventLogger);
         dispatchProducer = producer;
     }
@@ -226,7 +225,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
         String[] headers = processedMessage.getHeader(DISPOSITION_NOTIFICATION_OPTIONS_HEADER_NAME);
         if (headers != null) {
             for (String header : headers) {
-                if (checkHeaderForDispatchedRequest(header)) {
+                if (MessageMonitoringUtil.checkHeaderForDispatchedRequest(header)) {
                     Message STAMessasge = new Message(processedMessage);
                     IncomingMessage incomingMessage = new IncomingMessage(STAMessasge);
                     if (getSmtpAgent() != null) {
@@ -237,23 +236,6 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
                 }
             }
         }
-    }
-
-    /**
-     *
-     * @param header
-     * @return
-     */
-    private boolean checkHeaderForDispatchedRequest(String header) {
-        boolean dispatchRequested = false;
-        String[] parts = StringUtils.split(header, "=");
-        if (parts != null && parts.length == 2) {
-            if (StringUtils.contains(parts[0], X_DIRECT_FINAL_DESTINATION_DELIVERY_HEADER_VALUE)
-                    && StringUtils.contains(parts[1], "true")) {
-                dispatchRequested = true;
-            }
-        }
-        return dispatchRequested;
     }
 
     /**
@@ -309,8 +291,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
      * @param tx
      * @param notificationFailureMessage
      *
-     * @return returns a collection of DSN messages using message information
-     * provided.
+     * @return returns a collection of DSN messages using message information provided.
      * @throws javax.mail.MessagingException
      */
     public Collection<MimeMessage> createFailedDeliveryDSNFailureMessage(MimeMessage message, Tx tx, String notificationFailureMessage) throws MessagingException {
@@ -321,21 +302,21 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
         DSNGenerator generator = new DSNGenerator(RejectedRecipientDSNCreatorOptions.DEFAULT_PREFIX);
         //use the default postmasterbox
         String postmasterMailbox = GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_POSTMASTER,
-                mailet, RejectedRecipientDSNCreatorOptions.DEFAULT_POSTMASTER);
+            mailet, RejectedRecipientDSNCreatorOptions.DEFAULT_POSTMASTER);
         //use the default reporting MTA
         String reportingMta = GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_MTA_NAME,
-                mailet, RejectedRecipientDSNCreatorOptions.DEFAULT_MTA_NAME);
+            mailet, RejectedRecipientDSNCreatorOptions.DEFAULT_MTA_NAME);
         DSNFailureTextBodyPartGenerator textGenerator = new DefaultDSNFailureTextBodyPartGenerator(
-                GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_HEADER,
-                        mailet, HEADER),
-                GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_FOOTER,
-                        mailet, FOOTER),
-                GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_RECIP_TITLE,
-                        mailet, RejectedRecipientDSNCreatorOptions.DEFAULT_FAILED_RECIP_TITLE),
-                RejectedRecipientDSNCreatorOptions.DEFAULT_ERROR_MESSAGE_TITLE,
-                GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_ERROR_MESSAGE,
-                        mailet, ERROR_MESSAGE),
-                HumanReadableTextAssemblerFactory.getInstance());
+            GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_HEADER,
+                mailet, HEADER),
+            GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_FOOTER,
+                mailet, FOOTER),
+            GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_RECIP_TITLE,
+                mailet, RejectedRecipientDSNCreatorOptions.DEFAULT_FAILED_RECIP_TITLE),
+            RejectedRecipientDSNCreatorOptions.DEFAULT_ERROR_MESSAGE_TITLE,
+            GatewayConfiguration.getConfigurationParam(RejectedRecipientDSNCreatorOptions.DSN_FAILED_ERROR_MESSAGE,
+                mailet, ERROR_MESSAGE),
+            HumanReadableTextAssemblerFactory.getInstance());
 
         FailedDeliveryDSNCreator rejectedDNSCreator = new FailedDeliveryDSNCreator(generator, postmasterMailbox, reportingMta, textGenerator);
         final NHINDAddressCollection xdRecipients = new NHINDAddressCollection();
