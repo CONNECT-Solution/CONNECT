@@ -55,6 +55,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
 import javax.ws.rs.core.MediaType;
+import javax.xml.XMLConstants;
+import javax.xml.transform.stream.StreamResult;
 
 /**
  * Singleton Interface class between UI and the backend services. provides high level APIs for calling PD, DQ, RD etc.
@@ -230,9 +232,9 @@ public class GatewayService {
 
         try {
             TransformerFactory tFactory = TransformerFactory.newInstance();
+            tFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
             Transformer transformer = tFactory.newTransformer(new StreamSource(xsl));
-            transformer.transform(new javax.xml.transform.stream.StreamSource(xml),
-                new javax.xml.transform.stream.StreamResult(output));
+            transformer.transform(new StreamSource(xml), new StreamResult(output));
 
         } catch (TransformerException e) {
             LOG.error("Exception in transforming from xml to html", e);
