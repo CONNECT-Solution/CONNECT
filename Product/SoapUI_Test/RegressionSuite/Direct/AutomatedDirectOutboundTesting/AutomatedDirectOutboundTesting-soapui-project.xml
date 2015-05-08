@@ -3167,22 +3167,36 @@ Otherwise the event log count checking may fail.</con:description><con:settings/
 context.withSql_remote(context.findProperty('EventDB')) { sql_remote -> 
 			sql_remote.execute('delete from '+context.findProperty('EventTable'))
 			}</script></con:config></con:testStep><con:testStep type="groovy" name="SendEmail"><con:settings/><con:config><script>context.sendEmailSmtps(context.findProperty('MailContent'),'WS Anchors Test (invalid email domain) - Case 1',context.findProperty('MailFrom'), 'invalidemail@invaliddomain.org', context.findProperty('MailServerIP'), context.findProperty('MailServerPort'),context.findProperty('MailUserid'),context.findProperty('MailPass'),context.findProperty('Notify'));
-</script></con:config></con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>100000</delay></con:config></con:testStep><con:testStep type="groovy" name="Assert Local Event Table Rows"><con:settings/><con:config><script>if (context.findProperty('Notify')=='yes') {
-
-	context.withSql('eventdb') {sql ->
-		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable'))[0]
-		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_DIRECT"')[0]
-	}
-	
-} else {
-
-	context.withSql('eventdb') {sql ->
-		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable'))[0]
-		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_DIRECT"')[0]
-	}
-
+</script></con:config></con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>100000</delay></con:config></con:testStep><con:testStep type="groovy" name="Assert Local Event Table Rows"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
+		assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable'))[0]
 }
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2015-02-19T23:04:11Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2015-02-19T23:14:11Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/19/2015 23:04:11</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-03-21T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingWSAnchors" searchProperties="true" id="08e0b12c-46c6-46c6-a0cd-de239665cd2d"><con:settings/><con:testStep type="groovy" name="Clear Local Event Table"><con:settings/><con:config><script>context.withSql(context.findProperty('EventDB')) { sql -> 
+</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2015-02-19T23:04:11Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2015-02-19T23:14:11Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/19/2015 23:04:11</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-03-21T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingWSAnchorsInvalidUser" searchProperties="true" disabled="true"><con:settings/><con:testStep type="groovy" name="Clear Local Event Table"><con:settings/><con:config><script>context.withSql(context.findProperty('EventDB')) { sql -> 
+			sql.execute('delete from '+context.findProperty('EventTable'))
+			}</script></con:config></con:testStep><con:testStep type="groovy" name="Clear Remote Event Table"><con:settings/><con:config><script>// This will eventually be used to invoke ssh scripts to invoke scripts on slave
+
+// def listOfFiles = "D:/CONNECT/Product/SoapUI_Test/RegressionSuite/Direct/AutomatedDirectOutboundTesting/startserver.bat".execute().text
+
+context.withSql_remote(context.findProperty('EventDB')) { sql_remote -> 
+			sql_remote.execute('delete from '+context.findProperty('EventTable'))
+			}</script></con:config></con:testStep><con:testStep type="groovy" name="SendEmail"><con:settings/><con:config><script>context.sendEmailSmtps(context.findProperty('MailContent'),'WS Anchors Test (invalid email username) - Case 2',context.findProperty('MailFrom'), 'invalidemail@direct.connectopensource.net', context.findProperty('MailServerIP'), context.findProperty('MailServerPort'),context.findProperty('MailUserid'),context.findProperty('MailPass'),context.findProperty('Notify'));
+</script></con:config></con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>100000</delay></con:config></con:testStep><con:testStep type="groovy" name="Assert Local Event Table Rows"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
+		assert 7 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable'))[0]
+		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_DIRECT"')[0]
+		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_OUTBOUND_DIRECT"')[0]
+		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_MDN_FAILED"')[0]
+		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_MDN_FAILED"')[0]
+		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_MDN_PROCESSED"')[0]
+		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_MDN_PROCESSED"')[0]
+		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="DIRECT_EDGE_NOTIFICATION_FAILED"')[0]
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Assert Remote Event Table Rows" disabled="true"><con:settings/><con:config><script>context.withSql_remote('eventdb') {sql_remote ->
+		assert 6 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable'))[0]
+		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_DIRECT"')[0]
+		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_MDN_PROCESSED"')[0]
+		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_OUTBOUND_MDN_PROCESSED"')[0]
+		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_MDN_DISPATCHED"')[0]
+		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_OUTBOUND_MDN_DISPATCHED"')[0]
+		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_DIRECT"')[0]
+}</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2015-02-19T23:04:11Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2015-02-19T23:14:11Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/19/2015 23:04:11</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-03-21T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingWSAnchors" searchProperties="true" id="08e0b12c-46c6-46c6-a0cd-de239665cd2d"><con:settings/><con:testStep type="groovy" name="Clear Local Event Table"><con:settings/><con:config><script>context.withSql(context.findProperty('EventDB')) { sql -> 
 			sql.execute('delete from '+context.findProperty('EventTable'))
 			}</script></con:config></con:testStep><con:testStep type="groovy" name="Clear Remote Event Table"><con:settings/><con:config><script>// This will eventually be used to invoke ssh scripts to invoke scripts on slave
 
@@ -3239,7 +3253,7 @@ context.withSql_remote(context.findProperty('EventDB')) { sql_remote ->
 	}
 
 }
-</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2015-02-19T23:04:11Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2015-02-19T23:14:11Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/19/2015 23:04:11</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-03-21T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingWSAnchorsNotificationOff" searchProperties="true"><con:settings/><con:testStep type="groovy" name="Clear Local Event Table"><con:settings/><con:config><script>context.withSql(context.findProperty('EventDB')) { sql -> 
+</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2015-02-19T23:04:11Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2015-02-19T23:14:11Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/19/2015 23:04:11</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-03-21T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingWSAnchorsNotificationOff" searchProperties="true" disabled="true"><con:settings/><con:testStep type="groovy" name="Clear Local Event Table"><con:settings/><con:config><script>context.withSql(context.findProperty('EventDB')) { sql -> 
 			sql.execute('delete from '+context.findProperty('EventTable'))
 			}</script></con:config></con:testStep><con:testStep type="groovy" name="Clear Remote Event Table"><con:settings/><con:config><script>// This will eventually be used to invoke ssh scripts to invoke scripts on slave
 
@@ -3248,30 +3262,78 @@ context.withSql_remote(context.findProperty('EventDB')) { sql_remote ->
 context.withSql_remote(context.findProperty('EventDB')) { sql_remote -> 
 			sql_remote.execute('delete from '+context.findProperty('EventTable'))
 			}</script></con:config></con:testStep><con:testStep type="groovy" name="SendEmail"><con:settings/><con:config><script>context.sendEmailSmtps(context.findProperty('MailContent'),'WS Anchors Test (no notification) - Case 3',context.findProperty('MailFrom'), context.findProperty('MailTo'), context.findProperty('MailServerIP'), context.findProperty('MailServerPort'),context.findProperty('MailUserid'),context.findProperty('MailPass'),'no');
-</script></con:config></con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>100000</delay></con:config></con:testStep><con:testStep type="groovy" name="Assert Local Event Table Rows"><con:settings/><con:config><script>if (context.findProperty('Notify')=='yes') {
-
-	context.withSql('eventdb') {sql ->
+</script></con:config></con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>100000</delay></con:config></con:testStep><con:testStep type="groovy" name="Assert Local Event Table Rows"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 		assert 5 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable'))[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_DIRECT"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_OUTBOUND_DIRECT"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_MDN_PROCESSED"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_MDN_PROCESSED"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="DIRECT_EDGE_NOTIFICATION_SUCCESSFUL"')[0]
-	}
-	
-} else {
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Assert Remote Event Table Rows"><con:settings/><con:config><script>context.withSql_remote('eventdb') {sql_remote ->
+		assert 4 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable'))[0]
+		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_DIRECT"')[0]
+		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_MDN_PROCESSED"')[0]
+		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_OUTBOUND_MDN_PROCESSED"')[0]
+		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_DIRECT"')[0]
+}</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2015-02-19T23:04:11Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2015-02-19T23:14:11Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/19/2015 23:04:11</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-03-21T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingWSAnchorsDispatchedTimeout" searchProperties="true" disabled="true"><con:settings/><con:testStep type="groovy" name="Set Dispatched and Processed Timeouts"><con:settings/><con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "ProcessedMessageReceiveTimeLimit", "500000", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "DispatchedMessageReceiveTimeLimit", "1", log);</script></con:config></con:testStep><con:testStep type="groovy" name="Clear Local Event Table"><con:settings/><con:config><script>context.withSql(context.findProperty('EventDB')) { sql -> 
+			sql.execute('delete from '+context.findProperty('EventTable'))
+			}</script></con:config></con:testStep><con:testStep type="groovy" name="Clear Remote Event Table"><con:settings/><con:config><script>// This will eventually be used to invoke ssh scripts to invoke scripts on slave
 
-	context.withSql('eventdb') {sql ->
+// def listOfFiles = "D:/CONNECT/Product/SoapUI_Test/RegressionSuite/Direct/AutomatedDirectOutboundTesting/startserver.bat".execute().text
+
+context.withSql_remote(context.findProperty('EventDB')) { sql_remote -> 
+			sql_remote.execute('delete from '+context.findProperty('EventTable'))
+			}</script></con:config></con:testStep><con:testStep type="groovy" name="SendEmail"><con:settings/><con:config><script>context.sendEmailSmtps(context.findProperty('MailContent'),'WS Anchors Test - Case 5',context.findProperty('MailFrom'), context.findProperty('MailTo'), context.findProperty('MailServerIP'), context.findProperty('MailServerPort'),context.findProperty('MailUserid'),context.findProperty('MailPass'),context.findProperty('Notify'));
+</script></con:config></con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>80000</delay></con:config></con:testStep><con:testStep type="groovy" name="Assert Local Event Table Rows"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 		assert 5 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable'))[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_DIRECT"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_OUTBOUND_DIRECT"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_MDN_PROCESSED"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_MDN_PROCESSED"')[0]
-		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="DIRECT_EDGE_NOTIFICATION_SUCCESSFUL"')[0]
-	}
+		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="DIRECT_EDGE_NOTIFICATION_FAILED"')[0]
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Restore Dispatched and Processed Timeouts"><con:settings/><con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "ProcessedMessageReceiveTimeLimit", "3600000", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "DispatchedMessageReceiveTimeLimit", "86400000", log);</script></con:config></con:testStep><con:tearDownScript/><con:properties><con:property><con:name>startDate</con:name><con:value>2015-02-19T23:04:11Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2015-02-19T23:14:11Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/19/2015 23:04:11</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-03-21T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingWSAnchorsProcessedTimeout" searchProperties="true" disabled="true"><con:settings/><con:testStep type="groovy" name="Set Dispatched and Processed Timeouts"><con:settings/><con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('RemoteGatewayPropDir'), "gateway.properties", "ProcessedMessageReceiveTimeLimit", "40000", log);
+nhinc.FileUtils.updateProperty(context.findProperty('RemoteGatewayPropDir'), "gateway.properties", "DispatchedMessageReceiveTimeLimit", "500000", log);</script></con:config></con:testStep><con:testStep type="groovy" name="Clear Local Event Table"><con:settings/><con:config><script>context.withSql(context.findProperty('EventDB')) { sql -> 
+			sql.execute('delete from '+context.findProperty('EventTable'))
+			}</script></con:config></con:testStep><con:testStep type="groovy" name="Clear Remote Event Table"><con:settings/><con:config><script>// This will eventually be used to invoke ssh scripts to invoke scripts on slave
 
-}
-</script></con:config></con:testStep><con:testStep type="groovy" name="Assert Remote Event Table Rows"><con:settings/><con:config><script>if (context.findProperty('Notify')=='yes') {
+// def listOfFiles = "D:/CONNECT/Product/SoapUI_Test/RegressionSuite/Direct/AutomatedDirectOutboundTesting/startserver.bat".execute().text
+
+context.withSql_remote(context.findProperty('EventDB')) { sql_remote -> 
+			sql_remote.execute('delete from '+context.findProperty('EventTable'))
+			}</script></con:config></con:testStep><con:testStep type="groovy" name="SendEmail"><con:settings/><con:config><script>context.sendEmailSmtps(context.findProperty('MailContent'),'WS Anchors Test - Case 6',context.findProperty('MailFrom'), context.findProperty('MailTo'), context.findProperty('MailServerIP'), context.findProperty('MailServerPort'),context.findProperty('MailUserid'),context.findProperty('MailPass'),context.findProperty('Notify'));
+</script></con:config></con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>100000</delay></con:config></con:testStep><con:testStep type="groovy" name="Assert Local Event Table Rows"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
+		assert 7 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable'))[0]
+		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_DIRECT"')[0]
+		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_OUTBOUND_DIRECT"')[0]
+		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="DIRECT_EDGE_NOTIFICATION_FAILED"')[0]
+		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_MDN_PROCESSED"')[0]
+		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_MDN_PROCESSED"')[0]
+		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_MDN_DISPATCHED"')[0]
+		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_MDN_DISPATCHED"')[0]
+}</script></con:config></con:testStep><con:tearDownScript>nhinc.FileUtils.updateProperty(context.findProperty('RemoteGatewayPropDir'), "gateway.properties", "ProcessedMessageReceiveTimeLimit", "3600000", log);
+nhinc.FileUtils.updateProperty(context.findProperty('RemoteGatewayPropDir'), "gateway.properties", "DispatchedMessageReceiveTimeLimit", "86400000", log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2015-02-19T23:04:11Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2015-02-19T23:14:11Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/19/2015 23:04:11</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-03-21T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingWSAnchorsNoTrust" searchProperties="true" disabled="true"><con:settings/><con:testStep type="groovy" name="Clear Local Event Table"><con:settings/><con:config><script>context.withSql(context.findProperty('EventDB')) { sql -> 
+			sql.execute('delete from '+context.findProperty('EventTable'))
+			}</script></con:config></con:testStep><con:testStep type="groovy" name="Clear Remote Event Table" disabled="true"><con:settings/><con:config><script>// This will eventually be used to invoke ssh scripts to invoke scripts on slave
+
+// def listOfFiles = "D:/CONNECT/Product/SoapUI_Test/RegressionSuite/Direct/AutomatedDirectOutboundTesting/startserver.bat".execute().text
+
+context.withSql_remote(context.findProperty('EventDB')) { sql_remote -> 
+			sql_remote.execute('delete from '+context.findProperty('EventTable'))
+			}</script></con:config></con:testStep><con:testStep type="groovy" name="Remove Sender Anchor From Remote Trust Store"><con:settings/><con:config><script>// This will eventually be used to invoke ssh scripts to invoke scripts on slave
+
+// def listOfFiles = "D:/CONNECT/Product/SoapUI_Test/RegressionSuite/Direct/AutomatedDirectOutboundTesting/startserver.bat".execute().text
+
+context.withSql_remote(context.findProperty('EventDB')) { sql_remote -> 
+			sql_remote.execute('delete from configdb.anchor'))
+			}</script></con:config></con:testStep><con:testStep type="groovy" name="SendEmail"><con:settings/><con:config><script>context.sendEmailSmtps(context.findProperty('MailContent'),'WS Anchors Test - Case 8',context.findProperty('MailFrom'), context.findProperty('MailTo'), context.findProperty('MailServerIP'), context.findProperty('MailServerPort'),context.findProperty('MailUserid'),context.findProperty('MailPass'),context.findProperty('Notify'));
+</script></con:config></con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>100000</delay></con:config></con:testStep><con:testStep type="groovy" name="Assert Local Event Table Rows"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
+		assert 3 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable'))[0]
+		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_DIRECT"')[0]
+		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_OUTBOUND_DIRECT"')[0]
+		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="DIRECT_EDGE_NOTIFICATION_FAILED"')[0]
+	}</script></con:config></con:testStep><con:testStep type="groovy" name="Assert Remote Event Table Rows" disabled="true"><con:settings/><con:config><script>if (context.findProperty('Notify')=='yes') {
 
 	context.withSql_remote('eventdb') {sql_remote ->
 		assert 6 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable'))[0]
