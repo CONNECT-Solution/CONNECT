@@ -216,6 +216,10 @@ public class TabBean {
         return setGatewayPropertyTabAndNavigate(0);
     }
     
+    public String navigateToAdapterPropTab() {
+        return setGatewayPropertyTabAndNavigate(1);
+    }
+    
     /**
      * 
      * @return 

@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.model.PropValue;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.ArrayList;
@@ -48,7 +49,8 @@ import org.primefaces.event.CellEditEvent;
 @ViewScoped
 public class PropertyBean {
 
-    private List<PropValue> properties;
+    private List<PropValue> gatewayProperties;
+    private List<PropValue> adapterProperties;
 
     private static final Logger LOG = Logger.getLogger(PropertyBean.class);
 
@@ -56,48 +58,83 @@ public class PropertyBean {
         setProperties();
     }
 
-    public List<PropValue> getProperties() {
-        return properties;
+    public List<PropValue> getGatewayProperties() {
+        return gatewayProperties;
+    }
+
+    public List<PropValue> getAdapterProperties() {
+        return adapterProperties;
     }
 
     public void refresh() {
         setProperties();
     }
 
-    public void onValueEdit(CellEditEvent event) {
+    public void onGatewayValueEdit(CellEditEvent event) {
         DataTable dataTable = (DataTable) event.getSource();
         PropValue selectedProp = (PropValue) dataTable.getRowData();
         String oldValue = (String) event.getOldValue();
         String newValue = (String) event.getNewValue();
 
         try {
-            PropertyAccessor.getInstance().setProperty("gateway", selectedProp.getKey(), newValue);
-            FacesContext.getCurrentInstance().addMessage(null,
+            PropertyAccessor.getInstance().setProperty(NhincConstants.GATEWAY_PROPERTY_FILE, selectedProp.getKey(), newValue);
+            FacesContext.getCurrentInstance().addMessage(":propsTabview:gatewayPropForm:gatewayProps",
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Property value changed for " + selectedProp.getKey()
                     + " from " + oldValue + " to " + newValue + "."));
         } catch (PropertyAccessException ex) {
             LOG.warn("Unable to update property: " + selectedProp.getKey());
-            FacesContext.getCurrentInstance().addMessage(null,
+            FacesContext.getCurrentInstance().addMessage(":propsTabview:gatewayPropForm:gatewayProps",
                 new FacesMessage(FacesMessage.SEVERITY_WARN, "WARN", "Unable to set property value: " + selectedProp.getKey()
                     + " from " + oldValue + " to " + newValue + "."));
         }
     }
 
-    private void setProperties() {
-        properties = new ArrayList<PropValue>();
-        try {
-            Properties props = PropertyAccessor.getInstance().getProperties("gateway");
+     public void onAdapterValueEdit(CellEditEvent event) {
+        DataTable dataTable = (DataTable) event.getSource();
+        PropValue selectedProp = (PropValue) dataTable.getRowData();
+        String oldValue = (String) event.getOldValue();
+        String newValue = (String) event.getNewValue();
 
-            if (props != null) {
-                for (Object key : props.keySet()) {
-                    String strKey = (String) key;
-                    String value = props.getProperty(strKey);
-                    String text = PropertyAccessor.getInstance().getPropertyComment("gateway", strKey);
-                    properties.add(new PropValue(strKey, value, text));
-                }
-            }
+        try {
+            PropertyAccessor.getInstance().setProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME, selectedProp.getKey(), newValue);
+            FacesContext.getCurrentInstance().addMessage(":propsTabview:adapterPropForm:adapterProps",
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Property value changed for " + selectedProp.getKey()
+                    + " from " + oldValue + " to " + newValue + "."));
         } catch (PropertyAccessException ex) {
-            LOG.warn("Unable to set properties file.", ex);
+            LOG.warn("Unable to update property: " + selectedProp.getKey());
+            FacesContext.getCurrentInstance().addMessage(":propsTabview:adapterPropForm:adapterProps",
+                new FacesMessage(FacesMessage.SEVERITY_WARN, "WARN", "Unable to set property value: " + selectedProp.getKey()
+                    + " from " + oldValue + " to " + newValue + "."));
+        }
+    }
+    
+    private void setProperties() {
+        gatewayProperties = new ArrayList<PropValue>();
+        adapterProperties = new ArrayList<PropValue>();
+
+        try {
+            Properties gatewayProps = PropertyAccessor.getInstance().getProperties(NhincConstants.GATEWAY_PROPERTY_FILE);
+            addProperties(gatewayProps, gatewayProperties, NhincConstants.GATEWAY_PROPERTY_FILE);
+        } catch (PropertyAccessException ex) {
+            LOG.warn("Unable to set " + NhincConstants.GATEWAY_PROPERTY_FILE + " properties file.", ex);
+        }
+
+        try {
+            Properties adapterProps = PropertyAccessor.getInstance().getProperties(NhincConstants.ADAPTER_PROPERTY_FILE_NAME);
+            addProperties(adapterProps, adapterProperties, NhincConstants.ADAPTER_PROPERTY_FILE_NAME);
+        } catch (PropertyAccessException ex) {
+            LOG.warn("Unable to set " + NhincConstants.ADAPTER_PROPERTY_FILE_NAME + " properties file.", ex);
+        }
+    }
+
+    private void addProperties(Properties props, List<PropValue> viewProps, String propFileName) throws PropertyAccessException {
+        if (props != null) {
+            for (Object key : props.keySet()) {
+                String strKey = (String) key;
+                String value = props.getProperty(strKey);
+                String text = PropertyAccessor.getInstance().getPropertyComment(propFileName, strKey);
+                viewProps.add(new PropValue(strKey, value, text));
+            }
         }
     }
 
