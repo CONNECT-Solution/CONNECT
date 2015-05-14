@@ -160,6 +160,11 @@ public class TabBean {
         TabView tabView = (TabView) tEvent.getComponent();
         this.directTabIndex = tabView.getChildren().indexOf(tEvent.getTab());
     }
+    
+    public void onPropertyTabChange(TabChangeEvent tEvent) {
+        TabView tabView = (TabView) tEvent.getComponent();
+        this.propIndex = tabView.getChildren().indexOf(tEvent.getTab());
+    }
 
     // All "navigateTo" functions below were added as a workaround to an Expression Language bug found in WAS 8.5.0.1
     // For more information, see http://www-01.ibm.com/support/docview.wss?uid=swg1PM72533 (PM72533)

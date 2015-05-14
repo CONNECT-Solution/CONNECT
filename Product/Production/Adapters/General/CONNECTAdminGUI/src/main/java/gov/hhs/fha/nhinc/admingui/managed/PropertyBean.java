@@ -78,12 +78,12 @@ public class PropertyBean {
 
         try {
             PropertyAccessor.getInstance().setProperty(NhincConstants.GATEWAY_PROPERTY_FILE, selectedProp.getKey(), newValue);
-            FacesContext.getCurrentInstance().addMessage(":propsTabview:gatewayPropForm:gatewayProps",
+            FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Property value changed for " + selectedProp.getKey()
                     + " from " + oldValue + " to " + newValue + "."));
         } catch (PropertyAccessException ex) {
             LOG.warn("Unable to update property: " + selectedProp.getKey());
-            FacesContext.getCurrentInstance().addMessage(":propsTabview:gatewayPropForm:gatewayProps",
+            FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_WARN, "WARN", "Unable to set property value: " + selectedProp.getKey()
                     + " from " + oldValue + " to " + newValue + "."));
         }
@@ -97,12 +97,12 @@ public class PropertyBean {
 
         try {
             PropertyAccessor.getInstance().setProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME, selectedProp.getKey(), newValue);
-            FacesContext.getCurrentInstance().addMessage(":propsTabview:adapterPropForm:adapterProps",
+            FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Property value changed for " + selectedProp.getKey()
                     + " from " + oldValue + " to " + newValue + "."));
         } catch (PropertyAccessException ex) {
             LOG.warn("Unable to update property: " + selectedProp.getKey());
-            FacesContext.getCurrentInstance().addMessage(":propsTabview:adapterPropForm:adapterProps",
+            FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_WARN, "WARN", "Unable to set property value: " + selectedProp.getKey()
                     + " from " + oldValue + " to " + newValue + "."));
         }

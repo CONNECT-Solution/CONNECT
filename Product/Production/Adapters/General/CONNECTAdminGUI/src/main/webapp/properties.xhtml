@@ -43,8 +43,11 @@
 
                 <!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
                 <p:tabView id="propsTabview" effect="fade" effectDuration="normal" dynamic="true" activeIndex="#{tabBean.propIndex}" styleClass="tabs-override tabs-ovr-green" > 
+                    <p:ajax event="tabChange" listener="#{tabBean.onPropertyTabChange}" />
                     <!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
                     <div class="tab-content" id="tab-content">
+                    <p:messages id="editPropertyMsg" autoUpdate="true" closable="true" redisplay="false" showDetail="true"/>
+
                         <!-- BEGIN: TAB PANE - GATEWAY PROPERTIES -->
                         <p:tab title="Gateway Properties" closable="false">
                             <div class="tab-pane active" id="external">
@@ -56,9 +59,8 @@
                                         <hr noshade="noshade" class="hr-divider" />
                                         <div class="form-block center-block" style="padding:0px;">
                                             <h:form id="gatewayPropForm" >
-                                                <p:messages id="editPropertyMsg" for="gatewayProps" autoUpdate="true" closable="true" redisplay="false" showDetail="true"/>
-
-                                                <p:contextMenu for="props" widgetVar="pMenu">   
+                                                
+                                                <p:contextMenu for="gatewayProps" widgetVar="pMenu">   
                                                     <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('cellProps').showCellEditor();return false;"/>  
                                                     <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('pMenu').hide()"/>  
                                                 </p:contextMenu>
@@ -98,15 +100,14 @@
                                         <hr noshade="noshade" class="hr-divider" />
                                         <div class="form-block center-block" style="padding:0px;">
                                             <h:form id="adapterPropForm" >
-                                                <p:messages id="editAdapterPropertyMsg" for="adapterProps" autoUpdate="true" closable="true" redisplay="false" showDetail="true"/>
-
-                                                <p:contextMenu for="propsAdapter" widgetVar="pMenu">   
-                                                    <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('cellProps').showCellEditor();return false;"/>  
-                                                    <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('pMenu').hide()"/>  
+                                                
+                                                <p:contextMenu for="adapterProps" widgetVar="apMenu">   
+                                                    <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('aCellProps').showCellEditor();return false;"/>  
+                                                    <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('apMenu').hide()"/>  
                                                 </p:contextMenu>
 
                                                 <div class="table-responsive table-props">
-                                                    <p:dataTable id="adapterProps" value="#{propertyBean.adapterProperties}" editable="true" editMode="cell" resizableColumns="false" scrollable="true" scrollHeight="500" var="prop" widgetVar="cellProps" sortMode="Single" styleClass="table table-striped table-domains">
+                                                    <p:dataTable id="adapterProps" value="#{propertyBean.adapterProperties}" editable="true" editMode="cell" resizableColumns="false" scrollable="true" scrollHeight="500" var="prop" widgetVar="aCellProps" sortMode="Single" styleClass="table table-striped table-domains">
                                                         <p:ajax event="cellEdit" listener="#{propertyBean.onAdapterValueEdit}" update=":propsTabview:adapterPropForm:adapterProps" />
                                                         <p:column headerText="Key" sortBy="key">
                                                             <h:outputText value="#{prop.key}" />
