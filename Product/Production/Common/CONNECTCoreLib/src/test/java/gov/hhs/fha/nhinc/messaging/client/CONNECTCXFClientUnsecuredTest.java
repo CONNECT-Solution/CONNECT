@@ -73,6 +73,7 @@ public class CONNECTCXFClientUnsecuredTest {
     public void ensureInterceptorCountIsConstant() {
         String url = "url";
         AssertionType assertion = new AssertionType();
+        assertion.setTransactionTimeout(-1);
         
         CONNECTClient<TestServicePortType> client = createClient(url, assertion);
 
@@ -93,6 +94,7 @@ public class CONNECTCXFClientUnsecuredTest {
     public void unsecuredClientConfiguration() {
         String url = "url";
         AssertionType assertion = new AssertionType();
+        assertion.setTransactionTimeout(-1);
 
         CONNECTClient<TestServicePortType> client = createClient(url, assertion);
         
@@ -106,6 +108,7 @@ public class CONNECTCXFClientUnsecuredTest {
     public void testEnableMtom() {
         String url = "url";
         AssertionType assertion = new AssertionType();
+        assertion.setTransactionTimeout(-1);
 
         CONNECTClient<TestServicePortType> client = createClient(url, assertion);
         client.enableMtom();
