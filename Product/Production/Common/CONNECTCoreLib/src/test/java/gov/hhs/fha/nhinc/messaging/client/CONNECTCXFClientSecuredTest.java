@@ -86,6 +86,7 @@ public class CONNECTCXFClientSecuredTest {
         String url = "url";
         String wsAddressingTo = "wsAddressingTo";
         AssertionType assertion = new AssertionType();
+        assertion.setTransactionTimeout(-1);
         
         CONNECTClient<TestServicePortType> client = createClient(url, assertion, wsAddressingTo);
 

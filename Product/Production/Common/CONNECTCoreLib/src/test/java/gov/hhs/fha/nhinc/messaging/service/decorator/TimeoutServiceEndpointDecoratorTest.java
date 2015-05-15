@@ -48,7 +48,14 @@ public class TimeoutServiceEndpointDecoratorTest {
     
     @Test
     public void testTimeoutIsSet() {
-        CONNECTClient<TestServicePortType> client = createClient();
+        CONNECTClient<TestServicePortType> client = createClient(-1);
+
+        verifyTimeoutIsSet(client, TIMEOUT);
+    }
+    
+    @Test
+    public void testTimeoutIsSetForTransaction() {
+        CONNECTClient<TestServicePortType> client = createClient(TIMEOUT);
 
         verifyTimeoutIsSet(client, TIMEOUT);
     }
@@ -61,12 +68,12 @@ public class TimeoutServiceEndpointDecoratorTest {
         assertEquals(timeout, clientPolicy.getReceiveTimeout());
     }
 
-    private CONNECTClient<TestServicePortType> createClient() {
+    private CONNECTClient<TestServicePortType> createClient(final int timeout) {
         CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<TestServicePortType>(
                 new TestServicePortDescriptor());
 
         ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
-        serviceEndpoint = new TimeoutServiceEndpointDecorator<TestServicePortType>(serviceEndpoint) {
+        serviceEndpoint = new TimeoutServiceEndpointDecorator<TestServicePortType>(serviceEndpoint, timeout) {
             @Override
             int getTimeoutFromConfig() {
                 return TIMEOUT;

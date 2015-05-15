@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-
 package gov.hhs.fha.nhinc.messaging.service.decorator;
 
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
@@ -39,18 +38,26 @@ import org.apache.log4j.Logger;
 /**
  * @author bhumphrey
  * @param <T>
- * 
+ *
  */
 public class TimeoutServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
+
     public static final String CONFIG_KEY_TIMEOUT = "webserviceproxy.timeout";
 
     private static final Logger LOG = Logger.getLogger(TimeoutServiceEndpointDecorator.class);
 
+    private final int transactionTimeout;
+
     /**
      * @param decorated
      */
-    public TimeoutServiceEndpointDecorator(ServiceEndpoint<T> decoratedEndpoint) {
+    public TimeoutServiceEndpointDecorator(ServiceEndpoint<T> decoratedEndpoint, Integer timeout) {
         super(decoratedEndpoint);
+        if (timeout != null) {
+            this.transactionTimeout = timeout;
+        } else {
+            this.transactionTimeout = -1;
+        }
     }
 
     @Override
@@ -58,8 +65,13 @@ public class TimeoutServiceEndpointDecorator<T> extends ServiceEndpointDecorator
         super.configure();
 
         HTTPClientPolicy httpClientPolicy = getHTTPClientPolicy();
-        
-        int timeout = getTimeoutFromConfig();
+
+        int timeout;
+        if (transactionTimeout > 0) {
+            timeout = transactionTimeout;
+        } else {
+            timeout = getTimeoutFromConfig();
+        }
         httpClientPolicy.setReceiveTimeout(timeout);
         httpClientPolicy.setConnectionTimeout(timeout);
     }
@@ -73,10 +85,10 @@ public class TimeoutServiceEndpointDecorator<T> extends ServiceEndpointDecorator
             }
         } catch (PropertyAccessException ex) {
             LOG.warn("Error occurred reading property value from config file (" + CONFIG_KEY_TIMEOUT
-                    + ").  Exception: " + ex.toString());
+                + ").  Exception: " + ex.toString());
         } catch (NumberFormatException nfe) {
             LOG.warn("Error occurred converting property value: " + CONFIG_KEY_TIMEOUT + ".  Exception: "
-                    + nfe.toString());
+                + nfe.toString());
         }
         return timeout;
     }
