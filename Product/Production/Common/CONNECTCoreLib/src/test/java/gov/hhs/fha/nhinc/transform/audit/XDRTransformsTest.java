@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
  *
  * Redistribution and use in source and binary forms, with or without 
@@ -43,10 +43,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * 
+ *
  * @author dunnek
  */
 public class XDRTransformsTest {
+
     private static final String CONST_USER_NAME = XDRMessageHelper.CONST_USER_NAME;
     private static final String CONST_HCID = "1.1";
 
@@ -90,7 +91,7 @@ public class XDRTransformsTest {
         XDRTransforms instance = createTransformsClass_OverrideRequiredFields();
         NhinTargetSystemType target = new NhinTargetSystemType();
         LogEventRequestType result = instance.transformResponseToAuditMsg(new RegistryResponseType(), assertion,
-                target, direction, _interface, false);
+            target, direction, _interface, false);
         assertNotNull(result);
 
     }
@@ -106,7 +107,7 @@ public class XDRTransformsTest {
         NhinTargetSystemType target = new NhinTargetSystemType();
 
         LogEventRequestType result = instance.transformResponseToAuditMsg(response, assertion, target, direction,
-                _interface, false);
+            _interface, false);
         assertNotNull(result);
         assertEquals(_interface, result.getInterface());
         assertEquals(direction, result.getDirection());
@@ -148,7 +149,6 @@ public class XDRTransformsTest {
         assertEquals(expResult, result);
 
         // TODO review the generated test code and remove the default call to fail.
-
     }
 
     @Test
@@ -174,7 +174,7 @@ public class XDRTransformsTest {
         System.out.println("transformRequestToAuditMsg");
         ProvideAndRegisterDocumentSetRequestType request = new XDRMessageHelper().getSampleMessage();
         AssertionType assertion = createAssertion();
-        String direction = NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION;     
+        String direction = NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION;
         String _interface = NhincConstants.AUDIT_LOG_NHIN_INTERFACE;
         XDRTransforms instance = createTransformsClass_OverrideRequiredFields();
         NhinTargetSystemType target = createNhinTargetSystem(CONST_HCID);
@@ -201,7 +201,7 @@ public class XDRTransformsTest {
 
         assertEquals(CONST_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
         assertEquals(CONST_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0)
-                .getAuditEnterpriseSiteID());
+            .getAuditEnterpriseSiteID());
         // TODO review the generated test code and remove the default call to fail.
 
     }
@@ -222,7 +222,6 @@ public class XDRTransformsTest {
         assertEquals(expResult, result);
 
         // TODO review the generated test code and remove the default call to fail.
-
     }
 
     @Test
@@ -239,7 +238,7 @@ public class XDRTransformsTest {
         NhinTargetSystemType target = new NhinTargetSystemType();
         XDRTransforms instance = createTransformsClass_OverrideRequiredFields();
         LogEventRequestType result = instance
-                .transformRequestToAuditMsg(proxyRequest, assertion, target, direction, _interface);
+            .transformRequestToAuditMsg(proxyRequest, assertion, target, direction, _interface);
 
         assertNotNull(result);
         // TODO review the generated test code and remove the default call to fail.
@@ -260,7 +259,7 @@ public class XDRTransformsTest {
         NhinTargetSystemType target = createNhinTargetSystem(CONST_HCID);
         XDRTransforms instance = createTransformsClass_OverrideRequiredFields();
         LogEventRequestType result = instance
-                .transformRequestToAuditMsg(proxyRequest, assertion, target, direction, _interface);
+            .transformRequestToAuditMsg(proxyRequest, assertion, target, direction, _interface);
 
         assertNotNull(result);
         assertNotNull(result.getAuditMessage());
@@ -283,7 +282,7 @@ public class XDRTransformsTest {
 
         assertEquals(CONST_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
         assertEquals(CONST_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0)
-                .getAuditEnterpriseSiteID());
+            .getAuditEnterpriseSiteID());
         // TODO review the generated test code and remove the default call to fail.
 
     }
@@ -304,7 +303,6 @@ public class XDRTransformsTest {
         assertEquals(expResult, result);
 
         // TODO review the generated test code and remove the default call to fail.
-
     }
 
     /*
@@ -478,7 +476,7 @@ public class XDRTransformsTest {
         // TestHelper helper = new TestHelper();
 
         XDRTransforms result = new XDRTransforms();
-        
+
         return result;
     }
 
@@ -488,12 +486,12 @@ public class XDRTransformsTest {
         XDRTransforms result = new XDRTransforms() {
 
             @Override
-            protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion) {
+            public boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion) {
                 return false;
             }
 
         };
-       
+
         return result;
     }
 
@@ -503,13 +501,13 @@ public class XDRTransformsTest {
         XDRTransforms result = new XDRTransforms() {
 
             @Override
-            protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion) {
+            public boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion) {
                 return false;
             }
 
             @Override
             protected boolean areRequiredXDSfieldsNull(ProvideAndRegisterDocumentSetRequestType body,
-                    AssertionType assertion) {
+                AssertionType assertion) {
                 return false;
             }
 
@@ -519,14 +517,14 @@ public class XDRTransformsTest {
             }
 
         };
-        
+
         return result;
     }
 
     private AssertionType createAssertion() {
         return new XDRMessageHelper().createAssertion(CONST_HCID);
     }
-    
+
     private NhinTargetSystemType createNhinTargetSystem(String hcid) {
         return new XDRMessageHelper().createNhinTargetSystem(hcid);
     }

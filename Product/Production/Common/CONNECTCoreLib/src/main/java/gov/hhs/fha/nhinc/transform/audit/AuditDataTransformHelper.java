@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
  *
  * Redistribution and use in source and binary forms, with or without 
@@ -35,6 +35,7 @@ import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
 
@@ -46,26 +47,26 @@ import java.util.TimeZone;
 import javax.xml.datatype.DatatypeConfigurationException;
 
 /**
- * 
+ *
  * @author MFLYNN02
  * @author richard.ettema
  */
 public class AuditDataTransformHelper {
 
     private static final Logger LOG = Logger.getLogger(AuditDataTransformHelper.class);
-
     private static String ipAddr = null;
 
     /**
-     * Create the <code>EventIdentificationType</code> for an audit log record.
-     * 
+     * Create the
+     * <code>EventIdentificationType</code> for an audit log record.
+     *
      * @param actionCode
      * @param eventOutcome
      * @param eventId
      * @return <code>EventIdentificationType</code>
      */
     public static EventIdentificationType createEventIdentification(String actionCode, Integer eventOutcome,
-            CodedValueType eventId) {
+        CodedValueType eventId) {
         EventIdentificationType eventIdentification = new EventIdentificationType();
 
         // Set the Event Action Code
@@ -76,11 +77,11 @@ public class AuditDataTransformHelper {
             java.util.GregorianCalendar today = new java.util.GregorianCalendar(TimeZone.getTimeZone("GMT"));
             javax.xml.datatype.DatatypeFactory factory = javax.xml.datatype.DatatypeFactory.newInstance();
             javax.xml.datatype.XMLGregorianCalendar calendar = factory.newXMLGregorianCalendar(
-                    today.get(java.util.GregorianCalendar.YEAR), today.get(java.util.GregorianCalendar.MONTH) + 1,
-                    today.get(java.util.GregorianCalendar.DAY_OF_MONTH),
-                    today.get(java.util.GregorianCalendar.HOUR_OF_DAY), today.get(java.util.GregorianCalendar.MINUTE),
-                    today.get(java.util.GregorianCalendar.SECOND), today.get(java.util.GregorianCalendar.MILLISECOND),
-                    0);
+                today.get(java.util.GregorianCalendar.YEAR), today.get(java.util.GregorianCalendar.MONTH) + 1,
+                today.get(java.util.GregorianCalendar.DAY_OF_MONTH),
+                today.get(java.util.GregorianCalendar.HOUR_OF_DAY), today.get(java.util.GregorianCalendar.MINUTE),
+                today.get(java.util.GregorianCalendar.SECOND), today.get(java.util.GregorianCalendar.MILLISECOND),
+                0);
             eventIdentification.setEventDateTime(calendar);
         } catch (DatatypeConfigurationException e) {
             LOG.error("DatatypeConfigurationException when createing XMLGregorian Date");
@@ -103,8 +104,9 @@ public class AuditDataTransformHelper {
     }
 
     /**
-     * Create the event id <code>CodedValueType</code> for an audit log record.
-     * 
+     * Create the event id
+     * <code>CodedValueType</code> for an audit log record.
+     *
      * @param eventCode
      * @param eventCodeSys
      * @param eventCodeSysName
@@ -112,7 +114,7 @@ public class AuditDataTransformHelper {
      * @return <code>CodedValueType</code>
      */
     public static CodedValueType createEventId(String eventCode, String eventCodeSys, String eventCodeSysName,
-            String dispName) {
+        String dispName) {
         CodedValueType eventId = new CodedValueType();
 
         // Set the Event Id Code
@@ -131,8 +133,9 @@ public class AuditDataTransformHelper {
     }
 
     /**
-     * Create the <code>CodedValueType</code> for an audit log record.
-     * 
+     * Create the
+     * <code>CodedValueType</code> for an audit log record.
+     *
      * @param code
      * @param codeSys
      * @param codeSysName
@@ -143,29 +146,38 @@ public class AuditDataTransformHelper {
         CodedValueType codeValueType = new CodedValueType();
 
         // Set the Code
-        codeValueType.setCode(code);
+        if (NullChecker.isNotNullish(code)) {
+            codeValueType.setCode(code);
+        }
 
         // Set the Codesystem
-        codeValueType.setCodeSystem(codeSys);
+        if (NullChecker.isNotNullish(codeSys)) {
+            codeValueType.setCodeSystem(codeSys);
+        }
 
         // Set the Codesystem Name
-        codeValueType.setCodeSystemName(codeSysName);
+        if (NullChecker.isNotNullish(codeSysName)) {
+            codeValueType.setCodeSystemName(codeSysName);
+        }
 
         // Set the Display Name
-        codeValueType.setDisplayName(dispName);
+        if (NullChecker.isNotNullish(dispName)) {
+            codeValueType.setDisplayName(dispName);
+        }
 
         return codeValueType;
     }
 
     /**
-     * Create the <code>AuditMessageType.ActiveParticipant</code> for an audit log record.
-     * 
+     * Create the
+     * <code>AuditMessageType.ActiveParticipant</code> for an audit log record.
+     *
      * @param userInfo
      * @param userIsReq
      * @return <code>AuditMessageType.ActiveParticipant</code>
      */
     public static AuditMessageType.ActiveParticipant createActiveParticipantFromUser(UserType userInfo,
-            Boolean userIsReq) {
+        Boolean userIsReq) {
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
 
         if (ipAddr == null) {
@@ -195,7 +207,7 @@ public class AuditDataTransformHelper {
             }
 
             if (userInfo.getPersonName().getFamilyName() != null
-                    && userInfo.getPersonName().getFamilyName().length() > 0) {
+                && userInfo.getPersonName().getFamilyName().length() > 0) {
                 if (userName != null) {
                     userName += (" " + userInfo.getPersonName().getFamilyName());
                 } else {
@@ -220,8 +232,9 @@ public class AuditDataTransformHelper {
     }
 
     /**
-     * Create the <code>AuditMessageType.ActiveParticipant</code> for an audit log record.
-     * 
+     * Create the
+     * <code>AuditMessageType.ActiveParticipant</code> for an audit log record.
+     *
      * @param userId
      * @param altUserId
      * @param userName
@@ -229,7 +242,7 @@ public class AuditDataTransformHelper {
      * @return <code>AuditMessageType.ActiveParticipant</code>
      */
     public static AuditMessageType.ActiveParticipant createActiveParticipant(String userId, String altUserId,
-            String userName, Boolean userIsReq) {
+        String userName, Boolean userIsReq) {
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
 
         if (ipAddr == null) {
@@ -269,8 +282,9 @@ public class AuditDataTransformHelper {
     }
 
     /**
-     * Create an <code>AuditSourceIdentificationType</code> based on the user info for an audit log record.
-     * 
+     * Create an
+     * <code>AuditSourceIdentificationType</code> based on the user info for an audit log record.
+     *
      * @param userInfo
      * @return <code>AuditSourceIdentificationType</code>
      */
@@ -310,8 +324,9 @@ public class AuditDataTransformHelper {
     }
 
     /**
-     * Create an <code>AuditSourceIdentificationType</code> based on the community id and name for an audit log record.
-     * 
+     * Create an
+     * <code>AuditSourceIdentificationType</code> based on the community id and name for an audit log record.
+     *
      * @param communityId
      * @param communityName
      * @return <code>AuditSourceIdentificationType</code>
@@ -337,8 +352,9 @@ public class AuditDataTransformHelper {
     }
 
     /**
-     * Create the <code>ParticipantObjectIdentificationType</code> based on the patient id for an audit log record.
-     * 
+     * Create the
+     * <code>ParticipantObjectIdentificationType</code> based on the patient id for an audit log record.
+     *
      * @param patientId
      * @return <code>ParticipantObjectIdentificationType</code>
      */
@@ -365,8 +381,9 @@ public class AuditDataTransformHelper {
     }
 
     /**
-     * Create the <code>ParticipantObjectIdentificationType</code> based on the patient id for an audit log record.
-     * 
+     * Create the
+     * <code>ParticipantObjectIdentificationType</code> based on the patient id for an audit log record.
+     *
      * @param patientId
      * @return <code>ParticipantObjectIdentificationType</code>
      */
@@ -383,7 +400,7 @@ public class AuditDataTransformHelper {
 
         // Set the Participation Object Typecode Role
         partObjId
-                .setParticipantObjectTypeCodeRole(AuditDataTransformConstants.PARTICIPANT_OJB_TYPE_CODE_ROLE_DATA_REPO);
+            .setParticipantObjectTypeCodeRole(AuditDataTransformConstants.PARTICIPANT_OJB_TYPE_CODE_ROLE_DATA_REPO);
 
         // Set the Participation Object Id Type code
         CodedValueType partObjIdTypeCode = new CodedValueType();
@@ -394,8 +411,9 @@ public class AuditDataTransformHelper {
     }
 
     /**
-     * Write out debug logging statements based on the given <code>AuditMessageType</code> message.
-     * 
+     * Write out debug logging statements based on the given
+     * <code>AuditMessageType</code> message.
+     *
      * @param message
      */
     public static void logAuditMessage(AuditMessageType message) {
@@ -404,7 +422,7 @@ public class AuditDataTransformHelper {
         LOG.debug("EventIdCodeSystem: " + message.getEventIdentification().getEventID().getCodeSystem());
 
         if (message.getAuditSourceIdentification() != null && message.getAuditSourceIdentification().size() > 0
-                && message.getAuditSourceIdentification().get(0).getAuditSourceID() != null) {
+            && message.getAuditSourceIdentification().get(0).getAuditSourceID() != null) {
             LOG.debug("Home Community Id: " + message.getAuditSourceIdentification().get(0).getAuditSourceID());
         } else {
             LOG.debug("Home Community Id: There was no AuditSourceID in the message");
@@ -423,8 +441,8 @@ public class AuditDataTransformHelper {
         }
 
         if (message.getParticipantObjectIdentification() != null
-                && message.getParticipantObjectIdentification().size() > 0
-                && message.getParticipantObjectIdentification().get(0).getParticipantObjectID() != null) {
+            && message.getParticipantObjectIdentification().size() > 0
+            && message.getParticipantObjectIdentification().get(0).getParticipantObjectID() != null) {
             LOG.debug("PatientId: " + message.getParticipantObjectIdentification().get(0).getParticipantObjectID());
         } else {
             LOG.debug("PatientId: There was no Patient Id in the message");
@@ -433,13 +451,13 @@ public class AuditDataTransformHelper {
 
     /**
      * This method locates the single ExternalIdentifer object based on the given Identification Scheme.
-     * 
+     *
      * @param olExtId The list of external identifier objects to be searched.
      * @param sIdentScheme The identification scheme for the item being looked for.
      * @return The <code>ExternalIdentifierType</code> matching the search criteria.
      */
     public static ExternalIdentifierType findSingleExternalIdentifier(List<ExternalIdentifierType> olExtId,
-            String sIdentScheme) {
+        String sIdentScheme) {
         ExternalIdentifierType oExtId = null;
 
         if ((olExtId != null) && (olExtId.size() > 0)) {
@@ -456,13 +474,13 @@ public class AuditDataTransformHelper {
     /**
      * This method locates a single External Identifier by its Identification scheme and then extracts the value from
      * it.
-     * 
+     *
      * @param olExtId The List of external identifiers to be searched.
      * @param sIdentScheme The identification scheme to look for.
      * @return The value from the specified identification scheme.
      */
     public static String findSingleExternalIdentifierAndExtractValue(List<ExternalIdentifierType> olExtId,
-            String sIdentScheme) {
+        String sIdentScheme) {
         String sValue = null;
         ExternalIdentifierType oExtId = findSingleExternalIdentifier(olExtId, sIdentScheme);
         if ((oExtId != null) && (oExtId.getValue() != null)) {
@@ -473,7 +491,7 @@ public class AuditDataTransformHelper {
 
     /**
      * This method creates a patient id formatted as 'patientid^^^^&assigningAuthId&ISO'
-     * 
+     *
      * @param assigningAuthId the assigningAuthId for the patient identifier
      * @param patientId the patientId for the patient
      * @return the properly formatted patientId.
@@ -486,7 +504,7 @@ public class AuditDataTransformHelper {
 
     /**
      * This method creates a patient id formatted as 'patientid^^^^&communityId&ISO'
-     * 
+     *
      * @param assertion. Fields of interest are UserInfo.org.homeCommunityId an uniquePatientId
      * @return the properly formatted patientId.
      */
