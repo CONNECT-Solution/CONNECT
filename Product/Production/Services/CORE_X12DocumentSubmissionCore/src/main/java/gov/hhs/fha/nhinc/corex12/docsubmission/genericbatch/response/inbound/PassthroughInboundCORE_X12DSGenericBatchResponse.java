@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.inbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.corex12.docsubmission.audit.COREX12AuditLogger;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.proxy.AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
@@ -41,7 +42,7 @@ public class PassthroughInboundCORE_X12DSGenericBatchResponse extends AbstractIn
      * Default constructor.
      */
     public PassthroughInboundCORE_X12DSGenericBatchResponse() {
-        this(new AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory());
+        this(new AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory(), new COREX12AuditLogger());
     }
 
     /**
@@ -49,8 +50,8 @@ public class PassthroughInboundCORE_X12DSGenericBatchResponse extends AbstractIn
      *
      * @param adapterFactory
      */
-    public PassthroughInboundCORE_X12DSGenericBatchResponse(AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory adapterFactory) {
-        super(adapterFactory);
+    public PassthroughInboundCORE_X12DSGenericBatchResponse(AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory adapterFactory, COREX12AuditLogger auditLogger) {
+        super(adapterFactory, auditLogger);
     }
 
     /**
