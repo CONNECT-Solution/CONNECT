@@ -56,7 +56,7 @@ public class COREX12BatchAuditTransforms {
 
     /**
      * Transforms the Batch Request message to Audit logging specific message.
-     * 
+     *
      * @param request
      * @param assertion
      * @param target
@@ -89,15 +89,15 @@ public class COREX12BatchAuditTransforms {
         auditMsg = new AuditMessageType();
         // Create EventIdentification
         CodedValueType eventID = AuditDataTransformHelper.createCodeValueType(CoreX12AuditDataTransformConstants.EVENT_ID_CODE_X12, null,
-            AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, CoreX12AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_X12);
+            AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, CoreX12AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_X12_EXPORT);
 
-        EventIdentificationType oEventIdentificationType = oCoreRealTimeTransforms.getEventIdentificationType(eventID);
+        EventIdentificationType oEventIdentificationType = oCoreRealTimeTransforms.getEventIdentificationType(eventID, isRequesting);
         oEventIdentificationType.getEventTypeCode().add(AuditDataTransformHelper.createCodeValueType(CoreX12AuditDataTransformConstants.EVENT_ID_CODE_SYS_CODE_X12, null,
             CoreX12AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_X12, CoreX12AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_X12REALTIME));
         auditMsg.setEventIdentification(oEventIdentificationType);
 
         AuditMessageType.ActiveParticipant participantHumanFactor = oCoreRealTimeTransforms.getActiveParticipant(assertion.getUserInfo());
-        AuditMessageType.ActiveParticipant participantSource = oCoreRealTimeTransforms.getActiveParticipantSource();
+        AuditMessageType.ActiveParticipant participantSource = oCoreRealTimeTransforms.getActiveParticipantSource(isRequesting);
         AuditMessageType.ActiveParticipant participantDestination = oCoreRealTimeTransforms.getActiveParticipantDestination(target);
         auditMsg.getActiveParticipant().add(participantHumanFactor);
         auditMsg.getActiveParticipant().add(participantSource);
@@ -113,7 +113,7 @@ public class COREX12BatchAuditTransforms {
 
         /* Create the AuditSourceIdentifierType object */
         String communityId = oXDR.getMessageCommunityIdFromRequest(assertion, target, direction, _interface);
-        AuditSourceIdentificationType auditSource = oCoreRealTimeTransforms.getAuditSourceIdentificationType(communityId);
+        AuditSourceIdentificationType auditSource = oCoreRealTimeTransforms.getAuditSourceIdentificationType();
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
         result.setAuditMessage(auditMsg);
@@ -125,7 +125,7 @@ public class COREX12BatchAuditTransforms {
 
     /**
      * Transforms the Batch Response message to Audit logging specific message.
-     * 
+     *
      * @param response
      * @param assertion
      * @param target
@@ -160,13 +160,13 @@ public class COREX12BatchAuditTransforms {
         auditMsg = new AuditMessageType();
         // Create EventIdentification
         CodedValueType eventID = AuditDataTransformHelper.createCodeValueType(CoreX12AuditDataTransformConstants.EVENT_ID_CODE_X12, null,
-            AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, CoreX12AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_X12);
-        EventIdentificationType oEventIdentificationType = oCoreRealTimeTransforms.getEventIdentificationType(eventID);
+            AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, CoreX12AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_X12_EXPORT);
+        EventIdentificationType oEventIdentificationType = oCoreRealTimeTransforms.getEventIdentificationType(eventID, isRequesting);
         oEventIdentificationType.getEventTypeCode().add(AuditDataTransformHelper.createCodeValueType(CoreX12AuditDataTransformConstants.EVENT_ID_CODE_SYS_CODE_X12, null,
             CoreX12AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_X12, CoreX12AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_X12REALTIME));
         auditMsg.setEventIdentification(oEventIdentificationType);
 
-        AuditMessageType.ActiveParticipant participantSource = oCoreRealTimeTransforms.getActiveParticipantSource();
+        AuditMessageType.ActiveParticipant participantSource = oCoreRealTimeTransforms.getActiveParticipantSource(isRequesting);
         AuditMessageType.ActiveParticipant participantDestination = oCoreRealTimeTransforms.getActiveParticipantDestination(target);
         auditMsg.getActiveParticipant().add(participantSource);
         auditMsg.getActiveParticipant().add(participantDestination);
@@ -180,7 +180,7 @@ public class COREX12BatchAuditTransforms {
 
         /* Create the AuditSourceIdentifierType object */
         String communityId = oXDR.getMessageCommunityIdFromRequest(assertion, target, messageDirection, _interface);
-        AuditSourceIdentificationType auditSource = oCoreRealTimeTransforms.getAuditSourceIdentificationType(communityId);
+        AuditSourceIdentificationType auditSource = oCoreRealTimeTransforms.getAuditSourceIdentificationType();
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
         result.setAuditMessage(auditMsg);

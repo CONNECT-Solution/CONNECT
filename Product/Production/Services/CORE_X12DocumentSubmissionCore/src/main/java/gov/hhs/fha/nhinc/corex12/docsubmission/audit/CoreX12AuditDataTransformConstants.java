@@ -35,14 +35,15 @@ public class CoreX12AuditDataTransformConstants {
 
     //CORE X12 Constants....
     public static final String EVENT_ID_CODE_X12 = "110112";
-    public static final String EVENT_ID_DISPLAY_NAME_X12 = "Export";
+    public static final String EVENT_ID_DISPLAY_NAME_X12_EXPORT = "Export";
+    public static final String EVENT_ID_DISPLAY_NAME_X12_IMPORT = "Import";
     public static final String EVENT_ID_CODE_SYS_CODE_X12 = "X12";
     public static final String EVENT_ID_CODE_SYS_NAME_X12 = "CAQH CORE Transactions";
     
     public static final String EVENT_ID_DISPLAY_NAME_X12REALTIME = "NwHIN CAQH CORE X12 Document Submission";
     public static final String ACTIVE_PARTICPANT_USER_ID_SOURCE = "anonymous";
     public static final String ACTIVE_PARTICPANT_ROLE_CODE_CDE = "110153";
-    public static final String ACTIVE_PARTICIPANT_ROLLE_CODE__DEST = "110152";
+    public static final String ACTIVE_PARTICIPANT_ROLE_CODE_DEST = "110152";
     public static final String ACTIVE_PARTICPANT_ROLE_CODE_SOURCE_DISPLAY_NAME = "Source";
     public static final String ACTIVE_PARTICPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME = "Destination";
     public static final String CORE_X12_NAMESPACE_URI = "urn:org:caqh:soap:wsdl:corerule2_2_0";

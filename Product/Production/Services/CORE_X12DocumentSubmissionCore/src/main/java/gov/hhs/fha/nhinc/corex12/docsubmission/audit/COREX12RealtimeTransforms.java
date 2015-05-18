@@ -44,6 +44,7 @@ import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformConstants;
 import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformHelper;
 import gov.hhs.fha.nhinc.transform.audit.XDRTransforms;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.io.ByteArrayOutputStream;
 import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
@@ -72,18 +73,19 @@ public class COREX12RealtimeTransforms {
 
     /**
      * Transforms the Realtime Request message to Audit logging specific message.
-     * 
+     *
      * @param request
      * @param assertion
      * @param target
      * @param direction
      * @param _interface
+     * @param isRequesting
      * @return LogEventRequestType
      */
     public LogEventRequestType transformRequestToAuditMsg(COREEnvelopeRealTimeRequest request, AssertionType assertion, NhinTargetSystemType target, String direction, String _interface, boolean isRequesting) {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
-
+        
         LOG.trace("Begin COREX12RealtimeTransforms -> transformRequestToAuditMsg() -- NHIN");
         if (request == null) {
             LOG.error("Requst Object was null");
@@ -106,18 +108,26 @@ public class COREX12RealtimeTransforms {
         auditMsg = new AuditMessageType();
 
         // Create EventIdentification
-        CodedValueType eventID = AuditDataTransformHelper.createCodeValueType(CoreX12AuditDataTransformConstants.EVENT_ID_CODE_X12, null,
-            AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, CoreX12AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_X12);
+        CodedValueType eventID = null;
+        if (isRequesting) {
+            eventID = AuditDataTransformHelper.createCodeValueType(CoreX12AuditDataTransformConstants.EVENT_ID_CODE_X12, null,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, CoreX12AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_X12_EXPORT);
+        } else {
+            eventID = AuditDataTransformHelper.createCodeValueType(CoreX12AuditDataTransformConstants.EVENT_ID_CODE_X12, null,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, CoreX12AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_X12_IMPORT);
+        }
 
-        EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventID);
+        EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventID, isRequesting);
         oEventIdentificationType.getEventTypeCode().add(AuditDataTransformHelper.createCodeValueType(CoreX12AuditDataTransformConstants.EVENT_ID_CODE_SYS_CODE_X12, null,
             CoreX12AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_X12, CoreX12AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_X12REALTIME));
         auditMsg.setEventIdentification(oEventIdentificationType);
-
-        AuditMessageType.ActiveParticipant participantHumanFactor = getActiveParticipant(assertion.getUserInfo());
-        AuditMessageType.ActiveParticipant participantSource = getActiveParticipantSource();
+        //ActiveParticipant for Human Requester entry only for the requesting gateway
+        if (isRequesting) {
+            AuditMessageType.ActiveParticipant participantHumanFactor = getActiveParticipant(assertion.getUserInfo());
+            auditMsg.getActiveParticipant().add(participantHumanFactor);
+        }
+        AuditMessageType.ActiveParticipant participantSource = getActiveParticipantSource(isRequesting);
         AuditMessageType.ActiveParticipant participantDestination = getActiveParticipantDestination(target);
-        auditMsg.getActiveParticipant().add(participantHumanFactor);
         auditMsg.getActiveParticipant().add(participantSource);
         auditMsg.getActiveParticipant().add(participantDestination);
 
@@ -130,7 +140,10 @@ public class COREX12RealtimeTransforms {
 
         /* Create the AuditSourceIdentifierType object */
         String communityId = oXDR.getMessageCommunityIdFromRequest(assertion, target, messageDirection, _interface);
-        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(communityId);
+        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType();
+        //This  will be used by persistence layer, needs to be changed in the future
+        AuditSourceIdentificationType auditSourceLocal = AuditDataTransformHelper.createAuditSourceIdentification(communityId, "INTERNAL");
+        auditMsg.getAuditSourceIdentification().add(auditSourceLocal);
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
         result.setAuditMessage(auditMsg);
@@ -143,7 +156,7 @@ public class COREX12RealtimeTransforms {
 
     /**
      * Transforms the Realtime Response message to Audit logging specific message.
-     * 
+     *
      * @param response
      * @param assertion
      * @param target
@@ -179,14 +192,26 @@ public class COREX12RealtimeTransforms {
         auditMsg = new AuditMessageType();
 
         // Create EventIdentification
-        CodedValueType eventID = AuditDataTransformHelper.createCodeValueType(CoreX12AuditDataTransformConstants.EVENT_ID_CODE_X12, null,
-            AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, CoreX12AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_X12);
-        EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventID);
+        CodedValueType eventID = null;
+        if (isRequesting) {
+            eventID = AuditDataTransformHelper.createCodeValueType(CoreX12AuditDataTransformConstants.EVENT_ID_CODE_X12, null,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, CoreX12AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_X12_EXPORT);
+        } else {
+            eventID = AuditDataTransformHelper.createCodeValueType(CoreX12AuditDataTransformConstants.EVENT_ID_CODE_X12, null,
+                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, CoreX12AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_X12_IMPORT);
+        }
+
+        EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventID, isRequesting);
         oEventIdentificationType.getEventTypeCode().add(AuditDataTransformHelper.createCodeValueType(CoreX12AuditDataTransformConstants.EVENT_ID_CODE_SYS_CODE_X12, null,
             CoreX12AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_X12, CoreX12AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_X12REALTIME));
         auditMsg.setEventIdentification(oEventIdentificationType);
 
-        AuditMessageType.ActiveParticipant participantSource = getActiveParticipantSource();
+        //ActiveParticipant for Human Requester entry only for the requesting gateway
+        if (isRequesting) {
+            AuditMessageType.ActiveParticipant participantHumanFactor = getActiveParticipant(assertion.getUserInfo());
+            auditMsg.getActiveParticipant().add(participantHumanFactor);
+        }
+        AuditMessageType.ActiveParticipant participantSource = getActiveParticipantSource(isRequesting);
         AuditMessageType.ActiveParticipant participantDestination = getActiveParticipantDestination(target);
         auditMsg.getActiveParticipant().add(participantSource);
         auditMsg.getActiveParticipant().add(participantDestination);
@@ -199,7 +224,10 @@ public class COREX12RealtimeTransforms {
         String messageDirection = isRequesting ? NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION : NhincConstants.AUDIT_LOG_INBOUND_DIRECTION;
         /* Create the AuditSourceIdentifierType object */
         String communityId = oXDR.getMessageCommunityIdFromRequest(assertion, target, messageDirection, _interface);
-        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(communityId);
+        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType();
+        //This  will be used by persistence layer, needs to be changed in the future
+        AuditSourceIdentificationType auditSourceLocal = AuditDataTransformHelper.createAuditSourceIdentification(communityId, "INTERNAL");
+        auditMsg.getAuditSourceIdentification().add(auditSourceLocal);
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
         result.setAuditMessage(auditMsg);
@@ -314,9 +342,9 @@ public class COREX12RealtimeTransforms {
         return false;
     }
 
-    protected EventIdentificationType getEventIdentificationType(CodedValueType eventID) {
+    protected EventIdentificationType getEventIdentificationType(CodedValueType eventID, boolean isRequesting) {
         EventIdentificationType oEventIdentificationType = AuditDataTransformHelper.createEventIdentification(
-            AuditDataTransformConstants.EVENT_ACTION_CODE_READ,
+            isRequesting ? AuditDataTransformConstants.EVENT_ACTION_CODE_READ : AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE,
             AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID);
         return oEventIdentificationType;
     }
@@ -327,8 +355,8 @@ public class COREX12RealtimeTransforms {
         AuditMessageType.ActiveParticipant participant = createActiveParticipantFromUser(
             oUserInfo, Boolean.TRUE);
         if (null != oUserInfo.getRoleCoded()) {
-            participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(oUserInfo.getRoleCoded().getCode(), oUserInfo.getRoleCoded().getCodeSystem(),
-                "", oUserInfo.getRoleCoded().getDisplayName()));
+            participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(oUserInfo.getRoleCoded().getCode(), "",
+                oUserInfo.getRoleCoded().getCodeSystemName(), oUserInfo.getRoleCoded().getDisplayName()));
         }
         return participant;
     }
@@ -389,7 +417,7 @@ public class COREX12RealtimeTransforms {
         return participant;
     }
 
-    protected AuditMessageType.ActiveParticipant getActiveParticipantSource() {
+    protected AuditMessageType.ActiveParticipant getActiveParticipantSource(boolean isRequesting) {
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
         participant.setUserID(CoreX12AuditDataTransformConstants.ACTIVE_PARTICPANT_USER_ID_SOURCE);
         participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
@@ -404,7 +432,7 @@ public class COREX12RealtimeTransforms {
 
         participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(CoreX12AuditDataTransformConstants.ACTIVE_PARTICPANT_ROLE_CODE_CDE, null,
             AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, CoreX12AuditDataTransformConstants.ACTIVE_PARTICPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
-        participant.setUserIsRequestor(Boolean.TRUE);
+        participant.setUserIsRequestor(isRequesting ? Boolean.TRUE : Boolean.FALSE);
         return participant;
     }
 
@@ -424,7 +452,7 @@ public class COREX12RealtimeTransforms {
                 }
             }
         }
-
+        
         if (null != strUrl) {
             try {
                 URL url = new URL(strUrl);
@@ -440,8 +468,15 @@ public class COREX12RealtimeTransforms {
                 LOG.error(ex);
             }
         }
+        else{
+            //for now set the user id to anonymouns
+            participant.setUserID(CoreX12AuditDataTransformConstants.ACTIVE_PARTICPANT_USER_ID_SOURCE);
+            //for now hardcode the value to localhost, need to find out if this needs to be set
+            participant.setNetworkAccessPointTypeCode(CoreX12AuditDataTransformConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME);
+            participant.setNetworkAccessPointID("localhost");
+        }
         participant.setUserIsRequestor(Boolean.FALSE);
-        participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(CoreX12AuditDataTransformConstants.ACTIVE_PARTICIPANT_ROLLE_CODE__DEST, null,
+        participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(CoreX12AuditDataTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, null,
             AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, CoreX12AuditDataTransformConstants.ACTIVE_PARTICPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME));
         return participant;
     }
@@ -541,7 +576,9 @@ public class COREX12RealtimeTransforms {
         return bObject;
     }
 
-    protected AuditSourceIdentificationType getAuditSourceIdentificationType(String communityId) {
-        return AuditDataTransformHelper.createAuditSourceIdentification(communityId, communityId);
+    protected AuditSourceIdentificationType getAuditSourceIdentificationType() {
+        String hcid = HomeCommunityMap.getLocalHomeCommunityId();
+        String homeCommunityName = HomeCommunityMap.getHomeCommunityName(hcid);
+        return AuditDataTransformHelper.createAuditSourceIdentification(hcid, homeCommunityName);
     }
 }

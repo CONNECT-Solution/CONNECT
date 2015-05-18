@@ -65,10 +65,11 @@ import com.services.nhinc.schema.auditmessage.ObjectFactory;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 
 /**
- * 
+ *
  * @author mflynn02
  */
 public class AuditRepositoryOrchImpl {
+
     private static final Logger LOG = Logger.getLogger(AuditRepositoryOrchImpl.class);
     private static AuditRepositoryDAO auditLogDao = AuditRepositoryDAO.getAuditRepositoryDAOInstance();
     private static String logStatus = "";
@@ -83,7 +84,7 @@ public class AuditRepositoryOrchImpl {
     /**
      * This method is the actual implementation method for AuditLogMgr Service to Log the AuditEvents and responses the
      * status of logging.
-     * 
+     *
      * @param mess the message
      * @param assertion the assertion
      * @return gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType
@@ -107,7 +108,7 @@ public class AuditRepositoryOrchImpl {
         List<ActiveParticipant> activeParticipantList = mess.getAuditMessage().getActiveParticipant();
         EventIdentificationType eventIdentification = mess.getAuditMessage().getEventIdentification();
         List<ParticipantObjectIdentificationType> participantObjectIdentificationList = mess.getAuditMessage()
-                .getParticipantObjectIdentification();
+            .getParticipantObjectIdentification();
 
         if (activeParticipantList != null && activeParticipantList.size() > 0) {
             activeParticipant = (ActiveParticipant) activeParticipantList.get(0);
@@ -121,22 +122,17 @@ public class AuditRepositoryOrchImpl {
             }
         }
 
-        List<AuditSourceIdentificationType> auditSourceIdentificationList = null;
-        auditSourceIdentificationList = mess.getAuditMessage().getAuditSourceIdentification();
-        if (auditSourceIdentificationList != null && auditSourceIdentificationList.size() > 0) {
-            AuditSourceIdentificationType auditSourceIdentification = auditSourceIdentificationList.get(0);
-            eventCommunityId = auditSourceIdentification.getAuditSourceID();
-            LOG.debug("auditSourceID : " + eventCommunityId);
-            if (eventCommunityId != null && !eventCommunityId.equals("")) {
-                auditRec.setCommunityId(eventCommunityId);
-            } else {
-                auditRec.setCommunityId("");
-            }
+        eventCommunityId = getCommunityID(mess);
+        LOG.debug("auditSourceID : " + eventCommunityId);
+        if (eventCommunityId != null && !eventCommunityId.equals("")) {
+            auditRec.setCommunityId(eventCommunityId);
+        } else {
+            auditRec.setCommunityId("");
         }
 
         if (participantObjectIdentificationList != null && participantObjectIdentificationList.size() > 0) {
             participantObjectIdentificationType = (ParticipantObjectIdentificationType) participantObjectIdentificationList
-                    .get(0);
+                .get(0);
             if (participantObjectIdentificationType != null) {
                 eventPatientID = participantObjectIdentificationType.getParticipantObjectID();
                 auditRec.setReceiverPatientId(eventPatientID);
@@ -145,7 +141,7 @@ public class AuditRepositoryOrchImpl {
                 eventParticipationTypeCodeRole = participantObjectIdentificationType.getParticipantObjectTypeCodeRole();
                 auditRec.setParticipationTypeCodeRole(eventParticipationTypeCodeRole);
                 eventParticipationIDTypeCode = participantObjectIdentificationType.getParticipantObjectIDTypeCode()
-                        .getCode();
+                    .getCode();
                 auditRec.setParticipationIDTypeCode(eventParticipationIDTypeCode);
             }
         }
@@ -198,10 +194,10 @@ public class AuditRepositoryOrchImpl {
 
     /**
      * This is the actual implementation for AuditLogMgr Service for AuditQuery returns the AuditEventsReponse.
-     * 
+     *
      * @param query the query
      * @param assertion the assertion
-     * @return the found FindAuditEventsResponseType 
+     * @return the found FindAuditEventsResponseType
      */
     public FindCommunitiesAndAuditEventsResponseType findAudit(FindAuditEventsType query, AssertionType assertion) {
         LOG.debug("AuditRepositoryOrchImpl.findAudit() -- Begin");
@@ -212,7 +208,7 @@ public class AuditRepositoryOrchImpl {
 
         if (logStatus.equalsIgnoreCase("off")) {
             LOG.info("Enable Audit Logging Before Making Query by changing the "
-                    + "value in 'auditlogchoice' properties file");
+                + "value in 'auditlogchoice' properties file");
             return null;
         }
         FindCommunitiesAndAuditEventsResponseType auditEvents = new FindCommunitiesAndAuditEventsResponseType();
@@ -231,7 +227,7 @@ public class AuditRepositoryOrchImpl {
         }
 
         List<AuditRepositoryRecord> responseList = auditLogDao.queryAuditRepositoryOnCriteria(userId, patientId,
-                beginDate, endDate);
+            beginDate, endDate);
         LOG.debug("after query call to logDAO.");
         /* if (responseList != null && responseList.size() > 0) { */
         LOG.debug("responseList is not NULL ");
@@ -244,7 +240,7 @@ public class AuditRepositoryOrchImpl {
 
     /**
      * This method builds the Actual Response from each of the EventLogList coming from Database.
-     * 
+     *
      * @param eventsList
      * @return CommunitiesAndFindAdutiEventResponse
      */
@@ -265,11 +261,11 @@ public class AuditRepositoryOrchImpl {
                 try {
                     auditMessageType = unMarshallBlobToAuditMess(blobMessage);
                     response.getFindAuditEventsReturn().add(auditMessageType);
-    
+
                     if (auditMessageType.getAuditSourceIdentification().size() > 0
-                            && auditMessageType.getAuditSourceIdentification().get(0) != null
-                            && auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID() != null
-                            && auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID().length() > 0) {
+                        && auditMessageType.getAuditSourceIdentification().get(0) != null
+                        && auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID() != null
+                        && auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID().length() > 0) {
                         String tempCommunity = auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID();
                         if (!auditResType.getCommunities().contains(tempCommunity)) {
                             auditResType.getCommunities().add(tempCommunity);
@@ -293,7 +289,7 @@ public class AuditRepositoryOrchImpl {
 
     /**
      * This method unmarshalls XML Blob to AuditMessage
-     * 
+     *
      * @param auditBlob
      * @return AuditMessageType
      */
@@ -315,16 +311,16 @@ public class AuditRepositoryOrchImpl {
             LOG.error("Blob to Audit Message Conversion Error : " + e.getMessage());
             e.printStackTrace();
         } finally {
-           StreamUtils.closeStreamSilently(in);
+            StreamUtils.closeStreamSilently(in);
         }
-        
+
         LOG.debug("AuditRepositoryOrchImpl.unMarshallBlobToAuditMess -- End");
         return auditMessageType;
     }
 
     /**
      * This method converts an XMLGregorianCalendar date to java.util.Date
-     * 
+     *
      * @param xmlCalDate
      * @return java.util.Date
      */
@@ -337,4 +333,19 @@ public class AuditRepositoryOrchImpl {
         return eventDate;
     }
 
+    private String getCommunityID(LogEventSecureRequestType mess) {
+        String eventCommunityId = null;
+        List<AuditSourceIdentificationType> auditSourceIdentificationList = null;
+        auditSourceIdentificationList = mess.getAuditMessage().getAuditSourceIdentification();
+        if (auditSourceIdentificationList != null && auditSourceIdentificationList.size() > 0) {
+            AuditSourceIdentificationType auditSourceIdentification = auditSourceIdentificationList.get(0);
+            eventCommunityId = auditSourceIdentification.getAuditSourceID();
+            LOG.debug("auditSourceID : " + eventCommunityId);
+        }
+        //Remove the first AuditSourceIdentificationType entry, if more than one found
+        if (auditSourceIdentificationList.size() > 1) {
+            auditSourceIdentificationList.remove(0);
+        }
+        return eventCommunityId;
+    }
 }
