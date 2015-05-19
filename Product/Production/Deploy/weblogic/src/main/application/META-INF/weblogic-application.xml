@@ -27,6 +27,8 @@
         <package-name>javax.faces.*</package-name>
         <package-name>com.sun.faces.*</package-name>
         <package-name>com.bea.faces.*</package-name>
+		<package-name>javax.wsdl.*</package-name>
+		<package-name>com.sun.mail.*</package-name>
     </prefer-application-packages>
     <prefer-application-resources>
         <resource-name>javax.faces.*</resource-name>
