@@ -82,7 +82,7 @@ public class DocumentRetrieveResultsModelBuilderImpl implements DocumentRetrieve
 
     private byte[] getDocument(DataHandler document) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        InputStream in;
+        InputStream in = null;
         try {
             in = document.getInputStream();
 
@@ -92,9 +92,11 @@ public class DocumentRetrieveResultsModelBuilderImpl implements DocumentRetrieve
             while ((bytesRead = in.read(buffer)) >= 0) {
                 bos.write(buffer, 0, bytesRead);
             }
-            StreamUtils.closeStreamSilently(in);
+
         } catch (IOException ex) {
             LOG.error("Error while reading the document " + ex.getMessage());
+        } finally {
+            StreamUtils.closeStreamSilently(in);
         }
         return bos.toByteArray();
 
