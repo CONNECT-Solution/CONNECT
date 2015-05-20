@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.docretrieve.model.builder.impl;
 
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieveResults;
 import gov.hhs.fha.nhinc.docretrieve.model.builder.DocumentRetrieveResultsModelBuilder;
+import gov.hhs.fha.nhinc.util.StreamUtils;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 import java.io.ByteArrayOutputStream;
@@ -81,7 +82,7 @@ public class DocumentRetrieveResultsModelBuilderImpl implements DocumentRetrieve
 
     private byte[] getDocument(DataHandler document) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        InputStream in;
+        InputStream in = null;
         try {
             in = document.getInputStream();
 
@@ -91,10 +92,14 @@ public class DocumentRetrieveResultsModelBuilderImpl implements DocumentRetrieve
             while ((bytesRead = in.read(buffer)) >= 0) {
                 bos.write(buffer, 0, bytesRead);
             }
+
         } catch (IOException ex) {
             LOG.error("Error while reading the document " + ex.getMessage());
+        } finally {
+            StreamUtils.closeStreamSilently(in);
         }
         return bos.toByteArray();
+
     }
 
 }
