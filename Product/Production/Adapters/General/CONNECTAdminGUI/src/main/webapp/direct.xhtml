@@ -43,7 +43,7 @@
             <p:messages id="directErrors" closable="true" globalOnly="true" autoUpdate="true" />
             <p:tabView id="tabview" effect="fade" effectDuration="normal" dynamic="true" activeIndex="#{tabBean.directTabIndex}" styleClass="tabs-override tabs-ovr-purple">
                 <p:ajax event="tabChange" listener="#{tabBean.onDirectTabChange}" />
-                <p:tab title="Domains" closable="false">
+                <p:tab id="${tabBean.directDomainTab}" title="Domains" closable="false">
                     <div class="content-block">
                         <h2 class="subsection-header">Domain List</h2>
                         <div class="table-responsive">
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                 </p:tab>
-                <p:tab title="Agent Settings" closable="false">
+                <p:tab id="${tabBean.directAgentTab}" title="Agent Settings" closable="false">
                     <div class="content-block">
                         <h2 class="subsection-header">Agent Settings</h2>
                         <div class="table-responsive">
@@ -110,7 +110,7 @@
                         </div>
                     </div>
                 </p:tab>
-                <p:tab title="Certificates" closable="false">
+                <p:tab id="${tabBean.directCertTab}" title="Certificates" closable="false">
                     <div class="content-block">
                         <h2 class="subsection-header">Certificates</h2>
                         <div class="table-responsive">
@@ -150,7 +150,7 @@
                         </div>
                     </div>
                 </p:tab>
-                <p:tab id="tb-tab" title="Trust Bundles" closable="false">
+                <p:tab id="${tabBean.directTbTab}" title="Trust Bundles" closable="false">
                     <div class="content-block">
                         <h2 class="subsection-header">Trust Bundles</h2>
                         <div class="table-responsive">
@@ -202,7 +202,7 @@
                             </h:form>
                         </div>
                     </div>
-                    <p:blockUI block="tb-tab" widgetVar="tbTabBlock">
+                    <p:blockUI block="${tabBean.directTbTab}" widgetVar="tbTabBlock">
                         REFRESHING TRUST BUNDLE<br/>
                         <p:graphicImage library="images" name="loading-bar-gif.gif" />
                     </p:blockUI>

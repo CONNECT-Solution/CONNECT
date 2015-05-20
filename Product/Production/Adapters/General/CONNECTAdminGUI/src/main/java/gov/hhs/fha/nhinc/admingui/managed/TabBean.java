@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.admingui.managed;
 import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.primefaces.component.tabview.Tab;
 import org.primefaces.component.tabview.TabView;
 import org.primefaces.event.TabChangeEvent;
 
@@ -45,7 +46,16 @@ public class TabBean {
     private int adminTabIndex = 0;
     private int directTabIndex = 0;
     private int propIndex = 0;
-
+    
+    private final String gatewayPropTab = "gatewayTab";
+    private final String adapterPropTab = "adapterTab";
+    private final String directDomainTab = "directDomainTab";
+    private final String directAgentTab = "directAgentTab";
+    private final String directCertTab = "directCertTab";
+    private final String directTbTab = "directTbTab";
+    private final String acctUsersTab = "acctUsersTab";
+    private final String acctRolesTab = "acctRolesTab";
+    
     /**
      *
      * @return
@@ -157,13 +167,34 @@ public class TabBean {
      * @param tEvent
      */
     public void onDirectTabChange(TabChangeEvent tEvent) {
-        TabView tabView = (TabView) tEvent.getComponent();
-        this.directTabIndex = tabView.getChildren().indexOf(tEvent.getTab());
+       Tab selectedTab = tEvent.getTab();
+       if(selectedTab.getId().equalsIgnoreCase(directDomainTab)) {
+           this.directTabIndex = 0;
+       } else if (selectedTab.getId().equalsIgnoreCase(directAgentTab)) {
+           this.directTabIndex = 1;
+       } else if (selectedTab.getId().equalsIgnoreCase(directCertTab)) {
+           this.directTabIndex = 2;
+       } else {
+           this.directTabIndex = 3;
+       }
     }
     
     public void onPropertyTabChange(TabChangeEvent tEvent) {
-        TabView tabView = (TabView) tEvent.getComponent();
-        this.propIndex = tabView.getChildren().indexOf(tEvent.getTab());
+        Tab selectedTab = tEvent.getTab();
+        if(selectedTab.getId().equalsIgnoreCase(gatewayPropTab)) {
+            this.propIndex = 0;
+        } else {
+            this.propIndex = 1;
+        }
+    }
+    
+    public void onAcctTabChange(TabChangeEvent tEvent) {
+        Tab selectedTab = tEvent.getTab();
+        if(selectedTab.getId().equalsIgnoreCase(acctUsersTab)) {
+            this.adminTabIndex = 0;
+        } else {
+            this.adminTabIndex = 1;
+        }
     }
 
     // All "navigateTo" functions below were added as a workaround to an Expression Language bug found in WAS 8.5.0.1
@@ -268,6 +299,38 @@ public class TabBean {
 
     public void setPropIndex(int propIndex) {
         this.propIndex = propIndex;
+    }
+
+    public String getGatewayPropTab() {
+        return gatewayPropTab;
+    }
+
+    public String getAdapterPropTab() {
+        return adapterPropTab;
+    }
+
+    public String getDirectDomainTab() {
+        return directDomainTab;
+    }
+
+    public String getDirectAgentTab() {
+        return directAgentTab;
+    }
+
+    public String getDirectCertTab() {
+        return directCertTab;
+    }
+
+    public String getDirectTbTab() {
+        return directTbTab;
+    }
+
+    public String getAcctUsersTab() {
+        return acctUsersTab;
+    }
+
+    public String getAcctRolesTab() {
+        return acctRolesTab;
     }
     
 }

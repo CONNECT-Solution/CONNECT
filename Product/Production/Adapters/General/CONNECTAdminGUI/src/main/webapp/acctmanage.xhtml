@@ -44,10 +44,11 @@
                 <h1 class="section-header">Account Management</h1>
                 <!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
                 <p:tabView id="tabview" effect="fade" effectDuration="normal" dynamic="true" activeIndex="#{tabBean.adminTabIndex}" styleClass="tabs-override tabs-ovr-blue">
+                    <p:ajax event="tabChange" listener="#{tabBean.onAcctTabChange}" />
                     <!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
                     <div class="tab-content">
                         <!-- BEGIN: TAB PANE - USER ACCOUNTS -->
-                        <p:tab title="User Accounts"  closable="false">
+                        <p:tab id="#{tabBean.acctUsersTab}" title="User Accounts"  closable="false">
                             <div class="tab-pane active" id="users">
                                 <div class="content-block">
                                     <h2 class="subsection-header">Create User</h2>
@@ -137,7 +138,7 @@
                         <!-- END: TAB PANE - USER ACCOUNTS -->
 
                         <!-- BEGIN: TAB PANE - MANAGE ROLES -->
-                        <p:tab title="Manage Roles" closable="false">
+                        <p:tab id="#{tabBean.acctRolesTab}" title="Manage Roles" closable="false">
                             <div class="content-block">
                                 <h2 class="subsection-header">Manage User Roles</h2>
                                 <div class="content">
