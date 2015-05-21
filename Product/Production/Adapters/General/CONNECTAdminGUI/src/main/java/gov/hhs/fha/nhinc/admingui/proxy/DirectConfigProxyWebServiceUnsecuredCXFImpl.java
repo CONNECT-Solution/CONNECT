@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.admingui.proxy;
 
 import gov.hhs.fha.nhinc.admingui.proxy.service.DirectConfigUnsecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.admingui.services.exception.DomainException;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.direct.config.AddAnchor;
 import gov.hhs.fha.nhinc.direct.config.AddCertificates;
 import gov.hhs.fha.nhinc.direct.config.AddDomain;
@@ -353,7 +354,7 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
         ServicePortDescriptor<ConfigurationService> portDescriptor = new DirectConfigUnsecuredServicePortDescriptor();
 
         CONNECTClient<ConfigurationService> client = CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(
-                portDescriptor, url, null);
+                portDescriptor, url, new AssertionType());
 
         return client;
     }

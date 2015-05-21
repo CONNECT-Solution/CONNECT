@@ -45,11 +45,7 @@
                 <p:tabView id="propsTabview" effect="fade" effectDuration="normal" dynamic="true" activeIndex="#{tabBean.propIndex}" styleClass="tabs-override tabs-ovr-green" > 
                     <p:ajax event="tabChange" listener="#{tabBean.onPropertyTabChange}" />
                     <!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
-                    <div class="tab-content" id="tab-content">
-                    <p:messages id="editPropertyMsg" autoUpdate="true" closable="true" redisplay="false" showDetail="true"/>
-
-                        <!-- BEGIN: TAB PANE - GATEWAY PROPERTIES -->
-                        <p:tab title="Gateway Properties" closable="false">
+                    <p:tab id="#{tabBean.gatewayPropTab}" title="Gateway Properties" closable="false">
                             <div class="tab-pane active" id="external">
                                 <div class="content-block">
                                     <h2 class="subsection-header header-no-text"/>
@@ -59,7 +55,7 @@
                                         <hr noshade="noshade" class="hr-divider" />
                                         <div class="form-block center-block" style="padding:0px;">
                                             <h:form id="gatewayPropForm" >
-                                                
+                                                <p:messages for="#{propertyBean.gatewayPropMsg}" autoUpdate="true" closable="true" redisplay="false" showDetail="true" />
                                                 <p:contextMenu for="gatewayProps" widgetVar="pMenu">   
                                                     <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('cellProps').showCellEditor();return false;"/>  
                                                     <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('pMenu').hide()"/>  
@@ -88,9 +84,7 @@
                                 </div>
                             </div>
                         </p:tab>
-                        <!-- END: TAB PANE - GATEWAY PROPERTIES -->
-                        
-                        <p:tab title="Adapter Properties" closable="false">
+                    <p:tab id="#{tabBean.adapterPropTab}" title="Adapter Properties" closable="false">
                             <div class="tab-pane active" id="external">
                                 <div class="content-block">
                                     <h2 class="subsection-header header-no-text"/>
@@ -100,7 +94,7 @@
                                         <hr noshade="noshade" class="hr-divider" />
                                         <div class="form-block center-block" style="padding:0px;">
                                             <h:form id="adapterPropForm" >
-                                                
+                                                <p:messages for="#{propertyBean.adapterPropMsg}" autoUpdate="true" closable="true" redisplay="false" showDetail="true" />
                                                 <p:contextMenu for="adapterProps" widgetVar="apMenu">   
                                                     <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('aCellProps').showCellEditor();return false;"/>  
                                                     <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('apMenu').hide()"/>  
@@ -130,8 +124,6 @@
                             </div>
                         </p:tab>
                         <!-- END: TAB PANE - ADAPTER PROPERTIES -->
-                    </div>
-                    <!-- END: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
                 </p:tabView>
                 <!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
 

@@ -51,6 +51,9 @@ public class PropertyBean {
 
     private List<PropValue> gatewayProperties;
     private List<PropValue> adapterProperties;
+    
+    private String gatewayPropMsg = "gatwayPropMsg";
+    private String adapterPropMsg = "adapterPropMsg";
 
     private static final Logger LOG = Logger.getLogger(PropertyBean.class);
 
@@ -66,6 +69,14 @@ public class PropertyBean {
         return adapterProperties;
     }
 
+    public String getGatewayPropMsg() {
+        return gatewayPropMsg;
+    }
+
+    public String getAdapterPropMsg() {
+        return adapterPropMsg;
+    }
+
     public void refresh() {
         setProperties();
     }
@@ -78,12 +89,12 @@ public class PropertyBean {
 
         try {
             PropertyAccessor.getInstance().setProperty(NhincConstants.GATEWAY_PROPERTY_FILE, selectedProp.getKey(), newValue);
-            FacesContext.getCurrentInstance().addMessage(null,
+            FacesContext.getCurrentInstance().addMessage(gatewayPropMsg,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Property value changed for " + selectedProp.getKey()
                     + " from " + oldValue + " to " + newValue + "."));
         } catch (PropertyAccessException ex) {
             LOG.warn("Unable to update property: " + selectedProp.getKey());
-            FacesContext.getCurrentInstance().addMessage(null,
+            FacesContext.getCurrentInstance().addMessage(gatewayPropMsg,
                 new FacesMessage(FacesMessage.SEVERITY_WARN, "WARN", "Unable to set property value: " + selectedProp.getKey()
                     + " from " + oldValue + " to " + newValue + "."));
         }
@@ -97,12 +108,12 @@ public class PropertyBean {
 
         try {
             PropertyAccessor.getInstance().setProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME, selectedProp.getKey(), newValue);
-            FacesContext.getCurrentInstance().addMessage(null,
+            FacesContext.getCurrentInstance().addMessage(adapterPropMsg,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Property value changed for " + selectedProp.getKey()
                     + " from " + oldValue + " to " + newValue + "."));
         } catch (PropertyAccessException ex) {
             LOG.warn("Unable to update property: " + selectedProp.getKey());
-            FacesContext.getCurrentInstance().addMessage(null,
+            FacesContext.getCurrentInstance().addMessage(adapterPropMsg,
                 new FacesMessage(FacesMessage.SEVERITY_WARN, "WARN", "Unable to set property value: " + selectedProp.getKey()
                     + " from " + oldValue + " to " + newValue + "."));
         }
