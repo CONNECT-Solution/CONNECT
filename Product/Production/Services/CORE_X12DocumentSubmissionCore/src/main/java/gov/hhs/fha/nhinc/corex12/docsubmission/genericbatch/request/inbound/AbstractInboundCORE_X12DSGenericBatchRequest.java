@@ -101,7 +101,7 @@ public abstract class AbstractInboundCORE_X12DSGenericBatchRequest implements In
     }
 
     protected void auditRequestFromNhin(COREEnvelopeBatchSubmission request, AssertionType assertion) {
-        auditLogger.auditNhinCoreX12BatchRequest(request, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,Boolean.TRUE);
+        auditLogger.auditNhinCoreX12BatchRequest(request, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,Boolean.FALSE);
     }
 
     protected void auditResponseToNhin(COREEnvelopeBatchSubmissionResponse oResponsse, AssertionType assertion) {

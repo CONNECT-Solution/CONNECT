@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.corex12.docsubmission.audit.transform.CoreX12AuditDataTransform;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import org.apache.log4j.Logger;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
@@ -122,7 +123,7 @@ public class COREX12AuditLogger {
     public void auditNhinCoreX12BatchResponse(COREEnvelopeBatchSubmissionResponse message, AssertionType assertion, NhinTargetSystemType target,
         String direction, boolean isRequesting) {
         LOG.trace("---Begin COREX12AuditLogger.auditNhinCoreX12BatchResponse()---");
-        LogEventRequestType auditLogMsg = logNhinCoreX12BatchResponse(message, assertion, target, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, isRequesting);
+        LogEventRequestType auditLogMsg = logNhinCoreX12BatchResponse(message, assertion, target, direction, isRequesting);
         if (auditLogMsg != null && auditLogMsg.getAuditMessage() != null) {
             audit(auditLogMsg, assertion);
         } else {
@@ -191,7 +192,7 @@ public class COREX12AuditLogger {
      */
     public LogEventRequestType logNhinCoreX12BatchRequest(COREEnvelopeBatchSubmission message, AssertionType assertion, NhinTargetSystemType target, String direction, boolean isRequesting) {
         LOG.trace("Entering COREX12AuditRepositoryLogger.logNhinCoreX12BatchRequest(...)");
-        LogEventRequestType oAuditMes = x12BatchAuditTransformer.transformBatchRequestToAuditMsg(message, assertion, target, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, isRequesting);
+        LogEventRequestType oAuditMes = CoreX12AuditDataTransform.transformX12BatchMsgToAuditMsg(message, assertion, target, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, isRequesting);
         LOG.trace("End COREX12AuditRepositoryLogger.logNhinCoreX12BatchRequest(...)");
         return oAuditMes;
     }
@@ -206,9 +207,9 @@ public class COREX12AuditLogger {
      * @param isRequesting
      * @return LogEventRequestType
      */
-    private LogEventRequestType logNhinCoreX12BatchResponse(COREEnvelopeBatchSubmissionResponse message, AssertionType assertion, NhinTargetSystemType target, String direction, String _interface, boolean isRequesting) {
+    private LogEventRequestType logNhinCoreX12BatchResponse(COREEnvelopeBatchSubmissionResponse message, AssertionType assertion, NhinTargetSystemType target, String direction, boolean isRequesting) {
         LOG.trace("Entering COREX12AuditRepositoryLogger.logNhinCoreX12BatchResponse(...)");
-        LogEventRequestType oAuditMes = x12BatchAuditTransformer.transformBatchResponseToAuditMsg(message, assertion, target, direction, _interface, isRequesting);
+        LogEventRequestType oAuditMes = CoreX12AuditDataTransform.transformX12BatchMsgToAuditMsg(message, assertion, target, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, isRequesting);
         LOG.trace("End COREX12AuditRepositoryLogger.logNhinCoreX12BatchResponse(...)");
         return oAuditMes;
     }
