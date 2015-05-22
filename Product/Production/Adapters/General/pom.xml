@@ -17,8 +17,7 @@
         <module>CONNECTAdapterWeb</module>
         <module>CONNECTAdapterPDPOpenSSO</module>
         <module>CONNECTConsumerPreferencesProfileGUI</module>
-        <module>CONNECTDeferredQueueManagerGUI</module>
-        <module>CONNECTUniversalClientGUI</module>
+        <module>CONNECTDeferredQueueManagerGUI</module>        
         <module>CONNECTAdminGUI</module>
         <module>CONNECTDirectConfig</module>
     </modules>
