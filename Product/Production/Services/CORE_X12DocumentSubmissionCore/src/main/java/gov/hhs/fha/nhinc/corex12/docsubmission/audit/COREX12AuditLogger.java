@@ -49,7 +49,6 @@ public class COREX12AuditLogger {
 
     private static final Logger LOG = Logger.getLogger(COREX12AuditLogger.class);
     private final COREX12RealtimeTransforms x12AuditTransformer = new COREX12RealtimeTransforms();
-    private final COREX12BatchAuditTransforms x12BatchAuditTransformer = new COREX12BatchAuditTransforms();
 
 
     /**
