@@ -131,6 +131,8 @@ public class NhincConstants {
     public static final String GATEWAY_PROPERTY_FILE = "gateway";
     public static final String HOME_COMMUNITY_ID_PROPERTY = "localHomeCommunityId";
     public static final String INTERNAL_CONNECTION_INFO = "InternalConnectionInfo2.xml";
+    public static final String DIRECTTESTING_FLAG = "DirectTesting";
+    public static final String MESSAGEMONITORING_DELAYINMINUTES = "MessageMonitoringDelayTime";
     public static final String UDDI_CONNECTION_INFO = "";
     public static final String ADAPTER_PROPERTY_FILE_NAME = "adapter";
     public static final String XDS_HOME_COMMUNITY_ID_PROPERTY = "XDSbHomeCommunityId";

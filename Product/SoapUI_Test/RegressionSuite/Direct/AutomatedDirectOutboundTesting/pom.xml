@@ -62,6 +62,8 @@
                         <value>Notify=${notify}</value>
 						<value>AnchorOwner=${anchorowner}</value>
 						<value>DelayTime=${delay}</value>
+                        <value>AnchorKeyStoreFile=${anchorKeyStoreFile}</value>
+                        <value>PrivateKeyStoreFile=${privateKeyStoreFile}</value>
                     </projectProperties>
                 </configuration>
                 <executions>
