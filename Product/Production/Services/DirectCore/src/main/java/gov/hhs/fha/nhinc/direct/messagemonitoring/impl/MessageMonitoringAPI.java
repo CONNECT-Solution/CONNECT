@@ -252,6 +252,8 @@ public class MessageMonitoringAPI {
             if (!trackMessage.getStatus().equals(STATUS_ARCHIVED)) {
                 messageMonitoringCache.put(trackMessage.getMessageid(), trackMessage);
                 LOG.debug("Total child rows for the messageId:" + trackMessage.getMonitoredmessagenotifications().size());
+            } else {
+                deleteElapsedArchivedMessage(trackMessage);
             }
         }
         LOG.debug("Exiting buildCache.");
@@ -526,6 +528,7 @@ public class MessageMonitoringAPI {
             //delete the message
             messageMonitoringCache.remove(trackMessage.getMessageid());
             if (getDirectTestFlag(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.DIRECTTESTING_FLAG)) {
+                deleteElapsedArchivedMessageList();
                 trackMessage.setStatus(STATUS_ARCHIVED);
                 getMessageMonitoringDAO().updateOutgoingMessage(trackMessage);
             } else {
@@ -538,9 +541,10 @@ public class MessageMonitoringAPI {
         for (MonitoredMessage trackMessage : completedMessages) {
             //send out a successful notification
             sendSuccessEdgeNotification(trackMessage);
-            messageMonitoringCache.remove(trackMessage.getMessageid());
             //delete the message
+            messageMonitoringCache.remove(trackMessage.getMessageid());
             if (getDirectTestFlag(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.DIRECTTESTING_FLAG)) {
+                deleteElapsedArchivedMessageList();
                 trackMessage.setStatus(STATUS_ARCHIVED);
                 getMessageMonitoringDAO().updateOutgoingMessage(trackMessage);
             } else {
@@ -548,7 +552,6 @@ public class MessageMonitoringAPI {
             }
         }
 
-        deleteElapsedArchivedMessage();
         LOG.debug("Exiting Message Monitoring API checkAndUpdateMessageStatus() method.");
     }
 
@@ -674,13 +677,19 @@ public class MessageMonitoringAPI {
         LOG.debug("Completed message deleted. Message ID:" + trackMessage.getMessageid());
     }
 
-    private void deleteElapsedArchivedMessage() {
+    private void deleteElapsedArchivedMessageList() {
         List<MonitoredMessage> pendingDBMessages = getAllPendingMessagesFromDatabase();
         for (MonitoredMessage trackMessage : pendingDBMessages) {
-            if (trackMessage.getStatus().equals(STATUS_ARCHIVED) && getDirectTestingDelay(NhincConstants.GATEWAY_PROPERTY_FILE,
-                NhincConstants.MESSAGEMONITORING_DELAYINMINUTES, trackMessage.getUpdatetime())) {
-                deleteFromMessageMonitoringDB(trackMessage);
+            if (trackMessage.getStatus().equals(STATUS_ARCHIVED)) {
+                deleteElapsedArchivedMessage(trackMessage);
             }
+        }
+    }
+
+    private void deleteElapsedArchivedMessage(MonitoredMessage trackMessage) {
+        if (getDirectTestingDelay(NhincConstants.GATEWAY_PROPERTY_FILE,
+            NhincConstants.MESSAGEMONITORING_DELAYINMINUTES, trackMessage.getUpdatetime())) {
+            deleteFromMessageMonitoringDB(trackMessage);
         }
     }
 
