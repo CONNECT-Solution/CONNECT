@@ -631,7 +631,7 @@ public class MessageMonitoringAPI {
     private boolean getDirectTestFlag(String fileName, String property) {
         boolean directTestFlag = false;
         String directTestingFlag = getDirectTestingParam(fileName, property);
-        if (directTestingFlag.equals("true")) {
+        if (directTestingFlag != null && !directTestingFlag.isEmpty() && directTestingFlag.equals("true")) {
             directTestFlag = true;
         }
         return directTestFlag;
