@@ -35,10 +35,9 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 
 import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
 
+import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import org.apache.cxf.configuration.jsse.TLSClientParameters;
 import org.apache.log4j.Logger;
 
@@ -85,21 +84,10 @@ public class TLSClientParametersFactory {
 
     public TLSClientParameters getTLSClientParameters() {
         TLSClientParameters tlsCP = new TLSClientParameters();
-        SSLContext context = null;
-        try {
-            context = SSLContext.getDefault();
-            SSLSocketFactory factory = context.getSocketFactory();
-            if (factory != null) {
-                tlsCP.setSSLSocketFactory(factory);
-            } else {
-                throw new RuntimeException("Couldn't get the SSLSocketFactory.");
-            }
-            tlsCP.setDisableCNCheck(true);
-        } catch (NoSuchAlgorithmException e) {
-            LOG.error(e, e);
-            throw new RuntimeException("Could not create SSL Context.", e);
-        }        
-        
+        tlsCP.setKeyManagers(keyFactory.getKeyManagers());
+        tlsCP.setTrustManagers(trustFactory.getTrustManagers());
+        tlsCP.setSecureRandom(new SecureRandom());
+        tlsCP.setCertAlias(StoreUtil.getInstance().getPrivateKeyAlias());
         return tlsCP;
     }
 
