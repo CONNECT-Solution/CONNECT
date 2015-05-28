@@ -93,7 +93,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
     private static final String ERROR_MESSAGE = "The Direct address that you tried to reach is not responding. Try double-checking the recipient's address for typos or unnecessary spaces.";
     private static final String FOOTER = "";
     //specifies which Postmaster account to be user for DSN. Default value Sender's postmaster account.
-    private static final boolean USE_SENDER_POSTMASTER_ACCOUNT = true;
+    private static final boolean USE_SENDER_POSTMASTER_ACCOUNT = false;
 
     /**
      * Instantiates a new direct receiver impl.
