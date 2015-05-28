@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -53,11 +53,11 @@ public class NhinCORE_X12DSRealTimeImpl extends BaseService {
     /**
      *
      * @param body
+     * @param context
      * @return COREEnvelopeRealTimeResponse
      */
     public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest body, WebServiceContext context) {
-        COREEnvelopeRealTimeResponse response = new COREEnvelopeRealTimeResponse();
         AssertionType assertion = getAssertion(context, null);
-        return inboundCORE_X12DSRealTime.realTimeTransaction(body, assertion);
+        return inboundCORE_X12DSRealTime.realTimeTransaction(body, assertion,getWebContextProperties(context));
     }
 }

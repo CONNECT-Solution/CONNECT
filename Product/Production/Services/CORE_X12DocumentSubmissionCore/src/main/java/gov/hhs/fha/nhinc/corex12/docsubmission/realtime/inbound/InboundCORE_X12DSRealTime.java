@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.inbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import java.util.Properties;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
@@ -37,5 +38,5 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 public interface InboundCORE_X12DSRealTime {
 
     public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest msg,
-        AssertionType assertion);
+        AssertionType assertion, Properties webContextProperties);
 }

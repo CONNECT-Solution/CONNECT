@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,15 +30,13 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
-import gov.hhs.fha.nhinc.corex12.docsubmission.audit.COREX12AuditLogger;
+import gov.hhs.fha.nhinc.corex12.docsubmission.audit.CORE_X12AuditLogger;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.entity.OutboundCORE_X12DSGenericBatchRequestDelegate;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.entity.OutboundCORE_X12DSGenericBatchRequestOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
-import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
-import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
 /**
  * @author svalluripalli
@@ -47,7 +45,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 public class PassthroughOutboundCORE_X12DSGenericBatchRequest implements OutboundCORE_X12DSGenericBatchRequest {
 
     private OutboundCORE_X12DSGenericBatchRequestDelegate dsDelegate = new OutboundCORE_X12DSGenericBatchRequestDelegate();
-    private COREX12AuditLogger auditLogger = new COREX12AuditLogger();
+    private CORE_X12AuditLogger auditLogger = new CORE_X12AuditLogger();
 
     /**
      * Constructor..
@@ -106,11 +104,11 @@ public class PassthroughOutboundCORE_X12DSGenericBatchRequest implements Outboun
 
     private void auditRequestToNhin(COREEnvelopeBatchSubmission body, AssertionType assertion,
         NhinTargetSystemType targetSystem) {
-        auditLogger.auditNhinCoreX12BatchRequest(body, assertion, targetSystem, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, Boolean.TRUE);
+        auditLogger.auditNhinCoreX12BatchMessage(body, assertion, targetSystem, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, Boolean.TRUE, null, NhincConstants.CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME);
     }
 
     private void auditResponseFromNhin(COREEnvelopeBatchSubmissionResponse body, AssertionType assertion,
         NhinTargetSystemType targetSystem) {
-        auditLogger.auditNhinCoreX12BatchResponse(body, assertion, targetSystem, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, Boolean.TRUE);
+        auditLogger.auditNhinCoreX12BatchMessage(body, assertion, targetSystem, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, Boolean.TRUE, null, NhincConstants.CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME);
     }
 }
