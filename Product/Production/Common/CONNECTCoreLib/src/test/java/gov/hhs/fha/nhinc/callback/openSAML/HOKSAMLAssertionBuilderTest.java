@@ -1,9 +1,34 @@
-/**
+/*
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.AbstractSuppressRootLoggerTest;
 import java.math.BigInteger;
 import java.security.InvalidKeyException;
@@ -27,12 +52,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import org.opensaml.saml2.core.Action;
@@ -47,11 +78,10 @@ import org.opensaml.saml2.core.Evidence;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Subject;
 import org.w3c.dom.Element;
-import org.joda.time.DateTime;
 
 /**
  * @author bhumphrey
- * 
+ *
  */
 public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest {
 
@@ -76,7 +106,7 @@ public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest 
      * certificate = (X509Certificate) keyStore.getCertificate("alias");
      */
     /**
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -133,12 +163,12 @@ public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest 
 
                     @Override
                     public void verify(PublicKey key, String sigProvider) throws CertificateException,
-                            NoSuchAlgorithmException, InvalidKeyException, NoSuchProviderException, SignatureException {
+                        NoSuchAlgorithmException, InvalidKeyException, NoSuchProviderException, SignatureException {
                     }
 
                     @Override
                     public void verify(PublicKey key) throws CertificateException, NoSuchAlgorithmException,
-                            InvalidKeyException, NoSuchProviderException, SignatureException {
+                        InvalidKeyException, NoSuchProviderException, SignatureException {
                     }
 
                     @Override
@@ -251,7 +281,7 @@ public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest 
 
                     @Override
                     public void checkValidity(Date date) throws CertificateExpiredException,
-                            CertificateNotYetValidException {
+                        CertificateNotYetValidException {
                     }
 
                     @Override
@@ -267,7 +297,7 @@ public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest 
 
     @Test
     public void testCreateAuthenicationStatement() {
-        List<AuthnStatement> authnStatement = HOKSAMLAssertionBuilder.createAuthenicationStatements(getProperties());
+        List<AuthnStatement> authnStatement = (new HOKSAMLAssertionBuilder()).createAuthenicationStatements(getProperties());
         assertNotNull(authnStatement);
 
         assertFalse(authnStatement.isEmpty());
@@ -287,20 +317,19 @@ public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest 
         List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
         statements.add(0, e);
         Evidence evidence1 = builder.buildEvidence(evAssertionID, issueInstant, format, beginValidTime, endValidTime,
-                issuer, statements, subject);
+            issuer, statements, subject);
         assertTrue(evidence1.getAssertions().get(0).getID().startsWith("_"));
     }
 
     @Test
-    public void testCreateAuthenticationDecisionStatements() {
+    public void testCreateAuthenticationDecisionStatements() throws PropertyAccessException {
         CallbackProperties callbackProps = mock(CallbackProperties.class);
         Subject subject = mock(Subject.class);
         DateTime beforeCreation = new DateTime();
-
         when(callbackProps.getAuthenicationStatementExists()).thenReturn(true);
 
-        List<AuthzDecisionStatement> statementList = HOKSAMLAssertionBuilder.createAuthenicationDecsionStatements(
-                callbackProps, subject);
+        List<AuthzDecisionStatement> statementList = (new HOKSAMLAssertionBuilder()).createAuthenicationDecsionStatements(
+            callbackProps, subject);
 
         assertFalse(statementList.isEmpty());
         AuthzDecisionStatement statement = statementList.get(0);
@@ -314,16 +343,16 @@ public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest 
         assertTrue(assertion.getID().startsWith("_"));
 
         assertTrue(beforeCreation.isBefore(assertion.getIssueInstant())
-                || beforeCreation.isEqual(assertion.getIssueInstant()));
+            || beforeCreation.isEqual(assertion.getIssueInstant()));
 
         Issuer issuer = assertion.getIssuer();
         assertEquals(issuer.getFormat(), SAMLAssertionBuilder.X509_NAME_ID);
 
         Conditions conditions = assertion.getConditions();
         assertTrue(beforeCreation.isBefore(conditions.getNotBefore())
-                || beforeCreation.isEqual(conditions.getNotBefore()));
+            || beforeCreation.isEqual(conditions.getNotBefore()));
         assertTrue(beforeCreation.isBefore(conditions.getNotOnOrAfter())
-                || beforeCreation.isEqual(conditions.getNotOnOrAfter()));
+            || beforeCreation.isEqual(conditions.getNotOnOrAfter()));
 
         List<AttributeStatement> attributeStatement = assertion.getAttributeStatements();
         assertEquals(attributeStatement.get(0).getAttributes().size(), 2);
@@ -332,6 +361,93 @@ public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest 
         Attribute secondAttribute = attributeStatement.get(0).getAttributes().get(1);
         assertEquals(firstAttribute.getName(), "AccessConsentPolicy");
         assertEquals(secondAttribute.getName(), "InstanceAccessConsentPolicy");
+    }
+
+    @Test
+    public void testEvidanceConditionsNotBeforeAndNotAfterPresent() throws PropertyAccessException {
+        CallbackProperties callbackProps = mock(CallbackProperties.class);
+        Subject subject = mock(Subject.class);
+        DateTime conditionNotBefore = new DateTime();
+        DateTime conditionNotAfter = new DateTime();
+        PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
+        when(propertyAccessor.getProperty(Mockito.anyString(), Mockito.anyString())).thenReturn(Boolean.TRUE.toString());
+
+        when(callbackProps.getAuthenicationStatementExists()).thenReturn(true);
+        when(callbackProps.getEvidenceConditionNotBefore()).thenReturn(conditionNotBefore);
+        when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(conditionNotAfter);
+
+        List<AuthzDecisionStatement> statementList = getHOKSAMLAssertionBuilder().createAuthenicationDecsionStatements(
+            callbackProps, subject);
+
+        assertFalse(statementList.isEmpty());
+        AuthzDecisionStatement statement = statementList.get(0);
+
+        Evidence evidence = statement.getEvidence();
+        Assertion assertion = evidence.getAssertions().get(0);
+
+        Conditions conditions = assertion.getConditions();
+        assertEquals(conditions.getNotBefore(), conditionNotBefore.withZone(DateTimeZone.UTC));
+        assertEquals(conditions.getNotOnOrAfter(), conditionNotAfter.withZone(DateTimeZone.UTC));
+    }
+
+    @Test
+    public void testEvidanceConditionsNotBeforeIsNull() throws PropertyAccessException {
+        CallbackProperties callbackProps = mock(CallbackProperties.class);
+        Subject subject = mock(Subject.class);
+        DateTime conditionNotAfter = new DateTime();
+        PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
+        when(propertyAccessor.getProperty(Mockito.anyString(), Mockito.anyString())).thenReturn(Boolean.FALSE.toString());
+
+        when(callbackProps.getAuthenicationStatementExists()).thenReturn(true);
+        when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(conditionNotAfter);
+
+        List<AuthzDecisionStatement> statementList = getHOKSAMLAssertionBuilder().createAuthenicationDecsionStatements(
+            callbackProps, subject);
+
+        assertFalse(statementList.isEmpty());
+        AuthzDecisionStatement statement = statementList.get(0);
+
+        Evidence evidence = statement.getEvidence();
+        Assertion assertion = evidence.getAssertions().get(0);
+
+        Conditions conditions = assertion.getConditions();
+        assertEquals(conditions.getNotBefore(), null);
+        assertEquals(conditions.getNotOnOrAfter(), conditionNotAfter.withZone(DateTimeZone.UTC));
+    }
+
+    @Test
+    public void testEvidanceConditionsNotAfterIsNull() throws PropertyAccessException {
+        CallbackProperties callbackProps = mock(CallbackProperties.class);
+        Subject subject = mock(Subject.class);
+        DateTime conditionNotBefore = new DateTime();
+        PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
+        when(propertyAccessor.getProperty(Mockito.anyString(), Mockito.anyString())).thenReturn(Boolean.FALSE.toString());
+
+        when(callbackProps.getAuthenicationStatementExists()).thenReturn(true);
+        when(callbackProps.getEvidenceConditionNotBefore()).thenReturn(conditionNotBefore);
+
+        List<AuthzDecisionStatement> statementList = getHOKSAMLAssertionBuilder().createAuthenicationDecsionStatements(
+            callbackProps, subject);
+
+        assertFalse(statementList.isEmpty());
+        AuthzDecisionStatement statement = statementList.get(0);
+
+        Evidence evidence = statement.getEvidence();
+        Assertion assertion = evidence.getAssertions().get(0);
+
+        Conditions conditions = assertion.getConditions();
+        assertEquals(conditions.getNotBefore(), conditionNotBefore.withZone(DateTimeZone.UTC));
+        assertEquals(conditions.getNotOnOrAfter(), null);
+    }
+
+    HOKSAMLAssertionBuilder getHOKSAMLAssertionBuilder() {
+        //return authDEvidenceConditionsDefaultValueEnabled flag to false
+        return new HOKSAMLAssertionBuilder() {
+            @Override
+            protected boolean isAuthDEvidenceConditionsDefaultValueEnabled() {
+                return false;
+            }
+        };
     }
 
     CallbackProperties getProperties() {
