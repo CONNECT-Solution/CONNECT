@@ -1,5 +1,28 @@
-/**
+/*
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
@@ -174,12 +197,12 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             if (null != certificate && null != certificate.getSubjectDN()) {
                 x509Name = certificate.getSubjectDN().getName();
             }
-        }        
+        }
         return createSubject(x509Name, certificate, publicKey);
     }
 
     /**
-     * 
+     *
      * @param userName
      * @return boolean
      */
@@ -196,7 +219,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         }
         return isValid;
     }
-    
+
     static Subject createEvidenceSubject(CallbackProperties properties, X509Certificate certificate, PublicKey publicKey)
             throws Exception {
         String evidenceSubject = properties.getEvidenceSubject();
@@ -216,13 +239,13 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         }
         return createSubject(x509Name, certificate, publicKey);
     }
-    
+
     /**
-     * 
+     *
      * @param value
      * @return String
      */
-    private static String formatUID(String value) 
+    private static String formatUID(String value)
     {
         String newValue = null;
         if(NullChecker.isNotNullish(value))
@@ -232,7 +255,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
                 newValue = value;
             } else {
                 newValue = "UID="+ value;
-            }            
+            }
         }
         return newValue;
     }
@@ -381,10 +404,21 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
                 subject);
     }
 
+    /**
+     *
+     * @param evAssertionID
+     * @param issueInstant
+     * @param format
+     * @param beginValidTime
+     * @param endValidTime
+     * @param issuer
+     * @param statements
+     * @param subject
+     * @return
+     */
     public static Evidence buildEvidence(String evAssertionID, DateTime issueInstant, String format,
             DateTime beginValidTime, DateTime endValidTime, String issuer, List<AttributeStatement> statements,
             Subject subject) {
-        DateTime now = new DateTime();
 
         List<Assertion> evidenceAssertions = new ArrayList<Assertion>();
         if (evAssertionID == null) {
@@ -405,37 +439,14 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
         Issuer evIssuerId = OpenSAML2ComponentBuilder.getInstance().createIssuer(format, issuer);
 
-        if (beginValidTime == null || beginValidTime.isAfter(now)) {
-            beginValidTime = now;
-        }
-
-        // If provided time is after the given issue instant,
-        // modify it to include the issue instant
-        if (beginValidTime.isAfter(issueInstant)) {
-            if (issueInstant.isAfter(now)) {
-                beginValidTime = now;
-            } else {
-                beginValidTime = issueInstant;
-            }
-        }
-
-        // Make end datetime at a minimum 5 minutes from now
-        if (endValidTime == null || endValidTime.isBefore(now.plusMinutes(5))) {
-            endValidTime = now.plusMinutes(5);
-        }
-
-        // Ensure issueInstant is contained within valid times
-        if (endValidTime.isBefore(issueInstant)) {
-            endValidTime = issueInstant.plusMinutes(5);
-        }
-
-        Conditions conditions = OpenSAML2ComponentBuilder.getInstance().createConditions(beginValidTime, endValidTime,
-                null);
-
         Assertion evidenceAssertion = OpenSAML2ComponentBuilder.getInstance().createAssertion(evAssertionID);
 
         evidenceAssertion.getAttributeStatements().addAll(statements);
-        evidenceAssertion.setConditions(conditions);
+        //Only create the Conditions if NotBefore and/or NotOnOrAfter is present
+        if (beginValidTime != null || endValidTime != null){
+           Conditions conditions = OpenSAML2ComponentBuilder.getInstance().createConditions(beginValidTime, endValidTime, null);
+           evidenceAssertion.setConditions(conditions);
+        }
         evidenceAssertion.setIssueInstant(issueInstant);
         evidenceAssertion.setIssuer(evIssuerId);
         evidenceAssertion.setSubject(subject);
