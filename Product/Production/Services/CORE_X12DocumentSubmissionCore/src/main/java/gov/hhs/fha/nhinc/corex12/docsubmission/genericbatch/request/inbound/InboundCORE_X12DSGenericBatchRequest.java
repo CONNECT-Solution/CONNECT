@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,6 +28,7 @@
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.inbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import java.util.Properties;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 
@@ -41,8 +42,10 @@ public interface InboundCORE_X12DSGenericBatchRequest {
      * 
      * @param msg
      * @param assertion
+     * @param webContextProperties
      * @return COREEnvelopeBatchSubmissionResponse
      */
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg,
-        AssertionType assertion);
+        AssertionType assertion, Properties webContextProperties);
+
 }

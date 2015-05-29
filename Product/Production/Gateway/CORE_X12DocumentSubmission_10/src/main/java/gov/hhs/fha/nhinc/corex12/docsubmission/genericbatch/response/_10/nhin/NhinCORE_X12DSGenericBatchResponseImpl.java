@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -58,6 +58,6 @@ public class NhinCORE_X12DSGenericBatchResponseImpl extends BaseService {
      */
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission body, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
-        return inboundCORE_X12DSGenericBatchResponse.batchSubmitTransaction(body, assertion);
+        return inboundCORE_X12DSGenericBatchResponse.batchSubmitTransaction(body, assertion, getWebContextProperties(context));
     }
 }
