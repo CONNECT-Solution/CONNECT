@@ -118,7 +118,7 @@ public class CORE_X12AuditDataTransform {
             CORE_X12AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_X12, CORE_X12AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_X12REALTIME));
         auditMsg.setEventIdentification(oEventIdentificationType);
 
-        //*********************************Contruct Active Participant************************ 
+        //*********************************Construct Active Participant************************
         //Active Participant for human requester only required for requesting gateway
         if (isRequesting) {
             AuditMessageType.ActiveParticipant participantHumanFactor = getActiveParticipant(assertion.getUserInfo());
@@ -220,12 +220,12 @@ public class CORE_X12AuditDataTransform {
         return oEventIdentificationType;
     }
 
-    protected AuditMessageType.ActiveParticipant getActiveParticipantSource(boolean isRequesting, Properties webContextProeprties) {
+    protected AuditMessageType.ActiveParticipant getActiveParticipantSource(boolean isRequesting, Properties webContextProeperties) {
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
         participant.setUserID(CORE_X12AuditDataTransformConstants.ACTIVE_PARTICPANT_USER_ID_SOURCE);
         participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
         String hostAddress = null;
-        hostAddress = isRequesting ? getLocalHostAddress() : getRemoteHostAddress(webContextProeprties);
+        hostAddress = isRequesting ? getLocalHostAddress() : getRemoteHostAddress(webContextProeperties);
         participant.setNetworkAccessPointID(hostAddress);
         participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostAddress));
 
@@ -240,7 +240,6 @@ public class CORE_X12AuditDataTransform {
         String strHost = null;
         boolean setDefaultValue = true;
 
-        //find out the message type based on 
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
 
         strUrl = isRequesting ? getWebServiceUrlFromRemoteObject(target, serviceName) : getWebServiceRequestURL(webContextProeprties);
@@ -367,118 +366,56 @@ public class CORE_X12AuditDataTransform {
     }
 
     protected boolean areRequiredRequestFieldsNull(Object msg) {
-        COREEnvelopeBatchSubmission coreEnvelopeBatchSubmission = null;
-        COREEnvelopeBatchSubmissionResponse coreEnvelopeBatchSubmissionResponse = null;
-        COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest = null;
-        COREEnvelopeRealTimeResponse coreEnvelopeRealTimeResponse = null;
-
         if (msg instanceof COREEnvelopeBatchSubmission) {
-            coreEnvelopeBatchSubmission = (COREEnvelopeBatchSubmission) msg;
-            if (NullChecker.isNullish(coreEnvelopeBatchSubmission.getCORERuleVersion())) {
-                LOG.error("CORE X12 Batch CORERuleVersion is empty...");
-                return true;
-                //TODO: For some cases the payload id coming as null. Need to fix it as part of
-                //Batch Request and Batch Response fix
-                //} else if (NullChecker.isNullish(coreEnvelopeBatchSubmission.getPayloadID())) {
-                //LOG.error("CORE X12 Batch PayloadID is empty...");
-                //return true;
-            } else if (NullChecker.isNullish(coreEnvelopeBatchSubmission.getPayloadType())) {
-                LOG.error("CORE X12 Batch PayloadType is empty...");
-                return true;
-            } else if (NullChecker.isNullish(coreEnvelopeBatchSubmission.getProcessingMode())) {
-                LOG.error("CORE X12 Batch ProcessingMode is empty...");
-                return true;
-            } else if (NullChecker.isNullish(coreEnvelopeBatchSubmission.getReceiverID())) {
-                LOG.error("CORE X12 Batch ReceiverID is empty...");
-                return true;
-            } else if (NullChecker.isNullish(coreEnvelopeBatchSubmission.getSenderID())) {
-                LOG.error("CORE X12 Batch SenderID is empty...");
-                return true;
-            } else if (NullChecker.isNullish(coreEnvelopeBatchSubmission.getTimeStamp())) {
-                LOG.error("CORE X12 Batch TimeStamp is empty...");
-                return true;
-            }
+            COREEnvelopeBatchSubmission coreEnvelopeBatchSubmission = (COREEnvelopeBatchSubmission) msg;
+            return areRequiredFieldsNull(coreEnvelopeBatchSubmission.getCORERuleVersion(), coreEnvelopeBatchSubmission.getPayloadID(),
+                coreEnvelopeBatchSubmission.getPayloadType(), coreEnvelopeBatchSubmission.getProcessingMode(),
+                coreEnvelopeBatchSubmission.getReceiverID(), coreEnvelopeBatchSubmission.getSenderID(), coreEnvelopeBatchSubmission.getTimeStamp());
         } else if (msg instanceof COREEnvelopeBatchSubmissionResponse) {
-            coreEnvelopeBatchSubmissionResponse = (COREEnvelopeBatchSubmissionResponse) msg;
-            if (NullChecker.isNullish(coreEnvelopeBatchSubmissionResponse.getCORERuleVersion())) {
-                LOG.error("CORE X12 Batch CORERuleVersion is empty...");
-                return true;
-                //TODO: For some cases the payload id coming as null. Need to fix it as part of
-                //Batch Request and Batch Response fix
-                //} else if (NullChecker.isNullish(coreEnvelopeBatchSubmissionResponse.getPayloadID())) {
-                //    LOG.error("CORE X12 Batch PayloadID is empty...");
-                //    return true;
-            } else if (NullChecker.isNullish(coreEnvelopeBatchSubmissionResponse.getPayloadType())) {
-                LOG.error("CORE X12 Batch PayloadType is empty...");
-                return true;
-            } else if (NullChecker.isNullish(coreEnvelopeBatchSubmissionResponse.getProcessingMode())) {
-                LOG.error("CORE X12 Batch ProcessingMode is empty...");
-                return true;
-            } else if (NullChecker.isNullish(coreEnvelopeBatchSubmissionResponse.getReceiverID())) {
-                LOG.error("CORE X12 Batch ReceiverID is empty...");
-                return true;
-            } else if (NullChecker.isNullish(coreEnvelopeBatchSubmissionResponse.getSenderID())) {
-                LOG.error("CORE X12 Batch SenderID is empty...");
-                return true;
-            } else if (NullChecker.isNullish(coreEnvelopeBatchSubmissionResponse.getTimeStamp())) {
-                LOG.error("CORE X12 Batch TimeStamp is empty...");
-
-                return true;
-            }
+            COREEnvelopeBatchSubmissionResponse coreEnvelopeBatchSubmissionResponse = (COREEnvelopeBatchSubmissionResponse) msg;
+            return areRequiredFieldsNull(coreEnvelopeBatchSubmissionResponse.getCORERuleVersion(), coreEnvelopeBatchSubmissionResponse.getPayloadID(),
+                coreEnvelopeBatchSubmissionResponse.getPayloadType(), coreEnvelopeBatchSubmissionResponse.getProcessingMode(),
+                coreEnvelopeBatchSubmissionResponse.getReceiverID(), coreEnvelopeBatchSubmissionResponse.getSenderID(), coreEnvelopeBatchSubmissionResponse.getTimeStamp());
         } else if (msg instanceof COREEnvelopeRealTimeRequest) {
-            coreEnvelopeRealTimeRequest = (COREEnvelopeRealTimeRequest) msg;
-            if (NullChecker.isNullish(coreEnvelopeRealTimeRequest.getCORERuleVersion())) {
-                LOG.error("CORE X12 Batch CORERuleVersion is empty...");
-                return true;
-                //TODO: For some cases the payload id coming as null. Need to fix it as part of
-                //Batch Request and Batch Response fix
-                //} else if (NullChecker.isNullish(coreEnvelopeRealTimeRequest.getPayloadID())) {
-                //    LOG.error("CORE X12 Realtime PayloadID is empty...");
-                //    return true;
-            } else if (NullChecker.isNullish(coreEnvelopeRealTimeRequest.getPayloadType())) {
-                LOG.error("CORE X12 Realtime PayloadType is empty...");
-                return true;
-            } else if (NullChecker.isNullish(coreEnvelopeRealTimeRequest.getProcessingMode())) {
-                LOG.error("CORE X12 Realtime ProcessingMode is empty...");
-                return true;
-            } else if (NullChecker.isNullish(coreEnvelopeRealTimeRequest.getReceiverID())) {
-                LOG.error("CORE X12 Realtime ReceiverID is empty...");
-                return true;
-            } else if (NullChecker.isNullish(coreEnvelopeRealTimeRequest.getSenderID())) {
-                LOG.error("CORE X12 Realtime SenderID is empty...");
-                return true;
-            } else if (NullChecker.isNullish(coreEnvelopeRealTimeRequest.getTimeStamp())) {
-                LOG.error("CORE X12 Realtime TimeStamp is empty...");
-                return true;
-            }
+            COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest = (COREEnvelopeRealTimeRequest) msg;
+            return areRequiredFieldsNull(coreEnvelopeRealTimeRequest.getCORERuleVersion(), coreEnvelopeRealTimeRequest.getPayloadID(),
+                coreEnvelopeRealTimeRequest.getPayloadType(), coreEnvelopeRealTimeRequest.getProcessingMode(),
+                coreEnvelopeRealTimeRequest.getReceiverID(), coreEnvelopeRealTimeRequest.getSenderID(), coreEnvelopeRealTimeRequest.getTimeStamp());
         } else if (msg instanceof COREEnvelopeRealTimeResponse) {
-            coreEnvelopeRealTimeResponse = (COREEnvelopeRealTimeResponse) msg;
-            if (NullChecker.isNullish(coreEnvelopeRealTimeResponse.getCORERuleVersion())) {
-                LOG.error("CORE X12 Batch CORERuleVersion is empty...");
-                return true;
-                //TODO: For some cases the payload id coming as null. Need to fix it as part of
-                //Batch Request and Batch Response fix
-                //} else if (NullChecker.isNullish(coreEnvelopeRealTimeResponse.getPayloadID())) {
-                //    LOG.error("CORE X12 Realtime PayloadID is empty...");
-                //    return true;
-            } else if (NullChecker.isNullish(coreEnvelopeRealTimeResponse.getPayloadType())) {
-                LOG.error("CORE X12 Realtime PayloadType is empty...");
-                return true;
-            } else if (NullChecker.isNullish(coreEnvelopeRealTimeResponse.getProcessingMode())) {
-                LOG.error("CORE X12 Realtime ProcessingMode is empty...");
-                return true;
-            } else if (NullChecker.isNullish(coreEnvelopeRealTimeResponse.getReceiverID())) {
-                LOG.error("CORE X12 Realtime ReceiverID is empty...");
-                return true;
-            } else if (NullChecker.isNullish(coreEnvelopeRealTimeResponse.getSenderID())) {
-                LOG.error("CORE X12 Realtime SenderID is empty...");
-                return true;
-            } else if (NullChecker.isNullish(coreEnvelopeRealTimeResponse.getTimeStamp())) {
-                LOG.error("CORE X12 Realtime TimeStamp is empty...");
-                return true;
-            }
+            COREEnvelopeRealTimeResponse coreEnvelopeRealTimeResponse = (COREEnvelopeRealTimeResponse) msg;
+            return areRequiredFieldsNull(coreEnvelopeRealTimeResponse.getCORERuleVersion(), coreEnvelopeRealTimeResponse.getPayloadID(),
+                coreEnvelopeRealTimeResponse.getPayloadType(), coreEnvelopeRealTimeResponse.getProcessingMode(),
+                coreEnvelopeRealTimeResponse.getReceiverID(), coreEnvelopeRealTimeResponse.getSenderID(), coreEnvelopeRealTimeResponse.getTimeStamp());
         }
+        return false;
+    }
 
+    protected boolean areRequiredFieldsNull(String coreRuleVersion, String paloadId, String payloadType, String processingMode,
+        String receiverId, String senderId, String timeStamp) {
+        if (NullChecker.isNullish(coreRuleVersion)) {
+            LOG.error("CORE X12 Batch CORERuleVersion is empty...");
+            return true;
+            //TODO: For some cases the payload id coming as null. Need to fix it as part of
+            //Batch Request and Batch Response fix
+            //} else if (NullChecker.isNullish(paloadId)) {
+            //    LOG.error("CORE X12 Realtime PayloadID is empty...");
+            //    return true;
+        } else if (NullChecker.isNullish(payloadType)) {
+            LOG.error("CORE X12 Realtime PayloadType is empty...");
+            return true;
+        } else if (NullChecker.isNullish(processingMode)) {
+            LOG.error("CORE X12 Realtime ProcessingMode is empty...");
+            return true;
+        } else if (NullChecker.isNullish(receiverId)) {
+            LOG.error("CORE X12 Realtime ReceiverID is empty...");
+            return true;
+        } else if (NullChecker.isNullish(senderId)) {
+            LOG.error("CORE X12 Realtime SenderID is empty...");
+            return true;
+        } else if (NullChecker.isNullish(timeStamp)) {
+            LOG.error("CORE X12 Realtime TimeStamp is empty...");
+            return true;
+        }
         return false;
     }
 
