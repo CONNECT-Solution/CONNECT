@@ -220,12 +220,12 @@ public class CORE_X12AuditDataTransform {
         return oEventIdentificationType;
     }
 
-    protected AuditMessageType.ActiveParticipant getActiveParticipantSource(boolean isRequesting, Properties webContextProeperties) {
+    protected AuditMessageType.ActiveParticipant getActiveParticipantSource(boolean isRequesting, Properties webContextProperties) {
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
         participant.setUserID(CORE_X12AuditDataTransformConstants.ACTIVE_PARTICPANT_USER_ID_SOURCE);
         participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
         String hostAddress = null;
-        hostAddress = isRequesting ? getLocalHostAddress() : getRemoteHostAddress(webContextProeperties);
+        hostAddress = isRequesting ? getLocalHostAddress() : getRemoteHostAddress(webContextProperties);
         participant.setNetworkAccessPointID(hostAddress);
         participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostAddress));
 
@@ -366,54 +366,56 @@ public class CORE_X12AuditDataTransform {
     }
 
     protected boolean areRequiredRequestFieldsNull(Object msg) {
+        final String CORE_X12_REALTIME = "CORE X12 Realtime";
+        final String CORE_X12_BATCH = "CORE X12 Batch";
         if (msg instanceof COREEnvelopeBatchSubmission) {
             COREEnvelopeBatchSubmission coreEnvelopeBatchSubmission = (COREEnvelopeBatchSubmission) msg;
             return areRequiredFieldsNull(coreEnvelopeBatchSubmission.getCORERuleVersion(), coreEnvelopeBatchSubmission.getPayloadID(),
                 coreEnvelopeBatchSubmission.getPayloadType(), coreEnvelopeBatchSubmission.getProcessingMode(),
-                coreEnvelopeBatchSubmission.getReceiverID(), coreEnvelopeBatchSubmission.getSenderID(), coreEnvelopeBatchSubmission.getTimeStamp());
+                coreEnvelopeBatchSubmission.getReceiverID(), coreEnvelopeBatchSubmission.getSenderID(), coreEnvelopeBatchSubmission.getTimeStamp(), CORE_X12_BATCH);
         } else if (msg instanceof COREEnvelopeBatchSubmissionResponse) {
             COREEnvelopeBatchSubmissionResponse coreEnvelopeBatchSubmissionResponse = (COREEnvelopeBatchSubmissionResponse) msg;
             return areRequiredFieldsNull(coreEnvelopeBatchSubmissionResponse.getCORERuleVersion(), coreEnvelopeBatchSubmissionResponse.getPayloadID(),
                 coreEnvelopeBatchSubmissionResponse.getPayloadType(), coreEnvelopeBatchSubmissionResponse.getProcessingMode(),
-                coreEnvelopeBatchSubmissionResponse.getReceiverID(), coreEnvelopeBatchSubmissionResponse.getSenderID(), coreEnvelopeBatchSubmissionResponse.getTimeStamp());
+                coreEnvelopeBatchSubmissionResponse.getReceiverID(), coreEnvelopeBatchSubmissionResponse.getSenderID(), coreEnvelopeBatchSubmissionResponse.getTimeStamp(), CORE_X12_BATCH);
         } else if (msg instanceof COREEnvelopeRealTimeRequest) {
             COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest = (COREEnvelopeRealTimeRequest) msg;
             return areRequiredFieldsNull(coreEnvelopeRealTimeRequest.getCORERuleVersion(), coreEnvelopeRealTimeRequest.getPayloadID(),
                 coreEnvelopeRealTimeRequest.getPayloadType(), coreEnvelopeRealTimeRequest.getProcessingMode(),
-                coreEnvelopeRealTimeRequest.getReceiverID(), coreEnvelopeRealTimeRequest.getSenderID(), coreEnvelopeRealTimeRequest.getTimeStamp());
+                coreEnvelopeRealTimeRequest.getReceiverID(), coreEnvelopeRealTimeRequest.getSenderID(), coreEnvelopeRealTimeRequest.getTimeStamp(), CORE_X12_REALTIME);
         } else if (msg instanceof COREEnvelopeRealTimeResponse) {
             COREEnvelopeRealTimeResponse coreEnvelopeRealTimeResponse = (COREEnvelopeRealTimeResponse) msg;
             return areRequiredFieldsNull(coreEnvelopeRealTimeResponse.getCORERuleVersion(), coreEnvelopeRealTimeResponse.getPayloadID(),
                 coreEnvelopeRealTimeResponse.getPayloadType(), coreEnvelopeRealTimeResponse.getProcessingMode(),
-                coreEnvelopeRealTimeResponse.getReceiverID(), coreEnvelopeRealTimeResponse.getSenderID(), coreEnvelopeRealTimeResponse.getTimeStamp());
+                coreEnvelopeRealTimeResponse.getReceiverID(), coreEnvelopeRealTimeResponse.getSenderID(), coreEnvelopeRealTimeResponse.getTimeStamp(), CORE_X12_REALTIME);
         }
         return false;
     }
 
     protected boolean areRequiredFieldsNull(String coreRuleVersion, String paloadId, String payloadType, String processingMode,
-        String receiverId, String senderId, String timeStamp) {
+        String receiverId, String senderId, String timeStamp, String messageType) {
         if (NullChecker.isNullish(coreRuleVersion)) {
             LOG.error("CORE X12 Batch CORERuleVersion is empty...");
             return true;
             //TODO: For some cases the payload id coming as null. Need to fix it as part of
             //Batch Request and Batch Response fix
             //} else if (NullChecker.isNullish(paloadId)) {
-            //    LOG.error("CORE X12 Realtime PayloadID is empty...");
+            //    LOG.error(messageType+" PayloadID is empty...");
             //    return true;
         } else if (NullChecker.isNullish(payloadType)) {
-            LOG.error("CORE X12 Realtime PayloadType is empty...");
+            LOG.error(messageType+" PayloadType is empty...");
             return true;
         } else if (NullChecker.isNullish(processingMode)) {
-            LOG.error("CORE X12 Realtime ProcessingMode is empty...");
+            LOG.error(messageType+" ProcessingMode is empty...");
             return true;
         } else if (NullChecker.isNullish(receiverId)) {
-            LOG.error("CORE X12 Realtime ReceiverID is empty...");
+            LOG.error(messageType+" ReceiverID is empty...");
             return true;
         } else if (NullChecker.isNullish(senderId)) {
-            LOG.error("CORE X12 Realtime SenderID is empty...");
+            LOG.error(messageType+" SenderID is empty...");
             return true;
         } else if (NullChecker.isNullish(timeStamp)) {
-            LOG.error("CORE X12 Realtime TimeStamp is empty...");
+            LOG.error(messageType+" TimeStamp is empty...");
             return true;
         }
         return false;
