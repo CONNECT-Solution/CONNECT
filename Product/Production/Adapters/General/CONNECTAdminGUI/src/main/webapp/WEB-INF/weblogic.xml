@@ -19,7 +19,6 @@
             <package-name>org.springframework.*</package-name>
             <package-name>antlr.*</package-name>
             <package-name>net.sf.cglib.*</package-name>
-            <package-name>org.hibernate.*</package-name>
             <package-name>org.objectweb.asm.*</package-name>
             <package-name>org.opensaml.*</package-name>
             <package-name>com.ctc.wstx.*</package-name>
