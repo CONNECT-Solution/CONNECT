@@ -51,10 +51,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class FhirResourceServiceImpl implements FhirResourceService {
 
-    private static final String PATIENT_RESOURCE_NAME = "FHIRPatientResource";
-    private static final String DOCREF_RESOURCE_NAME = "FHIRDocumentReferenceResource";
-    private static final String BINARY_RESOURCE_NAME = "FHIRBinaryResource";
-    
     private static final String PATIENT_ICON_FILE = "patient.png";
     private static final String DOCREF_ICON_FILE = "document.png";
     private static final String BINARY_ICON_FILE = "binary.png";

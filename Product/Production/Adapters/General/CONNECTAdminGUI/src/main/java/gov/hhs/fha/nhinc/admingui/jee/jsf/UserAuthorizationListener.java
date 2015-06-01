@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ *  Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -99,15 +99,18 @@ public class UserAuthorizationListener implements PhaseListener {
             LOG.debug("login required and current user is null, redirecting to login page.");
             NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
             nh.handleNavigation(facesContext, null, NavigationConstant.LOGIN_PAGE);
-        }else if(currentUser != null && !roleService.checkRole(formatPageName(currentPage), currentUser)) {
-            LOG.debug("Current User does not have permission for page, redirecting to status page.");
-            NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
-            nh.handleNavigation(facesContext, null, NavigationConstant.STATUS_PAGE);
-        } else if(!canAccessDirect(currentPage)){
-            LOG.debug("Direct configuration is not available.");
-            NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
-            nh.handleNavigation(facesContext, null, NavigationConstant.STATUS_PAGE);
-        }
+        }else {
+            
+            boolean hasRolePermission = roleService.checkRole(formatPageName(currentPage), currentUser);
+            boolean isConfigured = checkConfiguredDisplay(formatPageName(currentPage));
+            
+            if(currentUser != null && (hasRolePermission == false || isConfigured == false)) {
+            
+                LOG.debug("User, " + currentUser.getUserName() + " can not access given page: " + currentPage);
+                NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
+                nh.handleNavigation(facesContext, null, NavigationConstant.STATUS_PAGE);
+            }
+        } 
     }
 
     /*
@@ -138,9 +141,13 @@ public class UserAuthorizationListener implements PhaseListener {
         }
     }
 
-    private boolean canAccessDirect(String currentPage) {
-        return !formatPageName(currentPage).equalsIgnoreCase(NavigationConstant.DIRECT_XHTML) || 
-                DisplayHolder.getInstance().isDirectEnabled();
+    private boolean checkConfiguredDisplay(String currentPage) {
+        if(currentPage.equals(NavigationConstant.DIRECT_XHTML)) {
+            return DisplayHolder.getInstance().isDirectEnabled();
+        } else if(currentPage.equals(NavigationConstant.FHIR_XHTML)) {
+            return DisplayHolder.getInstance().isFhirEnabled();
+        }
+        return true;
     }
 
 }

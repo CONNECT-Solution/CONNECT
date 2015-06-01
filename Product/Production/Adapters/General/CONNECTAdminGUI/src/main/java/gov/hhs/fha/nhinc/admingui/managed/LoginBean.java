@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ *  Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import gov.hhs.fha.nhinc.admingui.display.DirectDisplayController;
+import gov.hhs.fha.nhinc.admingui.display.FhirDisplayController;
 import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
@@ -178,7 +179,8 @@ public class LoginBean {
     
     private void checkDisplays() {
         if(firstTimeLogged){
-            new DirectDisplayController().checkDirectDisplay();
+            new DirectDisplayController().checkDisplay();
+            new FhirDisplayController().checkDisplay();
             // can add additional checks for enable / disable other displays in the future
             firstTimeLogged = false;
         }

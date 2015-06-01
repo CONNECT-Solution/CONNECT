@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ *  Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -37,6 +37,8 @@ public class NavigationConstant {
     public static final String ACCT_MGMT_PAGE = "acctmanage";
     public static final String DIRECT_PAGE = "direct";
     public static final String DIRECT_XHTML = "direct.xhtml";
+    public static final String FHIR_PAGE = "fhir";
+    public static final String FHIR_XHTML = "fhir.xhtml";
     public static final String CM_PAGE = "connectionManager";
     public static final String PROPERTIES_PAGE="properties";
     public static final String PATIENT_SEARCH_PAGE="patientDiscovery";

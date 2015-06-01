@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ *  Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.primefaces.component.tabview.Tab;
-import org.primefaces.component.tabview.TabView;
 import org.primefaces.event.TabChangeEvent;
 
 /**
@@ -254,6 +253,10 @@ public class TabBean {
     
     public String navigateToAdapterPropTab() {
         return setGatewayPropertyTabAndNavigate(1);
+    }
+    
+    public String navigateToFhir() {
+        return NavigationConstant.FHIR_PAGE;
     }
     
     /**

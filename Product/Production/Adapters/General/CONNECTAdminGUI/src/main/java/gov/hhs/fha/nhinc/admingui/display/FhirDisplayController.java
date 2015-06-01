@@ -25,41 +25,46 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.admingui.display;
 
-import gov.hhs.fha.nhinc.admingui.model.fhir.ConformanceView;
-import gov.hhs.fha.nhinc.admingui.model.fhir.ResourceInfo;
-import java.util.List;
+import gov.hhs.fha.nhinc.admingui.services.FhirResourceService;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author jassmit
  */
-public interface FhirResourceService {
+public class FhirDisplayController implements DisplayController {
     
-    public static final String PATIENT_RESOURCE_NAME = "FHIRPatientResource";
-    public static final String DOCREF_RESOURCE_NAME = "FHIRDocumentReferenceResource";
-    public static final String BINARY_RESOURCE_NAME = "FHIRBinaryResource";
+    private static final Logger LOG = Logger.getLogger(FhirDisplayController.class);
+
+    @Override
+    public void checkDisplay() {
+        String[] resourceNames = new String[]{FhirResourceService.BINARY_RESOURCE_NAME, FhirResourceService.DOCREF_RESOURCE_NAME,
+            FhirResourceService.PATIENT_RESOURCE_NAME };
+        
+        for(String resourceName : resourceNames) {
+            boolean hasResource;
+            try {
+                hasResource = checkForResource(resourceName);
+            } catch(ConnectionManagerException e) {
+                LOG.warn(e, e);
+                hasResource = false;
+            }
+            if(!hasResource) {
+                DisplayHolder.getInstance().setFhirEnabled(hasResource);
+                return;
+            }
+        }
+        DisplayHolder.getInstance().setFhirEnabled(true);
+    }
     
-    /**
-     * Loads resource information from config file.
-     * @return 
-     */
-    public List<ResourceInfo> loadResources();
+    private boolean checkForResource(String resourceName) throws ConnectionManagerException {
+        return NullChecker.isNotNullish(ConnectionManagerCache.getInstance().getAdapterEndpointURL(resourceName, NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0));
+    }
     
-    /**
-     * Updates the url for a FHIR resource to a config file.
-     * 
-     * @param serviceName
-     * @param url
-     * @throws Exception 
-     */
-    public void updateUrl(String serviceName, String url) throws Exception;
-    
-    /**
-     * Pulls conformance information for a given resource url using a FHIR client.
-     * @param url
-     * @return 
-     */
-    public ConformanceView getConformance(String url);
 }

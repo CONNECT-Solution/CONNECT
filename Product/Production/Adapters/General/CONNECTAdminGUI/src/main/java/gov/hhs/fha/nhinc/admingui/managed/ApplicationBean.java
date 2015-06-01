@@ -40,5 +40,9 @@ public class ApplicationBean {
     public boolean isDirectEnabled(){
         return DisplayHolder.getInstance().isDirectEnabled();
     }
+    
+    public boolean isFhirEnabled() {
+        return DisplayHolder.getInstance().isFhirEnabled();
+    }
 
 }
