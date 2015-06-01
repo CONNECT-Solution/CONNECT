@@ -55,12 +55,13 @@ public class FhirDisplayController implements DisplayController {
                 LOG.warn(e, e);
                 hasResource = false;
             }
-            if(!hasResource) {
+            
+            if(hasResource == true) {
                 DisplayHolder.getInstance().setFhirEnabled(hasResource);
                 return;
             }
         }
-        DisplayHolder.getInstance().setFhirEnabled(true);
+        DisplayHolder.getInstance().setFhirEnabled(false);
     }
     
     private boolean checkForResource(String resourceName) throws ConnectionManagerException {
