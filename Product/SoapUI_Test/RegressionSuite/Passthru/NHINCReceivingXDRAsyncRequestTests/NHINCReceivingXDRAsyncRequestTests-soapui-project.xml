@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="NHINCReceivingXDRAsyncRequestTests" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
-	<con:description>This suite tests inbound DS deferred request messages. This suite is standard mode only because it tests audit and policy logic.
+<con:soapui-project abortOnError="false" name="NHINCReceivingXDRAsyncRequestTests" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.1.2" activeEnvironment="Default" id="5307e689-f07b-4b63-b4da-e2fbb48d46aa" xmlns:con="http://eviware.com/soapui/config">
+  <con:description>This suite tests inbound DS deferred request messages. This suite is standard mode only because it tests audit and policy logic.
 
-Set the GatewayPropsDir to the config/nhin directory of the gateway under test.</con:description><con:settings/>
-	
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="../../../target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-		
-		<con:endpoints>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPolicyEngine</con:endpoint>
-		</con:endpoints>
-		<con:operation action="urn:CheckPolicy" anonymous="optional" bindingOperationName="CheckPolicy" inputName="CheckPolicyRequest" isOneWay="false" name="CheckPolicy" outputName="CheckPolicyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPolicyEngine</con:endpoint>
-				<con:request><![CDATA[
-					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:xacml:2.0:context:schema:os">
+Set the GatewayPropsDir to the config/nhin directory of the gateway under test.</con:description>
+  <con:settings/>
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="../../../target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="4d575929-2046-4883-8895-f0804a972f6c" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:endpoints>
+      <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPolicyEngine</con:endpoint>
+    </con:endpoints>
+    <con:operation action="urn:CheckPolicy" anonymous="optional" bindingOperationName="CheckPolicy" inputName="CheckPolicyRequest" isOneWay="false" name="CheckPolicy" outputName="CheckPolicyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response" id="f36a2301-4005-4d77-b0ff-962a91b86c09">
+      <con:settings/>
+      <con:call name="Request 1" id="0f3a0ccc-a3f9-454a-b2ad-42f359250a0f">
+        <con:settings/>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPolicyEngine</con:endpoint>
+        <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:xacml:2.0:context:schema:os">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:CheckPolicyRequest>
@@ -287,52 +285,59 @@ Set the GatewayPropsDir to the config/nhin directory of the gateway under test.<
       </urn:CheckPolicyRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
-				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:adapterpolicyengine/AdapterPolicyEnginePortType/CheckPolicyRequest" mustUnderstand="NONE" version="200508"/>
-				<con:wsrmConfig version="1.2"/>
-			</con:call>
-		</con:operation>
-	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="../../../target/wsdl/EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-		
-		<con:endpoints>
-			
-			
-		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint><con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint></con:endpoints>
-		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncRequest" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncRequest" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-		</con:operation>
-	</con:interface>
-	
-	<con:testSuite name="NHINCReceivingXDRAsyncRequestTestSuite">
-		<con:description>This test needs to be run with DS Deferred Request Outbound set to passthrough, and the inbound set to standard.
-This is because the test is designed to hit the mock step on the inbound side.</con:description><con:settings/>
-		<con:runType>SEQUENTIAL</con:runType>
-		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="efe18e9c-abde-4520-992e-154eca409f45" keepSession="false" maxResults="0" name="PolicyCheckDeny" searchProperties="true">
-			<con:settings/>
-			<con:testStep name="Set PolicyEngine Mock" type="groovy" disabled="true">
-				<con:settings/>
-				<con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+        <con:wsaConfig action="urn:gov:hhs:fha:nhinc:adapterpolicyengine/AdapterPolicyEnginePortType/CheckPolicyRequest" mustUnderstand="NONE" version="200508"/>
+        <con:wsrmConfig version="1.2"/>
+      </con:call>
+    </con:operation>
+  </con:interface>
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="../../../target/wsdl/EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="6876ea57-9964-405a-9e40-7827e014e4e7" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:endpoints>
+      <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint>
+      <con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint>
+      <con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint>
+    </con:endpoints>
+    <con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncRequest" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncRequest" receivesAttachments="false" sendsAttachments="false" type="Request-Response" id="ce004dde-3212-4aa7-86f3-c46859995614">
+      <con:settings/>
+    </con:operation>
+  </con:interface>
+  <con:testSuite name="NHINCReceivingXDRAsyncRequestTestSuite" id="6c987edd-604c-472d-8391-708bdc79fed1">
+    <con:description>This test needs to be run with DS Deferred Request Outbound set to passthrough, and the inbound set to standard.
+This is because the test is designed to hit the mock step on the inbound side.</con:description>
+    <con:settings/>
+    <con:runType>SEQUENTIAL</con:runType>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="efe18e9c-abde-4520-992e-154eca409f45" keepSession="false" maxResults="0" name="PolicyCheckDeny" searchProperties="true">
+      <con:settings/>
+      <con:testStep name="Set PolicyEngine Mock" type="groovy" disabled="true" id="bfcff84d-699f-4c07-94f5-6bd07e31588f">
+        <con:settings/>
+        <con:config>
+          <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":1882/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script></con:config>
-			</con:testStep>
-			<con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>30000</delay></con:config></con:testStep>
-			<con:testStep name="XDRAsyncRequest" type="request">
-				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>EntityXDRAsyncRequest_Binding</con:interface>
-					<con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
-					<con:request name="XDRAsyncRequest" useWsAddressing="true">
-						<con:settings>
-							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-						</con:settings>
-						<con:encoding>UTF-8</con:encoding>
-						<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint>
-						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="delay" name="Delay" id="468a9615-397e-4cf3-9cc5-c08f7279e86d">
+        <con:settings/>
+        <con:config>
+          <delay>30000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="XDRAsyncRequest" type="request" id="a1b94732-10e4-4682-a8ac-969dd241f365">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityXDRAsyncRequest_Binding</con:interface>
+          <con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
+          <con:request name="XDRAsyncRequest" useWsAddressing="true" id="f2abdc4f-e52a-4224-a82b-2f085ff42995">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="NHINCReceivingXDRAsyncRequestTests" testCase="PolicyCheckDeny">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
@@ -770,45 +775,47 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
       </urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
-						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="SOAP Response"/>
-						<con:assertion name="Check RelatesTo Field" type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns1='http://www.w3.org/2005/08/addressing';
+            <con:assertion type="SOAP Fault Assertion" id="834c4a90-9ade-46da-b514-4214f5929a27"/>
+            <con:assertion type="SOAP Response" id="cb8283a9-6826-436a-8d48-18acd7da6ccf"/>
+            <con:assertion name="Check RelatesTo Field" type="XPath Match" id="ae01698d-3641-4a76-b355-1194414cd4e5">
+              <con:configuration>
+                <path>declare namespace ns1='http://www.w3.org/2005/08/addressing';
 //ns1:RelatesTo[1]</path>
-								<content>&lt;RelatesTo xmlns="http://www.w3.org/2005/08/addressing" xmlns:S="http://www.w3.org/2003/05/soap-envelope">uuid:1234567890.12345.123.12&lt;/RelatesTo></content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion name="Match content of [@status]" type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns19='http://www.hhs.gov/healthit/nhin';
+                <content>&lt;RelatesTo xmlns="http://www.w3.org/2005/08/addressing" xmlns:S="http://www.w3.org/2003/05/soap-envelope">uuid:1234567890.12345.123.12&lt;/RelatesTo></content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Match content of [@status]" type="XPath Match" id="ea37adc5-3172-44cd-b091-7fb3f1aaba33">
+              <con:configuration>
+                <path>declare namespace ns19='http://www.hhs.gov/healthit/nhin';
 //ns19:XDRAcknowledgement[1]/ns19:message[1]/@status</path>
-								<content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-						<con:jmsPropertyConfig/>
-						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" addDefaultTo="true" messageID="uuid:1234567890.12345.123.12" mustUnderstand="TRUE" version="200508"/>
-						<con:wsrmConfig version="1.2"/>
-					</con:request>
-				</con:config>
-			</con:testStep>
-			
-			<con:testStep name="Policy Engine Mock" type="mockresponse" disabled="true">
-				<con:settings/>
-				<con:config startStep="XDRAsyncRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>AdapterPolicyEngineBindingSoap</con:interface>
-					<con:operation>CheckPolicy</con:operation>
-					<con:path>/mockPE</con:path>
-					<con:port>1882</con:port>
-					<con:timeout>30000</con:timeout>
-					<con:response outgoingWss="">
-						<con:settings/>
-						<con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" addDefaultTo="true" messageID="uuid:1234567890.12345.123.12" mustUnderstand="TRUE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Policy Engine Mock" type="mockresponse" disabled="true" id="99db5592-5a21-4647-9675-6cb4b165c6fd">
+        <con:settings/>
+        <con:config startStep="XDRAsyncRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>AdapterPolicyEngineBindingSoap</con:interface>
+          <con:operation>CheckPolicy</con:operation>
+          <con:path>/mockPE</con:path>
+          <con:port>1882</con:port>
+          <con:timeout>30000</con:timeout>
+          <con:response outgoingWss="" id="b50c7a13-ef67-435d-a29a-9858f5d2472f">
+            <con:settings/>
+            <con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
    <soap:Body>
       <ns2:CheckPolicyResponse xmlns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns3="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns4="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns5="http://www.w3.org/2005/08/addressing" xmlns:ns6="http://docs.oasis-open.org/wsn/b-2" xmlns:ns7="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns8="http://docs.oasis-open.org/wsn/t-1" xmlns:ns9="http://nhinc.services.com/schema/auditmessage" xmlns:ns10="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns11="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns12="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:ns13="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns14="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns15="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns16="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns18="urn:ihe:iti:xds-b:2007">
          <ns2:response>
@@ -819,11 +826,11 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
       </ns2:CheckPolicyResponse>
    </soap:Body>
 </soap:Envelope>]]></con:responseContent>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
-					</con:response>
-					<con:assertion name="AuthnStatementAuthnInstant " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='authInstant';
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+          </con:response>
+          <con:assertion name="AuthnStatementAuthnInstant " type="GroovyScriptAssertion" id="1076cbda-ee0d-48ed-ab31-af8abb9c10f3">
+            <con:configuration>
+              <scriptText>def FieldName='authInstant';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:authInstant'
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-instant';
 
@@ -863,11 +870,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="AuthnStatementSessionIndex" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='sessionIndex';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="AuthnStatementSessionIndex" type="GroovyScriptAssertion" id="43cf64b6-f88c-4a81-beed-17abf2871ff7">
+            <con:configuration>
+              <scriptText>def FieldName='sessionIndex';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:sessionIndex';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authn-statement:session-index';
 
@@ -907,11 +914,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="AuthnStatementAthnContextClassRef " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='authContextClassRef';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="AuthnStatementAthnContextClassRef " type="GroovyScriptAssertion" id="c3efa675-9a85-4e21-889b-f889426d14ee">
+            <con:configuration>
+              <scriptText>def FieldName='authContextClassRef';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:authContextClassRef';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-context-class-ref';
 
@@ -951,11 +958,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="AuthnStatementSubjectLocalityAddress " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='subjectLocalityAddress';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="AuthnStatementSubjectLocalityAddress " type="GroovyScriptAssertion" id="b882888e-a77a-41cf-8416-30e8b2b774e7">
+            <con:configuration>
+              <scriptText>def FieldName='subjectLocalityAddress';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:subjectLocalityAddress';
 def XacmlAttributeId='urn:oasis:names:tc:xacml:1.0:subject:authn-locality:ip-address';
 
@@ -995,11 +1002,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="AuthnStatementDNSName " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='subjectLocalityDNSName';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="AuthnStatementDNSName " type="GroovyScriptAssertion" id="4a176003-f26d-4a3e-9ebc-602d03d323c1">
+            <con:configuration>
+              <scriptText>def FieldName='subjectLocalityDNSName';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:subjectLocalityDNSName';
 def XacmlAttributeId='urn:oasis:names:tc:xacml:1.0:subject:authn-locality:dns-name';
 
@@ -1039,11 +1046,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="UserPersonName" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='personname';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="UserPersonName" type="GroovyScriptAssertion" id="4b09aa8a-0c45-4c53-9c56-929ae6a805f1">
+            <con:configuration>
+              <scriptText>def FieldName='personname';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:userName';
 def XacmlAttributeId='urn:oasis:names:tc:xacml:1.0:subject:subject-id';
 
@@ -1083,11 +1090,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="UserOrganizationName" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='user organization';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="UserOrganizationName" type="GroovyScriptAssertion" id="d735e36f-df83-44fa-bc0a-bba575a45880">
+            <con:configuration>
+              <scriptText>def FieldName='user organization';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:org/nc:name';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:user-organization-name';
 
@@ -1127,11 +1134,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="UserRoleCode" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='user role coded';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="UserRoleCode" type="GroovyScriptAssertion" id="4767792b-76d5-4467-bcf7-bccf03449af3">
+            <con:configuration>
+              <scriptText>def FieldName='user role coded';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:roleCoded/nc:code';
 //def XacmlAttributeId='urn:gov:hhs:fha:nhinc:user-role-code';
 def XacmlAttributeId='urn:oasis:names:tc:xacml:2.0:subject:role';
@@ -1172,11 +1179,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="UserRoleCodeSystem " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='user role system';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="UserRoleCodeSystem " type="GroovyScriptAssertion" id="f3db2eed-b320-47e7-a78c-72c812149a1e">
+            <con:configuration>
+              <scriptText>def FieldName='user role system';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:roleCoded/nc:codeSystem';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:user-role-code-system';
 
@@ -1216,11 +1223,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="UserRoleCodeSystemName " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='user role system name';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="UserRoleCodeSystemName " type="GroovyScriptAssertion" id="138ae28e-d921-40f3-89fc-bb3309c10857">
+            <con:configuration>
+              <scriptText>def FieldName='user role system name';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:roleCoded/nc:codeSystemName';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:user-role-code-system-name';
 
@@ -1260,11 +1267,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="UserRoleCodeDiplayName " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='user role display name';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="UserRoleCodeDiplayName " type="GroovyScriptAssertion" id="97eb4a03-e5aa-4f0f-9c9e-c6ed2bb0419f">
+            <con:configuration>
+              <scriptText>def FieldName='user role display name';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:roleCoded/nc:displayName';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:user-role-description';
 
@@ -1304,11 +1311,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="PurposeForUseCode" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='PurposeForUseCode';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="PurposeForUseCode" type="GroovyScriptAssertion" id="d0bae4a3-767e-4377-a931-1de8a371b5b0">
+            <con:configuration>
+              <scriptText>def FieldName='PurposeForUseCode';
 def AssertionXpath='//ec:assertion/nc:purposeOfDisclosureCoded/nc:code';
 //def XacmlAttributeId='urn:gov:hhs:fha:nhinc:purpose-of-use-code';
 def XacmlAttributeId='urn:oasis:names:tc:xspa:1.0:subject:purposeofuse';
@@ -1349,11 +1356,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="PurposeForUseCodeSystem" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='PurposeForUseCodeSystem';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="PurposeForUseCodeSystem" type="GroovyScriptAssertion" id="915a9808-e02e-4790-87b1-7191bedc919e">
+            <con:configuration>
+              <scriptText>def FieldName='PurposeForUseCodeSystem';
 def AssertionXpath='//ec:assertion/nc:purposeOfDisclosureCoded/nc:codeSystem';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:purpose-of-use-code-system';
 
@@ -1393,11 +1400,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="PurposeForUseCodeSystemName" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='PurposeForUseCodeSystemName';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="PurposeForUseCodeSystemName" type="GroovyScriptAssertion" id="fa6428c8-ce1e-4dd4-9544-cab22a8fadd5">
+            <con:configuration>
+              <scriptText>def FieldName='PurposeForUseCodeSystemName';
 def AssertionXpath='//ec:assertion/nc:purposeOfDisclosureCoded/nc:codeSystemName';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:purpose-of-use-code-system-name';
 
@@ -1437,11 +1444,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="PurposeForUseCodeDisplayName" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='PurposeForUseCodeDisplayName';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="PurposeForUseCodeDisplayName" type="GroovyScriptAssertion" id="127f18d5-22b9-4297-b602-e25b8072e38b">
+            <con:configuration>
+              <scriptText>def FieldName='PurposeForUseCodeDisplayName';
 def AssertionXpath='//ec:assertion/nc:purposeOfDisclosureCoded/nc:displayName';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:purpose-of-use-display-name';
 
@@ -1481,11 +1488,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="AuthzDecisionStatementDecision" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementDecision';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="AuthzDecisionStatementDecision" type="GroovyScriptAssertion" id="50e1e377-3189-4011-858a-d40eee5de6ad">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementDecision';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:decision';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-decision';
 def XacmlAttributeParent='Resource';
@@ -1526,11 +1533,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="AuthzDecisionStatementResource" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementResource';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="AuthzDecisionStatementResource" type="GroovyScriptAssertion" id="e1b079a2-ce07-490b-8de5-3b91344d3d9e">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementResource';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:resource';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-resource';
 def XacmlAttributeParent='Resource';
@@ -1571,11 +1578,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="AuthzDecisionStatementAction" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementAction';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="AuthzDecisionStatementAction" type="GroovyScriptAssertion" id="35c4fb7a-9365-483b-a436-ea0e0469b6f5">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementAction';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:action';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-action';
 def XacmlAttributeParent='Resource';
@@ -1616,11 +1623,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="AuthzDecisionStatementEvidenceAssertionID " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionID';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionID " type="GroovyScriptAssertion" id="be9256a8-9a5e-4a6f-bbcd-8ae924a1c440">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionID';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:id';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-id';
 def XacmlAttributeParent='Resource';
@@ -1661,11 +1668,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="AuthzDecisionStatementEvidenceAssertionIssueInstant" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionIssueInstant';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionIssueInstant" type="GroovyScriptAssertion" id="f532fdf3-86cd-4fc2-a2eb-79e723e6023e">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionIssueInstant';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:issueInstant';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-issue-instant';
 def XacmlAttributeParent='Resource';
@@ -1706,11 +1713,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="AuthzDecisionStatementEvidenceAssertionVersion" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionVersion';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionVersion" type="GroovyScriptAssertion" id="11cdf650-b879-4dd1-bec0-8975c60363a9">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionVersion';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:version';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-version';
 def XacmlAttributeParent='Resource';
@@ -1751,11 +1758,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="AuthzDecisionStatementEvidenceAssertionIssuer" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionIssuer';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionIssuer" type="GroovyScriptAssertion" id="715e37eb-dfba-47e0-adfb-a02287517eeb">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionIssuer';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:issuer';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-issuer';
 def XacmlAttributeParent='Resource';
@@ -1796,11 +1803,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionConditionsNotBefore" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionConditionsNotBefore';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionConditionsNotBefore" type="GroovyScriptAssertion" id="797fcdb2-9420-425d-ba5e-96bc281b1b49">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionConditionsNotBefore';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:conditions/nc:notBefore';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-before';
 def XacmlAttributeParent='Resource';
@@ -1842,11 +1849,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#date';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter " type="GroovyScriptAssertion" id="cdfb426f-c445-4d45-9c9a-83d2b603a431">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:conditions/nc:notOnOrAfter';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-on-or-after';
 def XacmlAttributeParent='Resource';
@@ -1888,11 +1895,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#date';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContentReference " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionContentReference';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContentReference " type="GroovyScriptAssertion" id="523f7dfe-cd97-4705-84fe-a5b460318910">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionContentReference';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:contentReference';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-content-reference';
 def XacmlAttributeParent='Resource';
@@ -1933,11 +1940,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContentType " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionContentType';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContentType " type="GroovyScriptAssertion" id="7913487a-e3af-4a99-b05e-7505b8eb225a">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionContentType';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:contentType';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-content-type';
 def XacmlAttributeParent='Resource';
@@ -1978,11 +1985,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContent " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionContent';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContent " type="GroovyScriptAssertion" id="7e40efe8-22f4-4ce5-9e03-90c9ab16a0f1">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionContent';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:content';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-content';
 def XacmlAttributeParent='Resource';
@@ -2023,11 +2030,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion disabled="true" name="HomeCommunityId" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='home-community-id';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion disabled="true" name="HomeCommunityId" type="GroovyScriptAssertion" id="28ddbd47-ba87-45f9-9316-d06ba8efc2a6">
+            <con:configuration>
+              <scriptText>def FieldName='home-community-id';
 def AssertionXpath='//ec:assertion/nc:homeCommunity/nc:homeCommunityId';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:home-community-id';
 
@@ -2067,11 +2074,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="OrganizationId" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='organizationid';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="OrganizationId" type="GroovyScriptAssertion" id="337b4274-2dff-47ed-ba13-25c5adcb0535">
+            <con:configuration>
+              <scriptText>def FieldName='organizationid';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:org/nc:homeCommunityId';
 def XacmlAttributeId='urn:oasis:names:tc:xspa:1.0:subject:organization-id';
 
@@ -2111,11 +2118,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#anyURI';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion disabled="true" name="PatientId" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='PatientId';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion disabled="true" name="PatientId" type="GroovyScriptAssertion" id="d4aa33cd-82dd-4321-871c-7006adce9bda">
+            <con:configuration>
+              <scriptText>def FieldName='PatientId';
 def XacmlAttributeId='http://www.hhs.gov/healthit/nhin#subject-id';
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -2154,11 +2161,11 @@ def ExpectedDataType = 'urn:hl7-org:v3#II';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionAccessConsent" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionAccessConsent';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionAccessConsent" type="GroovyScriptAssertion" id="331bdad7-5ffc-4155-b916-0b7dd3379288">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionAccessConsent';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:accessConsentPolicy';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-access-consent';
 def XacmlAttributeParent='Resource';
@@ -2199,11 +2206,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#anyURI';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionInstanceAccessConsent" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionInstanceAccessConsent';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionInstanceAccessConsent" type="GroovyScriptAssertion" id="1baeff68-eba8-4cb9-9bc4-ff6f8696b8c5">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionInstanceAccessConsent';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:instanceAccessConsentPolicy';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-instance-access-consent';
 def XacmlAttributeParent='Resource';
@@ -2244,40 +2251,41 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#anyURI';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion disabled="true" type="XPath Match">
-						<con:configuration>
-							<path>declare namespace ns19='urn:oasis:names:tc:xacml:2.0:context:schema:os';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion disabled="true" type="XPath Match" id="82da3e52-a9f5-49a5-9493-52d287a23560">
+            <con:configuration>
+              <path>declare namespace ns19='urn:oasis:names:tc:xacml:2.0:context:schema:os';
 declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 //ns18:CheckPolicyRequest[1]/ns18:request[1]/ns19:Subject[2]/ns19:Attribute[1]/@AttributeId</path>
-							<content>urn:gov:hhs:fha:nhinc:home-community-id</content>
-							<allowWildcards>false</allowWildcards>
-							<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="assigning authority" type="XPath Match">
-						<con:configuration>
-							<path>declare namespace ns18='urn:oasis:names:tc:xacml:2.0:context:schema:os';
+              <content>urn:gov:hhs:fha:nhinc:home-community-id</content>
+              <allowWildcards>false</allowWildcards>
+              <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="assigning authority" type="XPath Match" id="ebe38163-c116-4714-94b8-700c67a0fab7">
+            <con:configuration>
+              <path>declare namespace ns18='urn:oasis:names:tc:xacml:2.0:context:schema:os';
 declare namespace ns15='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 //ns15:CheckPolicyRequest[1]/ns15:request[1]/ns18:Resource[1]/ns18:Attribute[1]/ns18:AttributeValue[1]</path>
-							<content>1.3.6.1.4.1.21367.2005.3.7</content>
-							<allowWildcards>false</allowWildcards>
-							<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="local patient id" type="XPath Match">
-						<con:configuration>
-							<path>declare namespace xacml='urn:oasis:names:tc:xacml:2.0:context:schema:os';
+              <content>1.3.6.1.4.1.21367.2005.3.7</content>
+              <allowWildcards>false</allowWildcards>
+              <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="local patient id" type="XPath Match" id="bb2e9461-2f69-4be1-9558-bc9ba7930e17">
+            <con:configuration>
+              <path>declare namespace xacml='urn:oasis:names:tc:xacml:2.0:context:schema:os';
 declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 //xacml:Resource/xacml:Attribute[@AttributeId='urn:oasis:names:tc:xacml:1.0:resource:resource-id']/xacml:AttributeValue</path>
-							<content>SELF-5</content>
-							<allowWildcards>false</allowWildcards>
-							<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-						</con:configuration>
-					</con:assertion>
-				</con:config>
-			</con:testStep><con:setupScript>context.setGatewayStandard(true);
+              <content>SELF-5</content>
+              <allowWildcards>false</allowWildcards>
+              <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+            </con:configuration>
+          </con:assertion>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>context.setGatewayStandard(true);
 nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 def alias = 'adapterpolicyengineorchestrator';
 def dir = context.findProperty('GatewayPropDir');
@@ -2285,33 +2293,35 @@ def aliasName = 'adapterpolicyengineorchestratorsamljava';
 def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 nhinc.FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
-context.setGatewayStandard(false,"DocumentSubmissionDeferredRequest", "Outbound");</con:setupScript><con:properties>
-				<con:property>
-					<con:name>startDate</con:name>
-					<con:value>2014-04-01T18:21:43Z</con:value>
-				</con:property>
-				<con:property>
-					<con:name>endDate</con:name>
-					<con:value>2014-04-01T18:31:43Z</con:value>
-				</con:property>
-				<con:property>
-					<con:name>sigDate</con:name>
-					<con:value>04/01/2014 18:21:43</con:value>
-				</con:property>
-				<con:property>
-					<con:name>expireDate</con:name>
-					<con:value>2014-05-01T00:00:00Z</con:value>
-				</con:property>
-			</con:properties>
-			<con:reportParameters/>
-			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+context.setGatewayStandard(false,"DocumentSubmissionDeferredRequest", "Outbound");</con:setupScript>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2014-04-01T18:21:43Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2014-04-01T18:31:43Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>04/01/2014 18:21:43</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2014-05-01T00:00:00Z</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(true);</con:tearDownScript>
-		</con:testCase>
-		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="0312d13c-2f1e-44e4-8b14-e5cfafd2b56f" keepSession="false" maxResults="0" name="PolicyCheckPermit" searchProperties="true">
-			<con:settings/>
-			<con:testStep name="Set PolicyEngine Mock" type="groovy" disabled="true">
-				<con:settings/>
-				<con:config><script>import nhinc.FileUtils;
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="0312d13c-2f1e-44e4-8b14-e5cfafd2b56f" keepSession="false" maxResults="0" name="PolicyCheckPermit" searchProperties="true">
+      <con:settings/>
+      <con:testStep name="Set PolicyEngine Mock" type="groovy" disabled="true" id="b69e689a-6f06-4fe2-a758-b089e573dee8">
+        <con:settings/>
+        <con:config>
+          <script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 def destConfigFileLocation = context.findProperty("GatewayPropDir");
@@ -2320,21 +2330,27 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":1882/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script></con:config>
-			</con:testStep>
-			<con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>30000</delay></con:config></con:testStep>
-			<con:testStep name="XDRAsyncRequest" type="request">
-				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>EntityXDRAsyncRequest_Binding</con:interface>
-					<con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
-					<con:request name="XDRAsyncRequest" useWsAddressing="true">
-						<con:settings>
-							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-						</con:settings>
-						<con:encoding>UTF-8</con:encoding>
-						<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint>
-						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="delay" name="Delay" id="2de3c53c-56b4-4546-a4ea-823761881735">
+        <con:settings/>
+        <con:config>
+          <delay>30000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="XDRAsyncRequest" type="request" id="cceafb22-b06a-4c69-ad1a-b65198efe8b0">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityXDRAsyncRequest_Binding</con:interface>
+          <con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
+          <con:request name="XDRAsyncRequest" useWsAddressing="true" id="4444d712-2b0a-44b1-be88-ec2883628359">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="NHINCReceivingXDRAsyncRequestTests" testCase="PolicyCheckPermit">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
@@ -2772,45 +2788,47 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
       </urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
-						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="SOAP Response"/>
-						<con:assertion name="Check RelatesTo Field" type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns1='http://www.w3.org/2005/08/addressing';
+            <con:assertion type="SOAP Fault Assertion" id="1669ab70-e8ba-4c0e-b077-c7460c44b413"/>
+            <con:assertion type="SOAP Response" id="e12852f9-a0a4-49c6-b6d1-75d2fc24cce9"/>
+            <con:assertion name="Check RelatesTo Field" type="XPath Match" id="d7bdadeb-d878-4e02-8732-d97728d6eb3f">
+              <con:configuration>
+                <path>declare namespace ns1='http://www.w3.org/2005/08/addressing';
 //ns1:RelatesTo[1]</path>
-								<content>&lt;RelatesTo xmlns="http://www.w3.org/2005/08/addressing" xmlns:S="http://www.w3.org/2003/05/soap-envelope">uuid:1111111111.22222.333.55&lt;/RelatesTo></content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion name="Match content of [@status]" type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns19='http://www.hhs.gov/healthit/nhin';
+                <content>&lt;RelatesTo xmlns="http://www.w3.org/2005/08/addressing" xmlns:S="http://www.w3.org/2003/05/soap-envelope">uuid:1111111111.22222.333.55&lt;/RelatesTo></content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Match content of [@status]" type="XPath Match" id="d8f37407-ee8a-4df7-bde3-61fe0e79db2f">
+              <con:configuration>
+                <path>declare namespace ns19='http://www.hhs.gov/healthit/nhin';
 //ns19:XDRAcknowledgement[1]/ns19:message[1]/@status</path>
-								<content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-						<con:jmsPropertyConfig/>
-						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" addDefaultTo="true" messageID="uuid:1111111111.22222.333.55" mustUnderstand="TRUE" version="200508" addDefaultAction="false"/>
-						<con:wsrmConfig version="1.2"/>
-					</con:request>
-				</con:config>
-			</con:testStep>
-			
-			<con:testStep name="Policy Engine Mock" type="mockresponse" disabled="true">
-				<con:settings/>
-				<con:config startStep="XDRAsyncRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>AdapterPolicyEngineBindingSoap</con:interface>
-					<con:operation>CheckPolicy</con:operation>
-					<con:path>/mockPE</con:path>
-					<con:port>1882</con:port>
-					<con:timeout>30000</con:timeout>
-					<con:response outgoingWss="">
-						<con:settings/>
-						<con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" addDefaultTo="true" messageID="uuid:1111111111.22222.333.55" mustUnderstand="TRUE" version="200508" addDefaultAction="false"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Policy Engine Mock" type="mockresponse" disabled="true" id="ca2cf400-c764-4450-a4a3-09548a416c93">
+        <con:settings/>
+        <con:config startStep="XDRAsyncRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>AdapterPolicyEngineBindingSoap</con:interface>
+          <con:operation>CheckPolicy</con:operation>
+          <con:path>/mockPE</con:path>
+          <con:port>1882</con:port>
+          <con:timeout>30000</con:timeout>
+          <con:response outgoingWss="" id="a7d49f7a-10b7-489e-b736-f2d61256a7a0">
+            <con:settings/>
+            <con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
    <soap:Body>
       <ns2:CheckPolicyResponse xmlns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns3="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns4="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns5="http://www.w3.org/2005/08/addressing" xmlns:ns6="http://docs.oasis-open.org/wsn/b-2" xmlns:ns7="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns8="http://docs.oasis-open.org/wsn/t-1" xmlns:ns9="http://nhinc.services.com/schema/auditmessage" xmlns:ns10="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns11="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns12="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:ns13="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns14="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns15="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns16="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns18="urn:ihe:iti:xds-b:2007">
          <ns2:response>
@@ -2821,11 +2839,11 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
       </ns2:CheckPolicyResponse>
    </soap:Body>
 </soap:Envelope>]]></con:responseContent>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
-					</con:response>
-					<con:assertion name="AuthnStatementAuthnInstant " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='authInstant';
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+          </con:response>
+          <con:assertion name="AuthnStatementAuthnInstant " type="GroovyScriptAssertion" id="2ffe4d23-de62-429f-9901-3caa02420555">
+            <con:configuration>
+              <scriptText>def FieldName='authInstant';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:authInstant'
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-instant';
 
@@ -2865,11 +2883,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="AuthnStatementSessionIndex" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='sessionIndex';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="AuthnStatementSessionIndex" type="GroovyScriptAssertion" id="fe5067f3-63d9-4a14-b8d2-bf7f9dcec8f5">
+            <con:configuration>
+              <scriptText>def FieldName='sessionIndex';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:sessionIndex';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authn-statement:session-index';
 
@@ -2909,11 +2927,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="AuthnStatementAthnContextClassRef " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='authContextClassRef';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="AuthnStatementAthnContextClassRef " type="GroovyScriptAssertion" id="96fb2cb3-0570-4439-b549-d5cbe52f6688">
+            <con:configuration>
+              <scriptText>def FieldName='authContextClassRef';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:authContextClassRef';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-context-class-ref';
 
@@ -2953,11 +2971,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="AuthnStatementSubjectLocalityAddress " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='subjectLocalityAddress';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="AuthnStatementSubjectLocalityAddress " type="GroovyScriptAssertion" id="c150bf6b-310d-4de5-93be-4e9fc1eb4d6c">
+            <con:configuration>
+              <scriptText>def FieldName='subjectLocalityAddress';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:subjectLocalityAddress';
 def XacmlAttributeId='urn:oasis:names:tc:xacml:1.0:subject:authn-locality:ip-address';
 
@@ -2997,11 +3015,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="AuthnStatementDNSName " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='subjectLocalityDNSName';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="AuthnStatementDNSName " type="GroovyScriptAssertion" id="40ef8cc5-14f8-4071-92dc-7e7f43efb7ef">
+            <con:configuration>
+              <scriptText>def FieldName='subjectLocalityDNSName';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:subjectLocalityDNSName';
 def XacmlAttributeId='urn:oasis:names:tc:xacml:1.0:subject:authn-locality:dns-name';
 
@@ -3041,11 +3059,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="UserPersonName" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='personname';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="UserPersonName" type="GroovyScriptAssertion" id="9f486a68-0580-445a-abfc-7ee7553c0955">
+            <con:configuration>
+              <scriptText>def FieldName='personname';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:userName';
 def XacmlAttributeId='urn:oasis:names:tc:xacml:1.0:subject:subject-id';
 
@@ -3085,11 +3103,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="UserOrganizationName" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='user organization';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="UserOrganizationName" type="GroovyScriptAssertion" id="3d301ccf-86cb-40bc-8f21-514ccc3a73b2">
+            <con:configuration>
+              <scriptText>def FieldName='user organization';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:org/nc:name';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:user-organization-name';
 
@@ -3129,11 +3147,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="UserRoleCode" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='user role coded';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="UserRoleCode" type="GroovyScriptAssertion" id="619f136e-f1be-4a5d-956c-0afae8ce0acb">
+            <con:configuration>
+              <scriptText>def FieldName='user role coded';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:roleCoded/nc:code';
 //def XacmlAttributeId='urn:gov:hhs:fha:nhinc:user-role-code';
 def XacmlAttributeId='urn:oasis:names:tc:xacml:2.0:subject:role';
@@ -3174,11 +3192,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="UserRoleCodeSystem " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='user role system';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="UserRoleCodeSystem " type="GroovyScriptAssertion" id="768ae7b0-62e3-473f-95d7-0430b9e8b60f">
+            <con:configuration>
+              <scriptText>def FieldName='user role system';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:roleCoded/nc:codeSystem';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:user-role-code-system';
 
@@ -3218,11 +3236,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="UserRoleCodeSystemName " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='user role system name';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="UserRoleCodeSystemName " type="GroovyScriptAssertion" id="f89be19e-1f29-4f54-bc2a-3f277c88bbc4">
+            <con:configuration>
+              <scriptText>def FieldName='user role system name';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:roleCoded/nc:codeSystemName';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:user-role-code-system-name';
 
@@ -3262,11 +3280,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="UserRoleCodeDiplayName " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='user role display name';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="UserRoleCodeDiplayName " type="GroovyScriptAssertion" id="c96aab37-e58d-4cf6-94ed-6e58f6eb791f">
+            <con:configuration>
+              <scriptText>def FieldName='user role display name';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:roleCoded/nc:displayName';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:user-role-description';
 
@@ -3306,11 +3324,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="PurposeForUseCode" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='PurposeForUseCode';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="PurposeForUseCode" type="GroovyScriptAssertion" id="0f451c2e-41dd-4d30-aca9-16dbea765775">
+            <con:configuration>
+              <scriptText>def FieldName='PurposeForUseCode';
 def AssertionXpath='//ec:assertion/nc:purposeOfDisclosureCoded/nc:code';
 //def XacmlAttributeId='urn:gov:hhs:fha:nhinc:purpose-of-use-code';
 def XacmlAttributeId='urn:oasis:names:tc:xspa:1.0:subject:purposeofuse';
@@ -3351,11 +3369,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="PurposeForUseCodeSystem" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='PurposeForUseCodeSystem';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="PurposeForUseCodeSystem" type="GroovyScriptAssertion" id="11ddc73a-2bc9-4cfb-a19e-83b4b938bdfe">
+            <con:configuration>
+              <scriptText>def FieldName='PurposeForUseCodeSystem';
 def AssertionXpath='//ec:assertion/nc:purposeOfDisclosureCoded/nc:codeSystem';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:purpose-of-use-code-system';
 
@@ -3395,11 +3413,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="PurposeForUseCodeSystemName" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='PurposeForUseCodeSystemName';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="PurposeForUseCodeSystemName" type="GroovyScriptAssertion" id="bc920cae-6899-4e03-9cd4-d01b85ec3622">
+            <con:configuration>
+              <scriptText>def FieldName='PurposeForUseCodeSystemName';
 def AssertionXpath='//ec:assertion/nc:purposeOfDisclosureCoded/nc:codeSystemName';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:purpose-of-use-code-system-name';
 
@@ -3439,11 +3457,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="PurposeForUseCodeDisplayName" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='PurposeForUseCodeDisplayName';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="PurposeForUseCodeDisplayName" type="GroovyScriptAssertion" id="c405f5cd-99fe-4d27-963f-f720d107ec5a">
+            <con:configuration>
+              <scriptText>def FieldName='PurposeForUseCodeDisplayName';
 def AssertionXpath='//ec:assertion/nc:purposeOfDisclosureCoded/nc:displayName';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:purpose-of-use-display-name';
 
@@ -3483,11 +3501,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="AuthzDecisionStatementDecision" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementDecision';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="AuthzDecisionStatementDecision" type="GroovyScriptAssertion" id="8e76c7c3-30da-49a3-acf2-5b99c62f1e49">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementDecision';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:decision';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-decision';
 def XacmlAttributeParent='Resource';
@@ -3528,11 +3546,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="AuthzDecisionStatementResource" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementResource';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="AuthzDecisionStatementResource" type="GroovyScriptAssertion" id="48ea2a49-8c8d-4496-aa44-dfc4f886e698">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementResource';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:resource';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-resource';
 def XacmlAttributeParent='Resource';
@@ -3573,11 +3591,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="AuthzDecisionStatementAction" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementAction';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="AuthzDecisionStatementAction" type="GroovyScriptAssertion" id="e621228c-3f98-4d00-becf-109810f3b3fa">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementAction';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:action';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-action';
 def XacmlAttributeParent='Resource';
@@ -3618,11 +3636,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="AuthzDecisionStatementEvidenceAssertionID " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionID';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionID " type="GroovyScriptAssertion" id="3f2e5691-c446-4b5f-98d3-244b7738a90d">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionID';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:id';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-id';
 def XacmlAttributeParent='Resource';
@@ -3663,11 +3681,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="AuthzDecisionStatementEvidenceAssertionIssueInstant" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionIssueInstant';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionIssueInstant" type="GroovyScriptAssertion" id="59de2478-6015-4ef2-b1cd-f6c2645b73f0">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionIssueInstant';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:issueInstant';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-issue-instant';
 def XacmlAttributeParent='Resource';
@@ -3708,11 +3726,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="AuthzDecisionStatementEvidenceAssertionVersion" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionVersion';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionVersion" type="GroovyScriptAssertion" id="96f186e8-2a2c-4d11-9505-d34cfd8042e0">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionVersion';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:version';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-version';
 def XacmlAttributeParent='Resource';
@@ -3753,11 +3771,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="AuthzDecisionStatementEvidenceAssertionIssuer" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionIssuer';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionIssuer" type="GroovyScriptAssertion" id="a9448e78-a69e-4483-b162-314fcad2e7ce">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionIssuer';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:issuer';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-issuer';
 def XacmlAttributeParent='Resource';
@@ -3798,11 +3816,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionConditionsNotBefore" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionConditionsNotBefore';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionConditionsNotBefore" type="GroovyScriptAssertion" id="fd2f9e7a-2bc5-4ad1-b5a8-b16a1a834e00">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionConditionsNotBefore';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:conditions/nc:notBefore';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-before';
 def XacmlAttributeParent='Resource';
@@ -3844,11 +3862,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#date';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter " type="GroovyScriptAssertion" id="cdc9fb11-f6e8-4144-8fbd-5cbf56d0bb7c">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:conditions/nc:notOnOrAfter';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-on-or-after';
 def XacmlAttributeParent='Resource';
@@ -3890,11 +3908,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#date';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContentReference " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionContentReference';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContentReference " type="GroovyScriptAssertion" id="91eea585-c871-44db-9d8f-dff0abcf7b6e">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionContentReference';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:contentReference';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-content-reference';
 def XacmlAttributeParent='Resource';
@@ -3935,11 +3953,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContentType " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionContentType';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContentType " type="GroovyScriptAssertion" id="b4dc7360-045c-49b1-b4e5-dc7fc6761c7f">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionContentType';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:contentType';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-content-type';
 def XacmlAttributeParent='Resource';
@@ -3980,11 +3998,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContent " type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionContent';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContent " type="GroovyScriptAssertion" id="0898ed2b-c8e1-4af0-a91f-e193ce32b5dc">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionContent';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:content';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-content';
 def XacmlAttributeParent='Resource';
@@ -4025,11 +4043,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion disabled="true" name="HomeCommunityId" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='home-community-id';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion disabled="true" name="HomeCommunityId" type="GroovyScriptAssertion" id="6d1d8cfa-257e-497f-8d6f-17c29a8236f0">
+            <con:configuration>
+              <scriptText>def FieldName='home-community-id';
 def AssertionXpath='//ec:assertion/nc:homeCommunity/nc:homeCommunityId';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:home-community-id';
 
@@ -4069,11 +4087,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#string';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="OrganizationId" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='organizationid';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="OrganizationId" type="GroovyScriptAssertion" id="8a9d4bd6-ecda-4255-af66-b3e9b68fe328">
+            <con:configuration>
+              <scriptText>def FieldName='organizationid';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:org/nc:homeCommunityId';
 def XacmlAttributeId='urn:oasis:names:tc:xspa:1.0:subject:organization-id';
 
@@ -4113,11 +4131,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#anyURI';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion disabled="true" name="PatientId" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='PatientId';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion disabled="true" name="PatientId" type="GroovyScriptAssertion" id="7a8bdc8d-0a98-467e-91cf-63289588cc4f">
+            <con:configuration>
+              <scriptText>def FieldName='PatientId';
 def XacmlAttributeId='http://www.hhs.gov/healthit/nhin#subject-id';
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -4156,11 +4174,11 @@ def ExpectedDataType = 'urn:hl7-org:v3#II';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionAccessConsent" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionAccessConsent';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionAccessConsent" type="GroovyScriptAssertion" id="24d64fc6-3819-4b98-911b-7e991d40eb1f">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionAccessConsent';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:accessConsentPolicy';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-access-consent';
 def XacmlAttributeParent='Resource';
@@ -4201,11 +4219,11 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#anyURI';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionInstanceAccessConsent" type="GroovyScriptAssertion">
-						<con:configuration>
-							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionInstanceAccessConsent';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionInstanceAccessConsent" type="GroovyScriptAssertion" id="a4ad1ba6-f3ca-4283-9926-524386fe1391">
+            <con:configuration>
+              <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionInstanceAccessConsent';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:instanceAccessConsentPolicy';
 def XacmlAttributeId='urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-instance-access-consent';
 def XacmlAttributeParent='Resource';
@@ -4246,40 +4264,41 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#anyURI';
 assert(ActualDataType==ExpectedDataType);
 
 log.debug('Finished checking ' + FieldName);</scriptText>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion disabled="true" type="XPath Match">
-						<con:configuration>
-							<path>declare namespace ns19='urn:oasis:names:tc:xacml:2.0:context:schema:os';
+            </con:configuration>
+          </con:assertion>
+          <con:assertion disabled="true" type="XPath Match" id="58287b30-5d6d-419e-8c6d-cfa4a52a967b">
+            <con:configuration>
+              <path>declare namespace ns19='urn:oasis:names:tc:xacml:2.0:context:schema:os';
 declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 //ns18:CheckPolicyRequest[1]/ns18:request[1]/ns19:Subject[2]/ns19:Attribute[1]/@AttributeId</path>
-							<content>urn:gov:hhs:fha:nhinc:home-community-id</content>
-							<allowWildcards>false</allowWildcards>
-							<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="assigning authority" type="XPath Match">
-						<con:configuration>
-							<path>declare namespace ns18='urn:oasis:names:tc:xacml:2.0:context:schema:os';
+              <content>urn:gov:hhs:fha:nhinc:home-community-id</content>
+              <allowWildcards>false</allowWildcards>
+              <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="assigning authority" type="XPath Match" id="c6149bb8-7f3e-4df3-8b9d-25b4284ac8ec">
+            <con:configuration>
+              <path>declare namespace ns18='urn:oasis:names:tc:xacml:2.0:context:schema:os';
 declare namespace ns15='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 //ns15:CheckPolicyRequest[1]/ns15:request[1]/ns18:Resource[1]/ns18:Attribute[1]/ns18:AttributeValue[1]</path>
-							<content>1.3.6.1.4.1.21367.2005.3.7</content>
-							<allowWildcards>false</allowWildcards>
-							<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-						</con:configuration>
-					</con:assertion>
-					<con:assertion name="local patient id" type="XPath Match">
-						<con:configuration>
-							<path>declare namespace xacml='urn:oasis:names:tc:xacml:2.0:context:schema:os';
+              <content>1.3.6.1.4.1.21367.2005.3.7</content>
+              <allowWildcards>false</allowWildcards>
+              <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+            </con:configuration>
+          </con:assertion>
+          <con:assertion name="local patient id" type="XPath Match" id="3250af32-5c2a-4651-a280-109c0e485ae5">
+            <con:configuration>
+              <path>declare namespace xacml='urn:oasis:names:tc:xacml:2.0:context:schema:os';
 declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 //xacml:Resource/xacml:Attribute[@AttributeId='urn:oasis:names:tc:xacml:1.0:resource:resource-id']/xacml:AttributeValue</path>
-							<content>SELF-5</content>
-							<allowWildcards>false</allowWildcards>
-							<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-						</con:configuration>
-					</con:assertion>
-				</con:config>
-			</con:testStep><con:setupScript>context.setGatewayStandard(true);
+              <content>SELF-5</content>
+              <allowWildcards>false</allowWildcards>
+              <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+            </con:configuration>
+          </con:assertion>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>context.setGatewayStandard(true);
 nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 def alias = 'adapterpolicyengineorchestrator';
 def dir = context.findProperty('GatewayPropDir');
@@ -4287,62 +4306,79 @@ def aliasName = 'adapterpolicyengineorchestratorsamljava';
 def replaceName = 'adapterpolicyengineorchestratornoop';
 nhinc.FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
-context.setGatewayStandard(false,"DocumentSubmissionDeferredRequest", "Outbound");</con:setupScript><con:properties>
-				<con:property>
-					<con:name>startDate</con:name>
-					<con:value>2014-04-01T18:22:15Z</con:value>
-				</con:property>
-				<con:property>
-					<con:name>endDate</con:name>
-					<con:value>2014-04-01T18:32:15Z</con:value>
-				</con:property>
-				<con:property>
-					<con:name>sigDate</con:name>
-					<con:value>04/01/2014 18:22:15</con:value>
-				</con:property>
-				<con:property>
-					<con:name>expireDate</con:name>
-					<con:value>2014-05-01T00:00:00Z</con:value>
-				</con:property>
-			</con:properties>
-			<con:reportParameters/>
-			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+context.setGatewayStandard(false,"DocumentSubmissionDeferredRequest", "Outbound");</con:setupScript>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2014-04-01T18:22:15Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2014-04-01T18:32:15Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>04/01/2014 18:22:15</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2014-05-01T00:00:00Z</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(true);</con:tearDownScript>
-		</con:testCase>
-		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="9034ee29-5dcd-40b5-bb2e-1aa24f86ab7d" keepSession="false" maxResults="0" name="AuditForNHINCXDRRequest" searchProperties="true">
-			<con:settings/>
-			<con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9034ee29-5dcd-40b5-bb2e-1aa24f86ab7d" keepSession="false" maxResults="0" name="AuditForNHINCXDRRequest" searchProperties="true">
+      <con:settings/>
+      <con:testStep name="clear audit table" type="groovy" id="ed50a9aa-2af7-459a-b02c-881ec0e502f3">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
-}</script></con:config></con:testStep><con:testStep name="Generate patient ID for Audit Log Query" type="groovy">
-				<con:settings/>
-				<con:config><script>import nhinc.FileUtils;
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Generate patient ID for Audit Log Query" type="groovy" id="1c5839b1-de40-40e1-bfae-9c27d5cad987">
+        <con:settings/>
+        <con:config>
+          <script>import nhinc.FileUtils;
 def localAA = context.findProperty('LocalAA')
 def PatientID = context.findProperty('PatientId')
 
-context.testCase.setPropertyValue('FullPatientID', "${PatientID}^^^&amp;amp;${localAA}&amp;amp;ISO");</script></con:config>
-			</con:testStep>
-			<con:testStep name="get User ID" type="groovy">
-				<con:settings/>
-				<con:config><script>import nhinc.FileUtils;
+context.testCase.setPropertyValue('FullPatientID', "${PatientID}^^^&amp;amp;${localAA}&amp;amp;ISO");</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="get User ID" type="groovy" id="32c54b35-a407-460b-a827-b3ac1e926b45">
+        <con:settings/>
+        <con:config>
+          <script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 def UserID = context.findProperty( "UserID" );
 
 def nowDate = new Date();
-context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script></con:config>
-			</con:testStep>
-			<con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>30000</delay></con:config></con:testStep><con:testStep name="XDRAsyncRequest" type="request">
-				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>EntityXDRAsyncRequest_Binding</con:interface>
-					<con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
-					<con:request name="XDRAsyncRequest" useWsAddressing="true">
-						<con:settings>
-							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-						</con:settings>
-						<con:encoding>UTF-8</con:encoding>
-						<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint>
-						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="delay" name="Delay" id="9b87ef4a-17e4-4b84-99c0-0c1a0f43e9ed">
+        <con:settings/>
+        <con:config>
+          <delay>30000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="XDRAsyncRequest" type="request" id="ff87145c-0816-4eb1-9d8d-19096538cc69">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityXDRAsyncRequest_Binding</con:interface>
+          <con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
+          <con:request name="XDRAsyncRequest" useWsAddressing="true" id="574cb8b0-d0e2-45e9-842c-66243de1fcda">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="NHINCReceivingXDRAsyncRequestTests" testCase="AuditForNHINCXDRRequest">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
@@ -4780,92 +4816,184 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script></
       </urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
-						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="SOAP Response"/>
-						<con:assertion name="Check RelatesTo Field" type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns1='http://www.w3.org/2005/08/addressing';
+            <con:assertion type="SOAP Fault Assertion" id="adfc8c4d-945e-46ad-88ec-0f63e54cedbc"/>
+            <con:assertion type="SOAP Response" id="01f6a393-f350-4d04-b8b6-151947665a0a"/>
+            <con:assertion name="Check RelatesTo Field" type="XPath Match" id="19d8b5f5-0bdf-4d07-81b5-57077393efc5">
+              <con:configuration>
+                <path>declare namespace ns1='http://www.w3.org/2005/08/addressing';
 //ns1:RelatesTo[1]</path>
-								<content>&lt;RelatesTo xmlns="http://www.w3.org/2005/08/addressing" xmlns:S="http://www.w3.org/2003/05/soap-envelope">uuid:0987654321.54321.321.21&lt;/RelatesTo></content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:assertion name="Match content of [@status]" type="XPath Match">
-							<con:configuration>
-								<path>declare namespace ns19='http://www.hhs.gov/healthit/nhin';
+                <content>&lt;RelatesTo xmlns="http://www.w3.org/2005/08/addressing" xmlns:S="http://www.w3.org/2003/05/soap-envelope">uuid:0987654321.54321.321.21&lt;/RelatesTo></content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Match content of [@status]" type="XPath Match" id="7e0a4b12-3486-4294-97a2-c07252fcfb01">
+              <con:configuration>
+                <path>declare namespace ns19='http://www.hhs.gov/healthit/nhin';
 //ns19:XDRAcknowledgement[1]/ns19:message[1]/@status</path>
-								<content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
-								<allowWildcards>false</allowWildcards>
-								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-							</con:configuration>
-						</con:assertion>
-						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-						<con:jmsPropertyConfig/>
-						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" addDefaultTo="true" messageID="uuid:0987654321.54321.321.21" mustUnderstand="TRUE" version="200508"/>
-						<con:wsrmConfig version="1.2"/>
-					</con:request>
-				</con:config>
-			</con:testStep>
-			
-			<con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>import nhinc.FileUtils;
+                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" addDefaultTo="true" messageID="uuid:0987654321.54321.321.21" mustUnderstand="TRUE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="verify audit events" type="groovy" id="bfa960a1-3803-4e32-a64a-04e56895b37a">
+        <con:settings/>
+        <con:config>
+          <script>import nhinc.FileUtils;
 def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count > 0);</script></con:config></con:testStep><con:setupScript>context.setGatewayStandard(true);
+assert (count > 0);</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>context.setGatewayStandard(true);
 nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(false,"DocumentSubmissionDeferredRequest", "Outbound");</con:setupScript><con:properties>
-				<con:property>
-					<con:name>FullPatientID</con:name>
-					<con:value>XDR Request1^^^&amp;amp;1.1&amp;amp;ISO</con:value>
-				</con:property>
-				<con:property>
-					<con:name>XDRUserId</con:name>
-					<con:value>XDR Request Inbound UserTue Apr 01 18:27:48 UTC 2014</con:value>
-				</con:property>
-				<con:property>
-					<con:name>startDate</con:name>
-					<con:value>2014-04-01T18:22:48Z</con:value>
-				</con:property>
-				<con:property>
-					<con:name>endDate</con:name>
-					<con:value>2014-04-01T18:32:48Z</con:value>
-				</con:property>
-				<con:property>
-					<con:name>sigDate</con:name>
-					<con:value>04/01/2014 18:22:48</con:value>
-				</con:property>
-				<con:property>
-					<con:name>expireDate</con:name>
-					<con:value>2014-05-01T00:00:00Z</con:value>
-				</con:property>
-			</con:properties>
-			<con:reportParameters/>
-			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+context.setGatewayStandard(false,"DocumentSubmissionDeferredRequest", "Outbound");</con:setupScript>
+      <con:properties>
+        <con:property>
+          <con:name>FullPatientID</con:name>
+          <con:value>XDR Request1^^^&amp;amp;1.1&amp;amp;ISO</con:value>
+        </con:property>
+        <con:property>
+          <con:name>XDRUserId</con:name>
+          <con:value>XDR Request Inbound UserTue Apr 01 18:27:48 UTC 2014</con:value>
+        </con:property>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2014-04-01T18:22:48Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2014-04-01T18:32:48Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>04/01/2014 18:22:48</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2014-05-01T00:00:00Z</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(true);</con:tearDownScript>
-		</con:testCase>
-		<con:properties/>
-		<con:reportParameters/>
-	</con:testSuite>
-	<con:requirements/>
-	<con:properties>
-		
-		<con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property>
-		<con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property>
-		
-		
-		
-		<con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionUnsecured</con:value></con:property>
-		
-		
-		
-		
-		<con:property><con:name>GatewayPropDir</con:name><con:value>C:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property>
-		
-		<con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>XDRAsyncTest1</con:value></con:property>
-	<con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>PatientId</con:name><con:value>XDR Request1</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>XDRAsyncTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>UserID</con:name><con:value>XDR Request Inbound User</con:value></con:property><con:property><con:name>ASUsername</con:name><con:value>admin</con:value></con:property><con:property><con:name>ASPassword</con:name><con:value>adminadmin</con:value></con:property><con:property><con:name>JMXHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>JMXPort</con:name><con:value>8686</con:value></con:property></con:properties>
-	<con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'NHINCReceivingXDRAsyncRequestTests-soapui-project.properties')
+    </con:testCase>
+    <con:properties/>
+    <con:reportParameters/>
+  </con:testSuite>
+  <con:requirements/>
+  <con:properties>
+    <con:property>
+      <con:name>AuditDB</con:name>
+      <con:value>auditrepo</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AuditTable</con:name>
+      <con:value>auditrepository</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBHost</con:name>
+      <con:value>localhost</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBPass</con:name>
+      <con:value>nhincpass</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBPort</con:name>
+      <con:value>3306</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBUser</con:name>
+      <con:value>nhincuser</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-AuditLogQuery</con:name>
+      <con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-EntityXDRRequest</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>GatewayPropDir</con:name>
+      <con:value>d:glassfish3glassfishdomainsdomain1config
+hin</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalAA</con:name>
+      <con:value>1.1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalHCDescription</con:name>
+      <con:value>XDRAsyncTest1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalHCID</con:name>
+      <con:value>1.1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>MockHost</con:name>
+      <con:value>localhost</con:value>
+    </con:property>
+    <con:property>
+      <con:name>NHINGatewayConfigDir</con:name>
+      <con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value>
+    </con:property>
+    <con:property>
+      <con:name>NHINGatewayHost</con:name>
+      <con:value>localhost</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PatientId</con:name>
+      <con:value>XDR Request1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteAA</con:name>
+      <con:value>2.2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteHCDescription</con:name>
+      <con:value>XDRAsyncTest2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteHCID</con:name>
+      <con:value>2.2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>UserID</con:name>
+      <con:value>XDR Request Inbound User</con:value>
+    </con:property>
+    <con:property>
+      <con:name>ASUsername</con:name>
+      <con:value>admin</con:value>
+    </con:property>
+    <con:property>
+      <con:name>ASPassword</con:name>
+      <con:value>adminadmin</con:value>
+    </con:property>
+    <con:property>
+      <con:name>JMXHost</con:name>
+      <con:value>localhost</con:value>
+    </con:property>
+    <con:property>
+      <con:name>JMXPort</con:name>
+      <con:value>8686</con:value>
+    </con:property>
+  </con:properties>
+  <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'NHINCReceivingXDRAsyncRequestTests-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
@@ -5008,24 +5136,24 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
   }
   server.close();
   return true;
-}
-</con:afterLoadScript>
-	<con:wssContainer/>
-	<con:databaseConnectionContainer/>
-	<con:reporting>
-		<con:reportTemplates/>
-		<con:xmlTemplates/>
-		<con:xmlTemplates/>
-		<con:xmlTemplates/>
-		<con:xmlTemplates/>
-		<con:xmlTemplates/>
-		<con:xmlTemplates/>
-		<con:xmlTemplates/>
-		<con:xmlTemplates/>
-		<con:xmlTemplates/>
-		<con:xmlTemplates/>
-		<con:xmlTemplates/>
-		<con:parameters/>
-	</con:reporting>
-
-<con:sensitiveInformation/></con:soapui-project>
+}</con:afterLoadScript>
+  <con:wssContainer/>
+  <con:databaseConnectionContainer/>
+  <con:oAuth2ProfileContainer/>
+  <con:reporting>
+    <con:reportTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:parameters/>
+  </con:reporting>
+  <con:sensitiveInformation/>
+</con:soapui-project>

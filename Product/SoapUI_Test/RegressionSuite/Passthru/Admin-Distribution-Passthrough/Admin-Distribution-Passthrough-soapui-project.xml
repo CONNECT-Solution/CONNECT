@@ -1,59 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="Admin-Distribution-Passthrough" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="Admin-Distribution-Passthrough" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.1.2" activeEnvironment="Default" id="57a52cab-405d-4379-8a5b-93a48a7dd9bc" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="../../../target/wsdl/EntityAdminDist.wsdl" name="AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="../../../target/wsdl/EntityAdminDist.wsdl" name="AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="0fc88827-fa51-4193-bcb9-12cc6901ee7b" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    
-    <con:definitionCache/><con:endpoints>
+    <con:endpoints>
       <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
-    <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdministrativeDistribution</con:endpoint></con:endpoints>
-    <con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" anonymous="optional" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way">
+      <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdministrativeDistribution</con:endpoint>
+    </con:endpoints>
+    <con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" anonymous="optional" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way" id="bd07da52-158d-4713-8c59-7a6f09586ac7">
       <con:settings/>
-      
     </con:operation>
   </con:interface>
-  
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="../../../target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="../../../target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="322d150b-790b-4314-8669-030f26cc33b9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    
-    <con:definitionCache/><con:endpoints>
+    <con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPolicyEngine</con:endpoint>
     </con:endpoints>
-    <con:operation action="urn:CheckPolicy" anonymous="optional" bindingOperationName="CheckPolicy" inputName="CheckPolicyRequest" isOneWay="false" name="CheckPolicy" outputName="CheckPolicyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:operation action="urn:CheckPolicy" anonymous="optional" bindingOperationName="CheckPolicy" inputName="CheckPolicyRequest" isOneWay="false" name="CheckPolicy" outputName="CheckPolicyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response" id="2b53c552-96c3-4980-9c98-eb5ca5bac43f">
       <con:settings/>
-      
     </con:operation>
   </con:interface>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="../../../target/wsdl/NhinAdminDist.wsdl" name="NhincAdminDist_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="../../../target/wsdl/NhinAdminDist.wsdl" name="NhincAdminDist_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="c7792b60-8faa-4506-94ca-2fb0f9202ee0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    
-    <con:definitionCache/><con:endpoints>
+    <con:endpoints>
       <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
-    <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincAdminDistService</con:endpoint></con:endpoints>
-    <con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" anonymous="optional" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way">
+      <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincAdminDistService</con:endpoint>
+    </con:endpoints>
+    <con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" anonymous="optional" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way" id="e2af22c5-3ed6-4c40-a5ac-7c1632af14ef">
       <con:settings/>
-      
     </con:operation>
   </con:interface>
-  <con:testSuite name="Admin-Distribution-Passthrough">
+  <con:testSuite name="Admin-Distribution-Passthrough" id="b70e73d1-e96b-4eae-b9e1-032b3baecfab">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e0c96169-f42c-4c42-b566-7950411603be" keepSession="false" maxResults="0" name="NhincProxyRequest with a Binary doc" searchProperties="true">
       <con:settings/>
-      
-      <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
+      <con:testStep name="clear audit table" type="groovy" id="e49c45fb-c3f3-47cb-ab43-25b82809a77b">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
-}</script></con:config></con:testStep>
-      <con:testStep name="Set User ID" type="groovy">
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Set User ID" type="groovy" id="c5d9c722-becc-47a5-93f8-c98314660952">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -64,12 +54,12 @@ def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="NhincRequest" type="request">
+      <con:testStep name="NhincRequest" type="request" id="5a47148f-22cb-486e-8db2-4f3f35e3c870">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>NhincAdminDist_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
-          <con:request name="NhincRequest">
+          <con:request name="NhincRequest" id="9fd41dd7-4779-4e86-9884-2c66a73a7255">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
@@ -462,19 +452,41 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>202</codes></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes" id="4e17c239-64a8-45f4-9ccf-089d0727ca75">
+              <con:configuration>
+                <codes>202</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>60000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      </con:testStep>
+      <con:testStep name="Delay" type="delay" id="4ee2e928-c811-4584-b62e-7388ac01cab1">
+        <con:settings/>
+        <con:config>
+          <delay>60000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="verify audit events" type="groovy" id="ec21cd20-2675-4be5-8d3c-4911be54345e">
+        <con:settings/>
+        <con:config>
+          <script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+assert (count > 0);</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
-log.info("Setting the gateway to Passthrough");</con:setupScript><con:properties>
+log.info("Setting the gateway to Passthrough");</con:setupScript>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2013-09-27T17:37:15Z</con:value>
@@ -497,17 +509,21 @@ log.info("Setting the gateway to Passthrough");</con:setupScript><con:properties
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript></con:testCase>
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
+    </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e10c8690-4f9f-4c68-a67c-1e5f11a66eec" keepSession="false" maxResults="0" name="NhincProxyRequest with XML data" searchProperties="true">
       <con:settings/>
-      
-      <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
+      <con:testStep name="clear audit table" type="groovy" id="b77a4c44-e51d-43a8-8c38-949ad607b6d6">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
-}</script></con:config></con:testStep>
-      
-      <con:testStep name="Set User ID" type="groovy">
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Set User ID" type="groovy" id="033b6341-a43e-4f05-b8d6-9442d18c7374">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -517,12 +533,13 @@ def ADUserID = context.findProperty( "ADUserID" );
 def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
-      </con:testStep><con:testStep name="NhincRequest" type="request">
+      </con:testStep>
+      <con:testStep name="NhincRequest" type="request" id="5861d516-41c9-4b4f-b65a-36f434443b4a">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>NhincAdminDist_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
-          <con:request name="NhincRequest">
+          <con:request name="NhincRequest" id="28055495-8da6-4aea-86f4-df5f155b564b">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
@@ -912,20 +929,41 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>202</codes></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes" id="4e513d56-8603-4492-b5ea-ab134551077e">
+              <con:configuration>
+                <codes>202</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>60000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      </con:testStep>
+      <con:testStep name="Delay" type="delay" id="010dcb0c-3213-435e-aa7f-1a82e13a672e">
+        <con:settings/>
+        <con:config>
+          <delay>60000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="verify audit events" type="groovy" id="d7aead5e-3764-4edb-bc37-24e27e949e4d">
+        <con:settings/>
+        <con:config>
+          <script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+assert (count > 0);</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
-log.info ("Setting the gateway to Passthrough");
-</con:setupScript><con:properties>
+log.info ("Setting the gateway to Passthrough");</con:setupScript>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2013-09-27T17:38:15Z</con:value>
@@ -948,17 +986,21 @@ log.info ("Setting the gateway to Passthrough");
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript></con:testCase>
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
+    </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9f036a35-2b5f-4432-8dbc-f91db0b4e861" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (XML and Binary)" searchProperties="true">
       <con:settings/>
-      
-      <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
+      <con:testStep name="clear audit table" type="groovy" id="2939b8d3-7db1-40d0-8a76-71389c97d7ad">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
-}</script></con:config></con:testStep>
-      
-      <con:testStep name="Set User ID" type="groovy">
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Set User ID" type="groovy" id="9355d475-9edf-4622-8a04-b4eb6c27aed2">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -968,12 +1010,13 @@ def ADUserID = context.findProperty( "ADUserID" );
 def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
-      </con:testStep><con:testStep name="NhincRequest" type="request">
+      </con:testStep>
+      <con:testStep name="NhincRequest" type="request" id="102957ef-d8bf-4469-a0d7-9cbd671bfbd5">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>NhincAdminDist_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
-          <con:request name="NhincRequest">
+          <con:request name="NhincRequest" id="eefb8905-543d-4609-b16b-f7de8b48f05b">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
@@ -1374,20 +1417,41 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>202</codes></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes" id="cf3e868d-a564-4990-8ca5-a3844fee4bc4">
+              <con:configuration>
+                <codes>202</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>60000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      </con:testStep>
+      <con:testStep name="Delay" type="delay" id="d6ed95da-acce-482e-b02b-ec97fbe9d74d">
+        <con:settings/>
+        <con:config>
+          <delay>60000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="verify audit events" type="groovy" id="fcdffe5b-c770-436a-8a34-b2fec75262e4">
+        <con:settings/>
+        <con:config>
+          <script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+assert (count > 0);</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
-log.info ("Setting the gateway to Passthrough");
-</con:setupScript><con:properties>
+log.info ("Setting the gateway to Passthrough");</con:setupScript>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2013-09-26T23:43:47Z</con:value>
@@ -1410,17 +1474,21 @@ log.info ("Setting the gateway to Passthrough");
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript></con:testCase>
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
+    </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="ed85ad92-3732-424e-a5e6-dd6f3bdc24fe" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (multiple contentObjects)" searchProperties="true">
       <con:settings/>
-      
-      <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
+      <con:testStep name="clear audit table" type="groovy" id="c03c9e21-0f4b-49d4-a245-7c6170f8eb05">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
-}</script></con:config></con:testStep>
-      
-      <con:testStep name="Set User ID" type="groovy">
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Set User ID" type="groovy" id="43c08d4a-2de2-45af-a260-84938e128af2">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -1430,12 +1498,13 @@ def ADUserID = context.findProperty( "ADUserID" );
 def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
-      </con:testStep><con:testStep name="NhincRequest" type="request">
+      </con:testStep>
+      <con:testStep name="NhincRequest" type="request" id="ff5bcbbd-1961-4c49-8666-d533a67a8be3">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>NhincAdminDist_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
-          <con:request name="NhincRequest">
+          <con:request name="NhincRequest" id="8eed9885-c65e-430e-924a-22325c242b3a">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
@@ -1868,20 +1937,41 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>202</codes></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes" id="641dbe60-f96a-4f46-9cd3-e54a991e15a9">
+              <con:configuration>
+                <codes>202</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>30000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      </con:testStep>
+      <con:testStep name="Delay" type="delay" id="7aa0c382-2951-4fa2-9060-18b33e5ae756">
+        <con:settings/>
+        <con:config>
+          <delay>30000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="verify audit events" type="groovy" id="8e2dd2c1-61e6-4726-8f8f-f0044e2f7d88">
+        <con:settings/>
+        <con:config>
+          <script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+assert (count > 0);</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
-log.info ("Setting the gateway to Passthrough");
-</con:setupScript><con:properties>
+log.info ("Setting the gateway to Passthrough");</con:setupScript>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2013-09-26T23:44:18Z</con:value>
@@ -1904,17 +1994,21 @@ log.info ("Setting the gateway to Passthrough");
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript></con:testCase>
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
+    </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="73e8702c-7b4b-4eeb-8bba-dbcfc2ddb322" keepSession="false" maxResults="0" name="NhincProxyRequest without a ContentObject" searchProperties="true">
       <con:settings/>
-      
-      <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
+      <con:testStep name="clear audit table" type="groovy" id="22026471-3b89-4fa6-a16f-6644cfeb95f1">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
-}</script></con:config></con:testStep>
-      
-      <con:testStep name="Set User ID" type="groovy">
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Set User ID" type="groovy" id="e90b8782-db2a-4042-a908-dc657e7c03da">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -1924,12 +2018,13 @@ def ADUserID = context.findProperty( "ADUserID" );
 def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
-      </con:testStep><con:testStep name="NhincRequest" type="request">
+      </con:testStep>
+      <con:testStep name="NhincRequest" type="request" id="c4981d36-f4e1-46f9-be37-08390a90736f">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>NhincAdminDist_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
-          <con:request name="NhincRequest">
+          <con:request name="NhincRequest" id="3d754798-5111-48fa-9122-b6d489c2c02a">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
@@ -2281,19 +2376,41 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>202</codes></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes" id="5fb481a2-4374-48e2-84e6-b1959b88faa5">
+              <con:configuration>
+                <codes>202</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>30000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      </con:testStep>
+      <con:testStep name="Delay" type="delay" id="427890d3-0726-48e6-b42f-36907b44cd03">
+        <con:settings/>
+        <con:config>
+          <delay>30000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="verify audit events" type="groovy" id="6b562b06-5280-4c12-b68b-368ed29a08e3">
+        <con:settings/>
+        <con:config>
+          <script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+assert (count > 0);</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
-log.info ("Setting the gateway to Passthrough");</con:setupScript><con:properties>
+log.info ("Setting the gateway to Passthrough");</con:setupScript>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2013-09-26T23:44:48Z</con:value>
@@ -2316,17 +2433,21 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript><con:propertie
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript></con:testCase>
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
+    </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="5361bf64-5349-4b98-8d4b-f414271422e0" keepSession="false" maxResults="0" name="NhincProxyRequest with an empty ContentObject" searchProperties="true">
       <con:settings/>
-      
-      <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
+      <con:testStep name="clear audit table" type="groovy" id="faefb2c3-ebf7-4193-88e5-388aa73d4a65">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
-}</script></con:config></con:testStep>
-      
-      <con:testStep name="Set User ID" type="groovy">
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Set User ID" type="groovy" id="4ff0d26b-a243-4c93-8aa8-04a649cd8162">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -2336,12 +2457,13 @@ def ADUserID = context.findProperty( "ADUserID" );
 def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
-      </con:testStep><con:testStep name="NhincRequest" type="request">
+      </con:testStep>
+      <con:testStep name="NhincRequest" type="request" id="dad639d5-7bf0-40c1-bef3-dd706a1f753b">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>NhincAdminDist_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
-          <con:request name="NhincRequest">
+          <con:request name="NhincRequest" id="324234fc-82bf-475f-9a22-85a664368a71">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
@@ -2696,19 +2818,41 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>202</codes></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes" id="f546df86-68e8-4afc-b195-7570a3e53f16">
+              <con:configuration>
+                <codes>202</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>60000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      </con:testStep>
+      <con:testStep name="Delay" type="delay" id="6977a9ec-23c2-4cc6-879e-a376c514f9db">
+        <con:settings/>
+        <con:config>
+          <delay>60000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="verify audit events" type="groovy" id="0c903135-fc2c-4929-a3bd-c7f94ed6dfda">
+        <con:settings/>
+        <con:config>
+          <script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 log.info "Count: " + count;
-assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+assert (count > 0);</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
-log.info ("Setting the gateway to Passthrough");</con:setupScript><con:properties>
+log.info ("Setting the gateway to Passthrough");</con:setupScript>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2013-09-26T23:45:19Z</con:value>
@@ -2731,30 +2875,30 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript><con:propertie
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript></con:testCase>
-    
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
+    </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="25050fb5-059d-4875-8ab5-337cd145f06d" keepSession="false" maxResults="0" name="NhincProxyRequest - 404 or 500 error" searchProperties="true">
       <con:settings/>
-      
-      <con:testStep name="Modify endpoint" type="groovy">
+      <con:testStep name="Modify endpoint" type="groovy" id="20883661-a9e9-41e0-a9f0-1b292b734d24">
         <con:settings/>
-        <con:config><script>import nhinc.FileUtils;
+        <con:config>
+          <script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def URL = "https://localhost:8181/badURL";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "nhinadmindist", "2.0", URL, log)</script></con:config>
+FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "nhinadmindist", "2.0", URL, log)</script>
+        </con:config>
       </con:testStep>
-      
-      <con:testStep name="NhincRequest" type="request">
+      <con:testStep name="NhincRequest" type="request" id="9c7f63ad-86d0-4480-b513-75a422f73d54">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>NhincAdminDist_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
-          <con:request name="NhincRequest">
+          <con:request name="NhincRequest" id="43970e00-cb40-4c06-95c8-8930172b3db6">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
@@ -3148,16 +3292,20 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findPropert
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
-log.info ("Setting the gateway to Passthrough");
-</con:setupScript><con:properties>
+log.info ("Setting the gateway to Passthrough");</con:setupScript>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2013-09-26T23:45:50Z</con:value>
@@ -3176,34 +3324,126 @@ log.info ("Setting the gateway to Passthrough");
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript></con:testCase>
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
+    </con:testCase>
     <con:properties/>
-    <con:setupScript/><con:tearDownScript/><con:reportParameters/>
+    <con:setupScript/>
+    <con:tearDownScript/>
+    <con:reportParameters/>
   </con:testSuite>
   <con:requirements/>
   <con:properties>
-    
-    
-    
-    
-    <con:property><con:name>ADUserID</con:name><con:value>admindist</con:value></con:property><con:property><con:name>AQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>AQUserID</con:name><con:value>kkagerberg</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/NhincProxyAuditQuery</con:value></con:property><con:property><con:name>Endpoint-EntityAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>Endpoint-NhincProxyAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</con:value></con:property>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-  <con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>mockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property><con:property><con:name>RemoteHCID2</con:name><con:value>3.3</con:value></con:property><con:property><con:name>ASUsername</con:name><con:value>admin</con:value></con:property><con:property><con:name>ASPassword</con:name><con:value>adminadmin</con:value></con:property><con:property><con:name>JMXHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>JMXPort</con:name><con:value>8686</con:value></con:property></con:properties>
+    <con:property>
+      <con:name>ADUserID</con:name>
+      <con:value>admindist</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AQPatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AQUserID</con:name>
+      <con:value>kkagerberg</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AuditDB</con:name>
+      <con:value>auditrepo</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AuditTable</con:name>
+      <con:value>auditrepository</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBHost</con:name>
+      <con:value>localhost</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBPass</con:name>
+      <con:value>nhincpass</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBPort</con:name>
+      <con:value>3306</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBUser</con:name>
+      <con:value>nhincuser</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-AuditLogQuery</con:name>
+      <con:value>http://localhost:8080/CONNECTAdapter/NhincProxyAuditQuery</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-EntityAdminDist</con:name>
+      <con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-NhincProxyAdminDist</con:name>
+      <con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalAA</con:name>
+      <con:value>1.1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalHCDescription</con:name>
+      <con:value>InternalTest1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalHCID</con:name>
+      <con:value>1.1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalPatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>mockHost</con:name>
+      <con:value>localhost</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteAA</con:name>
+      <con:value>2.2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteHCDescription</con:name>
+      <con:value>InternalTest2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteHCID</con:name>
+      <con:value>2.2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemotePatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>GatewayPropDir</con:name>
+      <con:value/>
+    </con:property>
+    <con:property>
+      <con:name>RemoteHCID2</con:name>
+      <con:value>3.3</con:value>
+    </con:property>
+    <con:property>
+      <con:name>ASUsername</con:name>
+      <con:value>admin</con:value>
+    </con:property>
+    <con:property>
+      <con:name>ASPassword</con:name>
+      <con:value>adminadmin</con:value>
+    </con:property>
+    <con:property>
+      <con:name>JMXHost</con:name>
+      <con:value>localhost</con:value>
+    </con:property>
+    <con:property>
+      <con:name>JMXPort</con:name>
+      <con:value>8686</con:value>
+    </con:property>
+  </con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 log.info "file: " + propertiesFilename
@@ -3337,9 +3577,10 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
 }</con:afterLoadScript>
   <con:wssContainer/>
   <con:databaseConnectionContainer/>
+  <con:oAuth2ProfileContainer/>
   <con:reporting>
     <con:xmlTemplates/>
     <con:parameters/>
   </con:reporting>
-
-<con:sensitiveInformation/></con:soapui-project>
+  <con:sensitiveInformation/>
+</con:soapui-project>

@@ -1,60 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="PatientDiscovery" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
-	<con:settings/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq}EntityPatientDiscoveryAsyncReqBindingSoap" definition="../../../target/wsdl/EntityPatientDiscoveryAsyncReq.wsdl" name="EntityPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-
-		<con:endpoints>
-		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:endpoint></con:endpoints>
-		<con:operation action="" anonymous="optional" bindingOperationName="ProcessPatientDiscoveryAsyncReq" inputName="ProcessPatientDiscoveryAsyncReqAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncReq" outputName="ProcessPatientDiscoveryAsyncReqAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-		</con:operation>
-	</con:interface>
-	
-	
-	
-	
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" definition="../../../target/wsdl/EntityPatientDiscoveryAsyncResp.wsdl" name="EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-
-		<con:endpoints>
-		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint></con:endpoints>
-		<con:operation action="" bindingOperationName="ProcessPatientDiscoveryAsyncResp" inputName="ProcessPatientDiscoveryAsyncRespAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncResp" outputName="ProcessPatientDiscoveryAsyncRespAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response" anonymous="optional">
-			<con:settings/>
-		</con:operation>
-	</con:interface>
-	
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="../../../target/wsdl/EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-
-		<con:endpoints>
-		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint></con:endpoints>
-		<con:operation action="urn:gov:hhs:fha:nhinc:entitypatientdiscovery:RespondingGateway_PRPA_IN201305UV02RequestMessage" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response" anonymous="optional">
-			<con:settings/>
-		</con:operation>
-	</con:interface>
-	<con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscovery}AdapterPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterPatientDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/>
-	<con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/PatientDiscovery/A_0/AdapterPatientDiscovery</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_PRPA_IN201305UV02" name="RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" type="Request-Response" outputName="RespondingGateway_PRPA_IN201306UV02Response" inputName="RespondingGateway_PRPA_IN201305UV02Request" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface>
-		<con:testSuite name="g1">
-		<con:settings/>
-		<con:runType>SEQUENTIAL</con:runType>
-	<con:testCase failOnError="true" failTestCaseOnErrors="true" id="62ebf4c2-b4e0-4465-b715-df30e72f945a" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true">
-	<con:settings/>
-	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
+<con:soapui-project abortOnError="false" name="PatientDiscovery" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.1.2" activeEnvironment="Default" id="15d6442c-4178-4740-a08d-1ce79427f21c" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings/>
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq}EntityPatientDiscoveryAsyncReqBindingSoap" definition="../../../target/wsdl/EntityPatientDiscoveryAsyncReq.wsdl" name="EntityPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="6ee5afdf-6748-4519-be80-a39e92fda77a" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:endpoints>
+      <con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:endpoint>
+    </con:endpoints>
+    <con:operation action="" anonymous="optional" bindingOperationName="ProcessPatientDiscoveryAsyncReq" inputName="ProcessPatientDiscoveryAsyncReqAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncReq" outputName="ProcessPatientDiscoveryAsyncReqAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response" id="211aba7c-065c-41f6-abb7-e86de7dc6363">
+      <con:settings/>
+    </con:operation>
+  </con:interface>
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" definition="../../../target/wsdl/EntityPatientDiscoveryAsyncResp.wsdl" name="EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="a47f7c60-b28c-43f0-a29b-9d6a831ba02e" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:endpoints>
+      <con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint>
+    </con:endpoints>
+    <con:operation action="" bindingOperationName="ProcessPatientDiscoveryAsyncResp" inputName="ProcessPatientDiscoveryAsyncRespAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncResp" outputName="ProcessPatientDiscoveryAsyncRespAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response" anonymous="optional" id="a9f3c02b-bc6f-4fc3-9f17-61470c02e17c">
+      <con:settings/>
+    </con:operation>
+  </con:interface>
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="../../../target/wsdl/EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="517e985d-585e-4167-a179-edca59aaa0e7" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:endpoints>
+      <con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint>
+    </con:endpoints>
+    <con:operation action="urn:gov:hhs:fha:nhinc:entitypatientdiscovery:RespondingGateway_PRPA_IN201305UV02RequestMessage" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response" anonymous="optional" id="0537de6c-593a-437f-87e6-45d6663cfe4a">
+      <con:settings/>
+    </con:operation>
+  </con:interface>
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscovery}AdapterPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterPatientDiscovery.wsdl" id="ff7f4971-c5cc-4a9a-8e26-81606c693b3e" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:endpoints>
+      <con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/PatientDiscovery/A_0/AdapterPatientDiscovery</con:endpoint>
+    </con:endpoints>
+    <con:operation isOneWay="false" action="urn:RespondingGateway_PRPA_IN201305UV02" name="RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" type="Request-Response" outputName="RespondingGateway_PRPA_IN201306UV02Response" inputName="RespondingGateway_PRPA_IN201305UV02Request" receivesAttachments="false" sendsAttachments="false" id="e4d62665-0f9d-4df5-8e5f-f813c367b28e">
+      <con:settings/>
+    </con:operation>
+  </con:interface>
+  <con:testSuite name="g1" id="11a65c96-26ea-4504-b0d3-db252241f74a">
+    <con:settings/>
+    <con:runType>SEQUENTIAL</con:runType>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="62ebf4c2-b4e0-4465-b715-df30e72f945a" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true">
+      <con:settings/>
+      <con:testStep type="groovy" name="Check Passthru" id="8f94bd08-6e9c-44c1-b465-9152bdfcbd3b">
+        <con:settings/>
+        <con:config>
+          <script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
 def passthruProp = "patientDiscovery.inboundPatientDiscoveryRequest";
@@ -75,20 +66,21 @@ if(passthruValue != null){
 	
 } else {
 	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-</script></con:config></con:testStep>
-<con:testStep name="Patient Discovery Deferred Req" type="request">
-		<con:settings/>
-		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-			<con:interface>EntityPatientDiscoveryAsyncReqBindingSoap</con:interface>
-			<con:operation>ProcessPatientDiscoveryAsyncReq</con:operation>
-			<con:request name="Patient Discovery Deferred Req" useWsAddressing="true">
-				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-		</con:settings>
-		<con:encoding>UTF-8</con:encoding>
-		
-		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Patient Discovery Deferred Req" type="request" id="7616d7af-2384-4ae5-9b05-62f717764285">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityPatientDiscoveryAsyncReqBindingSoap</con:interface>
+          <con:operation>ProcessPatientDiscoveryAsyncReq</con:operation>
+          <con:request name="Patient Discovery Deferred Req" useWsAddressing="true" id="f5515fda-191f-4b4a-81f7-f519b054fd77">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Patient Discovery Deferred Req">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
@@ -348,54 +340,62 @@ if(passthruValue != null){
       </urn:RespondingGateway_PRPA_IN201305UV02Request>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:assertion type="SOAP Response"/>
-		<con:assertion type="SOAP Fault Assertion"/>
-		<con:assertion name="Verify Receiver" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns3='urn:hl7-org:v3';
+            <con:assertion type="SOAP Response" id="457aa8fe-ce17-4099-a407-cb0defcd0391"/>
+            <con:assertion type="SOAP Fault Assertion" id="63e5719e-d6d4-44f2-a60a-c4f038263907"/>
+            <con:assertion name="Verify Receiver" type="XPath Match" id="4127a831-b583-40fc-b718-7bee3199b27b">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
 							//ns3:MCCI_IN000002UV01[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path>
-				<content>1.1</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Verify Sender" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns3='urn:hl7-org:v3';
+                <content>1.1</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Verify Sender" type="XPath Match" id="e942e4f6-bcdb-4c87-803b-4bee30e117af">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
 							//ns3:MCCI_IN000002UV01[1]/ns3:sender[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path>
-				<content>2.2</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Verify Message" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns3='urn:hl7-org:v3';
+                <content>2.2</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Verify Message" type="XPath Match" id="0fda2021-542e-4008-9c55-491668e7b437">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
 							//ns3:MCCI_IN000002UV01[1]/ns3:acknowledgement[1]/ns3:acknowledgementDetail[1]/ns3:text[1]/text()</path>
-				<content>Success</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		
-		<con:assertion name="Schema Compliance" type="Schema Compliance">
-			<con:configuration>
-				<definition/>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion type="GroovyScriptAssertion" name="Verify RelatesTo"><con:configuration><scriptText>import com.eviware.soapui.support.XmlHolder;
+                <content>Success</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Schema Compliance" type="Schema Compliance" id="ac4854c9-ae6d-4ea4-9d8a-d5730588f814">
+              <con:configuration>
+                <definition/>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="GroovyScriptAssertion" name="Verify RelatesTo" id="8e2cff9c-6cf8-4ee9-b1ca-bd045d5ca9ac">
+              <con:configuration>
+                <scriptText>import com.eviware.soapui.support.XmlHolder;
 def request = new XmlHolder(messageExchange.requestContentAsXml);
 def response = new XmlHolder(messageExchange.responseContentAsXml);
 request.namespaces["add"] = "http://www.w3.org/2005/08/addressing";
 response.namespaces["add"] = "http://www.w3.org/2005/08/addressing";
-assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];</scriptText></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-		<con:jmsPropertyConfig/>
-		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
-		<con:wsrmConfig version="1.2"/>
-	</con:request>
-</con:config>
-</con:testStep>
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>(NhinPatientDiscoveryDeferredRequest_g1)
+assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];</scriptText>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="manualTestStep" name="Manual TestStep - Verify logs" id="23e93c55-18cc-4c8a-bee0-29ca95f509af">
+        <con:description>(NhinPatientDiscoveryDeferredRequest_g1)
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncReq (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: application/soap+xml; charset=UTF-8;
@@ -408,40 +408,49 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
 (AdapterPatientDiscoveryDeferredRequest)
 3. Change the "Adapter Interface" in PatientDiscoveryDeferredRequestProxyConfig to adapterpatientdiscoveryasyncreqwsunsecured and Check the content Type in PDDeferredRequest Adapter Outbound Message
   A) Search the log file and look for http://localhost:8080/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoveryDeferredRequestUnsecured (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-  B) Should be able to see the following in the content type --> Content-Type: application/soap+xml;
-  
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Should be able to see the following in the content type --> Content-Type:application/soap+xml;</con:expectedResult></con:config></con:testStep>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+  B) Should be able to see the following in the content type --> Content-Type: application/soap+xml;</con:description>
+        <con:settings/>
+        <con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:expectedResult>Should be able to see the following in the content type --> Content-Type:application/soap+xml;</con:expectedResult>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 }</con:tearDownScript>
-<con:properties>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2014-03-13T21:16:07Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2014-03-13T21:26:07Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>03/13/2014 21:16:07</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2014-04-12T00:00:00Z</con:value>
-	</con:property>
-	<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
-	<con:reportParameters/>
-</con:testCase>
-
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="e98901ca-10ae-4725-ac64-5b2bd8da2b3e" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
-	<con:settings/>
-	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2014-03-13T21:16:07Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2014-03-13T21:26:07Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>03/13/2014 21:16:07</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2014-04-12T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>PassThruOn</con:name>
+          <con:value>false</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e98901ca-10ae-4725-ac64-5b2bd8da2b3e" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
+      <con:settings/>
+      <con:testStep type="groovy" name="Check Passthru" id="5673b4e0-b588-4b4d-8f86-c5a964d25612">
+        <con:settings/>
+        <con:config>
+          <script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
 def passthruProp = "patientDiscovery.inboundPatientDiscoveryResponse";
@@ -462,21 +471,21 @@ if(passthruValue != null){
 	
 } else {
 	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-</script></con:config></con:testStep>
-<con:testStep name="Patient Discovery Deferred Resp" type="request">
-		<con:settings/>
-		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-			<con:interface>EntityPatientDiscoveryAsyncRespBindingSoap</con:interface>
-			<con:operation>ProcessPatientDiscoveryAsyncResp</con:operation>
-			<con:request name="Patient Discovery Deferred Resp">
-				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-		</con:settings>
-		<con:encoding>UTF-8</con:encoding>
-		
-		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint><con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Patient Discovery Deferred Resp" type="request" id="565f08ec-a834-49fa-8cad-41e80685ad17">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityPatientDiscoveryAsyncRespBindingSoap</con:interface>
+          <con:operation>ProcessPatientDiscoveryAsyncResp</con:operation>
+          <con:request name="Patient Discovery Deferred Resp" id="7ec0948d-26db-4be5-b60e-050f49b2cb45">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Patient Discovery Deferred Resp">
       <urn:RespondingGateway_PRPA_IN201306UV02Request>
@@ -777,38 +786,41 @@ if(passthruValue != null){
       </urn:RespondingGateway_PRPA_IN201306UV02Request>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:assertion type="SOAP Response"/>
-		<con:assertion type="SOAP Fault Assertion"/>
-		<con:assertion name="Match content of [typeCode/@code]" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns2='urn:hl7-org:v3';//ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:typeCode[1]/@code</path>
-				<content>CA</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-
-		<con:assertion name="Match content of [acknowledgementDetail/text/text()]" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns2='urn:hl7-org:v3';//ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:acknowledgementDetail[1]/ns2:text/text()</path>
-				<content>Success</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Schema Compliance" type="Schema Compliance">
-			<con:configuration>
-				<definition/>
-			</con:configuration>
-		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-		<con:jmsPropertyConfig/>
-		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
-		<con:wsrmConfig version="1.2"/>
-	</con:request>
-</con:config>
-</con:testStep>
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>(NhinPatientDiscoveryDeferredResponse_g1)
+            <con:assertion type="SOAP Response" id="4a7a450a-5086-4ac3-b315-c8b7272eb931"/>
+            <con:assertion type="SOAP Fault Assertion" id="ca1259dc-afe6-4ea0-b26e-7955a3ae9bb8"/>
+            <con:assertion name="Match content of [typeCode/@code]" type="XPath Match" id="62c7e591-ad91-42a5-8d0a-4756254281eb">
+              <con:configuration>
+                <path>declare namespace ns2='urn:hl7-org:v3';//ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:typeCode[1]/@code</path>
+                <content>CA</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Match content of [acknowledgementDetail/text/text()]" type="XPath Match" id="953fa788-48b5-40d8-96d1-6611a1d8a999">
+              <con:configuration>
+                <path>declare namespace ns2='urn:hl7-org:v3';//ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:acknowledgementDetail[1]/ns2:text/text()</path>
+                <content>Success</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Schema Compliance" type="Schema Compliance" id="5b385240-9e62-47c3-9740-5dc9ace451aa">
+              <con:configuration>
+                <definition/>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="manualTestStep" name="Manual TestStep - Verify logs" id="b81143f7-e95f-4a90-8be7-c402b5973641">
+        <con:description>(NhinPatientDiscoveryDeferredResponse_g1)
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncResp (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: application/soap+xml; charset=UTF-8;
@@ -821,55 +833,64 @@ if(passthruValue != null){
 (AdapterPatientDiscoveryDeferredResponse)
 3. Change the "Adapter Interface" in PatientDiscoveryDeferredResponseProxyConfig to adapterpatientdiscoveryasyncrespwsunsecured and Check the content Type in PDDeferredResponse Adapter Outbound Message
   A) Search the log file and look for http://localhost:8080/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoveryDeferredResponseUnsecured (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-  B) Should be able to see the following in the content type --> Content-Type: application/soap+xml;
-  
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Should be able to see the following in the content type --> Content-Type:application/soap+xml;</con:expectedResult></con:config></con:testStep>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+  B) Should be able to see the following in the content type --> Content-Type: application/soap+xml;</con:description>
+        <con:settings/>
+        <con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:expectedResult>Should be able to see the following in the content type --> Content-Type:application/soap+xml;</con:expectedResult>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 }</con:tearDownScript>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 }</con:tearDownScript>
-<con:properties>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2014-03-13T21:18:50Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2014-03-13T21:28:50Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>03/13/2014 21:18:50</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2014-04-12T00:00:00Z</con:value>
-	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
-<con:reportParameters/>
-</con:testCase>
-
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="fe917e9c-4e89-4ce8-9828-05b542fb1be0" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
-	<con:settings/>
-	<con:testStep name="clear correlations table" type="groovy">
-		<con:settings/>
-		<con:config>
-			<script>context.withSql('PatientCorrelationDB') { sql -> 
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2014-03-13T21:18:50Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2014-03-13T21:28:50Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>03/13/2014 21:18:50</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2014-04-12T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>PassThruOn</con:name>
+          <con:value>false</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="fe917e9c-4e89-4ce8-9828-05b542fb1be0" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
+      <con:settings/>
+      <con:testStep name="clear correlations table" type="groovy" id="ca113637-77d1-4981-a1e6-c5cf25aa0ed9">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('PatientCorrelationDB') { sql -> 
 			sql.execute('delete from ' + context.findProperty('PatientCorrelationTable'))
 			}</script>
-	</con:config>
-</con:testStep>
-<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Check Passthru" id="be39713f-04d1-4eed-917b-8046d487cea1">
+        <con:settings/>
+        <con:config>
+          <script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
 def passthruProp = "patientDiscovery.inboundPatientDiscovery";
@@ -905,8 +926,13 @@ if(passthruValue != null){
 } else {
 	testRunner.testCase.setPropertyValue("PassThruOn", "false");
 	testRunner.gotoStepByName("Patient Discovery");
-}
-</script></con:config></con:testStep><con:testStep type="groovy" name="Set Up PassThru"><con:settings/><con:config><script>log.info "Setting Patient Discovery Adapter to unsecured";
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Set Up PassThru" id="a7784ae4-7803-4cbe-b6c3-8adfafb39ad2">
+        <con:settings/>
+        <con:config>
+          <script>log.info "Setting Patient Discovery Adapter to unsecured";
 def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.backupFile(dir, "PatientDiscoveryProxyConfig.xml", log);
 def alias = 'adapterpatientdiscovery'
@@ -934,20 +960,21 @@ log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
 
 nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
 	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
-	log);
-	</script></con:config></con:testStep>
-<con:testStep name="Patient Discovery" type="request">
-	<con:settings/>
-	<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
-		<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
-		<con:request name="Patient Discovery">
-			<con:settings>
-				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-	</con:settings>
-	<con:encoding>UTF-8</con:encoding>
-	
-	<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+	log);</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Patient Discovery" type="request" id="3fd17588-f002-47a4-9714-d394675e74d7">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
+          <con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
+          <con:request name="Patient Discovery" id="4b427f6a-f676-4179-9bda-a5c93344ea76">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Patient Discovery">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
@@ -1189,53 +1216,70 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
       </urn:RespondingGateway_PRPA_IN201305UV02Request>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-	<con:assertion type="SOAP Response"/>
-	<con:assertion disabled="true" type="Schema Compliance">
-		<con:configuration>
-			<definition/>
-		</con:configuration>
-	</con:assertion>
-	<con:assertion type="SOAP Fault Assertion"/>
-	<con:assertion name="Check for existance of [ns3:controlActProcess]" type="XPath Match">
-		<con:configuration>
-			<path>declare namespace ns3='urn:hl7-org:v3';
+            <con:assertion type="SOAP Response" id="13ec9a45-75c9-4cdc-8c57-838081b3e5e4"/>
+            <con:assertion disabled="true" type="Schema Compliance" id="82a759ef-a7ff-4439-9d5f-08d7676405ab">
+              <con:configuration>
+                <definition/>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion" id="7b7b83ad-2bd9-47fa-8a10-6d4170bb7701"/>
+            <con:assertion name="Check for existance of [ns3:controlActProcess]" type="XPath Match" id="faf91f9c-f013-4b1c-8ab7-85db1015ed3a">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
 				exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
-			<content>true</content>
-			<allowWildcards>false</allowWildcards>
-			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-		</con:configuration>
-	</con:assertion>
-	<con:assertion name="Given Name XPath Match" type="XPath Match">
-		<con:configuration>
-			<path>declare namespace ns1='urn:hl7-org:v3';
+                <content>true</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Given Name XPath Match" type="XPath Match" id="35321021-94fd-4afa-a3c2-e2cf9832ca20">
+              <con:configuration>
+                <path>declare namespace ns1='urn:hl7-org:v3';
 				//ns1:PRPA_IN201306UV02[1]/ns1:controlActProcess[1]/ns1:subject[1]/ns1:registrationEvent[1]/ns1:subject1[1]/ns1:patient[1]/ns1:patientPerson[1]/ns1:name[1]/ns1:given[1]</path>
-			<content>${#Project#GivenName}</content>
-			<allowWildcards>false</allowWildcards>
-			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-		</con:configuration>
-	</con:assertion>
-	<con:assertion name="Family Name XPath Match" type="XPath Match">
-		<con:configuration>
-			<path>declare namespace ns1='urn:hl7-org:v3';
+                <content>${#Project#GivenName}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Family Name XPath Match" type="XPath Match" id="000ede74-63b9-4a4d-a474-025a697b3e6e">
+              <con:configuration>
+                <path>declare namespace ns1='urn:hl7-org:v3';
 				//ns1:PRPA_IN201306UV02[1]/ns1:controlActProcess[1]/ns1:subject[1]/ns1:registrationEvent[1]/ns1:subject1[1]/ns1:patient[1]/ns1:patientPerson[1]/ns1:name[1]/ns1:family[1]</path>
-			<content>${#Project#FamilyName}</content>
-			<allowWildcards>false</allowWildcards>
-			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-		</con:configuration>
-	</con:assertion>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-	<con:jmsPropertyConfig/>
-	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
-	<con:wsrmConfig version="1.2"/>
-</con:request>
-</con:config>
-</con:testStep>
-<con:testStep type="groovy" name="Skip Mock"><con:settings/><con:config><script>def runMock = context.findProperty("PassThruOn").toBoolean();
+                <content>${#Project#FamilyName}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Skip Mock" id="ead54e58-2ae1-4ed6-94fc-a455ca676133">
+        <con:settings/>
+        <con:config>
+          <script>def runMock = context.findProperty("PassThruOn").toBoolean();
 
 if(!runMock){
 	testRunner.gotoStepByName("count correlations");
-}
-</script></con:config></con:testStep><con:testStep type="mockresponse" name="Mock Response"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Set Up PassThru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPatientDiscoveryBindingSoap</con:interface><con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation><con:path>/MockPDAdapter</con:path><con:port>1720</con:port><con:response><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="mockresponse" name="Mock Response" id="47d230a6-505c-4a8a-875c-927020bce10d">
+        <con:settings/>
+        <con:config xsi:type="con:MockResponseStep" startStep="Set Up PassThru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>AdapterPatientDiscoveryBindingSoap</con:interface>
+          <con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
+          <con:path>/MockPDAdapter</con:path>
+          <con:port>1720</con:port>
+          <con:response id="6d2ec9e5-8ed1-4fb9-b053-da3fde557378">
+            <con:settings/>
+            <con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
    <soap:Header/>
    <soap:Body>
    <PRPA_IN201306UV02 xmlns="urn:hl7-org:v3" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://www.w3.org/2005/08/addressing" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade" ITSVersion="XML_1.0">
@@ -1349,9 +1393,15 @@ if(!runMock){
              </controlActProcess>
      </PRPA_IN201306UV02>
    </soap:Body>
-</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep name="count correlations" type="groovy">
-	<con:settings/>
-	<con:config><script>def pdCorrelations = 1;
+</soap:Envelope>]]></con:responseContent>
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+          </con:response>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="count correlations" type="groovy" id="5032dcdb-32f3-4576-9c55-bb5d63d53e46">
+        <con:settings/>
+        <con:config>
+          <script>def pdCorrelations = 1;
 
 if(context.findProperty("PassThruOn").toBoolean()) {
 	pdCorrelations = 0;
@@ -1361,9 +1411,11 @@ log.info "Assert ${pdCorrelations} number of correlations"
 
 context.withSql('PatientCorrelationDB') { sql -> 
 		assert pdCorrelations == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
-		}</script></con:config>
-</con:testStep>
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>(NhinPatientDiscovery_g1)
+		}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="manualTestStep" name="Manual TestStep - Verify logs" id="ba58f438-0dde-4362-aa32-267cf3369016">
+        <con:description>(NhinPatientDiscovery_g1)
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: application/soap+xml; charset=UTF-8;
@@ -1396,55 +1448,65 @@ context.withSql('PatientCorrelationDB') { sql ->
   (PatientCorrealtionService)
 7. Change the "Adapter Interface" in PatientCorrelationConfig to patientcorrelationwsunsecured and Check the content Type in PD Adapter Outbound Message
   A) Search the log file and look for http://localhost:8080/CONNECTGateway/GatewayService/PatientCorrelationServiceUnsecured (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-  B) Should be able to see the following in the content type --> Content-Type: application/soap+xml; 
-  
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Should be able to see the following in the content type --> Content-Type:application/soap+xml;</con:expectedResult></con:config></con:testStep>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+  B) Should be able to see the following in the content type --> Content-Type: application/soap+xml;</con:description>
+        <con:settings/>
+        <con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:expectedResult>Should be able to see the following in the content type --> Content-Type:application/soap+xml;</con:expectedResult>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 }</con:tearDownScript>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 //nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 	nhinc.FileUtils.restoreFile(dir, "PatientDiscoveryProxyConfig.xml", log);
 }</con:tearDownScript>
-<con:properties>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2014-03-13T21:20:43Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2014-03-13T21:30:43Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>03/13/2014 21:20:43</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2014-04-12T00:00:00Z</con:value>
-	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
-<con:reportParameters/>
-</con:testCase>
-<con:properties/>
-<con:setupScript/>
-<con:tearDownScript/>
-<con:reportParameters/>
-</con:testSuite>
-<con:testSuite name="g0">
-<con:settings/>
-	<con:runType>SEQUENTIAL</con:runType>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="6ab33784-c36e-403f-82f4-b0722a9fc4fc" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true">
-	<con:settings/>
-	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2014-03-13T21:20:43Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2014-03-13T21:30:43Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>03/13/2014 21:20:43</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2014-04-12T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>PassThruOn</con:name>
+          <con:value>false</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:properties/>
+    <con:setupScript/>
+    <con:tearDownScript/>
+    <con:reportParameters/>
+  </con:testSuite>
+  <con:testSuite name="g0" id="c3df4e9d-ac6c-4232-9aaf-d59bc53f2126">
+    <con:settings/>
+    <con:runType>SEQUENTIAL</con:runType>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="6ab33784-c36e-403f-82f4-b0722a9fc4fc" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true">
+      <con:settings/>
+      <con:testStep type="groovy" name="Check Passthru" id="52214b00-b21c-4c70-ab02-49789dda5ed6">
+        <con:settings/>
+        <con:config>
+          <script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
 def passthruProp = "patientDiscovery.inboundPatientDiscoveryRequest";
@@ -1465,21 +1527,21 @@ if(passthruValue != null){
 	
 } else {
 	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-</script></con:config></con:testStep>
-<con:testStep name="Patient Discovery Deferred Req" type="request">
-		<con:settings/>
-		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-			<con:interface>EntityPatientDiscoveryAsyncReqBindingSoap</con:interface>
-			<con:operation>ProcessPatientDiscoveryAsyncReq</con:operation>
-			<con:request name="Patient Discovery Deferred Req" useWsAddressing="true">
-				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-		</con:settings>
-		<con:encoding>UTF-8</con:encoding>
-		
-		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:endpoint><con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Patient Discovery Deferred Req" type="request" id="31757943-3e4d-40ca-8bab-0100996e14fa">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityPatientDiscoveryAsyncReqBindingSoap</con:interface>
+          <con:operation>ProcessPatientDiscoveryAsyncReq</con:operation>
+          <con:request name="Patient Discovery Deferred Req" useWsAddressing="true" id="c96ffa11-9756-49d0-8cf1-62863ecfe551">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Patient Discovery Deferred Req">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
@@ -1739,54 +1801,62 @@ if(passthruValue != null){
       </urn:RespondingGateway_PRPA_IN201305UV02Request>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:assertion type="SOAP Response"/>
-		<con:assertion type="SOAP Fault Assertion"/>
-		<con:assertion name="Verify Receiver" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns3='urn:hl7-org:v3';
+            <con:assertion type="SOAP Response" id="89a6dc74-9e48-44af-a792-8e6d2c75bafa"/>
+            <con:assertion type="SOAP Fault Assertion" id="ac8502e1-d295-448f-8eb0-1868205c7c54"/>
+            <con:assertion name="Verify Receiver" type="XPath Match" id="a270f3bc-82b1-4203-9f83-3dc5cae85701">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
 							//ns3:MCCI_IN000002UV01[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path>
-				<content>1.1</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Verify Sender" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns3='urn:hl7-org:v3';
+                <content>1.1</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Verify Sender" type="XPath Match" id="406041db-576c-4f00-a6e1-e089c9fca8d5">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
 							//ns3:MCCI_IN000002UV01[1]/ns3:sender[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path>
-				<content>2.2</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Verify Message" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns3='urn:hl7-org:v3';
+                <content>2.2</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Verify Message" type="XPath Match" id="66fe0c54-cfc1-4eeb-aada-a641fdf24651">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
 							//ns3:MCCI_IN000002UV01[1]/ns3:acknowledgement[1]/ns3:acknowledgementDetail[1]/ns3:text[1]/text()</path>
-				<content>Success</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		
-		<con:assertion name="Schema Compliance" type="Schema Compliance">
-			<con:configuration>
-				<definition/>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion type="GroovyScriptAssertion" name="Verify RelatesTo"><con:configuration><scriptText>import com.eviware.soapui.support.XmlHolder;
+                <content>Success</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Schema Compliance" type="Schema Compliance" id="b82e9fa8-fd33-49e8-a5a0-77c1e110264b">
+              <con:configuration>
+                <definition/>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="GroovyScriptAssertion" name="Verify RelatesTo" id="effc93d0-1584-47cb-b6f5-002097b5bca7">
+              <con:configuration>
+                <scriptText>import com.eviware.soapui.support.XmlHolder;
 def request = new XmlHolder(messageExchange.requestContentAsXml);
 def response = new XmlHolder(messageExchange.responseContentAsXml);
 request.namespaces["add"] = "http://www.w3.org/2005/08/addressing";
 response.namespaces["add"] = "http://www.w3.org/2005/08/addressing";
-assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];</scriptText></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-		<con:jmsPropertyConfig/>
-		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
-		<con:wsrmConfig version="1.2"/>
-	</con:request>
-</con:config>
-</con:testStep>
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>(NhinPatientDiscoveryDeferredRequest_g0)
+assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];</scriptText>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="manualTestStep" name="Manual TestStep - Verify logs" id="40549853-1078-48b4-8a89-536025277fb6">
+        <con:description>(NhinPatientDiscoveryDeferredRequest_g0)
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncReq (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: application/soap+xml; charset=UTF-8;
@@ -1799,29 +1869,56 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
 (AdapterPatientDiscoveryDeferredRequest)
 3. Change the "Adapter Interface" in PatientDiscoveryDeferredRequestProxyConfig to adapterpatientdiscoveryasyncreqwsunsecured and Check the content Type in PDDeferredRequest Adapter Outbound Message
   A) Search the log file and look for http://localhost:8080/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoveryDeferredRequestUnsecured (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-  B) Should be able to see the following in the content type --> Content-Type: application/soap+xml;
-  
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Should be able to see the following in the content type --> Content-Type:application/soap+xml;</con:expectedResult></con:config></con:testStep>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+  B) Should be able to see the following in the content type --> Content-Type: application/soap+xml;</con:description>
+        <con:settings/>
+        <con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:expectedResult>Should be able to see the following in the content type --> Content-Type:application/soap+xml;</con:expectedResult>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 }</con:tearDownScript>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 }</con:tearDownScript>
-<con:properties><con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-02-27T01:13:54Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-02-27T01:23:54Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/27/2013 01:13:54</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-03-29T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
-</con:testCase>
-
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="a873f53b-f81b-4529-b866-ccad8f7a0e4a" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
-	<con:settings/>
-	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
+      <con:properties>
+        <con:property>
+          <con:name>PassThruOn</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2013-02-27T01:13:54Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2013-02-27T01:23:54Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>02/27/2013 01:13:54</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2013-03-29T00:00:00Z</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="a873f53b-f81b-4529-b866-ccad8f7a0e4a" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
+      <con:settings/>
+      <con:testStep type="groovy" name="Check Passthru" id="1042fd31-ad7d-4193-ab6d-1a8328eacfa4">
+        <con:settings/>
+        <con:config>
+          <script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
 def passthruProp = "patientDiscovery.inboundPatientDiscoveryResponse";
@@ -1842,21 +1939,21 @@ if(passthruValue != null){
 	
 } else {
 	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-</script></con:config></con:testStep>
-<con:testStep name="Patient Discovery Deferred Resp" type="request">
-		<con:settings/>
-		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-			<con:interface>EntityPatientDiscoveryAsyncRespBindingSoap</con:interface>
-			<con:operation>ProcessPatientDiscoveryAsyncResp</con:operation>
-			<con:request name="Patient Discovery Deferred Resp">
-				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-		</con:settings>
-		<con:encoding>UTF-8</con:encoding>
-		
-		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint><con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Patient Discovery Deferred Resp" type="request" id="967ccb03-7650-4249-8a03-38743dfb5d67">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityPatientDiscoveryAsyncRespBindingSoap</con:interface>
+          <con:operation>ProcessPatientDiscoveryAsyncResp</con:operation>
+          <con:request name="Patient Discovery Deferred Resp" id="7c329aae-64f3-47b4-a69e-aacf90b867e2">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Patient Discovery Deferred Resp">
       <urn:RespondingGateway_PRPA_IN201306UV02Request>
@@ -2157,38 +2254,41 @@ if(passthruValue != null){
       </urn:RespondingGateway_PRPA_IN201306UV02Request>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:assertion type="SOAP Response"/>
-		<con:assertion type="SOAP Fault Assertion"/>
-		<con:assertion name="Match content of [typeCode/@code]" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns2='urn:hl7-org:v3';//ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:typeCode[1]/@code</path>
-				<content>CA</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-
-		<con:assertion name="Match content of [acknowledgementDetail/text/text()]" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns2='urn:hl7-org:v3';//ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:acknowledgementDetail[1]/ns2:text/text()</path>
-				<content>Success</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Schema Compliance" type="Schema Compliance">
-			<con:configuration>
-				<definition/>
-			</con:configuration>
-		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-		<con:jmsPropertyConfig/>
-		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
-		<con:wsrmConfig version="1.2"/>
-	</con:request>
-</con:config>
-</con:testStep>
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>(NhinPatientDiscoveryDeferredResponse_g0)
+            <con:assertion type="SOAP Response" id="cb2454f5-9ca6-41b7-a5da-fd61ce8555ce"/>
+            <con:assertion type="SOAP Fault Assertion" id="5016f50a-7d1f-418d-ac65-0737b8e48029"/>
+            <con:assertion name="Match content of [typeCode/@code]" type="XPath Match" id="908d73ef-cf52-4a05-8807-d101c20ebf10">
+              <con:configuration>
+                <path>declare namespace ns2='urn:hl7-org:v3';//ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:typeCode[1]/@code</path>
+                <content>CA</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Match content of [acknowledgementDetail/text/text()]" type="XPath Match" id="0e642efa-cc88-46e7-b0de-71cc77c5a166">
+              <con:configuration>
+                <path>declare namespace ns2='urn:hl7-org:v3';//ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:acknowledgementDetail[1]/ns2:text/text()</path>
+                <content>Success</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Schema Compliance" type="Schema Compliance" id="8d3bc7bb-e6af-4148-a8ca-8efa75b93898">
+              <con:configuration>
+                <definition/>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="manualTestStep" name="Manual TestStep - Verify logs" id="1a3510c3-111e-4a38-9f60-3f2fba232df6">
+        <con:description>(NhinPatientDiscoveryDeferredResponse_g0)
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncResp (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: application/soap+xml; charset=UTF-8;
@@ -2201,29 +2301,57 @@ if(passthruValue != null){
 (AdapterPatientDiscoveryDeferredResponse)
 3. Change the "Adapter Interface" in PatientDiscoveryDeferredResponseProxyConfig to adapterpatientdiscoveryasyncrespwsunsecured and Check the content Type in PDDeferredResponse Adapter Outbound Message
   A) Search the log file and look for http://localhost:8080/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoveryDeferredResponseUnsecured (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-  B) Should be able to see the following in the content type --> Content-Type: application/soap+xml;
-  
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Should be able to see the following in the content type --> Content-Type:application/soap+xml;</con:expectedResult></con:config></con:testStep>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+  B) Should be able to see the following in the content type --> Content-Type: application/soap+xml;</con:description>
+        <con:settings/>
+        <con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:expectedResult>Should be able to see the following in the content type --> Content-Type:application/soap+xml;</con:expectedResult>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 }</con:tearDownScript>
-<con:properties><con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-02-27T01:13:55Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-02-27T01:23:55Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/27/2013 01:13:55</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-03-29T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
-</con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="db617e16-46c1-4f66-9e29-bac17e0a5a44" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
-	<con:settings/>
-	<con:testStep name="clear correlations table" type="groovy">
-		<con:settings/>
-		<con:config>
-			<script>context.withSql('PatientCorrelationDB') { sql -> 
+      <con:properties>
+        <con:property>
+          <con:name>PassThruOn</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2013-02-27T01:13:55Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2013-02-27T01:23:55Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>02/27/2013 01:13:55</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2013-03-29T00:00:00Z</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="db617e16-46c1-4f66-9e29-bac17e0a5a44" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
+      <con:settings/>
+      <con:testStep name="clear correlations table" type="groovy" id="3957de78-c308-4fa0-85fa-3bb4c1247875">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('PatientCorrelationDB') { sql -> 
 			sql.execute('delete from ' + context.findProperty('PatientCorrelationTable'))
 			}</script>
-	</con:config>
-</con:testStep>
-<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Check Passthru" id="a6a5045c-9349-4084-aa11-e7c74a613b8d">
+        <con:settings/>
+        <con:config>
+          <script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
 def passthruProp = "patientDiscovery.inboundPatientDiscovery";
@@ -2259,9 +2387,13 @@ if(passthruValue != null){
 } else {
 	testRunner.testCase.setPropertyValue("PassThruOn", "false");
 	testRunner.gotoStepByName("Patient Discovery");
-}
-</script></con:config></con:testStep>
-<con:testStep type="groovy" name="Set Up PassThru"><con:settings/><con:config><script>log.info "Setting Patient Discovery Adapter to unsecured";
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Set Up PassThru" id="beece27f-98d8-4c40-86eb-d68a5e558227">
+        <con:settings/>
+        <con:config>
+          <script>log.info "Setting Patient Discovery Adapter to unsecured";
 def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.backupFile(dir, "PatientDiscoveryProxyConfig.xml", log);
 def alias = 'adapterpatientdiscovery'
@@ -2289,21 +2421,21 @@ log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
 
 nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
 	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
-	log);
-	</script></con:config></con:testStep>
-<con:testStep name="Patient Discovery" type="request">
-	<con:settings/>
-	<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
-		<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
-		<con:request name="Patient Discovery">
-			<con:settings>
-				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-	</con:settings>
-	<con:encoding>UTF-8</con:encoding>
-	
-	<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint><con:request><![CDATA[
-		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+	log);</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Patient Discovery" type="request" id="af87623d-e937-4267-bd72-80db1917cec3">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
+          <con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
+          <con:request name="Patient Discovery" id="22463142-59f2-41e0-a0c8-5c69a29e6a31">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Patient Discovery">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
@@ -2545,52 +2677,70 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
       </urn:RespondingGateway_PRPA_IN201305UV02Request>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-	<con:assertion type="SOAP Response"/>
-	<con:assertion disabled="true" type="Schema Compliance">
-		<con:configuration>
-			<definition/>
-		</con:configuration>
-	</con:assertion>
-	<con:assertion type="SOAP Fault Assertion"/>
-	<con:assertion name="Check for existance of [ns3:controlActProcess]" type="XPath Match">
-		<con:configuration>
-			<path>declare namespace ns3='urn:hl7-org:v3';
+            <con:assertion type="SOAP Response" id="f0e7b36b-95fc-419a-ab69-1ca468318a19"/>
+            <con:assertion disabled="true" type="Schema Compliance" id="bd963234-7a2d-4da6-a910-d5cbfb424ed7">
+              <con:configuration>
+                <definition/>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion" id="0ad2a225-a930-402e-8404-d8aa2fe43cf0"/>
+            <con:assertion name="Check for existance of [ns3:controlActProcess]" type="XPath Match" id="cb470179-a667-4a5d-91e2-4560556d7d70">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
 				exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
-			<content>true</content>
-			<allowWildcards>false</allowWildcards>
-			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-		</con:configuration>
-	</con:assertion>
-	<con:assertion name="Given Name XPath Match" type="XPath Match">
-		<con:configuration>
-			<path>declare namespace ns1='urn:hl7-org:v3';
+                <content>true</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Given Name XPath Match" type="XPath Match" id="826b4f1f-e1d4-41d8-acd6-fc029d6c4218">
+              <con:configuration>
+                <path>declare namespace ns1='urn:hl7-org:v3';
 				//ns1:PRPA_IN201306UV02[1]/ns1:controlActProcess[1]/ns1:subject[1]/ns1:registrationEvent[1]/ns1:subject1[1]/ns1:patient[1]/ns1:patientPerson[1]/ns1:name[1]/ns1:given[1]</path>
-			<content>${#Project#GivenName}</content>
-			<allowWildcards>false</allowWildcards>
-			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-		</con:configuration>
-	</con:assertion>
-	<con:assertion name="Family Name XPath Match" type="XPath Match">
-		<con:configuration>
-			<path>declare namespace ns1='urn:hl7-org:v3';
+                <content>${#Project#GivenName}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Family Name XPath Match" type="XPath Match" id="46660739-5253-4b55-836c-70b3f8bf07c1">
+              <con:configuration>
+                <path>declare namespace ns1='urn:hl7-org:v3';
 				//ns1:PRPA_IN201306UV02[1]/ns1:controlActProcess[1]/ns1:subject[1]/ns1:registrationEvent[1]/ns1:subject1[1]/ns1:patient[1]/ns1:patientPerson[1]/ns1:name[1]/ns1:family[1]</path>
-			<content>${#Project#FamilyName}</content>
-			<allowWildcards>false</allowWildcards>
-			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-		</con:configuration>
-	</con:assertion>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-	<con:jmsPropertyConfig/>
-	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
-	<con:wsrmConfig version="1.2"/>
-</con:request>
-</con:config>
-</con:testStep><con:testStep type="groovy" name="Skip Mock"><con:settings/><con:config><script>def runMock = context.findProperty("PassThruOn").toBoolean();
+                <content>${#Project#FamilyName}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Skip Mock" id="d2bf7931-117e-4fc5-a62b-251de208cb04">
+        <con:settings/>
+        <con:config>
+          <script>def runMock = context.findProperty("PassThruOn").toBoolean();
 
 if(!runMock){
 	testRunner.gotoStepByName("count correlations");
-}
-</script></con:config></con:testStep><con:testStep type="mockresponse" name="Mock Response"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Set Up PassThru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPatientDiscoveryBindingSoap</con:interface><con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation><con:path>/MockPDAdapter</con:path><con:port>1720</con:port><con:response><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="mockresponse" name="Mock Response" id="1366be77-39a5-4ca5-9245-4bfd945b5f57">
+        <con:settings/>
+        <con:config xsi:type="con:MockResponseStep" startStep="Set Up PassThru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>AdapterPatientDiscoveryBindingSoap</con:interface>
+          <con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
+          <con:path>/MockPDAdapter</con:path>
+          <con:port>1720</con:port>
+          <con:response id="b922c117-a90f-4649-89e0-bc795fc2c67d">
+            <con:settings/>
+            <con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
    <soap:Header/>
    <soap:Body>
    <PRPA_IN201306UV02 xmlns="urn:hl7-org:v3" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://www.w3.org/2005/08/addressing" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade" ITSVersion="XML_1.0">
@@ -2704,9 +2854,15 @@ if(!runMock){
              </controlActProcess>
      </PRPA_IN201306UV02>
    </soap:Body>
-</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep name="count correlations" type="groovy">
-	<con:settings/>
-	<con:config><script>def pdCorrelations = 1;
+</soap:Envelope>]]></con:responseContent>
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+          </con:response>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="count correlations" type="groovy" id="06ccf148-f2fe-4a63-bcf5-048e293942d3">
+        <con:settings/>
+        <con:config>
+          <script>def pdCorrelations = 1;
 
 if(context.findProperty("PassThruOn").toBoolean()) {
 	pdCorrelations = 0;
@@ -2716,9 +2872,11 @@ log.info "Assert ${pdCorrelations} number of correlations"
 
 context.withSql('PatientCorrelationDB') { sql -> 
 		assert pdCorrelations == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
-		}</script></con:config>
-</con:testStep>
-<con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>(NhinPatientDiscovery_g0)
+		}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="manualTestStep" name="Manual TestStep - Verify logs" id="0e5d80f1-fe45-4bf6-b6a8-9fda147ae58a">
+        <con:description>(NhinPatientDiscovery_g0)
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: application/soap+xml; charset=UTF-8;
@@ -2751,160 +2909,325 @@ context.withSql('PatientCorrelationDB') { sql ->
   (PatientCorrealtionService)
 7. Change the "Adapter Interface" in PatientCorrelationConfig to patientcorrelationwsunsecured and Check the content Type in PD Adapter Outbound Message
   A) Search the log file and look for http://localhost:8080/CONNECTGateway/GatewayService/PatientCorrelationServiceUnsecured (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-  B) Should be able to see the following in the content type --> Content-Type: application/soap+xml;
-  
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Should be able to see the following in the content type --> Content-Type:application/soap+xml;</con:expectedResult></con:config></con:testStep>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+  B) Should be able to see the following in the content type --> Content-Type: application/soap+xml;</con:description>
+        <con:settings/>
+        <con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:expectedResult>Should be able to see the following in the content type --> Content-Type:application/soap+xml;</con:expectedResult>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 	nhinc.FileUtils.restoreFile(dir, "PatientDiscoveryProxyConfig.xml", log);
 }</con:tearDownScript>
-<con:properties><con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2014-03-13T21:24:12Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2014-03-13T21:34:12Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>03/13/2014 21:24:12</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2014-04-12T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
-</con:testCase>
-
-<con:properties/>
-<con:setupScript/>
-<con:tearDownScript/>
-<con:reportParameters/>
-</con:testSuite>
-<con:requirements/>
-<con:properties>
-
-
-
-
-
-
-
-
-	
-	
-	<con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property>
-
-
-
-
-
-
-
-
-
-	<con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property>
-	
-	
-	
-	
-
-
-
-
-
-
-
-
-	<con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property>
-	
-	
-	
-	<con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DateOfSignature</con:name><con:value>20080520</con:value></con:property>
-	
-	
-	<con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property>
-	<con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property>
-	
-	
-	
-
-
-
-
-
-
-	<con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property>
-	<con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property>
-
-
-	
-	
-	
-
-
-
-
-
-
-	
-	
-	
-	
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-	
-	
-	
-	<con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DQPTDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property>
-	
-	
-	
-	
-	
-	<con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>C:/glassfish3/glassfish/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property>
-
-
-	
-	
-
-
-
-
-	
-	
-	
-	
-	
-	
-
-
-
-
-
-	
-	
-	
-	
-	<con:property><con:name>NotifySubscriptionID</con:name><con:value>24085385-ef54-4aaf-b027-d5896689be24</con:value></con:property>
-	<con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property>
-	
-	
-	
-	<con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property>
-	
-	<con:property><con:name>project.name</con:name><con:value>EntityValidation</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property>
-<con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>6deec8e7-6e6c-4269-91c2-69cb777ab8b0</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property><con:property><con:name>DQ_EntityEndpoint_g1</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/3_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>DQ_EntityEndpoint_g0</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>DS_EntityEndpoint_g1</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>DS_EntityEndpoint_g0</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>DSDefResp_EntityEndpoint_g1</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>DSDefResp_EntityEndpoint_g0</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>PDDefReq_EntityEndpoint</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>DR_EntityEndpoint_g1</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>DR_EntityEndpoint_g0</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>PDDefResp_EntityEndpoint</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>PD_EntityEndpoint</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property><con:property><con:name>AD_EntityEndpoint_g1</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/2_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>DSDefReq_EntityEndpoint_g1</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>AD_EntityEndpoint_g0</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>DSDefReq_EntityEndpoint_g0</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property></con:properties>
-<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
+      <con:properties>
+        <con:property>
+          <con:name>PassThruOn</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2014-03-13T21:24:12Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2014-03-13T21:34:12Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>03/13/2014 21:24:12</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2014-04-12T00:00:00Z</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:properties/>
+    <con:setupScript/>
+    <con:tearDownScript/>
+    <con:reportParameters/>
+  </con:testSuite>
+  <con:requirements/>
+  <con:properties>
+    <con:property>
+      <con:name>AAMappingDB</con:name>
+      <con:value>assigningauthoritydb</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AAMappingTable</con:name>
+      <con:value>aa_to_home_community_mapping</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AsyncMsgDB</con:name>
+      <con:value>asyncmsgs</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AsyncMsgTable</con:name>
+      <con:value>asyncmsgrepo</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AuditRepoDB</con:name>
+      <con:value>auditrepo</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AuditRepoTable</con:name>
+      <con:value>auditrepository</con:value>
+    </con:property>
+    <con:property>
+      <con:name>BirthTime</con:name>
+      <con:value>19630804</con:value>
+    </con:property>
+    <con:property>
+      <con:name>City</con:name>
+      <con:value>Melbourne</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Country</con:name>
+      <con:value>US</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DateOfSignature</con:name>
+      <con:value>20080520</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBHost</con:name>
+      <con:value>localhost</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBPass</con:name>
+      <con:value>nhincpass</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBPort</con:name>
+      <con:value>3306</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBUser</con:name>
+      <con:value>nhincuser</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DeferredPatientDiscoveryReqMessageID</con:name>
+      <con:value>uuid:6666666666.66666.666.66</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DOB</con:name>
+      <con:value>19800516</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DQDocID</con:name>
+      <con:value>1.123401.55555</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DQPatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DQPTDocID</con:name>
+      <con:value>1.123401.11111</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DRDocID</con:name>
+      <con:value>1.123407.777777</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DRRepoID</con:name>
+      <con:value>1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DynamicDQDocID</con:name>
+      <con:value>103.8.9284320.020.3590.75^1266324032288</con:value>
+    </con:property>
+    <con:property>
+      <con:name>ExpirationDate</con:name>
+      <con:value>20100520</con:value>
+    </con:property>
+    <con:property>
+      <con:name>FamilyName</con:name>
+      <con:value>Younger</con:value>
+    </con:property>
+    <con:property>
+      <con:name>GatewayPropDir</con:name>
+      <con:value>C:/glassfish3/glassfish/domains/domain1/config/nhin</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Gender</con:name>
+      <con:value>M</con:value>
+    </con:property>
+    <con:property>
+      <con:name>GivenName</con:name>
+      <con:value>Gallow</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalAA</con:name>
+      <con:value>1.1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalHCDescription</con:name>
+      <con:value>InternalTest1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalHCID</con:name>
+      <con:value>1.1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalPatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>NotificationEndpoint</con:name>
+      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value>
+    </con:property>
+    <con:property>
+      <con:name>NotifySubscriptionID</con:name>
+      <con:value>24085385-ef54-4aaf-b027-d5896689be24</con:value>
+    </con:property>
+    <con:property>
+      <con:name>NotifySubscriptionManagerEndpointAddress</con:name>
+      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PatientCorrelationDB</con:name>
+      <con:value>patientcorrelationdb</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PatientCorrelationTable</con:name>
+      <con:value>correlatedidentifiers</con:value>
+    </con:property>
+    <con:property>
+      <con:name>project.name</con:name>
+      <con:value>EntityValidation</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PurposeOfDisclosure</con:name>
+      <con:value>Mental</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteAA</con:name>
+      <con:value>2.2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteHCDescription</con:name>
+      <con:value>InternalTest2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteHCID</con:name>
+      <con:value>2.2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemotePatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SSN</con:name>
+      <con:value>123456789</con:value>
+    </con:property>
+    <con:property>
+      <con:name>State</con:name>
+      <con:value>FL</con:value>
+    </con:property>
+    <con:property>
+      <con:name>StreetAddress</con:name>
+      <con:value>123 Johnson Rd</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SubjectID</con:name>
+      <con:value>1111</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SubscribePatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SubscriptionDB</con:name>
+      <con:value>subscriptionrepository</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SubscriptionManagerEndpointAddress</con:name>
+      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SubscriptionTable</con:name>
+      <con:value>subscription</con:value>
+    </con:property>
+    <con:property>
+      <con:name>UniquePatientId</con:name>
+      <con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value>
+    </con:property>
+    <con:property>
+      <con:name>UnSubscriptionID</con:name>
+      <con:value>6deec8e7-6e6c-4269-91c2-69cb777ab8b0</con:value>
+    </con:property>
+    <con:property>
+      <con:name>ZipCode</con:name>
+      <con:value>12345</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DQ_EntityEndpoint_g1</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentQuery/3_0/EntityService/EntityDocQueryUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DQ_EntityEndpoint_g0</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DS_EntityEndpoint_g1</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DS_EntityEndpoint_g0</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DSDefResp_EntityEndpoint_g1</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DSDefResp_EntityEndpoint_g0</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PDDefReq_EntityEndpoint</con:name>
+      <con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DR_EntityEndpoint_g1</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DR_EntityEndpoint_g0</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PDDefResp_EntityEndpoint</con:name>
+      <con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PD_EntityEndpoint</con:name>
+      <con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AD_EntityEndpoint_g1</con:name>
+      <con:value>http://localhost:8080/Gateway/AdminDistribution/2_0/AdministrativeDistribution_Service</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DSDefReq_EntityEndpoint_g1</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AD_EntityEndpoint_g0</con:name>
+      <con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DSDefReq_EntityEndpoint_g0</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value>
+    </con:property>
+  </con:properties>
+  <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
@@ -2963,214 +3286,216 @@ block(sql)
 sql.close()
 }
 }</con:afterLoadScript>
-<con:wssContainer/>
-<con:databaseConnectionContainer/>
-<con:reporting>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:parameters/>
-</con:reporting>
-<con:sensitiveInformation/></con:soapui-project>
+  <con:wssContainer/>
+  <con:databaseConnectionContainer/>
+  <con:oAuth2ProfileContainer/>
+  <con:reporting>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:parameters/>
+  </con:reporting>
+  <con:sensitiveInformation/>
+</con:soapui-project>

@@ -1,37 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project activeEnvironment="Default" name="PatientDiscoveryDB" resourceRoot="" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscovery}AdapterPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="${projectDir}/../../../target/wsdl/AdapterPatientDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/PatientDiscovery/A_0/AdapterPatientDiscovery</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_PRPA_IN201305UV02" name="RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" type="Request-Response" outputName="RespondingGateway_PRPA_IN201306UV02Response" inputName="RespondingGateway_PRPA_IN201305UV02Request" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="${projectDir}/../../../target/wsdl/EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-
-		<con:definitionCache/><con:endpoints>
-		<con:endpoint>http://192.168.36.3:9080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint><con:endpoint>${#Project#PD_EntityEndpoint}</con:endpoint></con:endpoints>
-		<con:operation action="urn:gov:hhs:fha:nhinc:entitypatientdiscovery:RespondingGateway_PRPA_IN201305UV02RequestMessage" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response" anonymous="optional">
-			<con:settings/>
-		</con:operation>
-	</con:interface><con:testSuite name="PD_DB"><con:description>Tests the patientdb functionality. Patient information can be looked up by the adapter in either 
+<con:soapui-project activeEnvironment="Default" name="PatientDiscoveryDB" resourceRoot="" soapui-version="5.1.2" abortOnError="false" runType="SEQUENTIAL" id="608bed72-70f4-4dfb-9ccb-04b3de486e8c" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings/>
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscovery}AdapterPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="${projectDir}/../../../target/wsdl/AdapterPatientDiscovery.wsdl" id="f3218476-9dc9-450d-9cda-395908b98d48" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:endpoints>
+      <con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/PatientDiscovery/A_0/AdapterPatientDiscovery</con:endpoint>
+    </con:endpoints>
+    <con:operation isOneWay="false" action="urn:RespondingGateway_PRPA_IN201305UV02" name="RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" type="Request-Response" outputName="RespondingGateway_PRPA_IN201306UV02Response" inputName="RespondingGateway_PRPA_IN201305UV02Request" receivesAttachments="false" sendsAttachments="false" id="64761566-0467-488a-9d98-56bcb456aa99">
+      <con:settings/>
+    </con:operation>
+  </con:interface>
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="${projectDir}/../../../target/wsdl/EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="b63d5f74-e885-4aa3-b7d2-a08c33eb572f" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:endpoints>
+      <con:endpoint>${#Project#PD_EntityEndpoint}</con:endpoint>
+      <con:endpoint>http://192.168.36.3:9080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint>
+    </con:endpoints>
+    <con:operation action="urn:gov:hhs:fha:nhinc:entitypatientdiscovery:RespondingGateway_PRPA_IN201305UV02RequestMessage" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response" anonymous="optional" id="7beafa52-5e43-46c7-8aa2-17adbb8e3385">
+      <con:settings/>
+    </con:operation>
+  </con:interface>
+  <con:testSuite name="PD_DB" id="8b1e99fa-3205-4e3e-9d46-6d57f97c9d7e">
+    <con:description>Tests the patientdb functionality. Patient information can be looked up by the adapter in either 
 mpi.xml or in the database. The option is controlled by the bean mpichecker in the file
-AdapterMpiConfig.xml.</con:description><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="309c17cb-e8a9-4af4-a212-f006f9ccfa76">
-	<con:settings/>
-	<con:testStep name="clear correlations table" type="groovy">
-		<con:settings/>
-		<con:config>
-			<script>context.withSql('PatientCorrelationDB') { sql -> 
+AdapterMpiConfig.xml.</con:description>
+    <con:settings/>
+    <con:runType>SEQUENTIAL</con:runType>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="309c17cb-e8a9-4af4-a212-f006f9ccfa76">
+      <con:settings/>
+      <con:testStep name="clear correlations table" type="groovy" id="0a835817-4191-45bb-a607-ea167ca17557">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('PatientCorrelationDB') { sql -> 
 			sql.execute('delete from ' + context.findProperty('PatientCorrelationTable'))
 			}</script>
-	</con:config>
-</con:testStep>
-
-<con:testStep name="Patient Discovery" type="request">
-	<con:settings/>
-	<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
-		<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
-		<con:request name="Patient Discovery">
-			<con:settings>
-				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-	</con:settings>
-	<con:encoding>UTF-8</con:encoding>
-	
-	<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Patient Discovery" type="request" id="c5a070e0-578f-4867-b7d6-7e6d0c43273d">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
+          <con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
+          <con:request name="Patient Discovery" id="a68f6bfb-799a-4270-853c-e4483fc0db8d">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Patient Discovery">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
@@ -272,75 +288,300 @@ AdapterMpiConfig.xml.</con:description><con:settings/><con:runType>SEQUENTIAL</c
       </urn:RespondingGateway_PRPA_IN201305UV02Request>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-	<con:assertion type="SOAP Response"/>
-	<con:assertion disabled="true" type="Schema Compliance">
-		<con:configuration>
-			<definition/>
-		</con:configuration>
-	</con:assertion>
-	<con:assertion type="SOAP Fault Assertion"/>
-	<con:assertion name="Check for existance of [ns3:controlActProcess]" type="XPath Match">
-		<con:configuration>
-			<path>declare namespace ns3='urn:hl7-org:v3';
+            <con:assertion type="SOAP Response" id="f8009f5e-123b-449b-ac45-f114718a9593"/>
+            <con:assertion disabled="true" type="Schema Compliance" id="e1931b5e-9020-4004-9e0c-6ae1a50974e6">
+              <con:configuration>
+                <definition/>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion" id="20eccc19-6f4c-4ab3-868d-5738b32de943"/>
+            <con:assertion name="Check for existance of [ns3:controlActProcess]" type="XPath Match" id="b614db4f-8b65-455f-9331-27817533bdc8">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
 				exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
-			<content>true</content>
-			<allowWildcards>false</allowWildcards>
-			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-		</con:configuration>
-	</con:assertion>
-	<con:assertion name="Given Name XPath Match" type="XPath Match">
-		<con:configuration>
-			<path>declare namespace ns1='urn:hl7-org:v3';
+                <content>true</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Given Name XPath Match" type="XPath Match" id="5ae101f9-d08c-4b98-af67-15d4c4a04ce4">
+              <con:configuration>
+                <path>declare namespace ns1='urn:hl7-org:v3';
 				//ns1:PRPA_IN201306UV02[1]/ns1:controlActProcess[1]/ns1:subject[1]/ns1:registrationEvent[1]/ns1:subject1[1]/ns1:patient[1]/ns1:patientPerson[1]/ns1:name[1]/ns1:given[1]</path>
-			<content>${#Project#GivenName}</content>
-			<allowWildcards>false</allowWildcards>
-			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-		</con:configuration>
-	</con:assertion>
-	<con:assertion name="Family Name XPath Match" type="XPath Match">
-		<con:configuration>
-			<path>declare namespace ns1='urn:hl7-org:v3';
+                <content>${#Project#GivenName}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Family Name XPath Match" type="XPath Match" id="784099f6-45f5-451e-a389-2e7f1ee757fe">
+              <con:configuration>
+                <path>declare namespace ns1='urn:hl7-org:v3';
 				//ns1:PRPA_IN201306UV02[1]/ns1:controlActProcess[1]/ns1:subject[1]/ns1:registrationEvent[1]/ns1:subject1[1]/ns1:patient[1]/ns1:patientPerson[1]/ns1:name[1]/ns1:family[1]</path>
-			<content>${#Project#FamilyName}</content>
-			<allowWildcards>false</allowWildcards>
-			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-		</con:configuration>
-	</con:assertion>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-	<con:jmsPropertyConfig/>
-	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
-	<con:wsrmConfig version="1.2"/>
-</con:request>
-</con:config>
-</con:testStep>
-<con:testStep name="count correlations" type="groovy">
-	<con:settings/>
-	<con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+                <content>${#Project#FamilyName}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="count correlations" type="groovy" id="a2c0277e-03da-445f-96fe-4139490f6d40">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('PatientCorrelationDB') { sql -> 
 		assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
-		}</script></con:config>
-</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+		}</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
-<con:properties>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2013-03-19T18:03:14Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2013-03-19T18:13:14Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>03/19/2013 18:03:14</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2013-04-18T00:00:00Z</con:value>
-	</con:property>
-</con:properties>
-<con:reportParameters/>
-</con:testCase><con:properties/><con:setupScript>nhinc.FileUtils.updateSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "AdapterMpiConfig.xml", "mpichecker", "mpixmljava", "mpidbjava", log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.updateSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "AdapterMpiConfig.xml", "mpichecker", "mpidbjava", "mpixmljava", log);</con:tearDownScript></con:testSuite><con:properties><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DateOfSignature</con:name><con:value>20080520</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DQPTDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>24085385-ef54-4aaf-b027-d5896689be24</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>project.name</con:name><con:value>EntityValidation</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>6deec8e7-6e6c-4269-91c2-69cb777ab8b0</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2013-03-19T18:03:14Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2013-03-19T18:13:14Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>03/19/2013 18:03:14</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2013-04-18T00:00:00Z</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:properties/>
+    <con:setupScript>nhinc.FileUtils.updateSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "AdapterMpiConfig.xml", "mpichecker", "mpixmljava", "mpidbjava", log);</con:setupScript>
+    <con:tearDownScript>nhinc.FileUtils.updateSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "AdapterMpiConfig.xml", "mpichecker", "mpidbjava", "mpixmljava", log);</con:tearDownScript>
+  </con:testSuite>
+  <con:properties>
+    <con:property>
+      <con:name>AAMappingDB</con:name>
+      <con:value>assigningauthoritydb</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AAMappingTable</con:name>
+      <con:value>aa_to_home_community_mapping</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AsyncMsgDB</con:name>
+      <con:value>asyncmsgs</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AsyncMsgTable</con:name>
+      <con:value>asyncmsgrepo</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AuditRepoDB</con:name>
+      <con:value>auditrepo</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AuditRepoTable</con:name>
+      <con:value>auditrepository</con:value>
+    </con:property>
+    <con:property>
+      <con:name>BirthTime</con:name>
+      <con:value>19630804</con:value>
+    </con:property>
+    <con:property>
+      <con:name>City</con:name>
+      <con:value>Melbourne</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Country</con:name>
+      <con:value>US</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DateOfSignature</con:name>
+      <con:value>20080520</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBHost</con:name>
+      <con:value>localhost</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBPass</con:name>
+      <con:value>nhincpass</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBPort</con:name>
+      <con:value>3306</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBUser</con:name>
+      <con:value>nhincuser</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DeferredPatientDiscoveryReqMessageID</con:name>
+      <con:value>uuid:6666666666.66666.666.66</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DOB</con:name>
+      <con:value>19800516</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DQDocID</con:name>
+      <con:value>1.123401.55555</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DQPatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DQPTDocID</con:name>
+      <con:value>1.123401.11111</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DRDocID</con:name>
+      <con:value>1.123407.777777</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DRRepoID</con:name>
+      <con:value>1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DynamicDQDocID</con:name>
+      <con:value>103.8.9284320.020.3590.75^1266324032288</con:value>
+    </con:property>
+    <con:property>
+      <con:name>ExpirationDate</con:name>
+      <con:value>20100520</con:value>
+    </con:property>
+    <con:property>
+      <con:name>FamilyName</con:name>
+      <con:value>Younger</con:value>
+    </con:property>
+    <con:property>
+      <con:name>GatewayPropDir</con:name>
+      <con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Gender</con:name>
+      <con:value>M</con:value>
+    </con:property>
+    <con:property>
+      <con:name>GivenName</con:name>
+      <con:value>Gallow</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalAA</con:name>
+      <con:value>1.1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalHCDescription</con:name>
+      <con:value>InternalTest1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalHCID</con:name>
+      <con:value>1.1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalPatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>NotificationEndpoint</con:name>
+      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value>
+    </con:property>
+    <con:property>
+      <con:name>NotifySubscriptionID</con:name>
+      <con:value>24085385-ef54-4aaf-b027-d5896689be24</con:value>
+    </con:property>
+    <con:property>
+      <con:name>NotifySubscriptionManagerEndpointAddress</con:name>
+      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PatientCorrelationDB</con:name>
+      <con:value>patientcorrelationdb</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PatientCorrelationTable</con:name>
+      <con:value>correlatedidentifiers</con:value>
+    </con:property>
+    <con:property>
+      <con:name>project.name</con:name>
+      <con:value>EntityValidation</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PurposeOfDisclosure</con:name>
+      <con:value>Mental</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteAA</con:name>
+      <con:value>2.2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteHCDescription</con:name>
+      <con:value>InternalTest2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteHCID</con:name>
+      <con:value>2.2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemotePatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SSN</con:name>
+      <con:value>123456789</con:value>
+    </con:property>
+    <con:property>
+      <con:name>State</con:name>
+      <con:value>FL</con:value>
+    </con:property>
+    <con:property>
+      <con:name>StreetAddress</con:name>
+      <con:value>123 Johnson Rd</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SubjectID</con:name>
+      <con:value>1111</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SubscribePatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SubscriptionDB</con:name>
+      <con:value>subscriptionrepository</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SubscriptionManagerEndpointAddress</con:name>
+      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SubscriptionTable</con:name>
+      <con:value>subscription</con:value>
+    </con:property>
+    <con:property>
+      <con:name>UniquePatientId</con:name>
+      <con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value>
+    </con:property>
+    <con:property>
+      <con:name>UnSubscriptionID</con:name>
+      <con:value>6deec8e7-6e6c-4269-91c2-69cb777ab8b0</con:value>
+    </con:property>
+    <con:property>
+      <con:name>ZipCode</con:name>
+      <con:value>12345</con:value>
+    </con:property>
+  </con:properties>
+  <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
@@ -398,4 +639,8 @@ block(sql)
 } finally {
 sql.close()
 }
-}</con:afterLoadScript><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>
+}</con:afterLoadScript>
+  <con:wssContainer/>
+  <con:oAuth2ProfileContainer/>
+  <con:sensitiveInformation/>
+</con:soapui-project>

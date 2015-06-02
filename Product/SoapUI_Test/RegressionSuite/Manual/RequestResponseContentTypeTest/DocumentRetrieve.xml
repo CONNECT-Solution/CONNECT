@@ -1,73 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="DocumentRetrieve" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.6.0" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
-	<con:settings/>
-	
-
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="../../../target/wsdl/EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-
-		<con:endpoints>
-		<con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:endpoint><con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:endpoint></con:endpoints>
-		<con:operation action="urn:gov:hhs:fha:nhinc:entitydocretrieve:RespondingGateway_CrossGatewayRetrieveRequestMessage" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" inputName="RespondingGateway_CrossGatewayRetrieveRequest" isOneWay="false" name="RespondingGateway_CrossGatewayRetrieve" outputName="RespondingGateway_CrossGatewayRetrieveResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-		</con:operation>
-	</con:interface>
-
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-
-	
-
-
-	
-	<con:testSuite name="g1">
-		<con:settings/>
-		<con:runType>SEQUENTIAL</con:runType>
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="08c7914d-69d5-40a5-951d-5774a8836aad" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
-	<con:settings/>
-	
-<con:testStep name="Document Retrieve" type="request">
-		<con:settings/>
-		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-			<con:interface>EntityDocRetrieveBindingSoap</con:interface>
-			<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
-			<con:request incomingWss="" name="Document Retrieve" outgoingWss="" wssPasswordType="">
-				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@expand-mtom-attachments">true</con:setting>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-		</con:settings>
-		<con:encoding>UTF-8</con:encoding>
-		
-		<con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+<con:soapui-project abortOnError="false" name="DocumentRetrieve" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.1.2" activeEnvironment="Default" id="62c3d12f-a7d7-4733-bcbf-d1c3ae063f0a" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings/>
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="../../../target/wsdl/EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="78406fe5-a469-4ca2-96e5-1669844588be" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:endpoints>
+      <con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:endpoint>
+      <con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:endpoint>
+    </con:endpoints>
+    <con:operation action="urn:gov:hhs:fha:nhinc:entitydocretrieve:RespondingGateway_CrossGatewayRetrieveRequestMessage" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" inputName="RespondingGateway_CrossGatewayRetrieveRequest" isOneWay="false" name="RespondingGateway_CrossGatewayRetrieve" outputName="RespondingGateway_CrossGatewayRetrieveResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response" id="d08879bf-d944-45e5-8af7-86b2d5bc88ec">
+      <con:settings/>
+    </con:operation>
+  </con:interface>
+  <con:testSuite name="g1" id="4c477cca-8469-457b-9b4c-7243a6617b8b">
+    <con:settings/>
+    <con:runType>SEQUENTIAL</con:runType>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="08c7914d-69d5-40a5-951d-5774a8836aad" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
+      <con:settings/>
+      <con:testStep name="Document Retrieve" type="request" id="f44cd671-4d7f-452d-aebd-43bec8db73a6">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityDocRetrieveBindingSoap</con:interface>
+          <con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
+          <con:request incomingWss="" name="Document Retrieve" outgoingWss="" wssPasswordType="" id="6283bd19-d15c-47f6-87b0-d2adcc02e5e3">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@expand-mtom-attachments">true</con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Document Retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -300,48 +261,53 @@
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:assertion type="SOAP Response"/>
-		<con:assertion type="SOAP Fault Assertion"/>
-		<con:assertion disabled="true" type="Schema Compliance">
-			<con:configuration>
-				<definition/>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Doc Repository ID" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
+            <con:assertion type="SOAP Response" id="2de57f45-cd52-4be3-9bed-8abc7eb6da39"/>
+            <con:assertion type="SOAP Fault Assertion" id="d0c400ff-f42b-44d9-bf0a-3de3afe000e4"/>
+            <con:assertion disabled="true" type="Schema Compliance" id="73a877c4-906f-4373-a348-1ab998137cff">
+              <con:configuration>
+                <definition/>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Doc Repository ID" type="XPath Match" id="922e4c00-383c-4f5f-a1bb-66a5f73fe535">
+              <con:configuration>
+                <path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
 					//ns5:RetrieveDocumentSetResponse[1]/ns5:DocumentResponse[1]/ns5:RepositoryUniqueId[1]</path>
-				<content>${#Project#DRRepoID}</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Doc ID" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
+                <content>${#Project#DRRepoID}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Doc ID" type="XPath Match" id="78db863a-0cdc-4076-8302-adbf1de4e9dc">
+              <con:configuration>
+                <path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
 					//ns5:RetrieveDocumentSetResponse[1]/ns5:DocumentResponse[1]/ns5:DocumentUniqueId[1]</path>
-				<content>${#Project#DRDocID}</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Document Data" type="GroovyScriptAssertion">
-			<con:configuration>
-				<scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+                <content>${#Project#DRDocID}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Document Data" type="GroovyScriptAssertion" id="fa8fb746-9836-43b8-b7f1-61728cb31290">
+              <con:configuration>
+                <scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 					def holder = groovyUtils.getXmlHolder( messageExchange.responseContent )
 					holder.namespaces["ns"]="urn:ihe:iti:xds-b:2007"
 					def docData = holder["//ns:RetrieveDocumentSetResponse[1]/ns:DocumentResponse[1]/ns:Document[1]"]
 					log.info docData.toString()
 					assert (docData.size() != 0)</scriptText>
-			</con:configuration>
-		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-		<con:jmsPropertyConfig/>
-		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
-		<con:wsrmConfig version="1.2"/>
-	</con:request>
-</con:config>
-</con:testStep><con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>(NhinDocRetrieve30 (g1))
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="manualTestStep" name="Manual TestStep - Verify logs" id="76bcb17c-05c0-4dea-bd21-92c71b5495ec">
+        <con:description>(NhinDocRetrieve30 (g1))
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/DocumentRetrieve/3_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;
@@ -354,79 +320,70 @@
 (AdapterDocRetrieve)
 3. Change the "Adapter Interface" in DocumentRetrieveProxyConfig.xml to adapterdocretrievewsunsecured and Check the content Type in AD Adapter Outbound Message
   A) Search the log file and look for http://localhost:8080/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieve (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-  B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+  B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;</con:description>
+        <con:settings/>
+        <con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:expectedResult>Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;</con:expectedResult>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 }</con:tearDownScript>
-<con:properties>
-	<con:property>
-		<con:name>CorrectedRemoteHCID</con:name>
-		<con:value>urn:oid:2.2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2014-03-25T16:05:57Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2014-03-25T16:15:57Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>03/25/2014 16:05:57</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2014-04-24T00:00:00Z</con:value>
-	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
-<con:reportParameters/>
-</con:testCase>
-
-
-
-
-<con:properties/>
-<con:setupScript/>
-<con:tearDownScript/>
-<con:reportParameters/>
-</con:testSuite>
-<con:testSuite name="g0">
-	<con:settings/>
-	<con:runType>SEQUENTIAL</con:runType>
-	
-
-
-
-
-
-
-
-
-
-
-
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="3a630f37-d9fc-4fd2-bc44-bc0b04246222" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
-	<con:settings/>
-	
-<con:testStep name="Document Retrieve" type="request">
-		<con:settings/>
-		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-			<con:interface>EntityDocRetrieveBindingSoap</con:interface>
-			<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
-			<con:request incomingWss="" name="Document Retrieve" outgoingWss="" wssPasswordType="">
-				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@expand-mtom-attachments">true</con:setting>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-		</con:settings>
-		<con:encoding>UTF-8</con:encoding>
-		
-		<con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:endpoint><con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+      <con:properties>
+        <con:property>
+          <con:name>CorrectedRemoteHCID</con:name>
+          <con:value>urn:oid:2.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2014-03-25T16:05:57Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2014-03-25T16:15:57Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>03/25/2014 16:05:57</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2014-04-24T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>PassThruOn</con:name>
+          <con:value>false</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:properties/>
+    <con:setupScript/>
+    <con:tearDownScript/>
+    <con:reportParameters/>
+  </con:testSuite>
+  <con:testSuite name="g0" id="e2d14eb3-5e3f-4abf-bee2-6dbc0054a826">
+    <con:settings/>
+    <con:runType>SEQUENTIAL</con:runType>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="3a630f37-d9fc-4fd2-bc44-bc0b04246222" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
+      <con:settings/>
+      <con:testStep name="Document Retrieve" type="request" id="e64ca62b-b7db-4b2f-8177-573f550bf573">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityDocRetrieveBindingSoap</con:interface>
+          <con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
+          <con:request incomingWss="" name="Document Retrieve" outgoingWss="" wssPasswordType="" id="1fb8d1d6-8d28-4acd-b30f-413953e0119a">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@expand-mtom-attachments">true</con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Document Retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -659,48 +616,53 @@ if(context.findProperty("PassThruOn").toBoolean()){
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:assertion type="SOAP Response"/>
-		<con:assertion type="SOAP Fault Assertion"/>
-		<con:assertion disabled="true" type="Schema Compliance">
-			<con:configuration>
-				<definition/>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Doc Repository ID" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
+            <con:assertion type="SOAP Response" id="28dd0e4b-2b9c-4503-8a05-c27e700c3591"/>
+            <con:assertion type="SOAP Fault Assertion" id="2ff83845-e426-4ba4-a61a-f7d20f6cafa1"/>
+            <con:assertion disabled="true" type="Schema Compliance" id="5eee0a91-5774-42a9-b496-8dc92c01eb5c">
+              <con:configuration>
+                <definition/>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Doc Repository ID" type="XPath Match" id="65b48125-74a4-430c-b222-04181f6172a9">
+              <con:configuration>
+                <path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
 					//ns5:RetrieveDocumentSetResponse[1]/ns5:DocumentResponse[1]/ns5:RepositoryUniqueId[1]</path>
-				<content>${#Project#DRRepoID}</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Doc ID" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
+                <content>${#Project#DRRepoID}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Doc ID" type="XPath Match" id="760908cc-aca4-4e86-84a6-05098eb49eae">
+              <con:configuration>
+                <path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
 					//ns5:RetrieveDocumentSetResponse[1]/ns5:DocumentResponse[1]/ns5:DocumentUniqueId[1]</path>
-				<content>${#Project#DRDocID}</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Document Data" type="GroovyScriptAssertion">
-			<con:configuration>
-				<scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+                <content>${#Project#DRDocID}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Document Data" type="GroovyScriptAssertion" id="3a5de68c-0443-44d2-a6ca-915d8ab489ab">
+              <con:configuration>
+                <scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 					def holder = groovyUtils.getXmlHolder( messageExchange.responseContent )
 					holder.namespaces["ns"]="urn:ihe:iti:xds-b:2007"
 					def docData = holder["//ns:RetrieveDocumentSetResponse[1]/ns:DocumentResponse[1]/ns:Document[1]"]
 					log.info docData.toString()
 					assert (docData.size() != 0)</scriptText>
-			</con:configuration>
-		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-		<con:jmsPropertyConfig/>
-		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
-		<con:wsrmConfig version="1.2"/>
-	</con:request>
-</con:config>
-</con:testStep><con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>(NhinDocRetrieve (g0))
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="manualTestStep" name="Manual TestStep - Verify logs" id="704f310c-1a54-4f3e-b6f0-ad52ef506767">
+        <con:description>(NhinDocRetrieve (g0))
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/DocumentRetrieve/2_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;
@@ -712,183 +674,328 @@ if(context.findProperty("PassThruOn").toBoolean()){
 
 (AdapterDocRetrieve)
 3. Change the "Adapter Interface" in DocumentRetrieveProxyConfig.xm to adapterdocretrievewsunsecured and Check the content Type in AD Adapter Outbound Message
-  A) Search the log file and look for http://localhost:8080/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieve (replace the localhost with server ip address if its different) Outbound Message
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+  A) Search the log file and look for http://localhost:8080/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieve (replace the localhost with server ip address if its different) Outbound Message</con:description>
+        <con:settings/>
+        <con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:expectedResult>Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;</con:expectedResult>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 }</con:tearDownScript>
-<con:properties>
-	<con:property>
-		<con:name>CorrectedRemoteHCID</con:name>
-		<con:value>urn:oid:2.2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2014-03-25T16:07:18Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2014-03-25T16:17:18Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>03/25/2014 16:07:18</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2014-04-24T00:00:00Z</con:value>
-	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
-<con:reportParameters/>
-</con:testCase>
-
-
-
-
-
-
-<con:properties/>
-<con:setupScript/>
-<con:tearDownScript/>
-<con:reportParameters/>
-</con:testSuite>
-<con:requirements/>
-<con:properties>
-
-
-
-
-
-
-
-	
-	
-	<con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property>
-
-
-
-
-
-
-
-
-
-	<con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property>
-	
-	
-	
-	
-
-
-
-
-
-
-
-
-	<con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property>
-	
-	
-	
-	<con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DateOfSignature</con:name><con:value>20080520</con:value></con:property>
-	
-	
-	<con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property>
-	<con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property>
-	
-	
-	
-
-
-
-
-
-
-	<con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property>
-	<con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property>
-
-
-	
-	
-	
-
-
-
-
-
-
-	
-	
-	
-	
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-	
-	
-	
-	<con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DQPTDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property>
-	
-	
-	
-	
-	
-	<con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>C:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property>
-
-
-	
-	
-
-
-
-
-	
-	
-	
-	
-	
-	
-
-
-
-
-
-	
-	
-	
-	
-	<con:property><con:name>NotifySubscriptionID</con:name><con:value>24085385-ef54-4aaf-b027-d5896689be24</con:value></con:property>
-	<con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property>
-	
-	
-	
-	<con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property>
-	
-	<con:property><con:name>project.name</con:name><con:value>EntityValidation</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property>
-<con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>6deec8e7-6e6c-4269-91c2-69cb777ab8b0</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property><con:property><con:name>DQ_EntityEndpoint_g1</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/3_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>DQ_EntityEndpoint_g0</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>DS_EntityEndpoint_g1</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>DS_EntityEndpoint_g0</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>DSDefResp_EntityEndpoint_g1</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>DSDefResp_EntityEndpoint_g0</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>PDDefReq_EntityEndpoint</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>DR_EntityEndpoint_g1</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>DR_EntityEndpoint_g0</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>PDDefResp_EntityEndpoint</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>PD_EntityEndpoint</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property><con:property><con:name>AD_EntityEndpoint_g1</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/2_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>DSDefReq_EntityEndpoint_g1</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>AD_EntityEndpoint_g0</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>DSDefReq_EntityEndpoint_g0</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property></con:properties>
-<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
+      <con:properties>
+        <con:property>
+          <con:name>CorrectedRemoteHCID</con:name>
+          <con:value>urn:oid:2.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2014-03-25T16:07:18Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2014-03-25T16:17:18Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>03/25/2014 16:07:18</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2014-04-24T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>PassThruOn</con:name>
+          <con:value>false</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:properties/>
+    <con:setupScript/>
+    <con:tearDownScript/>
+    <con:reportParameters/>
+  </con:testSuite>
+  <con:requirements/>
+  <con:properties>
+    <con:property>
+      <con:name>AAMappingDB</con:name>
+      <con:value>assigningauthoritydb</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AAMappingTable</con:name>
+      <con:value>aa_to_home_community_mapping</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AsyncMsgDB</con:name>
+      <con:value>asyncmsgs</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AsyncMsgTable</con:name>
+      <con:value>asyncmsgrepo</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AuditRepoDB</con:name>
+      <con:value>auditrepo</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AuditRepoTable</con:name>
+      <con:value>auditrepository</con:value>
+    </con:property>
+    <con:property>
+      <con:name>BirthTime</con:name>
+      <con:value>19630804</con:value>
+    </con:property>
+    <con:property>
+      <con:name>City</con:name>
+      <con:value>Melbourne</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Country</con:name>
+      <con:value>US</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DateOfSignature</con:name>
+      <con:value>20080520</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBHost</con:name>
+      <con:value>localhost</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBPass</con:name>
+      <con:value>nhincpass</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBPort</con:name>
+      <con:value>3306</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBUser</con:name>
+      <con:value>nhincuser</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DeferredPatientDiscoveryReqMessageID</con:name>
+      <con:value>uuid:6666666666.66666.666.66</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DOB</con:name>
+      <con:value>19800516</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DQDocID</con:name>
+      <con:value>1.123401.55555</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DQPatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DQPTDocID</con:name>
+      <con:value>1.123401.11111</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DRDocID</con:name>
+      <con:value>1.123407.777777</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DRRepoID</con:name>
+      <con:value>1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DynamicDQDocID</con:name>
+      <con:value>103.8.9284320.020.3590.75^1266324032288</con:value>
+    </con:property>
+    <con:property>
+      <con:name>ExpirationDate</con:name>
+      <con:value>20100520</con:value>
+    </con:property>
+    <con:property>
+      <con:name>FamilyName</con:name>
+      <con:value>Younger</con:value>
+    </con:property>
+    <con:property>
+      <con:name>GatewayPropDir</con:name>
+      <con:value>C:\glassfish3\glassfish\domains\domain1\config\nhin</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Gender</con:name>
+      <con:value>M</con:value>
+    </con:property>
+    <con:property>
+      <con:name>GivenName</con:name>
+      <con:value>Gallow</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalAA</con:name>
+      <con:value>1.1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalHCDescription</con:name>
+      <con:value>InternalTest1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalHCID</con:name>
+      <con:value>1.1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalPatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>NotificationEndpoint</con:name>
+      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value>
+    </con:property>
+    <con:property>
+      <con:name>NotifySubscriptionID</con:name>
+      <con:value>24085385-ef54-4aaf-b027-d5896689be24</con:value>
+    </con:property>
+    <con:property>
+      <con:name>NotifySubscriptionManagerEndpointAddress</con:name>
+      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PatientCorrelationDB</con:name>
+      <con:value>patientcorrelationdb</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PatientCorrelationTable</con:name>
+      <con:value>correlatedidentifiers</con:value>
+    </con:property>
+    <con:property>
+      <con:name>project.name</con:name>
+      <con:value>EntityValidation</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PurposeOfDisclosure</con:name>
+      <con:value>Mental</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteAA</con:name>
+      <con:value>2.2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteHCDescription</con:name>
+      <con:value>InternalTest2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteHCID</con:name>
+      <con:value>2.2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemotePatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SSN</con:name>
+      <con:value>123456789</con:value>
+    </con:property>
+    <con:property>
+      <con:name>State</con:name>
+      <con:value>FL</con:value>
+    </con:property>
+    <con:property>
+      <con:name>StreetAddress</con:name>
+      <con:value>123 Johnson Rd</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SubjectID</con:name>
+      <con:value>1111</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SubscribePatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SubscriptionDB</con:name>
+      <con:value>subscriptionrepository</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SubscriptionManagerEndpointAddress</con:name>
+      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SubscriptionTable</con:name>
+      <con:value>subscription</con:value>
+    </con:property>
+    <con:property>
+      <con:name>UniquePatientId</con:name>
+      <con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value>
+    </con:property>
+    <con:property>
+      <con:name>UnSubscriptionID</con:name>
+      <con:value>6deec8e7-6e6c-4269-91c2-69cb777ab8b0</con:value>
+    </con:property>
+    <con:property>
+      <con:name>ZipCode</con:name>
+      <con:value>12345</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DQ_EntityEndpoint_g1</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentQuery/3_0/EntityService/EntityDocQueryUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DQ_EntityEndpoint_g0</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DS_EntityEndpoint_g1</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DS_EntityEndpoint_g0</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DSDefResp_EntityEndpoint_g1</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DSDefResp_EntityEndpoint_g0</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PDDefReq_EntityEndpoint</con:name>
+      <con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DR_EntityEndpoint_g1</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DR_EntityEndpoint_g0</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PDDefResp_EntityEndpoint</con:name>
+      <con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PD_EntityEndpoint</con:name>
+      <con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AD_EntityEndpoint_g1</con:name>
+      <con:value>http://localhost:8080/Gateway/AdminDistribution/2_0/AdministrativeDistribution_Service</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DSDefReq_EntityEndpoint_g1</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AD_EntityEndpoint_g0</con:name>
+      <con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DSDefReq_EntityEndpoint_g0</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value>
+    </con:property>
+  </con:properties>
+  <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
@@ -947,214 +1054,216 @@ block(sql)
 sql.close()
 }
 }</con:afterLoadScript>
-<con:wssContainer/>
-<con:databaseConnectionContainer/>
-<con:reporting>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:xmlTemplates/>
-	<con:parameters/>
-</con:reporting>
-<con:sensitiveInformation/></con:soapui-project>
+  <con:wssContainer/>
+  <con:databaseConnectionContainer/>
+  <con:oAuth2ProfileContainer/>
+  <con:reporting>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:parameters/>
+  </con:reporting>
+  <con:sensitiveInformation/>
+</con:soapui-project>

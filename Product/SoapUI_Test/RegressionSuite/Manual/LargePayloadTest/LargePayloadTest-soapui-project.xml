@@ -1,50 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project activeEnvironment="Default" name="LargePayloadTest" resourceRoot="${projectDir}" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityXDR_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" soapVersion="1_2" anonymous="optional" definition="../../target/wsdl/EntityXDRRequest.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-
-		<con:definitionCache/><con:endpoints>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRRequest</con:endpoint>
-			<con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRRequest</con:endpoint>
-			<con:endpoint>${#TestSuite#Endpoint-EntityXDRRequest}</con:endpoint>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRAsyncRequest</con:endpoint>
-		</con:endpoints>
-		<con:operation action="tns:ProvideAndRegisterDocumentSet-bAsyncRequest" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncRequest" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncRequest" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-
-		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="../../target/wsdl/EntityAdminDist_g1.wsdl" name="AdministrativeDistribution_Binding_Soap12_g1" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-		<con:definitionCache/><con:endpoints>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/2_0/AdministrativeDistribution_Service</con:endpoint>
-		</con:endpoints>
-		<con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way">
-			<con:settings/>
-		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="../../target/wsdl/EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-
-		<con:definitionCache/><con:endpoints>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocRetrieve</con:endpoint>
-		</con:endpoints>
-		<con:operation action="urn:RespondingGateway_CrossGatewayRetrieve" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" inputName="RespondingGateway_CrossGatewayRetrieveRequest" isOneWay="false" name="RespondingGateway_CrossGatewayRetrieve" outputName="RespondingGateway_CrossGatewayRetrieveResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-		</con:operation>
-	</con:interface><con:testSuite name="LargePayload"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Create Large File" searchProperties="true" id="a200ff7f-048e-47c1-a785-9f9fa291851b"><con:settings/><con:testStep type="manualTestStep" name="Change domain.xml" disabled="true"><con:description>Make sure cxf setting in domain.xml is set for large payload</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>On you domain.xml of your glassfish server, add the following java option
+<con:soapui-project activeEnvironment="Default" name="LargePayloadTest" resourceRoot="${projectDir}" soapui-version="5.1.2" abortOnError="false" runType="SEQUENTIAL" id="2463baf7-fb17-43f4-8463-cdabfda2f970" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings/>
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityXDR_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" soapVersion="1_2" anonymous="optional" definition="../../target/wsdl/EntityXDRRequest.wsdl" id="560b32dd-5cd4-4049-9b26-4e0decd3e75d" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:endpoints>
+      <con:endpoint>${#TestSuite#Endpoint-EntityXDRRequest}</con:endpoint>
+      <con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRAsyncRequest</con:endpoint>
+      <con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRRequest</con:endpoint>
+      <con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRRequest</con:endpoint>
+    </con:endpoints>
+    <con:operation action="tns:ProvideAndRegisterDocumentSet-bAsyncRequest" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncRequest" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncRequest" receivesAttachments="false" sendsAttachments="false" type="Request-Response" id="552cf12b-5aa9-4fde-840b-b81b75cc420b">
+      <con:settings/>
+    </con:operation>
+  </con:interface>
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="../../target/wsdl/EntityAdminDist_g1.wsdl" name="AdministrativeDistribution_Binding_Soap12_g1" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="eaa41f4d-9178-4c98-9a45-431b457daa12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:endpoints>
+      <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/2_0/AdministrativeDistribution_Service</con:endpoint>
+    </con:endpoints>
+    <con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way" id="4e157119-5caf-4716-a66a-efe7c9846954">
+      <con:settings/>
+    </con:operation>
+  </con:interface>
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="../../target/wsdl/EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="44d9be3f-790c-4a0b-853d-f626b8ad222b" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:endpoints>
+      <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocRetrieve</con:endpoint>
+    </con:endpoints>
+    <con:operation action="urn:RespondingGateway_CrossGatewayRetrieve" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" inputName="RespondingGateway_CrossGatewayRetrieveRequest" isOneWay="false" name="RespondingGateway_CrossGatewayRetrieve" outputName="RespondingGateway_CrossGatewayRetrieveResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response" id="7a02237b-f090-4662-9e2e-16e51b7b4d4d">
+      <con:settings/>
+    </con:operation>
+  </con:interface>
+  <con:testSuite name="LargePayload" id="e79de04f-ae85-426d-8d84-7444a8c98190">
+    <con:settings/>
+    <con:runType>SEQUENTIAL</con:runType>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Create Large File" searchProperties="true" id="a200ff7f-048e-47c1-a785-9f9fa291851b">
+      <con:settings/>
+      <con:testStep type="manualTestStep" name="Change domain.xml" disabled="true" id="af707ddd-feaa-4e24-ad48-1ce80a735f0f">
+        <con:description>Make sure cxf setting in domain.xml is set for large payload</con:description>
+        <con:settings/>
+        <con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:expectedResult>On you domain.xml of your glassfish server, add the following java option
 -Dorg.apache.cxf.io.CachedOutputStream.OutputDirectory=&lt;directory>.
 This is the directory where CXF streams a file temporarily. 
 It is recommended that this directory be different from PayloadSaveDirectory.
-Restart the server. </con:expectedResult></con:config></con:testStep><con:testStep type="groovy" name="Create File"><con:settings/><con:config><script>def filePath = context.findProperty('SenderPath');
+Restart the server.</con:expectedResult>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Create File" id="9b68e9c2-21c2-4ec8-b37b-6feddebf612f">
+        <con:settings/>
+        <con:config>
+          <script>def filePath = context.findProperty('SenderPath');
 def fileName = context.findProperty('FileName');
 def size = context.findProperty('PayloadSize');
 
 new File("/" + filePath + File.separator + fileName).newOutputStream().withWriter("UTF-8") { writer ->
     size.toInteger().times { writer.write "Large payload tst data.\n" + it }
-}</script></con:config></con:testStep><con:testStep type="groovy" name="Encode File Name"><con:settings/><con:config><script>def encodePath = "file:///" + context.findProperty('SenderPath') +
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Encode File Name" id="c34f7e6e-2881-4cbc-931d-e0cf1fe8f9e8">
+        <con:settings/>
+        <con:config>
+          <script>def encodePath = "file:///" + context.findProperty('SenderPath') +
 	"/" + context.findProperty('FileName');
 	
 def encoded = encodePath.bytes.encodeBase64().toString();
 
-testRunner.testCase.testSuite.setPropertyValue('EncodedPath', encoded);</script></con:config></con:testStep><con:testStep type="groovy" name="Create MD5 Encoder"><con:settings/><con:config><script>import java.security.MessageDigest;
+testRunner.testCase.testSuite.setPropertyValue('EncodedPath', encoded);</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Create MD5 Encoder" id="ed110bd3-80a9-49e1-9ba7-247a6211e578">
+        <con:settings/>
+        <con:config>
+          <script>import java.security.MessageDigest;
 
 def fileName = "/" + context.findProperty('SenderPath') + File.separator +
 	context.findProperty('FileName');
@@ -62,7 +91,17 @@ new File(fileName).withInputStream(){is->
 byte[] md5sum = digest.digest()
 BigInteger bigInt = new BigInteger(1, md5sum)
 
-testRunner.testCase.testSuite.setPropertyValue('SendMD5', bigInt.toString(16));</script></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Create Multiple Large Files" searchProperties="true" id="8d488035-f2f2-4c6a-aab7-94bab82a9cd5"><con:settings/><con:testStep type="groovy" name="Create Files"><con:settings/><con:config><script>def filePath = context.findProperty('SenderPath');
+testRunner.testCase.testSuite.setPropertyValue('SendMD5', bigInt.toString(16));</script>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Create Multiple Large Files" searchProperties="true" id="8d488035-f2f2-4c6a-aab7-94bab82a9cd5">
+      <con:settings/>
+      <con:testStep type="groovy" name="Create Files" id="a53c9f8c-2468-4958-a607-57fa5c6f3ddf">
+        <con:settings/>
+        <con:config>
+          <script>def filePath = context.findProperty('SenderPath');
 def fileName1 = context.findProperty('FileNameMulti1');
 def fileName2 = context.findProperty('FileNameMulti2');
 def size = context.findProperty('MultiPayloadSize');
@@ -73,7 +112,13 @@ new File(filePath + File.separator + fileName1).newOutputStream().withWriter("UT
 
 new File(filePath + File.separator + fileName2).newOutputStream().withWriter("UTF-8") { writer ->
     size.toInteger().times { writer.write "Large payload tst data.\n" + it }
-}</script></con:config></con:testStep><con:testStep type="groovy" name="Encode File Names"><con:settings/><con:config><script>def encodePath = "file:///" + context.findProperty('SenderPath') +
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Encode File Names" id="01d01f03-fe5a-4839-8721-1c3088751846">
+        <con:settings/>
+        <con:config>
+          <script>def encodePath = "file:///" + context.findProperty('SenderPath') +
 	"/" + context.findProperty('FileNameMulti1');
 
 
@@ -87,7 +132,13 @@ def encodePath2 = "file:///"  + context.findProperty('SenderPath') + "/" +
 
 def encoded2 = encodePath2.bytes.encodeBase64().toString();
 
-testRunner.testCase.testSuite.setPropertyValue('EncodedPathM2', encoded2);</script></con:config></con:testStep><con:testStep type="groovy" name="Create MD5 Encoder File 1"><con:settings/><con:config><script>import java.security.MessageDigest;
+testRunner.testCase.testSuite.setPropertyValue('EncodedPathM2', encoded2);</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Create MD5 Encoder File 1" id="07b21b63-94d1-46ca-a200-d293894eb6fe">
+        <con:settings/>
+        <con:config>
+          <script>import java.security.MessageDigest;
 
 def fileName = context.findProperty('SenderPath') + File.separator +
 	context.findProperty('FileNameMulti1');
@@ -105,7 +156,13 @@ new File(fileName).withInputStream(){is->
 byte[] md5sum = digest.digest()
 BigInteger bigInt = new BigInteger(1, md5sum)
 
-testRunner.testCase.testSuite.setPropertyValue('SendMD5_M1', bigInt.toString(16));</script></con:config></con:testStep><con:testStep type="groovy" name="Create MD5 Encoder File 2"><con:settings/><con:config><script>import java.security.MessageDigest;
+testRunner.testCase.testSuite.setPropertyValue('SendMD5_M1', bigInt.toString(16));</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Create MD5 Encoder File 2" id="65530fa0-af40-4732-9b2c-084c1a7dabcd">
+        <con:settings/>
+        <con:config>
+          <script>import java.security.MessageDigest;
 
 def fileName = context.findProperty('SenderPath') + File.separator +
 	context.findProperty('FileNameMulti2');
@@ -123,15 +180,27 @@ new File(fileName).withInputStream(){is->
 byte[] md5sum = digest.digest()
 BigInteger bigInt = new BigInteger(1, md5sum)
 
-testRunner.testCase.testSuite.setPropertyValue('SendMD5_M2', bigInt.toString(16));</script></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Message Proxy" searchProperties="true" id="124abbc3-ac39-445f-808a-7a312cc3d369">
-	<con:settings/>
-	<con:testStep type="groovy" name="Update gateway.properties"><con:settings/><con:config><script>def saveDir = context.findProperty('ReceiverPath');
+testRunner.testCase.testSuite.setPropertyValue('SendMD5_M2', bigInt.toString(16));</script>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Message Proxy" searchProperties="true" id="124abbc3-ac39-445f-808a-7a312cc3d369">
+      <con:settings/>
+      <con:testStep type="groovy" name="Update gateway.properties" id="8dd12045-fb76-4e69-a0e8-68bc876ff62d">
+        <con:settings/>
+        <con:config>
+          <script>def saveDir = context.findProperty('ReceiverPath');
 
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "ParsePayloadAsFileURIOutbound", "true", log);
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "PayloadSaveDirectory", "${saveDir}", log);
-nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "SavePayloadToFileInbound", "true", log);
-</script></con:config></con:testStep>
-<con:testStep type="groovy" name="Check MD5 of Received Doc"><con:settings/><con:config><script>import java.security.MessageDigest;
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "SavePayloadToFileInbound", "true", log);</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Check MD5 of Received Doc" id="5ecc72b1-577f-4ac7-945a-2d109be13a64">
+        <con:settings/>
+        <con:config>
+          <script>import java.security.MessageDigest;
 import java.util.Vector;
 
 def directoryName = context.findProperty('ReceiverPath');
@@ -181,38 +250,54 @@ def sentMD5 = context.findProperty('SendMD5')
 
 log.info "SENT: ${sentMD5}, RECEIVED: ${receiveMD5}"
 
-assert ( sentMD5 == receiveMD5 );</script></con:config></con:testStep><con:testStep type="groovy" name="Delete Received File"><con:settings/><con:config><script>def fileName = context.findProperty('ReceiverPath') + File.separator + context.findProperty('ReceivedFileName');
-new File(fileName).delete();</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+assert ( sentMD5 == receiveMD5 );</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Delete Received File" id="257d00a4-5d0e-4cf1-9954-78fcaa329cc0">
+        <con:settings/>
+        <con:config>
+          <script>def fileName = context.findProperty('ReceiverPath') + File.separator + context.findProperty('ReceivedFileName');
+new File(fileName).delete();</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
-</con:tearDownScript>
-<con:properties>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2012-10-15T18:43:58Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2012-10-15T18:53:58Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>10/15/2012 18:43:58</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2012-11-14T00:00:00Z</con:value>
-	</con:property>
-</con:properties>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req Message Proxy" searchProperties="true" id="81f86c6f-3469-4187-80f5-50fca1d24525">
-			<con:settings/>
-			<con:testStep type="groovy" name="Update gateway.properties"><con:settings/><con:config><script>def saveDir = context.findProperty('ReceiverPath');
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2012-10-15T18:43:58Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2012-10-15T18:53:58Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>10/15/2012 18:43:58</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2012-11-14T00:00:00Z</con:value>
+        </con:property>
+      </con:properties>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req Message Proxy" searchProperties="true" id="81f86c6f-3469-4187-80f5-50fca1d24525">
+      <con:settings/>
+      <con:testStep type="groovy" name="Update gateway.properties" id="2fd0a5cc-5b42-4e1e-83e5-b01ea4fcfceb">
+        <con:settings/>
+        <con:config>
+          <script>def saveDir = context.findProperty('ReceiverPath');
 
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "ParsePayloadAsFileURIOutbound", "true", log);
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "PayloadSaveDirectory", "${saveDir}", log);
-nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "SavePayloadToFileInbound", "true", log);
-</script></con:config></con:testStep>
-	<con:testStep type="groovy" name="Check MD5 of Received Doc"><con:settings/><con:config><script>import java.security.MessageDigest;
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "SavePayloadToFileInbound", "true", log);</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Check MD5 of Received Doc" id="a2c83ac7-5adb-4b2e-ae79-fefb37200a7f">
+        <con:settings/>
+        <con:config>
+          <script>import java.security.MessageDigest;
 import java.util.Vector;
 
 def directoryName = context.findProperty('ReceiverPath');
@@ -262,53 +347,63 @@ def sentMD5 = context.findProperty('SendMD5')
 
 log.info "SENT: ${sentMD5}, RECEIVED: ${receiveMD5}"
 
-assert ( sentMD5 == receiveMD5 );</script></con:config></con:testStep><con:testStep type="groovy" name="Delete Received File"><con:settings/><con:config><script>def fileName = context.findProperty('ReceiverPath') + File.separator + context.findProperty('ReceivedFileName');
-new File(fileName).delete();</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
-</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
-</con:tearDownScript>
-<con:properties>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2012-10-15T18:43:48Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2012-10-15T18:53:48Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>10/15/2012 18:43:48</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2012-11-14T00:00:00Z</con:value>
-	</con:property>
-</con:properties>
-<con:reportParameters/>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true" id="7dc4a684-1638-40db-b8e9-a1113ec93a7c">
-	<con:settings/>
-	<con:testStep type="groovy" name="Update gateway.properties"><con:settings/><con:config><script>def saveDir = context.findProperty('ReceiverPath');
+assert ( sentMD5 == receiveMD5 );</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Delete Received File" id="eef3f49c-4efb-48b8-a8df-59f7e834f9e4">
+        <con:settings/>
+        <con:config>
+          <script>def fileName = context.findProperty('ReceiverPath') + File.separator + context.findProperty('ReceivedFileName');
+new File(fileName).delete();</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2012-10-15T18:43:48Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2012-10-15T18:53:48Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>10/15/2012 18:43:48</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2012-11-14T00:00:00Z</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true" id="7dc4a684-1638-40db-b8e9-a1113ec93a7c">
+      <con:settings/>
+      <con:testStep type="groovy" name="Update gateway.properties" id="16cb64a3-debc-434f-9232-1b606f46bcf7">
+        <con:settings/>
+        <con:config>
+          <script>def saveDir = context.findProperty('ReceiverPath');
 
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "ParsePayloadAsFileURIOutbound", "true", log);
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "PayloadSaveDirectory", "${saveDir}", log);
-nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "SavePayloadToFileInbound", "true", log);
-</script></con:config></con:testStep>
-
-<con:testStep name="Admin Distribution" type="request">
-		<con:settings/>
-		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-			<con:interface>AdministrativeDistribution_Binding_Soap12_g1</con:interface>
-			<con:operation>SendAlertMessage</con:operation>
-			<con:request name="Admin Distribution">
-				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-		</con:settings>
-		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
-		<con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "SavePayloadToFileInbound", "true", log);</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Admin Distribution" type="request" id="f5587e11-0130-4a02-b0d7-2e9e3160553b">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>AdministrativeDistribution_Binding_Soap12_g1</con:interface>
+          <con:operation>SendAlertMessage</con:operation>
+          <con:request name="Admin Distribution" id="80c32f21-1c87-47ef-b317-1ad897258c3a">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Admin Distribution">
       <urn:RespondingGateway_SendAlertMessage>
@@ -640,13 +735,20 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-		<con:jmsPropertyConfig/>
-		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
-		<con:wsrmConfig version="1.2"/>
-	</con:request>
-</con:config>
-</con:testStep><con:testStep type="groovy" name="Check for Received File"><con:settings/><con:config><script>import java.util.Vector;
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Check for Received File" id="9e4bc346-de9e-4c1e-9afb-de26c58f53ad">
+        <con:settings/>
+        <con:config>
+          <script>import java.util.Vector;
 
 def directoryName = context.findProperty('ReceiverPath');
 def fileSubStr = "nhin";
@@ -705,8 +807,13 @@ if(flag == false){
 	assert(1 == 2);
 }else{
 	testRunner.testCase.testSuite.setPropertyValue('ReceivedFileName', receivedFileName)
-}
-</script></con:config></con:testStep><con:testStep type="groovy" name="Check MD5"><con:settings/><con:config><script>import java.security.MessageDigest;
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Check MD5" id="0b752298-3edf-47b7-8a36-f5ad2bdd8ca6">
+        <con:settings/>
+        <con:config>
+          <script>import java.security.MessageDigest;
 
 def fileName = context.findProperty('ReceiverPath') + "/" +
 	context.findProperty('ReceivedFileName');
@@ -729,38 +836,54 @@ def sentMD5 = context.findProperty('SendMD5')
 
 log.info "SENT: ${sentMD5}, RECEIVED: ${receiveMD5}"
 
-assert ( sentMD5 == receiveMD5 );
-</script></con:config></con:testStep><con:testStep type="groovy" name="Delete Received File"><con:settings/><con:config><script>def fileName = context.findProperty('ReceiverPath') + File.separator + context.findProperty('ReceivedFileName');
-new File(fileName).delete();</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+assert ( sentMD5 == receiveMD5 );</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Delete Received File" id="ec10ed40-d52a-4796-be54-643e5f1bca57">
+        <con:settings/>
+        <con:config>
+          <script>def fileName = context.findProperty('ReceiverPath') + File.separator + context.findProperty('ReceivedFileName');
+new File(fileName).delete();</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
-<con:properties>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2012-10-17T19:06:24Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2012-10-17T19:16:24Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>10/17/2012 19:06:24</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2012-11-16T00:00:00Z</con:value>
-	</con:property>
-</con:properties>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution MessageProxy" searchProperties="true" id="6b1fc292-c841-4cce-ac42-4b1535aba84e">
-	<con:settings/>
-	<con:testStep type="groovy" name="Update gateway.properties"><con:settings/><con:config><script>def saveDir = context.findProperty('ReceiverPath');
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2012-10-17T19:06:24Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2012-10-17T19:16:24Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>10/17/2012 19:06:24</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2012-11-16T00:00:00Z</con:value>
+        </con:property>
+      </con:properties>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution MessageProxy" searchProperties="true" id="6b1fc292-c841-4cce-ac42-4b1535aba84e">
+      <con:settings/>
+      <con:testStep type="groovy" name="Update gateway.properties" id="4f4222b1-2f36-4f8d-b97a-d72a1eaf7f86">
+        <con:settings/>
+        <con:config>
+          <script>def saveDir = context.findProperty('ReceiverPath');
 
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "ParsePayloadAsFileURIOutbound", "true", log);
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "PayloadSaveDirectory", "${saveDir}", log);
-nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "SavePayloadToFileInbound", "true", log);
-</script></con:config></con:testStep>
-<con:testStep type="groovy" name="Check for Received File"><con:settings/><con:config><script>import java.util.Vector;
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "SavePayloadToFileInbound", "true", log);</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Check for Received File" id="e21e913e-e309-4cc1-b10c-782349ea5d9d">
+        <con:settings/>
+        <con:config>
+          <script>import java.util.Vector;
 
 def directoryName = context.findProperty('ReceiverPath');
 def fileSubStr = "nhin";
@@ -819,8 +942,13 @@ if(flag == false){
 	assert(1 == 2);
 }else{
 	testRunner.testCase.testSuite.setPropertyValue('ReceivedFileName', receivedFileName)
-}
-</script></con:config></con:testStep><con:testStep type="groovy" name="Check MD5"><con:settings/><con:config><script>import java.security.MessageDigest;
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Check MD5" id="b343c7d5-7a3a-4e3c-9177-fa488af57a5c">
+        <con:settings/>
+        <con:config>
+          <script>import java.security.MessageDigest;
 
 def fileName = context.findProperty('ReceiverPath') + "/" +
 	context.findProperty('ReceivedFileName');
@@ -843,45 +971,67 @@ def sentMD5 = context.findProperty('SendMD5')
 
 log.info "SENT: ${sentMD5}, RECEIVED: ${receiveMD5}"
 
-assert ( sentMD5 == receiveMD5 );
-</script></con:config></con:testStep><con:testStep type="groovy" name="Delete Received File"><con:settings/><con:config><script>def fileName = context.findProperty('ReceiverPath') + File.separator + context.findProperty('ReceivedFileName');
-new File(fileName).delete();</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+assert ( sentMD5 == receiveMD5 );</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Delete Received File" id="06722082-a279-469b-849f-5011a49d72fb">
+        <con:settings/>
+        <con:config>
+          <script>def fileName = context.findProperty('ReceiverPath') + File.separator + context.findProperty('ReceivedFileName');
+new File(fileName).delete();</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
-</con:tearDownScript>
-<con:properties>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2012-10-15T18:44:25Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2012-10-15T18:54:25Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>10/15/2012 18:44:25</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2012-11-14T00:00:00Z</con:value>
-	</con:property>
-</con:properties>
-<con:reportParameters/>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true" id="caccc017-559c-49fc-81a9-4037cd11d550">
-	<con:settings/>
-	<con:testStep type="groovy" name="Backup DR Spring Proxy"><con:settings/><con:config><script>def SpringFile = new File(context.findProperty('GatewayPropDir') + "/" +
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2012-10-15T18:44:25Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2012-10-15T18:54:25Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>10/15/2012 18:44:25</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2012-11-14T00:00:00Z</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true" id="caccc017-559c-49fc-81a9-4037cd11d550">
+      <con:settings/>
+      <con:testStep type="groovy" name="Backup DR Spring Proxy" id="956a43c0-78e6-40b4-af41-bf508bb3ea44">
+        <con:settings/>
+        <con:config>
+          <script>def SpringFile = new File(context.findProperty('GatewayPropDir') + "/" +
 	"DocumentRetrieveProxyConfig.xml");
 
 new File(context.findProperty('GatewayPropDir') + "/" +
 	"DocumentRetrieveProxyConfig.xml.bak") &lt;&lt; SpringFile.asWritable();
 
-SpringFile.delete();</script></con:config></con:testStep><con:testStep type="groovy" name="Update gateway.properties"><con:settings/><con:config><script>def saveDir = context.findProperty('ReceiverPath');
+SpringFile.delete();</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Update gateway.properties" id="81b8a3f8-4b39-42a9-8058-8c8f33017846">
+        <con:settings/>
+        <con:config>
+          <script>def saveDir = context.findProperty('ReceiverPath');
 
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "ParsePayloadAsFileURIOutbound", "true", log);
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "PayloadSaveDirectory", "${saveDir}", log);
-nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "SavePayloadToFileInbound", "true", log);
-</script></con:config></con:testStep><con:testStep type="groovy" name="Update DR Spring Proxy"><con:settings/><con:config><script><![CDATA[def springProxyFile = new File (context.findProperty('GatewayPropDir') +
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "SavePayloadToFileInbound", "true", log);</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Update DR Spring Proxy" id="7eeef10a-0cbb-4b9f-9243-aea9910531cc">
+        <con:settings/>
+        <con:config>
+          <script><![CDATA[def springProxyFile = new File (context.findProperty('GatewayPropDir') +
 	"/" + "DocumentRetrieveProxyConfig.xml");
 def springProxyBak = context.findProperty('GatewayPropDir') +
 	"/" + "DocumentRetrieveProxyConfig.xml.bak";
@@ -904,21 +1054,22 @@ f.eachLine() {
     }else{
     		springProxyFile << (line + ln);
     }
-}]]></script></con:config></con:testStep>
-<con:testStep name="Document Retrieve" type="request">
-		<con:settings/>
-		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-			<con:interface>EntityDocRetrieveBindingSoap</con:interface>
-			<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
-			<con:request incomingWss="" name="Document Retrieve" outgoingWss="" wssPasswordType="">
-				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@expand-mtom-attachments">true</con:setting>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-		</con:settings>
-		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
-		<con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+}]]></script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Document Retrieve" type="request" id="c7ea0e6e-19c2-45cf-9622-6b497230bb02">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityDocRetrieveBindingSoap</con:interface>
+          <con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
+          <con:request incomingWss="" name="Document Retrieve" outgoingWss="" wssPasswordType="" id="77ac80e5-f3b1-4205-ae90-ca1e8fa79c53">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@expand-mtom-attachments">true</con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Document Retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -1150,48 +1301,55 @@ f.eachLine() {
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:assertion type="SOAP Response"/>
-		<con:assertion type="SOAP Fault Assertion"/>
-		<con:assertion type="Schema Compliance" disabled="true">
-			<con:configuration>
-				<definition/>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Doc Repository ID" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
+            <con:assertion type="SOAP Response" id="e60f50a6-02ca-49ff-8be9-5f17d137fd8a"/>
+            <con:assertion type="SOAP Fault Assertion" id="332c8e86-349a-4d71-af43-9ac7994ca213"/>
+            <con:assertion type="Schema Compliance" disabled="true" id="6c4c9b5b-01cd-4d76-8aae-e9199cd6eb2d">
+              <con:configuration>
+                <definition/>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Doc Repository ID" type="XPath Match" id="899a8b8a-2726-4385-a46c-eb9843f0ae7c">
+              <con:configuration>
+                <path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
 					//ns5:RetrieveDocumentSetResponse[1]/ns5:DocumentResponse[1]/ns5:RepositoryUniqueId[1]</path>
-				<content>${#Project#DRRepoID}</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Doc ID" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
+                <content>${#Project#DRRepoID}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Doc ID" type="XPath Match" id="21478080-7124-4d74-8fde-0736596bac3f">
+              <con:configuration>
+                <path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
 					//ns5:RetrieveDocumentSetResponse[1]/ns5:DocumentResponse[1]/ns5:DocumentUniqueId[1]</path>
-				<content>${#Project#DRDocID}</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Document Data" type="GroovyScriptAssertion">
-			<con:configuration>
-				<scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+                <content>${#Project#DRDocID}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Document Data" type="GroovyScriptAssertion" id="bb92adea-4b87-45fa-b44a-8e1a0cc8647b">
+              <con:configuration>
+                <scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 					def holder = groovyUtils.getXmlHolder( messageExchange.responseContent )
 					holder.namespaces["ns"]="urn:ihe:iti:xds-b:2007"
 					def docData = holder["//ns:RetrieveDocumentSetResponse[1]/ns:DocumentResponse[1]/ns:Document[1]"]
 					log.info docData.toString()
 					assert (docData.size() != 0)</scriptText>
-			</con:configuration>
-		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-		<con:jmsPropertyConfig/>
-		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
-		<con:wsrmConfig version="1.2"/>
-	</con:request>
-</con:config>
-</con:testStep><con:testStep type="groovy" name="Check MD5 of Received Doc"><con:settings/><con:config><script>import java.security.MessageDigest;
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Check MD5 of Received Doc" id="0639c66c-7d37-4f95-a705-82094702cf25">
+        <con:settings/>
+        <con:config>
+          <script>import java.security.MessageDigest;
 import java.util.Vector;
 
 def directoryName = context.findProperty('ReceiverPath');
@@ -1241,9 +1399,18 @@ def sentMD5 = context.findProperty('SendMD5')
 
 log.info "SENT: ${sentMD5}, RECEIVED: ${receiveMD5}"
 
-assert ( sentMD5 == receiveMD5 );</script></con:config></con:testStep><con:testStep type="groovy" name="Delete Received File"><con:settings/><con:config><script>def fileName = context.findProperty('ReceiverPath') + File.separator + context.findProperty('ReceivedFileName');
-new File(fileName).delete();</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+assert ( sentMD5 == receiveMD5 );</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Delete Received File" id="8dab84c7-2cc3-4528-928f-0e377b39e6ba">
+        <con:settings/>
+        <con:config>
+          <script>def fileName = context.findProperty('ReceiverPath') + File.separator + context.findProperty('ReceivedFileName');
+new File(fileName).delete();</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 
 def SpringFileBak = new File(context.findProperty('GatewayPropDir') + "/" +
 	"DocumentRetrieveProxyConfig.xml.bak");
@@ -1255,44 +1422,58 @@ if(SpringFileBak.exists()){
 	SpringFile &lt;&lt; SpringFileBak.asWritable();
 	SpringFileBak.delete();
 }</con:tearDownScript>
-<con:properties>
-	<con:property>
-		<con:name>CorrectedRemoteHCID</con:name>
-		<con:value>urn:oid:2.2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2012-10-17T19:05:07Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2012-10-17T19:15:07Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>10/17/2012 19:05:07</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2012-11-16T00:00:00Z</con:value>
-	</con:property>
-</con:properties>
-<con:reportParameters/>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve Message Proxy" searchProperties="true" id="24ac6adf-4ee3-4f0b-b344-755de0056d9c">
-	<con:settings/>
-	<con:testStep type="groovy" name="Backup DR Spring Proxy"><con:settings/><con:config><script>def SpringFile = new File(context.findProperty('GatewayPropDir') + "/" +
+      <con:properties>
+        <con:property>
+          <con:name>CorrectedRemoteHCID</con:name>
+          <con:value>urn:oid:2.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2012-10-17T19:05:07Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2012-10-17T19:15:07Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>10/17/2012 19:05:07</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2012-11-16T00:00:00Z</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve Message Proxy" searchProperties="true" id="24ac6adf-4ee3-4f0b-b344-755de0056d9c">
+      <con:settings/>
+      <con:testStep type="groovy" name="Backup DR Spring Proxy" id="150b6d12-847d-4991-b1c6-b2472a47927b">
+        <con:settings/>
+        <con:config>
+          <script>def SpringFile = new File(context.findProperty('GatewayPropDir') + "/" +
 	"DocumentRetrieveProxyConfig.xml");
 
 new File(context.findProperty('GatewayPropDir') + "/" +
 	"DocumentRetrieveProxyConfig.xml.bak") &lt;&lt; SpringFile.asWritable();
 
-SpringFile.delete();</script></con:config></con:testStep>
-<con:testStep type="groovy" name="Update gateway.properties"><con:settings/><con:config><script>def saveDir = context.findProperty('ReceiverPath');
+SpringFile.delete();</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Update gateway.properties" id="c8b71e30-be48-43ec-b7c6-41adffbf7736">
+        <con:settings/>
+        <con:config>
+          <script>def saveDir = context.findProperty('ReceiverPath');
 
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "ParsePayloadAsFileURIOutbound", "true", log);
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "PayloadSaveDirectory", "${saveDir}", log);
-nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "SavePayloadToFileInbound", "true", log);
-</script></con:config></con:testStep><con:testStep type="groovy" name="Update DR Spring Proxy"><con:settings/><con:config><script><![CDATA[def springProxyFile = new File (context.findProperty('GatewayPropDir') +
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "SavePayloadToFileInbound", "true", log);</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Update DR Spring Proxy" id="d31a9b2f-5cc6-4a36-b8c9-b1b660c5d105">
+        <con:settings/>
+        <con:config>
+          <script><![CDATA[def springProxyFile = new File (context.findProperty('GatewayPropDir') +
 	"/" + "DocumentRetrieveProxyConfig.xml");
 def springProxyBak = context.findProperty('GatewayPropDir') +
 	"/" + "DocumentRetrieveProxyConfig.xml.bak";
@@ -1315,7 +1496,13 @@ f.eachLine() {
     }else{
     		springProxyFile << (line + ln);
     }
-}]]></script></con:config></con:testStep><con:testStep type="groovy" name="Check MD5 of Received Doc"><con:settings/><con:config><script>import java.security.MessageDigest;
+}]]></script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Check MD5 of Received Doc" id="9568ed75-33d6-456b-8981-40d413bf634d">
+        <con:settings/>
+        <con:config>
+          <script>import java.security.MessageDigest;
 import java.util.Vector;
 
 def directoryName = context.findProperty('ReceiverPath');
@@ -1365,10 +1552,18 @@ def sentMD5 = context.findProperty('SendMD5')
 
 log.info "SENT: ${sentMD5}, RECEIVED: ${receiveMD5}"
 
-assert ( sentMD5 == receiveMD5 );</script></con:config></con:testStep><con:testStep type="groovy" name="Delete Received File"><con:settings/><con:config><script>def fileName = context.findProperty('ReceiverPath') + File.separator + context.findProperty('ReceivedFileName');
-new File(fileName).delete();</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+assert ( sentMD5 == receiveMD5 );</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Delete Received File" id="015d168d-a5fe-4ff0-8ae2-363b4eca6263">
+        <con:settings/>
+        <con:config>
+          <script>def fileName = context.findProperty('ReceiverPath') + File.separator + context.findProperty('ReceivedFileName');
+new File(fileName).delete();</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 
 def SpringFileBak = new File(context.findProperty('GatewayPropDir') + "/" +
 	"DocumentRetrieveProxyConfig.xml.bak");
@@ -1380,47 +1575,62 @@ if(SpringFileBak.exists()){
 	SpringFile &lt;&lt; SpringFileBak.asWritable();
 	SpringFileBak.delete();
 }</con:tearDownScript>
-<con:properties>
-	<con:property>
-		<con:name>DocumentUniqueId</con:name>
-		<con:value>555555555</con:value>
-	</con:property>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2012-10-15T18:43:18Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2012-10-15T18:53:18Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>10/15/2012 18:43:18</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2012-11-14T00:00:00Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>CorrectedLocalHCID</con:name>
-		<con:value>urn:oid:1.1</con:value>
-	</con:property>
-</con:properties>
-<con:reportParameters/>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve with Multiple Docs" searchProperties="true" id="d65a98ad-d467-433c-97a5-5c9169451f99">
-	<con:settings/>
-	<con:testStep type="groovy" name="Backup DR Spring Proxy"><con:settings/><con:config><script>def SpringFile = new File(context.findProperty('GatewayPropDir') + "/" +
+      <con:properties>
+        <con:property>
+          <con:name>DocumentUniqueId</con:name>
+          <con:value>555555555</con:value>
+        </con:property>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2012-10-15T18:43:18Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2012-10-15T18:53:18Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>10/15/2012 18:43:18</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2012-11-14T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>CorrectedLocalHCID</con:name>
+          <con:value>urn:oid:1.1</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve with Multiple Docs" searchProperties="true" id="d65a98ad-d467-433c-97a5-5c9169451f99">
+      <con:settings/>
+      <con:testStep type="groovy" name="Backup DR Spring Proxy" id="8d0ed787-bbc0-4747-a16c-e5a85b757a05">
+        <con:settings/>
+        <con:config>
+          <script>def SpringFile = new File(context.findProperty('GatewayPropDir') + "/" +
 	"DocumentRetrieveProxyConfig.xml");
 
 new File(context.findProperty('GatewayPropDir') + "/" +
 	"DocumentRetrieveProxyConfig.xml.bak") &lt;&lt; SpringFile.asWritable();
 
-SpringFile.delete();</script></con:config></con:testStep><con:testStep type="groovy" name="Update gateway.properties"><con:settings/><con:config><script>def saveDir = context.findProperty('ReceiverPath');
+SpringFile.delete();</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Update gateway.properties" id="cab8ead6-cc50-496a-9520-230e321764c1">
+        <con:settings/>
+        <con:config>
+          <script>def saveDir = context.findProperty('ReceiverPath');
 
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "ParsePayloadAsFileURIOutbound", "true", log);
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "PayloadSaveDirectory", "${saveDir}", log);
-nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "SavePayloadToFileInbound", "true", log);
-</script></con:config></con:testStep><con:testStep type="groovy" name="Update DR Spring Proxy"><con:settings/><con:config><script><![CDATA[def springProxyFile = new File (context.findProperty('GatewayPropDir') +
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "SavePayloadToFileInbound", "true", log);</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Update DR Spring Proxy" id="607f577c-0490-4070-b095-466e0646162c">
+        <con:settings/>
+        <con:config>
+          <script><![CDATA[def springProxyFile = new File (context.findProperty('GatewayPropDir') +
 	"/" + "DocumentRetrieveProxyConfig.xml");
 def springProxyBak = context.findProperty('GatewayPropDir') +
 	"/" + "DocumentRetrieveProxyConfig.xml.bak";
@@ -1443,20 +1653,22 @@ f.eachLine() {
     }else{
     		springProxyFile << (line + ln);
     }
-}]]></script></con:config></con:testStep>
-<con:testStep name="Document Retrieve" type="request">
-		<con:settings/>
-		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-			<con:interface>EntityDocRetrieveBindingSoap</con:interface>
-			<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
-			<con:request incomingWss="" name="Document Retrieve" outgoingWss="" wssPasswordType="">
-				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@expand-mtom-attachments">true</con:setting>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-		</con:settings>
-		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
-		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+}]]></script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Document Retrieve" type="request" id="cb5d103f-bf58-49ae-83f3-cb228306690f">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityDocRetrieveBindingSoap</con:interface>
+          <con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
+          <con:request incomingWss="" name="Document Retrieve" outgoingWss="" wssPasswordType="" id="63bfddfc-9915-4243-bee7-e7060105be60">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@expand-mtom-attachments">true</con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Document Retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -1693,48 +1905,55 @@ f.eachLine() {
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:assertion type="SOAP Response"/>
-		<con:assertion type="SOAP Fault Assertion"/>
-		<con:assertion type="Schema Compliance" disabled="true">
-			<con:configuration>
-				<definition/>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Doc Repository ID" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
+            <con:assertion type="SOAP Response" id="dcd8b9a1-3ebf-4b52-9657-4c22105ef69e"/>
+            <con:assertion type="SOAP Fault Assertion" id="50a9cadf-f241-4474-82ca-001488e1f15f"/>
+            <con:assertion type="Schema Compliance" disabled="true" id="b14f9413-572f-4f2c-bc1e-5d838f1f571c">
+              <con:configuration>
+                <definition/>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Doc Repository ID" type="XPath Match" id="52f97213-198e-49a0-9870-265e7cec360a">
+              <con:configuration>
+                <path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
 					//ns5:RetrieveDocumentSetResponse[1]/ns5:DocumentResponse[1]/ns5:RepositoryUniqueId[1]</path>
-				<content>${#Project#DRRepoID}</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Doc ID" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
+                <content>${#Project#DRRepoID}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Doc ID" type="XPath Match" id="7af97e70-d044-4e1a-9d86-66c697e771ee">
+              <con:configuration>
+                <path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
 					//ns5:RetrieveDocumentSetResponse[1]/ns5:DocumentResponse[1]/ns5:DocumentUniqueId[1]</path>
-				<content>${#Project#DRDocID}</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Document Data" type="GroovyScriptAssertion">
-			<con:configuration>
-				<scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+                <content>${#Project#DRDocID}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Document Data" type="GroovyScriptAssertion" id="088c30b7-2d54-4855-b960-da8d6c42bf0c">
+              <con:configuration>
+                <scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 					def holder = groovyUtils.getXmlHolder( messageExchange.responseContent )
 					holder.namespaces["ns"]="urn:ihe:iti:xds-b:2007"
 					def docData = holder["//ns:RetrieveDocumentSetResponse[1]/ns:DocumentResponse[1]/ns:Document[1]"]
 					log.info docData.toString()
 					assert (docData.size() != 0)</scriptText>
-			</con:configuration>
-		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-		<con:jmsPropertyConfig/>
-		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
-		<con:wsrmConfig version="1.2"/>
-	</con:request>
-</con:config>
-</con:testStep><con:testStep type="groovy" name="Check MD5 of Received Docs"><con:settings/><con:config><script>import java.security.MessageDigest;
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Check MD5 of Received Docs" id="005a1be4-63cf-4a45-8267-d87b3e036c1e">
+        <con:settings/>
+        <con:config>
+          <script>import java.security.MessageDigest;
 import java.util.Vector;
 
 def directoryName = context.findProperty('ReceiverPath');
@@ -1806,12 +2025,21 @@ log.info "SENT: ${sentMD5}, RECEIVED: ${receiveMD5_1}"
 log.info "SENT: ${sentMD5}  RECEIVED: ${receiveMD5_2}"
 
 assert ( sentMD5 == receiveMD5_1 );
-assert ( sentMD5 == receiveMD5_1 );</script></con:config></con:testStep><con:testStep type="groovy" name="Delete Received Files"><con:settings/><con:config><script>def fileName1 = context.findProperty('ReceiverPath') + File.separator + context.findProperty('ReceivedFileNameM1');
+assert ( sentMD5 == receiveMD5_1 );</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Delete Received Files" id="6cf994dc-2496-417b-9289-9050f19e2ecb">
+        <con:settings/>
+        <con:config>
+          <script>def fileName1 = context.findProperty('ReceiverPath') + File.separator + context.findProperty('ReceivedFileNameM1');
 new File(fileName1).delete();
 
 def fileName2 = context.findProperty('ReceiverPath') + File.separator + context.findProperty('ReceivedFileNameM2');
-new File(fileName2).delete();</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+new File(fileName2).delete();</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 def SpringFileBak = new File(context.findProperty('GatewayPropDir') + "/" +
 	"DocumentRetrieveProxyConfig.xml.bak");
 if(SpringFileBak.exists()){
@@ -1822,30 +2050,110 @@ if(SpringFileBak.exists()){
 	SpringFile &lt;&lt; SpringFileBak.asWritable();
 	SpringFileBak.delete();
 }</con:tearDownScript>
-<con:properties>
-	<con:property>
-		<con:name>CorrectedRemoteHCID</con:name>
-		<con:value>urn:oid:2.2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2012-10-17T19:05:07Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2012-10-17T19:15:07Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>10/17/2012 19:05:07</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2012-11-16T00:00:00Z</con:value>
-	</con:property>
-</con:properties>
-<con:reportParameters/>
-</con:testCase><con:properties><con:property><con:name>PayloadSize</con:name><con:value>34000000</con:value></con:property><con:property><con:name>FileName</con:name><con:value>payload_test.txt</con:value></con:property><con:property><con:name>SenderPath</con:name><con:value>D:/sender</con:value></con:property><con:property><con:name>ReceiverPath</con:name><con:value>D:/receiver</con:value></con:property><con:property><con:name>EncodedPath</con:name><con:value>ZmlsZTovLy9EOi9zZW5kZXIvcGF5bG9hZF90ZXN0LnR4dA==</con:value></con:property><con:property><con:name>SendMD5</con:name><con:value>3a1f82193eb583bd90fc8ae2a1eb3e62</con:value></con:property><con:property><con:name>ReceivedFileName</con:name><con:value>nhin3765598217389177469.clf</con:value></con:property><con:property><con:name>SecondsToWaitForAD</con:name><con:value>360</con:value></con:property><con:property><con:name>MultiPayloadSize</con:name><con:value>17000000</con:value></con:property><con:property><con:name>FileNameMulti1</con:name><con:value>payload_testM1.txt</con:value></con:property><con:property><con:name>FileNameMulti2</con:name><con:value>payload_testM2.txt</con:value></con:property><con:property><con:name>EncodedPathM1</con:name><con:value/></con:property><con:property><con:name>EncodedPathM2</con:name><con:value/></con:property><con:property><con:name>SendMD5_M1</con:name><con:value/></con:property><con:property><con:name>SendMD5_M2</con:name><con:value/></con:property><con:property><con:name>ReceivedFileNameM1</con:name><con:value/></con:property><con:property><con:name>ReceivedFileNameM2</con:name><con:value/></con:property></con:properties></con:testSuite><con:testSuite name="Large Payload Concurrent"><con:settings/><con:runType>PARALLELL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Create Multiple Large Files" searchProperties="true" id="480afdea-3332-4b24-aa21-573740fe3b34" disabled="true"><con:settings/><con:testStep type="groovy" name="Create Files"><con:settings/><con:config><script>def filePath = context.findProperty('SenderPath');
+      <con:properties>
+        <con:property>
+          <con:name>CorrectedRemoteHCID</con:name>
+          <con:value>urn:oid:2.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2012-10-17T19:05:07Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2012-10-17T19:15:07Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>10/17/2012 19:05:07</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2012-11-16T00:00:00Z</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:properties>
+      <con:property>
+        <con:name>PayloadSize</con:name>
+        <con:value>34000000</con:value>
+      </con:property>
+      <con:property>
+        <con:name>FileName</con:name>
+        <con:value>payload_test.txt</con:value>
+      </con:property>
+      <con:property>
+        <con:name>SenderPath</con:name>
+        <con:value>D:/sender</con:value>
+      </con:property>
+      <con:property>
+        <con:name>ReceiverPath</con:name>
+        <con:value>D:/receiver</con:value>
+      </con:property>
+      <con:property>
+        <con:name>EncodedPath</con:name>
+        <con:value>ZmlsZTovLy9EOi9zZW5kZXIvcGF5bG9hZF90ZXN0LnR4dA==</con:value>
+      </con:property>
+      <con:property>
+        <con:name>SendMD5</con:name>
+        <con:value>3a1f82193eb583bd90fc8ae2a1eb3e62</con:value>
+      </con:property>
+      <con:property>
+        <con:name>ReceivedFileName</con:name>
+        <con:value>nhin3765598217389177469.clf</con:value>
+      </con:property>
+      <con:property>
+        <con:name>SecondsToWaitForAD</con:name>
+        <con:value>360</con:value>
+      </con:property>
+      <con:property>
+        <con:name>MultiPayloadSize</con:name>
+        <con:value>17000000</con:value>
+      </con:property>
+      <con:property>
+        <con:name>FileNameMulti1</con:name>
+        <con:value>payload_testM1.txt</con:value>
+      </con:property>
+      <con:property>
+        <con:name>FileNameMulti2</con:name>
+        <con:value>payload_testM2.txt</con:value>
+      </con:property>
+      <con:property>
+        <con:name>EncodedPathM1</con:name>
+        <con:value/>
+      </con:property>
+      <con:property>
+        <con:name>EncodedPathM2</con:name>
+        <con:value/>
+      </con:property>
+      <con:property>
+        <con:name>SendMD5_M1</con:name>
+        <con:value/>
+      </con:property>
+      <con:property>
+        <con:name>SendMD5_M2</con:name>
+        <con:value/>
+      </con:property>
+      <con:property>
+        <con:name>ReceivedFileNameM1</con:name>
+        <con:value/>
+      </con:property>
+      <con:property>
+        <con:name>ReceivedFileNameM2</con:name>
+        <con:value/>
+      </con:property>
+    </con:properties>
+  </con:testSuite>
+  <con:testSuite name="Large Payload Concurrent" id="81bf6dcf-32e9-45d2-a3cb-675f750b137a">
+    <con:settings/>
+    <con:runType>PARALLELL</con:runType>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Create Multiple Large Files" searchProperties="true" id="480afdea-3332-4b24-aa21-573740fe3b34" disabled="true">
+      <con:settings/>
+      <con:testStep type="groovy" name="Create Files" id="26d85d68-4034-4927-87d0-b9a05e87712e">
+        <con:settings/>
+        <con:config>
+          <script>def filePath = context.findProperty('SenderPath');
 def fileName1 = context.findProperty('FileNameMulti1');
 def fileName2 = context.findProperty('FileNameMulti2');
 def size = context.findProperty('MultiPayloadSize');
@@ -1856,7 +2164,13 @@ new File(filePath + File.separator + fileName1).newOutputStream().withWriter("UT
 
 new File(filePath + File.separator + fileName2).newOutputStream().withWriter("UTF-8") { writer ->
     size.toInteger().times { writer.write "Large payload tst data.\n" + it }
-}</script></con:config></con:testStep><con:testStep type="groovy" name="Encode File Names"><con:settings/><con:config><script>def encodePath = "file:" + File.separator + File.separator + 
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Encode File Names" id="da64c86c-ac91-411e-9835-c5c4861edf7e">
+        <con:settings/>
+        <con:config>
+          <script>def encodePath = "file:" + File.separator + File.separator + 
 	context.findProperty('SenderPath') + File.separator + context.findProperty('FileNameMulti1');
 
 
@@ -1870,7 +2184,13 @@ def encodePath2 = "file:" + File.separator + File.separator +
 
 def encoded2 = encodePath2.bytes.encodeBase64().toString();
 
-testRunner.testCase.testSuite.setPropertyValue('EncodedPathM2', encoded2);</script></con:config></con:testStep><con:testStep type="groovy" name="Create MD5 Encoder File 1"><con:settings/><con:config><script>import java.security.MessageDigest;
+testRunner.testCase.testSuite.setPropertyValue('EncodedPathM2', encoded2);</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Create MD5 Encoder File 1" id="1790f85e-df20-4bad-9e18-0789ff6ed843">
+        <con:settings/>
+        <con:config>
+          <script>import java.security.MessageDigest;
 
 def fileName = context.findProperty('SenderPath') + File.separator +
 	context.findProperty('FileNameMulti1');
@@ -1888,7 +2208,13 @@ new File(fileName).withInputStream(){is->
 byte[] md5sum = digest.digest()
 BigInteger bigInt = new BigInteger(1, md5sum)
 
-testRunner.testCase.testSuite.setPropertyValue('SendMD5_M1', bigInt.toString(16));</script></con:config></con:testStep><con:testStep type="groovy" name="Create MD5 Encoder File 2"><con:settings/><con:config><script>import java.security.MessageDigest;
+testRunner.testCase.testSuite.setPropertyValue('SendMD5_M1', bigInt.toString(16));</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Create MD5 Encoder File 2" id="3930f1bb-c53a-40cc-8cbc-15c46e1ca8fa">
+        <con:settings/>
+        <con:config>
+          <script>import java.security.MessageDigest;
 
 def fileName = context.findProperty('SenderPath') + File.separator +
 	context.findProperty('FileNameMulti2');
@@ -1906,23 +2232,93 @@ new File(fileName).withInputStream(){is->
 byte[] md5sum = digest.digest()
 BigInteger bigInt = new BigInteger(1, md5sum)
 
-testRunner.testCase.testSuite.setPropertyValue('SendMD5_M2', bigInt.toString(16));</script></con:config></con:testStep><con:testStep type="groovy" name="Update gateway.properties"><con:settings/><con:config><script>def saveDir = context.findProperty('ReceiverPath');
+testRunner.testCase.testSuite.setPropertyValue('SendMD5_M2', bigInt.toString(16));</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Update gateway.properties" id="85bce67c-8098-490f-83a8-2aba85f67e8c">
+        <con:settings/>
+        <con:config>
+          <script>def saveDir = context.findProperty('ReceiverPath');
 
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "ParsePayloadAsFileURIOutbound", "true", log);
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "PayloadSaveDirectory", "${saveDir}", log);
-nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "SavePayloadToFileInbound", "true", log);
-</script></con:config></con:testStep><con:properties/></con:testCase><con:properties><con:property><con:name>SenderPath</con:name><con:value/></con:property><con:property><con:name>FileName</con:name><con:value>payload_test.txt</con:value></con:property><con:property><con:name>ReceiverPath</con:name><con:value/></con:property><con:property><con:name>MultiPayloadSize</con:name><con:value>1000000</con:value></con:property><con:property><con:name>FileNameMulti1</con:name><con:value>payload_testM1.txt</con:value></con:property><con:property><con:name>FileNameMulti2</con:name><con:value>payload_testM2.txt</con:value></con:property><con:property><con:name>EncodedPathM1</con:name><con:value/></con:property><con:property><con:name>EncodedPathM2</con:name><con:value/></con:property></con:properties></con:testSuite><con:testSuite name="Remote Setup"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Setup" searchProperties="true" id="89d6c074-3675-4412-923f-223600664a75"><con:settings/><con:testStep type="groovy" name="Backup gateway.properties"><con:settings/><con:config><script>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</script></con:config></con:testStep><con:testStep type="groovy" name="Backup DR Spring Proxy"><con:settings/><con:config><script>def SpringFile = new File(context.findProperty('GatewayPropDir') + "/" +
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "SavePayloadToFileInbound", "true", log);</script>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+    </con:testCase>
+    <con:properties>
+      <con:property>
+        <con:name>SenderPath</con:name>
+        <con:value/>
+      </con:property>
+      <con:property>
+        <con:name>FileName</con:name>
+        <con:value>payload_test.txt</con:value>
+      </con:property>
+      <con:property>
+        <con:name>ReceiverPath</con:name>
+        <con:value/>
+      </con:property>
+      <con:property>
+        <con:name>MultiPayloadSize</con:name>
+        <con:value>1000000</con:value>
+      </con:property>
+      <con:property>
+        <con:name>FileNameMulti1</con:name>
+        <con:value>payload_testM1.txt</con:value>
+      </con:property>
+      <con:property>
+        <con:name>FileNameMulti2</con:name>
+        <con:value>payload_testM2.txt</con:value>
+      </con:property>
+      <con:property>
+        <con:name>EncodedPathM1</con:name>
+        <con:value/>
+      </con:property>
+      <con:property>
+        <con:name>EncodedPathM2</con:name>
+        <con:value/>
+      </con:property>
+    </con:properties>
+  </con:testSuite>
+  <con:testSuite name="Remote Setup" id="196ebf7e-b112-4fc4-8ba6-8e7be16edc64">
+    <con:settings/>
+    <con:runType>SEQUENTIAL</con:runType>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Setup" searchProperties="true" id="89d6c074-3675-4412-923f-223600664a75">
+      <con:settings/>
+      <con:testStep type="groovy" name="Backup gateway.properties" id="1581fe8d-edce-4c13-a54a-919272baa89d">
+        <con:settings/>
+        <con:config>
+          <script>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Backup DR Spring Proxy" id="1e018e64-205a-4d8d-9e8f-b2b3f4a0cb25">
+        <con:settings/>
+        <con:config>
+          <script>def SpringFile = new File(context.findProperty('GatewayPropDir') + "/" +
 	"DocumentRetrieveProxyConfig.xml");
 
 new File(context.findProperty('GatewayPropDir') + "/" +
 	"DocumentRetrieveProxyConfig.xml.bak") &lt;&lt; SpringFile.asWritable();
 
-SpringFile.delete();</script></con:config></con:testStep><con:testStep type="groovy" name="Update gateway.properties"><con:settings/><con:config><script>def saveDir = context.findProperty('ReceiverPath');
+SpringFile.delete();</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Update gateway.properties" id="b131d267-2a9e-4ba4-afbe-ee0935c11456">
+        <con:settings/>
+        <con:config>
+          <script>def saveDir = context.findProperty('ReceiverPath');
 
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "ParsePayloadAsFileURIOutbound", "true", log);
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "PayloadSaveDirectory", "${saveDir}", log);
-nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "SavePayloadToFileInbound", "true", log);
-</script></con:config></con:testStep><con:testStep type="groovy" name="Update DR Spring Proxy"><con:settings/><con:config><script><![CDATA[def springProxyFile = new File (context.findProperty('GatewayPropDir') +
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "SavePayloadToFileInbound", "true", log);</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Update DR Spring Proxy" id="4a8b1d6d-b4aa-4de6-9e81-34a07b28499a">
+        <con:settings/>
+        <con:config>
+          <script><![CDATA[def springProxyFile = new File (context.findProperty('GatewayPropDir') +
 	"/" + "DocumentRetrieveProxyConfig.xml");
 def springProxyBak = context.findProperty('GatewayPropDir') +
 	"/" + "DocumentRetrieveProxyConfig.xml.bak";
@@ -1945,8 +2341,23 @@ f.eachLine() {
     }else{
     		springProxyFile << (line + ln);
     }
-}]]></script></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Restore" searchProperties="true" id="f55e142b-f203-4967-9cff-ce1b537a5058"><con:settings/><con:testStep type="groovy" name="Restore gateway.properties"><con:settings/><con:config><script>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
-</script></con:config></con:testStep><con:testStep type="groovy" name="Restore DRProxyConfig"><con:settings/><con:config><script>def SpringFileBak = new File(context.findProperty('GatewayPropDir') + "/" +
+}]]></script>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Restore" searchProperties="true" id="f55e142b-f203-4967-9cff-ce1b537a5058">
+      <con:settings/>
+      <con:testStep type="groovy" name="Restore gateway.properties" id="5bb66a2d-413c-4268-a2f4-dcd1d7cf2337">
+        <con:settings/>
+        <con:config>
+          <script>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Restore DRProxyConfig" id="f155c28d-6197-47c3-81e3-038bdf0051d3">
+        <con:settings/>
+        <con:config>
+          <script>def SpringFileBak = new File(context.findProperty('GatewayPropDir') + "/" +
 	"DocumentRetrieveProxyConfig.xml.bak");
 if(SpringFileBak.exists()){
 	def SpringFile = new File(context.findProperty('GatewayPropDir') + "/" +
@@ -1955,9 +2366,307 @@ if(SpringFileBak.exists()){
 	SpringFile.delete();
 	SpringFile &lt;&lt; SpringFileBak.asWritable();
 	SpringFileBak.delete();
-}</script></con:config></con:testStep><con:properties/></con:testCase><con:properties><con:property><con:name>FileName</con:name><con:value>payload_test.txt</con:value></con:property><con:property><con:name>SenderPath</con:name><con:value/></con:property><con:property><con:name>ReceiverPath</con:name><con:value/></con:property></con:properties></con:testSuite><con:properties><con:property><con:name>GatewayPropDir</con:name><con:value>D:/glassfish3/glassfish/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>Endpoint-DSDeferredResp</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-EntityAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-Notify</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationConsumer</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-Subscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationProducer</con:value></con:property><con:property><con:name>Endpoint-Unsubscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntitySubscriptionManager</con:value></con:property><con:property><con:name>Endpoint-XDREntity</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>086d5d5d-2260-4fed-afcf-4287d1472593</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>project.name</con:name><con:value>EntityValidation</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>f5829de5-611a-4d0c-a845-de0df3f17044</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property><con:property><con:name>Endpoint-DocumentSubmission</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/PassthruDocSubmissionUnsecured</con:value></con:property><con:property><con:name>Endpoint-MsgProxyDocSubmissionDefReq</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-MsgProxyAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/2_0/MsgProxy/NhincProxyAdminDist</con:value></con:property><con:property><con:name>Endpoint-DRMessageProxy</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/3_0/NhincProxyDocRetrieveUnsecured</con:value></con:property></con:properties><con:afterLoadScript>com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+    </con:testCase>
+    <con:properties>
+      <con:property>
+        <con:name>FileName</con:name>
+        <con:value>payload_test.txt</con:value>
+      </con:property>
+      <con:property>
+        <con:name>SenderPath</con:name>
+        <con:value/>
+      </con:property>
+      <con:property>
+        <con:name>ReceiverPath</con:name>
+        <con:value/>
+      </con:property>
+    </con:properties>
+  </con:testSuite>
+  <con:properties>
+    <con:property>
+      <con:name>GatewayPropDir</con:name>
+      <con:value>D:/glassfish3/glassfish/domains/domain1/config/nhin</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AAMappingDB</con:name>
+      <con:value>assigningauthoritydb</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AAMappingTable</con:name>
+      <con:value>aa_to_home_community_mapping</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AsyncMsgDB</con:name>
+      <con:value>asyncmsgs</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AsyncMsgTable</con:name>
+      <con:value>asyncmsgrepo</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AuditRepoDB</con:name>
+      <con:value>auditrepo</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AuditRepoTable</con:name>
+      <con:value>auditrepository</con:value>
+    </con:property>
+    <con:property>
+      <con:name>BirthTime</con:name>
+      <con:value>19630804</con:value>
+    </con:property>
+    <con:property>
+      <con:name>City</con:name>
+      <con:value>Melbourne</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Country</con:name>
+      <con:value>US</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBHost</con:name>
+      <con:value>localhost</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBPass</con:name>
+      <con:value>nhincpass</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBPort</con:name>
+      <con:value>3306</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBUser</con:name>
+      <con:value>nhincuser</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DeferredPatientDiscoveryReqMessageID</con:name>
+      <con:value>uuid:6666666666.66666.666.66</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DOB</con:name>
+      <con:value>19800516</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DQDocID</con:name>
+      <con:value>1.123401.55555</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DQPatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DRDocID</con:name>
+      <con:value>1.123407.777777</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DRRepoID</con:name>
+      <con:value>1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DynamicDQDocID</con:name>
+      <con:value>103.8.9284320.020.3590.75^1266324032288</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-DocQuery</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-DocRetrieve</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-DSDeferredResp</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-EntityAdminDist</con:name>
+      <con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-EntityXDRRequest</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-Notify</con:name>
+      <con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationConsumer</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-PatientDiscovery</con:name>
+      <con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-PatientDiscoveryAsyncReq</con:name>
+      <con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-PatientDiscoveryAsyncResp</con:name>
+      <con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-Subscribe</con:name>
+      <con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationProducer</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-Unsubscribe</con:name>
+      <con:value>http://localhost:8080/Gateway/HIEM/2_0/EntitySubscriptionManager</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-XDREntity</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>ExpirationDate</con:name>
+      <con:value>20100520</con:value>
+    </con:property>
+    <con:property>
+      <con:name>FamilyName</con:name>
+      <con:value>Younger</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Gender</con:name>
+      <con:value>M</con:value>
+    </con:property>
+    <con:property>
+      <con:name>GivenName</con:name>
+      <con:value>Gallow</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalAA</con:name>
+      <con:value>1.1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalHCDescription</con:name>
+      <con:value>InternalTest1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalHCID</con:name>
+      <con:value>1.1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalPatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>NotificationEndpoint</con:name>
+      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value>
+    </con:property>
+    <con:property>
+      <con:name>NotifySubscriptionID</con:name>
+      <con:value>086d5d5d-2260-4fed-afcf-4287d1472593</con:value>
+    </con:property>
+    <con:property>
+      <con:name>NotifySubscriptionManagerEndpointAddress</con:name>
+      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PatientCorrelationDB</con:name>
+      <con:value>patientcorrelationdb</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PatientCorrelationTable</con:name>
+      <con:value>correlatedidentifiers</con:value>
+    </con:property>
+    <con:property>
+      <con:name>project.name</con:name>
+      <con:value>EntityValidation</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PurposeOfDisclosure</con:name>
+      <con:value>Mental</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteAA</con:name>
+      <con:value>2.2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteHCDescription</con:name>
+      <con:value>InternalTest1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteHCID</con:name>
+      <con:value>2.2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemotePatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SSN</con:name>
+      <con:value>123456789</con:value>
+    </con:property>
+    <con:property>
+      <con:name>State</con:name>
+      <con:value>FL</con:value>
+    </con:property>
+    <con:property>
+      <con:name>StreetAddress</con:name>
+      <con:value>123 Johnson Rd</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SubjectID</con:name>
+      <con:value>1111</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SubscribePatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SubscriptionDB</con:name>
+      <con:value>subscriptionrepository</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SubscriptionEndpoint</con:name>
+      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SubscriptionManagerEndpointAddress</con:name>
+      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SubscriptionTable</con:name>
+      <con:value>subscription</con:value>
+    </con:property>
+    <con:property>
+      <con:name>UniquePatientId</con:name>
+      <con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value>
+    </con:property>
+    <con:property>
+      <con:name>UnSubscriptionID</con:name>
+      <con:value>f5829de5-611a-4d0c-a845-de0df3f17044</con:value>
+    </con:property>
+    <con:property>
+      <con:name>ZipCode</con:name>
+      <con:value>12345</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-DocumentSubmission</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/PassthruDocSubmissionUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-MsgProxyDocSubmissionDefReq</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-MsgProxyAdminDist</con:name>
+      <con:value>http://localhost:8080/Gateway/AdminDistribution/2_0/MsgProxy/NhincProxyAdminDist</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-DRMessageProxy</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentRetrieve/3_0/NhincProxyDocRetrieveUnsecured</con:value>
+    </con:property>
+  </con:properties>
+  <con:afterLoadScript>com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
 return delegate.getProperty(propertyName) ?:
 delegate.testCase.getPropertyValue(propertyName) ?:
 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
-}</con:afterLoadScript><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>
+}</con:afterLoadScript>
+  <con:wssContainer/>
+  <con:oAuth2ProfileContainer/>
+  <con:sensitiveInformation/>
+</con:soapui-project>
