@@ -337,12 +337,12 @@ public class CORE_X12AuditDataTransform {
                 element = new JAXBElement<COREEnvelopeRealTimeResponse>(xmlQname, COREEnvelopeRealTimeResponse.class, oResponseNoPayload);
             } else if (msg instanceof COREEnvelopeBatchSubmission) {
                 oBatchRequestNoPayload = (COREEnvelopeBatchSubmission) msg;
-                oBatchRequestNoPayload.setPayloadID("");
+                oBatchRequestNoPayload.setPayload(null);
                 xmlQname = new javax.xml.namespace.QName(CORE_X12AuditDataTransformConstants.CORE_X12_NAMESPACE_URI, CORE_X12AuditDataTransformConstants.CORE_X12_BATCH_REQUEST_LOCALPART);
                 element = new JAXBElement<COREEnvelopeBatchSubmission>(xmlQname, COREEnvelopeBatchSubmission.class, oBatchRequestNoPayload);
             } else if (msg instanceof COREEnvelopeBatchSubmissionResponse) {
                 oBatchResponseNoPayload = (COREEnvelopeBatchSubmissionResponse) msg;
-                oBatchResponseNoPayload.setPayloadID("");
+                oBatchResponseNoPayload.setPayload(null);
                 xmlQname = new javax.xml.namespace.QName(CORE_X12AuditDataTransformConstants.CORE_X12_NAMESPACE_URI, CORE_X12AuditDataTransformConstants.CORE_X12_BATCH_RESPONSE_LOCALPART);
                 element = new JAXBElement<COREEnvelopeBatchSubmissionResponse>(xmlQname, COREEnvelopeBatchSubmissionResponse.class, oBatchResponseNoPayload);
             }
