@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,7 @@ package gov.hhs.fha.nhinc.proxy;
 public class ComponentProxyFactory extends ComponentProxyObjectFactory {
 
     private final String configFileName;
-    
+
     /**
      * @param configFileName
      * @param beanName
@@ -42,7 +42,7 @@ public class ComponentProxyFactory extends ComponentProxyObjectFactory {
         super();
         this.configFileName = configFileName;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -50,7 +50,7 @@ public class ComponentProxyFactory extends ComponentProxyObjectFactory {
     protected String getConfigFileName() {
         return this.configFileName;
     }
-    
+
     /**
      * @return an instance of the generic type.
      */

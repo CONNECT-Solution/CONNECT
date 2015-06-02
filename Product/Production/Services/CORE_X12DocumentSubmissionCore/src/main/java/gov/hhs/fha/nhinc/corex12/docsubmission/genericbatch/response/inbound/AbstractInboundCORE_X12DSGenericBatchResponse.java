@@ -72,7 +72,7 @@ public abstract class AbstractInboundCORE_X12DSGenericBatchResponse implements I
      * @param msg
      * @param assertion
      * @param webContextProperties
-     * 
+     *
      * @return COREEnvelopeBatchSubmissionResponse
      */
     @Override

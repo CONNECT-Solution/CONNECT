@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -55,10 +55,10 @@ public class EntityPatientDiscoveryDeferredResponseSecured extends BaseService i
         super();
     }
 
-    @OutboundMessageEvent(beforeBuilder = RespondingGatewayPRPAIN201306UV02Builder.class, 
-            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
+    @OutboundMessageEvent(beforeBuilder = RespondingGatewayPRPAIN201306UV02Builder.class,
+            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class,
             serviceType = "Patient Discovery Deferred Response", version = "1.0")
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(RespondingGatewayPRPAIN201306UV02SecuredRequestType request) {       
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(RespondingGatewayPRPAIN201306UV02SecuredRequestType request) {
         AssertionType assertion = getAssertion(context, null);
 
         return outboundPatientDiscoveryResponse.processPatientDiscoveryAsyncResp(request.getPRPAIN201306UV02(),

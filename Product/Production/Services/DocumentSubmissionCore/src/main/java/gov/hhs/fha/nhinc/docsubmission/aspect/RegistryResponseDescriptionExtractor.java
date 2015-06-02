@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,7 +38,7 @@ import com.google.common.collect.Lists;
 
 /**
  * @author akong
- * 
+ *
  */
 public class RegistryResponseDescriptionExtractor {
 
@@ -46,7 +46,7 @@ public class RegistryResponseDescriptionExtractor {
 
     /**
      * Extracts the statuses in the RegistryResponse;
-     * 
+     *
      * @param response the RegistryResponse whose values are to be extracted
      * @return a list of string containing the statuses
      */
@@ -61,7 +61,7 @@ public class RegistryResponseDescriptionExtractor {
 
     /**
      * Extracts the error codes in the RegistryResponse;
-     * 
+     *
      * @param response the RegistryResponse whose values are to be extracted
      * @return a list of string containing the error codes
      */

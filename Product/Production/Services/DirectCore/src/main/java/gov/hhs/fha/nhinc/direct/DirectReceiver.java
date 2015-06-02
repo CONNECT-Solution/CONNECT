@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,7 +32,7 @@ import javax.mail.internet.MimeMessage;
  * Receive inbound direct messages.
  */
 public interface DirectReceiver {
-    
+
     /**
      * Receive an inbound direct message.
      * @param message mime message to be received

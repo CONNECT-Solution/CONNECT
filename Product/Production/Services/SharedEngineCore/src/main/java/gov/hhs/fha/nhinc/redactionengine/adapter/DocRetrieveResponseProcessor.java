@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.redactionengine.adapter;
 
@@ -49,7 +49,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.LocalizedStringType;
 import org.apache.log4j.Logger;
 
 /**
- * 
+ *
  * @author Neil Webb
  */
 public class DocRetrieveResponseProcessor {
@@ -64,7 +64,7 @@ public class DocRetrieveResponseProcessor {
     /**
      * This method filters the Document Retrieve results based on the Patient Preferences and creates a new Response to
      * return
-     * 
+     *
      * @param retrieveRequest
      * @param retrieveResponse
      * @return RetrieveDocumentSetResponseType
@@ -100,7 +100,7 @@ public class DocRetrieveResponseProcessor {
     /**
      * The 3 main identifiers used for Document Retrieve are extracted here for each Document Response and used for
      * further filtering
-     * 
+     *
      * @param retrieveResponse
      */
     protected void extractIdentifiers(DocumentResponse retrieveResponse) {
@@ -118,7 +118,7 @@ public class DocRetrieveResponseProcessor {
 
     /**
      * This method filters the results for each Document Retrieve Response using Patient Preferences Document Type
-     * 
+     *
      * @param retrieveResponse
      * @param patientPreferences
      * @return boolean
@@ -167,7 +167,7 @@ public class DocRetrieveResponseProcessor {
 
     /**
      * This method returns true if the documentType from Document Retrieve results
-     * 
+     *
      * @param sDocTypeResult
      * @param patientPreferences
      * @return boolean
@@ -178,7 +178,7 @@ public class DocRetrieveResponseProcessor {
 
     /**
      * This method returns AdhocQueryResponse for a AdhocQueryRequest
-     * 
+     *
      * @param oRequest
      * @return AdhocQueryResponse
      * @throws Exception
@@ -192,7 +192,7 @@ public class DocRetrieveResponseProcessor {
 
     /**
      * Adhoc Query Request is created based on the Patient Id and Assigning Authority
-     * 
+     *
      * @param sPatId
      * @param sAA
      * @return AdhocQueryRequest
@@ -214,7 +214,7 @@ public class DocRetrieveResponseProcessor {
 
     /**
      * Adhoc Query Request is created based on the Patient Id and Assigning Authority
-     * 
+     *
      * @param sPatId
      * @param sAA
      * @return AdhocQueryRequest
@@ -237,7 +237,7 @@ public class DocRetrieveResponseProcessor {
     /**
      * This method is the Super method for all other methods to extract Doc Type from AdhocQuery Responses for each
      * matching DocRetrieve Response
-     * 
+     *
      * @param oResponse
      * @param docResponse
      * @return String
@@ -290,7 +290,7 @@ public class DocRetrieveResponseProcessor {
     /**
      * This method extracts Document Type from AdhocQuery Metadata for identified Extrinsic Object for a particular
      * Document
-     * 
+     *
      * @param documentMetaData
      * @return String
      */
@@ -318,7 +318,7 @@ public class DocRetrieveResponseProcessor {
 
     /**
      * This method returns the value of Classification Code Schema from International String Type
-     * 
+     *
      * @param str
      * @return String
      */
@@ -335,7 +335,7 @@ public class DocRetrieveResponseProcessor {
 
     /**
      * This method returns Document Unique Id from ExternalIdentifier Object
-     * 
+     *
      * @param externalIdentifierList
      * @return String String
      */
@@ -358,7 +358,7 @@ public class DocRetrieveResponseProcessor {
 
     /**
      * This method returns a PatientConsentHelper Object
-     * 
+     *
      * @return PatientConsentHelper
      */
     protected PatientConsentHelper getPatientConsentHelper() {
@@ -367,7 +367,7 @@ public class DocRetrieveResponseProcessor {
 
     /**
      * Returns Document Id of each Document Response
-     * 
+     *
      * @return String
      */
     protected String getDocumentId() {
@@ -376,7 +376,7 @@ public class DocRetrieveResponseProcessor {
 
     /**
      * Returns Home Community Id of each Document Response
-     * 
+     *
      * @return String
      */
     protected String getHomeCommunityId() {
@@ -385,7 +385,7 @@ public class DocRetrieveResponseProcessor {
 
     /**
      * Returns Repository Id of each Document Response
-     * 
+     *
      * @return String
      */
     protected String getRepositoryId() {

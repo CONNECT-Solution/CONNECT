@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,7 +47,7 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- * 
+ *
  * @author jhoppesc
  */
 public class AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceSecuredImpl implements
@@ -65,7 +65,7 @@ public class AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceSecuredImpl i
     }
 
     @AdapterDelegationEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
-            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
+            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class,
             serviceType = "Patient Discovery Deferred Request",
             version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReqError(PRPAIN201305UV02 request, PRPAIN201306UV02 response,
@@ -85,12 +85,12 @@ public class AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceSecuredImpl i
                 } else if (NullChecker.isNullish(errMsg)) {
                     LOG.error("errMsg was null");
                 } else {
-                    ServicePortDescriptor<AdapterPatientDiscoverySecuredAsyncReqErrorPortType> portDescriptor = 
+                    ServicePortDescriptor<AdapterPatientDiscoverySecuredAsyncReqErrorPortType> portDescriptor =
                             new PatientDiscoveryDeferredReqErrorSecuredServicePortDescriptor();
                     CONNECTClient<AdapterPatientDiscoverySecuredAsyncReqErrorPortType> client = CONNECTClientFactory
                             .getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
 
-                    AsyncAdapterPatientDiscoveryErrorSecuredRequestType securedRequest = 
+                    AsyncAdapterPatientDiscoveryErrorSecuredRequestType securedRequest =
                             new AsyncAdapterPatientDiscoveryErrorSecuredRequestType();
                     securedRequest.setPRPAIN201305UV02(request);
                     securedRequest.setErrorMsg(errMsg);

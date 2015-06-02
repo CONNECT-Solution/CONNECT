@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -61,7 +61,7 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
     /**
      * This method sends a AdhocQueryRequest to the NwHIN to a single gateway.
-     * 
+     *
      * @param request
      *            the AdhocQueryRequest message to be sent
      * @param assertion
@@ -136,7 +136,7 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
     /**
      * For unit testing the multiple target warning.
-     * 
+     *
      * @param warning
      */
     protected void logWarning(String warning) {

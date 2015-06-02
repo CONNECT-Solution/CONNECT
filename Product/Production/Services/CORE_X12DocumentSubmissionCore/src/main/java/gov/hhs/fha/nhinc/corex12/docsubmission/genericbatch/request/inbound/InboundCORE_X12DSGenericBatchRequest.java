@@ -39,7 +39,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 public interface InboundCORE_X12DSGenericBatchRequest {
 
     /**
-     * 
+     *
      * @param msg
      * @param assertion
      * @param webContextProperties

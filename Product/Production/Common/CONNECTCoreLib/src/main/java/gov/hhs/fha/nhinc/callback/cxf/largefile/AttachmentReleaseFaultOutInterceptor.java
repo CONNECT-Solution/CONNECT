@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,9 +41,9 @@ import org.apache.cxf.phase.Phase;
 /**
  * This fault out interceptor closes out all the attachment input sources to ensure that streamed tmp files are deleted
  * properly.
- * 
+ *
  * @author akong
- * 
+ *
  */
 public class AttachmentReleaseFaultOutInterceptor extends AbstractPhaseInterceptor<Message> {
 
@@ -57,7 +57,7 @@ public class AttachmentReleaseFaultOutInterceptor extends AbstractPhaseIntercept
     /**
      * Releases and closes all incoming attachment input streams. This is a workaround for a CXF bug that is not
      * deleting tmp files when a soap fault occurs during file transfers.
-     * 
+     *
      * @param message The message object of the session
      */
     public void handleMessage(Message message) {
@@ -81,7 +81,7 @@ public class AttachmentReleaseFaultOutInterceptor extends AbstractPhaseIntercept
 
         return null;
     }
-    
+
     protected LargeFileUtils getLargeFileUtils(){
     	return LargeFileUtils.getInstance();
     }

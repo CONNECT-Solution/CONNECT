@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,14 +31,14 @@ import javax.xml.ws.soap.SOAPBinding;
 
 /**
  * This class is the port descriptor for TestServicePortType and it should only be used for unit testing.
- * 
+ *
  */
 public class TestServicePortDescriptor implements ServicePortDescriptor<TestServicePortType> {
     private static final String WS_ADDRESSING_ACTION = "urn:ihe:iti:2007:CrossGatewayQuery";
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override
@@ -48,7 +48,7 @@ public class TestServicePortDescriptor implements ServicePortDescriptor<TestServ
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override

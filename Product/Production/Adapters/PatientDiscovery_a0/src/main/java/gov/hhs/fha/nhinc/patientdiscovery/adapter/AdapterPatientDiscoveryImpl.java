@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 /**
  * The implementation of the AdapterPatientDiscovery (Secured and unsecured) web service.
- * 
+ *
  * @author jhoppesc, Les Westberg
  */
 public class AdapterPatientDiscoveryImpl extends BaseService {
@@ -46,7 +46,7 @@ public class AdapterPatientDiscoveryImpl extends BaseService {
     /**
      * This method is called by the secure and unsecure Adapter Secure and unsecure web service. It calls the
      * orchestration code.
-     * 
+     *
      * @param bIsSecure TRUE if being called via secure web service.
      * @param request The message payload.
      * @param context The web service context.

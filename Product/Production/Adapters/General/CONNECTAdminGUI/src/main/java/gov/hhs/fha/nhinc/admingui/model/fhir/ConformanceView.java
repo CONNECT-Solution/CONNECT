@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.admingui.model.fhir;
 
 import java.util.ArrayList;
@@ -35,7 +34,7 @@ import java.util.List;
  * @author jassmit
  */
 public class ConformanceView {
-    
+
     private String conformanceDesc;
     private String conformanceUrl;
     private List<ConformanceResource> confResources = new ArrayList<ConformanceResource>();
@@ -63,5 +62,5 @@ public class ConformanceView {
     public void setConformanceUrl(String conformanceUrl) {
         this.conformanceUrl = conformanceUrl;
     }
-    
+
 }

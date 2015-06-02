@@ -1,6 +1,5 @@
 /*
-
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,7 +23,6 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
  */
 package gov.hhs.fha.nhinc.saml.extraction;
 
@@ -40,7 +38,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 /**
- * 
+ *
  * @author Jon Hoppesch
  */
 public class SamlTokenCreator {
@@ -50,7 +48,7 @@ public class SamlTokenCreator {
     /**
      * This method will populate a Map with information from the assertion that is used within the SAML Token. This Map
      * can be used to set up the requestContext prior to sending a message on the Nhin.
-     * 
+     *
      * @param assertion The assertion object that contains information required by the SAML Token.
      * @param url The URL to the destination service.
      * @param action The specified Action for this message.

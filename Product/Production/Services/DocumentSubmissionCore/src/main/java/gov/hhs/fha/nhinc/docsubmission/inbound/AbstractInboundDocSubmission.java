@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -43,7 +43,7 @@ public abstract class AbstractInboundDocSubmission implements InboundDocSubmissi
 
     private XDRAuditLogger auditLogger;
     private AdapterDocSubmissionProxyObjectFactory adapterFactory;
-    
+
     public AbstractInboundDocSubmission(AdapterDocSubmissionProxyObjectFactory adapterFactory,
             XDRAuditLogger auditLogger) {
         this.adapterFactory = adapterFactory;
@@ -54,14 +54,14 @@ public abstract class AbstractInboundDocSubmission implements InboundDocSubmissi
             ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
 
         auditRequestFromNhin(body, assertion);
-        
+
         RegistryResponseType response = processDocSubmission(body, assertion);
 
         auditResponseToNhin(response, assertion);
 
         return response;
     }
-    
+
     protected RegistryResponseType sendToAdapter(ProvideAndRegisterDocumentSetRequestType request,
             AssertionType assertion) {
         AdapterDocSubmissionProxy proxy = adapterFactory.getAdapterDocSubmissionProxy();
@@ -75,7 +75,7 @@ public abstract class AbstractInboundDocSubmission implements InboundDocSubmissi
     protected void auditResponseToNhin(RegistryResponseType response, AssertionType assertion) {
         auditLogger.auditNhinXDRResponse(response, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, false);
     }
-    
+
     protected void auditRequestToAdapter(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
         auditLogger.auditAdapterXDR(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
@@ -83,5 +83,5 @@ public abstract class AbstractInboundDocSubmission implements InboundDocSubmissi
     protected void auditResponseFromAdapter(RegistryResponseType response, AssertionType assertion) {
         auditLogger.auditAdapterXDRResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
-    
+
 }

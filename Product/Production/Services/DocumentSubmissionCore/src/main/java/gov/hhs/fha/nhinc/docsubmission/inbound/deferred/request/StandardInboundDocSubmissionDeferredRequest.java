@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -49,7 +49,7 @@ import org.apache.log4j.Logger;
 
 /**
  * @author akong
- * 
+ *
  */
 public class StandardInboundDocSubmissionDeferredRequest extends AbstractInboundDocSubmissionDeferredRequest {
 
@@ -69,7 +69,7 @@ public class StandardInboundDocSubmissionDeferredRequest extends AbstractInbound
 
     /**
      * Constructor with dependency injection of strategy components.
-     * 
+     *
      * @param adapterFactory
      * @param policyChecker
      * @param propertyAccessor
@@ -85,10 +85,10 @@ public class StandardInboundDocSubmissionDeferredRequest extends AbstractInbound
         this.propertyAccessor = propertyAccessor;
         this.errorAdapterFactory = errorAdapterFactory;
     }
-    
+
     @Override
     @InboundProcessingEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
-            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class, 
+            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
             serviceType = "Document Submission Deferred Request",
             version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
@@ -109,7 +109,7 @@ public class StandardInboundDocSubmissionDeferredRequest extends AbstractInbound
         XDRAcknowledgementType response = null;
 
         auditRequestToAdapter(body, assertion);
-        
+
         String localHCID = getLocalHCID();
         if (isPolicyValid(body, assertion, localHCID)) {
             try{
@@ -124,7 +124,7 @@ public class StandardInboundDocSubmissionDeferredRequest extends AbstractInbound
             LOG.error("Policy Check Failed");
             response = sendErrorToAdapter(body, assertion, "Policy Check Failed");
         }
-        
+
         auditResponseFromAdapter(response, assertion);
 
         return response;
@@ -171,7 +171,7 @@ public class StandardInboundDocSubmissionDeferredRequest extends AbstractInbound
                 .getAdapterDocSubmissionDeferredRequestErrorProxy();
         return proxy.provideAndRegisterDocumentSetBRequestError(body, errMsg, assertion);
     }
-    
+
     public DocSubmissionUtils getDocSubmissionUtils(){
     	return DocSubmissionUtils.getInstance();
     }

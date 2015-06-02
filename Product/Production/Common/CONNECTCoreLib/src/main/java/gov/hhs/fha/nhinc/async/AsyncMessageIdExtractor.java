@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,7 +41,7 @@ import org.springframework.util.CollectionUtils;
 import org.w3c.dom.Element;
 
 /**
- * 
+ *
  * @author JHOPPESC
  */
 public class AsyncMessageIdExtractor {
@@ -108,7 +108,7 @@ public class AsyncMessageIdExtractor {
 
         return action;
     }
-    
+
     protected String getFirstChildNodeValue(Element element) {
         String value = null;
         if (element != null && element.getFirstChild() != null) {

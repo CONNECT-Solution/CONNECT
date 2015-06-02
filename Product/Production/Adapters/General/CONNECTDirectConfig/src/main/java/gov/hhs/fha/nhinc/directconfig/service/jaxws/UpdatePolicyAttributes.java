@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -74,7 +74,7 @@ public class UpdatePolicyAttributes {
     private byte[] policyData;
 
     /**
-     * 
+     *
      * @return
      *     returns long
      */
@@ -83,7 +83,7 @@ public class UpdatePolicyAttributes {
     }
 
     /**
-     * 
+     *
      * @param policyId
      *     the value for the policyId property
      */
@@ -92,7 +92,7 @@ public class UpdatePolicyAttributes {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns String
      */
@@ -101,7 +101,7 @@ public class UpdatePolicyAttributes {
     }
 
     /**
-     * 
+     *
      * @param policyName
      *     the value for the policyName property
      */
@@ -110,7 +110,7 @@ public class UpdatePolicyAttributes {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns PolicyLexicon
      */
@@ -119,7 +119,7 @@ public class UpdatePolicyAttributes {
     }
 
     /**
-     * 
+     *
      * @param policyLexicon
      *     the value for the policyLexicon property
      */
@@ -128,7 +128,7 @@ public class UpdatePolicyAttributes {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns byte[]
      */
@@ -137,7 +137,7 @@ public class UpdatePolicyAttributes {
     }
 
     /**
-     * 
+     *
      * @param policyData
      *     the value for the policyData property
      */

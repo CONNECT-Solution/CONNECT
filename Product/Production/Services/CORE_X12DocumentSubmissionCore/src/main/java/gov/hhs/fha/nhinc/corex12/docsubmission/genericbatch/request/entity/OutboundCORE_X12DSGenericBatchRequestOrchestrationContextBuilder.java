@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -49,8 +49,8 @@ public abstract class OutboundCORE_X12DSGenericBatchRequestOrchestrationContextB
     public abstract OrchestrationContext build();
 
     /**
-     * 
-     * @param message 
+     *
+     * @param message
      */
     public void init(OutboundOrchestratable message) {
         setAssertionType(message.getAssertion());

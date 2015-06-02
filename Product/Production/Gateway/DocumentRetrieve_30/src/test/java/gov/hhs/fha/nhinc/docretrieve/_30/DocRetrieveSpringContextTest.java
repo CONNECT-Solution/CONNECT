@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -52,59 +52,59 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/docretrieve/_30/applicationContext.xml" })
 public class DocRetrieveSpringContextTest {
-    
+
 	@Autowired
     StandardOutboundDocRetrieve standardOutboundOrchImpl;
-    
+
     @Autowired
     StandardInboundDocRetrieve standardInboundOrchImpl;
-    
+
     @Autowired
     PassthroughInboundDocRetrieve passthroughInboundOrchImpl;
-    
+
     @Autowired
     PassthroughOutboundDocRetrieve passthroughOutboundOrchImpl;
-    
+
     @Autowired
     DocRetrieve inboundDocRetrieve;
-    
+
     @Autowired
     EntityDocRetrieve outboundDocRetrieveUnsecured;
-    
+
     @Autowired
     EntityDocRetrieveSecured outboundDocRetrieveSecured;
-    
+
     @Test
     public void inbound() {
         assertNotNull(inboundDocRetrieve);
-        
+
         RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
         RetrieveDocumentSetResponseType response = inboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(request);
-        
+
         assertNotNull(response);
     }
-    
+
     @Test
     public void outboundUnsecured() {
         assertNotNull(outboundDocRetrieveUnsecured);
-        
+
         RespondingGatewayCrossGatewayRetrieveRequestType request = new RespondingGatewayCrossGatewayRetrieveRequestType();
         RetrieveDocumentSetResponseType response = outboundDocRetrieveUnsecured.respondingGatewayCrossGatewayRetrieve(request);
-        
+
         assertNotNull(response);
     }
-    
+
     @Test
     public void outboundSecured() {
         assertNotNull(outboundDocRetrieveSecured);
-        
+
         RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
         DocumentRequest document = new DocumentRequest();
         document.setHomeCommunityId("2.2");
         document.setRepositoryUniqueId("1");
         request.getDocumentRequest().add(document);
         RetrieveDocumentSetResponseType response = outboundDocRetrieveSecured.respondingGatewayCrossGatewayRetrieve(request);
-        
+
         assertNotNull(response);
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,7 +48,7 @@ import org.junit.Test;
 
 /**
  * @author achidamb
- * 
+ *
  */
 public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest {
 
@@ -97,7 +97,7 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest {
 
             /*
              * (non-Javadoc)
-             * 
+             *
              * @see gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.
              * NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl
              * #getCONNECTClientSecured(gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor,
@@ -109,7 +109,7 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest {
                     AssertionType assertion, String target, String serviceName) {
                 return client;
             }
-            
+
             /* (non-Javadoc)
              * @see gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl#getUrl(gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType)
              */

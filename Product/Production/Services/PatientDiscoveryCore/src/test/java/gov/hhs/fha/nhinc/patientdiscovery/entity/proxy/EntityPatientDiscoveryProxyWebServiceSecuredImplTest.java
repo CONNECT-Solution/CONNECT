@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -125,7 +125,7 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
                 throw new ConnectionManagerException();
             }
         };
-        
+
         sut.invokeConnectionManager("not_used_by_override");
         fail("Exception should have been thrown");
     }
@@ -144,7 +144,7 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
                     return "test_endpoint";
                 }
             };
-            
+
             String endpointURL = sut.getEndpointURL();
             assertNotNull("EndpointURL was null", endpointURL);
             assertEquals("EndpointURL was not correct", "test_endpoint", endpointURL);

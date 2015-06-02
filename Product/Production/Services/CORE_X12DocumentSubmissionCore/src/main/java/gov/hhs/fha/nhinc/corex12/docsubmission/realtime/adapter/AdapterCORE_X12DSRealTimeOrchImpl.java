@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,8 +41,8 @@ public class AdapterCORE_X12DSRealTimeOrchImpl {
     private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSRealTimeOrchImpl.class);
 
     private static final String X12_REALTIME_PAYLOAD = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><ClinicalDocument />";
-    
-    
+
+
     /**
      *
      * @param coreEnvelopeRealTimeRequest

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -43,7 +43,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 /**
  * @author akong
- * 
+ *
  */
 public class StandardInboundDocQuery extends AbstractInboundDocQuery {
 
@@ -62,11 +62,11 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
     }
 
     /**
-     * 
+     *
      * @param body
      * @param assertion
      * @return <code>AdhocQueryResponse</code>
-     */   
+     */
     @Override
     @InboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
             afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
@@ -85,10 +85,10 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
 
         return resp;
     }
-    
+
     /**
      * Forwards the AdhocQueryRequest to this agency's adapter doc query service
-     * 
+     *
      * @param adhocQueryRequestMsg
      * @param requestCommunityID
      * @return
@@ -98,8 +98,8 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
         AdhocQueryResponse resp = null;
 
         String respondingHcid = getLocalHomeCommunityId();
-        
-        auditRequestToAdapter(msg, assertion, respondingHcid);            
+
+        auditRequestToAdapter(msg, assertion, respondingHcid);
 
         if (isPolicyValid(msg, assertion)) {
             resp = sendToAdapter(msg, assertion);
@@ -129,7 +129,7 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
 
         return ack;
     }
-    
+
     private AcknowledgementType auditRequestFromAdapter(AdhocQueryResponse response, AssertionType assertion,
             String requestCommunityID) {
         AcknowledgementType ack = auditLogger
@@ -138,7 +138,7 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
 
         return ack;
     }
-    
+
     protected String getLocalHomeCommunityId(){
         return HomeCommunityMap.getLocalHomeCommunityId();
     }

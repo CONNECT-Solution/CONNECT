@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -46,7 +46,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  * @author akong
- * 
+ *
  */
 public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
 
@@ -65,7 +65,7 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
 
     /**
      * Constructor with dependency injection of strategy components.
-     * 
+     *
      * @param adapterFactory
      * @param policyChecker
      * @param propertyAccessor
@@ -78,8 +78,8 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
         this.policyChecker = policyChecker;
         this.propertyAccessor = propertyAccessor;
     }
-    
-    
+
+
     @Override
     @InboundProcessingEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission",
@@ -88,19 +88,19 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
             ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
 
         auditRequestFromNhin(body, assertion);
-        
+
         RegistryResponseType response = processDocSubmission(body, assertion);
 
         auditResponseToNhin(response, assertion);
 
         return response;
     }
-    
+
 
     @Override
     RegistryResponseType processDocSubmission(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
         RegistryResponseType response = null;
-        
+
         String localHCID = getLocalHCID();
         if (isPolicyValid(body, assertion, localHCID)) {
         	try {
@@ -108,14 +108,14 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
 				getDocSubmissionUtils().convertDataToFileLocationIfEnabled(body);
 				response = sendToAdapter(body, assertion);
         	} catch (LargePayloadException lpe) {
-        		LOG.error("Failed to retrieve payload document.", lpe);  	
+        		LOG.error("Failed to retrieve payload document.", lpe);
         		response = MessageGeneratorUtils.getInstance().createRegistryErrorResponse();
 			}
         } else {
             LOG.error("Failed policy check.  Sending error response.");
             response = msgUtils.createFailedPolicyCheckResponse();
         }
-        
+
         auditResponseFromAdapter(response, assertion);
 
         return response;
@@ -154,9 +154,9 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
 
         return localHCID;
     }
-    
+
     public DocSubmissionUtils getDocSubmissionUtils(){
     	return DocSubmissionUtils.getInstance();
     }
-    
+
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,7 +56,7 @@ import javax.xml.ws.WebFault;
 public class ConfigurationFault extends Exception {
 
     private static final long serialVersionUID = 2249137159766485463L;
-    
+
     private String message = "";
 
     private ConfigurationError error = ConfigurationError.Unknown;
@@ -69,7 +69,7 @@ public class ConfigurationFault extends Exception {
 
     /**
      * Construct a new ConfigurationFault with a specific ConfigurationError.
-     * 
+     *
      * @param anError
      *            A ConfigurationError.
      */
@@ -80,7 +80,7 @@ public class ConfigurationFault extends Exception {
     /**
      * Construct a new ConfigurationFault with a specific message and
      * ConfigurationError.
-     * 
+     *
      * @param aMsg
      *            A message.
      * @param anError
@@ -93,7 +93,7 @@ public class ConfigurationFault extends Exception {
 
     /**
      * Return the value of message.
-     * 
+     *
      * @return the value of message.
      */
     public String getMessage() {
@@ -102,7 +102,7 @@ public class ConfigurationFault extends Exception {
 
     /**
      * Set the message.
-     * 
+     *
      * @param message
      *            The value of message.
      */
@@ -112,7 +112,7 @@ public class ConfigurationFault extends Exception {
 
     /**
      * Get the value of error.
-     * 
+     *
      * @return the value of error.
      */
     public ConfigurationError getError() {
@@ -121,7 +121,7 @@ public class ConfigurationFault extends Exception {
 
     /**
      * Set the value of error.
-     * 
+     *
      * @param error
      *            The value of error.
      */
@@ -131,9 +131,9 @@ public class ConfigurationFault extends Exception {
 
     /**
      * Convert an Exception to a ConfigurationFault.
-     * 
+     *
      * TODO Map exceptions to fault errors
-     * 
+     *
      * @param e The Exception.
      * @return
      */

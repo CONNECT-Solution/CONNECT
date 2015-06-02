@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -73,7 +73,7 @@ public class UpdateTrustBundleAnchors {
     private Collection<TrustBundleAnchor> newAnchorSet;
 
     /**
-     * 
+     *
      * @return
      *     returns long
      */
@@ -82,7 +82,7 @@ public class UpdateTrustBundleAnchors {
     }
 
     /**
-     * 
+     *
      * @param trustBundleId
      *     the value for the trustBundleId property
      */
@@ -91,7 +91,7 @@ public class UpdateTrustBundleAnchors {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns Calendar
      */
@@ -100,7 +100,7 @@ public class UpdateTrustBundleAnchors {
     }
 
     /**
-     * 
+     *
      * @param attemptTime
      *     the value for the attemptTime property
      */
@@ -109,7 +109,7 @@ public class UpdateTrustBundleAnchors {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns Collection<TrustBundleAnchor>
      */
@@ -118,7 +118,7 @@ public class UpdateTrustBundleAnchors {
     }
 
     /**
-     * 
+     *
      * @param newAnchorSet
      *     the value for the newAnchorSet property
      */

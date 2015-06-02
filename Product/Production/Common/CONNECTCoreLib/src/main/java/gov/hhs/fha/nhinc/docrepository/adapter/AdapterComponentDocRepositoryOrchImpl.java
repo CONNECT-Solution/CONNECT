@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.docrepository.adapter;
 
@@ -66,42 +66,42 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.log4j.Logger;
 
 /**
- * 
+ *
  * @author jhoppesc
  */
 public class AdapterComponentDocRepositoryOrchImpl {
 
-    
+
     private static final Logger LOG = Logger.getLogger(AdapterComponentDocRepositoryOrchImpl.class);
     private static final String REPOSITORY_UNIQUE_ID = "1";
     private static final String XDS_DOCUMENT_UNIQUE_ID_ERROR = "XDSDocumentUniqueIdError";
     private UTCDateUtil utcDateUtil = null;
     private AdapterComponentDocRepositoryHelper docRepoHelper = null;
-    
+
     public AdapterComponentDocRepositoryOrchImpl(){
     	docRepoHelper = getHelper();
     }
-    
+
     protected AdapterComponentDocRepositoryHelper getHelper(){
     	return ((docRepoHelper != null) ? docRepoHelper
     			: new AdapterComponentDocRepositoryHelper());
     }
-    
+
     public DocumentService getDocumentService() {
         return new DocumentService();
     }
-	
+
 	public LargeFileUtils getLargeFileUtils(){
     	return LargeFileUtils.getInstance();
     }
-	
+
 	public UTCDateUtil getDateUtil() {
         return ((utcDateUtil != null) ? utcDateUtil : new UTCDateUtil());
     }
-    
+
     /**
      * Perform a document retrieve on the document repository.
-     * 
+     *
      * @param body Message containing document retrieve parameters
      * @return Document retrieve response message.
      */
@@ -137,7 +137,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                         && (!(oDocRequest.getDocumentUniqueId().isEmpty()))) {
                     docUniqueId = StringUtil.extractStringFromTokens(oDocRequest.getDocumentUniqueId(), "'()");
                     documentUniqueIds.add(docUniqueId);
-                   
+
                 } else {
                     if (regResponse.getRegistryErrorList() == null) {
                         regResponse.setRegistryErrorList(regerrList);
@@ -253,7 +253,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                     }
 
                     if (bHasData) {
-                        olDocResponse.add(oDocResponse);                       
+                        olDocResponse.add(oDocResponse);
                     }
                 }
 
@@ -288,8 +288,8 @@ public class AdapterComponentDocRepositoryOrchImpl {
                 LOG.debug("Raw Data not null");
                 URI uri = new URI(url);
                 File sourceFile = new File(uri);
-                try {                    
-                    DataHandler dh = getLargeFileUtils().convertToDataHandler(sourceFile);       
+                try {
+                    DataHandler dh = getLargeFileUtils().convertToDataHandler(sourceFile);
                     oDocResponse.setDocument(dh);
                     bHasData = true;
                 } catch (IOException ex) {
@@ -298,26 +298,26 @@ public class AdapterComponentDocRepositoryOrchImpl {
                 }
             } catch (URISyntaxException ue) {
                 DataHandler dh = getLargeFileUtils().convertToDataHandler(doc.getRawData());
-                                
+
                 oDocResponse.setDocument(dh);
                 bHasData = true;
             } catch (UnsupportedEncodingException e) {
                 DataHandler dh = getLargeFileUtils().convertToDataHandler(doc.getRawData());
-                                
+
                 oDocResponse.setDocument(dh);
                 bHasData = true;
             }
         }
         return bHasData;
     }
-    
+
     /**
-     * 
+     *
      * This method extracts the metadata and binary document from the request and stores them in the NHINC document
      * repository.
-     * 
+     *
      * NOTE: This method is NOT compliant to the XDS specification.
-     * 
+     *
      * @param body The ProvideAndRequestDocumentSet request to parse and store metadata and documents.
      * @return Returns an XDS successful or failure response message.
      */
@@ -331,16 +331,16 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
         // convert input XDS message to internal message
         if (body == null) {
-        	RegistryError error = docRepoHelper.setRegistryError("find a required element", "", 
+        	RegistryError error = docRepoHelper.setRegistryError("find a required element", "",
         			DocRepoConstants.XDS_ERROR_CODE_MISSING_REQUEST_MESSAGE_DATA,
-        			DocRepoConstants.XDS_MISSING_REQUEST_MESSAGE_DATA + " ProvideAndRegisterDocumentSetRequestType element is null.");           
+        			DocRepoConstants.XDS_MISSING_REQUEST_MESSAGE_DATA + " ProvideAndRegisterDocumentSetRequestType element is null.");
             errorList.getRegistryError().add(error);
 
         } else {
             LOG.trace("ProvideAndRegisterDocumentSetRequestType element is not null.");
 
             HashMap<String, DataHandler> docMap = docRepoHelper.getDocumentMap(body);
-            
+
             // retrieve the document metadata and store each doc in the request
             SubmitObjectsRequest submitObjectsRequest = body.getSubmitObjectsRequest();
             RegistryObjectListType regObjectList = submitObjectsRequest.getRegistryObjectList();
@@ -368,11 +368,11 @@ public class AdapterComponentDocRepositoryOrchImpl {
         registryResponse.setStatus(responseStatus);
         return registryResponse;
     }
-        
+
     protected Document setDocument(List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
     		RegistryErrorList errorList, int i, HashMap<String, DataHandler> docMap, boolean requestHasReplacementAssociation){
     	oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType extrinsicObject = null;
-        
+
     	logDeclaredType(identifiableObjectList, i);
 
         // the getValue method will return the non-JAXBElement<? extends...> object
@@ -384,17 +384,17 @@ public class AdapterComponentDocRepositoryOrchImpl {
             // get the externalIdentifiers so that we can get the docId and patientId
             List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType> externalIdentifiers = extrinsicObject
                     .getExternalIdentifier();
-            
+
             if (externalIdentifiers == null || externalIdentifiers.size() == 0) {
-            	RegistryError error = docRepoHelper.setRegistryError("find a required element", "", 
+            	RegistryError error = docRepoHelper.setRegistryError("find a required element", "",
             			DocRepoConstants.XDS_ERROR_CODE_MISSING_DOCUMENT_METADATA,
-            			DocRepoConstants.XDS_MISSING_DOCUMENT_METADATA + 
-                		" extrinsicObject.getExternalIdentifier() element is null or empty.");                   	                          
+            			DocRepoConstants.XDS_MISSING_DOCUMENT_METADATA +
+                		" extrinsicObject.getExternalIdentifier() element is null or empty.");
                 errorList.getRegistryError().add(error);
                 return null;
             }
-                     
-            // prepare for the translation to the NHINC doc repository  
+
+            // prepare for the translation to the NHINC doc repository
 			Document doc = new Document();
 
 			// extract the docId
@@ -537,7 +537,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
 			setDocumentPidObjects(doc, documentSlots);
 
-			
+
 			// extract classification metadata items
 			List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications = extrinsicObject
 					.getClassification();
@@ -580,19 +580,19 @@ public class AdapterComponentDocRepositoryOrchImpl {
 			// TODO concatenate the adapter server's uri to the document unique
 			// id
 			doc.setDocumentUri(documentUniqueId);
-			
+
 			saveDocument(doc, requestHasReplacementAssociation, documentUniqueId, errorList);
-			
+
 			return doc;
 		} // if (extrinsicObject != null)
         return null;
     }
-    
+
     protected void saveDocument(Document doc, boolean requestHasReplacementAssociation, String documentUniqueId,
     		RegistryErrorList errorList){
-		
+
     	DocumentService docService = getDocumentService();
-    	
+
     	if (requestHasReplacementAssociation) {
             // query for the documentId using the documentUniqueId
             long documentid = docRepoHelper.
@@ -600,7 +600,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                     doc.getClassCode(), doc.getStatus(), docService);
             doc.setDocumentid(documentid);
         }
-        
+
         docService.saveDocument(doc);
         LOG.debug("doc.documentId: " + doc.getDocumentid());
         // log.debug("document.isPersistent: " + doc.isPersistent()); //TODO need a better way to
@@ -613,25 +613,25 @@ public class AdapterComponentDocRepositoryOrchImpl {
             RegistryError error = docRepoHelper.setRegistryError("store a document.", " storeDocument",
             		DocRepoConstants.XDS_ERROR_CODE_REPOSITORY_ERROR,
             		DocRepoConstants.XDS_REPOSITORY_ERROR +
-            		" DocumentUniqueId: " + documentUniqueId);                           
+            		" DocumentUniqueId: " + documentUniqueId);
             errorList.getRegistryError().add(error);
         }
     }
-    
-    protected Object getExtrinsicObjectValue(List<JAXBElement<? 
+
+    protected Object getExtrinsicObjectValue(List<JAXBElement<?
     		extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
     		int i){
     	return identifiableObjectList.get(i).getValue();
     }
-    
+
     protected void logDeclaredType(List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
     		int i){
     	LOG.debug("Item " + i + " identifiableObject is of DeclaredType: "
                 + identifiableObjectList.get(i).getDeclaredType());
     }
-    
-    
-        
+
+
+
     protected void setDocumentPidObjects(Document doc,
     		List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> documentSlots){
     	String pid3 = docRepoHelper.extractPatientInfo(documentSlots, DocRepoConstants.XDS_SOURCE_PATIENT_INFO_PID3);
@@ -648,15 +648,15 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
         String pid11 = docRepoHelper.extractPatientInfo(documentSlots, DocRepoConstants.XDS_SOURCE_PATIENT_INFO_PID11);
         doc.setPid11(pid11);
-        
+
         LOG.debug("pid3: " + pid3 + ", pid5: " + pid5 + ", pid7: " + pid7 + ", pid8: " +
         		pid8 + ", pid11: " + pid11 + ".");
     }
-    
-    protected void setDocumentObjectsFromClassifications(Document doc, 
+
+    protected void setDocumentObjectsFromClassifications(Document doc,
     		List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications){
     	// extract the document's author info
-        String authorPerson = docRepoHelper.extractClassificationMetadata(classifications, 
+        String authorPerson = docRepoHelper.extractClassificationMetadata(classifications,
         		DocRepoConstants.XDS_AUTHOR_CLASSIFICATION, DocRepoConstants.XDS_AUTHOR_PERSON_SLOT, -1);
         doc.setAuthorPerson(authorPerson);
 
@@ -744,14 +744,14 @@ public class AdapterComponentDocRepositoryOrchImpl {
         String typeCodeDisplayName = docRepoHelper.extractClassificationMetadata(classifications,
         		DocRepoConstants.XDS_TYPE_CODE_CLASSIFICATION, DocRepoConstants.XDS_NAME);
         doc.setTypeCodeDisplayName(typeCodeDisplayName);
-        
-        LOG.debug("authorPerson: " + authorPerson + 
-        		"\n, authorInstitution: " + authorInstitution + 
-        		"\n, authorRole: " + authorRole + 
+
+        LOG.debug("authorPerson: " + authorPerson +
+        		"\n, authorInstitution: " + authorInstitution +
+        		"\n, authorRole: " + authorRole +
         		"\n, authorSpeciality: " + authorSpeciality +
-        		"\n, classCode: " + classCode + 
+        		"\n, classCode: " + classCode +
         		"\n, classCodeScheme: " + classCodeScheme +
-        		"\n, classCodeDisplayName: " + classCodeDisplayName + 
+        		"\n, classCodeDisplayName: " + classCodeDisplayName +
         		"\n, confidentialityCode: " + confidentialityCode +
         		"\n, confidentialityCodeDisplayName: " + confidentialityCodeDisplayName +
         		"\n, confidentialityCodeScheme: " + confidentialityCodeScheme +
@@ -765,14 +765,14 @@ public class AdapterComponentDocRepositoryOrchImpl {
         		"\n, typeCodeScheme: " + typeCodeScheme +
         		"\n, typeCodeDisplayName: " + typeCodeDisplayName);
     }
-    
+
     protected boolean checkForReplacementAssociation(
             List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
             RegistryErrorList errorList) {
         boolean replacementAssociationExists = false;
 
         for (int i = 0; i < identifiableObjectList.size(); i++) {
-            
+
         	// the getValue method will return the non-JAXBElement<? extends...> object
             Object tempObj = getIdentifiableObjectValue(identifiableObjectList, i);
 
@@ -811,7 +811,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
         LOG.debug("replacementAssociationExists = " + replacementAssociationExists);
         return replacementAssociationExists;
     }
-    
+
     protected Object getIdentifiableObjectValue(List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
     		int i){
     	LOG.debug("Item " + i + " identifiableObject is of DeclaredType: "
@@ -819,12 +819,12 @@ public class AdapterComponentDocRepositoryOrchImpl {
     	return identifiableObjectList.get(i).getValue();
     }
 
-    
+
 
     /**
      * This method extracts the value of a metadata item of a document from a list of XDS externalIdentifier objects
      * given the name of the metadata item.
-     * 
+     *
      * @param externalIdentifiers List of externalIdentifier objects which may contain the metadata item
      * @return Returns the string representation of the metadata item. Returns null if not present.
      */
@@ -847,10 +847,10 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
         return metadataItemValue;
     }
-    
+
     /**
      * This method extracts the list of event codes and prepares them for persistence into the doc NHINC repository
-     * 
+     *
      * @param classifications The list of metadata classification objects for the document
      * @param doc The NHINC document object to be persisted.
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -53,7 +53,7 @@ import org.mockito.ArgumentCaptor;
 
 /**
  * @author akong
- * 
+ *
  */
 public class StandardInboundDocRetrieveTest {
 
@@ -95,7 +95,7 @@ public class StandardInboundDocRetrieveTest {
         RetrieveDocumentSetResponseType actualResponse = inboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(
                 request, assertion);
 
-        // Verify response is expected        
+        // Verify response is expected
         assertSame(expectedResponse, actualResponse);
 
         // Verify that the orchestrator is processing the correct orchestratable

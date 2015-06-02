@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,7 +45,7 @@ import org.apache.log4j.Logger;
 
 /**
  * This class is used to serialize/deserialize teh XACML documents.
- * 
+ *
  * @author Les Westberg
  */
 public class XACMLSerializer {
@@ -54,7 +54,7 @@ public class XACMLSerializer {
     /**
      * This method takes in an object representation of the XACML Policy and serializes it to a text string
      * representation of the document.
-     * 
+     *
      * @param oConsentXACML The object representation of the XACML Consent Policy.
      * @return The textual string representation of the XACML Consent document.
      * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This exception is thrown if an error
@@ -87,7 +87,7 @@ public class XACMLSerializer {
     /**
      * This method takes a string version of the Patient Pref document and creates the JAXB object version of the same
      * document.
-     * 
+     *
      * @param sConsentXACML The string version of the patient preference XACML document.
      * @return The JAXB object version of the patient preferences XACML document.
      * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This is thrown if there is an error
@@ -109,7 +109,7 @@ public class XACMLSerializer {
             if (oJAXBElementConsentXACML.getValue() instanceof PolicyType) {
                 oConsentXACML = (PolicyType) oJAXBElementConsentXACML.getValue();
             }
-        } catch (Exception e) {            
+        } catch (Exception e) {
             LOG.error("Failed to deserialize the XACML consent string...", e);
             throw new AdapterPIPException("Failed to deserialize the XACML consent string...", e);
         } finally {

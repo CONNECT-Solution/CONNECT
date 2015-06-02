@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,7 +47,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.log4j.Logger;
 
 /**
- * 
+ *
  * @author JHOPPESC
  */
 public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl implements
@@ -110,9 +110,9 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
 
     /**
      * @return
-     * @throws Exception 
-     * @throws ConnectionManagerException 
-     * @throws IllegalArgumentException 
+     * @throws Exception
+     * @throws ConnectionManagerException
+     * @throws IllegalArgumentException
      */
     protected String getUrl(NhinTargetSystemType target) throws IllegalArgumentException, ConnectionManagerException, Exception {
         return oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target,

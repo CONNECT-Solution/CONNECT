@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -110,11 +110,11 @@ public abstract class UDDIFindBusinessProxyBase implements UDDIFindBusinessProxy
 
         return new UDDIBaseClient<UDDIInquiryPortType>(portDescriptor, url);
     }
-    
+
     protected int getMaxResults(){
         int maxResults; //default value
         try {
-            String resultEntry = 
+            String resultEntry =
                 PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.MAX_UDDI_RESULTS_PROPERTY);
             if(NullChecker.isNotNullish(resultEntry)){
                 maxResults = Integer.parseInt(resultEntry);

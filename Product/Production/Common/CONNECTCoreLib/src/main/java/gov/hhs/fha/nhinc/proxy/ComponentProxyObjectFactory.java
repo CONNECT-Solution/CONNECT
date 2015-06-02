@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.proxy;
 
@@ -40,7 +40,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 /**
  * Base class for all component proxy object factories. Performs context loading and refresh management. The application
  * context will be refreshed if the configuraiton file is modified.
- * 
+ *
  * @author Neil Webb, Les Westberg
  */
 public abstract class ComponentProxyObjectFactory {
@@ -60,7 +60,7 @@ public abstract class ComponentProxyObjectFactory {
 
     /**
      * Get the URL to properties files.
-     * 
+     *
      * @return Property file URL
      */
     protected String getPropertyFileURL() {
@@ -69,7 +69,7 @@ public abstract class ComponentProxyObjectFactory {
 
     /**
      * Create a bean given the bean name of the interface type specified.
-     * 
+     *
      * @param beanName The value of the "id" attribute of a bean element in the configuration file.
      * @param type Type of the bean created. The bean instance created will be cast to this type.
      * @return Bean instance of the type specified.
@@ -92,7 +92,7 @@ public abstract class ComponentProxyObjectFactory {
     /**
      * This is a helper class for unit test purposes that will return the requested LocalApplicationContextInfo from the
      * hash map.
-     * 
+     *
      * @param sKey The key to the file. The is the name of the config file.
      * @return The LocalApplicationContextInfo
      */
@@ -103,7 +103,7 @@ public abstract class ComponentProxyObjectFactory {
     /**
      * Get the application context. Create or refresh if necessary. VERY BIG NOTE: THIS IS A SYNCHRONIZED METHOD SO THAT
      * IT IS THREAD SAFE. CONTEXT SHOULD ONLY BE SET OR RETRIEVED THROUGH THIS METHOD ONLY.
-     * 
+     *
      * @return ApplicationContext
      */
     protected ApplicationContext getContext() {
@@ -143,7 +143,7 @@ public abstract class ComponentProxyObjectFactory {
 
     /**
      * Create a configuration context
-     * 
+     *
      * @param configFilePath Path to the configuration file.
      * @return Created ApplicationContext
      */
@@ -153,7 +153,7 @@ public abstract class ComponentProxyObjectFactory {
 
     /**
      * Refresh the ApplicationContext to reload the contents.
-     * 
+     *
      * @param appContext ApplicationContext to refresh.
      */
     protected void refreshConfigurationContext(ApplicationContext appContext) {
@@ -163,7 +163,7 @@ public abstract class ComponentProxyObjectFactory {
 
     /**
      * Get the timestamp in MS of the last time the configuration file was modified.
-     * 
+     *
      * @param filePath Path to the configuration file.
      * @return Last modified timestamp in MS
      */
@@ -186,7 +186,7 @@ public abstract class ComponentProxyObjectFactory {
 
     /**
      * Get the name of the configuration file.
-     * 
+     *
      * @return Configuration file name
      */
     protected abstract String getConfigFileName();
@@ -201,7 +201,7 @@ public abstract class ComponentProxyObjectFactory {
 
         /**
          * Return the last modified time for this config file.
-         * 
+         *
          * @return The last modified time for this config file.
          */
         public long getConfigLastModified() {
@@ -210,7 +210,7 @@ public abstract class ComponentProxyObjectFactory {
 
         /**
          * Set the last modified time for this config file.
-         * 
+         *
          * @param configLastModified The last modified time for this config file.
          */
         public void setConfigLastModified(long configLastModified) {
@@ -219,7 +219,7 @@ public abstract class ComponentProxyObjectFactory {
 
         /**
          * Return the context.
-         * 
+         *
          * @return The context.
          */
         public ApplicationContext getApplicationContext() {
@@ -228,7 +228,7 @@ public abstract class ComponentProxyObjectFactory {
 
         /**
          * Set the context.
-         * 
+         *
          * @param applicationContext The context.
          */
         public void setApplicationContext(ApplicationContext applicationContext) {

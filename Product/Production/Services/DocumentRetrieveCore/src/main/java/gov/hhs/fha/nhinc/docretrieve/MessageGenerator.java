@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,24 +40,24 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 public class MessageGenerator {
 
     private static MessageGenerator instance = new MessageGenerator();
-    
+
     /**
      * @return the singleton instance of DocRetrieveFileUtils
      */
     public static MessageGenerator getInstance() {
         return instance;
     }
-    
+
     /**
-     * Creates a Response with a RegistryError with a Repository Error Code. 
-     * 
+     * Creates a Response with a RegistryError with a Repository Error Code.
+     *
      * @param codeContext
      * @return
      */
     public RetrieveDocumentSetResponseType createRegistryResponseError(String codeContext) {
-        
+
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
-        
+
         RegistryResponseType regResp = new RegistryResponseType();
         regResp.setStatus(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
 
@@ -65,12 +65,12 @@ public class MessageGenerator {
         registryError.setCodeContext(codeContext);
         registryError.setErrorCode(DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
         registryError.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-        
+
         regResp.setRegistryErrorList(new RegistryErrorList());
         regResp.getRegistryErrorList().getRegistryError().add(registryError);
-        
+
         response.setRegistryResponse(regResp);
-        
+
         return response;
-    }    
+    }
 }

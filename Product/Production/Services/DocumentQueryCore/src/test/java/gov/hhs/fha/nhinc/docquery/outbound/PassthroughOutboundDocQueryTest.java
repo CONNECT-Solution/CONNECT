@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,7 +48,7 @@ import org.mockito.ArgumentCaptor;
 
 /**
  * @author akong
- * 
+ *
  */
 public class PassthroughOutboundDocQueryTest {
 
@@ -73,18 +73,18 @@ public class PassthroughOutboundDocQueryTest {
         assertSame(expectedResponse, actualResponse);
 
     }
-    
+
     @Test
     public void passthroughOutboundDocQueryTooManyTargets() {
     	final String HCID1 = "1.1";
     	final String HCID2 = "2.2";
-    	
+
     	final Logger mockLogger = mock(Logger.class);
     	ArgumentCaptor<Logger> loggerCaptor = ArgumentCaptor.forClass(Logger.class);
-    		
+
     	final String compareOutput = "Multiple targets in request message in passthrough mode." +
     			"  Only sending to target HCID: " + HCID1 + ".  Not sending request to: " + HCID2 + ".";
-    	
+
     	OutboundDocQueryDelegate mockDelegate = mock(OutboundDocQueryDelegate.class);
 
         AdhocQueryResponse expectedResponse = new AdhocQueryResponse();
@@ -96,17 +96,17 @@ public class PassthroughOutboundDocQueryTest {
         AdhocQueryRequest request = new AdhocQueryRequest();
         AssertionType assertion = new AssertionType();
         NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
-        
+
         NhinTargetCommunityType target1 = new NhinTargetCommunityType();
         HomeCommunityType homeCommunity1 = new HomeCommunityType();
         homeCommunity1.setHomeCommunityId(HCID1);
         target1.setHomeCommunity(homeCommunity1);
-        
+
         NhinTargetCommunityType target2 = new NhinTargetCommunityType();
         HomeCommunityType homeCommunity2 = new HomeCommunityType();
         homeCommunity2.setHomeCommunityId(HCID2);
         target2.setHomeCommunity(homeCommunity2);
-        
+
         targets.getNhinTargetCommunity().add(target1);
         targets.getNhinTargetCommunity().add(target2);
 
@@ -117,13 +117,13 @@ public class PassthroughOutboundDocQueryTest {
         		mockLogger.warn(warning);
         	}
         };
-        
+
         AdhocQueryResponse actualResponse = passthroughDocQuery.respondingGatewayCrossGatewayQuery(request, assertion,
                 targets);
 
-        verify(mockLogger).warn(loggerCaptor.capture());    	
+        verify(mockLogger).warn(loggerCaptor.capture());
         assertSame(expectedResponse, actualResponse);
         assertEquals(compareOutput, loggerCaptor.getValue());
-        
+
     }
 }

@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
@@ -52,7 +52,7 @@ import static org.junit.Assert.*;
 
 /**
  * This tests the XACMLCreator class.
- * 
+ *
  * @author Les Westberg
  */
 public class XACMLCreatorTest {
@@ -111,7 +111,7 @@ public class XACMLCreatorTest {
 
     /**
      * This asserts a valid resource with the given data.
-     * 
+     *
      * @param oResource The resource being checked.
      * @param sMatchId The MatchId value.
      * @param sDataType The data type value.
@@ -151,7 +151,7 @@ public class XACMLCreatorTest {
 
     /**
      * This asserts a valid resource with the given data.
-     * 
+     *
      * @param oResource The resource being checked.
      * @param sMatchId The MatchId value.
      * @param sDataType The data type value.
@@ -186,7 +186,7 @@ public class XACMLCreatorTest {
 
     /**
      * This asserts a valid resource with the given data.
-     * 
+     *
      * @param oAction The action being checked.
      * @param sMatchId The MatchId value.
      * @param sDataType The data type value.
@@ -221,7 +221,7 @@ public class XACMLCreatorTest {
 
     /**
      * This asserts a valid Environment with the given data.
-     * 
+     *
      * @param oEnvironment The environment being checked.
      * @param sMatchId The MatchId value.
      * @param sDataType The data type value.
@@ -258,7 +258,7 @@ public class XACMLCreatorTest {
 
     /**
      * This asserts a valid subject with the given data.
-     * 
+     *
      * @param oSubject The action being checked.
      * @param sMatchId The MatchId value.
      * @param sDataType The data type value.
@@ -294,7 +294,7 @@ public class XACMLCreatorTest {
 
     /**
      * This class validates the data in the Target to make sure it has what we are expecting.
-     * 
+     *
      * @param oTarget The target information from the XACML policy
      */
     private void assertValidExampleTarget(TargetType oTarget) {
@@ -321,7 +321,7 @@ public class XACMLCreatorTest {
 
     /**
      * Validate Example 1 Rule 1 to be sure that the data is correct.
-     * 
+     *
      * @param oRule The rule to be validated.
      */
     private void assertValidExample1Rule1(RuleType oRule) {
@@ -344,7 +344,7 @@ public class XACMLCreatorTest {
 
     /**
      * Validate Example 1 Rule 2 to be sure that the data is correct.
-     * 
+     *
      * @param oRule The rule to be validated.
      */
     private void assertValidExample1Rule2(RuleType oRule) {
@@ -388,7 +388,7 @@ public class XACMLCreatorTest {
 
     /**
      * Validate Example 1 Rule 1 to be sure that the data is correct.
-     * 
+     *
      * @param oRule The rule to be validated.
      */
     private void assertValidExample1Rule3(RuleType oRule) {
@@ -422,7 +422,7 @@ public class XACMLCreatorTest {
 
     /**
      * Validate Example 1 Rule 4 to be sure that the data is correct.
-     * 
+     *
      * @param oRule The rule to be validated.
      */
     private void assertValidExample1Rule4(RuleType oRule) {
@@ -456,7 +456,7 @@ public class XACMLCreatorTest {
 
     /**
      * Validate Example 1 Rule 5 to be sure that the data is correct.
-     * 
+     *
      * @param oRule The rule to be validated.
      */
     private void assertValidExample1Rule5(RuleType oRule) {
@@ -473,7 +473,7 @@ public class XACMLCreatorTest {
 
     /**
      * Validate Example 2 Rule 1 to be sure that the data is correct.
-     * 
+     *
      * @param oRule The rule to be validated.
      */
     private void assertValidExample2Rule1(RuleType oRule) {
@@ -491,7 +491,7 @@ public class XACMLCreatorTest {
 
     /**
      * This validates that the rules are correct.
-     * 
+     *
      * @param oConsentXACML The XACML consent document.
      */
     private void assertValidExample1Rules(PolicyType oConsentXACML) {
@@ -518,7 +518,7 @@ public class XACMLCreatorTest {
 
     /**
      * This validates that the rules are correct.
-     * 
+     *
      * @param oConsentXACML The XACML consent document.
      */
     private void assertValidExample2Rules(PolicyType oConsentXACML) {
@@ -533,7 +533,7 @@ public class XACMLCreatorTest {
 
     /**
      * Test out the CreateConsentXACMLDoc method.
-     * 
+     *
      */
     @Test
     public void testCreateXACML() {

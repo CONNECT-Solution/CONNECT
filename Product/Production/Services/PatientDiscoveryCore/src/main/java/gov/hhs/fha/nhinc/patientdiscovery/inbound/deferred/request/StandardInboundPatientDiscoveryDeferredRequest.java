@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,7 +44,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  * @author akong
- * 
+ *
  */
 public class StandardInboundPatientDiscoveryDeferredRequest extends AbstractInboundPatientDiscoveryDeferredRequest {
 
@@ -65,7 +65,7 @@ public class StandardInboundPatientDiscoveryDeferredRequest extends AbstractInbo
 
     /**
      * Constructor.
-     * 
+     *
      * @param policyChecker
      * @param proxyErrorFactory
      * @param passthroughPatientDiscovery
@@ -80,7 +80,7 @@ public class StandardInboundPatientDiscoveryDeferredRequest extends AbstractInbo
         this.proxyErrorFactory = proxyErrorFactory;
         this.auditLogger = auditLogger;
     }
-    
+
     @Override
     @InboundProcessingEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class, afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Request", version = "1.0")
     public MCCIIN000002UV01 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion) {

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+/*
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,13 +37,13 @@ import oasis.names.tc.emergency.edxl.de._1.XmlContentType;
 
 /**
  * @author zmelnick
- * 
+ *
  */
 public class EDXLDistributionPayloadSizeExtractor {
 
     /**
      * Determines the payload sizes for each alert message.
-     * 
+     *
      * @param alertMessage
      *            the EDXLDistribution.
      * @return list of sizes
@@ -65,7 +65,7 @@ public class EDXLDistributionPayloadSizeExtractor {
     	result += getNonContentXMLSize(message.getNonXMLContent());
     	return "" + result;
     }
-    
+
     private int getContentXMLSize(XmlContentType contentXML){
     	if(contentXML == null){
     		return 0;
@@ -75,7 +75,7 @@ public class EDXLDistributionPayloadSizeExtractor {
     		return embeddedXMLSize + keyXMLSize;
     	}
     }
-    
+
     private int getNonContentXMLSize(NonXMLContentType nonContentXML){
     	if(nonContentXML == null){
     		return 0;

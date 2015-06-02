@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -49,7 +49,7 @@ public class EntityDocQueryImpl extends BaseService {
 
     /**
      * Constructor.
-     * 
+     *
      * @param outboundDocQuery
      */
     public EntityDocQueryImpl(OutboundDocQuery outboundDocQuery) {
@@ -59,7 +59,7 @@ public class EntityDocQueryImpl extends BaseService {
     /**
      * Sends  the request  to the Nwhin. This method is invoked by the secured  outbound interface and the assertion object
      * is read from the webservice context.
-     * 
+     *
      * @param request
      * @param context
      * @return AdhocQueryResponse
@@ -76,7 +76,7 @@ public class EntityDocQueryImpl extends BaseService {
     /**
      * Sends the request to the Nwhin. This method is invoked by the unsecured outbound interface and the assertion
      * object is read from the request object itself.
-     * 
+     *
      * @param request
      * @param context
      * @return AdhocQueryResponse
@@ -97,7 +97,7 @@ public class EntityDocQueryImpl extends BaseService {
             if (targets == null) {
                 targets = new ObjectFactory().createNhinTargetCommunitiesType();
             }
-            
+
             if (StringUtils.isBlank(targets.getUseSpecVersion())) {
                 targets.setUseSpecVersion("2.0");
             }

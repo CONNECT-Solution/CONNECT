@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
@@ -94,7 +94,7 @@ import org.hl7.v3.TSExplicit;
 
 /**
  * This class creates CDA documents from BinaryDocumentPolicyCriteria objects.
- * 
+ *
  * @author Les Westberg
  */
 public class CdaPdfCreator {
@@ -107,10 +107,10 @@ public class CdaPdfCreator {
 
     /**
      * This class creates an instance of an II with the given root and extension.
-     * 
+     *
      * @param sRoot The root value for the II object.
      * @param sExtension The extension for the II object.
-     * 
+     *
      * @return The II object that was constructed.
      */
     private II createII(String sRoot, String sExtension) {
@@ -136,7 +136,7 @@ public class CdaPdfCreator {
 
     /**
      * Create the template ID tag.
-     * 
+     *
      * @return The Template ID tag.
      */
     private II createTemplateId() {
@@ -145,7 +145,7 @@ public class CdaPdfCreator {
 
     /**
      * This returns the home community ID from the gateway.properties file.
-     * 
+     *
      * @return The home community ID.
      * @throws AdapterPIPException This exception is thrown if there is an error.
      */
@@ -166,7 +166,7 @@ public class CdaPdfCreator {
 
     /**
      * Creates the ID tag for the CDA document.
-     * 
+     *
      * @return The ID tag for the CDA document.
      * @throws AdapterPIPException This exception is thrown if any error occurs.
      */
@@ -178,7 +178,7 @@ public class CdaPdfCreator {
 
     /**
      * This creates the type ID tag and returns it.
-     * 
+     *
      * @return The TypeId tag.
      */
     private POCDMT000040InfrastructureRootTypeId createTypeId() {
@@ -192,7 +192,7 @@ public class CdaPdfCreator {
 
     /**
      * Transform the CE into an HL7 CE type.
-     * 
+     *
      * @param oCe The policy representation of the CE.
      * @return The HL7 representation of the CE.
      */
@@ -233,7 +233,7 @@ public class CdaPdfCreator {
 
     /**
      * This creates an STExplicit with the given string value.
-     * 
+     *
      * @param sValue The value to use when creating the node.
      * @return The STExplicit object containing the value.
      */
@@ -255,7 +255,7 @@ public class CdaPdfCreator {
 
     /**
      * This method transforms the given XMLDate into an HL7 date.
-     * 
+     *
      * @param sHL7Date The date in HL7 format.
      * @return The HL7 date.
      */
@@ -277,7 +277,7 @@ public class CdaPdfCreator {
 
     /**
      * Transform the Ce into an HL7 CS type.
-     * 
+     *
      * @param oCe The policy representation of the CE.
      * @return The HL7 representation of the CS.
      */
@@ -318,7 +318,7 @@ public class CdaPdfCreator {
 
     /**
      * This method creates a CS using the given code.
-     * 
+     *
      * @param sCode The code to put into the CS.
      * @return The CS object to be returned..
      */
@@ -340,7 +340,7 @@ public class CdaPdfCreator {
 
     /**
      * This creates an HL7 address from an AddressType object.
-     * 
+     *
      * @param oAddress The address to get the information from.
      * @return The HL7 address to be returned.
      */
@@ -413,7 +413,7 @@ public class CdaPdfCreator {
 
     /**
      * This creates an HL7 PN from a PersonNameType object.
-     * 
+     *
      * @param oName The name to get the information from.
      * @return The HL7 PN to be returned.
      */
@@ -475,7 +475,7 @@ public class CdaPdfCreator {
 
     /**
      * This method creates a Record Target from the given data fields.
-     * 
+     *
      * @param sAssigningAuthority The assigning authority for the patient ID.
      * @param sPatientId The patient ID.
      * @param oPatientInfo The patient information from the criterion object.
@@ -562,7 +562,7 @@ public class CdaPdfCreator {
 
     /**
      * Create an HL7 ON from the given name. It will be placed into a single string value in the object.
-     * 
+     *
      * @param sOrgName The name of the organization
      * @return The HL7 ON object that is returned.
      */
@@ -584,7 +584,7 @@ public class CdaPdfCreator {
 
     /**
      * This creates an HL7 organization object with the given data.
-     * 
+     *
      * @param sIdRoot The root attribute for the ID tag.
      * @param sIdExtension The extension attribute for the ID tag.
      * @param sOrgName The name of the organization.
@@ -623,7 +623,7 @@ public class CdaPdfCreator {
 
     /**
      * Create an HL7 Author from the information in the given author object.
-     * 
+     *
      * @param oAuthor The author information to use when creating the HL7 object.
      * @return The HL7 author object.
      */
@@ -695,7 +695,7 @@ public class CdaPdfCreator {
 
     /**
      * Create an SC type with the given value.
-     * 
+     *
      * @param sValue The string value to place in the SC
      * @return The HL7 SC object containing the value.
      */
@@ -718,7 +718,7 @@ public class CdaPdfCreator {
 
     /**
      * Create an HL7 Authoring device node with the given data.
-     * 
+     *
      * @param oAuthoringDeviceCode The authroing device coded data - identifies the device.
      * @param sDeviceManufactureModelName The device manufacutre model and name.
      * @param sDeviceSoftwareName The device software name and version.
@@ -763,7 +763,7 @@ public class CdaPdfCreator {
 
     /**
      * Create an HL7 Author (Scanner) from the information in the given author object.
-     * 
+     *
      * @param oAuthor The author information to use when creating the HL7 object.
      * @return The HL7 author object.
      */
@@ -834,7 +834,7 @@ public class CdaPdfCreator {
 
     /**
      * Create the HL7 data enterer information from the given data.
-     * 
+     *
      * @param oDataEnterer The data enterer information.
      * @return The HL7 Data enterer information.
      */
@@ -892,7 +892,7 @@ public class CdaPdfCreator {
 
     /**
      * Create the HL7 custodian from the given data.
-     * 
+     *
      * @param oCustodian The data to be transformed.
      * @return The HL7 custodian object,
      */
@@ -938,7 +938,7 @@ public class CdaPdfCreator {
 
     /**
      * Create an HL7 legal authenticator object from the given data.
-     * 
+     *
      * @param oLegalAuthenticator The legal authenticator data to be placd in the HL7 object.
      * @return The HL7 legal authenticator object to be returned.
      */
@@ -998,7 +998,7 @@ public class CdaPdfCreator {
 
     /**
      * Create a time interval based on the given low and high date.
-     * 
+     *
      * @param sLowHL7Date The lower date of the range.
      * @param sHighHL7Date The higher date of the range.
      * @return The time interval that has been created.
@@ -1036,7 +1036,7 @@ public class CdaPdfCreator {
 
     /**
      * Create the DocumentationOf tag with the given data.
-     * 
+     *
      * @param oCriterion The object containing the data to be in the documentation of tag.
      * @return The HL7 documentation of object that was created.
      */
@@ -1069,7 +1069,7 @@ public class CdaPdfCreator {
 
     /**
      * Create the component tag.
-     * 
+     *
      * @param oCriterion The information to be used in the object.
      * @return The component object that was created.
      */
@@ -1109,7 +1109,7 @@ public class CdaPdfCreator {
 
     /**
      * This method creates a single CDA document from the given BinaryDocumentPolicyCriterionType.
-     * 
+     *
      * @param oPtPref This contains the patient preference information. There is some infomration in this that is common
      *            to each of the criterion that need to be available when we create the CDA document.
      * @param oCriterion The binary document criterion containing the data.
@@ -1207,7 +1207,7 @@ public class CdaPdfCreator {
 
     /**
      * This method creates a set of CDA documents from the given BinaryDocumentPolicyCriterion objects.
-     * 
+     *
      * @param oPtPref The patient preferences information for the CDA.
      * @return The list of CDA documents returned.
      * @throws AdapterPIPException This is thrown if any exception occurs in the process.

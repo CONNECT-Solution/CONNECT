@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+/*
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -46,7 +46,7 @@ import org.junit.Test;
 
 /**
  * @author zmelnick
- * 
+ *
  */
 public class EDXLDistributionPayloadSizeExtractorTest {
 
@@ -64,7 +64,7 @@ public class EDXLDistributionPayloadSizeExtractorTest {
 
         assertEquals(BigInteger.TEN.toString(), extractor.getPayloadSizes(alert).get(0));
     }
-    
+
     @Test
     public void testPayloadSizeOnSingleNonXMLEmptyPayload() {
     	EDXLDistribution alert = new EDXLDistribution();
@@ -118,12 +118,12 @@ public class EDXLDistributionPayloadSizeExtractorTest {
         assertEquals("0", payloadSizes.get(0));
         assertEquals("10", payloadSizes.get(1));
     }
-    
+
     @Test
     public void testPayloadSizeContentXMLbothXMLContentTypesEmpty() {
     	EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
         EDXLDistribution alert = new EDXLDistribution();
-        
+
         final List<AnyXMLType> emptyList = mock(List.class);
         XmlContentType contentType = new XmlContentType(){
         	@Override
@@ -135,13 +135,13 @@ public class EDXLDistributionPayloadSizeExtractorTest {
         		return emptyList;
         	}
         };
-        
+
         when(emptyList.size()).thenReturn(0,0);
-        
+
         ContentObjectType payload = new ContentObjectType();
         payload.setXmlContent(contentType);
         alert.getContentObject().add(payload);
-        
+
         List<String> payloadSizes = extractor.getPayloadSizes(alert);
         assertEquals(1, payloadSizes.size());
         assertEquals("0", payloadSizes.get(0));
@@ -151,10 +151,10 @@ public class EDXLDistributionPayloadSizeExtractorTest {
     public void testPayloadSizeContentXMLMixedXMLContentTypeSizes() {
     	EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
         EDXLDistribution alert = new EDXLDistribution();
-        
+
         final List<AnyXMLType> keyList = mock(List.class, "keyList");
         final List<AnyXMLType> embeddedList = mock(List.class, "embeddedList");
-        
+
         XmlContentType contentType = new XmlContentType(){
         	@Override
         	public List<AnyXMLType> getKeyXMLContent(){
@@ -165,14 +165,14 @@ public class EDXLDistributionPayloadSizeExtractorTest {
         		return embeddedList;
         	}
         };
-        
+
         when(keyList.size()).thenReturn(4);
         when(embeddedList.size()).thenReturn(5);
-        
+
         ContentObjectType payload = new ContentObjectType();
         payload.setXmlContent(contentType);
         alert.getContentObject().add(payload);
-        
+
         List<String> payloadSizes = extractor.getPayloadSizes(alert);
         assertEquals(1, payloadSizes.size());
         assertEquals("9", payloadSizes.get(0));

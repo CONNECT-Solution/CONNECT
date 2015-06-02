@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,7 +38,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
  * OutboundDocQueryOrchestratable_a1 returns the response for the a1 specification Note that for DocQuery, the
  * individual response is a AdhocQueryResponse and the cumulative response is also a AdhocQueryResponse Currently, a0
  * and a1 specs are same for Doc Query.
- * 
+ *
  * @author paul.eftis
  */
 // CHECKSTYLE:OFF
@@ -56,7 +56,7 @@ public class OutboundDocQueryOrchestratable_a1 extends OutboundDocQueryOrchestra
 
     /**
      * Override SuperClass Constructor.
-     * 
+     *
      * @param d
      *            Delegate.
      * @param at

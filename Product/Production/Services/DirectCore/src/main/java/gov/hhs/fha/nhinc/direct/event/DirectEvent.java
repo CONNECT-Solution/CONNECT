@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -141,7 +141,7 @@ public class DirectEvent extends BaseEvent {
                     addToJSON(jsonDescription, SENDER, message.getSender());
                     addToJSON(jsonDescription, RECIPIENT, message.getAllRecipients());
                     String parentMessageID = getParentMessageId(message);
-                    //set the parent message ID in the JSON string if its 
+                    //set the parent message ID in the JSON string if its
                     //also set it in the transaction id
                     if (NullChecker.isNotNullish(parentMessageID)) {
                         addToJSON(jsonDescription, PARENT_MESSAGE_ID, parentMessageID);

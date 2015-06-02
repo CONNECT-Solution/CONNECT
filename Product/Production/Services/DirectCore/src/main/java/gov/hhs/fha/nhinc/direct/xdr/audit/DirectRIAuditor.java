@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,7 +40,7 @@ import org.nhindirect.common.audit.DefaultAuditContext;
 
 /**
  * @author mweaver
- * 
+ *
  */
 public class DirectRIAuditor implements SoapEdgeAuditor {
 
@@ -50,9 +50,9 @@ public class DirectRIAuditor implements SoapEdgeAuditor {
 	 * Audits an event to the Direct RI audit logger. If a set of properties are
 	 * provided, they will be audited as additional contexts, otherwise only the
 	 * principal, category, and message will be audited.
-	 * 
+	 *
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeAuditor#audit(java.lang.String,
 	 *      java.lang.String, java.lang.String,
 	 *      gov.hhs.fha.nhinc.direct.xdr.audit.Auditable)
@@ -72,7 +72,7 @@ public class DirectRIAuditor implements SoapEdgeAuditor {
 
 	/**
 	 * Creates a set of AuditContext objects from and Auditable object.
-	 * 
+	 *
 	 * @param auditable
 	 *            A {@link Auditable} object, must not be null.
 	 * @return A Collection of @{link AuditContext} objects.

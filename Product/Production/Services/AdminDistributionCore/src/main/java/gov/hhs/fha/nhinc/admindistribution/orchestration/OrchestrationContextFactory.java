@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+/*
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -65,7 +65,7 @@ public final class OrchestrationContextFactory extends AbstractOrchestrationCont
                 serviceName);
         return getBuilder(apiLevel, serviceName);
     }
-    
+
     private OrchestrationContextBuilder getBuilder(GATEWAY_API_LEVEL apiLevel,
             NHIN_SERVICE_NAMES serviceName) {
         if (serviceName == NHIN_SERVICE_NAMES.ADMINISTRATIVE_DISTRIBUTION) {

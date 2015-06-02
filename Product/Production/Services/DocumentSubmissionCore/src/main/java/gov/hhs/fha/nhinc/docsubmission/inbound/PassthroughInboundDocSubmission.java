@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,14 +39,14 @@ import org.apache.log4j.Logger;
 
 /**
  * @author akong
- * 
+ *
  */
 public class PassthroughInboundDocSubmission extends AbstractInboundDocSubmission {
 
     private static final Logger LOG = Logger.getLogger(PassthroughInboundDocSubmission.class);
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
     private DocSubmissionUtils dsUtils;
-    
+
     /**
      * Constructor.
      */
@@ -56,7 +56,7 @@ public class PassthroughInboundDocSubmission extends AbstractInboundDocSubmissio
 
     /**
      * Constructor with dependency injection of strategy components.
-     * 
+     *
      * @param adapterFactory
      * @param auditLogger
      * @param dsUtils

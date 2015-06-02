@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-13, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,21 +36,21 @@ import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
 
 /**
  * In memory implementation of the TransactionStore interface.
- * 
+ *
  * @author msw
  */
 public class TransactionStoreInmemory implements TransactionStore {
-    
+
     /** The map. */
     Map<String,List<String>> map = null;
-    
+
     /**
      * Instantiates a new transaction store inmemory.
      */
     public TransactionStoreInmemory() {
         map = getMap();
     }
-    
+
     /**
      * Gets the map.
      *
@@ -70,17 +70,17 @@ public class TransactionStoreInmemory implements TransactionStore {
         	String messageId = transactionRepo.getMessageId();
         	String transactionId = transactionRepo.getTransactionId();
         	List<String> transactionIds = null;
-        	
+
         	if (map.containsKey(messageId)) {
         		transactionIds = map.get(messageId);
         	} else {
         		transactionIds = new LinkedList<String>();
         	}
-        	
+
         	if (!transactionIds.contains(transactionId)) {
         		transactionIds.add(transactionId);
         	}
-        
+
             map.put(messageId, transactionIds);
             inserted = true;
         }
@@ -96,7 +96,7 @@ public class TransactionStoreInmemory implements TransactionStore {
         if (map != null) {
         	List<String> transactionIds = map.get(messageId);
         	if (transactionIds != null) {
-        		transactionId = transactionIds.get(0);	
+        		transactionId = transactionIds.get(0);
         	}
         }
         return transactionId;

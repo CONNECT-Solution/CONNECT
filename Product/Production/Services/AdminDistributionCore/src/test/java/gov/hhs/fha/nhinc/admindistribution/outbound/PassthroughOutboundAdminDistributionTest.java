@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,7 +48,7 @@ public class PassthroughOutboundAdminDistributionTest {
         NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
 
         OutboundAdminDistributionDelegate adDelegate = mock(OutboundAdminDistributionDelegate.class);
-        
+
         PassthroughOutboundAdminDistribution passthroughAdmin = new PassthroughOutboundAdminDistribution(adDelegate);
 
         passthroughAdmin.sendAlertMessage(request, assertion, targetCommunities);
@@ -56,7 +56,7 @@ public class PassthroughOutboundAdminDistributionTest {
         verify(adDelegate).process(any(OutboundAdminDistributionOrchestratable.class));
 
     }
-    
+
     @Test
     public void outboundSecured() {
 
@@ -65,13 +65,13 @@ public class PassthroughOutboundAdminDistributionTest {
         NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
 
         OutboundAdminDistributionDelegate adDelegate = mock(OutboundAdminDistributionDelegate.class);
-        
+
         PassthroughOutboundAdminDistribution passthroughAdmin = new PassthroughOutboundAdminDistribution(adDelegate);
 
         passthroughAdmin.sendAlertMessage(request, assertion, targetCommunities);
 
         verify(adDelegate).process(any(OutboundAdminDistributionOrchestratable.class));
-        
+
     }
 
 }

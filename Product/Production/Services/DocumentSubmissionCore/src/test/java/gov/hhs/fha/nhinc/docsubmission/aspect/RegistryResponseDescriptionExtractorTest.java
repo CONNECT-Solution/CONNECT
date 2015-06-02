@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,14 +42,14 @@ import org.springframework.util.CollectionUtils;
 
 /**
  * @author akong
- * 
+ *
  */
 public class RegistryResponseDescriptionExtractorTest extends BaseDescriptionBuilderTest {
 
     @Test
     public void noResponse() {
         RegistryResponseDescriptionExtractor extractor = new RegistryResponseDescriptionExtractor();
-        
+
         assertTrue(CollectionUtils.isEmpty(extractor.getStatuses(null)));
         assertTrue(CollectionUtils.isEmpty(extractor.getErrorCodes(null)));
     }
@@ -59,7 +59,7 @@ public class RegistryResponseDescriptionExtractorTest extends BaseDescriptionBui
         RegistryResponseType response = new RegistryResponseType();
 
         RegistryResponseDescriptionExtractor extractor = new RegistryResponseDescriptionExtractor();
-        
+
         assertTrue(CollectionUtils.isEmpty(extractor.getStatuses(response)));
         assertTrue(CollectionUtils.isEmpty(extractor.getErrorCodes(response)));
     }

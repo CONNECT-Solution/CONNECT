@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-13, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,7 +40,7 @@ public class TransactionStoreFactory extends ComponentProxyObjectFactory impleme
 
     /** The Constant CONFIG_FILE_NAME. */
     private static final String CONFIG_FILE_NAME = "TransactionLoggingProxyConfig.xml";
-    
+
     /** The Constant BEAN_NAME_TRANSACTION_LOGGING. */
     private static final String BEAN_NAME_TRANSACTION_LOGGING = "transactionstore";
 
@@ -55,7 +55,7 @@ public class TransactionStoreFactory extends ComponentProxyObjectFactory impleme
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.springframework.beans.factory.FactoryBean#getObject()
      */
     @Override
@@ -65,7 +65,7 @@ public class TransactionStoreFactory extends ComponentProxyObjectFactory impleme
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.springframework.beans.factory.FactoryBean#getObjectType()
      */
     @Override
@@ -75,7 +75,7 @@ public class TransactionStoreFactory extends ComponentProxyObjectFactory impleme
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.springframework.beans.factory.FactoryBean#isSingleton()
      */
     @Override
@@ -85,7 +85,7 @@ public class TransactionStoreFactory extends ComponentProxyObjectFactory impleme
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory#getConfigFileName()
      */
     @Override

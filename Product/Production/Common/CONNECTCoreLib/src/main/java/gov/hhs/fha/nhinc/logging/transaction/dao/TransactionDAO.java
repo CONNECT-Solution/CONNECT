@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,9 +41,9 @@ import org.hibernate.Transaction;
 
 /**
  * TransactionDAO provides methods to query and update the transrepo database.
- * 
+ *
  * @author jasonasmith
- * 
+ *
  */
 public class TransactionDAO {
 
@@ -59,7 +59,7 @@ public class TransactionDAO {
 
     /**
      * Returns the instance of the DAO according to the Singleton Pattern.
-     * 
+     *
      * @return TransactionDAO
      */
     public static TransactionDAO getInstance() {
@@ -69,7 +69,7 @@ public class TransactionDAO {
 
     /**
      * Inserts a single TransactionRepo object into the database, returns boolean on success or failure.
-     * 
+     *
      * @param transactionRepo
      * @return boolean
      */
@@ -105,7 +105,7 @@ public class TransactionDAO {
 
     /**
      * Queries the database for a transaction record using the messageId.
-     * 
+     *
      * @param messageId
      * @return String
      */
@@ -132,7 +132,7 @@ public class TransactionDAO {
             namedQuery.setString("messageId", messageId);
 
             List<TransactionRepo> queryList = (List<TransactionRepo>) namedQuery.list();
-            
+
             if (!queryList.isEmpty()) {
             	TransactionRepo trans = queryList.get(0);
                 return trans.getTransactionId();

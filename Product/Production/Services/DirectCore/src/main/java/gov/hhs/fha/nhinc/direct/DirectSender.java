@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,7 +41,7 @@ public interface DirectSender {
      * @param message to be sent.
      */
     void sendOutboundDirect(MimeMessage message);
-    
+
     /**
      * Send an outbound mime message with direct.
      * @param sender of the message
@@ -49,5 +49,5 @@ public interface DirectSender {
      * @param documents to be attached to the message
      * @param messageId for the message
      */
-    void sendOutboundDirect(Address sender, Address[] recipients, DirectDocuments documents, String messageId);        
+    void sendOutboundDirect(Address sender, Address[] recipients, DirectDocuments documents, String messageId);
 }

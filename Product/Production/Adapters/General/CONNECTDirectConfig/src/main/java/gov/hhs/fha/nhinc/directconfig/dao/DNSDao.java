@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -65,14 +65,14 @@ public interface DNSDao
 	 * @return The number of records in the DNS store.
 	 */
 	public int count();
-	
+
 	/**
 	 * Gets DNS records by record name.
 	 * @param name The record name.
 	 * @return A collection of records matching the name and of any type.
 	 */
 	public Collection<DNSRecord> get(String name);
-	
+
 	/**
 	 * Gets DNS records by record name and a specific record type.
 	 * @param name The record name.
@@ -80,56 +80,56 @@ public interface DNSDao
 	 * @return A collection of records matching the name and record type.
 	 */
 	public Collection<DNSRecord> get(String name, int type);
-	
+
 	/**
 	 * Gets all DNS records or a given type.  Using type ANY will return all records in the store.
 	 * @param type The record type to search for.
 	 * @return A collection of records matching the record type.
 	 */
 	public Collection<DNSRecord> get(int type);
-	
+
 	/**
 	 * Gets DNS records by the internal record ids.
 	 * @param recordIds Array of record ids to search for.
 	 * @return A collection of records matching the record ids.
 	 */
 	public Collection<DNSRecord> get(long[] recordIds);
-	
+
 	/**
 	 * Gets a single DNS record for an internal record id.
 	 * @param recordId The internal record id to search for.
 	 * @return A DNS record matching the record id.
 	 */
 	public DNSRecord get(long recordId);
-	
+
 	/**
 	 * Adds multiple new DNS records to the store.  The type cannot be ANY.
 	 * @param records The records to add the store.  If a record already exists, then an exception is thrown.
 	 */
 	public void add(Collection<DNSRecord> records);
-	
+
 	/**
 	 * Removes a single DNS record by an existing internal record id.
 	 * @param recordId The internal record id to delete.
 	 */
 	public void remove(long recordId);
-	
+
 	/**
 	 * Removes DNS records by existing internal record ids.
 	 * @param recordIds The internal record ids to delete.
-	 */	
+	 */
 	public void remove(long[] recordIds);
-	
+
 	/**
 	 * Removes DNS records matching the DNS records' name and type.
 	 * @param records Records to delete.  Matching is done by name and type.
-	 */	
-	public void remove(Collection<DNSRecord> records);	
-	
+	 */
+	public void remove(Collection<DNSRecord> records);
+
 	/**
 	 * Update a DNS record for a specific internal id.  If a record does not exist, then an exception is thrown.  The type cannot be ANY.
 	 * @param id The internal record id to update.
 	 * @param record Data to update the record with.
 	 */
-	public void update(long id, DNSRecord record);	
+	public void update(long id, DNSRecord record);
 }

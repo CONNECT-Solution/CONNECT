@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,7 +38,7 @@ public class AdminGUIProxyObjectFactory extends ComponentProxyObjectFactory {
 
     private static final String CONFIG_FILE_NAME = NhincConstants.ADMIN_GUI_PROXY_CONFIG_FILE_NAME;
     private static final String BEAN_NAME = "directconfigwsclient";
-    
+
     private static final Logger LOG = Logger.getLogger(AdminGUIProxyObjectFactory.class);
 
     /**
@@ -54,7 +54,7 @@ public class AdminGUIProxyObjectFactory extends ComponentProxyObjectFactory {
      * Returns a instance of Direct Config Proxy
      * @return NhinCORE_X12DSGenericBatchRequestProxy
      */
-    public DirectConfigProxy getDirectConfigProxy() {       
+    public DirectConfigProxy getDirectConfigProxy() {
         DirectConfigProxy proxy = getBean(BEAN_NAME, DirectConfigProxy.class);
         LOG.info("DirectConfigProxy set to: " + proxy.getClass().getSimpleName());
         return proxy;

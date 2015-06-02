@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.nhin.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -40,9 +39,9 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  */
 public class NhinCORE_X12DSGenericBatchResponseProxyNoOpImpl implements NhinCORE_X12DSGenericBatchResponseProxy {
     private static final Logger LOG = Logger.getLogger(NhinCORE_X12DSGenericBatchResponseProxyNoOpImpl.class);
-    
+
     /**
-     * 
+     *
      * @param msg
      * @param assertion
      * @param targetSystem
@@ -54,5 +53,5 @@ public class NhinCORE_X12DSGenericBatchResponseProxyNoOpImpl implements NhinCORE
         LOG.info("NhinCORE_X12DSGenericBatchResponseProxyNoOpImpl.genericBatchSubmitTransaction()");
         return new COREEnvelopeBatchSubmissionResponse();
     }
-    
+
 }

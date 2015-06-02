@@ -1,7 +1,5 @@
-/**
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+/*
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -67,7 +65,7 @@ public class AdhocQueryResponseDescriptionBuilder extends AssertionEventDescript
 
     /**
      * Constructor for aspects. Response should be set via <code>setArguments</code>.
-     * 
+     *
      * @see #setArguments(Object...)
      */
     public AdhocQueryResponseDescriptionBuilder() {
@@ -177,7 +175,7 @@ public class AdhocQueryResponseDescriptionBuilder extends AssertionEventDescript
 
     /**
      * Finds this deep value, if it is present:
-     * 
+     *
      * <pre>
      * RegistryObjectList/ExtrinsicObject/Classification[@nodeRepresentation="formatCode"]/Slot[@name="codingScheme"]/ValueList/Value[1]
      * </Pre>
@@ -214,7 +212,7 @@ public class AdhocQueryResponseDescriptionBuilder extends AssertionEventDescript
 
     /**
      * Finds these deep values, if present:
-     * 
+     *
      * <pre>
      * RegistryObjectList/ExtrinsicObject/Slot[@name="size"]/ValueList/Value[1]
      * </pre>

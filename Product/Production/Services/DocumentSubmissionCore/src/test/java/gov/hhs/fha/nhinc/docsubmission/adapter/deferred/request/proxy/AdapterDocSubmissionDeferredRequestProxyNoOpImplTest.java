@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,9 +45,9 @@ import org.junit.Test;
 public class AdapterDocSubmissionDeferredRequestProxyNoOpImplTest {
     @Test
     public void hasAdapterDelegationEvent() throws Exception {
-        Class<AdapterDocSubmissionDeferredRequestProxyNoOpImpl> clazz = 
+        Class<AdapterDocSubmissionDeferredRequestProxyNoOpImpl> clazz =
                 AdapterDocSubmissionDeferredRequestProxyNoOpImpl.class;
-        Method method = clazz.getMethod("provideAndRegisterDocumentSetBRequest", 
+        Method method = clazz.getMethod("provideAndRegisterDocumentSetBRequest",
                 ProvideAndRegisterDocumentSetRequestType.class, AssertionType.class);
         AdapterDelegationEvent annotation = method.getAnnotation(AdapterDelegationEvent.class);
         assertNotNull(annotation);

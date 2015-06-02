@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -161,7 +161,7 @@ public abstract class DirectAdapter {
      * @return SmtpAgent SmtpAgent created to process Direct Messages.
      */
     protected SmtpAgent getSmtpAgent(URL url) {
-        
+
         if ((smtpAgent != null) && smtpAgent instanceof SmtpAgent) {
             return smtpAgent;
         } else {

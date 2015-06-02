@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-13, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,7 +42,7 @@ public class XDRRegistryResponseTransformsHCIDTest {
     private static final String LOCAL_HCID = "localHCID";
     private static final String ASSERTION_HCID = "assertionHCID";
     private static final String TARGET_HCID = "targetHCID";
-    
+
     private XDRMessageHelper messageHelper = new XDRMessageHelper();
 
     private XDRTransforms xdrTransform;
@@ -62,123 +62,123 @@ public class XDRRegistryResponseTransformsHCIDTest {
     public void getHcidNhinOutboundInRequestingSide() {
         String direction = NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION;
         String _interface = NhincConstants.AUDIT_LOG_NHIN_INTERFACE;
-        
+
         LogEventRequestType result = xdrTransform.transformResponseToAuditMsg(registryResponse, assertion, target,
                 direction, _interface, true);
-        
+
         assertEquals(TARGET_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
     }
-    
+
     @Test
-    public void getHcidNhinInboundInRequestingSide() { 
+    public void getHcidNhinInboundInRequestingSide() {
         String direction = NhincConstants.AUDIT_LOG_INBOUND_DIRECTION;
         String _interface = NhincConstants.AUDIT_LOG_NHIN_INTERFACE;
-        
+
         LogEventRequestType result = xdrTransform.transformResponseToAuditMsg(registryResponse, assertion, target,
                 direction, _interface, true);
-        
+
         assertEquals(TARGET_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
     }
-    
+
     @Test
     public void getHcidNhinOutboundInRespondingSide() {
         String direction = NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION;
         String _interface = NhincConstants.AUDIT_LOG_NHIN_INTERFACE;
-        
+
         LogEventRequestType result = xdrTransform.transformResponseToAuditMsg(registryResponse, assertion, target,
                 direction, _interface, false);
-        
+
         assertEquals(ASSERTION_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
     }
-    
+
     @Test
-    public void getHcidNhinInboundInRespondingSide() { 
+    public void getHcidNhinInboundInRespondingSide() {
         String direction = NhincConstants.AUDIT_LOG_INBOUND_DIRECTION;
         String _interface = NhincConstants.AUDIT_LOG_NHIN_INTERFACE;
-        
+
         LogEventRequestType result = xdrTransform.transformResponseToAuditMsg(registryResponse, assertion, target,
                 direction, _interface, false);
-        
+
         assertEquals(ASSERTION_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
     }
-    
+
     @Test
-    public void getHcidEntityInboundInRequestingSide() { 
+    public void getHcidEntityInboundInRequestingSide() {
         String direction = NhincConstants.AUDIT_LOG_INBOUND_DIRECTION;
         String _interface = NhincConstants.AUDIT_LOG_ENTITY_INTERFACE;
-        
+
         LogEventRequestType result = xdrTransform.transformResponseToAuditMsg(registryResponse, assertion, target,
-                direction, _interface, true);        
+                direction, _interface, true);
         assertEquals(LOCAL_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
     }
-    
+
     @Test
-    public void getHcidEntityInboundInRespondingSide() { 
+    public void getHcidEntityInboundInRespondingSide() {
         String direction = NhincConstants.AUDIT_LOG_INBOUND_DIRECTION;
         String _interface = NhincConstants.AUDIT_LOG_ENTITY_INTERFACE;
-        
+
         LogEventRequestType result = xdrTransform.transformResponseToAuditMsg(registryResponse, assertion, target,
-                direction, _interface, false);        
+                direction, _interface, false);
         assertEquals(LOCAL_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
     }
-    
+
     @Test
-    public void getHcidEntityOutboundInRequestingSide() { 
+    public void getHcidEntityOutboundInRequestingSide() {
         String direction = NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION;
         String _interface = NhincConstants.AUDIT_LOG_ENTITY_INTERFACE;
-        
+
         LogEventRequestType result = xdrTransform.transformResponseToAuditMsg(registryResponse, assertion, target,
-                direction, _interface, true);        
+                direction, _interface, true);
         assertEquals(LOCAL_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
     }
-    
+
     @Test
-    public void getHcidEntityOutboundInRespondingSide() { 
+    public void getHcidEntityOutboundInRespondingSide() {
         String direction = NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION;
         String _interface = NhincConstants.AUDIT_LOG_ENTITY_INTERFACE;
-        
+
         LogEventRequestType result = xdrTransform.transformResponseToAuditMsg(registryResponse, assertion, target,
-                direction, _interface, false);        
+                direction, _interface, false);
         assertEquals(LOCAL_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
     }
-    
+
     @Test
-    public void getHcidAdapterInboundInRequestingSide() { 
+    public void getHcidAdapterInboundInRequestingSide() {
         String direction = NhincConstants.AUDIT_LOG_INBOUND_DIRECTION;
         String _interface = NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE;
-        
+
         LogEventRequestType result = xdrTransform.transformResponseToAuditMsg(registryResponse, assertion, target,
-                direction, _interface, true);       
+                direction, _interface, true);
         assertEquals(LOCAL_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
     }
-    
+
     @Test
-    public void getHcidAdapterInboundInRespondingSide() { 
+    public void getHcidAdapterInboundInRespondingSide() {
         String direction = NhincConstants.AUDIT_LOG_INBOUND_DIRECTION;
         String _interface = NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE;
-        
+
         LogEventRequestType result = xdrTransform.transformResponseToAuditMsg(registryResponse, assertion, target,
-                direction, _interface, false);       
+                direction, _interface, false);
         assertEquals(LOCAL_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
     }
-    
+
     @Test
-    public void getHcidAdapterOutboundInRequestingSide() { 
+    public void getHcidAdapterOutboundInRequestingSide() {
         String direction = NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION;
         String _interface = NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE;
-        
+
         LogEventRequestType result = xdrTransform.transformResponseToAuditMsg(registryResponse, assertion, target,
-                direction, _interface, true);       
+                direction, _interface, true);
         assertEquals(LOCAL_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
     }
-    
+
     @Test
-    public void getHcidAdapterOutboundInRespondingSide() { 
+    public void getHcidAdapterOutboundInRespondingSide() {
         String direction = NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION;
         String _interface = NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE;
-        
+
         LogEventRequestType result = xdrTransform.transformResponseToAuditMsg(registryResponse, assertion, target,
-                direction, _interface, false);       
+                direction, _interface, false);
         assertEquals(LOCAL_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
     }
 

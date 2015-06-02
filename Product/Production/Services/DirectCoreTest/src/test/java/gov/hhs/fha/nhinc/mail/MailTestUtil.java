@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,7 +34,7 @@ import java.net.URISyntaxException;
 import org.apache.commons.io.FileUtils;
 
 /**
- * Utility methods for testing. 
+ * Utility methods for testing.
  */
 public class MailTestUtil {
 
@@ -48,7 +48,7 @@ public class MailTestUtil {
         try {
             fileAsString =  FileUtils.readFileToString(new File(getClassPath() + filename));
         } catch (Exception e) {
-            fail(e.getMessage());            
+            fail(e.getMessage());
         }
         return fileAsString;
     }
@@ -59,5 +59,5 @@ public class MailTestUtil {
      */
     public static File getClassPath() throws URISyntaxException {
         return new File(MailTestUtil.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-    }    
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -82,7 +82,7 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
             LOG.warn("patient identifier was null");
             return null;
         }
-        
+
         II inputPatientId = listII.get(0);
         List<String> dataSourceList = extractDataSourceList(retrievePatientCorrelationsRequest);
         QualifiedPatientIdentifier inputQualifiedPatientIdentifier = qualifiedPatientIdentifierFactory(inputPatientId);
@@ -97,7 +97,7 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
         result.setPRPAIN201310UV02(IN201310);
         return result;
     }
-    
+
     protected List<QualifiedPatientIdentifier> retrieveQualifiedPatientIdentifiers(QualifiedPatientIdentifier inputQualifiedPatientIdentifier,
             List<String> dataSourceList) {
         List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers = dao.retrievePatientCorrelation(

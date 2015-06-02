@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,9 +47,9 @@ import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionB
 public class AdapterDocSubmissionDeferredRequestProxyJavaImplTest {
     @Test
     public void hasAdapterDelegationEvent() throws Exception {
-        Class<AdapterDocSubmissionDeferredRequestProxyJavaImpl> clazz = 
+        Class<AdapterDocSubmissionDeferredRequestProxyJavaImpl> clazz =
                 AdapterDocSubmissionDeferredRequestProxyJavaImpl.class;
-        Method method = clazz.getMethod("provideAndRegisterDocumentSetBRequest", 
+        Method method = clazz.getMethod("provideAndRegisterDocumentSetBRequest",
                 ProvideAndRegisterDocumentSetRequestType.class, AssertionType.class);
         AdapterDelegationEvent annotation = method.getAnnotation(AdapterDelegationEvent.class);
         assertNotNull(annotation);

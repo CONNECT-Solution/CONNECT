@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -49,7 +49,7 @@ package gov.hhs.fha.nhinc.directconfig.entity;
 
 /**
  * JPA entity object for a trust bundle to domain relationship
- * 
+ *
  * @author Greg Meyer
  * @since 1.2
  */
@@ -68,7 +68,7 @@ public class TrustBundleDomainReltn {
 
     /**
      * Get the value of id.
-     * 
+     *
      * @return the value of id.
      */
     public Long getId() {
@@ -77,7 +77,7 @@ public class TrustBundleDomainReltn {
 
     /**
      * Set the value of id.
-     * 
+     *
      * @param id The value of id.
      */
     public void setId(Long id) {
@@ -86,7 +86,7 @@ public class TrustBundleDomainReltn {
 
     /**
      * Gets the value of the trust bundle.
-     * 
+     *
      * @return The value of the trust bundle.
      */
     public TrustBundle getTrustBundle() {
@@ -95,7 +95,7 @@ public class TrustBundleDomainReltn {
 
     /**
      * Sets the value of the trust bundle.
-     * 
+     *
      * @param bundle The value of the trust bundle.
      */
     public void setTrustBundle(TrustBundle bundle) {
@@ -104,7 +104,7 @@ public class TrustBundleDomainReltn {
 
     /**
      * Gets the value of the domain.
-     * 
+     *
      * @return The value of the domain.
      */
     public Domain getDomain() {
@@ -113,7 +113,7 @@ public class TrustBundleDomainReltn {
 
     /**
      * Sets the value of the domain.
-     * 
+     *
      * @param bundle The value of the domain.
      */
     public void setDomain(Domain domain) {
@@ -122,7 +122,7 @@ public class TrustBundleDomainReltn {
 
     /**
      * Get the value of incoming.
-     * 
+     *
      * @return the value of incoming.
      */
     public boolean isIncoming() {
@@ -131,7 +131,7 @@ public class TrustBundleDomainReltn {
 
     /**
      * Set the value of incoming.
-     * 
+     *
      * @param incoming The value of incoming.
      */
     public void setIncoming(boolean incoming) {
@@ -140,7 +140,7 @@ public class TrustBundleDomainReltn {
 
     /**
      * Get the value of outgoing.
-     * 
+     *
      * @return the value of outgoing.
      */
     public boolean isOutgoing() {
@@ -149,7 +149,7 @@ public class TrustBundleDomainReltn {
 
     /**
      * Set the value of outgoing.
-     * 
+     *
      * @param outgoing The value of outgoing.
      */
     public void setOutgoing(boolean outgoing) {

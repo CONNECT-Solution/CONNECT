@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -65,7 +65,7 @@ public class PassthroughOutboundAdminDistribution implements OutboundAdminDistri
 
     /**
      * This method implements sendAlertMessage for AdminDist when in passthrumode.
-     * 
+     *
      * @param request
      * @param assertion
      * @param target
@@ -73,7 +73,7 @@ public class PassthroughOutboundAdminDistribution implements OutboundAdminDistri
     @Override
     public void sendAlertMessage(RespondingGatewaySendAlertMessageType request, AssertionType assertion,
             NhinTargetCommunitiesType targetCommunities) {
-        
+
     	NhinTargetSystemType target = msgUtils.convertFirstToNhinTargetSystemType(targetCommunities);
         sendToNhin(request, assertion, target);
     }

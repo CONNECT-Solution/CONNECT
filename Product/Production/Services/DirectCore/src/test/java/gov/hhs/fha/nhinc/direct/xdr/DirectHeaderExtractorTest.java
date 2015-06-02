@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -64,50 +64,50 @@ public class DirectHeaderExtractorTest extends DirectBaseTest {
     private static final String REMOTE_HOST = "remote host";
     private static final String SERVER_NAME = "server name";
 
-    
+
     @Test(expected = DirectException.class)
     public void testGetHeaderProperties_WebServiceContextNull() {
         WebServiceContext context = null;
-        
+
         new DirectHeaderExtractor().getHeaderProperties(context);
     }
-    
+
     @Test(expected = DirectException.class)
     public void testGetHeaderProperties_MessageContextNull() {
         WebServiceContext context = mock(WebServiceContext.class);
-        
+
         when(context.getMessageContext()).thenReturn(null);
-        
+
         new DirectHeaderExtractor().getHeaderProperties(context);
     }
-    
+
     @Test(expected = DirectException.class)
     public void testGetHeaderProperties_ContentNull() {
         WebServiceContext context = mock(WebServiceContext.class);
         Message msg = mock(Message.class);
         WrappedMessageContext messageContext = new WrappedMessageContext(msg);
-        
+
         when(context.getMessageContext()).thenReturn(messageContext);
-        
+
         new DirectHeaderExtractor().getHeaderProperties(context);
     }
-    
+
     @Test(expected = DirectException.class)
     public void testGetHeaderProperties_EnvelopeNull() {
         WebServiceContext context = mock(WebServiceContext.class);
         Message msg = mock(Message.class);
         Node content = mock(Node.class);
         NodeListImpl contentChildren = new NodeListImpl();
-        
+
         WrappedMessageContext messageContext = new WrappedMessageContext(msg);
-        
+
         when(context.getMessageContext()).thenReturn(messageContext);
         when(msg.getContent(Node.class)).thenReturn(content);
         when(content.getChildNodes()).thenReturn(contentChildren);
-        
+
         new DirectHeaderExtractor().getHeaderProperties(context);
     }
-    
+
     /**
      * Test of getHeaderProperties method, of class DirectHeaderExtractor.
      */
@@ -118,7 +118,7 @@ public class DirectHeaderExtractorTest extends DirectBaseTest {
         WrappedMessageContext messageContext = new WrappedMessageContext(msg);
 
         when(context.getMessageContext()).thenReturn(messageContext);
-        
+
         Node content = mock(Node.class);
 
         NodeListImpl envelope = new NodeListImpl();
@@ -138,7 +138,7 @@ public class DirectHeaderExtractorTest extends DirectBaseTest {
         when(headerNode.getNodeName()).thenReturn("Header");
 
         when(headerNode.getChildNodes()).thenReturn(getHeaderNodeList());
-        
+
         ServletRequest request = mock(ServletRequest.class);
         when(messageContext.get(MessageContext.SERVLET_REQUEST)).thenReturn(request);
         when(request.getRemoteHost()).thenReturn(REMOTE_HOST);
@@ -168,29 +168,29 @@ public class DirectHeaderExtractorTest extends DirectBaseTest {
         headers.add(hReplyTo);
         headers.add(hFrom);
         headers.add(hTo);
-        headers.add(hAddressBlock);       
+        headers.add(hAddressBlock);
 
         NodeListImpl fromChildren = new NodeListImpl();
         NodeListImpl replyToChildren = new NodeListImpl();
         NodeListImpl addressBlockChildren = new NodeListImpl();
-        
+
         ((NodeImpl) hFrom).setChildren(fromChildren);
         ((NodeImpl) hReplyTo).setChildren(replyToChildren);
         ((NodeImpl) hAddressBlock).setChildren(addressBlockChildren);
-                
+
         Node fromChild = new NodeImpl("Address", FROM);
         Node replyToChild = new NodeImpl("Address", REPLY_TO);
-        
+
         fromChildren.add(fromChild);
         replyToChildren.add(replyToChild);
-        
+
         Node directFromChild = new NodeImpl("from", DIRECT_FROM);
         Node directToChild = new NodeImpl("to", DIRECT_TO);
         Node directMetaChild = new NodeImpl("metadata-level", DIRECT_META);
-        
+
         addressBlockChildren.add(directFromChild);
         addressBlockChildren.add(directToChild);
-        addressBlockChildren.add(directMetaChild);              
+        addressBlockChildren.add(directMetaChild);
 
         return headers;
     }
@@ -210,15 +210,15 @@ public class DirectHeaderExtractorTest extends DirectBaseTest {
         assertEquals(edgeContext.getRemoteHost(), REMOTE_HOST);
         assertEquals(edgeContext.getThisHost(), SERVER_NAME);
     }
-    
+
     class NodeListImpl implements NodeList {
 
         private List<Node> nodes = new ArrayList<Node>();
-        
+
         public void add(Node node){
             nodes.add(node);
         }
-        
+
         @Override
         public Node item(int index) {
             return nodes.get(index);
@@ -228,39 +228,39 @@ public class DirectHeaderExtractorTest extends DirectBaseTest {
         public int getLength() {
             return nodes.size();
         }
-        
+
     }
-    
+
     class NodeImpl implements Node {
 
         private String nodeName;
         private String textContent;
         private NodeListImpl children;
-        
+
         public NodeImpl(String nodeName, String textContent){
             this.nodeName = nodeName;
             this.textContent = textContent;
         }
-        
+
         public void setChildren(NodeListImpl children){
             this.children = children;
         }
-        
+
         @Override
         public String getNodeName() {
             return nodeName;
         }
-        
+
         @Override
         public String toString(){
             return nodeName;
         }
-        
+
         @Override
         public String getTextContent() throws DOMException {
             return textContent;
         }
-        
+
         @Override
         public NodeList getChildNodes() {
             return children;
@@ -435,7 +435,7 @@ public class DirectHeaderExtractorTest extends DirectBaseTest {
         public Object getUserData(String key) {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
-        
+
     }
 
 }

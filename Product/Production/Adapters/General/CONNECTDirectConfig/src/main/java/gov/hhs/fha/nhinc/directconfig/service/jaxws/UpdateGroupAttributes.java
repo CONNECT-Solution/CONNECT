@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -67,7 +67,7 @@ public class UpdateGroupAttributes {
     private String policyGroupName;
 
     /**
-     * 
+     *
      * @return
      *     returns long
      */
@@ -76,7 +76,7 @@ public class UpdateGroupAttributes {
     }
 
     /**
-     * 
+     *
      * @param policyGroupId
      *     the value for the policyGroupId property
      */
@@ -85,7 +85,7 @@ public class UpdateGroupAttributes {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns String
      */
@@ -94,7 +94,7 @@ public class UpdateGroupAttributes {
     }
 
     /**
-     * 
+     *
      * @param policyGroupName
      *     the value for the policyGroupName property
      */

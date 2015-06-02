@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy;
 
@@ -45,7 +45,7 @@ import org.hl7.v3.RetrievePatientCorrelationsRequestType;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 
 /**
- * 
+ *
  * @author jhoppesc
  */
 public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCorrelationProxy {
@@ -65,7 +65,7 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
-    
+
     protected CONNECTClientFactory getCONNECTClientFactory() {
     	return CONNECTClientFactory.getInstance();
     }
@@ -101,7 +101,7 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
     }
 
     /**
-     * This method retrieves PatientCorrelation from the targeted community. 
+     * This method retrieves PatientCorrelation from the targeted community.
      * @param msg PRPAIN201309UV02 HL7 type of Request received.
      * @param assertion Assertion received.
      * @return PatientCorrelationresponse.
@@ -123,7 +123,7 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
                 request.setPRPAIN201309UV02(msg);
                 request.setAssertion(assertion);
 
-                ServicePortDescriptor<PatientCorrelationPortType> portDescriptor = 
+                ServicePortDescriptor<PatientCorrelationPortType> portDescriptor =
                         getRetrieveServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
                 CONNECTClient<PatientCorrelationPortType> client = getCONNECTClientFactory()
@@ -161,7 +161,7 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
                 request.setPRPAIN201301UV02(msg);
                 request.setAssertion(assertion);
 
-                ServicePortDescriptor<PatientCorrelationPortType> portDescriptor = 
+                ServicePortDescriptor<PatientCorrelationPortType> portDescriptor =
                         getRetrieveServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
                 CONNECTClient<PatientCorrelationPortType> client = getCONNECTClientFactory()

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.event;
 
 import com.google.common.base.Optional;
@@ -71,11 +70,11 @@ public abstract class TargetEventDescriptionBuilder extends AssertionEventDescri
         }
         target = Optional.absent();
     }
-    
+
     private NhinTargetSystemType convertToTargetSystem(NhinTargetCommunityType communityType){
         NhinTargetSystemType targetSystem = new NhinTargetSystemType();
         targetSystem.setHomeCommunity(communityType.getHomeCommunity());
-        
+
         return targetSystem;
     }
 }

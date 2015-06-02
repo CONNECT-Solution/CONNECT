@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,54 +40,54 @@ import org.junit.Test;
 public class AbstractMailPollerTest {
 
     private static final String EXCEPTION_MSG = "Arbitrary fake error message";
-    
+
     /**
      * Test {@link AbstractMailPoller#poll()}.
      * @throws MailClientException on a mail client exception
      */
-    @Test   
+    @Test
     public void canMailPollerInvokeHandler() throws MailClientException {
 
         MailReceiver mockMailReceiver = mock(MailReceiver.class);
         MessageHandler mockMessageHandler = mock(MessageHandler.class);
-        
+
         MailClientException mockException = mock(MailClientException.class);
         when(mockException.getMessage()).thenReturn(EXCEPTION_MSG);
 
-        AbstractMailPoller testMailPoller = new AbstractMailPoller(mockMailReceiver, mockMessageHandler) {            
+        AbstractMailPoller testMailPoller = new AbstractMailPoller(mockMailReceiver, mockMessageHandler) {
             @Override
             public void handleException(MailClientException e) {
                 assertEquals(EXCEPTION_MSG, e.getMessage());
             }
         };
-        
+
         testMailPoller.poll();
         verify(mockMailReceiver).handleMessages(mockMessageHandler);
         verify(mockException, times(0)).getMessage();
 
     }
-    
+
     /**
      * Test {@link AbstractMailPoller#poll()} invokes the override exception handling mechanism.
      * @throws MailClientException
      */
     @Test
     public void canMailPollerHandleException() throws MailClientException {
-                
+
         MailReceiver mockMailReceiver = mock(MailReceiver.class);
         MessageHandler mockMessageHandler = mock(MessageHandler.class);
-        
+
         MailClientException mockException = mock(MailClientException.class);
         when(mockException.getMessage()).thenReturn(EXCEPTION_MSG);
         when(mockMailReceiver.handleMessages(mockMessageHandler)).thenThrow(mockException);
 
-        AbstractMailPoller testMailPoller = new AbstractMailPoller(mockMailReceiver, mockMessageHandler) {            
+        AbstractMailPoller testMailPoller = new AbstractMailPoller(mockMailReceiver, mockMessageHandler) {
             @Override
             public void handleException(MailClientException e) {
                 assertEquals(EXCEPTION_MSG, e.getMessage());
             }
         };
-        
+
         testMailPoller.poll();
         verify(mockMailReceiver).handleMessages(mockMessageHandler);
         verify(mockException).getMessage();

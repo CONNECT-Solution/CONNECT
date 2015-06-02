@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-13, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,12 +42,12 @@ import org.apache.cxf.ws.addressing.WSAddressingFeature;
  *
  */
 public class CachingCXFSecuredServicePortBuilder<T> extends CachingCXFWSAServicePortBuilder<T> {
-    
+
     private static Map<Class<?>, Object> CACHED_PORTS = new HashMap<Class<?>, Object>();
-    
+
     /**
      * Constructor.
-     * 
+     *
      * @param portDescriptor
      */
     public CachingCXFSecuredServicePortBuilder(ServicePortDescriptor<T> portDescriptor) {
@@ -68,7 +68,7 @@ public class CachingCXFSecuredServicePortBuilder<T> extends CachingCXFWSAService
     @Override
     protected void configurePort(T port) {
         super.configurePort(port);
-        
+
         ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<T>(port);
         serviceEndpoint = new TLSClientServiceEndpointDecorator<T>(serviceEndpoint);
         serviceEndpoint = new WsSecurityServiceEndpointDecorator<T>(serviceEndpoint);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,7 +40,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import org.apache.log4j.Logger;
 
 /**
- * 
+ *
  * @author jhoppesc
  */
 public class StandardOutboundDocQueryHelper {
@@ -72,7 +72,7 @@ public class StandardOutboundDocQueryHelper {
 
     /**
      * Return target communities to send DocQuery request.
-     * 
+     *
      * @param sAssigningAuthorityId Target AssigningAuthorityId.
      * @param sLocalAssigningAuthorityId AA Id of requesting Gateway.
      * @param sLocalHomeCommunity communityId of requesting Gateway.
@@ -98,7 +98,7 @@ public class StandardOutboundDocQueryHelper {
 
     /**
      * Returns Local AssigningAuthorityId.
-     * 
+     *
      * @param slotList slotList extracted from AdhocQuery Request message.
      * @return AssigingAuthorityId of local HomeCommunity.
      */
@@ -122,7 +122,7 @@ public class StandardOutboundDocQueryHelper {
 
     /**
      * This method returns uniquePatientId from slot list.
-     * 
+     *
      * @param slotList The slotList from AdhocQuery Request message.
      * @return uniquePatientId extracted form slotList.
      */
@@ -143,7 +143,7 @@ public class StandardOutboundDocQueryHelper {
 
         return uniquePatientId;
     }
- 
+
     /**
      * @param slotList The slotList from AdhocQueryRequest message.
      * @return true if patientId slot id present or false if not present.

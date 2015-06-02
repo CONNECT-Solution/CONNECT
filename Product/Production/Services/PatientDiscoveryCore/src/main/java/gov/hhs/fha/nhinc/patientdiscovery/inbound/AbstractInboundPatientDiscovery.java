@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,7 +42,7 @@ public abstract class AbstractInboundPatientDiscovery implements InboundPatientD
 
     /**
      * Method that processes the Patient Discovery request
-     * 
+     *
      * @param body the body of the PD request
      * @param assertion the assertion of the PD request
      * @return PRPAIN201306UV02 response message

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,8 +48,8 @@ public class NhinDocSubmissionProxyNoOpImplTest {
     @Test
     public void hasNwhinInvocationEvent() throws Exception {
         Class<NhinDocSubmissionProxyNoOpImpl> clazz = NhinDocSubmissionProxyNoOpImpl.class;
-        Method method = clazz.getMethod("provideAndRegisterDocumentSetB", 
-                ProvideAndRegisterDocumentSetRequestType.class, AssertionType.class, NhinTargetSystemType.class, 
+        Method method = clazz.getMethod("provideAndRegisterDocumentSetB",
+                ProvideAndRegisterDocumentSetRequestType.class, AssertionType.class, NhinTargetSystemType.class,
                 GATEWAY_API_LEVEL.class);
         NwhinInvocationEvent annotation = method.getAnnotation(NwhinInvocationEvent.class);
         assertNotNull(annotation);

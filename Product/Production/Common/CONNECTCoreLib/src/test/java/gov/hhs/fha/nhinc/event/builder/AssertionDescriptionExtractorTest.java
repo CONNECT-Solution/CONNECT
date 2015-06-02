@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,11 +39,11 @@ import org.junit.Test;
  *
  */
 public class AssertionDescriptionExtractorTest extends BaseDescriptionBuilderTest {
-    
+
     @Test
     public void noAssertion() {
         AssertionDescriptionExtractor extractor = new AssertionDescriptionExtractor();
-        
+
         assertNull(extractor.getNPI(null));
         assertNull(extractor.getInitiatingHCID(null));
     }
@@ -53,23 +53,23 @@ public class AssertionDescriptionExtractorTest extends BaseDescriptionBuilderTes
         AssertionType assertion = new AssertionType();
 
         AssertionDescriptionExtractor extractor = new AssertionDescriptionExtractor();
-                
+
         assertNull(extractor.getNPI(assertion));
         assertNull(extractor.getInitiatingHCID(assertion));
     }
-    
+
     @Test
-    public void validAssertion() {        
+    public void validAssertion() {
         HomeCommunityType homeCommunity = new HomeCommunityType();
         homeCommunity.setHomeCommunityId("1.1");
-        
+
         AssertionType assertion = new AssertionType();
         assertion.setHomeCommunity(homeCommunity);
         assertion.setNationalProviderId("npi");
-        
+
         AssertionDescriptionExtractor extractor = new AssertionDescriptionExtractor();
-        
+
         assertEquals("1.1", extractor.getInitiatingHCID(assertion));
-        assertEquals("npi", extractor.getNPI(assertion));        
+        assertEquals("npi", extractor.getNPI(assertion));
     }
 }

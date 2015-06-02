@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -51,7 +51,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeHeaders#getSoapEdgeHeadersValues()
      */
     @Override
@@ -69,7 +69,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeHeaders#getMessageId()
      */
     @Override
@@ -79,7 +79,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeHeaders#setMessageId(java.lang.String)
      */
     @Override
@@ -89,7 +89,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeHeaders#getRemoteHost()
      */
     @Override
@@ -99,7 +99,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeHeaders#setRemoteHost(java.lang.String)
      */
     @Override
@@ -109,7 +109,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeHeaders#getEndpoint()
      */
     @Override
@@ -119,7 +119,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeHeaders#setEndpoint(java.lang.String)
      */
     @Override
@@ -129,7 +129,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeHeaders#getTo()
      */
     @Override
@@ -139,7 +139,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeHeaders#setTo(java.lang.String)
      */
     @Override
@@ -149,7 +149,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeHeaders#getThisHost()
      */
     @Override
@@ -159,7 +159,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeHeaders#setThisHost(java.lang.String)
      */
     @Override
@@ -169,7 +169,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeHeaders#getPatId()
      */
     @Override
@@ -179,7 +179,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeHeaders#setPatId(java.lang.String)
      */
     @Override
@@ -189,7 +189,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeHeaders#getSubsetId()
      */
     @Override
@@ -199,7 +199,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeHeaders#SubsetId(java.lang.String)
      */
     @Override
@@ -209,7 +209,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeHeaders#getPid()
      */
     @Override
@@ -219,7 +219,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeHeaders#setPid(java.lang.String)
      */
     @Override
@@ -232,7 +232,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
      */
     @Override
     public void setAction(String action) {
-        properties.put(SoapEdgeContext.ACTION, action);        
+        properties.put(SoapEdgeContext.ACTION, action);
     }
 
     /* (non-Javadoc)
@@ -240,7 +240,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
      */
     @Override
     public void setRelatesTo(String relatesTo) {
-        properties.put(SoapEdgeContext.RELATES_TO, relatesTo);    
+        properties.put(SoapEdgeContext.RELATES_TO, relatesTo);
     }
 
     /* (non-Javadoc)

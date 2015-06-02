@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -67,7 +67,7 @@ public class ListDomains {
     private int maxResults;
 
     /**
-     * 
+     *
      * @return
      *     returns String
      */
@@ -76,7 +76,7 @@ public class ListDomains {
     }
 
     /**
-     * 
+     *
      * @param names
      *     the value for the names property
      */
@@ -85,7 +85,7 @@ public class ListDomains {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns int
      */
@@ -94,7 +94,7 @@ public class ListDomains {
     }
 
     /**
-     * 
+     *
      * @param maxResults
      *     the value for the maxResults property
      */

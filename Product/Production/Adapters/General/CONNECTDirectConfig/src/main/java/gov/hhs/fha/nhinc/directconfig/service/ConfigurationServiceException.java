@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -53,7 +53,7 @@ package gov.hhs.fha.nhinc.directconfig.service;
 public class ConfigurationServiceException extends Exception {
 
     private static final long serialVersionUID = -1005166340298814306L;
-    
+
     @SuppressWarnings("unused")
     private ConfigurationFault fault = new ConfigurationFault();
 
@@ -65,7 +65,7 @@ public class ConfigurationServiceException extends Exception {
 
     /**
      * Construct a ConfigurationServiceException object with a given message.
-     * 
+     *
      * @param message
      *            The ConfigurationServiceException message.
      */
@@ -75,7 +75,7 @@ public class ConfigurationServiceException extends Exception {
 
     /**
      * Construct a ConfigurationServiceException object from a Throwable.
-     * 
+     *
      * @param cause
      *            The Throwable object.
      */
@@ -89,7 +89,7 @@ public class ConfigurationServiceException extends Exception {
     /**
      * Construct a ConfigurationServiceException object with a given message
      * from a Throwable.
-     * 
+     *
      * @param message
      *            The ConfigurationServiceException message.
      * @param cause
@@ -104,7 +104,7 @@ public class ConfigurationServiceException extends Exception {
 
     /**
      * Construct a ConfigurationServiceException from a ConfigurationFault.
-     * 
+     *
      * @param aFault
      *            A ConfigurationFault.
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -46,15 +46,15 @@ public class NhinCORE_X12DSRealTime implements CORETransactions {
 
     private WebServiceContext context;
     private InboundCORE_X12DSRealTime inboundCORE_X12DSRealTime;
-        
+
     @Override
     public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest body) {
         return new NhinCORE_X12DSRealTimeImpl(inboundCORE_X12DSRealTime).realTimeTransaction(body, context);
     }
-    
+
     /**
-     * 
-     * @param context 
+     *
+     * @param context
      */
     @Resource
     public void setContext(WebServiceContext context) {
@@ -62,7 +62,7 @@ public class NhinCORE_X12DSRealTime implements CORETransactions {
     }
 
     /**
-     * 
+     *
      * @return InboundCORE_X12DSRealTime
      */
     public InboundCORE_X12DSRealTime getInboundCORE_X12DSRealTime() {
@@ -70,8 +70,8 @@ public class NhinCORE_X12DSRealTime implements CORETransactions {
     }
 
     /**
-     * 
-     * @param inboundCORE_X12DSRealTime 
+     *
+     * @param inboundCORE_X12DSRealTime
      */
     public void setInboundCORE_X12DSRealTime(InboundCORE_X12DSRealTime inboundCORE_X12DSRealTime) {
         this.inboundCORE_X12DSRealTime = inboundCORE_X12DSRealTime;

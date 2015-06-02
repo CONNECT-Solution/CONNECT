@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-13, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,37 +45,37 @@ import org.junit.Test;
  *
  */
 public class AggregationServiceTest {
-    
+
     @Test
     public void ensureNoDuplicates() {
         II id1 = new II();
         id1.setRoot("1.1");
         id1.setExtension("patientId");
         id1.setAssigningAuthorityName("AA");
-        
+
         II id2 = new II();
         id2.setRoot("1.1");
         id2.setExtension("patientId");
         id2.setAssigningAuthorityName("AA");
-        
+
         II[] idArray = new II[2];
         idArray[0] = id1;
         idArray[1] = id2;
-        
+
         TransactionLogger transactionLogger = mock(TransactionLogger.class);
-        
+
         AggregationService service = new AggregationService(ConnectionManagerCache.getInstance(),
                 new PatientCorrelationProxyObjectFactory(), new PixRetrieveBuilder(), new StandardOutboundDocQueryHelper(),
                 transactionLogger);
         Set<II> idSet = service.removeDuplicates(java.util.Arrays.asList(idArray));
-        
+
         assertEquals(1, idSet.size());
-        
+
         II[] noDupesArray = (II[]) idSet.toArray(new II[0]);
         assertEquals(id1.getAssigningAuthorityName(), noDupesArray[0].getAssigningAuthorityName());
         assertEquals(id1.getExtension(), noDupesArray[0].getExtension());
         assertEquals(id1.getRoot(), noDupesArray[0].getRoot());
         assertEquals(id1.isDisplayable(), noDupesArray[0].isDisplayable());
-        
+
     }
 }

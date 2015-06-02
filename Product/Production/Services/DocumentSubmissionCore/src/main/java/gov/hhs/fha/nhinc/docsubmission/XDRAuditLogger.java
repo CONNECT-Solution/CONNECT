@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -46,7 +46,7 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
  * @author dunnek
  */
 public class XDRAuditLogger {
-    
+
     private static final Logger LOG = Logger.getLogger(XDRAuditLogger.class);
 
     /**
@@ -87,7 +87,7 @@ public class XDRAuditLogger {
      * @param direction The direction this message is going (Inbound or Outbound)
      * @return
      */
-    public AcknowledgementType auditAdapterXDR(ProvideAndRegisterDocumentSetRequestType request, 
+    public AcknowledgementType auditAdapterXDR(ProvideAndRegisterDocumentSetRequestType request,
             AssertionType assertion, String direction) {
 
         AcknowledgementType ack = new AcknowledgementType();
@@ -175,7 +175,7 @@ public class XDRAuditLogger {
         LogEventRequestType auditLogMsg = auditLogger.logAdapterXDRResponse(response, assertion, direction);
 
         if (auditLogMsg != null && auditLogMsg.getAuditMessage() != null) {
-            audit(auditLogMsg, assertion);            
+            audit(auditLogMsg, assertion);
         }
         return ack;
     }
@@ -231,7 +231,7 @@ public class XDRAuditLogger {
      * @return
      */
     public AcknowledgementType auditNhinXDRResponse(RegistryResponseType response, AssertionType assertion,
-            NhinTargetSystemType target, String direction, boolean isRequesting) {        
+            NhinTargetSystemType target, String direction, boolean isRequesting) {
         AcknowledgementType ack = new AcknowledgementType();
 
         // Set up the audit logging request message
@@ -284,7 +284,7 @@ public class XDRAuditLogger {
         return ack;
     }
 
-    
+
     /**
      * Creates a generic Audit Log message for an Adapter Acknowledgement.
      * @param acknowledgement The acknowledgement message to be audited

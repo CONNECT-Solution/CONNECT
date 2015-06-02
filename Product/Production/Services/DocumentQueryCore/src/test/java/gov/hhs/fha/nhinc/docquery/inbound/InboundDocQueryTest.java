@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-13, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -61,8 +61,8 @@ public class InboundDocQueryTest {
     /**
      * Responding gateway home community id (from gateway.properties).
      */
-    protected static final String RESPONDING_HCID_FORMATTED = "1.2";    
-    
+    protected static final String RESPONDING_HCID_FORMATTED = "1.2";
+
     /**
      * Sending gateway home community id (from the assertion org/home community).
      */
@@ -72,16 +72,16 @@ public class InboundDocQueryTest {
     protected static final String SENDING_HCID_HOME_FORMATTED = "7.3";
 
     protected static final AdhocQueryRequest request = new AdhocQueryRequest();
-    protected static final AdhocQueryResponse expectedResponse = new AdhocQueryResponse();    
+    protected static final AdhocQueryResponse expectedResponse = new AdhocQueryResponse();
     protected static final DocQueryPolicyChecker policyChecker = mock(DocQueryPolicyChecker.class);
 
-    protected DocQueryAuditLog mockAuditLogger; 
-    
+    protected DocQueryAuditLog mockAuditLogger;
+
     @Before
     public void setUp() {
         mockAuditLogger = mock(DocQueryAuditLog.class);
     }
-    
+
     protected void hasInboundProcessingEvent(Class<? extends InboundDocQuery> clazz) throws Exception {
         Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery", AdhocQueryRequest.class,
                 AssertionType.class);
@@ -95,7 +95,7 @@ public class InboundDocQueryTest {
 
     protected void verifyInboundDocQuery(AssertionType assertion, String sendingHcid,
             InboundDocQuery inboundDocQuery, int adapterAuditInvocations) {
-        
+
         AdhocQueryResponse actualResponse = inboundDocQuery.respondingGatewayCrossGatewayQuery(request, assertion);
 
         assertSame(expectedResponse, actualResponse);
@@ -107,7 +107,7 @@ public class InboundDocQueryTest {
         verify(mockAuditLogger).auditDQResponse(eq(actualResponse), eq(assertion),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
                 eq(sendingHcid));
-        
+
         verify(mockAuditLogger, times(adapterAuditInvocations)).auditDQRequest(eq(request), eq(assertion),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
                 eq(RESPONDING_HCID_FORMATTED));
@@ -131,13 +131,13 @@ public class InboundDocQueryTest {
         AssertionType assertion = mock(AssertionType.class);
         UserType user = mock(UserType.class);
         HomeCommunityType homeCommunity = mock(HomeCommunityType.class);
-        
+
         when(assertion.getUserInfo()).thenReturn(user);
-        when(user.getOrg()).thenReturn(homeCommunity);        
+        when(user.getOrg()).thenReturn(homeCommunity);
         when(homeCommunity.getHomeCommunityId()).thenReturn(hcid);
-        return assertion; 
+        return assertion;
     }
 
 
-    
+
 }

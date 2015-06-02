@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -65,7 +65,7 @@ public class CertPolicyGroup {
 
     /**
      * Get the value of id.
-     * 
+     *
      * @return the value of id.
      */
     public Long getId() {
@@ -74,7 +74,7 @@ public class CertPolicyGroup {
 
     /**
      * Set the value of id.
-     * 
+     *
      * @param id The value of id.
      */
     public void setId(Long id) {
@@ -83,7 +83,7 @@ public class CertPolicyGroup {
 
     /**
      * Get the value of policyGroupName.
-     * 
+     *
      * @return the value of policyGroupName.
      */
     public String getPolicyGroupName() {
@@ -92,7 +92,7 @@ public class CertPolicyGroup {
 
     /**
      * Gets the value of policyGroupName.
-     * 
+     *
      * @param policyGroupName Get the value of policyGroupName.
      */
     public void setPolicyGroupName(String policyGroupName) {
@@ -113,7 +113,7 @@ public class CertPolicyGroup {
 
     /**
      * Get the value of createTime.
-     * 
+     *
      * @return the value of createTime.
      */
     public Calendar getCreateTime() {
@@ -122,7 +122,7 @@ public class CertPolicyGroup {
 
     /**
      * Set the value of createTime.
-     * 
+     *
      * @param timestamp The value of createTime.
      */
     public void setCreateTime(Calendar timestamp) {

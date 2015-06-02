@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -43,29 +43,29 @@ import com.google.common.base.Optional;
 
 /**
  * @author akong
- * 
+ *
  */
 public class PayloadSizeExtractorTest {
 
     @Test
     public void extract() {
-        ExtrinsicObjectType extrinsicObject = createExtrinsicObject("size", "value");       
+        ExtrinsicObjectType extrinsicObject = createExtrinsicObject("size", "value");
         JAXBElement<ExtrinsicObjectType> jaxbWrapper = wrapExtrinsicObject(extrinsicObject);
 
         PayloadSizeExtractor extractor = new PayloadSizeExtractor();
         Optional<String> payloadSize = extractor.apply(jaxbWrapper);
-        
+
         assertEquals("value", payloadSize.get());
     }
-    
+
     @Test
     public void absent() {
-        ExtrinsicObjectType extrinsicObject = createExtrinsicObject("test", "value");       
+        ExtrinsicObjectType extrinsicObject = createExtrinsicObject("test", "value");
         JAXBElement<ExtrinsicObjectType> jaxbWrapper = wrapExtrinsicObject(extrinsicObject);
 
         PayloadSizeExtractor extractor = new PayloadSizeExtractor();
         Optional<String> payloadSize = extractor.apply(jaxbWrapper);
-        
+
         assertFalse(payloadSize.isPresent());
     }
 

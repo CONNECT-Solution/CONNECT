@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -80,7 +80,7 @@ public class Domain {
 
     /**
      * Construct a Domain.
-     * 
+     *
      * @param aName The domain name.
      */
     public Domain(String aName) {
@@ -92,7 +92,7 @@ public class Domain {
 
     /**
      * Get the value of id.
-     * 
+     *
      * @return the value of id.
      */
     @XmlAttribute
@@ -102,7 +102,7 @@ public class Domain {
 
     /**
      * Set the value of id.
-     * 
+     *
      * @param anId The value of id.
      */
     public void setId(Long anId) {
@@ -111,7 +111,7 @@ public class Domain {
 
     /**
      * Get the value of domainName.
-     * 
+     *
      * @return the value of domainName.
      */
     public String getDomainName() {
@@ -120,7 +120,7 @@ public class Domain {
 
     /**
      * Get the value of createTime.
-     * 
+     *
      * @return the value of createTime.
      */
     public Calendar getCreateTime() {
@@ -129,7 +129,7 @@ public class Domain {
 
     /**
      * Get the value of postmasterAddressId.
-     * 
+     *
      * @return the value of postmasterAddressId.
      */
     public Long getPostmasterAddressId() {
@@ -138,7 +138,7 @@ public class Domain {
 
     /**
      * Set the value of postmasterAddressId.
-     * 
+     *
      * @param anId The value of postmasterAddressId.
      */
     public void setPostmasterAddressId(Long anId) {
@@ -147,7 +147,7 @@ public class Domain {
 
     /**
      * Get the value of updateTime.
-     * 
+     *
      * @return the value of updateTime.
      */
     public Calendar getUpdateTime() {
@@ -156,7 +156,7 @@ public class Domain {
 
     /**
      * Get the value of status.
-     * 
+     *
      * @return the value of status.
      */
     @XmlAttribute
@@ -166,7 +166,7 @@ public class Domain {
 
     /**
      * Set the value of domainName.
-     * 
+     *
      * @param aName The value of domainName.
      */
     public void setDomainName(String aName) {
@@ -175,7 +175,7 @@ public class Domain {
 
     /**
      * Set the value of createTime.
-     * 
+     *
      * @param timestamp The value of createTime.
      */
     public void setCreateTime(Calendar timestamp) {
@@ -184,7 +184,7 @@ public class Domain {
 
     /**
      * Set the value of updateTime.
-     * 
+     *
      * @param timestamp The value of updateTime.
      */
     public void setUpdateTime(Calendar timestamp) {
@@ -193,7 +193,7 @@ public class Domain {
 
     /**
      * Set the value of status.
-     * 
+     *
      * @param aStatus The value of status.
      */
     public void setStatus(EntityStatus aStatus) {
@@ -203,7 +203,7 @@ public class Domain {
     /**
      * If we have an email address id, then search through the collection of addresses to find an id match and return
      * it.
-     * 
+     *
      * @return the postmaster email address.
      */
     public String getPostMasterEmail() {
@@ -230,7 +230,7 @@ public class Domain {
      * 0/Null Not Null Add to Address if not there, set Id<br>
      * Not Null Not Null if id.address = address then None, otherwise update id
      * </p>
-     * 
+     *
      * @param email The postmaster email address.
      */
     public void setPostMasterEmail(String email) {
@@ -268,7 +268,7 @@ public class Domain {
 
     /**
      * Get a colection of addresses.
-     * 
+     *
      * @return a collection of addresses.
      */
     @XmlElement(name = "address")
@@ -282,7 +282,7 @@ public class Domain {
 
     /**
      * Set the value of addresses.
-     * 
+     *
      * @param addresses the value of addresses
      */
     public void setAddresses(Collection<Address> addresses) {
@@ -291,7 +291,7 @@ public class Domain {
 
     /**
      * Set the collection of Trust Bundle - Domain relations
-     * 
+     *
      * @param relations The collection of Trust Bundle - Domain relations
      */
     public void setRelations(Collection<TrustBundleDomainReltn> relations) {
@@ -300,7 +300,7 @@ public class Domain {
 
     /**
      * Get the collection of Trust Bundle - Domain relations
-     * 
+     *
      * @return The collection of Trust Bundle - Domain relations
      */
     @XmlTransient
@@ -314,7 +314,7 @@ public class Domain {
 
     /**
      * Verify the Domain is valid.
-     * 
+     *
      * @return true if the Domain is valid, false otherwise.
      */
     public boolean isValid() {
@@ -332,7 +332,7 @@ public class Domain {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

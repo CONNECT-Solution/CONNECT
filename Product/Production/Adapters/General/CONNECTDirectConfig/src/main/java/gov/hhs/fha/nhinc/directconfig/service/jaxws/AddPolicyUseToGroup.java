@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -78,7 +78,7 @@ public class AddPolicyUseToGroup {
     private boolean outgoing;
 
     /**
-     * 
+     *
      * @return
      *     returns long
      */
@@ -87,7 +87,7 @@ public class AddPolicyUseToGroup {
     }
 
     /**
-     * 
+     *
      * @param policyGroupId
      *     the value for the policyGroupId property
      */
@@ -96,7 +96,7 @@ public class AddPolicyUseToGroup {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns long
      */
@@ -105,7 +105,7 @@ public class AddPolicyUseToGroup {
     }
 
     /**
-     * 
+     *
      * @param policyId
      *     the value for the policyId property
      */
@@ -114,7 +114,7 @@ public class AddPolicyUseToGroup {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns CertPolicyUse
      */
@@ -123,7 +123,7 @@ public class AddPolicyUseToGroup {
     }
 
     /**
-     * 
+     *
      * @param policyUse
      *     the value for the policyUse property
      */
@@ -132,7 +132,7 @@ public class AddPolicyUseToGroup {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns boolean
      */
@@ -141,7 +141,7 @@ public class AddPolicyUseToGroup {
     }
 
     /**
-     * 
+     *
      * @param incoming
      *     the value for the incoming property
      */
@@ -150,7 +150,7 @@ public class AddPolicyUseToGroup {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns boolean
      */
@@ -159,7 +159,7 @@ public class AddPolicyUseToGroup {
     }
 
     /**
-     * 
+     *
      * @param outgoing
      *     the value for the outgoing property
      */

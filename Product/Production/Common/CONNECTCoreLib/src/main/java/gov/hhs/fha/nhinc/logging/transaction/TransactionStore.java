@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-13, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,14 +31,14 @@ import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
 /**
  * Interface to describe the interaction with various different storage mechanism implementations for transaction
  * mappings.
- * 
+ *
  * @author msw
  */
 public interface TransactionStore {
 
     /**
      * Insert into transaction repo.
-     * 
+     *
      * @param transactionRepo the transaction repo
      * @return true, if successful
      */
@@ -46,7 +46,7 @@ public interface TransactionStore {
 
     /**
      * Gets the transaction id. Returns null if no transaction id matches the input.
-     * 
+     *
      * @param messageId the message id
      * @return the transaction id or null
      */

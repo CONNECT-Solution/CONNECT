@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -46,7 +46,7 @@ public class NhinXDRRequestTest {
     @Test
     public void hasInboundMessageEvent() throws Exception {
         Class<NhinXDRRequest> clazz = NhinXDRRequest.class;
-        Method method = clazz.getMethod("provideAndRegisterDocumentSetBDeferredRequest", 
+        Method method = clazz.getMethod("provideAndRegisterDocumentSetBDeferredRequest",
                 ProvideAndRegisterDocumentSetRequestType.class);
         InboundMessageEvent annotation = method.getAnnotation(InboundMessageEvent.class);
         assertNotNull(annotation);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-13, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,7 +44,7 @@ import org.apache.log4j.Logger;
 
 /**
  * @author bhumphrey/paul
- * 
+ *
  */
 public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy {
 
@@ -65,20 +65,20 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
     }
 
     /**
-     * 
+     *
      * @return
      */
     abstract protected String getServiceName();
 
     /**
-     * 
+     *
      * @return
      */
     abstract protected GATEWAY_API_LEVEL getAPILevel();
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy#execute(gov.hhs.fha.nhinc.orchestration.Orchestratable)
      */
     @Override
@@ -120,7 +120,7 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
 
     /**
      * This method takes Orchestrated message request and returns response.
-     * 
+     *
      * @param message DocQueryOrchestartable message from Adapter level a0 passed.
      * @throws Exception
      * @throws ConnectionManagerException

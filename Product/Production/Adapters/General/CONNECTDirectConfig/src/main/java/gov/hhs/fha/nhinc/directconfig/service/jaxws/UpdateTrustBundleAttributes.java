@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -77,7 +77,7 @@ public class UpdateTrustBundleAttributes {
     private int trustBundleRefreshInterval;
 
     /**
-     * 
+     *
      * @return
      *     returns long
      */
@@ -86,7 +86,7 @@ public class UpdateTrustBundleAttributes {
     }
 
     /**
-     * 
+     *
      * @param trustBundleId
      *     the value for the trustBundleId property
      */
@@ -95,7 +95,7 @@ public class UpdateTrustBundleAttributes {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns String
      */
@@ -104,7 +104,7 @@ public class UpdateTrustBundleAttributes {
     }
 
     /**
-     * 
+     *
      * @param trustBundleName
      *     the value for the trustBundleName property
      */
@@ -113,7 +113,7 @@ public class UpdateTrustBundleAttributes {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns String
      */
@@ -122,7 +122,7 @@ public class UpdateTrustBundleAttributes {
     }
 
     /**
-     * 
+     *
      * @param trustBundleURL
      *     the value for the trustBundleURL property
      */
@@ -131,7 +131,7 @@ public class UpdateTrustBundleAttributes {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns Certificate
      */
@@ -140,7 +140,7 @@ public class UpdateTrustBundleAttributes {
     }
 
     /**
-     * 
+     *
      * @param signingCert
      *     the value for the signingCert property
      */
@@ -149,7 +149,7 @@ public class UpdateTrustBundleAttributes {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns int
      */
@@ -158,7 +158,7 @@ public class UpdateTrustBundleAttributes {
     }
 
     /**
-     * 
+     *
      * @param trustBundleRefreshInterval
      *     the value for the trustBundleRefreshInterval property
      */

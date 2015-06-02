@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  * @author akong
- * 
+ *
  */
 public class DocSubmissionBaseEventDescriptionBuilder extends TargetEventDescriptionBuilder {
 
@@ -59,7 +59,7 @@ public class DocSubmissionBaseEventDescriptionBuilder extends TargetEventDescrip
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildTimeStamp()
      */
     @Override
@@ -69,7 +69,7 @@ public class DocSubmissionBaseEventDescriptionBuilder extends TargetEventDescrip
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildStatuses()
      */
     @Override
@@ -79,7 +79,7 @@ public class DocSubmissionBaseEventDescriptionBuilder extends TargetEventDescrip
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildPayloadTypes()
      */
     @Override
@@ -89,7 +89,7 @@ public class DocSubmissionBaseEventDescriptionBuilder extends TargetEventDescrip
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildPayloadSize()
      */
     @Override
@@ -99,7 +99,7 @@ public class DocSubmissionBaseEventDescriptionBuilder extends TargetEventDescrip
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildErrorCodes()
      */
     @Override
@@ -109,7 +109,7 @@ public class DocSubmissionBaseEventDescriptionBuilder extends TargetEventDescrip
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder#setArguments(java.lang.Object[])
      */
     @Override
@@ -133,7 +133,7 @@ public class DocSubmissionBaseEventDescriptionBuilder extends TargetEventDescrip
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder#setReturnValue(java.lang.Object)
      */
     @Override

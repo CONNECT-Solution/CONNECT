@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,7 +45,7 @@ import org.junit.Test;
 public class DirectClientFactoryTest {
 
     private static final Logger LOG = Logger.getLogger(DirectClientFactoryTest.class);
-    
+
     /**
      * Set up keystore for test.
      */
@@ -61,13 +61,13 @@ public class DirectClientFactoryTest {
     public static void tearDownClass() {
         DirectUnitTestUtil.removeSmtpAgentConfig();
     }
-    
+
     /**
      * Test {@link DirectAdapterFactory#getDirectAdapter()}.
      * Note: This test fails when run as part of the suite - it seems that the config is loaded in another test before
      * we are setting the system property for the nhinc.properties.dir. Ignoring for now til more time can be spent on
      * it.
-     * @throws URISyntaxException 
+     * @throws URISyntaxException
      */
     @Test
     @Ignore

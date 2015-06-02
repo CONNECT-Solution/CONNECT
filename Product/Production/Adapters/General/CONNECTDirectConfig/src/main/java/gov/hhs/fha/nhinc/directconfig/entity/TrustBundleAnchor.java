@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -61,7 +61,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * JPA entity object for a trust bundle anchor
- * 
+ *
  * @author Greg Meyer
  * @since 1.2
  */
@@ -81,7 +81,7 @@ public class TrustBundleAnchor {
 
     /**
      * Get the value of id.
-     * 
+     *
      * @return the value of id.
      */
     public Long getId() {
@@ -90,7 +90,7 @@ public class TrustBundleAnchor {
 
     /**
      * Set the value of id.
-     * 
+     *
      * @param id The value of id.
      */
     public void setId(Long id) {
@@ -99,7 +99,7 @@ public class TrustBundleAnchor {
 
     /**
      * Get the value of thumbprint.
-     * 
+     *
      * @return the value of thumbprint.
      */
     public String getThumbprint() {
@@ -108,7 +108,7 @@ public class TrustBundleAnchor {
 
     /**
      * Set the value of thumbprint.
-     * 
+     *
      * @param thumbprint The value of thumbprint.
      */
     public void setThumbprint(String thumbprint) {
@@ -117,7 +117,7 @@ public class TrustBundleAnchor {
 
     /**
      * Get the value of the trust bundle.
-     * 
+     *
      * @return the value of trust bundle.
      */
     @XmlTransient
@@ -127,7 +127,7 @@ public class TrustBundleAnchor {
 
     /**
      * Set the value of the trust bundle.
-     * 
+     *
      * @param trustBundle The value of the trust bundle.
      */
     public void setTrustBundle(TrustBundle trustBundle) {
@@ -137,7 +137,7 @@ public class TrustBundleAnchor {
 
     /**
      * Get the value of anchorData.
-     * 
+     *
      * @return the value of anchorData Data.
      */
     public byte[] getData() {
@@ -146,7 +146,7 @@ public class TrustBundleAnchor {
 
     /**
      * Set the value of anchorData.
-     * 
+     *
      * @param data The value of anchorData.
      * @throws CertificateException
      */
@@ -161,7 +161,7 @@ public class TrustBundleAnchor {
 
     /**
      * Get the value of validStartDate.
-     * 
+     *
      * @return the value of validStartDate.
      */
     public Calendar getValidStartDate() {
@@ -170,7 +170,7 @@ public class TrustBundleAnchor {
 
     /**
      * Set the value of validStartDate.
-     * 
+     *
      * @param validStartDate The value of validStartDate.
      */
     public void setValidStartDate(Calendar validStartDate) {
@@ -179,7 +179,7 @@ public class TrustBundleAnchor {
 
     /**
      * Get the value of validEndDate.
-     * 
+     *
      * @return the value of validEndDate.
      */
     public Calendar getValidEndDate() {
@@ -188,7 +188,7 @@ public class TrustBundleAnchor {
 
     /**
      * Set the value of validEndDate.
-     * 
+     *
      * @param validEndDate The value of validEndDate.
      */
     public void setValidEndDate(Calendar validEndDate) {
@@ -221,7 +221,7 @@ public class TrustBundleAnchor {
 
     /**
      * Converts the anchor data to an X509 certificate
-     * 
+     *
      * @return The anchor data as an X509 certificate
      * @throws CertificateException
      */
@@ -245,7 +245,7 @@ public class TrustBundleAnchor {
 
     /**
      * Validate the Anchor for the existence of data.
-     * 
+     *
      * @throws CertificateException
      */
     public void validate() throws CertificateException {

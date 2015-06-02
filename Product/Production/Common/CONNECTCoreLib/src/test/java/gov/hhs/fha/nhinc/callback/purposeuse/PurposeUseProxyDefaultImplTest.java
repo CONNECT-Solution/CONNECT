@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,7 +48,7 @@ public class PurposeUseProxyDefaultImplTest extends PurposeUseProxyTest {
         PurposeUseProxy testPurposeUseProxy = new PurposeUseProxyDefaultImpl(mockPropertyAccessor);
         setPropertyExpectation(Expectations.returnValue("false"), NhincConstants.GATEWAY_PROPERTY_FILE,
                 "purposeForUseEnabled");
-        Assert.assertFalse(testPurposeUseProxy.isPurposeForUseEnabled(null));        
+        Assert.assertFalse(testPurposeUseProxy.isPurposeForUseEnabled(null));
     }
 
     @Test
@@ -56,7 +56,7 @@ public class PurposeUseProxyDefaultImplTest extends PurposeUseProxyTest {
         PurposeUseProxy testPurposeUseProxy = new PurposeUseProxyDefaultImpl(mockPropertyAccessor);
         setPropertyExpectation(Expectations.returnValue(null), NhincConstants.GATEWAY_PROPERTY_FILE,
                 "purposeForUseEnabled");
-        Assert.assertFalse(testPurposeUseProxy.isPurposeForUseEnabled(null));        
+        Assert.assertFalse(testPurposeUseProxy.isPurposeForUseEnabled(null));
     }
 
 }

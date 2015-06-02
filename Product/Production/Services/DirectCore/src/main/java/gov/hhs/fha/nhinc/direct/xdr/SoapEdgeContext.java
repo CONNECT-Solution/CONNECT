@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,9 +30,9 @@ import com.google.common.collect.ImmutableMap;
 
 /**
  * Interface to define the data elements which are extracted from the web services headers for an XD* message.
- * 
+ *
  * @author mweaver
- * 
+ *
  */
 public interface SoapEdgeContext {
 

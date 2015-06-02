@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 /**
  * Handles RegistryResponseType objects as <em>arguments</em> to the annotated methods. This is typical for deferred
  * response. Use the bare DocSubmissionBaseEventDescriptionBuilder when RegistryResponseType is the return value.
- * 
+ *
  * @see DocSubmissionBaseEventDescriptionBuilder
  */
 public class DeferredResponseDescriptionBuilder extends TargetEventDescriptionBuilder {
@@ -91,7 +91,7 @@ public class DeferredResponseDescriptionBuilder extends TargetEventDescriptionBu
 
     @Override
     public void setReturnValue(Object returnValue) {
-        
+
     }
 
     RegistryResponseDescriptionExtractor getResponseExtractor() {
