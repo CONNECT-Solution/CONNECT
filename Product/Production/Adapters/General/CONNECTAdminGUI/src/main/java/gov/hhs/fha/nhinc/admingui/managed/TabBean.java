@@ -45,7 +45,7 @@ public class TabBean {
     private int adminTabIndex = 0;
     private int directTabIndex = 0;
     private int propIndex = 0;
-    
+
     private final String gatewayPropTab = "gatewayTab";
     private final String adapterPropTab = "adapterTab";
     private final String directDomainTab = "directDomainTab";
@@ -54,7 +54,7 @@ public class TabBean {
     private final String directTbTab = "directTbTab";
     private final String acctUsersTab = "acctUsersTab";
     private final String acctRolesTab = "acctRolesTab";
-    
+
     /**
      *
      * @return
@@ -70,7 +70,7 @@ public class TabBean {
     public void setDirectTabIndex(int directTabIndex) {
         this.directTabIndex = directTabIndex;
     }
-    
+
     /**
      *
      * @return
@@ -154,7 +154,7 @@ public class TabBean {
      * @param directTabIndex
      * @return
      */
-    public String setDirectTabIndexNavigate(int directTabIndex){
+    public String setDirectTabIndexNavigate(int directTabIndex) {
         this.directTabIndex = directTabIndex;
         return NavigationConstant.DIRECT_PAGE;
     }
@@ -166,30 +166,30 @@ public class TabBean {
      * @param tEvent
      */
     public void onDirectTabChange(TabChangeEvent tEvent) {
-       Tab selectedTab = tEvent.getTab();
-       if(selectedTab.getId().equalsIgnoreCase(directDomainTab)) {
-           this.directTabIndex = 0;
-       } else if (selectedTab.getId().equalsIgnoreCase(directAgentTab)) {
-           this.directTabIndex = 1;
-       } else if (selectedTab.getId().equalsIgnoreCase(directCertTab)) {
-           this.directTabIndex = 2;
-       } else {
-           this.directTabIndex = 3;
-       }
+        Tab selectedTab = tEvent.getTab();
+        if (selectedTab.getId().equalsIgnoreCase(directDomainTab)) {
+            this.directTabIndex = 0;
+        } else if (selectedTab.getId().equalsIgnoreCase(directAgentTab)) {
+            this.directTabIndex = 1;
+        } else if (selectedTab.getId().equalsIgnoreCase(directCertTab)) {
+            this.directTabIndex = 2;
+        } else {
+            this.directTabIndex = 3;
+        }
     }
-    
+
     public void onPropertyTabChange(TabChangeEvent tEvent) {
         Tab selectedTab = tEvent.getTab();
-        if(selectedTab.getId().equalsIgnoreCase(gatewayPropTab)) {
+        if (selectedTab.getId().equalsIgnoreCase(gatewayPropTab)) {
             this.propIndex = 0;
         } else {
             this.propIndex = 1;
         }
     }
-    
+
     public void onAcctTabChange(TabChangeEvent tEvent) {
         Tab selectedTab = tEvent.getTab();
-        if(selectedTab.getId().equalsIgnoreCase(acctUsersTab)) {
+        if (selectedTab.getId().equalsIgnoreCase(acctUsersTab)) {
             this.adminTabIndex = 0;
         } else {
             this.adminTabIndex = 1;
@@ -198,99 +198,99 @@ public class TabBean {
 
     // All "navigateTo" functions below were added as a workaround to an Expression Language bug found in WAS 8.5.0.1
     // For more information, see http://www-01.ibm.com/support/docview.wss?uid=swg1PM72533 (PM72533)
-    
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String navigateToDirectDomainTab() {
         return setDirectTabIndexNavigate(NavigationConstant.DIRECT_DOMAIN_TAB);
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String navigateToDirectSettingTab() {
         return setDirectTabIndexNavigate(NavigationConstant.DIRECT_SETTING_TAB);
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String navigateToDirectCertificateTab() {
         return setDirectTabIndexNavigate(NavigationConstant.DIRECT_CERTIFICATE_TAB);
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String navigateToDirectTrustbundleTab() {
         return setDirectTabIndexNavigate(NavigationConstant.DIRECT_TRUSTBUNDLE_TAB);
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String navigateToAccountMgmtUserAccountTab() {
         return setAdminTabIndexNavigate(NavigationConstant.ACCOUNT_MGMT_USERACC_TAB);
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String navigateToAccountMgmtManageRoleTab() {
         return setAdminTabIndexNavigate(NavigationConstant.ACCOUNT_MGMT_MANAGEROLE_TAB);
     }
-    
+
     public String navigateToGatewayPropTab() {
         return setGatewayPropertyTabAndNavigate(0);
     }
-    
+
     public String navigateToAdapterPropTab() {
         return setGatewayPropertyTabAndNavigate(1);
     }
-    
+
     public String navigateToFhir() {
         return NavigationConstant.FHIR_PAGE;
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String navigateToGatewayDashboardTab() {
         return setDashboardTabIndexNavigate(NavigationConstant.GATEWAY_DASHBOARD_TAB);
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String navigateToGatewayRemoteListTab() {
         return setDashboardTabIndexNavigate(NavigationConstant.GATEWAY_REMOTELIST_TAB);
     }
-    
+
     public String navigateToConnectionManagement() {
         return NavigationConstant.CM_PAGE;
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String navigateToPatientDiscoveryTab() {
         return setPatientSearchTabAndNavigate(0);
     }
+
     public String setGatewayPropertyTabAndNavigate(int i) {
         this.propIndex = i;
         return NavigationConstant.PROPERTIES_PAGE;
     }
-    
+
     public String setPatientSearchTabAndNavigate(int i) {
         this.propIndex = i;
         return NavigationConstant.PATIENT_SEARCH_PAGE;
@@ -335,5 +335,5 @@ public class TabBean {
     public String getAcctRolesTab() {
         return acctRolesTab;
     }
-    
+
 }

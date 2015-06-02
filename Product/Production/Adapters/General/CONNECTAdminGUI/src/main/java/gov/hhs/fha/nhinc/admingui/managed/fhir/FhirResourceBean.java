@@ -113,7 +113,7 @@ public class FhirResourceBean {
         }
         return url;
     }
-    
+
     public void setConformanceDesc(String conformanceDesc) {
         if (confView != null) {
             confView.setConformanceDesc(conformanceDesc);

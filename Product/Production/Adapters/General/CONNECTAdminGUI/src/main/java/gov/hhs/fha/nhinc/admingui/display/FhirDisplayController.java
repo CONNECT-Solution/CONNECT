@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.admingui.display;
 
 import gov.hhs.fha.nhinc.admingui.services.FhirResourceService;
@@ -39,33 +38,33 @@ import org.apache.log4j.Logger;
  * @author jassmit
  */
 public class FhirDisplayController implements DisplayController {
-    
+
     private static final Logger LOG = Logger.getLogger(FhirDisplayController.class);
 
     @Override
     public void checkDisplay() {
         String[] resourceNames = new String[]{FhirResourceService.BINARY_RESOURCE_NAME, FhirResourceService.DOCREF_RESOURCE_NAME,
-            FhirResourceService.PATIENT_RESOURCE_NAME };
-        
-        for(String resourceName : resourceNames) {
+            FhirResourceService.PATIENT_RESOURCE_NAME};
+
+        for (String resourceName : resourceNames) {
             boolean hasResource;
             try {
                 hasResource = checkForResource(resourceName);
-            } catch(ConnectionManagerException e) {
-                LOG.warn(e, e);
+            } catch (ConnectionManagerException e) {
+                LOG.warn(e.getLocalizedMessage(), e);
                 hasResource = false;
             }
-            
-            if(hasResource == true) {
+
+            if (hasResource) {
                 DisplayHolder.getInstance().setFhirEnabled(hasResource);
                 return;
             }
         }
         DisplayHolder.getInstance().setFhirEnabled(false);
     }
-    
+
     private boolean checkForResource(String resourceName) throws ConnectionManagerException {
         return NullChecker.isNotNullish(ConnectionManagerCache.getInstance().getAdapterEndpointURL(resourceName, NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0));
     }
-    
+
 }

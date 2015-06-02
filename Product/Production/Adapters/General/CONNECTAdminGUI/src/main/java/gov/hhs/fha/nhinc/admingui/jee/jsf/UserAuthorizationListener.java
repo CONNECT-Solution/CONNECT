@@ -48,7 +48,7 @@ import org.springframework.stereotype.Component;
  * component using the component's <code>addUserAuthorizationListener<code> method. When
  * the userAuthorization event occurs, that object's appropriate
  * method is invoked.
- * 
+ *
  * @author msw
  */
 @Component
@@ -56,17 +56,21 @@ public class UserAuthorizationListener implements PhaseListener {
 
     private static final Logger LOG = Logger.getLogger(UserAuthorizationListener.class);
 
-    /** The Constant LOGIN_REQUIRED_DIR. */
+    /**
+     * The Constant LOGIN_REQUIRED_DIR.
+     */
     public static List<String> noLoginRequiredPages = null;
 
-    /** The Constant USER_INFO_SESSION_ATTRIBUTE. */
+    /**
+     * The Constant USER_INFO_SESSION_ATTRIBUTE.
+     */
     public static final String USER_INFO_SESSION_ATTRIBUTE = "userInfo";
-    
+
     private RoleService roleService = new RoleServiceImpl();
 
     /**
      * Serial version required for Serializable interface.
-     * 
+     *
      */
     private static final long serialVersionUID = 4891265644965340362L;
 
@@ -99,18 +103,18 @@ public class UserAuthorizationListener implements PhaseListener {
             LOG.debug("login required and current user is null, redirecting to login page.");
             NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
             nh.handleNavigation(facesContext, null, NavigationConstant.LOGIN_PAGE);
-        }else {
-            
+        } else {
+
             boolean hasRolePermission = roleService.checkRole(formatPageName(currentPage), currentUser);
             boolean isConfigured = checkConfiguredDisplay(formatPageName(currentPage));
-            
-            if(currentUser != null && (hasRolePermission == false || isConfigured == false)) {
-            
+
+            if (currentUser != null && (hasRolePermission == false || isConfigured == false)) {
+
                 LOG.debug("User, " + currentUser.getUserName() + " can not access given page: " + currentPage);
                 NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
                 nh.handleNavigation(facesContext, null, NavigationConstant.STATUS_PAGE);
             }
-        } 
+        }
     }
 
     /*
@@ -132,19 +136,19 @@ public class UserAuthorizationListener implements PhaseListener {
     public PhaseId getPhaseId() {
         return PhaseId.RESTORE_VIEW;
     }
-    
-    private String formatPageName(String pageName){
-        if(pageName.startsWith("/")){
+
+    private String formatPageName(String pageName) {
+        if (pageName.startsWith("/")) {
             return pageName.substring(1, pageName.length()).toLowerCase();
-        }else {
+        } else {
             return pageName.toLowerCase();
         }
     }
 
     private boolean checkConfiguredDisplay(String currentPage) {
-        if(currentPage.equals(NavigationConstant.DIRECT_XHTML)) {
+        if (currentPage.equals(NavigationConstant.DIRECT_XHTML)) {
             return DisplayHolder.getInstance().isDirectEnabled();
-        } else if(currentPage.equals(NavigationConstant.FHIR_XHTML)) {
+        } else if (currentPage.equals(NavigationConstant.FHIR_XHTML)) {
             return DisplayHolder.getInstance().isFhirEnabled();
         }
         return true;

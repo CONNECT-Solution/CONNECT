@@ -18,7 +18,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-
 package gov.hhs.fha.nhinc.admingui.display;
 
 /**
@@ -28,19 +27,19 @@ package gov.hhs.fha.nhinc.admingui.display;
 public class DisplayHolder {
 
     private static DisplayHolder INSTANCE;
-    
+
     private boolean directEnabled = true;
     private boolean fhirEnabled = true;
-    
-    private DisplayHolder(){
+
+    private DisplayHolder() {
     }
-    
+
     /**
      *
      * @return
      */
-    public static DisplayHolder getInstance(){
-        if(INSTANCE == null){
+    public static DisplayHolder getInstance() {
+        if (INSTANCE == null) {
             INSTANCE = new DisplayHolder();
         }
         return INSTANCE;
@@ -69,5 +68,5 @@ public class DisplayHolder {
     public void setFhirEnabled(boolean fhirEnabled) {
         this.fhirEnabled = fhirEnabled;
     }
-    
+
 }

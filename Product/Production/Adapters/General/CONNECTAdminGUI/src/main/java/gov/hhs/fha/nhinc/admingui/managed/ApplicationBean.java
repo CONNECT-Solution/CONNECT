@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services. All
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services. All
  * rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
@@ -18,7 +18,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-
 package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.display.DisplayHolder;
@@ -32,15 +31,16 @@ import javax.faces.bean.ManagedBean;
 @ManagedBean(name = "applicationBean")
 @ApplicationScoped
 public class ApplicationBean {
-    
+
     /**
      * Checks if direct is enabled for display purposes.
+     *
      * @return
      */
-    public boolean isDirectEnabled(){
+    public boolean isDirectEnabled() {
         return DisplayHolder.getInstance().isDirectEnabled();
     }
-    
+
     public boolean isFhirEnabled() {
         return DisplayHolder.getInstance().isFhirEnabled();
     }

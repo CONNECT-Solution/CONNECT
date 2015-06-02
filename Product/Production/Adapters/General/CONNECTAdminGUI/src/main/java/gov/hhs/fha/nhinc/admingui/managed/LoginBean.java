@@ -46,7 +46,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * The Class LoginBean.
- * 
+ *
  * @author sadusumilli
  */
 @ManagedBean
@@ -56,24 +56,32 @@ public class LoginBean {
 
     private static final Logger LOG = Logger.getLogger(LoginBean.class);
 
-    /** The user name. */
+    /**
+     * The user name.
+     */
     private String userName;
 
-    /** The password. */
+    /**
+     * The password.
+     */
     private String password;
 
-    /** The is correct. */
+    /**
+     * The is correct.
+     */
     public Boolean isCorrect = false;
-    
-    private static boolean firstTimeLogged = true; 
 
-    /** The login service. */
+    private static boolean firstTimeLogged = true;
+
+    /**
+     * The login service.
+     */
     @Autowired
     private LoginService loginService;
 
     /**
      * Gets the user name.
-     * 
+     *
      * @return the user name
      */
     public String getUserName() {
@@ -82,7 +90,7 @@ public class LoginBean {
 
     /**
      * Sets the user name.
-     * 
+     *
      * @param userName the new user name
      */
     public void setUserName(String userName) {
@@ -91,7 +99,7 @@ public class LoginBean {
 
     /**
      * Gets the password.
-     * 
+     *
      * @return the password
      */
     public String getPassword() {
@@ -100,7 +108,7 @@ public class LoginBean {
 
     /**
      * Sets the password.
-     * 
+     *
      * @param password the new password
      */
     public void setPassword(String password) {
@@ -116,14 +124,14 @@ public class LoginBean {
 
     /**
      * Invoke StatusPrime page upon success login.
-     * 
+     *
      * @return the string
      */
     public String loginAndNavigate() {
         if (!login()) {
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage("loginErrors",
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "The user name or password entered is incorrect.", ""));
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "The user name or password entered is incorrect.", ""));
             return null;
         }
         return NavigationConstant.STATUS_PAGE;
@@ -132,7 +140,7 @@ public class LoginBean {
 
     /**
      * Logout.
-     * 
+     *
      * @return the string
      */
     public String logout() {
@@ -149,7 +157,7 @@ public class LoginBean {
 
     /**
      * Login.
-     * 
+     *
      * @return true, if successful
      */
     private boolean login() {
@@ -170,20 +178,20 @@ public class LoginBean {
         } catch (UserLoginException e) {
             LOG.error(e, e);
         }
-        
+
         userName = null;
         password = null;
-        
+
         return loggedIn;
     }
-    
+
     private void checkDisplays() {
-        if(firstTimeLogged){
+        if (firstTimeLogged) {
             new DirectDisplayController().checkDisplay();
             new FhirDisplayController().checkDisplay();
             // can add additional checks for enable / disable other displays in the future
             firstTimeLogged = false;
         }
     }
-    
+
 }
