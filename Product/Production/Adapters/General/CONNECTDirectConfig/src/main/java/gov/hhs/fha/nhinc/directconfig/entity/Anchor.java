@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -81,7 +81,7 @@ public class Anchor {
 
     /**
      * Get the value of owner.
-     * 
+     *
      * @return the value of owner.
      */
     public String getOwner() {
@@ -90,7 +90,7 @@ public class Anchor {
 
     /**
      * Set the value of owner.
-     * 
+     *
      * @param owner The value of owner.
      */
     public void setOwner(String owner) {
@@ -99,7 +99,7 @@ public class Anchor {
 
     /**
      * Get the value of thumbprint.
-     * 
+     *
      * @return the value of thumbprint.
      */
     public String getThumbprint() {
@@ -108,7 +108,7 @@ public class Anchor {
 
     /**
      * Set the value of thumbprint.
-     * 
+     *
      * @param thumbprint The value of thumbprint.
      */
     public void setThumbprint(String thumbprint) {
@@ -117,7 +117,7 @@ public class Anchor {
 
     /**
      * Get the value of certificateData.
-     * 
+     *
      * @return the value of certificateData.
      */
     public byte[] getData() {
@@ -126,7 +126,7 @@ public class Anchor {
 
     /**
      * Set the value of certificateData.
-     * 
+     *
      * @param data The value of certificateData.
      * @throws CertificateException
      */
@@ -142,7 +142,7 @@ public class Anchor {
 
     /**
      * Get the value of id.
-     * 
+     *
      * @return the value of id.
      */
     public Long getId() {
@@ -151,7 +151,7 @@ public class Anchor {
 
     /**
      * Set the value of id.
-     * 
+     *
      * @param id The value of id.
      */
     public void setId(Long id) {
@@ -160,7 +160,7 @@ public class Anchor {
 
     /**
      * Get the value of createTime.
-     * 
+     *
      * @return the value of createTime.
      */
     public Calendar getCreateTime() {
@@ -169,7 +169,7 @@ public class Anchor {
 
     /**
      * Set the value of createTime.
-     * 
+     *
      * @param timestamp The value of createTime.
      */
     public void setCreateTime(Calendar timestamp) {
@@ -178,7 +178,7 @@ public class Anchor {
 
     /**
      * Get the value of validStartDate.
-     * 
+     *
      * @return the value of validStartDate.
      */
     public Calendar getValidStartDate() {
@@ -187,7 +187,7 @@ public class Anchor {
 
     /**
      * Set the value of validStartDate.
-     * 
+     *
      * @param validStartDate The value of validStartDate.
      */
     public void setValidStartDate(Calendar validStartDate) {
@@ -196,7 +196,7 @@ public class Anchor {
 
     /**
      * Get the value of validEndDate.
-     * 
+     *
      * @return the value of validEndDate.
      */
     public Calendar getValidEndDate() {
@@ -205,7 +205,7 @@ public class Anchor {
 
     /**
      * Set the value of validEndDate.
-     * 
+     *
      * @param validEndDate The value of validEndDate.
      */
     public void setValidEndDate(Calendar validEndDate) {
@@ -214,7 +214,7 @@ public class Anchor {
 
     /**
      * Get the value of status.
-     * 
+     *
      * @return the value of status.
      */
     public EntityStatus getStatus() {
@@ -223,7 +223,7 @@ public class Anchor {
 
     /**
      * Set the value of status.
-     * 
+     *
      * @param status The value of status.
      */
     public void setStatus(EntityStatus status) {
@@ -232,7 +232,7 @@ public class Anchor {
 
     /**
      * Get the value of incoming.
-     * 
+     *
      * @return the value of incoming.
      */
     public boolean isIncoming() {
@@ -241,7 +241,7 @@ public class Anchor {
 
     /**
      * Set the value of incoming.
-     * 
+     *
      * @param incoming The value of incoming.
      */
     public void setIncoming(boolean incoming) {
@@ -250,7 +250,7 @@ public class Anchor {
 
     /**
      * Get the value of outgoing.
-     * 
+     *
      * @return the value of outgoing.
      */
     public boolean isOutgoing() {
@@ -259,7 +259,7 @@ public class Anchor {
 
     /**
      * Set the value of outgoing.
-     * 
+     *
      * @param outgoing The value of outgoing.
      */
     public void setOutgoing(boolean outgoing) {
@@ -268,7 +268,7 @@ public class Anchor {
 
     /**
      * Get the value of certificateId.
-     * 
+     *
      * @return the value of certificateId.
      */
     public long getCertificateId() {
@@ -277,7 +277,7 @@ public class Anchor {
 
     /**
      * Set the value of certificateId.
-     * 
+     *
      * @param certificateId The value of certificateId.
      */
     public void setCertificateId(long certificateId) {
@@ -320,7 +320,7 @@ public class Anchor {
 
     /**
      * Validate the Anchor for the existence of data.
-     * 
+     *
      * @throws CertificateException
      */
     public void validate() throws CertificateException {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -55,7 +55,7 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 /**
- * 
+ *
  * @author mastan.ketha
  */
 public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
@@ -71,7 +71,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
 
     /**
      * processPatientDiscoveryDeferredReqQueue Orchestration method for processing request queues on reponding gateway
-     * 
+     *
      * @param messageId
      * @return org.hl7.v3.MCCIIN000002UV01
      */
@@ -158,7 +158,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
                 JAXBUnmarshallingUtil util = new JAXBUnmarshallingUtil();
                 msgBytes = msgData.getBytes(1, (int) msgData.length());
                 is = new ByteArrayInputStream(msgBytes);
-                
+
                 JAXBContext context = JAXBContext.newInstance("org.hl7.v3");
                 Unmarshaller u = context.createUnmarshaller();
                 JAXBElement<RespondingGatewayPRPAIN201305UV02RequestType> root = (JAXBElement<RespondingGatewayPRPAIN201305UV02RequestType>) u

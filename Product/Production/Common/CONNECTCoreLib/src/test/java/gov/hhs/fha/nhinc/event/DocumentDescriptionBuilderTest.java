@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,10 +34,10 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 
 /**
  * @author akong
- * 
+ *
  */
 public abstract class DocumentDescriptionBuilderTest extends BaseDescriptionBuilderTest {
-    
+
     protected void addPayloadType(ExtrinsicObjectType extrinsicObject, String payloadType) {
         ClassificationType classificatonType = addClassification(extrinsicObject);
         SlotType1 slotType = addSlot(classificatonType, DocumentConstants.EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,19 +40,19 @@ import org.junit.Test;
 
 /**
  * @author akong
- * 
+ *
  */
 public class TimeoutServiceEndpointDecoratorTest {
 
     private static final int TIMEOUT = 100;
-    
+
     @Test
     public void testTimeoutIsSet() {
         CONNECTClient<TestServicePortType> client = createClient(-1);
 
         verifyTimeoutIsSet(client, TIMEOUT);
     }
-    
+
     @Test
     public void testTimeoutIsSetForTransaction() {
         CONNECTClient<TestServicePortType> client = createClient(TIMEOUT);
@@ -61,9 +61,9 @@ public class TimeoutServiceEndpointDecoratorTest {
     }
 
     public void verifyTimeoutIsSet(CONNECTClient<?> client, int timeout) {
-        Map<String, Object> requestContext = ((javax.xml.ws.BindingProvider) client.getPort()).getRequestContext();        
+        Map<String, Object> requestContext = ((javax.xml.ws.BindingProvider) client.getPort()).getRequestContext();
         HTTPClientPolicy clientPolicy = (HTTPClientPolicy) requestContext.get(HTTPClientPolicy.class.getName());
-        
+
         assertEquals(timeout, clientPolicy.getConnectionTimeout());
         assertEquals(timeout, clientPolicy.getReceiveTimeout());
     }

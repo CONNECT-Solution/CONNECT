@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.webserviceproxy;
 
@@ -43,12 +43,12 @@ import org.junit.Test;
 
 public class WebServiceProxyHelperInvokePortTest extends AbstractWebServiceProxyHelpTest {
 
- 
+
     WebServiceProxyHelper oHelper;
 
     /**
      * This method is used to test out some of the dynamic invocaton methods.
-     * 
+     *
      * @param x an integer.
      * @param y an integer.
      * @param a result.
@@ -59,7 +59,7 @@ public class WebServiceProxyHelperInvokePortTest extends AbstractWebServiceProxy
 
     /**
      * This method is used to test out some of the dynamic invocaton methods.
-     * 
+     *
      * @param x an integer.
      * @param a result.
      */
@@ -110,12 +110,12 @@ public class WebServiceProxyHelperInvokePortTest extends AbstractWebServiceProxy
 
     /**
      * Test the invokePort method happy path.
-     * 
+     *
      * @throws Exception
      */
     @Test
     public void testInvokePortHappyPath() throws Exception {
-       
+
 
         Integer oResponse = (Integer) oHelper.invokePort(this, this.getClass(), "helperMethod", new Integer(100));
         assertNotNull("invokePort failed to return a value.", oResponse);
@@ -126,37 +126,37 @@ public class WebServiceProxyHelperInvokePortTest extends AbstractWebServiceProxy
 
     /**
      * Test the invokePort method illegal argument exception.
-     * 
+     *
      * @throws Exception
      */
     @Test(expected = IllegalArgumentException.class)
     public void testInvokePortIllegalArgumentException() throws Exception {
-   
+
         oHelper.invokePort(this, this.getClass(), "helperMethod2", new Integer(100));
 
     }
 
     /**
      * Test the invokePort method with retry settings with exception.
-     * 
+     *
      * @throws Exception
      */
     @Test(expected = SocketTimeoutException.class)
     public void testInvokePortWithInvocationTargetException() throws Exception {
 
-        
+
         oHelper.invokePort(this, this.getClass(), "exceptionalMethod", 100);
 
     }
 
     /**
      * Test the invokePort method with retry settings happy path.
-     * 
+     *
      * @throws Exception
      */
     @Test
     public void testInvokePortRetrySettingsHappyPath() throws Exception {
-       
+
 
         Integer oResponse = (Integer) oHelper.invokePort(this, this.getClass(), "helperMethod", new Integer(100));
         assertNotNull("invokePort failed to return a value.", oResponse);
@@ -166,12 +166,12 @@ public class WebServiceProxyHelperInvokePortTest extends AbstractWebServiceProxy
 
     /**
      * Test the invokePort method with retry settings with exception.
-     * 
+     *
      * @throws Exception
      */
     @Test(expected = WebServiceException.class)
     public void testInvokePortRetrySettingsWithWebServiceException() throws Exception {
-        
+
 
         Integer oResponse = (Integer) oHelper
                 .invokePort(this, this.getClass(), "exceptionalWSMethod", new Integer(100));
@@ -180,12 +180,12 @@ public class WebServiceProxyHelperInvokePortTest extends AbstractWebServiceProxy
 
     /**
      * Test the invokePort method with retry settings with exception.
-     * 
+     *
      * @throws Exception
      */
     @Test(expected = IllegalArgumentException.class)
     public void testInvokePortRetrySettingsWithWebServiceExceptionNoTextMatch() throws Exception {
-       
+
 
         oHelper.invokePort(this, this.getClass(), "badMethodName", new Integer(100));
 
@@ -193,25 +193,25 @@ public class WebServiceProxyHelperInvokePortTest extends AbstractWebServiceProxy
 
     /**
      * Test the invokePort method with retry settings with exception.
-     * 
+     *
      * @throws Exception
      */
     @Test(expected = IllegalArgumentException.class)
     public void testInvokePortRetrySettingsWithIllegalArgumentException() throws Exception {
-        
+
 
         oHelper.invokePort(this, this.getClass(), "exceptionalMethod", "100");
     }
 
     /**
      * Test the invokePort method with retry settings with exception.
-     * 
+     *
      * @throws Exception
      */
     @Test(expected = WebServiceException.class)
     public void testInvokePortRetrySettingsWithInvocationTargetException() throws Exception {
 
-       
+
 
         oHelper.invokePort(this, this.getClass(), "exceptionalWSMethod", 100);
     }

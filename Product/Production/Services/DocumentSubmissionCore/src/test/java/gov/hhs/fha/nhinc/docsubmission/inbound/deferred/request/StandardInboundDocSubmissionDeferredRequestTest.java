@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -60,7 +60,7 @@ import org.junit.Test;
 
 /**
  * @author akong
- * 
+ *
  */
 public class StandardInboundDocSubmissionDeferredRequestTest {
 
@@ -86,14 +86,14 @@ public class StandardInboundDocSubmissionDeferredRequestTest {
         XDRPolicyChecker policyChecker = mock(XDRPolicyChecker.class);
         AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory errorAdapterFactory = mock(AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory.class);
 
-        when(propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, 
+        when(propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                 NhincConstants.HOME_COMMUNITY_ID_PROPERTY)).thenReturn(localHCID);
 
         when(policyChecker.checkXDRRequestPolicy(request, assertion, senderHCID, localHCID,
                 NhincConstants.POLICYENGINE_INBOUND_DIRECTION)).thenReturn(true);
 
         final DocSubmissionUtils mockDocSubmissionUtils = mock(DocSubmissionUtils.class);
-        
+
         StandardInboundDocSubmissionDeferredRequest standardDocSubmission = new StandardInboundDocSubmissionDeferredRequest(
                 adapterFactory, policyChecker, propertyAccessor, auditLogger, errorAdapterFactory){
         	@Override
@@ -162,7 +162,7 @@ public class StandardInboundDocSubmissionDeferredRequestTest {
         verify(auditLogger).auditAcknowledgement(eq(actualResponse), eq(assertion), isNull(NhinTargetSystemType.class),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.XDR_REQUEST_ACTION));
     }
-    
+
     @Test
     public void badIncomingAssertion() {
 
@@ -181,7 +181,7 @@ public class StandardInboundDocSubmissionDeferredRequestTest {
 
         when(errorAdapter.provideAndRegisterDocumentSetBRequestError(eq(request), anyString(), eq(assertion)))
                 .thenReturn(expectedResponse);
-        
+
         StandardInboundDocSubmissionDeferredRequest standardDocSubmission = new StandardInboundDocSubmissionDeferredRequest(
                 adapterFactory, policyChecker, propertyAccessor, auditLogger, errorAdapterFactory);
 
@@ -196,11 +196,11 @@ public class StandardInboundDocSubmissionDeferredRequestTest {
         verify(auditLogger).auditAcknowledgement(eq(actualResponse), eq(assertion), isNull(NhinTargetSystemType.class),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.XDR_REQUEST_ACTION));
     }
-    
+
     @Test
     public void hasInboundProcessingEvent() throws Exception {
         Class<StandardInboundDocSubmissionDeferredRequest> clazz = StandardInboundDocSubmissionDeferredRequest.class;
-        Method method = clazz.getMethod("provideAndRegisterDocumentSetBRequest", 
+        Method method = clazz.getMethod("provideAndRegisterDocumentSetBRequest",
                 ProvideAndRegisterDocumentSetRequestType.class, AssertionType.class);
         InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
         assertNotNull(annotation);

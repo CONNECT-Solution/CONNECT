@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -59,7 +59,7 @@ public class MailUtilsTest {
     public void canCloseBothQuietlyOnStoreException() throws MessagingException {
         MailUtils.closeQuietly(getMockStore(true), getMockFolder(false), MailUtils.FOLDER_EXPUNGE_INBOX_TRUE);
     }
-    
+
     /**
      * Test {@link MailUtils#closeQuietly(Store, Folder, boolean)}.
      * @throws MessagingException messaging exception
@@ -68,7 +68,7 @@ public class MailUtilsTest {
     public void canCloseBothQuietlyOnFolderException() throws MessagingException {
         MailUtils.closeQuietly(getMockStore(false), getMockFolder(true), MailUtils.FOLDER_EXPUNGE_INBOX_TRUE);
     }
-    
+
     /**
      * Test {@link MailUtils#setDeletedQuietly(MimeMessage)}.
      * @throws MessagingException messaging exception
@@ -77,9 +77,9 @@ public class MailUtilsTest {
     public void canSetDeletedQuietlyOnException() throws MessagingException {
         MimeMessage mockMimeMsg = mock(MimeMessage.class);
         doThrowMessagingException().when(mockMimeMsg).setFlag(Flags.Flag.DELETED, true);
-        MailUtils.setDeletedQuietly(mockMimeMsg);        
+        MailUtils.setDeletedQuietly(mockMimeMsg);
     }
-        
+
     private Store getMockStore(boolean throwOnClose) throws MessagingException {
         Store mockStore = mock(Store.class);
         if (throwOnClose) {
@@ -95,9 +95,9 @@ public class MailUtilsTest {
         }
         return mockFolder;
     }
-    
+
     private Stubber doThrowMessagingException() {
         return doThrow(new MessagingException("contrived exception"));
     }
-    
+
 }

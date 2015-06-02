@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.entity;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -36,30 +35,30 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
  */
 public class OutboundCORE_X12DSGenericBatchRequestFactory {
     private static OutboundCORE_X12DSGenericBatchRequestFactory instance;
-    
+
     /**
      * Singleton Constructor
      */
     private OutboundCORE_X12DSGenericBatchRequestFactory()
     {
-        
+
     }
-    
+
     /**
      * returns a instance of OutboundCORE_X12DSGenericBatchRequestFactory
      * @return OutboundCORE_X12DSGenericBatchRequestFactory
      */
     public static OutboundCORE_X12DSGenericBatchRequestFactory getInstance()
-    {        
+    {
         if(instance == null)
         {
             instance = new OutboundCORE_X12DSGenericBatchRequestFactory();
         }
         return instance;
     }
-    
+
     /**
-     * 
+     *
      * @param apiLevel
      * @return OrchestrationContextBuilder
      */

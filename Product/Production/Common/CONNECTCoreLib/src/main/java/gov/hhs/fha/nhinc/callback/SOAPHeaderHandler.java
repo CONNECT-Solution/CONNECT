@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -49,7 +49,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 /**
  * Handles various soap header values including adding mustUnderstand to action if missing and
  * adding messageId if missing and modifying it with appropriate prefix.
- * 
+ *
  * @author rayj / jsmith
  */
 public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
@@ -119,7 +119,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
             oMessageIdElem.setTextContent(messageId);
         } else {
             SOAPFactory soapFactory = SOAPFactory.newInstance();
-            oMessageIdElem = soapFactory.createElement(NhincConstants.WS_SOAP_HEADER_MESSAGE_ID, "", 
+            oMessageIdElem = soapFactory.createElement(NhincConstants.WS_SOAP_HEADER_MESSAGE_ID, "",
                     NhincConstants.WS_ADDRESSING_URL);
             oMessageIdElem.setTextContent(messageId);
 
@@ -210,11 +210,11 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
     }
 
     private void addMustUnderstandAttribute(SOAPHeader oHeader) throws SOAPException {
-        SOAPElement action = getFirstChild(oHeader, NhincConstants.WS_SOAP_HEADER_ACTION, 
+        SOAPElement action = getFirstChild(oHeader, NhincConstants.WS_SOAP_HEADER_ACTION,
                 NhincConstants.WS_ADDRESSING_URL);
-        
+
         if (action != null && !action.hasAttribute(NhincConstants.WS_SOAP_ATTR_MUSTUNDERSTAND)) {
-            QName mustUnderstandQ = new QName(NhincConstants.WS_SOAP_ENV_URL, 
+            QName mustUnderstandQ = new QName(NhincConstants.WS_SOAP_ENV_URL,
                     NhincConstants.WS_SOAP_ATTR_MUSTUNDERSTAND, NhincConstants.WS_SOAP_ENV_PREFIX);
             action.addAttribute(mustUnderstandQ, Boolean.TRUE.toString());
         }

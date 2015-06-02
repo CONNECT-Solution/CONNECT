@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,9 +45,9 @@ import org.apache.ws.security.validate.Validator;
  * validation logic was copied from that class but modified to use a passed in time from the Message Context. This
  * passed in time needs to be set by a CXF interceptor before validation is to occur. In addition, this class will
  * prefer configuration from the CONNECT gateway properties file instead of CXF.
- * 
+ *
  * @author akong
- * 
+ *
  */
 public class TimestampValidator implements Validator {
 
@@ -56,7 +56,7 @@ public class TimestampValidator implements Validator {
 
     /**
      * Validate the credential argument. It must contain a non-null Timestamp.
-     * 
+     *
      * @param credential the Credential to be validated
      * @param data the RequestData associated with the request
      * @throws WSSecurityException on a failed validation

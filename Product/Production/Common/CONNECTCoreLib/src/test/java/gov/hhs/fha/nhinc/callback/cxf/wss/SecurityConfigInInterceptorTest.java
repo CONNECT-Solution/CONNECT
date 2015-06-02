@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,7 +44,7 @@ import org.junit.Test;
 
 /**
  * @author akong
- * 
+ *
  */
 public class SecurityConfigInInterceptorTest {
 
@@ -65,7 +65,7 @@ public class SecurityConfigInInterceptorTest {
 
         assertSecurityProcessorIsRegistered(msg);
     }
-    
+
     @Test
     public void verifySecurityConfigWithPresetWSSConfig() throws WSSecurityException {
         Message msg = new MessageImpl();
@@ -76,7 +76,7 @@ public class SecurityConfigInInterceptorTest {
 
         assertSecurityProcessorIsRegistered(msg);
     }
-    
+
     private void assertSecurityProcessorIsRegistered(Message msg) throws WSSecurityException {
         WSSConfig config = (WSSConfig) msg.getContextualProperty(WSSConfig.class.getName());
         Processor securityProcessor = config.getProcessor(new QName(SamlConstants.XML_SIGNATURE_NS,

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -75,7 +75,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Implementation of the TrustBundleDao interface
- * 
+ *
  * @author Greg Meyer
  * @since 1.2
  */
@@ -669,7 +669,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
     }
 
     /**
-     * 
+     *
      * @param tba Collection of TrustBundleAnchor to be loaded
      */
     private void loadAnchorData(Collection<TrustBundleAnchor> tba) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,18 +41,18 @@ import org.nhindirect.xd.transform.impl.DefaultMimeXdsTransformer;
  *
  */
 public class MimeMessageTransformer {
-    
+
     private static final Logger LOG = Logger.getLogger(MimeMessageTransformer.class);
     private static final String ERROR_MESSAGE = "Error transforming message to XDR";
     private final MimeXdsTransformer transformer;
-    
+
     /**
      * Constructor.
      */
     public MimeMessageTransformer() {
         transformer = getMimeXdsTransformer();
     }
-    
+
     /**
      * @param message to be transformed
      * @return ProvideAndRegisterDocumentSetRequestType representation of the message.
@@ -67,7 +67,7 @@ public class MimeMessageTransformer {
         }
         return request;
     }
-    
+
     private MimeXdsTransformer getMimeXdsTransformer() {
         return new DefaultMimeXdsTransformer();
     }

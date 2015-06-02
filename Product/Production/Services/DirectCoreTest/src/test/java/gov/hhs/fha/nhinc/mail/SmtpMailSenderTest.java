@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,19 +38,19 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * Test {@link SmtpMailSender}. 
+ * Test {@link SmtpMailSender}.
  */
 public class SmtpMailSenderTest extends GreenMailTest {
 
     private static final int NUMBER_OF_MSGS = 3;
-    
+
     /**
      * Test {@link SmtpMailSender#send(Address[], javax.mail.internet.MimeMessage)}. Ignore this test until we upgrade
      * to Javamail 1.4.5 - upgrading solves the problem here (AssertionError) but introduces others (breaks the
      * MimeMessageBuilder in DirectCore).
      */
     @Test
-    @Ignore    
+    @Ignore
     public void canSendMultipleMessages() {
 
         SmtpMailSender testMailSender = getTestSmtpMailSender();
@@ -63,13 +63,13 @@ public class SmtpMailSenderTest extends GreenMailTest {
         } catch (Exception e) {
             fail(e.getMessage());
         }
-        
+
         assertEquals(NUMBER_OF_MSGS + " expected on server.", NUMBER_OF_MSGS, countRemainingMsgs());
     }
-    
+
     private SmtpMailSender getTestSmtpMailSender() {
         Properties testMailProps = getTestMailServerProperties(true);
-        return new SmtpMailSender(testMailProps);        
+        return new SmtpMailSender(testMailProps);
     }
-    
+
 }

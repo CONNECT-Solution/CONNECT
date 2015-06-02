@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -81,12 +81,12 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
         delegate = new OutboundPatientDiscoveryDeferredRequestDelegate();
         correlationDao = new PDDeferredCorrelationDao();
         connectionManager = ConnectionManagerCache.getInstance();
-        auditLogger = new PatientDiscoveryAuditLogger();    
+        auditLogger = new PatientDiscoveryAuditLogger();
     }
 
     /**
      * Constructor with dependency injection.
-     * 
+     *
      * @param pd201305Processor
      * @param asyncProcessHelper
      * @param policyChecker
@@ -104,21 +104,21 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
         this.delegate = delegate;
         this.correlationDao = correlationDao;
         this.connectionManager = connectionManager;
-        this.auditLogger = auditLogger;    
+        this.auditLogger = auditLogger;
     }
 
     /**
      * Processes and sends the request to the Nhin. This method will add mappings and correlations and will send the
      * request to all targets passed in.
-     * 
+     *
      * @param request
      * @param assertion
      * @param targets
      * @return the MCCIIN000002UV01 response from the Nhin
      */
     @Override
-    @OutboundProcessingEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class, 
-            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
+    @OutboundProcessingEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
+            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class,
             serviceType = "Patient Discovery Deferred Request", version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion,
             NhinTargetCommunitiesType targets) {
@@ -153,7 +153,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
 
         return ack;
     }
-    
+
     @Override
     PatientDiscoveryAuditor getPatientDiscoveryAuditor() {
         return auditLogger;

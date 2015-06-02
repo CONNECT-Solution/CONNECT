@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-13, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,7 +32,7 @@ import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
 
 /**
  * Database backed implementation of the TransactionStore interface.
- * 
+ *
  * @author msw
  */
 public class TransactionStoreDatabase implements TransactionStore {
@@ -49,7 +49,7 @@ public class TransactionStoreDatabase implements TransactionStore {
 
     /**
      * Gets the transaction dao.
-     * 
+     *
      * @return the transaction dao
      */
     protected TransactionDAO getTransactionDAO() {
@@ -58,7 +58,7 @@ public class TransactionStoreDatabase implements TransactionStore {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.logging.transaction.TransactionStore#insertIntoTransactionRepo(gov.hhs.fha.nhinc.logging.
      * transaction.model.TransactionRepo)
      */
@@ -73,7 +73,7 @@ public class TransactionStoreDatabase implements TransactionStore {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.logging.transaction.TransactionStore#getTransactionId(java.lang.String)
      */
     @Override

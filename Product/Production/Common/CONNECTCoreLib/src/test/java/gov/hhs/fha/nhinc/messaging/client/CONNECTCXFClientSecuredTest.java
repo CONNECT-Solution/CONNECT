@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -52,7 +52,7 @@ import org.junit.Test;
 
 /**
  * @author akong
- * 
+ *
  */
 public class CONNECTCXFClientSecuredTest {
 
@@ -60,14 +60,14 @@ public class CONNECTCXFClientSecuredTest {
     private final MTOMServiceEndpointDecoratorTest mtomTest = new MTOMServiceEndpointDecoratorTest();
     private final SoapResponseServiceEndpointDecoratorTest responseTest = new SoapResponseServiceEndpointDecoratorTest();
     private final URLServiceEndpointDecoratorTest urlTest = new URLServiceEndpointDecoratorTest();
-    
+
     private final SAMLServiceEndpointDecoratorTest samlTest = new SAMLServiceEndpointDecoratorTest();
     private final TLSClientServiceEndpointDecoratorTest tlsTest = new TLSClientServiceEndpointDecoratorTest();
     private final WsAddressingServiceEndpointDecoratorTest addressTest = new WsAddressingServiceEndpointDecoratorTest();
     private final WsSecurityServiceEndpointDecoratorTest securityTest = new WsSecurityServiceEndpointDecoratorTest();
 
     private static final int TIMEOUT = 100;
-    
+
     @Before
     public void setUpTest(){
         try {
@@ -76,7 +76,7 @@ public class CONNECTCXFClientSecuredTest {
             System.out.println("Unable to set in memory property for timeout decorator.");
         }
     }
-    
+
     /**
      * This test ensures that the interceptor count is the same no matter how many times the decorator is called on the
      * constructor.
@@ -87,7 +87,7 @@ public class CONNECTCXFClientSecuredTest {
         String wsAddressingTo = "wsAddressingTo";
         AssertionType assertion = new AssertionType();
         assertion.setTransactionTimeout(-1);
-        
+
         CONNECTClient<TestServicePortType> client = createClient(url, assertion, wsAddressingTo);
 
         Client cxfClient = ClientProxy.getClient(client.getPort());
@@ -116,7 +116,7 @@ public class CONNECTCXFClientSecuredTest {
         ServicePortDescriptor<TestServicePortType> portDescriptor = new TestServicePortDescriptor();
 
         CONNECTClient<TestServicePortType> client = createClient(url, assertion, wsAddressingTo);
-        
+
         // default configuration
         timeoutTest.verifyTimeoutIsSet(client, TIMEOUT);
         responseTest.verifySoapResponseInInterceptor(client);
@@ -129,7 +129,7 @@ public class CONNECTCXFClientSecuredTest {
                 messageId, relatesTo);
         securityTest.verifyWsSecurityProperties(client);
     }
-    
+
     @Ignore
     @Test
     public void testEnableMtom() {
@@ -144,7 +144,7 @@ public class CONNECTCXFClientSecuredTest {
 
         CONNECTClient<TestServicePortType> client = createClient(url, assertion, wsAddressingTo);
         client.enableMtom();
-        
+
         // default configuration
         timeoutTest.verifyTimeoutIsSet(client, TIMEOUT);
         responseTest.verifySoapResponseInInterceptor(client);
@@ -156,7 +156,7 @@ public class CONNECTCXFClientSecuredTest {
         addressTest.verifyAddressingProperties(client, wsAddressingTo, portDescriptor.getWSAddressingAction(),
                 messageId, relatesTo);
         securityTest.verifyWsSecurityProperties(client);
-        
+
         // mtom configuration
         mtomTest.verifyMTOMEnabled(client);
     }

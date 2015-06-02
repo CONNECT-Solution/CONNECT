@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-13, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -43,13 +43,13 @@ import org.mockito.ArgumentCaptor;
 
 /**
  * @author akong
- * 
+ *
  */
 public class TransactionLoggerTest {
 
     private static final String MESSAGE_ID_MDC_KEY = "message-id";
     private static final String TRANSACTION_ID_MDC_KEY = "transaction-id";
-    
+
     private static final String transactionId = "transactionId";
     private static final String messageId = "messageId";
     private static final String relatedMessageId = "relatedMessageId";
@@ -58,14 +58,14 @@ public class TransactionLoggerTest {
     public void setup() {
         clearMDC();
     }
-    
+
     @After
     public void tearDown() {
         clearMDC();
     }
-    
+
     @Test
-    public void logTransaction() {        
+    public void logTransaction() {
         final TransactionStore transactionStore = mock(TransactionStore.class);
 
         TransactionLogger transactionLogger = new TransactionLogger() {
@@ -104,7 +104,7 @@ public class TransactionLoggerTest {
     }
 
     @Test
-    public void logRelatedTransaction() {  
+    public void logRelatedTransaction() {
         final TransactionStore transactionStore = mock(TransactionStore.class);
 
         TransactionLogger transactionLogger = new TransactionLogger() {
@@ -116,13 +116,13 @@ public class TransactionLoggerTest {
 
         when(transactionStore.getTransactionId(relatedMessageId)).thenReturn(transactionId);
         when(transactionStore.insertIntoTransactionRepo(any(TransactionRepo.class))).thenReturn(true);
-        
+
         transactionLogger.logTransactionFromRelatedMessageId(relatedMessageId, messageId);
         verifyLog(transactionStore, messageId, transactionId);
     }
-    
+
     @Test
-    public void logNoRelatedTransaction() {        
+    public void logNoRelatedTransaction() {
         final TransactionStore transactionStore = mock(TransactionStore.class);
 
         TransactionLogger transactionLogger = new TransactionLogger() {
@@ -133,25 +133,25 @@ public class TransactionLoggerTest {
         };
 
         when(transactionStore.getTransactionId(relatedMessageId)).thenReturn(null);
-        
+
         transactionLogger.logTransactionFromRelatedMessageId(relatedMessageId, messageId);
         verifyNothingLogged(transactionStore);
     }
-    
+
     private void clearMDC() {
         MDC.remove(MESSAGE_ID_MDC_KEY);
         MDC.remove(TRANSACTION_ID_MDC_KEY);
     }
-    
+
     private void verifyLog(TransactionStore transactionStore, String messageId, String transactionId) {
         ArgumentCaptor<TransactionRepo> transRepoArgCaptor = ArgumentCaptor.forClass(TransactionRepo.class);
         verify(transactionStore).insertIntoTransactionRepo(transRepoArgCaptor.capture());
-        
+
         assertEquals(messageId, transRepoArgCaptor.getValue().getMessageId());
         assertEquals(transactionId, transRepoArgCaptor.getValue().getTransactionId());
 
         assertEquals(messageId, MDC.get(MESSAGE_ID_MDC_KEY));
-        assertEquals(transactionId, MDC.get(TRANSACTION_ID_MDC_KEY)); 
+        assertEquals(transactionId, MDC.get(TRANSACTION_ID_MDC_KEY));
     }
 
     private void verifyNothingLogged(TransactionStore transactionStore) {

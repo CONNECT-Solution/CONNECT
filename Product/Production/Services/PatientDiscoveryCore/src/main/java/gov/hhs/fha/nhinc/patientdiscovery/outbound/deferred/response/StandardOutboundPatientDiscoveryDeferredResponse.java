@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -76,7 +76,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
 
     /**
      * Constructor with dependency injection parameters.
-     * 
+     *
      * @param policyChecker
      * @param pd201306Processor
      * @param auditLogger
@@ -93,7 +93,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
         this.delegate = delegate;
         this.connectionManager = connectionManager;
     }
-    
+
     @Override
     @OutboundProcessingEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Response", version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion,
@@ -105,7 +105,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.response.AbstractOutboundPatientDiscoveryDeferredResponse
      * #process(org.hl7.v3.PRPAIN201306UV02, gov.hhs.fha.nhinc.common.nhinccommon.AssertionType,
@@ -142,7 +142,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.response.AbstractOutboundPatientDiscoveryDeferredResponse
      * #getAuditLogger()

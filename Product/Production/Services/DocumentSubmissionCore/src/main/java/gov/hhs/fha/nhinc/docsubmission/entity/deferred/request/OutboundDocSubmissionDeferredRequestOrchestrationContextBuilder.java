@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+/*
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.docsubmission.entity.deferred.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -38,7 +37,7 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import org.apache.log4j.Logger;
 
 /**
- * 
+ *
  * @author akong
  */
 public abstract class OutboundDocSubmissionDeferredRequestOrchestrationContextBuilder implements
@@ -65,7 +64,7 @@ public abstract class OutboundDocSubmissionDeferredRequestOrchestrationContextBu
     public void setAssertionType(AssertionType assertionType) {
         this.assertionType = assertionType;
     }
-    
+
     public OutboundDelegate getNhinDelegate() {
         return nhinDelegate;
     }

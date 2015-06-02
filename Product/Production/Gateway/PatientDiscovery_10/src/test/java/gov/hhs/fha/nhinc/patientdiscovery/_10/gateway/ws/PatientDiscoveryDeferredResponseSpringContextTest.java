@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -49,25 +49,25 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/patientdiscovery/_10/applicationContext.xml" })
 public class PatientDiscoveryDeferredResponseSpringContextTest {
-    
+
     @Autowired
     NhinPatientDiscoveryDeferredResponse inboundPatientDiscoveryEndpoint;
-    
+
     @Autowired
     EntityPatientDiscoveryDeferredResponseUnsecured outboundPatientDiscoveryUnsecuredEndpoint;
-    
+
     @Autowired
     EntityPatientDiscoveryDeferredResponseSecured outboundPatientDiscoverySecuredEndpoint;
-    
+
     @Autowired
     StandardOutboundPatientDiscoveryDeferredResponse stdOutboundPDRespOrchImpl;
-    
+
     @Autowired
     StandardInboundPatientDiscoveryDeferredResponse stdInboundPDRespOrchImpl;
-    
+
     @Autowired
     StandardInboundPatientDiscoveryDeferredResponse ptInboundPDRespOrchImpl;
-    
+
     @Autowired
     PassthroughOutboundPatientDiscoveryDeferredResponse ptOutboundPDRespOrchImpl;
 
@@ -80,25 +80,25 @@ public class PatientDiscoveryDeferredResponseSpringContextTest {
 
         assertNotNull(response);
     }
-    
+
     @Test
     public void outboundUnsecured() {
         assertNotNull(outboundPatientDiscoveryUnsecuredEndpoint);
-        
+
         RespondingGatewayPRPAIN201306UV02RequestType request = new RespondingGatewayPRPAIN201306UV02RequestType();
         MCCIIN000002UV01 response = outboundPatientDiscoveryUnsecuredEndpoint.processPatientDiscoveryAsyncResp(request);
-        
+
         assertNotNull(response);
     }
-    
+
     @Test
     public void outboundSecured() {
         assertNotNull(outboundPatientDiscoverySecuredEndpoint);
-        
+
         RespondingGatewayPRPAIN201306UV02SecuredRequestType request = new RespondingGatewayPRPAIN201306UV02SecuredRequestType();
         MCCIIN000002UV01 response = outboundPatientDiscoverySecuredEndpoint.processPatientDiscoveryAsyncResp(request);
-        
+
         assertNotNull(response);
     }
-    
+
 }

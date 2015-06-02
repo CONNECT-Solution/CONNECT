@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+/*
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,34 +28,34 @@ package gov.hhs.fha.nhinc.event;
 
 /**
  * @author zmelnick
- * 
+ *
  */
 public interface Event {
 
     /**
      * Get the description for the event, a JSON String.
-     * 
+     *
      * @return the description
      */
     String getDescription();
 
     /**
      * The name of the event triggered.
-     * 
+     *
      * @return the event name
      */
     String getEventName();
 
     /**
      * The associated MessageID for the triggered event.
-     * 
+     *
      * @return the messgaeID
      */
     String getMessageID();
 
     /**
      * The associated TransactionID for the triggered event.
-     * 
+     *
      * @return the transactionID
      */
     String getTransactionID();
@@ -65,17 +65,17 @@ public interface Event {
     void setMessageID(String messageID);
 
     void setDescription(String description);
-    
+
     void setServiceType(String serviceType);
-    
+
     String getServiceType();
-    
+
     void setInitiatorHcid(String hcid);
-    
+
     String getInitiatorHcid();
-    
+
     void setRespondingHcid(String hcid);
-    
+
     String getRespondingHcid();
-    
+
 }

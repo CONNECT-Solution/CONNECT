@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,7 +48,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 
 /**
- * 
+ *
  * @author jhoppesc
  */
 public class AdapterPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl implements
@@ -66,7 +66,7 @@ public class AdapterPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl imp
     }
 
     @AdapterDelegationEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class,
-            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
+            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class,
             serviceType = "Patient Discovery Deferred Response",
             version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion) {
@@ -82,12 +82,12 @@ public class AdapterPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl imp
                 } else if (assertion == null) {
                     LOG.error("assertion was null");
                 } else {
-                    ServicePortDescriptor<AdapterPatientDiscoveryAsyncRespPortType> portDescriptor = 
+                    ServicePortDescriptor<AdapterPatientDiscoveryAsyncRespPortType> portDescriptor =
                             new AdapterPatientDiscoveryAsyncRespServicePortDescriptor();
                     CONNECTClient<AdapterPatientDiscoveryAsyncRespPortType> client = CONNECTClientFactory.getInstance()
                             .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
-                    RespondingGatewayPRPAIN201306UV02RequestType msg = 
+                    RespondingGatewayPRPAIN201306UV02RequestType msg =
                             new RespondingGatewayPRPAIN201306UV02RequestType();
                     msg.setAssertion(assertion);
                     msg.setPRPAIN201306UV02(request);

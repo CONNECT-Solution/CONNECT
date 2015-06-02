@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+/*
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -53,7 +53,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author zmelnick
- * 
+ *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/EventFactoryConfig.xml" })
@@ -64,7 +64,7 @@ public class EventFactoryTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    
+
     @Autowired
     private EventFactory eventFactory;
 
@@ -104,58 +104,58 @@ public class EventFactoryTest {
         Event event = eventFactory.createBeginNwhinInvocation();
         assertTrue(event instanceof BeginNwhinInvocationEvent);
     }
-    
+
     @Test
      public void createEndNwhinInvocation() {
          Event event = eventFactory.createEndNwhinInvocation();
          assertTrue(event instanceof EndNwhinInvocationEvent);
-         
+
      }
-    
+
     @Test
      public void createEndOutboundProcessing() {
          Event event = eventFactory.createEndOutboundProcessing();
          assertTrue(event instanceof EndOutboundProcessingEvent);
-         
+
      }
-    
+
     @Test
      public void createEndOutboundMessage() {
          Event event = eventFactory.createEndOutboundMessage();
          assertTrue(event instanceof EndOutboundMessageEvent);
-         
+
      }
-    
+
     @Test
      public void createBeginInboundProcessing() {
          Event event = eventFactory.createBeginInboundProcessing();
          assertTrue(event instanceof BeginInboundProcessingEvent);
-         
+
      }
-    
+
     @Test
      public void createBeginAdapterDelegation() {
          Event event = eventFactory.createBeginAdapterDelegation();
          assertTrue(event instanceof BeginAdapterDelegationEvent);
      }
-    
+
     @Test
      public void createEndAdapterDelegation() {
         Event event = eventFactory.createEndAdapterDelegation();
-        assertTrue(event instanceof EndAdapterDelegationEvent);  
+        assertTrue(event instanceof EndAdapterDelegationEvent);
      }
-    
+
     @Test
      public void createEndInboundProcessing() {
          Event event = eventFactory.createEndInboundProcessing();
-         assertTrue(event instanceof EndInboundProcessingEvent);  
-         
+         assertTrue(event instanceof EndInboundProcessingEvent);
+
      }
-    
+
     @Test
      public void createMessageProcessingFailed() {
         Event event = eventFactory.createMessageProcessingFailed();
-        assertTrue(event instanceof MessageProcessingFailedEvent); 
+        assertTrue(event instanceof MessageProcessingFailedEvent);
      }
 
 }

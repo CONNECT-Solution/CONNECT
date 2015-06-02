@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,13 +30,13 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
 /**
  * @author akong
- * 
+ *
  */
 public class AssertionDescriptionExtractor {
 
     /**
      * Extracts the NPI from the AssertionType
-     * 
+     *
      * @param assertion the AssertionType whose values are to be extracted from
      * @return string containing the NPI value, null if it doesn't exists
      */
@@ -51,7 +51,7 @@ public class AssertionDescriptionExtractor {
 
     /**
      * Extracts the initiating HCID from the AssertionType
-     * 
+     *
      * @param assertion the AssertionType whose values are to be extracted from
      * @return string containing the initiating hcid value, null if it doesn't exists
      */

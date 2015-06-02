@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -51,7 +51,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 /**
- * 
+ *
  * @author dunnek
  */
 public class StandardOutboundAdminDistribution implements OutboundAdminDistribution {
@@ -62,7 +62,7 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
 
     /**
      * This method sends AlertMessage to the target.
-     * 
+     *
      * @param message
      *            SendAlertMessage received.
      * @param assertion
@@ -121,7 +121,7 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
 
     /**
      * This method audits the AdminDist Entity Message.
-     * 
+     *
      * @param message
      *            SendAlertMessage received.
      * @param assertion
@@ -157,7 +157,7 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
 
     /**
      * This method returns the list of url's of targetCommunities.
-     * 
+     *
      * @param targetCommunities
      *            NhinTargetCommunities received.
      * @return list of urlInfo for target Communities.
@@ -177,7 +177,7 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
 
     /**
      * This method returns boolean for the policyCheck for a specific HCID.
-     * 
+     *
      * @param request
      *            SendAlertMessage received.
      * @param assertion
@@ -195,7 +195,7 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
 
     /**
      * This method send message to Nhin Proxy.
-     * 
+     *
      * @param newRequest
      *            SendAlertMessage received.
      * @param assertion

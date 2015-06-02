@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,7 +42,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class EntityDocQueryUnsecured implements gov.hhs.fha.nhinc.entitydocquery.EntityDocQueryPortType {
-    
+
     private OutboundDocQuery outboundDocQuery;
     private WebServiceContext context;
 
@@ -52,7 +52,7 @@ public class EntityDocQueryUnsecured implements gov.hhs.fha.nhinc.entitydocquery
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryRequestType request) {
         return new EntityDocQueryImpl(outboundDocQuery).respondingGatewayCrossGatewayQueryUnsecured(request, context);
     }
-    
+
     @Resource
     public void setContext(WebServiceContext context) {
         this.context = context;

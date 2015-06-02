@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,7 +47,7 @@ public class EntityDocSubmissionDeferredRequestUnsecured_g1 implements EntityXDR
 
     @Override
     @OutboundMessageEvent(beforeBuilder = DocSubmissionArgTransformerBuilder.class,
-    afterReturningBuilder = DocSubmissionArgTransformerBuilder.class, 
+    afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
     serviceType = "Document Submission Deferred Request",
     version = "2.0")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(

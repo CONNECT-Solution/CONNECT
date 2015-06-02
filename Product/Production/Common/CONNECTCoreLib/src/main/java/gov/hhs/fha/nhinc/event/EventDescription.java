@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+/*
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -60,14 +60,14 @@ public interface EventDescription {
 
     /**
      * Payload Types (C32, C62 etc.).
-     * 
+     *
      * @return
      */
     public List<String> getPayloadTypes();
 
     /**
      * Payload Sizes (message specific).
-     * 
+     *
      * @return
      */
     public List<String> getPayloadSizes();
@@ -95,7 +95,7 @@ public interface EventDescription {
     /**
      * Message status (Success/Failure). Returns a list to support response objects that allow multiple responses (ie,
      * queries).
-     * 
+     *
      * @return
      */
     public List<String> getStatuses();

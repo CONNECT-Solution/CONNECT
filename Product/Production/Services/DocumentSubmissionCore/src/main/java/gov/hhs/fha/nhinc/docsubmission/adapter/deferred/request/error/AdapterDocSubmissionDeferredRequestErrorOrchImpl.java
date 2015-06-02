@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,7 +40,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.log4j.Logger;
 
 /**
- * 
+ *
  * @author Neil Webb
  */
 public class AdapterDocSubmissionDeferredRequestErrorOrchImpl {
@@ -51,7 +51,7 @@ public class AdapterDocSubmissionDeferredRequestErrorOrchImpl {
         LOG.trace("Begin AdapterDocSubmissionDeferredRequestErrorOrchImpl.provideAndRegisterDocumentSetBRequestError");
 
         processRequest(request);
-        
+
         // Stub until adapter component is available
         XDRAcknowledgementType ack = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
@@ -61,7 +61,7 @@ public class AdapterDocSubmissionDeferredRequestErrorOrchImpl {
         LOG.trace("End AdapterDocSubmissionDeferredRequestErrorOrchImpl.provideAndRegisterDocumentSetBRequestError");
         return ack;
     }
-    
+
     private void processRequest(ProvideAndRegisterDocumentSetRequestType request) {
         LargeFileUtils fileUtils = LargeFileUtils.getInstance();
         List<Document> docList = request.getDocument();
@@ -72,6 +72,6 @@ public class AdapterDocSubmissionDeferredRequestErrorOrchImpl {
             } catch (Exception ioe) {
                 LOG.error("Failed to close input stream", ioe);
             }
-        }      
+        }
     }
 }

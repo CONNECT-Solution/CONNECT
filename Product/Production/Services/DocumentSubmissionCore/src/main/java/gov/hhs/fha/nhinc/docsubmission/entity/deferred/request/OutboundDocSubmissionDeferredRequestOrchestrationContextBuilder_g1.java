@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+/*
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.docsubmission.entity.deferred.request;
 
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
@@ -32,7 +31,7 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import org.apache.log4j.Logger;
 
 /**
- * 
+ *
  * @author akong
  */
 public class OutboundDocSubmissionDeferredRequestOrchestrationContextBuilder_g1 extends

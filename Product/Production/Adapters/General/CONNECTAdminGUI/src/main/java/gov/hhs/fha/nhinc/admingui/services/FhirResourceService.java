@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.admingui.services;
 
 import gov.hhs.fha.nhinc.admingui.model.fhir.ConformanceView;
@@ -43,23 +42,23 @@ public interface FhirResourceService {
     
     /**
      * Loads resource information from config file.
-     * @return 
+     * @return
      */
     public List<ResourceInfo> loadResources();
-    
+
     /**
      * Updates the url for a FHIR resource to a config file.
-     * 
+     *
      * @param serviceName
      * @param url
-     * @throws Exception 
+     * @throws Exception
      */
     public void updateUrl(String serviceName, String url) throws Exception;
-    
+
     /**
      * Pulls conformance information for a given resource url using a FHIR client.
      * @param url
-     * @return 
+     * @return
      */
     public ConformanceView getConformance(String url);
 }

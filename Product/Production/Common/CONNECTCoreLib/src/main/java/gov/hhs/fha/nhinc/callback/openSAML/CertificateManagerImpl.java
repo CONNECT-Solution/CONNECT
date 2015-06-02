@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -53,14 +53,14 @@ public class CertificateManagerImpl implements CertificateManager {
 
     private KeyStore keyStore = null;
     private KeyStore trustStore = null;
-    
+
     public static final String TRUST_STORE_TYPE_KEY = "javax.net.ssl.trustStoreType";
 	public static final String TRUST_STORE_PASSWORD_KEY = "javax.net.ssl.trustStorePassword";
 	public static final String TRUST_STORE_KEY = "javax.net.ssl.trustStore";
 	public static final  String KEY_STORE_TYPE_KEY = "javax.net.ssl.keyStoreType";
     public static final String KEY_STORE_PASSWORD_KEY = "javax.net.ssl.keyStorePassword";
     public static final String KEY_STORE_KEY = "javax.net.ssl.keyStore";
-    
+
 
     private CertificateManagerImpl() {
         try {
@@ -98,7 +98,7 @@ public class CertificateManagerImpl implements CertificateManager {
     		}
     	};
     }
-    
+
     /**
      * @return the keyStore
      */
@@ -125,7 +125,7 @@ public class CertificateManagerImpl implements CertificateManager {
         LOG.debug("SamlCallbackHandler.initKeyStore() -- Begin");
 
         InputStream is = null;
-        
+
         HashMap<String, String> keyStoreProperties = getKeyStoreSystemProperties();
         String storeType = keyStoreProperties.get(KEY_STORE_TYPE_KEY);
         String password = keyStoreProperties.get(KEY_STORE_PASSWORD_KEY);
@@ -181,7 +181,7 @@ public class CertificateManagerImpl implements CertificateManager {
         LOG.debug("SamlCallbackHandler.initTrustStore() -- Begin");
 
         InputStream is = null;
-        
+
         HashMap<String, String> trustStoreProperties = getTrustStoreSystemProperties();
         String storeType = trustStoreProperties.get(TRUST_STORE_TYPE_KEY);
         String password = trustStoreProperties.get(TRUST_STORE_PASSWORD_KEY);
@@ -295,7 +295,7 @@ public class CertificateManagerImpl implements CertificateManager {
         }
         return null;
     }
-    
+
     protected HashMap<String, String> getTrustStoreSystemProperties(){
     	HashMap<String, String> map = new HashMap<String, String>();
     	map.put(TRUST_STORE_KEY, System.getProperty(TRUST_STORE_KEY));
@@ -303,7 +303,7 @@ public class CertificateManagerImpl implements CertificateManager {
     	map.put(TRUST_STORE_TYPE_KEY, System.getProperty(TRUST_STORE_TYPE_KEY));
     	return map;
     }
-    
+
     protected HashMap<String, String> getKeyStoreSystemProperties(){
     	HashMap<String, String> map = new HashMap<String, String>();
     	map.put(KEY_STORE_KEY, System.getProperty(KEY_STORE_KEY));

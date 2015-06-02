@@ -39,7 +39,7 @@ public class CORE_X12AuditDataTransformConstants {
     public static final String EVENT_ID_DISPLAY_NAME_X12_IMPORT = "Import";
     public static final String EVENT_ID_CODE_SYS_CODE_X12 = "X12";
     public static final String EVENT_ID_CODE_SYS_NAME_X12 = "CAQH CORE Transactions";
-    
+
     public static final String EVENT_ID_DISPLAY_NAME_X12REALTIME = "NwHIN CAQH CORE X12 Document Submission";
     public static final String ACTIVE_PARTICPANT_USER_ID_SOURCE = "anonymous";
     public static final String ACTIVE_PARTICPANT_UNKNOWN_IP_ADDRESS = "unknown";

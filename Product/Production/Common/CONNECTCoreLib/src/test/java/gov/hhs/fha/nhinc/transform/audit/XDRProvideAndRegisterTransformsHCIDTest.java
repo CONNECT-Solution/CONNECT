@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-13, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -65,7 +65,7 @@ public class XDRProvideAndRegisterTransformsHCIDTest {
 
         LogEventRequestType result = xdrTransform.transformRequestToAuditMsg(request, assertion, target, direction,
                 _interface);
-        
+
         assertEquals(TARGET_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
     }
 
@@ -87,7 +87,7 @@ public class XDRProvideAndRegisterTransformsHCIDTest {
 
         LogEventRequestType result = xdrTransform.transformRequestToAuditMsg(request, assertion, target, direction,
                 _interface);
-        
+
         assertEquals(LOCAL_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
     }
 
@@ -98,7 +98,7 @@ public class XDRProvideAndRegisterTransformsHCIDTest {
 
         LogEventRequestType result = xdrTransform.transformRequestToAuditMsg(request, assertion, target, direction,
                 _interface);
-        
+
         assertEquals(LOCAL_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
     }
 
@@ -109,7 +109,7 @@ public class XDRProvideAndRegisterTransformsHCIDTest {
 
         LogEventRequestType result = xdrTransform.transformRequestToAuditMsg(request, assertion, target, direction,
                 _interface);
-        
+
         assertEquals(LOCAL_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
     }
 
@@ -120,7 +120,7 @@ public class XDRProvideAndRegisterTransformsHCIDTest {
 
         LogEventRequestType result = xdrTransform.transformRequestToAuditMsg(request, assertion, target, direction,
                 _interface);
-        
+
         assertEquals(LOCAL_HCID, result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID());
     }
 

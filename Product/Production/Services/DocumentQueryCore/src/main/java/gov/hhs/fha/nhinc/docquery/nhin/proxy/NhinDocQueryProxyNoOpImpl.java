@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,14 +37,14 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 
 /**
- * 
+ *
  * @author jhoppesc
  */
 public class NhinDocQueryProxyNoOpImpl implements NhinDocQueryProxy {
 
     /**
      * Sends a document query to another Gateway. *
-     * 
+     *
      * @param request
      *            Document Query Request received.
      * @param assertion

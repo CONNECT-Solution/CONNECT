@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,24 +35,24 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 /**
  * @author akong
- * 
+ *
  */
 public class PassthroughInboundDocQuery extends AbstractInboundDocQuery {
 
     private AdapterDocQueryProxyObjectFactory adapterFactory = new AdapterDocQueryProxyObjectFactory();
-    
+
     public PassthroughInboundDocQuery() {
         super();
     }
-    
+
     public PassthroughInboundDocQuery(AdapterDocQueryProxyObjectFactory adapterFactory, DocQueryAuditLog auditLogger) {
         this.adapterFactory = adapterFactory;
         this.auditLogger = auditLogger;
     }
-    
+
     /**
      * Forwards the AdhocQueryRequest to an agency's adapter doc query service
-     * 
+     *
      * @param adhocQueryRequestMsg
      * @param communityID
      * @return
@@ -65,5 +65,5 @@ public class PassthroughInboundDocQuery extends AbstractInboundDocQuery {
 
         return resp;
     }
-    
+
 }

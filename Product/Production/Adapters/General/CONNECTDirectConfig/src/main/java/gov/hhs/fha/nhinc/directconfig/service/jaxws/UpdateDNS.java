@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -68,7 +68,7 @@ public class UpdateDNS {
     private DNSRecord record;
 
     /**
-     * 
+     *
      * @return
      *     returns long
      */
@@ -77,7 +77,7 @@ public class UpdateDNS {
     }
 
     /**
-     * 
+     *
      * @param recordId
      *     the value for the recordId property
      */
@@ -86,7 +86,7 @@ public class UpdateDNS {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns DNSRecord
      */
@@ -95,7 +95,7 @@ public class UpdateDNS {
     }
 
     /**
-     * 
+     *
      * @param record
      *     the value for the record property
      */

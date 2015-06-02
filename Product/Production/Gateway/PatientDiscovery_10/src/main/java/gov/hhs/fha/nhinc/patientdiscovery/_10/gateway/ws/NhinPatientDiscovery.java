@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,13 +62,13 @@ public class NhinPatientDiscovery extends BaseService implements RespondingGatew
 
     /**
      * The web service implementation of Patient Discovery.
-     * 
+     *
      * @param body the body of the request
      * @return the Patient discovery Response
      * @throws PRPAIN201305UV02Fault a fault if there's an exception
      */
-    @InboundMessageEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class, 
-            afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, 
+    @InboundMessageEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
+            afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class,
             serviceType = "Patient Discovery", version = "1.0")
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body) throws PRPAIN201305UV02Fault {
         try {

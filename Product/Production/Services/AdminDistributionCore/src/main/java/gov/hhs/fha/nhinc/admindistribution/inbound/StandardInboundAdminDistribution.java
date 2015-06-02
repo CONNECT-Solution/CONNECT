@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,13 +41,13 @@ import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 /**
  * @author akong
- * 
+ *
  */
 public class StandardInboundAdminDistribution extends AbstractInboundAdminDistribution {
 
     private static final Logger LOG = Logger.getLogger(StandardInboundAdminDistribution.class);
     private AdminDistributionPolicyChecker policyChecker = new AdminDistributionPolicyChecker();
-    
+
     /**
      * Constructor.
      */
@@ -57,7 +57,7 @@ public class StandardInboundAdminDistribution extends AbstractInboundAdminDistri
 
     /**
      * Constructor.
-     * 
+     *
      * @param passthroughAdminDist
      * @param policyChecker
      * @param auditLogger
@@ -69,7 +69,7 @@ public class StandardInboundAdminDistribution extends AbstractInboundAdminDistri
         this.auditLogger = auditLogger;
         this.adapterFactory = adapterFactory;
         this.adminUtils = adminUtils;
-        
+
     }
 
     @Override

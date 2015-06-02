@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+/*
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.docsubmission.entity.deferred.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -39,7 +38,7 @@ import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 /**
- * 
+ *
  * @author akong
  */
 public class OutboundDocSubmissionDeferredRequestOrchestratable implements OutboundOrchestratable {

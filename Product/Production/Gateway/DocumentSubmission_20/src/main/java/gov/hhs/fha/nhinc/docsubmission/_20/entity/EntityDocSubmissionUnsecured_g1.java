@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -60,7 +60,7 @@ public class EntityDocSubmissionUnsecured_g1 implements gov.hhs.fha.nhinc.nhince
     public void setContext(WebServiceContext context) {
         this.context = context;
     }
-    
+
     public void setOutboundDocSubmission(OutboundDocSubmission outboundDocSubmission) {
         this.outboundDocSubmission = outboundDocSubmission;
     }

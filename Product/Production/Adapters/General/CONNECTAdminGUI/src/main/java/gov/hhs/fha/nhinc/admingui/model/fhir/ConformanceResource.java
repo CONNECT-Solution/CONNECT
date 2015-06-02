@@ -24,16 +24,15 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.admingui.model.fhir;
 
 /**
  * Model class for FHIR Conformance Resource data
- * 
+ *
  * @author jassmit
  */
 public class ConformanceResource {
-    
+
     private String name;
     private boolean supportingRead = false;
     private boolean supportingVRead = false;
@@ -106,5 +105,5 @@ public class ConformanceResource {
     public void setSupportingSearchType(boolean supportingSearchType) {
         this.supportingSearchType = supportingSearchType;
     }
-    
+
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,15 +42,15 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 public class NhinDocSubmissionImpl_g1 extends BaseService {
 
     private InboundDocSubmission inboundDocSubmission;
-    
+
     public NhinDocSubmissionImpl_g1(InboundDocSubmission inboundDocSubmission) {
         this.inboundDocSubmission = inboundDocSubmission;
     }
-    
+
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
-        
+
         return inboundDocSubmission.documentRepositoryProvideAndRegisterDocumentSetB(body, assertion);
     }
 

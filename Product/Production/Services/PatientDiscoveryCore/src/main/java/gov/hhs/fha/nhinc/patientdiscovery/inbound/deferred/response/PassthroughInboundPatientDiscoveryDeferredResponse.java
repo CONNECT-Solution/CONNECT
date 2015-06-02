@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  * @author akong
- * 
+ *
  */
 public class PassthroughInboundPatientDiscoveryDeferredResponse extends AbstractInboundPatientDiscoveryDeferredResponse {
 
@@ -52,7 +52,7 @@ public class PassthroughInboundPatientDiscoveryDeferredResponse extends Abstract
 
     /**
      * Constructor with dependency injection arguments.
-     * 
+     *
      * @param proxyFactory
      * @param auditLogger
      */
@@ -64,7 +64,7 @@ public class PassthroughInboundPatientDiscoveryDeferredResponse extends Abstract
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response.AbstractInboundPatientDiscoveryDeferredResponse#
      * process(org.hl7.v3.PRPAIN201306UV02, gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
@@ -78,7 +78,7 @@ public class PassthroughInboundPatientDiscoveryDeferredResponse extends Abstract
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response.AbstractInboundPatientDiscoveryDeferredResponse#
      * getAuditLogger()

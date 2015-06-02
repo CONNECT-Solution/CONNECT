@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -84,7 +84,7 @@ import com.icegreen.greenmail.util.GreenMail;
 public class DirectUnitTestUtil {
 
     private static final Logger LOG = Logger.getLogger(DirectUnitTestUtil.class);
-    
+
     /**
      * email for the sender at the initiating gateway.
      */
@@ -98,12 +98,12 @@ public class DirectUnitTestUtil {
      * Maximum number of messages in a batch.
      */
     protected static final int MAX_NUM_MSGS_IN_BATCH = 5;
-    
+
     /**
      * Dummy port.
      */
     public static final int DUMMY_PORT = 998;
-    
+
     /**
      * Connection Timeout in Milliseconds.
      */
@@ -118,7 +118,7 @@ public class DirectUnitTestUtil {
      * Time to wait for the mail handlers to run.
      */
     protected static final long WAIT_TIME_FOR_MAIL_HANDLER = TimeUnit.SECONDS.toMillis(3);
-    
+
     /**
      * content type for encrypted messages.
      */
@@ -133,13 +133,13 @@ public class DirectUnitTestUtil {
     /**
      * content type for mdn messages.
      */
-    protected static final String CONTENT_TYPE_MDN = 
-            "multipart/report; report-type=disposition-notification; boundary=\"";    
+    protected static final String CONTENT_TYPE_MDN =
+            "multipart/report; report-type=disposition-notification; boundary=\"";
 
-    
+
     /**
      * Sets up the properties in order to connect to the green mail test server.
-     * 
+     *
      * @param toAddress is used for the username and password.
      * @param smtpPort for smtps
      * @param imapPort for imaps
@@ -148,13 +148,13 @@ public class DirectUnitTestUtil {
     public static Properties getMailServerProps(String toAddress, int smtpPort, int imapPort) {
 
         Properties props = new Properties();
-        
+
         props.setProperty("connect.mail.user", toAddress);
         props.setProperty("connect.mail.pass", toAddress);
         props.setProperty("connect.max.msgs.in.batch", Integer.toString(MAX_NUM_MSGS_IN_BATCH));
         props.setProperty("connect.delete.unhandled.msgs", "false");
         props.setProperty("connect.mail.session.debug", "true");
-                        
+
         props.setProperty("mail.smtp.host", "localhost");
         props.setProperty("mail.smtp.auth", "TRUE");
         props.setProperty("mail.smtp.port", Integer.toString(smtpPort));
@@ -164,7 +164,7 @@ public class DirectUnitTestUtil {
         props.setProperty("mail.imaps.port", Integer.toString(imapPort));
         props.setProperty("mail.imaps.connectiontimeout", TIMEOUT_CONNECTION_MILLIS);
         props.setProperty("mail.imaps.timeout", TIMEOUT_MILLIS);
-        
+
         // this allows us to run the test using a dummy in-memory keystore provided by GreenMail... don't use in prod.
         props.setProperty("mail.smtps.ssl.socketFactory.class", "com.icegreen.greenmail.util.DummySSLSocketFactory");
         props.setProperty("mail.smtps.ssl.socketFactory.port", Integer.toString(smtpPort));
@@ -181,7 +181,7 @@ public class DirectUnitTestUtil {
      * @return the mocked document.
      * @throws IOException possible error.
      */
-    public static Document getMockDocument() throws IOException {        
+    public static Document getMockDocument() throws IOException {
 
         Document mockDocument = mock(Document.class);
         DataHandler mockDataHandler = mock(DataHandler.class);
@@ -189,9 +189,9 @@ public class DirectUnitTestUtil {
         when(mockDocument.getValue()).thenReturn(mockDataHandler);
         when(mockDataHandler.getInputStream()).thenReturn(dummyInputStream);
 
-        return mockDocument;        
+        return mockDocument;
     }
-    
+
     /**
      * @return mock direct documents.
      */
@@ -199,18 +199,18 @@ public class DirectUnitTestUtil {
         DirectDocuments mockDirectDocuments = mock(DirectDocuments.class);
         XdmPackage mockXdm = mock(XdmPackage.class);
         File mockFile = mock(File.class);
-        
+
         when(mockDirectDocuments.toXdmPackage(anyString())).thenReturn(mockXdm);
         when(mockXdm.toFile()).thenReturn(mockFile);
         when(mockFile.getName()).thenReturn("fileName");
-        
+
         return mockDirectDocuments;
     }
-    
+
     /**
-     * Workaround for defect in greenmail expunging messages: 
+     * Workaround for defect in greenmail expunging messages:
      * http://sourceforge.net/tracker/?func=detail&aid=2688036&group_id=159695&atid=812857
-     * 
+     *
      * We have to delete these ourselves...
      * @param greenMail mock mail server
      * @param user used to access folder to be expunged
@@ -225,8 +225,8 @@ public class DirectUnitTestUtil {
         } catch (Exception e) {
             fail(e.getMessage());
         }
-    }    
-    
+    }
+
     private static  boolean folderHasDeletedMsgs(MailFolder folder) throws MessagingException {
         for (Object object : folder.getMessages()) {
             SimpleStoredMessage message = (SimpleStoredMessage) object;
@@ -236,21 +236,21 @@ public class DirectUnitTestUtil {
         }
         return false;
     }
-    
+
     /**
      * @return sender.
      */
     public static Address getSender() {
         return toInternetAddress(SENDER_AT_INITIATING_GW);
     }
-    
+
     /**
      * @return recipients.
      */
     public static Address[] getRecipients() {
         return new InternetAddress[] {toInternetAddress(RECIP_AT_RESPONDING_GW)};
     }
-    
+
     /**
      * Return a stubbed out mime message builder.
      * @param session mail session
@@ -271,12 +271,12 @@ public class DirectUnitTestUtil {
         } catch (AddressException e) {
             fail(e.getMessage());
         }
-        return address;        
+        return address;
     }
-    
+
     /**
      * The keystores references in smtp.agent.config.xml are fully qualified, so we have to make an absolute path
-     * for them from a relative path in order to use inside a junit test. The template config file references the 
+     * for them from a relative path in order to use inside a junit test. The template config file references the
      * keystore with a placeholder {jks.keystore.path} which we will replace with the classpath used by this test.
      */
     public static void writeSmtpAgentConfig() {
@@ -291,7 +291,7 @@ public class DirectUnitTestUtil {
             fail(e.getMessage());
         }
     }
-    
+
     /**
      * Retrieve the contents of the resource file (relative to classpath) as a string .
      * @param filename resource file name to be stringified
@@ -302,11 +302,11 @@ public class DirectUnitTestUtil {
         try {
             fileAsString =  FileUtils.readFileToString(new File(getClassPath() + "/" + filename));
         } catch (Exception e) {
-            fail(e.getMessage());            
+            fail(e.getMessage());
         }
         return fileAsString;
     }
-    
+
     /**
      * Delete the auto-generated smtp.agent.config.xml once the test is complete.
      */
@@ -314,18 +314,18 @@ public class DirectUnitTestUtil {
         try {
             FileUtils.deleteQuietly(new File(getClassPath() + "/smtp.agent.config.xml"));
         } catch (Exception e) {
-            fail(e.getMessage());                        
+            fail(e.getMessage());
         }
     }
-    
+
     /**
      * Used when calling code requires absolute paths to test resources.
      * @return absolute classpath.
      */
     public static File getClassPath() throws URISyntaxException {
         return new File(DirectUnitTestUtil.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-    }    
-    
+    }
+
     /**
      * @return mock direct documents.
      */
@@ -415,8 +415,8 @@ public class DirectUnitTestUtil {
         documents.getDocuments().add(doc2);
         return documents;
     }
-    
-        
+
+
     /**
      * @param numNotificationMessages number of notification messages expected.
      * @return mocked message process result.
@@ -445,7 +445,7 @@ public class DirectUnitTestUtil {
         when(mockMessage.getRecipients(any(RecipientType.class))).thenReturn(new Address[] {recipAddress});
         when(mockMessage.getAllRecipients()).thenReturn(new Address[] {recipAddress});
         when(mockMessage.getFrom()).thenReturn(new Address[] {senderAddress});
-        
+
         when(mockNotificationMessage.getRecipients(any(RecipientType.class))).thenReturn(new Address[] {senderAddress});
         when(mockNotificationMessage.getAllRecipients()).thenReturn(new Address[] {senderAddress});
         when(mockNotificationMessage.getFrom()).thenReturn(new Address[] {recipAddress});

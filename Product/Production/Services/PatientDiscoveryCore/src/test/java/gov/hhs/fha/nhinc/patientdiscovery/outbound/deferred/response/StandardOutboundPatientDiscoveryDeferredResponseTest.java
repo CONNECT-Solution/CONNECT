@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -64,7 +64,7 @@ import org.mockito.ArgumentCaptor;
 
 /**
  * @author akong
- * 
+ *
  */
 public class StandardOutboundPatientDiscoveryDeferredResponseTest {
 
@@ -74,7 +74,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
     private MCCIIN000002UV01 expectedResponse;
     private PRPAIN201306UV02 firstTargetRequest;
     private PRPAIN201306UV02 secondTargetRequest;
-    
+
     @Before
     public void initialize() {
         request = new PRPAIN201306UV02();
@@ -83,18 +83,18 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
         expectedResponse = new MCCIIN000002UV01();
         firstTargetRequest = new PRPAIN201306UV02();
     }
-    
+
     private List<UrlInfo> createUrlInfoList(String... hcids) {
         List<UrlInfo> urlInfoList = new ArrayList<UrlInfo>();
-        
+
         for (int i = 0; i < hcids.length; i++) {
             urlInfoList.add(new UrlInfo());
             urlInfoList.get(i).setHcid(hcids[i]);
         }
-        
+
         return urlInfoList;
     }
-    
+
     @Test
     public void hasOutboundProcessingEvent() throws Exception {
         Class<StandardOutboundPatientDiscoveryDeferredResponse> clazz = StandardOutboundPatientDiscoveryDeferredResponse.class;
@@ -109,7 +109,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
     }
 
     @Test
-    public void invoke() throws ConnectionManagerException {        
+    public void invoke() throws ConnectionManagerException {
         List<UrlInfo> urlInfoList = createUrlInfoList("1.1", "2.2");
 
         // Mocks
@@ -121,7 +121,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
         ConnectionManagerCache connectionManager = mock(ConnectionManagerCache.class);
 
         // Stubbing the methods
-        when(connectionManager.getEndpointURLFromNhinTargetCommunities(targets, 
+        when(connectionManager.getEndpointURLFromNhinTargetCommunities(targets,
                 NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME)).thenReturn(urlInfoList);
 
         when(pd201306Processor.createNewRequest(request, "1.1")).thenReturn(firstTargetRequest);
@@ -152,7 +152,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
         verify(policyChecker, times(2)).checkOutgoingPolicy(requestArgument.capture());
         assertEquals(firstTargetRequest, requestArgument.getAllValues().get(0).getPRPAIN201306UV02());
         assertEquals(secondTargetRequest, requestArgument.getAllValues().get(1).getPRPAIN201306UV02());
-                
+
         // Verify the orchestratable is processing the request containing the first target and then the second target
         ArgumentCaptor<OutboundPatientDiscoveryDeferredResponseOrchestratable> orchestratableArgument = ArgumentCaptor
                 .forClass(OutboundPatientDiscoveryDeferredResponseOrchestratable.class);
@@ -160,7 +160,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
         verify(delegate, times(2)).process(orchestratableArgument.capture());
         assertEquals(firstTargetRequest, orchestratableArgument.getAllValues().get(0).getRequest());
         assertEquals(secondTargetRequest, orchestratableArgument.getAllValues().get(1).getRequest());
-        
+
         // Verify request from adapter is audited
         requestArgument.getAllValues().clear();
         verify(auditLogger).auditEntityDeferred201306(requestArgument.capture(), eq(assertion),
@@ -171,16 +171,16 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
         verify(auditLogger).auditAck(actualResponse, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
     }
-    
+
     @Test
     public void noTargets() throws ConnectionManagerException {
-        
+
         // Mocks
         ConnectionManagerCache connectionManager = mock(ConnectionManagerCache.class);
         PatientDiscoveryAuditor auditLogger = mock(PatientDiscoveryAuditor.class);
 
         // Stubbing the methods
-        when(connectionManager.getEndpointURLFromNhinTargetCommunities(eq(targets), 
+        when(connectionManager.getEndpointURLFromNhinTargetCommunities(eq(targets),
                 eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME))).thenThrow(new ConnectionManagerException());
 
         // Actual invocation
@@ -208,11 +208,11 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
         verify(auditLogger).auditAck(errorResponse, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
     }
-    
+
     @Test
     public void policyFailed() throws ConnectionManagerException {
         List<UrlInfo> urlInfoList = createUrlInfoList("1.1");
-        
+
         // Mocks
         PatientDiscovery201306PolicyChecker policyChecker = mock(PatientDiscovery201306PolicyChecker.class);
         PatientDiscovery201306Processor pd201306Processor = mock(PatientDiscovery201306Processor.class);
@@ -221,7 +221,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
         ConnectionManagerCache connectionManager = mock(ConnectionManagerCache.class);
 
         // Stubbing the methods
-        when(connectionManager.getEndpointURLFromNhinTargetCommunities(targets, 
+        when(connectionManager.getEndpointURLFromNhinTargetCommunities(targets,
                 NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME)).thenReturn(urlInfoList);
 
         when(pd201306Processor.createNewRequest(request, "1.1")).thenReturn(firstTargetRequest);
@@ -235,7 +235,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
 
         MCCIIN000002UV01 errorResponse = standardPatientDiscovery.processPatientDiscoveryAsyncResp(request, assertion,
                 targets);
-        
+
         // Verify error response
         assertEquals(HL7AckTransforms.ACK_DETAIL_TYPE_CODE_ERROR, errorResponse.getAcknowledgement().get(0)
                 .getAcknowledgementDetail().get(0).getTypeCode().toString());

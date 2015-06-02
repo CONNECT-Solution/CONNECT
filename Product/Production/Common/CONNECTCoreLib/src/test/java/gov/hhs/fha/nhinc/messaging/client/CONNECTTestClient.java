@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,17 +36,17 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
  * @author akong
- * 
+ *
  */
 public class CONNECTTestClient<T> implements CONNECTClient<T> {
 
     protected ServiceEndpoint<T> serviceEndpoint = null;
-    
+
     /**
      * Constructor for a client used solely for unit tests. This class will only do the base configuration for the
      * endpoint, but it will expose the service endpoint for test classes to use. This class will also use the caching
      * mechanism that will single instance the port.
-     * 
+     *
      * @param portDescriptor
      */
     public CONNECTTestClient(ServicePortDescriptor<T> portDescriptor) {

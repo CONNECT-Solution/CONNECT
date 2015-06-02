@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -50,12 +50,12 @@ import org.w3c.dom.NodeList;
 
 /**
  * @author akong
- * 
+ *
  */
 public class CONNECTSignatureProcessorTest {
 
     private static final LargeFileUtils FILE_UTILS = LargeFileUtils.getInstance();
-    
+
     private static final String XML_SIGNATURE_NS = "http://www.w3.org/2000/09/xmldsig#";
     private static final String XOP_NS = "http://www.w3.org/2004/08/xop/include";
     private static final String DIG_REF_ID = "digRefId";
@@ -83,7 +83,7 @@ public class CONNECTSignatureProcessorTest {
         assertDigitalValueIsInline(signatureElem, DIG_BASE64_DATA);
         assertSignatureValueIsInline(signatureElem, SIG_BASE64_DATA);
     }
-    
+
     @Test
     public void inlineIncludesWithPrefixRefId() throws ParserConfigurationException, WSSecurityException {
         SoapMessage msg = mock(SoapMessage.class);

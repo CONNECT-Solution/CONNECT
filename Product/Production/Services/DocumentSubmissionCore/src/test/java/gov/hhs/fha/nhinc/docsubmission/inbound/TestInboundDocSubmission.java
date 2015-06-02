@@ -1,7 +1,5 @@
-package gov.hhs.fha.nhinc.docsubmission.inbound;
-
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +24,7 @@ package gov.hhs.fha.nhinc.docsubmission.inbound;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package gov.hhs.fha.nhinc.docsubmission.inbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
@@ -33,7 +32,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  * @author akong
- * 
+ *
  */
 public class TestInboundDocSubmission implements InboundDocSubmission {
 

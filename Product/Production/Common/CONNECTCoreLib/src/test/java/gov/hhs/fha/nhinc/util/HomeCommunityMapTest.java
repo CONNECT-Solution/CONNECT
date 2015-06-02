@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -50,7 +50,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.mock;
 
 /**
- * 
+ *
  * @author Arthur Kong
  */
 public class HomeCommunityMapTest {
@@ -80,7 +80,7 @@ public class HomeCommunityMapTest {
 
         try {
             String homeCommunityId = "1.1";
-            
+
             HomeCommunityMap.setConnectionManager(connection);
 
             when(connection.getBusinessEntity(Mockito.anyString())).thenReturn(createBusinessEntity(homeCommunityName));
@@ -99,7 +99,7 @@ public class HomeCommunityMapTest {
 
         try {
             String homeCommunityId = "123456";
-            
+
             HomeCommunityMap.setConnectionManager(connection);
 
             when(connection.getBusinessEntity(Mockito.anyString())).thenReturn(null);

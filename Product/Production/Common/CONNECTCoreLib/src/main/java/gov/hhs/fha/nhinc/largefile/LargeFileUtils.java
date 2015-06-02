@@ -1,30 +1,29 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.largefile;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -59,7 +58,7 @@ public class LargeFileUtils {
 
     /**
      * Returns the singleton instance of this class.
-     * 
+     *
      * @return the singleton instance
      */
     public static LargeFileUtils getInstance() {
@@ -69,7 +68,7 @@ public class LargeFileUtils {
     /**
      * Returns true if the gateway is configured to parse document payload as a URI pointing to the data rather than
      * having the actual data itself.
-     * 
+     *
      * @return true if the gateway should process document payload as a URI.
      */
     public boolean isParsePayloadAsFileLocationEnabled() {
@@ -85,7 +84,7 @@ public class LargeFileUtils {
 
     /**
      * Returns true if the gateway is configured to save incoming payload to the file system.
-     * 
+     *
      * @return true if the gateway is to save payloads on the file system
      */
     public boolean isSavePayloadToFileEnabled() {
@@ -101,7 +100,7 @@ public class LargeFileUtils {
 
     /**
      * Parse the data source of the data handler as a base 64 encoded URI string.
-     * 
+     *
      * @param dh - the data handler that contains the data source to parse
      * @return URI representing the data inside the data handler
      * @throws IOException
@@ -128,7 +127,7 @@ public class LargeFileUtils {
 
     /**
      * Saves the data handler to a file in the configured payload directory.
-     * 
+     *
      * @param dh - the data handler to convert to a file
      * @return
      * @throws IOException
@@ -142,7 +141,7 @@ public class LargeFileUtils {
 
     /**
      * Save the data handler to the given file. The data handler will be empty at the end of this call.
-     * 
+     *
      * @param dh - the data handler to convert to a file
      * @param file - the file containing the data from the data handler
      * @throws IOException
@@ -165,7 +164,7 @@ public class LargeFileUtils {
 
     /**
      * Closes the input stream and silently catches the exception.
-     * 
+     *
      * @param is - the input stream to close
      */
     public void closeStreamWithoutException(InputStream is) {
@@ -180,7 +179,7 @@ public class LargeFileUtils {
 
     /**
      * Closes the output stream and silently catches the exception.
-     * 
+     *
      * @param os - the output stream to close
      */
     public void closeStreamWithoutException(OutputStream os) {
@@ -195,7 +194,7 @@ public class LargeFileUtils {
 
     /**
      * Converts the given file into a data handler with a StreamDataSource.
-     * 
+     *
      * @param file - the file to convert
      * @return the data handler representing the file
      * @throws IOException
@@ -209,7 +208,7 @@ public class LargeFileUtils {
 
         URI fileURI = file.toURI();
         URL fileURL = null;
-        
+
         if (fileURI != null) {
             fileURL = fileURI.toURL();
         }
@@ -218,13 +217,13 @@ public class LargeFileUtils {
         if (fileURL == null) {
             throw new IOException ("Could not get URL for : " + file.getAbsolutePath());
         }
-        
+
         return new DataHandler(fileURL);
     }
 
     /**
      * Converts the given string into a data handler with a ByteDataSource.
-     * 
+     *
      * @param data - the data to convert
      * @return the data handler representing the string
      * @throws IOException
@@ -240,7 +239,7 @@ public class LargeFileUtils {
 
     /**
      * Converts the given byte array into a data handler with a ByteDataSource.
-     * 
+     *
      * @param data - the data to convert
      * @return the data handler representing the bytes
      * @throws IOException
@@ -252,7 +251,7 @@ public class LargeFileUtils {
 
     /**
      * Saves the data handler as a byte array. The data handler will be empty at the end of this call.
-     * 
+     *
      * @param dh - the data handler to convert
      * @return a byte array containing the data from the data handler
      * @throws IOException
@@ -283,7 +282,7 @@ public class LargeFileUtils {
     /**
      * Generates a file to be used for saving payload attachments. The file will be created at the configured payload
      * directory or at the java tmp directory if the payload directory does not exists.
-     * 
+     *
      * @return
      * @throws IOException
      */
@@ -295,7 +294,7 @@ public class LargeFileUtils {
     /**
      * Generates a file to be used for saving payload attachments. The file will be created at the configured payload
      * directory or at the java tmp directory if the payload directory does not exists.
-     * 
+     *
      * @param payloadSaveDirectory - directory where the attachment file will be created
      * @return generated file
      * @throws IOException

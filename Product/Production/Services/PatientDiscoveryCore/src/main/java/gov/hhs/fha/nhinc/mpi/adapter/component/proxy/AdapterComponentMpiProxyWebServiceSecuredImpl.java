@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@ public class AdapterComponentMpiProxyWebServiceSecuredImpl implements AdapterCom
      * @param url the intended url
      * @param assertion the message assertion
      * @return a CONNECTClient object for AdapterComponentMpiSecuredPortType
-     * @throws PropertyAccessException 
+     * @throws PropertyAccessException
      */
     protected CONNECTClient<AdapterComponentMpiSecuredPortType> getCONNECTClientSecured(
             ServicePortDescriptor<AdapterComponentMpiSecuredPortType> portDescriptor, String url,
@@ -88,7 +88,7 @@ public class AdapterComponentMpiProxyWebServiceSecuredImpl implements AdapterCom
                 if (NullChecker.isNotNullish(url)) {
                     ServicePortDescriptor<AdapterComponentMpiSecuredPortType> portDescriptor =
                             new AdapterComponentMpiSecuredServicePortDescriptor();
-                    
+
                     CONNECTClient<AdapterComponentMpiSecuredPortType> client =
                             getCONNECTClientSecured(portDescriptor, url, assertion);
 

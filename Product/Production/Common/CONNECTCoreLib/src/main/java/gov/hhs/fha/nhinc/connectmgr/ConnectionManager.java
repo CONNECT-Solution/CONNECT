@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.connectmgr;
 
@@ -38,14 +38,14 @@ import java.util.Set;
 import org.uddi.api_v3.BusinessEntity;
 
 /**
- * 
+ *
  * @author msw
  */
 public interface ConnectionManager {
 
     /**
      * This method will return a list of all business entities that are known by the connection manager.
-     * 
+     *
      * @return The list of all business entities known by the connection manager.
      * @throws ConnectionManagerException
      */
@@ -53,7 +53,7 @@ public interface ConnectionManager {
 
     /**
      * This class returns the business entity information associated with the specified home community ID.
-     * 
+     *
      * @param sHomeCommunityId The home commuinity ID that is being searched for.
      * @return the business entity information for the specified home community.
      * @throws gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException
@@ -64,13 +64,13 @@ public interface ConnectionManager {
      * Returns the name of the entity for the given home community id.
      * @param homeCommunityId
      * @return
-     * @throws ConnectionManagerException 
+     * @throws ConnectionManagerException
      */
     public String getBusinessEntityName(String homeCommunityId) throws ConnectionManagerException;
-    
+
     /**
      * This method returns the business entity information for the set of home communities.
-     * 
+     *
      * @param saHomeCommunityId The set of home communities to be retrieved.
      * @return The business entities found.
      * @throws gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException
@@ -84,7 +84,7 @@ public interface ConnectionManager {
      * cache for the business entity. If it finds the business entity there, it will not look in the UDDI cache. (This
      * means that if the internal cache contains the given business entity, but it does not contain the requested
      * service, it will behave as if the service does not exist - regardless of whether it is in the UDDI cache or not.
-     * 
+     *
      * @param sHomeCommunityId The home community ID of the gateway that is being looked up.
      * @param sUniformServiceName The name of the service to locate.
      * @return The Business Entity information along with only the requested service. if the service is not found, then
@@ -104,7 +104,7 @@ public interface ConnectionManager {
      * the UDDI cache. (This means that if the internal cache contains the given business entity, but it does not
      * contain the requested service, it will behave as if the service does not exist - regardless of whether it is in
      * the UDDI cache or not.
-     * 
+     *
      * @param saHomeCommunityId The home community IDs of the gateways that is being looked up.
      * @param sUniformServiceName The name of the service to locate.
      * @return The Business Entity information along with only the requested service. If the service is not found, it
@@ -123,7 +123,7 @@ public interface ConnectionManager {
      * entity there, it will not look in the UDDI cache. (This means that if the internal cache contains the given
      * business entity, but it does not contain the requested service, it will behave as if the service does not exist -
      * regardless of whether it is in the UDDI cache or not.
-     * 
+     *
      * @param sUniformServiceName The name of the service being searched for.
      * @return The business entities that have this service defined.
      * @throws gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException
@@ -140,7 +140,7 @@ public interface ConnectionManager {
 
     /**
      * This method returns url for a specified service and home community id .
-     * 
+     *
      * @param sHomeCommunityId The home community ID of the gateway that is being looked up.
      * @param sUniformServiceName The name of the service to locate.
      * @return The URL for only the requested service at the specified home community. If the service is not found, then
@@ -152,7 +152,7 @@ public interface ConnectionManager {
 
     /**
      * This method returns url for a specified service and home community id .
-     * 
+     *
      * @param sHomeCommunityId The home community ID of the gateway that is being looked up.
      * @param sUniformServiceName The name of the service to locate.
      * @param version The version of the service to locate.
@@ -165,7 +165,7 @@ public interface ConnectionManager {
 
     /**
      * This method returns a local url for a specified service.
-     * 
+     *
      * @param sUniformServiceName The name of the service to locate.
      * @return The URL for only the requested service at the local home community. If the service is not found, then
      *         null is returned.
@@ -179,7 +179,7 @@ public interface ConnectionManager {
      * caller. If the EPR is not provided it will check if the URL field is provided, if so it will return the URL to
      * the caller. If neither an EPR or URL are provided this method will use the home community id and service name
      * provided to lookup the URL for that service at that particular home community.
-     * 
+     *
      * @param targetSystem The target system information for the community being looked up.
      * @param serviceName The name of the service to locate who URL is being requested.
      * @return The URL to the requested service.
@@ -195,7 +195,7 @@ public interface ConnectionManager {
      * specified. If so it will obtain a list of URLs for that that service for all communities in the specified state.
      * Next it will check if a list is specified (this feature is not implemented). If there are no
      * NhinTargetCommunities specified it will return the list of URLs for the entire NHIN for that service.
-     * 
+     *
      * @param targets List of targets to get URLs for.
      * @param serviceName The name of the service to locate who URL is being requested.
      * @return The set of URLs for the requested service and targets.

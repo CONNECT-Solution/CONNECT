@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -72,7 +72,7 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
 
     /**
      * Constructor with dependency injection arguments.
-     * 
+     *
      * @param policyChecker
      * @param responseFactory
      * @param msgProcessor
@@ -93,7 +93,7 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
         this.pdCorrelationDao = pdCorrelationDao;
         this.auditLogger = auditLogger;
     }
-    
+
     @Override
     @InboundProcessingEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Response", version = "1.0")
     public MCCIIN000002UV01 respondingGatewayDeferredPRPAIN201306UV02(PRPAIN201306UV02 request, AssertionType assertion) {
@@ -109,7 +109,7 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response.AbstractInboundPatientDiscoveryDeferredResponse#
      * process(org.hl7.v3.PRPAIN201306UV02, gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
@@ -144,7 +144,7 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response.AbstractInboundPatientDiscoveryDeferredResponse#
      * getAuditLogger()
@@ -168,10 +168,10 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
 
     /**
      * This call will create a correlation if the patient verification passes.
-     * 
+     *
      * Currently only the message from the Nhin is sent to the Agency so there is no need for this method to return a
      * value as we want to send the original request.
-     * 
+     *
      * @param request
      * @param assertion
      */

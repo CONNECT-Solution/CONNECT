@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,16 +54,16 @@ public class AdapterCORE_X12DSRealTimeProxyJavaPayloadImpl implements AdapterCOR
     @Override
     public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest, AssertionType assertion) {
         LOG.trace("Begin AdapterCORE_X12DSRealTimeProxyJavaPayloadImpl.realTimeTransaction()");
-        
+
         COREEnvelopeRealTimeResponse oResponse;
-        if (coreEnvelopeRealTimeRequest != null) {            
+        if (coreEnvelopeRealTimeRequest != null) {
             oResponse = buildAdapterCORE_X12DSRealTimeResponseMetadata();
             logAdapterCORE_X12DSRealTimeRequest(coreEnvelopeRealTimeRequest);
         } else {
             oResponse = new COREEnvelopeRealTimeResponse();
             //TODO: Need to add error handling
         }
-        
+
         LOG.trace("End AdapterCORE_X12DSRealTimeProxyJavaPayloadImpl.realTimeTransaction()");
         return oResponse;
     }
@@ -76,14 +76,14 @@ public class AdapterCORE_X12DSRealTimeProxyJavaPayloadImpl implements AdapterCOR
         oResponse.setTimeStamp("2007-08-30T10:20:34Z");
         oResponse.setSenderID("PayerB");
         oResponse.setReceiverID("HospitalA");
-        oResponse.setCORERuleVersion("2.2.0");       
+        oResponse.setCORERuleVersion("2.2.0");
         oResponse.setPayload(buildPayload());
-        
+
         oResponse.setErrorCode("Success");
         oResponse.setErrorMessage("None");
         return oResponse;
     }
-    
+
     private String buildPayload() {
         String payload = null;
         FileInputStream fStream = null;
@@ -105,7 +105,7 @@ public class AdapterCORE_X12DSRealTimeProxyJavaPayloadImpl implements AdapterCOR
 
         return payload;
     }
-    
+
     private void logAdapterCORE_X12DSRealTimeRequest(COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest) {
         LOG.info("CORE Paylod Type = " + coreEnvelopeRealTimeRequest.getPayloadType());
         LOG.info("CORE Processing Mode = " + coreEnvelopeRealTimeRequest.getProcessingMode());
@@ -116,9 +116,9 @@ public class AdapterCORE_X12DSRealTimeProxyJavaPayloadImpl implements AdapterCOR
         LOG.info("CORE Rule version = " + coreEnvelopeRealTimeRequest.getCORERuleVersion());
         LOG.debug("CORE Payload = " + Base64Coder.decodeString(coreEnvelopeRealTimeRequest.getPayload()));
     }
-    
+
     protected PropertyAccessor getPropertyAccessor(){
         return PropertyAccessor.getInstance();
     }
-    
+
 }

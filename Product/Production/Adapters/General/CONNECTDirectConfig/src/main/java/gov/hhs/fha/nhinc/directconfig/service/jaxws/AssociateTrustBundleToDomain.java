@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -73,7 +73,7 @@ public class AssociateTrustBundleToDomain {
     private boolean outgoing;
 
     /**
-     * 
+     *
      * @return
      *     returns long
      */
@@ -82,7 +82,7 @@ public class AssociateTrustBundleToDomain {
     }
 
     /**
-     * 
+     *
      * @param domainId
      *     the value for the domainId property
      */
@@ -91,7 +91,7 @@ public class AssociateTrustBundleToDomain {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns long
      */
@@ -100,7 +100,7 @@ public class AssociateTrustBundleToDomain {
     }
 
     /**
-     * 
+     *
      * @param trustBundleId
      *     the value for the trustBundleId property
      */
@@ -109,7 +109,7 @@ public class AssociateTrustBundleToDomain {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns boolean
      */
@@ -118,7 +118,7 @@ public class AssociateTrustBundleToDomain {
     }
 
     /**
-     * 
+     *
      * @param incoming
      *     the value for the incoming property
      */
@@ -127,7 +127,7 @@ public class AssociateTrustBundleToDomain {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns boolean
      */
@@ -136,7 +136,7 @@ public class AssociateTrustBundleToDomain {
     }
 
     /**
-     * 
+     *
      * @param outgoing
      *     the value for the outgoing property
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -50,8 +50,8 @@ public class EntityDocSubmissionSecured implements gov.hhs.fha.nhinc.nhincentity
     private OutboundDocSubmission outboundDocSubmission;
 
     @Override
-    @OutboundMessageEvent(beforeBuilder = DocSubmissionArgTransformerBuilder.class, 
-            afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, 
+    @OutboundMessageEvent(beforeBuilder = DocSubmissionArgTransformerBuilder.class,
+            afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
             serviceType = "Document Submission", version = "1.1")
     public RegistryResponseType provideAndRegisterDocumentSetB(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body) {

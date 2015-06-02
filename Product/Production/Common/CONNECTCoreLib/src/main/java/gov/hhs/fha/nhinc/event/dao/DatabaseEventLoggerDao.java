@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -46,13 +46,13 @@ import org.hibernate.criterion.Restrictions;
 public class DatabaseEventLoggerDao {
 
     private static final Logger LOG = Logger.getLogger(DatabaseEventLoggerDao.class);
-    
+
     private static final String EVENT_TYPE_NAME = "eventName";
     private static final String EVENT_SERVICETYPE_NAME = "serviceType";
     private static final String DATE_NAME = "eventTime";
-    
 
-    private static class SingletonHolder { 
+
+    private static class SingletonHolder {
         public static final DatabaseEventLoggerDao INSTANCE = new DatabaseEventLoggerDao();
     }
 
@@ -64,7 +64,7 @@ public class DatabaseEventLoggerDao {
         LOG.debug("getInstance()...");
         return SingletonHolder.INSTANCE;
     }
-    
+
     /**
      * Insert an event in the database.
      * @param databaseEvent to be added to the database
@@ -85,7 +85,7 @@ public class DatabaseEventLoggerDao {
             session.persist(databaseEvent);
 
             tx.commit();
-            
+
         } catch (HibernateException e) {
             result = false;
             transactionRollback(tx);
@@ -93,12 +93,12 @@ public class DatabaseEventLoggerDao {
         } finally {
             closeSession(session, false);
         }
-        
+
         return result;
     }
-    
+
     /**
-     * Hibernate Query for event counts for a given Event type grouping by HCID and 
+     * Hibernate Query for event counts for a given Event type grouping by HCID and
      * service type.
      * @param eventType Location of event call in processing.
      * @return List of Object[] with [0] the count, [1] the initiating hcid, and [2]
@@ -107,10 +107,10 @@ public class DatabaseEventLoggerDao {
     public List getCounts(String eventType, String hcidType){
         Session session = null;
         List results = null;
-        
+
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         session = sessionFactory.openSession();
-        
+
         results = session.createCriteria(DatabaseEvent.class)
             .add(Restrictions.eq(EVENT_TYPE_NAME, eventType))
             .setProjection(Projections.projectionList()
@@ -118,27 +118,27 @@ public class DatabaseEventLoggerDao {
                 .add(Projections.groupProperty(hcidType))
                 .add(Projections.groupProperty(EVENT_SERVICETYPE_NAME)))
             .list();
-        
+
         closeSession(session, false);
-        
+
         return results;
     }
-    
+
     public DatabaseEvent getLatestEvent(String eventType){
         Session session = null;
         DatabaseEvent event = null;
-        
+
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         session = sessionFactory.openSession();
-        
+
         event = (DatabaseEvent) session.createCriteria(DatabaseEvent.class)
             .add(Restrictions.eq(EVENT_TYPE_NAME, eventType))
             .addOrder(Order.desc(DATE_NAME))
             .setMaxResults(1)
             .uniqueResult();
-                  
+
         closeSession(session, false);
-        
+
         return event;
     }
 
@@ -156,5 +156,5 @@ public class DatabaseEventLoggerDao {
             tx.rollback();
         }
     }
-    
+
 }

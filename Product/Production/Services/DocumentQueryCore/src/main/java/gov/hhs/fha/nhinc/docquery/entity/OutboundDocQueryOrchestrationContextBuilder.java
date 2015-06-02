@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,7 +41,7 @@ import com.google.common.base.Preconditions;
 
 /**
  * @author bhumphrey/paul
- * 
+ *
  */
 public abstract class OutboundDocQueryOrchestrationContextBuilder implements OrchestrationContextBuilder {
 

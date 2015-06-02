@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,7 +39,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /**
- * 
+ *
  * @author svalluripalli
  */
 public class AssigningAuthorityHomeCommunityMappingDAO {
@@ -48,7 +48,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
 
     /**
      * This method retrieves and returns a AssigningAuthority for an Home Community...
-     * 
+     *
      * @param homeCommunityId
      * @return String
      */
@@ -65,7 +65,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
 
     /**
      * returns List of Assigning Authorities for a given Home Community Id
-     * 
+     *
      * @param homeCommId
      * @return List
      */
@@ -109,7 +109,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
 
     /**
      * This method retrieves Home Community for an Assigning Authority...
-     * 
+     *
      * @param assigningAuthority
      */
     public String getHomeCommunityId(String assigningAuthority) {
@@ -148,7 +148,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
 
     /**
      * This method stores Assigning Authority To Home Community Mapping...
-     * 
+     *
      * @param homeCommunityId
      * @param assigningAuthority
      */

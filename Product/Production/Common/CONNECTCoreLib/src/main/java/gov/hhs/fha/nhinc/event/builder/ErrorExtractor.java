@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,21 +34,21 @@ import com.google.common.base.Function;
 
 /**
  * Extracts the error code from the RegistryError.
- * 
+ *
  * RegistryError[@errorCode]
  *
  */
 public class ErrorExtractor implements Function<RegistryError, String> {
 
     private static final Logger LOG = Logger.getLogger(ErrorExtractor.class);
-    
+
     @Override
     public String apply(RegistryError error) {
         String errorCode = error.getErrorCode();
         if (errorCode == null) {
             LOG.error("Encountered an invalid registry error without an error code.");
         }
-        
+
         return errorCode;
     }
 }

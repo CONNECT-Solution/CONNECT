@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,12 +57,12 @@ import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
 
 /**
  * Web service class for DNS service operations.
- * 
+ *
  * @author Greg Meyer
  * @since 1.1
  */
 @WebService
-public interface DNSService 
+public interface DNSService
 {
 	/**
 	 * Gets the number of records in the DNS store.
@@ -70,8 +70,8 @@ public interface DNSService
 	 * @throws ConfigurationServiceException
 	 */
     @WebMethod(operationName = "getDNSCount", action = "urn:GetDNSCount")
-    public int getDNSCount() throws ConfigurationServiceException;    
-    
+    public int getDNSCount() throws ConfigurationServiceException;
+
 	/**
 	 * Gets DNS records by record name.
 	 * @param name The record name.
@@ -80,84 +80,84 @@ public interface DNSService
 	 */
     @WebMethod(operationName = "getDNSByName", action = "urn:GetDNSByName")
     public Collection<DNSRecord> getDNSByName(@WebParam(name = "name") String name) throws ConfigurationServiceException;
-    
+
 	/**
 	 * Gets all DNS records or a given type.  Using type ANY will return all records in the store.
 	 * @param type The record type to search for.
 	 * @return A collection of records matching the record type.
 	 * @throws ConfigurationServiceException
-	 */    
+	 */
     @WebMethod(operationName = "getDNSByType", action = "urn:GetDNSByType")
-    public Collection<DNSRecord> getDNSByType(@WebParam(name = "type") int type) throws ConfigurationServiceException;    
-    
+    public Collection<DNSRecord> getDNSByType(@WebParam(name = "type") int type) throws ConfigurationServiceException;
+
 	/**
 	 * Gets DNS records by record name and a specific record type.
 	 * @param name The record name.
 	 * @param type The record type to search for.
 	 * @return A collection of records matching the name and record type.
 	 * @throws ConfigurationServiceException
-	 */    
+	 */
     @WebMethod(operationName = "getDNSByNameAndType", action = "urn:GetDNSByNameAndType")
     public Collection<DNSRecord> getDNSByNameAndType(@WebParam(name = "name") String name,
-    		@WebParam(name = "type") int type) throws ConfigurationServiceException;    
-    
+    		@WebParam(name = "type") int type) throws ConfigurationServiceException;
+
 	/**
 	 * Gets a single DNS record for an internal record id.
 	 * @param recordId The internal record id to search for.
 	 * @return A DNS record matching the record id.
 	 * @throws ConfigurationServiceException
-	 */    
+	 */
     @WebMethod(operationName = "getDNSByRecordId", action = "urn:GetDNSByRecordId")
-    public DNSRecord getDNSByRecordId(@WebParam(name = "recordId") long recordId) throws ConfigurationServiceException;    
-    
+    public DNSRecord getDNSByRecordId(@WebParam(name = "recordId") long recordId) throws ConfigurationServiceException;
+
 	/**
 	 * Gets DNS records by the internal record ids.
 	 * @param recordIds Array of record ids to search for.
 	 * @return A collection of records matching the record ids.
 	 * @throws ConfigurationServiceException
-	 */    
+	 */
     @WebMethod(operationName = "getDNSByRecordIds", action = "urn:GetDNSByRecordIds")
-    public Collection<DNSRecord> getDNSByRecordIds(@WebParam(name = "recordIds") long[] recordIds) throws ConfigurationServiceException;      
-    
+    public Collection<DNSRecord> getDNSByRecordIds(@WebParam(name = "recordIds") long[] recordIds) throws ConfigurationServiceException;
+
 	/**
 	 * Adds multiple new DNS records to the store.  The type cannot be ANY.
 	 * @param records The records to add the store.  If a record already exists, then an exception is thrown.
 	 * @throws ConfigurationServiceException
-	 */    
+	 */
     @WebMethod(operationName = "addDNS", action = "urn:AddDNS")
-    public void addDNS(@WebParam(name = "records") Collection<DNSRecord> records) throws ConfigurationServiceException;   
-        
+    public void addDNS(@WebParam(name = "records") Collection<DNSRecord> records) throws ConfigurationServiceException;
+
 	/**
 	 * Removes DNS records matching the DNS records' name and type.
 	 * @param records Records to delete.  Matching is done by name and type.
 	 * @throws ConfigurationServiceException
-	 */	    
+	 */
     @WebMethod(operationName = "removeDNS", action = "urn:RemoveDNS")
-    public void removeDNS(@WebParam(name = "records") Collection<DNSRecord> records) throws ConfigurationServiceException;    
-    
+    public void removeDNS(@WebParam(name = "records") Collection<DNSRecord> records) throws ConfigurationServiceException;
+
 	/**
 	 * Removes a single DNS record by an existing internal record id.
 	 * @param recordId The internal record id to delete.
 	 * @throws ConfigurationServiceException
-	 */    
+	 */
     @WebMethod(operationName = "removeDNSByRecordId", action = "urn:RemoveDNSByRecordId")
-    public void removeDNSByRecordId(@WebParam(name = "recordId") long recordId) throws ConfigurationServiceException;         
-    
+    public void removeDNSByRecordId(@WebParam(name = "recordId") long recordId) throws ConfigurationServiceException;
+
 	/**
 	 * Removes DNS records by existing internal record ids.
 	 * @param recordIds The internal record ids to delete.
 	 * @throws ConfigurationServiceException
-	 */	    
+	 */
     @WebMethod(operationName = "removeDNSByRecordIds", action = "urn:RemoveDNSByRecordIds")
-    public void removeDNSByRecordIds(@WebParam(name = "recordIds") long[] recordIds) throws ConfigurationServiceException;   
-    
+    public void removeDNSByRecordIds(@WebParam(name = "recordIds") long[] recordIds) throws ConfigurationServiceException;
+
 	/**
 	 * Update a DNS record for a specific internal id.  If a record does not exist, then an exception is thrown.  The type cannot be ANY.
 	 * @param recordId The internal record id to update.
 	 * @param record Data to update the record with.
 	 * @throws ConfigurationServiceException
-	 */    
+	 */
     @WebMethod(operationName = "updateDNS", action = "urn:UpdateDNS")
     public void updateDNS(@WebParam(name = "recordId") long recordId,
-    		@WebParam(name = "record") DNSRecord record) throws ConfigurationServiceException;      
+    		@WebParam(name = "record") DNSRecord record) throws ConfigurationServiceException;
 }

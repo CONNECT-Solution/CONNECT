@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+/*
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,7 @@ import gov.hhs.fha.nhinc.event.Event;
  */
 public abstract class ResponderEvent extends BaseEvent implements Event {
 
-  
+
     public ResponderEvent() {
         super();
         // TODO Auto-generated constructor stub
@@ -46,5 +46,5 @@ public abstract class ResponderEvent extends BaseEvent implements Event {
         setTransactionID(transactionID);
         setDescription(description);
     }
-  
+
 }

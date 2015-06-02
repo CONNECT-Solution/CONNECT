@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -69,7 +69,7 @@ public class SearchDomain {
     private EntityStatus status;
 
     /**
-     * 
+     *
      * @return
      *     returns String
      */
@@ -78,7 +78,7 @@ public class SearchDomain {
     }
 
     /**
-     * 
+     *
      * @param name
      *     the value for the name property
      */
@@ -87,7 +87,7 @@ public class SearchDomain {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns EntityStatus
      */
@@ -96,7 +96,7 @@ public class SearchDomain {
     }
 
     /**
-     * 
+     *
      * @param status
      *     the value for the status property
      */

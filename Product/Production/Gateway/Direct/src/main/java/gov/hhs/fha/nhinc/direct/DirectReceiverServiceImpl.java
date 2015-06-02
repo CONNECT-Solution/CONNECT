@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,8 +54,8 @@ public class DirectReceiverServiceImpl extends DirectAdapterEntity implements Di
     @Override
     public void receiveInbound(ConnectCustomMimeMessage message) {
         LOG.debug("-- Begin DirectReceiverServiceImpl.receiveInbound() --");
-        try {               
-            InternetHeaders headers = new InternetHeaders();            
+        try {
+            InternetHeaders headers = new InternetHeaders();
             for (HeaderMap aHeader : message.getHeadersList()) {
                 headers.addHeader(aHeader.getKey(), aHeader.getValue());
             }
@@ -75,7 +75,7 @@ public class DirectReceiverServiceImpl extends DirectAdapterEntity implements Di
                 addressTo[i] = new InternetAddress(message.getReceipients().get(i));
             }
             mimeMessage.setRecipients(RecipientType.TO, addressTo);
-            mimeMessage.setSubject(message.getSubject());  
+            mimeMessage.setSubject(message.getSubject());
             getDirectReceiver().receiveInbound(mimeMessage);
         }catch (MessagingException ex) {
             LOG.error(ex.getMessage());

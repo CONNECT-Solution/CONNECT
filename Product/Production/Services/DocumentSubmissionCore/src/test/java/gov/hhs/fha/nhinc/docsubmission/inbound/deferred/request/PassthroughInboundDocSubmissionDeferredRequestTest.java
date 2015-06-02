@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -59,7 +59,7 @@ import org.junit.Test;
 
 /**
  * @author akong
- * 
+ *
  */
 public class PassthroughInboundDocSubmissionDeferredRequestTest {
 
@@ -98,7 +98,7 @@ public class PassthroughInboundDocSubmissionDeferredRequestTest {
         verify(auditLogger).auditAcknowledgement(eq(actualResponse), eq(assertion), isNull(NhinTargetSystemType.class),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.XDR_REQUEST_ACTION));
     }
-    
+
     @Test
     public void convertDataToFileError() throws LargePayloadException {
         ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
@@ -127,5 +127,5 @@ public class PassthroughInboundDocSubmissionDeferredRequestTest {
         verify(auditLogger).auditAcknowledgement(eq(actualResponse), eq(assertion), isNull(NhinTargetSystemType.class),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.XDR_REQUEST_ACTION));
     }
-    
+
 }

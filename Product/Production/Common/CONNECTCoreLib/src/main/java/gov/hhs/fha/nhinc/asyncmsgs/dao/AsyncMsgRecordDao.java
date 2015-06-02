@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,7 +47,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
- * 
+ *
  * @author JHOPPESC
  */
 public class AsyncMsgRecordDao {
@@ -87,7 +87,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Query by Message Id. This should return only one record.
-     * 
+     *
      * @param messageId
      * @return matching records
      */
@@ -127,7 +127,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Query by Message Id and Service Name. This should return only one record.
-     * 
+     *
      * @param messageId
      * @param serviceName
      * @return matching records
@@ -169,7 +169,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Query for Creation Time less than passed timestamp.
-     * 
+     *
      * @param timestamp A timestamp
      * @return matching records
      */
@@ -209,7 +209,7 @@ public class AsyncMsgRecordDao {
     /**
      * Query for Creation Time less than passed timestamp and status equal to Request Receieved Acknowledged
      * [REQRCVDACK]
-     * 
+     *
      * @param timestamp A timestamp
      * @return matching records
      */
@@ -248,7 +248,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Query for all records to be processed by the Deferred Queue Manager.
-     * 
+     *
      * @return matching records
      */
     public List<AsyncMsgRecord> queryForDeferredQueueProcessing() {
@@ -286,7 +286,7 @@ public class AsyncMsgRecordDao {
     /**
      * Query for all records that are already selected. This will occur if a prior process was interrupted before all
      * selected records processing was complete.
-     * 
+     *
      * @return matching records
      */
     public List<AsyncMsgRecord> queryForDeferredQueueSelected() {
@@ -323,7 +323,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Query by Message Id and Service Name. This should return only one record.
-     * 
+     *
      * @param messageId
      * @param serviceName
      * @return matching records
@@ -411,7 +411,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Insert list of records.
-     * 
+     *
      * @param asyncMsgRecs object to save.
      * @return true - success; false - failure
      */
@@ -459,7 +459,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Save a record to the database. Insert if pk is null. Update otherwise.
-     * 
+     *
      * @param asyncMsgRecord object to save.
      */
     public void save(AsyncMsgRecord asyncMsgRecord) {
@@ -497,7 +497,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Save records to the database. Insert if pk is null. Update otherwise.
-     * 
+     *
      * @param asyncMsgRecs object to save.
      */
     public void save(List<AsyncMsgRecord> asyncMsgRecs) {
@@ -546,7 +546,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Delete the specified record.
-     * 
+     *
      * @param asyncMsgRecord object to save.
      */
     public void delete(AsyncMsgRecord asyncMsgRecord) {

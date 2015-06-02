@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -53,7 +53,7 @@ public class DirectSenderProxyJavaImpl {
      * Send outbound direct.
      *
      * @param message the message
-     */    
+     */
     public void sendOutboundDirect(MimeMessage message) {
         LOG.debug("Begin DirectSenderProxyJavaImpl.sendOutboundDirect(MimeMessage)");
         directSender.sendOutboundDirect(message);

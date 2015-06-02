@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -68,16 +68,16 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
     }
 
     protected CONNECTClient<XDRDeferredRequestPortType> getCONNECTClientSecured(
-            ServicePortDescriptor<XDRDeferredRequestPortType> portDescriptor, String url, AssertionType assertion, 
+            ServicePortDescriptor<XDRDeferredRequestPortType> portDescriptor, String url, AssertionType assertion,
                        String target, String serviceName) {
-        CONNECTClient<XDRDeferredRequestPortType> client =  CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target, 
+        CONNECTClient<XDRDeferredRequestPortType> client =  CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target,
                 serviceName);
         return client;
     }
 
     @Override
     @NwhinInvocationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
-    afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, 
+    afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
     serviceType = "Document Submission Deferred Request",
     version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest11(
@@ -95,7 +95,7 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
 
                 ServicePortDescriptor<XDRDeferredRequestPortType> portDescriptor = new NhinDocSubmissionDeferredRequestServicePortDescriptor();
                 CONNECTClient<XDRDeferredRequestPortType> client = getCONNECTClientSecured(portDescriptor, url,
-                        assertion, targetSystem.getHomeCommunity().getHomeCommunityId(), 
+                        assertion, targetSystem.getHomeCommunity().getHomeCommunityId(),
                         NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME );
                 client.enableMtom();
 

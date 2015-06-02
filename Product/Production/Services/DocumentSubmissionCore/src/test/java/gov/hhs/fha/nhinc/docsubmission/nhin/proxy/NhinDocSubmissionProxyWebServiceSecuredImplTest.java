@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,7 +48,7 @@ import org.junit.Test;
 
 /**
  * @author achidamb
- * 
+ *
  */
 public class NhinDocSubmissionProxyWebServiceSecuredImplTest {
 
@@ -93,7 +93,7 @@ public class NhinDocSubmissionProxyWebServiceSecuredImplTest {
 
             /*
              * (non-Javadoc)
-             * 
+             *
              * @see gov.hhs.fha.nhinc.docsubmission.nhin.proxy.NhinDocSubmissionProxyWebServiceSecuredImpl#
              * getCONNECTClientSecured(gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor,
              * gov.hhs.fha.nhinc.common.nhinccommon.AssertionType, java.lang.String, java.lang.String, java.lang.String)
@@ -107,7 +107,7 @@ public class NhinDocSubmissionProxyWebServiceSecuredImplTest {
 
             /*
              * (non-Javadoc)
-             * 
+             *
              * @see gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy11.
              * NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl#getDocSubmissionUtils()
              */
@@ -117,7 +117,7 @@ public class NhinDocSubmissionProxyWebServiceSecuredImplTest {
             }
         };
     }
-    
+
     private NhinTargetSystemType getNhinTargetSystemType(String sHcid) {
         NhinTargetSystemType targetSystem = new NhinTargetSystemType();
         HomeCommunityType hcid = new HomeCommunityType();

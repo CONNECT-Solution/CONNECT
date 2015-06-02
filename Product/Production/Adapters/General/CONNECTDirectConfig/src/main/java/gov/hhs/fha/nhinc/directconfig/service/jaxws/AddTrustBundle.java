@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -63,7 +63,7 @@ public class AddTrustBundle {
     private TrustBundle bundle;
 
     /**
-     * 
+     *
      * @return
      *     returns TrustBundle
      */
@@ -72,7 +72,7 @@ public class AddTrustBundle {
     }
 
     /**
-     * 
+     *
      * @param bundle
      *     the value for the bundle property
      */

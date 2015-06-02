@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -50,8 +50,8 @@ public class OutboundCORE_X12DSGenericBatchRequestOrchestratable implements Outb
     private COREEnvelopeBatchSubmissionResponse response = null;
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     @Override
     public AssertionType getAssertion() {
@@ -59,8 +59,8 @@ public class OutboundCORE_X12DSGenericBatchRequestOrchestratable implements Outb
     }
 
     /**
-     * 
-     * @param assertion 
+     *
+     * @param assertion
      */
     public void setAssertion(AssertionType assertion) {
         this.assertion = assertion;

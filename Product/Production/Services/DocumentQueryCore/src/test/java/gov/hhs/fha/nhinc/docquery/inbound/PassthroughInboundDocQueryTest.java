@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,21 +32,21 @@ import org.junit.Test;
 
 /**
  * @author akong
- * 
+ *
  */
 public class PassthroughInboundDocQueryTest extends InboundDocQueryTest {
-    
+
     private static final int NUM_TIMES_TO_INVOKE_ADAPTER_AUDIT = 0;
 
     @Test
     public void passthroughInboundDocQueryOrgHcid() {
-        passthroughInboundDocQueryHomeHcid(SENDING_HCID_ORG, SENDING_HCID_ORG_FORMATTED);        
+        passthroughInboundDocQueryHomeHcid(SENDING_HCID_ORG, SENDING_HCID_ORG_FORMATTED);
     }
-    
-    @Test    
-    public void passthroughInboundDocQueryHomeHcid() {        
-        passthroughInboundDocQueryHomeHcid(SENDING_HCID_HOME, SENDING_HCID_HOME_FORMATTED);        
-    }    
+
+    @Test
+    public void passthroughInboundDocQueryHomeHcid() {
+        passthroughInboundDocQueryHomeHcid(SENDING_HCID_HOME, SENDING_HCID_HOME_FORMATTED);
+    }
 
     private void passthroughInboundDocQueryHomeHcid(String sendingHcid, String sendingHcidFormatted) {
 
@@ -58,6 +58,6 @@ public class PassthroughInboundDocQueryTest extends InboundDocQueryTest {
         verifyInboundDocQuery(mockAssertion, sendingHcidFormatted, passthroughDocQuery,
                 NUM_TIMES_TO_INVOKE_ADAPTER_AUDIT);
 
-    }    
+    }
 
 }

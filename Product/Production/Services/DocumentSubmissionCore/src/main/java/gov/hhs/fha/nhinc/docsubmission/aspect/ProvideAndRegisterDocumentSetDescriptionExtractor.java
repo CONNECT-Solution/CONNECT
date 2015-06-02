@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,7 +39,7 @@ import com.google.common.collect.Lists;
 
 /**
  * @author akong
- * 
+ *
  */
 public class ProvideAndRegisterDocumentSetDescriptionExtractor {
 
@@ -48,7 +48,7 @@ public class ProvideAndRegisterDocumentSetDescriptionExtractor {
 
     /**
      * Extracts the payload types of a ProvideAndRegisterDocumentSetRequestType.
-     * 
+     *
      * @param request the ProvideAndRegisterDocumentSetRequestType whose values are to be extracted
      * @return a list of string containing the payload types
      */
@@ -66,7 +66,7 @@ public class ProvideAndRegisterDocumentSetDescriptionExtractor {
 
     /**
      * Extracts the payload sizes of a ProvideAndRegisterDocumentSetRequestType.
-     * 
+     *
      * @param request the ProvideAndRegisterDocumentSetRequestType whose values are to be extracted
      * @return a list of string containing the payload sizes
      */

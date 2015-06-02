@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,7 +42,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import org.apache.log4j.Logger;
 
 /**
- * 
+ *
  * @author jhoppesc
  */
 public class AdapterDocQueryOrchImpl {
@@ -57,7 +57,7 @@ public class AdapterDocQueryOrchImpl {
     }
 
     /**
-     * 
+     *
      * @param request
      *            The AdhocQUeryRequest message.
      * @param assertion

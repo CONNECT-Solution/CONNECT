@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -43,17 +43,17 @@ public abstract class AbstractInboundDocQuery implements InboundDocQuery {
     AbstractInboundDocQuery() {
         this.auditLogger = new DocQueryAuditLog();
     }
-    
+
     AbstractInboundDocQuery(DocQueryAuditLog auditLogger) {
         this.auditLogger = auditLogger;
     }
 
     /**
-     * 
+     *
      * @param body
      * @param assertion
      * @return <code>AdhocQueryResponse</code>
-     */   
+     */
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
         String senderHcid = null;
         if (msg != null) {

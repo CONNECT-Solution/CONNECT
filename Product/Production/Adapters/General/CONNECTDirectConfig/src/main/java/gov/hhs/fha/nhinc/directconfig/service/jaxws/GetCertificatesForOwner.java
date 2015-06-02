@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -68,7 +68,7 @@ public class GetCertificatesForOwner {
     private CertificateGetOptions options;
 
     /**
-     * 
+     *
      * @return
      *     returns String
      */
@@ -77,7 +77,7 @@ public class GetCertificatesForOwner {
     }
 
     /**
-     * 
+     *
      * @param owner
      *     the value for the owner property
      */
@@ -86,7 +86,7 @@ public class GetCertificatesForOwner {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns CertificateGetOptions
      */
@@ -95,7 +95,7 @@ public class GetCertificatesForOwner {
     }
 
     /**
-     * 
+     *
      * @param options
      *     the value for the options property
      */

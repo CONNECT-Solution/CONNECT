@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -515,7 +515,7 @@ public class MessageMonitoringAPI {
 
     /* A new DirectTesting Flag and delayTime Flag are added in gateway.properties
      It waits for n number of minutes to delete the record from MessageMonitored table.
-     Since the MessageId form MessageMonitored table is used to read MessageId in order to 
+     Since the MessageId form MessageMonitored table is used to read MessageId in order to
      make event assertions for Automated testing */
     public void processAllMessages() throws MessageMonitoringDAOException {
         LOG.debug("Inside Message Monitoring API checkAndUpdateMessageStatus() method.");

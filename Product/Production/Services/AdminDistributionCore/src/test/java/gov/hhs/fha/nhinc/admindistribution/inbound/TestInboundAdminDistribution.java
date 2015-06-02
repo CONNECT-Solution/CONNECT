@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,7 @@ public class TestInboundAdminDistribution implements InboundAdminDistribution{
 
     @Override
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
-        // Do nothing        
+        // Do nothing
     }
 
 }

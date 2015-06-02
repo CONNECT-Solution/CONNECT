@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,28 +45,28 @@ public class DirectAdapterUtilsTest extends DirectBaseTest {
 
     private static final Address[] EMPTY_ADDRESS_ARRAY = new Address[] {};
     private final MimeMessage mockMessage = mock(MimeMessage.class);
-    
-    
+
+
     /**
-     * Test {@link DirectAdapterUtils#getSender(MimeMessage)} 
+     * Test {@link DirectAdapterUtils#getSender(MimeMessage)}
      * Method should throw DirectException if multiple senders are present.
      * @throws MessagingException on failure.
      */
     @Test(expected = DirectException.class)
     public void willThrowDirectExceptionWhenMultipleFromsPresent() throws MessagingException {
         when(mockMessage.getFrom()).thenReturn(new Address[] {
-                new InternetAddress("test@test1.com"), new InternetAddress("test@test2.com")});        
+                new InternetAddress("test@test1.com"), new InternetAddress("test@test2.com")});
         DirectAdapterUtils.getSender(mockMessage);
     }
 
     /**
-     * Test {@link DirectAdapterUtils#getSender(MimeMessage)} 
+     * Test {@link DirectAdapterUtils#getSender(MimeMessage)}
      * Method should throw DirectException if zero senders are present.
      * @throws MessagingException on failure.
      */
     @Test(expected = DirectException.class)
     public void willThrowDirectExceptionWhenNoFromsPresent() throws MessagingException {
-        when(mockMessage.getFrom()).thenReturn(EMPTY_ADDRESS_ARRAY);        
+        when(mockMessage.getFrom()).thenReturn(EMPTY_ADDRESS_ARRAY);
         DirectAdapterUtils.getSender(mockMessage);
     }
 
@@ -84,7 +84,7 @@ public class DirectAdapterUtilsTest extends DirectBaseTest {
 
         assertNotNull(DirectAdapterUtils.getNhindRecipients(mockMessage));
     }
-    
+
     /**
      * Test {@link DirectAdapterUtils#getNhindRecipients(MimeMessage)}.
      * @throws MessagingException on failure.
@@ -94,7 +94,7 @@ public class DirectAdapterUtilsTest extends DirectBaseTest {
         when(mockMessage.getRecipients(RecipientType.TO)).thenReturn(EMPTY_ADDRESS_ARRAY);
         when(mockMessage.getRecipients(RecipientType.CC)).thenReturn(EMPTY_ADDRESS_ARRAY);
         when(mockMessage.getRecipients(RecipientType.BCC)).thenReturn(EMPTY_ADDRESS_ARRAY);
-        
+
         DirectAdapterUtils.getNhindRecipients(mockMessage);
     }
 

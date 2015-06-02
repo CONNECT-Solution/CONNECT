@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -72,7 +72,7 @@ public class WebServiceProxyHelper {
         properties = new WebServiceProxyHelperProperties(propertyAccessor);
     }
 
-    
+
 
     /**
      * This method returns the URL endpoint of the passed in service name from the given target
@@ -524,6 +524,6 @@ public class WebServiceProxyHelper {
     public void addServiceName(BindingProvider port, String serviceName) {
         port.getRequestContext().put(NhincConstants.SERVICE_NAME, serviceName);
     }
-    
-    
+
+
 }

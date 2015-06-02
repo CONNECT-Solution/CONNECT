@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -61,7 +61,7 @@ import org.mockito.ArgumentCaptor;
 
 /**
  * @author achidamb
- * 
+ *
  */
 public class StandardInboundPatientDiscoveryDeferredResponseTest {
 
@@ -94,7 +94,7 @@ public class StandardInboundPatientDiscoveryDeferredResponseTest {
         ResponseMode responseMode = mock(ResponseMode.class);
         AdapterPatientDiscoveryDeferredRespProxyObjectFactory adapterProxyFactory = mock(AdapterPatientDiscoveryDeferredRespProxyObjectFactory.class);
         AdapterPatientDiscoveryDeferredRespProxy adapterProxy = mock(AdapterPatientDiscoveryDeferredRespProxy.class);
-        
+
         // Stubbing the methods
         when(policyChecker.checkOutgoingPolicy(any(RespondingGatewayPRPAIN201306UV02RequestType.class))).thenReturn(
                 true);
@@ -132,7 +132,7 @@ public class StandardInboundPatientDiscoveryDeferredResponseTest {
 
         verify(auditLogger).auditAck(actualResponse, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-        
+
         verify(auditLogger).auditAdapterDeferred201306(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
         verify(auditLogger).auditAck(actualResponse, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
@@ -158,7 +158,7 @@ public class StandardInboundPatientDiscoveryDeferredResponseTest {
                 true);
 
         when(responseFactory.getResponseModeType()).thenReturn(ResponseModeType.PASSTHROUGH);
-        
+
         when(adapterProxyFactory.create()).thenReturn(adapterProxy);
         when(adapterProxy.processPatientDiscoveryAsyncResp(request, assertion)).thenReturn(expectedResponse);
 

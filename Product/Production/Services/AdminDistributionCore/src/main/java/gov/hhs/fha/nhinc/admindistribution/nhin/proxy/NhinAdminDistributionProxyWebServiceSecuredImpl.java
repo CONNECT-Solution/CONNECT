@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -49,7 +49,7 @@ import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.apache.log4j.Logger;
 
 /**
- * 
+ *
  * @author dunnek
  */
 public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdminDistributionProxy {
@@ -76,7 +76,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
 
     /**
      * This method returns ServicePortDescriptor for AdminDist based on gateway apiLevel.
-     * 
+     *
      * @param apiLevel gateway apiLevel received (g0/g1).
      * @return NhinAdminDistributionPortDescriptor based on g0/g1 impl
      */
@@ -92,7 +92,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
 
     /**
      * This method returns CXFClient to implement AdminDist Secured Service.
-     * 
+     *
      * @param portDescriptor Comprises of
      * @param url target community url to send the message.
      * @param assertion Assertion received.
@@ -108,7 +108,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
 
     /**
      * This method implements sendAlertMessage for AdminDist.
-     * 
+     *
      * @param body Emergency Message Distribution Element transaction messgae body.
      * @param assertion Assertion received.
      * @param target NhinTargetCommunity received.
@@ -151,7 +151,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
 
     /**
      * This method audits the AdminDist Service at Nhin interface.
-     * 
+     *
      * @param message Emergency Message Distribution Element transaction message.
      * @param assertion Assertion received.
      * @param direction The direction can be eigther outbound or inbound.

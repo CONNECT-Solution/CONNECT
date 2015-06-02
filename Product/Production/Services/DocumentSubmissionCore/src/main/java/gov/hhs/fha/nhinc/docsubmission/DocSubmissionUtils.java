@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -64,7 +64,7 @@ public class DocSubmissionUtils {
 
     /**
      * Checks to see if the query should be handled internally or passed through to an adapter.
-     * 
+     *
      * @param passThruProperty the passthough property
      * @return Returns true if the pass through property for a specified Patient Discovery Service in the
      *         gateway.properties file is true.

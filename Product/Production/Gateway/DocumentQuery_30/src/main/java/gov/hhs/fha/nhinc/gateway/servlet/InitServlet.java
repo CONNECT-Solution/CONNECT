@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.gateway.servlet;
 
@@ -47,12 +47,12 @@ import org.apache.log4j.Logger;
  * Main ExecutorService creates a new thread pool of size specified on construction, independent/in addition to
  * glassfish thread pool(s) set in domain.xml. 2. ExecutorService automatically handles any thread death condition and
  * creates a new thread in this case
- * 
+ *
  * 3. Also creates a second largeJobExecutor with a fixed size thread pool (largeJobExecutor is used for TaskExecutors
  * that get a callable list of size comparable to the size of the main ExecutorService)
- * 
+ *
  * 4. See {@link gov.fha.hhs.nhinc.gateway.AbstractJMXEnabledServlet} for JMX init and destroy functionality.
- * 
+ *
  * @author paul.eftis, msw
  */
 public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
@@ -71,7 +71,7 @@ public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
 
     /**
      * Initializes the servlet with parallel fanout executors as well as calling super.init().
-     * 
+     *
      * @param config the config
      * @throws ServletException the servlet exception
      * @see gov.fha.hhs.nhinc.gateway.AbstractJMXEnabledServlet#init(javax.servlet.ServletConfig)
@@ -89,7 +89,7 @@ public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
 
     /**
      * Gets the executor service.
-     * 
+     *
      * @return the executor service
      */
     public static ExecutorService getExecutorService() {
@@ -98,7 +98,7 @@ public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
 
     /**
      * Gets the large job executor service.
-     * 
+     *
      * @return the large job executor service
      */
     public static ExecutorService getLargeJobExecutorService() {
@@ -108,7 +108,7 @@ public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
     /**
      * Servlet destroy method. Since we don't want to hault the serlvet from coming down we are not propogating errors
      * which are caught in this method.
-     * 
+     *
      * @see gov.fha.hhs.nhinc.gateway.AbstractJMXEnabledServlet#destroy()
      */
     @Override
@@ -134,7 +134,7 @@ public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * gov.hhs.fha.nhinc.configuration.jmx.AbstractPassthruRegistryEnabledServlet#getWebServiceMXBean(javax.servlet.
      * ServletContext)

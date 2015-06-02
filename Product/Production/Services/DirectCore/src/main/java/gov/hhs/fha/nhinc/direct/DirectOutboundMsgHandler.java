@@ -1,6 +1,5 @@
-package gov.hhs.fha.nhinc.direct;
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,7 +24,7 @@ package gov.hhs.fha.nhinc.direct;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
+package gov.hhs.fha.nhinc.direct;
 
 import gov.hhs.fha.nhinc.mail.MessageHandler;
 import javax.mail.internet.MimeMessage;
@@ -43,7 +42,7 @@ public class DirectOutboundMsgHandler implements MessageHandler {
      * Property for the external direct client used to send the outbound message.
      */
     private final DirectSender directSender;
-    
+
     /**
      * Constructor.
      * @param directSender direct sender used to send outbound direct messages.
@@ -66,5 +65,5 @@ public class DirectOutboundMsgHandler implements MessageHandler {
         }
         return handled;
     }
-        
+
 }

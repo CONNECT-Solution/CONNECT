@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -76,7 +76,7 @@ import org.junit.Test;
 
 /**
  * @author achidamb / jsmith
- * 
+ *
  */
 public class AdapterComponentDocRepositoryOrchImplTest {
 
@@ -241,7 +241,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
 		SubmitObjectsRequest submitObjectsRequest = mock(SubmitObjectsRequest.class);
 		RegistryObjectListType regObjectList = mock(RegistryObjectListType.class);
 		List<JAXBElement<? extends IdentifiableType>> identifiableObjectList = mock(List.class);
-		
+
 		AdapterComponentDocRepositoryOrchImpl docRepo = new AdapterComponentDocRepositoryOrchImpl() {
 			@Override
 			public AdapterComponentDocRepositoryHelper getHelper() {
