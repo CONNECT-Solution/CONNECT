@@ -545,7 +545,7 @@
         <profile>
             <id>X12</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <x12.excluded>false</x12.excluded>
