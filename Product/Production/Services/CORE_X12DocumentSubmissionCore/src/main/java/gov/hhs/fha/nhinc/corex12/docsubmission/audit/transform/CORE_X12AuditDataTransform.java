@@ -348,14 +348,6 @@ public class CORE_X12AuditDataTransform {
         return bObject;
     }
 
-    protected boolean areRequiredCOREX12BatchFieldsNull(Object msg, AssertionType assertion) {
-        if (oXDR.areRequiredUserTypeFieldsNull(assertion)) {
-            LOG.error("One of more UserInfo fields from the Assertion object were null.");
-            return true;
-        }
-        return false;
-    }
-
     protected String getRemoteHostAddress(Properties webContextProeprties) {
         if (webContextProeprties != null && !webContextProeprties.isEmpty() && webContextProeprties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS) != null) {
             return webContextProeprties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS);
