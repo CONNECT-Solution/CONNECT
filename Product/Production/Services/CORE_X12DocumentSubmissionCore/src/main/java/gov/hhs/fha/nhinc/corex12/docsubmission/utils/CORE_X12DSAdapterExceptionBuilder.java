@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,19 +40,19 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  * @author svalluripalli
  */
 public class CORE_X12DSAdapterExceptionBuilder {
-   private static final Logger LOG = Logger.getLogger(CORE_X12DSAdapterExceptionBuilder.class); 
+   private static final Logger LOG = Logger.getLogger(CORE_X12DSAdapterExceptionBuilder.class);
    private static final String ADAPTER_ERROR_CODE = "Receiver";
    private static final String ADAPTER_ERROR_MESSAGE = "Failed to connect to backend adapter to process the message";
    private static final String ADAPTER_PAYLOAD_TYPE = "CoreEnvelopeError";
-   
+
    /**
     * Constructor...
     */
    public CORE_X12DSAdapterExceptionBuilder()
    {
-       
+
    }
-   
+
    /**
      *
      * @param oCOREEnvelopeBatchSubmission

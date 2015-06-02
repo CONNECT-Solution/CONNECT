@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -58,7 +58,7 @@ public class XDRMockTest extends AbstractDirectMailClientTest {
      */
     @Test
     public void testWithPlainMimeAttachment() throws MessagingException, UserException, MailClientException {
-        //should not receive any mdn in the edge client by default 
+        //should not receive any mdn in the edge client by default
         System.setProperty(DirectReceiverImpl.SUPPRESS_MDN_EDGE_NOTIFICATION, "true");
         testWithPlainMimeAttachment(0);
     }

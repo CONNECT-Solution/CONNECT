@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -74,7 +74,7 @@ public class UpdateLastUpdateError {
     private BundleRefreshError error;
 
     /**
-     * 
+     *
      * @return
      *     returns long
      */
@@ -83,7 +83,7 @@ public class UpdateLastUpdateError {
     }
 
     /**
-     * 
+     *
      * @param trustBundleId
      *     the value for the trustBundleId property
      */
@@ -92,7 +92,7 @@ public class UpdateLastUpdateError {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns Calendar
      */
@@ -101,7 +101,7 @@ public class UpdateLastUpdateError {
     }
 
     /**
-     * 
+     *
      * @param attemptTime
      *     the value for the attemptTime property
      */
@@ -110,7 +110,7 @@ public class UpdateLastUpdateError {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns BundleRefreshError
      */
@@ -119,7 +119,7 @@ public class UpdateLastUpdateError {
     }
 
     /**
-     * 
+     *
      * @param error
      *     the value for the error property
      */

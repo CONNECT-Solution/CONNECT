@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,7 +44,7 @@ import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortType;
 
 /**
  * @author akong
- * 
+ *
  */
 public class WsAddressingServiceEndpointDecoratorTest {
 
@@ -79,7 +79,7 @@ public class WsAddressingServiceEndpointDecoratorTest {
 
         assertEquals(messageIdWithPrefix, addressingProps.getMessageID().getValue());
     }
-    
+
     @Test
     public void verifyNullRelatesTo() {
         String wsAddressingTo = "wsAddressingTo";
@@ -100,7 +100,7 @@ public class WsAddressingServiceEndpointDecoratorTest {
         assertEquals(messageId, addressingProps.getMessageID().getValue());
         assertEquals(null, addressingProps.getRelatesTo());
     }
-    
+
     @Test
     public void verifyEmptyRelatesTo() {
         String wsAddressingTo = "wsAddressingTo";
@@ -125,7 +125,7 @@ public class WsAddressingServiceEndpointDecoratorTest {
     /**
      * This method will verify the client is configured with the passed in WS-Addressing values. Note that the messageId
      * will need to have the proper "urn:uuid" prefix or else this verification will always fail.
-     * 
+     *
      * @param client
      * @param wsAddressingTo
      * @param wsAddressingAction

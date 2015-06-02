@@ -40,18 +40,18 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  */
 public class NhinCORE_X12DSGenericBatchRequestImpl extends BaseService {
     private InboundCORE_X12DSGenericBatchRequest inboundCORE_X12DSGenericBatchRequest;
-    
+
     /**
      * Constructor
-     * @param inboundCORE_X12DSGenericBatchRequest 
+     * @param inboundCORE_X12DSGenericBatchRequest
      */
     public NhinCORE_X12DSGenericBatchRequestImpl(InboundCORE_X12DSGenericBatchRequest inboundCORE_X12DSGenericBatchRequest)
     {
         this.inboundCORE_X12DSGenericBatchRequest = inboundCORE_X12DSGenericBatchRequest;
     }
-    
+
     /**
-     * 
+     *
      * @param body
      * @param context
      * @return COREEnvelopeBatchSubmissionResponse
@@ -60,5 +60,5 @@ public class NhinCORE_X12DSGenericBatchRequestImpl extends BaseService {
         AssertionType assertion = getAssertion(context, null);
         return inboundCORE_X12DSGenericBatchRequest.batchSubmitTransaction(body, assertion, getWebContextProperties(context));
     }
-    
+
 }

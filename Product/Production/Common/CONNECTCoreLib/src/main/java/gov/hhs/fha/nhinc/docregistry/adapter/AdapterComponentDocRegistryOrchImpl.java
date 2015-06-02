@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.docregistry.adapter;
 
@@ -68,7 +68,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
 /**
- * 
+ *
  * @author jhoppesc
  */
 public class AdapterComponentDocRegistryOrchImpl {
@@ -227,15 +227,15 @@ public class AdapterComponentDocRegistryOrchImpl {
                 params.setOnDemandParams(Boolean.FALSE);
                 docs.addAll(service.documentQuery(params));
             }
-            
+
             if (isOnDemand == null || (isOnDemand != null && isOnDemand)) {
                 params.setCreationTimeFrom(null);
                 params.setCreationTimeTo(null);
                 params.setOnDemandParams(Boolean.TRUE);
                 docs.addAll(service.documentQuery(params));
             }
-            
-            
+
+
             LOG.debug("registryStoredQuery- docs.size: " + docs.size());
             loadResponseMessage(response, docs);
             LOG.debug("End AdapterComponentDocRegistryOrchImpl.registryStoredQuery(...)");
@@ -292,12 +292,12 @@ public class AdapterComponentDocRegistryOrchImpl {
         params.setDocumentUniqueId(documentUniqueIds);
         params.setEventCodeParams(createEventCodeParameters(eventCodeValues, eventCodeSchemeValues));
         params.setSlots(slots);
-        
+
         /*
          * params.setOnDemandParams(null) = both stable and on demand
          * params.setOnDemandParams(false) = stable only
          * params.setOnDemandParams(true) = on demand only
-         * 
+         *
          * per the specification if no $XDSDocumentEntryType is in the query, the default behavior is stable only.
          */
         List<String> documentEntryTypes = extractDocumentEntryTypes(slots);
@@ -311,26 +311,26 @@ public class AdapterComponentDocRegistryOrchImpl {
                 if (StringUtils.contains(s, EBXML_DOCENTRY_ONDEMAND_DOCUMENTS_VALUE)) {
                     onDemandFound = true;
                 }
-                
+
                 if (StringUtils.contains(s, EBXML_DOCENTRY_STABLE_DOCUMENTS_VALUE)) {
                     stableFound = true;
                 }
             }
-            
+
             if (onDemandFound && stableFound) {
                 params.setOnDemandParams(null);
             } else {
                 // if we found just one...
                 params.setOnDemandParams(onDemandFound);
-            }     
-            
+            }
+
         }
         return params;
     }
 
     /**
      * Guaranteed not to be null.
-     * 
+     *
      * @param slots
      * @return a list of strings with the types.
      */
@@ -474,7 +474,7 @@ public class AdapterComponentDocRegistryOrchImpl {
 
     /**
      * Extract the document ID from the slots, if it exists and put it into the array.
-     * 
+     *
      * @param slots The slots to be searched.
      * @return The document ID in a list if it is found.
      */
@@ -495,12 +495,12 @@ public class AdapterComponentDocRegistryOrchImpl {
     /**
      * Extracts the comma seperated value from Slot/ValueList and returns it as a tokenized string array. The expected
      * value list is in the following format:
-     * 
+     *
      * ('urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1', 'urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248')
-     * 
+     *
      * The returned value for this example will consist of a string array with elements
      * urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1 urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248
-     * 
+     *
      * @param slotValues The list of values from the slot. Only one element is expected so only the first is parsed.
      * @return an array of String containing the tokenized values. null if the passed in argument is null.
      */
@@ -514,7 +514,7 @@ public class AdapterComponentDocRegistryOrchImpl {
 
     /**
      * Checks whether the document entry value list passed in contains the stable document entry.
-     * 
+     *
      * @param documentEntryTypes The list of strings to search the entry for
      * @return true if the list contains the value, false if not
      */
@@ -530,7 +530,7 @@ public class AdapterComponentDocRegistryOrchImpl {
 
     /**
      * Checks whether the document entry value list passed in contains the dynamic document entry.
-     * 
+     *
      * @param documentEntryTypes The list of strings to search the entry for
      * @return true if the list contains the value, false if not
      */
@@ -546,7 +546,7 @@ public class AdapterComponentDocRegistryOrchImpl {
 
     /**
      * Extract the repository ID from the slots.
-     * 
+     *
      * @param slots The slots to be searched.
      * @return The repository Id.
      */
@@ -1006,7 +1006,7 @@ public class AdapterComponentDocRegistryOrchImpl {
 
     /**
      * This method creates a classification from a coded item.
-     * 
+     *
      * @param oCoded The coded to be transformed.
      * @param sClassificationScheme The classification scheme value.
      * @param sDocumentId The document ID for the document associated with this classificaation.
@@ -1136,7 +1136,7 @@ public class AdapterComponentDocRegistryOrchImpl {
 
     /**
      * This method creates a Slot containing a single value.
-     * 
+     *
      * @param sSlotName The name of the slot.
      * @param sSlotValue The value for the slot.
      * @return The SlotType1 object containing the data passed in.
@@ -1151,7 +1151,7 @@ public class AdapterComponentDocRegistryOrchImpl {
 
     /**
      * This method creates a Slot containing a single value.
-     * 
+     *
      * @param sSlotName The name of the slot.
      * @param saSlotValue The array of values for the slot.
      * @return The SlotType1 object containing the data passed in.
@@ -1172,7 +1172,7 @@ public class AdapterComponentDocRegistryOrchImpl {
 
     /**
      * This method creates an InternationalStringType with a single value.
-     * 
+     *
      * @param sLocStrValue The value to be placed in the string.
      * @return The InternationStringType that is being returned.
      */

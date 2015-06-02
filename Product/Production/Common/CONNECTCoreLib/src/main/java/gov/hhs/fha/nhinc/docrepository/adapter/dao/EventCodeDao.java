@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@ import org.hibernate.type.Type;
 
 /**
  * Data access object class for EventCode data.
- * 
+ *
  * @author Neil Webb, msw
  */
 public class EventCodeDao {
@@ -70,7 +70,7 @@ public class EventCodeDao {
 
     /**
      * Gets the session factory.
-     * 
+     *
      * @return the session factory
      */
     protected SessionFactory getSessionFactory() {
@@ -79,7 +79,7 @@ public class EventCodeDao {
 
     /**
      * Gets the session.
-     * 
+     *
      * @param sessionFactory the session factory
      * @return the session
      */
@@ -93,7 +93,7 @@ public class EventCodeDao {
 
     /**
      * Delete an event code record.
-     * 
+     *
      * @param eventCode EventCode record to delete.
      */
     public void delete(EventCode eventCode) {
@@ -132,7 +132,7 @@ public class EventCodeDao {
 
     /**
      * Event code query.
-     * 
+     *
      * @param slots the slots
      * @return the list
      */
@@ -248,7 +248,7 @@ public class EventCodeDao {
 
     /**
      * Gets the document ids.
-     * 
+     *
      * @param eventCodes the event codes
      * @return the document ids
      */
@@ -262,7 +262,7 @@ public class EventCodeDao {
 
     /**
      * Gets the unique document ids.
-     * 
+     *
      * @param DocumentIds the document ids
      * @return the unique document ids
      */
@@ -275,7 +275,7 @@ public class EventCodeDao {
 
     /**
      * Result event codes list.
-     * 
+     *
      * @param documentNotPresent the document not present
      * @param eventCodes the event codes
      * @return the list
@@ -296,7 +296,7 @@ public class EventCodeDao {
 
     /**
      * Document in all slots.
-     * 
+     *
      * @param eventCodes the event codes
      * @param eventCodeSlotSize the event code slot size
      * @param hashMap the hash map
@@ -320,7 +320,7 @@ public class EventCodeDao {
 
     /**
      * Find document id.
-     * 
+     *
      * @param hashMap the hash map
      * @param documentId the document id
      * @param eventCodes the event codes
@@ -352,7 +352,7 @@ public class EventCodeDao {
 
     /**
      * Event code found.
-     * 
+     *
      * @param eventCodesList the event codes list
      * @param eventCode the event code
      * @param eventCodes the event codes
@@ -371,7 +371,7 @@ public class EventCodeDao {
 
     /**
      * Gets the event code.
-     * 
+     *
      * @param eventCodeParam the event code param
      * @param paramName the param name
      * @return the event code
@@ -389,7 +389,7 @@ public class EventCodeDao {
 
     /**
      * Parses the param formatted string.
-     * 
+     *
      * @param paramFormattedString the param formatted string
      * @param resultCollection the result collection
      */

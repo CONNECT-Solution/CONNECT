@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,7 +45,7 @@ public class EntityDocSubmissionDeferredRequestSecuredTest_g1 {
     @Test
     public void hasOutboundMessageEvent() throws Exception {
         Class<EntityDocSubmissionDeferredRequestSecured_g1> clazz = EntityDocSubmissionDeferredRequestSecured_g1.class;
-        Method method = clazz.getMethod("provideAndRegisterDocumentSetBAsyncRequest", 
+        Method method = clazz.getMethod("provideAndRegisterDocumentSetBAsyncRequest",
                 RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class);
         OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
         assertNotNull(annotation);

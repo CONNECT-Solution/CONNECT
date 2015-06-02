@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,7 @@ import org.apache.ws.security.handler.WSHandlerConstants;
 
 /**
  * @author akong
- * 
+ *
  */
 public class WsSecurityConfigFactory {
 
@@ -61,7 +61,7 @@ public class WsSecurityConfigFactory {
 
     /**
      * Returns a singleton instance of this factory.
-     * 
+     *
      * @return a singleton instance of this factory.
      */
     public static WsSecurityConfigFactory getInstance() {
@@ -75,7 +75,7 @@ public class WsSecurityConfigFactory {
     /**
      * Returns a cloned copy of the map containing all the necessary security configuration. This includes all the
      * properties read from the signature.properties file.
-     * 
+     *
      * @return
      */
     public Map<String, Object> getConfiguration() {

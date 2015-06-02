@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
 import gov.hhs.fha.nhinc.admingui.services.PingService;
@@ -47,12 +46,12 @@ import org.apache.log4j.Logger;
  * @author jassmit
  */
 public class PingServiceImpl implements PingService {
-    
+
     private static final Logger LOG = Logger.getLogger(PingServiceImpl.class);
-    
+
     private static final String WSDL_SUFFIX = "?wsdl";
     private static final String LOG_WSDL_KEY = "logWsdlPing";
-    
+
     @Override
     public boolean ping(String url) {
         InputStream is = null;
@@ -62,18 +61,18 @@ public class PingServiceImpl implements PingService {
             URL webserviceUrl = new URL(prepUrl(url));
             HttpsURLConnection.setDefaultHostnameVerifier(getHostNameVerifier());
             HttpURLConnection con = (HttpURLConnection) webserviceUrl.openConnection();
-            
+
             is = con.getInputStream();
             isReader = new InputStreamReader(is);
-            
+
             in = new BufferedReader(isReader);
             String inputLine;
             StringBuilder pingOutput = new StringBuilder();
-            
+
             while ((inputLine = in.readLine()) != null) {
                 pingOutput.append(inputLine);
             }
-            
+
             logWsdl(pingOutput.toString());
             con.disconnect();
             return true;
@@ -86,14 +85,14 @@ public class PingServiceImpl implements PingService {
         }
         return false;
     }
-    
+
     private String prepUrl(String serviceUrl) {
         if (!serviceUrl.endsWith(WSDL_SUFFIX)) {
             serviceUrl = serviceUrl.concat(WSDL_SUFFIX);
         }
         return serviceUrl;
     }
-    
+
     private HostnameVerifier getHostNameVerifier() {
         return new javax.net.ssl.HostnameVerifier() {
             @Override
@@ -103,13 +102,13 @@ public class PingServiceImpl implements PingService {
             }
         };
     }
-    
+
     protected void logWsdl(String output) {
         try {
             PropertyAccessor propAccessor = PropertyAccessor.getInstance();
             String logOutputValue
                     = propAccessor.getProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME, LOG_WSDL_KEY);
-            
+
             if (logOutputValue.equalsIgnoreCase("true") || logOutputValue.equalsIgnoreCase("t")) {
                 LOG.info(output);
             }

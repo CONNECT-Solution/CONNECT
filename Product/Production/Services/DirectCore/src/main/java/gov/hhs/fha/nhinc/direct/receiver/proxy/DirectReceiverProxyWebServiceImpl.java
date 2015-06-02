@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,15 +42,15 @@ import org.apache.log4j.Logger;
 public class DirectReceiverProxyWebServiceImpl {
 
     private static final Logger LOG = Logger.getLogger(DirectReceiverProxyWebServiceImpl.class);
-    
+
     /**
      * Constructor
      */
     public DirectReceiverProxyWebServiceImpl() {}
 
     /**
-     * 
-     * @param inMessage 
+     *
+     * @param inMessage
      */
     public void receiveInbound(MimeMessage inMessage) {
         LOG.debug("Begin DirectReceiverUnsecuredProxy.receiveInbound()");
@@ -69,7 +69,7 @@ public class DirectReceiverProxyWebServiceImpl {
                 aMap.setValue(header.getValue());
                 message.getHeadersList().add(aMap);
             }
-            InternetAddress senderAddress = (InternetAddress) inMessage.getSender();            
+            InternetAddress senderAddress = (InternetAddress) inMessage.getSender();
             message.setSender(senderAddress.getAddress());
             message.setSubject(inMessage.getSubject());
             port.receiveInbound(message);

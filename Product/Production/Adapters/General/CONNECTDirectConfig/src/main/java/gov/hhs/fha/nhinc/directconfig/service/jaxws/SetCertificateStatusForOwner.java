@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -69,7 +69,7 @@ public class SetCertificateStatusForOwner {
     private EntityStatus status;
 
     /**
-     * 
+     *
      * @return
      *     returns String
      */
@@ -78,7 +78,7 @@ public class SetCertificateStatusForOwner {
     }
 
     /**
-     * 
+     *
      * @param owner
      *     the value for the owner property
      */
@@ -87,7 +87,7 @@ public class SetCertificateStatusForOwner {
     }
 
     /**
-     * 
+     *
      * @return
      *     returns EntityStatus
      */
@@ -96,7 +96,7 @@ public class SetCertificateStatusForOwner {
     }
 
     /**
-     * 
+     *
      * @param status
      *     the value for the status property
      */

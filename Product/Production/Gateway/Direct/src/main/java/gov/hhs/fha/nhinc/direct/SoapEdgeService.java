@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,7 +44,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  * The Class XDR.
- * 
+ *
  * @author mweaver
  */
 @BindingType(SOAPBinding.SOAP12HTTP_BINDING)
@@ -71,7 +71,7 @@ public class SoapEdgeService implements ihe.iti.xds_b._2007.DocumentRepositoryPo
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * org.nhind.xdr.DocumentRepositoryAbstract#documentRepositoryProvideAndRegisterDocumentSetB(ihe.iti.xds_b._2007
      * .ProvideAndRegisterDocumentSetRequestType)
@@ -98,7 +98,7 @@ public class SoapEdgeService implements ihe.iti.xds_b._2007.DocumentRepositoryPo
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @seeorg.nhind.xdr.DocumentRepositoryAbstract#documentRepositoryRetrieveDocumentSet(ihe.iti.xds_b._2007.
      * RetrieveDocumentSetRequestType)
      */

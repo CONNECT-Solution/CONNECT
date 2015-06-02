@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -81,7 +81,7 @@ public class Certificate {
      * Gets the configured JCE crypto provider string for crypto operations. This is configured using the
      * -Dorg.nhindirect.config.JCEProviderName JVM parameters. If the parameter is not set or is empty, then the default
      * string "BC" (BouncyCastle provider) is returned. By default the agent installs the BouncyCastle provider.
-     * 
+     *
      * @return The name of the JCE provider string.
      */
     public static String getJCEProviderName() {
@@ -97,7 +97,7 @@ public class Certificate {
     /**
      * Overrides the configured JCE crypto provider string. If the name is empty or null, the default string "BC"
      * (BouncyCastle provider) is used.
-     * 
+     *
      * @param name The name of the JCE provider.
      */
     public static void setJCEProviderName(String name) {
@@ -130,7 +130,7 @@ public class Certificate {
 
     /**
      * Get the value of owner.
-     * 
+     *
      * @return the value of owner.
      */
     public String getOwner() {
@@ -139,7 +139,7 @@ public class Certificate {
 
     /**
      * Set the value of owner.
-     * 
+     *
      * @param owner The value of owner.
      */
     public void setOwner(String owner) {
@@ -148,7 +148,7 @@ public class Certificate {
 
     /**
      * Get the value of data.
-     * 
+     *
      * @return the value of data.
      */
     public byte[] getData() {
@@ -157,7 +157,7 @@ public class Certificate {
 
     /**
      * Set the value of data.
-     * 
+     *
      * @param data The value of data.
      * @throws CertificateException
      */
@@ -173,7 +173,7 @@ public class Certificate {
 
     /**
      * Indicates if the certificate has a private key
-     * 
+     *
      * @return
      */
     public boolean isPrivateKey() {
@@ -182,9 +182,9 @@ public class Certificate {
 
     /**
      * Indicates if the certificate has a private key
-     * 
+     *
      * @param data
-     * 
+     *
      * @throws CertificateException
      */
     public void setPrivateKey(boolean b) throws CertificateException {
@@ -197,7 +197,7 @@ public class Certificate {
 
     /**
      * Get the value of thumbprint.
-     * 
+     *
      * @return the value of thumbprint.
      */
     public String getThumbprint() {
@@ -206,7 +206,7 @@ public class Certificate {
 
     /**
      * Get the value of id.
-     * 
+     *
      * @return the value of id.
      */
     public Long getId() {
@@ -215,7 +215,7 @@ public class Certificate {
 
     /**
      * Set the value of id.
-     * 
+     *
      * @param id The value of id.
      */
     public void setId(Long id) {
@@ -224,7 +224,7 @@ public class Certificate {
 
     /**
      * Get the value of createTime.
-     * 
+     *
      * @return the value of createTime.
      */
     public Calendar getCreateTime() {
@@ -233,7 +233,7 @@ public class Certificate {
 
     /**
      * Set the value of createTime.
-     * 
+     *
      * @param timestamp The value of createTime.
      */
     public void setCreateTime(Calendar timestamp) {
@@ -242,7 +242,7 @@ public class Certificate {
 
     /**
      * Get the value of status.
-     * 
+     *
      * @return the value of status.
      */
     public EntityStatus getStatus() {
@@ -251,7 +251,7 @@ public class Certificate {
 
     /**
      * Set the value of status.
-     * 
+     *
      * @param status The value of status.
      */
     public void setStatus(EntityStatus status) {
@@ -260,7 +260,7 @@ public class Certificate {
 
     /**
      * Get the value of validStartDate.
-     * 
+     *
      * @return the value of validStartDate.
      */
     public Calendar getValidStartDate() {
@@ -269,7 +269,7 @@ public class Certificate {
 
     /**
      * Set the value of validStartDate.
-     * 
+     *
      * @param validStartDate The value of validStartDate.
      */
     public void setValidStartDate(Calendar validStartDate) {
@@ -278,7 +278,7 @@ public class Certificate {
 
     /**
      * Get the value of validEndDate.
-     * 
+     *
      * @return the value of validEndDate.
      */
     public Calendar getValidEndDate() {
@@ -287,7 +287,7 @@ public class Certificate {
 
     /**
      * Set the value of validEndDate.
-     * 
+     *
      * @param validEndDate The value of validEndDate.
      */
     public void setValidEndDate(Calendar validEndDate) {
@@ -296,7 +296,7 @@ public class Certificate {
 
     /**
      * Validate the Certificate for the existance of data.
-     * 
+     *
      * @throws CertificateException
      */
     public void validate() throws CertificateException {

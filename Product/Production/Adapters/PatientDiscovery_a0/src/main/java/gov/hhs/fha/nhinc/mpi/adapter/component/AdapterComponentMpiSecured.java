@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,7 +38,7 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- * 
+ *
  * @author Sai Valluripalli
  */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)

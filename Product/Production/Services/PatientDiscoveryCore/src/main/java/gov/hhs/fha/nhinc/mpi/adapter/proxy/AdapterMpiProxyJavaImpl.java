@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,7 +39,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 /**
  * This class is used as a java implementation for calling the Adapter MPI. Obviously in order to use the java
  * implementation the caller and the MPI must be on the same system.
- * 
+ *
  * @author Les Westberg
  */
 public class AdapterMpiProxyJavaImpl implements AdapterMpiProxy {
@@ -47,7 +47,7 @@ public class AdapterMpiProxyJavaImpl implements AdapterMpiProxy {
 
     /**
      * Find the matching candidates from the MPI.
-     * 
+     *
      * @param findCandidatesRequest
      *            The information to use for matching.
      * @param assertion

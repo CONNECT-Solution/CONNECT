@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,7 +40,7 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 /**
- * 
+ *
  * @author dunnek
  */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
@@ -53,7 +53,7 @@ public class NhinXDR implements ihe.iti.xdr._2007.DocumentRepositoryXDRPortType 
 
     /**
      * The web service implementation for Document Submission.
-     * 
+     *
      * @param body The message of the request
      * @return a registry response
      */
@@ -69,7 +69,7 @@ public class NhinXDR implements ihe.iti.xdr._2007.DocumentRepositoryXDRPortType 
 
     /**
      * The web service implementation for Document Submission.
-     * 
+     *
      * @param body the message of the request
      * @return a retrieved document
      */

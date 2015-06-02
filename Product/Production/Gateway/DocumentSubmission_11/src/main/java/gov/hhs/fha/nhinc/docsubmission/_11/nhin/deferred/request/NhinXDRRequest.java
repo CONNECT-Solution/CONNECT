@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,13 +48,13 @@ public class NhinXDRRequest implements ihe.iti.xdr._2007.XDRDeferredRequestPortT
 
     /**
      * The web service implementation for Document Submission request.
-     * 
+     *
      * @param body The message of the request
      * @return an acknowledgment
      */
     @Override
-    @InboundMessageEvent(serviceType = "Document Submission Deferred Request", version = "1.1", 
-            beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class, 
+    @InboundMessageEvent(serviceType = "Document Submission Deferred Request", version = "1.1",
+            beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionArgTransformerBuilder.class)
     public XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredRequest(
             ProvideAndRegisterDocumentSetRequestType body) {

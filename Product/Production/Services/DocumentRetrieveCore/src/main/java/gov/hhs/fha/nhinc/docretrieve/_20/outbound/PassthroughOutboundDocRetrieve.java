@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,7 +42,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
  *
  */
 public class PassthroughOutboundDocRetrieve extends gov.hhs.fha.nhinc.docretrieve.outbound.PassthroughOutboundDocRetrieve {
-        
+
     /**
      * Constructor.
      */
@@ -52,26 +52,26 @@ public class PassthroughOutboundDocRetrieve extends gov.hhs.fha.nhinc.docretriev
 
     /**
      * Constructor with dependency injection parameters.
-     * 
+     *
      * @param orchestrator
      * @param log
      */
     public PassthroughOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator) {
         super(orchestrator);
     }
-    
+
     /**
      * Processes the document retrieve message. On success, will return a response from the NwHIN. This method is
      * specific to the DR 2.0 specification as it will remove fields that are not compliant.
-     * 
+     *
      * @param body
      * @param assertion
      * @param targets
      * @return response message to be sent back to the requester
      */
     @Override
-    @OutboundProcessingEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class, 
-            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
+    @OutboundProcessingEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
+            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class,
             serviceType = "Retrieve Document", version = "2.0")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
             AssertionType assertion, NhinTargetCommunitiesType targets, ADAPTER_API_LEVEL entityAPILevel) {

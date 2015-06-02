@@ -1,7 +1,5 @@
-/**
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+/*
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,7 +54,7 @@ import org.junit.Test;
 
 /**
  * @author achidamb
- * 
+ *
  */
 public class NhinDocRetrieveProxyWebServiceSecuredImplTest {
 
@@ -136,7 +134,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImplTest {
 
             /*
              * (non-Javadoc)
-             * 
+             *
              * @see
              * gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyWebServiceSecuredImpl#getCONNECTClientSecured(
              * gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor,
@@ -152,7 +150,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImplTest {
 
             /*
              * (non-Javadoc)
-             * 
+             *
              * @see gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxyWebServiceSecuredImpl#getCMInstance()
              */
             @Override

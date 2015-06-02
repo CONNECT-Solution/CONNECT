@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -55,7 +55,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.TrustBundle;
  * @author Greg Meyer
  * @since 1.3
  */
-public interface BundleRefreshProcessor 
+public interface BundleRefreshProcessor
 {
 	/**
 	 * Refreshes the set of anchors within a bundle.  The bundle is downloaded from the bundle's URL, validated for authenticity if the bundle is signed
@@ -63,5 +63,5 @@ public interface BundleRefreshProcessor
 	 * using the bundle checksum), then the anchors in the bundle may not be updated.
 	 * @param bundle The bundle that will be updated.
 	 */
-	public void refreshBundle(TrustBundle bundle);	
+	public void refreshBundle(TrustBundle bundle);
 }

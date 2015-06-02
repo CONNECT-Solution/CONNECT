@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,7 @@ import gov.hhs.fha.nhinc.mail.MessageHandler;
  * Direct Mail Poller handles any exceptions incurred by {@link AbstractMailPoller#poll()}.
  */
 public class DirectMailPoller extends AbstractMailPoller {
-    
+
     /**
      * @param mailReceiver which retrieves messages from the server we want to poll.
      * @param messageHandler message handler invoked on each message returned.

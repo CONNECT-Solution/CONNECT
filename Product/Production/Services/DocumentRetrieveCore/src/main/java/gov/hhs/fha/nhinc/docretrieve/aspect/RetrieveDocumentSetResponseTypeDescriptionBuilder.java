@@ -1,7 +1,5 @@
-/**
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+/*
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,7 +60,7 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends Assertion
 
     @Override
     public void buildRespondingHCIDs() {
-        if (response.isPresent() && response.get() != null 
+        if (response.isPresent() && response.get() != null
                 && response.get().getDocumentResponse() != null) {
             setRespondingHCIDs(new ArrayList<String>(extractHcids(response.get().getDocumentResponse())));
         }else {
@@ -90,7 +88,7 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends Assertion
             setErrorCodes(listWithDups);
         }
     }
-    
+
     private Set<String> extractHcids(List<DocumentResponse> docResponses){
         Set<String> hcids = new HashSet<String>();
         for(DocumentResponse docResponse : docResponses){

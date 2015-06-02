@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,7 +41,7 @@ import com.google.common.base.Optional;
 
 /**
  * Doc Query implementation of OutboundOrchestratableMessage.
- * 
+ *
  * @author paul.eftis
  */
 public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMessage {
@@ -74,7 +74,7 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
 
     /**
      * Constructor.
-     * 
+     *
      * @param d
      *            Delegate.
      * @param at
@@ -162,7 +162,7 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
 
     /**
      * This is not used.
-     * 
+     *
      * @return Null.
      */
     public NhinAggregator getAggregator() {

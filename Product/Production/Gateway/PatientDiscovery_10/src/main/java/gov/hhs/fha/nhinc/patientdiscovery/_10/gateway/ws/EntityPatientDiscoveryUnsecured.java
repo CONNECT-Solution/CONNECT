@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,11 +48,11 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 @Addressing(enabled = true)
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class EntityPatientDiscoveryUnsecured extends BaseService implements EntityPatientDiscoveryPortType {
-    
+
     private OutboundPatientDiscovery outboundPatientDiscovery;
-    
+
     private WebServiceContext context;
-    
+
     public EntityPatientDiscoveryUnsecured() {
         super();
     }
@@ -62,17 +62,17 @@ public class EntityPatientDiscoveryUnsecured extends BaseService implements Enti
             version = "1.0")
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
             RespondingGatewayPRPAIN201305UV02RequestType request) {
-        
+
         AssertionType assertion = getAssertion(context, request.getAssertion());
-        
+
         return new EntityPatientDiscoveryImpl(outboundPatientDiscovery).respondingGatewayPRPAIN201305UV02(request,
                 assertion);
     }
-   
+
     public void setOutboundPatientDiscovery(OutboundPatientDiscovery outboundPatientDiscovery) {
         this.outboundPatientDiscovery = outboundPatientDiscovery;
     }
-    
+
     @Resource
     public void setContext(WebServiceContext context) {
         this.context = context;

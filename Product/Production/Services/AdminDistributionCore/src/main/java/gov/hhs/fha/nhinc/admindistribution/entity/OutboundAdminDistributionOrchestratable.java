@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,7 +56,7 @@ public class OutboundAdminDistributionOrchestratable implements OutboundOrchestr
 
     /**
      * Constructor.
-     * @param delegate OutboundDelegate delegate received. 
+     * @param delegate OutboundDelegate delegate received.
      * @param request SendAlertMessage received.
      * @param targetSystem NhinTargetSystem targetSystem received.
      * @param assertion Assertion received.
@@ -70,7 +70,7 @@ public class OutboundAdminDistributionOrchestratable implements OutboundOrchestr
     }
 
     /**
-     * @return request SendAlertMessage request. 
+     * @return request SendAlertMessage request.
      */
     public RespondingGatewaySendAlertMessageType getRequest() {
         return request;
@@ -136,7 +136,7 @@ public class OutboundAdminDistributionOrchestratable implements OutboundOrchestr
     public boolean isPassthru() {
         return isPassthru;
     }
-    
+
     public void setPassthru(boolean isPassthru) {
         this.isPassthru = isPassthru;
     }

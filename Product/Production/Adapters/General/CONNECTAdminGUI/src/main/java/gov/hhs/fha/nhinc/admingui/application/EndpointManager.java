@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.admingui.application;
 
 import java.util.Collection;
@@ -35,13 +34,13 @@ import java.util.Date;
  * @author jassmit
  */
 public interface EndpointManager {
-    
+
     public void addOrUpdateEndpoint(String url, Date timestamp, boolean pingResult);
-    
+
     public EndpointManagerCache.EndpointCacheInfo getEndpointInfo(String url);
-    
+
     public void loadCache(Collection<EndpointManagerCache.EndpointCacheInfo> endpoints);
-    
+
     public Collection getAllCache();
-    
+
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,7 +56,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author akong
- * 
+ *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/patientdiscovery/_10/applicationContext.xml" })
@@ -73,16 +73,16 @@ public class PatientDiscoverySpringContextTest {
 
     @Autowired
     EntityPatientDiscoverySecured outboundPatientDiscoverySecuredEndpoint;
-    
+
     @Autowired
     StandardOutboundPatientDiscovery standardOutboundOrchImpl;
-    
+
     @Autowired
     StandardInboundPatientDiscovery standardInboundOrchImpl;
-    
+
     @Autowired
     PassthroughInboundPatientDiscovery passthroughInboundOrchImpl;
-    
+
     @Autowired
     PassthroughOutboundPatientDiscovery passthroughOutboundOrchImpl;
 
@@ -138,7 +138,7 @@ public class PatientDiscoverySpringContextTest {
         RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
         RespondingGatewayPRPAIN201306UV02ResponseType response = outboundPatientDiscoverySecuredEndpoint
                 .respondingGatewayPRPAIN201305UV02(request);
-        
+
         assertNotNull(response);
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -72,7 +72,7 @@ public class CertificateGetOptions {
 
     /**
      * Return the value of includeData.
-     * 
+     *
      * @return the value of includeData.
      */
     public boolean isIncludeData() {
@@ -81,7 +81,7 @@ public class CertificateGetOptions {
 
     /**
      * Set the value of includeData.
-     * 
+     *
      * @param includeData
      *            The value of includeData.
      */
@@ -91,7 +91,7 @@ public class CertificateGetOptions {
 
     /**
      * Get the value of includePrvateKey.
-     * 
+     *
      * @return the value of includePrivateKey.
      */
     public boolean isIncludePrivateKey() {
@@ -100,7 +100,7 @@ public class CertificateGetOptions {
 
     /**
      * Set the value of includePrivateKey.
-     * 
+     *
      * @param includePrivateKey
      *            The value of includePrivateKey.
      */
@@ -110,7 +110,7 @@ public class CertificateGetOptions {
 
     /**
      * Get the value of status.
-     * 
+     *
      * @return the value of status.
      */
     public EntityStatus getStatus() {
@@ -119,7 +119,7 @@ public class CertificateGetOptions {
 
     /**
      * Set the value of status.
-     * 
+     *
      * @param status
      *            The value of status.
      */

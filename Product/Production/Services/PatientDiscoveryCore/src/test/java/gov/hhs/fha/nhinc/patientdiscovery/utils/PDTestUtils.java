@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+/*
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -95,11 +95,11 @@ public class PDTestUtils {
         request.setNhinTargetCommunities(createValidNhinTargetCommunitiesType());
         return request;
     }
-    
-    
-   
 
-  
+
+
+
+
 
     /**
      * @return
@@ -318,9 +318,9 @@ public class PDTestUtils {
     }
 
 
-    
-    
-    
+
+
+
     /**
      * @return
      */

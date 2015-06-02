@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * 
+ *
  * @author Les Westberg
  */
 @RunWith(JMock.class)
@@ -124,7 +124,7 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImplTest {
 
             /*
              * (non-Javadoc)
-             * 
+             *
              * @see gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxyWebServiceSecuredImpl#
              * getCONNECTSecuredClient(gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType,
              * gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor, java.lang.String,

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-13, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,14 +31,14 @@ import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
 
 /**
  * No operation implementation of the TransactionStore interface.
- * 
+ *
  * @author msw
  */
 public class TransactionStoreNoop implements TransactionStore {
 
     /**
      * No operation implementation returns true to act as if it has persisted a mapping.
-     * 
+     *
      * @see gov.hhs.fha.nhinc.logging.transaction.TransactionStore#insertIntoTransactionRepo(gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo)
      */
     @Override
@@ -48,7 +48,7 @@ public class TransactionStoreNoop implements TransactionStore {
 
     /**
      * No operation implementation returns null.
-     * 
+     *
      * @see gov.hhs.fha.nhinc.logging.transaction.TransactionStore#getTransactionId(java.lang.String)
      */
     @Override

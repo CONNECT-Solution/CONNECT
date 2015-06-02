@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009 - 2013, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -237,23 +237,23 @@ public class MimeMessageBuilderTest extends DirectBaseTest {
         MimeMessageBuilder result = instance.attachmentName(str);
         assertTrue(result instanceof MimeMessageBuilder);
     }
-    
+
     @Test
     public void testBuild_Happy() throws IOException, MessagingException
     {
             Address mockFromAddress = mock(Address.class);
-            Document mockDoc = mock(Document.class);            
-            Address mockAddress1 = mock(Address.class);            
+            Document mockDoc = mock(Document.class);
+            Address mockAddress1 = mock(Address.class);
             Set<Address> toAddresses = new HashSet<Address>();
-            toAddresses.add(mockAddress1);            
-            Address[] mockReciepients = toAddresses.toArray(new Address[0]);            
+            toAddresses.add(mockAddress1);
+            Address[] mockReciepients = toAddresses.toArray(new Address[0]);
             MimeMessageBuilder instance = new MimeMessageBuilder(session, mockFromAddress, mockReciepients);
-            instance.attachmentName("test"); 
+            instance.attachmentName("test");
             instance.attachment(mockDoc);
             instance.text("Some text...");
             final String someText = "This is a test steam...";
             InputStream obj = new ByteArrayInputStream(someText.getBytes());
-            DataHandler mockDataHandler = mock(DataHandler.class);            
+            DataHandler mockDataHandler = mock(DataHandler.class);
             when(mockDoc.getValue()).thenReturn(mockDataHandler);
             when(mockDataHandler.getInputStream()).thenReturn(obj);
             MimeMessage result = instance.build();

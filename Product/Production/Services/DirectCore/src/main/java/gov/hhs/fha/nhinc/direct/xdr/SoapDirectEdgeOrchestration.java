@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -65,9 +65,9 @@ public class SoapDirectEdgeOrchestration {
         this.adapterFactory = new DirectAdapterFactory();
         this.docTransformer = new DefaultXdsDirectDocumentsTransformer();
     }
-    
+
     public SoapDirectEdgeOrchestration(SoapEdgeAuditorFactory auditorFactory,
-            ToAddressParserFactory toParserFactory, 
+            ToAddressParserFactory toParserFactory,
             FromAddressParserFactory fromParserFactory,
             DirectAdapterFactory adapterFactory,
             XdsDirectDocumentsTransformer docTransformer){
@@ -77,10 +77,10 @@ public class SoapDirectEdgeOrchestration {
         this.adapterFactory = adapterFactory;
         this.docTransformer = docTransformer;
     }
-    
+
     /**
      * Handle an incoming ProvideAndRegisterDocumentSetRequestType object and transform to XDM.
-     * 
+     *
      * @param prdst
      *            The incoming ProvideAndRegisterDocumentSetRequestType object
      * @param context
@@ -115,7 +115,7 @@ public class SoapDirectEdgeOrchestration {
         DirectDocuments documents = docTransformer.transform(prdst);
 
         ToAddressParser toParser = toParserFactory.getToParser();
-        
+
         Set<Address> addressTo = toParser.parse(context.getDirectTo(), documents);
         if (CollectionUtils.isEmpty(addressTo)) {
             throw new TransformationException("No 'To' addresses in soap context.", null);

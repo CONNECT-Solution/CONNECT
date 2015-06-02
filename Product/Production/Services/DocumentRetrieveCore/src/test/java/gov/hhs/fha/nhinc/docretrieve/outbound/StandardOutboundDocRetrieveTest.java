@@ -1,7 +1,5 @@
-/**
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+/*
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,7 +52,7 @@ import org.junit.Test;
  *
  */
 public class StandardOutboundDocRetrieveTest extends AbstractOutboundDocRetrieveTest {
-    
+
     @Test
     public void hasOutboundProcessingEvent() throws Exception {
         Class<StandardOutboundDocRetrieve> clazz = StandardOutboundDocRetrieve.class;
@@ -67,7 +65,7 @@ public class StandardOutboundDocRetrieveTest extends AbstractOutboundDocRetrieve
         assertEquals("Retrieve Document", annotation.serviceType());
         assertEquals("", annotation.version());
     }
-    
+
     @Test
     public void invoke() {
         RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
@@ -75,22 +73,22 @@ public class StandardOutboundDocRetrieveTest extends AbstractOutboundDocRetrieve
         NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
         targets.setUseSpecVersion("2.0");
         RetrieveDocumentSetResponseType expectedResponse = new RetrieveDocumentSetResponseType();
-        
+
         CONNECTOutboundOrchestrator orchestrator = mock(CONNECTOutboundOrchestrator.class);
         OutboundDocRetrieveOrchestratable orchResponse = mock(OutboundDocRetrieveOrchestratable.class);
 
         when(orchestrator.process(any(OutboundDocRetrieveOrchestratable.class))).thenReturn(orchResponse);
-        
+
         when(orchResponse.getResponse()).thenReturn(expectedResponse);
 
         StandardOutboundDocRetrieve outboundDocRetrieve = new StandardOutboundDocRetrieve(orchestrator);
-        
+
         RetrieveDocumentSetResponseType actualResponse = outboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(
                 request, assertion, targets, ADAPTER_API_LEVEL.LEVEL_a0);
-        
-        assertSame(expectedResponse, actualResponse);      
+
+        assertSame(expectedResponse, actualResponse);
     }
-    
+
     /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.docretrieve.outbound.AbstractOutboundDocRetrieveTest#getOutboundDocRetrieve(gov.hhs.fha.nhinc.orchestration.CONNECTOutboundOrchestrator)
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,7 +40,7 @@ import javax.activation.DataHandler;
 
 /**
  * @author akong
- * 
+ *
  */
 public class DocRetrieveFileUtils {
     private LargeFileUtils fileUtils = null;
@@ -60,7 +60,7 @@ public class DocRetrieveFileUtils {
 
     /**
      * Parses the payload as a file URI and converts it into data handlers pointing to the actual documents.
-     * 
+     *
      * @param msg
      * @throws IOException
      * @throws URISyntaxException
@@ -84,7 +84,7 @@ public class DocRetrieveFileUtils {
 
     /**
      * Saves the actual documents in the response into the file system if enabled.
-     * 
+     *
      * @param response
      * @throws IOException
      */
@@ -94,7 +94,7 @@ public class DocRetrieveFileUtils {
             if (docResponseList == null) {
                 return;
             }
-         
+
             for (DocumentResponse docResponse : docResponseList) {
                 if (docResponse != null && docResponse.getDocument() != null) {
                     saveDocumentAndSetPayloadToFileURI(docResponse);

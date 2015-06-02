@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,7 +40,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  * @author akong
- * 
+ *
  */
 public class StandardInboundPatientDiscovery extends AbstractInboundPatientDiscovery {
 
@@ -57,7 +57,7 @@ public class StandardInboundPatientDiscovery extends AbstractInboundPatientDisco
 
     /**
      * Constructor.
-     * 
+     *
      * @param patientDiscoveryProcessor
      * @param auditLogger
      */
@@ -66,7 +66,7 @@ public class StandardInboundPatientDiscovery extends AbstractInboundPatientDisco
         this.patientDiscoveryProcessor = patientDiscoveryProcessor;
         this.auditLogger = auditLogger;
     }
-    
+
     @Override
     @InboundProcessingEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class, afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, serviceType = "Patient Discovery", version = "1.0")
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion)
@@ -94,7 +94,7 @@ public class StandardInboundPatientDiscovery extends AbstractInboundPatientDisco
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.patientdiscovery.inbound.AbstractInboundPatientDiscovery#getAuditLogger()
      */
     @Override

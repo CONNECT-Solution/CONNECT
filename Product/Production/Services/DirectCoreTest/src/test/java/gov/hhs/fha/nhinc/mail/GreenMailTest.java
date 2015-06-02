@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -66,7 +66,7 @@ public abstract class GreenMailTest {
      * Number of messages to handle in a multi-batch test.
      */
     protected static final int NUMBER_OF_MSGS = 28;
-    
+
     /**
      * Number of messages defined for a single batch.
      */
@@ -76,14 +76,14 @@ public abstract class GreenMailTest {
      * A sample mail message resource.
      */
     protected static final String MESSAGE_FILEPATH = "/gov/hhs/fha/nhinc/mail/message.txt";
-    
+
     /**
      * Timeout value to wait for an incoming SMTP msg.
      */
     protected static final long WAIT_TIME_FOR_SMTP_SENDER = TimeUnit.SECONDS.toMillis(10);
-    
+
     private GreenMail greenMail;
-    private GreenMailUser greenMailUser;    
+    private GreenMailUser greenMailUser;
 
     /**
      * Start greenmail before each test.
@@ -94,7 +94,7 @@ public abstract class GreenMailTest {
         greenMail.start();
         greenMailUser = greenMail.setUser(EMAIL, EMAIL, EMAIL);
     }
-    
+
     /**
      * Tear down greenmail at the end of each test.
      * @throws InterruptedException on an interrupted exception.
@@ -103,9 +103,9 @@ public abstract class GreenMailTest {
     public void tearDownGreenMail() throws InterruptedException {
         if (greenMail != null) {
             greenMail.stop();
-        }    
+        }
     }
-    
+
     /**
      * Wait for the number of messages to be received or timeout. This allows you to send the messages from a separate
      * thread in a test. Otherwise the execution thread might check for the received messages before they actually
@@ -119,7 +119,7 @@ public abstract class GreenMailTest {
             fail("Thread interrupted waiting for incoming email: " + e.getMessage());
         }
     }
-    
+
     /**
      * Get mail server properties for a test.
      * @param deleteUnhandledMsgs determines if unhandled messages should be deleted or not.
@@ -129,7 +129,7 @@ public abstract class GreenMailTest {
         return getTestMailServerProperties(EMAIL, NUMBER_OF_MSGS_IN_BATCH,
                 greenMail.getSmtp().getPort(), greenMail.getImaps().getPort(), "3000", "5000", deleteUnhandledMsgs);
     }
-    
+
     /**
      * @param email address used as credentials
      * @param maxMsgsInBatch number of messages in each batch.
@@ -184,7 +184,7 @@ public abstract class GreenMailTest {
             fail(e.getMessage());
         }
     }
-    
+
     /**
      * Get a mime message from a message file.
      * @param messageFile path
@@ -201,7 +201,7 @@ public abstract class GreenMailTest {
         }
         return mimeMsg;
     }
-    
+
     /**
      * @return count of unread messages on the server.
      * @throws MessagingException
@@ -213,7 +213,7 @@ public abstract class GreenMailTest {
     /**
      * Workaround for defect in greenmail expunging messages.
      * http://sourceforge.net/tracker/?func=detail&aid=2688036&group_id=159695&atid=812857
-     * 
+     *
      * We have to delete these ourselves...
      */
     protected void expungeMissedMessages() {
@@ -227,7 +227,7 @@ public abstract class GreenMailTest {
             fail(e.getMessage());
         }
     }
-        
+
     private boolean folderHasDeletedMsgs(MailFolder folder) throws MessagingException {
         for (Object object : folder.getMessages()) {
             SimpleStoredMessage message = (SimpleStoredMessage) object;
@@ -237,5 +237,5 @@ public abstract class GreenMailTest {
         }
         return false;
     }
-    
+
 }

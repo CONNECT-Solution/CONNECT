@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -53,9 +53,9 @@ import javax.jws.WebService;
  * Main configuration service interface.
  */
 @WebService(name = "ConfigurationService", targetNamespace = "http://nhind.org/config")
-public interface ConfigurationService extends AddressService, 
+public interface ConfigurationService extends AddressService,
                                               DomainService,
-                                              CertificateService,  
+                                              CertificateService,
                                               AnchorService,
                                               SettingService,
                                               TrustBundleService,

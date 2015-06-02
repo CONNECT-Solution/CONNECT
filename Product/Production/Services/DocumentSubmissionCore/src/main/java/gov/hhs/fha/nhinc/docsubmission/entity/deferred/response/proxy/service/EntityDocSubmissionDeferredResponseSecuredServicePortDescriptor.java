@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.proxy.service;
 
 import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
@@ -32,14 +31,14 @@ import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response.EntityXDRSecuredAs
 
 /**
  * @author akong
- * 
+ *
  */
 public class EntityDocSubmissionDeferredResponseSecuredServicePortDescriptor extends
         SOAP12ServicePortDescriptor<EntityXDRSecuredAsyncResponsePortType> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override
@@ -49,7 +48,7 @@ public class EntityDocSubmissionDeferredResponseSecuredServicePortDescriptor ext
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override

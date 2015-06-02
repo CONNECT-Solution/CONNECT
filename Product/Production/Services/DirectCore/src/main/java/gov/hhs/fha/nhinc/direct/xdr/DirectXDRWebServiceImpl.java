@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -43,7 +43,7 @@ public class DirectXDRWebServiceImpl {
     /**
      * Implementation business object of the JAXB web service interface. Manipulates web services headers, and delegates
      * processing to the orchestration object.
-     * 
+     *
      * @param body the body of the XDR message.
      * @param wsContext the ws context for manipulating ws headers.
      * @return the registry response type

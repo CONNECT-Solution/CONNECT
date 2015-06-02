@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -81,7 +81,7 @@ public class Thumbprint {
         if (cert == null) {
             throw new IllegalArgumentException();
         }
-        
+
         try {
             final Thumbprint retVal = new Thumbprint(cert);
             return retVal;
@@ -139,7 +139,7 @@ public class Thumbprint {
         if (!(obj instanceof Thumbprint)) {
             return false;
         }
-        
+
         final Thumbprint compareTo = (Thumbprint)obj;
 
         // deep compare

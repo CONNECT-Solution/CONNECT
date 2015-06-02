@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,47 +54,47 @@ public class AdminDistributionSpringContextTest {
 
 	@Autowired
     StandardOutboundAdminDistribution standardOutboundOrchImpl;
-    
+
     @Autowired
     StandardInboundAdminDistribution standardInboundOrchImpl;
-    
+
     @Autowired
     PassthroughInboundAdminDistribution passthroughInboundOrchImpl;
-    
+
     @Autowired
     PassthroughOutboundAdminDistribution passthroughOutboundOrchImpl;
 
     @Autowired
     NhinAdministrativeDistribution inboundAdminDistEndpoint;
-    
+
     @Autowired
     EntityAdministrativeDistribution outboundAdminDistUnsecuredEndpoint;
-    
+
     @Autowired
     EntityAdministrativeDistributionSecured outboundAdminDistSecuredEndpoint;
-    
+
     @Test
     public void inbound() {
         assertNotNull(inboundAdminDistEndpoint);
-        
+
         EDXLDistribution request = new EDXLDistribution();
         inboundAdminDistEndpoint.sendAlertMessage(request);
     }
-    
+
     @Test
     public void outboundUnsecured() {
         assertNotNull(outboundAdminDistUnsecuredEndpoint);
-        
+
         RespondingGatewaySendAlertMessageType request = new RespondingGatewaySendAlertMessageType();
         outboundAdminDistUnsecuredEndpoint.sendAlertMessage(request);
     }
-    
+
     @Test
     public void outboundSecured() {
         assertNotNull(outboundAdminDistSecuredEndpoint);
-        
+
         RespondingGatewaySendAlertMessageSecuredType request = new RespondingGatewaySendAlertMessageSecuredType();
         outboundAdminDistSecuredEndpoint.sendAlertMessage(request);
     }
-    
+
 }

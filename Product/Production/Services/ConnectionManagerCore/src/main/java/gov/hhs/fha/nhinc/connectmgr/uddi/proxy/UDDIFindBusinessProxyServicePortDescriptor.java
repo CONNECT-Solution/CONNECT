@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+/*
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,13 +32,13 @@ import gov.hhs.fha.nhinc.nhin_uddi_api_v3.UDDIInquiryPortType;
 /**
  * @author zmelnick
  * @param <T>
- * 
+ *
  */
 public class UDDIFindBusinessProxyServicePortDescriptor extends SOAP11ServicePortDescriptor<UDDIInquiryPortType> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override
@@ -48,7 +48,7 @@ public class UDDIFindBusinessProxyServicePortDescriptor extends SOAP11ServicePor
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override

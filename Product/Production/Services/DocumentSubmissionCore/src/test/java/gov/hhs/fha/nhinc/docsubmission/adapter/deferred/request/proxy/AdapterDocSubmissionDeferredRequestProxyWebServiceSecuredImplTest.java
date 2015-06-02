@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,7 +54,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * 
+ *
  * @author patlollav
  */
 public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
@@ -96,7 +96,7 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#supportMtom()
          */
         @Override
@@ -109,7 +109,7 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
          */
         @Override
         public void enableWSA(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId) {
-            
+
         }
     }
 

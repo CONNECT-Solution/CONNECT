@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -60,23 +60,23 @@ import gov.hhs.fha.nhinc.directconfig.entity.Setting;
  * Service class for methods related to a setting object.
  */
 @WebService
-public interface SettingService 
+public interface SettingService
 {
     @WebMethod(operationName = "getAllSettings", action = "urn:GetAllSettings")
     public Collection<Setting> getAllSettings() throws ConfigurationServiceException;
-    
+
     @WebMethod(operationName = "getSettingsByNames", action = "urn:GetSettingsByNames")
-    public Collection<Setting> getSettingsByNames(@WebParam(name = "names") Collection<String> names) throws ConfigurationServiceException;    
-    
+    public Collection<Setting> getSettingsByNames(@WebParam(name = "names") Collection<String> names) throws ConfigurationServiceException;
+
     @WebMethod(operationName = "getSettingByName", action = "urn:GetSettingByName")
     public Setting getSettingByName(@WebParam(name = "name") String name)  throws ConfigurationServiceException;
-    
+
     @WebMethod(operationName = "addSetting", action = "urn:AddSetting")
     public void addSetting(@WebParam(name = "name") String name, @WebParam(name = "value") String value) throws ConfigurationServiceException;
-    
+
     @WebMethod(operationName = "updateSetting", action = "urn:UpdateSetting")
     public void updateSetting(@WebParam(name = "name") String name, @WebParam(name = "value") String value) throws ConfigurationServiceException;
-    
+
     @WebMethod(operationName = "deleteSetting", action = "urn:DeleteSetting")
     public void deleteSetting(@WebParam(name = "names") Collection<String> names) throws ConfigurationServiceException;
 }

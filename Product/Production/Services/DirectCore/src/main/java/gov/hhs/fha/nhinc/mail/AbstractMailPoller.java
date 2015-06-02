@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,7 @@ public abstract class AbstractMailPoller {
 
     private final MailReceiver mailReceiver;
     private final MessageHandler messageHandler;
-    
+
     /**
      * @param mailClient of the server to be polled.
      * @param messageHandler handles messages returned by the poller.
@@ -45,7 +45,7 @@ public abstract class AbstractMailPoller {
         this.mailReceiver = mailReceiver;
         this.messageHandler = messageHandler;
     }
-    
+
     /**
      * Poll the mail server for new messages and handle them.
      */
@@ -58,7 +58,7 @@ public abstract class AbstractMailPoller {
             handleException(e);
         }
     }
-    
+
     /**
      * Handle an exception thrown during message handling.
      * @param e exception to be handled.

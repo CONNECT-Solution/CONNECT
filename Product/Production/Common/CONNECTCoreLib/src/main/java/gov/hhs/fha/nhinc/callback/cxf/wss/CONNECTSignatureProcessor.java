@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -52,7 +52,7 @@ import com.google.common.base.Optional;
 /**
  * This class will process the signature element of the Security header. It inherits from the default SignatureProcessor
  * but will inline all digest and signature values in the Security header if they are attached as a reference.
- * 
+ *
  */
 public class CONNECTSignatureProcessor extends SignatureProcessor {
 
@@ -75,7 +75,7 @@ public class CONNECTSignatureProcessor extends SignatureProcessor {
     /**
      * This method will inline all digest and signature values in the Security header if they are attached as a
      * reference. Be warned that this call will directly modify the passed in signature element.
-     * 
+     *
      * @param soapMsg
      * @param signatureElem
      * @throws WSSecurityException

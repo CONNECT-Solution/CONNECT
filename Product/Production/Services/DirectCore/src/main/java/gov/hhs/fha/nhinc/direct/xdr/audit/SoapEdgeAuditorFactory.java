@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,16 +28,16 @@ package gov.hhs.fha.nhinc.direct.xdr.audit;
 
 /**
  * Factory for creating SoapEdgeAuditors.
- * 
+ *
  * @author mweaver
- * 
+ *
  */
 public class SoapEdgeAuditorFactory {
 
     /**
      * In the future if support for the CONNECT database audit logger is added, this method should determine which
      * Auditor to use and then provide an instance of the chosen SoapEdgeAuditor.
-     * 
+     *
      * @return Returns a DirectRIAuditor.
      */
     public SoapEdgeAuditor getAuditor() {

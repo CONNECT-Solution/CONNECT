@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -74,7 +74,7 @@ public class Address {
 
     /**
      * Construct an Address.
-     * 
+     *
      * @param aDomain The Domain.
      * @param anAddress The address.
      */
@@ -89,7 +89,7 @@ public class Address {
 
     /**
      * Construct an Address.
-     * 
+     *
      * @param aDomain The Domain.
      * @param anAddress The address.
      * @param aName The display name.
@@ -105,7 +105,7 @@ public class Address {
 
     /**
      * Construct an Address.
-     * 
+     *
      * @param anAddress The address.
      */
     public Address(Address anAddress) {
@@ -123,7 +123,7 @@ public class Address {
 
     /**
      * Get the value of emailAddress.
-     * 
+     *
      * @return the value of emailAddress.
      */
     public String getEmailAddress() {
@@ -132,7 +132,7 @@ public class Address {
 
     /**
      * Set the value of emailAddress.
-     * 
+     *
      * @param anEmail The value of emailAddress.
      */
     public void setEmailAddress(String anEmail) {
@@ -141,7 +141,7 @@ public class Address {
 
     /**
      * Get the value of id.
-     * 
+     *
      * @return the value of id.
      */
     @XmlAttribute
@@ -151,7 +151,7 @@ public class Address {
 
     /**
      * Set the value of id.
-     * 
+     *
      * @param id The value of id.
      */
     public void setId(Long id) {
@@ -160,7 +160,7 @@ public class Address {
 
     /**
      * Get the value of domain.
-     * 
+     *
      * @return the value of domain.
      */
     @XmlTransient
@@ -170,7 +170,7 @@ public class Address {
 
     /**
      * Set the value of domain.
-     * 
+     *
      * @param anId The value of domain.
      */
     public void setDomain(Domain anId) {
@@ -180,7 +180,7 @@ public class Address {
 
     /**
      * Get the value of displayName.
-     * 
+     *
      * @return the value of displayName.
      */
     public String getDisplayName() {
@@ -189,7 +189,7 @@ public class Address {
 
     /**
      * Set the value of displayName.
-     * 
+     *
      * @param aName The value of displayName.
      */
     public void setDisplayName(String aName) {
@@ -198,7 +198,7 @@ public class Address {
 
     /**
      * Get the value of endpoint.
-     * 
+     *
      * @return the value of entpoint.
      */
     public String getEndpoint() {
@@ -207,7 +207,7 @@ public class Address {
 
     /**
      * Set the value of endpoint.
-     * 
+     *
      * @param anEndpoint The value of endpoint.
      */
     public void setEndpoint(String anEndpoint) {
@@ -216,7 +216,7 @@ public class Address {
 
     /**
      * Get the value of createTime.
-     * 
+     *
      * @return the value of createTime.
      */
     public Calendar getCreateTime() {
@@ -225,7 +225,7 @@ public class Address {
 
     /**
      * Set the value of createTime.
-     * 
+     *
      * @param timestamp The value of createTime.
      */
     public void setCreateTime(Calendar timestamp) {
@@ -234,7 +234,7 @@ public class Address {
 
     /**
      * Get the value of updateTime.
-     * 
+     *
      * @return the value of updateTime.
      */
     public Calendar getUpdateTime() {
@@ -243,7 +243,7 @@ public class Address {
 
     /**
      * Set the value of updateTime.
-     * 
+     *
      * @param timestamp The value of updateTime.
      */
     public void setUpdateTime(Calendar timestamp) {
@@ -252,7 +252,7 @@ public class Address {
 
     /**
      * Get the value of status.
-     * 
+     *
      * @return the value of status.
      */
     public EntityStatus getStatus() {
@@ -261,7 +261,7 @@ public class Address {
 
     /**
      * Set the value of status.
-     * 
+     *
      * @param aStatus The value of status.
      */
     public void setStatus(EntityStatus aStatus) {
@@ -270,7 +270,7 @@ public class Address {
 
     /**
      * Get the value of type.
-     * 
+     *
      * @return the value of type.
      */
     public String getType() {
@@ -279,7 +279,7 @@ public class Address {
 
     /**
      * Set the value of type.
-     * 
+     *
      * @param aType The value of type.
      */
     public void setType(String aType) {
@@ -288,7 +288,7 @@ public class Address {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
@@ -300,7 +300,7 @@ public class Address {
 
     /**
      * Actions to run after an unmarshal.
-     * 
+     *
      * @param u The Unmarshaller.
      * @param parent The paret.
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,7 +62,7 @@ public class GetSettingByNameResponse {
     private Setting _return;
 
     /**
-     * 
+     *
      * @return
      *     returns Setting
      */
@@ -71,7 +71,7 @@ public class GetSettingByNameResponse {
     }
 
     /**
-     * 
+     *
      * @param _return
      *     the value for the _return property
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -51,7 +51,7 @@ public class DirectAdapterUtils {
 
     private static final Logger LOG = Logger.getLogger(DirectAdapterUtils.class);
     private static final String MDN_CONTENT_TYPE = "DISPOSITION-NOTIFICATION";
-    
+
     /**
      * Extract the NHINDAddressCollection from the mime headers of the message.
      * @param message mime message
@@ -64,17 +64,17 @@ public class DirectAdapterUtils {
         addRecipients(recipients, message, RecipientType.TO, AddressSource.To);
         addRecipients(recipients, message, RecipientType.CC, AddressSource.CC);
         addRecipients(recipients, message, RecipientType.BCC, AddressSource.BCC);
-        
+
         if (recipients.isEmpty()) {
             throw new DirectException("No recipients found in message.");
         }
-        
+
         return recipients;
     }
 
     /**
      * Extract the NHINDAddress sender from the mime headers of the message.
-     * 
+     *
      * @param message mime message
      * @return NHINDAddress for the sender
      * @throws MessagingException if there was an error
@@ -82,7 +82,7 @@ public class DirectAdapterUtils {
     protected static NHINDAddress getNhindSender(Message message) throws MessagingException {
         return new NHINDAddress(new InternetAddress(getSender(message).toString()), AddressSource.From);
     }
-    
+
     /**
      * Extract the Address for the sender from the mime headers of the message. Ensures that one and only one Sender
      * is extracted.
@@ -95,26 +95,26 @@ public class DirectAdapterUtils {
         if (fromAddresses.length != 1) {
             throw new DirectException("Expected one from address, but encountered: " + fromAddresses.length);
         }
-        
+
         return fromAddresses[0];
     }
-    
-    
+
+
     private static void addRecipients(NHINDAddressCollection recipients, Message message, RecipientType type,
             AddressSource source) throws MessagingException {
 
-        Address[] addresses = message.getRecipients(type);                    
+        Address[] addresses = message.getRecipients(type);
         if (addresses == null) {
             return;
         }
-        
+
         for (Address address : addresses) {
             recipients.add(new NHINDAddress(address.toString(), source));
         }
     }
-    
+
     /**
-     * Return MDN Notification Messages present in a DIRECT Process result, and perform logging. 
+     * Return MDN Notification Messages present in a DIRECT Process result, and perform logging.
      * @param result to pull notification messages from.
      * @return collection of Notification Messages.
      */
@@ -124,11 +124,11 @@ public class DirectAdapterUtils {
             LOG.error("Attempted to send MDNs when the process result is null.");
             return null;
         }
-        
+
         if (result.getProcessedMessage() != null) {
-            LOG.info("Processed message is null while sending MDN.");            
+            LOG.info("Processed message is null while sending MDN.");
         }
-        
+
         Collection<NotificationMessage> notifications = result.getNotificationMessages();
         if (CollectionUtils.isEmpty(notifications)) {
             LOG.error("MDN Notification messages are not present while attempting to send MDN.");
@@ -138,12 +138,12 @@ public class DirectAdapterUtils {
         LOG.info("# of notifications message: " + notifications.size());
         return notifications;
     }
-    
+
     /**
      * @param envelope containing the message to be tested.
      * @return true if the envelope exists, the message exists and is an MDN Notification.
      */
-    public static boolean isMdn(MessageEnvelope envelope) { 
+    public static boolean isMdn(MessageEnvelope envelope) {
         try {
             if (envelope == null) {
                 return false;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,16 +54,16 @@ import org.junit.Test;
 
 /**
  * @author jsmith
- * 
+ *
  */
 public class AdapterComponentDocRepositoryHelperTest {
-	
+
 	@Test
     public void testGetDocumentMap() throws IOException {
     	AdapterComponentDocRepositoryHelper docRepoHelper = new AdapterComponentDocRepositoryHelper();
-    	ProvideAndRegisterDocumentSetRequestType body = 
+    	ProvideAndRegisterDocumentSetRequestType body =
     			mock(ProvideAndRegisterDocumentSetRequestType.class);
-    	List<ProvideAndRegisterDocumentSetRequestType.Document> docList= 
+    	List<ProvideAndRegisterDocumentSetRequestType.Document> docList=
     			new ArrayList<ProvideAndRegisterDocumentSetRequestType.Document>();
     	ProvideAndRegisterDocumentSetRequestType.Document doc = new ProvideAndRegisterDocumentSetRequestType.Document();
     	final String ID = "MOCK_ID";
@@ -71,16 +71,16 @@ public class AdapterComponentDocRepositoryHelperTest {
     	DataHandler dataHandler = LargeFileUtils.getInstance().convertToDataHandler(VALUE);
     	doc.setId(ID);
     	doc.setValue(dataHandler);
-    	
+
     	docList.add(doc);
-    	
+
     	when(body.getDocument()).thenReturn(docList);
-    	
+
     	HashMap<String, DataHandler> docMap = docRepoHelper.getDocumentMap(body);
-    	
+
     	assertEquals(docMap.get(ID), dataHandler);
     }
-    
+
 	/**
 	 * Test for extractClassifcationMetadata(List<ClassificationType, String, String, int).
 	 */
@@ -96,15 +96,15 @@ public class AdapterComponentDocRepositoryHelperTest {
 		};
 		List<ClassificationType> classifications = new ArrayList<ClassificationType>();
 		ClassificationType classType = mock(ClassificationType.class);
-		
+
 		classifications.add(classType);
-		
+
 		when(classType.getClassificationScheme()).thenReturn(CLASS_SCHEME_NAME);
-		
+
 		String result = docRepoHelper.extractClassificationMetadata(classifications, CLASS_SCHEME_NAME, "slotName", 0);
-		assertEquals(result, CLASS_VALUE);	
+		assertEquals(result, CLASS_VALUE);
 	}
-	
+
 	@Test
 	public void testExtractPatientInfo(){
 		final String PATIENT_NAME = "John Doe";
@@ -116,18 +116,18 @@ public class AdapterComponentDocRepositoryHelperTest {
 		ValueListType valueListType = mock(ValueListType.class);
 		List<String> valueList = new ArrayList<String>();
 		valueList.add(SLOT_PATIENT_NAME);
-		
+
 		when(slot.getName()).thenReturn(DocRepoConstants.XDS_SOURCE_PATIENT_INFO_SLOT);
 		when(slot.getValueList()).thenReturn(valueListType);
 		when(valueListType.getValue()).thenReturn(valueList);
-		
+
 		AdapterComponentDocRepositoryHelper docRepoHelper = new AdapterComponentDocRepositoryHelper();
-		
+
 		String result = docRepoHelper.extractPatientInfo(documentSlots, PATIENT_NAME);
-		
+
 		assertEquals(result, EXPECTED_RESULT);
 	}
-	
+
 	/**
 	 * Test for extractClassificationMetadata(List<ClassificationType>, String, String).
 	 */
@@ -145,26 +145,26 @@ public class AdapterComponentDocRepositoryHelperTest {
 		List<LocalizedStringType> localizedList = new ArrayList();
 		localizedList.add(localizedString);
 		final String CLASSIFICATION_SCHEME = "classificationScheme";
-		
+
 		when(classificationType.getClassificationScheme()).thenReturn(CLASSIFICATION_SCHEME);
 		when(classificationType.getName()).thenReturn(internationalString);
 		when(internationalString.getLocalizedString()).thenReturn(localizedList);
-		
+
 		result = docRepoHelper.extractClassificationMetadata(classifications, CLASSIFICATION_SCHEME, DocRepoConstants.XDS_NAME);
 		assertEquals(result, VALUE);
-		
+
 		when(classificationType.getNodeRepresentation()).thenReturn(VALUE);
 		result = docRepoHelper.extractClassificationMetadata(classifications, CLASSIFICATION_SCHEME, DocRepoConstants.XDS_NODE_REPRESENTATION);
 		assertEquals(result, VALUE);
-		
+
 		when(classificationType.getClassifiedObject()).thenReturn(VALUE);
 		result = docRepoHelper.extractClassificationMetadata(classifications, CLASSIFICATION_SCHEME, DocRepoConstants.XDS_CLASSIFIED_OBJECT);
 		assertEquals(result, VALUE);
-		
+
 		result = docRepoHelper.extractClassificationMetadata(classifications, CLASSIFICATION_SCHEME, DocRepoConstants.XDS_CLASSIFICATION_ID);
 		assertEquals(result, VALUE);
 	}
-	
+
 	@Test
 	public void testQueryRepositoryByPatientId(){
 		AdapterComponentDocRepositoryHelper docRepoHelper = new AdapterComponentDocRepositoryHelper();
@@ -178,14 +178,14 @@ public class AdapterComponentDocRepositoryHelperTest {
 		List<Document> documents = new ArrayList<Document>();
 		Document doc = mock(Document.class);
 		documents.add(doc);
-		
+
 		when(docService.documentQuery(any(DocumentQueryParams.class))).thenReturn(documents);
 		when(doc.getDocumentUniqueId()).thenReturn(DOC_UNIQUE_ID);
 		when(doc.getDocumentid()).thenReturn(DOC_ID);
-		
+
 		long result = docRepoHelper.queryRepositoryByPatientId(SPATID, SDOCID, SCLASSCODE, ESTATUS, docService);
-		
+
 		assertEquals(result, DOC_ID);
 	}
-	
+
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -59,15 +59,15 @@ public class EntityDocRetrieveSecured extends BaseService implements EntityDocRe
     @OutboundMessageEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class, afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, serviceType = "Retrieve Document", version = "2.0")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body) {
         AssertionType assertion = getAssertion(context, null);
-        
+
         if (assertion != null) {
             assertion.setImplementsSpecVersion(NhincConstants.UDDI_SPEC_VERSION.SPEC_2_0.toString());
         }
-        
+
         return outboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(body, assertion, createNhinTargetCommunities(body),
                 ADAPTER_API_LEVEL.LEVEL_a0);
     }
-    
+
     private NhinTargetCommunitiesType createNhinTargetCommunities(RetrieveDocumentSetRequestType body) {
         NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
         NhinTargetCommunityType target = new NhinTargetCommunityType();

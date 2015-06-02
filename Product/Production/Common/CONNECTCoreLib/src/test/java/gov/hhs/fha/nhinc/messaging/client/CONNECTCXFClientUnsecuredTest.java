@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,7 +45,7 @@ import org.junit.Test;
 
 /**
  * @author akong
- * 
+ *
  */
 public class CONNECTCXFClientUnsecuredTest {
 
@@ -53,9 +53,9 @@ public class CONNECTCXFClientUnsecuredTest {
     private final MTOMServiceEndpointDecoratorTest mtomTest = new MTOMServiceEndpointDecoratorTest();
     private final SoapResponseServiceEndpointDecoratorTest responseTest = new SoapResponseServiceEndpointDecoratorTest();
     private final URLServiceEndpointDecoratorTest urlTest = new URLServiceEndpointDecoratorTest();
-    
+
     private static final int TIMEOUT = 100;
-    
+
     @Before
     public void setUpTest(){
         try {
@@ -64,7 +64,7 @@ public class CONNECTCXFClientUnsecuredTest {
             System.out.println("Unable to set in memory property for timeout decorator.");
         }
     }
-    
+
     /**
      * This test ensures that the interceptor count is the same no matter how many times the decorator is called on the
      * constructor.
@@ -74,7 +74,7 @@ public class CONNECTCXFClientUnsecuredTest {
         String url = "url";
         AssertionType assertion = new AssertionType();
         assertion.setTransactionTimeout(-1);
-        
+
         CONNECTClient<TestServicePortType> client = createClient(url, assertion);
 
         Client cxfClient = ClientProxy.getClient(client.getPort());
@@ -97,13 +97,13 @@ public class CONNECTCXFClientUnsecuredTest {
         assertion.setTransactionTimeout(-1);
 
         CONNECTClient<TestServicePortType> client = createClient(url, assertion);
-        
+
         // default configuration
         timeoutTest.verifyTimeoutIsSet(client, TIMEOUT);
         responseTest.verifySoapResponseInInterceptor(client);
         urlTest.verifyURLConfiguration(client, url);
     }
-    
+
     @Test
     public void testEnableMtom() {
         String url = "url";
@@ -112,12 +112,12 @@ public class CONNECTCXFClientUnsecuredTest {
 
         CONNECTClient<TestServicePortType> client = createClient(url, assertion);
         client.enableMtom();
-        
+
         // default configuration
         timeoutTest.verifyTimeoutIsSet(client, TIMEOUT);
         responseTest.verifySoapResponseInInterceptor(client);
         urlTest.verifyURLConfiguration(client, url);
-        
+
         // test mtom
         mtomTest.verifyMTOMEnabled(client);
     }

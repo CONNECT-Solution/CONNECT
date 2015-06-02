@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,7 +47,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author akong
- * 
+ *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/docsubmission/_20/applicationContext.xml" })
@@ -61,28 +61,28 @@ public class DocSubmissionDeferredResponseSpringContextTest {
 
     @Autowired
     EntityDocSubmissionDeferredResponseSecured_g1 outboundDocSubmissionResponseSecuredEndpoint;
-    
+
     @Autowired
     StandardOutboundDocSubmissionDeferredResponse stdOutboundDocSubmissionDeferredResponse;
-    
+
     @Autowired
     PassthroughOutboundDocSubmissionDeferredResponse ptOutboundDocSubmissionDeferredResponse;
-    
+
     @Autowired
     StandardInboundDocSubmissionDeferredResponse stdInboundDocSubmissionDeferredResponse;
-    
+
     @Autowired
     PassthroughInboundDocSubmissionDeferredResponse ptInbounDocSubmissionDeferredResponse;
-    
+
 
     @Test
     public void inbound() {
         assertNotNull(inboundDocSubmissionResponseEndpoint);
-        
+
         javax.xml.ws.Holder<RegistryResponseType> body = new javax.xml.ws.Holder<RegistryResponseType>(new RegistryResponseType());
         inboundDocSubmissionResponseEndpoint.provideAndRegisterDocumentSetBDeferredResponse(body);
         RegistryResponseType response = body.value;
-                
+
         assertNotNull(response);
     }
 

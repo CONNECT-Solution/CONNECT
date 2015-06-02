@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -46,12 +46,12 @@ public abstract class AbstractInboundAdminDistribution implements InboundAdminDi
 	protected AdminDistributionAuditLogger auditLogger = new AdminDistributionAuditLogger();
 	protected AdminDistributionUtils adminUtils = AdminDistributionUtils.getInstance();
     protected AdapterAdminDistributionProxyObjectFactory adapterFactory = new AdapterAdminDistributionProxyObjectFactory();
-	
+
 	abstract void processAdminDistribution(EDXLDistribution body, AssertionType assertion);
-    
+
     /**
      * This method sends sendAlertMessage to agency/agencies.
-     * 
+     *
      * @param body
      *            - Emergency Message Distribution Element transaction message body.
      * @param assertion
@@ -68,7 +68,7 @@ public abstract class AbstractInboundAdminDistribution implements InboundAdminDi
         auditLogger.auditNhinAdminDist(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
                 null, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
     }
-    
+
     protected void sendToAdapter(EDXLDistribution body, AssertionType assertion,
     		AdminDistributionUtils adminUtils, AdapterAdminDistributionProxyObjectFactory adapterFactory) {
     	try {

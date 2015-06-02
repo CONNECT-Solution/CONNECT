@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,7 +42,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 
 /**
- * 
+ *
  * @author JHOPPESC
  */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
@@ -53,8 +53,8 @@ public class NhinXDRRequest20 implements XDRDeferredRequest20PortType {
 
     private InboundDocSubmissionDeferredRequest inboundDocSubmissionRequest;
 
-    @InboundMessageEvent(serviceType = "Document Submission Deferred Request", version = "2.0", 
-            beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class, 
+    @InboundMessageEvent(serviceType = "Document Submission Deferred Request", version = "2.0",
+            beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class)
     public RegistryResponseType provideAndRegisterDocumentSetBDeferredRequest(
             ProvideAndRegisterDocumentSetRequestType body) {

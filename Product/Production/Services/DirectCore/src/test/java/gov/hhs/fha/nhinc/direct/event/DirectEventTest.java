@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,12 +48,12 @@ public class DirectEventTest extends DirectBaseTest {
 
     private static final String MSG_ID = "123456789";
     private static final String ERROR_MSG = "Something wicked this way comes.";
-    
+
     /**
      * Mocked mime message.
      */
     protected MimeMessage mockMimeMessage = mock(MimeMessage.class);
-    
+
     /**
      * @throws MessagingException on failure.
      */
@@ -62,9 +62,9 @@ public class DirectEventTest extends DirectBaseTest {
         when(mockMimeMessage.getMessageID()).thenReturn(MSG_ID);
         when(mockMimeMessage.getSender()).thenReturn(new InternetAddress(DirectUnitTestUtil.SENDER_AT_INITIATING_GW));
         when(mockMimeMessage.getAllRecipients()).thenReturn(
-                new Address[] {new InternetAddress(DirectUnitTestUtil.RECIP_AT_RESPONDING_GW) });               
+                new Address[] {new InternetAddress(DirectUnitTestUtil.RECIP_AT_RESPONDING_GW) });
     }
-    
+
     /**
      * Test that we can create a direct event.
      */
@@ -72,17 +72,17 @@ public class DirectEventTest extends DirectBaseTest {
     public void canCreateDirectEvent() {
         DirectEvent testDirectEvent = new DirectEvent.Builder().mimeMessage(mockMimeMessage).build(
                 DirectEventType.BEGIN_OUTBOUND_DIRECT);
-        verifyEventFields(testDirectEvent, "success", null); 
+        verifyEventFields(testDirectEvent, "success", null);
     }
-    
+
     /**
      * Test that we can create a direct failure event.
      */
     @Test
     public void canCreateFailedDirectEvent() {
         DirectEvent testDirectEvent = new DirectEvent.Builder().mimeMessage(mockMimeMessage).errorMsg(ERROR_MSG)
-                .build(DirectEventType.BEGIN_OUTBOUND_DIRECT);        
-        verifyEventFields(testDirectEvent, "error", ERROR_MSG); 
+                .build(DirectEventType.BEGIN_OUTBOUND_DIRECT);
+        verifyEventFields(testDirectEvent, "error", ERROR_MSG);
     }
 
     private void verifyEventFields(DirectEvent event, String status, String errorMsg) {
@@ -99,9 +99,9 @@ public class DirectEventTest extends DirectBaseTest {
             assertJsonStrContains(event.getDescription(), "\"error_msg\":\"" + errorMsg);
         }
     }
-    
+
     private void assertJsonStrContains(String jsonStr, String str) {
         assertTrue("JSON [" + jsonStr + "] contains: " + str, jsonStr.contains(str));
     }
-    
+
 }

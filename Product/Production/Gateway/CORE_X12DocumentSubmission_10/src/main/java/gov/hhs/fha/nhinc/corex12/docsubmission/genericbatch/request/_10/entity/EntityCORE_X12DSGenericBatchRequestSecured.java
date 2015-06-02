@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -59,7 +59,7 @@ public class EntityCORE_X12DSGenericBatchRequestSecured implements gov.hhs.fha.n
     }
 
     /**
-     * 
+     *
      * @param body
      * @return RespondingGatewayCrossGatewayBatchSubmissionResponseMessageType
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,16 +41,16 @@ public abstract class AbstractInboundDocSubmissionDeferredRequest implements Inb
 
     abstract XDRAcknowledgementType processDocSubmissionRequest(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion);
-    
+
     private XDRAuditLogger auditLogger;
     private AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory;
-    
+
     public AbstractInboundDocSubmissionDeferredRequest(
             AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory, XDRAuditLogger auditLogger) {
         this.adapterFactory = adapterFactory;
         this.auditLogger = auditLogger;
     }
-    
+
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion) {
 
@@ -62,12 +62,12 @@ public abstract class AbstractInboundDocSubmissionDeferredRequest implements Inb
 
         return response;
     }
-    
+
     protected XDRAcknowledgementType sendToAdapter(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
         AdapterDocSubmissionDeferredRequestProxy proxy = adapterFactory.getAdapterDocSubmissionDeferredRequestProxy();
         return proxy.provideAndRegisterDocumentSetBRequest(body, assertion);
     }
-    
+
     protected void auditRequestToAdapter(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
         auditLogger.auditAdapterXDR(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@ import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 
 /**
  * @author akong
- * 
+ *
  */
 public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGeneratorUtils {
     private static MessageGeneratorUtils INSTANCE = new MessageGeneratorUtils();
@@ -46,7 +46,7 @@ public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGenerat
 
     /**
      * Returns the singleton instance of this class.
-     * 
+     *
      * @return the singleton instance
      */
     public static MessageGeneratorUtils getInstance() {
@@ -55,7 +55,7 @@ public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGenerat
 
     /**
      * Converts the secured format message to the unsecured one.
-     * 
+     *
      * @param message
      * @param assertion
      * @param target
@@ -68,11 +68,11 @@ public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGenerat
         request.setAssertion(assertion);
         request.setEDXLDistribution(message.getEDXLDistribution());
         request.setNhinTargetCommunities(message.getNhinTargetCommunities());
-        
+
         return request;
     }
-    
-    public NhinTargetSystemType buildTargetSystem(UrlInfo urlInfo) {       
+
+    public NhinTargetSystemType buildTargetSystem(UrlInfo urlInfo) {
         NhinTargetSystemType result = new NhinTargetSystemType();
         HomeCommunityType hc = new HomeCommunityType();
 

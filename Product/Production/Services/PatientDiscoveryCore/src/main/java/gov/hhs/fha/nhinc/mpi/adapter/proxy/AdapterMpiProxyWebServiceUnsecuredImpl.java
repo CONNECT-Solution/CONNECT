@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,7 +54,7 @@ public class AdapterMpiProxyWebServiceUnsecuredImpl implements AdapterMpiProxy {
 
     /**
      * Method to get an Unsecured CONNECT Client.
-     * 
+     *
      * @param portDescriptor
      *            the portDescriptor
      * @param url
@@ -71,7 +71,7 @@ public class AdapterMpiProxyWebServiceUnsecuredImpl implements AdapterMpiProxy {
 
     /**
      * Find the matching candidates from the MPI.
-     * 
+     *
      * @param request
      *            The information to use for matching.
      * @param assertion

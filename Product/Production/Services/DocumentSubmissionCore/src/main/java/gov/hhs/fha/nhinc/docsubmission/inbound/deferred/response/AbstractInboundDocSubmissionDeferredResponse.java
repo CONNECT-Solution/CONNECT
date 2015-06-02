@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -49,7 +49,7 @@ public abstract class AbstractInboundDocSubmissionDeferredResponse implements In
         this.adapterFactory = adapterFactory;
         this.auditLogger = auditLogger;
     }
-    
+
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
             AssertionType assertion) {
         auditRequestFromNhin(body, assertion);
@@ -60,7 +60,7 @@ public abstract class AbstractInboundDocSubmissionDeferredResponse implements In
 
         return response;
     }
-    
+
     protected XDRAcknowledgementType sendToAdapter(RegistryResponseType body, AssertionType assertion) {
         AdapterDocSubmissionDeferredResponseProxy proxy = adapterFactory.getAdapterDocSubmissionDeferredResponseProxy();
         return proxy.provideAndRegisterDocumentSetBResponse(body, assertion);

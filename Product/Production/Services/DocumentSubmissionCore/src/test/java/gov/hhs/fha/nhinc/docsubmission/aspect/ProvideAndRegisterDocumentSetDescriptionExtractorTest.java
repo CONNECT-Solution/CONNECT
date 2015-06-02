@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -49,7 +49,7 @@ import com.google.common.base.Optional;
 
 /**
  * @author akong
- * 
+ *
  */
 public class ProvideAndRegisterDocumentSetDescriptionExtractorTest extends DocumentDescriptionBuilderTest {
 
@@ -66,7 +66,7 @@ public class ProvideAndRegisterDocumentSetDescriptionExtractorTest extends Docum
         ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
 
         ProvideAndRegisterDocumentSetDescriptionExtractor extractor = new ProvideAndRegisterDocumentSetDescriptionExtractor();
-        
+
         assertTrue(CollectionUtils.isEmpty(extractor.getPayloadTypes(request)));
         assertTrue(CollectionUtils.isEmpty(extractor.getPayloadSize(request)));
     }
@@ -80,10 +80,10 @@ public class ProvideAndRegisterDocumentSetDescriptionExtractorTest extends Docum
         addPayloadToRequest(submitRequest, Optional.of("payloadType1"), Optional.of(123));
 
         ProvideAndRegisterDocumentSetDescriptionExtractor extractor = new ProvideAndRegisterDocumentSetDescriptionExtractor();
-        
+
         List<String> payloadTypes = extractor.getPayloadTypes(request);
         List<String> payloadSizes = extractor.getPayloadSize(request);
-        
+
         assertEquals(1, payloadTypes.size());
         assertEquals(1, payloadSizes.size());
         assertEquals("payloadType1", payloadTypes.get(0));
@@ -103,7 +103,7 @@ public class ProvideAndRegisterDocumentSetDescriptionExtractorTest extends Docum
         addPayloadToRequest(submitRequest, Optional.of("payloadType5"), Optional.of(5));
 
         ProvideAndRegisterDocumentSetDescriptionExtractor extractor = new ProvideAndRegisterDocumentSetDescriptionExtractor();
-        
+
         List<String> payloadTypes = extractor.getPayloadTypes(request);
         List<String> payloadSizes = extractor.getPayloadSize(request);
 

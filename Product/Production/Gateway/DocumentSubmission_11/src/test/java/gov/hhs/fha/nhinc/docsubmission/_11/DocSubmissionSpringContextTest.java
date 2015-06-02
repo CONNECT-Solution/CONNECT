@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -52,56 +52,56 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/docsubmission/_11/applicationContext.xml" })
 public class DocSubmissionSpringContextTest {
-    
+
     @Autowired
     NhinXDR inboundDocSubmissionEndpoint;
-    
+
     @Autowired
     EntityDocSubmissionUnsecured outboundDocSubmissionUnsecuredEndpoint;
-    
+
     @Autowired
     EntityDocSubmissionSecured outboundDocSubmissionSecuredEndpoint;
-    
+
     @Autowired
     StandardOutboundDocSubmission stdOutboundDocSubmission;
-    
+
     @Autowired
     PassthroughOutboundDocSubmission ptOutboundDocSubmission;
-    
+
     @Autowired
     StandardInboundDocSubmission stdInboundDocSubmission;
-    
+
     @Autowired
     PassthroughInboundDocSubmission ptInbounDocSubmission;
-    
-    
+
+
     @Test
     public void inbound() {
         assertNotNull(inboundDocSubmissionEndpoint);
-        
+
         ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
         RegistryResponseType response = inboundDocSubmissionEndpoint.documentRepositoryProvideAndRegisterDocumentSetB(request);
-        
+
         assertNotNull(response);
     }
-    
+
     @Test
     public void outboundUnsecured() {
         assertNotNull(outboundDocSubmissionUnsecuredEndpoint);
-        
+
         RespondingGatewayProvideAndRegisterDocumentSetRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetRequestType();
         RegistryResponseType response = outboundDocSubmissionUnsecuredEndpoint.provideAndRegisterDocumentSetB(request);
-        
+
         assertNotNull(response);
     }
-    
+
     @Test
     public void outboundSecured() {
         assertNotNull(outboundDocSubmissionSecuredEndpoint);
-        
+
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
         RegistryResponseType response = outboundDocSubmissionSecuredEndpoint.provideAndRegisterDocumentSetB(request);
-        
+
         assertNotNull(response);
     }
 }

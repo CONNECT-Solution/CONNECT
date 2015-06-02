@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,27 +37,27 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
  * @author akong
- * 
+ *
  */
 public abstract class BaseInboundDocRetrieve implements InboundDocRetrieve {
 
     /**
      * Returns the orchestrator.
-     * 
+     *
      * @return orchestrator instance
      */
     abstract CONNECTInboundOrchestrator getOrchestrator();
 
     /**
      * Creates the inbound orchestratable instance to be used by the orchestrator.
-     * 
+     *
      * @param body
      * @param assertion
      */
     abstract public InboundDocRetrieveOrchestratable createInboundOrchestrable(RetrieveDocumentSetRequestType body,
             AssertionType assertion);
 
-    
+
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
             AssertionType assertion) {
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,7 +32,7 @@ import ihe.iti.xdr._2007.XDRDeferredRequestPortType;
 
 /**
  * @author akong
- * 
+ *
  */
 public class NhinDocSubmissionDeferredRequestServicePortDescriptor extends
         SOAP12ServicePortDescriptor<XDRDeferredRequestPortType> {
@@ -41,7 +41,7 @@ public class NhinDocSubmissionDeferredRequestServicePortDescriptor extends
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override
@@ -51,7 +51,7 @@ public class NhinDocSubmissionDeferredRequestServicePortDescriptor extends
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override

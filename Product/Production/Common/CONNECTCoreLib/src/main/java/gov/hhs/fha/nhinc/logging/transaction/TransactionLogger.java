@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-13, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -50,7 +50,7 @@ public class TransactionLogger {
 
     /**
      * Gets the TransactionStore.
-     * 
+     *
      * @return The TransactionStore.
      */
     protected TransactionStore getTransactionStore() {
@@ -60,7 +60,7 @@ public class TransactionLogger {
     /**
      * Logs the given transaction if the transactionId and the message id are not blank. The log consists of creating a
      * DB entry and an entry to the Mapped Diagnostic Context.
-     * 
+     *
      * @param transactionId The transactionId for the message
      * @param messageId The messageId for the message
      */
@@ -72,7 +72,7 @@ public class TransactionLogger {
     /**
      * Logs the given message id to the same transaction as the passed in related message id. If the latter does not
      * have a transaction associated with it, then no transactions logging occurs.
-     * 
+     *
      * @param relatedMessageId The message id related to the message to be logged
      * @param messageId The message id to be logged
      */
@@ -83,7 +83,7 @@ public class TransactionLogger {
 
     /**
      * Enables MDC logging if the transaction ID and the message ID are not blank.
-     * 
+     *
      * @param transactionId The transactionId for the message
      * @param messageId The messageId for the message
      */
@@ -98,7 +98,7 @@ public class TransactionLogger {
 
     /**
      * Creates a new transaction record and inserts it into the table.
-     * 
+     *
      * @param messageId The messageId from the SOAPHeader
      * @param transactionId The transactionId from the SOAPHeader
      */
@@ -122,7 +122,7 @@ public class TransactionLogger {
 
     /**
      * Returns a timestamp, down to the millisecond.
-     * 
+     *
      * @return timestamp The created timestamp
      */
     private Timestamp createTimestamp() {

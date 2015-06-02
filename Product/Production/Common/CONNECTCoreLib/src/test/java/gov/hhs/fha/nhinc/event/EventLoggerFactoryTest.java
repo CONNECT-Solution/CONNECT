@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,32 +40,32 @@ import org.junit.Test;
  * Test {@link EventLoggerFactory}
  */
 public class EventLoggerFactoryTest {
-    
+
     private static final int TOTAL_MOCK_LOGGERS = 5;
-    
+
     private Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-       
+
     /**
      * Test {@link EventLoggerFactory#registerLoggers()}.
      */
     @Test
     public void testRegisterLoggers() {
-        
+
         final EventManager mockEventManager = context.mock(EventManager.class);
         final EventLoggerFactory eventLoggerFactory = new EventLoggerFactory(mockEventManager);
 
         // add some mock loggers to be registered.
         List<EventLogger> loggers = new ArrayList<EventLogger>(TOTAL_MOCK_LOGGERS);
         for (int i = 0; i < TOTAL_MOCK_LOGGERS; i++) {
-            loggers.add(context.mock(EventLogger.class, "EventLogger" + i));            
+            loggers.add(context.mock(EventLogger.class, "EventLogger" + i));
         }
-        
+
         eventLoggerFactory.setLoggers(loggers);
-        
+
         context.checking(new Expectations() {
             {
                 exactly(TOTAL_MOCK_LOGGERS).of(mockEventManager).addObserver(with(any(Observer.class)));
@@ -74,5 +74,5 @@ public class EventLoggerFactoryTest {
 
         eventLoggerFactory.registerLoggers();
     }
-    
+
 }

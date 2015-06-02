@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -172,7 +172,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest {
                     throw new ConnectionManagerException();
                 }
             };
-           
+
             String endpointURL = webProxy.getEndpointURL();
             assertNull("EndpointURL was not null", endpointURL);
         } catch (Throwable t) {
@@ -197,7 +197,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest {
             });
             final WebServiceProxyHelper wsProxyHelper = new WebServiceProxyHelper();
             EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
-                
+
                 @Override
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return wsProxyHelper;
@@ -213,7 +213,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest {
                     return mockCONNECTClient;
                 }
             };
-          
+
             RespondingGatewayPRPAIN201306UV02ResponseType response = webProxy.respondingGatewayPRPAIN201305UV02(
                     mockPdRequest, mockAssertion, mockTargetCommunities);
             assertNotNull("RespondingGatewayPRPAIN201306UV02ResponseType was null", response);

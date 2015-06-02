@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,11 +38,11 @@ public interface MailReceiver {
      * @throws MailClientException if the mail client fails.
      */
     int handleMessages(MessageHandler handler) throws MailClientException;
- 
+
     /**
      * Expose the number of invocations on {@link MailClient#handleMessages(MessageHandler)}.
      * @return number of invocations.
      */
     int getHandlerInvocations();
-    
+
 }

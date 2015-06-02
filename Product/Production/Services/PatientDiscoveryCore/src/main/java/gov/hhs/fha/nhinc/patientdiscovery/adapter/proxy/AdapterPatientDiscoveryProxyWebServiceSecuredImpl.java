@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,7 +47,7 @@ import org.hl7.v3.PRPAIN201305UV02;
 
 /**
  * This class is the Secured Web Service implementation of the AdapterPatientDiscovery component proxy.
- * 
+ *
  * @author Kieran Dunne, Les Westberg
  */
 public class AdapterPatientDiscoveryProxyWebServiceSecuredImpl implements AdapterPatientDiscoveryProxy {
@@ -57,7 +57,7 @@ public class AdapterPatientDiscoveryProxyWebServiceSecuredImpl implements Adapte
 
     /**
      * This calls the secured web service for this method.
-     * 
+     *
      * @param body The message to be sent to the web service.
      * @param assertion The assertion information to go with the message.
      * @return The response from the web service.
@@ -79,13 +79,13 @@ public class AdapterPatientDiscoveryProxyWebServiceSecuredImpl implements Adapte
                 LOG.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
-                    RespondingGatewayPRPAIN201305UV02RequestType request = 
+                    RespondingGatewayPRPAIN201305UV02RequestType request =
                             new RespondingGatewayPRPAIN201305UV02RequestType();
                     request.setAssertion(assertion);
                     request.setPRPAIN201305UV02(body);
                     request.setNhinTargetCommunities(null);
 
-                    ServicePortDescriptor<AdapterPatientDiscoverySecuredPortType> portDescriptor = 
+                    ServicePortDescriptor<AdapterPatientDiscoverySecuredPortType> portDescriptor =
                             new AdapterPatientDiscoverySecuredServicePortDescriptor();
                     CONNECTClient<AdapterPatientDiscoverySecuredPortType> client = CONNECTClientFactory.getInstance()
                             .getCONNECTClientSecured(portDescriptor, url, assertion);

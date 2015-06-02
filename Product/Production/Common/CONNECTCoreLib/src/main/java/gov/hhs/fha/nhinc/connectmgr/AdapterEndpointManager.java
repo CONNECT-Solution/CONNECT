@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -43,7 +43,7 @@ import org.apache.log4j.Logger;
 public class AdapterEndpointManager {
     public static final String ADAPTER_API_LEVEL_KEY = "CONNECT:adapter:apilevel";
     public static final Logger LOG = Logger.getLogger(AdapterEndpointManager.class);
-    
+
     public ADAPTER_API_LEVEL getApiVersion(String serviceName) {
         ADAPTER_API_LEVEL result = null;
         try {

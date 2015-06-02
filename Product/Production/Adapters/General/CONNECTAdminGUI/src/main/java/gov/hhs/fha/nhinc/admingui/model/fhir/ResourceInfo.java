@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.admingui.model.fhir;
 
 /**
@@ -32,7 +31,7 @@ package gov.hhs.fha.nhinc.admingui.model.fhir;
  * @author jassmit
  */
 public class ResourceInfo {
- 
+
     private String serviceName;
     private String displayName;
     private String url;
@@ -55,7 +54,7 @@ public class ResourceInfo {
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
     }
-    
+
     public String getDisplayName() {
         return displayName;
     }
@@ -79,5 +78,5 @@ public class ResourceInfo {
     public void setImage(String image) {
         this.image = image;
     }
-    
+
 }

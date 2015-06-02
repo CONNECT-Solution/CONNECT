@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@ import org.junit.Test;
 
 /**
  * @author akong
- * 
+ *
  */
 public class StandardInboundDocSubmissionTest {
 
@@ -85,11 +85,11 @@ public class StandardInboundDocSubmissionTest {
         when(propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                 NhincConstants.HOME_COMMUNITY_ID_PROPERTY)).thenReturn(localHCID);
 
-        when(policyChecker.checkXDRRequestPolicy(request, assertion, senderHCID, localHCID, 
+        when(policyChecker.checkXDRRequestPolicy(request, assertion, senderHCID, localHCID,
                 NhincConstants.POLICYENGINE_INBOUND_DIRECTION)).thenReturn(true);
 
         final DocSubmissionUtils mockDocSubmissionUtils = mock(DocSubmissionUtils.class);
-        
+
         StandardInboundDocSubmission standardDocSubmission = new StandardInboundDocSubmission(adapterFactory,
                 policyChecker, propertyAccessor, auditLogger){
         	@Override
@@ -124,13 +124,13 @@ public class StandardInboundDocSubmissionTest {
         AssertionType assertion = new AssertionType();
         assertion.setHomeCommunity(new HomeCommunityType());
         assertion.getHomeCommunity().setHomeCommunityId(senderHCID);
-        
+
         AdapterDocSubmissionProxyObjectFactory adapterFactory = mock(AdapterDocSubmissionProxyObjectFactory.class);
         PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
         XDRPolicyChecker policyChecker = mock(XDRPolicyChecker.class);
         XDRAuditLogger auditLogger = mock(XDRAuditLogger.class);
 
-        when(propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, 
+        when(propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                 NhincConstants.HOME_COMMUNITY_ID_PROPERTY)).thenReturn(localHCID);
 
         when(policyChecker.checkXDRRequestPolicy(request, assertion, senderHCID, localHCID,
@@ -153,7 +153,7 @@ public class StandardInboundDocSubmissionTest {
         verify(auditLogger).auditNhinXDRResponse(eq(actualResponse), eq(assertion), isNull(NhinTargetSystemType.class),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(false));
     }
-    
+
     @Test
     public void badIncomingAssertion() {
 
@@ -182,11 +182,11 @@ public class StandardInboundDocSubmissionTest {
         verify(auditLogger).auditNhinXDRResponse(eq(actualResponse), eq(assertion), isNull(NhinTargetSystemType.class),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(false));
     }
-    
+
     @Test
     public void hasInboundProcessingEvent() throws Exception {
         Class<StandardInboundDocSubmission> clazz = StandardInboundDocSubmission.class;
-        Method method = clazz.getMethod("documentRepositoryProvideAndRegisterDocumentSetB", 
+        Method method = clazz.getMethod("documentRepositoryProvideAndRegisterDocumentSetB",
                 ProvideAndRegisterDocumentSetRequestType.class, AssertionType.class);
         InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
         assertNotNull(annotation);

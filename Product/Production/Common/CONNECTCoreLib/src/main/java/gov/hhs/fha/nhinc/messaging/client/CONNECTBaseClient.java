@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,7 +40,7 @@ import org.apache.cxf.phase.PhaseInterceptorChain;
  *
  */
 public abstract class CONNECTBaseClient<T> implements CONNECTClient<T> {
-    
+
     private WebServiceProxyHelper proxyHelper;
 
     protected CONNECTBaseClient() {
@@ -60,7 +60,7 @@ public abstract class CONNECTBaseClient<T> implements CONNECTClient<T> {
 
     /**
      * Configures the given port with properties common to all ports.
-     * 
+     *
      * @param port
      * @param url
      * @return
@@ -69,7 +69,7 @@ public abstract class CONNECTBaseClient<T> implements CONNECTClient<T> {
         ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<T>(port);
         serviceEndpoint = new URLServiceEndpointDecorator<T>(serviceEndpoint, url);
         serviceEndpoint = new TimeoutServiceEndpointDecorator<T>(serviceEndpoint, timeout);
-        
+
         return serviceEndpoint;
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -52,46 +52,46 @@ public class PayloadTypeExtractorTest {
     public void extract() {
         ExtrinsicObjectType extrinsicObject = createExtrinsicObject("formatCode", "codingScheme", "value");
         JAXBElement<ExtrinsicObjectType> jaxbWrapper = wrapExtrinsicObject(extrinsicObject);
-        
+
         PayloadTypeExtractor extractor = new PayloadTypeExtractor();
         Optional<String> payloadType = extractor.apply(jaxbWrapper);
-        
-        assertEquals("value", payloadType.get());        
+
+        assertEquals("value", payloadType.get());
     }
-    
+
     @Test
     public void missingClassfication() {
         ExtrinsicObjectType extrinsicObject = createExtrinsicObject("test", "codingScheme", "value");
         JAXBElement<ExtrinsicObjectType> jaxbWrapper = wrapExtrinsicObject(extrinsicObject);
-        
+
         PayloadTypeExtractor extractor = new PayloadTypeExtractor();
         Optional<String> payloadType = extractor.apply(jaxbWrapper);
-        
+
         assertFalse(payloadType.isPresent());
     }
-    
+
     @Test
     public void missingSlot() {
         ExtrinsicObjectType extrinsicObject = createExtrinsicObject("formatCode", "test", "value");
         JAXBElement<ExtrinsicObjectType> jaxbWrapper = wrapExtrinsicObject(extrinsicObject);
-        
+
         PayloadTypeExtractor extractor = new PayloadTypeExtractor();
         Optional<String> payloadType = extractor.apply(jaxbWrapper);
-        
+
         assertFalse(payloadType.isPresent());
     }
-    
+
     private JAXBElement<ExtrinsicObjectType> wrapExtrinsicObject(ExtrinsicObjectType extrinsicObject) {
         QName qName = mock(QName.class);
         return new JAXBElement<ExtrinsicObjectType>(qName, ExtrinsicObjectType.class, extrinsicObject);
     }
-    
+
     private ExtrinsicObjectType createExtrinsicObject(String nodeRepValue, String slotName, String slotValue) {
         ExtrinsicObjectType extrinsicObject = new ExtrinsicObjectType();
-        
+
         ClassificationType classification = new ClassificationType();
         classification.setNodeRepresentation(nodeRepValue);
-        
+
         SlotType1 slot = new SlotType1();
         slot.setName(slotName);
 

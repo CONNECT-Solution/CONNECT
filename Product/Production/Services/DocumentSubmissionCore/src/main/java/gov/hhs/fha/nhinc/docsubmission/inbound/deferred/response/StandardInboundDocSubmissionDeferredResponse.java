@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,7 +45,7 @@ import org.apache.log4j.Logger;
 
 /**
  * @author akong
- * 
+ *
  */
 public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboundDocSubmissionDeferredResponse {
 
@@ -53,7 +53,7 @@ public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboun
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
     private XDRPolicyChecker policyChecker;
     private PropertyAccessor propertyAccessor;
-    
+
     /**
      * Constructor.
      */
@@ -64,7 +64,7 @@ public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboun
 
     /**
      * Constructor with dependency injection of strategy components.
-     * 
+     *
      * @param adapterFactory
      * @param policyChecker
      * @param propertyAccessor
@@ -75,9 +75,9 @@ public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboun
             PropertyAccessor propertyAccessor, XDRAuditLogger auditLogger) {
         super(adapterFactory, auditLogger);
         this.policyChecker = policyChecker;
-        this.propertyAccessor = propertyAccessor;  
+        this.propertyAccessor = propertyAccessor;
     }
-    
+
     @Override
     @InboundProcessingEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
@@ -98,7 +98,7 @@ public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboun
         XDRAcknowledgementType response;
 
         auditRequestToAdapter(body, assertion);
-        
+
         String localHCID = getLocalHCID();
         if (isPolicyValid(body, assertion, localHCID)) {
             LOG.debug("Policy Check Succeeded");
@@ -107,7 +107,7 @@ public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboun
             LOG.error("Policy Check Failed");
             response = msgUtils.createFailedPolicyCheckXDRAcknowledgementType();
         }
-        
+
         auditResponseFromAdapter(response, assertion);
 
         return response;

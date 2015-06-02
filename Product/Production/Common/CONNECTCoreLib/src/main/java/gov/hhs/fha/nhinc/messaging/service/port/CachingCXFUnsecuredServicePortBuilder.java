@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-13, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,7 +31,7 @@ import java.util.Map;
 
 /**
  * @author akong
- * 
+ *
  */
 public class CachingCXFUnsecuredServicePortBuilder<T> extends CachingCXFServicePortBuilder<T> {
 
@@ -39,7 +39,7 @@ public class CachingCXFUnsecuredServicePortBuilder<T> extends CachingCXFServiceP
 
     /**
      * Constructor.
-     * 
+     *
      * @param portDescriptor
      */
     public CachingCXFUnsecuredServicePortBuilder(ServicePortDescriptor<T> portDescriptor) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,7 +34,7 @@ import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 /**
  * @author akong
- * 
+ *
  */
 public class PassthroughInboundAdminDistribution extends AbstractInboundAdminDistribution {
 
@@ -47,7 +47,7 @@ public class PassthroughInboundAdminDistribution extends AbstractInboundAdminDis
 
     /**
      * Constructor.
-     * 
+     *
      * @param auditLogger
      * @param adminUtils
      * @param adapterFactory
@@ -58,12 +58,12 @@ public class PassthroughInboundAdminDistribution extends AbstractInboundAdminDis
         this.adminUtils = adminUtils;
         this.adapterFactory = adapterFactory;
     }
-    
+
 
     @Override
     void processAdminDistribution(EDXLDistribution body, AssertionType assertion) {
     	sendToAdapter(body, assertion, adminUtils, adapterFactory);
-    	
+
     }
 
 }

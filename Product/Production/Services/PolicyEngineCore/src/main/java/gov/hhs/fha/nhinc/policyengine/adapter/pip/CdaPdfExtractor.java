@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
@@ -71,7 +71,7 @@ import org.hl7.v3.SCExplicit;
 
 /**
  * This class is used to extract information from a CDA document containing a PDF.
- * 
+ *
  * @author Les Westberg
  */
 public class CdaPdfExtractor {
@@ -82,7 +82,7 @@ public class CdaPdfExtractor {
 
     /**
      * Create a CE from the given data.
-     * 
+     *
      * @param sCode The code.
      * @param sDisplayName The display text.
      * @param sCodeSystem The code system.
@@ -123,7 +123,7 @@ public class CdaPdfExtractor {
 
     /**
      * Create a CeType from an HL7 CE data type.
-     * 
+     *
      * @param oHl7Ce The HL7 CE data type.
      * @return The Ce that is returned.
      */
@@ -141,7 +141,7 @@ public class CdaPdfExtractor {
 
     /**
      * Create a CeType from an HL7 CS data type.
-     * 
+     *
      * @param oHl7Ce The HL7 CS data type.
      * @return The Ce that is returned.
      */
@@ -159,7 +159,7 @@ public class CdaPdfExtractor {
 
     /**
      * Create an Address from the given HL7 address.
-     * 
+     *
      * @param oHL7Addr The address in an HL7 format.
      * @return The address that is returned.
      */
@@ -230,7 +230,7 @@ public class CdaPdfExtractor {
 
     /**
      * Create a Person Name from the given HL7 name.
-     * 
+     *
      * @param oHL7Addr The person name in an HL7 format.
      * @return The person name that is returned.
      */
@@ -298,7 +298,7 @@ public class CdaPdfExtractor {
 
     /**
      * Create Addresses from the given HL7 addresses.
-     * 
+     *
      * @param oHL7Addrs The set of addresses to get the data from.
      * @return The internal addresses representation.
      */
@@ -325,7 +325,7 @@ public class CdaPdfExtractor {
 
     /**
      * This method creates a patient info object from the information in the PatientInfo object.
-     * 
+     *
      * @param oHL7PatientRole The HL7 patient role information.
      * @return The Patient Info object to be reutnred.
      * @throws AdapterPIPException This exception is thrown if there is an exception thrown in the conversion.
@@ -386,7 +386,7 @@ public class CdaPdfExtractor {
 
     /**
      * This method looks through the authors looking for the specific author specified by the given template ID.
-     * 
+     *
      * @param oHL7Authors The array of HL7 authors.
      * @param sTemplateId The template ID that we are looking for.
      * @return The Author with that tempate ID.
@@ -414,7 +414,7 @@ public class CdaPdfExtractor {
     /**
      * This message locates the original author information in the array of authors and converts the data to a
      * PolicyOriginalAuthorInfoType object.
-     * 
+     *
      * @param oHL7Authors The set of authors in the CDA document.
      * @return The original author information extracted from the HL7 authors.
      * @throws AdapterPIPException This exception is thrown if there is an error in the conversion.
@@ -553,7 +553,7 @@ public class CdaPdfExtractor {
     /**
      * Several of the HL7 types end up down with a List of serializable objects. In some cases all we want is the string
      * values from it. So this method concatenates the string values from it and returns the concatenated string.
-     * 
+     *
      * @param olHL7Serializable The list of Serializable objects.
      * @return The concatenated set of strings.
      */
@@ -582,7 +582,7 @@ public class CdaPdfExtractor {
     /**
      * This is a helper method that extracts strings from an SC data type. This may contain multiple strings. if it
      * does, they will be concatenated together.
-     * 
+     *
      * @param oHL7Sc The HL7 node to extract the strings from.
      * @return The string that was obtained from the HL7 node.
      */
@@ -600,7 +600,7 @@ public class CdaPdfExtractor {
     /**
      * This is a helper method that extracts strings from an ON data type. This may contain multiple strings. if it
      * does, they will be concatenated together.
-     * 
+     *
      * @param oHL7Sc The HL7 node to extract the strings from.
      * @return The string that was obtained from the HL7 node.
      */
@@ -618,7 +618,7 @@ public class CdaPdfExtractor {
     /**
      * This message locates the scanner author information in the array of authors and converts the data to a
      * PolicyScannerAuthorInfoType object.
-     * 
+     *
      * @param oHL7Authors The set of authors in the CDA document.
      * @return The scanner author information extracted from the HL7 authors.
      * @throws AdapterPIPException This exception is thrown if there is an error in the conversion.
@@ -766,7 +766,7 @@ public class CdaPdfExtractor {
     /**
      * This method extracts the data enterer information from the HL7 message and creates a Data Enterer object with
      * that information.
-     * 
+     *
      * @param oHL7DataEnterer The HL7 version of the data enterer info.
      * @return The AdapterPIP data enterer information.
      */
@@ -839,7 +839,7 @@ public class CdaPdfExtractor {
 
     /**
      * This creates a PolicyCustodianInfo based on the information in the HL7 object of the same type.
-     * 
+     *
      * @param oHL7Custodian The HL7 object for custodian.
      * @return The internal representation of the custodian information.
      */
@@ -901,7 +901,7 @@ public class CdaPdfExtractor {
     /**
      * This method extracts the legal authenticator information from the HL7 node and places it into the internal
      * representation of this information.
-     * 
+     *
      * @param oHL7Authenticator The HL7 authenticator information.
      * @return The AdapterPIP representation of this data.
      */
@@ -990,7 +990,7 @@ public class CdaPdfExtractor {
 
     /**
      * This method extracts the binary document policy criterion from the CDA document and returns it.
-     * 
+     *
      * @param oCda The CDA document
      * @return The binary document policy criteria that contains the data extracted from the CDA document.
      * @throws AdapterPIPException This exception is thrown if there is any error condition.

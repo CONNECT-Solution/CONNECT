@@ -1,5 +1,5 @@
-  /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+/*
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -81,12 +81,12 @@ public class CreateuserBeanTest {
 
             @Override
             public List<UserLogin> getAllUsers() {
-                return new ArrayList<UserLogin>(); 
+                return new ArrayList<UserLogin>();
             }
 
             @Override
             public void deleteUser(UserLogin user) throws UserLoginException {
-                //do nothing 
+                //do nothing
             }
         };
 

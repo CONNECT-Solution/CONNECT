@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -52,8 +52,8 @@ public class EntityDocRetrieve extends BaseService implements EntityDocRetrieveP
 
     private WebServiceContext context;
 
-    @OutboundMessageEvent(beforeBuilder = RetrieveDocumentSetTransformingBuilder.class, 
-            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
+    @OutboundMessageEvent(beforeBuilder = RetrieveDocumentSetTransformingBuilder.class,
+            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class,
             serviceType = "Retrieve Document", version = "2.0")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             RespondingGatewayCrossGatewayRetrieveRequestType request) {

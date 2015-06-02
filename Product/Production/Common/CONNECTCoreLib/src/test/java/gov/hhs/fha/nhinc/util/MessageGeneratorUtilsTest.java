@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,7 +40,7 @@ import org.junit.Test;
 
 /**
  * @author akong
- * 
+ *
  */
 public class MessageGeneratorUtilsTest {
 
@@ -71,47 +71,47 @@ public class MessageGeneratorUtilsTest {
         assertEquals("1.1", msgUtils.convertFirstToNhinTargetSystemType(targets).getHomeCommunity()
                 .getHomeCommunityId());
     }
-    
+
     @Test
     public void cloneAssertion() {
         AssertionType assertion = new AssertionType();
         assertion.setMessageId("11111");
-        
-        AssertionType copyAssertion = msgUtils.clone(assertion);               
+
+        AssertionType copyAssertion = msgUtils.clone(assertion);
         assertion.setMessageId("22222");
-        
-        assertEquals("11111", copyAssertion.getMessageId());       
+
+        assertEquals("11111", copyAssertion.getMessageId());
     }
-    
+
     @Test
     public void cloneAssertionWithNewMsgId() {
         AssertionType assertion = new AssertionType();
         assertion.setMessageId("11111");
-        
-        AssertionType copyAssertion = msgUtils.cloneWithNewMsgId(assertion);               
-                
+
+        AssertionType copyAssertion = msgUtils.cloneWithNewMsgId(assertion);
+
         assertFalse(copyAssertion.getMessageId().equals("11111"));
     }
-    
+
     @Test
     public void cloneAdhocQueryRequest() {
         AdhocQueryRequest request = new AdhocQueryRequest();
         request.setId("11111");
-        
+
         AdhocQueryRequest clonedRequest = msgUtils.clone(request);
         request.setId("22222");
-        
+
         assertEquals("11111", clonedRequest.getId());
     }
-    
+
     @Test
     public void clonePRPAIN201305UV02() {
         PRPAIN201305UV02 request = new PRPAIN201305UV02();
         request.setITSVersion("11111");
-        
+
         PRPAIN201305UV02 clonedRequest = msgUtils.clone(request);
         request.setITSVersion("22222");
-        
+
         assertEquals("11111", clonedRequest.getITSVersion());
     }
 }

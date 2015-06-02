@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,7 +62,7 @@ public class GetTrustBundles {
     private boolean fetchAnchors;
 
     /**
-     * 
+     *
      * @return
      *     returns boolean
      */
@@ -71,7 +71,7 @@ public class GetTrustBundles {
     }
 
     /**
-     * 
+     *
      * @param fetchAnchors
      *     the value for the fetchAnchors property
      */

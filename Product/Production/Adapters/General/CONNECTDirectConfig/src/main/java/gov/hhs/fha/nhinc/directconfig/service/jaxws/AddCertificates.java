@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -64,7 +64,7 @@ public class AddCertificates {
     private Collection<Certificate> certs;
 
     /**
-     * 
+     *
      * @return
      *     returns Collection<Certificate>
      */
@@ -73,7 +73,7 @@ public class AddCertificates {
     }
 
     /**
-     * 
+     *
      * @param certs
      *     the value for the certs property
      */

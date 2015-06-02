@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -46,7 +46,7 @@ import org.junit.Test;
 
 /**
  * @author akong
- * 
+ *
  */
 public class PassthroughInboundAdminDistributionTest {
 
@@ -54,27 +54,27 @@ public class PassthroughInboundAdminDistributionTest {
     public void passthroughAdminDistribution() {
         EDXLDistribution request = new EDXLDistribution();
         AssertionType assertion = new AssertionType();
-        
+
         AdminDistributionUtils adminUtils = mock(AdminDistributionUtils.class);
         AdapterAdminDistributionProxyObjectFactory adapterFactory = mock(AdapterAdminDistributionProxyObjectFactory.class);
         AdapterAdminDistributionProxy adapterProxy = mock(AdapterAdminDistributionProxy.class);
         AdminDistributionAuditLogger auditLogger = mock(AdminDistributionAuditLogger.class);
-        
+
         when(adapterFactory.getAdapterAdminDistProxy()).thenReturn(adapterProxy);
 
-        PassthroughInboundAdminDistribution passthroughAdminDist = new PassthroughInboundAdminDistribution(auditLogger, 
+        PassthroughInboundAdminDistribution passthroughAdminDist = new PassthroughInboundAdminDistribution(auditLogger,
         		adminUtils, adapterFactory);
 
         passthroughAdminDist.sendAlertMessage(request, assertion);
 
         verify(adapterProxy).sendAlertMessage(eq(request), eq(assertion));
-        
+
         verify(auditLogger, times(1)).auditNhinAdminDist(any(EDXLDistribution.class),
-        		any(AssertionType.class), any(String.class), any(NhinTargetSystemType.class), 
+        		any(AssertionType.class), any(String.class), any(NhinTargetSystemType.class),
         		any(String.class));
-        
+
     }
-    
+
     @Test
     public void convertDataToFileError() throws LargePayloadException {
         EDXLDistribution request = new EDXLDistribution();
@@ -84,13 +84,13 @@ public class PassthroughInboundAdminDistributionTest {
         AdminDistributionUtils adminUtils = mock(AdminDistributionUtils.class);
         AdapterAdminDistributionProxyObjectFactory adapterFactory = mock(AdapterAdminDistributionProxyObjectFactory.class);
         AdminDistributionAuditLogger auditLogger = new AdminDistributionAuditLogger();
-        
+
         doThrow(exception).when(adminUtils).convertDataToFileLocationIfEnabled(request);
-        
+
         PassthroughInboundAdminDistribution passthroughAdminDist = new PassthroughInboundAdminDistribution(auditLogger,
         		adminUtils, adapterFactory);
 
         passthroughAdminDist.sendAlertMessage(request, assertion);
-        
+
     }
 }
