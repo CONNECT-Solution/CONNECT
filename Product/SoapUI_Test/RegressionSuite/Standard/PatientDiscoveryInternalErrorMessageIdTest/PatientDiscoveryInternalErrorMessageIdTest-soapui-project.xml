@@ -1,42 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="PatientDiscoveryInternalErrorMessagIdTest" resourceRoot="${projectDir}" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
-	<con:settings/>
-	<con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/EntityPatientDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-		<con:endpoints>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint>
-		</con:endpoints>
-		<con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:entitypatientdiscovery:RespondingGateway_PRPA_IN201305UV02RequestMessage" name="RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" type="Request-Response" outputName="RespondingGateway_PRPA_IN201306UV02Response" inputName="RespondingGateway_PRPA_IN201305UV02Request" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
-			<con:settings/>
-		</con:operation>
-	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq}EntityPatientDiscoveryAsyncReqBindingSoap" definition="../../../target/wsdl/EntityPatientDiscoveryAsyncReq.wsdl" name="EntityPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-
-		<con:endpoints>
-			<con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
-			<con:endpoint>http://localhost/NhinConnect/EntityPatientDiscoveryAsyncReq</con:endpoint>
-		</con:endpoints>
-		<con:operation action="urn:ProcessPatientDiscoveryAsyncReq" anonymous="optional" bindingOperationName="ProcessPatientDiscoveryAsyncReq" inputName="ProcessPatientDiscoveryAsyncReqAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncReq" outputName="ProcessPatientDiscoveryAsyncReqAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" definition="../../../target/wsdl/EntityPatientDiscoveryAsyncResp.wsdl" name="EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-
-		<con:endpoints>
-		<con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint></con:endpoints>
-		<con:operation action="" bindingOperationName="ProcessPatientDiscoveryAsyncResp" inputName="ProcessPatientDiscoveryAsyncRespAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncResp" outputName="ProcessPatientDiscoveryAsyncRespAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response" anonymous="optional">
-			<con:settings/>
-		</con:operation>
-	</con:interface><con:testSuite name="PDInternalError TestSuite">
-		<con:settings/>
-		<con:runType>SEQUENTIAL</con:runType>
-		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="727e811e-5a06-4df4-b920-6b392800f288">
-			<con:settings/>
-			
-			<con:testStep type="groovy" name="Update uddiConnectionInfo">
-				<con:settings/>
-				<con:config><script>import nhinc.FileUtils;
+<con:soapui-project name="PatientDiscoveryInternalErrorMessagIdTest" resourceRoot="${projectDir}" soapui-version="5.1.2" abortOnError="false" runType="SEQUENTIAL" activeEnvironment="Default" id="73fc55a4-2e43-4035-a12a-2bb5eb14b1d4" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings/>
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/EntityPatientDiscovery.wsdl" id="521041da-0670-42f6-9087-7ed790c34df9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:endpoints>
+      <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint>
+    </con:endpoints>
+    <con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:entitypatientdiscovery:RespondingGateway_PRPA_IN201305UV02RequestMessage" name="RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" type="Request-Response" outputName="RespondingGateway_PRPA_IN201306UV02Response" inputName="RespondingGateway_PRPA_IN201305UV02Request" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="d068bde2-7622-4209-834e-a4319a8ab46f">
+      <con:settings/>
+    </con:operation>
+  </con:interface>
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq}EntityPatientDiscoveryAsyncReqBindingSoap" definition="../../../target/wsdl/EntityPatientDiscoveryAsyncReq.wsdl" name="EntityPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="f25393da-2d57-43d6-8e4c-e813f14c51dd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:endpoints>
+      <con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
+      <con:endpoint>http://localhost/NhinConnect/EntityPatientDiscoveryAsyncReq</con:endpoint>
+    </con:endpoints>
+    <con:operation action="urn:ProcessPatientDiscoveryAsyncReq" anonymous="optional" bindingOperationName="ProcessPatientDiscoveryAsyncReq" inputName="ProcessPatientDiscoveryAsyncReqAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncReq" outputName="ProcessPatientDiscoveryAsyncReqAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response" id="71419373-631e-45ff-9539-1494be1bee48">
+      <con:settings/>
+    </con:operation>
+  </con:interface>
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" definition="../../../target/wsdl/EntityPatientDiscoveryAsyncResp.wsdl" name="EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="1bfad435-1b98-489e-ad3f-1de8ca7d967c" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:endpoints>
+      <con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
+    </con:endpoints>
+    <con:operation action="" bindingOperationName="ProcessPatientDiscoveryAsyncResp" inputName="ProcessPatientDiscoveryAsyncRespAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncResp" outputName="ProcessPatientDiscoveryAsyncRespAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response" anonymous="optional" id="ef67e1b4-f4c8-4889-954b-3141e5d2315f">
+      <con:settings/>
+    </con:operation>
+  </con:interface>
+  <con:testSuite name="PDInternalError TestSuite" id="10cf4434-855e-4912-bd08-c0066b2f009f">
+    <con:settings/>
+    <con:runType>SEQUENTIAL</con:runType>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="727e811e-5a06-4df4-b920-6b392800f288">
+      <con:settings/>
+      <con:testStep type="groovy" name="Update uddiConnectionInfo" id="dc6540fc-ec4d-4064-aaa4-0f9c2cb87293">
+        <con:settings/>
+        <con:config>
+          <script>import nhinc.FileUtils;
 
 def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def HCID2 = context.findProperty( "RemoteAA" );
@@ -47,21 +48,21 @@ def uddiFileName = "uddiConnectionInfo.xml";
 def serviceName = "PatientDiscovery";
 def serviceVersion = "1.0";
 
-FileUtils.createOrUpdateConnection(uddiFileName, destConfigFileLocation, HCID2, serviceName, patientDiscoveryURL, serviceVersion, log)</script></con:config>
-			</con:testStep>
-			
-		<con:testStep name="Patient Discovery" type="request">
-			<con:settings/>
-			<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-				<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
-				<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
-				<con:request name="Patient Discovery">
-					<con:settings>
-						<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-			</con:settings>
-			<con:encoding>UTF-8</con:encoding>
-			<con:endpoint>${#Project#Endpoint-PatientDiscovery}</con:endpoint>
-			<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+FileUtils.createOrUpdateConnection(uddiFileName, destConfigFileLocation, HCID2, serviceName, patientDiscoveryURL, serviceVersion, log)</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Patient Discovery" type="request" id="577f872a-fd34-40db-9ad1-282dd53c498a">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
+          <con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
+          <con:request name="Patient Discovery" id="9449aafa-32af-4ca6-a6bb-e38bff98c189">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#Endpoint-PatientDiscovery}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Patient Discovery">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
@@ -303,66 +304,98 @@ FileUtils.createOrUpdateConnection(uddiFileName, destConfigFileLocation, HCID2, 
       </urn:RespondingGateway_PRPA_IN201305UV02Request>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-			<con:assertion type="SOAP Response"/>
-			<con:assertion type="Schema Compliance" disabled="true">
-				<con:configuration/>
-			</con:assertion>
-			<con:assertion type="SOAP Fault Assertion"/>
-			
-
-
-			<con:assertion type="XPath Match" name="Check for Correct Receiver">
-				<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:PRPA_IN201306UV02/ns3:receiver/ns3:device/ns3:id/@root</path><content>${#Project#LocalAA}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
-			</con:assertion>
-			<con:assertion type="XPath Match" name="Check for Correct Sender">
-				<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:PRPA_IN201306UV02/ns3:sender/ns3:device/ns3:id/@root</path><content>${#Project#LocalAA}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
-			</con:assertion>
-			<con:assertion name="Check for existance of [ns3:controlActProcess]" type="XPath Match">
-				<con:configuration>
-					<path>declare namespace ns3='urn:hl7-org:v3';
+            <con:assertion type="SOAP Response" id="94bfebca-14c6-446a-aac7-edd74b8fead1"/>
+            <con:assertion type="Schema Compliance" disabled="true" id="be6fefab-34a3-4391-9980-a0f22f628a6f">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion" id="6916d95d-ac54-4bb8-9591-33a03eb8aa9e"/>
+            <con:assertion type="XPath Match" name="Check for Correct Receiver" id="1fd2eeec-31aa-4434-968e-264bbbcfa9b9">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201306UV02/ns3:receiver/ns3:device/ns3:id/@root</path>
+                <content>${#Project#LocalAA}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Check for Correct Sender" id="62e3ed12-7ff0-4fe3-a430-14f271b48ca6">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201306UV02/ns3:sender/ns3:device/ns3:id/@root</path>
+                <content>${#Project#LocalAA}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Check for existance of [ns3:controlActProcess]" type="XPath Match" id="89288e87-a029-4da1-ad42-dfa9edd11b35">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
 				exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
-					<content>true</content>
-					<allowWildcards>false</allowWildcards>
-					<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-				</con:configuration>
-			</con:assertion><con:assertion name="Check for Existence of detectedIssueEvent" type="XPath Match">
-				<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
-exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess/ns3:reasonOf/ns3:detectedIssueEvent)</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
-			</con:assertion>
-			<con:assertion type="XPath Match" name="Check for Correct Error"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:PRPA_IN201306UV02/ns3:controlActProcess/ns3:reasonOf/ns3:detectedIssueEvent/ns3:mitigatedBy/ns3:detectedIssueManagement/ns3:text</path><content>AnswerNotAvailable</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-			<con:jmsPropertyConfig/>
-			<con:wsaConfig mustUnderstand="NONE" version="200508"/>
-			<con:wsrmConfig version="1.2"/>
-		</con:request>
-	</con:config>
-</con:testStep>
-
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"),log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"),log);</con:tearDownScript><con:properties>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2014-04-04T14:29:07Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2014-04-04T14:39:07Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>04/04/2014 14:29:07</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2014-05-04T00:00:00Z</con:value>
-	</con:property>
-</con:properties>
-<con:reportParameters/>
-</con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PD Deferred Request" searchProperties="true" id="baaf870f-ea28-451c-a346-7acf4ced7238"><con:settings/><con:testStep type="groovy" name="Update uddiConnectionInfo">
-				<con:settings/>
-				<con:config><script>import nhinc.FileUtils;
+                <content>true</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Check for Existence of detectedIssueEvent" type="XPath Match" id="c360af09-084a-4bd8-86ae-51c073f90838">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
+exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess/ns3:reasonOf/ns3:detectedIssueEvent)</path>
+                <content>true</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Check for Correct Error" id="888be6e1-56e1-46de-923e-317937a2a898">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201306UV02/ns3:controlActProcess/ns3:reasonOf/ns3:detectedIssueEvent/ns3:mitigatedBy/ns3:detectedIssueManagement/ns3:text</path>
+                <content>AnswerNotAvailable</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"),log);</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"),log);</con:tearDownScript>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2014-04-04T14:29:07Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2014-04-04T14:39:07Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>04/04/2014 14:29:07</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2014-05-04T00:00:00Z</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PD Deferred Request" searchProperties="true" id="baaf870f-ea28-451c-a346-7acf4ced7238">
+      <con:settings/>
+      <con:testStep type="groovy" name="Update uddiConnectionInfo" id="f502d093-2f72-447e-9f52-2b718fe78f01">
+        <con:settings/>
+        <con:config>
+          <script>import nhinc.FileUtils;
 
 def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def HCID2 = context.findProperty("RemoteAA");
@@ -373,17 +406,21 @@ def uddiFileName = "uddiConnectionInfo.xml";
 def serviceName = "PatientDiscoveryDeferredReq";
 def serviceVersion = "1.0";
 
-nhinc.FileUtils.createOrUpdateConnection(uddiFileName, destConfigFileLocation, HCID2, serviceName, patientDiscoveryDefURL, serviceVersion, log)</script></con:config>
-			</con:testStep><con:testStep name="Patient Discovery Deferred Req" type="request">
-		<con:settings/>
-		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-			<con:interface>EntityPatientDiscoveryAsyncReqBindingSoap</con:interface>
-			<con:operation>ProcessPatientDiscoveryAsyncReq</con:operation>
-			<con:request name="Patient Discovery Deferred Req" useWsAddressing="true">
-				<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
-				<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+nhinc.FileUtils.createOrUpdateConnection(uddiFileName, destConfigFileLocation, HCID2, serviceName, patientDiscoveryDefURL, serviceVersion, log)</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Patient Discovery Deferred Req" type="request" id="27db4692-3c57-4574-a209-c1b665ea0fb4">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityPatientDiscoveryAsyncReqBindingSoap</con:interface>
+          <con:operation>ProcessPatientDiscoveryAsyncReq</con:operation>
+          <con:request name="Patient Discovery Deferred Req" useWsAddressing="true" id="eea572c8-ec13-46cb-ab2c-1bc33ac33779">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Patient Discovery Deferred Req">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
@@ -643,39 +680,99 @@ nhinc.FileUtils.createOrUpdateConnection(uddiFileName, destConfigFileLocation, H
       </urn:RespondingGateway_PRPA_IN201305UV02Request>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-				<con:assertion type="SOAP Response"/>
-				<con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion"/>
-				<con:assertion name="Check for Correct Receiver" type="XPath Match">
-					<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:MCCI_IN000002UV01[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path><content>${#Project#LocalAA}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
-				</con:assertion>
-				<con:assertion name="Check for Correct Sender" type="XPath Match">
-					<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:MCCI_IN000002UV01[1]/ns3:sender[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path><content>${#Project#LocalAA}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
-				</con:assertion>
-				
-				<con:assertion name="Verify RelatesTo" type="XPath Match">
-					<con:configuration>
-						<path>declare namespace ns1='http://www.w3.org/2005/08/addressing';
+            <con:assertion type="SOAP Response" id="6d13a6f7-698f-41bb-94e0-ef0fae7c8680"/>
+            <con:assertion type="Schema Compliance" name="Schema Compliance" id="af26ea51-489a-415b-9ef4-c2c8391f3d94">
+              <con:configuration>
+                <definition/>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion" id="379823f2-8f66-465a-a87e-8fe4bd4fabc4"/>
+            <con:assertion name="Check for Correct Receiver" type="XPath Match" id="e1d21f60-82ae-4731-9f38-8b16e96d5c30">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:MCCI_IN000002UV01[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path>
+                <content>${#Project#LocalAA}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Check for Correct Sender" type="XPath Match" id="c8daf4a8-fb71-4150-b8ea-cacd5e61796d">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:MCCI_IN000002UV01[1]/ns3:sender[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path>
+                <content>${#Project#LocalAA}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Verify RelatesTo" type="XPath Match" id="6afbf9ed-7cf7-41cc-9a56-5cec2050be96">
+              <con:configuration>
+                <path>declare namespace ns1='http://www.w3.org/2005/08/addressing';
 							//ns1:RelatesTo[1]/text()</path>
-						<content>uuid:6666666666.66666.666.66</content>
-						<allowWildcards>false</allowWildcards>
-						<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-					</con:configuration>
-				</con:assertion>
-				<con:assertion name="Check for Correct Error" type="XPath Match">
-					<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:MCCI_IN000002UV01[1]/ns3:acknowledgement/ns3:acknowledgementDetail/ns3:code/@displayName</path><content>Internal system error</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
-				</con:assertion><con:assertion type="XPath Match" name="Check for Correct Acknowledgement typeCode"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:MCCI_IN000002UV01[1]/ns3:acknowledgement[1]/ns3:typeCode[1]/@code</path><content>CE</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-				<con:jmsPropertyConfig/>
-				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
-				<con:wsrmConfig version="1.2"/>
-			</con:request>
-		</con:config>
-	</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"),log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"),log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2014-04-04T14:29:11Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2014-04-04T14:39:11Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/04/2014 14:29:11</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2014-05-04T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PD Deferred Response" searchProperties="true" id="2a1cb79a-a1bc-454c-8ebb-bde2d50155e9" disabled="true"><con:settings/><con:testStep type="groovy" name="Update uddiConnectionInfo">
-				<con:settings/>
-				<con:config><script>import nhinc.FileUtils;
+                <content>uuid:6666666666.66666.666.66</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Check for Correct Error" type="XPath Match" id="ef261413-8dc2-4e62-8e52-f236733426b4">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:MCCI_IN000002UV01[1]/ns3:acknowledgement/ns3:acknowledgementDetail/ns3:code/@displayName</path>
+                <content>Internal system error</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Check for Correct Acknowledgement typeCode" id="7fba90c1-b5fc-4cbc-8e55-aea6f3f06760">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:MCCI_IN000002UV01[1]/ns3:acknowledgement[1]/ns3:typeCode[1]/@code</path>
+                <content>CE</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"),log);</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"),log);</con:tearDownScript>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2014-04-04T14:29:11Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2014-04-04T14:39:11Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>04/04/2014 14:29:11</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2014-05-04T00:00:00Z</con:value>
+        </con:property>
+      </con:properties>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PD Deferred Response" searchProperties="true" id="2a1cb79a-a1bc-454c-8ebb-bde2d50155e9" disabled="true">
+      <con:settings/>
+      <con:testStep type="groovy" name="Update uddiConnectionInfo" id="a130666a-49c9-49a1-931f-79e6707c5ea5">
+        <con:settings/>
+        <con:config>
+          <script>import nhinc.FileUtils;
 
 def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def HCID2 = context.findProperty("RemoteAA");
@@ -686,19 +783,21 @@ def uddiFileName = "uddiConnectionInfo.xml";
 def serviceName = "PatientDiscoveryDeferredResp";
 def serviceVersion = "2.0";
 
-nhinc.FileUtils.createOrUpdateConnection(uddiFileName, destConfigFileLocation, HCID2, serviceName, patientDiscoveryDefURL, serviceVersion, log)</script></con:config>
-			</con:testStep><con:testStep name="Patient Discovery Deferred Resp" type="request">
-		<con:settings/>
-		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-			<con:interface>EntityPatientDiscoveryAsyncRespBindingSoap</con:interface>
-			<con:operation>ProcessPatientDiscoveryAsyncResp</con:operation>
-			<con:request name="Patient Discovery Deferred Resp">
-				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-		</con:settings>
-		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
-		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+nhinc.FileUtils.createOrUpdateConnection(uddiFileName, destConfigFileLocation, HCID2, serviceName, patientDiscoveryDefURL, serviceVersion, log)</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Patient Discovery Deferred Resp" type="request" id="b4f2e88f-d04d-4bd4-866f-eb770f75f727">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityPatientDiscoveryAsyncRespBindingSoap</con:interface>
+          <con:operation>ProcessPatientDiscoveryAsyncResp</con:operation>
+          <con:request name="Patient Discovery Deferred Resp" id="49f6ff23-02ce-4548-93b6-36a7198e5f5e">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Patient Discovery Deferred Resp">
       <urn:RespondingGateway_PRPA_IN201306UV02Request>
@@ -999,65 +1098,209 @@ nhinc.FileUtils.createOrUpdateConnection(uddiFileName, destConfigFileLocation, H
       </urn:RespondingGateway_PRPA_IN201306UV02Request>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:assertion type="SOAP Response"/>
-		<con:assertion name="Schema Compliance" type="Schema Compliance">
-			<con:configuration><definition/></con:configuration>
-		</con:assertion><con:assertion type="SOAP Fault Assertion"/>
-		<con:assertion type="XPath Match" name="Check for Correct Receiver"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:MCCI_IN000002UV01[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path><content>${#Project#LocalAA}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="Check for Correct Sender"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:MCCI_IN000002UV01[1]/ns3:sender[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path><content>${#Project#RemoteAA}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="Check for Correct Error"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:MCCI_IN000002UV01[1]/ns3:acknowledgement/ns3:acknowledgementDetail/ns3:code/@displayName</path><content>Internal system error</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion name="Check for Correct Acknowledgement typeCode" type="XPath Match">
-			<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:MCCI_IN000002UV01[1]/ns3:acknowledgement[1]/ns3:typeCode[1]/@code</path><content>CE</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
-		</con:assertion>
-
-		
-		
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-		<con:jmsPropertyConfig/>
-		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
-		<con:wsrmConfig version="1.2"/>
-	</con:request>
-</con:config>
-</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"),log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"),log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2014-04-03T22:53:32Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2014-04-03T23:03:32Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/03/2014 22:53:32</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2014-05-03T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:properties/>
-</con:testSuite>
-<con:properties>
-	
-	
-	
-	
-	
-	<con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property>
-	
-	
-	
-	
-	
-	
-	
-	<con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property>
-	
-	
-	
-	
-	
-	
-	<con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>C:\\glassfish3\\glassfish\\domains\\domain1\\config\\nhin</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>Host2</con:name><con:value>localhost</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property>
-	
-	
-	<con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>urn:oid:1.1</con:value></con:property>
-	
-	<con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property>
-	
-	
-	
-	
-	<con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property>
-	
-	<con:property><con:name>RemoteHCID</con:name><con:value>urn:oid:2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property>
-	<con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property>
-<con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property></con:properties>
-<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
+            <con:assertion type="SOAP Response" id="3ad726ba-6c27-44fd-9262-21ab1184a7e4"/>
+            <con:assertion name="Schema Compliance" type="Schema Compliance" id="3b71a498-5248-4515-9cc6-fc41da2f2826">
+              <con:configuration>
+                <definition/>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion" id="7c1aa536-f85e-4339-8d37-52b474aefe8e"/>
+            <con:assertion type="XPath Match" name="Check for Correct Receiver" id="349387af-3c2d-4b6d-bb31-a74b021b61df">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:MCCI_IN000002UV01[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path>
+                <content>${#Project#LocalAA}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Check for Correct Sender" id="7a923f24-d0a6-4214-88fd-be45d025ac07">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:MCCI_IN000002UV01[1]/ns3:sender[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path>
+                <content>${#Project#RemoteAA}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Check for Correct Error" id="f3b984f1-7c96-414e-849c-bb557f594379">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:MCCI_IN000002UV01[1]/ns3:acknowledgement/ns3:acknowledgementDetail/ns3:code/@displayName</path>
+                <content>Internal system error</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Check for Correct Acknowledgement typeCode" type="XPath Match" id="4fe6245d-9eae-4e6c-ad84-f990a7fdc90d">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:MCCI_IN000002UV01[1]/ns3:acknowledgement[1]/ns3:typeCode[1]/@code</path>
+                <content>CE</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"),log);</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"),log);</con:tearDownScript>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2014-04-03T22:53:32Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2014-04-03T23:03:32Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>04/03/2014 22:53:32</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2014-05-03T00:00:00Z</con:value>
+        </con:property>
+      </con:properties>
+    </con:testCase>
+    <con:properties/>
+  </con:testSuite>
+  <con:properties>
+    <con:property>
+      <con:name>BirthTime</con:name>
+      <con:value>19630804</con:value>
+    </con:property>
+    <con:property>
+      <con:name>City</con:name>
+      <con:value>Melbourne</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Country</con:name>
+      <con:value>US</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DOB</con:name>
+      <con:value>19800516</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-PatientDiscovery</con:name>
+      <con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-PatientDiscoveryAsyncReq</con:name>
+      <con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-PatientDiscoveryAsyncResp</con:name>
+      <con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>ExpirationDate</con:name>
+      <con:value>20100520</con:value>
+    </con:property>
+    <con:property>
+      <con:name>FamilyName</con:name>
+      <con:value>Younger</con:value>
+    </con:property>
+    <con:property>
+      <con:name>GatewayPropDir</con:name>
+      <con:value/>
+    </con:property>
+    <con:property>
+      <con:name>Gender</con:name>
+      <con:value>M</con:value>
+    </con:property>
+    <con:property>
+      <con:name>GivenName</con:name>
+      <con:value>Gallow</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Host2</con:name>
+      <con:value>localhost</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalAA</con:name>
+      <con:value>1.1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalHCDescription</con:name>
+      <con:value>InternalTest1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalHCID</con:name>
+      <con:value>urn:oid:1.1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalPatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PatientCorrelationDB</con:name>
+      <con:value>patientcorrelationdb</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PatientCorrelationTable</con:name>
+      <con:value>correlatedidentifiers</con:value>
+    </con:property>
+    <con:property>
+      <con:name>PurposeOfDisclosure</con:name>
+      <con:value>Mental</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteAA</con:name>
+      <con:value>2.2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteHCDescription</con:name>
+      <con:value>InternalTest2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteHCID</con:name>
+      <con:value>urn:oid:2.2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemotePatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SSN</con:name>
+      <con:value>123456789</con:value>
+    </con:property>
+    <con:property>
+      <con:name>State</con:name>
+      <con:value>FL</con:value>
+    </con:property>
+    <con:property>
+      <con:name>StreetAddress</con:name>
+      <con:value>123 Johnson Rd</con:value>
+    </con:property>
+    <con:property>
+      <con:name>SubjectID</con:name>
+      <con:value>1111</con:value>
+    </con:property>
+    <con:property>
+      <con:name>UniquePatientId</con:name>
+      <con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value>
+    </con:property>
+    <con:property>
+      <con:name>ZipCode</con:name>
+      <con:value>12345</con:value>
+    </con:property>
+  </con:properties>
+  <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 	def propertiesFile = new File(propertiesFilename)
 	if (propertiesFile.exists()) {
 	def props = new Properties()
@@ -1099,7 +1342,8 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty 
 return delegate.getProperty(propertyName) ?:
 delegate.testCase.getPropertyValue(propertyName) ?:
 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
-delegate.testCase.testSuite.project.getPropertyValue(propertyName)
+delegate.testCase.testSuite.project.getPropertyValue(propertyName) ?:
+com.eviware.soapui.SoapUI.globalProperties.getPropertyValue(propertyName)
 }
 
 com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
@@ -1117,5 +1361,7 @@ block(sql)
 sql.close()
 }
 }</con:afterLoadScript>
-<con:wssContainer/>
-<con:sensitiveInformation/></con:soapui-project>
+  <con:wssContainer/>
+  <con:oAuth2ProfileContainer/>
+  <con:sensitiveInformation/>
+</con:soapui-project>

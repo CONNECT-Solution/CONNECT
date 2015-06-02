@@ -37,7 +37,7 @@ import org.apache.log4j.Logger;
  *
  * @author jsmith
  */
-public class DirectDisplayController {
+public class DirectDisplayController implements DisplayController {
 
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
@@ -47,7 +47,8 @@ public class DirectDisplayController {
      * Determines if direct is currently enabled and therefore direct pages can
      * be displayed in the Admin GUI.
      */
-    public void checkDirectDisplay() {
+    @Override
+    public void checkDisplay() {
         DisplayHolder.getInstance().setDirectEnabled(directConfigEnabled());
     }
 

@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="Admin-Distribution-Standard" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.6.0" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="Admin-Distribution-Standard" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.1.2" activeEnvironment="Default" id="d790c382-b46c-4894-9da7-ebf3abf05a34" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="../../../target/wsdl/EntityAdminDist.wsdl" name="AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="../../../target/wsdl/EntityAdminDist.wsdl" name="AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="dfd2f8b4-356a-42fa-a0e8-4c822d382000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    
     <con:endpoints>
       <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
-    <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdministrativeDistribution</con:endpoint></con:endpoints>
-    <con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" anonymous="optional" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way">
+      <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdministrativeDistribution</con:endpoint>
+    </con:endpoints>
+    <con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" anonymous="optional" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way" id="5d641430-29f3-46ee-9c61-967153ece420">
       <con:settings/>
-      
     </con:operation>
   </con:interface>
-  
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="../../../target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="../../../target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="51e3c87a-49c0-4d65-a3da-aae79944f262" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    
     <con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPolicyEngine</con:endpoint>
     </con:endpoints>
-    <con:operation action="urn:CheckPolicy" anonymous="optional" bindingOperationName="CheckPolicy" inputName="CheckPolicyRequest" isOneWay="false" name="CheckPolicy" outputName="CheckPolicyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:operation action="urn:CheckPolicy" anonymous="optional" bindingOperationName="CheckPolicy" inputName="CheckPolicyRequest" isOneWay="false" name="CheckPolicy" outputName="CheckPolicyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response" id="4084df03-4a4d-4bf2-a479-d95341175ae7">
       <con:settings/>
-      
     </con:operation>
   </con:interface>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="../../../target/wsdl/NhinAdminDist.wsdl" name="NhincAdminDist_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="../../../target/wsdl/NhinAdminDist.wsdl" name="NhincAdminDist_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="fef38686-bc12-48e6-a3a9-86e96b3c104c" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    
     <con:endpoints>
       <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
-    <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincAdminDistService</con:endpoint></con:endpoints>
-    <con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" anonymous="optional" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way">
+      <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincAdminDistService</con:endpoint>
+    </con:endpoints>
+    <con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" anonymous="optional" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way" id="8910553d-e709-4472-a120-60b5d3487c30">
       <con:settings/>
-      
     </con:operation>
   </con:interface>
-  <con:testSuite name="Admin-Distribution-Standard">
+  <con:testSuite name="Admin-Distribution-Standard" id="f6313ee6-b02d-4528-9125-0b0f2db4736b">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9487dbd1-53d3-4293-a664-c1bbced799c2" keepSession="false" maxResults="0" name="EntityRequest with a Binary doc" searchProperties="true">
       <con:settings/>
-      <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
+      <con:testStep name="clear audit table" type="groovy" id="862b2649-6219-4f4c-940d-2738c89e4856">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
-}</script></con:config></con:testStep>
-      <con:testStep name="Set User ID" type="groovy">
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Set User ID" type="groovy" id="74e685c5-97cc-4c60-8bda-ed7783b2de7a">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -54,12 +54,12 @@ def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="AdminDist Request" type="request">
+      <con:testStep name="AdminDist Request" type="request" id="20b2f6fc-dd09-46ea-bffa-1034dd62dc0f">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdministrativeDistribution_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
-          <con:request name="AdminDist Request">
+          <con:request name="AdminDist Request" id="752e8d6c-9785-4680-9486-2c3458147ab6">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
@@ -401,18 +401,34 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>60000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      </con:testStep>
+      <con:testStep name="Delay" type="delay" id="1c2d99b2-52b5-407b-b947-dd883f5b2d0c">
+        <con:settings/>
+        <con:config>
+          <delay>60000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="verify audit events" type="groovy" id="39189d08-3ba4-4f90-895a-e78ba057e28f">
+        <con:settings/>
+        <con:config>
+          <script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count == 4);</script></con:config></con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
+assert (count == 4);</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2013-09-25T13:29:59Z</con:value>
@@ -435,13 +451,19 @@ assert (count == 4);</script></con:config></con:testStep>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
+    </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="febe5a83-a7e4-4b4e-9a43-cb75355caa50" keepSession="false" maxResults="0" name="EntityRequest with XML data" searchProperties="true">
       <con:settings/>
-      <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
+      <con:testStep name="clear audit table" type="groovy" id="72285ea1-9e3e-4575-adf8-98ed3d5745bf">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
-}</script></con:config></con:testStep>
-      <con:testStep name="Set User ID" type="groovy">
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Set User ID" type="groovy" id="9148280f-e4be-4ce9-a510-9bcef8f85570">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -452,12 +474,12 @@ def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="AdminDist Request" type="request">
+      <con:testStep name="AdminDist Request" type="request" id="d5074f1b-93c1-4059-bfc0-5b915ea71259">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdministrativeDistribution_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
-          <con:request name="AdminDist Request">
+          <con:request name="AdminDist Request" id="2a2f689c-ac15-4935-a3d8-40cab0b53005">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
@@ -798,18 +820,34 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>60000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      <con:testStep name="Delay" type="delay" id="4add0141-0de6-40a9-a8a1-9b1f9deb76c2">
+        <con:settings/>
+        <con:config>
+          <delay>60000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="verify audit events" type="groovy" id="2592d7cc-fefb-4af4-83fe-32b6255b017b">
+        <con:settings/>
+        <con:config>
+          <script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count == 4);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
+assert (count == 4);</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2013-09-25T13:30:29Z</con:value>
@@ -832,13 +870,19 @@ assert (count == 4);</script></con:config></con:testStep><con:setupScript>nhinc.
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
+    </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="4064a914-3d3e-43a9-9ee9-4da23586b0e9" keepSession="false" maxResults="0" name="EntityRequest with multiple documents ( XML and Binary )" searchProperties="true">
       <con:settings/>
-      <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
+      <con:testStep name="clear audit table" type="groovy" id="51e53cea-3d1c-403c-b220-56683602e3ae">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
-}</script></con:config></con:testStep>
-      <con:testStep name="Set User ID" type="groovy">
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Set User ID" type="groovy" id="816d3500-9f37-4519-af3d-023eb9972f24">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -849,12 +893,12 @@ def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="AdminDist Request" type="request">
+      <con:testStep name="AdminDist Request" type="request" id="3e9f3ccb-54d7-434d-ad02-10e23c4e5c9b">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdministrativeDistribution_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
-          <con:request name="AdminDist Request">
+          <con:request name="AdminDist Request" id="58637f77-4f28-4df0-b8b8-82102b8c58dd">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
@@ -1206,18 +1250,34 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>60000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      <con:testStep name="Delay" type="delay" id="a55677f2-d520-41a4-9459-aea89264632b">
+        <con:settings/>
+        <con:config>
+          <delay>60000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="verify audit events" type="groovy" id="7ab67e68-ddac-4ee5-9736-f9b9d63a9f8a">
+        <con:settings/>
+        <con:config>
+          <script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count == 4);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
+assert (count == 4);</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2013-09-25T13:30:34Z</con:value>
@@ -1240,13 +1300,19 @@ assert (count == 4);</script></con:config></con:testStep><con:setupScript>nhinc.
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
+    </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="b46af245-7eb5-4d2d-8184-9dfd4a0f9ba1" keepSession="false" maxResults="0" name="EntityRequest with multiple documents ( multiple contentObjects )" searchProperties="true">
       <con:settings/>
-      <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
+      <con:testStep name="clear audit table" type="groovy" id="309c3fac-0091-40bd-b16d-c52369219711">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
-}</script></con:config></con:testStep>
-      <con:testStep name="Set User ID" type="groovy">
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Set User ID" type="groovy" id="5509ec87-3074-47c6-978d-4cd86caabe08">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -1257,12 +1323,12 @@ def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="AdminDist Request" type="request">
+      <con:testStep name="AdminDist Request" type="request" id="de9ead0e-3095-4770-b532-4ffe1cef8f2c">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdministrativeDistribution_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
-          <con:request name="AdminDist Request">
+          <con:request name="AdminDist Request" id="ea26b038-9333-4bdf-9cd6-8bc05c23012c">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
@@ -1643,18 +1709,34 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>60000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      <con:testStep name="Delay" type="delay" id="47f2b086-26b4-40b5-8d8d-fdfb948a26b7">
+        <con:settings/>
+        <con:config>
+          <delay>60000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="verify audit events" type="groovy" id="29a838a6-8ae8-425c-a062-b9b1f8be7589">
+        <con:settings/>
+        <con:config>
+          <script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count == 4);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
+assert (count == 4);</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2013-09-25T13:30:39Z</con:value>
@@ -1677,13 +1759,19 @@ assert (count == 4);</script></con:config></con:testStep><con:setupScript>nhinc.
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
+    </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="bd07e541-6730-45b7-9800-7e149ac7e486" keepSession="false" maxResults="0" name="EntityRequest without a ContentObject tag" searchProperties="true">
       <con:settings/>
-      <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
+      <con:testStep name="clear audit table" type="groovy" id="1b73b180-e9b7-404c-8cb7-02e36b2b260e">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
-}</script></con:config></con:testStep>
-      <con:testStep name="Set User ID" type="groovy">
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Set User ID" type="groovy" id="047140ce-e53c-4fcd-9baf-d5254726147f">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -1694,13 +1782,12 @@ def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
       </con:testStep>
-      
-      <con:testStep name="AdminDist Request" type="request">
+      <con:testStep name="AdminDist Request" type="request" id="9a378e60-1c13-48be-8704-8e4cd3bd15b8">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdministrativeDistribution_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
-          <con:request name="AdminDist Request">
+          <con:request name="AdminDist Request" id="5831df36-be3b-454c-9537-1fdcc30bcad2">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
@@ -2001,17 +2088,34 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>60000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      </con:testStep>
+      <con:testStep name="Delay" type="delay" id="12f20c67-5b94-4205-8e8b-c781c5f046c1">
+        <con:settings/>
+        <con:config>
+          <delay>60000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="verify audit events" type="groovy" id="1eabeb5f-d82f-4ad9-a171-4af287f1ca49">
+        <con:settings/>
+        <con:config>
+          <script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count == 4);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
+assert (count == 4);</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2013-09-25T13:30:45Z</con:value>
@@ -2034,13 +2138,19 @@ assert (count == 4);</script></con:config></con:testStep><con:setupScript>nhinc.
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
+    </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="360faaee-f3c0-43cb-b37c-c88cdaccd791" keepSession="false" maxResults="0" name="EntityRequest with an empty ContentObject" searchProperties="true">
       <con:settings/>
-      <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
+      <con:testStep name="clear audit table" type="groovy" id="f56be263-5830-4aa6-9c17-67f880828c56">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
-}</script></con:config></con:testStep>
-      <con:testStep name="Set User ID" type="groovy">
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Set User ID" type="groovy" id="d61db675-c701-4982-b863-1990d0d49083">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -2051,13 +2161,12 @@ def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
       </con:testStep>
-      
-      <con:testStep name="AdminDist Request" type="request">
+      <con:testStep name="AdminDist Request" type="request" id="cbea4c27-dcfd-4c69-9196-3d603f0bee0a">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdministrativeDistribution_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
-          <con:request name="AdminDist Request">
+          <con:request name="AdminDist Request" id="dcc0c263-0e73-4796-9223-daa4aaa07241">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
@@ -2362,17 +2471,34 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>60000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      </con:testStep>
+      <con:testStep name="Delay" type="delay" id="c6a351cc-eca6-46f0-9904-d427f2337022">
+        <con:settings/>
+        <con:config>
+          <delay>60000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="verify audit events" type="groovy" id="a98edbe3-8060-4e7d-87d6-f64222c28c80">
+        <con:settings/>
+        <con:config>
+          <script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count == 4);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
+assert (count == 4);</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2013-09-25T13:30:50Z</con:value>
@@ -2395,20 +2521,27 @@ assert (count == 4);</script></con:config></con:testStep><con:setupScript>nhinc.
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
+    </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="b2ddcf67-2269-4ef4-ab64-e016d5f5b690" keepSession="false" maxResults="0" name="EntityRequest sent to multiple targets" searchProperties="true">
       <con:settings/>
-      <con:testStep name="Copy uddiConnectionInfo" type="groovy">
+      <con:testStep name="Copy uddiConnectionInfo" type="groovy" id="0ca598d5-503e-4111-9c2b-0bcae1119548">
         <con:settings/>
-        <con:config><script>def sourceDir = context.expand('${projectDir}');
+        <con:config>
+          <script>def sourceDir = context.expand('${projectDir}');
 
-nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_AD_multitarget.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script></con:config>
+nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_AD_multitarget.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script>
+        </con:config>
       </con:testStep>
-      <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
+      <con:testStep name="clear audit table" type="groovy" id="ded7d609-ee8c-4d00-a3a9-17163b842e50">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
-}</script></con:config></con:testStep>
-      
-      <con:testStep name="Set User ID" type="groovy">
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Set User ID" type="groovy" id="78927768-6790-4f1c-a4bd-c270b41e7ed7">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -2418,12 +2551,13 @@ def ADUserID = context.findProperty( "ADUserID" );
 def nowDate = new Date();
 context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
         </con:config>
-      </con:testStep><con:testStep name="AdminDist Request" type="request">
+      </con:testStep>
+      <con:testStep name="AdminDist Request" type="request" id="a6762fc4-90a8-4181-b7d6-195b5ace206e">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdministrativeDistribution_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
-          <con:request name="AdminDist Request">
+          <con:request name="AdminDist Request" id="ac11813e-ff79-4d14-b9f2-b24a0e858edb">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
@@ -2774,17 +2908,34 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>80000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      </con:testStep>
+      <con:testStep name="Delay" type="delay" id="0dc9bbc9-6d4c-4d32-b76e-d3864a880a91">
+        <con:settings/>
+        <con:config>
+          <delay>80000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="verify audit events" type="groovy" id="70eb10e2-b5ee-43ac-b550-193652d3895a">
+        <con:settings/>
+        <con:config>
+          <script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count == 7);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
+assert (count == 7);</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2013-09-25T13:30:55Z</con:value>
@@ -2807,28 +2958,37 @@ assert (count == 7);</script></con:config></con:testStep><con:setupScript>nhinc.
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
+    </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="237d62e0-94dc-48ef-b47e-6e03c8fbfd7b" keepSession="false" maxResults="0" name="EntityRequest - Policy engine deny" searchProperties="true">
       <con:settings/>
-      <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
-  sql.execute('delete from ' + context.findProperty('AuditTable'))
-}</script></con:config></con:testStep>
-      <con:testStep name="Set PolicyEngine Mock" type="groovy">
+      <con:testStep name="clear audit table" type="groovy" id="9f0d393f-d1db-4f46-b967-13afe2570563">
         <con:settings/>
-        <con:config><script>import nhinc.FileUtils;
+        <con:config>
+          <script>context.withSql('AuditDB') { sql -> 
+  sql.execute('delete from ' + context.findProperty('AuditTable'))
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Set PolicyEngine Mock" type="groovy" id="6e7436db-50e7-42c4-9a36-d55d07a9528b">
+        <con:settings/>
+        <con:config>
+          <script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":18082/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script></con:config>
-      </con:testStep><con:testStep name="send request" type="request">
+FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="send request" type="request" id="73aefc64-db84-4848-b21a-78bcc197162c">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdministrativeDistribution_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
-          <con:request name="send request">
+          <con:request name="send request" id="2f443cf8-e033-42c4-91b4-0a33761f0b81">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
@@ -3170,16 +3330,23 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findPro
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>3000</delay></con:config></con:testStep>
-      
-      <con:testStep name="Mock Policy Engine" type="mockresponse">
+      <con:testStep name="Delay" type="delay" id="49e15db7-4d6c-4002-a493-98e99d94ebe6">
+        <con:settings/>
+        <con:config>
+          <delay>3000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Mock Policy Engine" type="mockresponse" id="e37ade0f-033c-4f54-ae26-422e4a0699ca">
         <con:settings/>
         <con:config startStep="send request" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterPolicyEngineBindingSoap</con:interface>
@@ -3187,7 +3354,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findPro
           <con:path>/mockPE</con:path>
           <con:port>18082</con:port>
           <con:timeout>30000</con:timeout>
-          <con:response>
+          <con:response id="a2512a8c-1243-4551-a5b8-3d5cec7556c1">
             <con:settings/>
             <con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:oasis:names:tc:xacml:2.0:context:schema:os">
    <soapenv:Header/>
@@ -3203,7 +3370,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findPro
 </soapenv:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
-          <con:assertion disabled="true" name="AuthnStatementAuthnInstant " type="GroovyScriptAssertion">
+          <con:assertion disabled="true" name="AuthnStatementAuthnInstant " type="GroovyScriptAssertion" id="b1d493b0-2eac-4829-8eec-55d291067940">
             <con:configuration>
               <scriptText>def FieldName='authInstant';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:authInstant'
@@ -3247,7 +3414,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="AuthnStatementSessionIndex" type="GroovyScriptAssertion">
+          <con:assertion name="AuthnStatementSessionIndex" type="GroovyScriptAssertion" id="c059c677-0bf1-4e72-8612-6efc8e8e743e">
             <con:configuration>
               <scriptText>def FieldName='sessionIndex';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:sessionIndex';
@@ -3291,7 +3458,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion disabled="true" name="AuthnStatementAthnContextClassRef " type="GroovyScriptAssertion">
+          <con:assertion disabled="true" name="AuthnStatementAthnContextClassRef " type="GroovyScriptAssertion" id="7a8d919c-33fd-4e89-a982-e2adb44bf267">
             <con:configuration>
               <scriptText>def FieldName='authContextClassRef';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:authContextClassRef';
@@ -3335,7 +3502,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="AuthnStatementSubjectLocalityAddress " type="GroovyScriptAssertion">
+          <con:assertion name="AuthnStatementSubjectLocalityAddress " type="GroovyScriptAssertion" id="f82b0624-c453-4d4c-99a0-ba12813a7c79">
             <con:configuration>
               <scriptText>def FieldName='subjectLocalityAddress';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:subjectLocalityAddress';
@@ -3379,7 +3546,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="AuthnStatementDNSName " type="GroovyScriptAssertion">
+          <con:assertion name="AuthnStatementDNSName " type="GroovyScriptAssertion" id="92841105-7a86-4653-856f-1adf6446eef2">
             <con:configuration>
               <scriptText>def FieldName='subjectLocalityDNSName';
 def AssertionXpath='//ec:assertion/nc:samlAuthnStatement/nc:subjectLocalityDNSName';
@@ -3423,7 +3590,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="UserPersonName" type="GroovyScriptAssertion">
+          <con:assertion name="UserPersonName" type="GroovyScriptAssertion" id="7f6d6b2e-faa6-4e3f-83c0-bce3344d70a9">
             <con:configuration>
               <scriptText>def FieldName='personname';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:userName';
@@ -3467,7 +3634,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="UserOrganizationName" type="GroovyScriptAssertion">
+          <con:assertion name="UserOrganizationName" type="GroovyScriptAssertion" id="f5dda277-70d3-40a6-842a-39b4f36fc7d1">
             <con:configuration>
               <scriptText>def FieldName='user organization';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:org/nc:name';
@@ -3511,7 +3678,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="UserRoleCode" type="GroovyScriptAssertion">
+          <con:assertion name="UserRoleCode" type="GroovyScriptAssertion" id="25bdaea1-afb1-425e-81cc-1494fcaaece3">
             <con:configuration>
               <scriptText>def FieldName='user role coded';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:roleCoded/nc:code';
@@ -3556,7 +3723,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="UserRoleCodeSystem " type="GroovyScriptAssertion">
+          <con:assertion name="UserRoleCodeSystem " type="GroovyScriptAssertion" id="580e5069-f132-448b-aaea-87055fb2835c">
             <con:configuration>
               <scriptText>def FieldName='user role system';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:roleCoded/nc:codeSystem';
@@ -3600,7 +3767,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="UserRoleCodeSystemName " type="GroovyScriptAssertion">
+          <con:assertion name="UserRoleCodeSystemName " type="GroovyScriptAssertion" id="89b40198-5c99-4fc8-a6db-c128d041f9c1">
             <con:configuration>
               <scriptText>def FieldName='user role system name';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:roleCoded/nc:codeSystemName';
@@ -3644,7 +3811,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="UserRoleCodeDiplayName " type="GroovyScriptAssertion">
+          <con:assertion name="UserRoleCodeDiplayName " type="GroovyScriptAssertion" id="036144ad-e1ef-4a98-a907-eede35ae9fca">
             <con:configuration>
               <scriptText>def FieldName='user role display name';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:roleCoded/nc:displayName';
@@ -3688,7 +3855,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="PurposeForUseCode" type="GroovyScriptAssertion">
+          <con:assertion name="PurposeForUseCode" type="GroovyScriptAssertion" id="36329480-44d7-4376-917b-0bb512d72bcd">
             <con:configuration>
               <scriptText>def FieldName='PurposeForUseCode';
 def AssertionXpath='//ec:assertion/nc:purposeOfDisclosureCoded/nc:code';
@@ -3733,7 +3900,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="PurposeForUseCodeSystem" type="GroovyScriptAssertion">
+          <con:assertion name="PurposeForUseCodeSystem" type="GroovyScriptAssertion" id="58d19709-53bf-40a0-b51f-8c450710cab9">
             <con:configuration>
               <scriptText>def FieldName='PurposeForUseCodeSystem';
 def AssertionXpath='//ec:assertion/nc:purposeOfDisclosureCoded/nc:codeSystem';
@@ -3777,7 +3944,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="PurposeForUseCodeSystemName" type="GroovyScriptAssertion">
+          <con:assertion name="PurposeForUseCodeSystemName" type="GroovyScriptAssertion" id="1cfa2e51-8c7c-4507-8ccf-92e96aae195a">
             <con:configuration>
               <scriptText>def FieldName='PurposeForUseCodeSystemName';
 def AssertionXpath='//ec:assertion/nc:purposeOfDisclosureCoded/nc:codeSystemName';
@@ -3821,7 +3988,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="PurposeForUseCodeDisplayName" type="GroovyScriptAssertion">
+          <con:assertion name="PurposeForUseCodeDisplayName" type="GroovyScriptAssertion" id="355ab1e0-bc5a-4be2-9a34-3fa63d94a8d5">
             <con:configuration>
               <scriptText>def FieldName='PurposeForUseCodeDisplayName';
 def AssertionXpath='//ec:assertion/nc:purposeOfDisclosureCoded/nc:displayName';
@@ -3865,7 +4032,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="AuthzDecisionStatementDecision" type="GroovyScriptAssertion">
+          <con:assertion name="AuthzDecisionStatementDecision" type="GroovyScriptAssertion" id="0fee1247-2092-4701-84fe-9f453d32c98a">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementDecision';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:decision';
@@ -3910,7 +4077,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="AuthzDecisionStatementResource" type="GroovyScriptAssertion">
+          <con:assertion name="AuthzDecisionStatementResource" type="GroovyScriptAssertion" id="cf4c5786-5d8a-41ff-b5df-692f6e4d76d8">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementResource';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:resource';
@@ -3956,7 +4123,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="AuthzDecisionStatementAction" type="GroovyScriptAssertion">
+          <con:assertion name="AuthzDecisionStatementAction" type="GroovyScriptAssertion" id="0180a216-ef82-4e93-9c35-5475e75873e1">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementAction';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:action';
@@ -4001,7 +4168,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="AuthzDecisionStatementEvidenceAssertionID " type="GroovyScriptAssertion">
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionID " type="GroovyScriptAssertion" id="b87d6eb4-7919-4364-87e6-5047ae029d2d">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionID';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:id';
@@ -4046,7 +4213,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="AuthzDecisionStatementEvidenceAssertionIssueInstant" type="GroovyScriptAssertion">
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionIssueInstant" type="GroovyScriptAssertion" id="096d0a44-d4a9-460d-83ff-609a10f7e675">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionIssueInstant';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:issueInstant';
@@ -4091,7 +4258,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="AuthzDecisionStatementEvidenceAssertionVersion" type="GroovyScriptAssertion">
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionVersion" type="GroovyScriptAssertion" id="55a527f0-9e0f-40bf-9f55-0789635f0e1e">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionVersion';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:version';
@@ -4136,7 +4303,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="AuthzDecisionStatementEvidenceAssertionIssuer" type="GroovyScriptAssertion">
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionIssuer" type="GroovyScriptAssertion" id="c75cde4c-efeb-4ddb-8620-ded8da6292d5">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionIssuer';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:issuer';
@@ -4181,7 +4348,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionConditionsNotBefore" type="GroovyScriptAssertion">
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionConditionsNotBefore" type="GroovyScriptAssertion" id="ffd58dac-0d23-427b-96d7-d1aad70e022e">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionConditionsNotBefore';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:conditions/nc:notBefore';
@@ -4227,7 +4394,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter " type="GroovyScriptAssertion">
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter " type="GroovyScriptAssertion" id="b2d029f9-7321-487d-ae5a-5c5dd4fddfdc">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:conditions/nc:notOnOrAfter';
@@ -4273,7 +4440,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContentReference " type="GroovyScriptAssertion">
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContentReference " type="GroovyScriptAssertion" id="dc28eee0-53b8-44ab-9f68-53299e043978">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionContentReference';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:contentReference';
@@ -4318,7 +4485,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContentType " type="GroovyScriptAssertion">
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContentType " type="GroovyScriptAssertion" id="d32fcf99-a145-451d-9dd5-765bee50d7ab">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionContentType';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:contentType';
@@ -4363,7 +4530,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContent " type="GroovyScriptAssertion">
+          <con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionContent " type="GroovyScriptAssertion" id="25ac0913-dbfb-4014-bfac-7c87f46503d4">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionContent';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:content';
@@ -4408,7 +4575,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="HomeCommunityId" type="GroovyScriptAssertion">
+          <con:assertion name="HomeCommunityId" type="GroovyScriptAssertion" id="1e63a263-33b1-43f7-9c74-feff048ab17d">
             <con:configuration>
               <scriptText>def FieldName='home-community-id';
 def AssertionXpath='//ec:assertion/nc:homeCommunity/nc:homeCommunityId';
@@ -4453,7 +4620,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="OrganizationId" type="GroovyScriptAssertion">
+          <con:assertion name="OrganizationId" type="GroovyScriptAssertion" id="c7de5c01-f42c-40a6-9e09-14d4b86228df">
             <con:configuration>
               <scriptText>def FieldName='organizationid';
 def AssertionXpath='//ec:assertion/nc:userInfo/nc:org/nc:homeCommunityId';
@@ -4497,7 +4664,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="PatientId" type="GroovyScriptAssertion">
+          <con:assertion name="PatientId" type="GroovyScriptAssertion" id="1a23a94d-7922-4af6-887f-8b68037c0b36">
             <con:configuration>
               <scriptText>def FieldName='PatientId';
 def AssertionXpath='//ec:assertion/nc:uniquePatientId';
@@ -4548,7 +4715,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="AuthzDecisionStatementEvidenceAssertionAccessConsent" type="GroovyScriptAssertion">
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionAccessConsent" type="GroovyScriptAssertion" id="5819a961-771e-4146-b418-e84300a2a2c6">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionAccessConsent';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:accessConsentPolicy';
@@ -4593,7 +4760,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion name="AuthzDecisionStatementEvidenceAssertionInstanceAccessConsent" type="GroovyScriptAssertion">
+          <con:assertion name="AuthzDecisionStatementEvidenceAssertionInstanceAccessConsent" type="GroovyScriptAssertion" id="59039b6a-cd64-406f-a645-92038f412b53">
             <con:configuration>
               <scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionInstanceAccessConsent';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:instanceAccessConsentPolicy';
@@ -4638,7 +4805,7 @@ assert(ActualDataType==ExpectedDataType);
 log.debug('Finished checking ' + FieldName);</scriptText>
             </con:configuration>
           </con:assertion>
-          <con:assertion disabled="true" name="Namespace for Action" type="XPath Match">
+          <con:assertion disabled="true" name="Namespace for Action" type="XPath Match" id="1f70f782-2bf5-470f-a6f9-90569dfba7b7">
             <con:configuration>
               <path>declare namespace ns6='urn:oasis:names:tc:xacml:2.0:context:schema:os';
 declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
@@ -4648,7 +4815,7 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
               <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
             </con:configuration>
           </con:assertion>
-          <con:assertion disabled="true" type="XPath Match">
+          <con:assertion disabled="true" type="XPath Match" id="a9972e25-b8fc-49d5-a943-fe66c7f70a26">
             <con:configuration>
               <path>declare namespace ns6='urn:oasis:names:tc:xacml:2.0:context:schema:os';
 declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
@@ -4658,7 +4825,7 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
               <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
             </con:configuration>
           </con:assertion>
-          <con:assertion type="XPath Match">
+          <con:assertion type="XPath Match" id="bdd2ea6a-e979-41cf-a47d-8f7cb5994fe6">
             <con:configuration>
               <path>declare namespace ns15='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace ns17='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
@@ -4668,12 +4835,21 @@ declare namespace ns17='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
               <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
             </con:configuration>
           </con:assertion>
-        <con:host>localhost</con:host></con:config>
-      </con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+          <con:host>localhost</con:host>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="verify audit events" type="groovy" id="21703a9a-1204-435e-b803-c7d4c4fc7e53">
+        <con:settings/>
+        <con:config>
+          <script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count == 1);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
+assert (count == 1);</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2013-09-25T13:32:16Z</con:value>
@@ -4692,29 +4868,36 @@ assert (count == 1);</script></con:config></con:testStep><con:setupScript>nhinc.
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
+    </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="eed4b1bc-9a96-4d4b-9bfd-dc40d9dfdbe7" keepSession="false" maxResults="0" name="EntityRequest - 404 or 500 error" searchProperties="true">
       <con:settings/>
-      <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
-  sql.execute('delete from ' + context.findProperty('AuditTable'))
-}</script></con:config></con:testStep>
-      <con:testStep name="Modify endpoint" type="groovy">
+      <con:testStep name="clear audit table" type="groovy" id="9f29b8aa-9f24-48bc-a5a4-b6965a0b5e08">
         <con:settings/>
-        <con:config><script>import nhinc.FileUtils;
+        <con:config>
+          <script>context.withSql('AuditDB') { sql -> 
+  sql.execute('delete from ' + context.findProperty('AuditTable'))
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Modify endpoint" type="groovy" id="8638ee31-3134-4f6b-9f5f-78de8aa1aebb">
+        <con:settings/>
+        <con:config>
+          <script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def URL = "https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdmin";
 def RemoteHCID = context.findProperty( "RemoteHCID" );
 
-FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findProperty("GatewayPropDir"), RemoteHCID, "AdminDistribution", URL, "2.0", log)</script></con:config>
+FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findProperty("GatewayPropDir"), RemoteHCID, "AdminDistribution", URL, "2.0", log)</script>
+        </con:config>
       </con:testStep>
-      
-      <con:testStep name="AdminDist Request" type="request">
+      <con:testStep name="AdminDist Request" type="request" id="3d42d121-191e-4ed2-9387-d21906ed7480">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdministrativeDistribution_Binding_Soap12</con:interface>
           <con:operation>SendAlertMessage</con:operation>
-          <con:request name="AdminDist Request">
+          <con:request name="AdminDist Request" id="64348dee-821e-47dc-ab0e-ba6de842c7a2">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
@@ -5055,17 +5238,34 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findPropert
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>60000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      </con:testStep>
+      <con:testStep name="Delay" type="delay" id="40a34865-0ecb-413e-8b4c-8ac1a7774c19">
+        <con:settings/>
+        <con:config>
+          <delay>60000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="verify audit events" type="groovy" id="bb1482c3-a03f-490b-864a-c289139fb960">
+        <con:settings/>
+        <con:config>
+          <script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count == 2);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
+assert (count == 2);</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2013-09-25T13:32:19Z</con:value>
@@ -5084,40 +5284,106 @@ assert (count == 2);</script></con:config></con:testStep><con:setupScript>nhinc.
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    
-    
-    
-    
-    
-    
-    
-    
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
+    </con:testCase>
     <con:properties/>
     <con:reportParameters/>
   </con:testSuite>
   <con:requirements/>
   <con:properties>
-    
-    
-    
-    
-    <con:property><con:name>ADUserID</con:name><con:value>admindist</con:value></con:property><con:property><con:name>AQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>AQUserID</con:name><con:value>kkagerberg</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/NhincProxyAuditQuery</con:value></con:property><con:property><con:name>Endpoint-EntityAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>Endpoint-NhincProxyAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</con:value></con:property>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-  <con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>mockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>RemoteHCID2</con:name><con:value>3.3</con:value></con:property></con:properties>
+    <con:property>
+      <con:name>ADUserID</con:name>
+      <con:value>admindist</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AQPatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AQUserID</con:name>
+      <con:value>kkagerberg</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AuditDB</con:name>
+      <con:value>auditrepo</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AuditTable</con:name>
+      <con:value>auditrepository</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBHost</con:name>
+      <con:value>localhost</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBPass</con:name>
+      <con:value>nhincpass</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBPort</con:name>
+      <con:value>3306</con:value>
+    </con:property>
+    <con:property>
+      <con:name>DBUser</con:name>
+      <con:value>nhincuser</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-AuditLogQuery</con:name>
+      <con:value>http://localhost:8080/CONNECTAdapter/NhincProxyAuditQuery</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-EntityAdminDist</con:name>
+      <con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Endpoint-NhincProxyAdminDist</con:name>
+      <con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalAA</con:name>
+      <con:value>1.1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalHCDescription</con:name>
+      <con:value>InternalTest1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalHCID</con:name>
+      <con:value>1.1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>LocalPatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>mockHost</con:name>
+      <con:value>localhost</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteAA</con:name>
+      <con:value>2.2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteHCDescription</con:name>
+      <con:value>InternalTest2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteHCID</con:name>
+      <con:value>2.2</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemotePatientID</con:name>
+      <con:value>D123401</con:value>
+    </con:property>
+    <con:property>
+      <con:name>GatewayPropDir</con:name>
+      <con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RemoteHCID2</con:name>
+      <con:value>3.3</con:value>
+    </con:property>
+  </con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
@@ -5160,7 +5426,8 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty 
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
-                delegate.testCase.testSuite.project.getPropertyValue(propertyName)
+                delegate.testCase.testSuite.project.getPropertyValue(propertyName) ?:
+                com.eviware.soapui.SoapUI.globalProperties.getPropertyValue(propertyName)
 }
 
 com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
@@ -5180,9 +5447,10 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
 }</con:afterLoadScript>
   <con:wssContainer/>
   <con:databaseConnectionContainer/>
+  <con:oAuth2ProfileContainer/>
   <con:reporting>
     <con:xmlTemplates/>
     <con:parameters/>
   </con:reporting>
-
-<con:sensitiveInformation/></con:soapui-project>
+  <con:sensitiveInformation/>
+</con:soapui-project>

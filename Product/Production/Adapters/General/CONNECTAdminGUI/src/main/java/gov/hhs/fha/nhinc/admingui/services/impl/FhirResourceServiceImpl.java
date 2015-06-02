@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
 import gov.hhs.fha.nhinc.admingui.client.fhir.ConformanceClient;
@@ -45,48 +44,44 @@ import org.springframework.stereotype.Service;
 
 /**
  * Service for updating FHIR resource url and pulling Conformance resource.
- * 
+ *
  * @author jassmit
  */
 @Service
 public class FhirResourceServiceImpl implements FhirResourceService {
 
-    private static final String PATIENT_RESOURCE_NAME = "FHIRPatientResource";
-    private static final String DOCREF_RESOURCE_NAME = "FHIRDocumentReferenceResource";
-    private static final String BINARY_RESOURCE_NAME = "FHIRBinaryResource";
-    
     private static final String PATIENT_ICON_FILE = "patient.png";
     private static final String DOCREF_ICON_FILE = "document.png";
     private static final String BINARY_ICON_FILE = "binary.png";
-    
+
     private static final String PATIENT_DISPLAY = "Patient Resource";
     private static final String DOCREF_DISPLAY = "Document Reference Resource";
     private static final String BINARY_DISPLAY = "Binary Resource";
-    
+
     private static final Logger LOG = Logger.getLogger(FhirResourceServiceImpl.class);
-    
+
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
     @Override
     public List<ResourceInfo> loadResources() {
         List<ResourceInfo> resources = new ArrayList<ResourceInfo>();
-        
+
         String patientUrl = getUrl(PATIENT_RESOURCE_NAME);
-        if(NullChecker.isNotNullish(patientUrl)) {
+        if (NullChecker.isNotNullish(patientUrl)) {
             resources.add(new ResourceInfo(PATIENT_RESOURCE_NAME, PATIENT_DISPLAY, patientUrl, PATIENT_ICON_FILE));
         }
-        
+
         String docRefUrl = getUrl(DOCREF_RESOURCE_NAME);
-        if(NullChecker.isNotNullish(docRefUrl)) {
+        if (NullChecker.isNotNullish(docRefUrl)) {
             resources.add(new ResourceInfo(DOCREF_RESOURCE_NAME, DOCREF_DISPLAY, docRefUrl, DOCREF_ICON_FILE));
         }
-        
+
         String binaryUrl = getUrl(BINARY_RESOURCE_NAME);
-        if(NullChecker.isNotNullish(binaryUrl)) {
+        if (NullChecker.isNotNullish(binaryUrl)) {
             resources.add(new ResourceInfo(BINARY_RESOURCE_NAME, BINARY_DISPLAY, binaryUrl, BINARY_ICON_FILE));
         }
-        
+
         return resources;
     }
 
@@ -99,7 +94,7 @@ public class FhirResourceServiceImpl implements FhirResourceService {
     }
 
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
     @Override
     public ConformanceView getConformance(String url) {
@@ -107,7 +102,7 @@ public class FhirResourceServiceImpl implements FhirResourceService {
         ConformanceView view = null;
         try {
             Conformance conformance = fhirClient.getConformanceStatement(url);
-            if(conformance != null) {
+            if (conformance != null) {
                 view = new ConformanceView();
                 view.setConformanceDesc(conformance.getDescriptionSimple());
                 view.setConfResources(populateFromRest(conformance.getRest()));
@@ -118,7 +113,7 @@ public class FhirResourceServiceImpl implements FhirResourceService {
         }
         return view;
     }
-    
+
     protected String getUrl(String serviceName) {
         try {
             return ConnectionManagerCache.getInstance().getAdapterEndpointURL(serviceName, NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
@@ -127,7 +122,7 @@ public class FhirResourceServiceImpl implements FhirResourceService {
         }
         return null;
     }
-    
+
     private List<ConformanceResource> populateFromRest(List<Conformance.ConformanceRestComponent> rest) {
         List<ConformanceResource> confResources = new ArrayList<ConformanceResource>();
         for (Conformance.ConformanceRestComponent component : rest) {
@@ -180,5 +175,5 @@ public class FhirResourceServiceImpl implements FhirResourceService {
             }
         }
     }
-    
+
 }
