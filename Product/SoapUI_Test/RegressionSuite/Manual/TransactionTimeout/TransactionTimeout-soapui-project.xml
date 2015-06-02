@@ -2542,7 +2542,12 @@
       </urn:AdapterCOREEnvelopeRealTimeRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508" action="{http://schemas.xmlsoap.org/wsdl/}RealTimeTransaction"/></con:call></con:operation></con:interface><con:testSuite name="LargeTransactionTimeout">
-		<con:settings/>
+		<con:description>This test suite is used to test Transaction Timeout value with 15000 millisec and mock Adapter freeze time with 20000 millisec.  Make sure to enable passthrough for PD service test.
+For each service, request start time, end time and transaction timedout duration details are logged in Soap-UI script log.
+Detailed fault error message can be found in server.log which is similar to the message below: 
+"org.apache.cxf.interceptor.Fault: Could not send Message. 
+Caused by: java.net.SocketTimeoutException: SocketTimeoutException"
+</con:description><con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
 		
 
@@ -3105,21 +3110,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2015-05-30T08:44:28Z</con:value>
+		<con:value>2015-06-02T02:01:22Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2015-05-30T08:54:28Z</con:value>
+		<con:value>2015-06-02T02:11:22Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>05/30/2015 08:44:28</con:value>
+		<con:value>06/02/2015 02:01:22</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2015-06-29T00:00:00Z</con:value>
+		<con:value>2015-07-02T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>RequestStartTime</con:name><con:value>2015-05-30 08:49:29</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>RequestStartTime</con:name><con:value>2015-06-02 02:06:23</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 
@@ -3610,21 +3615,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2015-05-30T08:45:11Z</con:value>
+		<con:value>2015-06-02T02:01:45Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2015-05-30T08:55:11Z</con:value>
+		<con:value>2015-06-02T02:11:45Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>05/30/2015 08:45:11</con:value>
+		<con:value>06/02/2015 02:01:45</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2015-06-29T00:00:00Z</con:value>
+		<con:value>2015-07-02T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>RequestStartTime</con:name><con:value>2015-05-30 08:50:12</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>RequestStartTime</con:name><con:value>2015-06-02 02:06:46</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="801f7f15-5164-41c3-907f-9c0a9db42262" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
@@ -4492,25 +4497,25 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2015-05-30T08:45:45Z</con:value>
+		<con:value>2015-06-02T02:02:09Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2015-05-30T08:55:45Z</con:value>
+		<con:value>2015-06-02T02:12:09Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>05/30/2015 08:45:45</con:value>
+		<con:value>06/02/2015 02:02:09</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2015-06-29T00:00:00Z</con:value>
+		<con:value>2015-07-02T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>RequestStartTime</con:name><con:value>2015-05-30 08:50:45</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>RequestStartTime</con:name><con:value>2015-06-02 02:07:09</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="08c7914d-69d5-40a5-951d-5774a8836aad" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
@@ -4895,21 +4900,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2015-05-30T08:46:09Z</con:value>
+		<con:value>2015-06-02T02:02:31Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2015-05-30T08:56:09Z</con:value>
+		<con:value>2015-06-02T02:12:31Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>05/30/2015 08:46:09</con:value>
+		<con:value>06/02/2015 02:02:31</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2015-06-29T00:00:00Z</con:value>
+		<con:value>2015-07-02T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>RequestStartTime</con:name><con:value>2015-05-30 08:51:10</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>RequestStartTime</con:name><con:value>2015-06-02 02:07:32</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 
@@ -5629,14 +5634,18 @@ log.info "X12Realtime Transaction Timedout Duration:  " + duration
 
 if(!testRunner.testCase.testSuite.project.getPropertyValue("TransactionTimeoutValue").isEmpty()){
 	testRunner.testCase.testSuite.project.setPropertyValue("TransactionTimeoutValue","");
-}</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2015-05-30T08:46:33Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2015-05-30T08:56:33Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>05/30/2015 08:46:33</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-06-29T00:00:00Z</con:value></con:property><con:property><con:name>RequestStartTime</con:name><con:value>2015-05-30 08:51:33</con:value></con:property></con:properties></con:testCase><con:properties/>
+}</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2015-06-02T02:02:54Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2015-06-02T02:12:54Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>06/02/2015 02:02:54</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-07-02T00:00:00Z</con:value></con:property><con:property><con:name>RequestStartTime</con:name><con:value>2015-06-02 02:07:54</con:value></con:property></con:properties></con:testCase><con:properties/>
 <con:setupScript/>
 <con:tearDownScript/>
 <con:reportParameters/>
 </con:testSuite>
 
 <con:testSuite name="EmptyTransactionTimeout">
-		<con:settings/>
+		<con:description>This test suite is used to test by passing transaction Timeout element value as empty and mock Adapter freeze time with 20000 millisec.  Make sure to enable passthrough for PD service test.
+ For each service, request start time, end time and transaction timedout duration details are logged in Soap-UI script log.
+Detailed fault error message can be found in server.log which is similar to the message as below: 
+"org.apache.cxf.interceptor.Fault: Could not send Message. 
+Caused by: java.net.SocketTimeoutException: SocketTimeoutException"</con:description><con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
 		
 
@@ -6180,7 +6189,7 @@ testRunner.testCase.setPropertyValue("RequestStartTime",startDateTime);</script>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep><con:testStep type="mockresponse" name="Mock Response"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Setup Mock" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterXDR_Binding</con:interface><con:operation>ProvideAndRegisterDocumentSetb</con:operation><con:path>/MockDSAdapter</con:path><con:port>1720</con:port><con:response><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockResponse@response-delay">20000</con:setting></con:settings><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+</con:testStep><con:testStep type="groovy" name="Skip Mock"><con:settings/><con:config><script>testRunner.gotoStepByName("LogAndReset");</script></con:config></con:testStep><con:testStep type="mockresponse" name="Mock Response"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Setup Mock" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterXDR_Binding</con:interface><con:operation>ProvideAndRegisterDocumentSetb</con:operation><con:path>/MockDSAdapter</con:path><con:port>1720</con:port><con:response><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockResponse@response-delay">20000</con:setting></con:settings><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
    <soap:Header/>
    <soap:Body>
       <ns4:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success" xmlns:ns10="http://docs.oasis-open.org/wsn/b-2" xmlns:ns11="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns12="http://docs.oasis-open.org/wsn/t-1" xmlns:ns13="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns14="http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd" xmlns:ns15="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns18="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns6="urn:ihe:iti:xds-b:2007" xmlns:ns7="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns8="http://www.w3.org/2005/08/addressing" xmlns:ns9="http://nhinc.services.com/schema/auditmessage"/>
@@ -6206,21 +6215,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2015-05-30T08:47:10Z</con:value>
+		<con:value>2015-06-02T02:03:38Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2015-05-30T08:57:10Z</con:value>
+		<con:value>2015-06-02T02:13:38Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>05/30/2015 08:47:10</con:value>
+		<con:value>06/02/2015 02:03:38</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2015-06-29T00:00:00Z</con:value>
+		<con:value>2015-07-02T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>RequestStartTime</con:name><con:value>2015-05-30 08:52:10</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>RequestStartTime</con:name><con:value>2015-06-02 02:08:38</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 
@@ -6716,21 +6725,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2015-05-30T08:47:33Z</con:value>
+		<con:value>2015-06-02T02:03:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2015-05-30T08:57:33Z</con:value>
+		<con:value>2015-06-02T02:13:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>05/30/2015 08:47:33</con:value>
+		<con:value>06/02/2015 02:03:50</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2015-06-29T00:00:00Z</con:value>
+		<con:value>2015-07-02T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>RequestStartTime</con:name><con:value>2015-05-30 08:52:33</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>RequestStartTime</con:name><con:value>2015-06-02 02:08:51</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" id="4111d362-49dc-4c07-94e1-9ef23efba107">
@@ -7600,25 +7609,25 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2015-05-30T08:47:56Z</con:value>
+		<con:value>2015-06-02T02:04:13Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2015-05-30T08:57:56Z</con:value>
+		<con:value>2015-06-02T02:14:13Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>05/30/2015 08:47:56</con:value>
+		<con:value>06/02/2015 02:04:13</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2015-06-29T00:00:00Z</con:value>
+		<con:value>2015-07-02T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>RequestStartTime</con:name><con:value>2015-05-30 08:52:56</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>RequestStartTime</con:name><con:value>2015-06-02 02:09:14</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true" id="45ef750c-5867-4b3c-a269-8806e444725d">
@@ -8010,21 +8019,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2015-05-30T08:48:19Z</con:value>
+		<con:value>2015-06-02T02:04:37Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2015-05-30T08:58:19Z</con:value>
+		<con:value>2015-06-02T02:14:37Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>05/30/2015 08:48:19</con:value>
+		<con:value>06/02/2015 02:04:37</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2015-06-29T00:00:00Z</con:value>
+		<con:value>2015-07-02T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>RequestStartTime</con:name><con:value>2015-05-30 08:53:19</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>RequestStartTime</con:name><con:value>2015-06-02 02:09:37</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 
@@ -8758,12 +8767,16 @@ log.info "X12Realtime Transaction Timedout Duration:  " + duration
 
 if(!testRunner.testCase.testSuite.project.getPropertyValue("TransactionTimeoutValue").isEmpty()){
 	testRunner.testCase.testSuite.project.setPropertyValue("TransactionTimeoutValue","");
-}</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2015-05-30T08:48:41Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2015-05-30T08:58:41Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>05/30/2015 08:48:41</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-06-29T00:00:00Z</con:value></con:property><con:property><con:name>RequestStartTime</con:name><con:value>2015-05-30 08:53:41</con:value></con:property></con:properties></con:testCase><con:properties/>
+}</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2015-06-02T02:04:59Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2015-06-02T02:14:59Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>06/02/2015 02:04:59</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-07-02T00:00:00Z</con:value></con:property><con:property><con:name>RequestStartTime</con:name><con:value>2015-06-02 02:09:59</con:value></con:property></con:properties></con:testCase><con:properties/>
 <con:setupScript/>
 <con:tearDownScript/>
 <con:reportParameters/>
 </con:testSuite><con:testSuite name="NegativeTransactionTimeout">
-		<con:settings/>
+		<con:description>This test suite is used to test by passing negative transaction Timeout element value and mock Adapter freeze time with 20000 millisec.  Make sure to enable passthrough for PD service test.
+ For each service, request start time, end time and transaction timedout duration details are logged in Soap-UI script log.
+Detailed fault error message can be found in server.log which is similar to the message as below: 
+"org.apache.cxf.interceptor.Fault: Could not send Message. 
+Caused by: java.net.SocketTimeoutException: SocketTimeoutException"</con:description><con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
 		
 
