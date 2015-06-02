@@ -5748,7 +5748,8 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty 
 return delegate.getProperty(propertyName) ?:
 delegate.testCase.getPropertyValue(propertyName) ?:
 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
-delegate.testCase.testSuite.project.getPropertyValue(propertyName)
+delegate.testCase.testSuite.project.getPropertyValue(propertyName) ?:
+com.eviware.soapui.SoapUI.globalProperties.getPropertyValue(propertyName)
 }</con:afterLoadScript>
   <con:wssContainer/>
   <con:oAuth2ProfileContainer/>
