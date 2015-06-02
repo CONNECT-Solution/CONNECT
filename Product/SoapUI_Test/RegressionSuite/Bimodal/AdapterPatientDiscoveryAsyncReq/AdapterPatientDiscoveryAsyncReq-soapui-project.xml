@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="AdapterPatientDiscoveryAsyncReq" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="AdapterPatientDiscoveryAsyncReq" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.1.2" activeEnvironment="Default" id="d7dc789b-e5be-458f-9af7-9de7608a3eab" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq}AdapterPatientDiscoveryAsyncReqBindingSoap" definition="../../../target/wsdl/AdapterPatientDiscoveryAsyncReq.wsdl" name="AdapterPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq}AdapterPatientDiscoveryAsyncReqBindingSoap" definition="../../../target/wsdl/AdapterPatientDiscoveryAsyncReq.wsdl" name="AdapterPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="251037b7-1a96-463a-8d7c-5604a35c94d0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    
-    <con:definitionCache/><con:endpoints>
-      <con:endpoint>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncReq</con:endpoint>
+    <con:endpoints>
       <con:endpoint>${#Project#AdapterPatientDiscoveryAsyncReqEndpoint}</con:endpoint>
       <con:endpoint>http://localhost/NhinConnect/AdapterPatientDiscoveryAsyncReq</con:endpoint>
+      <con:endpoint>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPatientDiscoveryAsyncReq</con:endpoint>
     </con:endpoints>
-    <con:operation action="" anonymous="optional" bindingOperationName="ProcessPatientDiscoveryAsyncReq" inputName="ProcessPatientDiscoveryAsyncReqAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncReq" outputName="ProcessPatientDiscoveryAsyncReqAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:operation action="" anonymous="optional" bindingOperationName="ProcessPatientDiscoveryAsyncReq" inputName="ProcessPatientDiscoveryAsyncReqAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncReq" outputName="ProcessPatientDiscoveryAsyncReqAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response" id="df9f99a2-5d59-472f-86bd-32cc5ea96e3c">
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:testSuite name="AdapterPatientDiscoveryTestSuite">
+  <con:testSuite name="AdapterPatientDiscoveryTestSuite" id="d697151a-7115-4da9-aab5-067da3eb7ab2">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="AdapterPatientDiscoveryTestCase" searchProperties="true" id="6152af3b-a554-45f1-aebe-1bcc2c9de389">
       <con:settings/>
-      <con:testStep name="AdapterPatientDiscoveryRequest" type="request">
+      <con:testStep name="AdapterPatientDiscoveryRequest" type="request" id="7d1a7677-ea89-4946-b965-5f9c2f6dc683">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterPatientDiscoveryAsyncReqBindingSoap</con:interface>
           <con:operation>ProcessPatientDiscoveryAsyncReq</con:operation>
-          <con:request incomingWss="" name="AdapterPatientDiscoveryRequest" outgoingWss="" useWsAddressing="true" wssPasswordType="">
+          <con:request incomingWss="" name="AdapterPatientDiscoveryRequest" outgoingWss="" useWsAddressing="true" wssPasswordType="" id="c3eda03f-c42b-4ad6-ba59-47eea9b381e0">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
@@ -306,8 +305,8 @@
       </urn:RespondingGateway_PRPA_IN201305UV02Request>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:assertion type="SOAP Response"/>
-            <con:assertion name="Verify Receiver" type="XPath Match">
+            <con:assertion type="SOAP Response" id="fc4a5f95-df99-480f-b028-f3316b1426c9"/>
+            <con:assertion name="Verify Receiver" type="XPath Match" id="83cd639d-e73d-4980-86a9-1736696bcc98">
               <con:configuration>
                 <path>declare namespace ns1='urn:hl7-org:v3';
 //ns1:MCCI_IN000002UV01[1]/ns1:receiver[1]/ns1:device[1]/ns1:asAgent[1]/ns1:representedOrganization[1]/ns1:id[1]/@root</path>
@@ -316,7 +315,7 @@
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion name="Verify Sender" type="XPath Match">
+            <con:assertion name="Verify Sender" type="XPath Match" id="00d001e0-8561-4d83-8dbf-e0d53cd9ebe5">
               <con:configuration>
                 <path>declare namespace ns1='urn:hl7-org:v3';
 //ns1:MCCI_IN000002UV01[1]/ns1:sender[1]/ns1:device[1]/ns1:asAgent[1]/ns1:representedOrganization[1]/ns1:id[1]/@root</path>
@@ -325,7 +324,7 @@
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion name="Verify Ack Message" type="XPath Match">
+            <con:assertion name="Verify Ack Message" type="XPath Match" id="8919344d-54f9-4758-97f6-eebca51f11b2">
               <con:configuration>
                 <path>declare namespace ns1='urn:hl7-org:v3';
 //ns1:MCCI_IN000002UV01[1]/ns1:acknowledgement[1]/ns1:acknowledgementDetail[1]/ns1:text[1]/text()</path>
@@ -334,7 +333,7 @@
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion disabled="true" name="Verify RelatesTo" type="XPath Match">
+            <con:assertion disabled="true" name="Verify RelatesTo" type="XPath Match" id="45f6506f-00c7-478f-9ee9-7f9e81b5e4b8">
               <con:configuration>
                 <path>declare namespace ns1='http://www.w3.org/2005/08/addressing';
 //ns1:RelatesTo[1]/text()</path>
@@ -343,14 +342,18 @@
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig action="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:1111111111.11111.111.11" mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript><con:properties>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2013-09-27T02:49:29Z</con:value>
@@ -369,21 +372,22 @@
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
+    </con:testCase>
     <con:properties/>
     <con:reportParameters/>
   </con:testSuite>
-  <con:testSuite name="AdapterPatientDiscoveryTestSuite - Passthrough">
+  <con:testSuite name="AdapterPatientDiscoveryTestSuite - Passthrough" id="2a5a2846-d1ea-4b8b-bf96-d64353ea2225">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="98618f34-29fe-4ddd-8e10-07b60b1caf48" keepSession="false" maxResults="0" name="AdapterPatientDiscoveryTestCase" searchProperties="true">
       <con:settings/>
-      <con:testStep name="AdapterPatientDiscoveryRequest" type="request">
+      <con:testStep name="AdapterPatientDiscoveryRequest" type="request" id="4eb1930c-9848-416a-aeca-03fcc85f0307">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterPatientDiscoveryAsyncReqBindingSoap</con:interface>
           <con:operation>ProcessPatientDiscoveryAsyncReq</con:operation>
-          <con:request incomingWss="" name="AdapterPatientDiscoveryRequest" outgoingWss="" useWsAddressing="true" wssPasswordType="">
+          <con:request incomingWss="" name="AdapterPatientDiscoveryRequest" outgoingWss="" useWsAddressing="true" wssPasswordType="" id="662538bf-e8c0-4135-a18c-15bb15170720">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
@@ -666,8 +670,8 @@
       </urn:RespondingGateway_PRPA_IN201305UV02Request>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:assertion type="SOAP Response"/>
-            <con:assertion name="Verify Receiver" type="XPath Match">
+            <con:assertion type="SOAP Response" id="1a6c865e-c68f-4c59-bafa-3144d7cd6522"/>
+            <con:assertion name="Verify Receiver" type="XPath Match" id="cf7f91fa-4cd9-4ba6-a46c-90b305948dc8">
               <con:configuration>
                 <path>declare namespace ns1='urn:hl7-org:v3';
 //ns1:MCCI_IN000002UV01[1]/ns1:receiver[1]/ns1:device[1]/ns1:asAgent[1]/ns1:representedOrganization[1]/ns1:id[1]/@root</path>
@@ -676,7 +680,7 @@
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion name="Verify Sender" type="XPath Match">
+            <con:assertion name="Verify Sender" type="XPath Match" id="0e256686-bff5-421e-95ea-d9b50c1bf814">
               <con:configuration>
                 <path>declare namespace ns1='urn:hl7-org:v3';
 //ns1:MCCI_IN000002UV01[1]/ns1:sender[1]/ns1:device[1]/ns1:asAgent[1]/ns1:representedOrganization[1]/ns1:id[1]/@root</path>
@@ -685,7 +689,7 @@
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion name="Verify Ack Message" type="XPath Match">
+            <con:assertion name="Verify Ack Message" type="XPath Match" id="7bb90bac-b53d-418c-bd6d-f9187e2e85e5">
               <con:configuration>
                 <path>declare namespace ns1='urn:hl7-org:v3';
 //ns1:MCCI_IN000002UV01[1]/ns1:acknowledgement[1]/ns1:acknowledgementDetail[1]/ns1:text[1]/text()</path>
@@ -694,7 +698,7 @@
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion disabled="true" name="Verify RelatesTo" type="XPath Match">
+            <con:assertion disabled="true" name="Verify RelatesTo" type="XPath Match" id="bae20b60-2dc6-4751-9be5-91a24330e4ce">
               <con:configuration>
                 <path>declare namespace ns1='http://www.w3.org/2005/08/addressing';
 //ns1:RelatesTo[1]/text()</path>
@@ -703,7 +707,10 @@
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig action="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:1111111111.11111.111.11" mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -711,8 +718,8 @@
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-context.setGatewayStandard(false);
-</con:setupScript><con:properties>
+context.setGatewayStandard(false);</con:setupScript>
+      <con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2013-09-27T02:49:29Z</con:value>
@@ -731,15 +738,39 @@ context.setGatewayStandard(false);
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-</con:tearDownScript></con:testCase>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+context.setGatewayStandard(true);</con:tearDownScript>
+    </con:testCase>
     <con:properties/>
     <con:reportParameters/>
-  </con:testSuite><con:requirements/>
+  </con:testSuite>
+  <con:requirements/>
   <con:properties>
-    
-  <con:property><con:name>AdapterPatientDiscoveryAsyncReqEndpoint</con:name><con:value>http://localhost:8080/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>ASUsername</con:name><con:value>admin</con:value></con:property><con:property><con:name>ASPassword</con:name><con:value>adminadmin</con:value></con:property><con:property><con:name>JMXHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>JMXPort</con:name><con:value>8686</con:value></con:property></con:properties>
+    <con:property>
+      <con:name>AdapterPatientDiscoveryAsyncReqEndpoint</con:name>
+      <con:value>http://localhost:8080/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoveryDeferredRequestUnsecured</con:value>
+    </con:property>
+    <con:property>
+      <con:name>GatewayPropDir</con:name>
+      <con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value>
+    </con:property>
+    <con:property>
+      <con:name>ASUsername</con:name>
+      <con:value>admin</con:value>
+    </con:property>
+    <con:property>
+      <con:name>ASPassword</con:name>
+      <con:value>adminadmin</con:value>
+    </con:property>
+    <con:property>
+      <con:name>JMXHost</con:name>
+      <con:value>localhost</con:value>
+    </con:property>
+    <con:property>
+      <con:name>JMXPort</con:name>
+      <con:value>8686</con:value>
+    </con:property>
+  </con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
@@ -782,7 +813,8 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty 
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
-                delegate.testCase.testSuite.project.getPropertyValue(propertyName)
+                delegate.testCase.testSuite.project.getPropertyValue(propertyName) ?:
+                com.eviware.soapui.SoapUI.globalProperties.getPropertyValue(propertyName)
 }
 
 com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
@@ -883,6 +915,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
 }</con:afterLoadScript>
   <con:wssContainer/>
   <con:databaseConnectionContainer/>
+  <con:oAuth2ProfileContainer/>
   <con:reporting>
     <con:xmlTemplates/>
     <con:xmlTemplates/>
@@ -899,5 +932,5 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
     <con:xmlTemplates/>
     <con:parameters/>
   </con:reporting>
-
-<con:sensitiveInformation/></con:soapui-project>
+  <con:sensitiveInformation/>
+</con:soapui-project>
