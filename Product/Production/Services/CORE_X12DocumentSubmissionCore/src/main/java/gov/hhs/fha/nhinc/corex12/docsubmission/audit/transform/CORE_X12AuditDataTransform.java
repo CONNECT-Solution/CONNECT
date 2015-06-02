@@ -99,12 +99,6 @@ public class CORE_X12AuditDataTransform {
             LOG.error("Assertion was null");
             return null;
         }
-        // check to see that the required fields are not null
-        boolean missingReqFields = areRequiredCOREX12BatchFieldsNull(message, assertion);
-        if (missingReqFields) {
-            LOG.error("One or more required fields was missing");
-            return null;
-        }
 
         LogEventRequestType result = new LogEventRequestType();
         AuditMessageType auditMsg = new AuditMessageType();
@@ -357,65 +351,6 @@ public class CORE_X12AuditDataTransform {
     protected boolean areRequiredCOREX12BatchFieldsNull(Object msg, AssertionType assertion) {
         if (oXDR.areRequiredUserTypeFieldsNull(assertion)) {
             LOG.error("One of more UserInfo fields from the Assertion object were null.");
-            return true;
-        } else if (areRequiredRequestFieldsNull(msg)) {
-            LOG.error("One or more fields in CORE X12 Batch Request object were null.");
-            return true;
-        }
-        return false;
-    }
-
-    protected boolean areRequiredRequestFieldsNull(Object msg) {
-        final String CORE_X12_REALTIME = "CORE X12 Realtime";
-        final String CORE_X12_BATCH = "CORE X12 Batch";
-        if (msg instanceof COREEnvelopeBatchSubmission) {
-            COREEnvelopeBatchSubmission coreEnvelopeBatchSubmission = (COREEnvelopeBatchSubmission) msg;
-            return areRequiredFieldsNull(coreEnvelopeBatchSubmission.getCORERuleVersion(), coreEnvelopeBatchSubmission.getPayloadID(),
-                coreEnvelopeBatchSubmission.getPayloadType(), coreEnvelopeBatchSubmission.getProcessingMode(),
-                coreEnvelopeBatchSubmission.getReceiverID(), coreEnvelopeBatchSubmission.getSenderID(), coreEnvelopeBatchSubmission.getTimeStamp(), CORE_X12_BATCH);
-        } else if (msg instanceof COREEnvelopeBatchSubmissionResponse) {
-            COREEnvelopeBatchSubmissionResponse coreEnvelopeBatchSubmissionResponse = (COREEnvelopeBatchSubmissionResponse) msg;
-            return areRequiredFieldsNull(coreEnvelopeBatchSubmissionResponse.getCORERuleVersion(), coreEnvelopeBatchSubmissionResponse.getPayloadID(),
-                coreEnvelopeBatchSubmissionResponse.getPayloadType(), coreEnvelopeBatchSubmissionResponse.getProcessingMode(),
-                coreEnvelopeBatchSubmissionResponse.getReceiverID(), coreEnvelopeBatchSubmissionResponse.getSenderID(), coreEnvelopeBatchSubmissionResponse.getTimeStamp(), CORE_X12_BATCH);
-        } else if (msg instanceof COREEnvelopeRealTimeRequest) {
-            COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest = (COREEnvelopeRealTimeRequest) msg;
-            return areRequiredFieldsNull(coreEnvelopeRealTimeRequest.getCORERuleVersion(), coreEnvelopeRealTimeRequest.getPayloadID(),
-                coreEnvelopeRealTimeRequest.getPayloadType(), coreEnvelopeRealTimeRequest.getProcessingMode(),
-                coreEnvelopeRealTimeRequest.getReceiverID(), coreEnvelopeRealTimeRequest.getSenderID(), coreEnvelopeRealTimeRequest.getTimeStamp(), CORE_X12_REALTIME);
-        } else if (msg instanceof COREEnvelopeRealTimeResponse) {
-            COREEnvelopeRealTimeResponse coreEnvelopeRealTimeResponse = (COREEnvelopeRealTimeResponse) msg;
-            return areRequiredFieldsNull(coreEnvelopeRealTimeResponse.getCORERuleVersion(), coreEnvelopeRealTimeResponse.getPayloadID(),
-                coreEnvelopeRealTimeResponse.getPayloadType(), coreEnvelopeRealTimeResponse.getProcessingMode(),
-                coreEnvelopeRealTimeResponse.getReceiverID(), coreEnvelopeRealTimeResponse.getSenderID(), coreEnvelopeRealTimeResponse.getTimeStamp(), CORE_X12_REALTIME);
-        }
-        return false;
-    }
-
-    protected boolean areRequiredFieldsNull(String coreRuleVersion, String paloadId, String payloadType, String processingMode,
-        String receiverId, String senderId, String timeStamp, String messageType) {
-        if (NullChecker.isNullish(coreRuleVersion)) {
-            LOG.error("CORE X12 Batch CORERuleVersion is empty...");
-            return true;
-            //TODO: For some cases the payload id coming as null. Need to fix it as part of
-            //Batch Request and Batch Response fix
-            //} else if (NullChecker.isNullish(paloadId)) {
-            //    LOG.error(messageType+" PayloadID is empty...");
-            //    return true;
-        } else if (NullChecker.isNullish(payloadType)) {
-            LOG.error(messageType+" PayloadType is empty...");
-            return true;
-        } else if (NullChecker.isNullish(processingMode)) {
-            LOG.error(messageType+" ProcessingMode is empty...");
-            return true;
-        } else if (NullChecker.isNullish(receiverId)) {
-            LOG.error(messageType+" ReceiverID is empty...");
-            return true;
-        } else if (NullChecker.isNullish(senderId)) {
-            LOG.error(messageType+" SenderID is empty...");
-            return true;
-        } else if (NullChecker.isNullish(timeStamp)) {
-            LOG.error(messageType+" TimeStamp is empty...");
             return true;
         }
         return false;
