@@ -63,6 +63,7 @@ import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
 import com.services.nhinc.schema.auditmessage.ObjectFactory;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
  *
@@ -87,7 +88,7 @@ public class AuditRepositoryOrchImpl {
      *
      * @param mess the message
      * @param assertion the assertion
-     * @return gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType
+     * @return AcknowledgementType
      */
     public AcknowledgementType logAudit(LogEventSecureRequestType mess, AssertionType assertion) {
         LOG.debug("AuditRepositoryOrchImpl.logAudit() -- Begin");
@@ -334,18 +335,20 @@ public class AuditRepositoryOrchImpl {
     }
 
     private String getCommunityID(LogEventSecureRequestType mess) {
-        String eventCommunityId = null;
-        List<AuditSourceIdentificationType> auditSourceIdentificationList = null;
-        auditSourceIdentificationList = mess.getAuditMessage().getAuditSourceIdentification();
-        if (auditSourceIdentificationList != null && auditSourceIdentificationList.size() > 0) {
-            AuditSourceIdentificationType auditSourceIdentification = auditSourceIdentificationList.get(0);
-            eventCommunityId = auditSourceIdentification.getAuditSourceID();
-            LOG.debug("auditSourceID : " + eventCommunityId);
+        String eventCommunityId = mess.getCommunityId();
+        //if the communityId is populated then use it else use the current logic getting the HCID from
+        //Audit Source Identification entry
+        if (!NullChecker.isNullish(eventCommunityId)) {
+            return eventCommunityId;
+        } else {
+            List<AuditSourceIdentificationType> auditSourceIdentificationList = null;
+            auditSourceIdentificationList = mess.getAuditMessage().getAuditSourceIdentification();
+            if (auditSourceIdentificationList != null && auditSourceIdentificationList.size() > 0) {
+                AuditSourceIdentificationType auditSourceIdentification = auditSourceIdentificationList.get(0);
+                eventCommunityId = auditSourceIdentification.getAuditSourceID();
+                LOG.debug("auditSourceID : " + eventCommunityId);
+            }
+            return eventCommunityId;
         }
-        //Remove the first AuditSourceIdentificationType entry, if more than one found
-        if (auditSourceIdentificationList.size() > 1) {
-            auditSourceIdentificationList.remove(0);
-        }
-        return eventCommunityId;
     }
 }
