@@ -63,6 +63,7 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
         secureRequest.setAuditMessage(request.getAuditMessage());
         secureRequest.setDirection(request.getDirection());
         secureRequest.setInterface(request.getInterface());
+        secureRequest.setCommunityId(request.getCommunityId());
 
         try {
             if (request != null) {

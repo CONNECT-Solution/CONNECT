@@ -139,15 +139,14 @@ public class CORE_X12AuditDataTransform {
         AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType();
 
         //******************************Constuct Audit Source Identification**********************
-        //This  will be used by persistence layer, needs to be changed in the future
-        AuditSourceIdentificationType auditSourceLocal = AuditDataTransformHelper.createAuditSourceIdentification(communityId, "INTERNAL");
-        auditMsg.getAuditSourceIdentification().add(auditSourceLocal);
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
         //Set the all the required data
         result.setAuditMessage(auditMsg);
         result.setDirection(direction);
         result.setInterface(_interface);
+        //set the target community identifier
+        result.setCommunityId(communityId);
 
         LOG.trace("End CORE_X12AuditDataTransform -> transformX12MsgToAuditMsg() -- NHIN");
         return result;
@@ -467,10 +466,12 @@ public class CORE_X12AuditDataTransform {
     }
 
     protected String getMessageCommunityId(AssertionType assertion, NhinTargetSystemType target, boolean isRequesting) {
+        String communityId = null;
         if (isRequesting) {
-            return HomeCommunityMap.getCommunityIdFromTargetSystem(target);
+            communityId = HomeCommunityMap.getCommunityIdFromTargetSystem(target);
         } else {
-            return HomeCommunityMap.getHomeCommunityIdFromAssertion(assertion);
+            communityId = HomeCommunityMap.getHomeCommunityIdFromAssertion(assertion);
         }
+        return HomeCommunityMap.formatHomeCommunityId(communityId);
     }
 }
