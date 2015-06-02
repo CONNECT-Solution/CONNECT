@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   /* 
-   * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
+   * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
    * All rights reserved. 
    *
    * Redistribution and use in source and binary forms, with or without  
@@ -63,8 +63,8 @@
                         <p:menuitem value="Gateway" action="#{tabBean.navigateToGatewayPropTab()}" styleClass="glyphicon glyphicon-list" />
                         <p:menuitem value="Adapter" action="#{tabBean.navigateToAdapterPropTab()}" styleClass="glyphicon glyphicon-list-alt" />
                     </p:submenu>
-                    <p:submenu label="FHIR" styleClass="sidebar-orange">
-                        <p:menuitem value="Resources" url="fhir.xhtml" styleClass="glyphicon glyphicon-fire" />
+                    <p:submenu rendered="#{applicationBean.fhirEnabled}" label="FHIR" styleClass="sidebar-orange">
+                        <p:menuitem value="Resources" url="#{tabBean.navigateToFhir()}" styleClass="glyphicon glyphicon-fire" />
                     </p:submenu>
                     <p:submenu label="Universal Client" styleClass="sidebar-teal" >
                         <p:menuitem value="Patient Search" action="#{tabBean.navigateToPatientDiscoveryTab()}" styleClass="glyphicon glyphicon-zoom-in" />

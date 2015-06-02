@@ -24,42 +24,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
-package gov.hhs.fha.nhinc.admingui.services;
-
-import gov.hhs.fha.nhinc.admingui.model.fhir.ConformanceView;
-import gov.hhs.fha.nhinc.admingui.model.fhir.ResourceInfo;
-import java.util.List;
+package gov.hhs.fha.nhinc.admingui.display;
 
 /**
  *
  * @author jassmit
  */
-public interface FhirResourceService {
-    
-    public static final String PATIENT_RESOURCE_NAME = "FHIRPatientResource";
-    public static final String DOCREF_RESOURCE_NAME = "FHIRDocumentReferenceResource";
-    public static final String BINARY_RESOURCE_NAME = "FHIRBinaryResource";
-    
+public interface DisplayController {
+
     /**
-     * Loads resource information from config file.
-     * @return 
+     * Determines if a given admin service is configured.
      */
-    public List<ResourceInfo> loadResources();
-    
-    /**
-     * Updates the url for a FHIR resource to a config file.
-     * 
-     * @param serviceName
-     * @param url
-     * @throws Exception 
-     */
-    public void updateUrl(String serviceName, String url) throws Exception;
-    
-    /**
-     * Pulls conformance information for a given resource url using a FHIR client.
-     * @param url
-     * @return 
-     */
-    public ConformanceView getConformance(String url);
+    void checkDisplay();
+
 }

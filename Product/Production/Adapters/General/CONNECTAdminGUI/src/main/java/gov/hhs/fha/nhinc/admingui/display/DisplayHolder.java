@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services. All
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services. All
  * rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
@@ -18,7 +18,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-
 package gov.hhs.fha.nhinc.admingui.display;
 
 /**
@@ -28,22 +27,23 @@ package gov.hhs.fha.nhinc.admingui.display;
 public class DisplayHolder {
 
     private static DisplayHolder INSTANCE;
-    
-    private DisplayHolder(){
+
+    private boolean directEnabled = true;
+    private boolean fhirEnabled = true;
+
+    private DisplayHolder() {
     }
-    
+
     /**
      *
      * @return
      */
-    public static DisplayHolder getInstance(){
-        if(INSTANCE == null){
+    public static DisplayHolder getInstance() {
+        if (INSTANCE == null) {
             INSTANCE = new DisplayHolder();
         }
         return INSTANCE;
     }
-    
-    private boolean directEnabled = true;
 
     /**
      *
@@ -60,5 +60,13 @@ public class DisplayHolder {
     public void setDirectEnabled(boolean directEnabled) {
         this.directEnabled = directEnabled;
     }
-    
+
+    public boolean isFhirEnabled() {
+        return fhirEnabled;
+    }
+
+    public void setFhirEnabled(boolean fhirEnabled) {
+        this.fhirEnabled = fhirEnabled;
+    }
+
 }
