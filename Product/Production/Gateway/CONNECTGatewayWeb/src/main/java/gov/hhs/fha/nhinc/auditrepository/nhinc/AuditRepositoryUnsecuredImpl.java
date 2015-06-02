@@ -42,6 +42,7 @@ import org.apache.log4j.Logger;
  * @author mflynn02
  */
 public class AuditRepositoryUnsecuredImpl {
+
     private static final Logger LOG = Logger.getLogger(AuditRepositoryUnsecuredImpl.class);
 
     protected AuditRepositoryOrchImpl getAuditRepositoryOrchImpl() {
@@ -69,6 +70,7 @@ public class AuditRepositoryUnsecuredImpl {
                     secureRequest.setAuditMessage(logEventRequest.getAuditMessage());
                     secureRequest.setDirection(logEventRequest.getDirection());
                     secureRequest.setInterface(logEventRequest.getInterface());
+                    secureRequest.setCommunityId(logEventRequest.getCommunityId());
 
                     response = processor.logAudit(secureRequest, assertion);
                 } catch (Exception ex) {
@@ -86,7 +88,7 @@ public class AuditRepositoryUnsecuredImpl {
     }
 
     public FindCommunitiesAndAuditEventsResponseType queryAuditEvents(
-            FindCommunitiesAndAuditEventsRequestType queryAuditEventsRequest, WebServiceContext context) {
+        FindCommunitiesAndAuditEventsRequestType queryAuditEventsRequest, WebServiceContext context) {
         LOG.info("Entering AuditRepositoryUnsecuredImpl.queryAuditEvents");
         FindCommunitiesAndAuditEventsResponseType response = null;
 
@@ -102,7 +104,7 @@ public class AuditRepositoryUnsecuredImpl {
                     response = processor.findAudit(queryAuditEventsRequest.getFindAuditEvents(), assertion);
                 } catch (Exception ex) {
                     String message = "Error occurred calling AuditRepositoryUnsecuredImpl.queryAuditEvents. Error: "
-                            + ex.getMessage();
+                        + ex.getMessage();
                     LOG.error(message, ex);
                     throw new RuntimeException(message, ex);
                 }
