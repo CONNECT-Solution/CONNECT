@@ -138,27 +138,22 @@ public class CertificateManagerImpl implements CertificateManager {
         if (storeType == null) {
             LOG.error("javax.net.ssl.keyStoreType is not defined");
             LOG.warn("Default to JKS keyStoreType");
-            storeType = "JKS";
+            storeType = JKS_TYPE;
         }
         if (password == null || storeLoc == null) {
             LOG.error("Store password or store location not defined");
             LOG.error("Please define javax.net.ssl.keyStorePassword and javax.net.ssl.keyStore");
         }
 
-        if ("JKS".equals(storeType) && storeLoc == null) {
+        if (JKS_TYPE.equals(storeType) && storeLoc == null) {
             LOG.error("javax.net.ssl.keyStore is not defined");
         } else {
             try {
                 keyStore = KeyStore.getInstance(storeType);
-                if (JKS_TYPE.equalsIgnoreCase(storeType)) {
+                if (!PKCS_TYPE.equalsIgnoreCase(storeType)) {
                     is = new FileInputStream(storeLoc);
-                    keyStore.load(is, password.toCharArray());
-                } else if (PKCS_TYPE.equalsIgnoreCase(storeType)) {
-                    keyStore.load(is, password.toCharArray());
-                } else {
-                    throw new Exception("Unsupported Keystore Type: " + storeType);
                 }
-
+                keyStore.load(is, password.toCharArray());
             } catch (NoSuchAlgorithmException ex) {
                 LOG.error("Error initializing KeyStore: " + ex);
                 throw new Exception(ex.getMessage());
@@ -201,10 +196,10 @@ public class CertificateManagerImpl implements CertificateManager {
         if (storeType == null) {
             LOG.error("javax.net.ssl.trustStoreType is not defined in domain.xml");
             LOG.warn("Default to JKS trustStoreType");
-            storeType = "JKS";
+            storeType = JKS_TYPE;
         }
         if (password != null) {
-            if ("JKS".equals(storeType) && storeLoc == null) {
+            if (JKS_TYPE.equals(storeType) && storeLoc == null) {
                 LOG.error("javax.net.ssl.trustStore is not defined in domain.xml");
             } else {
                 try {
