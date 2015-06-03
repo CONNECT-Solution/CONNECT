@@ -673,8 +673,9 @@ public class MessageMonitoringAPI {
             MessageMonitoringDAOImpl.getInstance().deleteCompletedMessages(trackMessage);
         } catch (MessageMonitoringDAOException ex) {
             LOG.debug("Error While deleting Message from MessageMonitoring Table: " + ex);
+            return;
         }
-        LOG.debug("Completed message deleted. Message ID:" + trackMessage.getMessageid());
+        LOG.debug("Completed message deleted.");
     }
 
     private void deleteElapsedArchivedMessageList() {
