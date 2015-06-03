@@ -62,7 +62,7 @@ public class CertificateManagerImpl implements CertificateManager {
     public static final String KEY_STORE_PASSWORD_KEY = "javax.net.ssl.keyStorePassword";
     public static final String KEY_STORE_KEY = "javax.net.ssl.keyStore";
     public static final String JKS_TYPE = "JKS";
-    public static final String PKCS_TYPE = "PKCS";
+    public static final String PKCS_TYPE = "PKCS11";
 
     private CertificateManagerImpl() {
         try {
