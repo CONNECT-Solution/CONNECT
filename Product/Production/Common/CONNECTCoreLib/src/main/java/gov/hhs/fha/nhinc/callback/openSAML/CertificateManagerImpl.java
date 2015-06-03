@@ -62,7 +62,7 @@ public class CertificateManagerImpl implements CertificateManager {
     public static final String KEY_STORE_PASSWORD_KEY = "javax.net.ssl.keyStorePassword";
     public static final String KEY_STORE_KEY = "javax.net.ssl.keyStore";
     public static final String JKS_TYPE = "JKS";
-    public static final String PKCS_TYPE = "PKCS11";
+    public static final String PKCS11_TYPE = "PKCS11";
 
     private CertificateManagerImpl() {
         try {
@@ -150,7 +150,7 @@ public class CertificateManagerImpl implements CertificateManager {
         } else {
             try {
                 keyStore = KeyStore.getInstance(storeType);
-                if (!PKCS_TYPE.equalsIgnoreCase(storeType)) {
+                if (!PKCS11_TYPE.equalsIgnoreCase(storeType)) {
                     is = new FileInputStream(storeLoc);
                 }
                 keyStore.load(is, password.toCharArray());
@@ -204,7 +204,9 @@ public class CertificateManagerImpl implements CertificateManager {
             } else {
                 try {
                     trustStore = KeyStore.getInstance(storeType);
-                    is = new FileInputStream(storeLoc);
+                    if (!PKCS11_TYPE.equalsIgnoreCase(storeType)) {
+                        is = new FileInputStream(storeLoc);
+                    }
                     trustStore.load(is, password.toCharArray());
                 } catch (NoSuchAlgorithmException ex) {
                     LOG.error("Error initializing TrustStore: " + ex);
