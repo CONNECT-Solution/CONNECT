@@ -3249,19 +3249,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-02T16:52:56Z</con:value>
+          <con:value>2015-06-04T22:02:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-02T17:02:56Z</con:value>
+          <con:value>2015-06-04T22:12:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/02/2015 16:52:56</con:value>
+          <con:value>06/04/2015 22:02:13</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-02T00:00:00Z</con:value>
+          <con:value>2015-07-04T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
@@ -3269,7 +3269,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-02 16:57:56</con:value>
+          <con:value>2015-06-04 22:07:14</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3802,19 +3802,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-02T02:01:45Z</con:value>
+          <con:value>2015-06-04T22:02:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-02T02:11:45Z</con:value>
+          <con:value>2015-06-04T22:12:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/02/2015 02:01:45</con:value>
+          <con:value>06/04/2015 22:02:57</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-02T00:00:00Z</con:value>
+          <con:value>2015-07-04T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
@@ -3822,7 +3822,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-02 02:06:46</con:value>
+          <con:value>2015-06-04 22:07:58</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4727,19 +4727,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-02T02:02:09Z</con:value>
+          <con:value>2015-06-04T22:03:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-02T02:12:09Z</con:value>
+          <con:value>2015-06-04T22:13:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/02/2015 02:02:09</con:value>
+          <con:value>06/04/2015 22:03:31</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-02T00:00:00Z</con:value>
+          <con:value>2015-07-04T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4751,7 +4751,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-02 02:07:09</con:value>
+          <con:value>2015-06-04 22:08:32</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -5116,33 +5116,20 @@ testRunner.testCase.setPropertyValue("RequestStartTime",startDateTime);</script>
               <con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockResponse@response-delay">20000</con:setting>
             </con:settings>
             <con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
-    <soap:Header>
-        <Action xmlns="http://www.w3.org/2005/08/addressing">urn:gov:hhs:fha:nhinc:adapterdocretrievesecured:AdapterDocRetrieveSecuredPortType:RespondingGateway_CrossGatewayRetrieveSecuredResponse</Action>
-        <MessageID xmlns="http://www.w3.org/2005/08/addressing">urn:uuid:16fb40fd-4e8b-412f-a1c5-e991745dfda8</MessageID>
-        <To xmlns="http://www.w3.org/2005/08/addressing">http://www.w3.org/2005/08/addressing/anonymous</To>
-        <RelatesTo xmlns="http://www.w3.org/2005/08/addressing">urn:uuid:cd6fa385-0b97-4759-819e-dee6bd931d16</RelatesTo>
-        <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" soap:mustUnderstand="true">
-            <wsu:Timestamp wsu:Id="TS-151">
-                <wsu:Created>2014-12-10T15:25:12.810Z</wsu:Created>
-                <wsu:Expires>2014-12-10T15:30:12.810Z</wsu:Expires>
-            </wsu:Timestamp>
-            <wsse11:SignatureConfirmation xmlns:wsse11="http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd" Value="AkRevNlGzOGd5b3Y3aCx67U0rln2zF5SU83jTs7wDVbvdrMJ2L19Uj3Cd8GJMWxkwWCMON5gvWsfI/b3hGqrYWtwgp/Yt5XX4+vKoGcMTabXcL8aOiL5VeES45QYTCMUgV9ts47XLw2JwnLlnUsT0f/0p+tjDNGD0vI+xOET+C4=" wsu:Id="SC-152"/>
-        </wsse:Security>
-    </soap:Header>
-    <soap:Body>
-        <RetrieveDocumentSetResponse xmlns="urn:ihe:iti:xds-b:2007" xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
-            <ns3:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success"/>
-            <DocumentResponse>
-                <HomeCommunityId>urn:oid:2.2</HomeCommunityId>
-                <RepositoryUniqueId>1</RepositoryUniqueId>
-                <DocumentUniqueId>1.123407.777777</DocumentUniqueId>
-                <mimeType>text/xml</mimeType>
-                <Document>
-                    <xop:Include xmlns:xop="http://www.w3.org/2004/08/xop/include" href="cid:1aa1e274-a795-4c18-af07-685a34a2edbf-7@urn%3Aihe%3Aiti%3Axds-b%3A2007"/>
-                </Document>
-            </DocumentResponse>
-        </RetrieveDocumentSetResponse>
-    </soap:Body>
+	<soap:Body>
+		<ns17:RetrieveDocumentSetResponse xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns6="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns7="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns8="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns9="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns10="http://nhinc.services.com/schema/auditmessage" xmlns:ns11="http://www.w3.org/2005/08/addressing" xmlns:ns12="http://docs.oasis-open.org/wsn/b-2" xmlns:ns13="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns14="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns15="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns16="http://docs.oasis-open.org/wsn/t-1" xmlns:ns17="urn:ihe:iti:xds-b:2007" xmlns:ns18="http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd" xmlns:ns19="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:ns20="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments">
+			<ns5:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success"/>
+			<ns17:DocumentResponse>
+				<ns17:HomeCommunityId>urn:oid:2.2</ns17:HomeCommunityId>
+				<ns17:RepositoryUniqueId>1</ns17:RepositoryUniqueId>
+				<ns17:DocumentUniqueId>1.123407.777777</ns17:DocumentUniqueId>
+				<ns17:mimeType>text/xml</ns17:mimeType>
+				<ns17:Document>
+					<xop:Include xmlns:xop="http://www.w3.org/2004/08/xop/include" href="cid:f6317974-1bee-4c85-a203-b9649bc05522-4@urn%3Aihe%3Aiti%3Axds-b%3A2007"/>
+				</ns17:Document>
+			</ns17:DocumentResponse>
+		</ns17:RetrieveDocumentSetResponse>
+	</soap:Body>
 </soap:Envelope>]]></con:responseContent>
             <con:attachment>
               <con:name>DRAttachment.xml</con:name>
@@ -5186,19 +5173,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-02T02:02:31Z</con:value>
+          <con:value>2015-06-04T22:03:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-02T02:12:31Z</con:value>
+          <con:value>2015-06-04T22:13:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/02/2015 02:02:31</con:value>
+          <con:value>06/04/2015 22:03:56</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-02T00:00:00Z</con:value>
+          <con:value>2015-07-04T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
@@ -5206,7 +5193,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-02 02:07:32</con:value>
+          <con:value>2015-06-04 22:08:56</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -6056,26 +6043,30 @@ if(!testRunner.testCase.testSuite.project.getPropertyValue("TransactionTimeoutVa
 }</script>
         </con:config>
       </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript>
+      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+nhinc.FileUtils.restoreConfiguration(dir, log);
+nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-02T02:02:54Z</con:value>
+          <con:value>2015-06-04T22:04:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-02T02:12:54Z</con:value>
+          <con:value>2015-06-04T22:14:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/02/2015 02:02:54</con:value>
+          <con:value>06/04/2015 22:04:20</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-02T00:00:00Z</con:value>
+          <con:value>2015-07-04T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-02 02:07:54</con:value>
+          <con:value>2015-06-04 22:09:20</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -6136,7 +6127,7 @@ nhinc.FileUtils.updateSpringConfig(dir, "DocumentSubmissionProxyConfig.xml",
 log.info "Modifying internalConnectionInfo for adapter doc submission mock."
 
 nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterdocsubmission", "http://localhost:1720/MockDSAdapter", "2.0",
+	"adapterxdr", "http://localhost:1720/MockDSAdapter", "2.0",
 	log);</script>
         </con:config>
       </con:testStep>
@@ -6689,19 +6680,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-02T02:03:38Z</con:value>
+          <con:value>2015-06-04T22:06:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-02T02:13:38Z</con:value>
+          <con:value>2015-06-04T22:16:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/02/2015 02:03:38</con:value>
+          <con:value>06/04/2015 22:06:05</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-02T00:00:00Z</con:value>
+          <con:value>2015-07-04T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
@@ -6709,7 +6700,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-02 02:08:38</con:value>
+          <con:value>2015-06-04 22:11:06</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -7247,19 +7238,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-02T02:03:50Z</con:value>
+          <con:value>2015-06-04T22:06:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-02T02:13:50Z</con:value>
+          <con:value>2015-06-04T22:16:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/02/2015 02:03:50</con:value>
+          <con:value>06/04/2015 22:06:18</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-02T00:00:00Z</con:value>
+          <con:value>2015-07-04T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
@@ -7267,7 +7258,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-02 02:08:51</con:value>
+          <con:value>2015-06-04 22:11:19</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -8177,19 +8168,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-02T02:04:13Z</con:value>
+          <con:value>2015-06-04T22:06:41Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-02T02:14:13Z</con:value>
+          <con:value>2015-06-04T22:16:41Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/02/2015 02:04:13</con:value>
+          <con:value>06/04/2015 22:06:41</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-02T00:00:00Z</con:value>
+          <con:value>2015-07-04T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -8201,7 +8192,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-02 02:09:14</con:value>
+          <con:value>2015-06-04 22:11:41</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -8573,33 +8564,20 @@ testRunner.testCase.setPropertyValue("RequestStartTime",startDateTime);</script>
               <con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockResponse@response-delay">20000</con:setting>
             </con:settings>
             <con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
-    <soap:Header>
-        <Action xmlns="http://www.w3.org/2005/08/addressing">urn:gov:hhs:fha:nhinc:adapterdocretrievesecured:AdapterDocRetrieveSecuredPortType:RespondingGateway_CrossGatewayRetrieveSecuredResponse</Action>
-        <MessageID xmlns="http://www.w3.org/2005/08/addressing">urn:uuid:16fb40fd-4e8b-412f-a1c5-e991745dfda8</MessageID>
-        <To xmlns="http://www.w3.org/2005/08/addressing">http://www.w3.org/2005/08/addressing/anonymous</To>
-        <RelatesTo xmlns="http://www.w3.org/2005/08/addressing">urn:uuid:cd6fa385-0b97-4759-819e-dee6bd931d16</RelatesTo>
-        <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" soap:mustUnderstand="true">
-            <wsu:Timestamp wsu:Id="TS-151">
-                <wsu:Created>2014-12-10T15:25:12.810Z</wsu:Created>
-                <wsu:Expires>2014-12-10T15:30:12.810Z</wsu:Expires>
-            </wsu:Timestamp>
-            <wsse11:SignatureConfirmation xmlns:wsse11="http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd" Value="AkRevNlGzOGd5b3Y3aCx67U0rln2zF5SU83jTs7wDVbvdrMJ2L19Uj3Cd8GJMWxkwWCMON5gvWsfI/b3hGqrYWtwgp/Yt5XX4+vKoGcMTabXcL8aOiL5VeES45QYTCMUgV9ts47XLw2JwnLlnUsT0f/0p+tjDNGD0vI+xOET+C4=" wsu:Id="SC-152"/>
-        </wsse:Security>
-    </soap:Header>
-    <soap:Body>
-        <RetrieveDocumentSetResponse xmlns="urn:ihe:iti:xds-b:2007" xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
-            <ns3:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success"/>
-            <DocumentResponse>
-                <HomeCommunityId>urn:oid:2.2</HomeCommunityId>
-                <RepositoryUniqueId>1</RepositoryUniqueId>
-                <DocumentUniqueId>1.123407.777777</DocumentUniqueId>
-                <mimeType>text/xml</mimeType>
-                <Document>
-                    <xop:Include xmlns:xop="http://www.w3.org/2004/08/xop/include" href="cid:1aa1e274-a795-4c18-af07-685a34a2edbf-7@urn%3Aihe%3Aiti%3Axds-b%3A2007"/>
-                </Document>
-            </DocumentResponse>
-        </RetrieveDocumentSetResponse>
-    </soap:Body>
+	<soap:Body>
+		<ns17:RetrieveDocumentSetResponse xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns6="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns7="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns8="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns9="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns10="http://nhinc.services.com/schema/auditmessage" xmlns:ns11="http://www.w3.org/2005/08/addressing" xmlns:ns12="http://docs.oasis-open.org/wsn/b-2" xmlns:ns13="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns14="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns15="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns16="http://docs.oasis-open.org/wsn/t-1" xmlns:ns17="urn:ihe:iti:xds-b:2007" xmlns:ns18="http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd" xmlns:ns19="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:ns20="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments">
+			<ns5:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success"/>
+			<ns17:DocumentResponse>
+				<ns17:HomeCommunityId>urn:oid:2.2</ns17:HomeCommunityId>
+				<ns17:RepositoryUniqueId>1</ns17:RepositoryUniqueId>
+				<ns17:DocumentUniqueId>1.123407.777777</ns17:DocumentUniqueId>
+				<ns17:mimeType>text/xml</ns17:mimeType>
+				<ns17:Document>
+					<xop:Include xmlns:xop="http://www.w3.org/2004/08/xop/include" href="cid:f6317974-1bee-4c85-a203-b9649bc05522-4@urn%3Aihe%3Aiti%3Axds-b%3A2007"/>
+				</ns17:Document>
+			</ns17:DocumentResponse>
+		</ns17:RetrieveDocumentSetResponse>
+	</soap:Body>
 </soap:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
@@ -8636,19 +8614,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-02T02:04:37Z</con:value>
+          <con:value>2015-06-04T22:07:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-02T02:14:37Z</con:value>
+          <con:value>2015-06-04T22:17:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/02/2015 02:04:37</con:value>
+          <con:value>06/04/2015 22:07:04</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-02T00:00:00Z</con:value>
+          <con:value>2015-07-04T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
@@ -8656,7 +8634,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-02 02:09:37</con:value>
+          <con:value>2015-06-04 22:12:05</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -9521,26 +9499,30 @@ if(!testRunner.testCase.testSuite.project.getPropertyValue("TransactionTimeoutVa
 }</script>
         </con:config>
       </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript>
+      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+nhinc.FileUtils.restoreConfiguration(dir, log);
+nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-02T02:04:59Z</con:value>
+          <con:value>2015-06-04T22:07:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-02T02:14:59Z</con:value>
+          <con:value>2015-06-04T22:17:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/02/2015 02:04:59</con:value>
+          <con:value>06/04/2015 22:07:27</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-02T00:00:00Z</con:value>
+          <con:value>2015-07-04T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-02 02:09:59</con:value>
+          <con:value>2015-06-04 22:12:27</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -9601,7 +9583,7 @@ nhinc.FileUtils.updateSpringConfig(dir, "DocumentSubmissionProxyConfig.xml",
 log.info "Modifying internalConnectionInfo for adapter doc submission mock."
 
 nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterdocsubmission", "http://localhost:1720/MockDSAdapter", "2.0",
+	"adapterxdr", "http://localhost:1720/MockDSAdapter", "2.0",
 	log);</script>
         </con:config>
       </con:testStep>
@@ -10149,19 +10131,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-05-30T08:49:27Z</con:value>
+          <con:value>2015-06-04T22:08:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-05-30T08:59:27Z</con:value>
+          <con:value>2015-06-04T22:18:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/30/2015 08:49:27</con:value>
+          <con:value>06/04/2015 22:08:01</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-06-29T00:00:00Z</con:value>
+          <con:value>2015-07-04T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
@@ -10169,7 +10151,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-05-30 08:54:27</con:value>
+          <con:value>2015-06-04 22:13:01</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -10708,19 +10690,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-05-30T08:49:49Z</con:value>
+          <con:value>2015-06-04T22:08:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-05-30T08:59:49Z</con:value>
+          <con:value>2015-06-04T22:18:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/30/2015 08:49:49</con:value>
+          <con:value>06/04/2015 22:08:24</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-06-29T00:00:00Z</con:value>
+          <con:value>2015-07-04T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
@@ -10728,7 +10710,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-05-30 08:54:50</con:value>
+          <con:value>2015-06-04 22:13:24</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -11639,19 +11621,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-05-30T08:50:12Z</con:value>
+          <con:value>2015-06-04T22:08:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-05-30T09:00:12Z</con:value>
+          <con:value>2015-06-04T22:18:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/30/2015 08:50:12</con:value>
+          <con:value>06/04/2015 22:08:47</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-06-29T00:00:00Z</con:value>
+          <con:value>2015-07-04T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -11663,7 +11645,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-05-30 08:55:12</con:value>
+          <con:value>2015-06-04 22:13:47</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -12036,33 +12018,20 @@ testRunner.testCase.setPropertyValue("RequestStartTime",startDateTime);</script>
               <con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockResponse@response-delay">20000</con:setting>
             </con:settings>
             <con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
-    <soap:Header>
-        <Action xmlns="http://www.w3.org/2005/08/addressing">urn:gov:hhs:fha:nhinc:adapterdocretrievesecured:AdapterDocRetrieveSecuredPortType:RespondingGateway_CrossGatewayRetrieveSecuredResponse</Action>
-        <MessageID xmlns="http://www.w3.org/2005/08/addressing">urn:uuid:16fb40fd-4e8b-412f-a1c5-e991745dfda8</MessageID>
-        <To xmlns="http://www.w3.org/2005/08/addressing">http://www.w3.org/2005/08/addressing/anonymous</To>
-        <RelatesTo xmlns="http://www.w3.org/2005/08/addressing">urn:uuid:cd6fa385-0b97-4759-819e-dee6bd931d16</RelatesTo>
-        <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" soap:mustUnderstand="true">
-            <wsu:Timestamp wsu:Id="TS-151">
-                <wsu:Created>2014-12-10T15:25:12.810Z</wsu:Created>
-                <wsu:Expires>2014-12-10T15:30:12.810Z</wsu:Expires>
-            </wsu:Timestamp>
-            <wsse11:SignatureConfirmation xmlns:wsse11="http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd" Value="AkRevNlGzOGd5b3Y3aCx67U0rln2zF5SU83jTs7wDVbvdrMJ2L19Uj3Cd8GJMWxkwWCMON5gvWsfI/b3hGqrYWtwgp/Yt5XX4+vKoGcMTabXcL8aOiL5VeES45QYTCMUgV9ts47XLw2JwnLlnUsT0f/0p+tjDNGD0vI+xOET+C4=" wsu:Id="SC-152"/>
-        </wsse:Security>
-    </soap:Header>
-    <soap:Body>
-        <RetrieveDocumentSetResponse xmlns="urn:ihe:iti:xds-b:2007" xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
-            <ns3:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success"/>
-            <DocumentResponse>
-                <HomeCommunityId>urn:oid:2.2</HomeCommunityId>
-                <RepositoryUniqueId>1</RepositoryUniqueId>
-                <DocumentUniqueId>1.123407.777777</DocumentUniqueId>
-                <mimeType>text/xml</mimeType>
-                <Document>
-                    <xop:Include xmlns:xop="http://www.w3.org/2004/08/xop/include" href="cid:1aa1e274-a795-4c18-af07-685a34a2edbf-7@urn%3Aihe%3Aiti%3Axds-b%3A2007"/>
-                </Document>
-            </DocumentResponse>
-        </RetrieveDocumentSetResponse>
-    </soap:Body>
+	<soap:Body>
+		<ns17:RetrieveDocumentSetResponse xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns6="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns7="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns8="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns9="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns10="http://nhinc.services.com/schema/auditmessage" xmlns:ns11="http://www.w3.org/2005/08/addressing" xmlns:ns12="http://docs.oasis-open.org/wsn/b-2" xmlns:ns13="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns14="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns15="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns16="http://docs.oasis-open.org/wsn/t-1" xmlns:ns17="urn:ihe:iti:xds-b:2007" xmlns:ns18="http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd" xmlns:ns19="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:ns20="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments">
+			<ns5:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success"/>
+			<ns17:DocumentResponse>
+				<ns17:HomeCommunityId>urn:oid:2.2</ns17:HomeCommunityId>
+				<ns17:RepositoryUniqueId>1</ns17:RepositoryUniqueId>
+				<ns17:DocumentUniqueId>1.123407.777777</ns17:DocumentUniqueId>
+				<ns17:mimeType>text/xml</ns17:mimeType>
+				<ns17:Document>
+					<xop:Include xmlns:xop="http://www.w3.org/2004/08/xop/include" href="cid:f6317974-1bee-4c85-a203-b9649bc05522-4@urn%3Aihe%3Aiti%3Axds-b%3A2007"/>
+				</ns17:Document>
+			</ns17:DocumentResponse>
+		</ns17:RetrieveDocumentSetResponse>
+	</soap:Body>
 </soap:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
@@ -12099,19 +12068,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-05-30T08:50:35Z</con:value>
+          <con:value>2015-06-04T22:09:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-05-30T09:00:35Z</con:value>
+          <con:value>2015-06-04T22:19:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/30/2015 08:50:35</con:value>
+          <con:value>06/04/2015 22:09:09</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-06-29T00:00:00Z</con:value>
+          <con:value>2015-07-04T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
@@ -12119,7 +12088,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-05-30 08:55:35</con:value>
+          <con:value>2015-06-04 22:14:10</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -12985,26 +12954,30 @@ if(!testRunner.testCase.testSuite.project.getPropertyValue("TransactionTimeoutVa
 }</script>
         </con:config>
       </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript>
+      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+nhinc.FileUtils.restoreConfiguration(dir, log);
+nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-05-30T08:50:57Z</con:value>
+          <con:value>2015-06-04T22:09:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-05-30T09:00:57Z</con:value>
+          <con:value>2015-06-04T22:19:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/30/2015 08:50:57</con:value>
+          <con:value>06/04/2015 22:09:32</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-06-29T00:00:00Z</con:value>
+          <con:value>2015-07-04T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-05-30 08:55:57</con:value>
+          <con:value>2015-06-04 22:14:32</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -13305,7 +13278,7 @@ if(!testRunner.testCase.testSuite.project.getPropertyValue("TransactionTimeoutVa
     </con:property>
     <con:property>
       <con:name>TransactionTimeoutValue</con:name>
-      <con:value>15000</con:value>
+      <con:value/>
     </con:property>
     <con:property>
       <con:name>TransactionTimeout</con:name>
