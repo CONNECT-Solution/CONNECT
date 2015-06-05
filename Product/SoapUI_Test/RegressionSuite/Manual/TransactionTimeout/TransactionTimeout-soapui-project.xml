@@ -2717,7 +2717,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
         <con:settings/>
         <con:config>
           <script>testRunner.testCase.testSuite.project.setPropertyValue("TransactionTimeoutValue", "15000" );
-log.info "AD Timeout Ready To Wait For: " + testRunner.testCase.testSuite.project.getPropertyValue("TransactionTimeoutValue") + "ms"
+log.info "DS Timeout Ready To Wait For: " + testRunner.testCase.testSuite.project.getPropertyValue("TransactionTimeoutValue") + "ms"
 def startDateTime = new Date().format("yyyy-MM-dd HH:mm:ss");
 testRunner.testCase.setPropertyValue("RequestStartTime",startDateTime);</script>
         </con:config>
@@ -3249,19 +3249,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-04T22:02:13Z</con:value>
+          <con:value>2015-06-05T02:02:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-04T22:12:13Z</con:value>
+          <con:value>2015-06-05T02:12:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/04/2015 22:02:13</con:value>
+          <con:value>06/05/2015 02:02:10</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-04T00:00:00Z</con:value>
+          <con:value>2015-07-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
@@ -3269,7 +3269,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-04 22:07:14</con:value>
+          <con:value>2015-06-05 02:07:10</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3802,19 +3802,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-04T22:02:57Z</con:value>
+          <con:value>2015-06-05T02:02:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-04T22:12:57Z</con:value>
+          <con:value>2015-06-05T02:12:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/04/2015 22:02:57</con:value>
+          <con:value>06/05/2015 02:02:33</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-04T00:00:00Z</con:value>
+          <con:value>2015-07-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
@@ -3822,7 +3822,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-04 22:07:58</con:value>
+          <con:value>2015-06-05 02:07:33</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4727,19 +4727,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-04T22:03:31Z</con:value>
+          <con:value>2015-06-05T02:02:55Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-04T22:13:31Z</con:value>
+          <con:value>2015-06-05T02:12:55Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/04/2015 22:03:31</con:value>
+          <con:value>06/05/2015 02:02:55</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-04T00:00:00Z</con:value>
+          <con:value>2015-07-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4751,7 +4751,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-04 22:08:32</con:value>
+          <con:value>2015-06-05 02:07:55</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -5173,19 +5173,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-04T22:03:56Z</con:value>
+          <con:value>2015-06-05T02:03:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-04T22:13:56Z</con:value>
+          <con:value>2015-06-05T02:13:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/04/2015 22:03:56</con:value>
+          <con:value>06/05/2015 02:03:18</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-04T00:00:00Z</con:value>
+          <con:value>2015-07-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
@@ -5193,7 +5193,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-04 22:08:56</con:value>
+          <con:value>2015-06-05 02:08:18</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -6004,23 +6004,22 @@ testRunner.testCase.setPropertyValue("RequestStartTime",startDateTime);</script>
               <con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockResponse@strip-whitespaces">false</con:setting>
             </con:settings>
             <con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
-   <soap:Header/>
-   <soap:Body>
-      <ns4:RespondingGateway_CrossGatewayRealTimeResponse xmlns:ns10="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns11="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns12="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns13="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns14="urn:ihe:iti:xds-b:2007" xmlns:ns15="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns18="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:ns2="http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd" xmlns:ns3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:ns5="http://www.w3.org/2005/08/addressing" xmlns:ns6="http://nhinc.services.com/schema/auditmessage" xmlns:ns7="http://docs.oasis-open.org/wsn/b-2" xmlns:ns8="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns9="http://docs.oasis-open.org/wsn/t-1">
-         <ns2:COREEnvelopeRealTimeResponse>
-            <PayloadType>X12_278_Response_005010X279A1</PayloadType>
-            <ProcessingMode>RealTime</ProcessingMode>
-            <PayloadID>a81d44ae-7dec-11d0-a765-00a0c91e6ba0</PayloadID>
-            <TimeStamp>2007-08-30T10:20:34Z</TimeStamp>
-            <SenderID>PayerB</SenderID>
-            <ReceiverID>HospitalA</ReceiverID>
-            <CORERuleVersion>2.2.0</CORERuleVersion>
-            <Payload/>
-            <ErrorCode>Success</ErrorCode>
-            <ErrorMessage>None</ErrorMessage>
-         </ns2:COREEnvelopeRealTimeResponse>
-      </ns4:RespondingGateway_CrossGatewayRealTimeResponse>
-   </soap:Body>
+	<soap:Body>
+		<ns4:AdapterCOREEnvelopeRealTimeResponse xmlns:ns2="http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd" xmlns:ns3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns6="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns7="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns8="urn:ihe:iti:xds-b:2007" xmlns:ns9="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns10="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns11="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns12="http://www.w3.org/2005/08/addressing" xmlns:ns13="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns14="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:ns15="http://docs.oasis-open.org/wsn/b-2" xmlns:ns16="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns17="http://docs.oasis-open.org/wsn/t-1" xmlns:ns18="http://nhinc.services.com/schema/auditmessage" xmlns:ns19="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns20="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc">
+			<ns2:COREEnvelopeRealTimeResponse>
+				<PayloadType>X12_278_Response_005010X279A1</PayloadType>
+				<ProcessingMode>RealTime</ProcessingMode>
+				<PayloadID>a81d44ae-7dec-11d0-a765-00a0c91e6ba0</PayloadID>
+				<TimeStamp>2007-08-30T10:20:34Z</TimeStamp>
+				<SenderID>PayerB</SenderID>
+				<ReceiverID>HospitalA</ReceiverID>
+				<CORERuleVersion>2.2.0</CORERuleVersion>
+				<Payload>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48Q2xpbmljYWxEb2N1bWVudCAvPg==</Payload>
+				<ErrorCode>Success</ErrorCode>
+				<ErrorMessage>None</ErrorMessage>
+			</ns2:COREEnvelopeRealTimeResponse>
+		</ns4:AdapterCOREEnvelopeRealTimeResponse>
+	</soap:Body>
 </soap:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
@@ -6050,23 +6049,23 @@ nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);</con:tearD
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-04T22:04:20Z</con:value>
+          <con:value>2015-06-05T14:12:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-04T22:14:20Z</con:value>
+          <con:value>2015-06-05T14:22:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/04/2015 22:04:20</con:value>
+          <con:value>06/05/2015 14:12:47</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-04T00:00:00Z</con:value>
+          <con:value>2015-07-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-04 22:09:20</con:value>
+          <con:value>2015-06-05 14:17:47</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -6138,7 +6137,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
 def proxyTimeoutProp = "webserviceproxy.timeout";
-def loweredGatewayTimeoutValue = FileUtils.readProperty(dir, file, proxyTimeoutProp, log).toInteger() - 50000
+def loweredGatewayTimeoutValue = FileUtils.readProperty(dir, file, proxyTimeoutProp, log).toInteger() - 110000
 if(testRunner.testCase.testSuite.project.getPropertyValue("TransactionTimeoutValue").isEmpty()){	
 	testRunner.testCase.testSuite.project.setPropertyValue("TransactionTimeoutValue",loweredGatewayTimeoutValue.toString());
 	log.info "DS Timeout Ready To Wait For: " + loweredGatewayTimeoutValue + "ms"
@@ -6680,19 +6679,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-04T22:06:05Z</con:value>
+          <con:value>2015-06-05T12:37:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-04T22:16:05Z</con:value>
+          <con:value>2015-06-05T12:47:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/04/2015 22:06:05</con:value>
+          <con:value>06/05/2015 12:37:09</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-04T00:00:00Z</con:value>
+          <con:value>2015-07-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
@@ -6700,7 +6699,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-04 22:11:06</con:value>
+          <con:value>2015-06-05 12:42:10</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -6761,7 +6760,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
 def proxyTimeoutProp = "webserviceproxy.timeout";
-def loweredGatewayTimeoutValue = FileUtils.readProperty(dir, file, proxyTimeoutProp, log).toInteger() - 50000
+def loweredGatewayTimeoutValue = FileUtils.readProperty(dir, file, proxyTimeoutProp, log).toInteger() - 110000
 if(testRunner.testCase.testSuite.project.getPropertyValue("TransactionTimeoutValue").isEmpty()){	
 	testRunner.testCase.testSuite.project.setPropertyValue("TransactionTimeoutValue",loweredGatewayTimeoutValue.toString());
 	log.info "PD Timeout Ready To Wait For: " + loweredGatewayTimeoutValue + "ms"
@@ -7238,19 +7237,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-04T22:06:18Z</con:value>
+          <con:value>2015-06-05T12:37:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-04T22:16:18Z</con:value>
+          <con:value>2015-06-05T12:47:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/04/2015 22:06:18</con:value>
+          <con:value>06/05/2015 12:37:35</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-04T00:00:00Z</con:value>
+          <con:value>2015-07-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
@@ -7258,7 +7257,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-04 22:11:19</con:value>
+          <con:value>2015-06-05 12:42:36</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -7318,7 +7317,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
 def proxyTimeoutProp = "webserviceproxy.timeout";
-def loweredGatewayTimeoutValue = FileUtils.readProperty(dir, file, proxyTimeoutProp, log).toInteger() - 50000
+def loweredGatewayTimeoutValue = FileUtils.readProperty(dir, file, proxyTimeoutProp, log).toInteger() - 110000
 if(testRunner.testCase.testSuite.project.getPropertyValue("TransactionTimeoutValue").isEmpty()){	
 	testRunner.testCase.testSuite.project.setPropertyValue("TransactionTimeoutValue",loweredGatewayTimeoutValue.toString());
 	log.info "DQ Timeout Ready To Wait For: " + loweredGatewayTimeoutValue + "ms"
@@ -8168,19 +8167,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-04T22:06:41Z</con:value>
+          <con:value>2015-06-05T12:35:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-04T22:16:41Z</con:value>
+          <con:value>2015-06-05T12:45:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/04/2015 22:06:41</con:value>
+          <con:value>06/05/2015 12:35:20</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-04T00:00:00Z</con:value>
+          <con:value>2015-07-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -8192,7 +8191,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-04 22:11:41</con:value>
+          <con:value>2015-06-05 12:40:20</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -8252,7 +8251,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
 def proxyTimeoutProp = "webserviceproxy.timeout";
-def loweredGatewayTimeoutValue = FileUtils.readProperty(dir, file, proxyTimeoutProp, log).toInteger() - 50000
+def loweredGatewayTimeoutValue = FileUtils.readProperty(dir, file, proxyTimeoutProp, log).toInteger() - 110000
 if(testRunner.testCase.testSuite.project.getPropertyValue("TransactionTimeoutValue").isEmpty()){	
 	testRunner.testCase.testSuite.project.setPropertyValue("TransactionTimeoutValue",loweredGatewayTimeoutValue.toString());
 	log.info "DR Timeout Ready To Wait For: " + loweredGatewayTimeoutValue + "ms"
@@ -8614,19 +8613,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-04T22:07:04Z</con:value>
+          <con:value>2015-06-05T12:35:51Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-04T22:17:04Z</con:value>
+          <con:value>2015-06-05T12:45:51Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/04/2015 22:07:04</con:value>
+          <con:value>06/05/2015 12:35:51</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-04T00:00:00Z</con:value>
+          <con:value>2015-07-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
@@ -8634,7 +8633,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-04 22:12:05</con:value>
+          <con:value>2015-06-05 12:40:51</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -9161,7 +9160,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
 def proxyTimeoutProp = "webserviceproxy.timeout";
-def loweredGatewayTimeoutValue = FileUtils.readProperty(dir, file, proxyTimeoutProp, log).toInteger() - 50000
+def loweredGatewayTimeoutValue = FileUtils.readProperty(dir, file, proxyTimeoutProp, log).toInteger() - 110000
 if(testRunner.testCase.testSuite.project.getPropertyValue("TransactionTimeoutValue").isEmpty()){	
 	testRunner.testCase.testSuite.project.setPropertyValue("TransactionTimeoutValue",loweredGatewayTimeoutValue.toString());
 	log.info "X12-Realtime Timeout Ready To Wait For: " + loweredGatewayTimeoutValue + "ms"
@@ -9460,23 +9459,22 @@ testRunner.testCase.setPropertyValue("RequestStartTime",startDateTime);</script>
               <con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockResponse@strip-whitespaces">false</con:setting>
             </con:settings>
             <con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
-   <soap:Header/>
-   <soap:Body>
-      <ns4:RespondingGateway_CrossGatewayRealTimeResponse xmlns:ns10="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns11="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns12="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns13="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns14="urn:ihe:iti:xds-b:2007" xmlns:ns15="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns18="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:ns2="http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd" xmlns:ns3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:ns5="http://www.w3.org/2005/08/addressing" xmlns:ns6="http://nhinc.services.com/schema/auditmessage" xmlns:ns7="http://docs.oasis-open.org/wsn/b-2" xmlns:ns8="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns9="http://docs.oasis-open.org/wsn/t-1">
-         <ns2:COREEnvelopeRealTimeResponse>
-            <PayloadType>X12_278_Response_005010X279A1</PayloadType>
-            <ProcessingMode>RealTime</ProcessingMode>
-            <PayloadID>a81d44ae-7dec-11d0-a765-00a0c91e6ba0</PayloadID>
-            <TimeStamp>2007-08-30T10:20:34Z</TimeStamp>
-            <SenderID>PayerB</SenderID>
-            <ReceiverID>HospitalA</ReceiverID>
-            <CORERuleVersion>2.2.0</CORERuleVersion>
-            <Payload/>
-            <ErrorCode>Success</ErrorCode>
-            <ErrorMessage>None</ErrorMessage>
-         </ns2:COREEnvelopeRealTimeResponse>
-      </ns4:RespondingGateway_CrossGatewayRealTimeResponse>
-   </soap:Body>
+	<soap:Body>
+		<ns4:AdapterCOREEnvelopeRealTimeResponse xmlns:ns2="http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd" xmlns:ns3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns6="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns7="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns8="urn:ihe:iti:xds-b:2007" xmlns:ns9="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns10="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns11="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns12="http://www.w3.org/2005/08/addressing" xmlns:ns13="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns14="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:ns15="http://docs.oasis-open.org/wsn/b-2" xmlns:ns16="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns17="http://docs.oasis-open.org/wsn/t-1" xmlns:ns18="http://nhinc.services.com/schema/auditmessage" xmlns:ns19="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns20="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc">
+			<ns2:COREEnvelopeRealTimeResponse>
+				<PayloadType>X12_278_Response_005010X279A1</PayloadType>
+				<ProcessingMode>RealTime</ProcessingMode>
+				<PayloadID>a81d44ae-7dec-11d0-a765-00a0c91e6ba0</PayloadID>
+				<TimeStamp>2007-08-30T10:20:34Z</TimeStamp>
+				<SenderID>PayerB</SenderID>
+				<ReceiverID>HospitalA</ReceiverID>
+				<CORERuleVersion>2.2.0</CORERuleVersion>
+				<Payload>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48Q2xpbmljYWxEb2N1bWVudCAvPg==</Payload>
+				<ErrorCode>Success</ErrorCode>
+				<ErrorMessage>None</ErrorMessage>
+			</ns2:COREEnvelopeRealTimeResponse>
+		</ns4:AdapterCOREEnvelopeRealTimeResponse>
+	</soap:Body>
 </soap:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
@@ -9506,23 +9504,23 @@ nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);</con:tearD
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-04T22:07:27Z</con:value>
+          <con:value>2015-06-05T14:15:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-04T22:17:27Z</con:value>
+          <con:value>2015-06-05T14:25:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/04/2015 22:07:27</con:value>
+          <con:value>06/05/2015 14:15:09</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-04T00:00:00Z</con:value>
+          <con:value>2015-07-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-04 22:12:27</con:value>
+          <con:value>2015-06-05 14:20:09</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -9594,7 +9592,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
 def proxyTimeoutProp = "webserviceproxy.timeout";
-def loweredGatewayTimeoutValue = FileUtils.readProperty(dir, file, proxyTimeoutProp, log).toInteger() - 45000
+def loweredGatewayTimeoutValue = FileUtils.readProperty(dir, file, proxyTimeoutProp, log).toInteger() - 105000
 testRunner.testCase.testSuite.project.setPropertyValue("TransactionTimeoutValue", "-1" );
 if(testRunner.testCase.testSuite.project.getPropertyValue("TransactionTimeoutValue").toInteger() &lt;= 0){	
 	testRunner.testCase.testSuite.project.setPropertyValue("TransactionTimeoutValue",loweredGatewayTimeoutValue.toString());
@@ -10131,19 +10129,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-04T22:08:01Z</con:value>
+          <con:value>2015-06-05T12:38:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-04T22:18:01Z</con:value>
+          <con:value>2015-06-05T12:48:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/04/2015 22:08:01</con:value>
+          <con:value>06/05/2015 12:38:09</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-04T00:00:00Z</con:value>
+          <con:value>2015-07-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
@@ -10151,7 +10149,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-04 22:13:01</con:value>
+          <con:value>2015-06-05 12:43:10</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -10212,7 +10210,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
 def proxyTimeoutProp = "webserviceproxy.timeout";
-def loweredGatewayTimeoutValue = FileUtils.readProperty(dir, file, proxyTimeoutProp, log).toInteger() - 45000
+def loweredGatewayTimeoutValue = FileUtils.readProperty(dir, file, proxyTimeoutProp, log).toInteger() - 105000
 testRunner.testCase.testSuite.project.setPropertyValue("TransactionTimeoutValue", "-1" );
 if(testRunner.testCase.testSuite.project.getPropertyValue("TransactionTimeoutValue").toInteger() &lt;= 0){	
 	testRunner.testCase.testSuite.project.setPropertyValue("TransactionTimeoutValue",loweredGatewayTimeoutValue.toString());
@@ -10690,19 +10688,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-04T22:08:24Z</con:value>
+          <con:value>2015-06-05T12:38:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-04T22:18:24Z</con:value>
+          <con:value>2015-06-05T12:48:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/04/2015 22:08:24</con:value>
+          <con:value>06/05/2015 12:38:37</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-04T00:00:00Z</con:value>
+          <con:value>2015-07-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
@@ -10710,7 +10708,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-04 22:13:24</con:value>
+          <con:value>2015-06-05 12:43:38</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -10770,7 +10768,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
 def proxyTimeoutProp = "webserviceproxy.timeout";
-def loweredGatewayTimeoutValue = FileUtils.readProperty(dir, file, proxyTimeoutProp, log).toInteger() - 45000
+def loweredGatewayTimeoutValue = FileUtils.readProperty(dir, file, proxyTimeoutProp, log).toInteger() - 105000
 testRunner.testCase.testSuite.project.setPropertyValue("TransactionTimeoutValue", "-1" )
 if(testRunner.testCase.testSuite.project.getPropertyValue("TransactionTimeoutValue").toInteger() &lt;= 0){	
 	testRunner.testCase.testSuite.project.setPropertyValue("TransactionTimeoutValue",loweredGatewayTimeoutValue.toString());
@@ -11621,19 +11619,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-04T22:08:47Z</con:value>
+          <con:value>2015-06-05T12:39:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-04T22:18:47Z</con:value>
+          <con:value>2015-06-05T12:49:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/04/2015 22:08:47</con:value>
+          <con:value>06/05/2015 12:39:08</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-04T00:00:00Z</con:value>
+          <con:value>2015-07-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -11645,7 +11643,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-04 22:13:47</con:value>
+          <con:value>2015-06-05 12:44:08</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -11705,7 +11703,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
 def proxyTimeoutProp = "webserviceproxy.timeout";
-def loweredGatewayTimeoutValue = FileUtils.readProperty(dir, file, proxyTimeoutProp, log).toInteger() - 45000
+def loweredGatewayTimeoutValue = FileUtils.readProperty(dir, file, proxyTimeoutProp, log).toInteger() - 105000
 testRunner.testCase.testSuite.project.setPropertyValue("TransactionTimeoutValue", "-1" )
 if(testRunner.testCase.testSuite.project.getPropertyValue("TransactionTimeoutValue").toInteger() &lt;= 0){	
 	testRunner.testCase.testSuite.project.setPropertyValue("TransactionTimeoutValue",loweredGatewayTimeoutValue.toString());
@@ -12068,19 +12066,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-04T22:09:09Z</con:value>
+          <con:value>2015-06-05T12:39:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-04T22:19:09Z</con:value>
+          <con:value>2015-06-05T12:49:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/04/2015 22:09:09</con:value>
+          <con:value>06/05/2015 12:39:47</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-04T00:00:00Z</con:value>
+          <con:value>2015-07-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
@@ -12088,7 +12086,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-04 22:14:10</con:value>
+          <con:value>2015-06-05 12:44:47</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -12615,7 +12613,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
 def proxyTimeoutProp = "webserviceproxy.timeout";
-def loweredGatewayTimeoutValue = FileUtils.readProperty(dir, file, proxyTimeoutProp, log).toInteger() - 45000
+def loweredGatewayTimeoutValue = FileUtils.readProperty(dir, file, proxyTimeoutProp, log).toInteger() - 105000
 testRunner.testCase.testSuite.project.setPropertyValue("TransactionTimeoutValue", "-1" )
 if(testRunner.testCase.testSuite.project.getPropertyValue("TransactionTimeoutValue").toInteger() &lt;= 0){	
 	testRunner.testCase.testSuite.project.setPropertyValue("TransactionTimeoutValue",loweredGatewayTimeoutValue.toString());
@@ -12915,23 +12913,22 @@ testRunner.testCase.setPropertyValue("RequestStartTime",startDateTime);</script>
               <con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockResponse@strip-whitespaces">false</con:setting>
             </con:settings>
             <con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
-   <soap:Header/>
-   <soap:Body>
-      <ns4:RespondingGateway_CrossGatewayRealTimeResponse xmlns:ns10="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns11="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns12="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns13="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns14="urn:ihe:iti:xds-b:2007" xmlns:ns15="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns18="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:ns2="http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd" xmlns:ns3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:ns5="http://www.w3.org/2005/08/addressing" xmlns:ns6="http://nhinc.services.com/schema/auditmessage" xmlns:ns7="http://docs.oasis-open.org/wsn/b-2" xmlns:ns8="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns9="http://docs.oasis-open.org/wsn/t-1">
-         <ns2:COREEnvelopeRealTimeResponse>
-            <PayloadType>X12_278_Response_005010X279A1</PayloadType>
-            <ProcessingMode>RealTime</ProcessingMode>
-            <PayloadID>a81d44ae-7dec-11d0-a765-00a0c91e6ba0</PayloadID>
-            <TimeStamp>2007-08-30T10:20:34Z</TimeStamp>
-            <SenderID>PayerB</SenderID>
-            <ReceiverID>HospitalA</ReceiverID>
-            <CORERuleVersion>2.2.0</CORERuleVersion>
-            <Payload/>
-            <ErrorCode>Success</ErrorCode>
-            <ErrorMessage>None</ErrorMessage>
-         </ns2:COREEnvelopeRealTimeResponse>
-      </ns4:RespondingGateway_CrossGatewayRealTimeResponse>
-   </soap:Body>
+	<soap:Body>
+		<ns4:AdapterCOREEnvelopeRealTimeResponse xmlns:ns2="http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd" xmlns:ns3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns6="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns7="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns8="urn:ihe:iti:xds-b:2007" xmlns:ns9="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns10="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns11="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns12="http://www.w3.org/2005/08/addressing" xmlns:ns13="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns14="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:ns15="http://docs.oasis-open.org/wsn/b-2" xmlns:ns16="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns17="http://docs.oasis-open.org/wsn/t-1" xmlns:ns18="http://nhinc.services.com/schema/auditmessage" xmlns:ns19="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns20="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc">
+			<ns2:COREEnvelopeRealTimeResponse>
+				<PayloadType>X12_278_Response_005010X279A1</PayloadType>
+				<ProcessingMode>RealTime</ProcessingMode>
+				<PayloadID>a81d44ae-7dec-11d0-a765-00a0c91e6ba0</PayloadID>
+				<TimeStamp>2007-08-30T10:20:34Z</TimeStamp>
+				<SenderID>PayerB</SenderID>
+				<ReceiverID>HospitalA</ReceiverID>
+				<CORERuleVersion>2.2.0</CORERuleVersion>
+				<Payload>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48Q2xpbmljYWxEb2N1bWVudCAvPg==</Payload>
+				<ErrorCode>Success</ErrorCode>
+				<ErrorMessage>None</ErrorMessage>
+			</ns2:COREEnvelopeRealTimeResponse>
+		</ns4:AdapterCOREEnvelopeRealTimeResponse>
+	</soap:Body>
 </soap:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
@@ -12961,23 +12958,23 @@ nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);</con:tearD
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-06-04T22:09:32Z</con:value>
+          <con:value>2015-06-05T14:15:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-06-04T22:19:32Z</con:value>
+          <con:value>2015-06-05T14:25:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/04/2015 22:09:32</con:value>
+          <con:value>06/05/2015 14:15:49</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-07-04T00:00:00Z</con:value>
+          <con:value>2015-07-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>RequestStartTime</con:name>
-          <con:value>2015-06-04 22:14:32</con:value>
+          <con:value>2015-06-05 14:20:49</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
