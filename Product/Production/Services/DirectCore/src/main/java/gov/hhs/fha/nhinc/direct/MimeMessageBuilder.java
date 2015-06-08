@@ -141,7 +141,7 @@ public class MimeMessageBuilder {
 
         final MimeMessage message = new MimeMessage(session);
 
-        try {
+        try {    
             message.setFrom(fromAddress);
         } catch (Exception e) {
             throw new DirectException("Exception setting from address: " + fromAddress, e);

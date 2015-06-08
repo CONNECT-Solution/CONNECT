@@ -117,12 +117,8 @@ public class MessageMonitoringAPI {
                 return;
             }
             //get the mail sender
-            InternetAddress sender = (InternetAddress) message.getSender();
-            if (sender == null) {
-                InternetAddress[] fromAddresses = (InternetAddress[]) message.getFrom();
-                sender = fromAddresses[0];
-            }
-            String senderMailId = sender.getAddress();
+
+            String senderMailId = getSenderEmailId(message);
 
             MonitoredMessageNotification tmn = getTrackmessagenotification(tm, senderMailId);
             //check if its a MDN or DSN
@@ -180,10 +176,7 @@ public class MessageMonitoringAPI {
         try {
             //get the all recipients
             InternetAddress recipients[] = (InternetAddress[]) message.getAllRecipients();
-
-            //get the mail sender
-            InternetAddress sender = (InternetAddress) message.getSender();
-            String senderMailId = sender.getAddress();
+            String senderMailId = getSenderEmailId(message);
             //Mail Subject
             String mailSubject = message.getSubject();
             //get the message id
@@ -692,6 +685,15 @@ public class MessageMonitoringAPI {
             NhincConstants.MESSAGEMONITORING_DELAYINMINUTES, trackMessage.getUpdatetime())) {
             deleteFromMessageMonitoringDB(trackMessage);
         }
+    }
+
+    private String getSenderEmailId(MimeMessage message) throws MessagingException {
+        InternetAddress sender = (InternetAddress) message.getSender();
+        if (sender == null) {
+            InternetAddress[] fromAddresses = (InternetAddress[]) message.getFrom();
+            sender = fromAddresses[0];
+        }
+        return (sender.getAddress());
     }
 
 }
