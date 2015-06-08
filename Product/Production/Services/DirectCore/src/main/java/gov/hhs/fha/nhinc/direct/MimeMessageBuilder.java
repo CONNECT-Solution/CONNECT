@@ -141,7 +141,7 @@ public class MimeMessageBuilder {
 
         final MimeMessage message = new MimeMessage(session);
 
-        try {    
+        try {
             message.setFrom(fromAddress);
         } catch (Exception e) {
             throw new DirectException("Exception setting from address: " + fromAddress, e);
@@ -177,7 +177,7 @@ public class MimeMessageBuilder {
                 attachmentPart = createAttachmentFromSOAPRequest(attachment, attachmentName);
             } else {
                 throw new Exception(
-                        "Could not create attachment. Need documents and messageId or attachment and attachmentName.");
+                    "Could not create attachment. Need documents and messageId or attachment and attachmentName.");
             }
         } catch (Exception e) {
             throw new DirectException("Exception creating attachment: " + attachmentName, e);
@@ -209,7 +209,7 @@ public class MimeMessageBuilder {
     }
 
     private MimeBodyPart createAttachmentFromSOAPRequest(Document data, String name) throws MessagingException,
-            IOException {
+        IOException {
 
         InputStream is = null;
         DataSource source = null;

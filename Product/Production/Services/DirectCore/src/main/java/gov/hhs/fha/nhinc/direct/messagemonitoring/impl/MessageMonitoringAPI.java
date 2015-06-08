@@ -688,12 +688,15 @@ public class MessageMonitoringAPI {
     }
 
     private String getSenderEmailId(MimeMessage message) throws MessagingException {
-        InternetAddress sender = (InternetAddress) message.getSender();
+        InternetAddress sender = null;
+        sender = (InternetAddress) message.getSender();
         if (sender == null) {
             InternetAddress[] fromAddresses = (InternetAddress[]) message.getFrom();
-            sender = fromAddresses[0];
+            if (fromAddresses.length > 0) {
+                sender = fromAddresses[0];
+            }
         }
-        return (sender.getAddress());
+        return ((sender == null) ? null : sender.getAddress());
     }
 
 }
