@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="NHINDTest" resourceRoot="" soapui-version="5.1.2" abortOnError="false" runType="SEQUENTIAL" activeEnvironment="Default" id="20419594-97e2-457e-9365-2573da7d374a" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project name="NHINDTest" resourceRoot="${projectDir}" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" activeEnvironment="Default" id="20419594-97e2-457e-9365-2573da7d374a" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="DocumentRepository_Binding" type="wsdl" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRepository_Binding" soapVersion="1_2" anonymous="optional" definition="C:/CONNECT/Product/SoapUI_Test/target/wsdl/AdapterComponentDocRepository.wsdl" id="8d365f68-9049-43f3-b984-50bd83032937" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="DocumentRepository_Binding" type="wsdl" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRepository_Binding" soapVersion="1_2" anonymous="optional" definition="../target/wsdl/AdapterComponentDocRepository.wsdl" id="8d365f68-9049-43f3-b984-50bd83032937" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>
-      <con:endpoint>http://192.168.35.4:8080/Direct/DocumentRepository_Service</con:endpoint>
+      <con:endpoint>http://localhost:8080/Direct/DocumentRepository_Service</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/CONNECTAdapter/DocumentRepository_Service</con:endpoint>
     </con:endpoints>
     <con:operation isOneWay="false" action="urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b" name="DocumentRepository_ProvideAndRegisterDocumentSet-b" bindingOperationName="DocumentRepository_ProvideAndRegisterDocumentSet-b" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="25866286-460f-46ac-9e2d-6f51c0e107f0">
@@ -16,7 +16,7 @@
           <con:setting id="WsdlSettings@enable-mtom">false</con:setting>
         </con:settings>
         <con:encoding>UTF-8</con:encoding>
-        <con:endpoint>http://192.168.35.4:8080/Direct/DocumentRepository_Service</con:endpoint>
+        <con:endpoint>http://localhost:8080/Direct/DocumentRepository_Service</con:endpoint>
         <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:ihe:iti:xds-b:2007" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://www.w3.org/2005/08/addressing">
     <soap:Header>
       <a:Action s:mustUnderstand="0">urn:ihe:iti:2008:ProvideAndRegisterDocumentSet-bAsync</a:Action><a:MessageID>urn:uuid:6d296e90-e5dc-43d0-b455-7c1f3eb35d83</a:MessageID><a:ReplyTo>
@@ -133,7 +133,7 @@
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@force_mtom">true</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.35.4:8080/Direct/DocumentRepository_Service</con:endpoint>
+            <con:endpoint>http://localhost:8080/Direct/DocumentRepository_Service</con:endpoint>
             <con:request><![CDATA[<s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://www.w3.org/2005/08/addressing">
    <s:Header>
       <a:Action s:mustUnderstand="0">urn:ihe:iti:2008:ProvideAndRegisterDocumentSet-bAsync</a:Action>
@@ -143,8 +143,8 @@
       </a:ReplyTo>
       <a:To s:mustUnderstand="0">http://localhost:2647/XdsService/IHEXDSRepository.svc</a:To>
       <d:addressBlock xmlns:d="urn:direct:addressing">
-         <d:from>matthew.tiller@direct.connectopensource.org</d:from>
-         <d:to>shuynh@direct.connectopensource.org</d:to>
+         <d:from>alamelu@direct.connectopensource.org</d:from>
+         <d:to>provider1@direct.sitenv.org</d:to>
       </d:addressBlock>
    </s:Header>
    <s:Body>
@@ -396,7 +396,7 @@
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@force_mtom">true</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://192.168.35.4:8080/Direct/DocumentRepository_Service</con:endpoint>
+            <con:endpoint>http://localhost:8080/Direct/DocumentRepository_Service</con:endpoint>
             <con:request><![CDATA[<s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://www.w3.org/2005/08/addressing">
    <!--The following header applies for a Synchronous Web Services Exchange Request 
         Please note that a soap message can only have one header section.-->
@@ -410,8 +410,8 @@
       </a:ReplyTo>
       <a:To s:mustUnderstand="0">http://localhost:2647/XdsService/IHEXDSRepository.svc</a:To>
       <d:addressBlock xmlns:d="urn:direct:addressing">
-         <d:from>matthew.tiller@direct.connectopensource.org</d:from>
-         <d:to>shuynh@direct.connectopensource.org</d:to>
+         <d:from>alamelu@direct.connectopensource.org</d:from>
+         <d:to>provider1@direct.sitenv.org</d:to>
       </d:addressBlock>
    </s:Header>
    <s:Body>
@@ -559,8 +559,8 @@
                   </rim:Slot>
                   <rim:Slot name="intendedRecipient">
                      <rim:ValueList>
-                           <!--rim:Value>|john.smith@happyvalleyclinic.nhindirect.org^Smith^John^^^Dr^^^&amp;1.3.6.1.4.1.21367.3100.1&amp;ISO</rim:Value-->
-  			   <rim:Value>|vlewis@lewistower.com^Smith^John^^^Dr^^^&amp;1.3.6.1.4.1.21367.3100.1&amp;ISO</rim:Value>
+                        <!--rim:Value>|john.smith@happyvalleyclinic.nhindirect.org^Smith^John^^^Dr^^^&amp;1.3.6.1.4.1.21367.3100.1&amp;ISO</rim:Value-->
+                        <rim:Value>|vlewis@lewistower.com^Smith^John^^^Dr^^^&amp;1.3.6.1.4.1.21367.3100.1&amp;ISO</rim:Value>
                      </rim:ValueList>
                   </rim:Slot>
                   <rim:Name>
