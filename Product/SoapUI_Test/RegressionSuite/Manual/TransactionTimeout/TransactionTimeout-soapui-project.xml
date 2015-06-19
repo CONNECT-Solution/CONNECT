@@ -770,7 +770,7 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquery}AdapterDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../target/wsdl/AdapterDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquery}AdapterDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentQuery/A_0/AdapterDocQueryUnsecured</con:endpoint>
@@ -1217,7 +1217,7 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterDocRetrieveBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocretrieve}AdapterDocRetrieveBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../target/wsdl/AdapterDocRetrieve.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterDocRetrieveBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocretrieve}AdapterDocRetrieveBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterDocRetrieve.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieve</con:endpoint>
@@ -1549,7 +1549,7 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="Adapter_AdministrativeDistribution_Binding_Soap12" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapteradmindistribution}Adapter_AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="../../target/wsdl/AdapterAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="Adapter_AdministrativeDistribution_Binding_Soap12" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapteradmindistribution}Adapter_AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/AdminDistribution/A_0/AdapterAdministrativeDistribution</con:endpoint>
@@ -1973,7 +1973,7 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterXDR_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterxdr}AdapterXDR_Binding" soapVersion="1_2" anonymous="optional" definition="../../target/wsdl/AdapterXDR.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterXDR_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterxdr}AdapterXDR_Binding" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterXDR.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterDocSubmissionUnsecured</con:endpoint>
@@ -2324,7 +2324,7 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterCORETransactionSoapBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adaptercore}AdapterCORETransactionSoapBinding" soapVersion="1_2" anonymous="optional" definition="../../target/wsdl/AdapterCORERule2.2.0RealTime.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterCORETransactionSoapBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adaptercore}AdapterCORETransactionSoapBinding" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterCORERule2.2.0RealTime.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/CORETransaction/AdapterCORETransactionUnsecured</con:endpoint>
