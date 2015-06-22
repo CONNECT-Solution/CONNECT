@@ -166,6 +166,12 @@ public class ManageRoleBean {
                     && preference.getPageName().toLowerCase().contains("direct")) {
                 continue;
             }
+            
+            if(!DisplayHolder.getInstance().isFhirEnabled()
+                    && preference.getPageName().toLowerCase().contains("fhir")) {
+                continue;
+            }
+            
             mappings.add(new PageAccessMapping(preference, this));
         }
         pagesModel = new ListDataModel<PageAccessMapping>(mappings);

@@ -64,9 +64,9 @@
                         <p:menuitem value="Adapter" action="#{tabBean.navigateToAdapterPropTab()}" styleClass="glyphicon glyphicon-list-alt" />
                     </p:submenu>
                     <p:submenu rendered="#{applicationBean.fhirEnabled}" label="FHIR" styleClass="sidebar-orange">
-                        <p:menuitem value="Resources" url="#{tabBean.navigateToFhir()}" styleClass="glyphicon glyphicon-fire" />
+                        <p:menuitem value="Resources" action="#{tabBean.navigateToFhir()}" styleClass="glyphicon glyphicon-fire" />
                     </p:submenu>
-                    <p:submenu label="Universal Client" styleClass="sidebar-teal" >
+                    <p:submenu label="Cross-Gateway Query Client" styleClass="sidebar-teal" >
                         <p:menuitem value="Patient Search" action="#{tabBean.navigateToPatientDiscoveryTab()}" styleClass="glyphicon glyphicon-zoom-in" />
                     </p:submenu>
                                
