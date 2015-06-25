@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project activeEnvironment="Default" name="Transaction-PD-QD-DR" resourceRoot="" soapui-version="5.1.2" abortOnError="false" runType="SEQUENTIAL" id="56f5d6af-308b-46dd-83a1-a2c5e5e2facd" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project activeEnvironment="Default" name="Transaction-PD-QD-DR" resourceRoot="${projectDir}" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" id="56f5d6af-308b-46dd-83a1-a2c5e5e2facd" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="${projectDir}/../../target/wsdl/EntityDocQuery.wsdl" id="cbcb6fa8-ee71-447b-b125-3db73c8e0b1d" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/EntityDocQuery.wsdl" id="cbcb6fa8-ee71-447b-b125-3db73c8e0b1d" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint>
@@ -464,7 +464,7 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocRetrieveBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" soapVersion="1_2" anonymous="optional" definition="${projectDir}/../../target/wsdl/EntityDocRetrieve.wsdl" id="675b4a8b-af32-4026-83ee-a50efb49e8fb" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocRetrieveBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/EntityDocRetrieve.wsdl" id="675b4a8b-af32-4026-83ee-a50efb49e8fb" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:endpoint>
@@ -811,7 +811,7 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="${projectDir}/../../target/wsdl/EntityPatientDiscovery.wsdl" id="6075172a-6edd-40f1-82ff-729c28ed82f6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/EntityPatientDiscovery.wsdl" id="6075172a-6edd-40f1-82ff-729c28ed82f6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint>
@@ -31416,7 +31416,7 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscovery}AdapterPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="${projectDir}/../../target/wsdl/AdapterPatientDiscovery.wsdl" id="07346800-9a72-4a3c-910e-7ad29199056e" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscovery}AdapterPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterPatientDiscovery.wsdl" id="07346800-9a72-4a3c-910e-7ad29199056e" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>
       <con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/PatientDiscovery/A_0/AdapterPatientDiscovery</con:endpoint>
@@ -31432,7 +31432,8 @@ The patientId for DQ is transferred from PD Response DocumentId to retrieve in c
 PreRequisites for this TestSuite
 
 1. Configure two Gateways to execute this TransactionSuite. The Remote Gateway is always urn:oid:2.2 and the initiating Gateway is urn:oid:1.1
-2. Initiating and Responding Gateway should be configured manually.</con:description>
+2. Initiating and Responding Gateway should be configured manually.
+3. This suite should be operated in standard mode for PD,DQ and DR</con:description>
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="6629e524-fabb-4b09-9150-36fda2747570">
@@ -31996,14 +31997,8 @@ context.withSql('PatientCorrelationDB') { sql ->
 		}</script>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-	nhinc.FileUtils.restoreFile(dir, "PatientDiscoveryProxyConfig.xml", log);
-}</con:tearDownScript>
+      <con:setupScript/>
+      <con:tearDownScript/>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -32373,13 +32368,8 @@ declare namespace ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0";
           </con:transfers>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+      <con:setupScript/>
+      <con:tearDownScript/>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -32727,13 +32717,8 @@ if(passthruValue != null){
           </con:request>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+      <con:setupScript/>
+      <con:tearDownScript/>
       <con:properties>
         <con:property>
           <con:name>CorrectedRemoteHCID</con:name>
