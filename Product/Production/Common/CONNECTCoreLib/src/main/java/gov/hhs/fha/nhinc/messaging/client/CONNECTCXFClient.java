@@ -48,12 +48,12 @@ public abstract class CONNECTCXFClient<T> extends CONNECTBaseClient<T> {
 
     protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
             ServicePortBuilder<T> portBuilder) {
-        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url, assertion.getTransactionTimeout());
+        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url, (assertion != null) ? assertion.getTransactionTimeout() : null);
     }
 
     protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
             ServicePortBuilder<T> portBuilder, String subscriptionId) {
-        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), subscriptionId, assertion.getTransactionTimeout());
+        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), subscriptionId, (assertion != null) ? assertion.getTransactionTimeout() : null);
     }
 
 
