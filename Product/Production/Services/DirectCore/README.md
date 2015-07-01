@@ -1,6 +1,6 @@
 Direct Overview
 ===============
-The CONNECT 4.4 implementation of Direct has several interconnecting parts. This is an overview of
+The CONNECT implementation of Direct has several interconnecting parts. This is an overview of
 how those parts interact and their basic configuration. Further details regarding configurations can be
 found in subsequent sections of this readme.
 
@@ -31,7 +31,7 @@ Two pollers run at regular intervals that check for any new emails to process. O
 internal mail server for any emails from the Source, and another checks the external mail server for any
 emails from other HISPs.
 
-It is useful to look at an example of how CONNECT 4.4 would send a Direct message in this scenario. A
+It is useful to look at an example of how CONNECT would send a Direct message in this scenario. A
 Direct message is initiated as an email sent from a mailbox on the internal mail server. The internal poller
 checks the internal mail server and picks up the outgoing message. CONNECT processes (encryption, logging, etc.)
 the message and then sends it to the Destination's HISP via the external mail server.
@@ -42,7 +42,7 @@ and then sends it to the internal mail server for use by the Destination. A key 
 is that the Destination HISP sends an MDN Processed notification upon successful receipt, decryption
 and trust validation of a Direct message, that Processed MDN arrives in the Source's HISP's external email server.
 The Processed MDN is handled in the same manner as any other incoming message and ultimately arrives at the
-local HISP Direct gateway. As part of the CONNECT 4.4 release, CONNECT Direct supports receiving and sending 
+local HISP Direct gateway. As of the CONNECT 4.4 release, CONNECT Direct supports receiving and sending 
 dispatched MDNs and also Failed Delivery Status Notifications (DSNs). The dispatched MDNs are sent when the Direct mail sender requests for a delivery notification. This is in addition to the default processed MDN, which is required per the Applicability Statement for Secure Health Transport. The Dispatched MDN and Failed DSN are handled in the same manner as any other incoming messages and ultimately arrives in the local HISP Direct Gateway. The MDNs and DSNs are exchanged between the two HISP Direct Gateways and are not visible to the edge client. As part of the Quality Of Service (QOS) enhancement, a custom notification is sent to the edge client after a successful delivery or failed delivery or no response from the Destination HISP within a specified time limit by the Message Monitoring module. The Message Monitoring Module utilizes the MDNs/DSNs received and also the message sent time to calculate and notify the edge client about the status of the direct message sent out. The external poller also calls the Message Monitoring module to track and monitor outgoing Direct emails and sends out an notification to the edge client based on outcome of the email delivery.
 
 A second Edge Protocol, SOAP, is available. It behaves the same way as other CONNECT adapters. A URL endpoint is provisioned in the CONNECT gateway
@@ -77,7 +77,7 @@ Setting up CONNECT as a Direct HISP
 
 ###Security Policy Files
 
-This is now a CONNECT 4.4 prerequisite -- see main [README](https://github.com/CONNECT-Solution/CONNECT/blob/CONNECT/README.md)
+This is now a CONNECT prerequisite -- see main [README](https://github.com/CONNECT-Solution/CONNECT/blob/CONNECT/README.md)
 
 Download the jars from:
 
@@ -160,7 +160,7 @@ This command also interacts with other profiles, for example to build CONNECT wi
 When running `ant install` to create a local Glassfish instance, only the default domain "direct.example.org" is configured in the agent settings by default. To deploy CONNECT to other application servers, the same instructions apply with or without the Direct feature enabled with one exception. Updates to configurations outlined in the below sections of this README.md will need to be completed before deploying the application.
 
 ####Configuring the SMTP Agent settings
-Agent configuration consists of setting the runtime parameters for security and trust agents. As part of CONNECT 4.4, configuration of SMTP Agent Settings are no longer supported through the smtp.agent.config.xml configuration file. All the Config agent settings are stored in the ConfigDB database and are configured through the CONNECT AdminGUI. The CONNECT AdminGUI allows system users to configure the following entities which are used by the Direct code integrated with the CONNECT Gateway Direct HISP:
+Agent configuration consists of setting the runtime parameters for security and trust agents. As part of CONNECT, configuration of SMTP Agent Settings are no longer supported through the smtp.agent.config.xml configuration file. All the Config agent settings are stored in the ConfigDB database and are configured through the CONNECT AdminGUI. The CONNECT AdminGUI allows system users to configure the following entities which are used by the Direct code integrated with the CONNECT Gateway Direct HISP:
 
       1. Domains
       2. Certificates (Key Pair)
