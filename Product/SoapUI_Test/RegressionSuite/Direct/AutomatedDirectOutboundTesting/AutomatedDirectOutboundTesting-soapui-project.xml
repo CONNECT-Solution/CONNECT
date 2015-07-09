@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="AutomatedDirectOutboundTesting" resourceRoot="${projectDir}" soapui-version="5.1.2" abortOnError="false" runType="SEQUENTIAL" activeEnvironment="Default" id="e6297586-c731-4e07-9921-890f21dffad9" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project name="AutomatedDirectOutboundTesting" resourceRoot="${projectDir}" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" activeEnvironment="Default" id="e6297586-c731-4e07-9921-890f21dffad9" xmlns:con="http://eviware.com/soapui/config">
   <con:description>Sometimes the delays set in the testcases may not be enough. 
 So we need to make sure the email the required MDNs/messages are received before we count event logs. 
 Otherwise the event log count checking may fail.</con:description>
   <con:settings/>
   <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="ConfigurationServiceImplPortBinding" type="wsdl" bindingName="{http://impl.service.config.nhindirect.org/}ConfigurationServiceImplPortBinding" soapVersion="1_1" anonymous="optional" definition="../../../target/wsdl/ConfigurationServiceImplService.wsdl" id="4c06d5ea-affc-46fb-9fba-667462fccd8b" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</con:endpoint>
     </con:endpoints>
     <con:operation isOneWay="false" action="urn:AddAddress" name="addAddress" bindingOperationName="addAddress" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" id="885f2445-cc0e-4e30-82eb-c7a609740098">
@@ -2352,8 +2352,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty 
 return delegate.getProperty(propertyName) ?:
 delegate.testCase.getPropertyValue(propertyName) ?:
 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
-delegate.testCase.testSuite.project.getPropertyValue(propertyName) ?:
-com.eviware.soapui.SoapUI.globalProperties.getPropertyValue(propertyName)
+delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
 com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
