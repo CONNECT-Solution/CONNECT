@@ -61,8 +61,7 @@ public class JAXBXMLUtils {
         JAXBContext jc = getJAXBContext(namespace);
         Unmarshaller u = jc.createUnmarshaller();
 
-        Object obj = u.unmarshal(new StreamSource(new StringReader(xmlStr)));
-        return obj;
+        return u.unmarshal(new StreamSource(new StringReader(xmlStr)));
     }
 
     /**

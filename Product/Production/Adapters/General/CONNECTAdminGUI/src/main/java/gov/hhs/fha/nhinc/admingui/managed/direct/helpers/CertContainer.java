@@ -96,10 +96,9 @@ public class CertContainer {
             bais = new ByteArrayInputStream(data);
 
             try {
-                X509Certificate cert = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(
-                        bais);
 
-                this.cert = cert;
+                this.cert = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(
+                        bais);
                 this.key = null;
             } catch (Exception e) {
                 LOG.warn("Cert data cannot be converted to X.509, trying next option...");

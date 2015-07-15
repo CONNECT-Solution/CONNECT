@@ -233,9 +233,8 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
         orchestratable.setAssertion(assertion);
         orchestratable.setRequest(request);
         orchestratable.setTarget(targetSystemType);
-        MCCIIN000002UV01 resp = ((OutboundPatientDiscoveryDeferredRequestOrchestratable) delegate
-            .process(orchestratable)).getResponse();
 
-        return resp;
+        return ((OutboundPatientDiscoveryDeferredRequestOrchestratable) delegate
+            .process(orchestratable)).getResponse();
     }
 }

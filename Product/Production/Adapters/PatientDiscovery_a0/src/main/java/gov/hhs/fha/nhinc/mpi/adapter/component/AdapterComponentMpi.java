@@ -38,11 +38,9 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterComponentMpi implements gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiPortType {
 
-    public org.hl7.v3.PRPAIN201306UV02 findCandidates(
-        RespondingGatewayPRPAIN201305UV02RequestType findCandidatesRequest) {
-        AdapterComponentMpiImpl oImpl = new AdapterComponentMpiImpl();
-        PRPAIN201306UV02 oResponse = oImpl.query(findCandidatesRequest.getPRPAIN201305UV02(),
+    @Override
+    public PRPAIN201306UV02 findCandidates(RespondingGatewayPRPAIN201305UV02RequestType findCandidatesRequest) {
+        return new AdapterComponentMpiImpl().query(findCandidatesRequest.getPRPAIN201305UV02(),
             findCandidatesRequest.getAssertion());
-        return oResponse;
     }
 }

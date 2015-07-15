@@ -49,14 +49,12 @@ public class AdapterComponentMpiSecured implements gov.hhs.fha.nhinc.adaptercomp
             throws FindCandidatesSecuredFault {
         AdapterComponentMpiImpl oImpl = new AdapterComponentMpiImpl();
         try {
-            PRPAIN201306UV02 oResponse = oImpl.query(true, findCandidatesRequest, context);
-            return oResponse;
+            return oImpl.query(true, findCandidatesRequest, context);
         } catch (Exception e) {
             PatientDiscoveryFaultType type = new PatientDiscoveryFaultType();
             type.setErrorCode("920");
             type.setMessage(e.getLocalizedMessage());
-            FindCandidatesSecuredFault fault = new FindCandidatesSecuredFault(e.getMessage(), type);
-            throw fault;
+            throw new FindCandidatesSecuredFault(e.getMessage(), type);
         }
     }
 }

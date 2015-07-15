@@ -72,9 +72,8 @@ public class PassthroughInboundPatientDiscoveryDeferredResponse extends
      */
     @Override
     MCCIIN000002UV01 process(PRPAIN201306UV02 request, AssertionType assertion) {
-        MCCIIN000002UV01 response = sendToAdapter(request, assertion);
 
-        return response;
+        return sendToAdapter(request, assertion);
     }
 
     /*

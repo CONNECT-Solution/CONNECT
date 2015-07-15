@@ -113,8 +113,7 @@ public abstract class AbstractWebServicesMXBean implements WebServicesMXBean {
     protected <T> T retrieveBean(final Class<T> beanType, String beanName) {
         WebApplicationContext webApplicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(sc);
 
-        T bean = beanType.cast(webApplicationContext.getBean(beanName));
-        return bean;
+        return beanType.cast(webApplicationContext.getBean(beanName));
     }
 
     /**

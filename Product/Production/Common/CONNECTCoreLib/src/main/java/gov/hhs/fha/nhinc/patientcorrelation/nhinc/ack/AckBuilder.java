@@ -58,8 +58,7 @@ public class AckBuilder {
 
         senderId = IIHelper.IIFactory(Configuration.getMyCommunityId(), null);
 
-        MCCIIN000002UV01 ack = buildAck(receiverId, senderId, acknowledgementTypeCode, originalMessageId);
-        return ack;
+        return buildAck(receiverId, senderId, acknowledgementTypeCode, originalMessageId);
 
     }
 

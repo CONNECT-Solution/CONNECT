@@ -184,13 +184,11 @@ public class PatientCorrelationOrchImplTest {
     }
 
     private PRPAIN201309UV02 createMessagePatIdentifierNull() {
-        PRPAIN201309UV02 message = createMessageForRetrieveNullConditions() ;
-        return message;
+        return createMessageForRetrieveNullConditions();
     }
 
     private AssertionType createAssertion() {
-        AssertionType assertion = new AssertionType();
-        return assertion;
+        return new AssertionType();
     }
 
     private PRPAIN201309UV02 createMessage() {
@@ -212,10 +210,8 @@ public class PatientCorrelationOrchImplTest {
         parameter.setQueryId(createII());
         parameter.setParameterList(createPRPAMT201307UV02ParameterList());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
-        JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter =
-                new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
-                PRPAMT201307UV02QueryByParameter.class, parameter);
-        return queryByParameter;
+        return new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
+        PRPAMT201307UV02QueryByParameter.class, parameter);
     }
 
 
@@ -478,9 +474,8 @@ public class PatientCorrelationOrchImplTest {
         device.setDeterminerCode("INSTANCE");
         device.setTypeId(createTypeId());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "device");
-        JAXBElement<COCTMT090003UV01Device> assignedDevice = new JAXBElement<COCTMT090003UV01Device>(xmlqname,
+        return new JAXBElement<COCTMT090003UV01Device>(xmlqname,
                 COCTMT090003UV01Device.class, device);
-        return assignedDevice;
     }
 
     private CE createCE() {

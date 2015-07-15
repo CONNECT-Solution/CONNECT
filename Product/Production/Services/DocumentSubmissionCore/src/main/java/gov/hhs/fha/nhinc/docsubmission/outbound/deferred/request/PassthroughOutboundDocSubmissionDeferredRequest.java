@@ -63,7 +63,8 @@ public class PassthroughOutboundDocSubmissionDeferredRequest implements Outbound
         XDRAcknowledgementType response = ((OutboundDocSubmissionDeferredRequestOrchestratable) delegate
             .process(dsOrchestratable)).getResponse();
 
-        return response;
+        return ((OutboundDocSubmissionDeferredRequestOrchestratable) delegate
+            .process(dsOrchestratable)).getResponse();
     }
 
     private OutboundDocSubmissionDeferredRequestOrchestratable createOrchestratable(

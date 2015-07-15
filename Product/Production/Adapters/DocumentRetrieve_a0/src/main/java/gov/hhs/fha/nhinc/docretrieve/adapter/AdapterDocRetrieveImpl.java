@@ -107,7 +107,6 @@ public class AdapterDocRetrieveImpl {
     private RetrieveDocumentSetResponseType callOrchestrator(RetrieveDocumentSetRequestType body,
             AssertionType assertion) {
         AdapterDocRetrieveOrchImpl oOrchestrator = new AdapterDocRetrieveOrchImpl();
-        RetrieveDocumentSetResponseType response = oOrchestrator.respondingGatewayCrossGatewayRetrieve(body, assertion);
-        return response;
+        return oOrchestrator.respondingGatewayCrossGatewayRetrieve(body, assertion);
     }
 }

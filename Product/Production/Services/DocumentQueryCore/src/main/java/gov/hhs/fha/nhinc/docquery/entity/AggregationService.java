@@ -293,14 +293,12 @@ public class AggregationService {
 
         @Override
         public int hashCode() {
-            int hashCode = new HashCodeBuilder(17, 37)
+            return new HashCodeBuilder(17, 37)
                 .append(ii.getExtension())
                 .append(ii.getRoot())
                 .append(ii.getAssigningAuthorityName())
                 .append(ii.isDisplayable())
                 .toHashCode();
-
-            return hashCode;
         }
 
         @Override

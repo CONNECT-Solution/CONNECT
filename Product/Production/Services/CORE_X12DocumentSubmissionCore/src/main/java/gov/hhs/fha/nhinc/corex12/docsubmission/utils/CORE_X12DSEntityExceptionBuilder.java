@@ -176,7 +176,6 @@ public class CORE_X12DSEntityExceptionBuilder extends BaseService {
 
     private static Timestamp getTimeStamp() {
         Date currentDate = new Date();
-        Timestamp timeStamp = new Timestamp(currentDate.getTime());
-        return timeStamp;
+        return new Timestamp(currentDate.getTime());
     }
 }

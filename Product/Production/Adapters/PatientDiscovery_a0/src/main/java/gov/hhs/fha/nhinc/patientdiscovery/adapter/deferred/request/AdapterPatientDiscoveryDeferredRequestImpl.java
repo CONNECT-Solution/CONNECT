@@ -45,20 +45,16 @@ public class AdapterPatientDiscoveryDeferredRequestImpl {
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
 
-        MCCIIN000002UV01 ack = new AdapterPatientDiscoveryDeferredReqOrchImpl().processPatientDiscoveryAsyncReq(
+        return new AdapterPatientDiscoveryDeferredReqOrchImpl().processPatientDiscoveryAsyncReq(
                 request, assertion);
-
-        return ack;
     }
 
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion,
             WebServiceContext context) {
         AssertionType assertType = getAssertion(context, assertion);
 
-        MCCIIN000002UV01 ack = new AdapterPatientDiscoveryDeferredReqOrchImpl().processPatientDiscoveryAsyncReq(
+        return new AdapterPatientDiscoveryDeferredReqOrchImpl().processPatientDiscoveryAsyncReq(
                 request, assertType);
-
-        return ack;
     }
 
     private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {

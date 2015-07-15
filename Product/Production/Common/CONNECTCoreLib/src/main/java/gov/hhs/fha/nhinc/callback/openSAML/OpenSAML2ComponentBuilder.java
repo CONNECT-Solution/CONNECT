@@ -473,8 +473,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the assertion
      */
     public Assertion createAssertion() {
-        Assertion assertion = (Assertion) createOpenSAMLObject(Assertion.DEFAULT_ELEMENT_NAME);
-        return assertion;
+        return (Assertion) createOpenSAMLObject(Assertion.DEFAULT_ELEMENT_NAME);
     }
 
     /**
@@ -557,8 +556,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the xS any
      */
     XSAny createAny(final String namespace, final String name, final String prefix) {
-        XSAny any = xsAnyBuilder.buildObject(namespace, name, prefix);
-        return any;
+        return xsAnyBuilder.buildObject(namespace, name, prefix);
     }
 
     /**
@@ -726,8 +724,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         userRoleAttributes.put(new QName(SamlConstants.HL7_TYPE_NAMESPACE_URI, SamlConstants.HL7_TYPE_LOCAL_PART,
             SamlConstants.HL7_TYPE_PREFIX), SamlConstants.HL7_TYPE_KEY_VALUE);
 
-        XSAny attributeValue = createAttributeValue(SamlConstants.HL7_NAMESPACE_URI, name, SamlConstants.HL7_PREFIX, userRoleAttributes);
-        return attributeValue;
+        return createAttributeValue(SamlConstants.HL7_NAMESPACE_URI, name, SamlConstants.HL7_PREFIX, userRoleAttributes);
 
     }
 

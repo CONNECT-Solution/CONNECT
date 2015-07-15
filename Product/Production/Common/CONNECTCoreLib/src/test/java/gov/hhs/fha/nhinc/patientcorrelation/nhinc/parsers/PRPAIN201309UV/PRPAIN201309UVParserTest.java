@@ -210,10 +210,8 @@ public class PRPAIN201309UVParserTest {
         parameter.setQueryId(createII());
         parameter.setParameterList(createPRPAMT201307UV02ParameterList());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
-        JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter =
-                new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
-                PRPAMT201307UV02QueryByParameter.class, parameter);
-        return queryByParameter;
+        return new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
+        PRPAMT201307UV02QueryByParameter.class, parameter);
     }
 
 

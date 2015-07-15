@@ -59,15 +59,13 @@ public class AdapterMpiSecured implements gov.hhs.fha.nhinc.adaptermpi.AdapterMp
     	try {
     		AdapterMpiImpl oImpl = new AdapterMpiImpl();
             oResponse = oImpl.query(true, findCandidatesRequest, context);
-    	}
-    	catch (Exception e)
-    	{
+    	} catch (Exception e) {
     		PatientDiscoveryFaultType type = new PatientDiscoveryFaultType();
         	type.setErrorCode("920");
         	type.setMessage(e.getLocalizedMessage());
-        	FindCandidatesSecuredFault fault = new FindCandidatesSecuredFault(e.getMessage(), type);
-        	throw fault;
+			throw new FindCandidatesSecuredFault(e.getMessage(), type);
     	}
+
         return oResponse;
     }
 }

@@ -66,8 +66,7 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
 
     @Override
     public Object invokePort(Class<T> portClass, String methodName, Object ... operationInput) throws Exception {
-        Object response = proxyHelper.invokePort(getPort(), portClass, methodName, operationInput);
-        return response;
+        return proxyHelper.invokePort(getPort(), portClass, methodName, operationInput);
     }
 
     /* (non-Javadoc)

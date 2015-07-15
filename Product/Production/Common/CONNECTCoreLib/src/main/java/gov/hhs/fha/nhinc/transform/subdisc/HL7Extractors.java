@@ -65,10 +65,9 @@ public class HL7Extractors {
         }
 
         // for now, assume we only need one subject, this will need to be modified later
-        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = subjects.get(0);
         // HL7Parser.PrintId(subject.getTypeId(), "subject");
 
-        return subject;
+        return subjects.get(0);
     }
 
     public static PRPAIN201302UV02MFMIMT700701UV01Subject1 ExtractSubjectFromMessage(org.hl7.v3.PRPAIN201302UV02 message) {
@@ -92,10 +91,9 @@ public class HL7Extractors {
         }
 
         // for now, assume we only need one subject, this will need to be modified later
-        PRPAIN201302UV02MFMIMT700701UV01Subject1 subject = subjects.get(0);
         // HL7Parser.PrintId(subject.getTypeId(), "subject");
 
-        return subject;
+        return subjects.get(0);
     }
 
     public static PRPAIN201310UV02MFMIMT700711UV01Subject1 ExtractSubjectFromMessage(org.hl7.v3.PRPAIN201310UV02 message) {
@@ -120,10 +118,9 @@ public class HL7Extractors {
         }
 
         // for now, assume we only need one subject, this will need to be modified later
-        PRPAIN201310UV02MFMIMT700711UV01Subject1 subject = subjects.get(0);
         // HL7Parser.PrintId(subject.getTypeId(), "subject");
 
-        return subject;
+        return subjects.get(0);
     }
 
     public static PRPAMT201301UV02Patient ExtractHL7PatientFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
@@ -369,28 +366,24 @@ public class HL7Extractors {
 
     public static PRPAMT201301UV02Person ExtractHL7PatientPersonFromHL7Patient(PRPAMT201301UV02Patient patient) {
         JAXBElement<PRPAMT201301UV02Person> patientPersonElement = patient.getPatientPerson();
-        PRPAMT201301UV02Person patientPerson = patientPersonElement.getValue();
-        return patientPerson;
+        return patientPersonElement.getValue();
     }
 
     public static PRPAMT201302UV02Person ExtractHL7PatientPersonFromHL7Patient(PRPAMT201302UV02Patient patient) {
         JAXBElement<PRPAMT201302UV02PatientPatientPerson> patientPersonElement = patient.getPatientPerson();
-        PRPAMT201302UV02Person patientPerson = patientPersonElement.getValue();
-        return patientPerson;
+        return patientPersonElement.getValue();
     }
 
     public static PRPAMT201301UV02Person ExtractHL7PatientPersonFrom201301Message(org.hl7.v3.PRPAIN201301UV02 message) {
         // assume one subject for now
         PRPAMT201301UV02Patient patient = ExtractHL7PatientFromMessage(message);
-        PRPAMT201301UV02Person patientPerson = ExtractHL7PatientPersonFromHL7Patient(patient);
-        return patientPerson;
+        return ExtractHL7PatientPersonFromHL7Patient(patient);
     }
 
     public static PRPAMT201302UV02Person ExtractHL7PatientPersonFrom201302Message(org.hl7.v3.PRPAIN201302UV02 message) {
         // assume one subject for now
         PRPAMT201302UV02Patient patient = ExtractHL7PatientFromMessage(message);
-        PRPAMT201302UV02Person patientPerson = ExtractHL7PatientPersonFromHL7Patient(patient);
-        return patientPerson;
+        return ExtractHL7PatientPersonFromHL7Patient(patient);
     }
 
     public static String ExtractHL7ReceiverOID(org.hl7.v3.PRPAIN201305UV02 oPRPAIN201305UV) {

@@ -86,8 +86,7 @@ public class WebServiceProxyHelper {
     private String getEndPointFromConnectionManagerByGatewayAPILevel(NhinTargetSystemType oTargetSystem,
             String sServiceName, GATEWAY_API_LEVEL level) throws ConnectionManagerException {
 
-        String url = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(oTargetSystem, sServiceName);
-        return url;
+        return ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(oTargetSystem, sServiceName);
     }
 
     /**
@@ -100,8 +99,7 @@ public class WebServiceProxyHelper {
      */
     public String getEndPointFromConnectionManagerByAdapterAPILevel(String sServiceName, ADAPTER_API_LEVEL level)
             throws ConnectionManagerException {
-        String url = ConnectionManagerCache.getInstance().getAdapterEndpointURL(sServiceName, level);
-        return url;
+        return ConnectionManagerCache.getInstance().getAdapterEndpointURL(sServiceName, level);
     }
 
     /**
@@ -130,8 +128,7 @@ public class WebServiceProxyHelper {
         AdapterEndpointManager adapterEndpointManager = new AdapterEndpointManager();
         ADAPTER_API_LEVEL level = adapterEndpointManager.getApiVersion(sServiceName);
 
-        String url = ConnectionManagerCache.getInstance().getAdapterEndpointURL(sHomeCommunityId, sServiceName, level);
-        return url;
+        return ConnectionManagerCache.getInstance().getAdapterEndpointURL(sHomeCommunityId, sServiceName, level);
     }
 
     /**
@@ -142,8 +139,7 @@ public class WebServiceProxyHelper {
      * @throws Exception An exception if one occurs.
      */
     private String getLocalEndPointFromConnectionManager(String sServiceName) throws ConnectionManagerException {
-        String url = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(sServiceName);
-        return url;
+        return ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(sServiceName);
     }
 
     /**

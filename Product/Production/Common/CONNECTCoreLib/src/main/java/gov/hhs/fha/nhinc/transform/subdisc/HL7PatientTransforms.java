@@ -433,10 +433,9 @@ public class HL7PatientTransforms {
         }
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201301UV02Person> result = new JAXBElement<PRPAMT201301UV02Person>(xmlqname,
-            PRPAMT201301UV02Person.class, person);
 
-        return result;
+        return new JAXBElement<PRPAMT201301UV02Person>(xmlqname,
+            PRPAMT201301UV02Person.class, person);
     }
 
     public static JAXBElement<PRPAMT201310UV02Person> create201310PatientPerson(String patFirstName,
@@ -489,10 +488,9 @@ public class HL7PatientTransforms {
         }
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201310UV02Person> result = new JAXBElement<PRPAMT201310UV02Person>(xmlqname,
-            PRPAMT201310UV02Person.class, person);
 
-        return result;
+        return new JAXBElement<PRPAMT201310UV02Person>(xmlqname,
+            PRPAMT201310UV02Person.class, person);
     }
 
     public static JAXBElement<PRPAMT201302UV02PatientPatientPerson> create201302PatientPerson(String patFirstName,
@@ -577,10 +575,9 @@ public class HL7PatientTransforms {
         }
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201302UV02PatientPatientPerson> result = new JAXBElement<PRPAMT201302UV02PatientPatientPerson>(
-            xmlqname, PRPAMT201302UV02PatientPatientPerson.class, person);
 
-        return result;
+        return new JAXBElement<PRPAMT201302UV02PatientPatientPerson>(
+            xmlqname, PRPAMT201302UV02PatientPatientPerson.class, person);
     }
 
     public static PRPAMT201301UV02OtherIDs createPRPAMT201301UVOtherIDs(String ssn) {
@@ -655,10 +652,9 @@ public class HL7PatientTransforms {
             }
         }
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "birthPlace");
-        JAXBElement<PRPAMT201301UV02BirthPlace> element = new JAXBElement<PRPAMT201301UV02BirthPlace>(xmlqname,
-            PRPAMT201301UV02BirthPlace.class, result);
 
-        return element;
+        return new JAXBElement<PRPAMT201301UV02BirthPlace>(xmlqname,
+            PRPAMT201301UV02BirthPlace.class, result);
     }
 
     public static JAXBElement<PRPAMT201301UV02Person> create201301PatientPerson(PRPAMT201310UV02Person person) {
@@ -715,10 +711,9 @@ public class HL7PatientTransforms {
         result.setTypeId(person.getTypeId());
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201301UV02Person> element = new JAXBElement<PRPAMT201301UV02Person>(xmlqname,
-            PRPAMT201301UV02Person.class, result);
 
-        return element;
+        return new JAXBElement<PRPAMT201301UV02Person>(xmlqname,
+            PRPAMT201301UV02Person.class, result);
 
     }
 
@@ -768,10 +763,9 @@ public class HL7PatientTransforms {
         result.setTypeId(person.getValue().getTypeId());
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201301UV02Person> element = new JAXBElement<PRPAMT201301UV02Person>(xmlqname,
-            PRPAMT201301UV02Person.class, result);
 
-        return element;
+        return new JAXBElement<PRPAMT201301UV02Person>(xmlqname,
+            PRPAMT201301UV02Person.class, result);
 
     }
 
@@ -795,10 +789,9 @@ public class HL7PatientTransforms {
             }
         }
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "birthPlace");
-        JAXBElement<PRPAMT201301UV02BirthPlace> element = new JAXBElement<PRPAMT201301UV02BirthPlace>(xmlqname,
-            PRPAMT201301UV02BirthPlace.class, result);
 
-        return element;
+        return new JAXBElement<PRPAMT201301UV02BirthPlace>(xmlqname,
+            PRPAMT201301UV02BirthPlace.class, result);
     }
 
     public static TSExplicit createBirthTime(PRPAMT201306UV02LivingSubjectBirthTime birthTime) {

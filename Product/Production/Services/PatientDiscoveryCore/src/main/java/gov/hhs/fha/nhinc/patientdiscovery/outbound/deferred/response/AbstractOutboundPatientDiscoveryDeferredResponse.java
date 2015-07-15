@@ -59,10 +59,9 @@ public abstract class AbstractOutboundPatientDiscoveryDeferredResponse implement
     @Override
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion,
         NhinTargetCommunitiesType target) {
-        MCCIIN000002UV01 response = process(request, MessageGeneratorUtils.getInstance().generateMessageId(assertion),
-            target);
 
-        return response;
+        return process(request, MessageGeneratorUtils.getInstance().generateMessageId(assertion),
+            target);
     }
 
     protected MCCIIN000002UV01 sendToNhin(OutboundPatientDiscoveryDeferredResponseDelegate delegate,
@@ -87,5 +86,4 @@ public abstract class AbstractOutboundPatientDiscoveryDeferredResponse implement
     protected NhinTargetSystemType convertToNhinTargetSystemType(NhinTargetCommunitiesType targets) {
         return MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
     }
-
 }

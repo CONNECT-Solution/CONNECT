@@ -68,10 +68,9 @@ public class HL7QueryParamsTransforms {
         params.setParameterList(createParamList(patient));
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "queryByParameter");
-        JAXBElement<PRPAMT201306UV02QueryByParameter> queryParams = new JAXBElement<PRPAMT201306UV02QueryByParameter>(
-                xmlqname, PRPAMT201306UV02QueryByParameter.class, params);
 
-        return queryParams;
+        return new JAXBElement<PRPAMT201306UV02QueryByParameter>(
+                xmlqname, PRPAMT201306UV02QueryByParameter.class, params);
     }
 
     public static PRPAMT201306UV02ParameterList createParamList(PRPAMT201301UV02Patient patient) {

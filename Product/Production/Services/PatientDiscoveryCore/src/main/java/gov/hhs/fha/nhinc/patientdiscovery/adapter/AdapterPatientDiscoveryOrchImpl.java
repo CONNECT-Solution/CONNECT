@@ -52,8 +52,7 @@ public class AdapterPatientDiscoveryOrchImpl {
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType request,
             AssertionType assertion) {
         LOG.debug("Entering AdapterPatientDiscoveryOrchImpl.respondingGatewayPRPAIN201305UV02");
-        PRPAIN201306UV02 response = new PRPAIN201306UV02();
-        return response;
+        return new PRPAIN201306UV02();
     }
 
 }

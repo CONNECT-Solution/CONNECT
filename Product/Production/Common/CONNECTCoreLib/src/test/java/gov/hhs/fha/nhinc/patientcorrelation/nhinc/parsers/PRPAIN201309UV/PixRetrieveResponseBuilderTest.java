@@ -84,9 +84,8 @@ public class PixRetrieveResponseBuilderTest {
         PRPAMT201307UV02QueryByParameter parameter = new  PRPAMT201307UV02QueryByParameter();
         parameter.setQueryId(createII());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
-        JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter = new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
+        return new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
                 PRPAMT201307UV02QueryByParameter.class, parameter);
-        return queryByParameter;
     }
 
     private II createII() {

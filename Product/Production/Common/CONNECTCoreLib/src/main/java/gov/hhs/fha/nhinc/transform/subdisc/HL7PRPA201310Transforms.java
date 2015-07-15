@@ -210,10 +210,9 @@ public class HL7PRPA201310Transforms {
         queryParams.setParameterList(paramList);
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "queryByParameter");
-        JAXBElement<PRPAMT201307UV02QueryByParameter> params = new JAXBElement<PRPAMT201307UV02QueryByParameter>(
-                xmlqname, PRPAMT201307UV02QueryByParameter.class, queryParams);
 
-        return params;
+        return new JAXBElement<PRPAMT201307UV02QueryByParameter>(
+                xmlqname, PRPAMT201307UV02QueryByParameter.class, queryParams);
     }
 
     private static MFMIMT700711UV01QueryAck createMFMIMT700711UV01QueryAck(PRPAMT201307UV02QueryByParameter queryParam) {

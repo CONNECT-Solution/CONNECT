@@ -92,7 +92,6 @@ public class XpathHelper {
         }
 
         LOG.debug("About to perform xpath query (query='" + xpathQuery + "'");
-        Node result = (Node) xpath.evaluate(xpathQuery, sourceElement, XPathConstants.NODE);
-        return result;
+        return (Node) xpath.evaluate(xpathQuery, sourceElement, XPathConstants.NODE);
     }
 }

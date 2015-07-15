@@ -83,10 +83,7 @@ public class OutboundPatientDiscoveryDelegate implements OutboundDelegate {
         contextBuilder.setPolicyTransformer(message.getPolicyTransformer());
         contextBuilder.setProcessor(message.getResponseProcessor());
 
-        OutboundPatientDiscoveryOrchestratable response = (OutboundPatientDiscoveryOrchestratable) contextBuilder
-            .build().execute();
-
-        return response;
+        return (OutboundPatientDiscoveryOrchestratable) contextBuilder.build().execute();
     }
 
     /* (non-Javadoc)

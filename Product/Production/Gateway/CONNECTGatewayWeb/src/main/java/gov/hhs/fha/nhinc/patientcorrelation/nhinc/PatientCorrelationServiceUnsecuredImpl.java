@@ -56,21 +56,19 @@ public class PatientCorrelationServiceUnsecuredImpl
             RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest, AssertionType assertionType) {
 
         LOG.info("Calling the Patient Correlation Retrieve Correlations Orch Impl");
-        RetrievePatientCorrelationsResponseType response = orchestration.retrievePatientCorrelations(
+
+        return orchestration.retrievePatientCorrelations(
                 retrievePatientCorrelationsRequest.getPRPAIN201309UV02(),
                 retrievePatientCorrelationsRequest.getAssertion());
-
-        return response;
     }
 
     public AddPatientCorrelationResponseType addPatientCorrelation(
             AddPatientCorrelationRequestType addPatientCorrelationRequest, AssertionType assertionType) {
 
         LOG.info("Calling the Patient Correlation Add Correlations Orch Impl");
-        AddPatientCorrelationResponseType response = orchestration.addPatientCorrelation(
-                addPatientCorrelationRequest.getPRPAIN201301UV02(), addPatientCorrelationRequest.getAssertion());
 
-        return response;
+        return orchestration.addPatientCorrelation(
+                addPatientCorrelationRequest.getPRPAIN201301UV02(), addPatientCorrelationRequest.getAssertion());
     }
 
 }

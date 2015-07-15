@@ -249,8 +249,8 @@ public class FileUtils {
             frPropFile = new FileReader(file);
 
             properties.load(frPropFile);
-            String propertyValue = properties.getProperty(propertyKey);
-            return propertyValue;
+
+            return properties.getProperty(propertyKey);
         } catch (FileNotFoundException e) {
             log.error(e.getMessage());
             return null;

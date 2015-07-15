@@ -48,12 +48,10 @@ public class EntityDocSubmissionDeferredRequestImpl extends BaseService {
             WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
 
-        XDRAcknowledgementType response = outboundDocSubmissionRequest.provideAndRegisterDocumentSetBAsyncRequest(
+        return outboundDocSubmissionRequest.provideAndRegisterDocumentSetBAsyncRequest(
                         provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion,
                         provideAndRegisterRequestRequest.getNhinTargetCommunities(),
                         provideAndRegisterRequestRequest.getUrl());
-
-        return response;
     }
 
     public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
@@ -61,12 +59,10 @@ public class EntityDocSubmissionDeferredRequestImpl extends BaseService {
             WebServiceContext context) {
         AssertionType assertion = getAssertion(context, provideAndRegisterAsyncReqRequest.getAssertion());
 
-        XDRAcknowledgementType response = outboundDocSubmissionRequest.provideAndRegisterDocumentSetBAsyncRequest(
+        return outboundDocSubmissionRequest.provideAndRegisterDocumentSetBAsyncRequest(
                         provideAndRegisterAsyncReqRequest.getProvideAndRegisterDocumentSetRequest(), assertion,
                         provideAndRegisterAsyncReqRequest.getNhinTargetCommunities(),
                         provideAndRegisterAsyncReqRequest.getUrl());
-
-        return response;
     }
 
 }

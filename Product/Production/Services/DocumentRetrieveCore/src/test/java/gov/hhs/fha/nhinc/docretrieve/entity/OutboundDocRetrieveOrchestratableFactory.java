@@ -86,8 +86,7 @@ public class OutboundDocRetrieveOrchestratableFactory {
     }
 
     public AssertionType getAssertion() {
-        AssertionType assertion = new AssertionType();
-        return assertion;
+        return new AssertionType();
     }
 
     public RetrieveDocumentSetResponseType getRetrieveDocumentSetResponseTypePartialSuccess() {

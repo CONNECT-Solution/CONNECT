@@ -78,8 +78,7 @@ public class PassthroughOutboundPatientDiscoveryDeferredRequest extends Abstract
 
         auditRequest(request, MessageGeneratorUtils.getInstance().generateMessageId(assertion),
             msgUtils.convertFirstToNhinTargetSystemType(targets));
-        MCCIIN000002UV01 response = sendToNhin(request, assertion, targets);
-        return response;
+        return sendToNhin(request, assertion, targets);
     }
 
     @Override

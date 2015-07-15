@@ -161,8 +161,7 @@ public class DocumentDao {
     }
 
     protected SessionFactory getSessionFactory() {
-        SessionFactory fact = HibernateUtil.getSessionFactory();
-        return fact;
+        return HibernateUtil.getSessionFactory();
     }
 
     /**

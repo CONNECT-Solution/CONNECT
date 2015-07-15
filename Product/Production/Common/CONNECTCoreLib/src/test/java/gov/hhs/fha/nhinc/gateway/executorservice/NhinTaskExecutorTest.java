@@ -225,8 +225,7 @@ public class NhinTaskExecutorTest {
         entry.setHcid("2.2");
         entry.setUrl("TestURL2");
         endpointUrlSet.add(entry);
-        List<UrlInfo> endpointUrlList = new ArrayList<UrlInfo>(endpointUrlSet);
-        return endpointUrlList;
+        return (List<UrlInfo>) new ArrayList<UrlInfo>(endpointUrlSet);
 
     }
 }

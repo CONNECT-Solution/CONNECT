@@ -121,11 +121,9 @@ public class PDProcessor<Target extends UrlInfo, Request extends RespondingGatew
     @Override
     public Response processError(String error, Request request, Target target) {
         LOG.debug("PDProcessor::processError has error=" + error);
-        Response response =
-                (Response) new HL7PRPA201306Transforms().createPRPA201306ForErrors(request.getPRPAIN201305UV02(),
-                        NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
 
-        return response;
+        return (Response) new HL7PRPA201306Transforms().createPRPA201306ForErrors(request.getPRPAIN201305UV02(),
+                NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
     }
 
     /**

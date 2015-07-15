@@ -233,15 +233,13 @@ public class HL7Parser201301 {
 
     public static PRPAMT201301UV02Person ExtractHL7PatientPersonFromHL7Patient(PRPAMT201301UV02Patient patient) {
         JAXBElement<PRPAMT201301UV02Person> patientPersonElement = patient.getPatientPerson();
-        PRPAMT201301UV02Person patientPerson = patientPerson = patientPersonElement.getValue();
-        return patientPerson;
+        return patientPersonElement.getValue();
     }
 
     public static PRPAMT201301UV02Person ExtractHL7PatientPersonFrom201301Message(org.hl7.v3.PRPAIN201301UV02 message) {
         // assume one subject for now
         PRPAMT201301UV02Patient patient = ExtractHL7PatientFromMessage(message);
-        PRPAMT201301UV02Person patientPerson = ExtractHL7PatientPersonFromHL7Patient(patient);
-        return patientPerson;
+        return ExtractHL7PatientPersonFromHL7Patient(patient);
     }
 
     public static PRPAMT201301UV02Patient ExtractHL7PatientFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
@@ -297,8 +295,7 @@ public class HL7Parser201301 {
 
     public static Patient ExtractMpiPatientFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
         PRPAMT201301UV02Patient hl7patient = ExtractHL7PatientFromMessage(message);
-        Patient mpipatient = ExtractMpiPatientFromHL7Patient(hl7patient);
-        return mpipatient;
+        return ExtractMpiPatientFromHL7Patient(hl7patient);
     }
 
     public static Patient ExtractMpiPatientFromHL7Patient(PRPAMT201301UV02Patient patient) {

@@ -49,11 +49,9 @@ public class EntityDocSubmissionDeferredResponseImpl extends BaseService {
             WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
 
-        XDRAcknowledgementType response = outboundDocSubmissionResponse.provideAndRegisterDocumentSetBAsyncResponse(
+        return outboundDocSubmissionResponse.provideAndRegisterDocumentSetBAsyncResponse(
                 provideAndRegisterDocumentSetSecuredResponseRequest.getRegistryResponse(), assertion,
                 provideAndRegisterDocumentSetSecuredResponseRequest.getNhinTargetCommunities());
-
-        return response;
     }
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(
@@ -61,10 +59,8 @@ public class EntityDocSubmissionDeferredResponseImpl extends BaseService {
             WebServiceContext context) {
         AssertionType assertion = getAssertion(context, provideAndRegisterDocumentSetAsyncRespRequest.getAssertion());
 
-        XDRAcknowledgementType response = outboundDocSubmissionResponse.provideAndRegisterDocumentSetBAsyncResponse(
+        return outboundDocSubmissionResponse.provideAndRegisterDocumentSetBAsyncResponse(
                 provideAndRegisterDocumentSetAsyncRespRequest.getRegistryResponse(), assertion,
                 provideAndRegisterDocumentSetAsyncRespRequest.getNhinTargetCommunities());
-
-        return response;
     }
 }

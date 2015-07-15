@@ -125,8 +125,7 @@ public class ManageUserBean {
      * @return
      */
     protected HttpSession getHttpSession() {
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        return session;
+        return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
     }
 
     /**

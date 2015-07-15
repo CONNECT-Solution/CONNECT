@@ -76,10 +76,8 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
             warnTooManyTargets(targetHCID, targets);
         }
 
-        AdhocQueryResponse response = sendRequestToNwhin(request, MessageGeneratorUtils.getInstance().generateMessageId(
+        return sendRequestToNwhin(request, MessageGeneratorUtils.getInstance().generateMessageId(
             assertion), target, targetHCID);
-
-        return response;
     }
 
     private String getTargetHCID(NhinTargetSystemType target) {

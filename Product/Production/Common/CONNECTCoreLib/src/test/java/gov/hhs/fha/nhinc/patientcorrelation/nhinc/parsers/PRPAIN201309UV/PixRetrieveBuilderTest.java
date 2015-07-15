@@ -106,8 +106,7 @@ public class PixRetrieveBuilderTest {
     }
 
     private AssertionType createAssertion() {
-        AssertionType assertion = new AssertionType();
-        return assertion;
+        return new AssertionType();
     }
 
     private List<String> getHomeCommunitiesIdsWithPrefix() {

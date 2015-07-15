@@ -88,10 +88,9 @@ public class PatientDiscovery201305ProcessorTest {
                 JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe",
                         "Smith", "M", null, null);
                 PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "5678", "2.2.2");
-                PRPAIN201306UV02 resp = HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1",
-                        "2.2.2", query);
 
-                return resp;
+                return HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1",
+                        "2.2.2", query);
             }
 
             @Override
@@ -142,9 +141,8 @@ public class PatientDiscovery201305ProcessorTest {
 
             @Override
             protected PRPAIN201306UV02 queryMpi(PRPAIN201305UV02 query, AssertionType assertion) {
-                PRPAIN201306UV02 resp = HL7PRPA201306Transforms.createPRPA201306(null, "2.2", null, "1.1", null, query);
 
-                return resp;
+                return HL7PRPA201306Transforms.createPRPA201306(null, "2.2", null, "1.1", null, query);
             }
 
             @Override

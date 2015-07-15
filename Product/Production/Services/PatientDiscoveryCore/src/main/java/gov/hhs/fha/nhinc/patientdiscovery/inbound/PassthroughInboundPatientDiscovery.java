@@ -66,9 +66,8 @@ public class PassthroughInboundPatientDiscovery extends AbstractInboundPatientDi
     @Override
     PRPAIN201306UV02 process(PRPAIN201305UV02 body, AssertionType assertion, Properties webContextProperties) 
         throws PatientDiscoveryException {
-        PRPAIN201306UV02 response = sendToAdapter(body, assertion);
 
-        return response;
+        return sendToAdapter(body, assertion);
     }
 
     /*
@@ -86,5 +85,5 @@ public class PassthroughInboundPatientDiscovery extends AbstractInboundPatientDi
 
         return adapterFactory.create().respondingGatewayPRPAIN201305UV02(request, assertion);
     }
-
 }
+

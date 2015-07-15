@@ -297,9 +297,8 @@ public class VerifyModeTest {
                         "Smith", "M", null, null);
                 PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "1234", "1.1.1");
                 PRPAIN201305UV02 request = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");
-                PRPAIN201306UV02 response = HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1",
+                return HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1",
                         "2.2.2", request);
-                return response;
             }
         };
 

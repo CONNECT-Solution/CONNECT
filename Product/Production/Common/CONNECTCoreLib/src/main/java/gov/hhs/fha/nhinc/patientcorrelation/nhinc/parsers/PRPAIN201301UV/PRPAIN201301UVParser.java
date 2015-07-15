@@ -51,9 +51,8 @@ public class PRPAIN201301UVParser {
      */
     public static PRPAMT201301UV02Patient parseHL7PatientPersonFrom201301Message(org.hl7.v3.PRPAIN201301UV02 message) {
         // assume one subject for now
-        PRPAMT201301UV02Patient patient = parseHL7PatientFromMessage(message);
         // PRPAMT201301UVPerson patientPerson = ParseHL7PatientPersonFromHL7Patient(patient);
-        return patient;
+        return parseHL7PatientFromMessage(message);
     }
 
     /**
@@ -116,9 +115,8 @@ public class PRPAIN201301UVParser {
         }
 
         // for now, assume we only need one subject, this will need to be modified later
-        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = subjects.get(0);
         // HL7Parser.PrintId(subject.getTypeId(), "subject");
 
-        return subject;
+        return subjects.get(0);
     }
 }

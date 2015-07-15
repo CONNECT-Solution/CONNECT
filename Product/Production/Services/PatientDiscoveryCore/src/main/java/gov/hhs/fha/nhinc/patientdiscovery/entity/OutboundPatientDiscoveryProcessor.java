@@ -69,7 +69,9 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
      *
      * @param individual
      * @param cumulativeResponse
+     * @return
      */
+    @Override
     public OutboundOrchestratableMessage processNhinResponse(OutboundOrchestratableMessage individual,
         OutboundOrchestratableMessage cumulativeResponse) {
 
@@ -116,6 +118,7 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
      * error/exception and hcid for response
      *
      * @param individualResponse
+     * @return
      */
     @SuppressWarnings("static-access")
     public OutboundOrchestratableMessage processResponse(OutboundOrchestratableMessage individualResponse) {
@@ -147,10 +150,10 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
         } catch (Exception ex) {
             ExecutorServiceHelper.getInstance().outputCompleteException(ex);
             if (individualResponse instanceof OutboundPatientDiscoveryOrchestratable) {
-                OutboundPatientDiscoveryOrchestratable individual = (OutboundPatientDiscoveryOrchestratable) individualResponse;
-                OutboundOrchestratableMessage response = processErrorResponse(individual,
+                OutboundPatientDiscoveryOrchestratable individual
+                    = (OutboundPatientDiscoveryOrchestratable) individualResponse;
+                return processErrorResponse(individual,
                     "Exception processing response.  Exception message=" + ex.getMessage());
-                return response;
             } else {
                 // can do nothing if we ever get here other than return what was passed in
                 return individualResponse;
@@ -160,6 +163,7 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
 
     protected PRPAIN201306UV02 processResponse(OutboundPatientDiscoveryOrchestratable orch,
         ProxyPRPAIN201305UVProxySecuredRequestType request) {
+
         ResponseParams params = new ResponseParams();
         params.assertion = orch.getAssertion();
         params.origRequest = request;
@@ -172,6 +176,7 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
 
     protected ProxyPRPAIN201305UVProxySecuredRequestType createRequestFromOrchestratable(
         OutboundPatientDiscoveryOrchestratable orch) {
+
         ProxyPRPAIN201305UVProxySecuredRequestType request = new ProxyPRPAIN201305UVProxySecuredRequestType();
         request.setPRPAIN201305UV02(orch.getRequest());
 
@@ -300,6 +305,8 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
     /**
      * NOT USED
      */
+    @Override
     public void aggregate(OutboundOrchestratable individualResponse, OutboundOrchestratable cumulativeResponse) {
+        // TODO: Should this throw a not implemented exception?
     }
 }

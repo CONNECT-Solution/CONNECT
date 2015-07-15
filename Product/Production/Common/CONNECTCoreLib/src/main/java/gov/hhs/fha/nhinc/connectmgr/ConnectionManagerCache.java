@@ -505,13 +505,11 @@ public class ConnectionManagerCache implements ConnectionManager {
         // load internal connections, check first with the urn:oid prefix, if not found check without the prefix
         // TODO: *******The below logic needs to be revisited********
         if (m_hInternalConnectInfo.containsKey(sHomeCommunityIDWithPrefix)) {
-            BusinessEntity businessEntity = m_hInternalConnectInfo.get(sHomeCommunityIDWithPrefix);
-            internalBusinessEntity = businessEntity;
+            internalBusinessEntity = m_hInternalConnectInfo.get(sHomeCommunityIDWithPrefix);
         }
         // TODO: *******The below logic needs to be revisited********
         if (m_hInternalConnectInfo.containsKey(sHomeCommunityIDwithoutPrefix)) {
-            BusinessEntity businessEntity = m_hInternalConnectInfo.get(sHomeCommunityIDwithoutPrefix);
-            internalBusinessEntity = businessEntity;
+            internalBusinessEntity = m_hInternalConnectInfo.get(sHomeCommunityIDwithoutPrefix);
         }
 
         // get UDDI from cache, check first with the urn:oid prefix, if not found check without the prefix

@@ -36,7 +36,6 @@ public class EntityDocSubmissionProxyNoOpImpl implements EntityDocSubmissionProx
 
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
             AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-        RegistryResponseType response = new RegistryResponseType();
-        return response;
+        return new RegistryResponseType();
     }
 }

@@ -175,7 +175,7 @@ public abstract class AbstractOutboundDocRetrieveTest {
      * @return
      */
     private Orchestratable getSuccessOrchResult() {
-        Orchestratable orch = new OutboundDocRetrieveOrchestratable() {
+        return new OutboundDocRetrieveOrchestratable() {
             /*
              * (non-Javadoc)
              *
@@ -203,7 +203,6 @@ public abstract class AbstractOutboundDocRetrieveTest {
                 return null;
             }
         };
-        return orch;
     }
 
     /**

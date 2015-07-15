@@ -71,9 +71,8 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
     protected CONNECTClient<XDRDeferredRequestPortType> getCONNECTClientSecured(
             ServicePortDescriptor<XDRDeferredRequestPortType> portDescriptor, String url, AssertionType assertion,
                        String target, String serviceName) {
-        CONNECTClient<XDRDeferredRequestPortType> client =  CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target,
+        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target,
                 serviceName);
-        return client;
     }
 
     @Override

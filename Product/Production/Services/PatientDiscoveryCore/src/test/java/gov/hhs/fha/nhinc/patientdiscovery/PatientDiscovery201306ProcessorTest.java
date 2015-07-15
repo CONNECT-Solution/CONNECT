@@ -103,13 +103,12 @@ public class PatientDiscovery201306ProcessorTest {
 
                 @Override
                 protected AssigningAuthorityHomeCommunityMappingDAO getAssigningAuthorityHomeCommunityMappingDAO() {
-                    AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO() {
+                    return new AssigningAuthorityHomeCommunityMappingDAO() {
                         @Override
                         public boolean storeMapping(String hcid, String assigningAuthorityId) {
                             return true;
                         }
                     };
-                    return mappingDao;
                 }
 
                 @Override
@@ -237,13 +236,12 @@ public class PatientDiscovery201306ProcessorTest {
 
                 @Override
                 protected AssigningAuthorityHomeCommunityMappingDAO getAssigningAuthorityHomeCommunityMappingDAO() {
-                    AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO() {
+                    return new AssigningAuthorityHomeCommunityMappingDAO() {
                         @Override
                         public boolean storeMapping(String hcid, String assigningAuthorityId) {
                             return false;
                         }
                     };
-                    return mappingDao;
                 }
 
                 @Override

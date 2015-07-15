@@ -101,9 +101,8 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
 
     protected List<QualifiedPatientIdentifier> retrieveQualifiedPatientIdentifiers(QualifiedPatientIdentifier inputQualifiedPatientIdentifier,
         List<String> dataSourceList) {
-        List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers = dao.retrievePatientCorrelation(
-            inputQualifiedPatientIdentifier, dataSourceList);
-        return qualifiedPatientIdentifiers;
+
+        return dao.retrievePatientCorrelation(inputQualifiedPatientIdentifier, dataSourceList);
     }
 
     @Override

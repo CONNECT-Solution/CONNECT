@@ -60,8 +60,7 @@ public class AdapterPatientDiscoverySecured implements gov.hhs.fha.nhinc.adapter
             PatientDiscoveryFaultType type = new PatientDiscoveryFaultType();
             type.setErrorCode("920");
             type.setMessage(e.getLocalizedMessage());
-            AdapterPatientDiscoverySecuredFault fault = new AdapterPatientDiscoverySecuredFault(e.getMessage(), type);
-            throw fault;
+            throw new AdapterPatientDiscoverySecuredFault(e.getMessage(), type);
         }
         return response;
 

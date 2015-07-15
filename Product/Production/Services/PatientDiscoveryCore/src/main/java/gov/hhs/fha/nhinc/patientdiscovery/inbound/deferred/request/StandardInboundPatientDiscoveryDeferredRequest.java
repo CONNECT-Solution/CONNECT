@@ -122,9 +122,7 @@ public class StandardInboundPatientDiscoveryDeferredRequest extends AbstractInbo
     private MCCIIN000002UV01 sendErrorToAdapter(PRPAIN201305UV02 request, AssertionType assertion, String errMsg) {
         PRPAIN201306UV02 response = new HL7PRPA201306Transforms().createPRPA201306ForPatientNotFound(request);
 
-        MCCIIN000002UV01 adapterResp = proxyErrorFactory.create().processPatientDiscoveryAsyncReqError(request,
+        return proxyErrorFactory.create().processPatientDiscoveryAsyncReqError(request,
             response, assertion, errMsg);
-
-        return adapterResp;
     }
 }

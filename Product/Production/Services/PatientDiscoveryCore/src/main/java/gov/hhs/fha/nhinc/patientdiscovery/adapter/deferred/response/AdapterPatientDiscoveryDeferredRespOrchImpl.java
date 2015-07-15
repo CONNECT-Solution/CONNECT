@@ -39,9 +39,8 @@ import org.hl7.v3.PRPAIN201306UV02;
 public class AdapterPatientDiscoveryDeferredRespOrchImpl {
 
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion) {
-        MCCIIN000002UV01 ack = HL7AckTransforms.createAckFrom201306(request, "Success");
 
-        return ack;
+        return HL7AckTransforms.createAckFrom201306(request, "Success");
     }
 
 }

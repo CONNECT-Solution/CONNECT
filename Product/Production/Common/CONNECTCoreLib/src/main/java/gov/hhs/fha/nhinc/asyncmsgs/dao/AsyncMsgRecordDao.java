@@ -661,9 +661,7 @@ public class AsyncMsgRecordDao {
             currentTime.add(Calendar.DAY_OF_YEAR, longObj.intValue());
         }
 
-        Date expirationValue = currentTime.getTime();
-
-        return expirationValue;
+        return currentTime.getTime();
     }
 
     protected Session getSession() {

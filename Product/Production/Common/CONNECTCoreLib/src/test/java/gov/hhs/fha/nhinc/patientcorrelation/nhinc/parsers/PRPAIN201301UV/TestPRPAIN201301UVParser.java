@@ -278,9 +278,7 @@ public class TestPRPAIN201301UVParser {
         device.setDeterminerCode("INSTANCE");
         device.setTypeId(createTypeId());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "device");
-        JAXBElement<COCTMT090003UV01Device> assignedDevice = new JAXBElement<COCTMT090003UV01Device>(xmlqname,
-            COCTMT090003UV01Device.class, device);
-        return assignedDevice;
+        return new JAXBElement<>(xmlqname, COCTMT090003UV01Device.class, device);
     }
 
     private CE createCE() {

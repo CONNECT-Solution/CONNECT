@@ -344,10 +344,8 @@ public class HL7DbParser201306 {
         org.getContactParty().add(null);
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "providerOrganization");
-        JAXBElement<COCTMT150003UV03Organization> result =
-            new JAXBElement<COCTMT150003UV03Organization>(xmlqname, COCTMT150003UV03Organization.class, org);
 
-        return result;
+        return new JAXBElement<COCTMT150003UV03Organization>(xmlqname, COCTMT150003UV03Organization.class, org);
     }
 
     private static II createSubjectId(Patient patient) {
@@ -422,10 +420,8 @@ public class HL7DbParser201306 {
         }
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201310UV02Person> result =
-            new JAXBElement<PRPAMT201310UV02Person>(xmlqname, PRPAMT201310UV02Person.class, person);
 
-        return result;
+        return new JAXBElement<PRPAMT201310UV02Person>(xmlqname, PRPAMT201310UV02Person.class, person);
     }
 
     private static PRPAMT201310UV02OtherIDs createOtherIds(Patient patient) {

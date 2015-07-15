@@ -143,12 +143,8 @@ public class HL7PRPA201306Transforms {
         LOG.trace("Create the 201306 message header fields");
         result.setITSVersion(HL7Constants.ITS_VERSION);
         // extract the receiverOID from the request message - it will become the sender
-        String sReceiverOIDFromMessage = getReceiverOIDFromPRPAIN201305UV02Request(oRequest);
-        String senderOID = sReceiverOIDFromMessage;
         // extract the senderOID from the request - it will become the receiver
-        String sSenderOIDFromMessage = getSenderOIDFromPRPAIN201305UV02Request(oRequest);
-        String receiverOID = sSenderOIDFromMessage;
-        result.setId(getHL7MessageId(receiverOID));
+        result.setId(getHL7MessageId(getSenderOIDFromPRPAIN201305UV02Request(oRequest)));
         result.setCreationTime(getHL7CreationTime());
         result.setInteractionId(getHL7InteractionId());
         result.setProcessingCode(getHL7ProcessingCode());
@@ -161,11 +157,11 @@ public class HL7PRPA201306Transforms {
 
         // Create the Receiver
         LOG.trace("Create the Receiver");
-        result.getReceiver().add(HL7ReceiverTransforms.createMCCIMT000300UV01Receiver(receiverOID));
+        result.getReceiver().add(HL7ReceiverTransforms.createMCCIMT000300UV01Receiver(getSenderOIDFromPRPAIN201305UV02Request(oRequest)));
 
         // Create the Sender
         LOG.trace("Create the Sender");
-        result.setSender(HL7SenderTransforms.createMCCIMT000300UV01Sender(senderOID));
+        result.setSender(HL7SenderTransforms.createMCCIMT000300UV01Sender(getReceiverOIDFromPRPAIN201305UV02Request(oRequest)));
 
         // from spec - case 4
         // OK (data found, no errors) is returned in QueryAck.queryResponseCode (control act wrapper)
@@ -212,8 +208,7 @@ public class HL7PRPA201306Transforms {
         result.setITSVersion(HL7Constants.ITS_VERSION);
 
         // extract the receiverOID from the request message - it will become the sender
-        String sReceiverOIDFromMessage = getReceiverOIDFromPRPAIN201305UV02Request(oRequest);
-        String senderOID = sReceiverOIDFromMessage;
+        String senderOID = getReceiverOIDFromPRPAIN201305UV02Request(oRequest);
 
         // Update 3.1.1: use the current home community id as defined in gateway.properties
         // If message fails to leave local community then senderid and receiverid will match
@@ -236,9 +231,7 @@ public class HL7PRPA201306Transforms {
         }
 
         // extract the senderOID from the request - it will become the receiver
-        String sSenderOIDFromMessage = getSenderOIDFromPRPAIN201305UV02Request(oRequest);
-        String receiverOID = sSenderOIDFromMessage;
-        result.setId(getHL7MessageId(receiverOID));
+        result.setId(getHL7MessageId(getSenderOIDFromPRPAIN201305UV02Request(oRequest)));
 
         result.setCreationTime(getHL7CreationTime());
         result.setInteractionId(getHL7InteractionId());
@@ -252,7 +245,7 @@ public class HL7PRPA201306Transforms {
 
         // Create the Receiver
         LOG.trace("Create the Receiver");
-        result.getReceiver().add(HL7ReceiverTransforms.createMCCIMT000300UV01Receiver(receiverOID));
+        result.getReceiver().add(HL7ReceiverTransforms.createMCCIMT000300UV01Receiver(getSenderOIDFromPRPAIN201305UV02Request(oRequest)));
 
         // Create the Sender
         LOG.trace("Create the Sender");
@@ -482,10 +475,9 @@ public class HL7PRPA201306Transforms {
         org.getContactParty().add(null);
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "providerOrganization");
-        JAXBElement<COCTMT150003UV03Organization> result = new JAXBElement<COCTMT150003UV03Organization>(xmlqname,
-                COCTMT150003UV03Organization.class, org);
 
-        return result;
+        return new JAXBElement<COCTMT150003UV03Organization>(xmlqname,
+                COCTMT150003UV03Organization.class, org);
 
     }
 
@@ -605,14 +597,12 @@ public class HL7PRPA201306Transforms {
 
     protected String getReceiverOIDFromPRPAIN201305UV02Request(PRPAIN201305UV02 oRequest) {
         // extract the receiverOID from the request message - it will become the sender
-        String sReceiverOIDFromMessage = HL7Extractors.ExtractHL7ReceiverOID(oRequest);
-        return sReceiverOIDFromMessage;
+        return HL7Extractors.ExtractHL7ReceiverOID(oRequest);
     }
 
     protected String getSenderOIDFromPRPAIN201305UV02Request(PRPAIN201305UV02 oRequest) {
         // extract the senderOID from the request - it will become the receiver
-        String sSenderOIDFromMessage = HL7Extractors.ExtractHL7SenderOID(oRequest);
-        return sSenderOIDFromMessage;
+        return HL7Extractors.ExtractHL7SenderOID(oRequest);
     }
 
     protected boolean areIncommingRequiredPRPAIN201305FieldsNull(PRPAIN201305UV02 oRequest) {

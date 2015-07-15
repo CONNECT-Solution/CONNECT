@@ -57,7 +57,6 @@ public class AdapterMpiOrchImpl {
         LOG.trace("Entering AdapterMpiOrchImpl.query method...");
         AdapterComponentMpiProxyObjectFactory oFactory = new AdapterComponentMpiProxyObjectFactory();
         AdapterComponentMpiProxy oMpiProxy = oFactory.getAdapterComponentMpiProxy();
-        PRPAIN201306UV02 oResponse = oMpiProxy.findCandidates(findCandidatesRequest, assertion);
-        return oResponse;
+        return oMpiProxy.findCandidates(findCandidatesRequest, assertion);
     }
 }

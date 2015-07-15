@@ -72,9 +72,8 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
         ServicePortDescriptor<XDRDeferredResponse20PortType> portDescriptor, String url, AssertionType assertion,
         String target, String serviceName) {
 
-        CONNECTClient<XDRDeferredResponse20PortType> client = CONNECTCXFClientFactory.getInstance()
+        return CONNECTCXFClientFactory.getInstance()
             .getCONNECTClientSecured(portDescriptor, assertion, url, target, serviceName);
-        return client;
     }
 
     @Override

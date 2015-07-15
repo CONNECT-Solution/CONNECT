@@ -59,6 +59,7 @@ public abstract class AbstractInboundDocQuery implements InboundDocQuery {
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
         Properties webContextProperties) {
         String senderHcid = null;
+
         if (msg != null) {
             senderHcid = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
         }
@@ -73,6 +74,7 @@ public abstract class AbstractInboundDocQuery implements InboundDocQuery {
 
     protected void auditResponseToNhin(AdhocQueryRequest request, AdhocQueryResponse msg, AssertionType assertion,
         String requestCommunityID, Properties webContextProperties) {
+
         auditLogger.auditResponseMessage(request, msg, assertion, null,
             NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
             Boolean.FALSE, webContextProperties, NhincConstants.DOC_QUERY_SERVICE_NAME);

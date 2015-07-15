@@ -101,8 +101,7 @@ public class EventAspectAdviceTest {
 
             @Override
             public Object[] answer(InvocationOnMock invocation) throws Throwable {
-                Object[] ret = {};
-                return ret;
+                return new Object[]{};
             }
         });
     }
