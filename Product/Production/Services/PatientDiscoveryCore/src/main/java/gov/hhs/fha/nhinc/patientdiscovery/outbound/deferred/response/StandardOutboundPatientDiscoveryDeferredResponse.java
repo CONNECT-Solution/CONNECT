@@ -149,7 +149,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
     }
 
     private List<UrlInfo> getTargetEndpoints(NhinTargetCommunitiesType targetCommunities) {
-        List<UrlInfo> urlInfoList = null;
+        List<UrlInfo> urlInfoList;
 
         try {
             urlInfoList = connectionManager.getEndpointURLFromNhinTargetCommunities(targetCommunities,

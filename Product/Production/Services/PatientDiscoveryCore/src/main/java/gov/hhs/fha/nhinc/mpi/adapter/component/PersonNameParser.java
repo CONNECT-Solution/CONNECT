@@ -112,7 +112,7 @@ public class PersonNameParser {
      */
     public static String serializeName(PersonName personName) {
         LOG.trace("Begin PersonNameParser.SerializeName(PersonName)");
-        String serializedName = null;
+        String serializedName;
         if (personName == null) {
             serializedName = "";
         } else if (personName.getFirstName().contentEquals("")) {

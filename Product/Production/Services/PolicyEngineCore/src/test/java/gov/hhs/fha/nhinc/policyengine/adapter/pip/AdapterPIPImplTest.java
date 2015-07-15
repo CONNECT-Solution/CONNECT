@@ -334,7 +334,7 @@ public class AdapterPIPImplTest {
     }
 
     private Object unmarshallMessage(String message) {
-        Object unmarshalledObject = null;
+        Object unmarshalledObject;
         String contextPath = "gov.hhs.fha.nhinc.common.nhinccommonadapter";
 
         try {

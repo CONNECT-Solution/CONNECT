@@ -109,7 +109,7 @@ public class AssertionHelper {
             throw new NullPointerException("policy request request is null");
         }
 
-        SubjectType subject = null;
+        SubjectType subject;
         if (policyXacmlRequest.getSubject() != null && !policyXacmlRequest.getSubject().isEmpty()) {
             subject = policyXacmlRequest.getSubject().get(0);
         } else {
@@ -125,7 +125,7 @@ public class AssertionHelper {
             throw new NullPointerException("policy request is null");
         }
 
-        ResourceType resource = null;
+        ResourceType resource;
         if (policyRequest.getResource() != null && !policyRequest.getResource().isEmpty()) {
             resource = policyRequest.getResource().get(0);
         } else {

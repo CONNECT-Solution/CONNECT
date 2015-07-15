@@ -47,7 +47,7 @@ public class ResponseFactory {
     private static final Logger LOG = LoggerFactory.getLogger(ResponseFactory.class);
 
     public ResponseMode getResponseMode() {
-        ResponseMode result = null;
+        ResponseMode result;
 
         ResponseModeType mode = getResponseModeType();
 

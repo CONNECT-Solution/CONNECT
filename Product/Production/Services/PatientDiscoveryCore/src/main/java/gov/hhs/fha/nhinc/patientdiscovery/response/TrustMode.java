@@ -82,7 +82,7 @@ public class TrustMode implements ResponseMode {
                 LOG.debug("processResponse - response/subjects is null");
             }
 
-            II remotePatId = null;
+            II remotePatId;
             II localPatId = getPatientId(requestMsg);
 
             if (requestHasLivingSubjectId(requestMsg) && localPatId != null) {
@@ -138,7 +138,7 @@ public class TrustMode implements ResponseMode {
                     LOG.debug("processResponse - response/subjects is null");
                 }
 
-                II remotePatId = null;
+                II remotePatId;
                 for (PRPAIN201306UV02MFMIMT700711UV01Subject1 pRPAINSubject : pRPAINSubjects) {
                     int pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
                     LOG.debug("processResponse - SubjectIndex: " + pRPAINSubjectInd);
@@ -203,7 +203,7 @@ public class TrustMode implements ResponseMode {
     }
 
     protected boolean requestHasLivingSubjectId(PRPAIN201305UV02 request) {
-        boolean result = false;
+        boolean result;
 
         result = (getPatientId(request) != null);
 
@@ -250,7 +250,7 @@ public class TrustMode implements ResponseMode {
     }
 
     protected PRPAIN201301UV02 createPRPA201301(PRPAIN201306UV02 input) {
-        PRPAIN201301UV02 result = null;
+        PRPAIN201301UV02 result;
 
         result = HL7PRPA201301Transforms.createPRPA201301(input, getLocalHomeCommunityId());
 

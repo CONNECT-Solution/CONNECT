@@ -253,7 +253,7 @@ public class DomainDaoImpl implements DomainDao {
 
         if (name != null) {
             Session session = null;
-            Query query = null;
+            Query query;
 
             try {
                 session = DaoUtils.getSession();
@@ -283,7 +283,7 @@ public class DomainDaoImpl implements DomainDao {
         List<Domain> results = null;
 
         Session session = null;
-        Query query = null;
+        Query query;
 
         try {
             session = DaoUtils.getSession();
@@ -323,7 +323,7 @@ public class DomainDaoImpl implements DomainDao {
         // real intent is to do some kind of db paging
 
         List<Domain> results = null;
-        Query query = null;
+        Query query;
 
         Session session = null;
 
@@ -367,7 +367,7 @@ public class DomainDaoImpl implements DomainDao {
         List<Domain> result = null;
 
         Session session = null;
-        Query query = null;
+        Query query;
 
         String fuzzyName = null;
 

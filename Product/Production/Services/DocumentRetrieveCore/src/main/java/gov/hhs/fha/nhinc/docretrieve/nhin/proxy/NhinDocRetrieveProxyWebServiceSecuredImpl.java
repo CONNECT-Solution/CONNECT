@@ -75,7 +75,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem,
             GATEWAY_API_LEVEL level) {
-        String url = null;
+        String url;
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
         String sServiceName = NhincConstants.DOC_RETRIEVE_SERVICE_NAME;
 

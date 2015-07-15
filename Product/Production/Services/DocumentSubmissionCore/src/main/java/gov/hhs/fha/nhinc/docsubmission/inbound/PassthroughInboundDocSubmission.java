@@ -66,6 +66,7 @@ public class PassthroughInboundDocSubmission extends AbstractInboundDocSubmissio
      */
     public PassthroughInboundDocSubmission(AdapterDocSubmissionProxyObjectFactory adapterFactory,
         DocSubmissionAuditLogger auditLogger, DocSubmissionUtils dsUtils) {
+
         super(adapterFactory, auditLogger);
         this.dsUtils = dsUtils;
     }
@@ -73,7 +74,8 @@ public class PassthroughInboundDocSubmission extends AbstractInboundDocSubmissio
     @Override
     RegistryResponseType processDocSubmission(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion,
         Properties webContextProperties) {
-        RegistryResponseType response = null;
+
+        RegistryResponseType response;
 
         try {
             dsUtils.convertDataToFileLocationIfEnabled(body);

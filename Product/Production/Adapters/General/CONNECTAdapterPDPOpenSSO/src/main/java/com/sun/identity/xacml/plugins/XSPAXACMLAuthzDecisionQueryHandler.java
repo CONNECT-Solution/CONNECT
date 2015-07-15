@@ -156,22 +156,22 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
         String fullfillOn = null;
 
         // subject attributes
-        String userId = null;
-        Set userRoles = null;
-        String userLocality = null;
-        String pou = null; // purpose of use
+        String userId;
+        Set userRoles;
+        String userLocality;
+        String pou; // purpose of use
 
         // resource attributes
         String resourceId = null;
-        String communityId = null;
-        String serviceType = null;
-        boolean optIn = false;
+        String communityId;
+        String serviceType;
+        boolean optIn;
 
         // action attributes
-        String actionId = null;
+        String actionId;
 
         // environment attributes
-        String environmentLocality = null;
+        String environmentLocality;
 
         String detailText = "";
 
@@ -326,7 +326,7 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
     }
 
     private Obligations createObligations(String obligationId, boolean permitAccess) throws XACMLException {
-        Obligations obligations = null;
+        Obligations obligations;
         try {
             Obligation obligation = PolicyFactory.getInstance().createObligation();
             obligation.setObligationId(new URI(obligationId));
@@ -439,7 +439,7 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
 
     boolean isOptIn(Request request) {
         boolean optIn = false;
-        String value = null;
+        String value;
         List resources = request.getResources();
         if ((resources != null) && !resources.isEmpty()) {
             Resource resource = (Resource) resources.get(0);

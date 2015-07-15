@@ -102,8 +102,8 @@ public class DocumentRetrieve20WebServices extends AbstractDRWebServicesMXBean {
     @Override
     public void configureInboundStdImpl() throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-        DocRetrieve nhinDR = null;
-        InboundDocRetrieve inboundDR = null;
+        DocRetrieve nhinDR;
+        InboundDocRetrieve inboundDR;
 
         nhinDR = retrieveBean(DocRetrieve.class, getNhinBeanName());
         inboundDR = retrieveBean(InboundDocRetrieve.class, getStandardInboundBeanName());
@@ -115,8 +115,8 @@ public class DocumentRetrieve20WebServices extends AbstractDRWebServicesMXBean {
     @Override
     public void configureInboundPtImpl() throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-        DocRetrieve nhinDR = null;
-        InboundDocRetrieve inboundDR = null;
+        DocRetrieve nhinDR;
+        InboundDocRetrieve inboundDR;
 
         nhinDR = retrieveBean(DocRetrieve.class, getNhinBeanName());
         inboundDR = retrieveBean(InboundDocRetrieve.class, getPassthroughInboundBeanName());
@@ -139,8 +139,8 @@ public class DocumentRetrieve20WebServices extends AbstractDRWebServicesMXBean {
     @Override
     public void configureOutboundStdImpl() throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-        EntityDocRetrieve entityDR = null;
-        OutboundDocRetrieve outboundDR = null;
+        EntityDocRetrieve entityDR;
+        OutboundDocRetrieve outboundDR;
 
         entityDR = retrieveBean(EntityDocRetrieve.class, getEntityUnsecuredBeanName());
         outboundDR = retrieveBean(OutboundDocRetrieve.class, getStandardOutboundBeanName());
@@ -151,8 +151,8 @@ public class DocumentRetrieve20WebServices extends AbstractDRWebServicesMXBean {
     @Override
     public void configureOutboundPtImpl() throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-        EntityDocRetrieve entityDR = null;
-        OutboundDocRetrieve outboundDR = null;
+        EntityDocRetrieve entityDR;
+        OutboundDocRetrieve outboundDR;
 
         entityDR = retrieveBean(EntityDocRetrieve.class, getEntityUnsecuredBeanName());
         outboundDR = retrieveBean(OutboundDocRetrieve.class, getPassthroughOutboundBeanName());

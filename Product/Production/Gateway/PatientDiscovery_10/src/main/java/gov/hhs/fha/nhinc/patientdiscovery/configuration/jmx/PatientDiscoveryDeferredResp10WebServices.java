@@ -58,8 +58,8 @@ public class PatientDiscoveryDeferredResp10WebServices extends AbstractPDDeferre
     @Override
     public void configureInboundStdImpl() throws InstantiationException, IllegalAccessException,
             ClassNotFoundException {
-        NhinPatientDiscoveryDeferredResponse nhinPD = null;
-        InboundPatientDiscoveryDeferredResponse inboundPD = null;
+        NhinPatientDiscoveryDeferredResponse nhinPD;
+        InboundPatientDiscoveryDeferredResponse inboundPD;
 
         nhinPD = retrieveBean(NhinPatientDiscoveryDeferredResponse.class, getNhinBeanName());
         inboundPD = retrieveBean(InboundPatientDiscoveryDeferredResponse.class, getStandardInboundBeanName());
@@ -71,8 +71,8 @@ public class PatientDiscoveryDeferredResp10WebServices extends AbstractPDDeferre
     @Override
     public void configureInboundPtImpl() throws InstantiationException, IllegalAccessException,
             ClassNotFoundException {
-        NhinPatientDiscoveryDeferredResponse nhinPD = null;
-        InboundPatientDiscoveryDeferredResponse inboundPD = null;
+        NhinPatientDiscoveryDeferredResponse nhinPD;
+        InboundPatientDiscoveryDeferredResponse inboundPD;
 
         nhinPD = retrieveBean(NhinPatientDiscoveryDeferredResponse.class, getNhinBeanName());
         inboundPD = retrieveBean(InboundPatientDiscoveryDeferredResponse.class, getPassthroughInboundBeanName());
@@ -88,9 +88,9 @@ public class PatientDiscoveryDeferredResp10WebServices extends AbstractPDDeferre
     @Override
     public void configureOutboundStdImpl() throws InstantiationException, IllegalAccessException,
             ClassNotFoundException {
-        EntityPatientDiscoveryDeferredResponseUnsecured entityPDUnsecured = null;
-        EntityPatientDiscoveryDeferredResponseSecured entityPDSecured = null;
-        OutboundPatientDiscoveryDeferredResponse inboundPD = null;
+        EntityPatientDiscoveryDeferredResponseUnsecured entityPDUnsecured;
+        EntityPatientDiscoveryDeferredResponseSecured entityPDSecured;
+        OutboundPatientDiscoveryDeferredResponse inboundPD;
         inboundPD = retrieveBean(OutboundPatientDiscoveryDeferredResponse.class, getStandardOutboundBeanName());
         //inboundPD = retrieveDependency(OutboundPatientDiscoveryDeferredResponse.class, className);
         entityPDUnsecured = retrieveBean(EntityPatientDiscoveryDeferredResponseUnsecured.class,
@@ -105,9 +105,9 @@ public class PatientDiscoveryDeferredResp10WebServices extends AbstractPDDeferre
     @Override
     public void configureOutboundPtImpl() throws InstantiationException, IllegalAccessException,
             ClassNotFoundException {
-        EntityPatientDiscoveryDeferredResponseUnsecured entityPDUnsecured = null;
-        EntityPatientDiscoveryDeferredResponseSecured entityPDSecured = null;
-        OutboundPatientDiscoveryDeferredResponse inboundPD = null;
+        EntityPatientDiscoveryDeferredResponseUnsecured entityPDUnsecured;
+        EntityPatientDiscoveryDeferredResponseSecured entityPDSecured;
+        OutboundPatientDiscoveryDeferredResponse inboundPD;
         inboundPD = retrieveBean(OutboundPatientDiscoveryDeferredResponse.class, getPassthroughOutboundBeanName());
         //inboundPD = retrieveDependency(OutboundPatientDiscoveryDeferredResponse.class, className);
         entityPDUnsecured = retrieveBean(EntityPatientDiscoveryDeferredResponseUnsecured.class,

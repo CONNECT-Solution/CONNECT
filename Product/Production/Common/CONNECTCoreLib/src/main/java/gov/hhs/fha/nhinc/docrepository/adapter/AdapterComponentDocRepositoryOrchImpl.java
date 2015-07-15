@@ -109,8 +109,8 @@ public class AdapterComponentDocRepositoryOrchImpl {
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
         ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response = new ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType();
-        String docUniqueId = "";
-        String reposUniqueId = "";
+        String docUniqueId;
+        String reposUniqueId;
         RegistryResponseType regResponse = new RegistryResponseType();
         regResponse.setStatus(NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE);
         response.setRegistryResponse(regResponse);
@@ -219,7 +219,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
                 for (Document doc : docs) {
                     DocumentResponse oDocResponse = new DocumentResponse();
-                    boolean bHasData = false;
+                    boolean bHasData;
 
                     // Home Community Id
                     // -------------------
@@ -234,7 +234,6 @@ public class AdapterComponentDocRepositoryOrchImpl {
                     if (NullChecker.isNotNullish(doc.getDocumentUniqueId())) {
                         oDocResponse.setDocumentUniqueId(doc.getDocumentUniqueId());
                         LOG.debug("Document unique id found ");
-                        bHasData = true;
                     }
 
                     // Mime Type
@@ -242,7 +241,6 @@ public class AdapterComponentDocRepositoryOrchImpl {
                     if (NullChecker.isNotNullish(doc.getMimeType())) {
                         oDocResponse.setMimeType(doc.getMimeType());
                         LOG.debug("Mime type Identified ");
-                        bHasData = true;
                     }
 
                     bHasData = setDocumentResponse(doc, oDocResponse);
@@ -358,7 +356,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
         }
 
         // return the correct response based on the results of the query.
-        String responseStatus = null;
+        String responseStatus;
         if ((errorList.getRegistryError().isEmpty()) && (errorList.getRegistryError().size() == 0)) {
             responseStatus = DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS;
         } else {
@@ -372,7 +370,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
     protected Document setDocument(List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
     		RegistryErrorList errorList, int i, HashMap<String, DataHandler> docMap, boolean requestHasReplacementAssociation){
-    	oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType extrinsicObject = null;
+    	oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType extrinsicObject;
 
     	logDeclaredType(identifiableObjectList, i);
 
@@ -469,8 +467,8 @@ public class AdapterComponentDocRepositoryOrchImpl {
 			String intendedRecipientValue = docRepoHelper.extractMetadataFromSlots(
 					documentSlots, DocRepoConstants.XDS_INTENDED_RECIPIENT_SLOT, 0);
 			if (intendedRecipientValue != null) {
-				String intendedRecipientPerson = "";
-				String intendedRecipientOrganization = "";
+				String intendedRecipientPerson;
+				String intendedRecipientOrganization;
 				if (intendedRecipientValue.indexOf("|") != -1) {
 					intendedRecipientOrganization = intendedRecipientValue
 							.substring(0, intendedRecipientValue.indexOf("|"));

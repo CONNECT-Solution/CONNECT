@@ -104,7 +104,7 @@ public class ConformanceClient {
     }
 
     protected static HttpResponse sendRequest(HttpUriRequest request) {
-        HttpResponse response = null;
+        HttpResponse response;
         LOG.info("Conformance request method: " + request.getURI().getQuery());
         try {
             response = new DefaultHttpClient().execute(request);

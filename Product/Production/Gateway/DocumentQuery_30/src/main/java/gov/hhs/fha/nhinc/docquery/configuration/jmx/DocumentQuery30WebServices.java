@@ -67,8 +67,8 @@ public class DocumentQuery30WebServices extends AbstractDQWebServicesMXBean {
     @Override
     public void configureInboundStdImpl() throws InstantiationException, IllegalAccessException,
             ClassNotFoundException {
-        DocQuery docQuery = null;
-        InboundDocQuery inboundDocQuery = null;
+        DocQuery docQuery;
+        InboundDocQuery inboundDocQuery;
 
         docQuery = retrieveBean(DocQuery.class, getNhinBeanName());
         inboundDocQuery = retrieveBean(InboundDocQuery.class, getStandardInboundBeanName());
@@ -91,8 +91,8 @@ public class DocumentQuery30WebServices extends AbstractDQWebServicesMXBean {
     @Override
     public void configureInboundPtImpl() throws InstantiationException, IllegalAccessException,
             ClassNotFoundException {
-        DocQuery docQuery = null;
-        InboundDocQuery inboundDocQuery = null;
+        DocQuery docQuery;
+        InboundDocQuery inboundDocQuery;
 
         docQuery = retrieveBean(DocQuery.class, getNhinBeanName());
         inboundDocQuery = retrieveBean(InboundDocQuery.class, getPassthroughInboundBeanName());
@@ -115,9 +115,9 @@ public class DocumentQuery30WebServices extends AbstractDQWebServicesMXBean {
     @Override
     public void configureOutboundStdImpl() throws InstantiationException, IllegalAccessException,
             ClassNotFoundException {
-        EntityDocQueryUnsecured entityUnsecuredDocQuery = null;
-        EntityDocQuerySecured entitySecuredDocQuery = null;
-        OutboundDocQuery outboundDocQuery = null;
+        EntityDocQueryUnsecured entityUnsecuredDocQuery;
+        EntityDocQuerySecured entitySecuredDocQuery;
+        OutboundDocQuery outboundDocQuery;
 
         entityUnsecuredDocQuery = retrieveBean(EntityDocQueryUnsecured.class, getEntityUnsecuredBeanName());
         entitySecuredDocQuery = retrieveBean(EntityDocQuerySecured.class, getEntitySecuredBeanName());
@@ -142,9 +142,9 @@ public class DocumentQuery30WebServices extends AbstractDQWebServicesMXBean {
     @Override
     public void configureOutboundPtImpl() throws InstantiationException, IllegalAccessException,
             ClassNotFoundException {
-        EntityDocQueryUnsecured entityUnsecuredDocQuery = null;
-        EntityDocQuerySecured entitySecuredDocQuery = null;
-        OutboundDocQuery outboundDocQuery = null;
+        EntityDocQueryUnsecured entityUnsecuredDocQuery;
+        EntityDocQuerySecured entitySecuredDocQuery;
+        OutboundDocQuery outboundDocQuery;
 
         entityUnsecuredDocQuery = retrieveBean(EntityDocQueryUnsecured.class, getEntityUnsecuredBeanName());
         entitySecuredDocQuery = retrieveBean(EntityDocQuerySecured.class, getEntitySecuredBeanName());

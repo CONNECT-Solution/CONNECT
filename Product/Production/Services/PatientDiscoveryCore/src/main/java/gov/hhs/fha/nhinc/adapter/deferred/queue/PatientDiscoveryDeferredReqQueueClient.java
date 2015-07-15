@@ -69,7 +69,7 @@ public class PatientDiscoveryDeferredReqQueueClient {
      */
     public PatientDiscoveryDeferredReqQueueProcessResponseType
             processPatientDiscoveryDeferredReqQueue(String messageId) {
-        String msgText = "";
+        String msgText;
 
         PatientDiscoveryDeferredReqQueueProcessResponseType response =
                 new PatientDiscoveryDeferredReqQueueProcessResponseType();

@@ -149,7 +149,7 @@ public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator 
             }
 
             String domainName = null;
-            String userName = null;
+            String userName;
             if (parts.length == 1) {
                 userName = parts[0];
             } else {

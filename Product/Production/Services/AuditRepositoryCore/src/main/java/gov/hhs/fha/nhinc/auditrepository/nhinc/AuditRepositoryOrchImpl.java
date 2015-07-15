@@ -122,7 +122,7 @@ public class AuditRepositoryOrchImpl {
                 + "value in 'auditlogchoice' properties file");
             return null;
         }
-        FindCommunitiesAndAuditEventsResponseType auditEvents = new FindCommunitiesAndAuditEventsResponseType();
+        FindCommunitiesAndAuditEventsResponseType auditEvents;
         String patientId = query.getPatientId();
         String userId = query.getUserId();
         Date beginDate = null;
@@ -163,7 +163,6 @@ public class AuditRepositoryOrchImpl {
         AuditRepositoryRecord eachRecord;
         for (int i = 0; i < size; i++) {
             eachRecord = auditRecList.get(i);
-            auditMessageType = new AuditMessageType();
             blobMessage = eachRecord.getMessage();
             if (blobMessage != null) {
                 try {

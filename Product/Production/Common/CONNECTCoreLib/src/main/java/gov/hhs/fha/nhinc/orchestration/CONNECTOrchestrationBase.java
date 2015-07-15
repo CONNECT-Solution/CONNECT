@@ -52,20 +52,21 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
 
     private static final Logger LOG = LoggerFactory.getLogger(CONNECTOrchestrationBase.class);
 
-    private final IPropertyAcessor propertyAcessor;
+    private final IPropertyAcessor propertyAccessor;
 
     /**
      *
      */
     public CONNECTOrchestrationBase() {
-        propertyAcessor = PropertyAccessor.getInstance();
+        propertyAccessor = PropertyAccessor.getInstance();
     }
 
     /**
      *
+     * @param propertyAccessor
      */
-    public CONNECTOrchestrationBase(IPropertyAcessor propertyAccesor) {
-        propertyAcessor = propertyAccesor;
+    public CONNECTOrchestrationBase(IPropertyAcessor propertyAccessor) {
+        this.propertyAccessor = propertyAccessor;
     }
 
     @Override
@@ -80,9 +81,7 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
     }
 
     public Orchestratable processNotNullMessage(Orchestratable message) {
-        Orchestratable resp = null;
-
-        resp = processEnabledMessage(message);
+        Orchestratable resp = processEnabledMessage(message);
 
         LOG.debug("Returning from CONNECTNhinOrchestrator for " + message.getServiceName());
         return resp;
@@ -203,7 +202,7 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
      * Begin Delegate Methods
      */
     protected Orchestratable delegate(Orchestratable message) {
-        Orchestratable resp = null;
+        Orchestratable resp;
         LOG.debug("Entering CONNECTNhinOrchestrator.delegateToNhin(...)");
         Delegate p = message.getDelegate();
         resp = p.process(message);

@@ -48,7 +48,7 @@ public class AdapterXDRSecuredRequestErrorImpl extends BaseService {
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
             AdapterProvideAndRegisterDocumentSetRequestErrorSecuredType body, WebServiceContext context) {
         LOG.debug("Begin AdapterXDRSecuredRequestErrorImpl.provideAndRegisterDocumentSetBRequestError(secured)");
-        XDRAcknowledgementType response = null;
+        XDRAcknowledgementType response;
 
         ProvideAndRegisterDocumentSetRequestType request = null;
         String errorMessage = null;
@@ -67,7 +67,7 @@ public class AdapterXDRSecuredRequestErrorImpl extends BaseService {
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
             AdapterProvideAndRegisterDocumentSetRequestErrorType body, WebServiceContext context) {
         LOG.debug("Begin AdapterXDRSecuredRequestErrorImpl.provideAndRegisterDocumentSetBRequestError(unsecured)");
-        XDRAcknowledgementType response = null;
+        XDRAcknowledgementType response;
 
         ProvideAndRegisterDocumentSetRequestType request = null;
         String errorMessage = null;

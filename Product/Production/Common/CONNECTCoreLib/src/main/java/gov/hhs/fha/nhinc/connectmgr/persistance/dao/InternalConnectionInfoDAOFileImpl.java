@@ -91,7 +91,7 @@ public class InternalConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase 
             throw new ConnectionManagerException("Unable to access system variable: nhinc.properties.dir.");
         }
 
-        BusinessDetail resp = null;
+        BusinessDetail resp;
         try {
             resp = super.loadBusinessDetail(file);
         } catch (JAXBException ex) {

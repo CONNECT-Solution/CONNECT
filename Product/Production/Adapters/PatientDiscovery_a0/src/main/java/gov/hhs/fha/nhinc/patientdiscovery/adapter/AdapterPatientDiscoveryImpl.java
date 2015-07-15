@@ -57,7 +57,7 @@ public class AdapterPatientDiscoveryImpl extends BaseService {
             RespondingGatewayPRPAIN201305UV02RequestType request, WebServiceContext context) {
         LOG.debug("Entering AdapterPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
 
-        AssertionType assertion = null;
+        AssertionType assertion;
         if ((bIsSecure) && (context != null)) {
             assertion = extractAssertion(context);
         } else {

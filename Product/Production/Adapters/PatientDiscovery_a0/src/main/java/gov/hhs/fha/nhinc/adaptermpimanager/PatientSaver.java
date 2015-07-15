@@ -62,7 +62,7 @@ public class PatientSaver {
         String receiverOID = null;
         String ackTypeCode = HL7AckTransforms.ACK_TYPE_CODE_ACCEPT;
         String msgText = null;
-        String localDeviceId = HL7Constants.DEFAULT_LOCAL_DEVICE_ID;
+        String localDeviceId;
 
         // Set the senderOID in the Ack message
         if (NullChecker.isNotNullish(message.getReceiver()) && message.getReceiver().get(0).getDevice() != null
@@ -117,7 +117,6 @@ public class PatientSaver {
                 LOG.info("multiple patients found in MPI [searchResults.size()=" + searchResults.size() + "]");
                 msgText = "Error: Multiple patients were found in the MPI";
 
-                result = null;
             } else {
                 LOG.info("patient found in MPI. Currently IGNORE record!");
                 msgText = "Warning: Patient already found in MPI.";

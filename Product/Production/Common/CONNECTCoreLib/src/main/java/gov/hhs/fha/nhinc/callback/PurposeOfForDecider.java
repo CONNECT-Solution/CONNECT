@@ -60,7 +60,7 @@ public class PurposeOfForDecider {
 
     public boolean isPurposeFor(CallbackProperties properties) {
         // if this isn't an Nhin Spec, just return PurposeOf
-        NHIN_SERVICE_NAMES serviceName = null;
+        NHIN_SERVICE_NAMES serviceName;
         boolean purposeFor = false;
 
         String action = properties.getAction();
@@ -97,7 +97,7 @@ public class PurposeOfForDecider {
 
     private void logPurposeDecision(Boolean purposeFor, String hcid,
     		String serviceName){
-    	String purposeName = null;
+    	String purposeName;
     	if(purposeFor){
     		purposeName = "PURPOSE FOR";
     	}else{

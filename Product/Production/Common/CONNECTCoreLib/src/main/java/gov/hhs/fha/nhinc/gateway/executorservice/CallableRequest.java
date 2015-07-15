@@ -78,7 +78,7 @@ public class CallableRequest<Target, Request, Response> implements Callable<Resp
     public Response call() throws Exception {
         WebServiceContextImpl.setMessageContext(context);
 
-        Response response = null;
+        Response response;
         try {
             if (request != null) {
                 response = (Response) client.callWebService(target, request);

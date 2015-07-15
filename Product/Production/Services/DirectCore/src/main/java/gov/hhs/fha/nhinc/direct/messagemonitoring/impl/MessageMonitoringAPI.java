@@ -689,7 +689,7 @@ public class MessageMonitoringAPI {
     }
 
     private String getSenderEmailId(MimeMessage message) throws MessagingException {
-        InternetAddress sender = null;
+        InternetAddress sender;
         sender = (InternetAddress) message.getSender();
         if (sender == null) {
             InternetAddress[] fromAddresses = (InternetAddress[]) message.getFrom();

@@ -90,7 +90,7 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
         // only non-expired patient correlation records will be returned
         // expired correlation records will be removed by the following call.
         List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers = retrieveQualifiedPatientIdentifiers(inputQualifiedPatientIdentifier,
-                dataSourceList);
+            dataSourceList);
         List<II> iiList = buildList(qualifiedPatientIdentifiers);
         PRPAIN201310UV02 IN201310 = PixRetrieveResponseBuilder.createPixRetrieveResponse(
             retrievePatientCorrelationsRequest, iiList);
@@ -100,9 +100,9 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
     }
 
     protected List<QualifiedPatientIdentifier> retrieveQualifiedPatientIdentifiers(QualifiedPatientIdentifier inputQualifiedPatientIdentifier,
-            List<String> dataSourceList) {
+        List<String> dataSourceList) {
         List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers = dao.retrievePatientCorrelation(
-                inputQualifiedPatientIdentifier, dataSourceList);
+            inputQualifiedPatientIdentifier, dataSourceList);
         return qualifiedPatientIdentifiers;
     }
 
@@ -111,10 +111,10 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
         AssertionType assertion) {
         PRPAMT201301UV02Patient patient = PRPAIN201301UVParser
             .parseHL7PatientPersonFrom201301Message(addPatientCorrelationRequest);
-        String patientId = "";
-        String patientAssigningAuthId = "";
-        String correlatedPatientId = "";
-        String correlatedPatientAssigningAuthId = "";
+        String patientId;
+        String patientAssigningAuthId;
+        String correlatedPatientId;
+        String correlatedPatientAssigningAuthId;
         if (patient == null) {
             LOG.warn("Patient was null");
             return null;

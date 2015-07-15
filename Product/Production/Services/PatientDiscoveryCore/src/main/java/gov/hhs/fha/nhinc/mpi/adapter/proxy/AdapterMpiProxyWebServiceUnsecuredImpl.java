@@ -84,7 +84,7 @@ public class AdapterMpiProxyWebServiceUnsecuredImpl implements AdapterMpiProxy {
             afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class,
             serviceType = "Patient Discovery MPI", version = "1.0")
     public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 request, AssertionType assertion) {
-        String url = null;
+        String url;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
         String sServiceName = NhincConstants.ADAPTER_MPI_SERVICE_NAME;
 

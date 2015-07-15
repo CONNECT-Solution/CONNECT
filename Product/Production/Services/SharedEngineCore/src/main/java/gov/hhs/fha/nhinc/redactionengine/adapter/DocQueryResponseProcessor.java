@@ -134,7 +134,7 @@ public class DocQueryResponseProcessor {
             if (adhocQuery != null) {
                 homeCommunityId = HomeCommunityMap.getCommunityId(adhocQuery);
 
-                List<SlotType1> slots = null;
+                List<SlotType1> slots;
                 if (adhocQuery != null) {
                     slots = adhocQuery.getSlot();
                     List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_PATIENT_ID);
@@ -204,7 +204,7 @@ public class DocQueryResponseProcessor {
                                     .equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType"))
                             && (oJAXBObj.getValue() != null)) {
                         ExtrinsicObjectType oExtObj = (ExtrinsicObjectType) oJAXBObj.getValue();
-                        PatientPreferencesType workingPatientPreferences = null;
+                        PatientPreferencesType workingPatientPreferences;
                         if (patientPreferences == null) {
                             workingPatientPreferences = retrievePatientPreferencesForDocument(oExtObj);
                         } else {
@@ -299,7 +299,7 @@ public class DocQueryResponseProcessor {
 
     protected boolean documentAllowed(ExtrinsicObjectType extObject, PatientPreferencesType patientPreferences) {
         LOG.debug("Begin documentAllowed");
-        boolean allowed = false;
+        boolean allowed;
         String documentTypeCode = extractDocumentType(extObject);
         allowed = getPatientConsentHelper().documentSharingAllowed(documentTypeCode, patientPreferences);
         LOG.debug("End documentAllowed - response: " + allowed);

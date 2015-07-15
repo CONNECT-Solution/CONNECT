@@ -52,7 +52,7 @@ public class ConfigurationManager {
     private static final Logger LOG = LoggerFactory.getLogger(ConfigurationManager.class);
 
     public ExpirationConfiguration loadExpirationConfiguration() {
-        ExpirationConfiguration result = null;
+        ExpirationConfiguration result;
         LOG.debug("begin loadExpirationConfiguration()");
         String propertyDir = PropertyAccessor.getInstance().getPropertyFileLocation();
 

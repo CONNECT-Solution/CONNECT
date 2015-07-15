@@ -59,7 +59,7 @@ public class PatientChecker implements AdapterComponentMpiChecker {
     @Override
     public PRPAIN201306UV02 findPatient(PRPAIN201305UV02 query) {
         LOG.trace("Entering PatientChecker.FindPatient method...");
-        PRPAIN201306UV02 result = null;
+        PRPAIN201306UV02 result;
 
         PRPAMT201306UV02ParameterList queryParams = HL7Parser201305.extractHL7QueryParamsFromMessage(query);
 

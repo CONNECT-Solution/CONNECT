@@ -92,7 +92,7 @@ public abstract class AbstractJMXEnabledServlet extends HttpServlet {
         String enableJMX = System.getProperty(NhincConstants.JMX_ENABLED_SYSTEM_PROPERTY);
         if ("true".equalsIgnoreCase(enableJMX)) {
             MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-            ObjectName name = null;
+            ObjectName name;
             try {
                 name = new ObjectName(getMBeanName());
                 Object mbean = getMBeanInstance(config.getServletContext());
@@ -126,7 +126,7 @@ public abstract class AbstractJMXEnabledServlet extends HttpServlet {
         String enableJMX = System.getProperty(NhincConstants.JMX_ENABLED_SYSTEM_PROPERTY);
         if ("true".equalsIgnoreCase(enableJMX)) {
             MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-            ObjectName name = null;
+            ObjectName name;
             try {
                 name = new ObjectName(getMBeanName());
                 mbs.unregisterMBean(name);

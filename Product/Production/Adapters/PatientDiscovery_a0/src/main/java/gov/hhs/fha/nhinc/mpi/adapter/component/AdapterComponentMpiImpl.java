@@ -58,7 +58,7 @@ public class AdapterComponentMpiImpl {
             WebServiceContext context) {
         LOG.debug("Entering AdapterComponentMpiImpl.query - secured");
 
-        AssertionType assertion = null;
+        AssertionType assertion;
         if ((bIsSecure) && (context != null)) {
             assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
         } else {
@@ -76,7 +76,7 @@ public class AdapterComponentMpiImpl {
     public PRPAIN201306UV02 query(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertionFromBody) {
         LOG.debug("Entering AdapterComponentMpiImpl.query - unsecured");
 
-        AssertionType assertion = null;
+        AssertionType assertion;
         if (assertionFromBody != null) {
             assertion = assertionFromBody;
         } else {

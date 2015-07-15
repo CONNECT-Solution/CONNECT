@@ -90,7 +90,7 @@ public class SoapDirectEdgeOrchestration {
      */
     public RegistryResponseType orchestrate(ProvideAndRegisterDocumentSetRequestType prdst, SoapEdgeContext context)
             throws Exception {
-        RegistryResponseType resp = null;
+        RegistryResponseType resp;
 
         SoapEdgeAuditor auditor = auditorFactory.getAuditor();
         auditor.audit(SoapEdgeAuditor.PRINCIPAL, SoapEdgeAuditor.REQUESTRECIEVED_CATEGORY,

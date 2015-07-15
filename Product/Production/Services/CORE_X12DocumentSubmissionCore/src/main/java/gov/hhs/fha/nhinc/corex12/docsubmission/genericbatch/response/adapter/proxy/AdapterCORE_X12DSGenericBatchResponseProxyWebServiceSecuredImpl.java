@@ -75,7 +75,7 @@ public class AdapterCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl ext
      */
     @Override
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
-        COREEnvelopeBatchSubmissionResponse oResponse = null;
+        COREEnvelopeBatchSubmissionResponse oResponse;
 
         try {
             String url = oProxyHelper.getAdapterEndPointFromConnectionManager(NhincConstants.ADAPTER_CORE_X12DS_GENERICBATCH_RESPONSE_SECURED_SERVICE_NAME);

@@ -58,7 +58,7 @@ public class AdapterPEPServiceImpl {
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType checkPolicy(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType checkPolicyRequest,
             WebServiceContext context) {
-        CheckPolicyResponseType checkPolicyResp = null;
+        CheckPolicyResponseType checkPolicyResp;
 
         AdapterPEPImpl adapterPEPImpl = getAdapterPEPImpl();
 

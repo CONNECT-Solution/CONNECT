@@ -103,7 +103,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
      */
     private void adjustMessageId(SOAPMessageContext messageContext, SOAPHeader oHeader) throws SOAPException {
         // Override the Message Id field
-        String messageId = null;
+        String messageId;
         messageId = (String) messageContext.get(MESSAGE_ID_CONTEXT);
         if (NullChecker.isNullish(messageId)) {
             messageId = generateMessageId();

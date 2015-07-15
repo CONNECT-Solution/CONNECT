@@ -70,7 +70,7 @@ public class PatientSearchFacade {
      */
     public List<PatientVO> searchPatient(PatientSearchCriteria patientSearchCriteria) throws Exception {
 
-        List<PatientVO> patientVOs = null;
+        List<PatientVO> patientVOs;
 
         PRPAIN201305UV02 searchRequest = createPRPAMT201301UVPatient(patientSearchCriteria);
 
@@ -123,10 +123,10 @@ public class PatientSearchFacade {
      */
     private Patients convertPRPAIN201306UVToPatients(PRPAIN201306UV02 patients) {
         Patients mpiPatients = new Patients();
-        Patient searchPatient = null;
-        PRPAMT201310UV02Patient mpiPatResult = null;
-        PersonNameType name = null;
-        PersonName personName = null;
+        Patient searchPatient;
+        PRPAMT201310UV02Patient mpiPatResult;
+        PersonNameType name;
+        PersonName personName;
         if ((patients != null) && (patients.getControlActProcess() != null)
                 && NullChecker.isNotNullish(patients.getControlActProcess().getSubject())) {
             LOG.debug("convertPRPAIN201306UVToPatients - patients size: "

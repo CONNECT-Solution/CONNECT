@@ -70,7 +70,7 @@ public class TimestampValidator implements Validator {
             throw new WSSecurityException("WSSConfig cannot be null");
         }
         WSSConfig wssConfig = data.getWssConfig();
-        boolean timeStampStrict = true;
+        boolean timeStampStrict;
         int timeStampTTL = 300;
         int futureTimeToLive = 60;
         if (wssConfig != null) {

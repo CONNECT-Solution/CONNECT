@@ -76,7 +76,7 @@ public class NhinCallableRequest<Response extends OutboundOrchestratableMessage>
     public Response call() {
         WebServiceContextImpl.setMessageContext(context);
 
-        Response response = null;
+        Response response;
         try {
             if (client != null) {
                 // make web service call using nhindelegate::process

@@ -46,7 +46,7 @@ public class DocRetrieveStatusUtilTest {
    public void setResponseStatusSuccessCase() {
        DocRetrieveStatusUtil util = new DocRetrieveStatusUtil();
        String status = "Success";
-       String returnedStatus = null;
+       String returnedStatus;
        returnedStatus = util.setResponseStatus(createFromRequestSuccessCase(), createToRequestSucessCase());
        assertEquals(returnedStatus, status);
    }
@@ -55,7 +55,7 @@ public class DocRetrieveStatusUtilTest {
    public void setResponseStatusFailureCase() {
        DocRetrieveStatusUtil util = new DocRetrieveStatusUtil();
        String status = "Failure";
-       String returnedStatus = null;
+       String returnedStatus;
        returnedStatus = util.setResponseStatus(createFromRequestFailureCase(), createToRequestFailureCase());
        assertEquals(returnedStatus, status);
    }
@@ -64,7 +64,7 @@ public class DocRetrieveStatusUtilTest {
    public void setResponseStatusPartialSuccessCase() {
        DocRetrieveStatusUtil util = new DocRetrieveStatusUtil();
        String status = DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_PARTIALSUCCESS;
-       String returnedStatus = null;
+       String returnedStatus;
        returnedStatus = util.setResponseStatus(createFromRequestSuccessCase(), createToRequestFailureCase());
        assertEquals(returnedStatus, status);
    }

@@ -59,7 +59,7 @@ public class MimeMessageTransformer {
      * @return ProvideAndRegisterDocumentSetRequestType representation of the message.
      */
     public ProvideAndRegisterDocumentSetRequestType transform(MimeMessage message) {
-        ProvideAndRegisterDocumentSetRequestType request = null;
+        ProvideAndRegisterDocumentSetRequestType request;
         try {
             request = transformer.transform(message);
         } catch (TransformationException e) {

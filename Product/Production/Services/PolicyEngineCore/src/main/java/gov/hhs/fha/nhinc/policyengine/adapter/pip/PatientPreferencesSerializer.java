@@ -61,7 +61,7 @@ public class PatientPreferencesSerializer {
      *             occurs.
      */
     public String serialize(PatientPreferencesType oPtPref) throws AdapterPIPException {
-        String sPtPref = "";
+        String sPtPref;
 
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();

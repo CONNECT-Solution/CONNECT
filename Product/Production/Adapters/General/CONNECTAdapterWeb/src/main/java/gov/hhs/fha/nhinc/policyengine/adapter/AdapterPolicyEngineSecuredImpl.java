@@ -46,7 +46,7 @@ public class AdapterPolicyEngineSecuredImpl {
             gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestSecuredType body, WebServiceContext context) {
         // Collect assertion
         AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
-        CheckPolicyResponseType checkPolicyResp = null;
+        CheckPolicyResponseType checkPolicyResp;
 
         AdapterPolicyEngineProcessorImpl oPolicyEngine = new AdapterPolicyEngineProcessorImpl();
         try {

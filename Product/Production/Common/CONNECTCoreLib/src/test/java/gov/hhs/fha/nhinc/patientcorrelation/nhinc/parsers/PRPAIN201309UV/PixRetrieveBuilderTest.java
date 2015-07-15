@@ -70,7 +70,7 @@ public class PixRetrieveBuilderTest {
     @Test
     public void testcreatePixRetrieveWithTargetCommunityPrefix() {
         PixRetrieveBuilder builder = new PixRetrieveBuilder();
-        List<String> homeCommIds = null;
+        List<String> homeCommIds;
 
         homeCommIds = builder.stripCommunityIdsPrefix(null);
         assertEquals(homeCommIds, null);

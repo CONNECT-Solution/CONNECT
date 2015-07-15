@@ -76,7 +76,7 @@ public class AdapterComponentMpiProxyWebServiceSecuredImpl implements AdapterCom
      */
     @Override
     public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 request, AssertionType assertion) {
-        String url = null;
+        String url;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
         String sServiceName = NhincConstants.ADAPTER_COMPONENT_MPI_SECURED_SERVICE_NAME;
 

@@ -43,7 +43,7 @@ public class PolicyEngineProxyJavaImpl implements PolicyEngineProxy {
 
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         LOG.trace("Begin PolicyEngineWebServiceProxyJavaImpl.checkPolicy");
-        CheckPolicyResponseType response = null;
+        CheckPolicyResponseType response;
         AdapterPolicyEngineProcessorImpl policyEngine = new AdapterPolicyEngineProcessorImpl();
         try {
             response = policyEngine.checkPolicy(checkPolicyRequest, assertion);

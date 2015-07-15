@@ -452,7 +452,7 @@ public class XDRHelper {
     }
 
     private String getErrorDescription(int rank) {
-        String result = "";
+        String result;
 
         switch (rank) {
         case 0: {

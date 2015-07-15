@@ -63,7 +63,7 @@ public class PRPAIN201301UVParser {
      * @return PRPAMT201301UVPatient
      */
     public static PRPAMT201301UV02Patient parseHL7PatientFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
-        PRPAMT201301UV02Patient patient = null;
+        PRPAMT201301UV02Patient patient;
         LOG.info("in ExtractPatient");
 
         PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = parseSubjectFromMessage(message);

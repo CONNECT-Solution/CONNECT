@@ -78,7 +78,7 @@ public class AdapterDocQueryProxyWebServiceSecuredImpl extends BaseAdapterDocQue
     @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
         AdhocQueryResponse response = null;
-        String url = null;
+        String url;
         try {
             //get the Adopter Endpoint URL
             url = getEndPointFromConnectionManagerByAdapterAPILevel(assertion,NhincConstants.ADAPTER_DOC_QUERY_SECURED_SERVICE_NAME);

@@ -56,7 +56,7 @@ public class HL7QueryParamsTransformsTest {
 
     @Test
     public void createTelecom() {
-        PRPAMT201306UV02PatientTelecom telecom = null;
+        PRPAMT201306UV02PatientTelecom telecom;
         HL7QueryParamsTransforms queryTransforms = new HL7QueryParamsTransforms();
         telecom = queryTransforms.createTelecom(createTELList());
         assertEquals(telecom.getValue().get(0).getValue(), "CONNECT TEL");
@@ -64,7 +64,7 @@ public class HL7QueryParamsTransformsTest {
 
     @Test
     public void createTelecomTELExplicitListNull() {
-        PRPAMT201306UV02PatientTelecom telecom = null;
+        PRPAMT201306UV02PatientTelecom telecom;
         HL7QueryParamsTransforms queryTransforms = new HL7QueryParamsTransforms();
         List<TELExplicit> telList = null;
         telecom = queryTransforms.createTelecom(telList);
@@ -90,7 +90,7 @@ public class HL7QueryParamsTransformsTest {
 
     @Test
     public void createParamList() {
-        PRPAMT201306UV02ParameterList parameterList = null;
+        PRPAMT201306UV02ParameterList parameterList;
         HL7QueryParamsTransforms queryTransforms = new HL7QueryParamsTransforms();
         parameterList = queryTransforms.createParamList(createPRPAMT201301UV02Patient());
         assertEquals(parameterList.getLivingSubjectAdministrativeGender().get(0).getValue().get(0).getCode(), "CONNECT");
@@ -98,7 +98,7 @@ public class HL7QueryParamsTransformsTest {
     }
 
     public void createName() {
-        PRPAMT201306UV02LivingSubjectName subjectName = null;
+        PRPAMT201306UV02LivingSubjectName subjectName;
         List<PNExplicit> patientNames = null;
         HL7QueryParamsTransforms queryTransforms = new HL7QueryParamsTransforms();
         subjectName = queryTransforms.createName(patientNames);

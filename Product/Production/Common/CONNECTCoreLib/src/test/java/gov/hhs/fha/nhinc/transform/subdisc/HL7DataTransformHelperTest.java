@@ -263,7 +263,7 @@ public class HL7DataTransformHelperTest {
         String title = "Patient";
         String suffix = "S";
         EnExplicitFamily familyName = null;
-        EnExplicitGiven givenName = null;
+        EnExplicitGiven givenName;
         EnExplicitPrefix prefix = null;
         EnExplicitSuffix suf = null;
         HL7DataTransformHelper helper = new HL7DataTransformHelper();

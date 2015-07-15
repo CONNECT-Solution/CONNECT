@@ -83,7 +83,7 @@ public class AdapterDocRetrieveImpl {
             RetrieveDocumentSetRequestType body, WebServiceContext context) {
         LOG.debug("Entering AdapterDocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
 
-        AssertionType assertion = null;
+        AssertionType assertion;
         if (context != null) {
             assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
         } else {

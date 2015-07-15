@@ -748,7 +748,7 @@ public class DocQueryResponseProcessorTest {
 
     private AdhocQueryResponse testFilterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest,
             AdhocQueryResponse adhocQueryResponse, final PatientConsentHelper patientConsentHelper) {
-        AdhocQueryResponse response = null;
+        AdhocQueryResponse response;
         DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
             @Override
             protected PatientConsentHelper getPatientConsentHelper() {
@@ -1057,7 +1057,7 @@ public class DocQueryResponseProcessorTest {
 
     private AdhocQueryResponse testFilterResults(AdhocQueryResponse adhocQueryResponse,
             PatientPreferencesType patientPreferences, final boolean docAllowedFlag) {
-        AdhocQueryResponse response = null;
+        AdhocQueryResponse response;
         DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
             @Override
             protected PatientConsentHelper getPatientConsentHelper() {
@@ -1133,7 +1133,7 @@ public class DocQueryResponseProcessorTest {
     }
 
     private AdhocQueryResponse testFilterResultsNonPatientCentric(AdhocQueryResponse adhocQueryResponse) {
-        AdhocQueryResponse response = null;
+        AdhocQueryResponse response;
         DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
             @Override
             protected PatientConsentHelper getPatientConsentHelper() {

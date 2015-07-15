@@ -87,7 +87,7 @@ public class AdminDistributionPolicyChecker {
      * @return boolean true if Permit;else denied.
      */
     protected boolean invokePolicyEngine(CheckPolicyRequestType policyCheckReq) {
-        boolean policyIsValid = false;
+        boolean policyIsValid;
 
         LOG.debug("start invokePolicyEngine");
         /* invoke check policy */

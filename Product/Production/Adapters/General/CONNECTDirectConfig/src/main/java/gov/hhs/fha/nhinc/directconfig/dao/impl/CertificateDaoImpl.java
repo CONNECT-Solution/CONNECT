@@ -83,9 +83,9 @@ public class CertificateDaoImpl implements CertificateDao {
     @SuppressWarnings({ "unchecked" })
     public Certificate load(String owner, String thumbprint) {
         Session session = null;
-        Query query = null;
+        Query query;
 
-        List<Certificate> results = null;
+        List<Certificate> results;
         Certificate cert = null;
 
         try {
@@ -126,7 +126,7 @@ public class CertificateDaoImpl implements CertificateDao {
 
         if (idList != null && idList.size() > 0) {
             Session session = null;
-            Query query = null;
+            Query query;
 
             try {
                 session = DaoUtils.getSession();
@@ -160,7 +160,7 @@ public class CertificateDaoImpl implements CertificateDao {
         List<Certificate> results = null;
 
         Session session = null;
-        Query query = null;
+        Query query;
 
         try {
             session = DaoUtils.getSession();
@@ -337,9 +337,9 @@ public class CertificateDaoImpl implements CertificateDao {
         if (idList != null && idList.size() > 0) {
             Session session = null;
             Transaction tx = null;
-            Query query = null;
+            Query query;
 
-            int count = 0;
+            int count;
 
             try {
                 session = DaoUtils.getSession();
@@ -372,9 +372,9 @@ public class CertificateDaoImpl implements CertificateDao {
         if (owner != null) {
             Session session = null;
             Transaction tx = null;
-            Query query = null;
+            Query query;
 
-            int count = 0;
+            int count;
 
             try {
                 session = DaoUtils.getSession();

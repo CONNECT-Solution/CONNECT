@@ -97,7 +97,7 @@ public class PersonNameParser {
 
     public static String SerializeName(PersonName personname) {
         LOG.debug("Begin PersonNameParser.SerializeName(PersonName)");
-        String serializedname = null;
+        String serializedname;
         if (personname == null) {
             serializedname = "";
         } else if (personname.getFirstName().contentEquals("")) {

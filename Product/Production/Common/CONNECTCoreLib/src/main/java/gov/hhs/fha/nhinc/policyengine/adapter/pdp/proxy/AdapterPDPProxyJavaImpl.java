@@ -181,13 +181,13 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         LOG.debug("getAttrValFromPdpRequest - sAttrId:" + sAttrId);
         LOG.debug("getAttrValFromPdpRequest - sAttrDataType:" + sAttrDataType);
 
-        List<Resource> resources = null;
+        List<Resource> resources;
         resources = (List<Resource>) pdpRequest.getResources();
         String attrValue = "";
         if (resources != null) {
             LOG.debug("Resources list size:" + resources.size());
             for (Resource resource : resources) {
-                List<Attribute> attributes = null;
+                List<Attribute> attributes;
                 attributes = (List<Attribute>) resource.getAttributes();
                 LOG.debug("Attributes list size:" + attributes.size());
                 for (Attribute attribute : attributes) {
@@ -225,7 +225,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
 
     private String getUniquePatientIdFromPdpRequest(Request pdpRequest, String serviceType) {
         LOG.debug("Begin AdapterPDPProxyJavaImpl.getPatientIdFromPdpRequest()");
-        String uniquePatientId = "";
+        String uniquePatientId;
         if ((serviceType != null) && (serviceType.equalsIgnoreCase("DocumentRetrieveIn"))) {
             LOG.debug("getPatientIdFromPdpRequest() - serviceType: inside DocumentRetrieveIn");
             String uniqueDocumentId = getAttrValFromPdpRequest(pdpRequest,
@@ -255,7 +255,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         docIds.add(documentUniqueId);
         params.setDocumentUniqueId(docIds);
         List<Document> docs = new DocumentService().documentQuery(params);
-        int docsSize = 0;
+        int docsSize;
         if ((docs != null) && (docs.size() > 0)) {
             docsSize = docs.size();
             LOG.debug("getPatientIdByDocumentUniqueId - Document size:" + String.valueOf(docsSize));
@@ -269,7 +269,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
 
     private EffectType evaluatePolicy(Request pdpRequest, PolicyType policy) {
         LOG.debug("Begin AdapterPDPProxyJavaImpl.evaluatePolicy()");
-        boolean isMatch = false;
+        boolean isMatch;
         statusCodeValue = "";
         statusMessageValue = "";
         EffectType effect = EffectType.DENY;
@@ -294,28 +294,28 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                 }
                 if ((rules != null) && (rules.size() > 0)) {
                     LOG.debug("Rules list size: " + rules.size());
-                    String policyMatchId = "";
-                    String policyAttrValue = "";
-                    String policyAttrDataType = "";
-                    String policyAttrDesAttrId = "";
-                    String policyAttrDesAttrDataType = "";
+                    String policyMatchId;
+                    String policyAttrValue;
+                    String policyAttrDataType;
+                    String policyAttrDesAttrId;
+                    String policyAttrDesAttrDataType;
                     rulesFor:
                         for (RuleType rule : rules) {
                             effect = rule.getEffect();
                             LOG.debug("Rule Effect value: " + effect);
-                            TargetType targetType = null;
+                            TargetType targetType;
                             targetType = (rule.getTarget() == null) ? policy.getTarget() : rule.getTarget();
 
                             if (targetType != null) {
                                 if (targetType.getSubjects() != null) {
-                                    List<SubjectType> subjects = null;
+                                    List<SubjectType> subjects;
                                     subjects = targetType.getSubjects().getSubject();
                                     if ((subjects != null) && (subjects.size() > 0)) {
                                         LOG.debug("Subjects list size" + subjects.size());
                                         subjectsFor:
                                             for (SubjectType subject : subjects) {
                                                 isMatch = false;
-                                                List<SubjectMatchType> subjectMatchs = null;
+                                                List<SubjectMatchType> subjectMatchs;
                                                 subjectMatchs = subject.getSubjectMatch();
                                                 if ((subjectMatchs != null) && (subjectMatchs.size() > 0)) {
                                                     LOG.debug("subjectMatchs list size" + subjectMatchs.size());
@@ -324,7 +324,6 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                                                             policyMatchId = subjectMatch.getMatchId();
                                                             LOG.debug("SubjectMatch MatchId: " + policyMatchId);
                                                             policyAttrValue = null;
-                                                            policyAttrDataType = null;
                                                             if (subjectMatch.getAttributeValue() != null) {
                                                                 if (subjectMatch.getAttributeValue().getContent()
                                                                     != null) {
@@ -368,7 +367,6 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                                                                     policyAttrValue, policyAttrDesAttrId,
                                                                     policyAttrDesAttrDataType);
                                                                 if (!foundMatchingAttributes) {
-                                                                    isMatch = false;
                                                                     effect = EffectType.DENY;
                                                                     statusCodeValue = AdapterPDPConstants.POLICY_RESULT_STATUS_CODE_MISSING_ATTRIBUTE;
                                                                     statusMessageValue = AdapterPDPConstants.POLICY_RESULT_STATUS_MESSAGE_MISSING_ATTRIBUTE
@@ -423,7 +421,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         String policyAttrDesAttrId, String policyAttrDesAttrDataType) {
         LOG.debug("Begin AdapterPDPProxyJavaImpl.evaluateSubjectMatch()");
         boolean isMatch = false;
-        List<Subject> subjects = null;
+        List<Subject> subjects;
         subjects = (List<Subject>) pdpRequest.getSubjects();
         foundMatchingAttributes = false;
         LOG.debug("evaluateSubjectMatch - policyMatchId: " + policyMatchId);
@@ -444,10 +442,10 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         }
         if (subjects != null) {
             LOG.debug("Subjects list size:" + subjects.size());
-            boolean isAnyAttributeInfoNull = false;
+            boolean isAnyAttributeInfoNull;
             subjectsFor:
                 for (Subject subject : subjects) {
-                    List<Attribute> attributes = null;
+                    List<Attribute> attributes;
                     attributes = (List<Attribute>) subject.getAttributes();
                     attributesFor:
                         for (Attribute attribute : attributes) {
@@ -529,7 +527,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
 
     private boolean evaluateMatchWithAnyUriEqualFunction(String policyAttrValue, String requestAttrValue) {
         // Need to work on this
-        boolean isMatch = false;
+        boolean isMatch;
         isMatch = evaluateMatchWithStringEqualFunction(policyAttrValue, requestAttrValue);
         // log.debug("evaluateMatchWithAnyUriEqualFunction -isMatch: " + isMatch);
 

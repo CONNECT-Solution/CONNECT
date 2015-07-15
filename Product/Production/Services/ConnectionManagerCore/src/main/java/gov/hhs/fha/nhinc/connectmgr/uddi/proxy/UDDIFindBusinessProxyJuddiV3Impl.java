@@ -52,7 +52,7 @@ public class UDDIFindBusinessProxyJuddiV3Impl extends UDDIFindBusinessProxyBase 
     public BusinessList findBusinessesFromUDDI() throws UDDIFindBusinessException {
         LOG.debug("Using jUDDI V3 Implementation for UDDI Business Info Service");
 
-        BusinessList oBusinessList = null;
+        BusinessList oBusinessList;
 
         try {
             // load relevant property info

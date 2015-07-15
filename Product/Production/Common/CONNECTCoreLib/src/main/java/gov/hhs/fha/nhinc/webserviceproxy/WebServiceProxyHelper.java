@@ -155,7 +155,7 @@ public class WebServiceProxyHelper {
      */
     public String getUrlFromTargetSystemByGatewayAPILevel(NhinTargetSystemType oTargetSystem, String sServiceName,
             GATEWAY_API_LEVEL level) throws IllegalArgumentException, ConnectionManagerException, Exception {
-        String sURL = "";
+        String sURL;
 
         if (oTargetSystem != null) {
             try {
@@ -190,7 +190,7 @@ public class WebServiceProxyHelper {
      */
     public String getUrlLocalHomeCommunity(String sServiceName) throws IllegalArgumentException,
             ConnectionManagerException, Exception {
-        String sURL = "";
+        String sURL;
 
         try {
             sURL = getLocalEndPointFromConnectionManager(sServiceName);

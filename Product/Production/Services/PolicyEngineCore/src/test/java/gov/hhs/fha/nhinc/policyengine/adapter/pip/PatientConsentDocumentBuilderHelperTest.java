@@ -484,7 +484,7 @@ public class PatientConsentDocumentBuilderHelperTest {
     private PatientPreferencesType loadPatientPreferences(String serializedDoc) {
         PatientPreferencesType patientPreferences = null;
         String contextPath = "gov.hhs.fha.nhinc.common.nhinccommonadapter";
-        Object unmarshalledObject = null;
+        Object unmarshalledObject;
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext(contextPath);

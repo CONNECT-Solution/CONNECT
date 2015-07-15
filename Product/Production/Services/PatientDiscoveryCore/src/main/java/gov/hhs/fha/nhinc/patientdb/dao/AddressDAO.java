@@ -42,9 +42,11 @@ import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
 /**
  *
  * AddressDAO Class provides methods to query and update Address Data to/from MySQL Database using Hibernate.
+ *
  * @author richard.ettema
  */
 public class AddressDAO {
+
     private static final Logger LOG = LoggerFactory.getLogger(AddressDAO.class);
     private static AddressDAO addressDAO = new AddressDAO();
 
@@ -57,6 +59,7 @@ public class AddressDAO {
 
     /**
      * Singleton instance returned...
+     *
      * @return AddressDAO
      */
     public static AddressDAO getAddressDAOInstance() {
@@ -67,10 +70,9 @@ public class AddressDAO {
     // =========================
     // Standard CRUD DML Methods
     // =========================
-
     /**
-     * Create a single <code>Address</code> record. The generated id
-     * will be available in the addressRecord.
+     * Create a single <code>Address</code> record. The generated id will be available in the addressRecord.
+     *
      * @param addressRecord
      * @return boolean
      */
@@ -117,7 +119,6 @@ public class AddressDAO {
             } finally {
 
                 // Actual Address insertion will happen at this step
-
                 if (session != null) {
 
                     session.close();
@@ -144,7 +145,6 @@ public class AddressDAO {
      *
      * @return Address
      */
-
     public Address read(Long id) {
 
         LOG.debug("AddressDAO.read() - Begin");
@@ -161,7 +161,7 @@ public class AddressDAO {
 
         Session session = null;
 
-        List<Address> queryList = null;
+        List<Address> queryList;
 
         Address foundRecord = null;
 
@@ -174,7 +174,6 @@ public class AddressDAO {
             LOG.info("Reading Record...");
 
             // Build the criteria
-
             Criteria aCriteria = session.createCriteria(Address.class);
 
             aCriteria.add(Expression.eq("id", id));
@@ -194,7 +193,6 @@ public class AddressDAO {
         } finally {
 
             // Flush and close session
-
             if (session != null) {
 
                 session.flush();
@@ -219,7 +217,6 @@ public class AddressDAO {
      *
      * @return boolean
      */
-
     public boolean update(Address addressRecord) {
 
         LOG.debug("AddressDAO.update() - Begin");
@@ -263,7 +260,6 @@ public class AddressDAO {
             } finally {
 
                 // Actual Address update will happen at this step
-
                 if (session != null) {
 
                     session.close();
@@ -286,7 +282,6 @@ public class AddressDAO {
      *
      * @param addressRecord
      */
-
     public void delete(Address addressRecord) {
 
         LOG.debug("AddressDAO.delete() - Begin");
@@ -302,7 +297,6 @@ public class AddressDAO {
             LOG.info("Deleting Record...");
 
             // Delete the Address record
-
             session.delete(addressRecord);
 
         } catch (Exception e) {
@@ -312,7 +306,6 @@ public class AddressDAO {
         } finally {
 
             // Flush and close session
-
             if (session != null) {
 
                 session.flush();
@@ -328,11 +321,8 @@ public class AddressDAO {
     }
 
     // =========================
-
     // Find DML Methods
-
     // =========================
-
     /**
      *
      * Read (Query) the database to get all <code>Address</code> records based
@@ -343,7 +333,6 @@ public class AddressDAO {
      *
      * @return List<Address>
      */
-
     public List<Address> findPatientAddresses(Long patientId) {
 
         LOG.debug("AddressDAO.readPatientAddresses() - Begin");
@@ -371,7 +360,6 @@ public class AddressDAO {
             LOG.info("Reading Record...");
 
             // Build the criteria
-
             Criteria aCriteria = session.createCriteria(Address.class);
 
             aCriteria.add(Expression.eq("patient.patientId", patientId));
@@ -385,7 +373,6 @@ public class AddressDAO {
         } finally {
 
             // Flush and close session
-
             if (session != null) {
 
                 session.flush();

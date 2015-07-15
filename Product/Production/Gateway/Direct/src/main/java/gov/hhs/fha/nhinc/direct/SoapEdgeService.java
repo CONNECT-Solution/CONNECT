@@ -78,7 +78,7 @@ public class SoapEdgeService implements ihe.iti.xds_b._2007.DocumentRepositoryPo
      */
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ProvideAndRegisterDocumentSetRequestType body) {
-        RegistryResponseType resp = null;
+        RegistryResponseType resp;
         try {
             DirectXDRWebServiceImpl impl = new DirectXDRWebServiceImpl();
             resp = impl.provideAndRegisterDocumentSet(body, context);

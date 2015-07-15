@@ -48,7 +48,7 @@ public class AdapterDocSubmissionDeferredRequestOrchImpl {
             AssertionType assertion) {
         LOG.trace("Begin AdapterDocSubmissionDeferredRequestOrchImpl.provideAndRegisterDocumentSetBRequest");
 
-        XDRAcknowledgementType ack = null;
+        XDRAcknowledgementType ack;
 
         AdapterComponentDocSubmissionRequestProxyObjectFactory oFactory =
                 new AdapterComponentDocSubmissionRequestProxyObjectFactory();

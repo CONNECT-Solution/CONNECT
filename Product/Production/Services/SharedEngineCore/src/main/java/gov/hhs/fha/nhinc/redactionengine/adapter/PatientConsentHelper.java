@@ -112,7 +112,7 @@ public class PatientConsentHelper {
         LOG.debug("Begin extract permit value from patient preferences - document type code tested: " + documentType);
         // Default to false in case something goes wrong.
         boolean allowDocumentSharing = false;
-        FineGrainedPolicyCriteriaType findGrainedPolicy = null;
+        FineGrainedPolicyCriteriaType findGrainedPolicy;
         if (documentType == null || documentType.equals("")) {
             LOG.error("Invalid documentType");
             return allowDocumentSharing;
@@ -133,7 +133,7 @@ public class PatientConsentHelper {
             LOG.debug("Patient preferences has " + findGrainedPolicy.getFineGrainedPolicyCriterion().size()
                     + " fine grained policy criterion.");
 
-            String criterionDocumentTypeCode = null;
+            String criterionDocumentTypeCode;
             for (FineGrainedPolicyCriterionType eachFineGrainedPolicyCriterion : findGrainedPolicy
                     .getFineGrainedPolicyCriterion()) {
                 if (eachFineGrainedPolicyCriterion != null) {

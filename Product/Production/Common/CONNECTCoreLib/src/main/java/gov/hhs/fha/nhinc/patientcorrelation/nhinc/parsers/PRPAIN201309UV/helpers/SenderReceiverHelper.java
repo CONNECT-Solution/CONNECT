@@ -66,7 +66,7 @@ public class SenderReceiverHelper {
 
         MCCIMT000100UV01Device device = new MCCIMT000100UV01Device();
         device.setDeterminerCode(Constants.determinerCodeValue);
-        II deviceId = null;
+        II deviceId;
 
         if (NullChecker.isNullish(deviceIdRoot)) {
             deviceId = IIHelper.IIFactoryCreateNull();

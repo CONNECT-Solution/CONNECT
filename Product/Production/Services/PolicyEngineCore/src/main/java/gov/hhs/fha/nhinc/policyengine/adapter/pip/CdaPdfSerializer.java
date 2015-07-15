@@ -61,7 +61,7 @@ public class CdaPdfSerializer {
      * occurs.
      */
     public String serialize(POCDMT000040ClinicalDocument oCda) throws AdapterPIPException {
-        String sCda = "";
+        String sCda;
 
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();

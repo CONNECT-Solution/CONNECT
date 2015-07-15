@@ -41,7 +41,7 @@ public class HL7SenderTransformsTest {
 
     @Test
     public void createMCCIMT000200UV01Sender() {
-        MCCIMT000200UV01Sender sender = null;
+        MCCIMT000200UV01Sender sender;
         String OID = null;
         HL7SenderTransforms transforms = new HL7SenderTransforms();
         sender = transforms.createMCCIMT000200UV01Sender(OID);
@@ -52,7 +52,7 @@ public class HL7SenderTransformsTest {
 
     @Test
     public void createMCCIMT000100UV01Sender() {
-        MCCIMT000100UV01Sender sender = null;
+        MCCIMT000100UV01Sender sender;
         String OID = null;
         HL7SenderTransforms transforms = new HL7SenderTransforms();
         sender = transforms.createMCCIMT000100UV01Sender(OID);
@@ -63,7 +63,7 @@ public class HL7SenderTransformsTest {
 
     @Test
     public void createMCCIMT000300UV01Sender() {
-        MCCIMT000300UV01Sender sender = null;
+        MCCIMT000300UV01Sender sender;
         String OID = null;
         HL7SenderTransforms transforms = new HL7SenderTransforms();
         sender = transforms.createMCCIMT000300UV01Sender(OID);

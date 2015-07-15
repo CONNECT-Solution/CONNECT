@@ -80,7 +80,7 @@ public class StandardOutboundDocQueryHelper {
      * @return targetCommunity where request needs to be targeted.
      */
     public HomeCommunityType lookupHomeCommunityId(String sAssigningAuthorityId, String sLocalAssigningAuthorityId) {
-        HomeCommunityType targetCommunity = null;
+        HomeCommunityType targetCommunity;
         if ((sAssigningAuthorityId != null) && (sAssigningAuthorityId.equals(sLocalAssigningAuthorityId))) {
             /*
              * If the target is the local home community, the local assigning authority may not be mapped to the local

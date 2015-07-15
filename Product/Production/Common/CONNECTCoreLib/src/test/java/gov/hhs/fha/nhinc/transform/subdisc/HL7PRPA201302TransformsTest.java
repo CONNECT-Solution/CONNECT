@@ -55,7 +55,7 @@ public class HL7PRPA201302TransformsTest {
         String senderOID = "1.1";
         String receiverOID = "2.2";
         HL7PRPA201302Transforms transforms = new HL7PRPA201302Transforms();
-        PRPAIN201302UV02 result = null;
+        PRPAIN201302UV02 result;
         result = transforms.createPRPA201302(patient, remotePatId, remoteDeviceId, senderOID, receiverOID);
         assertEquals(result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
                 .getPatient().getId().get(0).getExtension(), "1.16.17.19");
@@ -69,7 +69,7 @@ public class HL7PRPA201302TransformsTest {
         String senderOID = "1.1";
         String receiverOID = "2.2";
         HL7PRPA201302Transforms transforms = new HL7PRPA201302Transforms();
-        PRPAIN201302UV02 result = null;
+        PRPAIN201302UV02 result;
         result = transforms.createPRPA201302(patient, remotePatId, remoteDeviceId, senderOID, receiverOID);
         assertEquals(result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
                 .getPatient().getId().get(0).getExtension(), "1.16.17.19");

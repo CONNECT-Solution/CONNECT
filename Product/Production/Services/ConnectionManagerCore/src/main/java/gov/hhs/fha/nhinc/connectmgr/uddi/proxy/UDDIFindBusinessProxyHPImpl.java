@@ -55,7 +55,7 @@ public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxyBase {
     public BusinessList findBusinessesFromUDDI() throws UDDIFindBusinessException {
         LOG.debug("Using HP Implementation for UDDI Business Info Service");
 
-        BusinessList oBusinessList = null;
+        BusinessList oBusinessList;
 
         try {
             loadProperties();

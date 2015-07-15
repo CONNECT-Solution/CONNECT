@@ -48,7 +48,7 @@ public class ConnectionManagerDAOBase {
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerDAOBase.class);
 
     protected BusinessDetail loadBusinessDetail(File file) throws JAXBException {
-        BusinessDetail resp = null;
+        BusinessDetail resp;
         synchronized (file) {
             JAXBContext context = JAXBContext.newInstance(BusinessDetail.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();

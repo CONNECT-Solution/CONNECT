@@ -115,7 +115,7 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
     @Override
     MCCIIN000002UV01 process(PRPAIN201306UV02 request, AssertionType assertion) {
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
-        String ackMsg = "";
+        String ackMsg;
 
         if (isPolicyValid(request, assertion)) {
 

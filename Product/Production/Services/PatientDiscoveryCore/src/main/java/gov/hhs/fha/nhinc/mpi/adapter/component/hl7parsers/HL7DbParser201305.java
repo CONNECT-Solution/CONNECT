@@ -409,11 +409,11 @@ public class HL7DbParser201305 {
                     Iterator<Serializable> iterSerialObjects = choice.iterator();
 
                     int addressLineCounter = 0;
-                    AdxpExplicitStreetAddressLine addressLine1 = null;
-                    AdxpExplicitStreetAddressLine addressLine2 = null;
-                    AdxpExplicitCity city = null;
-                    AdxpExplicitState state = null;
-                    AdxpExplicitPostalCode postalCode = null;
+                    AdxpExplicitStreetAddressLine addressLine1;
+                    AdxpExplicitStreetAddressLine addressLine2;
+                    AdxpExplicitCity city;
+                    AdxpExplicitState state;
+                    AdxpExplicitPostalCode postalCode;
 
                     Address address = null;
 
@@ -500,7 +500,7 @@ public class HL7DbParser201305 {
 
         List<Phonenumber> phonenumbers = new ArrayList<Phonenumber>();
 
-        Phonenumber phonenumber = null;
+        Phonenumber phonenumber;
 
         // Extract the telecom (phone number) from the query parameters - Assume only one was specified
         if (params.getPatientTelecom() != null && params.getPatientTelecom().size() > 0
@@ -518,7 +518,6 @@ public class HL7DbParser201305 {
                             // telecom is not valid without tel: prefix
                             LOG.info("Found patientTelecom [" + telecom
                                 + "] in query parameters is not in the correct uri format");
-                            telecom = null;
                         } else {
                             phonenumber = new Phonenumber();
                             phonenumber.setValue(telecom);

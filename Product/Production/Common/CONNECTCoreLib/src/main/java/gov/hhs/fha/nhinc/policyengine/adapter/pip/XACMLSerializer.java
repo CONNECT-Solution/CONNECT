@@ -62,7 +62,7 @@ public class XACMLSerializer {
      *             occurs.
      */
     public String serializeConsentXACMLDoc(PolicyType oConsentXACML) throws AdapterPIPException {
-        String sConsentXACML = "";
+        String sConsentXACML;
 
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();

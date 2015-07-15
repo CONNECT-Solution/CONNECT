@@ -123,7 +123,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessImplTest {
                 }
             });
 
-            PatientDiscoveryDeferredReqQueueProcessResponseType response = null;
+            PatientDiscoveryDeferredReqQueueProcessResponseType response;
             for (int i = 0; i < NUM_CALLS; i++) {
                 response = deferredProcessImpl.processPatientDiscoveryDeferredReqQueue(request, null);
                 assertNotNull(response);

@@ -69,7 +69,7 @@ public abstract class UDDIFindBusinessProxyBase implements UDDIFindBusinessProxy
     @Override
     public BusinessDetail getBusinessDetail(GetBusinessDetail searchParams) throws UDDIFindBusinessException {
 
-        BusinessDetail businessDetail = null;
+        BusinessDetail businessDetail;
         try {
             loadProperties();
             ServicePortDescriptor<UDDIInquiryPortType> portDescriptor = new UDDIFindBusinessProxyServicePortDescriptor();

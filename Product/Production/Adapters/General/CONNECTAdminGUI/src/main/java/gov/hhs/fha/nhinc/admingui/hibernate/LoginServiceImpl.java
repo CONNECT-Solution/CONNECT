@@ -97,7 +97,6 @@ public class LoginServiceImpl implements LoginService {
                     user = null;
                 }
             } catch (PasswordServiceException e) {
-                user = null;
                 throw new UserLoginException("Error while trying to login.", e);
             }
         }
@@ -111,9 +110,9 @@ public class LoginServiceImpl implements LoginService {
      */
     @Override
     public UserLogin addUser(Login user, long role) throws UserLoginException {
-        boolean isCreateUser = false;
-        String passwordHash = null;
-        byte[] saltValue = null;
+        boolean isCreateUser;
+        String passwordHash;
+        byte[] saltValue;
         try {
             saltValue = passwordService.generateRandomSalt();
             passwordHash = new String(

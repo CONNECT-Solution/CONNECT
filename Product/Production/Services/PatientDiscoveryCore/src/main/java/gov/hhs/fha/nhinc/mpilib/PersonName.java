@@ -154,7 +154,7 @@ public class PersonName implements java.io.Serializable {
      */
     @Override
     public String toString() {
-        String result = "";
+        String result;
         result = lastName + ", " + firstName;
         return result;
     }

@@ -328,7 +328,7 @@ public class PatientConsentDocumentBuilderHelper {
     private void setSize(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlots, PatientPreferencesType oPtPref,
             oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory) {
         if ((oSlots != null) && (oRimObjectFactory != null)) {
-            String sSize = null;
+            String sSize;
             if ((oPtPref != null) && (oPtPref.getFineGrainedPolicyMetadata() != null)) {
                 sSize = oPtPref.getFineGrainedPolicyMetadata().getSize();
                 if (NullChecker.isNotNullish(sSize)) {
@@ -341,7 +341,7 @@ public class PatientConsentDocumentBuilderHelper {
     private void setLegalAuthenticator(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlots,
             PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory,
             String sDocUniqueId, String sMimeType) {
-        String sLegalAuthenticator = "";
+        String sLegalAuthenticator;
         if ((oSlots != null) && (oRimObjectFactory != null)) {
             if (oPtPref != null) {
                 if (PDF_MIME_TYPE.equals(sMimeType) && oPtPref.getBinaryDocumentPolicyCriteria() != null
@@ -879,8 +879,6 @@ public class PatientConsentDocumentBuilderHelper {
             String sCodeScheme = eventCode.getCodeSystem();
             String sCodeDisplayName = eventCode.getDisplayName();
             if (NullChecker.isNotNullish(sCode)) {
-                sCodeScheme = ((sCodeScheme != null) ? sCodeScheme : "");
-                sCodeDisplayName = ((sCodeDisplayName != null) ? sCodeDisplayName : "");
 
                 ClassificationType oClassification = createClassification(oRimObjectFactory,
                         CDAConstants.XDS_EVENT_CODE_LIST_CLASSIFICATION, sDocUniqueId, "", sCode,

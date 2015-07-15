@@ -164,7 +164,7 @@ public class Retriever {
     }
 
     public static boolean doesCorrelationExist(CorrelatedIdentifiers correlatedIdentifers) {
-        boolean exists = false;
+        boolean exists;
 
         CorrelatedIdentifiers criteria;
 
@@ -220,7 +220,7 @@ public class Retriever {
     }
 
     private static List<CorrelatedIdentifiers> retrievePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
-        SessionFactory fact = null;
+        SessionFactory fact;
         Session sess = null;
         List<CorrelatedIdentifiers> result = null;
         // List<CorrelatedIdentifiers> modifiedResult = null;

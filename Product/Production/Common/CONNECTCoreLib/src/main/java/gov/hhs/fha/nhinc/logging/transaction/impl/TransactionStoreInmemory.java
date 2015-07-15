@@ -69,7 +69,7 @@ public class TransactionStoreInmemory implements TransactionStore {
         if (transactionRepo != null && map != null) {
         	String messageId = transactionRepo.getMessageId();
         	String transactionId = transactionRepo.getTransactionId();
-        	List<String> transactionIds = null;
+        	List<String> transactionIds;
 
         	if (map.containsKey(messageId)) {
         		transactionIds = map.get(messageId);

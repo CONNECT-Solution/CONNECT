@@ -48,7 +48,7 @@ public class AdapterPolicyEngineImpl {
     public CheckPolicyResponseType checkPolicy(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType request, WebServiceContext context) {
         LOG.debug("Begin AdapterPolicyEngineImpl.checkPolicy (unsecure)");
-        CheckPolicyResponseType checkPolicyResp = null;
+        CheckPolicyResponseType checkPolicyResp;
 
         gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineProcessorImpl oPolicyEngine = new gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineProcessorImpl();
         try {

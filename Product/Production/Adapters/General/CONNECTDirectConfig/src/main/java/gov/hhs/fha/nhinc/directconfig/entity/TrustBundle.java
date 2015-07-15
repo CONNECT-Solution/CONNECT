@@ -323,7 +323,7 @@ public class TrustBundle {
      * @throws CertificateException
      */
     public X509Certificate toSigningCertificate() throws CertificateException {
-        X509Certificate cert = null;
+        X509Certificate cert;
 
         try {
             validate();

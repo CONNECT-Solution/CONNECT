@@ -56,7 +56,7 @@ public class ConnectionManagerDAOFileImplTest {
         StringBuilder stringBuilder = new StringBuilder();
         try {
             reader = new BufferedReader(new FileReader(file));
-            String buffer = null;
+            String buffer;
             while ((buffer = reader.readLine()) != null) {
                 stringBuilder.append(buffer);
             }

@@ -79,7 +79,7 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl extends BaseAdapterDocQ
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
         LOG.debug("Begin respondingGatewayCrossGatewayQuery");
         AdhocQueryResponse response = null;
-        String url = null;
+        String url;
         try {
             //get the Adopter Endpoint URL
             url = getEndPointFromConnectionManagerByAdapterAPILevel(assertion, NhincConstants.ADAPTER_DOC_QUERY_SERVICE_NAME);

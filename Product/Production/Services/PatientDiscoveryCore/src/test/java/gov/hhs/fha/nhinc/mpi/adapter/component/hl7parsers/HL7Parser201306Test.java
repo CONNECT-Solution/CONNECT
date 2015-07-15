@@ -392,7 +392,7 @@ public class HL7Parser201306Test {
     }
 
     private static PatientName extractName(PNExplicit name) {
-        String nameString = "";
+        String nameString;
         Boolean hasName = false;
         PatientName result = new PatientName();
         List<Serializable> choice = name.getContent();

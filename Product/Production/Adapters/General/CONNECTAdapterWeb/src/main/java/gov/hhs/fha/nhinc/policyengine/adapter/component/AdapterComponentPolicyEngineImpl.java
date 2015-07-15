@@ -60,7 +60,7 @@ public class AdapterComponentPolicyEngineImpl {
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType checkPolicy(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType checkPolicyRequest,
             WebServiceContext context) {
-        CheckPolicyResponseType checkPolicyResp = null;
+        CheckPolicyResponseType checkPolicyResp;
 
         AdapterPolicyEngineOrchestratorImpl oOrchestrator = getAdapterPolicyEngineOrchestratorImpl();
         try {

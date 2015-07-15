@@ -55,7 +55,7 @@ public class AdapterDocRetrieveOrchImpl {
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
             AssertionType assertion) {
         LOG.trace("Enter AdapterDocRetrieveSecuredImpl.respondingGatewayCrossGatewayRetrieve()");
-        RetrieveDocumentSetResponseType response = null;
+        RetrieveDocumentSetResponseType response;
 
         try {
             AdapterComponentDocRepositoryProxy proxy = new AdapterComponentDocRepositoryProxyObjectFactory()

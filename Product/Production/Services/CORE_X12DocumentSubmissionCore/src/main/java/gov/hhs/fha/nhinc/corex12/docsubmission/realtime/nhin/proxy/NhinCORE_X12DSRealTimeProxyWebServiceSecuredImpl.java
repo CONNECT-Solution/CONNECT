@@ -66,7 +66,7 @@ public class NhinCORE_X12DSRealTimeProxyWebServiceSecuredImpl implements NhinCOR
     public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest msg, AssertionType assertion,
         NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
 
-        COREEnvelopeRealTimeResponse response = null;
+        COREEnvelopeRealTimeResponse response;
         String targetHCID = null;
         if (targetSystem != null && targetSystem.getHomeCommunity() != null && targetSystem.getHomeCommunity().getHomeCommunityId() != null) {
             targetHCID = targetSystem.getHomeCommunity().getHomeCommunityId();

@@ -58,7 +58,7 @@ public class SHA1PasswordService extends AbstractBase64EncodedPasswordService {
      */
     @Override
     public byte[] calculateHash(byte[] input) throws PasswordServiceException {
-        byte[] digest = null;
+        byte[] digest;
 
         try {
             MessageDigest md = MessageDigest.getInstance(HASH_ALGORITHM);

@@ -53,7 +53,7 @@ public class AdapterXDRResponseImpl {
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(AdapterRegistryResponseType body,
             WebServiceContext context) {
         LOG.debug("Begin AdapterXDRResponseImpl.provideAndRegisterDocumentSetBResponse(unsecured)");
-        XDRAcknowledgementType response = null;
+        XDRAcknowledgementType response;
 
         RegistryResponseType regResponse = null;
         AssertionType assertion = null;
@@ -71,7 +71,7 @@ public class AdapterXDRResponseImpl {
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
             WebServiceContext context) {
         LOG.debug("Begin AdapterXDRResponseImpl.provideAndRegisterDocumentSetBResponse(secured)");
-        XDRAcknowledgementType response = null;
+        XDRAcknowledgementType response;
 
         AssertionType assertion = null;
         assertion = getAssertion(context, assertion);
@@ -82,7 +82,7 @@ public class AdapterXDRResponseImpl {
     }
 
     private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
-        AssertionType assertion = null;
+        AssertionType assertion;
         if (oAssertionIn == null) {
             assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
         } else {

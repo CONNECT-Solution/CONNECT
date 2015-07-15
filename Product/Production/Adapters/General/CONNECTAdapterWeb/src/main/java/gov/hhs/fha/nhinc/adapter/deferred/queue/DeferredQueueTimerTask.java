@@ -67,7 +67,7 @@ public class DeferredQueueTimerTask {
      * This method is called each time the timer thread wakes up.
      */
     public void run() {
-        boolean bQueueActive = true;
+        boolean bQueueActive;
         try {
             bQueueActive = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE, DEFERRED_QUEUE_SWITCH_PROPERTY);
 

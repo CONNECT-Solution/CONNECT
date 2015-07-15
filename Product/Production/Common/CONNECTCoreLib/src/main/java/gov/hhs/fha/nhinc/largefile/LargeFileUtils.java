@@ -262,7 +262,7 @@ public class LargeFileUtils {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         try {
-            int read = 0;
+            int read;
             byte[] bytes = new byte[1024];
             while ((read = is.read(bytes)) != -1) {
                 baos.write(bytes, 0, read);

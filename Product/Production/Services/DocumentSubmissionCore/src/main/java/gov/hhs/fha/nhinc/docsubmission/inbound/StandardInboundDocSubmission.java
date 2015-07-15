@@ -98,7 +98,7 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
     @Override
     RegistryResponseType processDocSubmission(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion,
         Properties webContextProperties) {
-        RegistryResponseType response = null;
+        RegistryResponseType response;
 
         String localHCID = getLocalHCID();
         if (isPolicyValid(body, assertion, localHCID)) {

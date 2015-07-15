@@ -56,7 +56,7 @@ public class AdapterMpiImpl extends BaseService {
     public PRPAIN201306UV02 query(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertionFromBody) {
         LOG.debug("Entering AdapterMpiImpl.query");
 
-        AssertionType assertion = null;
+        AssertionType assertion;
         if (assertionFromBody != null) {
             assertion = assertionFromBody;
         } else {
@@ -74,7 +74,7 @@ public class AdapterMpiImpl extends BaseService {
     public PRPAIN201306UV02 query(boolean bIsSecure, PRPAIN201305UV02 findCandidatesRequest, WebServiceContext context) {
         LOG.debug("Entering AdapterMpiImpl.findCandidates");
 
-        AssertionType assertion = null;
+        AssertionType assertion;
         if ((bIsSecure) && (context != null)) {
             assertion = extractAssertion(context);
         } else {

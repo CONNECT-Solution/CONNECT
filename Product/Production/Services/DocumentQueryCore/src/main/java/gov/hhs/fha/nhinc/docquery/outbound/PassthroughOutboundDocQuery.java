@@ -62,7 +62,7 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
      *
      * @param request the AdhocQueryRequest message to be sent
      * @param assertion the AssertionType instance received from the adapter
-     * @param targets
+     * @param targets NhinTargetCommunitiesType where DocQuery Request is to be sent. Only the first one is used.
      * @return AdhocQueryResponse received from the NHIN
      */
     @Override
@@ -93,7 +93,8 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
     private AdhocQueryResponse sendRequestToNwhin(AdhocQueryRequest request, AssertionType assertion,
         NhinTargetSystemType target, String targetCommunityID) {
-        AdhocQueryResponse response = null;
+
+        AdhocQueryResponse response;
 
         try {
             OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate, null,

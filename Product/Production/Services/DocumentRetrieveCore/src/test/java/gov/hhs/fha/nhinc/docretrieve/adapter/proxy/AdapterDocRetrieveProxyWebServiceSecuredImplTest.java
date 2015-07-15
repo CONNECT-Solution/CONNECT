@@ -65,7 +65,7 @@ public class AdapterDocRetrieveProxyWebServiceSecuredImplTest {
     public void checkEndpointURLBasedOnImplementsSpecVersion() throws Exception {
         final String a0_URL = "a0 URL";
         final String a1_URL = "a1 URL";
-        String url = null;
+        String url;
 
         WebServiceProxyHelper proxyMock = mock(WebServiceProxyHelper.class);
         when(proxyMock.getAdapterEndPointFromConnectionManager(anyString())).thenReturn(a1_URL);

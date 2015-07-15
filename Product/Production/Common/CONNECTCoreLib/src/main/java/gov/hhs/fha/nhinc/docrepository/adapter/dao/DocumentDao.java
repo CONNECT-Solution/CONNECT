@@ -267,8 +267,8 @@ public class DocumentDao {
                         if (LOG.isDebugEnabled()) {
                             LOG.debug("Document query - class code: " + classCode);
                         }
-                        String newClassCode = null;
-                        String newCodeScheme = null;
+                        String newClassCode;
+                        String newCodeScheme;
 
                         if (classCode.contains("^^")) {
                             int index = classCode.indexOf("^^");

@@ -49,7 +49,7 @@ public class AdapterPatientDiscoverySecured implements gov.hhs.fha.nhinc.adapter
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(
             RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request) throws AdapterPatientDiscoverySecuredFault {
 
-        PRPAIN201306UV02 response = null;
+        PRPAIN201306UV02 response;
 
         try {
             AdapterPatientDiscoveryImpl impl = new AdapterPatientDiscoveryImpl();

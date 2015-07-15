@@ -166,7 +166,7 @@ public class MimeMessageBuilder {
             throw new DirectException("Exception setting mime message part text: " + text, e);
         }
 
-        MimeBodyPart attachmentPart = null;
+        MimeBodyPart attachmentPart;
         try {
             if (documents != null && !StringUtils.isBlank(messageId)) {
                 attachmentPart = getMimeBodyPart();
@@ -212,8 +212,8 @@ public class MimeMessageBuilder {
         IOException {
 
         InputStream is = null;
-        DataSource source = null;
-        DataHandler dhnew = null;
+        DataSource source;
+        DataHandler dhnew;
         MimeBodyPart bodypart = null;
 
         try {

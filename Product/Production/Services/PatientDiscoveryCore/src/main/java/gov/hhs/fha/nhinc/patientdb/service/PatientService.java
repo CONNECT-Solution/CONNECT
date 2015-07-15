@@ -71,7 +71,7 @@ public class PatientService {
 
         LOG.debug("PatientService.findAllPatients() - Begin");
 
-        List<Patient> results = new ArrayList<Patient>();
+        List<Patient> results;
 
         PatientDAO dao = PatientDAO.getPatientDAOInstance();
 

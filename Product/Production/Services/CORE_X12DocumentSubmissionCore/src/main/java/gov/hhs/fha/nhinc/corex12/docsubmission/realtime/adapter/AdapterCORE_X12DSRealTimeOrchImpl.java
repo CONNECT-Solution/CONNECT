@@ -52,7 +52,7 @@ public class AdapterCORE_X12DSRealTimeOrchImpl {
      */
     public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest, AssertionType assertion) {
 
-        COREEnvelopeRealTimeResponse oResponse = null;
+        COREEnvelopeRealTimeResponse oResponse;
         if (coreEnvelopeRealTimeRequest != null) {
             LOG.trace("Begin AdapterCORE_X12DSRealTimeOrchImpl.realTimeTransaction()");
             //Call to a method which builds response metadata and returns response

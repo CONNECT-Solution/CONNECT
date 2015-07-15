@@ -191,7 +191,7 @@ public class QueryUtil {
                     String sHomeCommunityId = "";
                     String sRepositoryId = "";
                     String sDocumentId = "";
-                    String sHL7PatientId = "";
+                    String sHL7PatientId;
 
                     if (oExtObj != null) {
                         // Home Community ID
@@ -272,7 +272,7 @@ public class QueryUtil {
         LOG.debug("In createAdhocQueryRequest");
 
         AdhocQueryRequest oRequest = new AdhocQueryRequest();
-        String sHL7PatId = "";
+        String sHL7PatId;
         // ResponseOption
         // ----------------
         ResponseOptionType oResponseOption = new ResponseOptionType();

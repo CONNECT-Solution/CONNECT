@@ -71,7 +71,7 @@ public abstract class AbstractPatientDiscoveryPolicyChecker<OUTGOING, INCOMMING>
     }
 
     protected boolean invokePolicyEngine(CheckPolicyRequestType policyCheckReq) {
-        boolean policyIsValid = false;
+        boolean policyIsValid;
 
         /* invoke check policy */
         PolicyEngineProxy policyProxy = policyEngFactory.create();

@@ -90,7 +90,7 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
         AssertionType assertion, NhinTargetCommunitiesType targets) {
         LOG.trace("EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
-        AdhocQueryResponse response = null;
+        AdhocQueryResponse response;
 
         OutboundDocQueryAggregate aggregate = new OutboundDocQueryAggregate();
 

@@ -86,7 +86,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
             AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
             LOG.info("messageId: " + messageId);
             if ((messageId != null)) {
-                List<AsyncMsgRecord> msgList = new ArrayList<AsyncMsgRecord>();
+                List<AsyncMsgRecord> msgList;
                 msgList = instance.queryByMessageIdAndDirection(messageId, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
                 if ((msgList != null) && (msgList.size() > 0)) {
                     LOG.info("msgList: " + msgList.size());
@@ -154,7 +154,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
         RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02RequestType = new RespondingGatewayPRPAIN201305UV02RequestType();
         InputStream is = null;
         try {
-            byte[] msgBytes = null;
+            byte[] msgBytes;
             if (msgData != null) {
                 JAXBUnmarshallingUtil util = new JAXBUnmarshallingUtil();
                 msgBytes = msgData.getBytes(1, (int) msgData.length());

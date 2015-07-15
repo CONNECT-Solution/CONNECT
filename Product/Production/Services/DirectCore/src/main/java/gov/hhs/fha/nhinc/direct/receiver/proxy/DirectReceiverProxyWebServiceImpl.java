@@ -60,7 +60,7 @@ public class DirectReceiverProxyWebServiceImpl {
             gov.hhs.fha.nhinc.direct.DirectReceiverPortType port = service.getDirectReceiverPortType();
             gov.hhs.fha.nhinc.direct.ConnectCustomMimeMessage message = new gov.hhs.fha.nhinc.direct.ConnectCustomMimeMessage();
             message.setContent(inMessage.getContent().toString());
-            HeaderMap aMap = null;
+            HeaderMap aMap;
             Enumeration mimeHeaders = inMessage.getAllHeaders();
             while (mimeHeaders.hasMoreElements()) {
                 Header header = (Header) mimeHeaders.nextElement();

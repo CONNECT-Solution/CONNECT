@@ -50,7 +50,7 @@ public class AdapterComponentMpiOrchImpl {
         // return PatientChecker.FindPatient(findCandidatesRequest);
         LOG.trace("Entering AdapterComponentMpiOrchImpl.findCandidates method...");
 
-        AdapterComponentMpiChecker oMpiChecker = null;
+        AdapterComponentMpiChecker oMpiChecker;
         AdapterComponentMpiCheckerObjectFactory oFactory = new AdapterComponentMpiCheckerObjectFactory();
         oMpiChecker = oFactory.getAdapterComponentMpiChecker();
         PRPAIN201306UV02 oResponse = oMpiChecker.findPatient(findCandidatesRequest);

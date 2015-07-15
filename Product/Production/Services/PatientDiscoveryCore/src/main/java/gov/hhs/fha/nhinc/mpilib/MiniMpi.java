@@ -120,7 +120,7 @@ public class MiniMpi implements IMPI {
 
     @Override
     public synchronized Patient addUpdate(Patient newPatient) {
-        Patient resultPatient = null;
+        Patient resultPatient;
         validateNewPatient(newPatient);
 
         Patients existingPatients = search(newPatient, true, true);

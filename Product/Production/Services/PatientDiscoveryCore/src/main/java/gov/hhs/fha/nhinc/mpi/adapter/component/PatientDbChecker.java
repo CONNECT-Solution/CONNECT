@@ -53,7 +53,7 @@ public class PatientDbChecker implements AdapterComponentMpiChecker {
     @Override
     public PRPAIN201306UV02 findPatient(PRPAIN201305UV02 query) {
         LOG.trace("Entering PatientDbChecker.FindPatient method...");
-        PRPAIN201306UV02 result = null;
+        PRPAIN201306UV02 result;
 
         PRPAMT201306UV02ParameterList queryParams = HL7DbParser201305.extractHL7QueryParamsFromMessage(query);
         List<Patient> filteredPatients = new ArrayList<Patient>();

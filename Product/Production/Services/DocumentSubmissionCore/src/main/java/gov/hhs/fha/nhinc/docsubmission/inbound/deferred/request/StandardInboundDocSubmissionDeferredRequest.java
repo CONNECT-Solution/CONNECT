@@ -106,7 +106,8 @@ public class StandardInboundDocSubmissionDeferredRequest extends AbstractInbound
     @Override
     XDRAcknowledgementType processDocSubmissionRequest(ProvideAndRegisterDocumentSetRequestType body,
         AssertionType assertion) {
-        XDRAcknowledgementType response = null;
+
+        XDRAcknowledgementType response;
 
         String localHCID = getLocalHCID();
         if (isPolicyValid(body, assertion, localHCID)) {

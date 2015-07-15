@@ -196,7 +196,7 @@ public class TrustBundleAnchor {
     }
 
     private X509Certificate loadCertFromData() throws CertificateException {
-        X509Certificate cert = null;
+        X509Certificate cert;
         try {
             validate();
             final ByteArrayInputStream bais = new ByteArrayInputStream(anchorData);
@@ -226,7 +226,7 @@ public class TrustBundleAnchor {
      * @throws CertificateException
      */
     public X509Certificate toCertificate() throws CertificateException {
-        X509Certificate cert = null;
+        X509Certificate cert;
         try {
             validate();
             final ByteArrayInputStream bais = new ByteArrayInputStream(anchorData);

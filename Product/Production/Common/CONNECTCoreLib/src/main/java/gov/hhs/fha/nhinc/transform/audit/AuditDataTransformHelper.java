@@ -488,7 +488,7 @@ public class AuditDataTransformHelper {
      * @return the properly formatted patientId.
      */
     public static String createCompositePatientId(String assigningAuthId, String patientId) {
-        String sValue = null;
+        String sValue;
         sValue = patientId + "^^^&" + assigningAuthId + "&ISO";
         return sValue;
     }
@@ -502,7 +502,7 @@ public class AuditDataTransformHelper {
      */
     public static String createCompositePatientIdFromAssertion(UserType userInfo, String patientId) {
         String communityId = null;
-        String compPatientId = null;
+        String compPatientId;
 
         if (userInfo != null && userInfo.getOrg() != null && userInfo.getOrg().getHomeCommunityId() != null) {
             communityId = userInfo.getOrg().getHomeCommunityId();

@@ -68,7 +68,7 @@ public class AdapterCORE_X12DSRealTimeProxyWebServiceUnsecuredImpl extends CORE_
      */
     @Override
     public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest msg, AssertionType assertion) {
-        COREEnvelopeRealTimeResponse response = null;
+        COREEnvelopeRealTimeResponse response;
 
         try {
             String url = oProxyHelper.getAdapterEndPointFromConnectionManager(NhincConstants.ADAPTER_CORE_X12DS_REALTIME_SERVICE_NAME);

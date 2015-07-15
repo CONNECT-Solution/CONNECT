@@ -92,7 +92,7 @@ public class PatientConsentManager {
             // Create the document
             // This also takes care of the case where there is only the
             // OptIn\OptOut setting and no fine grained policy
-            PolicyType oConsentXACML = null;
+            PolicyType oConsentXACML;
             XACMLCreator oCreator = new XACMLCreator();
             oConsentXACML = oCreator.createConsentXACMLDoc(oPtPref);
             LOG.info("Created XACML Doc with policy OID: " + oConsentXACML.getPolicyId());
@@ -418,7 +418,7 @@ public class PatientConsentManager {
     private String retrievePtIdFromDocumentId(String sDocumentUniqueId, String sRepositoryId)
         throws AdapterPIPException {
         LOG.debug("Begin PatientConsentManager.retrievePtIdFromDocumentId()..");
-        String sPatientId = "";
+        String sPatientId;
 
         AdhocQueryRequest oRequest = new QueryUtil().createPatientIdQuery(sDocumentUniqueId, sRepositoryId);
         AdhocQueryResponse oResponse = invokeDocRegistryStoredQuery(oRequest);
@@ -442,7 +442,7 @@ public class PatientConsentManager {
             if (uniquePatientId.startsWith("'")) {
                 uniquePatientId = uniquePatientId.substring(1);
             }
-            int pos = 0;
+            int pos;
             String[] tokens = uniquePatientId.split("\\&");
             LOG.debug("extractUniquePatientIdToII - tokens length is " + tokens.length);
             if (tokens.length > 0) {
@@ -604,7 +604,7 @@ public class PatientConsentManager {
      * @throws gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException This is thrown if there are any errors.
      */
     private void retrieveCPPDoc(DocumentRequest oDocRequest, CPPDocumentInfo oCPPDocInfo) throws AdapterPIPException {
-        String sPrefDoc = "";
+        String sPrefDoc;
 
         RetrieveDocumentSetRequestType oRequest = new RetrieveDocumentSetRequestType();
         oRequest.getDocumentRequest().add(oDocRequest);

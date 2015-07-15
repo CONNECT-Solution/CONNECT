@@ -52,7 +52,7 @@ public class AdapterCORE_X12DSGenericBatchResponseOrchImpl {
      */
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
 
-        COREEnvelopeBatchSubmissionResponse oResponse = null;
+        COREEnvelopeBatchSubmissionResponse oResponse;
         if (msg != null) {
             LOG.trace("Begin AdapterCORE_X12DSGenericBatchResponseOrchImpl.batchSubmitTransaction()");
             //Call to a method which builds response metadata and returns response

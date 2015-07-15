@@ -65,7 +65,7 @@ public class AdapterDocRetrieveProxyWebServiceUnsecuredImpl extends BaseAdapterD
     @Override
     public RetrieveDocumentSetResponseType retrieveDocumentSet(RetrieveDocumentSetRequestType request,
         AssertionType assertion) {
-        String url = null;
+        String url;
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
 
         try {

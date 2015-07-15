@@ -124,7 +124,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
 
     protected boolean checkPolicy(PRPAIN201306UV02 response, AssertionType assertion) {
         boolean isPermit = false;
-        II patId = null;
+        II patId;
         PatientDiscovery201306PolicyChecker policyChecker = PatientDiscovery201306PolicyChecker.getInstance();
 
         // ************************************************************************************************
@@ -416,7 +416,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
 
     private II providedPatientId(PRPAIN201305UV02 request) {
         II patId = null;
-        String aaId = null;
+        String aaId;
 
         try {
             if (request != null && request.getControlActProcess() != null) {
@@ -479,7 +479,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
 
     public II extractPatientIdFrom201305(PRPAIN201305UV02 request) {
         II patId = null;
-        String aaId = null;
+        String aaId;
 
         if (request != null && request.getControlActProcess() != null) {
 

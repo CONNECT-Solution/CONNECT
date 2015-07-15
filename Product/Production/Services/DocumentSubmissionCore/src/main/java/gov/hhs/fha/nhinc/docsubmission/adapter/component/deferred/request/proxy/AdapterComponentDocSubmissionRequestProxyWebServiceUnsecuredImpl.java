@@ -69,7 +69,7 @@ public class AdapterComponentDocSubmissionRequestProxyWebServiceUnsecuredImpl im
     @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
         AssertionType assertion) {
-        String endpointUrl = null;
+        String endpointUrl;
         XDRAcknowledgementType response = new XDRAcknowledgementType();
         String sServiceName = NhincConstants.ADAPTER_COMPONENT_XDR_REQUEST_SERVICE_NAME;
 

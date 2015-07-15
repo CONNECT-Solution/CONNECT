@@ -69,7 +69,7 @@ public class AdapterPatientDiscoveryProxyWebServiceSecuredImpl implements Adapte
             version = "1.0")
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion)
             throws PatientDiscoveryException {
-        String url = null;
+        String url;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
         String sServiceName = NhincConstants.ADAPTER_PATIENT_DISCOVERY_SECURED_SERVICE_NAME;
 

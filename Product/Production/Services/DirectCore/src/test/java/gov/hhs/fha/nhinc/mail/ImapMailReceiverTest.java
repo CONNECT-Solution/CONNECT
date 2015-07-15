@@ -60,7 +60,7 @@ public class ImapMailReceiverTest {
     @Test
     public void testHandleMessages() throws MailClientException, MessagingException {
         Message[] msgs = { message };
-        int result = 0;
+        int result;
         when(properties.getProperty("connect.delete.unhandled.msgs")).thenReturn("false");
         when(properties.getProperty("connect.max.msgs.in.batch", "25")).thenReturn("30");
         when(mockStore.getFolder(MailUtils.FOLDER_NAME_INBOX)).thenReturn(mockFolder);
@@ -115,7 +115,7 @@ public class ImapMailReceiverTest {
     @Test
     public void testHandleMessagesFailureCase() throws MailClientException, MessagingException {
         Message[] msgs = { message };
-        int result = 0;
+        int result;
         when(properties.getProperty("connect.delete.unhandled.msgs")).thenReturn("false");
         when(properties.getProperty("connect.max.msgs.in.batch", "25")).thenReturn("30");
         when(mockStore.getFolder("INBOX")).thenReturn(mockFolder);
@@ -139,7 +139,7 @@ public class ImapMailReceiverTest {
     @Test
     public void testHandleMessagesWhenMessageNotMIME() throws MailClientException, MessagingException {
         Message[] msgs = { messageNotMIme };
-        int result = 0;
+        int result;
         when(properties.getProperty("connect.delete.unhandled.msgs")).thenReturn("false");
         when(properties.getProperty("connect.max.msgs.in.batch", "25")).thenReturn("30");
         when(mockStore.getFolder("INBOX")).thenReturn(mockFolder);
@@ -162,7 +162,7 @@ public class ImapMailReceiverTest {
     @Test
     public void testHandleMessagesWhendeleteMsgs() throws MailClientException, MessagingException {
         Message[] msgs = { message };
-        int result = 0;
+        int result;
         when(properties.getProperty("connect.delete.unhandled.msgs")).thenReturn("true");
         when(properties.getProperty("connect.max.msgs.in.batch", "25")).thenReturn("30");
         when(mockStore.getFolder("INBOX")).thenReturn(mockFolder);

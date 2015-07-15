@@ -137,7 +137,7 @@ public class AnchorDaoImpl implements AnchorDao {
             results = listAll();
         } else {
             Session session = null;
-            Query query = null;
+            Query query;
 
             try {
                 session = DaoUtils.getSession();
@@ -245,7 +245,7 @@ public class AnchorDaoImpl implements AnchorDao {
             results = Collections.emptyList();
         } else {
             Session session = null;
-            Query query = null;
+            Query query;
 
             try {
                 session = DaoUtils.getSession();
@@ -349,9 +349,9 @@ public class AnchorDaoImpl implements AnchorDao {
         if (ids != null && ids.size() > 0) {
             Session session = null;
             Transaction tx = null;
-            Query query = null;
+            Query query;
 
-            int count = 0;
+            int count;
 
             try {
                 session = DaoUtils.getSession();
@@ -384,9 +384,9 @@ public class AnchorDaoImpl implements AnchorDao {
         if (owner != null) {
             Session session = null;
             Transaction tx = null;
-            Query query = null;
+            Query query;
 
-            int count = 0;
+            int count;
 
             try {
                 session = DaoUtils.getSession();

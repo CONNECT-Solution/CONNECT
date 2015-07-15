@@ -102,7 +102,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
         Collection<TrustBundle> results = null;
 
         Session session = null;
-        Query query = null;
+        Query query;
 
         try {
             session = DaoUtils.getSession();
@@ -137,7 +137,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
         TrustBundle result = null;
 
         Session session = null;
-        Query query = null;
+        Query query;
 
         try {
             session = DaoUtils.getSession();
@@ -176,7 +176,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
         TrustBundle result = null;
 
         Session session = null;
-        Query query = null;
+        Query query;
 
         try {
             session = DaoUtils.getSession();

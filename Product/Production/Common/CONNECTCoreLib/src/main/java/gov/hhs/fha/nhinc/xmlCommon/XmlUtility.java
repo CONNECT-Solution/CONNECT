@@ -158,8 +158,8 @@ public class XmlUtility {
 
     private static Element initializeElement() {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = null;
-        Document document = null;
+        DocumentBuilder builder;
+        Document document;
         Element docElement = null;
 
         try {

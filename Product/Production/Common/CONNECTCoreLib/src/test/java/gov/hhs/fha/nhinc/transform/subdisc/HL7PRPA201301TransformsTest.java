@@ -94,7 +94,7 @@ public class HL7PRPA201301TransformsTest {
     public void createPRPA201301Request() {
         String localDeviceId = "1.1";
         HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
-        PRPAIN201301UV02 request = null;
+        PRPAIN201301UV02 request;
         request = transforms.createPRPA201301(createPRPAIN201305UV02(), localDeviceId);
         assertEquals(request.getAttentionLine().get(0).getRealmCode().get(0).getCode(), "CONNECT");
         assertEquals(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue()
@@ -121,7 +121,7 @@ public class HL7PRPA201301TransformsTest {
         controlActProcess.setQueryByParameter(createQueryByParameter());
         request.setControlActProcess(controlActProcess);
         request.getControlActProcess();
-        PRPAIN201301UV02 result = null;
+        PRPAIN201301UV02 result;
         result = transforms.createPRPA201301(request, localDeviceId);
         assertTrue(result.getControlActProcess().getId().isEmpty());
     }
@@ -136,7 +136,7 @@ public class HL7PRPA201301TransformsTest {
         controlActProcess.setTypeId(createII());
         controlActProcess.setQueryByParameter(createQueryByParameter());
         request.setControlActProcess(controlActProcess);
-        PRPAIN201301UV02 result = null;
+        PRPAIN201301UV02 result;
         result = transforms.createPRPA201301(request, localDeviceId);
         assertTrue(result.getControlActProcess().getRealmCode().isEmpty());
     }
@@ -151,7 +151,7 @@ public class HL7PRPA201301TransformsTest {
         controlActProcess.setTypeId(createII());
         controlActProcess.setQueryByParameter(createQueryByParameter());
         request.setControlActProcess(controlActProcess);
-        PRPAIN201301UV02 result = null;
+        PRPAIN201301UV02 result;
         result = transforms.createPRPA201301(request, localDeviceId);
         assertTrue(result.getControlActProcess().getDataEnterer().isEmpty());
     }
@@ -161,7 +161,7 @@ public class HL7PRPA201301TransformsTest {
         String localDeviceId = "1.1";
         HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
         PRPAIN201305UV02 request = new PRPAIN201305UV02();
-        PRPAIN201301UV02 result = null;
+        PRPAIN201301UV02 result;
         result = transforms.createPRPA201301(request, localDeviceId);
         assertNull(result.getControlActProcess());
     }
@@ -179,7 +179,7 @@ public class HL7PRPA201301TransformsTest {
         controlActProcess.setTypeId(createII());
         controlActProcess.setQueryByParameter(createQueryByParameter());
         request.setControlActProcess(controlActProcess);
-        PRPAIN201301UV02 result = null;
+        PRPAIN201301UV02 result;
         result = transforms.createPRPA201301(request, localDeviceId);
         assertTrue(result.getControlActProcess().getAuthorOrPerformer().get(0).getRealmCode().isEmpty());
         assertTrue(result.getControlActProcess().getAuthorOrPerformer().get(0).getTemplateId().isEmpty());
@@ -189,7 +189,7 @@ public class HL7PRPA201301TransformsTest {
     public void createPRPA201301forPRPAIN201306UV02Request() {
         String localDeviceId = "1.1";
         HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
-        PRPAIN201301UV02 request = null;
+        PRPAIN201301UV02 request;
         request = transforms.createPRPA201301(createPRPAIN201306UV02(), localDeviceId);
         assertEquals(request.getAttentionLine().get(0).getRealmCode().get(0).getCode(), "CONNECT");
         assertEquals(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue()
@@ -225,7 +225,7 @@ public class HL7PRPA201301TransformsTest {
         controlActProcess.setQueryByParameter(createQueryByParameter());
         request.setControlActProcess(controlActProcess);
         request.getControlActProcess();
-        PRPAIN201301UV02 result = null;
+        PRPAIN201301UV02 result;
         result = transforms.createPRPA201301(request, localDeviceId);
         assertTrue(result.getControlActProcess().getId().isEmpty());
     }
@@ -240,7 +240,7 @@ public class HL7PRPA201301TransformsTest {
         controlActProcess.setTypeId(createII());
         controlActProcess.setQueryByParameter(createQueryByParameter());
         request.setControlActProcess(controlActProcess);
-        PRPAIN201301UV02 result = null;
+        PRPAIN201301UV02 result;
         result = transforms.createPRPA201301(request, localDeviceId);
         assertTrue(result.getControlActProcess().getRealmCode().isEmpty());
     }
@@ -254,7 +254,7 @@ public class HL7PRPA201301TransformsTest {
         controlActProcess.setTypeId(createII());
         controlActProcess.setQueryByParameter(createQueryByParameter());
         request.setControlActProcess(controlActProcess);
-        PRPAIN201301UV02 result = null;
+        PRPAIN201301UV02 result;
         result = transforms.createPRPA201301(request, localDeviceId);
         assertTrue(result.getControlActProcess().getDataEnterer().isEmpty());
     }
@@ -264,7 +264,7 @@ public class HL7PRPA201301TransformsTest {
         String localDeviceId = "1.1";
         HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
         PRPAIN201306UV02 request = new PRPAIN201306UV02();
-        PRPAIN201301UV02 result = null;
+        PRPAIN201301UV02 result;
         result = transforms.createPRPA201301(request, localDeviceId);
         assertNull(result.getControlActProcess());
     }
@@ -282,7 +282,7 @@ public class HL7PRPA201301TransformsTest {
         controlActProcess.setTypeId(createII());
         controlActProcess.setQueryByParameter(createQueryByParameter());
         request.setControlActProcess(controlActProcess);
-        PRPAIN201301UV02 result = null;
+        PRPAIN201301UV02 result;
         result = transforms.createPRPA201301(request, localDeviceId);
         assertTrue(result.getControlActProcess().getAuthorOrPerformer().get(0).getRealmCode().isEmpty());
         assertTrue(result.getControlActProcess().getAuthorOrPerformer().get(0).getTemplateId().isEmpty());

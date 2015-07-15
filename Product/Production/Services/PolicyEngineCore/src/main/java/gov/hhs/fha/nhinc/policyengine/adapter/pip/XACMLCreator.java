@@ -150,10 +150,10 @@ public class XACMLCreator {
         QName oHL7Attr = new QName("xmlns:hl7");
         mapAttrValueAttrs.put(oHL7Attr, XACMLConstants.NAMESPACE_HL7_V3);
 
-        DocumentBuilderFactory oDOMFactory = null;
-        DocumentBuilder oDOMBuilder = null;
-        Document oDOMDocument = null;
-        Element oElement = null;
+        DocumentBuilderFactory oDOMFactory;
+        DocumentBuilder oDOMBuilder;
+        Document oDOMDocument;
+        Element oElement;
 
         try {
             oDOMFactory = DocumentBuilderFactory.newInstance();
@@ -301,7 +301,6 @@ public class XACMLCreator {
 
     }
 
-
     /**
      * This method creates an date formatted according to XML default from a HL7 date/time format.
      *
@@ -309,7 +308,7 @@ public class XACMLCreator {
      * @return The date or date-time in XML default format.
      */
     private String createXMLDate(String sHL7DateTime) throws AdapterPIPException {
-        String sXMLDate = null;
+        String sXMLDate;
 
         // Do we have a "date only"?
         // --------------------------
@@ -359,10 +358,8 @@ public class XACMLCreator {
         String sPermitOrDeny = "";
         if (oCriterion.isPermit()) {
             oRule.setEffect(EffectType.PERMIT);
-            sPermitOrDeny = "Permit";
         } else {
             oRule.setEffect(EffectType.DENY);
-            sPermitOrDeny = "Deny";
         }
 
         oRule.setDescription(XACMLConstants.DESCRIPTION_FINE_GRAINED_RULE);
@@ -421,7 +418,7 @@ public class XACMLCreator {
         if ((oCriterion.getUserId() != null) && (oCriterion.getUserId().length() > 0)
             && (oCriterion.getUserIdFormat() != null)
             && (!oCriterion.getUserIdFormat().equals(UserIdFormatType.NONE))) {
-            SubjectType oSubject = null;
+            SubjectType oSubject;
             if (oCriterion.getUserIdFormat().equals(UserIdFormatType.EMAIL)) {
                 oSubject = createSubject(XACMLConstants.MATCH_ID_EMAIL_EQUAL,
                     XACMLConstants.ATTRIBUTE_VALUE_TYPE_EMAIL, XACMLConstants.SUBJECT_USER_ID,
@@ -559,10 +556,8 @@ public class XACMLCreator {
         String sPermitOrDeny = "";
         if (oPtPref.isOptIn()) {
             oRule.setEffect(EffectType.PERMIT);
-            sPermitOrDeny = "Permit";
         } else {
             oRule.setEffect(EffectType.DENY);
-            sPermitOrDeny = "Deny";
         }
 
         oRule.setDescription(XACMLConstants.DESCRIPTION_OPT_IN_OUT_RULE);
@@ -580,8 +575,7 @@ public class XACMLCreator {
      *
      * @param oPtPref The patient's consent preference information.
      * @return The XACML Policy that represents this consent information.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This exception is thrown if any error
-     * occurs.
+     * @throws AdapterPIPException This exception is thrown if any error occurs.
      */
     public PolicyType createConsentXACMLDoc(PatientPreferencesType oPtPref) throws AdapterPIPException {
         PolicyType oPolicy = new PolicyType();

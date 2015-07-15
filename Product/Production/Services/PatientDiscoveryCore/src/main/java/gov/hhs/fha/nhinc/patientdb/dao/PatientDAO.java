@@ -134,7 +134,7 @@ public class PatientDAO {
         }
 
         Session session = null;
-        List<Patient> queryList = null;
+        List<Patient> queryList;
         Patient foundRecord = null;
         try {
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();

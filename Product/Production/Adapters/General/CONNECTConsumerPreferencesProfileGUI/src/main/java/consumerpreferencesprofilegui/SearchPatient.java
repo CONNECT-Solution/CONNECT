@@ -947,7 +947,7 @@ public class SearchPatient extends AbstractPageBean {
         defaultOption.setValue("");
         int index = 0;
 
-        Option[] options = null;
+        Option[] options;
 
         if (properties != null && properties.size() > 0) {
             int size = properties.size() + 1;

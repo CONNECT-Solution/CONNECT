@@ -60,7 +60,7 @@ public class XpathHelper {
         }
 
         LOG.debug("perform xpath query (query='" + xpathQuery + "'");
-        Node result = null;
+        Node result;
         if (XmlUtfHelper.isUtf16(sourceXml)) {
             try {
                 result = (Node) xpath.evaluate(xpathQuery, inputSource, XPathConstants.NODE);

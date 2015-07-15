@@ -246,7 +246,7 @@ public class HL7Parser201301 {
 
     public static PRPAMT201301UV02Patient ExtractHL7PatientFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
         // assume one subject for now
-        PRPAMT201301UV02Patient patient = null;
+        PRPAMT201301UV02Patient patient;
         LOG.info("in ExtractPatient");
 
         if (message == null) {

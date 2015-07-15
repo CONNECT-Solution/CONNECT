@@ -65,6 +65,7 @@ public class StandardOutboundDocRetrieve extends AbstractOutboundDocRetrieve imp
      * Constructor with dependency injection parameters.
      *
      * @param orchestrator
+     * @param auditLogger
      */
     public StandardOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator, DocRetrieveAuditLogger auditLogger) {
         this.orchestrator = orchestrator;
@@ -82,10 +83,11 @@ public class StandardOutboundDocRetrieve extends AbstractOutboundDocRetrieve imp
     @OutboundProcessingEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class, afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, serviceType = "Retrieve Document", version = "")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType request,
         AssertionType assertion, NhinTargetCommunitiesType targets, ADAPTER_API_LEVEL entityAPILevel) {
-        assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
-        RetrieveDocumentSetResponseType response = null;
-        if (validateGuidance(targets, entityAPILevel)) {
 
+        assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
+        RetrieveDocumentSetResponseType response;
+
+        if (validateGuidance(targets, entityAPILevel)) {
             PolicyTransformer pt = new OutboundDocRetrievePolicyTransformer_a0();
             OutboundDelegate nd = new OutboundDocRetrieveDelegate();
             NhinAggregator na = new OutboundDocRetrieveAggregator_a0();
@@ -96,23 +98,20 @@ public class StandardOutboundDocRetrieve extends AbstractOutboundDocRetrieve imp
                 .process(orchestratable);
 
             response = orchResponse.getResponse();
-
         } else {
-
             auditRequest(request, assertion, getTarget(targets));
             response = createGuidanceErrorResponse(entityAPILevel);
         }
+
         return response;
     }
 
     private NhinTargetSystemType getTarget(NhinTargetCommunitiesType targets) {
-        return MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
-            targets);
+        return MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
     }
 
     @Override
     DocRetrieveAuditLogger getAuditLogger() {
         return auditLogger;
     }
-
 }

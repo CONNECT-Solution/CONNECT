@@ -150,7 +150,7 @@ public class UDDIAccessor {
             LOG.debug("Retrieving business entities from UDDI using find_business web service call.");
         }
 
-        BusinessList businessList = null;
+        BusinessList businessList;
         try {
             UDDIFindBusinessProxyObjectFactory uddiFactory = new UDDIFindBusinessProxyObjectFactory();
             UDDIFindBusinessProxy uddiProxy = uddiFactory.getUDDIBusinessInfoProxy();
@@ -173,7 +173,7 @@ public class UDDIAccessor {
             return null;
         }
 
-        BusinessDetail businessDetail = null;
+        BusinessDetail businessDetail;
         BusinessInfos businessInfos = businessList.getBusinessInfos();
         try {
             GetBusinessDetail searchParams = createSearchParamsFromBusinessKeys(businessInfos);

@@ -75,7 +75,7 @@ public class UDDITimerTask {
      * This method is called each time the timer thread wakes up.
      */
     public void run() {
-        boolean bUDDIActive = true;
+        boolean bUDDIActive;
         try {
             bUDDIActive = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE, UDDI_SWITCH_PROPERTY);
 

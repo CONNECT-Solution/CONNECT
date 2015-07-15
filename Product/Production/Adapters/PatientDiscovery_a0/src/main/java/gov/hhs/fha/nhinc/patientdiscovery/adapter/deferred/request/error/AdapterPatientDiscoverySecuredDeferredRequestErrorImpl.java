@@ -63,7 +63,7 @@ public class AdapterPatientDiscoverySecuredDeferredRequestErrorImpl {
     }
 
     private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
-        AssertionType assertion = null;
+        AssertionType assertion;
         if (oAssertionIn == null) {
             assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
         } else {

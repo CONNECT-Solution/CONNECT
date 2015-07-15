@@ -151,7 +151,7 @@ public class CdaPdfCreator {
      * @throws AdapterPIPException This exception is thrown if there is an error.
      */
     private String getHomeCommunityId() throws AdapterPIPException {
-        String sHomeCommunityId = null;
+        String sHomeCommunityId;
         try {
             sHomeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);

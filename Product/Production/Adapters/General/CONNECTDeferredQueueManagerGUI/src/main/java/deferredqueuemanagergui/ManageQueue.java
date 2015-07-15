@@ -306,9 +306,9 @@ public class ManageQueue extends AbstractPageBean {
 
         Date startDate = new Date();
         Date stopDate = new Date();
-        String startCreationTime = "";
-        String stopCreationTime = "";
-        String statusValue = "";
+        String startCreationTime;
+        String stopCreationTime;
+        String statusValue;
         try {
             startCreationTime = (String) startCreationDate.getText();
             stopCreationTime = (String) stopCreationDate.getText();
@@ -348,7 +348,7 @@ public class ManageQueue extends AbstractPageBean {
         }
         DeferredQueueManagerFacade deferredQueueManagerFacade = new DeferredQueueManagerFacade();
 
-        List<AsyncMsgRecord> unProcessQueueResults = null;
+        List<AsyncMsgRecord> unProcessQueueResults;
         if ((startCreationTime.equals("") && stopCreationTime.equals("") && statusValue.equals(""))) {
             unProcessQueueResults = deferredQueueManagerFacade.queryForDeferredQueueSelected();
         } else {
@@ -389,7 +389,7 @@ public class ManageQueue extends AbstractPageBean {
     public String process_action(javax.faces.event.ActionEvent event) throws Exception {
         String asyncMsgId = (String) this.messageId.getText();
         String serviceName = (String) this.serviceName.getText();
-        PatientDiscoveryDeferredReqQueueProcessResponseType pdResponse = null;
+        PatientDiscoveryDeferredReqQueueProcessResponseType pdResponse;
 
         if (serviceName.trim().equals(PATIENT_DISCOVERY)) {
             PatientDiscoveryDeferredReqQueueClient pdClient = new PatientDiscoveryDeferredReqQueueClient();

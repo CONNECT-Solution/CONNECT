@@ -425,7 +425,7 @@ public class AsyncMsgRecordDao {
 
         if (NullChecker.isNotNullish(asyncMsgRecs)) {
             int size = asyncMsgRecs.size();
-            AsyncMsgRecord dbRecord = null;
+            AsyncMsgRecord dbRecord;
 
             try {
                 session = getSession();
@@ -512,7 +512,7 @@ public class AsyncMsgRecordDao {
                 trans = sess.beginTransaction();
 
                 int size = asyncMsgRecs.size();
-                AsyncMsgRecord dbRecord = null;
+                AsyncMsgRecord dbRecord;
 
                 LOG.info("Saving Records...");
 
@@ -590,8 +590,8 @@ public class AsyncMsgRecordDao {
         LOG.debug("AsyncMsgRecordDao.checkExpiration() - Begin");
 
         // Read the delta properties from the gateway.properties file
-        long value = 0;
-        String units = null;
+        long value;
+        String units;
 
         value = getValueFromPropFile();
         units = getUnitsFromPropFile();

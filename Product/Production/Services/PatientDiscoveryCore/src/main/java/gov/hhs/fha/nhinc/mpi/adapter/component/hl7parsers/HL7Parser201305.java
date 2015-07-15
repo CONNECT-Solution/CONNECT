@@ -299,11 +299,11 @@ public class HL7Parser201305 {
                 Iterator<Serializable> iterSerialObjects = choice.iterator();
 
                 int addressLineCounter = 0;
-                AdxpExplicitStreetAddressLine addressLine1 = null;
-                AdxpExplicitStreetAddressLine addressLine2 = null;
-                AdxpExplicitCity city = null;
-                AdxpExplicitState state = null;
-                AdxpExplicitPostalCode postalCode = null;
+                AdxpExplicitStreetAddressLine addressLine1;
+                AdxpExplicitStreetAddressLine addressLine2;
+                AdxpExplicitCity city;
+                AdxpExplicitState state;
+                AdxpExplicitPostalCode postalCode;
 
                 while (iterSerialObjects.hasNext()) {
                     LOG.info("in iterSerialObjects.hasNext() loop");

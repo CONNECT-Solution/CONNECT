@@ -51,7 +51,7 @@ public class DirectXDRWebServiceImpl {
      */
     public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType body,
             WebServiceContext wsContext) throws Exception {
-        RegistryResponseType resp = null;
+        RegistryResponseType resp;
         this.context = wsContext;
 
         DirectHeaderExtractor extractor = new DirectHeaderExtractor();

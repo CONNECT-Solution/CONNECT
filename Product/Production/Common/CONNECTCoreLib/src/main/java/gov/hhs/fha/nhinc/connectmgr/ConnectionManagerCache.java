@@ -419,7 +419,7 @@ public class ConnectionManagerCache implements ConnectionManager {
 
         BusinessEntity internalBusinessEntity = null;
         BusinessEntity uddiEntity = null;
-        BusinessService bService = null;
+        BusinessService bService;
 
         // check the internal connections for the service
         // TODO: *******The below logic needs to be revisited********
@@ -464,7 +464,7 @@ public class ConnectionManagerCache implements ConnectionManager {
         }
 
         // Merge local and remote
-        BusinessEntity oCombinedEntity = null;
+        BusinessEntity oCombinedEntity;
         if ((internalBusinessEntity != null) && (uddiEntity != null)) {
             helper.mergeBusinessEntityServices(internalBusinessEntity, uddiEntity);
             oCombinedEntity = internalBusinessEntity;
@@ -523,7 +523,7 @@ public class ConnectionManagerCache implements ConnectionManager {
         }
 
         // Merge local and remote
-        BusinessEntity oCombinedEntity = null;
+        BusinessEntity oCombinedEntity;
         if ((internalBusinessEntity != null) && (oUDDIEntity != null)) {
             oCombinedEntity = helper.mergeBusinessEntityServices(internalBusinessEntity, oUDDIEntity);
         } else if (internalBusinessEntity != null) {
@@ -831,7 +831,7 @@ public class ConnectionManagerCache implements ConnectionManager {
      */
     @Override
     public String getInternalEndpointURLByServiceName(String sUniformServiceName) throws ConnectionManagerException {
-        String sHomeCommunityId = null;
+        String sHomeCommunityId;
         String sEndpointURL = null;
         sHomeCommunityId = getHomeCommunityFromPropFile();
 

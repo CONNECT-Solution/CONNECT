@@ -178,7 +178,7 @@ public class HomeCommunityMapTest {
 
     @Test(expected = NullPointerException.class)
     public void testGetCommunityIdFromAssertion() {
-        String communityId = null;
+        String communityId;
         AssertionType assertion = new AssertionType();
         assertion.getUserInfo().getOrg().setHomeCommunityId("1.1");
         communityId = HomeCommunityMap.getCommunityIdFromAssertion(assertion);

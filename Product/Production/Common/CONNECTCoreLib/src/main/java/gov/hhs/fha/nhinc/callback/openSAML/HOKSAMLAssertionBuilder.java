@@ -93,9 +93,9 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     @Override
     public Element build(CallbackProperties properties) throws Exception {
         LOG.debug("SamlCallbackHandler.createHOKSAMLAssertion20() -- Begin");
-        Element signedAssertion = null;
+        Element signedAssertion;
         try {
-            Assertion assertion = null;
+            Assertion assertion;
             assertion = OpenSAML2ComponentBuilder.getInstance().createAssertion();
 
             // create the assertion id
@@ -164,7 +164,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     protected Issuer createIssuer(CallbackProperties properties) {
-        Issuer issuer = null;
+        Issuer issuer;
 
         String format = properties.getAssertionIssuerFormat();
         if (format != null) {
@@ -224,7 +224,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         PublicKey publicKey)
         throws Exception {
         String evidenceSubject = properties.getEvidenceSubject();
-        String x509Name = null;
+        String x509Name;
         if (NullChecker.isNullish(evidenceSubject)) {
             String userName = properties.getUsername();
 
@@ -486,7 +486,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
     public List<AttributeStatement> createEvidenceStatements(List accessConstentValues,
         List evidenceInstanceAccessConsentValues) {
-        List<AttributeStatement> statements = null;
+        List<AttributeStatement> statements;
         if (accessConstentValues == null) {
             LOG.debug("No Access Consent found for Evidence");
         }
@@ -567,7 +567,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @return The listing of all Attribute statements
      */
     protected List<AttributeStatement> createPurposeOfUseStatements(CallbackProperties properties) {
-        List<AttributeStatement> statements = null;
+        List<AttributeStatement> statements;
 
         final String purposeCode = properties.getPurposeCode();
         final String purposeSystem = properties.getPurposeSystem();

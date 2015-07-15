@@ -147,7 +147,7 @@ public class PRPAIN201309UVParserTest {
     @Test
     public void testBuildAAInclusionFilterList() {
         PRPAIN201309UVParser parser = new PRPAIN201309UVParser();
-        List<II> list = new ArrayList<II>();
+        List<II> list;
         list = parser.buildAssigningAuthorityInclusionFilterList(createMessage());
         assertEquals(list.get(0).getAssigningAuthorityName(), "CONNECT");
         assertEquals(list.get(0).getExtension(), "1.16.17.19");
@@ -168,7 +168,7 @@ public class PRPAIN201309UVParserTest {
         controlActProcess.setQueryByParameter(queryByParameter);
         message.setControlActProcess(controlActProcess);
         PRPAIN201309UVParser parser = new PRPAIN201309UVParser();
-        List<II> list = new ArrayList<II>();
+        List<II> list;
         list = parser.buildAssigningAuthorityInclusionFilterList(message);
         assertTrue(list.isEmpty());
     }

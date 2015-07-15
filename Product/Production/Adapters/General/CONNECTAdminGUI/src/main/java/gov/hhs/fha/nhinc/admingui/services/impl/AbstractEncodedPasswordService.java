@@ -48,9 +48,9 @@ public abstract class AbstractEncodedPasswordService implements PasswordService 
     @Override
     public boolean checkPassword(byte[] passwordHash, byte[] candidatePassword, byte[] salt)
             throws PasswordServiceException {
-        boolean passwordsMatch = false;
+        boolean passwordsMatch;
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        byte[] candidateHash = null;
+        byte[] candidateHash;
         try {
             outputStream.write(salt);
             outputStream.write(candidatePassword);

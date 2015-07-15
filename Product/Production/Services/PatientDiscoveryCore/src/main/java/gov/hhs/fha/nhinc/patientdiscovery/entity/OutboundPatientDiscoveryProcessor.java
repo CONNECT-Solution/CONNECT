@@ -76,7 +76,7 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
         count++;
         LOG.debug("EntityPatientDiscoveryProcessor::processNhinResponse count=" + count);
 
-        OutboundOrchestratableMessage response = null;
+        OutboundOrchestratableMessage response;
         if (cumulativeResponse == null) {
             switch (cumulativeSpecLevel) {
                 case LEVEL_g0: {

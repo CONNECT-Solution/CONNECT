@@ -131,7 +131,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
     protected MCCIIN000002UV01 sendToNhin(PRPAIN201306UV02 respMsg, AssertionType assertion,
         NhinTargetCommunitiesType targets) {
         MCCIIN000002UV01 resp = new MCCIIN000002UV01();
-        java.util.List<UrlInfo> urlInfoList = null;
+        java.util.List<UrlInfo> urlInfoList;
 
         if (targets != null) {
             urlInfoList = getTargetEndpoints(targets);
@@ -152,7 +152,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
     }
 
     protected List<UrlInfo> getTargetEndpoints(NhinTargetCommunitiesType targetCommunities) {
-        List<UrlInfo> urlInfoList = null;
+        List<UrlInfo> urlInfoList;
 
         // Obtain all the URLs for the targets being sent to
         try {

@@ -383,7 +383,7 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
             inputStream = connection.getInputStream();
 
             int BUF_SIZE = 2048;
-            int count = 0;
+            int count;
 
             final byte buf[] = new byte[BUF_SIZE];
 

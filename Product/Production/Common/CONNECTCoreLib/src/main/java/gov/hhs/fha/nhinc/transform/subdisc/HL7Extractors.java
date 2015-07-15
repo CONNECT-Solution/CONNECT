@@ -127,7 +127,7 @@ public class HL7Extractors {
     }
 
     public static PRPAMT201301UV02Patient ExtractHL7PatientFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
-        PRPAMT201301UV02Patient patient = null;
+        PRPAMT201301UV02Patient patient;
         LOG.info("in ExtractPatient");
 
         PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = ExtractSubjectFromMessage(message);
@@ -160,7 +160,7 @@ public class HL7Extractors {
     }
 
     public static PRPAMT201302UV02Patient ExtractHL7PatientFromMessage(org.hl7.v3.PRPAIN201302UV02 message) {
-        PRPAMT201302UV02Patient patient = null;
+        PRPAMT201302UV02Patient patient;
         LOG.info("in ExtractPatient");
 
         PRPAIN201302UV02MFMIMT700701UV01Subject1 subject = ExtractSubjectFromMessage(message);
@@ -193,7 +193,7 @@ public class HL7Extractors {
     }
 
     public static PRPAMT201304UV02Patient ExtractHL7PatientFromMessage(org.hl7.v3.PRPAIN201310UV02 message) {
-        PRPAMT201304UV02Patient patient = null;
+        PRPAMT201304UV02Patient patient;
         LOG.info("in ExtractPatient");
 
         PRPAIN201310UV02MFMIMT700711UV01Subject1 subject = ExtractSubjectFromMessage(message);

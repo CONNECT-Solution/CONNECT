@@ -185,7 +185,7 @@ public class HL7QueryParamsTransforms {
 
     public static PRPAMT201306UV02PatientAddress createAddress(List<ADExplicit> patientAddress) {
         PRPAMT201306UV02PatientAddress subjectAddress = null;
-        STExplicit text = null;
+        STExplicit text;
 
         if (patientAddress != null) {
             subjectAddress = new PRPAMT201306UV02PatientAddress();
@@ -201,7 +201,7 @@ public class HL7QueryParamsTransforms {
 
     public static PRPAMT201306UV02PatientTelecom createTelecom(List<TELExplicit> patientTelecom) {
         PRPAMT201306UV02PatientTelecom subjectTele = null;
-        STExplicit text = null;
+        STExplicit text;
 
         if (patientTelecom != null) {
             subjectTele = new PRPAMT201306UV02PatientTelecom();

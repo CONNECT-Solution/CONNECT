@@ -190,7 +190,7 @@ public class PatientConsentHelperTest {
 
     public PatientPreferencesType testRetrievePatientConsentbyPatientId(String patientId, String assigningAuthorityId,
             final AdapterPIPImpl adapterPIP) throws AdapterPIPException {
-        PatientPreferencesType response = null;
+        PatientPreferencesType response;
         PatientConsentHelper patientConsentHelper = new PatientConsentHelper() {
             @Override
             protected AdapterPIPImpl getAdapterPIP() {
@@ -312,7 +312,7 @@ public class PatientConsentHelperTest {
 
     public PatientPreferencesType testRetrievePatientConsentbyDocumentId(String homeCommunityId, String repositoryId,
             String documentId, final AdapterPIPImpl adapterPIP) {
-        PatientPreferencesType response = null;
+        PatientPreferencesType response;
         PatientConsentHelper patientConsentHelper = new PatientConsentHelper() {
             @Override
             protected AdapterPIPImpl getAdapterPIP() {

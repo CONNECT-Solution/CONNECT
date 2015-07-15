@@ -134,7 +134,7 @@ public class AdapterComponentDocRepositoryHelperTest {
 	@Test
 	public void testExtractClassificationMetadata2(){
 		AdapterComponentDocRepositoryHelper docRepoHelper = new AdapterComponentDocRepositoryHelper();
-		String result = null;
+		String result;
 		List<ClassificationType> classifications = new ArrayList();
 		ClassificationType classificationType = mock(ClassificationType.class);
 		classifications.add(classificationType);

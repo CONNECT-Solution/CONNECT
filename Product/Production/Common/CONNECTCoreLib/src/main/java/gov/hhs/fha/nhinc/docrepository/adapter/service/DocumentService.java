@@ -98,9 +98,9 @@ public class DocumentService {
             // Calculate the hash code.
             // -------------------------
             if (document.getRawData() != null) {
-                String documentStr = "";
+                String documentStr;
                 try {
-                    String sHash = "";
+                    String sHash;
                     documentStr = StringUtil.convertToStringUTF8(document.getRawData());
                     sHash = SHA1HashCode.calculateSHA1(documentStr);
                     if (LOG.isDebugEnabled()) {
@@ -182,10 +182,10 @@ public class DocumentService {
      * @return Query results
      */
     public List<Document> documentQuery(DocumentQueryParams params) {
-        List<Document> documents = new ArrayList<Document>();
+        List<Document> documents;
         DocumentDao dao = getDocumentDao();
         List<Document> queryMatchDocs = dao.findDocuments(params);
-        List<Document> eventCodeMatchDocs = null;
+        List<Document> eventCodeMatchDocs;
         if ((params != null) && NullChecker.isNotNullish(params.getEventCodeParams())) {
             eventCodeMatchDocs = queryByEventCode(params.getEventCodeParams(), params.getSlots());
             if (NullChecker.isNotNullish(queryMatchDocs) && NullChecker.isNotNullish(eventCodeMatchDocs)) {
@@ -204,7 +204,7 @@ public class DocumentService {
     }
 
     protected List<Document> queryByEventCode(List<EventCodeParam> eventCodeParams, List<SlotType1> slots) {
-        List<EventCode> eventCodes = new ArrayList<EventCode>();
+        List<EventCode> eventCodes;
         List<Document> documents = new ArrayList<Document>();
         Set<Document> documentSet = new HashSet<Document>();
         if (NullChecker.isNotNullish(eventCodeParams)) {

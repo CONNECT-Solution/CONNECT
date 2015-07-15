@@ -117,7 +117,7 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
     @SuppressWarnings("static-access")
     @Override
     public Response callWebService(Target target, Request request) throws Exception {
-        ResponseWrapper resp = null;
+        ResponseWrapper resp;
         PRPAIN201306UV02 discoveryResponse = null;
         RespondingGatewayPRPAIN201305UV02RequestType newRequest = null;
         try {

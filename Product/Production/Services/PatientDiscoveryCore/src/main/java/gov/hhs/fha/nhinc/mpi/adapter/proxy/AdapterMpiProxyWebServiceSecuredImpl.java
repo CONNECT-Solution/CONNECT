@@ -87,7 +87,7 @@ public class AdapterMpiProxyWebServiceSecuredImpl implements AdapterMpiProxy {
             serviceType = "Patient Discovery MPI", version = "1.0")
     public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 request, AssertionType assertion)
             throws PatientDiscoveryException {
-        String url = null;
+        String url;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
         String sServiceName = NhincConstants.ADAPTER_MPI_SECURED_SERVICE_NAME;
 

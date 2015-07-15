@@ -56,7 +56,7 @@ public class HL7PatientTransformsTest {
     @Test
     public void create201301Patient() {
         String aaId = "1.1";
-        org.hl7.v3.PRPAMT201301UV02Patient patient = null;
+        org.hl7.v3.PRPAMT201301UV02Patient patient;
         HL7PatientTransforms transforms = new HL7PatientTransforms();
         patient = transforms.create201301Patient(createPRPAMT201306UV02ParameterList(), aaId);
         assertEquals(patient.getPatientPerson().getValue().getAdministrativeGenderCode().getCode(), "CONNECT");

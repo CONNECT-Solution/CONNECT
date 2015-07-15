@@ -205,7 +205,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 } else {
 
                     if (request.getAdhocQuery().getId().equals(FINDDOCUMENTSQUERYID)) {
-                        List<String> slotValues = new ArrayList<String>();
+                        List<String> slotValues;
                         for (SlotType1 slot : slots) {
                             if (slot.getName().equals(EBXML_DOCENTRY_PATIENT_ID)) {
                                 patientIdSlotPresent = true;
@@ -487,7 +487,7 @@ public class AdapterComponentDocRegistryOrchImpl {
      */
     private List<String> extractDocumentId(List<SlotType1> slots) {
         List<String> documentIds = null;
-        String docId = "";
+        String docId;
         List<String> slotValues = extractSlotValues(slots, NHINC_CUSTOM_DOCUMENT_ID);
         if ((slotValues != null) && (!slotValues.isEmpty())) {
             // We should only have one - so use the first one.
@@ -571,7 +571,7 @@ public class AdapterComponentDocRegistryOrchImpl {
 
                 // Document Unique ID
                 // ------------------
-                String sDocumentId = ""; // need to keep a handle to this to be used later...
+                String sDocumentId; // need to keep a handle to this to be used later...
                 if (NullChecker.isNotNullish(doc.getDocumentUniqueId())) {
                     sDocumentId = doc.getDocumentUniqueId();
                     ExternalIdentifierType oExtId = new ExternalIdentifierType();
@@ -876,7 +876,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // URI
                 // ----
                 if (NullChecker.isNotNullish(doc.getDocumentUri())) {
-                    SlotType1 oSlot = null;
+                    SlotType1 oSlot;
                     String documentUri = doc.getDocumentUri();
                     if (documentUri.length() <= EBXML_RESPONSE_URI_LINE_LENGTH) {
                         oSlot = createSingleValueSlot(EBXML_RESPONSE_URI_SLOTNAME, documentUri);
@@ -885,7 +885,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                         String sURI = documentUri;
                         int iTotalLen = sURI.length();
                         int iIndex = 1;
-                        String[] saURIPart = null;
+                        String[] saURIPart;
 
                         if ((iTotalLen % EBXML_RESPONSE_URI_LINE_LENGTH) == 0) {
                             saURIPart = new String[iTotalLen / EBXML_RESPONSE_URI_LINE_LENGTH];
@@ -1012,7 +1012,7 @@ public class AdapterComponentDocRegistryOrchImpl {
     }
 
     private List<String> extractSlotValues(List<SlotType1> slots, String slotName) {
-        List<String> returnValues = null;
+        List<String> returnValues;
         returnValues = new ArrayList<String>();
         if (slots != null) {
             for (SlotType1 slot : slots) {

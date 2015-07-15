@@ -82,7 +82,7 @@ public class HL7PRPA201306TransformsTest {
 
     @Test
     public void createPRPA201306ForPatientNotFound() {
-        PRPAIN201306UV02 result = null;
+        PRPAIN201306UV02 result;
         HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
         result = transforms.createPRPA201306ForPatientNotFound(createPRPAIN201305UV02());
         assertEquals(result.getAcknowledgement().get(0).getTypeId().getExtension(), "1.16.17.19");
@@ -93,7 +93,7 @@ public class HL7PRPA201306TransformsTest {
 
     @Test
     public void createPRPA201306ForPatientNotFoundReceiverNull() {
-        PRPAIN201306UV02 result = null;
+        PRPAIN201306UV02 result;
         HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
         result = transforms.createPRPA201306ForPatientNotFound(createPRPAIN201305UV02WhenReceiverNull());
         assertNull(result);
@@ -101,7 +101,7 @@ public class HL7PRPA201306TransformsTest {
 
     @Test
     public void createPRPA201306ForPatientNotFoundSenderNull() {
-        PRPAIN201306UV02 result = null;
+        PRPAIN201306UV02 result;
         HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
         result = transforms.createPRPA201306ForPatientNotFound(createPRPAIN201305UV02WhenSenderNull());
         assertNull(result);
@@ -109,7 +109,7 @@ public class HL7PRPA201306TransformsTest {
 
     @Test
     public void createPRPA201306ForPatientNotFoundInteractionIdNull() {
-        PRPAIN201306UV02 result = null;
+        PRPAIN201306UV02 result;
         HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
         result = transforms.createPRPA201306ForPatientNotFound(createPRPAIN201305UV02WhenIntercationIdNull());
         assertNull(result);
@@ -154,7 +154,7 @@ public class HL7PRPA201306TransformsTest {
     @Test
     public void createPRPA201306ForErrorsWhenErrorTextPresent() {
         HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
-        PRPAIN201306UV02 result = null;
+        PRPAIN201306UV02 result;
         String sErrorCode = "patient not avialable";
         String sErrorText = "Internal error";
         result = transforms.createPRPA201306ForErrors(createPRPAIN201305UV02(), sErrorCode, sErrorText);
@@ -164,7 +164,7 @@ public class HL7PRPA201306TransformsTest {
 
     @Test
     public void createQUQIMT021001UV01ControlActProcess() {
-        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess result = null;
+        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess result;
         PRPAMT201301UV02Patient patient = null;
         String localDeviceId = "1.1";
         String aaId = "1.1";
@@ -178,7 +178,7 @@ public class HL7PRPA201306TransformsTest {
 
     @Test
     public void areControlActProcessFieldsNullWhenCAPNull() {
-        boolean result = false;
+        boolean result;
         PRPAIN201305UV02 oRequest = new PRPAIN201305UV02();
         HL7PRPA201306Transforms transforms = new HL7PRPA201306Transforms();
         result = transforms.areControlActProcessFieldsNull(oRequest);
@@ -187,7 +187,7 @@ public class HL7PRPA201306TransformsTest {
 
     @Test
     public void areControlActProcessFieldsNullWhenQueryByParameterNull() {
-        boolean result = false;
+        boolean result;
         PRPAIN201305UV02 oRequest = new PRPAIN201305UV02();
         PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
         oRequest.setControlActProcess(controlActProcess);
@@ -198,7 +198,7 @@ public class HL7PRPA201306TransformsTest {
 
     @Test
     public void areControlActProcessFieldsNullWhenQueryByParameterValueNull() {
-        boolean result = false;
+        boolean result;
         PRPAIN201305UV02 oRequest = new PRPAIN201305UV02();
         PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
         PRPAMT201306UV02QueryByParameter parameter = new PRPAMT201306UV02QueryByParameter();
@@ -211,7 +211,7 @@ public class HL7PRPA201306TransformsTest {
 
     @Test
     public void areControlActProcessFieldsNullWhenQueryIdNull() {
-        boolean result = false;
+        boolean result;
         PRPAIN201305UV02 oRequest = new PRPAIN201305UV02();
         PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
         PRPAMT201306UV02QueryByParameter parameter = new PRPAMT201306UV02QueryByParameter();

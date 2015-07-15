@@ -108,7 +108,7 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
     @NwhinInvocationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class, afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query", version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
         NhinTargetSystemType target) throws Exception {
-        AdhocQueryResponse response = null;
+        AdhocQueryResponse response;
         try {
             String url = target.getUrl();
             if (NullChecker.isNullish(url)) {

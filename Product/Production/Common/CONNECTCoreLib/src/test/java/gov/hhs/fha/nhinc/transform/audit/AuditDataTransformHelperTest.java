@@ -126,7 +126,7 @@ public class AuditDataTransformHelperTest {
      */
     @Test
     public void testCreateActiveParticipantFromAssertion() {
-        String ipAddr = null;
+        String ipAddr;
 
         try {
             ipAddr = InetAddress.getLocalHost().getHostAddress();

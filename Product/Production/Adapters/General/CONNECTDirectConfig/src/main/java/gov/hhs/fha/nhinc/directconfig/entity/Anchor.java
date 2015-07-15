@@ -285,7 +285,7 @@ public class Anchor {
     }
 
     private X509Certificate loadCertFromData() throws CertificateException {
-        X509Certificate cert = null;
+        X509Certificate cert;
         try {
             validate();
             ByteArrayInputStream bais = new ByteArrayInputStream(data);
@@ -301,7 +301,7 @@ public class Anchor {
     }
 
     public X509Certificate toCertificate() throws CertificateException {
-        X509Certificate cert = null;
+        X509Certificate cert;
         try {
             validate();
             ByteArrayInputStream bais = new ByteArrayInputStream(data);

@@ -76,7 +76,7 @@ public class DocRetrieveResponseProcessor {
         RetrieveDocumentSetResponseType response = null;
         if (null != retrieveResponse && null != retrieveResponse.getDocumentResponse()
                 && retrieveResponse.getDocumentResponse().size() > 0) {
-            PatientPreferencesType ptPreferences = null;
+            PatientPreferencesType ptPreferences;
             response = new RetrieveDocumentSetResponseType();
             response.setRegistryResponse(retrieveResponse.getRegistryResponse());
             for (DocumentResponse eachResponse : retrieveResponse.getDocumentResponse()) {
@@ -250,7 +250,7 @@ public class DocRetrieveResponseProcessor {
         if (null != oResponse && null != docResponse && null != oResponse.getRegistryObjectList()) {
             List<JAXBElement<? extends IdentifiableType>> objectList = oResponse.getRegistryObjectList()
                     .getIdentifiable();
-            ExtrinsicObjectType docExtrinsic = null;
+            ExtrinsicObjectType docExtrinsic;
             LOG.debug("Identifiable list size: " + objectList.size());
             for (JAXBElement<? extends IdentifiableType> object : objectList) {
                 IdentifiableType identifiableType = object.getValue();

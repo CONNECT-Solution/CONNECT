@@ -172,8 +172,8 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
     @Override
     public void configureInboundStdImpl() throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-        NhinAdministrativeDistribution nhinAD = null;
-        InboundAdminDistribution inboundAD = null;
+        NhinAdministrativeDistribution nhinAD;
+        InboundAdminDistribution inboundAD;
 
         nhinAD = retrieveBean(NhinAdministrativeDistribution.class, getNhinBeanName());
         inboundAD = retrieveBean(InboundAdminDistribution.class, getStandardInboundBeanName());
@@ -185,8 +185,8 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
     @Override
     public void configureInboundPtImpl() throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-    	NhinAdministrativeDistribution nhinAD = null;
-        InboundAdminDistribution inboundAD = null;
+    	NhinAdministrativeDistribution nhinAD;
+        InboundAdminDistribution inboundAD;
 
         nhinAD = retrieveBean(NhinAdministrativeDistribution.class, getNhinBeanName());
         inboundAD = retrieveBean(InboundAdminDistribution.class, getPassthroughInboundBeanName());
@@ -198,8 +198,8 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
     @Override
     public void configureOutboundStdImpl() throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-        EntityAdministrativeDistribution entityAD = null;
-        OutboundAdminDistribution outboundAD = null;
+        EntityAdministrativeDistribution entityAD;
+        OutboundAdminDistribution outboundAD;
 
         entityAD = retrieveBean(EntityAdministrativeDistribution.class, getEntityUnsecuredBeanName());
         outboundAD = retrieveBean(OutboundAdminDistribution.class, getStandardOutboundBeanName());
@@ -210,8 +210,8 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
     @Override
     public void configureOutboundPtImpl() throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-    	EntityAdministrativeDistribution entityAD = null;
-        OutboundAdminDistribution outboundAD = null;
+    	EntityAdministrativeDistribution entityAD;
+        OutboundAdminDistribution outboundAD;
 
         entityAD = retrieveBean(EntityAdministrativeDistribution.class, getEntityUnsecuredBeanName());
         outboundAD = retrieveBean(OutboundAdminDistribution.class, getPassthroughOutboundBeanName());

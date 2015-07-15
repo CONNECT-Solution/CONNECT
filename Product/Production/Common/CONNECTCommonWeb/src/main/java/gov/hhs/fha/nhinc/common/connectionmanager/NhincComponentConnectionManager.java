@@ -382,7 +382,7 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      */
     public HomeCommunityIdType getHomeCommunityByAssigningAuthority(AssigningAuthorityIdType assigningAuthorityId) {
 
-        String homeCommunityId = null;
+        String homeCommunityId;
         if (NullChecker.isNullish(assigningAuthorityId.getValue())) {
             return null;
         }

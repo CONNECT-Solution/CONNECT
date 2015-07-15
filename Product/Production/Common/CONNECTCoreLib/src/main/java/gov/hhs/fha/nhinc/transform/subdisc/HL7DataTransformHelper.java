@@ -166,8 +166,8 @@ public class HL7DataTransformHelper {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
         ENExplicit enName = (ENExplicit) (factory.createENExplicit());
         List enNamelist = enName.getContent();
-        EnExplicitFamily familyName = null;
-        EnExplicitGiven givenName = null;
+        EnExplicitFamily familyName;
+        EnExplicitGiven givenName;
 
         List<Serializable> choice = pnName.getContent();
         Iterator<Serializable> iterSerialObjects = choice.iterator();
@@ -201,11 +201,11 @@ public class HL7DataTransformHelper {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
         PNExplicit result = (PNExplicit) (factory.createPNExplicit());
         List namelist = result.getContent();
-        String lastName = "";
-        String firstName = "";
+        String lastName;
+        String firstName;
 
-        EnExplicitFamily explicitFamilyName = null;
-        EnExplicitGiven explicitGivenName = null;
+        EnExplicitFamily explicitFamilyName;
+        EnExplicitGiven explicitGivenName;
 
         for (Object item : value.getContent()) {
             if (item instanceof EnFamily) {

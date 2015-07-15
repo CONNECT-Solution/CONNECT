@@ -96,8 +96,9 @@ public class StandardInboundPatientDiscoveryDeferredRequest extends AbstractInbo
 
     @Override
     MCCIIN000002UV01 process(PRPAIN201305UV02 request, AssertionType assertion) {
-        MCCIIN000002UV01 response = null;
-        String errMsg = null;
+        MCCIIN000002UV01 response;
+        String errMsg;
+
         if (isPolicyValid(request, assertion)) {
             LOG.debug("Adapter patient discovery deferred policy check successful");
             response = sendToAdapter(request, assertion);

@@ -156,8 +156,8 @@ public class EventCodeDao {
                     alias[0] = "documentid";
                     Type[] types = new Type[1];
                     types[0] = Hibernate.INTEGER;
-                    List<String> classCodes = null;
-                    List<String> orValues = new ArrayList<String>();
+                    List<String> classCodes;
+                    List<String> orValues;
                     int eventCodeSlotSize = 0;
                     HashMap<String, String> hashMap = new HashMap<String, String>();
                     if (slots != null) {
@@ -211,11 +211,11 @@ public class EventCodeDao {
                     criteria.add(Subqueries.propertyIn("document", subCriteria));
                     criteria.addOrder(Order.asc("document"));
                     eventCodes = criteria.list();
-                    List<Long> DocumentIds = new ArrayList<Long>();
+                    List<Long> DocumentIds;
                     DocumentIds = getDocumentIds(eventCodes);
-                    List<Long> uniqueDocumentIds = new ArrayList<Long>();
+                    List<Long> uniqueDocumentIds;
                     uniqueDocumentIds = getUniqueDocumentIds(DocumentIds);
-                    boolean present = false;
+                    boolean present;
                     List<Long> documentNotPresent = new ArrayList<Long>();
                     for (int i = 0; i < uniqueDocumentIds.size(); i++) {
                         present = documentInAllSlots(eventCodes, eventCodeSlotSize, hashMap, uniqueDocumentIds.get(i));
@@ -378,7 +378,7 @@ public class EventCodeDao {
      * @return the event code
      */
     private String getEventCode(String eventCodeParam, String paramName) {
-        String[] eventCodeList = null;
+        String[] eventCodeList;
         String separate = "\\^\\^";
         eventCodeList = (eventCodeParam.split(separate));
         if (paramName.equalsIgnoreCase("eventCode")) {

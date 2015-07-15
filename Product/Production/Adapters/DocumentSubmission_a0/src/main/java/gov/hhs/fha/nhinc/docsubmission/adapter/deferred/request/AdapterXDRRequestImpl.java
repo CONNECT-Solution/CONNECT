@@ -48,7 +48,7 @@ public class AdapterXDRRequestImpl extends BaseService {
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
             AdapterProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
         LOG.debug("Begin AdapterXDRRequestImpl.provideAndRegisterDocumentSetBRequest(unsecure)");
-        XDRAcknowledgementType response = null;
+        XDRAcknowledgementType response;
 
         ProvideAndRegisterDocumentSetRequestType request = null;
         AssertionType assertion = null;
@@ -67,7 +67,7 @@ public class AdapterXDRRequestImpl extends BaseService {
             gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType body,
             WebServiceContext context) {
         LOG.debug("Begin AdapterXDRRequestImpl.provideAndRegisterDocumentSetBRequest(secure)");
-        XDRAcknowledgementType response = null;
+        XDRAcknowledgementType response;
 
         ProvideAndRegisterDocumentSetRequestType request = null;
         AssertionType assertion = null;

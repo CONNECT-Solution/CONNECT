@@ -57,7 +57,7 @@ public class DocumentRetrieveServiceImpl implements DocumentRetrieveService {
 
     @Override
     public DocumentRetrieveResults retrieveDocuments(DocumentRetrieve documentModel) {
-        RetrieveDocumentSetResponseType response = null;
+        RetrieveDocumentSetResponseType response;
         EntityDocRetrieveProxyWebServiceUnsecuredImpl retrieveResults = new EntityDocRetrieveProxyWebServiceUnsecuredImpl();
         messageDirector = setMessageDirector(documentModel);
         response = retrieveResults.respondingGatewayCrossGatewayRetrieve(messageDirector.getMessage().getRetrieveDocumentSetRequest(), messageDirector.getMessage().getAssertion(), messageDirector.getMessage().getNhinTargetCommunities());

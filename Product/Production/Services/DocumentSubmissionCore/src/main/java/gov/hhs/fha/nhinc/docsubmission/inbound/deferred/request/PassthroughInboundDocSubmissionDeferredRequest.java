@@ -76,7 +76,7 @@ public class PassthroughInboundDocSubmissionDeferredRequest extends AbstractInbo
     XDRAcknowledgementType processDocSubmissionRequest(ProvideAndRegisterDocumentSetRequestType body,
         AssertionType assertion) {
 
-        XDRAcknowledgementType response = null;
+        XDRAcknowledgementType response;
 
         try {
             dsUtils.convertDataToFileLocationIfEnabled(body);

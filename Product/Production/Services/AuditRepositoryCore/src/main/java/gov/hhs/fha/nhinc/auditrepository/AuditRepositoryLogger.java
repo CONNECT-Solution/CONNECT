@@ -64,7 +64,7 @@ public class AuditRepositoryLogger {
     public LogEventRequestType logFindAuditEvents(FindAuditEventsMessageType message, String direction,
         String _interface) {
         LOG.debug("Entering AuditRepositoryLogger.logFindAuditEvents(...)");
-        LogEventRequestType auditMsg = null;
+        LogEventRequestType auditMsg;
         LogFindAuditEventsRequestType logReqMsg = new LogFindAuditEventsRequestType();
         logReqMsg.setMessage(message);
         logReqMsg.setDirection(direction);

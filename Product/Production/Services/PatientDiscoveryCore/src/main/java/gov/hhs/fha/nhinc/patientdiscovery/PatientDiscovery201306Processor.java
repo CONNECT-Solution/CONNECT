@@ -81,7 +81,7 @@ public class PatientDiscovery201306Processor {
         LOG.debug("Begin storeMapping");
         String hcid = getHcid(request);
         LOG.debug("Begin storeMapping: hcid" + hcid);
-        List<String> assigningAuthorityIds = new ArrayList<String>();
+        List<String> assigningAuthorityIds;
         assigningAuthorityIds = extractAAListFrom201306(request);
         // String assigningAuthority = extractAAFrom201306(request);
         for (String assigningAuthority : assigningAuthorityIds) {
@@ -178,7 +178,7 @@ public class PatientDiscovery201306Processor {
     protected List<String> extractAAListFrom201306(PRPAIN201306UV02 msg) {
         LOG.debug("Begin extractAAFrom201306");
         List<String> assigningAuthorityIds = new ArrayList<String>();
-        String assigningAuthority = null;
+        String assigningAuthority;
         int subjCount = 0;
 
         if (msg != null && msg.getControlActProcess() != null
@@ -188,7 +188,6 @@ public class PatientDiscovery201306Processor {
         LOG.debug("storeMapping - Subject Count: " + subjCount);
 
         for (int i = 0; i < subjCount; i++) {
-            assigningAuthority = null;
             if (msg != null
                     && msg.getControlActProcess() != null
                     && NullChecker.isNotNullish(msg.getControlActProcess().getSubject())

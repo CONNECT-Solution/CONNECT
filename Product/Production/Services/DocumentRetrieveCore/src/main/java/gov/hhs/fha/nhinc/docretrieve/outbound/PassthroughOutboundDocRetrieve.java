@@ -64,6 +64,7 @@ public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve 
      * Constructor with dependency injection parameters.
      *
      * @param orchestrator
+     * @param auditLogger
      */
     public PassthroughOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator, DocRetrieveAuditLogger auditLogger) {
         this.orchestrator = orchestrator;
@@ -82,10 +83,10 @@ public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve 
         RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetCommunitiesType targets,
         ADAPTER_API_LEVEL entityAPILevel) {
 
-        RetrieveDocumentSetResponseType response = null;
+        RetrieveDocumentSetResponseType response;
         assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
-        if (validateGuidance(targets, entityAPILevel)) {
 
+        if (validateGuidance(targets, entityAPILevel)) {
             NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
                 targets);
             auditRequest(request, assertion, targetSystem);
@@ -118,5 +119,4 @@ public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve 
     DocRetrieveAuditLogger getAuditLogger() {
         return auditLogger;
     }
-
 }

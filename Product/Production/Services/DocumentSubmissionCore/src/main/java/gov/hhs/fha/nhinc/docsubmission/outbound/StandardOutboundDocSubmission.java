@@ -63,8 +63,10 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
         version = "")
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType body,
         AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-        RegistryResponseType response = null;
+
+        RegistryResponseType response;
         assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
+
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = createRequestForInternalProcessing(
             body, targets, urlInfo);
         NhinTargetSystemType target = getMessageGeneratorUtils().convertFirstToNhinTargetSystemType(targets);

@@ -54,7 +54,7 @@ public class AdapterMpiSecured implements gov.hhs.fha.nhinc.adaptermpi.AdapterMp
      * @return The results from the MPI query.
      */
     public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 findCandidatesRequest) throws FindCandidatesSecuredFault{
-    	PRPAIN201306UV02 oResponse = null;
+    	PRPAIN201306UV02 oResponse;
 
     	try {
     		AdapterMpiImpl oImpl = new AdapterMpiImpl();
