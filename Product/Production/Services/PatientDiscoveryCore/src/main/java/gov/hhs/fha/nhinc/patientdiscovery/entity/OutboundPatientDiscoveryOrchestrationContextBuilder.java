@@ -26,16 +26,6 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
-import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
-import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
-import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
-import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
-
-import org.hl7.v3.PRPAIN201305UV02;
-
 /**
  * @author bhumphrey/paul
  *

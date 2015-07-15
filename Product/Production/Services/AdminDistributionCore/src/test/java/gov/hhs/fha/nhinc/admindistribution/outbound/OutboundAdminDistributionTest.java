@@ -33,7 +33,6 @@ import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
 import java.lang.reflect.Method;
 

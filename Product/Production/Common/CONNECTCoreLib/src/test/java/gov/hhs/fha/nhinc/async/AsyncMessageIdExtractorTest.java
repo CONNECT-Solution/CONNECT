@@ -41,7 +41,6 @@ import javax.xml.ws.handler.MessageContext;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.w3c.dom.Element;
 
 public class AsyncMessageIdExtractorTest {

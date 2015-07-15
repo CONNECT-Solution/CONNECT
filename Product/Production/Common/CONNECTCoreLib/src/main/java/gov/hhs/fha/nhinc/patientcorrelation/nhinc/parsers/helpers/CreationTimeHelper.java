@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import org.hl7.v3.TSExplicit;
 

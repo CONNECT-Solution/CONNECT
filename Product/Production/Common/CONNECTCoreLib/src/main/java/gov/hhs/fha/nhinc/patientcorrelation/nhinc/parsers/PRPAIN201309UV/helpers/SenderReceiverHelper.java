@@ -32,7 +32,6 @@ import org.hl7.v3.II;
 import org.hl7.v3.MCCIMT000100UV01Device;
 import org.hl7.v3.MCCIMT000100UV01Receiver;
 import org.hl7.v3.MCCIMT000100UV01Sender;
-import org.hl7.v3.TELExplicit;
 
 /**
  *

@@ -41,7 +41,6 @@ import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
 import org.junit.Test;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.eq;

@@ -112,10 +112,9 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
     private void warnTooManyTargets(String targetHCID, NhinTargetCommunitiesType targets) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Multiple targets in request message in passthrough mode.");
-        stringBuilder.append("  Only sending to target HCID: ");
-        stringBuilder.append(targetHCID).append(".");
-        stringBuilder.append("  Not sending request to: ");
+        stringBuilder.append("Multiple targets in request message in passthrough mode.  Only sending to target HCID: ")
+            .append(targetHCID).append(".  Not sending request to: ");
+
         Iterator<NhinTargetCommunityType> communityIterator = targets.getNhinTargetCommunity().iterator();
         Boolean first = true;
         while (communityIterator.hasNext()) {

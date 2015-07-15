@@ -26,9 +26,7 @@
  */
 package gov.hhs.fha.nhinc.xmlCommon;
 
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 import javax.xml.namespace.NamespaceContext;
 import org.w3c.dom.Node;
 

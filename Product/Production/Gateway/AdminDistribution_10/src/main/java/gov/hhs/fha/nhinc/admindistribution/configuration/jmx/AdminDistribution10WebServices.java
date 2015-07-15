@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.admindistribution.configuration.jmx;
 
 import gov.hhs.fha.nhinc.admindistribution._10.entity.EntityAdministrativeDistribution;
-import gov.hhs.fha.nhinc.admindistribution._10.entity.EntityAdministrativeDistributionSecured;
 import gov.hhs.fha.nhinc.admindistribution._10.nhin.NhinAdministrativeDistribution;
 import gov.hhs.fha.nhinc.admindistribution.inbound.InboundAdminDistribution;
 import gov.hhs.fha.nhinc.admindistribution.outbound.OutboundAdminDistribution;

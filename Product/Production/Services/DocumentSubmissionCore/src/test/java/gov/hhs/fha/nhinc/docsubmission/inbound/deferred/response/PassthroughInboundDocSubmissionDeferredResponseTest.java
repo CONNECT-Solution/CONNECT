@@ -35,7 +35,6 @@ import gov.hhs.fha.nhinc.docsubmission.audit.DSDeferredResponseAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.audit.transform.DSDeferredResponseAuditTransforms;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-
 import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import static org.junit.Assert.assertSame;
@@ -72,11 +71,11 @@ public class PassthroughInboundDocSubmissionDeferredResponseTest {
         when(adapterProxy.provideAndRegisterDocumentSetBResponse(regResponse, assertion)).thenReturn(expectedResponse);
         PassthroughInboundDocSubmissionDeferredResponse passthroughDocSubmission
             = new PassthroughInboundDocSubmissionDeferredResponse(adapterFactory, getAuditLogger(true)) {
-            @Override
-            protected DSDeferredResponseAuditLogger getAuditLogger() {
-                return new DSDeferredResponseAuditLogger();
-            }
-        };
+                @Override
+                protected DSDeferredResponseAuditLogger getAuditLogger() {
+                    return new DSDeferredResponseAuditLogger();
+                }
+            };
 
         XDRAcknowledgementType actualResponse = passthroughDocSubmission.provideAndRegisterDocumentSetBResponse(
             regResponse, assertion, webContextProperties);
@@ -103,11 +102,11 @@ public class PassthroughInboundDocSubmissionDeferredResponseTest {
         when(adapterProxy.provideAndRegisterDocumentSetBResponse(regResponse, assertion)).thenReturn(expectedResponse);
         PassthroughInboundDocSubmissionDeferredResponse passthroughDocSubmission
             = new PassthroughInboundDocSubmissionDeferredResponse(adapterFactory, getAuditLogger(false)) {
-            @Override
-            protected DSDeferredResponseAuditLogger getAuditLogger() {
-                return new DSDeferredResponseAuditLogger();
-            }
-        };
+                @Override
+                protected DSDeferredResponseAuditLogger getAuditLogger() {
+                    return new DSDeferredResponseAuditLogger();
+                }
+            };
 
         XDRAcknowledgementType actualResponse = passthroughDocSubmission.provideAndRegisterDocumentSetBResponse(
             regResponse, assertion, webContextProperties);

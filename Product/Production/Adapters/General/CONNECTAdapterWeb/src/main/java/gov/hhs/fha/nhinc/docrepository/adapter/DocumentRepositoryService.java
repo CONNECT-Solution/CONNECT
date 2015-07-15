@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docrepository.adapter;
 
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 

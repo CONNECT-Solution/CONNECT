@@ -36,7 +36,6 @@ import javax.xml.ws.soap.SOAPBinding;
 
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * @author bhumphrey

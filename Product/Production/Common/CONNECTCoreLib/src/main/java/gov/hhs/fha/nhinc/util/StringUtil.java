@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.util;
 
-import java.io.File;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.StringTokenizer;
 

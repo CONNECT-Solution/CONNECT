@@ -49,8 +49,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
 import org.nhindirect.xd.common.DirectDocuments;
 import org.nhindirect.xd.transform.XdsDirectDocumentsTransformer;
 

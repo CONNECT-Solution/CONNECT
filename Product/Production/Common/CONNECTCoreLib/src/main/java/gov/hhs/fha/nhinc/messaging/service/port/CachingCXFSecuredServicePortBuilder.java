@@ -34,9 +34,6 @@ import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsSecurityServiceEndpoi
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
-import org.apache.cxf.ws.addressing.WSAddressingFeature;
-
 /**
  * @author akong
  *

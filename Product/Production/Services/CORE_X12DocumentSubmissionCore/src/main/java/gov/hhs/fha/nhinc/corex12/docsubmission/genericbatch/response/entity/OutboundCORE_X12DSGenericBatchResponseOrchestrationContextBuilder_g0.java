@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.entity;
 
-import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.entity.*;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 
 import org.slf4j.Logger;

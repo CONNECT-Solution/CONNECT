@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 import gov.hhs.fha.nhinc.common.nhinccommon.AddressType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.BinaryDocumentPolicyCriteriaType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.BinaryDocumentPolicyCriterionType;
 import java.text.SimpleDateFormat;
 import java.util.Date;

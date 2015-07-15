@@ -34,8 +34,6 @@ import java.util.Map;
 
 import javax.xml.ws.BindingProvider;
 
-import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
-
 /**
  * @author bhumphrey
  * @param <T>

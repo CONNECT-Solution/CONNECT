@@ -35,8 +35,6 @@ import gov.hhs.fha.nhinc.docquery.outbound.OutboundDocQuery;
 
 import javax.servlet.ServletContext;
 
-import org.apache.commons.lang.StringUtils;
-
 /**
  * The Class DocumentQuery30WebServices.
  *

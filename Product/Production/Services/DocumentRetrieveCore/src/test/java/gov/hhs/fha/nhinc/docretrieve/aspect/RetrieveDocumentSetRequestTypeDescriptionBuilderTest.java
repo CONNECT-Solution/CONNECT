@@ -39,7 +39,6 @@ import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import javax.xml.ws.WebServiceContext;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -38,7 +38,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
-import java.util.Collection;
+
 import java.util.HashSet;
 import java.util.Set;
 

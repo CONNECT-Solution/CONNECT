@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.direct.receiver.proxy;
 
-import gov.hhs.fha.nhinc.direct.DirectAdapterEntity;
 import gov.hhs.fha.nhinc.direct.DirectReceiver;
 import javax.mail.internet.MimeMessage;
 import org.slf4j.Logger;

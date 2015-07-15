@@ -45,6 +45,7 @@ public abstract class AbstractInboundDocSubmission implements InboundDocSubmissi
 
     public AbstractInboundDocSubmission(AdapterDocSubmissionProxyObjectFactory adapterFactory,
         DocSubmissionAuditLogger auditLogger) {
+
         this.adapterFactory = adapterFactory;
         this.auditLogger = auditLogger;
     }

@@ -47,7 +47,6 @@ import java.util.concurrent.TimeUnit;
 
 import javax.activation.DataHandler;
 import javax.mail.Address;
-import javax.mail.Flags;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.AddressException;

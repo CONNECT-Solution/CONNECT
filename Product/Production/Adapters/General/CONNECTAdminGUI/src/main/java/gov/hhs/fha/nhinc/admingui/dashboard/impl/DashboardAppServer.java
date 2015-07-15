@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.admingui.dashboard.impl;
 import gov.hhs.fha.nhinc.admingui.application.ApplicationInfo;
 import gov.hhs.fha.nhinc.admingui.dashboard.DashboardObserver;
 import gov.hhs.fha.nhinc.admingui.dashboard.DashboardPanel;
-import javax.servlet.ServletContext;
 
 /**
  *

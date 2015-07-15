@@ -31,7 +31,6 @@ import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
 
 import java.util.UUID;
 
-import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
 /**

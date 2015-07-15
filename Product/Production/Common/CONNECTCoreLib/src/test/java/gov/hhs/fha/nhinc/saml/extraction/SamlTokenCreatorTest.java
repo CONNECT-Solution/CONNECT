@@ -59,7 +59,7 @@ public class SamlTokenCreatorTest {
     public void CreateRequestContext() {
         SamlTokenCreator token = new SamlTokenCreator();
         String action = null;
-        Map<String, Object> expectedrequestContext = new HashMap<>();
+        Map<String, Object> expectedrequestContext;
         expectedrequestContext = token.createRequestContext(createAssertionInfo(), RESOURCE_URL, action);
 
         // TODO: Remove system.out

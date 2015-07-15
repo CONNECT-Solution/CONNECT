@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.adapterpatientdiscoverysecured.AdapterPatientDiscoveryS
 import gov.hhs.healthit.nhin.PatientDiscoveryFaultType;
 
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 

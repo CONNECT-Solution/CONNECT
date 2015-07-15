@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertNotNull;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
 import org.hl7.v3.AddPatientCorrelationRequestType;

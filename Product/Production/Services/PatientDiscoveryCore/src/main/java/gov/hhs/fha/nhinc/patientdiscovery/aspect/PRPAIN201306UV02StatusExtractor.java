@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
 import gov.hhs.fha.nhinc.util.Base64Coder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hl7.v3.BinaryDataEncoding;

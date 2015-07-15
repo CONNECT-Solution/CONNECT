@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.springutils;
 
-import org.springframework.core.io.Resource;
 import org.junit.Test;
 import org.junit.BeforeClass;
 import static org.junit.Assert.*;
