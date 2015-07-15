@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.adapterpatientdiscoverysecured.AdapterPatientDiscoveryS
 import gov.hhs.healthit.nhin.PatientDiscoveryFaultType;
 
 import javax.annotation.Resource;
+import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
@@ -45,6 +46,7 @@ public class AdapterPatientDiscoverySecured implements gov.hhs.fha.nhinc.adapter
     @Resource
     private WebServiceContext context;
 
+    @WebMethod
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(
             RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request) throws AdapterPatientDiscoverySecuredFault {
 

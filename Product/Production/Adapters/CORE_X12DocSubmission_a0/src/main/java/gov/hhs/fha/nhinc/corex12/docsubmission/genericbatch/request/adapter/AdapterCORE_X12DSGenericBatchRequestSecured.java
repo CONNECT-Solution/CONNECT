@@ -30,21 +30,26 @@ import gov.hhs.fha.nhinc.adaptercoresecured.AdapterCOREGenericBatchTransactionSe
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionResponseSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionSecuredRequestType;
 import javax.annotation.Resource;
+import javax.jws.WebMethod;
+import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
  *
  * @author svalluripalli
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@WebService
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class AdapterCORE_X12DSGenericBatchRequestSecured implements AdapterCOREGenericBatchTransactionSecuredPortType
 {
     @Resource
     private WebServiceContext context;
 
+    @WebMethod
     @Override
     public AdapterBatchSubmissionResponseSecuredType batchSubmitTransaction(AdapterBatchSubmissionSecuredRequestType body) {
         return new AdapterCORE_X12DSGenericBatchRequestImpl().batchSubmitTransaction(body, context);

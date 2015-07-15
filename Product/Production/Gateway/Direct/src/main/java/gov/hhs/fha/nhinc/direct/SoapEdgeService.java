@@ -36,6 +36,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.SOAPBinding;
@@ -76,6 +77,7 @@ public class SoapEdgeService implements ihe.iti.xds_b._2007.DocumentRepositoryPo
      * org.nhind.xdr.DocumentRepositoryAbstract#documentRepositoryProvideAndRegisterDocumentSetB(ihe.iti.xds_b._2007
      * .ProvideAndRegisterDocumentSetRequestType)
      */
+    @WebMethod
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ProvideAndRegisterDocumentSetRequestType body) {
         RegistryResponseType resp;
@@ -102,6 +104,7 @@ public class SoapEdgeService implements ihe.iti.xds_b._2007.DocumentRepositoryPo
      * @seeorg.nhind.xdr.DocumentRepositoryAbstract#documentRepositoryRetrieveDocumentSet(ihe.iti.xds_b._2007.
      * RetrieveDocumentSetRequestType)
      */
+    @WebMethod
     public RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(RetrieveDocumentSetRequestType body) {
         throw new UnsupportedOperationException("Not implemented for XDR");
     }

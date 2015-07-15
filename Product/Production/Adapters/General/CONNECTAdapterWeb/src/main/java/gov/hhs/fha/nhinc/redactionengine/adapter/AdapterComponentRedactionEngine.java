@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocRetrieveResultsReque
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocRetrieveResultsResponseType;
 
 import javax.annotation.Resource;
+import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
@@ -45,6 +46,7 @@ gov.hhs.fha.nhinc.adaptercomponentredaction.AdapterComponentRedactionEnginePortT
     @Resource
     private WebServiceContext context;
 
+    @WebMethod
     public FilterDocQueryResultsResponseType filterDocQueryResults(
             FilterDocQueryResultsRequestType filterDocQueryResultsRequest) {
         FilterDocQueryResultsResponseType response = null;
@@ -57,6 +59,7 @@ gov.hhs.fha.nhinc.adaptercomponentredaction.AdapterComponentRedactionEnginePortT
         return response;
     }
 
+    @WebMethod
     public FilterDocRetrieveResultsResponseType filterDocRetrieveResults(
             FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest) {
         FilterDocRetrieveResultsResponseType response = null;

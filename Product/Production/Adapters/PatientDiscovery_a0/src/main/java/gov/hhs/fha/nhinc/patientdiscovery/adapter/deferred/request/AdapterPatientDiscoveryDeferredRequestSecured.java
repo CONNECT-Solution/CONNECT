@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request;
 
 import javax.annotation.Resource;
+import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
@@ -39,6 +40,7 @@ public class AdapterPatientDiscoveryDeferredRequestSecured implements gov.hhs.fh
     @Resource
     private WebServiceContext context;
 
+    @WebMethod
     public org.hl7.v3.MCCIIN000002UV01 processPatientDiscoveryAsyncReq(
             org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType processPatientDiscoveryAsyncReqAsyncRequest) {
         return new AdapterPatientDiscoveryDeferredRequestImpl().processPatientDiscoveryAsyncReq(

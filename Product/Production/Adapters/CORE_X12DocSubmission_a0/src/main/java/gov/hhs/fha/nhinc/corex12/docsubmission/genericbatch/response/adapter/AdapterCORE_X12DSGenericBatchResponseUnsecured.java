@@ -29,15 +29,19 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterBatchSubmissionResponseType;
 import javax.annotation.Resource;
+import javax.jws.WebMethod;
+import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
  *
  * @author svalluripalli
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@WebService
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class AdapterCORE_X12DSGenericBatchResponseUnsecured implements gov.hhs.fha.nhinc.adaptercore.AdapterCOREGenericBatchTransactionPortType {
 
@@ -49,6 +53,7 @@ public class AdapterCORE_X12DSGenericBatchResponseUnsecured implements gov.hhs.f
      * @param body
      * @return AdapterBatchSubmissionResponseType
      */
+    @WebMethod
     @Override
     public AdapterBatchSubmissionResponseType batchSubmitTransaction(AdapterBatchSubmissionRequestType body) {
         return new AdapterCORE_X12DSGenericBatchResponseImpl().batchSubmitTransaction(body, context);

@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.policyengine.adapter;
 
 import javax.annotation.Resource;
+import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
@@ -40,6 +41,7 @@ public class AdapterPolicyEngineSecured implements gov.hhs.fha.nhinc.adapterpoli
     @Resource
     private WebServiceContext context;
 
+    @WebMethod
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType checkPolicy(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestSecuredType body) {
         return new AdapterPolicyEngineSecuredImpl().checkPolicy(body, context);

@@ -27,20 +27,25 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter;
 
 import javax.annotation.Resource;
+import javax.jws.WebMethod;
+import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
  *
  * @author JHOPPESC
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@WebService
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class AdapterDocSubmissionUnsecured implements gov.hhs.fha.nhinc.adapterxdr.AdapterXDRPortType {
     @Resource
     private WebServiceContext context;
 
+    @WebMethod
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType provideAndRegisterDocumentSetb(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType body) {
         return new AdapterDocSubmissionImpl().provideAndRegisterDocumentSetb(body, context);

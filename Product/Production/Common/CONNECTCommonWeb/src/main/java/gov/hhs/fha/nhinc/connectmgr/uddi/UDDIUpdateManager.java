@@ -29,6 +29,8 @@ package gov.hhs.fha.nhinc.connectmgr.uddi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.jws.WebMethod;
+
 /**
  *
  * @author Sai Valluripalli
@@ -51,6 +53,7 @@ public class UDDIUpdateManager implements gov.hhs.fha.nhinc.nhinccomponentuddiup
         }
     }
 
+    @WebMethod
     public gov.hhs.fha.nhinc.common.connectionmanagerinfo.UDDIUpdateManagerForceRefreshResponseType forceRefreshFileFromUDDIServer(
             gov.hhs.fha.nhinc.common.connectionmanagerinfo.UDDIUpdateManagerForceRefreshRequestType uddiUpdateManagerForceRefreshRequest) {
         UDDIUpdateManagerHelper helper = new UDDIUpdateManagerHelper();

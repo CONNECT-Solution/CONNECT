@@ -28,6 +28,8 @@ package gov.hhs.fha.nhinc.auditrepository.nhinc;
 
 
 import javax.annotation.Resource;
+import javax.jws.WebMethod;
+import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
@@ -35,6 +37,7 @@ import javax.xml.ws.WebServiceContext;
  *
  * @author Neil Webb
  */
+@WebService
 @BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
 public class AuditRepository implements gov.hhs.fha.nhinc.nhinccomponentauditrepository.AuditRepositoryManagerSecuredPortType {
     @Resource
@@ -48,12 +51,14 @@ public class AuditRepository implements gov.hhs.fha.nhinc.nhinccomponentauditrep
         return context;
     }
 
+    @WebMethod
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType queryAuditEvents(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType queryAuditEventsRequest) {
         return getAuditRepositorySecuredImpl().findAudit(queryAuditEventsRequest.getFindAuditEvents(),
                 getWebServiceContext());
     }
 
+    @WebMethod
     public gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType logEvent(
             gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType logEventRequest) {
         return getAuditRepositorySecuredImpl().logAudit(logEventRequest, getWebServiceContext());
