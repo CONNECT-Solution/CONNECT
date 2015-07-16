@@ -165,7 +165,6 @@ public class TransactionStoreDatabaseTest {
     @Test
     public void testWithNullDao() {
         transactionDAO = mock(TransactionDAO.class);
-        ;
         TransactionStoreDatabase store = getMockTransactionStoreDb();
 
         assertEquals(false, store.insertIntoTransactionRepo(null));
@@ -181,7 +180,7 @@ public class TransactionStoreDatabaseTest {
             @Override
             protected TransactionDAO getTransactionDAO() {
                 return transactionDAO;
-            };
+            }
         };
     }
 

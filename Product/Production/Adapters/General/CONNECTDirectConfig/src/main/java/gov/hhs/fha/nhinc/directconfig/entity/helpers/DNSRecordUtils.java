@@ -113,7 +113,7 @@ public class DNSRecordUtils
             name = name + ".";
 
         if (!target.endsWith("."))
-            target = target + ".";;
+            target = target + ".";
 
         try
         {

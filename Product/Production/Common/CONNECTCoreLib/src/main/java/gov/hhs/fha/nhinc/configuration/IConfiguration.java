@@ -78,12 +78,12 @@ public interface IConfiguration {
      * Set the Direction Parameter
      */
     public enum directionEnum {
-        Outbound, Inbound;
-    };
+        Outbound, Inbound
+    }
 
     public enum serviceEnum {
         PatientDiscoveryDeferredRequest, PatientDiscoveryDeferredResponse, PatientDiscovery, DocumentSubmissionDeferredRequest, DocumentSubmissionDeferredResponse, DocumentSubmission, QueryForDocuments, RetrieveDocuments, AdminDistribution
-    };
+    }
 
     /*
      * Return Specific Service /Direction is in Passthru Mode

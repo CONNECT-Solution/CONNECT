@@ -156,7 +156,6 @@ public class DocumentServiceTest {
         DocumentQueryParams dqParams = mock(DocumentQueryParams.class);
         // EventCodeParam ecParam = mock(EventCodeParam.class);
         EventCodeParam ecParam = new EventCodeParam();
-        ;
         ecParam.setEventCode("T-32000");
         ecParam.setEventCodeScheme("SNM3");
         List<EventCodeParam> ecParamList = new ArrayList<EventCodeParam>();

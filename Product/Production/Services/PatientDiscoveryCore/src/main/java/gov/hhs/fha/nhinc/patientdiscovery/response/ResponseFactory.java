@@ -42,7 +42,7 @@ public class ResponseFactory {
 
     public static enum ResponseModeType {
         VERIFY, TRUST, PASSTHROUGH
-    };
+    }
 
     private static final Logger LOG = LoggerFactory.getLogger(ResponseFactory.class);
 

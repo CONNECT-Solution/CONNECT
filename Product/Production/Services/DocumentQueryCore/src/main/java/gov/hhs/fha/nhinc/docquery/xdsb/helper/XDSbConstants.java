@@ -222,7 +222,7 @@ public class XDSbConstants {
             }
             throw new IllegalArgumentException("No enum constant " + valueString);
         }
-    };
+    }
 
     /**
      * The Enum XDSbStoredQuery.
