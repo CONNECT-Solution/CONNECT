@@ -112,7 +112,7 @@ public class NhinTaskExecutor<CumulativeResponse extends OutboundOrchestratableM
 
                 if (future != null) {
                     try {
-                        IndividualResponse r = (IndividualResponse) future.get();
+                        IndividualResponse r = future.get();
                         if (r != null) {
                             // process response
                             Optional<OutboundResponseProcessor> optionalProcessor = r.getResponseProcessor();

@@ -100,7 +100,7 @@ public class EventLoggingAnnontationTest {
 
     @Test
     public void verifyRetentionAnnotation() {
-        Retention r = (Retention) annotationClass.getAnnotation(Retention.class);
+        Retention r = annotationClass.getAnnotation(Retention.class);
 
         assertNotNull(className + " has retention annotation", r);
 
@@ -109,14 +109,14 @@ public class EventLoggingAnnontationTest {
 
     @Test
     public void verifyTargetAnnotation() {
-        Target t = (Target) annotationClass.getAnnotation(Target.class);
+        Target t = annotationClass.getAnnotation(Target.class);
         assertNotNull(className + " has target annotation", t);
         assertEquals(ElementType.METHOD, t.value()[0]);
     }
 
     @Test
     public void verifyInhertitedAnnotation() {
-        Inherited i = (Inherited) annotationClass.getAnnotation(Inherited.class);
+        Inherited i = annotationClass.getAnnotation(Inherited.class);
         assertNotNull(className + " has inhertied annotation", i);
 
     }

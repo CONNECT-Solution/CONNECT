@@ -158,7 +158,7 @@ public class AdhocQueryResponseDescriptionBuilder extends AssertionEventDescript
             for(JAXBElement<? extends IdentifiableType> identifiable : registryObjectList.getIdentifiable()){
                 if(identifiable.getValue() != null
                         && identifiable.getValue() instanceof ExtrinsicObjectType){
-                    hcids.add(((ExtrinsicObjectType)identifiable.getValue()).getHome());
+                    hcids.add(identifiable.getValue().getHome());
                 }
             }
         }

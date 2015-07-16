@@ -549,7 +549,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
 			// get the document byte array from the hashmap populated earlier
 			byte[] rawData = new byte[0];
 			try {
-				DataHandler dh = (DataHandler) docMap.get(extrinsicObject
+				DataHandler dh = docMap.get(extrinsicObject
 						.getId());
 				rawData = getLargeFileUtils().convertToBytes(dh);
 				doc.setRawData(rawData);

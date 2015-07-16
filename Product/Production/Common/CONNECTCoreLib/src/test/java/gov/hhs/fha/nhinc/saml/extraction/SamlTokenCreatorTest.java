@@ -106,6 +106,7 @@ public class SamlTokenCreatorTest {
         String url = null;
         String action = null;
         SamlTokenCreator token = new SamlTokenCreator();
+
         Map<String, Object> requestContext = token.createRequestContext(assertion, url, action);
         /*ArgumentCaptor<LoggingEvent> arguments = ArgumentCaptor.forClass(LoggingEvent.class);
          verify(appenderMock).doAppend((LoggingEvent) arguments.capture());
@@ -362,14 +363,12 @@ public class SamlTokenCreatorTest {
     private String testHashmapValues(Map<String, Object> map, String attribute) {
         Set<String> keys = map.keySet();
         Iterator<String> itr = keys.iterator();
-        String value;
         String key;
 
         while (itr.hasNext()) {
-            key = (String) itr.next();
+            key = itr.next();
             if (key.equals(attribute)) {
-                value = (String) map.get(key);
-                return value;
+                return (String) map.get(key);
             }
         }
         return null;

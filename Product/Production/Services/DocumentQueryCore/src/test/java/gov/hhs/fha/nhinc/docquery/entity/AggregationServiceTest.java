@@ -71,7 +71,7 @@ public class AggregationServiceTest {
 
         assertEquals(1, idSet.size());
 
-        II[] noDupesArray = (II[]) idSet.toArray(new II[0]);
+        II[] noDupesArray = idSet.toArray(new II[0]);
         assertEquals(id1.getAssigningAuthorityName(), noDupesArray[0].getAssigningAuthorityName());
         assertEquals(id1.getExtension(), noDupesArray[0].getExtension());
         assertEquals(id1.getRoot(), noDupesArray[0].getRoot());

@@ -52,7 +52,7 @@ public class SAMLConfigFactoryTest {
         SAMLConfigFactory configFactory = new SAMLConfigFactory(propFileUtil);
 
         Properties samlProp1 = configFactory.getConfiguration();
-        ((Properties) samlProp1).put("keyTest", "valueTest");
+        samlProp1.put("keyTest", "valueTest");
 
         Properties samlProp2 = configFactory.getConfiguration();
         assertNull(samlProp2.get("keyTest"));

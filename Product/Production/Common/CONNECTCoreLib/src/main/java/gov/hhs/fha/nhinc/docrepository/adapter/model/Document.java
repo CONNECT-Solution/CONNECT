@@ -507,13 +507,13 @@ public class Document {
         if (rawData == null) {
             return null;
         } else {
-            return (byte[]) rawData.clone();
+            return rawData.clone();
         }
     }
 
     public void setRawData(byte[] rawData) {
         if (rawData != null) {
-            this.rawData = (byte[]) rawData.clone();
+            this.rawData = rawData.clone();
         } else {
             this.rawData = null;
         }

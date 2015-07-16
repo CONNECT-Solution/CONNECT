@@ -165,7 +165,7 @@ public class AttributeHelper {
                     // we break here because per the nhin specification, there should only be one attribute value.
                     break;
                 } else if (o instanceof String) {
-                    strBuf.append((String) o + " ");
+                    strBuf.append(o + " ");
 
                     // we DO NOT break here despite the nhin specification because the previous algorithm for handling
                     // these Strings handled multiple values. Until I understand

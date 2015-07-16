@@ -52,7 +52,7 @@ public class OutboundPatientDiscoveryStrategyImpl extends OutboundPatientDiscove
     @Override
     public void execute(OutboundPatientDiscoveryOrchestratable message) {
         if (message instanceof OutboundPatientDiscoveryOrchestratable) {
-            executeStrategy((OutboundPatientDiscoveryOrchestratable) message);
+            executeStrategy(message);
         } else {
             // shouldn't get here
             LOG.error("message was not an OutboundPatientDiscoveryOrchestratable");

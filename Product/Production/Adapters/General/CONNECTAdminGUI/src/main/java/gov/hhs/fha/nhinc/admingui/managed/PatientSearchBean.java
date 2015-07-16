@@ -469,7 +469,7 @@ public class PatientSearchBean {
             Iterator<Entry<Object, Object>> it = localDocumentTypeProperties.entrySet().iterator();
             while (it.hasNext()) {
                 Entry<Object, Object> property = it.next();
-                localDocumentTypeList.add(new SelectItem((String) property.getKey(), (String) property.getValue()));
+                localDocumentTypeList.add(new SelectItem(property.getKey(), (String) property.getValue()));
             }
         } catch (PropertyAccessException ex) {
             LOG.error("Not able to load the document types from the property file:" + ex.getMessage());

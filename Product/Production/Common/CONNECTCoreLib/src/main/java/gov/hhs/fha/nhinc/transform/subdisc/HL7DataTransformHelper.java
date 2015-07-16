@@ -164,7 +164,7 @@ public class HL7DataTransformHelper {
 
     public static ENExplicit convertPNToEN(PNExplicit pnName) {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-        ENExplicit enName = (ENExplicit) (factory.createENExplicit());
+        ENExplicit enName = factory.createENExplicit();
         List enNamelist = enName.getContent();
         EnExplicitFamily familyName;
         EnExplicitGiven givenName;
@@ -199,7 +199,7 @@ public class HL7DataTransformHelper {
 
     public static PNExplicit convertENtoPN(ENExplicit value) {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-        PNExplicit result = (PNExplicit) (factory.createPNExplicit());
+        PNExplicit result = factory.createPNExplicit();
         List namelist = result.getContent();
         String lastName;
         String firstName;
@@ -261,7 +261,7 @@ public class HL7DataTransformHelper {
     public static ENExplicit createEnExplicit(String firstName, String middleName, String lastName, String title,
         String suffix) {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-        ENExplicit enName = (ENExplicit) (factory.createENExplicit());
+        ENExplicit enName = factory.createENExplicit();
         List enNamelist = enName.getContent();
 
         if (NullChecker.isNotNullish(lastName)) {
@@ -291,7 +291,7 @@ public class HL7DataTransformHelper {
     public static PNExplicit createPNExplicit(String firstName, String lastName) {
         LOG.debug("begin CreatePNExplicit");
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-        PNExplicit name = (PNExplicit) (factory.createPNExplicit());
+        PNExplicit name = factory.createPNExplicit();
         List namelist = name.getContent();
 
         if (NullChecker.isNotNullish(lastName)) {

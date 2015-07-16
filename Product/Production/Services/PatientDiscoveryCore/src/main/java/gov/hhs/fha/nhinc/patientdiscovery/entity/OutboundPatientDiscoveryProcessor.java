@@ -206,7 +206,7 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
             if (cumulative instanceof OutboundPatientDiscoveryOrchestratable) {
 
                 OutboundPatientDiscoveryOrchestratable cumulativeResponse = (OutboundPatientDiscoveryOrchestratable) cumulative;
-                OutboundPatientDiscoveryOrchestratable individualResponse = (OutboundPatientDiscoveryOrchestratable) individual;
+                OutboundPatientDiscoveryOrchestratable individualResponse = individual;
                 addResponseToCumulativeResponse(individualResponse, cumulativeResponse);
 
                 OutboundPatientDiscoveryOrchestratable response = new OutboundPatientDiscoveryOrchestratable(null,

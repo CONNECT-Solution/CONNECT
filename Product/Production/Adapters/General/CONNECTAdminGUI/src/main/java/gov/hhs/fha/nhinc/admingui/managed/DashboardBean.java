@@ -164,7 +164,7 @@ public class DashboardBean {
 
         for (Object key : keys) {
             builder.append((String) key).append(" : ")
-                    .append((String) System.getProperty((String) key)).append("\n");
+                    .append(System.getProperty((String) key)).append("\n");
         }
 
         return builder.toString();

@@ -148,11 +148,11 @@ public class CallbackMapPropertiesTest {
 
         List<Object> evidenceAccess = callbackProperties
             .getEvidenceAccessConstent();
-        assertEquals((String) evidenceAccess.get(0), TEST_VALUE);
+        assertEquals(evidenceAccess.get(0), TEST_VALUE);
 
         List<Object> evidenceInstAccess = callbackProperties
             .getEvidenceInstantAccessConsent();
-        assertEquals((String) evidenceInstAccess.get(0), TEST_VALUE);
+        assertEquals(evidenceInstAccess.get(0), TEST_VALUE);
 
         DateTime authnInstant = callbackProperties.getAuthenticationInstant();
         assertTrue(StringUtils.lowerCase(authnInstant.toString()).contains(

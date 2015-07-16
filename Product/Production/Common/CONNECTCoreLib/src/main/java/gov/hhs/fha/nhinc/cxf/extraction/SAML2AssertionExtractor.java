@@ -82,7 +82,7 @@ public class SAML2AssertionExtractor {
             return null;
         }
 
-        MessageContext mContext = (MessageContext) context.getMessageContext();
+        MessageContext mContext = context.getMessageContext();
         SoapHeader header = getSecuritySoapHeader(mContext);
 
         if (header != null) {

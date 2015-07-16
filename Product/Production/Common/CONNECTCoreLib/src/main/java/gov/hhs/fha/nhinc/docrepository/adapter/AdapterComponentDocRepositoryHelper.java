@@ -213,7 +213,7 @@ public class AdapterComponentDocRepositoryHelper {
                     int counter = 0;
                     Iterator<String> iter = slot.getValueList().getValue().iterator();
                     while (iter.hasNext()) {
-                        String value = (String) iter.next();
+                        String value = iter.next();
                         slotValues.append(value);
                         counter++;
                         if (counter < listSize) {
@@ -255,7 +255,7 @@ public class AdapterComponentDocRepositoryHelper {
             if (DocRepoConstants.XDS_SOURCE_PATIENT_INFO_SLOT.equals(slot.getName())) {
                 Iterator<String> iter = slot.getValueList().getValue().iterator();
                 while (iter.hasNext()) {
-                    String nextSlotValue = (String) iter.next();
+                    String nextSlotValue = iter.next();
                     if (nextSlotValue.startsWith(patientInfoName)) {
                         slotValue = nextSlotValue.substring(patientInfoName.length() + 1);
                         LOG.debug(patientInfoName + " extractionValue: " + slotValue);

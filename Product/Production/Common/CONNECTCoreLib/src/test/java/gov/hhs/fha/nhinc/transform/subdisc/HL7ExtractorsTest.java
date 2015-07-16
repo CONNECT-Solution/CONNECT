@@ -427,7 +427,7 @@ public class HL7ExtractorsTest {
 
     private ENExplicit createENExplicit() {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-        ENExplicit enName = (ENExplicit) (factory.createENExplicit());
+        ENExplicit enName = factory.createENExplicit();
         List enNamelist = enName.getContent();
         EnExplicitFamily familyName = new EnExplicitFamily();
         familyName.setPartType("FAM");
@@ -471,7 +471,7 @@ public class HL7ExtractorsTest {
 
     private static PNExplicit createPNExplicitName() {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-        PNExplicit name = (PNExplicit) (factory.createPNExplicit());
+        PNExplicit name = factory.createPNExplicit();
         List namelist = name.getContent();
         EnExplicitFamily familyName = new EnExplicitFamily();
         familyName.setPartType("FAM");

@@ -132,7 +132,7 @@ public class HL7PatientTransformsTest {
 
     private ENExplicit createENExplicit() {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-        ENExplicit enName = (ENExplicit) (factory.createENExplicit());
+        ENExplicit enName = factory.createENExplicit();
         List enNamelist = enName.getContent();
         EnExplicitFamily familyName = new EnExplicitFamily();
         familyName.setPartType("FAM");

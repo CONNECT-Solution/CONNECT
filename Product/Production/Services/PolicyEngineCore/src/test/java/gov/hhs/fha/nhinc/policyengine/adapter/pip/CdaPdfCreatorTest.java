@@ -816,7 +816,7 @@ public class CdaPdfCreatorTest {
                     && (oJaxbElement.getName().getLocalPart().equals("low")) && (oJaxbElement.getValue() != null)
                     && (oJaxbElement.getValue() instanceof IVXBTSExplicit)) {
                 IVXBTSExplicit oHL7LowTime = (IVXBTSExplicit) oJaxbElement.getValue();
-                assertHL7DateOnly(sFieldName + ".content[].low", sExpectedLowValue, ((String) oHL7LowTime.getValue()));
+                assertHL7DateOnly(sFieldName + ".content[].low", sExpectedLowValue, oHL7LowTime.getValue());
             } // if ((oJaxbElement.getName() != null) &&
               // End Time
               // ------------
@@ -825,7 +825,7 @@ public class CdaPdfCreatorTest {
                     && (oJaxbElement.getValue() instanceof IVXBTSExplicit)) {
                 IVXBTSExplicit oHL7HighTime = (IVXBTSExplicit) oJaxbElement.getValue();
                 assertHL7DateOnly(sFieldName + ".content[].high", sExpectedHighValue,
-                        ((String) oHL7HighTime.getValue()));
+                        oHL7HighTime.getValue());
             } // else if ((oJaxbElement.getName() != null) &&
             else {
                 fail(sFieldName + ".content[] contained an unknown object type.");
@@ -917,7 +917,7 @@ public class CdaPdfCreatorTest {
         assertNotNull("cda.title should not have been null. ", oCda.getTitle());
         assertNotNull("cda.title.content should not have been null.  ", oCda.getTitle().getContent());
         assertEquals("cda.title.content,size incorrect: ", 1, oCda.getTitle().getContent().size());
-        assertEquals("cda.title incorrect: ", "Good Health Clinic Care Record Summary", (String) oCda.getTitle()
+        assertEquals("cda.title incorrect: ", "Good Health Clinic Care Record Summary", oCda.getTitle()
                 .getContent().get(0));
     }
 

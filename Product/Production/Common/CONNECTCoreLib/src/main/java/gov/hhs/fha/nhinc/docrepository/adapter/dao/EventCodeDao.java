@@ -334,8 +334,8 @@ public class EventCodeDao {
         boolean doucmentPresent = false;
         while (entries.hasNext()) {
             Entry<String, String> entry = entries.next();
-            String key = (String) entry.getKey();
-            String value = (String) entry.getValue();
+            String key = entry.getKey();
+            String value = entry.getValue();
             for (int j = 0; j < eventCodes.size(); j++) {
                 if ((slotIndex == Integer.parseInt(value))
                         && ((eventCodes.get(j).getEventCode() + "^^" + eventCodes.get(j).getEventCodeScheme())

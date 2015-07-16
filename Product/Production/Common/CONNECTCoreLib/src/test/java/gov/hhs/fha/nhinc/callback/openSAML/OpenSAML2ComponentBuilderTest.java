@@ -51,14 +51,14 @@ public class OpenSAML2ComponentBuilderTest {
     @Test
     public void generateEvAssertionWithoutUnderScore() {
         String uuid = "2345";
-        Assertion assertion = (Assertion) OpenSAML2ComponentBuilder.getInstance().createAssertion(uuid);
+        Assertion assertion = OpenSAML2ComponentBuilder.getInstance().createAssertion(uuid);
         assertEquals(uuid, assertion.getID());
     }
 
     @Test
     public void generateEvAssertionWithUnderScore() {
         String uuid = "_".concat(String.valueOf(UUID.randomUUID()));
-        Assertion assertion = (Assertion) OpenSAML2ComponentBuilder.getInstance().createAssertion(uuid);
+        Assertion assertion = OpenSAML2ComponentBuilder.getInstance().createAssertion(uuid);
         assertEquals(uuid, assertion.getID());
     }
 

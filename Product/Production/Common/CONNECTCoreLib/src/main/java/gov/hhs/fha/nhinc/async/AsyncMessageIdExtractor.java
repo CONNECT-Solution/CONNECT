@@ -70,7 +70,7 @@ public class AsyncMessageIdExtractor {
         }
         for (Header header : headers) {
             if (header.getName().getLocalPart().equalsIgnoreCase(headerName)) {
-                return (Element) ((SoapHeader) header).getObject();
+                return (Element) header.getObject();
             }
         }
         return null;

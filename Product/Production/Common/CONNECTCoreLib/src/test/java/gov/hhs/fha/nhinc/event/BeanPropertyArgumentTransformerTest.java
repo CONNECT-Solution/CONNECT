@@ -99,7 +99,7 @@ public class BeanPropertyArgumentTransformerTest {
 
     @Test
     public void handlesNullArray() {
-        Object[] transformedArguments = builder.transformArguments((Object[]) null);
+        Object[] transformedArguments = builder.transformArguments(null);
         assertEquals(0, transformedArguments.length);
     }
 }
