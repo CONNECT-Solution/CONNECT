@@ -20,7 +20,6 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="QueryForDocuments" keyValue="QueryForDocuments"/>
                 </categoryBag>
             </businessService>
- 
 
             <!--  Retrieve Documents  -->
 
@@ -39,7 +38,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  PatientDiscovery  -->
+            <!--  Patient Discovery  -->
 
             <businessService serviceKey="uddi:testnhincnode:PatientDiscovery">
                 <name xml:lang="en">PatientDiscovery</name>
@@ -146,6 +145,7 @@
                 </categoryBag>
             </businessService>
         </businessServices>
+
         <identifierBag>
             <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="urn:oid:1.1"/>
         </identifierBag>
@@ -161,7 +161,7 @@
         <name xml:lang="en">DoD</name>
         <businessServices>
 
-            <!--  Query for Documents -->
+            <!--  Query for Documents  -->
 
             <businessService serviceKey="uddi:testnhincnode:QueryForDocuments">
                 <name xml:lang="en">QueryForDocuments</name>
@@ -206,8 +206,8 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="RetrieveDocuments" keyValue="RetrieveDocuments"/>
                 </categoryBag>
             </businessService>
- 
-            <!--  PatientDiscovery  -->
+
+            <!--  Patient Discovery  -->
 
             <businessService serviceKey="uddi:testnhincnode:PatientDiscovery">
                 <name xml:lang="en">PatientDiscovery</name>

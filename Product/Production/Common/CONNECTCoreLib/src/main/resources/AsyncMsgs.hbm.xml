@@ -9,49 +9,49 @@
         Purpose of the document follows.
 -->
 <hibernate-mapping package="gov.hhs.fha.nhinc.asyncmsgs.model">
-  <class name="AsyncMsgRecord" table="asyncmsgrepo">
-    <id column="Id" name="Id" type="long">
-      <generator class="native"/>
-    </id>
-    <property column="MessageId" length="100" name="MessageId" type="string"/>
-    <property column="CreationTime" name="CreationTime" not-null="true" type="timestamp"/>
-    <property column="ResponseTime" name="ResponseTime" not-null="false" type="timestamp"/>
-    <property column="Duration" name="Duration" type="long"/>
-    <property column="ServiceName" length="45" name="ServiceName" not-null="false" type="string"/>
-    <property column="Direction" length="10" name="Direction" not-null="false" type="string"/>
-    <property column="CommunityId" length="100" name="CommunityId" not-null="false" type="string"/>
-    <property column="Status" length="45" name="Status" not-null="false" type="string"/>
-    <property column="ResponseType" length="10" name="ResponseType" not-null="false" type="string"/>
-    <property column="Reserved" length="100" name="Reserved" not-null="false" type="string"/>
-    <property column="MsgData" name="MsgData" not-null="false"/>
-    <property column="RspData" name="RspData" not-null="false"/>
-    <property column="AckData" name="AckData" not-null="false"/>
-  </class>
-  
-  <query name="queryByMessageIdAndDirection">
-    <![CDATA[FROM AsyncMsgRecord amr WHERE amr.MessageId = :MessageId AND amr.Direction = :Direction]]>
-  </query>
-  <query name="queryByMessageIdAndServiceName">
-    <![CDATA[FROM AsyncMsgRecord amr WHERE amr.MessageId = :MessageId AND amr.ServiceName = :ServiceName]]>
-  </query>
-  <query name="queryByTime">
-    <![CDATA[FROM AsyncMsgRecord amr WHERE amr.CreationTime < :CreationTime]]>
-  </query>
-  <query name="queryForExpired">
-    <![CDATA[FROM AsyncMsgRecord amr
+    <class name="AsyncMsgRecord" table="asyncmsgrepo">
+        <id column="Id" name="Id" type="long">
+            <generator class="native"/>
+        </id>
+        <property column="MessageId" length="100" name="MessageId" type="string"/>
+        <property column="CreationTime" name="CreationTime" not-null="true" type="timestamp"/>
+        <property column="ResponseTime" name="ResponseTime" not-null="false" type="timestamp"/>
+        <property column="Duration" name="Duration" type="long"/>
+        <property column="ServiceName" length="45" name="ServiceName" not-null="false" type="string"/>
+        <property column="Direction" length="10" name="Direction" not-null="false" type="string"/>
+        <property column="CommunityId" length="100" name="CommunityId" not-null="false" type="string"/>
+        <property column="Status" length="45" name="Status" not-null="false" type="string"/>
+        <property column="ResponseType" length="10" name="ResponseType" not-null="false" type="string"/>
+        <property column="Reserved" length="100" name="Reserved" not-null="false" type="string"/>
+        <property column="MsgData" name="MsgData" not-null="false"/>
+        <property column="RspData" name="RspData" not-null="false"/>
+        <property column="AckData" name="AckData" not-null="false"/>
+    </class>
+
+    <query name="queryByMessageIdAndDirection">
+        <![CDATA[FROM AsyncMsgRecord amr WHERE amr.MessageId = :MessageId AND amr.Direction = :Direction]]>
+    </query>
+    <query name="queryByMessageIdAndServiceName">
+        <![CDATA[FROM AsyncMsgRecord amr WHERE amr.MessageId = :MessageId AND amr.ServiceName = :ServiceName]]>
+    </query>
+    <query name="queryByTime">
+        <![CDATA[FROM AsyncMsgRecord amr WHERE amr.CreationTime < :CreationTime]]>
+    </query>
+    <query name="queryForExpired">
+        <![CDATA[FROM AsyncMsgRecord amr
              WHERE amr.CreationTime < :CreationTime
                AND amr.Status in ('REQRCVD', 'REQRCVDACK')]]>
-  </query>
-  <query name="queryForDeferredQueueProcessing">
-    <![CDATA[FROM AsyncMsgRecord amr
+    </query>
+    <query name="queryForDeferredQueueProcessing">
+        <![CDATA[FROM AsyncMsgRecord amr
              WHERE amr.Direction = 'INBOUND'
                AND amr.ResponseType = 'AUTO'
                AND amr.Status = 'REQRCVDACK']]>
-  </query>
-  <query name="queryForDeferredQueueSelected">
-    <![CDATA[FROM AsyncMsgRecord amr
+    </query>
+    <query name="queryForDeferredQueueSelected">
+        <![CDATA[FROM AsyncMsgRecord amr
              WHERE amr.Direction = 'INBOUND'
                AND amr.ResponseType = 'AUTO'
                AND amr.Status = 'RSPSELECT']]>
-  </query>
+    </query>
 </hibernate-mapping>

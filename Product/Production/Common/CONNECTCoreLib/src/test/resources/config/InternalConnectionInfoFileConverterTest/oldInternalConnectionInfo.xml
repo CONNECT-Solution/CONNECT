@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <InternalConnectionInfos>
-	<internalConnectionInfo>
+    <internalConnectionInfo>
         <homeCommunityId>1.1</homeCommunityId>
         <name>DoD</name>
         <description>DoD Description</description>

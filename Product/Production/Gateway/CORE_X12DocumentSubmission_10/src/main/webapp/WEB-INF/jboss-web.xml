@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jboss-web>    
+<jboss-web>
     <resource-ref>
         <res-ref-name>jdbc/transrepo_datasource</res-ref-name>
         <jndi-name>java:/jdbc/transrepo_datasource</jndi-name>

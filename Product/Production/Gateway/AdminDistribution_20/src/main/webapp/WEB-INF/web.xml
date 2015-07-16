@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+<web-app
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+    version="2.5">
+
     <servlet>
         <servlet-name>cxf</servlet-name>
         <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    
+
     <servlet>
         <servlet-name>PassthruMXBean</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.admindistribution.gateway.InitServlet</servlet-class>
@@ -16,13 +20,12 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-      classpath:CONNECT-interceptor-beans.xml 
-      classpath:CONNECT-context.xml
-      classpath:eventlogging.xml
-      classpath:/admindistribution/_20/applicationContext.xml
-      classpath:/admindistribution/_20/webservices.xml
-      </param-value>
-
+            classpath:CONNECT-interceptor-beans.xml
+            classpath:CONNECT-context.xml
+            classpath:eventlogging.xml
+            classpath:/admindistribution/_20/applicationContext.xml
+            classpath:/admindistribution/_20/webservices.xml
+        </param-value>
     </context-param>
 
     <listener>
@@ -37,6 +40,7 @@
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
+
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>

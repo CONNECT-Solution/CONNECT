@@ -8,11 +8,11 @@
         Purpose of the document follows.
 -->
 <hibernate-mapping package="gov.hhs.fha.nhinc.patientdb.model">
-  <class name="Phonenumber" table="phonenumber">
-    <id name="phonenumberId">
-      <generator class="native"/>
-    </id>
-    <many-to-one column="patientId" lazy="false" name="patient" not-null="true"/>
-    <property column="value" name="value"/>
-  </class>
+    <class name="Phonenumber" table="phonenumber">
+        <id name="phonenumberId">
+            <generator class="native"/>
+        </id>
+        <many-to-one column="patientId" lazy="false" name="patient" not-null="true"/>
+        <property column="value" name="value"/>
+    </class>
 </hibernate-mapping>

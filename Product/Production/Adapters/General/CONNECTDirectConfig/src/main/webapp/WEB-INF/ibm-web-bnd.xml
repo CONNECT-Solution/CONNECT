@@ -7,4 +7,3 @@
 
     <resource-ref binding-name="jdbc/configdb_datasource" name="jdbc/configdb_datasource"/>
 </web-bnd>
-

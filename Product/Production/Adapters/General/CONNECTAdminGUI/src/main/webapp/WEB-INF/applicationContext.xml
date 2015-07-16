@@ -5,10 +5,10 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:jee="http://www.springframework.org/schema/jee"
        xsi:schemaLocation="
-        http://www.springframework.org/schema/beans    http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.0.xsd
-        http://www.springframework.org/schema/tx       http://www.springframework.org/schema/tx/spring-tx.xsd
-        http://www.springframework.org/schema/jee      http://www.springframework.org/schema/jee/spring-jee-3.0.xsd"
+        http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/tx      http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/jee     http://www.springframework.org/schema/jee/spring-jee-3.0.xsd"
        default-autowire="byName">
 
     <context:annotation-config />
@@ -30,5 +30,4 @@
     </bean>
 
     <jee:jndi-lookup id="dataSource" jndi-name="jdbc/adminguidb_datasource" />
-
 </beans>

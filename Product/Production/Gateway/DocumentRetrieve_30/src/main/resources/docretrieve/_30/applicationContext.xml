@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
-    xsi:schemaLocation="
-http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
-">
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/aop     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
     <aop:aspectj-autoproxy proxy-target-class="true" />
     <context:annotation-config />
@@ -20,42 +21,41 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
             </list>
         </property>
     </bean>
- 
+
     <bean id="inboundDocRetrieve" class="gov.hhs.fha.nhinc.docretrieve.inbound.DocRetrieve">
-       <property name="inboundDocRetrieve">
+        <property name="inboundDocRetrieve">
             <bean class="${docretrieve.30.inbound}" />
         </property>
     </bean>
- 
+
     <bean id="entityDocRetrieveUnsecured" class="gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieve">
-       <property name="outboundDocRetrieve">
+        <property name="outboundDocRetrieve">
             <bean class="${docretrieve.30.outbound}" />
-       </property>
+        </property>
     </bean>
-    
+
     <bean id="entityDocRetrieveSecured" class="gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieveSecured">
-       <property name="outboundDocRetrieve">
+        <property name="outboundDocRetrieve">
             <bean class="${docretrieve.30.outbound}" />
-       </property>
+        </property>
     </bean>
-     
-    <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
-    <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
+
     <bean id="stdDROutbound"
       class="gov.hhs.fha.nhinc.docretrieve.outbound.StandardOutboundDocRetrieve">
     </bean>
-    
+
     <bean id="ptDROutbound"
       class="gov.hhs.fha.nhinc.docretrieve.outbound.PassthroughOutboundDocRetrieve">
     </bean>
-    
+
     <bean id="stdDRInbound"
       class="gov.hhs.fha.nhinc.docretrieve.inbound.StandardInboundDocRetrieve">
     </bean>
-    
+
     <bean id="ptDRInbound"
       class="gov.hhs.fha.nhinc.docretrieve.inbound.PassthroughInboundDocRetrieve">
-    </bean>    
-</beans>
+    </bean>
 
-    
+    <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
+    <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
+</beans>

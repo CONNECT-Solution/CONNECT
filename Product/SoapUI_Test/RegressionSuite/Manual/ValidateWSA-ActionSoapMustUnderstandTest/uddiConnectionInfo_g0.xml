@@ -21,7 +21,6 @@
                 </categoryBag>
             </businessService>
 
-
             <!--  Retrieve Documents  -->
 
             <businessService serviceKey="uddi:testnhincnode:RetrieveDocuments">
@@ -39,7 +38,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  PatientDiscovery  -->
+            <!--  Patient Discovery  -->
 
             <businessService serviceKey="uddi:testnhincnode:PatientDiscovery">
                 <name xml:lang="en">PatientDiscovery</name>
@@ -129,7 +128,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  CORE X12 Document Submission RealTime-->
+            <!--  CORE X12 Document Submission RealTime  -->
 
             <businessService serviceKey="uddi:testnhincnode:CORE_X12DSRealTime">
                 <name xml:lang="en">CORE_X12DSRealTime</name>
@@ -146,7 +145,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  CORE X12 Document Submission Generic Batch Request-->
+            <!--  CORE X12 Document Submission Generic Batch Request  -->
 
             <businessService serviceKey="uddi:testnhincnode:CORE_X12DSGenericBatchRequest">
                 <name xml:lang="en">CORE_X12DSGenericBatchRequest</name>
@@ -163,7 +162,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  CORE X12 Document Submission Generic Batch Response-->
+            <!--  CORE X12 Document Submission Generic Batch Response  -->
 
             <businessService serviceKey="uddi:testnhincnode:CORE_X12DSGenericBatchResponse">
                 <name xml:lang="en">CORE_X12DSGenericBatchResponse</name>
@@ -197,6 +196,7 @@
                 </categoryBag>
             </businessService>
         </businessServices>
+
         <identifierBag>
             <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="urn:oid:1.1"/>
         </identifierBag>
@@ -212,7 +212,7 @@
         <name xml:lang="en">DoD</name>
         <businessServices>
 
-            <!--  Query for Documents -->
+            <!--  Query for Documents  -->
 
             <businessService serviceKey="uddi:testnhincnode:QueryForDocuments">
                 <name xml:lang="en">QueryForDocuments</name>
@@ -353,7 +353,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  CORE X12 Document Submission Generic Batch Request-->
+            <!--  CORE X12 Document Submission Generic Batch Request  -->
 
             <businessService serviceKey="uddi:testnhincnode:CORE_X12DSGenericBatchRequest">
                 <name xml:lang="en">CORE_X12DSGenericBatchRequest</name>
@@ -370,7 +370,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  CORE X12 Document Submission Generic Batch Response-->
+            <!--  CORE X12 Document Submission Generic Batch Response  -->
 
             <businessService serviceKey="uddi:testnhincnode:CORE_X12DSGenericBatchResponse">
                 <name xml:lang="en">CORE_X12DSGenericBatchResponse</name>

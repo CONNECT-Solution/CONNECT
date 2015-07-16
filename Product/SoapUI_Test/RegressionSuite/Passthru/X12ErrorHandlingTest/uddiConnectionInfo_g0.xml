@@ -27,7 +27,6 @@
                 </categoryBag>
             </businessService>
 
-
             <!--  Retrieve Documents  -->
 
             <businessService serviceKey="uddi:nhincnode:RetrieveDocuments" businessKey="uddi:testnhieonenode:1.1">
@@ -51,7 +50,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  PatientDiscovery  -->
+            <!--  Patient Discovery  -->
 
             <businessService serviceKey="uddi:nhincnode:PatientDiscovery" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">PatientDiscovery</name>
@@ -162,7 +161,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  CORE X12 Document Submission RealTime-->
+            <!--  CORE X12 Document Submission RealTime  -->
 
             <businessService serviceKey="uddi:nhincnode:CORE_X12DSRealTime" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">CORE_X12DSRealTime</name>
@@ -179,7 +178,7 @@
                 </categoryBag>
             </businessService>
 
-			<!--  CORE X12 Document Submission Generic Batch Request-->
+            <!--  CORE X12 Document Submission Generic Batch Request  -->
 
             <businessService serviceKey="uddi:nhincnode:CORE_X12DSGenericBatchRequest" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">CORE_X12DSGenericBatchRequest</name>
@@ -195,8 +194,8 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="CORE_X12DSGenericBatchRequest" keyValue="CORE_X12DSGenericBatchRequest"/>
                 </categoryBag>
             </businessService>
-			
-			<!--  CORE X12 Document Submission Generic Batch Response-->
+
+            <!--  CORE X12 Document Submission Generic Batch Response  -->
 
             <businessService serviceKey="uddi:nhincnode:CORE_X12DSGenericBatchResponse" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">CORE_X12DSGenericBatchResponse</name>
@@ -212,7 +211,7 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="CORE_X12DSGenericBatchResponse" keyValue="CORE_X12DSGenericBatchResponse"/>
                 </categoryBag>
             </businessService>
-			
+
             <!--  Administrative Distribution  -->
 
             <businessService serviceKey="uddi:nhincnode:AdminDistribution" businessKey="uddi:testnhieonenode:1.1">
@@ -236,6 +235,7 @@
                 </categoryBag>
             </businessService>
         </businessServices>
+
         <identifierBag>
             <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="urn:oid:1.1"/>
         </identifierBag>
@@ -251,7 +251,7 @@
         <name xml:lang="en">Gateway 2</name>
         <businessServices>
 
-            <!--  Query for Documents -->
+            <!--  Query for Documents  -->
 
             <businessService serviceKey="uddi:nhincnode:QueryForDocuments" businessKey="uddi:testnhieonenode:2.2">
                 <name xml:lang="en">QueryForDocuments</name>
@@ -425,7 +425,7 @@
                 </categoryBag>
             </businessService>
 
-			<!--  CORE X12 Document Submission Generic Batch Request-->
+            <!--  CORE X12 Document Submission Generic Batch Request  -->
 
             <businessService serviceKey="uddi:nhincnode:CORE_X12DSGenericBatchRequest" businessKey="uddi:testnhieonenode:2.2">
                 <name xml:lang="en">CORE_X12DSGenericBatchRequest</name>
@@ -441,8 +441,8 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="CORE_X12DSGenericBatchRequest" keyValue="CORE_X12DSGenericBatchRequest"/>
                 </categoryBag>
             </businessService>
-			
-			<!--  CORE X12 Document Submission Generic Batch Response-->
+
+            <!--  CORE X12 Document Submission Generic Batch Response  -->
 
             <businessService serviceKey="uddi:nhincnode:CORE_X12DSGenericBatchResponse" businessKey="uddi:testnhieonenode:2.2">
                 <name xml:lang="en">CORE_X12DSGenericBatchResponse</name>
@@ -458,7 +458,7 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="CORE_X12DSGenericBatchResponse" keyValue="CORE_X12DSGenericBatchResponse"/>
                 </categoryBag>
             </businessService>
-			
+
             <!--  Administrative Distribution  -->
 
             <businessService serviceKey="uddi:nhincnode:AdminDistribution" businessKey="uddi:testnhieonenode:2.2">

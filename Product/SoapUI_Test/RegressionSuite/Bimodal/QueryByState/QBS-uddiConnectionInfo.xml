@@ -9,8 +9,8 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:PatientDiscovery" serviceKey="uddi:testnhincnode:PatientDiscovery">
                         <accessPoint useType="endPoint">https://localhost:8181/NhinTestHelper/NhinPatientDiscovery1.1</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -26,7 +26,7 @@
             <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
         </categoryBag>
     </businessEntity>
-	<businessEntity businessKey="uddi:testnhincnode:4.4">
+    <businessEntity businessKey="uddi:testnhincnode:4.4">
         <name xml:lang="en">DoD</name>
         <businessServices>
             <businessService serviceKey="uddi:testnhincnode:PatientDiscovery" businessKey="uddi:testnhieonenode:4.4">
@@ -35,8 +35,8 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:PatientDiscovery" serviceKey="uddi:testnhincnode:PatientDiscovery">
                         <accessPoint useType="endPoint">https://localhost:8181/NhinTestHelper/NhinPatientDiscovery4.4</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -44,7 +44,7 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="PatientDiscovery" keyValue="PatientDiscovery"/>
                 </categoryBag>
             </businessService>
-			<businessService serviceKey="uddi:testnhincnode:QueryForDocuments" businessKey="uddi:testnhieonenode:4.4">
+            <businessService serviceKey="uddi:testnhincnode:QueryForDocuments" businessKey="uddi:testnhieonenode:4.4">
                 <name xml:lang="en">QueryForDocuments</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:QueryForDocuments" serviceKey="uddi:testnhincnode:QueryForDocuments">
@@ -66,7 +66,7 @@
             <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
         </categoryBag>
     </businessEntity>
-	<businessEntity businessKey="uddi:testnhincnode:5.5">
+    <businessEntity businessKey="uddi:testnhincnode:5.5">
         <name xml:lang="en">DoD</name>
         <businessServices>
             <businessService serviceKey="uddi:testnhincnode:PatientDiscovery" businessKey="uddi:testnhieonenode:5.5">
@@ -75,8 +75,8 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:PatientDiscovery" serviceKey="uddi:testnhincnode:PatientDiscovery">
                         <accessPoint useType="endPoint">https://localhost:8181/NhinTestHelper/NhinPatientDiscovery5.5</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -92,7 +92,7 @@
             <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
         </categoryBag>
     </businessEntity>
-	<businessEntity businessKey="uddi:testnhincnode:6.6">
+    <businessEntity businessKey="uddi:testnhincnode:6.6">
         <name xml:lang="en">DoD</name>
         <businessServices>
             <businessService serviceKey="uddi:testnhincnode:PatientDiscovery" businessKey="uddi:testnhieonenode:6.6">
@@ -101,8 +101,8 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:PatientDiscovery" serviceKey="uddi:testnhincnode:PatientDiscovery">
                         <accessPoint useType="endPoint">https://localhost:8181/NhinTestHelper/NhinPatientDiscovery6.6</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
@@ -110,7 +110,7 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="PatientDiscovery" keyValue="PatientDiscovery"/>
                 </categoryBag>
             </businessService>
-			<businessService serviceKey="uddi:testnhincnode:QueryForDocuments" businessKey="uddi:testnhieonenode:6.6">
+            <businessService serviceKey="uddi:testnhincnode:QueryForDocuments" businessKey="uddi:testnhieonenode:6.6">
                 <name xml:lang="en">QueryForDocuments</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:QueryForDocuments" serviceKey="uddi:testnhincnode:QueryForDocuments">
@@ -132,7 +132,7 @@
             <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Florida" keyValue="US-FL"/>
         </categoryBag>
     </businessEntity>
-	<businessEntity businessKey="uddi:testnhincnode:7.7">
+    <businessEntity businessKey="uddi:testnhincnode:7.7">
         <name xml:lang="en">DoD</name>
         <businessServices>
             <businessService serviceKey="uddi:testnhincnode:PatientDiscovery" businessKey="uddi:testnhieonenode:7.7">
@@ -141,8 +141,8 @@
                     <bindingTemplate bindingKey="uddi:testnhincnode:PatientDiscovery" serviceKey="uddi:testnhincnode:PatientDiscovery">
                         <accessPoint useType="endPoint">https://localhost:8181/NhinTestHelper/NhinPatientDiscovery7.7</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>

@@ -6,13 +6,16 @@
     in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF 
     ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under 
     the License. -->
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap" xmlns:context="http://www.springframework.org/schema/context"
-    xsi:schemaLocation="
-    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
-http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:soap="http://cxf.apache.org/bindings/soap"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
+        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <import resource="classpath:CONNECT-interceptor-beans.xml" />
     <context:property-placeholder />
@@ -95,6 +98,4 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         address="/AdapterAuthentication" serviceName="tns:AdapterAuthentication" endpointName="tns:AdapterAuthenticationPortSoap"
         implementor="gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationService" wsdlLocation="classpath:wsdl/AdapterAuthentication.wsdl">
     </jaxws:endpoint>
-
-
 </beans>

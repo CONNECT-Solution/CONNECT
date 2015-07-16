@@ -19,9 +19,7 @@
 
     <import resource="classpath:CONNECT-context.xml" />
 
-    <!--
-        Beans defined for adaptercore_x12dsgenericbatchrequest
-    -->
+    <!-- Beans defined: adaptercore_x12dsgenericbatchrequest -->
     <alias alias="adaptercore_x12dsgenericbatchrequest" name="adaptercore_x12dsenericbatchrequestwsunsecured" />
 
     <!-- No-op Implementation -->
@@ -165,9 +163,7 @@
         <meta key="default" value="true" />
     </bean>
 
-    <!--
-        Beans defined for nhincore_x12dsgenericbatchresponse
-    -->
+    <!-- Beans defined: nhincore_x12dsgenericbatchresponse -->
     <alias alias="nhincore_x12dsgenericbatchresponse" name="nhincore_x12dsgenericbatchresponsewssecured" />
 
     <!-- No-op Implementation -->

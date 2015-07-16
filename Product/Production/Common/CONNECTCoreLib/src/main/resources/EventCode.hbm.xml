@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="gov.hhs.fha.nhinc.docrepository.adapter.model">
-  <class name="EventCode" table="eventcode">
-    <id column="eventcodeid" name="eventCodeId" type="long">
-      <generator class="increment"/>
-    </id>
-    <many-to-one column="documentid" lazy="false" name="document" not-null="true"/>
-    <property column="EventCode" length="64" name="eventCode" not-null="false" type="string"/>
-    <property column="EventCodeScheme" length="64" name="eventCodeScheme" not-null="false" type="string"/>
-    <property column="EventCodeDisplayName" length="64" name="eventCodeDisplayName" not-null="false" type="string"/>
-  </class>
+    <class name="EventCode" table="eventcode">
+        <id column="eventcodeid" name="eventCodeId" type="long">
+            <generator class="increment"/>
+        </id>
+        <many-to-one column="documentid" lazy="false" name="document" not-null="true"/>
+        <property column="EventCode" length="64" name="eventCode" not-null="false" type="string"/>
+        <property column="EventCodeScheme" length="64" name="eventCodeScheme" not-null="false" type="string"/>
+        <property column="EventCodeDisplayName" length="64" name="eventCodeDisplayName" not-null="false" type="string"/>
+    </class>
 </hibernate-mapping>

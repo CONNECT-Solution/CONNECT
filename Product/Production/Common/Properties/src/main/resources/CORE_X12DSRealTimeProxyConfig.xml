@@ -19,9 +19,7 @@
 
     <import resource="classpath:CONNECT-context.xml" />
 
-    <!--
-        Beans defined for adaptercore_x12dsrealtime
-    -->
+    <!-- Beans defined: adaptercore_x12dsrealtime -->
     <alias alias="adaptercore_x12dsrealtime" name="adaptercore_x12dsrealtimewssecured" />
 
     <!-- No-op Implementation -->

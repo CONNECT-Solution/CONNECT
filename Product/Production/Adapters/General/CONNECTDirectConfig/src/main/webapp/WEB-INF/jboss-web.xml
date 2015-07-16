@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss-web>
-   <resource-ref>
+    <resource-ref>
         <res-ref-name>jdbc/configdb_datasource</res-ref-name>
         <jndi-name>java:/jdbc/configdb_datasource</jndi-name>
         <res-type>javax.sql.DataSource</res-type>
