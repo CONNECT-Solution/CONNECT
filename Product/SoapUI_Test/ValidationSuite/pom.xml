@@ -1,11 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>SoapUI_Test</artifactId>
-        <version>4.5.0-SNAPSHOT</version>
+        <version>4.6.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>ValidationSuite</artifactId>
@@ -238,7 +236,7 @@
                         </executions>
                     </plugin>
 
-                    <!--- Create the Properties jar from the nhinc properties directory for build. Refer to CONN-1212 for more info. -->
+                    <!-- Create the Properties jar from the nhinc properties directory for build. Refer to CONN-1212 for more info. -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-jar-plugin</artifactId>
@@ -274,10 +272,7 @@
                                 </goals>
                                 <configuration>
                                     <target>
-                                        <copy
-                                            file="${project.build.directory}/nhinc-properties-dir/hibernate/configdb.hibernate.build.cfg.xml"
-                                            tofile="${project.build.directory}/nhinc-properties-dir/hibernate/configdb.hibernate.cfg.xml"
-                                            overwrite="true" />
+                                        <copy file="${project.build.directory}/nhinc-properties-dir/hibernate/configdb.hibernate.build.cfg.xml" tofile="${project.build.directory}/nhinc-properties-dir/hibernate/configdb.hibernate.cfg.xml" overwrite="true" />
                                     </target>
                                 </configuration>
                             </execution>
@@ -302,14 +297,10 @@
                                 <configuration>
                                     <target>
                                         <mkdir dir="${project.build.directory}/domain1/config" />
-                                        <copy file="${project.build.directory}/test-classes/chaincerts/gateway.jks"
-                                            todir="${project.build.directory}/domain1/config/" />
-                                        <copy file="${project.build.directory}/test-classes/chaincerts/cacerts.jks"
-                                            todir="${project.build.directory}/domain1/config/" />
-                                        <copy file="${project.build.directory}/test-classes/chaincerts/gateway.jks"
-                                            todir="${project.build.directory}/domain1/lib/classes/" />
-                                        <copy file="${project.build.directory}/test-classes/chaincerts/cacerts.jks"
-                                            todir="${project.build.directory}/domain1/lib/classes/" />
+                                        <copy file="${project.build.directory}/test-classes/chaincerts/gateway.jks" todir="${project.build.directory}/domain1/config/" />
+                                        <copy file="${project.build.directory}/test-classes/chaincerts/cacerts.jks" todir="${project.build.directory}/domain1/config/" />
+                                        <copy file="${project.build.directory}/test-classes/chaincerts/gateway.jks" todir="${project.build.directory}/domain1/lib/classes/" />
+                                        <copy file="${project.build.directory}/test-classes/chaincerts/cacerts.jks" todir="${project.build.directory}/domain1/lib/classes/" />
                                     </target>
                                 </configuration>
                             </execution>
