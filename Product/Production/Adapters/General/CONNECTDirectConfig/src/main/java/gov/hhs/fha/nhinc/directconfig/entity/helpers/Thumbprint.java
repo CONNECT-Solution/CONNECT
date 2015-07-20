@@ -126,6 +126,7 @@ public class Thumbprint {
 
     /**
      * {@inheritDoc}
+     * @return
      */
     @Override
     public String toString() {
@@ -134,6 +135,7 @@ public class Thumbprint {
 
     /**
      * {@inheritDoc}
+     * @return
      */
     @Override
     public boolean equals(Object obj) {
@@ -145,5 +147,12 @@ public class Thumbprint {
 
         // deep compare
         return Arrays.equals(compareTo.digest, digest);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 43 * hash + Arrays.hashCode(this.digest);
+        return hash;
     }
 }
