@@ -142,6 +142,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @param assertion
      * @param privateKey
      * @param certificate
+     * @param publicKey
+     * @return
      * @throws Exception
      */
     protected Element sign(Assertion assertion, X509Certificate certificate, PrivateKey privateKey, PublicKey publicKey)
@@ -157,7 +159,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         try {
             Signer.signObject(signature);
         } catch (SignatureException e) {
-            e.printStackTrace();
+            LOG.error(e.getLocalizedMessage(), e);
             throw new Exception(e);
         }
         return assertionElement;

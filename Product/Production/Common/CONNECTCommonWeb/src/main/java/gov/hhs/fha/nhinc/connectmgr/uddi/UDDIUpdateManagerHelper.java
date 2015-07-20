@@ -31,12 +31,10 @@ import gov.hhs.fha.nhinc.common.connectionmanagerinfo.UDDIUpdateManagerForceRefr
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.UDDIUpdateManagerForceRefreshResponseType;
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.UddiConnectionInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;
@@ -53,7 +51,7 @@ public class UDDIUpdateManagerHelper {
     private static final String UDDI_REFRESH_KEEP_BACKUPS_PROPERTY = "UDDIRefreshKeepBackups";
     private static final String UDDI_MAX_NUM_BACKUPS_PROPERTY = "UDDIMaxNumBackups";
     private static final int MAX_NUM_BACKUP = 10;
-    private static ArrayList<String> backupFileList = new ArrayList<String>();
+    private static final ArrayList<String> backupFileList = new ArrayList<String>();
 
     /**
      * This method retrieves the BusinessDetail data from the UDDI server. The BusinessDetail contains the list of
@@ -103,10 +101,10 @@ public class UDDIUpdateManagerHelper {
         boolean createBackups = true;
         try {
             createBackups = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE,
-                    UDDI_REFRESH_KEEP_BACKUPS_PROPERTY);
+                UDDI_REFRESH_KEEP_BACKUPS_PROPERTY);
         } catch (Exception e) {
             String sErrorMessage = "Failed to retrieve property: " + UDDI_REFRESH_KEEP_BACKUPS_PROPERTY + " from "
-                    + GATEWAY_PROPERTY_FILE + ".properties. Defaulting to creating backups. ";
+                + GATEWAY_PROPERTY_FILE + ".properties. Defaulting to creating backups. ";
             LOG.warn(sErrorMessage, e);
         }
 
@@ -125,7 +123,7 @@ public class UDDIUpdateManagerHelper {
                 }
             } catch (Exception e) {
                 String errorMessage = "Failed to rename the current file: " + uddiFileLocation + " to: "
-                        + backupUddiFileLocation;
+                    + backupUddiFileLocation;
                 LOG.error(errorMessage, e);
             }
         }
@@ -148,7 +146,7 @@ public class UDDIUpdateManagerHelper {
             maxNumBackup = (int) PropertyAccessor.getInstance().getPropertyLong(GATEWAY_PROPERTY_FILE, UDDI_MAX_NUM_BACKUPS_PROPERTY);
         } catch (Exception e) {
             String sErrorMessage = "Failed to retrieve property: " + UDDI_MAX_NUM_BACKUPS_PROPERTY + " from "
-                    + GATEWAY_PROPERTY_FILE + ".properties. Defaulting to " + MAX_NUM_BACKUP;
+                + GATEWAY_PROPERTY_FILE + ".properties. Defaulting to " + MAX_NUM_BACKUP;
             LOG.warn(sErrorMessage, e);
         }
 
@@ -178,7 +176,7 @@ public class UDDIUpdateManagerHelper {
      * @return True if the file was loaded false if it was not.
      */
     public UDDIUpdateManagerForceRefreshResponseType forceRefreshFileFromUDDIServer(
-            UDDIUpdateManagerForceRefreshRequestType part1) {
+        UDDIUpdateManagerForceRefreshRequestType part1) {
         UDDIUpdateManagerForceRefreshResponseType oResponse = new UDDIUpdateManagerForceRefreshResponseType();
         oResponse.setSuccessOrFail(new SuccessOrFailType());
         oResponse.getSuccessOrFail().setSuccess(false);
@@ -210,9 +208,8 @@ public class UDDIUpdateManagerHelper {
             UDDIUpdateManagerForceRefreshResponseType oResponse = helper.forceRefreshFileFromUDDIServer(part1);
             System.out.println("Response = " + oResponse.getSuccessOrFail().isSuccess());
         } catch (Exception e) {
-            System.out.println("An unexpected error occurred: " + e.getMessage());
-            e.printStackTrace();
-            System.exit(-1);
+            LOG.error("An unexpected error occurred: " + e.getLocalizedMessage(), e);
+            throw new RuntimeException(e);
         }
 
         System.out.println("Ending test.");

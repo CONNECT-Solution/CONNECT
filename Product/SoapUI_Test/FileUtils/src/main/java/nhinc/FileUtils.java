@@ -354,7 +354,7 @@ public class FileUtils {
             DocumentBuilder builder = factory.newDocumentBuilder();
             doc = builder.parse(fullPath);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getLocalizedMessage(), e);
             return;
         }
 
@@ -526,7 +526,7 @@ public class FileUtils {
             DocumentBuilder builder = factory.newDocumentBuilder();
             doc = builder.parse(fullPath);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getLocalizedMessage(), e);
             return;
         }
 

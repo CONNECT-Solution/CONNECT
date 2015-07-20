@@ -143,8 +143,8 @@ public class FindAuditEventsTransforms {
 
                 partObject.setParticipantObjectQuery(baOutStrm.toByteArray());
             } catch (Exception e) {
-                e.printStackTrace();
-                throw new RuntimeException();
+                LOG.error(e.getLocalizedMessage(), e);
+                throw new RuntimeException(e);
             }
 
             auditMsg.getParticipantObjectIdentification().add(partObject);

@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.auditrepository.nhinc;
 
+import com.services.nhinc.schema.auditmessage.ObjectFactory;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -35,7 +36,13 @@ import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryRecord;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
 import gov.hhs.fha.nhinc.util.StreamUtils;
-
+import com.services.nhinc.schema.auditmessage.AuditMessageType;
+import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
+import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
@@ -43,23 +50,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.XMLGregorianCalendar;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.services.nhinc.schema.auditmessage.AuditMessageType;
-import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
-import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
+import org.hibernate.Hibernate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -69,6 +68,7 @@ public class AuditRepositoryOrchImpl {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuditRepositoryOrchImpl.class);
     private static final AuditRepositoryDAO auditLogDao = new AuditRepositoryDAO();
+
     private static String logStatus = "";
     private AuditStore dbStore = null;
     private AuditStore fileStore = null;

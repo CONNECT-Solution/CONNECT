@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
 import static org.junit.Assert.assertNotNull;
 
+import gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response.PassthroughInboundPatientDiscoveryDeferredResponse;
 import gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response.StandardInboundPatientDiscoveryDeferredResponse;
 import gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.response.PassthroughOutboundPatientDiscoveryDeferredResponse;
 import gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.response.StandardOutboundPatientDiscoveryDeferredResponse;

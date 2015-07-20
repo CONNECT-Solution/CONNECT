@@ -35,8 +35,10 @@ import javax.xml.soap.SOAPElement;
 import javax.xml.soap.SOAPHeader;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.handler.soap.SOAPMessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
+import javax.xml.ws.handler.soap.SOAPMessageContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -47,10 +49,14 @@ public class AsyncMessageHandler implements SOAPHandler<SOAPMessageContext> {
     private static final String WSA_PREFIX = "wsa";
     private static final String WSA_NS = "http://www.w3.org/2005/08/addressing";
 
+    private static final Logger LOG = LoggerFactory.getLogger(AsyncMessageHandler.class);
+
+    @Override
     public Set<QName> getHeaders() {
         return Collections.emptySet();
     }
 
+    @Override
     public boolean handleMessage(SOAPMessageContext messageContext) {
         Boolean outboundProperty = (Boolean) messageContext.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
 
@@ -59,7 +65,6 @@ public class AsyncMessageHandler implements SOAPHandler<SOAPMessageContext> {
             SOAPHeader oHeader = oMessage.getSOAPHeader();
 
             if (outboundProperty.booleanValue()) {
-
                 if (messageContext.containsKey(NhincConstants.ASYNC_MSG_TYPE_PROP) == true) {
                     String msgType = (String) messageContext.get(NhincConstants.ASYNC_MSG_TYPE_PROP);
 
@@ -104,16 +109,18 @@ public class AsyncMessageHandler implements SOAPHandler<SOAPMessageContext> {
                 // Do nothing for an inbound message
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e.getLocalizedMessage(), e);
         }
 
         return true;
     }
 
+    @Override
     public boolean handleFault(SOAPMessageContext context) {
         return true;
     }
 
+    @Override
     public void close(MessageContext context) {
         // Do nothing
     }

@@ -170,8 +170,8 @@ public class Storer {
             } else {
                 LOG.error("Unable to create Factory...");
             }
-        } catch (HibernateException exp) {
-            exp.printStackTrace();
+        } catch (HibernateException he) {
+            LOG.error(he.getLocalizedMessage(), he);
         } finally {
             if (trans != null && trans.isActive()) {
                 try {

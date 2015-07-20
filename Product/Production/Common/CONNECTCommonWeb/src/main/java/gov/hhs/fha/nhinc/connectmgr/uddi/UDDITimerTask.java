@@ -95,7 +95,7 @@ public class UDDITimerTask {
                 }
             }
         } catch (PropertyAccessException ex) {
-        	LOG.error("UDDITimerTask.run method unable to read UDDIRefreshActive property: " + ex.getMessage());
+            LOG.error("UDDITimerTask.run method unable to read UDDIRefreshActive property: " + ex.getMessage());
         }
     }
 
@@ -112,9 +112,8 @@ public class UDDITimerTask {
             UDDITimerTask oTimerTask = new UDDITimerTask();
             oTimerTask.run();
         } catch (Exception e) {
-            System.out.println("An unexpected exception occurred: " + e.getMessage());
-            e.printStackTrace();
-            System.exit(-1);
+            LOG.error("An unexpected exception occurred: " + e.getLocalizedMessage(), e);
+            throw new RuntimeException(e);
         }
 
         System.out.println("End of test.");

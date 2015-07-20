@@ -38,7 +38,6 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,6 +46,7 @@ import org.slf4j.LoggerFactory;
  * @author jhoppesc
  */
 public class AdapterDocQueryOrchImpl {
+
     private static final Logger LOG = LoggerFactory.getLogger(AdapterDocQueryOrchImpl.class);
     private static final String ERROR_CODE_CONTEXT = AdapterDocQueryOrchImpl.class.getName();
     private static final String ERROR_VALUE = "Input has null value";
@@ -59,10 +59,8 @@ public class AdapterDocQueryOrchImpl {
 
     /**
      *
-     * @param request
-     *            The AdhocQUeryRequest message.
-     * @param assertion
-     *            Assertion received.
+     * @param request The AdhocQUeryRequest message.
+     * @param assertion Assertion received.
      * @return AdhocQueryResponse The AdhocQuery response received.
      */
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion) {
@@ -98,9 +96,8 @@ public class AdapterDocQueryOrchImpl {
                 e.setCodeContext(ERROR_CODE_CONTEXT);
                 e.setErrorCode(DocumentConstants.XDS_ERRORCODE_REPOSITORY_ERROR);
             }
-        } catch (Exception exp) {
-            LOG.error(exp.getMessage());
-            exp.printStackTrace();
+        } catch (Exception e) {
+            LOG.error(e.getLocalizedMessage(), e);
         }
         LOG.debug("End AdapterDocQueryOrchImpl.respondingGatewayCrossGatewayQuery()");
         return response;
@@ -108,16 +105,13 @@ public class AdapterDocQueryOrchImpl {
     }
 
     /**
-     * @param queryRequest
-     *            The AdhocRequest message send to RedactionEngine.
-     * @param queryResponse
-     *            The AdhocQueryResponse received from AdapterComponentDocRegistry.
-     * @param assertion
-     *            Assertion received.
+     * @param queryRequest The AdhocRequest message send to RedactionEngine.
+     * @param queryResponse The AdhocQueryResponse received from AdapterComponentDocRegistry.
+     * @param assertion Assertion received.
      * @return redactionEngine AdhocQueryResponse.
      */
     protected AdhocQueryResponse callRedactionEngine(AdhocQueryRequest queryRequest, AdhocQueryResponse queryResponse,
-            AssertionType assertion) {
+        AssertionType assertion) {
         AdhocQueryResponse response = null;
         if (queryResponse == null) {
             LOG.warn("Did not call redaction engine because the query response was null.");

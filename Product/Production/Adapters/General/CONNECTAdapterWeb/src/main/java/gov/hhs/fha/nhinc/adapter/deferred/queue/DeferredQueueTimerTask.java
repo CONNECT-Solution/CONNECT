@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -98,9 +97,8 @@ public class DeferredQueueTimerTask {
             DeferredQueueTimerTask oTimerTask = new DeferredQueueTimerTask();
             oTimerTask.run();
         } catch (Exception e) {
-            System.out.println("An unexpected exception occurred: " + e.getMessage());
-            e.printStackTrace();
-            System.exit(-1);
+            LOG.error("An unexpected exception occurred: " + e.getLocalizedMessage(), e);
+            throw new RuntimeException(e);
         }
 
         System.out.println("End of test.");

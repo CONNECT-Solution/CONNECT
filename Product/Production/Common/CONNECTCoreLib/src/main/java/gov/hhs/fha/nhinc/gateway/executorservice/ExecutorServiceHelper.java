@@ -29,12 +29,8 @@ package gov.hhs.fha.nhinc.gateway.executorservice;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
-import java.io.CharArrayWriter;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,17 +71,17 @@ public class ExecutorServiceHelper {
 
             // get executor service pool sizes
             String concurrentPoolSizeStr = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.CONCURRENT_POOL_SIZE);
+                NhincConstants.CONCURRENT_POOL_SIZE);
             concurrentPoolSize = Integer.parseInt(concurrentPoolSizeStr);
             String largejobPoolSizeStr = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.LARGEJOB_POOL_SIZE);
+                NhincConstants.LARGEJOB_POOL_SIZE);
             largejobPoolSize = Integer.parseInt(largejobPoolSizeStr);
             // get large job percentage
             String largejobSizePercentStr = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.LARGEJOB_SIZE_PERCENT);
+                NhincConstants.LARGEJOB_SIZE_PERCENT);
 
             // convert to a decimal percent; throws exception for illegal Integer values
-            largejobSizePercent = (double)(new Integer(largejobSizePercentStr)) / 100.0;
+            largejobSizePercent = (double) (new Integer(largejobSizePercentStr)) / 100.0;
 
             if (largejobSizePercent <= 0 || largejobSizePercent >= 1) {
                 throw new NumberFormatException("largejobSizePercentString must be between 0 and 100, exclusive");
@@ -101,11 +97,12 @@ public class ExecutorServiceHelper {
             largejobSizePercent = .75;
         }
         LOG.debug("ExecutorServiceHelper created singleton instance and "
-                + "set executor service configuration parameters: " + "concurrentPoolSize=" + concurrentPoolSize
-                + " largejobPoolSize=" + largejobPoolSize + " largejobSizePercent=" + largejobSizePercent);
+            + "set executor service configuration parameters: " + "concurrentPoolSize=" + concurrentPoolSize
+            + " largejobPoolSize=" + largejobPoolSize + " largejobSizePercent=" + largejobSizePercent);
     }
 
     private static class SingletonHolder {
+
         public static final ExecutorServiceHelper INSTANCE = new ExecutorServiceHelper();
     }
 
@@ -134,8 +131,7 @@ public class ExecutorServiceHelper {
      * Used to determine if a task should be executed using the large job executor service. If targetListCount >=
      * largejobSizePercent * concurrentPoolSize then it is a large job.
      *
-     * @param targetListCount
-     *            is the fan-out count for the task
+     * @param targetListCount is the fan-out count for the task
      * @return boolean true if task should be run using large job executor service
      */
     public static boolean checkExecutorTaskIsLarge(int targetListCount) {
@@ -144,7 +140,7 @@ public class ExecutorServiceHelper {
         if (targetListCount >= maxSize.intValue()) {
             bigJob = true;
             LOG.debug("checkExecutorTaskIsLarge has large job size=" + targetListCount
-                    + " so returning LargeJobExecutor");
+                + " so returning LargeJobExecutor");
         }
         return bigJob;
     }
@@ -152,24 +148,23 @@ public class ExecutorServiceHelper {
     /**
      * Useful util to dump complete exception stack trace
      *
-     * @param ex
+     * @param e
      */
-    public static void outputCompleteException(Exception ex) {
-        String err = "EXCEPTION:" + ex.getMessage() + "\r\n";
-        CharArrayWriter caw = new CharArrayWriter();
-        ex.printStackTrace(new PrintWriter(caw));
-        err += caw.toString();
-        LOG.error(err);
+    public static void outputCompleteException(Exception e) {
+        LOG.error("EXCEPTION: " + e.getLocalizedMessage(), e);
     }
 
     /**
      * Useful util to output exception info in a formatted string
      *
      * @param ex
+     * @param target
+     * @param serviceName
+     * @return
      */
     public static String getFormattedExceptionInfo(Exception ex, NhinTargetSystemType target, String serviceName) {
         String err = "EXCEPTION: " + ex.getClass().getCanonicalName() + "\r\nEXCEPTION Cause Message: "
-                + ex.getMessage() + "\r\n";
+            + ex.getMessage() + "\r\n";
         Throwable cause = ex.getCause();
         if (cause != null) {
             err += "EXCEPTION Cause: " + cause.getClass().getCanonicalName() + "\r\n";
