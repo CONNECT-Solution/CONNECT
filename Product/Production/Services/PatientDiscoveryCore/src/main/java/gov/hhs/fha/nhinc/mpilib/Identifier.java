@@ -93,8 +93,15 @@ public class Identifier implements java.io.Serializable {
             return false;
         }
 
-        return equals(this, (Identifier) obj);
+        Identifier rhs = (Identifier) obj;
 
+        if ((NullChecker.isNullish(this.getId())) || (this.getOrganizationId() == null)
+            || (NullChecker.isNullish(rhs.getId())) || (rhs.getOrganizationId() == null)) {
+            return false;
+        }
+
+        return this.getId().contentEquals(rhs.getId())
+            && this.getOrganizationId().contentEquals(rhs.getOrganizationId());
     }
 
     @Override
@@ -107,15 +114,6 @@ public class Identifier implements java.io.Serializable {
             }
         }
         return hashCode;
-    }
-
-    private boolean equals(Identifier a, Identifier b) {
-        if ((NullChecker.isNullish(a.getId())) || (a.getOrganizationId() == null) || (NullChecker.isNullish(b.getId()))
-                || (b.getOrganizationId() == null)) {
-            return false;
-        }
-
-        return a.getId().contentEquals(b.getId()) && a.getOrganizationId().contentEquals(b.getOrganizationId());
     }
 
 }
