@@ -673,8 +673,8 @@ public class FileUtils {
             backupDir.mkdir();
             //copies the files from the source directory to the destination directory
             copyFolder(confDir, backupDir, log);
-        } catch (Throwable e) {
-            log.error(e.getLocalizedMessage());
+        } catch (IOException ioe) {
+            log.error(ioe.getLocalizedMessage());
         }
         log.info("End backupConfiguration");
     }
@@ -702,8 +702,8 @@ public class FileUtils {
                 //create the temp directory again
                 backupDir.mkdir();
             }
-        } catch (Throwable e) {
-            log.error(e.getMessage());
+        } catch (IOException ioe) {
+            log.error(ioe.getMessage());
         }
         log.info("End restoreConfiguration");
     }

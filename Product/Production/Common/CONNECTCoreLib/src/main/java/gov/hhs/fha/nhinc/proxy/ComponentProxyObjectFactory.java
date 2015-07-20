@@ -27,11 +27,10 @@
 package gov.hhs.fha.nhinc.proxy;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 import java.io.File;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -45,6 +44,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  * @author Neil Webb, Les Westberg
  */
 public abstract class ComponentProxyObjectFactory {
+
     private static final Logger LOG = LoggerFactory.getLogger(ComponentProxyObjectFactory.class);
 
     /**
@@ -57,7 +57,8 @@ public abstract class ComponentProxyObjectFactory {
     // the context is specific to each of the derived classes, we need to keep a map for all of them.
     // We have synchronized the method that sets and retrieves this to make it thread safe.
     // ------------------------------------------------------------------------------------------------
-    private static HashMap<String, LocalApplicationContextInfo> contextMap = new HashMap<String, LocalApplicationContextInfo>();
+    private static final HashMap<String, LocalApplicationContextInfo> contextMap
+        = new HashMap<String, LocalApplicationContextInfo>();
 
     /**
      * Get the URL to properties files.
@@ -71,6 +72,7 @@ public abstract class ComponentProxyObjectFactory {
     /**
      * Create a bean given the bean name of the interface type specified.
      *
+     * @param <T>
      * @param beanName The value of the "id" attribute of a bean element in the configuration file.
      * @param type Type of the bean created. The bean instance created will be cast to this type.
      * @return Bean instance of the type specified.
@@ -125,7 +127,7 @@ public abstract class ComponentProxyObjectFactory {
                 appContext = appContextInfo.getApplicationContext();
             } else {
                 LOG.debug("ApplicationContext for: " + getConfigFileName()
-                        + " was not null - checking to see if it is stale.");
+                    + " was not null - checking to see if it is stale.");
                 long lastModified = getLastModified(configFilePath);
                 if (appContextInfo.getConfigLastModified() != lastModified) {
                     LOG.debug("Refreshing the Spring application context for: " + getConfigFileName());
@@ -179,8 +181,8 @@ public abstract class ComponentProxyObjectFactory {
             } else {
                 LOG.error(filePath + " does not exist.");
             }
-        } catch (Throwable t) {
-            LOG.error("Error getting last modified: " + t.getMessage(), t);
+        } catch (URISyntaxException use) {
+            LOG.error("Error getting last modified: " + use.getMessage(), use);
         }
         return lastModified;
     }
@@ -197,6 +199,7 @@ public abstract class ComponentProxyObjectFactory {
      * put in the map.
      */
     protected static class LocalApplicationContextInfo {
+
         private ApplicationContext applicationContext = null;
         private long configLastModified = -1L;
 

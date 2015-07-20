@@ -77,15 +77,15 @@ public class Storer {
             if (trans != null) {
                 try {
                     trans.commit();
-                } catch (Throwable t) {
-                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }
@@ -110,15 +110,15 @@ public class Storer {
             if (trans != null) {
                 try {
                     trans.commit();
-                } catch (Throwable t) {
-                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }
@@ -176,15 +176,15 @@ public class Storer {
             if (trans != null && trans.isActive()) {
                 try {
                     trans.rollback();
-                } catch (Throwable t) {
-                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }

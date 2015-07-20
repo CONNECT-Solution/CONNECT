@@ -28,13 +28,12 @@ package gov.hhs.fha.nhinc.event.persistence;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.HibernateAccessor;
-
 import java.io.File;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -50,11 +49,11 @@ public class HibernateUtil {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
             SESSION_FACTORY = new Configuration().configure(getConfigFile()).buildSessionFactory();
-        } catch (Throwable ex) {
+        } catch (HibernateException he) {
             // Make sure you log the exception, as it might be swallowed
-            LOG.error("Initial SessionFactory creation failed." + ex, ex.getCause());
-            LOG.error("Initial SessionFactory creation failed." + ex);
-            throw new ExceptionInInitializerError(ex);
+            LOG.error("Initial SessionFactory creation failed." + he, he.getCause());
+            LOG.error("Initial SessionFactory creation failed." + he);
+            throw new ExceptionInInitializerError(he);
         }
     }
 

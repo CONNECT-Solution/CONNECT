@@ -41,6 +41,7 @@ import java.util.TimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -55,7 +56,7 @@ public class AsyncMsgRecordDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(AsyncMsgRecordDao.class);
 
-    private PropertyAccessor accessor;
+    private final PropertyAccessor accessor;
 
     public static final String QUEUE_DIRECTION_INBOUND = "INBOUND";
     public static final String QUEUE_DIRECTION_OUTBOUND = "OUTBOUND";
@@ -90,6 +91,7 @@ public class AsyncMsgRecordDao {
      * Query by Message Id. This should return only one record.
      *
      * @param messageId
+     * @param direction
      * @return matching records
      */
     public List<AsyncMsgRecord> queryByMessageIdAndDirection(String messageId, String direction) {
@@ -117,8 +119,8 @@ public class AsyncMsgRecordDao {
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }
@@ -159,8 +161,8 @@ public class AsyncMsgRecordDao {
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }
@@ -198,8 +200,8 @@ public class AsyncMsgRecordDao {
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }
@@ -208,7 +210,7 @@ public class AsyncMsgRecordDao {
     }
 
     /**
-     * Query for Creation Time less than passed timestamp and status equal to Request Receieved Acknowledged
+     * Query for Creation Time less than passed timestamp and status equal to Request Received Acknowledged
      * [REQRCVDACK]
      *
      * @param timestamp A timestamp
@@ -238,8 +240,8 @@ public class AsyncMsgRecordDao {
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }
@@ -275,8 +277,8 @@ public class AsyncMsgRecordDao {
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }
@@ -313,8 +315,8 @@ public class AsyncMsgRecordDao {
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }
@@ -325,8 +327,7 @@ public class AsyncMsgRecordDao {
     /**
      * Query by Message Id and Service Name. This should return only one record.
      *
-     * @param messageId
-     * @param serviceName
+     * @param queryCriteria
      * @return matching records
      */
     public List<AsyncMsgRecord> queryByCriteria(QueryDeferredQueueRequestType queryCriteria) {
@@ -401,8 +402,8 @@ public class AsyncMsgRecordDao {
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }
@@ -440,12 +441,12 @@ public class AsyncMsgRecordDao {
 
                 LOG.info("AsyncMsgRecord List Inserted successfully...");
                 tx.commit();
-            } catch (Exception e) {
+            } catch (HibernateException he) {
                 result = false;
                 if (tx != null) {
                     tx.rollback();
                 }
-                LOG.error("Error during insertion caused by :" + e.getMessage());
+                LOG.error("Error during insertion caused by :" + he.getMessage());
             } finally {
                 // Actual insertion will happen at this step
                 if (session != null) {
@@ -480,15 +481,15 @@ public class AsyncMsgRecordDao {
             if (trans != null) {
                 try {
                     trans.commit();
-                } catch (Throwable t) {
-                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }
@@ -529,15 +530,15 @@ public class AsyncMsgRecordDao {
             if (trans != null) {
                 try {
                     trans.commit();
-                } catch (Throwable t) {
-                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }
@@ -567,15 +568,15 @@ public class AsyncMsgRecordDao {
             if (trans != null) {
                 try {
                     trans.commit();
-                } catch (Throwable t) {
-                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }

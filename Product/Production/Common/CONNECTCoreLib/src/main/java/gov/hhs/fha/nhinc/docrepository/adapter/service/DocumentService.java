@@ -35,14 +35,13 @@ import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCodeParam;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import gov.hhs.fha.nhinc.util.hash.SHA1HashCode;
-
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,8 +53,8 @@ import org.slf4j.LoggerFactory;
 public class DocumentService {
 
     private static final Logger LOG = LoggerFactory.getLogger(DocumentService.class);
-    private DocumentDao documentDao = new DocumentDao();
-    private EventCodeDao eventCodeDao = new EventCodeDao();
+    private final DocumentDao documentDao = new DocumentDao();
+    private final EventCodeDao eventCodeDao = new EventCodeDao();
 
     /**
      * Save a document record.
@@ -67,7 +66,7 @@ public class DocumentService {
         if (document != null) {
             if (document.getDocumentid() != null) {
                 if (LOG.isDebugEnabled()) {
-                    LOG.debug("Performing an update for document: " + document.getDocumentid().longValue());
+                    LOG.debug("Performing an update for document: " + document.getDocumentid());
                 }
                 Document ecDoc = getDocument(document.getDocumentid());
                 if (ecDoc != null) {
@@ -107,8 +106,10 @@ public class DocumentService {
                         LOG.debug("Successfully created Hash Code for string");
                     }
                     document.setHash(sHash);
-                } catch (Throwable t) {
-                    LOG.error("Failed to create SHA-1 Hash code for Data Text.  Error:" + t.getMessage(), t);
+                } catch (UnsupportedEncodingException uee) {
+                    LOG.error("Failed to create SHA-1 Hash code for Data Text.  Error:" + uee.getMessage(), uee);
+                } catch (NoSuchAlgorithmException nsae) {
+                    LOG.error("Failed to create SHA-1 Hash code for Data Text.  Error:" + nsae.getMessage(), nsae);
                 }
             } else {
                 document.setHash("");

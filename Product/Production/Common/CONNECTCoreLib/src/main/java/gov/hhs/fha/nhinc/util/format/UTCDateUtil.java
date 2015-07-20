@@ -28,10 +28,10 @@ package gov.hhs.fha.nhinc.util.format;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -84,13 +84,14 @@ public class UTCDateUtil {
      *
      * @param dateString String to be parsed containing a date
      * @param dateFormat Format of the date to be parsed
+     * @param timeZone
      * @return Returns the Date object for the given string and format.
      */
     public Date parseDate(String dateString, String dateFormat, TimeZone timeZone) {
         // Candidate to move to a super class for other format types
         if (LOG.isDebugEnabled()) {
             LOG.debug("Parsing (" + dateString + ") using format string (" + dateFormat + ") and time zone ("
-                    + ((timeZone == null) ? "none" : timeZone.getDisplayName()) + ").");
+                + ((timeZone == null) ? "none" : timeZone.getDisplayName()) + ").");
         }
         Date parsed = null;
         if ((dateString != null) && (dateFormat != null)) {
@@ -101,8 +102,8 @@ public class UTCDateUtil {
                 if (parsed != null) {
                     LOG.debug("Date parsed successfully");
                 }
-            } catch (Throwable t) {
-                LOG.warn("Error parsing '" + dateString + "' using format: '" + dateFormat + "'", t);
+            } catch (ParseException pe) {
+                LOG.warn("Error parsing '" + dateString + "' using format: '" + dateFormat + "'", pe);
             }
         }
         return parsed;
@@ -115,7 +116,7 @@ public class UTCDateUtil {
      * @param timeZone Optional time zone. Not used if null.
      * @return Prepared date formatter
      */
-    private DateFormat createDateFormatter(String formatString, TimeZone timeZone) {
+    private DateFormat createDateFormatter(String formatString, TimeZone timeZone) throws IllegalArgumentException {
         // Candidate to move to a super class for other format types
         if (NullChecker.isNullish(formatString)) {
             throw new IllegalArgumentException("Date format string is required to create a date formatter");
@@ -139,7 +140,7 @@ public class UTCDateUtil {
         // Candidate to move to a super class for other format types
         String formatString = dateFormat;
         if ((dateString != null) && (dateFormat != null) && (dateString.length() > 0)
-                && (dateString.length() < dateFormat.length())) {
+            && (dateString.length() < dateFormat.length())) {
             formatString = dateFormat.substring(0, dateString.length());
             if (LOG.isDebugEnabled()) {
                 LOG.debug("New dateFormat: " + dateFormat);
@@ -155,9 +156,9 @@ public class UTCDateUtil {
             try {
                 DateFormat dateFormatter = createDateFormatter(formatString, TimeZone.getTimeZone(TIME_ZONE_UTC));
                 formatted = dateFormatter.format(sourceDate);
-            } catch (Throwable t) {
+            } catch (IllegalArgumentException iae) {
                 LOG.warn("Failed to format a date (" + sourceDate.toString()
-                        + ") to a formatted string using the format '" + formatString + "': " + t.getMessage(), t);
+                    + ") to a formatted string using the format '" + formatString + "': " + iae.getMessage(), iae);
             }
         }
         return formatted;

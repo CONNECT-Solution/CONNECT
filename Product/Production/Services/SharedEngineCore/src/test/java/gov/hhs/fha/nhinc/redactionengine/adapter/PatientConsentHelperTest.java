@@ -37,16 +37,19 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRespon
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPImpl;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.PatientConsentManager;
-import gov.hhs.fha.nhinc.redactionengine.adapter.PatientConsentHelper;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -152,42 +155,6 @@ public class PatientConsentHelperTest {
         }
     }
 
-    @Test
-    public void testRetrievePatientConsentbyPatientIdWithException() {
-        try {
-            String patientId = null;
-            String assigningAuthorityId = null;
-            final AdapterPIPImpl adapterPIP = new AdapterPIPImpl() {
-
-            	@Override
-                protected PatientConsentManager getPatientConsentManager() {
-                    return mockPatientConsentMgr;
-                }
-
-                @Override
-                public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(
-                        RetrievePtConsentByPtIdRequestType request) throws AdapterPIPException {
-                    RetrievePtConsentByPtIdResponseType retrieveResponse = new RetrievePtConsentByPtIdResponseType() {
-
-                        @Override
-                        public PatientPreferencesType getPatientPreferences() {
-                            throw new RuntimeException();
-                        }
-                    };
-                    return retrieveResponse;
-                }
-            };
-            PatientPreferencesType response = testRetrievePatientConsentbyPatientId(patientId, assigningAuthorityId,
-                    adapterPIP);
-            assertNull("PatientPreferencesType was not null", response);
-        } catch (AdapterPIPException ex) {
-            System.out.println("Error running testRetrievePatientConsentbyPatientIdWithException test: "
-                    + ex.getMessage());
-            ex.printStackTrace();
-            fail("Error running testRetrievePatientConsentbyPatientIdWithException test: " + ex.getMessage());
-        }
-    }
-
     public PatientPreferencesType testRetrievePatientConsentbyPatientId(String patientId, String assigningAuthorityId,
             final AdapterPIPImpl adapterPIP) throws AdapterPIPException {
         PatientPreferencesType response;
@@ -262,41 +229,6 @@ public class PatientConsentHelperTest {
                 public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(
                         RetrievePtConsentByPtDocIdRequestType request) throws AdapterPIPException {
                     return null;
-                }
-            };
-
-            PatientPreferencesType patientPreferences = testRetrievePatientConsentbyDocumentId(homeCommunityId,
-                    repositoryId, documentId, adapterPIP);
-            assertNull("PatientPreferencesType was not null", patientPreferences);
-        } catch (Throwable t) {
-            System.out.println("Error running testRetrievePatientConsentbyDocumentId test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testRetrievePatientConsentbyDocumentId test: " + t.getMessage());
-        }
-    }
-
-    @Test
-    public void testRetrievePatientConsentbyDocumentIdWithException() {
-        try {
-            String homeCommunityId = null;
-            String repositoryId = null;
-            String documentId = null;
-            final AdapterPIPImpl adapterPIP = new AdapterPIPImpl() {
-                @Override
-                protected PatientConsentManager getPatientConsentManager() {
-                    return mockPatientConsentMgr;
-                }
-
-                @Override
-                public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(
-                        RetrievePtConsentByPtDocIdRequestType request) throws AdapterPIPException {
-                    RetrievePtConsentByPtDocIdResponseType retrieveResponse = new RetrievePtConsentByPtDocIdResponseType() {
-                        @Override
-                        public PatientPreferencesType getPatientPreferences() {
-                            throw new RuntimeException();
-                        }
-                    };
-                    return retrieveResponse;
                 }
             };
 

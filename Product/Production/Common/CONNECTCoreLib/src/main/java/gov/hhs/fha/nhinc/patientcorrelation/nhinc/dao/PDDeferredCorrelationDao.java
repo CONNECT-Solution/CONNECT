@@ -28,17 +28,16 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao;
 
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.PDDeferredCorrelation;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil;
-
 import java.util.Date;
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hl7.v3.II;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -78,14 +77,14 @@ public class PDDeferredCorrelationDao {
 
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Completed database record retrieve by message id. Results found: "
-                        + ((pdCorrelations == null) ? "0" : Integer.toString(pdCorrelations.size())));
+                    + ((pdCorrelations == null) ? "0" : Integer.toString(pdCorrelations.size())));
             }
         } finally {
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }
@@ -132,8 +131,7 @@ public class PDDeferredCorrelationDao {
     /**
      * Save a record to the database. Updates if the message id already exists in the database.
      *
-     * @param object
-     *            to save.
+     * @param pdCorrelation PDDeferredCorrelation to save
      */
     public void saveOrUpdate(PDDeferredCorrelation pdCorrelation) {
         LOG.debug("PDDeferredCorrelationDao.save() - Begin");
@@ -167,15 +165,15 @@ public class PDDeferredCorrelationDao {
             if (trans != null) {
                 try {
                     trans.commit();
-                } catch (Throwable t) {
-                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }

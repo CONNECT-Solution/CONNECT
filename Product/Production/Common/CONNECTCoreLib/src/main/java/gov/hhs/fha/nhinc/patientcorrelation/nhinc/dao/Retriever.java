@@ -36,6 +36,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Expression;
@@ -260,8 +261,8 @@ public class Retriever {
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
 
             }
