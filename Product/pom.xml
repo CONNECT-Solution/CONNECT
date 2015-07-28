@@ -28,8 +28,8 @@
         <cobertura.check.haltOnFailure>false</cobertura.check.haltOnFailure>
         <cobertura.totalBranchRate>85</cobertura.totalBranchRate>
         <cobertura.totalLineRate>85</cobertura.totalLineRate>
-        <compiler.source>1.6</compiler.source>
-        <compiler.target>1.6</compiler.target>
+        <compiler.source>1.7</compiler.source>
+        <compiler.target>1.7</compiler.target>
     </properties>
 
     <modules>
