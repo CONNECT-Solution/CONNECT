@@ -32,15 +32,24 @@ Product/Install/.backup*/
 Product/PmdReport/
 CheckstyleReport/
 MANIFEST.MF
+1234-xdm.zip
+.validationsuite.temp/
+faces-config.NavData
+
+## Direct
+
 RawMsgFolder/
 BadMsgFolder/
 OutgoingMsgFolder/
 IncomingMsgFolder/
-1234-xdm.zip
-.validationsuite.temp/
+/tmp
+
+## IDE-Specific Files and Folders
+
+# Netbeans
+nbproject/
 nb-configuration.xml
 nbactions.xml
-faces-config.NavData
 
 # Intellij
 .idea/
