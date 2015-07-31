@@ -349,7 +349,10 @@ context.withSql('messagemonitoringdb') { sql ->
 }</script>
         </con:config>
       </con:testStep>
-      <con:properties>
+      <con:setupScript>def runtest = context.findProperty('runDirect4')
+if (runtest=='false'){
+	testRunner.cancel("Skipping this test");
+}</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2015-02-19T23:04:11Z</con:value>
@@ -405,7 +408,10 @@ context.withSql('messagemonitoringdb') { sql ->
 }</script>
         </con:config>
       </con:testStep>
-      <con:properties>
+      <con:setupScript>def runtest = context.findProperty('runDirect3')
+if (runtest=='false'){
+	testRunner.cancel("Skipping this test");
+}</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2015-02-19T23:04:11Z</con:value>
@@ -424,7 +430,7 @@ context.withSql('messagemonitoringdb') { sql ->
         </con:property>
       </con:properties>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingWSAnchorsInvalidDomain" searchProperties="true" disabled="true" id="85d4c8af-0580-4598-8de7-80c4ab6d41a6">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingWSAnchorsInvalidDomain" searchProperties="true" id="85d4c8af-0580-4598-8de7-80c4ab6d41a6">
       <con:settings/>
       <con:testStep type="groovy" name="Clear Local Event Table" disabled="true" id="4ddb84b7-7bb8-446a-a09e-90e72e7e69ca">
         <con:settings/>
@@ -489,7 +495,10 @@ context.withSql('messagemonitoringdb') { sql ->
 }</script>
         </con:config>
       </con:testStep>
-      <con:properties>
+      <con:setupScript>def runtest = context.findProperty('runDirect1')
+if (runtest=='false'){
+	testRunner.cancel("Skipping this test");
+}</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2015-02-19T23:04:11Z</con:value>
@@ -508,7 +517,7 @@ context.withSql('messagemonitoringdb') { sql ->
         </con:property>
       </con:properties>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingWSAnchorsInvalidUser" searchProperties="true" disabled="true" id="a5094c3e-4718-431c-9759-26f3d42deb50">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingWSAnchorsInvalidUser" searchProperties="true" id="a5094c3e-4718-431c-9759-26f3d42deb50">
       <con:settings/>
       <con:testStep type="groovy" name="Clear Local Event Table" disabled="true" id="7863a286-e00b-4d8b-adc8-4b851f24774c">
         <con:settings/>
@@ -594,7 +603,10 @@ context.withSql('messagemonitoringdb') { sql ->
 }</script>
         </con:config>
       </con:testStep>
-      <con:properties>
+      <con:setupScript>def runtest = context.findProperty('runDirect2')
+if (runtest=='false'){
+	testRunner.cancel("Skipping this test");
+}</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2015-02-19T23:04:11Z</con:value>
@@ -613,7 +625,7 @@ context.withSql('messagemonitoringdb') { sql ->
         </con:property>
       </con:properties>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingWSAnchorsDispatchedTimeout" searchProperties="true" disabled="true" id="dd3167d2-e24c-4196-abd4-3be1b3149a52">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingWSAnchorsDispatchedTimeout" searchProperties="true" id="dd3167d2-e24c-4196-abd4-3be1b3149a52">
       <con:settings/>
       <con:testStep type="groovy" name="Set Dispatched and Processed Timeouts" id="13d7a947-fafa-4c5d-8b1f-fa674ecb601c">
         <con:settings/>
@@ -703,7 +715,10 @@ context.withSql('messagemonitoringdb') { sql ->
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "DispatchedMessageReceiveTimeLimit", "86400000", log);</script>
         </con:config>
       </con:testStep>
-      <con:tearDownScript/>
+      <con:setupScript>def runtest = context.findProperty('runDirect5')
+if (runtest=='false'){
+	testRunner.cancel("Skipping this test");
+}</con:setupScript><con:tearDownScript/>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -786,7 +801,10 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
           <delay>30000</delay>
         </con:config>
       </con:testStep>
-      <con:tearDownScript/>
+      <con:setupScript>def runtest = context.findProperty('runDirect6')
+if (runtest=='false'){
+	testRunner.cancel("Skipping this test");
+}</con:setupScript><con:tearDownScript/>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -806,7 +824,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
         </con:property>
       </con:properties>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingWSAnchorsSenderWithExpiredCert" searchProperties="true" disabled="true" id="4a8815b0-0d82-40fd-a999-7a5cb0e88d32">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingWSAnchorsSenderWithExpiredCert" searchProperties="true" id="4a8815b0-0d82-40fd-a999-7a5cb0e88d32">
       <con:settings/>
       <con:testStep type="groovy" name="Clear Local Event Table" disabled="true" id="bfca05f9-0e94-4707-928d-0fe5143cbcdb">
         <con:settings/>
@@ -962,7 +980,10 @@ context.withSql_remote(context.findProperty('EventDB')) { sql_remote ->
 }</script>
         </con:config>
       </con:testStep>
-      <con:properties>
+      <con:setupScript>def runtest = context.findProperty('runDirect7')
+if (runtest=='false'){
+	testRunner.cancel("Skipping this test");
+}</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2015-02-19T23:04:11Z</con:value>
@@ -1060,7 +1081,10 @@ context.withSql('messagemonitoringdb') { sql ->
           <delay>60000</delay>
         </con:config>
       </con:testStep>
-      <con:properties>
+      <con:setupScript>def runtest = context.findProperty('runDirect7')
+if (runtest=='false'){
+	testRunner.cancel("Skipping this test");
+}</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2015-02-19T23:04:11Z</con:value>
@@ -1079,7 +1103,7 @@ context.withSql('messagemonitoringdb') { sql ->
         </con:property>
       </con:properties>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SET TRUST BUNDLE ANCHORS" searchProperties="true" id="6101b38c-153a-4e35-b3fa-86e740013ce2">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SET TRUST BUNDLE ANCHORS" searchProperties="true" id="6101b38c-153a-4e35-b3fa-86e740013ce2" disabled="true">
       <con:settings/>
       <con:testStep type="jdbc" name="Remove Trust Anchors" id="a536e8b0-a4ac-4b11-b8f8-c7d3abd6e74b">
         <con:settings/>
@@ -1125,7 +1149,7 @@ context.withSql('messagemonitoringdb') { sql ->
       </con:testStep>
       <con:properties/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingWSTrustBundles" searchProperties="true" id="36225015-e9f2-4939-9a13-9ebc4f07eec7">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingWSTrustBundles" searchProperties="true" id="36225015-e9f2-4939-9a13-9ebc4f07eec7" disabled="true">
       <con:settings/>
       <con:testStep type="delay" name="Wait for 1 minute" id="92ecbd66-7a5f-404e-902b-802fd8413eb5">
         <con:settings/>
@@ -1164,7 +1188,10 @@ context.withSql('messagemonitoringdb') { sql ->
 }</script>
         </con:config>
       </con:testStep>
-      <con:properties>
+      <con:setupScript>def runtest = context.findProperty('runDirect4')
+if (runtest=='false'){
+	testRunner.cancel("Skipping this test");
+}</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2015-02-19T23:04:11Z</con:value>
@@ -1183,7 +1210,7 @@ context.withSql('messagemonitoringdb') { sql ->
         </con:property>
       </con:properties>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingTrustBundlesNotificationOff" searchProperties="true" id="5684106c-110f-4b0a-8e79-bcdea96a5651">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingTrustBundlesNotificationOff" searchProperties="true" id="5684106c-110f-4b0a-8e79-bcdea96a5651" disabled="true">
       <con:settings/>
       <con:testStep type="delay" name="Wait for 1 minute" id="74ab74f0-b123-4d63-a6a5-cdfea40d9ea4">
         <con:settings/>
@@ -1222,7 +1249,10 @@ context.withSql('messagemonitoringdb') { sql ->
 }</script>
         </con:config>
       </con:testStep>
-      <con:properties>
+      <con:setupScript>def runtest = context.findProperty('runDirect3')
+if (runtest=='false'){
+	testRunner.cancel("Skipping this test");
+}</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2015-02-19T23:04:11Z</con:value>
@@ -1477,7 +1507,7 @@ context.withSql_remote(context.findProperty('EventDB')) { sql_remote ->
         </con:property>
       </con:properties>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SET  KEYSTORE ANCHORS" searchProperties="true" id="2b6bf14f-baf2-4346-a7b4-0246e85f74d8">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SET  KEYSTORE ANCHORS" searchProperties="true" id="2b6bf14f-baf2-4346-a7b4-0246e85f74d8" disabled="true">
       <con:settings/>
       <con:testStep type="jdbc" name="Remove From Trust Bundle Domain RELTN" id="65c4156a-51e7-43f5-a829-eea2ce827503">
         <con:settings/>
@@ -1509,7 +1539,7 @@ context.withSql_remote(context.findProperty('EventDB')) { sql_remote ->
       <con:testStep type="jdbc" name="Remove data from Setting" id="b49c44f6-4274-4620-9b1d-d069075a9d8f">
         <con:settings/>
         <con:config xsi:type="con:JdbcRequestTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:driver>mysql:com.jdbc.driver</con:driver>
+          <con:driver>MySql/com.mysql.jdbc.Driver</con:driver>
           <con:connectionString>jdbc:mysql://localhost:3306/?user=${#Project#DBUser}&amp;password=${#Project#DBPass}</con:connectionString>
           <con:query>DELETE FROM configdb.setting;</con:query>
           <con:properties/>
@@ -1560,7 +1590,7 @@ context.withSql_remote(context.findProperty('EventDB')) { sql_remote ->
       </con:testStep>
       <con:properties/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingKeystoreAnchorsNotificationOff" searchProperties="true" id="b1c2e2fd-ada2-4e71-b6cb-e62ba8e1a5ab">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingKeystoreAnchorsNotificationOff" searchProperties="true" id="b1c2e2fd-ada2-4e71-b6cb-e62ba8e1a5ab" disabled="true">
       <con:settings/>
       <con:testStep type="delay" name="Wait for 1 minute" id="96a41996-e3fd-4dd5-8c77-d278bd514558">
         <con:settings/>
@@ -1597,7 +1627,10 @@ context.withSql('messagemonitoringdb') { sql ->
 }</script>
         </con:config>
       </con:testStep>
-      <con:properties>
+      <con:setupScript>def runtest = context.findProperty('runDirect3')
+if (runtest=='false'){
+	testRunner.cancel("Skipping this test");
+}</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2015-02-19T23:04:11Z</con:value>
@@ -1698,7 +1731,7 @@ context.withSql_remote(context.findProperty('EventDB')) { sql_remote ->
         </con:property>
       </con:properties>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingKeystoreAnchors" searchProperties="true" id="94209a26-44f7-4725-a896-19dd217d5521">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SendDirectMessageUsingKeystoreAnchors" searchProperties="true" id="94209a26-44f7-4725-a896-19dd217d5521" disabled="true">
       <con:settings/>
       <con:testStep type="delay" name="Wait for 1 minute" id="d615e11b-2a9e-4dff-997a-185f7a9916eb">
         <con:settings/>
@@ -1735,7 +1768,10 @@ context.withSql('messagemonitoringdb') { sql ->
 }</script>
         </con:config>
       </con:testStep>
-      <con:properties>
+      <con:setupScript>def runtest = context.findProperty('runDirect4')
+if (runtest=='false'){
+	testRunner.cancel("Skipping this test");
+}</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2015-02-19T23:04:11Z</con:value>
@@ -1819,24 +1855,27 @@ context.withSql_remote(context.findProperty('EventDB')) { sql_remote ->
       <con:settings/>
       <con:testStep type="delay" name="Delay" id="ba52c519-36b3-4d27-bd37-c2edd99ccd5d">
         <con:settings/>
-        <con:config>
-          <delay>300000</delay>
-        </con:config>
+        <con:config><delay>350000</delay></con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Local Assertion for wsanchors-TestCase-1" disabled="true" id="00fe26ef-d25d-4cff-ae16-c2f871fcd34a">
+      <con:testStep type="groovy" name="Verify Local Assertion for wsanchors-TestCase-1" id="00fe26ef-d25d-4cff-ae16-c2f871fcd34a">
         <con:settings/>
-        <con:config>
-          <script>def messageid = testRunner.testCase.testSuite.getPropertyValue("wsanchors-messageid-TestCase1")
+        <con:config><script>def runtest = context.findProperty('runDirect1')
+if (runtest=='true'){
+
+def messageid = testRunner.testCase.testSuite.getPropertyValue("wsanchors-messageid-TestCase1")
 log.info "the message identifier is "+ messageid;
 context.withSql('eventdb') {sql ->
 		assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') +' where transactionId='+'"'+messageid+'"')[0]
-}</script>
-        </con:config>
+}
+
+}</script></con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Local Asserion for wsanchors-TestCase-2" disabled="true" id="40b7cb78-7316-42a1-a40f-9b1e3d1bea16">
+      <con:testStep type="groovy" name="Verify Local Asserion for wsanchors-TestCase-2" id="40b7cb78-7316-42a1-a40f-9b1e3d1bea16">
         <con:settings/>
-        <con:config>
-          <script>def messageid = testRunner.testCase.testSuite.getPropertyValue("wsanchors-messageid-TestCase2")
+        <con:config><script>def runtest = context.findProperty('runDirect2')
+if (runtest=='true'){
+
+def messageid = testRunner.testCase.testSuite.getPropertyValue("wsanchors-messageid-TestCase2")
 log.info "the message identifier is "+ messageid;
 context.withSql('eventdb') {sql ->
 		assert 7 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') +' where transactionId='+'"'+messageid+'"')[0]
@@ -1847,13 +1886,16 @@ context.withSql('eventdb') {sql ->
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_MDN_PROCESSED" and transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_MDN_PROCESSED" and transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="DIRECT_EDGE_NOTIFICATION_FAILED" and transactionId='+'"'+messageid+'"')[0]
-}</script>
-        </con:config>
+}
+
+}</script></con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Remote Assertion for wsanchors-TestCase-2" disabled="true" id="7896b8bb-2fc1-4c80-85b4-93bdd8a108b1">
+      <con:testStep type="groovy" name="Verify Remote Assertion for wsanchors-TestCase-2" id="7896b8bb-2fc1-4c80-85b4-93bdd8a108b1">
         <con:settings/>
-        <con:config>
-          <script>context.withSql_remote('eventdb') {sql_remote ->
+        <con:config><script>def runtest = context.findProperty('runDirect2')
+if (runtest=='true'){
+
+context.withSql_remote('eventdb') {sql_remote ->
 		assert 6 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') +' where transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_DIRECT" and transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_MDN_PROCESSED" and transactionId='+'"'+messageid+'"')[0]
@@ -1861,13 +1903,16 @@ context.withSql('eventdb') {sql ->
 		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_MDN_DISPATCHED" and transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_OUTBOUND_MDN_DISPATCHED" and transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_DIRECT" and transactionId='+'"'+messageid+'"')[0]
-}</script>
-        </con:config>
+}
+
+}</script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="Verify Local Assertion for wsanchors-TestCase-4" id="7f014628-fa90-4c54-a046-ae7962b97030">
         <con:settings/>
-        <con:config>
-          <script>def messageid = testRunner.testCase.testSuite.getPropertyValue("wsanchors-messageid-TestCase4")
+        <con:config><script>def runtest = context.findProperty('runDirect4')
+if (runtest=='true'){
+
+def messageid = testRunner.testCase.testSuite.getPropertyValue("wsanchors-messageid-TestCase4")
 log.info "the message identifier is "+ messageid;
 if (context.findProperty('Notify')=='yes') {
 
@@ -1894,13 +1939,18 @@ if (context.findProperty('Notify')=='yes') {
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="DIRECT_EDGE_NOTIFICATION_SUCCESSFUL" and transactionId='+'"'+messageid+'"')[0]
 	}
 
-}</script>
-        </con:config>
+}
+
+
+
+}</script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="Verify Remote Assertion for wsanchors-TestCase-4" id="2256af6b-070c-4fa3-915a-ab7d90dd3a04">
         <con:settings/>
-        <con:config>
-          <script>def messageid = testRunner.testCase.testSuite.getPropertyValue("wsanchors-messageid-TestCase4")
+        <con:config><script>def runtest = context.findProperty('runDirect4')
+if (runtest=='true'){
+
+def messageid = testRunner.testCase.testSuite.getPropertyValue("wsanchors-messageid-TestCase4")
 log.info "the message identifier is "+ messageid;
 if (context.findProperty('Notify')=='yes') {
 	
@@ -1925,13 +1975,16 @@ if (context.findProperty('Notify')=='yes') {
 		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_DIRECT" and transactionId='+'"'+messageid+'"')[0]
 	}
 
-}</script>
-        </con:config>
+}
+
+}</script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="Verify Local Assertion for wsanchors TestCase -3" id="917ca2fa-f4ae-49d1-8a1d-2e0f832847b1">
         <con:settings/>
-        <con:config>
-          <script>def messageid = testRunner.testCase.testSuite.getPropertyValue("wsanchors-messageid-TestCase3")
+        <con:config><script>def runtest = context.findProperty('runDirect3')
+if (runtest=='true'){
+
+def messageid = testRunner.testCase.testSuite.getPropertyValue("wsanchors-messageid-TestCase3")
 log.info "the message identifier is "+ messageid;
 
 
@@ -1944,13 +1997,16 @@ context.withSql('eventdb') {sql ->
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="DIRECT_EDGE_NOTIFICATION_SUCCESSFUL" and transactionId='+'"'+messageid+'"')[0]
 	
 
-}</script>
-        </con:config>
+}
+
+}</script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="Verify Remote Assertion for wsanchors-TestCase-3" id="c4556644-9315-483f-883a-8b9a7a20ecd9">
         <con:settings/>
-        <con:config>
-          <script>def messageid = testRunner.testCase.testSuite.getPropertyValue("wsanchors-messageid-TestCase3")
+        <con:config><script>def runtest = context.findProperty('runDirect3')
+if (runtest=='true'){
+
+def messageid = testRunner.testCase.testSuite.getPropertyValue("wsanchors-messageid-TestCase3")
 log.info "the message identifier is "+ messageid;
 
 	context.withSql_remote('eventdb') {sql_remote ->
@@ -1961,26 +2017,32 @@ log.info "the message identifier is "+ messageid;
 		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_DIRECT" and transactionId='+'"'+messageid+'"')[0]
 	
 
-}</script>
-        </con:config>
+}
+
+}</script></con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Local Assertion for wsanchors-TestCase-5" disabled="true" id="5160b687-0724-41fb-af0b-b84db8a25673">
+      <con:testStep type="groovy" name="Verify Local Assertion for wsanchors-TestCase-5" id="5160b687-0724-41fb-af0b-b84db8a25673">
         <con:settings/>
-        <con:config>
-          <script>context.withSql('eventdb') {sql ->
+        <con:config><script>def runtest = context.findProperty('runDirect5')
+if (runtest=='true'){
+
+context.withSql('eventdb') {sql ->
 		assert 5 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') +' where transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_DIRECT" and transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_OUTBOUND_DIRECT" and transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_MDN_PROCESSED" and transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_MDN_PROCESSED" and transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="DIRECT_EDGE_NOTIFICATION_FAILED" and transactionId='+'"'+messageid+'"')[0]
-}</script>
-        </con:config>
+}
+
+}</script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="Verify Local Assertion for wsanchors-TestCase-6" id="e4d2f7ab-33c5-4368-bb98-dc2f46e8591f">
         <con:settings/>
-        <con:config>
-          <script>def messageid = testRunner.testCase.testSuite.getPropertyValue("wsanchors-messageid-TestCase6")
+        <con:config><script>def runtest = context.findProperty('runDirect6')
+if (runtest=='true'){
+
+def messageid = testRunner.testCase.testSuite.getPropertyValue("wsanchors-messageid-TestCase6")
 log.info "the message identifier is "+ messageid;
 context.withSql('eventdb') {sql ->
 		assert 7 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where transactionId='+'"'+messageid+'"')[0]
@@ -1991,37 +2053,46 @@ context.withSql('eventdb') {sql ->
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_MDN_PROCESSED" and transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_MDN_DISPATCHED" and transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_MDN_DISPATCHED" and transactionId='+'"'+messageid+'"')[0]
-}</script>
-        </con:config>
+}
+
+}</script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="Verify Local Assertion for wsanchors-TestCase-7" id="e1cc713f-0700-4647-ad07-a7f571315b5b">
         <con:settings/>
-        <con:config>
-          <script>def messageid = testRunner.testCase.testSuite.getPropertyValue("wsanchors-messageid-TestCase7")
+        <con:config><script>def runtest = context.findProperty('runDirect7')
+if (runtest=='true'){
+
+def messageid = testRunner.testCase.testSuite.getPropertyValue("wsanchors-messageid-TestCase7")
 log.info "the message identifier is "+ messageid;
 context.withSql('eventdb') {sql ->
 		assert 3 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') +' where transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_DIRECT" and transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_OUTBOUND_DIRECT" and transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="DIRECT_EDGE_NOTIFICATION_FAILED" and transactionId='+'"'+messageid+'"')[0]
-	}</script>
-        </con:config>
+	}
+
+}</script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="Verify Remote Assertion for wsanchors-TestCase-7" id="ce7cc0b4-b438-44ea-b091-25340362dfdc">
         <con:settings/>
-        <con:config>
-          <script>def messageid = testRunner.testCase.testSuite.getPropertyValue("wsanchors-messageid-TestCase7")
+        <con:config><script>def runtest = context.findProperty('runDirect7')
+if (runtest=='true'){
+
+def messageid = testRunner.testCase.testSuite.getPropertyValue("wsanchors-messageid-TestCase7")
 log.info "the message identifier is "+ messageid;
 context.withSql_remote('eventdb') {sql_remote ->
 		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') +' where transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="DIRECT_ERROR" and transactionId='+'"'+messageid+'"')[0]
-}</script>
-        </con:config>
+}
+
+}</script></con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Local Assertion for wstrustbundle-TestCase-4" id="8c4b05d3-9c5d-45df-8a26-419fb93bc3c4">
+      <con:testStep type="groovy" name="Verify Local Assertion for wstrustbundle-TestCase-4" id="8c4b05d3-9c5d-45df-8a26-419fb93bc3c4" disabled="true">
         <con:settings/>
-        <con:config>
-          <script>def messageid = testRunner.testCase.testSuite.getPropertyValue("wstrustbundle-messageid-TestCase4")
+        <con:config><script>def runtest = context.findProperty('runDirect4')
+if (runtest=='true'){
+
+def messageid = testRunner.testCase.testSuite.getPropertyValue("wstrustbundle-messageid-TestCase4")
 log.info "the message identifier is "+ messageid;
 if (context.findProperty('Notify')=='yes') {
 
@@ -2048,13 +2119,16 @@ if (context.findProperty('Notify')=='yes') {
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="DIRECT_EDGE_NOTIFICATION_SUCCESSFUL" and transactionId='+'"'+messageid+'"')[0]
 	}
 
-}</script>
-        </con:config>
+}
+
+}</script></con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Remote Assertion for wstrustbundle-TestCase-4" id="23dc5bb5-2a95-407b-8285-8aafc4a509d2">
+      <con:testStep type="groovy" name="Verify Remote Assertion for wstrustbundle-TestCase-4" id="23dc5bb5-2a95-407b-8285-8aafc4a509d2" disabled="true">
         <con:settings/>
-        <con:config>
-          <script>def messageid = testRunner.testCase.testSuite.getPropertyValue("wstrustbundle-messageid-TestCase4")
+        <con:config><script>def runtest = context.findProperty('runDirect4')
+if (runtest=='true'){
+
+def messageid = testRunner.testCase.testSuite.getPropertyValue("wstrustbundle-messageid-TestCase4")
 log.info "the message identifier is "+ messageid;
 if (context.findProperty('Notify')=='yes') {
 
@@ -2078,13 +2152,16 @@ if (context.findProperty('Notify')=='yes') {
 		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_DIRECT" and transactionId='+'"'+messageid+'"')[0]
 	}
 
-}</script>
-        </con:config>
+}
+
+}</script></con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Local Assertion for wsTrustBundle-TestCase-3" id="4293ec89-a0ed-4067-9416-744316ae04b8">
+      <con:testStep type="groovy" name="Verify Local Assertion for wsTrustBundle-TestCase-3" id="4293ec89-a0ed-4067-9416-744316ae04b8" disabled="true">
         <con:settings/>
-        <con:config>
-          <script>def messageid = testRunner.testCase.testSuite.getPropertyValue("wstrustbundle-messageid-TestCase3")
+        <con:config><script>def runtest = context.findProperty('runDirect3')
+if (runtest=='true'){
+
+def messageid = testRunner.testCase.testSuite.getPropertyValue("wstrustbundle-messageid-TestCase3")
 log.info "the message identifier is "+ messageid;
 context.withSql('eventdb') {sql ->
 		assert 5 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where transactionId='+'"'+messageid+'"')[0]
@@ -2093,13 +2170,16 @@ context.withSql('eventdb') {sql ->
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_MDN_PROCESSED" and transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_MDN_PROCESSED" and transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="DIRECT_EDGE_NOTIFICATION_SUCCESSFUL" and transactionId='+'"'+messageid+'"')[0]
-}</script>
-        </con:config>
+}
+
+}</script></con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Remote Assertion for wsTrustBundle-TestCase-3" id="653357e5-ecda-4118-9f9e-2ff186cc3f16">
+      <con:testStep type="groovy" name="Verify Remote Assertion for wsTrustBundle-TestCase-3" id="653357e5-ecda-4118-9f9e-2ff186cc3f16" disabled="true">
         <con:settings/>
-        <con:config>
-          <script>def messageid = testRunner.testCase.testSuite.getPropertyValue("wstrustbundle-messageid-TestCase3")
+        <con:config><script>def runtest = context.findProperty('runDirect3')
+if (runtest=='true'){
+
+def messageid = testRunner.testCase.testSuite.getPropertyValue("wstrustbundle-messageid-TestCase3")
 log.info "the message identifier is "+ messageid;
 context.withSql_remote('eventdb') {sql_remote ->
 		assert 4 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where transactionId='+'"'+messageid+'"')[0]
@@ -2107,13 +2187,16 @@ context.withSql_remote('eventdb') {sql_remote ->
 		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_MDN_PROCESSED" and transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_OUTBOUND_MDN_PROCESSED" and transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_DIRECT" and transactionId='+'"'+messageid+'"')[0]
-}</script>
-        </con:config>
+}
+
+}</script></con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Local Assertion for wskeystoreanchors -TestCase-3" id="68939079-3b7f-43be-a303-4adf0319e0c3">
+      <con:testStep type="groovy" name="Verify Local Assertion for wskeystoreanchors -TestCase-3" id="68939079-3b7f-43be-a303-4adf0319e0c3" disabled="true">
         <con:settings/>
-        <con:config>
-          <script>def messageid = testRunner.testCase.testSuite.getPropertyValue("wskeystoreanchors-messageid-TestCase3")
+        <con:config><script>def runtest = context.findProperty('runDirect3')
+if (runtest=='true'){
+
+def messageid = testRunner.testCase.testSuite.getPropertyValue("wskeystoreanchors-messageid-TestCase3")
 log.info "the message identifier is "+ messageid;
 context.withSql('eventdb') {sql ->
 		assert 5 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where transactionId='+'"'+messageid+'"')[0]
@@ -2122,13 +2205,16 @@ context.withSql('eventdb') {sql ->
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_INBOUND_MDN_PROCESSED" and transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_MDN_PROCESSED" and transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="DIRECT_EDGE_NOTIFICATION_SUCCESSFUL" and transactionId='+'"'+messageid+'"')[0]
-}</script>
-        </con:config>
+}
+
+}</script></con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Remote Assertion for wskeystoreanchors-TestCase-3" id="8f836e90-c6d1-4c8d-ab90-0865a292c825">
+      <con:testStep type="groovy" name="Verify Remote Assertion for wskeystoreanchors-TestCase-3" id="8f836e90-c6d1-4c8d-ab90-0865a292c825" disabled="true">
         <con:settings/>
-        <con:config>
-          <script>def messageid = testRunner.testCase.testSuite.getPropertyValue("wskeystoreanchors-messageid-TestCase3")
+        <con:config><script>def runtest = context.findProperty('runDirect3')
+if (runtest=='true'){
+
+def messageid = testRunner.testCase.testSuite.getPropertyValue("wskeystoreanchors-messageid-TestCase3")
 log.info "the message identifier is "+ messageid;
 context.withSql_remote('eventdb') {sql_remote ->
 		assert 4 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where transactionId='+'"'+messageid+'"')[0]
@@ -2136,13 +2222,16 @@ context.withSql_remote('eventdb') {sql_remote ->
 		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="BEGIN_OUTBOUND_MDN_PROCESSED" and transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_OUTBOUND_MDN_PROCESSED" and transactionId='+'"'+messageid+'"')[0]
 		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_DIRECT" and transactionId='+'"'+messageid+'"')[0]
-}</script>
-        </con:config>
+}
+
+}</script></con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Local Assertion for wskeystoreanchors-TestCase-4" id="43608a0f-5c33-4e7b-86b7-7b00fecd8302">
+      <con:testStep type="groovy" name="Verify Local Assertion for wskeystoreanchors-TestCase-4" id="43608a0f-5c33-4e7b-86b7-7b00fecd8302" disabled="true">
         <con:settings/>
-        <con:config>
-          <script>def messageid = testRunner.testCase.testSuite.getPropertyValue("wskeystoreanchors-messageid-TestCase4")
+        <con:config><script>def runtest = context.findProperty('runDirect4')
+if (runtest=='true'){
+
+def messageid = testRunner.testCase.testSuite.getPropertyValue("wskeystoreanchors-messageid-TestCase4")
 log.info "the message identifier is "+ messageid;
 if (context.findProperty('Notify')=='yes') {
 
@@ -2169,13 +2258,16 @@ if (context.findProperty('Notify')=='yes') {
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="DIRECT_EDGE_NOTIFICATION_SUCCESSFUL" and transactionId='+'"'+messageid+'"')[0]
 	}
 
-}</script>
-        </con:config>
+}
+
+}</script></con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Remote Assertion for wskeystoreanchors-TestCase-4" id="681043c4-e18e-484c-ad7f-2d09fed2340b">
+      <con:testStep type="groovy" name="Verify Remote Assertion for wskeystoreanchors-TestCase-4" id="681043c4-e18e-484c-ad7f-2d09fed2340b" disabled="true">
         <con:settings/>
-        <con:config>
-          <script>def messageid = testRunner.testCase.testSuite.getPropertyValue("wskeystoreanchors-messageid-TestCase4")
+        <con:config><script>def runtest = context.findProperty('runDirect4')
+if (runtest=='true'){
+
+def messageid = testRunner.testCase.testSuite.getPropertyValue("wskeystoreanchors-messageid-TestCase4")
 log.info "the message identifier is "+ messageid;
 if (context.findProperty('Notify')=='yes') {
 
@@ -2199,8 +2291,9 @@ if (context.findProperty('Notify')=='yes') {
 		assert 1 == sql_remote.firstRow('select count(*) from ' + context.findProperty('EventTable') + ' where name="END_INBOUND_DIRECT" and transactionId='+'"'+messageid+'"')[0]
 	}
 
-}</script>
-        </con:config>
+}
+
+}</script></con:config>
       </con:testStep>
       <con:properties/>
     </con:testCase>

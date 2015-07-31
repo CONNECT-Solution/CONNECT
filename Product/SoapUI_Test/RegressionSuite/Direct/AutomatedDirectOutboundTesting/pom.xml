@@ -62,6 +62,13 @@
                         <value>DelayTime=${delay}</value>
                         <value>AnchorKeyStoreFile=${anchorKeyStoreFile}</value>
                         <value>PrivateKeyStoreFile=${privateKeyStoreFile}</value>
+                        <value>runDirect1=${runDirect1}</value>
+                        <value>runDirect2=${runDirect2}</value>
+                        <value>runDirect3=${runDirect3}</value>
+                        <value>runDirect4=${runDirect4}</value>
+                        <value>runDirect5=${runDirect5}</value>
+                        <value>runDirect6=${runDirect6}</value>
+                        <value>runDirect7=${runDirect7}</value>
                     </projectProperties>
                 </configuration>
                 <executions>
