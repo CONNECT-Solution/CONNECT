@@ -17,6 +17,49 @@ By advancing the adoption of interoperable health IT systems and health informat
 
     <properties>
         <git.username>CONNECT-Solution</git.username>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <connect.common.properties>Dev</connect.common.properties>
+
+        <!-- JDK Versions -->
+        <compiler.source>1.7</compiler.source>
+        <compiler.target>1.7</compiler.target>
+
+        <!-- CONNECT Dependency Versions -->
+        <connect.webservices.version>4.3.0-SNAPSHOT</connect.webservices.version>
+        <connect.commontypes.version>4.3.0-SNAPSHOT</connect.commontypes.version>
+        <cxf.version>2.7.3</cxf.version>
+        <spring.version>3.0.7.RELEASE</spring.version>
+        <slf4j.version>1.7.0</slf4j.version>
+        <openam.version>10.0.1</openam.version>
+
+        <!-- SCA and Reporting Plugin Versions -->
+        <surefire.version>2.13</surefire.version>
+        <surefire.report.version>2.12.4</surefire.report.version>
+        <checkstyle.version>2.9.1</checkstyle.version>
+        <findbugs.version>2.5.2</findbugs.version>
+        <findsecbugs.version>1.1.0</findsecbugs.version>
+        <pmd.version>2.7.1</pmd.version>
+        <cobertura.version>2.5.2</cobertura.version>
+        <dependency.check.version>1.2.11</dependency.check.version>
+        <!-- Note: Sonar Plugin version is different than SonarQube version -->
+        <sonar.plugin.version>2.6</sonar.plugin.version>
+
+        <!-- SCA and Reporting Plugin Versions (Target) -->
+        <!--checkstyle.version>2.16</checkstyle.version>
+        <findbugs.version>3.0.1</findbugs.version>
+        <findsecbugs.version>1.4.0</findsecbugs.version>
+        <pmd.version>3.5</pmd.version>
+        <cobertura.version>2.7</cobertura.version-->
+
+        <!-- SCA and Reporting Options -->
+        <checkstyle.skip>false</checkstyle.skip>
+        <skip.findbugs>false</skip.findbugs>
+        <skip.cobertura>false</skip.cobertura>
+        <skip.source>true</skip.source>
+        <pmd.failOnViolation>false</pmd.failOnViolation>
+        <cobertura.check.haltOnFailure>false</cobertura.check.haltOnFailure>
+        <cobertura.totalBranchRate>85</cobertura.totalBranchRate>
+        <cobertura.totalLineRate>85</cobertura.totalLineRate>
     </properties>
 
     <scm>
@@ -54,16 +97,7 @@ By advancing the adoption of interoperable health IT systems and health informat
     <build>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>3.2</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>2.4</version>
-                </plugin>
+                <!-- Maven Standard Lifecycle Goal Plugins -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
@@ -71,8 +105,14 @@ By advancing the adoption of interoperable health IT systems and health informat
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.7</version>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.0</version>
+                    <configuration>
+                        <source>${compiler.source}</source>
+                        <target>${compiler.target}</target>
+                        <testSource>${compiler.source}</testSource>
+                        <testTarget>${compiler.target}</testTarget>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -81,36 +121,143 @@ By advancing the adoption of interoperable health IT systems and health informat
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.7</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.4</version>
+                </plugin>
+
+                <!-- Packaging and Artifact Manipulation Plugins -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>2.5</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>2.6</version>
+                    <configuration>
+                        <!-- use baseVersion instead of timestamp version to support skinny WARS for SNAPSHOT versions -->
+                        <outputFileNameMapping>@{artifactId}@-@{baseVersion}@.@{extension}@</outputFileNameMapping>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-ear-plugin</artifactId>
+                    <version>2.8</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
                     <version>2.2.1</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <skipSource>${skip.source}</skipSource>
+                        <attach>true</attach>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>2.6</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>2.10</version>
                 </plugin>
+
+                <!-- Test Execution Plugins -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.0</version>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${surefire.version}</version>
+                    <configuration>
+                        <argLine>-XX:MaxPermSize=1012m</argLine>
+                    </configuration>
+                </plugin>
+
+                <!-- IDE Plugins -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-eclipse-plugin</artifactId>
+                    <version>2.9</version>
+                    <configuration>
+                        <downloadSources>true</downloadSources>
+                        <downloadJavadocs>true</downloadJavadocs>
+                        <useProjectReferences>true</useProjectReferences>
+                        <projectNameTemplate>[artifactId]-[version]</projectNameTemplate>
+                    </configuration>
+                </plugin>
+
+
+                <!-- Static Code Analysis Plugins -->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>cobertura-maven-plugin</artifactId>
+                    <version>${cobertura.version}</version>
+                    <configuration>
+                        <formats>
+                            <format>html</format>
+                            <format>xml</format>
+                        </formats>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>findbugs-maven-plugin</artifactId>
+                    <version>${findbugs.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>2.6</version>
+                    <artifactId>maven-pmd-plugin</artifactId>
+                    <version>${pmd.version}</version>
+                    <configuration>
+                        <targetJdk>${compiler.target}</targetJdk>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>${checkstyle.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
-                    <version>1.2.8</version>
+                    <version>${dependency.check.version}</version>
                     <configuration>
                         <format>ALL</format>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>${sonar.plugin.version}</version>
+                </plugin>
+
+                <!-- Reporting Plugins -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.2</version>
+                </plugin>
+
+                <!-- Web Service Plugins -->
+                <plugin>
+                    <groupId>org.apache.cxf</groupId>
+                    <artifactId>cxf-codegen-plugin</artifactId>
+                    <version>${cxf.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -156,17 +303,17 @@ By advancing the adoption of interoperable health IT systems and health informat
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-surefire-report-plugin</artifactId>
-                            <version>2.12.4</version>
+                            <version>${surefire.report.version}</version>
                         </plugin>
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-checkstyle-plugin</artifactId>
-                            <version>2.9.1</version>
+                            <version>${checkstyle.version}</version>
                         </plugin>
                         <plugin>
                             <groupId>org.codehaus.mojo</groupId>
                             <artifactId>cobertura-maven-plugin</artifactId>
-                            <version>2.5.2</version>
+                            <version>${cobertura.version}</version>
                             <configuration>
                                 <formats>
                                     <format>html</format>
@@ -176,21 +323,21 @@ By advancing the adoption of interoperable health IT systems and health informat
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-pmd-plugin</artifactId>
-                            <version>2.7.1</version>
+                            <version>$[pmd.version}</version>
                             <configuration>
-                                <targetJdk>1.7</targetJdk>
+                                <targetJdk>${compiler.target}</targetJdk>
                             </configuration>
                         </plugin>
                         <plugin>
                             <groupId>org.codehaus.mojo</groupId>
                             <artifactId>findbugs-maven-plugin</artifactId>
-                            <version>2.5.2</version>
+                            <version>${findbugs.version}</version>
                             <configuration>
                                 <plugins>
                                     <plugin>
                                         <groupId>com.h3xstream.findsecbugs</groupId>
                                         <artifactId>plugin</artifactId>
-                                        <version>1.1.0</version>
+                                        <version>${findsecbugs.version}</version>
                                     </plugin>
                                 </plugins>
                             </configuration>
@@ -231,23 +378,34 @@ By advancing the adoption of interoperable health IT systems and health informat
             </properties>
             <build>
                 <plugins>
-                    <!-- <plugin> <groupId>com.github.github</groupId> <artifactId>downloads-maven-plugin</artifactId>
-                        <version>0.6</version> <configuration> <description>Official ${project.name}
-                        build of the ${project.version} release</description> <override>true</override>
-                        <includeAttached>true</includeAttached> <server>github</server> </configuration>
-                        <executions> <execution> <goals> <goal>upload</goal> </goals> <phase>install</phase>
-                        </execution> </executions> </plugin> -->
+                    <!--plugin>
+                        <groupId>com.github.github</groupId>
+                        <artifactId>downloads-maven-plugin</artifactId>
+                        <version>0.6</version>
+                        <configuration>
+                            <description>Official ${project.name} build of the ${project.version} release</description>
+                            <override>true</override>
+                            <includeAttached>true</includeAttached>
+                            <server>github</server>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>upload</goal>
+                                </goals>
+                                <phase>install</phase>
+                            </execution>
+                        </executions>
+                    </plugin-->
                     <plugin>
                         <groupId>com.github.github</groupId>
                         <artifactId>site-maven-plugin</artifactId>
                         <version>0.7</version>
                         <configuration>
-                            <!-- this does the trick to place every module
-                                in the correct subfolder -->
+                            <!-- Config to place every module in the correct subfolder -->
                             <path>${project.distributionManagement.site.url}</path>
                             <merge>${github.site.merge}</merge>
-                            <message>Building site for
-                                ${project.version}</message>
+                            <message>Building site for ${project.version}</message>
                             <server>github</server>
                         </configuration>
                         <executions>
@@ -264,3 +422,4 @@ By advancing the adoption of interoperable health IT systems and health informat
         </profile>
     </profiles>
 </project>
+
