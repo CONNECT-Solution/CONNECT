@@ -14,7 +14,7 @@
     <build>
         <resources>
             <resource>
-                <directory>${basedir}/</directory>
+                <directory>${project.basedir}/</directory>
                 <includes>
                     <include>**/*.sql</include>
                 </includes>

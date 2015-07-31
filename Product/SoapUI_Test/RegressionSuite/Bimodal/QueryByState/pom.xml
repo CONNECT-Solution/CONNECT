@@ -17,7 +17,7 @@
                 <groupId>com.github.redfish4ktc.soapui</groupId>
                 <artifactId>maven-soapui-extension-plugin</artifactId>
                 <configuration>
-                    <settingsFile>${basedir}/../../src/main/resources/soapui-settings.xml</settingsFile>
+                    <settingsFile>${project.basedir}/../../src/main/resources/soapui-settings.xml</settingsFile>
                     <outputFolder>${project.build.directory}/soapui/output/</outputFolder>
                     <soapuiProperties>
                         <property>
@@ -26,11 +26,11 @@
                         </property>
                         <property>
                             <name>soapui.scripting.library</name>
-                            <value>${basedir}/../../src/main/resources/groovy_scripts</value>
+                            <value>${project.basedir}/../../src/main/resources/groovy_scripts</value>
                         </property>
                         <property>
                             <name>soapui.ext.libraries</name>
-                            <value>${basedir}/../../src/main/resources/ext</value>
+                            <value>${project.basedir}/../../src/main/resources/ext</value>
                         </property>
                     </soapuiProperties>
                     <testSuite>${test.suite}</testSuite>
@@ -55,7 +55,7 @@
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <projectFile>${basedir}/QueryByState-soapui-project.xml</projectFile>
+                            <projectFile>${project.basedir}/QueryByState-soapui-project.xml</projectFile>
                             <outputFolder>${project.build.directory}/soapui/output</outputFolder>
                         </configuration>
                     </execution>

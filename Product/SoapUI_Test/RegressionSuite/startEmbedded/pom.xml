@@ -117,7 +117,7 @@
                                     <outputDirectory>${project.build.directory}/domain1/</outputDirectory>
                                     <resources>
                                         <resource>
-                                            <directory>${basedir}/src/test/resources/domain1/</directory>
+                                            <directory>${project.basedir}/src/test/resources/domain1/</directory>
                                             <filtering>true</filtering>
                                         </resource>
                                     </resources>

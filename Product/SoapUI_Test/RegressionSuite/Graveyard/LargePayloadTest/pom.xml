@@ -26,7 +26,7 @@
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <projectFile>${basedir}/LargePayloadTest-soapui-project.xml</projectFile>
+                            <projectFile>${project.basedir}/LargePayloadTest-soapui-project.xml</projectFile>
                             <outputFolder>${project.build.directory}/soapui/output</outputFolder>
                         </configuration>
                     </execution>
