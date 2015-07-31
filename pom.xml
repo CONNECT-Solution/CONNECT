@@ -28,6 +28,7 @@ By advancing the adoption of interoperable health IT systems and health informat
 
     <modules>
         <module>ThirdParty</module>
+        <module>build-tools</module>
         <module>Product</module>
     </modules>
 

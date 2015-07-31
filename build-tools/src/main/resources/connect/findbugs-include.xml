@@ -1,0 +1,26 @@
+<FindBugsFilter>
+    <Match>
+        <Bug category="BAD_PRACTICE"/>
+    </Match>
+    <Match>
+        <Bug category="CORRECTNESS"/>
+    </Match>
+    <Match>
+        <Bug category="MALICIOUS_CODE"/>
+    </Match>
+    <Match>
+        <Bug category="MT_CORRECTNESS"/>
+    </Match>
+    <Match>
+        <Bug category="NOISE"/>
+    </Match>
+    <Match>
+        <Bug category="PERFORMANCE"/>
+    </Match>
+    <Match>
+        <Bug category="SECURITY"/>
+    </Match>
+    <Match>
+        <Bug category="STYLE"/>
+    </Match>
+</FindBugsFilter>

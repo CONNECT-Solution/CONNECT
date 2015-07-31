@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<ruleset name="pmd-rules">
+
+    <description>CONNECT PMD Rules</description>
+
+    <!-- Basic Rules -->
+    <rule ref="rulesets/java/basic.xml" />
+
+    <!-- Braces Rules -->
+    <rule ref="rulesets/java/braces.xml" />
+
+    <!-- Clone Implementation Rules -->
+    <rule ref="rulesets/java/clone.xml" />
+
+    <!-- Code Size Rules -->
+    <rule ref="rulesets/java/codesize.xml" >
+        <exclude name="ExcessivePublicCount" />
+    </rule>
+    <rule ref="rulesets/java/codesize.xml/ExcessiveMethodLength">
+        <properties>
+            <property name="minimum" value="50" />
+        </properties>
+    </rule>
+    <rule ref="rulesets/java/codesize.xml/ExcessiveClassLength">
+        <properties>
+            <property name="minimum" value="500" />
+        </properties>
+    </rule>
+    <rule ref="rulesets/java/codesize.xml/ExcessiveParameterList">
+        <properties>
+            <property name="minimum" value="6" />
+        </properties>
+    </rule>
+    <rule ref="rulesets/java/codesize.xml/CyclomaticComplexity">
+        <properties>
+            <property name="reportLevel" value="7" />
+        </properties>
+    </rule>
+
+    <!-- Comments Rules -->
+    <rule ref="rulesets/java/comments.xml"/>
+
+    <!-- Controversial Rules (e.g., OnlyOneReturn or UnnecessaryConstructor) -->
+    <!--rule ref="rulesets/java/controversial.xml" /-->
+
+    <!-- Coupling Rules -->
+    <rule ref="rulesets/java/coupling.xml">
+        <exclude name="ExcessiveImports" />
+    </rule>
+
+    <!-- Design Rules -->
+    <rule ref="rulesets/java/design.xml">
+        <exclude name="AvoidSynchronizedAtMethodLevel" />
+        <exclude name="ConfusingTernary" />
+    </rule>
+
+    <!-- Emptiness Rules -->
+    <rule ref="rulesets/java/empty.xml" />
+    <rule ref="rulesets/java/empty.xml/EmptyCatchBlock">
+        <properties>
+            <property name="allowCommentedBlocks" value="true" />
+        </properties>
+    </rule>
+
+    <!-- Finalizer Rules -->
+    <rule ref="rulesets/java/finalizers.xml" />
+
+    <!-- Import Rules -->
+    <rule ref="rulesets/java/imports.xml" />
+
+    <!-- J2EE Rules -->
+    <rule ref="rulesets/java/javabeans.xml" />
+
+    <!-- Jakarta Commons Logging Rules -->
+    <rule ref="rulesets/java/logging-jakarta-commons.xml" />
+
+    <!-- Java Logging Rules -->
+    <rule ref="rulesets/java/logging-java.xml" />
+
+    <!-- Migration (Java Version) Rules -->
+    <rule ref="rulesets/java/migrating.xml" />
+
+    <!-- Migration (JUnit Version) Rules -->
+    <rule ref="rulesets/java/migrating_to_junit4.xml" />
+
+    <!-- Naming Rules -->
+    <rule ref="rulesets/java/naming.xml">
+        <exclude name="LongVariable" />
+        <exclude name="ShortVariable" />
+    </rule>
+
+    <!-- Optimization Rules -->
+    <rule ref="rulesets/java/optimizations.xml">
+        <exclude name="AvoidInstantiatingObjectsInLoops" />
+        <exclude name="LocalVariableCouldBeFinal" />
+        <exclude name="MethodArgumentCouldBeFinal" />
+    </rule>
+
+    <!-- Strict Exception Rules -->
+    <rule ref="rulesets/java/strictexception.xml" />
+
+    <!-- String Rules -->
+    <rule ref="rulesets/java/strings.xml">
+        <exclude name="InsufficientStringBufferDeclaration" />
+    </rule>
+
+    <!-- Secure Coding Guidelines -->
+    <rule ref="rulesets/java/sunsecure.xml" />
+
+    <!-- Unused Code Rules -->
+    <rule ref="rulesets/java/unusedcode.xml" />
+
+</ruleset>
