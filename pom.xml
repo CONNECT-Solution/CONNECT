@@ -35,21 +35,14 @@ By advancing the adoption of interoperable health IT systems and health informat
         <!-- SCA and Reporting Plugin Versions -->
         <surefire.version>2.13</surefire.version>
         <surefire.report.version>2.12.4</surefire.report.version>
-        <checkstyle.version>2.9.1</checkstyle.version>
-        <findbugs.version>2.5.2</findbugs.version>
-        <findsecbugs.version>1.1.0</findsecbugs.version>
-        <pmd.version>2.7.1</pmd.version>
-        <cobertura.version>2.5.2</cobertura.version>
+        <checkstyle.version>2.16</checkstyle.version>
+        <findbugs.version>3.0.1</findbugs.version>
+        <findsecbugs.version>1.4.1</findsecbugs.version>
+        <pmd.version>3.5</pmd.version>
+        <cobertura.version>2.7</cobertura.version>
         <dependency.check.version>1.2.11</dependency.check.version>
         <!-- Note: Sonar Plugin version is different than SonarQube version -->
         <sonar.plugin.version>2.6</sonar.plugin.version>
-
-        <!-- SCA and Reporting Plugin Versions (Target) -->
-        <!--checkstyle.version>2.16</checkstyle.version>
-        <findbugs.version>3.0.1</findbugs.version>
-        <findsecbugs.version>1.4.0</findsecbugs.version>
-        <pmd.version>3.5</pmd.version>
-        <cobertura.version>2.7</cobertura.version-->
 
         <!-- SCA and Reporting Options -->
         <checkstyle.skip>false</checkstyle.skip>
