@@ -50,6 +50,7 @@
                     <div class="form-block center-block">
                     <h:form id="loginForm" class="form-horizontal" role="form"
 						prependId="false">
+                        <h:inputHidden id="csrfToken" value="#{filterBean.token}"/>
                         <p:panel id="loginPanel" style="border: none">
                         <p:messages id="loginErrors" autoUpdate="true" globalOnly="false" closable="true" />
                             <div class="form-group">

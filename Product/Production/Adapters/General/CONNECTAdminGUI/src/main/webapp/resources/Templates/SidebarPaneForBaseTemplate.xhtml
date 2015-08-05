@@ -37,7 +37,8 @@
         <div class="col-xs-2 sidebar sidebar-scroll">
             <h1 class="page-header">Gateway Administrative Console</h1>
             
-            <h:form>
+            <h:form prependId="false">
+                <h:inputHidden id="csrfToken" value="#{filterBean.token}"/>
                 <p:panelMenu style="width:100%">
                     <p:submenu label="Gateway Status" styleClass="sidebar-dkblue">
                         <p:menuitem value="Dashboard" action="#{tabBean.navigateToGatewayDashboardTab()}" styleClass="glyphicon glyphicon-dashboard" />
@@ -68,6 +69,9 @@
                     </p:submenu>
                     <p:submenu label="Cross-Gateway Query Client" styleClass="sidebar-teal" >
                         <p:menuitem value="Patient Search" action="#{tabBean.navigateToPatientDiscoveryTab()}" styleClass="glyphicon glyphicon-zoom-in" />
+                    </p:submenu>
+                     <p:submenu label="SAML Configuration" styleClass="sidebar-teal" >
+                        <p:menuitem value="SAML Properties" action="#{tabBean.navigateToSamlConfigTab()}" styleClass="glyphicon glyphicon-list" />
                     </p:submenu>
                                
                 </p:panelMenu>
