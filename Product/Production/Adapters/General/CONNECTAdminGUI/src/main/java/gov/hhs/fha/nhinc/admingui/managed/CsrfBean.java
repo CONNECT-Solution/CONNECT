@@ -26,7 +26,9 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
-import java.util.UUID;
+import java.math.BigInteger;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -35,24 +37,25 @@ import javax.faces.context.FacesContext;
  *
  * @author achidamb
  */
-@ManagedBean(name = "filterBean")
+@ManagedBean(name = "csrfBean")
 @RequestScoped
-public class filterBean {
+public class CsrfBean {
 
     private String token;
 
-    public String getToken() {
+    public String getToken() throws NoSuchAlgorithmException {
         createToken();
         return token;
     }
 
     public void setToken(String csrfToken) {
+        token = csrfToken;
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("salt", token);
     }
-
-    private void createToken() {
-        token = UUID.randomUUID().toString();
-        setToken(token);
+    
+    private void createToken() throws NoSuchAlgorithmException {
+      SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+      setToken(new BigInteger(130, random).toString(32));
     }
 
 }

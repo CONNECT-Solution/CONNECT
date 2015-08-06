@@ -169,8 +169,9 @@ public class UserAuthorizationListener implements PhaseListener {
                 LOG.debug("CSRF Token successfully validated");
             } else {
                 LOG.debug("CSRF Token validated Failed");
+                event.getFacesContext().getExternalContext().invalidateSession();
                 NavigationHandler nh = event.getFacesContext().getApplication().getNavigationHandler();
-                nh.handleNavigation(event.getFacesContext(), null, NavigationConstant.STATUS_PAGE);
+                nh.handleNavigation(event.getFacesContext(), null, NavigationConstant.LOGIN_PAGE);
             }
         }
     }

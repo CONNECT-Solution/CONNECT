@@ -38,7 +38,7 @@
             <h1 class="page-header">Gateway Administrative Console</h1>
             
             <h:form prependId="false">
-                <h:inputHidden id="csrfToken" value="#{filterBean.token}"/>
+                <h:inputHidden id="csrfToken" value="#{csrfBean.token}"/>
                 <p:panelMenu style="width:100%">
                     <p:submenu label="Gateway Status" styleClass="sidebar-dkblue">
                         <p:menuitem value="Dashboard" action="#{tabBean.navigateToGatewayDashboardTab()}" styleClass="glyphicon glyphicon-dashboard" />
