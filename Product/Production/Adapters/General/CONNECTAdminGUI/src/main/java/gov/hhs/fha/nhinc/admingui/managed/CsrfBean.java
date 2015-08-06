@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
-import gov.hhs.fha.nhinc.admingui.util.CryptoRandmomGenerator;
+import gov.hhs.fha.nhinc.admingui.util.CryptoRandomGenerator;
 import java.security.NoSuchAlgorithmException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -53,7 +53,7 @@ public class CsrfBean {
     }
 
     private void createToken() throws NoSuchAlgorithmException {
-        CryptoRandmomGenerator randomGenerator = CryptoRandmomGenerator.getInstance();
+        CryptoRandomGenerator randomGenerator = CryptoRandomGenerator.getInstance();
         setToken(randomGenerator.createToken());
     }
 

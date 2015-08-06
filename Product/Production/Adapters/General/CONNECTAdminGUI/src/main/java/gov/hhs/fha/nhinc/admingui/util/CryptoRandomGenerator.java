@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.admingui.util;
 
-import gov.hhs.fha.nhinc.admingui.managed.CsrfBean;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -36,13 +35,13 @@ import org.apache.log4j.Logger;
  *
  * @author achidamb
  */
-public class CryptoRandmomGenerator {
+public class CryptoRandomGenerator {
 
-    private static final Logger LOG = Logger.getLogger(CryptoRandmomGenerator.class);
+    private static final Logger LOG = Logger.getLogger(CryptoRandomGenerator.class);
 
-    SecureRandom random = new SecureRandom();
+    private final SecureRandom random = new SecureRandom();
 
-    private CryptoRandmomGenerator() {
+    private CryptoRandomGenerator() {
 
     }
 
@@ -53,15 +52,13 @@ public class CryptoRandmomGenerator {
     @SuppressWarnings("empty-statement")
     public synchronized String createToken() throws NoSuchAlgorithmException {
         return (new BigInteger(130, random).toString(32));
-
     }
 
     private static class SingletonHolder {
-
-        private static final CryptoRandmomGenerator instance = new CryptoRandmomGenerator();
+        private static final CryptoRandomGenerator instance = new CryptoRandomGenerator();
     }
 
-    public static CryptoRandmomGenerator getInstance() {
+    public static CryptoRandomGenerator getInstance() {
         return SingletonHolder.instance;
     }
 
