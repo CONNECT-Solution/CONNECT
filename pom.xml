@@ -39,7 +39,8 @@ By advancing the adoption of interoperable health IT systems and health informat
         <findbugs.version>3.0.1</findbugs.version>
         <findsecbugs.version>1.4.1</findsecbugs.version>
         <pmd.version>3.5</pmd.version>
-        <cobertura.version>2.7</cobertura.version>
+        <!-- Cobertura version must be left at 2.5.2 due to issues with JSF + JUnit -->
+        <cobertura.version>2.5.2</cobertura.version>
         <dependency.check.version>1.2.11</dependency.check.version>
         <!-- Note: Sonar Plugin version is different than SonarQube version -->
         <sonar.plugin.version>2.6</sonar.plugin.version>
