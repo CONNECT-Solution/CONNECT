@@ -26,9 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
-import java.math.BigInteger;
+import gov.hhs.fha.nhinc.admingui.util.CryptoRandmomGenerator;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -52,10 +51,10 @@ public class CsrfBean {
         token = csrfToken;
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("salt", token);
     }
-    
+
     private void createToken() throws NoSuchAlgorithmException {
-      SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
-      setToken(new BigInteger(130, random).toString(32));
+        CryptoRandmomGenerator randomGenerator = CryptoRandmomGenerator.getInstance();
+        setToken(randomGenerator.createToken());
     }
 
 }

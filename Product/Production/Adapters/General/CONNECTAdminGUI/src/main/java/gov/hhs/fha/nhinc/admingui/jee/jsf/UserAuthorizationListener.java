@@ -154,21 +154,22 @@ public class UserAuthorizationListener implements PhaseListener {
         return true;
     }
 
-    /*Cross site Request Forgery Fortify issue can be mitigated via sending tokens for each .xhtml page and validating them.
-     This method validates the csrfToken came with the POST Request and transition to next page view only if validation passes.
-     Now when a transition happens from status.xhtml to properties.xhtml the csrf token will be validated for status.xhtml 
-     and afterPhase method will be again executed and it will try to verify the token for properties.xhtml.The validation is 
-     now performed by checking if token is null and ignore the transitioned page. Below "if" method can be re-written in 
-     a way so that if token is null and the phase of transition can be checked it will be safer to ignore those validation.
+    /**
+     * @param event 
+     * 
+     *when a transition happens from status.xhtml to properties.xhtml the csrf token will be validated for status.xhtml 
+     *and afterPhase method will be again executed and it will try to verify the token for properties.xhtml.The validation is 
+     *now performed by checking if token is null and ignore the transitioned page. Below "if" method can be re-written in 
+     *a way so that if token is null and the phase of transition can be checked it will be safer to ignore that validation.
      */
-    private void validateCSRFToken(PhaseEvent event) {
+    public void validateCSRFToken(PhaseEvent event) {
         String csrfToken = event.getFacesContext().getExternalContext().getRequestParameterMap().get("csrfToken");
         if (csrfToken != null) {
-            LOG.debug("csrfToken from http Request parameter : " + csrfToken);
+            LOG.debug("csrfToken from http Request parameter is not null");
             if (csrfToken.equals(event.getFacesContext().getExternalContext().getSessionMap().get("salt"))) {
                 LOG.debug("CSRF Token successfully validated");
             } else {
-                LOG.debug("CSRF Token validated Failed");
+                LOG.debug("CSRF Token validation Failed");
                 event.getFacesContext().getExternalContext().invalidateSession();
                 NavigationHandler nh = event.getFacesContext().getApplication().getNavigationHandler();
                 nh.handleNavigation(event.getFacesContext(), null, NavigationConstant.LOGIN_PAGE);
