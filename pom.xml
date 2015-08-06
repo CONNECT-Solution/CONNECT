@@ -289,11 +289,6 @@ By advancing the adoption of interoperable health IT systems and health informat
                                 <linkOnly>true</linkOnly>
                             </configuration>
                         </plugin>
-                        <!--plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-javadoc-plugin</artifactId>
-                            <version>2.9</version>
-                        </plugin-->
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-surefire-report-plugin</artifactId>
@@ -372,25 +367,6 @@ By advancing the adoption of interoperable health IT systems and health informat
             </properties>
             <build>
                 <plugins>
-                    <!--plugin>
-                        <groupId>com.github.github</groupId>
-                        <artifactId>downloads-maven-plugin</artifactId>
-                        <version>0.6</version>
-                        <configuration>
-                            <description>Official ${project.name} build of the ${project.version} release</description>
-                            <override>true</override>
-                            <includeAttached>true</includeAttached>
-                            <server>github</server>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>upload</goal>
-                                </goals>
-                                <phase>install</phase>
-                            </execution>
-                        </executions>
-                    </plugin-->
                     <plugin>
                         <groupId>com.github.github</groupId>
                         <artifactId>site-maven-plugin</artifactId>
