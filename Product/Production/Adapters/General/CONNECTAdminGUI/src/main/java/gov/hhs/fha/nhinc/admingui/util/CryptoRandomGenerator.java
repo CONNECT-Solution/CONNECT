@@ -49,7 +49,7 @@ public class CryptoRandomGenerator {
         try {
             random = SecureRandom.getInstance("SHA1PRNG");
         } catch (NoSuchAlgorithmException ex) {
-            LOG.error("SecureRandom instance uisng SHA1 Algorithm initialization failed for : " + ex.getMessage(), ex);
+            LOG.error("SecureRandom instance uisng SHA1 Algorithm initialization failed : " + ex.getMessage(), ex);
             random = new SecureRandom();
         }
     }
