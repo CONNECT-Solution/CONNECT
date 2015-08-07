@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
@@ -57,6 +56,9 @@ public class CryptoRandomGenerator {
     /**
      *
      * @return
+     * If SecureRandom object is null and it's handled to navigate to Login Page but when the user is in login page 
+     * and if they have provided username and password those values are still available in browser. we need to handle it 
+     * to set username and password to Null values.
      */
     public synchronized String createToken() {
         if (random != null) {
