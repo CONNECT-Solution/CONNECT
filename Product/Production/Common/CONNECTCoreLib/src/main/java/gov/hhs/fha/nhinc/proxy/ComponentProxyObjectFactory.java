@@ -44,6 +44,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  * @author Neil Webb, Les Westberg
  */
 public abstract class ComponentProxyObjectFactory {
+
     private static final Logger LOG = Logger.getLogger(ComponentProxyObjectFactory.class);
 
     /**
@@ -124,7 +125,7 @@ public abstract class ComponentProxyObjectFactory {
                 appContext = appContextInfo.getApplicationContext();
             } else {
                 LOG.debug("ApplicationContext for: " + getConfigFileName()
-                        + " was not null - checking to see if it is stale.");
+                    + " was not null - checking to see if it is stale.");
                 long lastModified = getLastModified(configFilePath);
                 if (appContextInfo.getConfigLastModified() != lastModified) {
                     LOG.debug("Refreshing the Spring application context for: " + getConfigFileName());
@@ -196,6 +197,7 @@ public abstract class ComponentProxyObjectFactory {
      * put in the map.
      */
     protected static class LocalApplicationContextInfo {
+
         private ApplicationContext applicationContext = null;
         private long configLastModified = -1L;
 
@@ -234,5 +236,16 @@ public abstract class ComponentProxyObjectFactory {
         public void setApplicationContext(ApplicationContext applicationContext) {
             this.applicationContext = applicationContext;
         }
+    }
+
+    public String getAlias(String beanName) {
+        ApplicationContext workingContext = getContext();
+        if (workingContext != null) {
+            String[] aliases = workingContext.getAliases(beanName);
+            if (aliases.length > 0) {
+                return aliases[0];
+            }
+        }
+        return null;
     }
 }

@@ -49,14 +49,17 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  * @author Jon Hoppesch
  */
 public class AuditRepositoryProxyObjectFactory extends ComponentProxyObjectFactory implements FactoryBean<AuditRepositoryProxy> {
+
     private static final String CONFIG_FILE_NAME = "AuditRepositoryProxyConfig.xml";
     private static final String BEAN_NAME_AUDIT_REPOSITORY = "auditrepository";
+    private static final String BEAN_ALIAS_NAME_AUDIT_NOOP = "auditrepositorynoop";
 
     /**
      * Returns the name of the config file.
      *
      * @return The name of the config file.
      */
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }
@@ -86,4 +89,12 @@ public class AuditRepositoryProxyObjectFactory extends ComponentProxyObjectFacto
         return true;
     }
 
+    /**
+     * Returns true if the no implementation is initialized else false
+     *
+     * @return
+     */
+    public boolean isNoopImplementationUsed() {
+        return getAlias(BEAN_NAME_AUDIT_REPOSITORY) != null && getAlias(BEAN_NAME_AUDIT_REPOSITORY).equals(BEAN_ALIAS_NAME_AUDIT_NOOP);
+    }
 }
