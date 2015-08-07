@@ -26,9 +26,12 @@
  */
 package gov.hhs.fha.nhinc.admingui.util;
 
+import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 /**
@@ -39,27 +42,38 @@ public class CryptoRandomGenerator {
 
     private static final Logger LOG = Logger.getLogger(CryptoRandomGenerator.class);
 
-    private final SecureRandom random = new SecureRandom();
+    private SecureRandom random = null;
 
     private CryptoRandomGenerator() {
-
+        try {
+            random = SecureRandom.getInstance("SHA1PRNG");
+        } catch (NoSuchAlgorithmException ex) {
+            LOG.error("SecureRandom instance initialization failed : " + ex.getMessage(), ex);
+        }
     }
 
     /**
      *
-     * @return @throws NoSuchAlgorithmException
+     * @return
      */
-    @SuppressWarnings("empty-statement")
-    public synchronized String createToken() throws NoSuchAlgorithmException {
-        return (new BigInteger(130, random).toString(32));
+    public synchronized String createToken() {
+        if (random != null) {
+            return (new BigInteger(130, random).toString(32));
+        }
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return NavigationConstant.LOGIN_PAGE;
     }
 
-    private static class SingletonHolder {
-        private static final CryptoRandomGenerator instance = new CryptoRandomGenerator();
+    private static class CryptoRandomGeneratorHolder {
+
+        private static final CryptoRandomGenerator INSTANCE = new CryptoRandomGenerator();
     }
 
     public static CryptoRandomGenerator getInstance() {
-        return SingletonHolder.instance;
+        return CryptoRandomGeneratorHolder.INSTANCE;
     }
-
 }

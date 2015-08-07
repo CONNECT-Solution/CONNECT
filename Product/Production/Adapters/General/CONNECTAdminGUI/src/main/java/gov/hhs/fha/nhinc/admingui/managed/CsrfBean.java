@@ -28,6 +28,8 @@ package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.util.CryptoRandomGenerator;
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -40,11 +42,16 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 public class CsrfBean {
 
-    private String token;
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CsrfBean.class);
 
-    public String getToken() throws NoSuchAlgorithmException {
+    private String token = null;
+
+    public String getToken() {
         createToken();
-        return token;
+        if (token != null) {
+            return token;
+        }       
+        return null;
     }
 
     public void setToken(String csrfToken) {
@@ -52,9 +59,16 @@ public class CsrfBean {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("salt", token);
     }
 
-    private void createToken() throws NoSuchAlgorithmException {
-        CryptoRandomGenerator randomGenerator = CryptoRandomGenerator.getInstance();
-        setToken(randomGenerator.createToken());
+    private void createToken() {
+        try {
+            CryptoRandomGenerator randomGenerator = CryptoRandomGenerator.getInstance();
+            token = randomGenerator.createToken();
+            if (!token.equals("login")) {
+                setToken(token);
+            }
+        } catch (Exception ex) {
+            LOG.debug("CSRFToken Gneeration failed :" + ex.getMessage(), ex);
+        }
     }
 
 }
