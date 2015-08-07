@@ -26,15 +26,13 @@
  */
 package gov.hhs.fha.nhinc.corex12.docsubmission.audit;
 
-import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
-import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.audit.transform.CORE_X12AuditDataTransform;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import java.util.Date;
 import java.util.Properties;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import org.apache.log4j.Logger;
 
 /**
@@ -59,15 +57,16 @@ public class CORE_X12AuditLogger {
      */
     public void auditNhinCoreX12RealtimeMessage(Object message, AssertionType assertion, NhinTargetSystemType target,
         String direction, boolean isRequesting, Properties webContextProperties, String serviceName) {
+        LOG.info("Inside the method CORE_X12AuditLogger.auditNhinCoreX12RealtimeMessage (START)-->TimeStamp:" + (new Date()));
         LOG.trace("---Begin CORE_X12AuditLogger.auditNhinCoreX12RealtimeMessage()---");
-        // Set up the audit logging request message
-        LogEventRequestType auditLogMsg = coreX12AuditDataTransform.transformX12MsgToAuditMsg(message, assertion, target, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, isRequesting, webContextProperties, serviceName);
-        if (auditLogMsg != null && auditLogMsg.getAuditMessage() != null) {
-            audit(auditLogMsg, assertion);
+        CORE_X12AuditLoggerEJB x12EJBAuditLogger = getX12AuditLogger();
+        if (x12EJBAuditLogger != null) {
+            x12EJBAuditLogger.auditNhinCoreX12RealtimeMessage(message, assertion, target, direction, isRequesting, webContextProperties, serviceName);
         } else {
-            LOG.error("Core X12 Realtime Request auditLogMsg is null");
+            LOG.error("X12 EJB Audit logger is null");
         }
         LOG.trace("---End CORE_X12AuditLogger.auditNhinCoreX12RealtimeMessage()---");
+        LOG.info("Inside the method CORE_X12AuditLogger.auditNhinCoreX12RealtimeMessage (END)-->TimeStamp:" + (new Date()));
     }
 
     /**
@@ -83,25 +82,21 @@ public class CORE_X12AuditLogger {
     public void auditNhinCoreX12BatchMessage(Object message, AssertionType assertion, NhinTargetSystemType target,
         String direction, boolean isRequesting, Properties webContextProperties, String serviceName) {
         LOG.trace("---Begin CORE_X12AuditLogger.auditNhinCoreX12BatchRequest()---");
-        LogEventRequestType auditLogMsg = coreX12AuditDataTransform.transformX12MsgToAuditMsg(message, assertion, target, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, isRequesting, webContextProperties, serviceName);
-        if (auditLogMsg != null && auditLogMsg.getAuditMessage() != null) {
-            audit(auditLogMsg, assertion);
+        CORE_X12AuditLoggerEJB x12EJBAuditLogger = getX12AuditLogger();
+        if (x12EJBAuditLogger != null) {
+            x12EJBAuditLogger.auditNhinCoreX12BatchMessage(message, assertion, target, direction, isRequesting, webContextProperties, serviceName);
         } else {
-            LOG.error("Core X12 Nhin Batch Request auditLogMsg is null");
+            LOG.error("X12 EJB Audit logger is null");
         }
         LOG.trace("---End CORE_X12AuditLogger.auditNhinCoreX12BatchRequest()---");
     }
 
-    /**
-     * Submits a generic Audit Log message to the Audit Log Repository.
-     *
-     * @param auditLogMsg The generic audit log to be audited
-     * @param assertion The assertion to be audited
-     * @return
-     */
-    private AcknowledgementType audit(LogEventRequestType auditLogMsg, AssertionType assertion) {
-        AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-        AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-        return proxy.auditLog(auditLogMsg, assertion);
+    public CORE_X12AuditLoggerEJB getX12AuditLogger() {
+        try {
+            return (CORE_X12AuditLoggerEJB) (new InitialContext()).lookup("java:module/CORE_X12AuditLoggerEJB");
+        } catch (NamingException ex) {
+            return null;
+        }
     }
+
 }
