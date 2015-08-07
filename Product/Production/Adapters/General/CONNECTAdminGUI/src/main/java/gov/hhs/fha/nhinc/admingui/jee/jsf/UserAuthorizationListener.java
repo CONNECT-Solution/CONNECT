@@ -98,7 +98,7 @@ public class UserAuthorizationListener implements PhaseListener {
         if (session != null) {
             currentUser = (UserLogin) session.getAttribute(USER_INFO_SESSION_ATTRIBUTE);
         }
-        validateCSRFToken(event);
+        validateCsrfToken(event);
         if (!noLoginRequiredPages.contains(currentPage) && currentUser == null) {
             LOG.debug("login required and current user is null, redirecting to login page.");
             NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
@@ -162,14 +162,14 @@ public class UserAuthorizationListener implements PhaseListener {
      *now performed by checking if token is null and ignore the transitioned page. Below "if" method can be re-written in 
      *a way so that if token is null and the phase of transition can be checked it will be safer to ignore that validation.
      */
-    public void validateCSRFToken(PhaseEvent event) {
+    public void validateCsrfToken(PhaseEvent event) {
         String csrfToken = event.getFacesContext().getExternalContext().getRequestParameterMap().get("csrfToken");
         if (csrfToken != null) {
             LOG.debug("csrfToken from http Request parameter is not null");
             if (csrfToken.equals(event.getFacesContext().getExternalContext().getSessionMap().get("salt"))) {
                 LOG.debug("CSRF Token successfully validated");
             } else {
-                LOG.debug("CSRF Token validation Failed");
+                LOG.error("The Session is invalidated. User will be re-directed to Login Page");
                 event.getFacesContext().getExternalContext().invalidateSession();
                 NavigationHandler nh = event.getFacesContext().getApplication().getNavigationHandler();
                 nh.handleNavigation(event.getFacesContext(), null, NavigationConstant.LOGIN_PAGE);

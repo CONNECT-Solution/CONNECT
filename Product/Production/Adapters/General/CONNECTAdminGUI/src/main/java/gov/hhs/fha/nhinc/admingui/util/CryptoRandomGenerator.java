@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
@@ -48,7 +49,8 @@ public class CryptoRandomGenerator {
         try {
             random = SecureRandom.getInstance("SHA1PRNG");
         } catch (NoSuchAlgorithmException ex) {
-            LOG.error("SecureRandom instance initialization failed : " + ex.getMessage(), ex);
+            LOG.error("SecureRandom instance uisng SHA1 Algorithm initialization failed for : " + ex.getMessage(), ex);
+            random = new SecureRandom();
         }
     }
 

@@ -27,9 +27,6 @@
 package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.util.CryptoRandomGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -48,10 +45,7 @@ public class CsrfBean {
 
     public String getToken() {
         createToken();
-        if (token != null) {
-            return token;
-        }       
-        return null;
+        return token;       
     }
 
     public void setToken(String csrfToken) {
@@ -67,7 +61,7 @@ public class CsrfBean {
                 setToken(token);
             }
         } catch (Exception ex) {
-            LOG.debug("CSRFToken Gneeration failed :" + ex.getMessage(), ex);
+            LOG.debug("CSRFToken Generation failed :" + ex.getMessage(), ex);
         }
     }
 
