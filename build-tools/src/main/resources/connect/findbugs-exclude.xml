@@ -1,0 +1,8 @@
+<FindBugsFilter>
+    <Match>
+        <Bug category="I18N"/>
+    </Match>
+    <Match>
+        <Bug category="EXPERIMENTAL"/>
+    </Match>
+</FindBugsFilter>

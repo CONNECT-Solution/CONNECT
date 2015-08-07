@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC
+  "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
+  "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+
+<!-- This is a slightly-modified version of the default sun_checks.xml ruleset -->
+<module name="Checker">
+    <property name="charset" value="UTF-8"/>
+
+    <!-- Enable Rule Exceptions (Global) -->
+    <module name="SuppressionCommentFilter"/>
+
+    <!-- Size Violations (Global) -->
+    <module name="FileLength"/>
+    <module name="FileTabCharacter">
+        <property name="eachLine" value="true"/>
+    </module>
+    <module name="RegexpSingleline">
+        <property name="format" value="\s+$"/>
+        <property name="message" value="Line has trailing spaces."/>
+    </module>
+
+    <!-- Miscellaneous Checks (Global)-->
+    <module name="Translation"/>
+
+    <module name="TreeWalker">
+        <!-- Enable Rule Exceptions (Global) -->
+        <module name="FileContentsHolder"/>
+
+        <!-- Javadoc -->
+        <module name="JavadocMethod">
+            <property name="scope" value="protected"/>
+        </module>
+        <module name="JavadocType"/>
+        <module name="JavadocVariable">
+            <property name="scope" value="protected"/>
+        </module>
+        <module name="JavadocStyle"/>
+        <module name="AtclauseOrder"/>
+        <module name="NonEmptyAtclauseDescription"/>
+
+        <!-- Naming Conventions -->
+        <module name="ConstantName"/>
+        <module name="LocalFinalVariableName"/>
+        <module name="LocalVariableName"/>
+        <module name="MemberName"/>
+        <module name="MethodName"/>
+        <module name="PackageName"/>
+        <module name="ParameterName"/>
+        <module name="StaticVariableName"/>
+        <module name="TypeName"/>
+
+        <!-- Imports -->
+        <module name="AvoidStarImport"/>
+        <module name="IllegalImport"/>
+        <module name="RedundantImport"/>
+        <module name="UnusedImports"/>
+        <module name="CustomImportOrder">
+            <property name="sortImportsInGroupAlphabetically" value="true"/>
+        </module>
+
+        <!-- Size Violations -->
+        <module name="LineLength">
+            <property name="max" value="120"/>
+            <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
+        </module>
+        <module name="MethodLength"/>
+        <module name="ParameterNumber"/>
+
+        <!-- Whitespace -->
+        <module name="EmptyForIteratorPad"/>
+        <module name="GenericWhitespace"/>
+        <module name="MethodParamPad"/>
+        <module name="NoWhitespaceAfter"/>
+        <module name="NoWhitespaceBefore"/>
+        <module name="OperatorWrap"/>
+        <module name="ParenPad"/>
+        <module name="TypecastParenPad"/>
+        <module name="WhitespaceAfter"/>
+        <module name="WhitespaceAround"/>
+        <module name="NoLineWrap"/>
+        <module name="EmptyLineSeparator">
+            <property name="allowNoEmptyLineBetweenFields" value="true"/>
+        </module>
+
+        <!-- Modifier Checks -->
+        <module name="ModifierOrder"/>
+        <module name="RedundantModifier"/>
+
+        <!-- Block Checks -->
+        <module name="AvoidNestedBlocks"/>
+        <module name="EmptyBlock">
+            <property name="severity" value="ignore"/>
+        </module>
+        <module name="LeftCurly"/>
+        <module name="NeedBraces"/>
+        <module name="RightCurly"/>
+
+        <!-- Common Coding Problems -->
+        <!--module name="AvoidInlineConditionals"/-->
+        <module name="NoFinalizer"/>
+        <module name="OverloadMethodsDeclarationOrder"/>
+        <module name="EmptyStatement"/>
+        <module name="EqualsHashCode"/>
+        <module name="HiddenField">
+            <property name="ignoreConstructorParameter" value="true"/>
+            <property name="ignoreSetter" value="true"/>
+        </module>
+        <module name="IllegalInstantiation"/>
+        <module name="InnerAssignment"/>
+        <module name="MagicNumber"/>
+        <module name="MissingSwitchDefault"/>
+        <module name="SimplifyBooleanExpression"/>
+        <module name="SimplifyBooleanReturn"/>
+        <module name="FallThrough"/>
+        <module name="MultipleVariableDeclarations"/>
+        <module name="OneStatementPerLine"/>
+
+        <!-- Class Design -->
+        <!--module name="DesignForExtension"/-->
+        <module name="FinalClass"/>
+        <module name="HideUtilityClassConstructor"/>
+        <module name="InterfaceIsType"/>
+        <module name="VisibilityModifier"/>
+        <module name="OneTopLevelClass"/>
+
+        <!-- Miscellaneous Checks -->
+        <module name="ArrayTypeStyle"/>
+        <!--module name="FinalParameters"/-->
+        <module name="TodoComment"/>
+        <module name="UpperEll"/>
+        <module name="OuterTypeFilename"/>
+    </module>
+
+    <!-- Headers (Global) -->
+    <!--module name="Header">
+        <property name="headerFile" value="${checkstyle.header.file}"/>
+        <property name="fileExtensions" value="java"/>
+    </module-->
+</module>

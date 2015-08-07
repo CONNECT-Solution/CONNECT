@@ -34,8 +34,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <pomFile>${basedir}/repo/javax/jms/jms/1.1/jms-1.1.pom</pomFile>
-                            <file>${basedir}/repo/javax/jms/jms/1.1/jms-1.1.jar</file>
+                            <pomFile>${project.basedir}/repo/javax/jms/jms/1.1/jms-1.1.pom</pomFile>
+                            <file>${project.basedir}/repo/javax/jms/jms/1.1/jms-1.1.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -45,8 +45,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <pomFile>${basedir}/repo/javax/transaction/jta/1.0.1B/jta-1.0.1B.pom</pomFile>
-                            <file>${basedir}/repo/javax/transaction/jta/1.0.1B/jta-1.0.1B.jar</file>
+                            <pomFile>${project.basedir}/repo/javax/transaction/jta/1.0.1B/jta-1.0.1B.pom</pomFile>
+                            <file>${project.basedir}/repo/javax/transaction/jta/1.0.1B/jta-1.0.1B.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -56,8 +56,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <pomFile>${basedir}/repo/com/sun/jmx/jmxri/1.2.1/jmxri-1.2.1.pom</pomFile>
-                            <file>${basedir}/repo/com/sun/jmx/jmxri/1.2.1/jmxri-1.2.1.jar</file>
+                            <pomFile>${project.basedir}/repo/com/sun/jmx/jmxri/1.2.1/jmxri-1.2.1.pom</pomFile>
+                            <file>${project.basedir}/repo/com/sun/jmx/jmxri/1.2.1/jmxri-1.2.1.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -67,8 +67,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <pomFile>${basedir}/repo/com/sun/jdmk/jmxtools/1.2.1/jmxtools-1.2.1.pom</pomFile>
-                            <file>${basedir}/repo/com/sun/jdmk/jmxtools/1.2.1/jmxtools-1.2.1.jar</file>
+                            <pomFile>${project.basedir}/repo/com/sun/jdmk/jmxtools/1.2.1/jmxtools-1.2.1.pom</pomFile>
+                            <file>${project.basedir}/repo/com/sun/jdmk/jmxtools/1.2.1/jmxtools-1.2.1.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -78,8 +78,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <pomFile>${basedir}/repo/com/sun/identity/opensso/1.0/opensso-1.0.pom</pomFile>
-                            <file>${basedir}/repo/com/sun/identity/opensso/1.0/opensso-1.0.jar</file>
+                            <pomFile>${project.basedir}/repo/com/sun/identity/opensso/1.0/opensso-1.0.pom</pomFile>
+                            <file>${project.basedir}/repo/com/sun/identity/opensso/1.0/opensso-1.0.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -89,8 +89,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <pomFile>${basedir}/repo/com/sun/identity/opensso-sharedlib/1.0/opensso-sharedlib-1.0.pom</pomFile>
-                            <file>${basedir}/repo/com/sun/identity/opensso-sharedlib/1.0/opensso-sharedlib-1.0.jar</file>
+                            <pomFile>${project.basedir}/repo/com/sun/identity/opensso-sharedlib/1.0/opensso-sharedlib-1.0.pom</pomFile>
+                            <file>${project.basedir}/repo/com/sun/identity/opensso-sharedlib/1.0/opensso-sharedlib-1.0.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -100,8 +100,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <pomFile>${basedir}/repo/com/sun/identity/openssoclientsdk/1.0/openssoclientsdk-1.0.pom</pomFile>
-                            <file>${basedir}/repo/com/sun/identity/openssoclientsdk/1.0/openssoclientsdk-1.0.jar</file>
+                            <pomFile>${project.basedir}/repo/com/sun/identity/openssoclientsdk/1.0/openssoclientsdk-1.0.pom</pomFile>
+                            <file>${project.basedir}/repo/com/sun/identity/openssoclientsdk/1.0/openssoclientsdk-1.0.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -111,8 +111,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <pomFile>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/jsfcl/1.0/jsfcl-1.0.pom</pomFile>
-                            <file>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/jsfcl/1.0/jsfcl-1.0.jar</file>
+                            <pomFile>${project.basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/jsfcl/1.0/jsfcl-1.0.pom</pomFile>
+                            <file>${project.basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/jsfcl/1.0/jsfcl-1.0.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -122,8 +122,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <pomFile>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/appbase/1.0/appbase-1.0.pom</pomFile>
-                            <file>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/appbase/1.0/appbase-1.0.jar</file>
+                            <pomFile>${project.basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/appbase/1.0/appbase-1.0.pom</pomFile>
+                            <file>${project.basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/appbase/1.0/appbase-1.0.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -133,8 +133,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <pomFile>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/sqlx/1.0/sqlx-1.0.pom</pomFile>
-                            <file>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/sqlx/1.0/sqlx-1.0.jar</file>
+                            <pomFile>${project.basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/sqlx/1.0/sqlx-1.0.pom</pomFile>
+                            <file>${project.basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/sqlx/1.0/sqlx-1.0.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -144,8 +144,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <pomFile>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/dataprovider/1.0/dataprovider-1.0.pom</pomFile>
-                            <file>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/dataprovider/1.0/dataprovider-1.0.jar</file>
+                            <pomFile>${project.basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/dataprovider/1.0/dataprovider-1.0.pom</pomFile>
+                            <file>${project.basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/dataprovider/1.0/dataprovider-1.0.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -155,8 +155,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <pomFile>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/errorhandler/1.0/errorhandler-1.0.pom</pomFile>
-                            <file>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/errorhandler/1.0/errorhandler-1.0.jar</file>
+                            <pomFile>${project.basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/errorhandler/1.0/errorhandler-1.0.pom</pomFile>
+                            <file>${project.basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/errorhandler/1.0/errorhandler-1.0.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -166,8 +166,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <pomFile>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/webui-jsf/1.0/webui-jsf-1.0.pom</pomFile>
-                            <file>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/webui-jsf/1.0/webui-jsf-1.0.jar</file>
+                            <pomFile>${project.basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/webui-jsf/1.0/webui-jsf-1.0.pom</pomFile>
+                            <file>${project.basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/webui-jsf/1.0/webui-jsf-1.0.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -177,8 +177,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <pomFile>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/webui-jsf-suntheme/1.0/webui-jsf-suntheme-1.0.pom</pomFile>
-                            <file>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/webui-jsf-suntheme/1.0/webui-jsf-suntheme-1.0.jar</file>
+                            <pomFile>${project.basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/webui-jsf-suntheme/1.0/webui-jsf-suntheme-1.0.pom</pomFile>
+                            <file>${project.basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/webui-jsf-suntheme/1.0/webui-jsf-suntheme-1.0.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -188,8 +188,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <pomFile>${basedir}/repo/com/icegreen/greenmail/1.3.1b-mbaechler/greenmail-1.3.1b-mbaechler.pom</pomFile>
-                            <file>${basedir}/repo/com/icegreen/greenmail/1.3.1b-mbaechler/greenmail-1.3.1b-mbaechler.jar</file>
+                            <pomFile>${project.basedir}/repo/com/icegreen/greenmail/1.3.1b-mbaechler/greenmail-1.3.1b-mbaechler.pom</pomFile>
+                            <file>${project.basedir}/repo/com/icegreen/greenmail/1.3.1b-mbaechler/greenmail-1.3.1b-mbaechler.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -199,8 +199,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <pomFile>${basedir}/repo/org/nhind/xd-common/1.2-CONNECT/xd-common-1.2-CONNECT.pom</pomFile>
-                            <file>${basedir}/repo/org/nhind/xd-common/1.2-CONNECT/xd-common-1.2-CONNECT.jar</file>
+                            <pomFile>${project.basedir}/repo/org/nhind/xd-common/1.2-CONNECT/xd-common-1.2-CONNECT.pom</pomFile>
+                            <file>${project.basedir}/repo/org/nhind/xd-common/1.2-CONNECT/xd-common-1.2-CONNECT.jar</file>
                         </configuration>
                     </execution>
                 </executions>
