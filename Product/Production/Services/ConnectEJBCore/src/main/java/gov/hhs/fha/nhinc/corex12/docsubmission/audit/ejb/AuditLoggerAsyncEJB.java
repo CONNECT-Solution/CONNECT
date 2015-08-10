@@ -24,30 +24,28 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.corex12.docsubmission.audit;
+package gov.hhs.fha.nhinc.corex12.docsubmission.audit.ejb;
 
+import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.auditrepository.local.AuditRepositoryLoggerLocal;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import java.util.Date;
 import java.util.Properties;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import javax.ejb.Asynchronous;
+import javax.ejb.Stateless;
 import org.apache.log4j.Logger;
 
 /**
- * Class provides APIs to persist Audit data
+ * Stateless EJB implementation which provides the Asynchronous feature.
  *
- * @author svalluripalli
+ * @author nsubrama
  */
-public class CORE_X12AuditLogger {
+@Stateless
+public class AuditLoggerAsyncEJB implements AuditRepositoryLoggerLocal {
 
-    private static final Logger LOG = Logger.getLogger(CORE_X12AuditLogger.class);
-
-    //This value is also set in the CONNECT EJB CORE module ejb-jar.xml
-    private final String CONNECT_EJB_CORE_MODULE_NAME = "ConnectEJBCore";
-
-    private final String CONNECT_AUDIT_LOGGER_EJB_BEAN_NAME = "AuditLoggerAsyncEJB";
+    private static final Logger LOG = Logger.getLogger(AuditLoggerAsyncEJB.class);
+    private final AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
     /**
      *
@@ -59,18 +57,12 @@ public class CORE_X12AuditLogger {
      * @param webContextProperties
      * @param serviceName
      */
+    @Asynchronous
     public void auditNhinCoreX12RealtimeMessage(Object message, AssertionType assertion, NhinTargetSystemType target,
         String direction, boolean isRequesting, Properties webContextProperties, String serviceName) {
-        LOG.info("Inside the method CORE_X12AuditLogger.auditNhinCoreX12RealtimeMessage (START)-->TimeStamp:" + (new Date()));
-        LOG.trace("---Begin CORE_X12AuditLogger.auditNhinCoreX12RealtimeMessage()---");
-        AuditRepositoryLoggerLocal x12EJBAuditLogger = getX12AuditLogger();
-        if (x12EJBAuditLogger != null) {
-            x12EJBAuditLogger.auditNhinCoreX12RealtimeMessage(message, assertion, target, direction, isRequesting, webContextProperties, serviceName);
-        } else {
-            LOG.error("Audit Repository Logger Local EJB is null");
-        }
-        LOG.trace("---End CORE_X12AuditLogger.auditNhinCoreX12RealtimeMessage()---");
-        LOG.info("Inside the method CORE_X12AuditLogger.auditNhinCoreX12RealtimeMessage (END)-->TimeStamp:" + (new Date()));
+        LOG.info("Inside the method AuditLoggerAsyncEJB.auditNhinCoreX12RealtimeMessage (START)-->TimeStamp:" + (new Date()));
+        auditLogger.auditNhinCoreX12RealtimeMessage(message, assertion, target, direction, isRequesting, webContextProperties, serviceName);
+        LOG.info("Inside the method AuditLoggerAsyncEJB.auditNhinCoreX12RealtimeMessage (END)-->TimeStamp:" + (new Date()));
     }
 
     /**
@@ -83,26 +75,12 @@ public class CORE_X12AuditLogger {
      * @param webContextProperties
      * @param serviceName
      */
+    @Asynchronous
     public void auditNhinCoreX12BatchMessage(Object message, AssertionType assertion, NhinTargetSystemType target,
         String direction, boolean isRequesting, Properties webContextProperties, String serviceName) {
-        LOG.trace("---Begin CORE_X12AuditLogger.auditNhinCoreX12BatchRequest()---");
-        AuditRepositoryLoggerLocal x12EJBAuditLogger = getX12AuditLogger();
-        if (x12EJBAuditLogger != null) {
-            x12EJBAuditLogger.auditNhinCoreX12BatchMessage(message, assertion, target, direction, isRequesting, webContextProperties, serviceName);
-        } else {
-            LOG.error("Audit Repository Logger Local EJB is null");
-        }
-        LOG.trace("---End CORE_X12AuditLogger.auditNhinCoreX12BatchRequest()---");
+        LOG.trace("---Begin AuditLoggerAsyncEJB.auditNhinCoreX12BatchMessage()---");
+        auditLogger.auditNhinCoreX12BatchMessage(message, assertion, target, direction, isRequesting, webContextProperties, serviceName);
+        LOG.trace("---End AuditLoggerAsyncEJB.auditNhinCoreX12BatchMessage()---");
     }
 
-    private AuditRepositoryLoggerLocal getX12AuditLogger() {
-        try {
-            String globalAuditLoggerAsyncEJBName = "java:app/" + CONNECT_EJB_CORE_MODULE_NAME + "/" + CONNECT_AUDIT_LOGGER_EJB_BEAN_NAME;
-            return (AuditRepositoryLoggerLocal) (new InitialContext()).lookup(globalAuditLoggerAsyncEJBName);
-        } catch (NamingException ex) {
-            ex.printStackTrace();
-            LOG.error(ex.getMessage());
-            return null;
-        }
-    }
 }

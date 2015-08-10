@@ -26,7 +26,12 @@
             <groupId>org.connectopensource</groupId>
             <artifactId>AuditRepositoryWebservices</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>CORE_X12DocumentSubmissionCore</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        
         <!-- Persistence -->
         <dependency>
             <groupId>org.hibernate</groupId>

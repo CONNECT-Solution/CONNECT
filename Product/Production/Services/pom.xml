@@ -29,6 +29,7 @@
         <module>DocRegistryCore</module>
         <module>PatientDiscoveryCore</module>
         <module>DocumentSubmissionCore</module>
+        <module>ConnectEJBCore</module>
         <module>CORE_X12DocumentSubmissionCore</module>
         <module>DocumentRetrieveCore</module>
         <module>AdminDistributionCore</module>
