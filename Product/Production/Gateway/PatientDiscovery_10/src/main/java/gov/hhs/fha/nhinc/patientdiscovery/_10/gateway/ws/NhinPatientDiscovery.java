@@ -68,13 +68,12 @@ public class NhinPatientDiscovery extends BaseService implements RespondingGatew
      * @throws PRPAIN201305UV02Fault a fault if there's an exception
      */
     @InboundMessageEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
-            afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class,
-            serviceType = "Patient Discovery", version = "1.0")
+        afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class,
+        serviceType = "Patient Discovery", version = "1.0")
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body) throws PRPAIN201305UV02Fault {
         try {
             AssertionType assertion = getAssertion(context, null);
-
-            return inboundPatientDiscovery.respondingGatewayPRPAIN201305UV02(body, assertion);
+            return inboundPatientDiscovery.respondingGatewayPRPAIN201305UV02(body, assertion, getWebContextProperties(context));
         } catch (PatientDiscoveryException e) {
             PatientDiscoveryFaultType type = new PatientDiscoveryFaultType();
             type.setErrorCode("920");

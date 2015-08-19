@@ -68,17 +68,17 @@ public class PassthroughOutboundPatientDiscovery implements OutboundPatientDisco
      * @param auditLogger
      */
     public PassthroughOutboundPatientDiscovery(OutboundPatientDiscoveryDelegate delegate,
-            PatientDiscoveryAuditLogger auditLogger) {
+        PatientDiscoveryAuditLogger auditLogger) {
         this.delegate = delegate;
         this.auditLogger = auditLogger;
     }
 
     @Override
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
-            RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
+        RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
 
         RespondingGatewayPRPAIN201306UV02ResponseType response = sendToNhin(request.getPRPAIN201305UV02(), assertion,
-                msgUtils.convertFirstToNhinTargetSystemType(request.getNhinTargetCommunities()));
+            msgUtils.convertFirstToNhinTargetSystemType(request.getNhinTargetCommunities()));
 
         return response;
     }
@@ -89,18 +89,18 @@ public class PassthroughOutboundPatientDiscovery implements OutboundPatientDisco
     }
 
     private RespondingGatewayPRPAIN201306UV02ResponseType sendToNhin(PRPAIN201305UV02 request, AssertionType assertion,
-            NhinTargetSystemType target) {
+        NhinTargetSystemType target) {
         PRPAIN201306UV02 response;
 
         try {
             OutboundPatientDiscoveryOrchestratable inMessage = new OutboundPatientDiscoveryOrchestratable(delegate,
-                    Optional.<OutboundResponseProcessor> absent(), null, null, assertion,
-                    NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, target, request);
+                Optional.<OutboundResponseProcessor>absent(), null, null, assertion,
+                NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, target, request);
             OutboundPatientDiscoveryOrchestratable outMessage = delegate.process(inMessage);
             response = outMessage.getResponse();
         } catch (Exception ex) {
             String err = ExecutorServiceHelper.getFormattedExceptionInfo(ex, target,
-                    NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+                NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
             response = generateErrorResponse(target, request, err);
         }
 
@@ -110,7 +110,7 @@ public class PassthroughOutboundPatientDiscovery implements OutboundPatientDisco
     private RespondingGatewayPRPAIN201306UV02ResponseType convert(PRPAIN201306UV02 response, NhinTargetSystemType target) {
         String hcid = getHCID(target);
         CommunityPRPAIN201306UV02ResponseType communityResponse = msgUtils
-                .createCommunityPRPAIN201306UV02ResponseType(hcid);
+            .createCommunityPRPAIN201306UV02ResponseType(hcid);
         communityResponse.setPRPAIN201306UV02(response);
 
         RespondingGatewayPRPAIN201306UV02ResponseType gatewayResponse = new RespondingGatewayPRPAIN201306UV02ResponseType();

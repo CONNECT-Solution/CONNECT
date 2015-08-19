@@ -46,7 +46,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.RespondingGatewayPRPAIN201306UV02Builder;
@@ -80,6 +80,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
     private ExecutorService regularExecutor = null;
     private ExecutorService largejobExecutor = null;
     private TransactionLogger transactionLogger = new TransactionLogger();
+    private PatientDiscoveryAuditLogger patientDiscoveryAuditor = new PatientDiscoveryAuditLogger();
 
     /**
      * Add default constructor that is used by test cases Note that implementations should always use constructor that
@@ -112,8 +113,8 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
 
     @Override
     @OutboundProcessingEvent(beforeBuilder = PRPAIN201305UV02ArgTransformer.class,
-    afterReturningBuilder = RespondingGatewayPRPAIN201306UV02Builder.class, serviceType = "Patient Discovery",
-    version = "1.0")
+        afterReturningBuilder = RespondingGatewayPRPAIN201306UV02Builder.class, serviceType = "Patient Discovery",
+        version = "1.0")
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
         RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
 
@@ -394,21 +395,21 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
         return sHomeCommunity;
     }
 
-    protected void auditRequestFromAdapter(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
-        getNewPatientDiscoveryAuditLogger().auditEntity201305(request, assertion,
-            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-    }
-
-    protected void auditResponseToAdapter(RespondingGatewayPRPAIN201306UV02ResponseType response,
-        AssertionType assertion) {
-        getNewPatientDiscoveryAuditLogger().auditEntity201306(response, assertion,
-            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-    }
-
     /**
      * @return a new instance of PatientDiscoveryAuditLogger
      */
     protected PatientDiscoveryAuditLogger getNewPatientDiscoveryAuditLogger() {
         return new PatientDiscoveryAuditLogger();
+    }
+
+    private void auditRequestFromAdapter(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
+        NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(request.getNhinTargetCommunities());
+        patientDiscoveryAuditor.auditPatientDiscoveryMessage(request.getPRPAIN201305UV02(), assertion, targetSystem, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, null);
+    }
+
+    private void auditResponseToAdapter(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion) {
+        for (CommunityPRPAIN201306UV02ResponseType responseEntry : response.getCommunityResponse()) {
+            patientDiscoveryAuditor.auditPatientDiscoveryMessage(null, assertion, MessageGeneratorUtils.getInstance().convertToNhinTargetSystemType(responseEntry.getNhinTargetCommunity()), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, responseEntry.getPRPAIN201306UV02());
+        }
     }
 }
