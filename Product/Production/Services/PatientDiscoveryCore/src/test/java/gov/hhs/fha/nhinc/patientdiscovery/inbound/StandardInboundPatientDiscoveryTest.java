@@ -26,27 +26,32 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.inbound;
 
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditLogger;
+import java.lang.reflect.Method;
+import java.util.Properties;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertSame;
+import org.junit.Test;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
-import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
-import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
-
-import java.lang.reflect.Method;
-
-import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.PRPAIN201306UV02;
-import org.junit.Test;
 
 /**
  * @author akong
@@ -58,7 +63,7 @@ public class StandardInboundPatientDiscoveryTest {
     public void hasInboundProcessingEvent() throws Exception {
         Class<StandardInboundPatientDiscovery> clazz = StandardInboundPatientDiscovery.class;
         Method method = clazz.getDeclaredMethod("respondingGatewayPRPAIN201305UV02",
-                PRPAIN201305UV02.class, AssertionType.class);
+            PRPAIN201305UV02.class, AssertionType.class, Properties.class);
         InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
         assertNotNull(annotation);
         assertEquals(PRPAIN201305UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
@@ -71,7 +76,9 @@ public class StandardInboundPatientDiscoveryTest {
     public void standardInboundPatientDiscovery() throws PatientDiscoveryException {
         PRPAIN201305UV02 request = new PRPAIN201305UV02();
         AssertionType assertion = new AssertionType();
+        Properties webContextProperties = new Properties();
         PRPAIN201306UV02 expectedResponse = new PRPAIN201306UV02();
+        NhinTargetSystemType target = null;
 
         PatientDiscovery201305Processor patientDiscoveryProcessor = mock(PatientDiscovery201305Processor.class);
         PatientDiscoveryAuditLogger auditLogger = mock(PatientDiscoveryAuditLogger.class);
@@ -79,23 +86,25 @@ public class StandardInboundPatientDiscoveryTest {
         when(patientDiscoveryProcessor.process201305(request, assertion)).thenReturn(expectedResponse);
 
         StandardInboundPatientDiscovery standardPatientDiscovery = new StandardInboundPatientDiscovery(
-                patientDiscoveryProcessor, auditLogger);
+            patientDiscoveryProcessor, auditLogger);
 
         PRPAIN201306UV02 actualResponse = standardPatientDiscovery
-                .respondingGatewayPRPAIN201305UV02(request, assertion);
+            .respondingGatewayPRPAIN201305UV02(request, assertion, webContextProperties);
 
         assertSame(expectedResponse, actualResponse);
+        PRPAIN201306UV02 nullResponse = null;
+        PRPAIN201305UV02 nullRequest = null;
 
-        verify(auditLogger).auditNhin201305(eq(request), eq(assertion), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
+        verify(auditLogger).auditPatientDiscoveryMessage(eq(request), eq(assertion), eq(target), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME), eq(nullResponse));
 
-        verify(auditLogger).auditNhin201306(eq(actualResponse), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION));
+        verify(auditLogger).auditPatientDiscoveryMessage(eq(nullRequest), eq(assertion), eq(target),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME), eq(actualResponse));
 
-        verify(auditLogger).auditAdapter201305(eq(request), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION));
+        verify(auditLogger).auditPatientDiscoveryMessage(eq(request), eq(assertion), eq(target),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME), eq(nullResponse));
 
-        verify(auditLogger).auditAdapter201306(eq(actualResponse), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
+        verify(auditLogger).auditPatientDiscoveryMessage(eq(nullRequest), eq(assertion), eq(target),
+            eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME), eq(actualResponse));
 
     }
 
