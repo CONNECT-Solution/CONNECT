@@ -41,13 +41,8 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertSame;
 import org.junit.Test;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -92,19 +87,22 @@ public class StandardInboundPatientDiscoveryTest {
             .respondingGatewayPRPAIN201305UV02(request, assertion, webContextProperties);
 
         assertSame(expectedResponse, actualResponse);
-        PRPAIN201306UV02 nullResponse = null;
-        PRPAIN201305UV02 nullRequest = null;
 
-        verify(auditLogger).auditPatientDiscoveryMessage(eq(request), eq(assertion), eq(target), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME), eq(nullResponse));
+        verify(auditLogger).auditPatientDiscoveryRequestMessage(eq(request), eq(assertion), eq(target),
+            eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+            eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME));
 
-        verify(auditLogger).auditPatientDiscoveryMessage(eq(nullRequest), eq(assertion), eq(target),
-            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME), eq(actualResponse));
+        verify(auditLogger).auditPatientDiscoveryResponseMessage(eq(actualResponse), eq(assertion), eq(target),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+            eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME));
 
-        verify(auditLogger).auditPatientDiscoveryMessage(eq(request), eq(assertion), eq(target),
-            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME), eq(nullResponse));
+        verify(auditLogger).auditPatientDiscoveryRequestMessage(eq(request), eq(assertion), eq(target),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
+            eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME));
 
-        verify(auditLogger).auditPatientDiscoveryMessage(eq(nullRequest), eq(assertion), eq(target),
-            eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME), eq(actualResponse));
+        verify(auditLogger).auditPatientDiscoveryResponseMessage(eq(actualResponse), eq(assertion), eq(target),
+            eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
+            eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME));
 
     }
 

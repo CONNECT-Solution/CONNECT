@@ -42,7 +42,7 @@ public interface InboundPatientDiscovery {
      * @return
      * @throws PatientDiscoveryException
      */
-    public abstract PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion, Properties webContextProperties)
-        throws PatientDiscoveryException;
+    public abstract PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion, 
+        Properties webContextProperties) throws PatientDiscoveryException;
 
 }

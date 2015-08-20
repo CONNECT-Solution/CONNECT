@@ -404,12 +404,12 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
 
     private void auditRequestFromAdapter(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
         NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(request.getNhinTargetCommunities());
-        patientDiscoveryAuditor.auditPatientDiscoveryMessage(request.getPRPAIN201305UV02(), assertion, targetSystem, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, null);
+        patientDiscoveryAuditor.auditPatientDiscoveryRequestMessage(request.getPRPAIN201305UV02(), assertion, targetSystem, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
     }
 
     private void auditResponseToAdapter(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion) {
         for (CommunityPRPAIN201306UV02ResponseType responseEntry : response.getCommunityResponse()) {
-            patientDiscoveryAuditor.auditPatientDiscoveryMessage(null, assertion, MessageGeneratorUtils.getInstance().convertToNhinTargetSystemType(responseEntry.getNhinTargetCommunity()), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, responseEntry.getPRPAIN201306UV02());
+            patientDiscoveryAuditor.auditPatientDiscoveryResponseMessage(responseEntry.getPRPAIN201306UV02(), assertion, MessageGeneratorUtils.getInstance().convertToNhinTargetSystemType(responseEntry.getNhinTargetCommunity()), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
         }
     }
 }

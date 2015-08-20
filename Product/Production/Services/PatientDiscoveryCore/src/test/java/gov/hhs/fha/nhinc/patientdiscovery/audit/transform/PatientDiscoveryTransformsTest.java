@@ -41,6 +41,7 @@ import gov.hhs.fha.nhinc.mpilib.Identifiers;
 import gov.hhs.fha.nhinc.mpilib.Patient;
 import gov.hhs.fha.nhinc.mpilib.PersonName;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditDataBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryTransformConstants;
 import java.net.UnknownHostException;
 import java.util.List;
@@ -73,8 +74,6 @@ import org.hl7.v3.XActMoodIntentEvent;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertSame;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -86,7 +85,8 @@ import org.junit.Test;
  * @param <T>
  * @param <K>
  */
-public class PatientDiscoveryTransformsTest<T extends PRPAIN201305UV02,K extends PRPAIN201306UV02> extends AuditTransformTest<T,K> {
+public class PatientDiscoveryTransformsTest<T extends PRPAIN201305UV02,K extends PRPAIN201306UV02> extends 
+    AuditTransformTest<T,K> {
 
     public PatientDiscoveryTransformsTest() {
     }
@@ -123,7 +123,8 @@ public class PatientDiscoveryTransformsTest<T extends PRPAIN201305UV02,K extends
 
             @Override
             protected String getRemoteHostAddress(Properties webContextProeprties) {
-                if (webContextProeprties != null && !webContextProeprties.isEmpty() && webContextProeprties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS) != null) {
+                if (webContextProeprties != null && !webContextProeprties.isEmpty() && webContextProeprties.
+                    getProperty(NhincConstants.REMOTE_HOST_ADDRESS) != null) {
                     return webContextProeprties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS);
                 }
                 return AuditTransformConstants.ACTIVE_PARTICPANT_UNKNOWN_IP_ADDRESS;
@@ -138,9 +139,12 @@ public class PatientDiscoveryTransformsTest<T extends PRPAIN201305UV02,K extends
 
         PRPAIN201305UV02 request = createPRPAIN201305UV02Request();
         AssertionType assertion = createAssertion();
-
-        LogEventRequestType auditRequest = transforms.transformMsgToAuditMsg(request, assertion, createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, webContextProperties, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, response);
-        testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE);
+        PatientDiscoveryAuditDataBuilder builder = new PatientDiscoveryAuditDataBuilder();
+        LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(request, assertion, createNhinTarget(), 
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, 
+            webContextProperties, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, builder);
+        testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE, 
+            builder);
         testGetActiveParticipantSource(auditRequest, Boolean.TRUE, localIP, webContextProperties);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectIP);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
@@ -148,17 +152,35 @@ public class PatientDiscoveryTransformsTest<T extends PRPAIN201305UV02,K extends
     }
 
     private void assertParticiopantObjectIdentification(LogEventRequestType auditRequest) {
-        assertEquals("D123401^^^&1.1&ISO", auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectID());
-        assertSame(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM, auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectTypeCode());
-        assertSame(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_ROLE, auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectTypeCodeRole());
-        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE, auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectIDTypeCode().getCode());
-        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE_SYSTEM, auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectIDTypeCode().getCodeSystemName());
-        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME, auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectIDTypeCode().getDisplayName());
-        assertSame(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_SYSTEM, auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectTypeCode());
-        assertSame(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_ROLE, auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectTypeCodeRole());
-        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE, auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectIDTypeCode().getCode());
-        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE_SYSTEM, auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectIDTypeCode().getCodeSystemName());
-        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME, auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectIDTypeCode().getDisplayName());
+        assertEquals("D123401^^^&1.1&ISO", 
+            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectID());
+        assertSame(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM, 
+            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectTypeCode());
+        assertSame(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_ROLE, 
+            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).
+            getParticipantObjectTypeCodeRole());
+        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE, 
+            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).
+            getParticipantObjectIDTypeCode().getCode());
+        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE_SYSTEM, 
+            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectIDTypeCode().
+            getCodeSystemName());
+        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME, 
+            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectIDTypeCode().
+            getDisplayName());
+        assertSame(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_SYSTEM, 
+            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectTypeCode());
+        assertSame(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_ROLE, 
+            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectTypeCodeRole());
+        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE, 
+            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectIDTypeCode().
+            getCode());
+        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE_SYSTEM, 
+            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectIDTypeCode().
+            getCodeSystemName());
+        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME, 
+            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectIDTypeCode().
+            getDisplayName());
     }
 
     private AssertionType createAssertion() {

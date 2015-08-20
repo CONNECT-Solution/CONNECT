@@ -46,16 +46,34 @@ public class PatientDiscoveryAuditLogger {
 
     private static final Logger LOG = Logger.getLogger(PatientDiscoveryAuditLogger.class);
     PatientDiscoveryTransforms patientDiscoveryTransforms = new PatientDiscoveryTransforms();
+    PatientDiscoveryAuditDataBuilder databuilder = new PatientDiscoveryAuditDataBuilder();
 
-    public void auditPatientDiscoveryMessage(PRPAIN201305UV02 message, AssertionType assertion, NhinTargetSystemType target, String direction, String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName, PRPAIN201306UV02 response) {
-        LOG.trace("---Begin PatientDiscoveryAuditLogger.auditPatientDiscoveryMessage()---");
-        LogEventRequestType auditLogMsg = patientDiscoveryTransforms.transformMsgToAuditMsg(message, assertion, target, direction, _interface, isRequesting, webContextProperties, serviceName, response);
+    public void auditPatientDiscoveryRequestMessage(PRPAIN201305UV02 message, AssertionType assertion, 
+        NhinTargetSystemType target, String direction, String _interface, Boolean isRequesting, 
+        Properties webContextProperties, String serviceName) {
+        LOG.trace("---Begin PatientDiscoveryRequestAuditLogger.auditPatientDiscoveryRequestMessage()---");
+        LogEventRequestType auditLogMsg = patientDiscoveryTransforms.transformRequestToAuditMsg(message, assertion, 
+            target, direction, _interface, isRequesting, webContextProperties, serviceName, databuilder);
+        auditLogMessages(auditLogMsg, assertion);
+        LOG.trace("---End PatientDiscoveryRequestAuditLogger.auditPatientDiscoveryRequestMessage()---");
+    }
+
+    public void auditPatientDiscoveryResponseMessage(PRPAIN201306UV02 response, AssertionType assertion, 
+        NhinTargetSystemType target, String direction, String _interface, Boolean isRequesting, 
+        Properties webContextProperties, String serviceName) {
+        LOG.trace("---Begin PatientDiscoveryResponseAuditLogger.auditPatientDiscoveryResponseMessage()---");
+        LogEventRequestType auditLogMsg = patientDiscoveryTransforms.transformResponseToAuditMsg(response, assertion, 
+            target, direction, _interface, isRequesting, webContextProperties, serviceName, databuilder);
+        auditLogMessages(auditLogMsg, assertion);
+        LOG.trace("---End PatientDiscoveryResponseAuditLogger.auditPatientDiscoveryResponseMessage()---");
+    }
+
+    private void auditLogMessages(LogEventRequestType auditLogMsg, AssertionType assertion) {
         if (auditLogMsg != null && auditLogMsg.getAuditMessage() != null) {
             audit(auditLogMsg, assertion);
         } else {
             LOG.error("Core X12 Nhin Batch Request auditLogMsg is null");
         }
-        LOG.trace("---End PatientDiscoveryAuditLogger.auditPatientDiscoveryMessage()---");
     }
 
     /**

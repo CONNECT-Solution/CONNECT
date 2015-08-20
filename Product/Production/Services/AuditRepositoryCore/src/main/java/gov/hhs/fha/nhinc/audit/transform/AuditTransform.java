@@ -49,10 +49,13 @@ import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.GregorianCalendar;
 import java.util.Properties;
 import java.util.TimeZone;
 import java.util.UUID;
 import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import org.apache.commons.validator.routines.InetAddressValidator;
 import org.apache.log4j.Logger;
 
@@ -67,79 +70,80 @@ public abstract class AuditTransform<T, K> {
     private static final Logger LOG = Logger.getLogger(AuditTransform.class);
 
     /**
-     *
-     * @param request
-     * @param assertion
-     * @param target
-     * @param direction
-     * @param _interface
-     * @param isRequesting
-     * @param webContextProperties
-     * @param serviceName
-     * @param response
-     * @return
+     * Build AuditLog Request Message from Request
+     * 
+     * This abstract class follows Template design pattern. EventIdentification, ActivePartiicpant(HumanRequestor,Source,
+     * Destination), AuditSourceIdentification are same across all the exchange services (PD,DQ,DR,AD,DS) and X12.
+     * The ParticipantObjectIdentification is built using the requests and response types received from Inbound and 
+     * Outbound for any specific service. Therefore an abstract method is defined here to build 
+     * ParticipantObjectIdentification and this can be implemented by specific Core services AuditTransformer. In order 
+     * to build ParticipantObjectIdentification the generic request of type <T> and generic response of type <K> are 
+     * used here. These Generic types can be extended in the subclasses to their respective request and response types
+     * objects.
+     * 
+     * @param request Request Object
+     * @param assertion Assertion Object
+     * @param target  Target Community
+     * @param direction Inbound/Outbound
+     * @param _interface Entity, Adapter and Nwhin
+     * @param isRequesting Initiating/Responding Gateway
+     * @param webContextProperties Properties hold destination Url and Remote IP
+     * @param serviceName Service Name
+     * @param instance
+     * @return Audit Request
+     * 
      */
-    public final LogEventRequestType transformMsgToAuditMsg(T request, AssertionType assertion,
-        NhinTargetSystemType target, String direction, String _interface, boolean isRequesting, Properties webContextProperties, String serviceName, K response) {
-        LOG.trace("Begin AuditDataTransform -> transformMsgToAuditMsg() ----");
-        if (request == null && response == null) {
-            LOG.error("message Object was null");
-            return null;
-        }
-        if (assertion == null) {
-            LOG.error("Assertion was null");
-            return null;
-        }
+    public final LogEventRequestType transformRequestToAuditMsg(T request, AssertionType assertion,
+        NhinTargetSystemType target, String direction, String _interface, boolean isRequesting, Properties 
+            webContextProperties, String serviceName, AuditTransformDataBuilder instance) {
 
-        LogEventRequestType result = new LogEventRequestType();
+        return createAuditMessage(request, assertion, target, direction, _interface, isRequesting, 
+            webContextProperties, serviceName, instance);
+    }
+    
+    /**
+     * Build AuditLog Request Message from Response
+     * 
+     * This abstract class follows Template design pattern. EventIdentification, ActivePartiicpant(HumanRequestor,Source,
+     * Destination), AuditSourceIdentification are same across all the exchange services (PD,DQ,DR,AD,DS) and X12.
+     * The ParticipantObjectIdentification is built using the requests and response types received from Inbound and 
+     * Outbound for any specific service. Therefore an abstract method is defined here to build 
+     * ParticipantObjectIdentification and this can be implemented by specific Core services AuditTransformer. In order 
+     * to build ParticipantObjectIdentification the generic request of type <T> and generic response of type <K> are 
+     * used here. These Generic types can be extended in the subclasses to their respective request and response types
+     * objects.
+     * 
+     * @param response Response Object
+     * @param assertion Assertion Object
+     * @param target  Target Community
+     * @param direction Inbound/Outbound
+     * @param _interface Entity, Adapter and Nwhin
+     * @param isRequesting Initiating/Responding Gateway
+     * @param webContextProperties Properties hold destination Url and Remote IP
+     * @param serviceName Service Name
+     * @param instance
+     * @return Audit Request
+     * 
+     */
+    public final LogEventRequestType transformResponseToAuditMsg(K response, AssertionType assertion,
+        NhinTargetSystemType target, String direction, String _interface, boolean isRequesting, Properties 
+            webContextProperties, String serviceName, AuditTransformDataBuilder instance) {
 
-        AuditMessageType auditMsg = new AuditMessageType();
-        //****************************Construct Event Identification**************************
-
-        auditMsg.setEventIdentification(createEventIdentification(serviceName, isRequesting));
-
-        //*********************************Construct Active Participant************************
-        //Active Participant for human requester only required for requesting gateway
-        if (isRequesting) {
-            AuditMessageType.ActiveParticipant participantHumanFactor = getActiveParticipant(assertion.getUserInfo());
-            auditMsg.getActiveParticipant().add(participantHumanFactor);
-        }
-        AuditMessageType.ActiveParticipant participantSource = getActiveParticipantSource(isRequesting, webContextProperties, serviceName);
-        AuditMessageType.ActiveParticipant participantDestination = getActiveParticipantDestination(target, isRequesting, webContextProperties, serviceName);
-        auditMsg.getActiveParticipant().add(participantSource);
-        auditMsg.getActiveParticipant().add(participantDestination);
-
-        //******************************Constuct Participation Object Identification*************
-        // Assign ParticipationObjectIdentification
-        auditMsg = getParticipantObjectIdentification(request, response, assertion, auditMsg);
-
-        //Create the AuditSourceIdentifierType object
-        String communityId = getMessageCommunityId(assertion, target, isRequesting);
-        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType();
-
-        //******************************Constuct Audit Source Identification**********************
-        auditMsg.getAuditSourceIdentification().add(auditSource);
-
-        //Set the all the required data
-        result.setAuditMessage(auditMsg);
-        result.setDirection(direction);
-        result.setInterface(_interface);
-        //set the target community identifier
-        result.setCommunityId(communityId);
-
-        LOG.trace("End AuditDataTransform transformMsgToAuditMsg() ----");
-        return result;
+        return createAuditMessage(response, assertion, target, direction, _interface, isRequesting, 
+            webContextProperties, serviceName, instance);
     }
 
     /**
-     *
-     * @param request
-     * @param response
+     * ParticipantObjectIdentifiaction is specific to each service and the implementation can be carried out in 
+     * specific service core transformer.
+     * @param msg
      * @param assertion
      * @param auditMsg
      * @return
      */
-    protected abstract AuditMessageType getParticipantObjectIdentification(T request, K response, AssertionType assertion, AuditMessageType auditMsg);
+    protected abstract AuditMessageType getParticipantObjectIdentification(Object msg, AssertionType assertion, 
+        AuditMessageType auditMsg);
+    
 
     /**
      *
@@ -154,15 +158,17 @@ public abstract class AuditTransform<T, K> {
     /**
      *
      * @param oUserInfo
+     * @param isRequesting
      * @return
      */
-    protected AuditMessageType.ActiveParticipant getActiveParticipant(UserType oUserInfo) {
+    protected AuditMessageType.ActiveParticipant getActiveParticipant(UserType oUserInfo, Boolean isRequesting) {
         // Create Active Participant Section
         // create a method to call the AuditDataTransformHelper - one expectation
         AuditMessageType.ActiveParticipant participant = createActiveParticipantFromUser(
-            oUserInfo, Boolean.TRUE);
+            oUserInfo, isRequesting);
         if (oUserInfo.getRoleCoded() != null) {
-            participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(oUserInfo.getRoleCoded().getCode(), "",
+            participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(oUserInfo.getRoleCoded().
+                getCode(), "",
                 oUserInfo.getRoleCoded().getCodeSystemName(), oUserInfo.getRoleCoded().getDisplayName()));
         }
         return participant;
@@ -172,15 +178,20 @@ public abstract class AuditTransform<T, K> {
      *
      * @param serviceName
      * @param isRequesting
+     * @param instance
      * @return
      */
-    protected EventIdentificationType createEventIdentification(String serviceName, boolean isRequesting) {
-        CodedValueType eventID = createCodeValueType(getEventIdCode(serviceName), null,
-            getEventCodeSystemName(serviceName), isRequesting ? getEventDisplayNameRequestor(serviceName) : getEventDisplayNameResponder(serviceName));
+    protected EventIdentificationType createEventIdentification(String serviceName, boolean isRequesting, 
+        AuditTransformDataBuilder instance) {
+        CodedValueType eventID = createCodeValueType(instance.getServiceEvenIdCode(), null,
+            instance.getServiceEventCodeSystem(), isRequesting ? instance.getServiceEventDisplayRequestor()
+            : instance.getServiceEventDisplayResponder());
 
-        EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventID, isRequesting, serviceName);
-        oEventIdentificationType.getEventTypeCode().add(AuditDataTransformHelper.createCodeValueType(getEventTypeCode(serviceName), null,
-            getEventTypeCodeSystem(serviceName), getEventTypeCodeDisplayName(serviceName)));
+        EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventID, isRequesting,
+            serviceName, instance);
+        oEventIdentificationType.getEventTypeCode().add(AuditDataTransformHelper.
+            createCodeValueType(instance.getServiceEventTypeCode(), null,
+                instance.getServiceEventTypeCodeSystem(), instance.getServiceEventTypeCodeDisplayName()));
         return oEventIdentificationType;
     }
 
@@ -205,7 +216,8 @@ public abstract class AuditTransform<T, K> {
         // If specified, set the User Name
         String userName = null;
         if (userInfo != null && userInfo.getPersonName() != null) {
-            if (userInfo.getPersonName().getGivenName() != null && userInfo.getPersonName().getGivenName().length() > 0) {
+            if (userInfo.getPersonName().getGivenName() != null && userInfo.getPersonName().getGivenName().
+                length() > 0) {
                 userName = userInfo.getPersonName().getGivenName();
             }
 
@@ -231,13 +243,15 @@ public abstract class AuditTransform<T, K> {
      * @param eventID
      * @param isRequesting
      * @param serviceName
+     * @param instance
      * @return
      */
-    protected EventIdentificationType getEventIdentificationType(CodedValueType eventID, boolean isRequesting, String serviceName) {
-        EventIdentificationType oEventIdentificationType = createEventIdentification(
-            isRequesting ? getEventActionCodeRequestor(serviceName) : getEventActionCodeResponder(serviceName),
+    protected EventIdentificationType getEventIdentificationType(CodedValueType eventID, boolean isRequesting,
+        String serviceName, AuditTransformDataBuilder instance) {
+
+        return createEventIdentification(
+            isRequesting ? instance.getServiceEventActionCodeRequestor() : instance.getServiceEventActionCodeResponder(),
             AuditTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID);
-        return oEventIdentificationType;
     }
 
     /**
@@ -256,7 +270,7 @@ public abstract class AuditTransform<T, K> {
         participant.setNetworkAccessPointID(hostAddress);
         participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostAddress));
 
-        participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_Source, null,
+        participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
             AuditTransformConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME, AuditTransformConstants.ACTIVE_PARTICPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
         participant.setUserIsRequestor(isRequesting);
         return participant;
@@ -277,7 +291,8 @@ public abstract class AuditTransform<T, K> {
 
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
 
-        strUrl = isRequesting ? getWebServiceUrlFromRemoteObject(target, serviceName) : getWebServiceRequestURL(webContextProprties);
+        strUrl = isRequesting ? getWebServiceUrlFromRemoteObject(target, serviceName)
+            : getWebServiceRequestURL(webContextProprties);
         if (strUrl != null) {
             try {
                 URL url = new URL(strUrl);
@@ -288,31 +303,32 @@ public abstract class AuditTransform<T, K> {
                 setDefaultValue = false;
             } catch (MalformedURLException ex) {
                 LOG.error(ex);
-                setDefaultValue = true;
+                //if the url is null or not a valid url
+                //for now set the user id to anonymouns
+                participant.setUserID(AuditTransformConstants.ACTIVE_PARTICPANT_USER_ID_SOURCE);
+                //for now hardcode the value to localhost, need to find out if this needs to be set
+                participant.setNetworkAccessPointTypeCode(AuditTransformConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME);
+                participant.setNetworkAccessPointID(AuditTransformConstants.ACTIVE_PARTICPANT_UNKNOWN_IP_ADDRESS);
             }
         }
-        //if the url is null or not a valid url
-        if (setDefaultValue) {
-            //for now set the user id to anonymouns
-            participant.setUserID(AuditTransformConstants.ACTIVE_PARTICPANT_USER_ID_SOURCE);
-            //for now hardcode the value to localhost, need to find out if this needs to be set
-            participant.setNetworkAccessPointTypeCode(AuditTransformConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME);
-            participant.setNetworkAccessPointID(AuditTransformConstants.ACTIVE_PARTICPANT_UNKNOWN_IP_ADDRESS);
-        }
+
         participant.setUserIsRequestor(Boolean.FALSE);
-        participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, null,
-            AuditTransformConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME, AuditTransformConstants.ACTIVE_PARTICPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME));
+        participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(AuditTransformConstants.
+            ACTIVE_PARTICIPANT_ROLE_CODE_DEST, null,
+            AuditTransformConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME, AuditTransformConstants.
+                ACTIVE_PARTICPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME));
         return participant;
     }
 
     /**
      *
-     * @param webContextProeprties
+     * @param webContextProperties
      * @return
      */
-    protected String getRemoteHostAddress(Properties webContextProeprties) {
-        if (webContextProeprties != null && !webContextProeprties.isEmpty() && webContextProeprties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS) != null) {
-            return webContextProeprties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS);
+    protected String getRemoteHostAddress(Properties webContextProperties) {
+        if (webContextProperties != null && !webContextProperties.isEmpty() && webContextProperties.getProperty(
+            NhincConstants.REMOTE_HOST_ADDRESS) != null) {
+            return webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS);
         }
         return AuditTransformConstants.ACTIVE_PARTICPANT_UNKNOWN_IP_ADDRESS;
     }
@@ -325,9 +341,9 @@ public abstract class AuditTransform<T, K> {
     protected Short getNetworkAccessPointTypeCode(String hostAddress) {
         if (InetAddressValidator.getInstance().isValid(hostAddress)) {
             return AuditTransformConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_IP;
-        } else {
-            return AuditTransformConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME;
         }
+        return AuditTransformConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME;
+
     }
 
     /**
@@ -336,7 +352,8 @@ public abstract class AuditTransform<T, K> {
      * @return
      */
     protected String getWebServiceRequestURL(Properties webContextProeprties) {
-        if (webContextProeprties != null && !webContextProeprties.isEmpty() && webContextProeprties.getProperty(NhincConstants.WEB_SERVICE_REQUEST_URL) != null) {
+        if (webContextProeprties != null && !webContextProeprties.isEmpty() && webContextProeprties.getProperty(
+            NhincConstants.WEB_SERVICE_REQUEST_URL) != null) {
             return webContextProeprties.getProperty(NhincConstants.WEB_SERVICE_REQUEST_URL);
         }
         return AuditTransformConstants.ACTIVE_PARTICPANT_USER_ID_SOURCE;
@@ -375,6 +392,7 @@ public abstract class AuditTransform<T, K> {
         try {
             return InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException ex) {
+            LOG.error("Error while returning Local Host Address: " + ex.getLocalizedMessage(), ex);
             return AuditTransformConstants.ACTIVE_PARTICPANT_UNKNOWN_IP_ADDRESS;
         }
     }
@@ -384,7 +402,8 @@ public abstract class AuditTransform<T, K> {
      * @return
      */
     protected String createUUID() {
-        return (UUID.randomUUID().toString());
+
+        return UUID.randomUUID().toString();
 
     }
 
@@ -414,8 +433,9 @@ public abstract class AuditTransform<T, K> {
      * @param participantObjectIdDisplayName
      * @return
      */
-    protected ParticipantObjectIdentificationType createParticipantObjectIdentification(short participantObjectCode, short participantObjectCodeRole,
-        String participantObjectIdCode, String particpantObjectIdCodeSystem, String participantObjectIdDisplayName) {
+    protected ParticipantObjectIdentificationType createParticipantObjectIdentification(short participantObjectCode,
+        short participantObjectCodeRole, String participantObjectIdCode, String particpantObjectIdCodeSystem,
+        String participantObjectIdDisplayName) {
         ParticipantObjectIdentificationType participantObject = new ParticipantObjectIdentificationType();
 
         // Set the Participation Object Typecode
@@ -450,9 +470,9 @@ public abstract class AuditTransform<T, K> {
 
         // Set the Event Action Time
         try {
-            java.util.GregorianCalendar today = new java.util.GregorianCalendar(TimeZone.getTimeZone("GMT"));
-            javax.xml.datatype.DatatypeFactory factory = javax.xml.datatype.DatatypeFactory.newInstance();
-            javax.xml.datatype.XMLGregorianCalendar calendar = factory.newXMLGregorianCalendar(
+            GregorianCalendar today = new java.util.GregorianCalendar(TimeZone.getTimeZone("GMT"));
+            DatatypeFactory factory = javax.xml.datatype.DatatypeFactory.newInstance();
+            XMLGregorianCalendar calendar = factory.newXMLGregorianCalendar(
                 today.get(java.util.GregorianCalendar.YEAR), today.get(java.util.GregorianCalendar.MONTH) + 1,
                 today.get(java.util.GregorianCalendar.DAY_OF_MONTH),
                 today.get(java.util.GregorianCalendar.HOUR_OF_DAY), today.get(java.util.GregorianCalendar.MINUTE),
@@ -461,10 +481,10 @@ public abstract class AuditTransform<T, K> {
             eventIdentification.setEventDateTime(calendar);
         } catch (DatatypeConfigurationException e) {
             LOG.error("DatatypeConfigurationException when creating XMLGregorian Date");
-            LOG.error(" message: " + e.getMessage());
+            LOG.error(" message: " + e.getMessage(), e);
         } catch (ArrayIndexOutOfBoundsException e) {
             LOG.error("ArrayIndexOutOfBoundsException when creating XMLGregorian Date");
-            LOG.error(" message: " + e.getMessage());
+            LOG.error(" message: " + e.getMessage(), e);
         }
         // Set the Event Outcome Indicator
         BigInteger eventOutcomeBig = BigInteger.ZERO;
@@ -488,7 +508,7 @@ public abstract class AuditTransform<T, K> {
      * @param dispName
      * @return <code>CodedValueType</code>
      */
-    public static CodedValueType createCodeValueType(String code, String codeSys, String codeSysName, String dispName) {
+    private static CodedValueType createCodeValueType(String code, String codeSys, String codeSysName, String dispName) {
         CodedValueType codeValueType = new CodedValueType();
 
         // Set the Code
@@ -540,40 +560,49 @@ public abstract class AuditTransform<T, K> {
 
         return auditSrcId;
     }
+    
+    private LogEventRequestType createAuditMessage(Object msg, AssertionType assertion,
+        NhinTargetSystemType target, String direction, String _interface, boolean isRequesting, Properties 
+            webContextProperties, String serviceName, AuditTransformDataBuilder instance) {
+        LogEventRequestType result = new LogEventRequestType();
 
-    private String getEventIdCode(String serviceName) {
-        return AuditTransformDataBuilder.getInstance().getEventIdCode(serviceName);
-    }
+        AuditMessageType auditMsg = new AuditMessageType();
+        //****************************Construct Event Identification**************************
 
-    private String getEventCodeSystemName(String serviceName) {
-        return AuditTransformDataBuilder.getInstance().getEventCodeSystem(serviceName);
-    }
+        auditMsg.setEventIdentification(createEventIdentification(serviceName, isRequesting, instance));
 
-    private String getEventDisplayNameRequestor(String serviceName) {
-        return AuditTransformDataBuilder.getInstance().getEventDisplayNameRequestor(serviceName);
-    }
+        //*********************************Construct Active Participant************************
+        //Active Participant for human requester only required for requesting gateway
+        if (isRequesting) {
+            AuditMessageType.ActiveParticipant participantHumanFactor = getActiveParticipant(assertion.getUserInfo(), isRequesting);
+            auditMsg.getActiveParticipant().add(participantHumanFactor);
+        }
+        AuditMessageType.ActiveParticipant participantSource = getActiveParticipantSource(isRequesting,
+            webContextProperties, serviceName);
+        AuditMessageType.ActiveParticipant participantDestination = getActiveParticipantDestination(target,
+            isRequesting, webContextProperties, serviceName);
+        auditMsg.getActiveParticipant().add(participantSource);
+        auditMsg.getActiveParticipant().add(participantDestination);
 
-    private String getEventDisplayNameResponder(String serviceName) {
-        return AuditTransformDataBuilder.getInstance().getEventDisplayNameResponder(serviceName);
-    }
+        //******************************Constuct Participation Object Identification*************
+        // Assign ParticipationObjectIdentification
+        auditMsg = getParticipantObjectIdentification(msg, assertion, auditMsg);
 
-    private String getEventTypeCode(String serviceName) {
-        return AuditTransformDataBuilder.getInstance().getEventTypeCode(serviceName);
-    }
+        //Create the AuditSourceIdentifierType object
+        String communityId = getMessageCommunityId(assertion, target, isRequesting);
+        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType();
 
-    private String getEventTypeCodeSystem(String serviceName) {
-        return AuditTransformDataBuilder.getInstance().getEventTypeCodeSystem(serviceName);
-    }
+        //******************************Constuct Audit Source Identification**********************
+        auditMsg.getAuditSourceIdentification().add(auditSource);
 
-    private String getEventTypeCodeDisplayName(String serviceName) {
-        return AuditTransformDataBuilder.getInstance().getEventTypeCodeDisplayName(serviceName);
-    }
+        //Set the all the required data
+        result.setAuditMessage(auditMsg);
+        result.setDirection(direction);
+        result.setInterface(_interface);
+        //set the target community identifier
+        result.setCommunityId(communityId);
 
-    private String getEventActionCodeRequestor(String serviceName) {
-        return AuditTransformDataBuilder.getInstance().getEventActionCodeRequestor(serviceName);
-    }
-
-    private String getEventActionCodeResponder(String serviceName) {
-        return AuditTransformDataBuilder.getInstance().getEventActionCodeResponder(serviceName);
+        LOG.trace("End AuditDataTransform transformMsgToAuditMsg() ----");
+        return result;
     }
 }

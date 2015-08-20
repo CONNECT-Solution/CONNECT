@@ -24,30 +24,60 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.audit;
+package gov.hhs.fha.nhinc.patientdiscovery.audit;
 
-/*
+import gov.hhs.fha.nhinc.audit.AuditTransformDataBuilder;
+
+
+/**
  *
  * @author achidamb
  */
-public abstract class AuditTransformDataBuilder {
+public class PatientDiscoveryAuditDataBuilder extends AuditTransformDataBuilder {
+     
+    @Override
+    public String getServiceEvenIdCode() {
+        return PatientDiscoveryTransformConstants.EVENT_ID_CODE;
+    }
+    
+    @Override
+    public String getServiceEventCodeSystem() {
+        return PatientDiscoveryTransformConstants.EVENT_CODE_SYSTEM;
+    }
 
-    public abstract String getServiceEvenIdCode();
-    
-    public abstract String getServiceEventCodeSystem();
-    
-    public abstract String getServiceEventDisplayRequestor();
-    
-    public abstract String getServiceEventDisplayResponder();
-    
-    public abstract String getServiceEventTypeCode();
-    
-    public abstract String getServiceEventTypeCodeSystem();
-    
-    public abstract String getServiceEventTypeCodeDisplayName();
-    
-    public abstract String getServiceEventActionCodeRequestor();
-    
-    public abstract String getServiceEventActionCodeResponder();
-    
+    @Override
+    public String getServiceEventDisplayRequestor() {
+        return PatientDiscoveryTransformConstants.EVENT_CODE_DISPLAY_REQUESTOR;
+    }
+
+    @Override
+    public String getServiceEventDisplayResponder() {
+        return PatientDiscoveryTransformConstants.EVENT_CODE_DISPLAY_RESPONDER;
+    }
+
+    @Override
+    public String getServiceEventTypeCode() {
+        return PatientDiscoveryTransformConstants.EVENT_TYPE_CODE;
+    }
+
+    @Override
+    public String getServiceEventTypeCodeSystem() {
+        return PatientDiscoveryTransformConstants.EVENT_TYPE_CODE_SYSTEM;
+    }
+
+    @Override
+    public String getServiceEventTypeCodeDisplayName() {
+        return PatientDiscoveryTransformConstants.EVENT_TYPE_CODE_DISPLAY_NAME;
+    }
+
+    @Override
+    public String getServiceEventActionCodeRequestor() {
+        return PatientDiscoveryTransformConstants.EVENT_ACTION_CODE_REQUESTOR;
+    }
+
+    @Override
+    public String getServiceEventActionCodeResponder() {
+        return PatientDiscoveryTransformConstants.EVENT_ACTION_CODE_RESPONDER;
+    }
+
 }
