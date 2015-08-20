@@ -2857,7 +2857,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="c7e1d2d1-838b-4836-afa3-1c655cf5c329">
       <con:settings/>
-      <con:testStep type="groovy" name="Clear Audit Logs" id="78b0ddbb-e77a-451d-8ebf-c37a97b89ed8" disabled="true">
+      <con:testStep type="groovy" name="Clear Audit Logs" id="78b0ddbb-e77a-451d-8ebf-c37a97b89ed8">
         <con:settings/>
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) { sql -> 
@@ -3324,7 +3324,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
           </con:response>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Audit Logs" id="91fb646d-64ae-45b2-83a0-8190c122bfe6" disabled="true">
+      <con:testStep type="groovy" name="Verify Audit Logs" id="91fb646d-64ae-45b2-83a0-8190c122bfe6">
         <con:settings/>
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
@@ -3336,7 +3336,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -3438,7 +3438,13 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
 	     }
-	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
+	     if(!node.ParticipantObjectName.@value.isEmpty()){
+	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
+	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectDetail.@value.isEmpty()){
 	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
 	 	}
 	}
@@ -3459,6 +3465,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName" )
 	     }
+	     if(!node.ParticipantObjectName.@value.isEmpty()){
+	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
+	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectQuery.@value" ) 
+	 	}
 	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
 	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" ) 
 	 	}
@@ -3569,7 +3581,13 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
 	     }
-	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
+	     if(!node.ParticipantObjectName.@value.isEmpty()){
+	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
+	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectDetail.@value.isEmpty()){
 	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
 	 	}
 	}
@@ -3590,6 +3608,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName" )
 	     }
+	     if(!node.ParticipantObjectName.@value.isEmpty()){
+	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
+	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectQuery.@value" ) 
+	 	}
 	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
 	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" ) 
 	 	}
@@ -3686,7 +3710,13 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
 	     }
-	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
+	     if(!node.ParticipantObjectName.@value.isEmpty()){
+	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
+	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectDetail.@value.isEmpty()){
 	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
 	 	}
 	}
@@ -3707,6 +3737,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName" )
 	     }
+	     if(!node.ParticipantObjectName.@value.isEmpty()){
+	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
+	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectQuery.@value" ) 
+	 	}
 	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
 	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" ) 
 	 	}
@@ -3804,7 +3840,13 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
 	     }
-	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
+	     if(!node.ParticipantObjectName.@value.isEmpty()){
+	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
+	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectDetail.@value.isEmpty()){
 	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
 	 	}
 	}
@@ -3825,6 +3867,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName" )
 	     }
+	     if(!node.ParticipantObjectName.@value.isEmpty()){
+	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
+	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectQuery.@value" ) 
+	 	}
 	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
 	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" ) 
 	 	}
@@ -3854,19 +3902,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-18T01:18:31Z</con:value>
+          <con:value>2015-08-20T17:17:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-18T01:28:31Z</con:value>
+          <con:value>2015-08-20T17:27:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/18/2015 01:18:31</con:value>
+          <con:value>08/20/2015 17:17:49</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-09-17T00:00:00Z</con:value>
+          <con:value>2015-09-19T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -4131,6 +4179,38 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value</con:name>
           <con:value>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxuczM6Q09SRUVudmVsb3BlUmVhbFRpbWVSZXF1ZXN0IHhtbG5zOm5zMj0iaHR0cDovL3d3dy5jYXFoLm9yZy9TT0FQL1dTREwvQ09SRVJ1bGUyLjIuMC54c2QiIHhtbG5zOm5zMz0idXJuOm9yZzpjYXFoOnNvYXA6d3NkbDpjb3JlcnVsZTJfMl8wIj48UGF5bG9hZFR5cGU+WDEyXzI3MF9SZXF1ZXN0XzAwNTAxMFgyNzlBMTwvUGF5bG9hZFR5cGU+PFByb2Nlc3NpbmdNb2RlPlJlYWxUaW1lPC9Qcm9jZXNzaW5nTW9kZT48UGF5bG9hZElEPmY4MWQ0ZmFlLTdkZWMtMTFkMC1hNzY1LTAwYTBjOTFlNmJmNjwvUGF5bG9hZElEPjxUaW1lU3RhbXA+MjAwNy0wOC0zMFQxMDoyMDozNFo8L1RpbWVTdGFtcD48U2VuZGVySUQ+SG9zcGl0YWxBPC9TZW5kZXJJRD48UmVjZWl2ZXJJRD5QYXllckI8L1JlY2VpdmVySUQ+PENPUkVSdWxlVmVyc2lvbj4yLjIuMDwvQ09SRVJ1bGVWZXJzaW9uPjxQYXlsb2FkPjwvUGF5bG9hZD48L25zMzpDT1JFRW52ZWxvcGVSZWFsVGltZVJlcXVlc3Q+</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Query.@ParticipantObjectDataLifeCycle</con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectName.@value</con:name>
+          <con:value>anonymus</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectDataLifeCycle</con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectSensitivity</con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Query.@ParticipantObjectSensitivity</con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Query.ParticipantObjectName.@value</con:name>
+          <con:value>anonymus</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectQuery.@value</con:name>
+          <con:value>test</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Query.ParticipantObjectQuery.@value</con:name>
+          <con:value>test</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -8532,12 +8612,144 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AuditRepoDB') {sql ->
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
+parsedXmlMessage.EventIdentification.find{
+	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
+	//assert it.@EventDateTime == context.findProperty( "EventIdentification.@EventDateTime" )
+     assert it.@EventOutcomeIndicator == context.findProperty( "EventIdentification.@EventOutcomeIndicator" )
+	assert it.EventID.@code == context.findProperty( "EventIdentification.EventID.@code" )
+	assert it.EventID.@codeSystemName == context.findProperty( "EventIdentification.EventID.@codeSystemName" )
+	assert it.EventID.@displayName == context.findProperty( "EventIdentification.EventID.@displayName" )
+	assert it.EventTypeCode.@code == context.findProperty( "EventIdentification.EventTypeCode.@code" )
+	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
+	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
+}
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[0].each{ node -> 
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant.@UserID" )
+	     }
+        	assert node.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant.@UserIsRequestor" )
+	     if(!node.RoleIDCode.isEmpty()){
+   	     	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant.RoleIDCode.@code" )
+	     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant.RoleIDCode.@codeSystemName" )
+	   		assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" )
+	     }
+	}
+}
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
+	     
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
+	     }
+     	assert(!node.@AlternativeUserID.isEmpty())
+     	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	//assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" )
+          if(!node.RoleIDCode.isEmpty()){
+     		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
+     		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
+     		assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )
+	     }
+	}
+}
+if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[2].each{ node ->
+	     if(!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )
+	     }
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
+	     }
+   	     if(!node.@AlternativeUserID.isEmpty()){
+	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
+	     }
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
+     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+          if(!node.RoleIDCode.isEmpty()){
+     		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
+     		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
+     		assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )
+	     }
+	}
+}
+parsedXmlMessage.AuditSourceIdentification.find{
+		if(!it.@AuditEnterpriseSiteID.isEmpty()){
+			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
+		}
+		if(!it.@AuditSourceTypeCode.isEmpty()){
+			log.info "inside auditsourcetype code" + it.@AuditSourceTypeCode
+			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
+		}
+		if(!it.@AuditSourceID.isEmpty()){
+			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
+		}
+}
 
-}</script>
+if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
+	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
+	     if(!node.@ParticipantObjectID.isEmpty()){
+	     	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
+	     }
+   	     if(!node.@ParticipantObjectTypeCodeRole.isEmpty()){
+	     	assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
+	     }
+   	     if(!node.@ParticipantObjectName.isEmpty()){
+	     	assert node.@ParticipantObjectName == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectName" )
+	     }
+          if(!node.ParticipantObjectIDTypeCode.isEmpty()){
+     		assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
+     		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
+     		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
+	     }
+	     if(!node.ParticipantObjectName.@value.isEmpty()){
+	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
+	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectDetail.@value.isEmpty()){
+	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
+	 	}
+	}
+ }
+ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )){
+	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->
+	     if(!node.@ParticipantObjectID.isEmpty()){
+	     	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectID" )
+	     }
+   	     if(!node.@ParticipantObjectTypeCodeRole.isEmpty()){
+	     	assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCodeRole" )
+	     }
+   	     if(!node.@ParticipantObjectName.isEmpty()){
+	     	assert node.@ParticipantObjectName == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectName" )
+	     }
+          if(!node.ParticipantObjectIDTypeCode.isEmpty()){
+     		assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@code" )
+     		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName" )
+     		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName" )
+	     }
+	     if(!node.ParticipantObjectName.@value.isEmpty()){
+	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
+	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectQuery.@value" ) 
+	 	}
+	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
+	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" ) 
+	 	}
+	}
+ }
+}]]></script>
         </con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinInbound-InitiatingGateway(1.1)" disabled="true">
@@ -8642,7 +8854,13 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
 	     }
-	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
+	     if(!node.ParticipantObjectName.@value.isEmpty()){
+	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
+	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectDetail.@value.isEmpty()){
 	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
 	 	}
 	}
@@ -8663,6 +8881,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName" )
 	     }
+	     if(!node.ParticipantObjectName.@value.isEmpty()){
+	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
+	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectQuery.@value" ) 
+	 	}
 	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
 	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" ) 
 	 	}
@@ -8759,7 +8983,13 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
 	     }
-	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
+	     if(!node.ParticipantObjectName.@value.isEmpty()){
+	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
+	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectDetail.@value.isEmpty()){
 	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
 	 	}
 	}
@@ -8780,6 +9010,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName" )
 	     }
+	     if(!node.ParticipantObjectName.@value.isEmpty()){
+	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
+	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectQuery.@value" ) 
+	 	}
 	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
 	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" ) 
 	 	}
@@ -8860,7 +9096,6 @@ parsedXmlMessage.AuditSourceIdentification.find{
 			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
 		}
 }
-
 if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
 	     if(!node.@ParticipantObjectID.isEmpty()){
@@ -8877,7 +9112,13 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
 	     }
-	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
+	     if(!node.ParticipantObjectName.@value.isEmpty()){
+	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
+	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectDetail.@value.isEmpty()){
 	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
 	 	}
 	}
@@ -8898,6 +9139,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName" )
 	     }
+	     if(!node.ParticipantObjectName.@value.isEmpty()){
+	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName.@value" ) 
+	 	}
+	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
+	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectQuery.@value" ) 
+	 	}
 	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
 	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" ) 
 	 	}
