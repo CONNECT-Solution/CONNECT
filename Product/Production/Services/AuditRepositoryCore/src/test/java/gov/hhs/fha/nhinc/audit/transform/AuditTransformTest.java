@@ -148,11 +148,11 @@ public abstract class AuditTransformTest<T,K> {
         List<ActiveParticipant> activeParticipant = request.getAuditMessage().getActiveParticipant();
         for (ActiveParticipant item : activeParticipant) {
             if (item.getRoleIDCode().get(0).getDisplayName() != null && item.getRoleIDCode().get(0).getDisplayName().
-                equals(AuditTransformConstants.ACTIVE_PARTICPANT_ROLE_CODE_SOURCE_DISPLAY_NAME)) {
+                equals(AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME)) {
                 sourceActiveParticipant = item;
             }
         }
-        assertEquals(AuditTransformConstants.ACTIVE_PARTICPANT_USER_ID_SOURCE, sourceActiveParticipant.getUserID());
+        assertEquals(AuditTransformConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE, sourceActiveParticipant.getUserID());
         if (isRequesting) {
             assertEquals(ManagementFactory.getRuntimeMXBean().getName(), sourceActiveParticipant.getAlternativeUserID());
         }
@@ -169,7 +169,7 @@ public abstract class AuditTransformTest<T,K> {
             sourceActiveParticipant.getRoleIDCode().get(0).getCode());
         assertEquals(AuditTransformConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME, 
             sourceActiveParticipant.getRoleIDCode().get(0).getCodeSystemName());
-        assertEquals(AuditTransformConstants.ACTIVE_PARTICPANT_ROLE_CODE_SOURCE_DISPLAY_NAME, 
+        assertEquals(AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME, 
             sourceActiveParticipant.getRoleIDCode().get(0).getDisplayName());
     }
 
@@ -186,7 +186,7 @@ public abstract class AuditTransformTest<T,K> {
         ActiveParticipant destinationActiveParticipant = null;
         for (ActiveParticipant item : request.getAuditMessage().getActiveParticipant()) {
             if (item.getRoleIDCode().get(0).getDisplayName() != null && item.getRoleIDCode().get(0).
-                getDisplayName().equals(AuditTransformConstants.ACTIVE_PARTICPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME)) {
+                getDisplayName().equals(AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME)) {
                 destinationActiveParticipant = item;
             }
         }
@@ -206,7 +206,7 @@ public abstract class AuditTransformTest<T,K> {
             getRoleIDCode().get(0).getCode());
         assertEquals(AuditTransformConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME, destinationActiveParticipant.
             getRoleIDCode().get(0).getCodeSystemName());
-        assertEquals(AuditTransformConstants.ACTIVE_PARTICPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME, 
+        assertEquals(AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME, 
             destinationActiveParticipant.getRoleIDCode().get(0).getDisplayName());
     }
 

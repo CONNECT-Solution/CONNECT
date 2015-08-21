@@ -59,7 +59,6 @@ import org.hl7.v3.II;
 import org.hl7.v3.IVLTSExplicit;
 import org.hl7.v3.MCCIMT000100UV01Device;
 import org.hl7.v3.MCCIMT000100UV01Receiver;
-import org.hl7.v3.MCCIMT000100UV01Sender;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201305UV02QUQIMT021001UV01ControlActProcess;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -85,8 +84,8 @@ import org.junit.Test;
  * @param <T>
  * @param <K>
  */
-public class PatientDiscoveryTransformsTest<T extends PRPAIN201305UV02,K extends PRPAIN201306UV02> extends 
-    AuditTransformTest<T,K> {
+public class PatientDiscoveryTransformsTest<T extends PRPAIN201305UV02, K extends PRPAIN201306UV02> extends
+    AuditTransformTest<T, K> {
 
     public PatientDiscoveryTransformsTest() {
     }
@@ -108,13 +107,12 @@ public class PatientDiscoveryTransformsTest<T extends PRPAIN201305UV02,K extends
     }
 
     @Test
-    public void testTransformToAuditMsg() throws ConnectionManagerException, UnknownHostException {
+    public void transformRequestToAuditMsg() throws ConnectionManagerException, UnknownHostException {
         final String localIP = "10.10.10.10";
         Properties webContextProperties = new Properties();
         webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, "http://16.14.13.12:9090/AuditService");
         webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, "16.14.13.12");
         final String remoteObjectIP = "http://16.14.13.12:9090/source/AuditService";
-        PRPAIN201306UV02 response = null;
         PatientDiscoveryTransforms transforms = new PatientDiscoveryTransforms() {
             @Override
             protected String getLocalHostAddress() {
@@ -127,7 +125,7 @@ public class PatientDiscoveryTransformsTest<T extends PRPAIN201305UV02,K extends
                     getProperty(NhincConstants.REMOTE_HOST_ADDRESS) != null) {
                     return webContextProeprties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS);
                 }
-                return AuditTransformConstants.ACTIVE_PARTICPANT_UNKNOWN_IP_ADDRESS;
+                return AuditTransformConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
             }
 
             @Override
@@ -140,10 +138,10 @@ public class PatientDiscoveryTransformsTest<T extends PRPAIN201305UV02,K extends
         PRPAIN201305UV02 request = createPRPAIN201305UV02Request();
         AssertionType assertion = createAssertion();
         PatientDiscoveryAuditDataBuilder builder = new PatientDiscoveryAuditDataBuilder();
-        LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(request, assertion, createNhinTarget(), 
-            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, 
+        LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(request, assertion, createNhinTarget(),
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE,
             webContextProperties, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, builder);
-        testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE, 
+        testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE,
             builder);
         testGetActiveParticipantSource(auditRequest, Boolean.TRUE, localIP, webContextProperties);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectIP);
@@ -152,33 +150,33 @@ public class PatientDiscoveryTransformsTest<T extends PRPAIN201305UV02,K extends
     }
 
     private void assertParticiopantObjectIdentification(LogEventRequestType auditRequest) {
-        assertEquals("D123401^^^&1.1&ISO", 
+        assertEquals("D123401^^^&1.1&ISO",
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectID());
-        assertSame(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM, 
+        assertSame(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectTypeCode());
-        assertSame(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_ROLE, 
+        assertSame(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_ROLE,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).
             getParticipantObjectTypeCodeRole());
-        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE, 
+        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).
             getParticipantObjectIDTypeCode().getCode());
-        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE_SYSTEM, 
+        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE_SYSTEM,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectIDTypeCode().
             getCodeSystemName());
-        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME, 
+        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectIDTypeCode().
             getDisplayName());
-        assertSame(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_SYSTEM, 
+        assertSame(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_SYSTEM,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectTypeCode());
-        assertSame(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_ROLE, 
+        assertSame(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_ROLE,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectTypeCodeRole());
-        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE, 
+        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectIDTypeCode().
             getCode());
-        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE_SYSTEM, 
+        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE_SYSTEM,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectIDTypeCode().
             getCodeSystemName());
-        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME, 
+        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectIDTypeCode().
             getDisplayName());
     }
@@ -379,23 +377,6 @@ public class PatientDiscoveryTransformsTest<T extends PRPAIN201305UV02,K extends
         return receiver;
     }
 
-    private static MCCIMT000100UV01Sender createSender() {
-        MCCIMT000100UV01Sender sender = new MCCIMT000100UV01Sender();
-
-        sender.setTypeCode(CommunicationFunctionType.SND);
-
-        MCCIMT000100UV01Device device = new MCCIMT000100UV01Device();
-        device.setDeterminerCode("INSTANCE");
-
-        II id = new II();
-        id.setRoot("2.16.840.1.113883.3.200");
-        device.getId().add(id);
-
-        sender.setDevice(device);
-
-        return sender;
-    }
-
     public static Patient createMpiPatient(String firstName, String lastName, String gender, String birthTime,
         Identifier subjectId) {
         Patient result = new Patient();
@@ -444,4 +425,5 @@ public class PatientDiscoveryTransformsTest<T extends PRPAIN201305UV02,K extends
 
         return result;
     }
+
 }

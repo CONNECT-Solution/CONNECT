@@ -33,10 +33,10 @@ package gov.hhs.fha.nhinc.audit;
  */
 public class AuditTransformConstants {
     public static final Integer EVENT_OUTCOME_INDICATOR_SUCCESS = 0;
-    public static final String ACTIVE_PARTICPANT_USER_ID_SOURCE = "anonymous";
-    public static final String ACTIVE_PARTICPANT_ROLE_CODE_SOURCE_DISPLAY_NAME = "Source";
-    public static final String ACTIVE_PARTICPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME = "Destination";
-    public static final String ACTIVE_PARTICPANT_UNKNOWN_IP_ADDRESS = "unknown";
+    public static final String ACTIVE_PARTICIPANT_USER_ID_SOURCE = "anonymous";
+    public static final String ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME = "Source";
+    public static final String ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME = "Destination";
+    public static final String ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS = "unknown";
     public static final Short NETWORK_ACCESSOR_PT_TYPE_CODE_NAME = 2;
     public static final String ACTIVE_PARTICIPANT_ROLE_CODE_DEST = "110152";
     public static final String ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE = "110153";

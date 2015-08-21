@@ -99,31 +99,32 @@ public class PatientDiscoverySpringContextTest {
         assertNotNull(response);
     }
 
-    @Ignore 
+    @Ignore
     @Test
-     public void inboundFault() throws PatientDiscoveryException {
-     PRPAIN201305UV02 request = new PRPAIN201305UV02();
+    public void inboundFault() throws PatientDiscoveryException {
+        PRPAIN201305UV02 request = new PRPAIN201305UV02();
 
-     NhinPatientDiscovery inboundPDEndpoint = new NhinPatientDiscovery();
+        NhinPatientDiscovery inboundPDEndpoint = new NhinPatientDiscovery();
 
-     InboundPatientDiscovery inboundPatientDiscovery = mock(InboundPatientDiscovery.class);
+        InboundPatientDiscovery inboundPatientDiscovery = mock(InboundPatientDiscovery.class);
 
-     when(inboundPatientDiscovery.respondingGatewayPRPAIN201305UV02(eq(request), any(AssertionType.class), 
-         any(Properties.class)))
-     .thenThrow(new PatientDiscoveryException(""));
+        when(inboundPatientDiscovery.respondingGatewayPRPAIN201305UV02(eq(request), any(AssertionType.class),
+            any(Properties.class)))
+            .thenThrow(new PatientDiscoveryException(""));
 
-     inboundPDEndpoint.setInboundPatientDiscovery(inboundPatientDiscovery);
+        inboundPDEndpoint.setInboundPatientDiscovery(inboundPatientDiscovery);
 
-     boolean faultThrown = false;
-     try {
-     inboundPDEndpoint.respondingGatewayPRPAIN201305UV02(request);
-     } catch (PRPAIN201305UV02Fault fault) {
-     faultThrown = true;
-     assertEquals("920", fault.getFaultInfo().getErrorCode());
-     }
+        boolean faultThrown = false;
+        try {
+            inboundPDEndpoint.respondingGatewayPRPAIN201305UV02(request);
+        } catch (PRPAIN201305UV02Fault fault) {
+            faultThrown = true;
+            assertEquals("920", fault.getFaultInfo().getErrorCode());
+        }
 
-     assertTrue(faultThrown);
-     }
+        assertTrue(faultThrown);
+    }
+
     @Test
     public void outboundUnsecured() {
         assertNotNull(outboundPatientDiscoveryUnsecuredEndpoint);

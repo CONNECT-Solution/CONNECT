@@ -33,21 +33,21 @@ package gov.hhs.fha.nhinc.audit;
 public abstract class AuditTransformDataBuilder {
 
     public abstract String getServiceEvenIdCode();
-    
+
     public abstract String getServiceEventCodeSystem();
-    
+
     public abstract String getServiceEventDisplayRequestor();
-    
+
     public abstract String getServiceEventDisplayResponder();
-    
+
     public abstract String getServiceEventTypeCode();
-    
+
     public abstract String getServiceEventTypeCodeSystem();
-    
+
     public abstract String getServiceEventTypeCodeDisplayName();
-    
+
     public abstract String getServiceEventActionCodeRequestor();
-    
+
     public abstract String getServiceEventActionCodeResponder();
-    
+
 }
