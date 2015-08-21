@@ -43,12 +43,12 @@ public class PatientDiscoveryTransformConstants {
     public static final String PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE_SYSTEM = "IHE Transactions";
     public static final String PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME = "Cross Gateway Patient Discovery";
     public static final String EVENT_ID_CODE = "110112";
-    public static final String EVENT_CODE_SYSTEM = "Query";
-    public static final String EVENT_CODE_DISPLAY_REQUESTOR = "DCM";
-    public static final String EVENT_CODE_DISPLAY_RESPONDER = "DCM";
+    public static final String EVENT_CODE_SYSTEM = "DCM";
+    public static final String EVENT_CODE_DISPLAY_REQUESTOR = "Query";
+    public static final String EVENT_CODE_DISPLAY_RESPONDER = "Query";
     public static final String EVENT_TYPE_CODE = "ITI-55";
-    public static final String EVENT_TYPE_CODE_SYSTEM = "Cross Gateway Patient Discovery";
-    public static final String EVENT_TYPE_CODE_DISPLAY_NAME = "IHE Transactions";
+    public static final String EVENT_TYPE_CODE_SYSTEM = "IHE Transactions";
+    public static final String EVENT_TYPE_CODE_DISPLAY_NAME = "Cross Gateway Patient Discovery";
     public static final String EVENT_ACTION_CODE_REQUESTOR = "E";
     public static final String EVENT_ACTION_CODE_RESPONDER = "E";
 }

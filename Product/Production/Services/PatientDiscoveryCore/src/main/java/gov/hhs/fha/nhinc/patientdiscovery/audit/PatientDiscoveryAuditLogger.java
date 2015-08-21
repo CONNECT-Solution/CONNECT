@@ -72,7 +72,7 @@ public class PatientDiscoveryAuditLogger {
         if (auditLogMsg != null && auditLogMsg.getAuditMessage() != null) {
             audit(auditLogMsg, assertion);
         } else {
-            LOG.error("Core X12 Nhin Batch Request auditLogMsg is null");
+            LOG.error("PatientDiscoveryResponseAuditLogger auditLogMsg is null");
         }
     }
 
