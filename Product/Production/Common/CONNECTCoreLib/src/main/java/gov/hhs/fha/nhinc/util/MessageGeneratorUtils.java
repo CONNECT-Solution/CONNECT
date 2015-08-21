@@ -28,14 +28,12 @@ package gov.hhs.fha.nhinc.util;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.transform.marshallers.Marshaller;
 import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
-
 import javax.xml.namespace.QName;
-
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-
 import org.hl7.v3.PRPAIN201305UV02;
 import org.w3c.dom.Element;
 
@@ -80,6 +78,22 @@ public class MessageGeneratorUtils {
         if (targets != null && targets.getNhinTargetCommunity() != null && targets.getNhinTargetCommunity().size() > 0) {
             nhinTargetSystem.setHomeCommunity(targets.getNhinTargetCommunity().get(0).getHomeCommunity());
             nhinTargetSystem.setUseSpecVersion(targets.getUseSpecVersion());
+        }
+
+        return nhinTargetSystem;
+    }
+
+    /**
+     * Converts the first target into a NhinTargetSystemType format.
+     *
+     * @param target
+     * @return NhinTargetSystemType
+     */
+    public NhinTargetSystemType convertToNhinTargetSystemType(NhinTargetCommunityType target) {
+        NhinTargetSystemType nhinTargetSystem = new NhinTargetSystemType();
+
+        if (target != null && target.getHomeCommunity() != null) {
+            nhinTargetSystem.setHomeCommunity(target.getHomeCommunity());
         }
 
         return nhinTargetSystem;

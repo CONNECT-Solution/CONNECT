@@ -24,25 +24,22 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
 
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+package gov.hhs.fha.nhinc.audit;
 
 /**
  *
- * @author Jon Hoppesch
+ * @author achidamb
  */
-public interface AuditRepositoryProxy {
-
-    /**
-     * Logs an audit record to the audit repository.
-     *
-     * @param request Audit record
-     * @param assertion
-     * @return Repsonse that is a simple ack.
-     */
-    public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion);
-
+public class AuditTransformConstants {
+    public static final Integer EVENT_OUTCOME_INDICATOR_SUCCESS = 0;
+    public static final String ACTIVE_PARTICIPANT_USER_ID_SOURCE = "anonymous";
+    public static final String ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME = "Source";
+    public static final String ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME = "Destination";
+    public static final String ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS = "unknown";
+    public static final Short NETWORK_ACCESSOR_PT_TYPE_CODE_NAME = 2;
+    public static final String ACTIVE_PARTICIPANT_ROLE_CODE_DEST = "110152";
+    public static final String ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE = "110153";
+    public static final String ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME = "DCM";
+    public static final Short NETWORK_ACCESSOR_PT_TYPE_CODE_IP = 2;
 }

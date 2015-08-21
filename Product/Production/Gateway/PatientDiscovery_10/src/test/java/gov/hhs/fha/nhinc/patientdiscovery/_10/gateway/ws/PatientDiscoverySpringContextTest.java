@@ -26,13 +26,6 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.inbound.InboundPatientDiscovery;
@@ -41,15 +34,25 @@ import gov.hhs.fha.nhinc.patientdiscovery.inbound.StandardInboundPatientDiscover
 import gov.hhs.fha.nhinc.patientdiscovery.outbound.PassthroughOutboundPatientDiscovery;
 import gov.hhs.fha.nhinc.patientdiscovery.outbound.StandardOutboundPatientDiscovery;
 import ihe.iti.xcpd._2009.PRPAIN201305UV02Fault;
-
+import java.util.Properties;
+import javax.xml.ws.WebServiceContext;
+import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -59,7 +62,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/patientdiscovery/_10/applicationContext.xml" })
+@ContextConfiguration(locations = {"/patientdiscovery/_10/applicationContext.xml"})
 public class PatientDiscoverySpringContextTest {
 
     @Rule
@@ -89,14 +92,15 @@ public class PatientDiscoverySpringContextTest {
     @Test
     public void inbound() throws PRPAIN201305UV02Fault {
         assertNotNull(inboundPatientDiscoveryEndpoint);
-
         PRPAIN201305UV02 request = new PRPAIN201305UV02();
+        WebServiceContext context = new WebServiceContextImpl();
+        inboundPatientDiscoveryEndpoint.setContext(context);
         PRPAIN201306UV02 response = inboundPatientDiscoveryEndpoint.respondingGatewayPRPAIN201305UV02(request);
-
         assertNotNull(response);
     }
 
-   /* @Test
+    @Ignore
+    @Test
     public void inboundFault() throws PatientDiscoveryException {
         PRPAIN201305UV02 request = new PRPAIN201305UV02();
 
@@ -104,8 +108,9 @@ public class PatientDiscoverySpringContextTest {
 
         InboundPatientDiscovery inboundPatientDiscovery = mock(InboundPatientDiscovery.class);
 
-        when(inboundPatientDiscovery.respondingGatewayPRPAIN201305UV02(eq(request), any(AssertionType.class)))
-                .thenThrow(new PatientDiscoveryException(""));
+        when(inboundPatientDiscovery.respondingGatewayPRPAIN201305UV02(eq(request), any(AssertionType.class),
+            any(Properties.class)))
+            .thenThrow(new PatientDiscoveryException(""));
 
         inboundPDEndpoint.setInboundPatientDiscovery(inboundPatientDiscovery);
 
@@ -118,7 +123,7 @@ public class PatientDiscoverySpringContextTest {
         }
 
         assertTrue(faultThrown);
-    }*/
+    }
 
     @Test
     public void outboundUnsecured() {
@@ -126,7 +131,7 @@ public class PatientDiscoverySpringContextTest {
 
         RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
         RespondingGatewayPRPAIN201306UV02ResponseType response = outboundPatientDiscoveryUnsecuredEndpoint
-                .respondingGatewayPRPAIN201305UV02(request);
+            .respondingGatewayPRPAIN201305UV02(request);
 
         assertNotNull(response);
     }
@@ -137,7 +142,7 @@ public class PatientDiscoverySpringContextTest {
 
         RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
         RespondingGatewayPRPAIN201306UV02ResponseType response = outboundPatientDiscoverySecuredEndpoint
-                .respondingGatewayPRPAIN201305UV02(request);
+            .respondingGatewayPRPAIN201305UV02(request);
 
         assertNotNull(response);
     }

@@ -29,12 +29,11 @@ package gov.hhs.fha.nhinc.patientdiscovery.inbound;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
-
+import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditLogger;
+import java.util.Properties;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -45,7 +44,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 public class StandardInboundPatientDiscovery extends AbstractInboundPatientDiscovery {
 
     private final PatientDiscovery201305Processor patientDiscoveryProcessor;
-    private final PatientDiscoveryAuditor auditLogger;
+    private final PatientDiscoveryAuditLogger auditLogger;
 
     /**
      * Constructor.
@@ -62,32 +61,31 @@ public class StandardInboundPatientDiscovery extends AbstractInboundPatientDisco
      * @param auditLogger
      */
     public StandardInboundPatientDiscovery(PatientDiscovery201305Processor patientDiscoveryProcessor,
-            PatientDiscoveryAuditor auditLogger) {
+        PatientDiscoveryAuditLogger auditLogger) {
         this.patientDiscoveryProcessor = patientDiscoveryProcessor;
         this.auditLogger = auditLogger;
     }
 
     @Override
     @InboundProcessingEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class, afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, serviceType = "Patient Discovery", version = "1.0")
-    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion)
-            throws PatientDiscoveryException {
-        auditRequestFromNhin(body, assertion);
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion, Properties webContextProperties)
+        throws PatientDiscoveryException {
+        auditRequestFromNhin(body, assertion, webContextProperties);
 
-        PRPAIN201306UV02 response = process(body, assertion);
+        PRPAIN201306UV02 response = process(body, assertion, webContextProperties);
 
-        auditResponseToNhin(response, assertion);
+        auditResponseToNhin(response, assertion, webContextProperties);
 
         return response;
     }
 
     @Override
-    //@InboundProcessingEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class, afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, serviceType = "Patient Discovery", version = "1.0")
-    PRPAIN201306UV02 process(PRPAIN201305UV02 body, AssertionType assertion) throws PatientDiscoveryException {
-        auditRequestToAdapter(body, assertion);
+    PRPAIN201306UV02 process(PRPAIN201305UV02 body, AssertionType assertion, Properties webContextProperties) throws PatientDiscoveryException {
+        auditRequestToAdapter(body, assertion, webContextProperties);
 
         PRPAIN201306UV02 response = patientDiscoveryProcessor.process201305(body, assertion);
 
-        auditResponseFromAdapter(response, assertion);
+        auditResponseFromAdapter(response, assertion, webContextProperties);
 
         return response;
     }
@@ -98,7 +96,7 @@ public class StandardInboundPatientDiscovery extends AbstractInboundPatientDisco
      * @see gov.hhs.fha.nhinc.patientdiscovery.inbound.AbstractInboundPatientDiscovery#getAuditLogger()
      */
     @Override
-    PatientDiscoveryAuditor getAuditLogger() {
+    PatientDiscoveryAuditLogger getAuditLogger() {
         return auditLogger;
     }
 

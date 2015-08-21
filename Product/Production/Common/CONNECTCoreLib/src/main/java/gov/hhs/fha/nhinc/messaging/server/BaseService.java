@@ -83,7 +83,7 @@ public abstract class BaseService {
      * @param context
      * @return
      */
-    private String getRemoteAddress(WebServiceContext context) {
+    protected String getRemoteAddress(WebServiceContext context) {
         String remoteAddress = null;
         if (context != null && context.getMessageContext() != null && context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST) != null) {
             HttpServletRequest httpServletRequest = (HttpServletRequest) context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST);
@@ -98,7 +98,7 @@ public abstract class BaseService {
      * @param context
      * @return
      */
-    private String getWebServiceRequestUrl(WebServiceContext context) {
+    protected String getWebServiceRequestUrl(WebServiceContext context) {
         String requestWebServiceUrl = null;
         if (context != null && context.getMessageContext() != null) {
             requestWebServiceUrl = (String) context.getMessageContext().get(org.apache.cxf.message.Message.REQUEST_URL);
@@ -107,18 +107,20 @@ public abstract class BaseService {
     }
 
     /**
-     * Returns a Web Service Context properties object with the following
-     * properties: 1. Web Service Request URL 2. Remote Host Address
+     * Returns a Web Service Context properties object with the following properties: 1. Web Service Request URL 2.
+     * Remote Host Address
      *
      * @param context
      * @return
      */
     public Properties getWebContextProperties(WebServiceContext context) {
         Properties webContextProperties = new Properties();
-        //add Web Service Request URL
-        webContextProperties.put(NhincConstants.WEB_SERVICE_REQUEST_URL, getWebServiceRequestUrl(context));
-        //add Remote Server address or Host
-        webContextProperties.put(NhincConstants.REMOTE_HOST_ADDRESS, getRemoteAddress(context));
+        if (context != null && context.getMessageContext() != null) {
+            //add Web Service Request URL
+            webContextProperties.put(NhincConstants.WEB_SERVICE_REQUEST_URL, getWebServiceRequestUrl(context));
+            //add Remote Server address or Host
+            webContextProperties.put(NhincConstants.REMOTE_HOST_ADDRESS, getRemoteAddress(context));
+        }
         return webContextProperties;
     }
 }

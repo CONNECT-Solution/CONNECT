@@ -24,25 +24,30 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
+package gov.hhs.fha.nhinc.audit;
 
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-
-/**
+/*
  *
- * @author Jon Hoppesch
+ * @author achidamb
  */
-public interface AuditRepositoryProxy {
+public abstract class AuditTransformDataBuilder {
 
-    /**
-     * Logs an audit record to the audit repository.
-     *
-     * @param request Audit record
-     * @param assertion
-     * @return Repsonse that is a simple ack.
-     */
-    public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion);
+    public abstract String getServiceEvenIdCode();
+
+    public abstract String getServiceEventCodeSystem();
+
+    public abstract String getServiceEventDisplayRequestor();
+
+    public abstract String getServiceEventDisplayResponder();
+
+    public abstract String getServiceEventTypeCode();
+
+    public abstract String getServiceEventTypeCodeSystem();
+
+    public abstract String getServiceEventTypeCodeDisplayName();
+
+    public abstract String getServiceEventActionCodeRequestor();
+
+    public abstract String getServiceEventActionCodeResponder();
 
 }
