@@ -72,7 +72,7 @@ public class PatientDiscoveryAuditLogger {
         if (auditLogMsg != null && auditLogMsg.getAuditMessage() != null) {
             audit(auditLogMsg, assertion);
         } else {
-            LOG.error("PatientDiscoveryResponseAuditLogger auditLogMsg is null");
+            LOG.error("PatientDiscoveryAuditLogger auditLogMsg is null");
         }
     }
 
