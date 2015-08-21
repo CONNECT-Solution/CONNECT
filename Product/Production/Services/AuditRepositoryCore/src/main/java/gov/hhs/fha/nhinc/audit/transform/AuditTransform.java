@@ -173,14 +173,12 @@ public abstract class AuditTransform<T, K> {
     /**
      *
      * @param oUserInfo
-     * @param isRequesting
      * @return
      */
-    protected AuditMessageType.ActiveParticipant getActiveParticipant(UserType oUserInfo, Boolean isRequesting) {
+    protected AuditMessageType.ActiveParticipant getActiveParticipant(UserType oUserInfo) {
         // Create Active Participant Section
         // create a method to call the AuditDataTransformHelper - one expectation
-        AuditMessageType.ActiveParticipant participant = createActiveParticipantFromUser(
-            oUserInfo, isRequesting);
+        AuditMessageType.ActiveParticipant participant = createActiveParticipantFromUser(oUserInfo);
         if (oUserInfo.getRoleCoded() != null) {
             participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(oUserInfo.getRoleCoded().
                 getCode(), "",
@@ -214,11 +212,9 @@ public abstract class AuditTransform<T, K> {
      * Create the ActiveParticipant for an audit log record.
      *
      * @param userInfo
-     * @param userIsReq
      * @return
      */
-    protected AuditMessageType.ActiveParticipant createActiveParticipantFromUser(UserType userInfo,
-        Boolean userIsReq) {
+    protected AuditMessageType.ActiveParticipant createActiveParticipantFromUser(UserType userInfo) {
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
 
         // Set the User Id
@@ -249,7 +245,7 @@ public abstract class AuditTransform<T, K> {
             }
         }
 
-        participant.setUserIsRequestor(userIsReq);
+        participant.setUserIsRequestor(Boolean.TRUE);
         return participant;
     }
 
@@ -287,7 +283,7 @@ public abstract class AuditTransform<T, K> {
 
         participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
             AuditTransformConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME, AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
-        participant.setUserIsRequestor(isRequesting);
+        participant.setUserIsRequestor(Boolean.TRUE);
         return participant;
     }
 
@@ -585,7 +581,7 @@ public abstract class AuditTransform<T, K> {
         //*********************************Construct Active Participant************************
         //Active Participant for human requester only required for requesting gateway
         if (isRequesting) {
-            AuditMessageType.ActiveParticipant participantHumanFactor = getActiveParticipant(assertion.getUserInfo(), isRequesting);
+            AuditMessageType.ActiveParticipant participantHumanFactor = getActiveParticipant(assertion.getUserInfo());
             auditMsg.getActiveParticipant().add(participantHumanFactor);
         }
         AuditMessageType.ActiveParticipant participantSource = getActiveParticipantSource(isRequesting,
