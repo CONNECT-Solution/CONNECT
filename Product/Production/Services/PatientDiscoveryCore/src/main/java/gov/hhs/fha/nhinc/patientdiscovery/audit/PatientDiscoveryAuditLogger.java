@@ -48,16 +48,38 @@ public class PatientDiscoveryAuditLogger {
     PatientDiscoveryTransforms patientDiscoveryTransforms = new PatientDiscoveryTransforms();
     PatientDiscoveryAuditDataBuilder databuilder = new PatientDiscoveryAuditDataBuilder();
 
-    public void auditPatientDiscoveryRequestMessage(PRPAIN201305UV02 message, AssertionType assertion, 
+    /**
+     *
+     * @param request Request to be audited
+     * @param assertion assertion to be audited
+     * @param target target community
+     * @param direction defines the Outbound/Inbound message
+     * @param _interface defines the Entity,Adapter and Nwhin interfaces
+     * @param isRequesting true/false identifies initiator/responder
+     * @param webContextProperties Properties loaded from message context
+     * @param serviceName Name of the Service being audited.
+     */
+    public void auditPatientDiscoveryRequestMessage(PRPAIN201305UV02 request, AssertionType assertion, 
         NhinTargetSystemType target, String direction, String _interface, Boolean isRequesting, 
         Properties webContextProperties, String serviceName) {
         LOG.trace("---Begin PatientDiscoveryRequestAuditLogger.auditPatientDiscoveryRequestMessage()---");
-        LogEventRequestType auditLogMsg = patientDiscoveryTransforms.transformRequestToAuditMsg(message, assertion, 
+        LogEventRequestType auditLogMsg = patientDiscoveryTransforms.transformRequestToAuditMsg(request, assertion, 
             target, direction, _interface, isRequesting, webContextProperties, serviceName, databuilder);
         auditLogMessages(auditLogMsg, assertion);
         LOG.trace("---End PatientDiscoveryRequestAuditLogger.auditPatientDiscoveryRequestMessage()---");
     }
 
+    /**
+     *
+     * @param response Response to be audited
+     * @param assertion assertion to be audited
+     * @param target target community
+     * @param direction defines the Outbound/Inbound message
+     * @param _interface defines the Entity,Adapter and Nwhin interfaces
+     * @param isRequesting true/false identifies initiator/responder
+     * @param webContextProperties Properties loaded from message context
+     * @param serviceName Name of the Service being audited.
+     */
     public void auditPatientDiscoveryResponseMessage(PRPAIN201306UV02 response, AssertionType assertion, 
         NhinTargetSystemType target, String direction, String _interface, Boolean isRequesting, 
         Properties webContextProperties, String serviceName) {

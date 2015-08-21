@@ -85,11 +85,8 @@ import org.junit.Test;
 /**
  *
  * @author achidamb
- * @param <T>
- * @param <K>
  */
-public class PatientDiscoveryTransformsTest<T extends PRPAIN201305UV02, K extends PRPAIN201306UV02> extends
-    AuditTransformTest<T, K> {
+public class PatientDiscoveryTransformsTest extends AuditTransformTest {
 
     public PatientDiscoveryTransformsTest() {
     }

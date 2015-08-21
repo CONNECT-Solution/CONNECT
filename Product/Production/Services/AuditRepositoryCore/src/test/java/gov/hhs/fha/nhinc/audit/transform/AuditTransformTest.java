@@ -48,7 +48,7 @@ import org.junit.BeforeClass;
  *
  * @author achidamb
  */
-public abstract class AuditTransformTest<T,K> {
+public abstract class AuditTransformTest {
 
     public AuditTransformTest() {
     }

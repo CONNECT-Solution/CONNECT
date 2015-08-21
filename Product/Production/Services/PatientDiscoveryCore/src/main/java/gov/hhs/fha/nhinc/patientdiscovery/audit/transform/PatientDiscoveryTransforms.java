@@ -47,10 +47,8 @@ import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 /**
  *
  * @author achidamb
- * @param <T>
- * @param <K>
  */
-public class PatientDiscoveryTransforms<T extends PRPAIN201305UV02, K extends PRPAIN201306UV02> extends AuditTransform<T, K> {
+public class PatientDiscoveryTransforms  extends AuditTransform<PRPAIN201305UV02, PRPAIN201306UV02> {
 
     private static final Logger LOG = Logger.getLogger(PatientDiscoveryTransforms.class);
 
@@ -92,6 +90,8 @@ public class PatientDiscoveryTransforms<T extends PRPAIN201305UV02, K extends PR
         if (oII != null && oII.getRoot() != null && oII.getExtension() != null && !oII.getRoot().isEmpty()
             && !oII.getExtension().isEmpty()) {
             createPatientParticipantObjectIdentification(auditMsg, oII.getRoot(), oII.getExtension());
+        }else {
+            createPatientParticipantObjectIdentification(auditMsg, null, null);
         }
         return auditMsg;
     }
@@ -129,10 +129,8 @@ public class PatientDiscoveryTransforms<T extends PRPAIN201305UV02, K extends PR
             getLivingSubjectId().get(0).getValue().get(0) != null) {
             oII = request.getControlActProcess().getQueryByParameter().getValue().getParameterList().
                 getLivingSubjectId().get(0).getValue().get(0);
-
         } else {
             LOG.error("PatientId doesn't exists in the received PRPAIN201305UV02 message");
-            return oII;
         }
         return oII;
     }
@@ -173,7 +171,6 @@ public class PatientDiscoveryTransforms<T extends PRPAIN201305UV02, K extends PR
     }
 
     private static String createPatientId(String assigningAuthId, String patientId) {
-
         return patientId + "^^^&" + assigningAuthId + "&ISO";
 
     }
@@ -187,7 +184,6 @@ public class PatientDiscoveryTransforms<T extends PRPAIN201305UV02, K extends PR
         }
         auditMsg.getParticipantObjectIdentification().add(participantObject);
         return auditMsg;
-
     }
 
     private AuditMessageType getQueryParamsParticipantObjectIdentificationForResponse(PRPAIN201306UV02 response, AuditMessageType auditMsg)
@@ -199,7 +195,6 @@ public class PatientDiscoveryTransforms<T extends PRPAIN201305UV02, K extends PR
         }
         auditMsg.getParticipantObjectIdentification().add(participantObject);
         return auditMsg;
-
     }
 
     private byte[] getParticipantObjectQueryForRequest(PRPAIN201305UV02 request) throws JAXBException {
