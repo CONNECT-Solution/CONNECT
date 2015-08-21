@@ -39,10 +39,12 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.mpilib.Identifier;
 import gov.hhs.fha.nhinc.mpilib.Identifiers;
 import gov.hhs.fha.nhinc.mpilib.Patient;
+import gov.hhs.fha.nhinc.mpilib.Patients;
 import gov.hhs.fha.nhinc.mpilib.PersonName;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditDataBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryTransformConstants;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Properties;
@@ -51,24 +53,26 @@ import org.hl7.v3.ActClassControlAct;
 import org.hl7.v3.CD;
 import org.hl7.v3.CE;
 import org.hl7.v3.CS;
-import org.hl7.v3.CommunicationFunctionType;
 import org.hl7.v3.ENExplicit;
 import org.hl7.v3.EnExplicitFamily;
 import org.hl7.v3.EnExplicitGiven;
 import org.hl7.v3.II;
 import org.hl7.v3.IVLTSExplicit;
-import org.hl7.v3.MCCIMT000100UV01Device;
-import org.hl7.v3.MCCIMT000100UV01Receiver;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201305UV02QUQIMT021001UV01ControlActProcess;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01ControlActProcess;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject2;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectAdministrativeGender;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectBirthTime;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectName;
 import org.hl7.v3.PRPAMT201306UV02ParameterList;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
-import org.hl7.v3.TELExplicit;
+import org.hl7.v3.PRPAMT201310UV02Patient;
+import org.hl7.v3.ParticipationTargetSubject;
 import org.hl7.v3.XActMoodIntentEvent;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -139,6 +143,49 @@ public class PatientDiscoveryTransformsTest<T extends PRPAIN201305UV02, K extend
         AssertionType assertion = createAssertion();
         PatientDiscoveryAuditDataBuilder builder = new PatientDiscoveryAuditDataBuilder();
         LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(request, assertion, createNhinTarget(),
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE,
+            webContextProperties, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, builder);
+        testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE,
+            builder);
+        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, localIP, webContextProperties);
+        testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectIP);
+        testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
+        assertParticiopantObjectIdentification(auditRequest);
+    }
+
+    @Test
+    public void transformResponseToAuditMsg() throws ConnectionManagerException, UnknownHostException {
+        final String localIP = "10.10.10.10";
+        Properties webContextProperties = new Properties();
+        webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, "http://16.14.13.12:9090/AuditService");
+        webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, "16.14.13.12");
+        final String remoteObjectIP = "http://16.14.13.12:9090/source/AuditService";
+        PatientDiscoveryTransforms transforms = new PatientDiscoveryTransforms() {
+            @Override
+            protected String getLocalHostAddress() {
+                return localIP;
+            }
+
+            @Override
+            protected String getRemoteHostAddress(Properties webContextProeprties) {
+                if (webContextProeprties != null && !webContextProeprties.isEmpty() && webContextProeprties.
+                    getProperty(NhincConstants.REMOTE_HOST_ADDRESS) != null) {
+                    return webContextProeprties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS);
+                }
+                return AuditTransformConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
+            }
+
+            @Override
+            protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
+                return remoteObjectIP;
+            }
+
+        };
+
+        PRPAIN201306UV02 response = createPRPAIN201306UV02Response();
+        AssertionType assertion = createAssertion();
+        PatientDiscoveryAuditDataBuilder builder = new PatientDiscoveryAuditDataBuilder();
+        LogEventRequestType auditRequest = transforms.transformResponseToAuditMsg(response, assertion, createNhinTarget(),
             NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE,
             webContextProperties, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, builder);
         testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE,
@@ -356,28 +403,7 @@ public class PatientDiscoveryTransformsTest<T extends PRPAIN201305UV02, K extend
         return adminGender;
     }
 
-    private static MCCIMT000100UV01Receiver createReceiver() {
-        MCCIMT000100UV01Receiver receiver = new MCCIMT000100UV01Receiver();
-
-        receiver.setTypeCode(CommunicationFunctionType.RCV);
-
-        MCCIMT000100UV01Device device = new MCCIMT000100UV01Device();
-        device.setDeterminerCode("INSTANCE");
-
-        II id = new II();
-        id.setRoot("2.16.840.1.113883.3.200");
-        device.getId().add(id);
-
-        TELExplicit url = new TELExplicit();
-        url.setValue("http://localhost:9080/NhinConnect/AdapterComponentMpiService");
-        device.getTelecom().add(url);
-
-        receiver.setDevice(device);
-
-        return receiver;
-    }
-
-    public static Patient createMpiPatient(String firstName, String lastName, String gender, String birthTime,
+    public Patient createMpiPatient(String firstName, String lastName, String gender, String birthTime,
         Identifier subjectId) {
         Patient result = new Patient();
 
@@ -401,29 +427,127 @@ public class PatientDiscoveryTransformsTest<T extends PRPAIN201305UV02, K extend
         return result;
     }
 
-    public static Patient createMpiPatient(String firstName, String lastName, String middleName, String gender,
-        String birthTime, Identifier subjectId) {
-        Patient result = new Patient();
+    private PRPAIN201306UV02 createPRPAIN201306UV02Response() {
+        PRPAIN201306UV02 response = new PRPAIN201306UV02();
+        response.setControlActProcess(createResponseControlActProcess());
+        return response;
+    }
 
-        // Set the patient name
-        PersonName name = new PersonName();
-        name.setFirstName(firstName);
-        name.setLastName(lastName);
-        name.setMiddleName(middleName);
-        result.getNames().add(name);
+    private PRPAIN201306UV02MFMIMT700711UV01ControlActProcess createResponseControlActProcess() {
+        PRPAIN201305UV02 query = createPRPAIN201305UV02Request();
+        
+        Patients patients = createPatients();
+        
+        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess
+            = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
 
-        // Set the patient gender
-        result.setGender(gender);
+        controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
+        controlActProcess.setClassCode(ActClassControlAct.CACT);
+        CD code = new CD();
+        code.setCode("PRPA_TE201306UV02");
+        code.setCodeSystem("2.16.840.1.113883.1.6");
+        controlActProcess.setCode(code);
 
-        // Set the patient birth time
-        result.setDateOfBirth(birthTime);
+        if ((patients != null) && (patients.size() > 0)) {
+            for (Patient patientEntry : patients) {
+                controlActProcess.getSubject().add(createSubject(patientEntry, query));
+            }
+        }
 
-        // Set the patient Id
-        Identifiers ids = new Identifiers();
-        ids.add(subjectId);
-        result.setIdentifiers(ids);
+        // Add in query parameters
+        if (query.getControlActProcess() != null && query.getControlActProcess().getQueryByParameter() != null
+            && query.getControlActProcess().getQueryByParameter().getValue() != null) {
+            controlActProcess.setQueryByParameter(query.getControlActProcess().getQueryByParameter());
+        }
+        // Set original QueryByParameter in response
+        controlActProcess.setQueryByParameter(query.getControlActProcess().getQueryByParameter());
+        return controlActProcess;
+    }
 
-        return result;
+    private static PRPAIN201306UV02MFMIMT700711UV01Subject1 createSubject(Patient patient, PRPAIN201305UV02 query) {
+        PRPAIN201306UV02MFMIMT700711UV01Subject1 subject = new PRPAIN201306UV02MFMIMT700711UV01Subject1();
+
+        subject.getTypeCode().add("SUBJ");
+
+        subject.setRegistrationEvent(createRegEvent(patient, query));
+
+        return subject;
+    }
+
+    private static PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent createRegEvent(Patient patient,
+        PRPAIN201305UV02 query) {
+        PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent regEvent
+            = new PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent();
+        regEvent.getMoodCode().add("EVN");
+        regEvent.getClassCode().add("REG");
+        II id = new II();
+        id.getNullFlavor().add("NA");
+        regEvent.getId().add(id);
+
+        CS statusCode = new CS();
+        statusCode.setCode("active");
+
+        regEvent.setStatusCode(statusCode);
+
+        regEvent.setSubject1(createSubject1(patient, query));
+
+        return regEvent;
+    }
+
+    private static PRPAIN201306UV02MFMIMT700711UV01Subject2 createSubject1(Patient patient, PRPAIN201305UV02 query) {
+        PRPAIN201306UV02MFMIMT700711UV01Subject2 subject = new PRPAIN201306UV02MFMIMT700711UV01Subject2();
+        subject.setTypeCode(ParticipationTargetSubject.SBJ);
+        // Add in patient
+        subject.setPatient(createPatient(patient, query));
+
+        return subject;
+    }
+
+    private static PRPAMT201310UV02Patient createPatient(Patient patient, PRPAIN201305UV02 query) {
+        PRPAMT201310UV02Patient subjectPatient = new PRPAMT201310UV02Patient();
+
+        subjectPatient.getClassCode().add("PAT");
+
+        CS statusCode = new CS();
+        statusCode.setCode("SD");
+        subjectPatient.setStatusCode(statusCode);
+        // Add in patient id
+        subjectPatient.getId().add(createSubjectId(patient));
+        return subjectPatient;
+    }
+
+    private static II createSubjectId(Patient patient) {
+        II id = new II();
+
+        if (patient.getIdentifiers() != null && patient.getIdentifiers().size() > 0
+            && patient.getIdentifiers().get(0) != null) {
+
+            if (patient.getIdentifiers().get(0).getOrganizationId() != null
+                && patient.getIdentifiers().get(0).getOrganizationId().length() > 0) {
+                id.setRoot(HomeCommunityMap.formatHomeCommunityId(patient.getIdentifiers().get(0).getOrganizationId()));
+            }
+
+            if (patient.getIdentifiers().get(0).getId() != null
+                && patient.getIdentifiers().get(0).getId().length() > 0) {
+                id.setExtension(patient.getIdentifiers().get(0).getId());
+            }
+        }
+
+        return id;
+    }
+
+    private Identifier createIdentifier() {
+        Identifier subjectId = new Identifier();
+        subjectId.setId("D123401");
+        subjectId.setOrganizationId("1.1");
+        return subjectId;
+    }
+    
+    private Patients createPatients() {
+        Patient patient = createMpiPatient("Gallow", "Younger", "M", "08-20-1976", createIdentifier());
+        Patients patients = new Patients();
+        patients.add(patient);
+        return patients;
     }
 
 }
