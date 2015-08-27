@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.patientdiscovery.audit;
 
 /**
+ * Constants specific to the Patient Discovery AuditLogger implementation.
  *
  * @author achidamb
  */

@@ -33,6 +33,7 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
+ * Patient Discovery audit logging implementation.
  *
  * @author achidamb
  */

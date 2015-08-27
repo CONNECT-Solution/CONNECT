@@ -35,69 +35,77 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 
 /**
+ * ATNA-compliant audit logger template class. Each individual service logger will implement this class, but provide its
+ * own implementation.
  *
  * @author achidamb
+ * @param <T>
+ * @param <K>
  */
 public abstract class AuditLogger<T, K> {
 
     private static final Logger LOG = Logger.getLogger(AuditLogger.class);
 
     /**
+     * ATNA-compliant logging for a request message of type T
+     * <P>
+     * TODO: This method should be final, but cannot due to the way PD inbound JUnit tests have been written.
      *
      * @param request Request to be audited
      * @param assertion assertion to be audited
      * @param target target community
      * @param direction defines the Outbound/Inbound message
-     * @param _interface defines the Entity,Adapter and Nwhin interfaces
-     * @param isRequesting true/false identifies initiator/responder
+     * @param _interface Entity, Adapter or Nwhin
+     * @param isRequesting true for initiator, false for responder
      * @param webContextProperties Properties loaded from message context
-     * @param serviceName Name of the Service being audited.
+     * @param serviceName Name of the Service being audited
      */
-    public void auditRequestMessage(T request, AssertionType assertion, NhinTargetSystemType target,
-        String direction, String _interface, Boolean isRequesting, Properties webContextProperties,
-        String serviceName) {
+    public void auditRequestMessage(T request, AssertionType assertion, NhinTargetSystemType target, String direction,
+        String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName) {
 
-        LOG.trace("---Begin AuditLogger.auditRequestMessage()---");
+        LOG.trace("--- Before auditing of request message ---");
         LogEventRequestType auditLogMsg = getAuditTransforms().transformRequestToAuditMsg(request, assertion, target,
             direction, _interface, isRequesting, webContextProperties, serviceName);
         auditLogMessages(auditLogMsg, assertion);
-        LOG.trace("---End AuditLogger.auditRequestMessage()---");
+        LOG.trace("--- After auditing of request message ---");
     }
 
     /**
+     * ATNA-compliant logging for a response message of type K
+     * <P>
+     * TODO: This method should be final, but cannot due to the way PD inbound JUnit tests have been written.
      *
      * @param response Response to be audited
      * @param assertion assertion to be audited
      * @param target target community
      * @param direction defines the Outbound/Inbound message
-     * @param _interface defines the Entity,Adapter and Nwhin interfaces
+     * @param _interface Entity, Adapter or Nwhin
      * @param isRequesting true/false identifies initiator/responder
      * @param webContextProperties Properties loaded from message context
-     * @param serviceName Name of the Service being audited.
+     * @param serviceName Name of the Service being audited
      */
-    public void auditResponseMessage(K response, AssertionType assertion,
-        NhinTargetSystemType target, String direction, String _interface, Boolean isRequesting,
-        Properties webContextProperties, String serviceName) {
+    public void auditResponseMessage(K response, AssertionType assertion, NhinTargetSystemType target, String direction,
+        String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName) {
 
-        LOG.trace("---Begin PatientDiscoveryResponseAuditLogger.auditPatientDiscoveryResponseMessage()---");
+        LOG.trace("--- Before auditing of response message ---");
         LogEventRequestType auditLogMsg = getAuditTransforms().transformResponseToAuditMsg(response, assertion,
             target, direction, _interface, isRequesting, webContextProperties, serviceName);
         auditLogMessages(auditLogMsg, assertion);
-        LOG.trace("---End AuditLogger.auditPatientDiscoveryResponseMessage()---");
+        LOG.trace("--- After auditing of response message ---");
     }
 
     private void auditLogMessages(LogEventRequestType auditLogMsg, AssertionType assertion) {
         if (auditLogMsg != null && auditLogMsg.getAuditMessage() != null) {
             new AuditRepositoryProxyObjectFactory().getAuditRepositoryProxy().auditLog(auditLogMsg, assertion);
         } else {
-            LOG.error("auditLogMsg is null");
+            LOG.error("auditLogMsg is null, no auditing will take place.");
         }
     }
 
     /**
      * Returns the AuditTransforms implementation needed for auditing the current service.
      *
-     * @return
+     * @return a constructed AuditTransforms implementation
      */
     protected abstract AuditTransforms<T, K> getAuditTransforms();
 }

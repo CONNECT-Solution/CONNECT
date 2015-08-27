@@ -358,11 +358,6 @@ public abstract class AuditTransforms<T, K> {
         return AuditTransformConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE;
     }
 
-    /**
-     * Gets the local host address; protected scope to allow for ease of unit testing
-     *
-     * @return
-     */
     protected String getLocalHostAddress() {
         try {
             return InetAddress.getLocalHost().getHostAddress();

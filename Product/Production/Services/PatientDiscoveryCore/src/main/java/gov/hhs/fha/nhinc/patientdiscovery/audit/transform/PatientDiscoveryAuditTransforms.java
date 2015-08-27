@@ -44,6 +44,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 
 /**
+ * Patient Discovery audit transforms to support PD audit logging.
  *
  * @author achidamb
  */

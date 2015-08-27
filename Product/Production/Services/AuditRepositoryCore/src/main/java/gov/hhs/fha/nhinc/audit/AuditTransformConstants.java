@@ -28,6 +28,7 @@
 package gov.hhs.fha.nhinc.audit;
 
 /**
+ * Constants shared between all AuditLogger implementations.
  *
  * @author achidamb
  */
