@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.audit.transform;
 import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import gov.hhs.fha.nhinc.audit.AuditTransformConstants;
-import gov.hhs.fha.nhinc.audit.AuditTransformDataBuilder;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -39,7 +38,7 @@ import java.util.List;
 import java.util.Properties;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
@@ -48,7 +47,7 @@ import org.junit.BeforeClass;
  *
  * @author achidamb
  */
-public abstract class AuditTransformTest {
+public abstract class AuditTransformTest<T, K> {
 
     public AuditTransformTest() {
     }
@@ -70,48 +69,55 @@ public abstract class AuditTransformTest {
     }
 
     /**
-     * Test of createEventIdentification method, of class AuditTransform.
+     * Test of createEventIdentification method, of class AuditTransforms.
      *
      * @param request
      * @param serviceName
      * @param isRequesting
-     * @param builder
      */
-    protected void testGetEventIdentificationType(LogEventRequestType request, String serviceName, Boolean isRequesting, 
-        AuditTransformDataBuilder builder) {
+    protected void testGetEventIdentificationType(LogEventRequestType request, String serviceName,
+        Boolean isRequesting) {
+
         EventIdentificationType eventIdentificationType = request.getAuditMessage().getEventIdentification();
         if (isRequesting) {
-            assertEquals(builder.getServiceEventActionCodeRequestor(), eventIdentificationType.getEventActionCode());
+            assertEquals(getAuditTransforms().getServiceEventActionCodeRequestor(),
+                eventIdentificationType.getEventActionCode());
         } else {
-            assertEquals(builder.getServiceEventActionCodeResponder(), eventIdentificationType.getEventActionCode());
+            assertEquals(getAuditTransforms().getServiceEventActionCodeResponder(),
+                eventIdentificationType.getEventActionCode());
         }
-        assertEquals(AuditTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS.toString(), eventIdentificationType.
-            getEventOutcomeIndicator().toString());
-        assertEquals(builder.getServiceEvenIdCode(), eventIdentificationType.getEventID().getCode());
-        assertEquals(builder.getServiceEventCodeSystem(), eventIdentificationType.getEventID().getCodeSystemName());
+        assertEquals(AuditTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS.toString(), eventIdentificationType
+            .getEventOutcomeIndicator().toString());
+        assertEquals(getAuditTransforms().getServiceEventIdCode(), eventIdentificationType.getEventID().getCode());
+        assertEquals(getAuditTransforms().getServiceEventCodeSystem(),
+            eventIdentificationType.getEventID().getCodeSystemName());
+
         if (isRequesting) {
-            assertEquals(builder.getServiceEventDisplayRequestor(), eventIdentificationType.getEventID().
-                getDisplayName());
+            assertEquals(getAuditTransforms().getServiceEventDisplayRequestor(), eventIdentificationType.getEventID()
+                .getDisplayName());
         } else {
-            assertEquals(builder.getServiceEventDisplayResponder(), eventIdentificationType.getEventID().
-                getDisplayName());
+            assertEquals(getAuditTransforms().getServiceEventDisplayResponder(), eventIdentificationType.getEventID()
+                .getDisplayName());
         }
 
-        assertEquals(builder.getServiceEventTypeCode(), eventIdentificationType.getEventTypeCode().get(0).getCode());
-        assertEquals(builder.getServiceEventTypeCodeSystem(),eventIdentificationType.getEventTypeCode().get(0).
-            getCodeSystemName());
-        assertEquals(builder.getServiceEventTypeCodeDisplayName(), eventIdentificationType.getEventTypeCode().get(0).
-            getDisplayName());
+        assertEquals(getAuditTransforms().getServiceEventTypeCode(), eventIdentificationType.getEventTypeCode().get(0)
+            .getCode());
+        assertEquals(getAuditTransforms().getServiceEventTypeCodeSystem(), eventIdentificationType.getEventTypeCode()
+            .get(0).getCodeSystemName());
+        assertEquals(getAuditTransforms().getServiceEventTypeCodeDisplayName(),
+            eventIdentificationType.getEventTypeCode().get(0).getDisplayName());
     }
 
     /**
-     * Test of createActiveParticipantFromUser method, of class AuditTransform.
+     * Test of createActiveParticipantFromUser method, of class AuditTransforms.
      *
      * @param request
      * @param isRequesting
      * @param assertion
      */
-    protected void testCreateActiveParticipantFromUser(LogEventRequestType request, Boolean isRequesting, AssertionType assertion) {
+    protected void testCreateActiveParticipantFromUser(LogEventRequestType request, Boolean isRequesting,
+        AssertionType assertion) {
+
         if (isRequesting) {
             ActiveParticipant userActiveParticipant = null;
             List<ActiveParticipant> activeParticipant = request.getAuditMessage().getActiveParticipant();
@@ -122,7 +128,7 @@ public abstract class AuditTransformTest {
                 }
             }
             assertEquals(assertion.getUserInfo().getUserName(), userActiveParticipant.getUserID());
-            assertEquals(assertion.getUserInfo().getPersonName().getGivenName() + " " + 
+            assertEquals(assertion.getUserInfo().getPersonName().getGivenName() + " " +
                 assertion.getUserInfo().getPersonName().getFamilyName(), userActiveParticipant.getUserName());
             assertEquals(assertion.getUserInfo().getRoleCoded().getCode(), userActiveParticipant.
                 getRoleIDCode().get(0).getCode());
@@ -134,7 +140,7 @@ public abstract class AuditTransformTest {
     }
 
     /**
-     * Test of getActiveParticipantSource method, of class AuditTransform.
+     * Test of getActiveParticipantSource method, of class AuditTransforms.
      *
      * @param request
      * @param webContextProperties
@@ -142,8 +148,9 @@ public abstract class AuditTransformTest {
      * @param localIP
      * @throws java.net.UnknownHostException
      */
-    protected void testGetActiveParticipantSource(LogEventRequestType request, Boolean isRequesting, String localIP, 
+    protected void testGetActiveParticipantSource(LogEventRequestType request, Boolean isRequesting, String localIP,
         Properties webContextProperties) throws UnknownHostException {
+
         ActiveParticipant sourceActiveParticipant = null;
         List<ActiveParticipant> activeParticipant = request.getAuditMessage().getActiveParticipant();
         for (ActiveParticipant item : activeParticipant) {
@@ -160,28 +167,28 @@ public abstract class AuditTransformTest {
         if (isRequesting) {
             assertEquals(localIP, sourceActiveParticipant.getNetworkAccessPointID());
         } else {
-            assertEquals(webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS), 
+            assertEquals(webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS),
                 sourceActiveParticipant.getNetworkAccessPointID());
         }
-        assertEquals(AuditTransformConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME, 
+        assertEquals(AuditTransformConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME,
             sourceActiveParticipant.getNetworkAccessPointTypeCode());
-        assertEquals(AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, 
+        assertEquals(AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE,
             sourceActiveParticipant.getRoleIDCode().get(0).getCode());
-        assertEquals(AuditTransformConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME, 
+        assertEquals(AuditTransformConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
             sourceActiveParticipant.getRoleIDCode().get(0).getCodeSystemName());
-        assertEquals(AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME, 
+        assertEquals(AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME,
             sourceActiveParticipant.getRoleIDCode().get(0).getDisplayName());
     }
 
     /**
-     * Test of getActiveParticipantDestination method, of class AuditTransform.
+     * Test of getActiveParticipantDestination method, of class AuditTransforms.
      *
      * @param request
      * @param isRequesting
      * @param webContextProperties
      * @param remoteObjectIP
      */
-    protected void testGetActiveParticipantDestination(LogEventRequestType request, Boolean isRequesting, 
+    protected void testGetActiveParticipantDestination(LogEventRequestType request, Boolean isRequesting,
         Properties webContextProperties, String remoteObjectIP) {
         ActiveParticipant destinationActiveParticipant = null;
         for (ActiveParticipant item : request.getAuditMessage().getActiveParticipant()) {
@@ -193,12 +200,12 @@ public abstract class AuditTransformTest {
         if (isRequesting) {
             assertEquals(remoteObjectIP, destinationActiveParticipant.getUserID());
         } else {
-            assertEquals(webContextProperties.getProperty(NhincConstants.WEB_SERVICE_REQUEST_URL), 
+            assertEquals(webContextProperties.getProperty(NhincConstants.WEB_SERVICE_REQUEST_URL),
                 destinationActiveParticipant.getUserID());
         }
 
         assertEquals(!(isRequesting), destinationActiveParticipant.isUserIsRequestor());
-        assertEquals(webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS), 
+        assertEquals(webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS),
             destinationActiveParticipant.getNetworkAccessPointID());
         assertEquals(AuditTransformConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME, destinationActiveParticipant.
             getNetworkAccessPointTypeCode());
@@ -206,8 +213,9 @@ public abstract class AuditTransformTest {
             getRoleIDCode().get(0).getCode());
         assertEquals(AuditTransformConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME, destinationActiveParticipant.
             getRoleIDCode().get(0).getCodeSystemName());
-        assertEquals(AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME, 
+        assertEquals(AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME,
             destinationActiveParticipant.getRoleIDCode().get(0).getDisplayName());
     }
 
+    protected abstract AuditTransforms<T, K> getAuditTransforms();
 }

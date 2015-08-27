@@ -26,15 +26,9 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.audit;
 
-import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
-import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.patientdiscovery.audit.transform.PatientDiscoveryTransforms;
-import java.util.Properties;
-import org.apache.log4j.Logger;
+import gov.hhs.fha.nhinc.audit.AuditLogger;
+import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.transform.PatientDiscoveryAuditTransforms;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -42,73 +36,10 @@ import org.hl7.v3.PRPAIN201306UV02;
  *
  * @author achidamb
  */
-public class PatientDiscoveryAuditLogger {
+public class PatientDiscoveryAuditLogger extends AuditLogger<PRPAIN201305UV02, PRPAIN201306UV02> {
 
-    private static final Logger LOG = Logger.getLogger(PatientDiscoveryAuditLogger.class);
-    PatientDiscoveryTransforms patientDiscoveryTransforms = new PatientDiscoveryTransforms();
-    PatientDiscoveryAuditDataBuilder databuilder = new PatientDiscoveryAuditDataBuilder();
-
-    /**
-     *
-     * @param request Request to be audited
-     * @param assertion assertion to be audited
-     * @param target target community
-     * @param direction defines the Outbound/Inbound message
-     * @param _interface defines the Entity,Adapter and Nwhin interfaces
-     * @param isRequesting true/false identifies initiator/responder
-     * @param webContextProperties Properties loaded from message context
-     * @param serviceName Name of the Service being audited.
-     */
-    public void auditPatientDiscoveryRequestMessage(PRPAIN201305UV02 request, AssertionType assertion, 
-        NhinTargetSystemType target, String direction, String _interface, Boolean isRequesting, 
-        Properties webContextProperties, String serviceName) {
-        LOG.trace("---Begin PatientDiscoveryRequestAuditLogger.auditPatientDiscoveryRequestMessage()---");
-        LogEventRequestType auditLogMsg = patientDiscoveryTransforms.transformRequestToAuditMsg(request, assertion, 
-            target, direction, _interface, isRequesting, webContextProperties, serviceName, databuilder);
-        auditLogMessages(auditLogMsg, assertion);
-        LOG.trace("---End PatientDiscoveryRequestAuditLogger.auditPatientDiscoveryRequestMessage()---");
+    @Override
+    protected AuditTransforms<PRPAIN201305UV02, PRPAIN201306UV02> getAuditTransforms() {
+        return new PatientDiscoveryAuditTransforms();
     }
-
-    /**
-     *
-     * @param response Response to be audited
-     * @param assertion assertion to be audited
-     * @param target target community
-     * @param direction defines the Outbound/Inbound message
-     * @param _interface defines the Entity,Adapter and Nwhin interfaces
-     * @param isRequesting true/false identifies initiator/responder
-     * @param webContextProperties Properties loaded from message context
-     * @param serviceName Name of the Service being audited.
-     */
-    public void auditPatientDiscoveryResponseMessage(PRPAIN201306UV02 response, AssertionType assertion, 
-        NhinTargetSystemType target, String direction, String _interface, Boolean isRequesting, 
-        Properties webContextProperties, String serviceName) {
-        LOG.trace("---Begin PatientDiscoveryResponseAuditLogger.auditPatientDiscoveryResponseMessage()---");
-        LogEventRequestType auditLogMsg = patientDiscoveryTransforms.transformResponseToAuditMsg(response, assertion, 
-            target, direction, _interface, isRequesting, webContextProperties, serviceName, databuilder);
-        auditLogMessages(auditLogMsg, assertion);
-        LOG.trace("---End PatientDiscoveryResponseAuditLogger.auditPatientDiscoveryResponseMessage()---");
-    }
-
-    private void auditLogMessages(LogEventRequestType auditLogMsg, AssertionType assertion) {
-        if (auditLogMsg != null && auditLogMsg.getAuditMessage() != null) {
-            audit(auditLogMsg, assertion);
-        } else {
-            LOG.error("PatientDiscoveryAuditLogger auditLogMsg is null");
-        }
-    }
-
-    /**
-     * Submits a generic Audit Log message to the Audit Log Repository.
-     *
-     * @param auditLogMsg The generic audit log to be audited
-     * @param assertion The assertion to be audited
-     * @return
-     */
-    private AcknowledgementType audit(LogEventRequestType auditLogMsg, AssertionType assertion) {
-        AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-        AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-        return proxy.auditLog(auditLogMsg, assertion);
-    }
-
 }

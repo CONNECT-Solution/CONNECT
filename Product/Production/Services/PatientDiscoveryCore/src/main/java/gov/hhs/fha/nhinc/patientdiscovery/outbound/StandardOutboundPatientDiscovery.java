@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.outbound;
 
+import com.google.common.base.Optional;
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
@@ -46,24 +47,23 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
-import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.RespondingGatewayPRPAIN201306UV02Builder;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryDelegate;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryOrchestratable;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryProcessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import org.apache.log4j.Logger;
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -71,16 +71,13 @@ import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
-import com.google.common.base.Optional;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
-
 public class StandardOutboundPatientDiscovery implements OutboundPatientDiscovery {
 
     private static final Logger LOG = Logger.getLogger(StandardOutboundPatientDiscovery.class);
     private ExecutorService regularExecutor = null;
     private ExecutorService largejobExecutor = null;
-    private TransactionLogger transactionLogger = new TransactionLogger();
-    private PatientDiscoveryAuditLogger patientDiscoveryAuditor = new PatientDiscoveryAuditLogger();
+    private final TransactionLogger transactionLogger = new TransactionLogger();
+    private final PatientDiscoveryAuditLogger patientDiscoveryAuditor = new PatientDiscoveryAuditLogger();
 
     /**
      * Add default constructor that is used by test cases Note that implementations should always use constructor that
@@ -95,6 +92,8 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
      * We construct the orch impl class with references to both executor services that could be used for this particular
      * orchestration instance. Determination of which executor service to use (largejob or regular) is based on the size
      * of the pdlist and configs
+     * @param e
+     * @param le
      */
     public StandardOutboundPatientDiscovery(ExecutorService e, ExecutorService le) {
         setExecutorService(e, le);
@@ -169,11 +168,11 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
             if (NullChecker.isNullish(urlInfoList)) {
                 throw new Exception("No target endpoints were found for the Patient Discovery Request.");
             } else {
-                List<NhinCallableRequest<OutboundPatientDiscoveryOrchestratable>> callableList = new ArrayList<NhinCallableRequest<OutboundPatientDiscoveryOrchestratable>>();
+                List<NhinCallableRequest<OutboundPatientDiscoveryOrchestratable>> callableList = new ArrayList<>();
                 String transactionId = (UUID.randomUUID()).toString();
 
                 // we hold the error messages for any failed policy checks in policyErrList
-                List<CommunityPRPAIN201306UV02ResponseType> policyErrList = new ArrayList<CommunityPRPAIN201306UV02ResponseType>();
+                List<CommunityPRPAIN201306UV02ResponseType> policyErrList = new ArrayList<>();
 
                 // loop through the communities and send request if results were not null
                 for (UrlInfo urlInfo : urlInfoList) {
@@ -196,17 +195,18 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
                             + target.getHomeCommunity().getHomeCommunityId());
                     } else {
                         LOG.debug("Policy Check Failed for homeId=" + urlInfo.getHcid());
-                        CommunityPRPAIN201306UV02ResponseType communityResponse = createFailedPolicyCommunityResponseFromRequest(
-                            request.getPRPAIN201305UV02(), urlInfo.getHcid());
+                        CommunityPRPAIN201306UV02ResponseType communityResponse
+                            = createFailedPolicyCommunityResponseFromRequest(request.getPRPAIN201305UV02(),
+                                urlInfo.getHcid());
 
                         policyErrList.add(communityResponse);
                     }
                 }
                 if (callableList.size() > 0) {
                     LOG.debug("Executing tasks to concurrently retrieve responses");
-                    NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> pdExecutor = new NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable>(
-                        ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size()) ? largejobExecutor
-                        : regularExecutor, callableList, transactionId);
+                    NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> pdExecutor = new NhinTaskExecutor<>(
+                        ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size())
+                        ? largejobExecutor : regularExecutor, callableList, transactionId);
                     pdExecutor.executeTask();
                     LOG.debug("Aggregating all responses");
                     response = getCumulativeResponse(pdExecutor);
@@ -250,7 +250,8 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
             && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId() != null
             && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0) != null) {
 
-            request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0).setRoot(HomeCommunityMap.formatHomeCommunityId(hcid));
+            request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0).setRoot(
+                HomeCommunityMap.formatHomeCommunityId(hcid));
         }
     }
 
@@ -293,6 +294,8 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
 
     /**
      * Policy Check verification done here....from connect code
+     * @param request
+     * @return
      */
     protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request) {
         return PatientDiscoveryPolicyChecker.getInstance().checkOutgoingPolicy(request);
@@ -340,7 +343,9 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
             cloneRequest(request.getPRPAIN201305UV02()), urlInfo.getHcid());
 
         // Make sure the response modality and response priority codes are set as per the spec
-        if (new201305.getControlActProcess() != null && new201305.getControlActProcess().getQueryByParameter() != null) {
+        if (new201305.getControlActProcess() != null
+            && new201305.getControlActProcess().getQueryByParameter() != null) {
+
             PRPAMT201306UV02QueryByParameter queryParams = new201305.getControlActProcess().getQueryByParameter()
                 .getValue();
             if (queryParams.getResponseModalityCode() == null) {
@@ -402,14 +407,25 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
         return new PatientDiscoveryAuditLogger();
     }
 
-    private void auditRequestFromAdapter(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
-        NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(request.getNhinTargetCommunities());
-        patientDiscoveryAuditor.auditPatientDiscoveryRequestMessage(request.getPRPAIN201305UV02(), assertion, targetSystem, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+    private void auditRequestFromAdapter(RespondingGatewayPRPAIN201305UV02RequestType request,
+        AssertionType assertion) {
+
+        NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance()
+            .convertFirstToNhinTargetSystemType(request.getNhinTargetCommunities());
+        patientDiscoveryAuditor.auditRequestMessage(request.getPRPAIN201305UV02(), assertion, targetSystem,
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE,
+            null, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
     }
 
-    private void auditResponseToAdapter(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion) {
+    private void auditResponseToAdapter(RespondingGatewayPRPAIN201306UV02ResponseType response,
+        AssertionType assertion) {
+
         for (CommunityPRPAIN201306UV02ResponseType responseEntry : response.getCommunityResponse()) {
-            patientDiscoveryAuditor.auditPatientDiscoveryResponseMessage(responseEntry.getPRPAIN201306UV02(), assertion, MessageGeneratorUtils.getInstance().convertToNhinTargetSystemType(responseEntry.getNhinTargetCommunity()), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+            patientDiscoveryAuditor.auditResponseMessage(responseEntry.getPRPAIN201306UV02(), assertion,
+                MessageGeneratorUtils.getInstance().convertToNhinTargetSystemType(
+                    responseEntry.getNhinTargetCommunity()), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null,
+                NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
         }
     }
 }

@@ -30,7 +30,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.audit;
  *
  * @author achidamb
  */
-public class PatientDiscoveryTransformConstants {
+public class PatientDiscoveryAuditTransformConstants {
 
     public static final short PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM = 1;
     public static final short PARTICIPANT_PATIENT_OBJ_TYPE_CODE_ROLE = 1;

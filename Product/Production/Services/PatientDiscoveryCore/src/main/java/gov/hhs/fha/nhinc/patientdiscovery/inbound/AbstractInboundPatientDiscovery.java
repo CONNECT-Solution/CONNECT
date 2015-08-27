@@ -50,8 +50,9 @@ public abstract class AbstractInboundPatientDiscovery implements InboundPatientD
      * @throws gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException
      */
     @Override
-    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion, Properties webContextProperties)
-        throws PatientDiscoveryException {
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion,
+        Properties webContextProperties) throws PatientDiscoveryException {
+
         auditRequestFromNhin(body, assertion, webContextProperties);
 
         PRPAIN201306UV02 response = process(body, assertion, webContextProperties);
@@ -61,19 +62,35 @@ public abstract class AbstractInboundPatientDiscovery implements InboundPatientD
         return response;
     }
 
-    protected void auditRequestFromNhin(PRPAIN201305UV02 body, AssertionType assertion, Properties webContextProperties) {
-        getAuditLogger().auditPatientDiscoveryRequestMessage(body, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, webContextProperties, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+    protected void auditRequestFromNhin(PRPAIN201305UV02 body, AssertionType assertion,
+        Properties webContextProperties) {
+
+        getAuditLogger().auditRequestMessage(body, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, webContextProperties,
+            NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
     }
 
-    protected void auditResponseToNhin(PRPAIN201306UV02 response, AssertionType assertion, Properties webContextProperties) {
-        getAuditLogger().auditPatientDiscoveryResponseMessage(response, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, webContextProperties, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+    protected void auditResponseToNhin(PRPAIN201306UV02 response, AssertionType assertion,
+        Properties webContextProperties) {
+
+        getAuditLogger().auditResponseMessage(response, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, webContextProperties,
+            NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
     }
 
-    protected void auditRequestToAdapter(PRPAIN201305UV02 body, AssertionType assertion, Properties webContextProperties) {
-        getAuditLogger().auditPatientDiscoveryRequestMessage(body, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, Boolean.FALSE, webContextProperties, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+    protected void auditRequestToAdapter(PRPAIN201305UV02 body, AssertionType assertion,
+        Properties webContextProperties) {
+
+        getAuditLogger().auditRequestMessage(body, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+            NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, Boolean.FALSE, webContextProperties,
+            NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
     }
 
-    protected void auditResponseFromAdapter(PRPAIN201306UV02 response, AssertionType assertion, Properties webContextProperties) {
-        getAuditLogger().auditPatientDiscoveryResponseMessage(response, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, Boolean.FALSE, webContextProperties, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+    protected void auditResponseFromAdapter(PRPAIN201306UV02 response, AssertionType assertion,
+        Properties webContextProperties) {
+
+        getAuditLogger().auditResponseMessage(response, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+            NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, Boolean.FALSE, webContextProperties,
+            NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
     }
 }

@@ -28,14 +28,13 @@ package gov.hhs.fha.nhinc.patientdiscovery.audit.transform;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
-import gov.hhs.fha.nhinc.audit.transform.AuditTransform;
+import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryTransformConstants;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditTransformConstants;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import org.apache.log4j.Logger;
@@ -48,55 +47,64 @@ import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
  *
  * @author achidamb
  */
-public class PatientDiscoveryTransforms  extends AuditTransform<PRPAIN201305UV02, PRPAIN201306UV02> {
+public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN201305UV02, PRPAIN201306UV02> {
 
-    private static final Logger LOG = Logger.getLogger(PatientDiscoveryTransforms.class);
+    private static final Logger LOG = Logger.getLogger(PatientDiscoveryAuditTransforms.class);
 
-    /**
-     *
-     * @param assertion
-     * @param auditMsg
-     * @return
-     */
+    private static final String JAXB_HL7_CONTEXT_NAME = "org.hl7.v3";
+
     @Override
     protected AuditMessageType getParticipantObjectIdentificationForRequest(PRPAIN201305UV02 request, AssertionType assertion,
         AuditMessageType auditMsg) {
+
+        // TODO: auditMsg should either use a builder, or modify in-method with no return
         auditMsg = getPatientParticipantObjectIdentificationForRequest(request, auditMsg);
+
         try {
             auditMsg = getQueryParamsParticipantObjectIdentificationForRequest(request, auditMsg);
         } catch (JAXBException ex) {
             LOG.error("Error while creating ParticipantObjectIdentificationQueryByParameters segment : "
                 + ex.getLocalizedMessage(), ex);
         }
+
         return auditMsg;
     }
 
     @Override
-    protected AuditMessageType getParticipantObjectIdentificationForResponse(PRPAIN201306UV02 response, AssertionType assertion,
-        AuditMessageType auditMsg) {
+    protected AuditMessageType getParticipantObjectIdentificationForResponse(PRPAIN201306UV02 response,
+        AssertionType assertion, AuditMessageType auditMsg) {
+
         auditMsg = getPatientParticipantObjectIdentificationForResponse(response, auditMsg);
+
         try {
             auditMsg = getQueryParamsParticipantObjectIdentificationForResponse(response, auditMsg);
         } catch (JAXBException ex) {
             LOG.error("Error while creating ParticipantObjectIdentificationQueryByParameters segment : "
                 + ex.getLocalizedMessage(), ex);
         }
+
         return auditMsg;
     }
 
-    private AuditMessageType getPatientParticipantObjectIdentificationForRequest(PRPAIN201305UV02 request, AuditMessageType auditMsg) {
+    private AuditMessageType getPatientParticipantObjectIdentificationForRequest(PRPAIN201305UV02 request,
+        AuditMessageType auditMsg) {
+
         // Set the Partipation Object Id (patient id)
         II oII = getPatientIdFromRequest(request);
         if (oII != null && oII.getRoot() != null && oII.getExtension() != null && !oII.getRoot().isEmpty()
             && !oII.getExtension().isEmpty()) {
+
             createPatientParticipantObjectIdentification(auditMsg, oII.getRoot(), oII.getExtension());
-        }else {
+        } else {
             createPatientParticipantObjectIdentification(auditMsg, null, null);
         }
+
         return auditMsg;
     }
 
-    private AuditMessageType getPatientParticipantObjectIdentificationForResponse(PRPAIN201306UV02 response, AuditMessageType auditMsg) {
+    private AuditMessageType getPatientParticipantObjectIdentificationForResponse(PRPAIN201306UV02 response,
+        AuditMessageType auditMsg) {
+
         List<II> oII = getPatientIdFromResponse(response);
         if (oII != null && oII.size() > 0) {
             for (II entry : oII) {
@@ -108,29 +116,31 @@ public class PatientDiscoveryTransforms  extends AuditTransform<PRPAIN201305UV02
         } else {
             createPatientParticipantObjectIdentification(auditMsg, null, null);
         }
+
         return auditMsg;
     }
 
     private II getPatientIdFromRequest(PRPAIN201305UV02 request) {
         II oII = null;
 
+        // TODO: We should use a helper library to get elements nested this deeply
         if (request != null && request.getControlActProcess() != null
             && request.getControlActProcess().getQueryByParameter() != null
             && request.getControlActProcess().getQueryByParameter().getValue() != null
-            && request.getControlActProcess().getQueryByParameter().getValue().
-            getParameterList() != null
-            && request.getControlActProcess().getQueryByParameter().getValue().getParameterList().
-            getLivingSubjectId() != null
-            && request.getControlActProcess().getQueryByParameter().getValue().getParameterList().
-            getLivingSubjectId().get(0) != null
-            && request.getControlActProcess().getQueryByParameter().getValue().getParameterList().
-            getLivingSubjectId().get(0).getValue() != null
-            && request.getControlActProcess().getQueryByParameter().getValue().getParameterList().
-            getLivingSubjectId().get(0).getValue().get(0) != null) {
+            && request.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null
+            && request.getControlActProcess().getQueryByParameter().getValue().getParameterList()
+            .getLivingSubjectId() != null
+            && request.getControlActProcess().getQueryByParameter().getValue().getParameterList()
+            .getLivingSubjectId().get(0) != null
+            && request.getControlActProcess().getQueryByParameter().getValue().getParameterList()
+            .getLivingSubjectId().get(0).getValue() != null
+            && request.getControlActProcess().getQueryByParameter().getValue().getParameterList()
+            .getLivingSubjectId().get(0).getValue().get(0) != null) {
+
             oII = request.getControlActProcess().getQueryByParameter().getValue().getParameterList().
                 getLivingSubjectId().get(0).getValue().get(0);
         } else {
-            LOG.error("PatientId doesn't exists in the received PRPAIN201305UV02 message");
+            LOG.error("PatientId doesn't exist in the received PRPAIN201305UV02 message");
         }
         return oII;
     }
@@ -139,14 +149,16 @@ public class PatientDiscoveryTransforms  extends AuditTransform<PRPAIN201305UV02
         List<II> oIIs = null;
         if (response != null && response.getControlActProcess() != null
             && response.getControlActProcess().getSubject() != null) {
+
             List<PRPAIN201306UV02MFMIMT700711UV01Subject1> oSubject1 = response.getControlActProcess().getSubject();
             for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subject : oSubject1) {
                 if (subject.getRegistrationEvent() != null && subject.getRegistrationEvent().getSubject1() != null
                     && subject.getRegistrationEvent().getSubject1().getPatient() != null
                     && subject.getRegistrationEvent().getSubject1().getPatient().getId() != null) {
+
                     oIIs = subject.getRegistrationEvent().getSubject1().getPatient().getId();
                 } else {
-                    LOG.error("PatientId doesn't exists in the received PRPAIN201306UV02 message");
+                    LOG.error("PatientId doesn't exist in the received PRPAIN201306UV02 message");
                 }
             }
         }
@@ -155,88 +167,122 @@ public class PatientDiscoveryTransforms  extends AuditTransform<PRPAIN201305UV02
 
     private AuditMessageType createPatientParticipantObjectIdentification(AuditMessageType auditMsg, String aa,
         String patientId) {
+
         ParticipantObjectIdentificationType participantObject = createParticipantObjectIdentification(
-            PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM,
-            PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_ROLE,
-            PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE,
-            PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE_SYSTEM,
-            PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME);
+            PatientDiscoveryAuditTransformConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM,
+            PatientDiscoveryAuditTransformConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_ROLE,
+            PatientDiscoveryAuditTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE,
+            PatientDiscoveryAuditTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE_SYSTEM,
+            PatientDiscoveryAuditTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME);
+
         if (aa != null && patientId != null && !aa.isEmpty() && !patientId.isEmpty()) {
             participantObject.setParticipantObjectID(createPatientId(aa, patientId));
             auditMsg.getParticipantObjectIdentification().add(participantObject);
         } else {
             auditMsg.getParticipantObjectIdentification().add(participantObject);
         }
+
         return auditMsg;
     }
 
     private static String createPatientId(String assigningAuthId, String patientId) {
         return patientId + "^^^&" + assigningAuthId + "&ISO";
-
     }
 
-    private AuditMessageType getQueryParamsParticipantObjectIdentificationForRequest(PRPAIN201305UV02 request, AuditMessageType auditMsg)
-        throws JAXBException {
+    private AuditMessageType getQueryParamsParticipantObjectIdentificationForRequest(PRPAIN201305UV02 request,
+        AuditMessageType auditMsg) throws JAXBException {
+
         ParticipantObjectIdentificationType participantObject = buildBaseParticipantObjectIdentificationType();
-        byte[] byteArray = getParticipantObjectQueryForRequest(request);
-        if (byteArray != null) {
-            participantObject.setParticipantObjectQuery(byteArray);
-        }
+        participantObject.setParticipantObjectQuery(getParticipantObjectQueryForRequest(request));
         auditMsg.getParticipantObjectIdentification().add(participantObject);
         return auditMsg;
     }
 
-    private AuditMessageType getQueryParamsParticipantObjectIdentificationForResponse(PRPAIN201306UV02 response, AuditMessageType auditMsg)
-        throws JAXBException {
+    private AuditMessageType getQueryParamsParticipantObjectIdentificationForResponse(PRPAIN201306UV02 response,
+        AuditMessageType auditMsg) throws JAXBException {
+
         ParticipantObjectIdentificationType participantObject = buildBaseParticipantObjectIdentificationType();
-        byte[] byteArray = getParticipantObjectQueryForResponse(response);
-        if (byteArray != null) {
-            participantObject.setParticipantObjectQuery(byteArray);
-        }
+        participantObject.setParticipantObjectQuery(getParticipantObjectQueryForResponse(response));
         auditMsg.getParticipantObjectIdentification().add(participantObject);
         return auditMsg;
     }
 
     private byte[] getParticipantObjectQueryForRequest(PRPAIN201305UV02 request) throws JAXBException {
-        ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-        baOutStrm.reset();
-        if (request.getControlActProcess() != null && request.getControlActProcess().
-            getQueryByParameter() != null) {
-            getMarshaller().marshal(request.getControlActProcess().getQueryByParameter(), baOutStrm);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        if (request.getControlActProcess() != null && request.getControlActProcess().getQueryByParameter() != null) {
+            getMarshaller().marshal(request.getControlActProcess().getQueryByParameter(), baos);
         }
-        return baOutStrm.toByteArray();
+        return baos.toByteArray();
     }
 
     private byte[] getParticipantObjectQueryForResponse(PRPAIN201306UV02 response) throws JAXBException {
-        ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-        baOutStrm.reset();
-        if (response.getControlActProcess() != null && response.getControlActProcess().
-            getQueryByParameter() != null) {
-            getMarshaller().marshal(response.getControlActProcess().getQueryByParameter(), baOutStrm);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        if (response.getControlActProcess() != null && response.getControlActProcess().getQueryByParameter() != null) {
+            getMarshaller().marshal(response.getControlActProcess().getQueryByParameter(), baos);
         }
-        return baOutStrm.toByteArray();
-    }
-
-    private Marshaller getMarshaller() throws JAXBException {
-        String JAXB_HL7_CONTEXT_NAME = "org.hl7.v3";
-        JAXBContextHandler oHandler = new JAXBContextHandler();
-        JAXBContext jc = oHandler.getJAXBContext(JAXB_HL7_CONTEXT_NAME);
-        Marshaller marshaller = jc.createMarshaller();
-        return marshaller;
+        return baos.toByteArray();
     }
 
     private ParticipantObjectIdentificationType buildBaseParticipantObjectIdentificationType() {
-        ParticipantObjectIdentificationType participantObject = new ParticipantObjectIdentificationType();
-        participantObject = createParticipantObjectIdentification(
-            PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_SYSTEM,
-            PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_ROLE,
-            PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE,
-            PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE_SYSTEM,
-            PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME);
+        ParticipantObjectIdentificationType participantObject = createParticipantObjectIdentification(
+            PatientDiscoveryAuditTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_SYSTEM,
+            PatientDiscoveryAuditTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_ROLE,
+            PatientDiscoveryAuditTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE,
+            PatientDiscoveryAuditTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE_SYSTEM,
+            PatientDiscoveryAuditTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME);
         participantObject.setParticipantObjectID(createUUID());
-        participantObject.setParticipantObjectName(HomeCommunityMap.
-            formatHomeCommunityId(HomeCommunityMap.getLocalHomeCommunityId()));
+        participantObject.setParticipantObjectName(HomeCommunityMap.formatHomeCommunityId(
+            HomeCommunityMap.getLocalHomeCommunityId()));
+
         return participantObject;
     }
 
+    private Marshaller getMarshaller() throws JAXBException {
+        return new JAXBContextHandler().getJAXBContext(JAXB_HL7_CONTEXT_NAME).createMarshaller();
+    }
+
+    @Override
+    protected String getServiceEventIdCode() {
+        return PatientDiscoveryAuditTransformConstants.EVENT_ID_CODE;
+    }
+
+    @Override
+    protected String getServiceEventCodeSystem() {
+        return PatientDiscoveryAuditTransformConstants.EVENT_CODE_SYSTEM;
+    }
+
+    @Override
+    protected String getServiceEventDisplayRequestor() {
+        return PatientDiscoveryAuditTransformConstants.EVENT_CODE_DISPLAY_REQUESTOR;
+    }
+
+    @Override
+    protected String getServiceEventDisplayResponder() {
+        return PatientDiscoveryAuditTransformConstants.EVENT_CODE_DISPLAY_RESPONDER;
+    }
+
+    @Override
+    protected String getServiceEventTypeCode() {
+        return PatientDiscoveryAuditTransformConstants.EVENT_TYPE_CODE;
+    }
+
+    @Override
+    protected String getServiceEventTypeCodeSystem() {
+        return PatientDiscoveryAuditTransformConstants.EVENT_TYPE_CODE_SYSTEM;
+    }
+
+    @Override
+    protected String getServiceEventTypeCodeDisplayName() {
+        return PatientDiscoveryAuditTransformConstants.EVENT_TYPE_CODE_DISPLAY_NAME;
+    }
+
+    @Override
+    protected String getServiceEventActionCodeRequestor() {
+        return PatientDiscoveryAuditTransformConstants.EVENT_ACTION_CODE_REQUESTOR;
+    }
+
+    @Override
+    protected String getServiceEventActionCodeResponder() {
+        return PatientDiscoveryAuditTransformConstants.EVENT_ACTION_CODE_RESPONDER;
+    }
 }
