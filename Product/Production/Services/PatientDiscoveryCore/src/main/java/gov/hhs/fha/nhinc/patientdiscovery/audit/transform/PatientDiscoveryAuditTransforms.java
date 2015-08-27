@@ -30,7 +30,7 @@ import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditTransformConstants;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditTransformsConstants;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.io.ByteArrayOutputStream;
@@ -55,8 +55,8 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
     private static final String JAXB_HL7_CONTEXT_NAME = "org.hl7.v3";
 
     @Override
-    protected AuditMessageType getParticipantObjectIdentificationForRequest(PRPAIN201305UV02 request, AssertionType assertion,
-        AuditMessageType auditMsg) {
+    protected AuditMessageType getParticipantObjectIdentificationForRequest(PRPAIN201305UV02 request,
+        AssertionType assertion, AuditMessageType auditMsg) {
 
         // TODO: auditMsg should either use a builder, or modify in-method with no return
         auditMsg = getPatientParticipantObjectIdentificationForRequest(request, auditMsg);
@@ -170,11 +170,11 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
         String patientId) {
 
         ParticipantObjectIdentificationType participantObject = createParticipantObjectIdentification(
-            PatientDiscoveryAuditTransformConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM,
-            PatientDiscoveryAuditTransformConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_ROLE,
-            PatientDiscoveryAuditTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE,
-            PatientDiscoveryAuditTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE_SYSTEM,
-            PatientDiscoveryAuditTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME);
+            PatientDiscoveryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM,
+            PatientDiscoveryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_ROLE,
+            PatientDiscoveryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE,
+            PatientDiscoveryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE_SYSTEM,
+            PatientDiscoveryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME);
 
         if (aa != null && patientId != null && !aa.isEmpty() && !patientId.isEmpty()) {
             participantObject.setParticipantObjectID(createPatientId(aa, patientId));
@@ -226,11 +226,11 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
 
     private ParticipantObjectIdentificationType buildBaseParticipantObjectIdentificationType() {
         ParticipantObjectIdentificationType participantObject = createParticipantObjectIdentification(
-            PatientDiscoveryAuditTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_SYSTEM,
-            PatientDiscoveryAuditTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_ROLE,
-            PatientDiscoveryAuditTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE,
-            PatientDiscoveryAuditTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE_SYSTEM,
-            PatientDiscoveryAuditTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME);
+            PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_SYSTEM,
+            PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_ROLE,
+            PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE,
+            PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE_SYSTEM,
+            PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME);
         participantObject.setParticipantObjectID(createUUID());
         participantObject.setParticipantObjectName(HomeCommunityMap.formatHomeCommunityId(
             HomeCommunityMap.getLocalHomeCommunityId()));
@@ -244,46 +244,46 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
 
     @Override
     protected String getServiceEventIdCode() {
-        return PatientDiscoveryAuditTransformConstants.EVENT_ID_CODE;
+        return PatientDiscoveryAuditTransformsConstants.EVENT_ID_CODE;
     }
 
     @Override
     protected String getServiceEventCodeSystem() {
-        return PatientDiscoveryAuditTransformConstants.EVENT_CODE_SYSTEM;
+        return PatientDiscoveryAuditTransformsConstants.EVENT_CODE_SYSTEM;
     }
 
     @Override
     protected String getServiceEventDisplayRequestor() {
-        return PatientDiscoveryAuditTransformConstants.EVENT_CODE_DISPLAY_REQUESTOR;
+        return PatientDiscoveryAuditTransformsConstants.EVENT_CODE_DISPLAY_REQUESTOR;
     }
 
     @Override
     protected String getServiceEventDisplayResponder() {
-        return PatientDiscoveryAuditTransformConstants.EVENT_CODE_DISPLAY_RESPONDER;
+        return PatientDiscoveryAuditTransformsConstants.EVENT_CODE_DISPLAY_RESPONDER;
     }
 
     @Override
     protected String getServiceEventTypeCode() {
-        return PatientDiscoveryAuditTransformConstants.EVENT_TYPE_CODE;
+        return PatientDiscoveryAuditTransformsConstants.EVENT_TYPE_CODE;
     }
 
     @Override
     protected String getServiceEventTypeCodeSystem() {
-        return PatientDiscoveryAuditTransformConstants.EVENT_TYPE_CODE_SYSTEM;
+        return PatientDiscoveryAuditTransformsConstants.EVENT_TYPE_CODE_SYSTEM;
     }
 
     @Override
     protected String getServiceEventTypeCodeDisplayName() {
-        return PatientDiscoveryAuditTransformConstants.EVENT_TYPE_CODE_DISPLAY_NAME;
+        return PatientDiscoveryAuditTransformsConstants.EVENT_TYPE_CODE_DISPLAY_NAME;
     }
 
     @Override
     protected String getServiceEventActionCodeRequestor() {
-        return PatientDiscoveryAuditTransformConstants.EVENT_ACTION_CODE_REQUESTOR;
+        return PatientDiscoveryAuditTransformsConstants.EVENT_ACTION_CODE_REQUESTOR;
     }
 
     @Override
     protected String getServiceEventActionCodeResponder() {
-        return PatientDiscoveryAuditTransformConstants.EVENT_ACTION_CODE_RESPONDER;
+        return PatientDiscoveryAuditTransformsConstants.EVENT_ACTION_CODE_RESPONDER;
     }
 }

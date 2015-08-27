@@ -31,7 +31,7 @@ import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.CodedValueType;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
-import gov.hhs.fha.nhinc.audit.AuditTransformConstants;
+import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -243,7 +243,7 @@ public abstract class AuditTransforms<T, K> {
 
         // Set the Event Outcome Indicator
         eventIdentification.setEventOutcomeIndicator(
-            new BigInteger(AuditTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS.toString()));
+            new BigInteger(AuditTransformsConstants.EVENT_OUTCOME_INDICATOR_SUCCESS.toString()));
 
         // Set the Event Id
         eventIdentification.setEventID(eventId);
@@ -257,14 +257,14 @@ public abstract class AuditTransforms<T, K> {
         String hostAddress = isRequesting ? getLocalHostAddress() : getRemoteHostAddress(webContextProperties);
 
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
-        participant.setUserID(AuditTransformConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
+        participant.setUserID(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
         participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
         participant.setNetworkAccessPointID(hostAddress);
         participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostAddress));
         participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(
-            AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
-            AuditTransformConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
-            AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
         participant.setUserIsRequestor(Boolean.TRUE);
         return participant;
     }
@@ -297,18 +297,18 @@ public abstract class AuditTransforms<T, K> {
             } catch (MalformedURLException ex) {
                 LOG.error(ex);
                 // The url is null or not a valid url; for now, set the user id to anonymous
-                participant.setUserID(AuditTransformConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
+                participant.setUserID(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
                 // TODO: For now, hardcode the value to localhost; need to find out if this needs to be set
-                participant.setNetworkAccessPointTypeCode(AuditTransformConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME);
-                participant.setNetworkAccessPointID(AuditTransformConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS);
+                participant.setNetworkAccessPointTypeCode(AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME);
+                participant.setNetworkAccessPointID(AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS);
             }
         }
 
         participant.setUserIsRequestor(Boolean.FALSE);
         participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(
-            AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, null,
-            AuditTransformConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
-            AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME));
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, null,
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME));
         return participant;
     }
 
@@ -324,9 +324,9 @@ public abstract class AuditTransforms<T, K> {
 
     private Short getNetworkAccessPointTypeCode(String hostAddress) {
         if (InetAddressValidator.getInstance().isValid(hostAddress)) {
-            return AuditTransformConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_IP;
+            return AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_IP;
         }
-        return AuditTransformConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME;
+        return AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME;
     }
 
     // Getters below are "protected" scope to allow for overriding during unit testing
@@ -336,7 +336,7 @@ public abstract class AuditTransforms<T, K> {
 
             return webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS);
         }
-        return AuditTransformConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
+        return AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
     }
 
     protected String getWebServiceRequestUrl(Properties webContextProperties) {
@@ -344,7 +344,7 @@ public abstract class AuditTransforms<T, K> {
             NhincConstants.WEB_SERVICE_REQUEST_URL) != null) {
             return webContextProperties.getProperty(NhincConstants.WEB_SERVICE_REQUEST_URL);
         }
-        return AuditTransformConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE;
+        return AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE;
     }
 
     protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
@@ -355,7 +355,7 @@ public abstract class AuditTransforms<T, K> {
                 LOG.error(ex);
             }
         }
-        return AuditTransformConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE;
+        return AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE;
     }
 
     protected String getLocalHostAddress() {
@@ -363,7 +363,7 @@ public abstract class AuditTransforms<T, K> {
             return InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException ex) {
             LOG.error("Error while returning Local Host Address: " + ex.getLocalizedMessage(), ex);
-            return AuditTransformConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
+            return AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
         }
     }
 
