@@ -38,7 +38,7 @@ import org.apache.log4j.Logger;
  * ATNA-compliant audit logger template class. Each individual service logger will implement this class, but provide its
  * own implementation.
  *
- * @author achidamb
+ * @author achidamb, cmay
  * @param <T>
  * @param <K>
  */

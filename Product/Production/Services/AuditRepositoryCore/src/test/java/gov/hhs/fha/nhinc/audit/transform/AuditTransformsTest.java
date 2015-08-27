@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.audit.transform;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
-import gov.hhs.fha.nhinc.audit.AuditTransformConstants;
+import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -41,15 +41,16 @@ import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import static org.junit.Assert.assertEquals;
 
 
 /**
  *
  * @author achidamb
  */
-public abstract class AuditTransformTest<T, K> {
+public abstract class AuditTransformsTest<T, K> {
 
-    public AuditTransformTest() {
+    public AuditTransformsTest() {
     }
 
     @BeforeClass
@@ -86,7 +87,7 @@ public abstract class AuditTransformTest<T, K> {
             assertEquals(getAuditTransforms().getServiceEventActionCodeResponder(),
                 eventIdentificationType.getEventActionCode());
         }
-        assertEquals(AuditTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS.toString(), eventIdentificationType
+        assertEquals(AuditTransformsConstants.EVENT_OUTCOME_INDICATOR_SUCCESS.toString(), eventIdentificationType
             .getEventOutcomeIndicator().toString());
         assertEquals(getAuditTransforms().getServiceEventIdCode(), eventIdentificationType.getEventID().getCode());
         assertEquals(getAuditTransforms().getServiceEventCodeSystem(),
@@ -155,11 +156,11 @@ public abstract class AuditTransformTest<T, K> {
         List<ActiveParticipant> activeParticipant = request.getAuditMessage().getActiveParticipant();
         for (ActiveParticipant item : activeParticipant) {
             if (item.getRoleIDCode().get(0).getDisplayName() != null && item.getRoleIDCode().get(0).getDisplayName().
-                equals(AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME)) {
+                equals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME)) {
                 sourceActiveParticipant = item;
             }
         }
-        assertEquals(AuditTransformConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE, sourceActiveParticipant.getUserID());
+        assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE, sourceActiveParticipant.getUserID());
         if (isRequesting) {
             assertEquals(ManagementFactory.getRuntimeMXBean().getName(), sourceActiveParticipant.getAlternativeUserID());
         }
@@ -170,13 +171,13 @@ public abstract class AuditTransformTest<T, K> {
             assertEquals(webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS),
                 sourceActiveParticipant.getNetworkAccessPointID());
         }
-        assertEquals(AuditTransformConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME,
+        assertEquals(AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME,
             sourceActiveParticipant.getNetworkAccessPointTypeCode());
-        assertEquals(AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE,
+        assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE,
             sourceActiveParticipant.getRoleIDCode().get(0).getCode());
-        assertEquals(AuditTransformConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+        assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
             sourceActiveParticipant.getRoleIDCode().get(0).getCodeSystemName());
-        assertEquals(AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME,
+        assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME,
             sourceActiveParticipant.getRoleIDCode().get(0).getDisplayName());
     }
 
@@ -193,7 +194,7 @@ public abstract class AuditTransformTest<T, K> {
         ActiveParticipant destinationActiveParticipant = null;
         for (ActiveParticipant item : request.getAuditMessage().getActiveParticipant()) {
             if (item.getRoleIDCode().get(0).getDisplayName() != null && item.getRoleIDCode().get(0).
-                getDisplayName().equals(AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME)) {
+                getDisplayName().equals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME)) {
                 destinationActiveParticipant = item;
             }
         }
@@ -207,13 +208,13 @@ public abstract class AuditTransformTest<T, K> {
         assertEquals(!(isRequesting), destinationActiveParticipant.isUserIsRequestor());
         assertEquals(webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS),
             destinationActiveParticipant.getNetworkAccessPointID());
-        assertEquals(AuditTransformConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME, destinationActiveParticipant.
+        assertEquals(AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME, destinationActiveParticipant.
             getNetworkAccessPointTypeCode());
-        assertEquals(AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, destinationActiveParticipant.
+        assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, destinationActiveParticipant.
             getRoleIDCode().get(0).getCode());
-        assertEquals(AuditTransformConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME, destinationActiveParticipant.
+        assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME, destinationActiveParticipant.
             getRoleIDCode().get(0).getCodeSystemName());
-        assertEquals(AuditTransformConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME,
+        assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME,
             destinationActiveParticipant.getRoleIDCode().get(0).getDisplayName());
     }
 
