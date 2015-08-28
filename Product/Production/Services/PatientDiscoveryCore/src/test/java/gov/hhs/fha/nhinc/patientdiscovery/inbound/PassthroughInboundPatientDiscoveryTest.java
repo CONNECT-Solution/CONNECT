@@ -76,23 +76,23 @@ public class PassthroughInboundPatientDiscoveryTest {
             assertion, webContextProperties);
 
         assertSame(expectedResponse, actualResponse);
-       
+
         InOrder inOrder = inOrder(auditLogger);
 
-        inOrder.verify(auditLogger).auditPatientDiscoveryRequestMessage(eq(request), eq(assertion), eq(target),
-            eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), 
+        inOrder.verify(auditLogger).auditRequestMessage(eq(request), eq(assertion), eq(target),
+            eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME));
 
-        inOrder.verify(auditLogger).auditPatientDiscoveryResponseMessage(eq(actualResponse),eq(assertion), eq(target),
-            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), 
+        inOrder.verify(auditLogger).auditResponseMessage(eq(actualResponse), eq(assertion), eq(target),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME));
 
-        verify(auditLogger, never()).auditPatientDiscoveryRequestMessage(eq(request), any(AssertionType.class), eq(target),
-            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), 
+        verify(auditLogger, never()).auditRequestMessage(eq(request), any(AssertionType.class), eq(target),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
             eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME));
 
-        verify(auditLogger, never()).auditPatientDiscoveryResponseMessage(eq(actualResponse), any(AssertionType.class), 
-            eq(target), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), 
+        verify(auditLogger, never()).auditResponseMessage(eq(actualResponse), any(AssertionType.class),
+            eq(target), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
             eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME));
     }
 

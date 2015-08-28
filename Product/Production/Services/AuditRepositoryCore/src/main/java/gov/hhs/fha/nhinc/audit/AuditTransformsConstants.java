@@ -24,31 +24,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.audit;
+
+package gov.hhs.fha.nhinc.audit;
 
 /**
+ * Constants shared between all AuditLogger implementations.
  *
  * @author achidamb
  */
-public class PatientDiscoveryTransformConstants {
-
-    public static final short PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM = 1;
-    public static final short PARTICIPANT_PATIENT_OBJ_TYPE_CODE_ROLE = 1;
-    public static final String PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE = "2";
-    public static final String PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE_SYSTEM = "RFC-3881";
-    public static final String PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME = "Patient Number";
-    public static final short PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_SYSTEM = 2;
-    public static final short PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_ROLE = 24;
-    public static final String PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE = "ITI-55";
-    public static final String PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE_SYSTEM = "IHE Transactions";
-    public static final String PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME = "Cross Gateway Patient Discovery";
-    public static final String EVENT_ID_CODE = "110112";
-    public static final String EVENT_CODE_SYSTEM = "DCM";
-    public static final String EVENT_CODE_DISPLAY_REQUESTOR = "Query";
-    public static final String EVENT_CODE_DISPLAY_RESPONDER = "Query";
-    public static final String EVENT_TYPE_CODE = "ITI-55";
-    public static final String EVENT_TYPE_CODE_SYSTEM = "IHE Transactions";
-    public static final String EVENT_TYPE_CODE_DISPLAY_NAME = "Cross Gateway Patient Discovery";
-    public static final String EVENT_ACTION_CODE_REQUESTOR = "E";
-    public static final String EVENT_ACTION_CODE_RESPONDER = "E";
+public class AuditTransformsConstants {
+    public static final Integer EVENT_OUTCOME_INDICATOR_SUCCESS = 0;
+    public static final String ACTIVE_PARTICIPANT_USER_ID_SOURCE = "anonymous";
+    public static final String ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME = "Source";
+    public static final String ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME = "Destination";
+    public static final String ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS = "unknown";
+    public static final Short NETWORK_ACCESSOR_PT_TYPE_CODE_NAME = 2;
+    public static final String ACTIVE_PARTICIPANT_ROLE_CODE_DEST = "110152";
+    public static final String ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE = "110153";
+    public static final String ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME = "DCM";
+    public static final Short NETWORK_ACCESSOR_PT_TYPE_CODE_IP = 2;
 }

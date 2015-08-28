@@ -33,7 +33,6 @@ import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxyObjectFactory;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
 import org.apache.log4j.Logger;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -62,8 +61,8 @@ public class OutboundPatientDiscoveryStrategyImpl extends OutboundPatientDiscove
 
     public void executeStrategy(OutboundPatientDiscoveryOrchestratable message) {
         LOG.debug("begin executeStrategy");
-        patientDiscoveryAuditor.auditPatientDiscoveryRequestMessage(message.getRequest(), message.getAssertion(), 
-            message.getTarget(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, 
+        patientDiscoveryAuditor.auditRequestMessage(message.getRequest(), message.getAssertion(),
+            message.getTarget(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
             Boolean.TRUE, null, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
 
         try {
@@ -86,8 +85,8 @@ public class OutboundPatientDiscoveryStrategyImpl extends OutboundPatientDiscove
             message.setResponse(response);
             LOG.debug("executeStrategy returning error response");
         }
-        patientDiscoveryAuditor.auditPatientDiscoveryResponseMessage(message.getResponse(), message.getAssertion(), 
-            message.getTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, 
+        patientDiscoveryAuditor.auditResponseMessage(message.getResponse(), message.getAssertion(),
+            message.getTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
             Boolean.TRUE, null, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
 
     }

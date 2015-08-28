@@ -26,8 +26,9 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.audit.transform;
 
-import gov.hhs.fha.nhinc.audit.AuditTransformConstants;
-import gov.hhs.fha.nhinc.audit.transform.AuditTransformTest;
+import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
+import gov.hhs.fha.nhinc.audit.transform.AuditTransformsTest;
+import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
@@ -42,8 +43,7 @@ import gov.hhs.fha.nhinc.mpilib.Patient;
 import gov.hhs.fha.nhinc.mpilib.Patients;
 import gov.hhs.fha.nhinc.mpilib.PersonName;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditDataBuilder;
-import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryTransformConstants;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditTransformsConstants;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.net.UnknownHostException;
 import java.util.List;
@@ -81,14 +81,16 @@ import static org.junit.Assert.assertSame;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 /**
  *
  * @author achidamb
  */
-public class PatientDiscoveryTransformsTest extends AuditTransformTest {
+public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRPAIN201305UV02, PRPAIN201306UV02> {
 
-    public PatientDiscoveryTransformsTest() {
+    public PatientDiscoveryAuditTransformsTest() {
     }
 
     @BeforeClass
@@ -100,10 +102,12 @@ public class PatientDiscoveryTransformsTest extends AuditTransformTest {
     }
 
     @Before
+    @Override
     public void setUp() {
     }
 
     @After
+    @Override
     public void tearDown() {
     }
 
@@ -114,7 +118,7 @@ public class PatientDiscoveryTransformsTest extends AuditTransformTest {
         webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, "http://16.14.13.12:9090/AuditService");
         webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, "16.14.13.12");
         final String remoteObjectIP = "http://16.14.13.12:9090/source/AuditService";
-        PatientDiscoveryTransforms transforms = new PatientDiscoveryTransforms() {
+        PatientDiscoveryAuditTransforms transforms = new PatientDiscoveryAuditTransforms() {
             @Override
             protected String getLocalHostAddress() {
                 return localIP;
@@ -126,7 +130,7 @@ public class PatientDiscoveryTransformsTest extends AuditTransformTest {
                     getProperty(NhincConstants.REMOTE_HOST_ADDRESS) != null) {
                     return webContextProeprties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS);
                 }
-                return AuditTransformConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
+                return AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
             }
 
             @Override
@@ -138,12 +142,10 @@ public class PatientDiscoveryTransformsTest extends AuditTransformTest {
 
         PRPAIN201305UV02 request = createPRPAIN201305UV02Request();
         AssertionType assertion = createAssertion();
-        PatientDiscoveryAuditDataBuilder builder = new PatientDiscoveryAuditDataBuilder();
         LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(request, assertion, createNhinTarget(),
             NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE,
-            webContextProperties, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, builder);
-        testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE,
-            builder);
+            webContextProperties, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+        testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE);
         testGetActiveParticipantSource(auditRequest, Boolean.TRUE, localIP, webContextProperties);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectIP);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
@@ -157,7 +159,7 @@ public class PatientDiscoveryTransformsTest extends AuditTransformTest {
         webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, "http://16.14.13.12:9090/AuditService");
         webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, "16.14.13.12");
         final String remoteObjectIP = "http://16.14.13.12:9090/source/AuditService";
-        PatientDiscoveryTransforms transforms = new PatientDiscoveryTransforms() {
+        PatientDiscoveryAuditTransforms transforms = new PatientDiscoveryAuditTransforms() {
             @Override
             protected String getLocalHostAddress() {
                 return localIP;
@@ -169,7 +171,7 @@ public class PatientDiscoveryTransformsTest extends AuditTransformTest {
                     getProperty(NhincConstants.REMOTE_HOST_ADDRESS) != null) {
                     return webContextProeprties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS);
                 }
-                return AuditTransformConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
+                return AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
             }
 
             @Override
@@ -181,12 +183,10 @@ public class PatientDiscoveryTransformsTest extends AuditTransformTest {
 
         PRPAIN201306UV02 response = createPRPAIN201306UV02Response();
         AssertionType assertion = createAssertion();
-        PatientDiscoveryAuditDataBuilder builder = new PatientDiscoveryAuditDataBuilder();
-        LogEventRequestType auditRequest = transforms.transformResponseToAuditMsg(response, assertion, createNhinTarget(),
-            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE,
-            webContextProperties, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, builder);
-        testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE,
-            builder);
+        LogEventRequestType auditRequest = transforms.transformResponseToAuditMsg(response, assertion,
+            createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
+            Boolean.TRUE, webContextProperties, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+        testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE);
         testGetActiveParticipantSource(auditRequest, Boolean.TRUE, localIP, webContextProperties);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectIP);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
@@ -196,31 +196,31 @@ public class PatientDiscoveryTransformsTest extends AuditTransformTest {
     private void assertParticiopantObjectIdentification(LogEventRequestType auditRequest) {
         assertEquals("D123401^^^&1.1&ISO",
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectID());
-        assertSame(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM,
+        assertSame(PatientDiscoveryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectTypeCode());
-        assertSame(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_ROLE,
+        assertSame(PatientDiscoveryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_ROLE,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).
             getParticipantObjectTypeCodeRole());
-        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE,
+        assertEquals(PatientDiscoveryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).
             getParticipantObjectIDTypeCode().getCode());
-        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE_SYSTEM,
+        assertEquals(PatientDiscoveryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE_SYSTEM,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectIDTypeCode().
             getCodeSystemName());
-        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME,
+        assertEquals(PatientDiscoveryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectIDTypeCode().
             getDisplayName());
-        assertSame(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_SYSTEM,
+        assertSame(PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_SYSTEM,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectTypeCode());
-        assertSame(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_ROLE,
+        assertSame(PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_ROLE,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectTypeCodeRole());
-        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE,
+        assertEquals(PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectIDTypeCode().
             getCode());
-        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE_SYSTEM,
+        assertEquals(PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE_SYSTEM,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectIDTypeCode().
             getCodeSystemName());
-        assertEquals(PatientDiscoveryTransformConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME,
+        assertEquals(PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectIDTypeCode().
             getDisplayName());
     }
@@ -313,9 +313,8 @@ public class PatientDiscoveryTransformsTest extends AuditTransformTest {
         params.setParameterList(createParamList(firstName, lastName, gender, birthTime, subjectId));
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "queryByParameter");
-        JAXBElement<PRPAMT201306UV02QueryByParameter> queryParams
-            = new JAXBElement<PRPAMT201306UV02QueryByParameter>(xmlqname, PRPAMT201306UV02QueryByParameter.class,
-                params);
+        JAXBElement<PRPAMT201306UV02QueryByParameter> queryParams = new JAXBElement<>(xmlqname,
+            PRPAMT201306UV02QueryByParameter.class, params);
 
         return queryParams;
     }
@@ -432,9 +431,9 @@ public class PatientDiscoveryTransformsTest extends AuditTransformTest {
 
     private PRPAIN201306UV02MFMIMT700711UV01ControlActProcess createResponseControlActProcess() {
         PRPAIN201305UV02 query = createPRPAIN201305UV02Request();
-        
+
         Patients patients = createPatients();
-        
+
         PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess
             = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
 
@@ -539,7 +538,7 @@ public class PatientDiscoveryTransformsTest extends AuditTransformTest {
         subjectId.setOrganizationId("1.1");
         return subjectId;
     }
-    
+
     private Patients createPatients() {
         Patient patient = createMpiPatient("Gallow", "Younger", "M", "08-20-1976", createIdentifier());
         Patients patients = new Patients();
@@ -547,4 +546,8 @@ public class PatientDiscoveryTransformsTest extends AuditTransformTest {
         return patients;
     }
 
+    @Override
+    protected AuditTransforms<PRPAIN201305UV02, PRPAIN201306UV02> getAuditTransforms() {
+        return new PatientDiscoveryAuditTransforms();
+    }
 }

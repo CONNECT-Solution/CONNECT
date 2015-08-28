@@ -24,30 +24,32 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.audit;
+package gov.hhs.fha.nhinc.patientdiscovery.audit;
 
-/*
+/**
+ * Constants specific to the Patient Discovery AuditLogger implementation.
  *
  * @author achidamb
  */
-public abstract class AuditTransformDataBuilder {
+public class PatientDiscoveryAuditTransformsConstants {
 
-    public abstract String getServiceEvenIdCode();
-
-    public abstract String getServiceEventCodeSystem();
-
-    public abstract String getServiceEventDisplayRequestor();
-
-    public abstract String getServiceEventDisplayResponder();
-
-    public abstract String getServiceEventTypeCode();
-
-    public abstract String getServiceEventTypeCodeSystem();
-
-    public abstract String getServiceEventTypeCodeDisplayName();
-
-    public abstract String getServiceEventActionCodeRequestor();
-
-    public abstract String getServiceEventActionCodeResponder();
-
+    public static final short PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM = 1;
+    public static final short PARTICIPANT_PATIENT_OBJ_TYPE_CODE_ROLE = 1;
+    public static final String PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE = "2";
+    public static final String PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE_SYSTEM = "RFC-3881";
+    public static final String PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME = "Patient Number";
+    public static final short PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_SYSTEM = 2;
+    public static final short PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_ROLE = 24;
+    public static final String PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE = "ITI-55";
+    public static final String PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE_SYSTEM = "IHE Transactions";
+    public static final String PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME = "Cross Gateway Patient Discovery";
+    public static final String EVENT_ID_CODE = "110112";
+    public static final String EVENT_CODE_SYSTEM = "DCM";
+    public static final String EVENT_CODE_DISPLAY_REQUESTOR = "Query";
+    public static final String EVENT_CODE_DISPLAY_RESPONDER = "Query";
+    public static final String EVENT_TYPE_CODE = "ITI-55";
+    public static final String EVENT_TYPE_CODE_SYSTEM = "IHE Transactions";
+    public static final String EVENT_TYPE_CODE_DISPLAY_NAME = "Cross Gateway Patient Discovery";
+    public static final String EVENT_ACTION_CODE_REQUESTOR = "E";
+    public static final String EVENT_ACTION_CODE_RESPONDER = "E";
 }
