@@ -644,19 +644,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-04-01T18:06:44Z</con:value>
+          <con:value>2015-08-31T19:47:52Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-04-01T18:16:44Z</con:value>
+          <con:value>2015-08-31T19:57:52Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/01/2014 18:06:44</con:value>
+          <con:value>08/31/2015 19:47:52</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-05-01T00:00:00Z</con:value>
+          <con:value>2015-09-30T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1035,19 +1035,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-04-01T18:06:46Z</con:value>
+          <con:value>2015-08-31T19:47:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-04-01T18:16:46Z</con:value>
+          <con:value>2015-08-31T19:57:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/01/2014 18:06:46</con:value>
+          <con:value>08/31/2015 19:47:56</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-05-01T00:00:00Z</con:value>
+          <con:value>2015-09-30T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -1560,19 +1560,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-04-01T18:06:48Z</con:value>
+          <con:value>2015-08-31T19:47:59Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-04-01T18:16:48Z</con:value>
+          <con:value>2015-08-31T19:57:59Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/01/2014 18:06:48</con:value>
+          <con:value>08/31/2015 19:47:59</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-05-01T00:00:00Z</con:value>
+          <con:value>2015-09-30T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2184,19 +2184,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-04-01T18:06:50Z</con:value>
+          <con:value>2015-08-31T19:48:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-04-01T18:16:50Z</con:value>
+          <con:value>2015-08-31T19:58:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/01/2014 18:06:50</con:value>
+          <con:value>08/31/2015 19:48:03</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-05-01T00:00:00Z</con:value>
+          <con:value>2015-09-30T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2838,19 +2838,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-04-01T18:06:52Z</con:value>
+          <con:value>2015-08-31T19:48:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-04-01T18:16:52Z</con:value>
+          <con:value>2015-08-31T19:58:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/01/2014 18:06:52</con:value>
+          <con:value>08/31/2015 19:48:07</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-05-01T00:00:00Z</con:value>
+          <con:value>2015-09-30T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3336,7 +3336,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -3376,6 +3376,8 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	     }
      	assert(!node.@AlternativeUserID.isEmpty())
      	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	if(!node.@UserName.isEmpty())
+     	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointID.isEmpty())
      	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
@@ -3401,7 +3403,7 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
-     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode" )
           if(!node.RoleIDCode.isEmpty()){
      		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
      		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
@@ -3421,10 +3423,9 @@ parsedXmlMessage.AuditSourceIdentification.find{
 			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
 		}
 }
-
-if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
+if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
-	     if(!node.@ParticipantObjectID.isEmpty()){
+	     if(!node.@ParticipantObjectID.isEmpty()){	     	
 	     	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
 	     }
    	     if(!node.@ParticipantObjectTypeCodeRole.isEmpty()){
@@ -3438,21 +3439,21 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
 	     }
-	     if(!node.ParticipantObjectName.@value.isEmpty()){
-	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName.@value" ) 
+	     if(!node.ParticipantObjectName.text().isEmpty()){
+	 	 assert node.ParticipantObjectName.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName" ) 
 	 	}
-	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
-	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery.@value" ) 
+	 	if(!node.ParticipantObjectQuery.text().isEmpty()){
+	 	 assert node.ParticipantObjectQuery.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery" ) 
 	 	}
-	 	if(!node.ParticipantObjectDetail.@value.isEmpty()){
-	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
+	 	if(!node.ParticipantObjectDetail.text().isEmpty()){
+	 	 assert node.ParticipantObjectDetail.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail" ) 
 	 	}
 	}
  }
  if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->
-	     if(!node.@ParticipantObjectID.isEmpty()){
-	     	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectID" )
+	     if(!node.@ParticipantObjectID.isEmpty()){	     
+	     //	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectID" )	     	
 	     }
    	     if(!node.@ParticipantObjectTypeCodeRole.isEmpty()){
 	     	assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCodeRole" )
@@ -3464,22 +3465,53 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@code" )
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName" )
-	     }
-	     if(!node.ParticipantObjectName.@value.isEmpty()){
-	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName.@value" ) 
-	 	}
-	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
-	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectQuery.@value" ) 
+	     }	     
+	     if(!node.ParticipantObjectName.text().isEmpty()){
+	 	 assert node.ParticipantObjectName.text() == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName" ) 
+	 	}	 	
+	 	if(!node.ParticipantObjectQuery.text().isEmpty()){	 		
+	 		byte[] participantobjectQueryDecoded = node.ParticipantObjectQuery.text().decodeBase64()			
+			def parsedParticipantObjectQuery = new XmlSlurper().parseText(new String(participantobjectQueryDecoded))			
+			parsedParticipantObjectQuery.queryId.find{				
+				assert it.@root == context.findProperty( "queryId.@root" )
+				assert it.@extension == context.findProperty ( "queryId.@extension" )
+			}
+			assert parsedParticipantObjectQuery.statusCode.@code == context.findProperty( "statusCode.@code" )
+			assert parsedParticipantObjectQuery.responseModalityCode.@code == context.findProperty( "responseModalityCode.@code" )
+			assert parsedParticipantObjectQuery.responsePriorityCode.@code == context.findProperty( "responsePriorityCode.@code" )
+			parsedParticipantObjectQuery.parameterList.livingSubjectAdministrativeGender.find{
+				assert it.value.@code == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.value.@code" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText.@representation" )
+				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText" )
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectBirthTime.find{
+				assert it.value.@value == context.findProperty ( "parameterList.livingSubjectBirthTime.value.@value" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText.@representation" )
+				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText" )
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectId.find{
+				assert it.value.@root == context.findProperty ( "parameterList.livingSubjectId.value.@root" )
+				assert it.value.@extension == context.findProperty ( "parameterList.livingSubjectId.value.@extension" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectId.semanticsText.@representation" )				
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectName.find{
+				assert it.value.family.@partType == context.findProperty ( "parameterList.livingSubjectName.value.family.@partType" )
+				assert it.value.family.text() == context.findProperty ( "parameterList.livingSubjectName.value.family" )
+				assert it.value.given.@partType == context.findProperty ( "parameterList.livingSubjectName.value.given.@partType" )
+				assert it.value.given == context.findProperty ( "parameterList.livingSubjectName.value.given" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectName.semanticsText.@representation" )
+				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectName.semanticsText" )
+			}			
 	 	}
 	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
-	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" ) 
+	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" )
 	 	}
 	}
  }
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinInbound-InitiatingGateway(1.1)" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinInbound-InitiatingGateway(1.1)">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -3519,6 +3551,8 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	     }
      	assert(!node.@AlternativeUserID.isEmpty())
      	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	if(!node.@UserName.isEmpty())
+     	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointID.isEmpty())
      	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
@@ -3544,7 +3578,7 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
-     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode" )
           if(!node.RoleIDCode.isEmpty()){
      		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
      		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
@@ -3565,10 +3599,10 @@ parsedXmlMessage.AuditSourceIdentification.find{
 		}
 }
 
-if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
+if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
-	     if(!node.@ParticipantObjectID.isEmpty()){
-	     	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
+	     if(!node.@ParticipantObjectID.isEmpty()){	     	
+	     	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Responder.@ParticipantObjectID" )
 	     }
    	     if(!node.@ParticipantObjectTypeCodeRole.isEmpty()){
 	     	assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
@@ -3581,21 +3615,21 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
 	     }
-	     if(!node.ParticipantObjectName.@value.isEmpty()){
-	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName.@value" ) 
+	     if(!node.ParticipantObjectName.text().isEmpty()){
+	 	 assert node.ParticipantObjectName.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName" ) 
+	 	}	 	
+	 	if(!node.ParticipantObjectQuery.text().isEmpty()){
+	 	 assert node.ParticipantObjectQuery.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery" ) 
 	 	}
-	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
-	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery.@value" ) 
-	 	}
-	 	if(!node.ParticipantObjectDetail.@value.isEmpty()){
-	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
+	 	if(!node.ParticipantObjectDetail.text().isEmpty()){
+	 	 assert node.ParticipantObjectDetail.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail" ) 
 	 	}
 	}
  }
  if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->
-	     if(!node.@ParticipantObjectID.isEmpty()){
-	     	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectID" )
+	     if(!node.@ParticipantObjectID.isEmpty()){	     
+	     //	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectID" )	     	
 	     }
    	     if(!node.@ParticipantObjectTypeCodeRole.isEmpty()){
 	     	assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCodeRole" )
@@ -3607,22 +3641,53 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@code" )
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName" )
-	     }
-	     if(!node.ParticipantObjectName.@value.isEmpty()){
-	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName.@value" ) 
-	 	}
-	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
-	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectQuery.@value" ) 
+	     }	     
+	     if(!node.ParticipantObjectName.text().isEmpty()){
+	 	 assert node.ParticipantObjectName.text() == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName" ) 
+	 	}	 	
+	 	if(!node.ParticipantObjectQuery.text().isEmpty()){	 		
+	 		byte[] participantobjectQueryDecoded = node.ParticipantObjectQuery.text().decodeBase64()			
+			def parsedParticipantObjectQuery = new XmlSlurper().parseText(new String(participantobjectQueryDecoded))			
+			parsedParticipantObjectQuery.queryId.find{				
+				assert it.@root == context.findProperty( "queryId.@root" )
+				assert it.@extension == context.findProperty ( "queryId.@extension" )
+			}
+			assert parsedParticipantObjectQuery.statusCode.@code == context.findProperty( "statusCode.@code" )
+			assert parsedParticipantObjectQuery.responseModalityCode.@code == context.findProperty( "responseModalityCode.@code" )
+			assert parsedParticipantObjectQuery.responsePriorityCode.@code == context.findProperty( "responsePriorityCode.@code" )
+			parsedParticipantObjectQuery.parameterList.livingSubjectAdministrativeGender.find{
+				assert it.value.@code == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.value.@code" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText.@representation" )
+				//assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText" )
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectBirthTime.find{
+				assert it.value.@value == context.findProperty ( "parameterList.livingSubjectBirthTime.value.@value" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText.@representation" )
+				//assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText" )
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectId.find{
+				assert it.value.@root == context.findProperty ( "parameterList.livingSubjectId.value.@root" )
+				assert it.value.@extension == context.findProperty ( "parameterList.livingSubjectId.value.@extension" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectId.semanticsText.@representation" )				
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectName.find{
+				assert it.value.family.@partType == context.findProperty ( "parameterList.livingSubjectName.value.family.@partType" )
+				assert it.value.family.text() == context.findProperty ( "parameterList.livingSubjectName.value.family" )
+				assert it.value.given.@partType == context.findProperty ( "parameterList.livingSubjectName.value.given.@partType" )
+				assert it.value.given == context.findProperty ( "parameterList.livingSubjectName.value.given" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectName.semanticsText.@representation" )
+				//assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectName.semanticsText" )
+			}			
 	 	}
 	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
-	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" ) 
+	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" )
 	 	}
 	}
  }
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinInbound-RespondingGateway(2.2)" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinInbound-RespondingGateway(2.2)">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -3648,6 +3713,8 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 	     }
      	assert(!node.@AlternativeUserID.isEmpty())
      	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	if(!node.@UserName.isEmpty())
+     	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointID.isEmpty())
      	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
@@ -3673,7 +3740,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
-     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode" )
           if(!node.RoleIDCode.isEmpty()){
      		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
      		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
@@ -3693,10 +3760,9 @@ parsedXmlMessage.AuditSourceIdentification.find{
 			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
 		}
 }
-
-if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
+if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
-	     if(!node.@ParticipantObjectID.isEmpty()){
+	     if(!node.@ParticipantObjectID.isEmpty()){	     	
 	     	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
 	     }
    	     if(!node.@ParticipantObjectTypeCodeRole.isEmpty()){
@@ -3710,21 +3776,21 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
 	     }
-	     if(!node.ParticipantObjectName.@value.isEmpty()){
-	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName.@value" ) 
+	     if(!node.ParticipantObjectName.text().isEmpty()){
+	 	 assert node.ParticipantObjectName.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName" ) 
 	 	}
-	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
-	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery.@value" ) 
+	 	if(!node.ParticipantObjectQuery.text().isEmpty()){
+	 	 assert node.ParticipantObjectQuery.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery" ) 
 	 	}
-	 	if(!node.ParticipantObjectDetail.@value.isEmpty()){
-	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
+	 	if(!node.ParticipantObjectDetail.text().isEmpty()){
+	 	 assert node.ParticipantObjectDetail.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail" ) 
 	 	}
 	}
  }
  if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->
-	     if(!node.@ParticipantObjectID.isEmpty()){
-	     	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectID" )
+	     if(!node.@ParticipantObjectID.isEmpty()){	     
+	     //	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectID" )	     	
 	     }
    	     if(!node.@ParticipantObjectTypeCodeRole.isEmpty()){
 	     	assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCodeRole" )
@@ -3736,22 +3802,53 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@code" )
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName" )
-	     }
-	     if(!node.ParticipantObjectName.@value.isEmpty()){
-	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName.@value" ) 
-	 	}
-	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
-	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectQuery.@value" ) 
+	     }	     
+	     if(!node.ParticipantObjectName.text().isEmpty()){
+	 	 assert node.ParticipantObjectName.text() == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName" ) 
+	 	}	 	
+	 	if(!node.ParticipantObjectQuery.text().isEmpty()){	 		
+	 		byte[] participantobjectQueryDecoded = node.ParticipantObjectQuery.text().decodeBase64()			
+			def parsedParticipantObjectQuery = new XmlSlurper().parseText(new String(participantobjectQueryDecoded))			
+			parsedParticipantObjectQuery.queryId.find{				
+				assert it.@root == context.findProperty( "queryId.@root" )
+				assert it.@extension == context.findProperty ( "queryId.@extension" )
+			}
+			assert parsedParticipantObjectQuery.statusCode.@code == context.findProperty( "statusCode.@code" )
+			assert parsedParticipantObjectQuery.responseModalityCode.@code == context.findProperty( "responseModalityCode.@code" )
+			assert parsedParticipantObjectQuery.responsePriorityCode.@code == context.findProperty( "responsePriorityCode.@code" )
+			parsedParticipantObjectQuery.parameterList.livingSubjectAdministrativeGender.find{
+				assert it.value.@code == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.value.@code" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText.@representation" )
+				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText" )
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectBirthTime.find{
+				assert it.value.@value == context.findProperty ( "parameterList.livingSubjectBirthTime.value.@value" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText.@representation" )
+				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText" )
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectId.find{
+				assert it.value.@root == context.findProperty ( "parameterList.livingSubjectId.value.@root" )
+				assert it.value.@extension == context.findProperty ( "parameterList.livingSubjectId.value.@extension" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectId.semanticsText.@representation" )				
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectName.find{
+				assert it.value.family.@partType == context.findProperty ( "parameterList.livingSubjectName.value.family.@partType" )
+				assert it.value.family.text() == context.findProperty ( "parameterList.livingSubjectName.value.family" )
+				assert it.value.given.@partType == context.findProperty ( "parameterList.livingSubjectName.value.given.@partType" )
+				assert it.value.given == context.findProperty ( "parameterList.livingSubjectName.value.given" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectName.semanticsText.@representation" )
+				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectName.semanticsText" )
+			}			
 	 	}
 	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
-	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" ) 
+	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" )
 	 	}
 	}
  }
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(2.2)" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(2.2)">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -3778,6 +3875,8 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 	     }
      	assert(!node.@AlternativeUserID.isEmpty())
      	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	if(!node.@UserName.isEmpty())
+     	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointID.isEmpty())
      	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
@@ -3803,7 +3902,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
-     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode" )
           if(!node.RoleIDCode.isEmpty()){
      		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
      		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
@@ -3824,10 +3923,10 @@ parsedXmlMessage.AuditSourceIdentification.find{
 		}
 }
 
-if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
+if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
-	     if(!node.@ParticipantObjectID.isEmpty()){
-	     	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
+	     if(!node.@ParticipantObjectID.isEmpty()){	     	
+	     	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Responder.@ParticipantObjectID" )
 	     }
    	     if(!node.@ParticipantObjectTypeCodeRole.isEmpty()){
 	     	assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
@@ -3840,21 +3939,21 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
 	     }
-	     if(!node.ParticipantObjectName.@value.isEmpty()){
-	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName.@value" ) 
+	     if(!node.ParticipantObjectName.text().isEmpty()){
+	 	 assert node.ParticipantObjectName.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName" ) 
 	 	}
-	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
-	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery.@value" ) 
+	 	if(!node.ParticipantObjectQuery.text().isEmpty()){
+	 	 assert node.ParticipantObjectQuery.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery" ) 
 	 	}
-	 	if(!node.ParticipantObjectDetail.@value.isEmpty()){
-	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
+	 	if(!node.ParticipantObjectDetail.text().isEmpty()){
+	 	 assert node.ParticipantObjectDetail.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail" ) 
 	 	}
 	}
  }
  if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->
-	     if(!node.@ParticipantObjectID.isEmpty()){
-	     	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectID" )
+	     if(!node.@ParticipantObjectID.isEmpty()){	     
+	     //	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectID" )	     	
 	     }
    	     if(!node.@ParticipantObjectTypeCodeRole.isEmpty()){
 	     	assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCodeRole" )
@@ -3866,15 +3965,46 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@code" )
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName" )
-	     }
-	     if(!node.ParticipantObjectName.@value.isEmpty()){
-	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName.@value" ) 
-	 	}
-	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
-	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectQuery.@value" ) 
+	     }	     
+	     if(!node.ParticipantObjectName.text().isEmpty()){
+	 	 assert node.ParticipantObjectName.text() == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName" ) 
+	 	}	 	
+	 	if(!node.ParticipantObjectQuery.text().isEmpty()){	 		
+	 		byte[] participantobjectQueryDecoded = node.ParticipantObjectQuery.text().decodeBase64()			
+			def parsedParticipantObjectQuery = new XmlSlurper().parseText(new String(participantobjectQueryDecoded))			
+			parsedParticipantObjectQuery.queryId.find{				
+				assert it.@root == context.findProperty( "queryId.@root" )
+				assert it.@extension == context.findProperty ( "queryId.@extension" )
+			}
+			assert parsedParticipantObjectQuery.statusCode.@code == context.findProperty( "statusCode.@code" )
+			assert parsedParticipantObjectQuery.responseModalityCode.@code == context.findProperty( "responseModalityCode.@code" )
+			assert parsedParticipantObjectQuery.responsePriorityCode.@code == context.findProperty( "responsePriorityCode.@code" )
+			parsedParticipantObjectQuery.parameterList.livingSubjectAdministrativeGender.find{
+				assert it.value.@code == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.value.@code" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText.@representation" )
+				//assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText" )
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectBirthTime.find{
+				assert it.value.@value == context.findProperty ( "parameterList.livingSubjectBirthTime.value.@value" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText.@representation" )
+				//assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText" )
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectId.find{
+				assert it.value.@root == context.findProperty ( "parameterList.livingSubjectId.value.@root" )
+				assert it.value.@extension == context.findProperty ( "parameterList.livingSubjectId.value.@extension" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectId.semanticsText.@representation" )				
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectName.find{
+				assert it.value.family.@partType == context.findProperty ( "parameterList.livingSubjectName.value.family.@partType" )
+				assert it.value.family.text() == context.findProperty ( "parameterList.livingSubjectName.value.family" )
+				assert it.value.given.@partType == context.findProperty ( "parameterList.livingSubjectName.value.given.@partType" )
+				assert it.value.given == context.findProperty ( "parameterList.livingSubjectName.value.given" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectName.semanticsText.@representation" )
+				//assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectName.semanticsText" )
+			}			
 	 	}
 	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
-	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" ) 
+	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" )
 	 	}
 	}
  }
@@ -3902,19 +4032,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-20T17:17:49Z</con:value>
+          <con:value>2015-08-31T19:48:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-20T17:27:49Z</con:value>
+          <con:value>2015-08-31T19:58:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/20/2015 17:17:49</con:value>
+          <con:value>08/31/2015 19:48:11</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-09-19T00:00:00Z</con:value>
+          <con:value>2015-09-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -3934,11 +4064,11 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.ParticipantObjectName</con:name>
-          <con:value/>
+          <con:value>anonymus</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserID</con:name>
-          <con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value>
+          <con:value>https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name>
@@ -3990,7 +4120,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name>
-          <con:value>D123401</con:value>
+          <con:value>Patient Number</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name>
@@ -4102,7 +4232,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name>
-          <con:value>f81d4fae-7dec-11d0-a765-00a0c91e6bf6</con:value>
+          <con:value>2</con:value>
         </con:property>
         <con:property>
           <con:name>&lt;!--Source--></con:name>
@@ -4110,7 +4240,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
-          <con:value>D123401</con:value>
+          <con:value>1111^^^&amp;1.1&amp;ISO</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.ParticipantObjectDetail.@value</con:name>
@@ -4118,7 +4248,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.ParticipantObjectQuery</con:name>
-          <con:value/>
+          <con:value>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxxdWVyeUJ5UGFyYW1ldGVyIHhtbG5zPSJ1cm46aGw3LW9yZzp2MyIgeG1sbnM6bnMyPSJ1cm46aGw3LW9yZzpzZHRjIiB4bWxuczpuczM9InVybjpnb3Y6aGhzOmZoYTpuaGluYzpjb21tb246bmhpbmNjb21tb24iIHhtbG5zOm5zND0idXJuOmdvdjpoaHM6ZmhhOm5oaW5jOmNvbW1vbjpwYXRpZW50Y29ycmVsYXRpb25mYWNhZGUiIHhtbG5zOm5zNT0iaHR0cDovL3d3dy53My5vcmcvMjAwNS8wOC9hZGRyZXNzaW5nIj48cXVlcnlJZCByb290PSIxLjEiIGV4dGVuc2lvbj0iLWFiZDM0NTNkY2QyNHdra2tzNTQ1Ii8+PHN0YXR1c0NvZGUgY29kZT0ibmV3Ii8+PHJlc3BvbnNlTW9kYWxpdHlDb2RlIGNvZGU9IlIiLz48cmVzcG9uc2VQcmlvcml0eUNvZGUgY29kZT0iSSIvPjxwYXJhbWV0ZXJMaXN0PjxsaXZpbmdTdWJqZWN0QWRtaW5pc3RyYXRpdmVHZW5kZXI+PHZhbHVlIGNvZGU9Ik0iLz48c2VtYW50aWNzVGV4dCByZXByZXNlbnRhdGlvbj0iVFhUIj5MaXZpbmdTdWJqZWN0LmFkbWluaXN0cmF0aXZlR2VuZGVyPC9zZW1hbnRpY3NUZXh0PjwvbGl2aW5nU3ViamVjdEFkbWluaXN0cmF0aXZlR2VuZGVyPjxsaXZpbmdTdWJqZWN0QmlydGhUaW1lPjx2YWx1ZSB2YWx1ZT0iMTk2MzA4MDQiLz48c2VtYW50aWNzVGV4dCByZXByZXNlbnRhdGlvbj0iVFhUIj5MaXZpbmdTdWJqZWN0LmJpcnRoVGltZTwvc2VtYW50aWNzVGV4dD48L2xpdmluZ1N1YmplY3RCaXJ0aFRpbWU+PGxpdmluZ1N1YmplY3RJZD48dmFsdWUgcm9vdD0iMS4xIiBleHRlbnNpb249IjExMTEiLz48c2VtYW50aWNzVGV4dCByZXByZXNlbnRhdGlvbj0iVFhUIi8+PC9saXZpbmdTdWJqZWN0SWQ+PGxpdmluZ1N1YmplY3ROYW1lPjx2YWx1ZT48ZmFtaWx5IHBhcnRUeXBlPSJGQU0iPllvdW5nZXI8L2ZhbWlseT48Z2l2ZW4gcGFydFR5cGU9IkdJViI+R2FsbG93PC9naXZlbj4KICAgICAgICAgICAgICAgICAgICAgICAgPC92YWx1ZT48c2VtYW50aWNzVGV4dCByZXByZXNlbnRhdGlvbj0iVFhUIj5MaXZpbmdTdWJqZWN0Lm5hbWU8L3NlbWFudGljc1RleHQ+PC9saXZpbmdTdWJqZWN0TmFtZT48L3BhcmFtZXRlckxpc3Q+PC9xdWVyeUJ5UGFyYW1ldGVyPg==</con:value>
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
@@ -4134,15 +4264,15 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode</con:name>
-          <con:value>ITI-55</con:value>
+          <con:value>2</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.ParticipantObjectQuery</con:name>
-          <con:value/>
+          <con:value>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxxdWVyeUJ5UGFyYW1ldGVyIHhtbG5zPSJ1cm46aGw3LW9yZzp2MyIgeG1sbnM6bnMyPSJ1cm46aGw3LW9yZzpzZHRjIiB4bWxuczpuczM9InVybjpnb3Y6aGhzOmZoYTpuaGluYzpjb21tb246bmhpbmNjb21tb24iIHhtbG5zOm5zND0iaHR0cDovL3d3dy53My5vcmcvMjAwNS8wOC9hZGRyZXNzaW5nIiB4bWxuczpuczU9InVybjpnb3Y6aGhzOmZoYTpuaGluYzpjb21tb246cGF0aWVudGNvcnJlbGF0aW9uZmFjYWRlIj48cXVlcnlJZCByb290PSIxLjEiIGV4dGVuc2lvbj0iLWFiZDM0NTNkY2QyNHdra2tzNTQ1Ii8+PHN0YXR1c0NvZGUgY29kZT0ibmV3Ii8+PHJlc3BvbnNlTW9kYWxpdHlDb2RlIGNvZGU9IlIiLz48cmVzcG9uc2VQcmlvcml0eUNvZGUgY29kZT0iSSIvPjxwYXJhbWV0ZXJMaXN0PjxsaXZpbmdTdWJqZWN0QWRtaW5pc3RyYXRpdmVHZW5kZXI+PHZhbHVlIGNvZGU9Ik0iLz48c2VtYW50aWNzVGV4dCByZXByZXNlbnRhdGlvbj0iVFhUIj5MaXZpbmdTdWJqZWN0LmFkbWluaXN0cmF0aXZlR2VuZGVyPC9zZW1hbnRpY3NUZXh0PjwvbGl2aW5nU3ViamVjdEFkbWluaXN0cmF0aXZlR2VuZGVyPjxsaXZpbmdTdWJqZWN0QmlydGhUaW1lPjx2YWx1ZSB2YWx1ZT0iMTk2MzA4MDQiLz48c2VtYW50aWNzVGV4dCByZXByZXNlbnRhdGlvbj0iVFhUIj5MaXZpbmdTdWJqZWN0LmJpcnRoVGltZTwvc2VtYW50aWNzVGV4dD48L2xpdmluZ1N1YmplY3RCaXJ0aFRpbWU+PGxpdmluZ1N1YmplY3RJZD48dmFsdWUgcm9vdD0iMS4xIiBleHRlbnNpb249IjExMTEiLz48c2VtYW50aWNzVGV4dCByZXByZXNlbnRhdGlvbj0iVFhUIi8+PC9saXZpbmdTdWJqZWN0SWQ+PGxpdmluZ1N1YmplY3ROYW1lPjx2YWx1ZT48ZmFtaWx5IHBhcnRUeXBlPSJGQU0iPllvdW5nZXI8L2ZhbWlseT48Z2l2ZW4gcGFydFR5cGU9IkdJViI+R2FsbG93PC9naXZlbj4KICAgICAgICAgICAgICAgICAgICAgICAgPC92YWx1ZT48c2VtYW50aWNzVGV4dCByZXByZXNlbnRhdGlvbj0iVFhUIj5MaXZpbmdTdWJqZWN0Lm5hbWU8L3NlbWFudGljc1RleHQ+PC9saXZpbmdTdWJqZWN0TmFtZT48L3BhcmFtZXRlckxpc3Q+PC9xdWVyeUJ5UGFyYW1ldGVyPg==</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName</con:name>
-          <con:value>IHE Transactions</con:value>
+          <con:value>Cross Gateway Patient Discovery</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.ParticipantObjectDataLifeCycle</con:name>
@@ -4150,11 +4280,11 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@code</con:name>
-          <con:value>f81d4fae-7dec-11d0-a765-00a0c91e6bf6</con:value>
+          <con:value>ITI-55</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.@ParticipantObjectID</con:name>
-          <con:value>D123401</con:value>
+          <con:value>a797fa28-45fd-4a29-867d-32f3301e73fe</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.ParticipantObjectSensitivity</con:name>
@@ -4162,7 +4292,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.@ParticipantObjectTypeCodeRole</con:name>
-          <con:value>1</con:value>
+          <con:value>24</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.@ParticipantObjectName</con:name>
@@ -4170,11 +4300,11 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
-          <con:value>Cross Gateway Patient Discovery</con:value>
+          <con:value>IHE Transactions</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.ParticipantObjectName</con:name>
-          <con:value/>
+          <con:value>1.1</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value</con:name>
@@ -4211,6 +4341,110 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.ParticipantObjectQuery.@value</con:name>
           <con:value>test</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectDetail</con:name>
+          <con:value>test</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Query.ParticipantObjectDetail</con:name>
+          <con:value>test</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Responder.@ParticipantObjectID</con:name>
+          <con:value>D123401^^^&amp;1.1&amp;ISO</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Query_Response.ParticipantObjectQuery</con:name>
+          <con:value>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxxdWVyeUJ5UGFyYW1ldGVyIHhtbG5zPSJ1cm46aGw3LW9yZzp2MyIgeG1sbnM6bnMyPSJ1cm46aGw3LW9yZzpzZHRjIiB4bWxuczpuczM9InVybjpnb3Y6aGhzOmZoYTpuaGluYzpjb21tb246bmhpbmNjb21tb24iIHhtbG5zOm5zND0iaHR0cDovL3d3dy53My5vcmcvMjAwNS8wOC9hZGRyZXNzaW5nIiB4bWxuczpuczU9InVybjpnb3Y6aGhzOmZoYTpuaGluYzpjb21tb246cGF0aWVudGNvcnJlbGF0aW9uZmFjYWRlIj48cXVlcnlJZCByb290PSIxLjEiIGV4dGVuc2lvbj0iLWFiZDM0NTNkY2QyNHdra2tzNTQ1Ii8+PHN0YXR1c0NvZGUgY29kZT0ibmV3Ii8+PHJlc3BvbnNlTW9kYWxpdHlDb2RlIGNvZGU9IlIiLz48cmVzcG9uc2VQcmlvcml0eUNvZGUgY29kZT0iSSIvPjxwYXJhbWV0ZXJMaXN0PjxsaXZpbmdTdWJqZWN0QWRtaW5pc3RyYXRpdmVHZW5kZXI+PHZhbHVlIGNvZGU9Ik0iLz48c2VtYW50aWNzVGV4dCByZXByZXNlbnRhdGlvbj0iVFhUIi8+PC9saXZpbmdTdWJqZWN0QWRtaW5pc3RyYXRpdmVHZW5kZXI+PGxpdmluZ1N1YmplY3RCaXJ0aFRpbWU+PHZhbHVlIHZhbHVlPSIxOTYzMDgwNCIvPjxzZW1hbnRpY3NUZXh0IHJlcHJlc2VudGF0aW9uPSJUWFQiLz48L2xpdmluZ1N1YmplY3RCaXJ0aFRpbWU+PGxpdmluZ1N1YmplY3RJZD48dmFsdWUgcm9vdD0iMS4xIiBleHRlbnNpb249IjExMTEiLz48c2VtYW50aWNzVGV4dCByZXByZXNlbnRhdGlvbj0iVFhUIi8+PC9saXZpbmdTdWJqZWN0SWQ+PGxpdmluZ1N1YmplY3ROYW1lPjx2YWx1ZT48ZmFtaWx5IHBhcnRUeXBlPSJGQU0iPllvdW5nZXI8L2ZhbWlseT48Z2l2ZW4gcGFydFR5cGU9IkdJViI+R2FsbG93PC9naXZlbj4KICAgICAgICAgICAgICAgICAgICAgICAgCQk8L3ZhbHVlPjxzZW1hbnRpY3NUZXh0IHJlcHJlc2VudGF0aW9uPSJUWFQiLz48L2xpdmluZ1N1YmplY3ROYW1lPjwvcGFyYW1ldGVyTGlzdD48L3F1ZXJ5QnlQYXJhbWV0ZXI+</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectBirthTime.semanticsText</con:name>
+          <con:value>LivingSubject.birthTime</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectName.value.given.@partType</con:name>
+          <con:value>GIV</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectName.value.family.@partType</con:name>
+          <con:value>FAM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>responseModalityCode.@code</con:name>
+          <con:value>R</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectBirthTime.value.@value</con:name>
+          <con:value>19630804</con:value>
+        </con:property>
+        <con:property>
+          <con:name>&lt;--ParticipantObjectIdentification_Query.ParticipantObjectQuery</con:name>
+          <con:value>checks --></con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectId.value.@root</con:name>
+          <con:value>1.1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectName.semanticsText</con:name>
+          <con:value>LivingSubject.name</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectName.semanticsText.@representation</con:name>
+          <con:value>TXT</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectId.value.@extension</con:name>
+          <con:value>1111</con:value>
+        </con:property>
+        <con:property>
+          <con:name>responsePriorityCode.@code</con:name>
+          <con:value>I</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectName.value.family</con:name>
+          <con:value>Younger</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectName.value.given</con:name>
+          <con:value>Gallow</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectAdministrativeGender.semanticsText.@representation</con:name>
+          <con:value>TXT</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectId.semanticsText.@representation</con:name>
+          <con:value>TXT</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectAdministrativeGender.semanticsText</con:name>
+          <con:value>LivingSubject.administrativeGender</con:value>
+        </con:property>
+        <con:property>
+          <con:name>queryId.@root</con:name>
+          <con:value>1.1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectBirthTime.semanticsText.@representation</con:name>
+          <con:value>TXT</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectAdministrativeGender.value.@code</con:name>
+          <con:value>M</con:value>
+        </con:property>
+        <con:property>
+          <con:name>queryId.@extension</con:name>
+          <con:value>-abd3453dcd24wkkks545</con:value>
+        </con:property>
+        <con:property>
+          <con:name>statusCode.@code</con:name>
+          <con:value>new</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4575,19 +4809,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-04-01T18:06:56Z</con:value>
+          <con:value>2015-08-31T19:48:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-04-01T18:16:56Z</con:value>
+          <con:value>2015-08-31T19:58:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/01/2014 18:06:56</con:value>
+          <con:value>08/31/2015 19:48:15</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-05-01T00:00:00Z</con:value>
+          <con:value>2015-09-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4921,19 +5155,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-04-01T18:06:58Z</con:value>
+          <con:value>2015-08-31T19:48:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-04-01T18:16:58Z</con:value>
+          <con:value>2015-08-31T19:58:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/01/2014 18:06:58</con:value>
+          <con:value>08/31/2015 19:48:19</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-05-01T00:00:00Z</con:value>
+          <con:value>2015-09-30T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -5332,19 +5566,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-04-01T18:07:01Z</con:value>
+          <con:value>2015-08-31T19:48:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-04-01T18:17:01Z</con:value>
+          <con:value>2015-08-31T19:58:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/01/2014 18:07:01</con:value>
+          <con:value>08/31/2015 19:48:23</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-05-01T00:00:00Z</con:value>
+          <con:value>2015-09-30T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -5917,19 +6151,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-04-02T03:44:27Z</con:value>
+          <con:value>2015-08-31T19:48:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-04-02T03:54:27Z</con:value>
+          <con:value>2015-08-31T19:58:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/02/2015 03:44:27</con:value>
+          <con:value>08/31/2015 19:48:37</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-05-02T00:00:00Z</con:value>
+          <con:value>2015-09-30T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -6308,19 +6542,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-04-02T03:44:31Z</con:value>
+          <con:value>2015-08-31T19:48:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-04-02T03:54:31Z</con:value>
+          <con:value>2015-08-31T19:58:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/02/2015 03:44:31</con:value>
+          <con:value>08/31/2015 19:48:40</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-05-02T00:00:00Z</con:value>
+          <con:value>2015-09-30T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -6833,19 +7067,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-05-18T05:59:11Z</con:value>
+          <con:value>2015-08-31T19:48:44Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-05-18T06:09:11Z</con:value>
+          <con:value>2015-08-31T19:58:44Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/18/2015 05:59:11</con:value>
+          <con:value>08/31/2015 19:48:44</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-06-17T00:00:00Z</con:value>
+          <con:value>2015-09-30T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -7457,19 +7691,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-04-02T03:44:37Z</con:value>
+          <con:value>2015-08-31T19:48:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-04-02T03:54:37Z</con:value>
+          <con:value>2015-08-31T19:58:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/02/2015 03:44:37</con:value>
+          <con:value>08/31/2015 19:48:47</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-05-02T00:00:00Z</con:value>
+          <con:value>2015-09-30T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -8111,19 +8345,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-04-02T03:54:41Z</con:value>
+          <con:value>2015-08-31T19:58:51Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/02/2015 03:44:41</con:value>
+          <con:value>08/31/2015 19:48:51</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-05-02T00:00:00Z</con:value>
+          <con:value>2015-09-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-04-02T03:44:41Z</con:value>
+          <con:value>2015-08-31T19:48:51Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -8609,7 +8843,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -8649,6 +8883,8 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	     }
      	assert(!node.@AlternativeUserID.isEmpty())
      	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	if(!node.@UserName.isEmpty())
+     	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointID.isEmpty())
      	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
@@ -8674,7 +8910,7 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
-     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode" )
           if(!node.RoleIDCode.isEmpty()){
      		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
      		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
@@ -8694,10 +8930,9 @@ parsedXmlMessage.AuditSourceIdentification.find{
 			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
 		}
 }
-
-if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
+if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
-	     if(!node.@ParticipantObjectID.isEmpty()){
+	     if(!node.@ParticipantObjectID.isEmpty()){	     	
 	     	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
 	     }
    	     if(!node.@ParticipantObjectTypeCodeRole.isEmpty()){
@@ -8711,21 +8946,21 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
 	     }
-	     if(!node.ParticipantObjectName.@value.isEmpty()){
-	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName.@value" ) 
+	     if(!node.ParticipantObjectName.text().isEmpty()){
+	 	 assert node.ParticipantObjectName.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName" ) 
 	 	}
-	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
-	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery.@value" ) 
+	 	if(!node.ParticipantObjectQuery.text().isEmpty()){
+	 	 assert node.ParticipantObjectQuery.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery" ) 
 	 	}
-	 	if(!node.ParticipantObjectDetail.@value.isEmpty()){
-	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
+	 	if(!node.ParticipantObjectDetail.text().isEmpty()){
+	 	 assert node.ParticipantObjectDetail.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail" ) 
 	 	}
 	}
  }
  if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->
-	     if(!node.@ParticipantObjectID.isEmpty()){
-	     	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectID" )
+	     if(!node.@ParticipantObjectID.isEmpty()){	     
+	     //	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectID" )	     	
 	     }
    	     if(!node.@ParticipantObjectTypeCodeRole.isEmpty()){
 	     	assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCodeRole" )
@@ -8737,22 +8972,53 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@code" )
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName" )
-	     }
-	     if(!node.ParticipantObjectName.@value.isEmpty()){
-	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName.@value" ) 
-	 	}
-	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
-	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectQuery.@value" ) 
+	     }	     
+	     if(!node.ParticipantObjectName.text().isEmpty()){
+	 	 assert node.ParticipantObjectName.text() == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName" ) 
+	 	}	 	
+	 	if(!node.ParticipantObjectQuery.text().isEmpty()){	 		
+	 		byte[] participantobjectQueryDecoded = node.ParticipantObjectQuery.text().decodeBase64()			
+			def parsedParticipantObjectQuery = new XmlSlurper().parseText(new String(participantobjectQueryDecoded))			
+			parsedParticipantObjectQuery.queryId.find{				
+				assert it.@root == context.findProperty( "queryId.@root" )
+				assert it.@extension == context.findProperty ( "queryId.@extension" )
+			}
+			assert parsedParticipantObjectQuery.statusCode.@code == context.findProperty( "statusCode.@code" )
+			assert parsedParticipantObjectQuery.responseModalityCode.@code == context.findProperty( "responseModalityCode.@code" )
+			assert parsedParticipantObjectQuery.responsePriorityCode.@code == context.findProperty( "responsePriorityCode.@code" )
+			parsedParticipantObjectQuery.parameterList.livingSubjectAdministrativeGender.find{
+				assert it.value.@code == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.value.@code" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText.@representation" )
+				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText" )
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectBirthTime.find{
+				assert it.value.@value == context.findProperty ( "parameterList.livingSubjectBirthTime.value.@value" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText.@representation" )
+				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText" )
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectId.find{
+				assert it.value.@root == context.findProperty ( "parameterList.livingSubjectId.value.@root" )
+				assert it.value.@extension == context.findProperty ( "parameterList.livingSubjectId.value.@extension" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectId.semanticsText.@representation" )				
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectName.find{
+				assert it.value.family.@partType == context.findProperty ( "parameterList.livingSubjectName.value.family.@partType" )
+				assert it.value.family.text() == context.findProperty ( "parameterList.livingSubjectName.value.family" )
+				assert it.value.given.@partType == context.findProperty ( "parameterList.livingSubjectName.value.given.@partType" )
+				assert it.value.given == context.findProperty ( "parameterList.livingSubjectName.value.given" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectName.semanticsText.@representation" )
+				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectName.semanticsText" )
+			}			
 	 	}
 	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
-	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" ) 
+	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" )
 	 	}
 	}
  }
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinInbound-InitiatingGateway(1.1)" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinInbound-InitiatingGateway(1.1)">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -8792,6 +9058,8 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	     }
      	assert(!node.@AlternativeUserID.isEmpty())
      	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	if(!node.@UserName.isEmpty())
+     	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointID.isEmpty())
      	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
@@ -8817,7 +9085,7 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
-     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode" )
           if(!node.RoleIDCode.isEmpty()){
      		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
      		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
@@ -8838,10 +9106,10 @@ parsedXmlMessage.AuditSourceIdentification.find{
 		}
 }
 
-if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
+if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
-	     if(!node.@ParticipantObjectID.isEmpty()){
-	     	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
+	     if(!node.@ParticipantObjectID.isEmpty()){	     	
+	     	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Responder.@ParticipantObjectID" )
 	     }
    	     if(!node.@ParticipantObjectTypeCodeRole.isEmpty()){
 	     	assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
@@ -8854,21 +9122,21 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
 	     }
-	     if(!node.ParticipantObjectName.@value.isEmpty()){
-	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName.@value" ) 
+	     if(!node.ParticipantObjectName.text().isEmpty()){
+	 	 assert node.ParticipantObjectName.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName" ) 
+	 	}	 	
+	 	if(!node.ParticipantObjectQuery.text().isEmpty()){
+	 	 assert node.ParticipantObjectQuery.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery" ) 
 	 	}
-	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
-	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery.@value" ) 
-	 	}
-	 	if(!node.ParticipantObjectDetail.@value.isEmpty()){
-	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
+	 	if(!node.ParticipantObjectDetail.text().isEmpty()){
+	 	 assert node.ParticipantObjectDetail.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail" ) 
 	 	}
 	}
  }
  if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->
-	     if(!node.@ParticipantObjectID.isEmpty()){
-	     	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectID" )
+	     if(!node.@ParticipantObjectID.isEmpty()){	     
+	     //	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectID" )	     	
 	     }
    	     if(!node.@ParticipantObjectTypeCodeRole.isEmpty()){
 	     	assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCodeRole" )
@@ -8880,22 +9148,53 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@code" )
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName" )
-	     }
-	     if(!node.ParticipantObjectName.@value.isEmpty()){
-	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName.@value" ) 
-	 	}
-	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
-	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectQuery.@value" ) 
+	     }	     
+	     if(!node.ParticipantObjectName.text().isEmpty()){
+	 	 assert node.ParticipantObjectName.text() == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName" ) 
+	 	}	 	
+	 	if(!node.ParticipantObjectQuery.text().isEmpty()){	 		
+	 		byte[] participantobjectQueryDecoded = node.ParticipantObjectQuery.text().decodeBase64()			
+			def parsedParticipantObjectQuery = new XmlSlurper().parseText(new String(participantobjectQueryDecoded))			
+			parsedParticipantObjectQuery.queryId.find{				
+				assert it.@root == context.findProperty( "queryId.@root" )
+				assert it.@extension == context.findProperty ( "queryId.@extension" )
+			}
+			assert parsedParticipantObjectQuery.statusCode.@code == context.findProperty( "statusCode.@code" )
+			assert parsedParticipantObjectQuery.responseModalityCode.@code == context.findProperty( "responseModalityCode.@code" )
+			assert parsedParticipantObjectQuery.responsePriorityCode.@code == context.findProperty( "responsePriorityCode.@code" )
+			parsedParticipantObjectQuery.parameterList.livingSubjectAdministrativeGender.find{
+				assert it.value.@code == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.value.@code" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText.@representation" )
+				//assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText" )
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectBirthTime.find{
+				assert it.value.@value == context.findProperty ( "parameterList.livingSubjectBirthTime.value.@value" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText.@representation" )
+				//assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText" )
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectId.find{
+				assert it.value.@root == context.findProperty ( "parameterList.livingSubjectId.value.@root" )
+				assert it.value.@extension == context.findProperty ( "parameterList.livingSubjectId.value.@extension" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectId.semanticsText.@representation" )				
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectName.find{
+				assert it.value.family.@partType == context.findProperty ( "parameterList.livingSubjectName.value.family.@partType" )
+				assert it.value.family.text() == context.findProperty ( "parameterList.livingSubjectName.value.family" )
+				assert it.value.given.@partType == context.findProperty ( "parameterList.livingSubjectName.value.given.@partType" )
+				assert it.value.given == context.findProperty ( "parameterList.livingSubjectName.value.given" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectName.semanticsText.@representation" )
+				//assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectName.semanticsText" )
+			}			
 	 	}
 	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
-	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" ) 
+	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" )
 	 	}
 	}
  }
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinInbound-RespondingGateway(2.2)" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinInbound-RespondingGateway(2.2)">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -8921,6 +9220,8 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 	     }
      	assert(!node.@AlternativeUserID.isEmpty())
      	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	if(!node.@UserName.isEmpty())
+     	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointID.isEmpty())
      	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
@@ -8946,7 +9247,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
-     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode" )
           if(!node.RoleIDCode.isEmpty()){
      		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
      		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
@@ -8966,10 +9267,9 @@ parsedXmlMessage.AuditSourceIdentification.find{
 			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
 		}
 }
-
-if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
+if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
-	     if(!node.@ParticipantObjectID.isEmpty()){
+	     if(!node.@ParticipantObjectID.isEmpty()){	     	
 	     	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
 	     }
    	     if(!node.@ParticipantObjectTypeCodeRole.isEmpty()){
@@ -8983,21 +9283,21 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
 	     }
-	     if(!node.ParticipantObjectName.@value.isEmpty()){
-	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName.@value" ) 
+	     if(!node.ParticipantObjectName.text().isEmpty()){
+	 	 assert node.ParticipantObjectName.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName" ) 
 	 	}
-	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
-	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery.@value" ) 
+	 	if(!node.ParticipantObjectQuery.text().isEmpty()){
+	 	 assert node.ParticipantObjectQuery.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery" ) 
 	 	}
-	 	if(!node.ParticipantObjectDetail.@value.isEmpty()){
-	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
+	 	if(!node.ParticipantObjectDetail.text().isEmpty()){
+	 	 assert node.ParticipantObjectDetail.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail" ) 
 	 	}
 	}
  }
  if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->
-	     if(!node.@ParticipantObjectID.isEmpty()){
-	     	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectID" )
+	     if(!node.@ParticipantObjectID.isEmpty()){	     
+	     //	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectID" )	     	
 	     }
    	     if(!node.@ParticipantObjectTypeCodeRole.isEmpty()){
 	     	assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCodeRole" )
@@ -9009,22 +9309,53 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@code" )
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName" )
-	     }
-	     if(!node.ParticipantObjectName.@value.isEmpty()){
-	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName.@value" ) 
-	 	}
-	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
-	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectQuery.@value" ) 
+	     }	     
+	     if(!node.ParticipantObjectName.text().isEmpty()){
+	 	 assert node.ParticipantObjectName.text() == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName" ) 
+	 	}	 	
+	 	if(!node.ParticipantObjectQuery.text().isEmpty()){	 		
+	 		byte[] participantobjectQueryDecoded = node.ParticipantObjectQuery.text().decodeBase64()			
+			def parsedParticipantObjectQuery = new XmlSlurper().parseText(new String(participantobjectQueryDecoded))			
+			parsedParticipantObjectQuery.queryId.find{				
+				assert it.@root == context.findProperty( "queryId.@root" )
+				assert it.@extension == context.findProperty ( "queryId.@extension" )
+			}
+			assert parsedParticipantObjectQuery.statusCode.@code == context.findProperty( "statusCode.@code" )
+			assert parsedParticipantObjectQuery.responseModalityCode.@code == context.findProperty( "responseModalityCode.@code" )
+			assert parsedParticipantObjectQuery.responsePriorityCode.@code == context.findProperty( "responsePriorityCode.@code" )
+			parsedParticipantObjectQuery.parameterList.livingSubjectAdministrativeGender.find{
+				assert it.value.@code == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.value.@code" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText.@representation" )
+				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText" )
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectBirthTime.find{
+				assert it.value.@value == context.findProperty ( "parameterList.livingSubjectBirthTime.value.@value" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText.@representation" )
+				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText" )
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectId.find{
+				assert it.value.@root == context.findProperty ( "parameterList.livingSubjectId.value.@root" )
+				assert it.value.@extension == context.findProperty ( "parameterList.livingSubjectId.value.@extension" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectId.semanticsText.@representation" )				
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectName.find{
+				assert it.value.family.@partType == context.findProperty ( "parameterList.livingSubjectName.value.family.@partType" )
+				assert it.value.family.text() == context.findProperty ( "parameterList.livingSubjectName.value.family" )
+				assert it.value.given.@partType == context.findProperty ( "parameterList.livingSubjectName.value.given.@partType" )
+				assert it.value.given == context.findProperty ( "parameterList.livingSubjectName.value.given" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectName.semanticsText.@representation" )
+				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectName.semanticsText" )
+			}			
 	 	}
 	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
-	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" ) 
+	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" )
 	 	}
 	}
  }
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(2.2)" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(2.2)">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -9051,6 +9382,8 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 	     }
      	assert(!node.@AlternativeUserID.isEmpty())
      	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	if(!node.@UserName.isEmpty())
+     	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointID.isEmpty())
      	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
@@ -9076,7 +9409,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
-     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode" )
           if(!node.RoleIDCode.isEmpty()){
      		assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
      		assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
@@ -9096,10 +9429,11 @@ parsedXmlMessage.AuditSourceIdentification.find{
 			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
 		}
 }
-if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
+
+if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
-	     if(!node.@ParticipantObjectID.isEmpty()){
-	     	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
+	     if(!node.@ParticipantObjectID.isEmpty()){	     	
+	     	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Responder.@ParticipantObjectID" )
 	     }
    	     if(!node.@ParticipantObjectTypeCodeRole.isEmpty()){
 	     	assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
@@ -9112,21 +9446,21 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
 	     }
-	     if(!node.ParticipantObjectName.@value.isEmpty()){
-	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName.@value" ) 
+	     if(!node.ParticipantObjectName.text().isEmpty()){
+	 	 assert node.ParticipantObjectName.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectName" ) 
 	 	}
-	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
-	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery.@value" ) 
+	 	if(!node.ParticipantObjectQuery.text().isEmpty()){
+	 	 assert node.ParticipantObjectQuery.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectQuery" ) 
 	 	}
-	 	if(!node.ParticipantObjectDetail.@value.isEmpty()){
-	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail.@value" ) 
+	 	if(!node.ParticipantObjectDetail.text().isEmpty()){
+	 	 assert node.ParticipantObjectDetail.text() == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectDetail" ) 
 	 	}
 	}
  }
  if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->
-	     if(!node.@ParticipantObjectID.isEmpty()){
-	     	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectID" )
+	     if(!node.@ParticipantObjectID.isEmpty()){	     
+	     //	assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectID" )	     	
 	     }
    	     if(!node.@ParticipantObjectTypeCodeRole.isEmpty()){
 	     	assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCodeRole" )
@@ -9138,15 +9472,46 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
      		assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@code" )
      		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName" )
      		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName" )
-	     }
-	     if(!node.ParticipantObjectName.@value.isEmpty()){
-	 	 assert node.ParticipantObjectName.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName.@value" ) 
-	 	}
-	 	if(!node.ParticipantObjectQuery.@value.isEmpty()){
-	 	 assert node.ParticipantObjectQuery.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectQuery.@value" ) 
+	     }	     
+	     if(!node.ParticipantObjectName.text().isEmpty()){
+	 	 assert node.ParticipantObjectName.text() == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectName" ) 
+	 	}	 	
+	 	if(!node.ParticipantObjectQuery.text().isEmpty()){	 		
+	 		byte[] participantobjectQueryDecoded = node.ParticipantObjectQuery.text().decodeBase64()			
+			def parsedParticipantObjectQuery = new XmlSlurper().parseText(new String(participantobjectQueryDecoded))			
+			parsedParticipantObjectQuery.queryId.find{				
+				assert it.@root == context.findProperty( "queryId.@root" )
+				assert it.@extension == context.findProperty ( "queryId.@extension" )
+			}
+			assert parsedParticipantObjectQuery.statusCode.@code == context.findProperty( "statusCode.@code" )
+			assert parsedParticipantObjectQuery.responseModalityCode.@code == context.findProperty( "responseModalityCode.@code" )
+			assert parsedParticipantObjectQuery.responsePriorityCode.@code == context.findProperty( "responsePriorityCode.@code" )
+			parsedParticipantObjectQuery.parameterList.livingSubjectAdministrativeGender.find{
+				assert it.value.@code == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.value.@code" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText.@representation" )
+				//assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText" )
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectBirthTime.find{
+				assert it.value.@value == context.findProperty ( "parameterList.livingSubjectBirthTime.value.@value" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText.@representation" )
+				//assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText" )
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectId.find{
+				assert it.value.@root == context.findProperty ( "parameterList.livingSubjectId.value.@root" )
+				assert it.value.@extension == context.findProperty ( "parameterList.livingSubjectId.value.@extension" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectId.semanticsText.@representation" )				
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectName.find{
+				assert it.value.family.@partType == context.findProperty ( "parameterList.livingSubjectName.value.family.@partType" )
+				assert it.value.family.text() == context.findProperty ( "parameterList.livingSubjectName.value.family" )
+				assert it.value.given.@partType == context.findProperty ( "parameterList.livingSubjectName.value.given.@partType" )
+				assert it.value.given == context.findProperty ( "parameterList.livingSubjectName.value.given" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectName.semanticsText.@representation" )
+				//assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectName.semanticsText" )
+			}			
 	 	}
 	     if(!node.ParticipantObjectDetail.@value.isEmpty()){
-	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" ) 
+	 	 assert node.ParticipantObjectDetail.@value == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectDetail.@value" )
 	 	}
 	}
  }
@@ -9174,19 +9539,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-18T01:29:21Z</con:value>
+          <con:value>2015-08-31T19:48:55Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-18T01:39:21Z</con:value>
+          <con:value>2015-08-31T19:58:55Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/18/2015 01:29:21</con:value>
+          <con:value>08/31/2015 19:48:55</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-09-17T00:00:00Z</con:value>
+          <con:value>2015-09-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -9206,23 +9571,23 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode</con:name>
-          <con:value>ITI-55</con:value>
+          <con:value>2</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.ParticipantObjectQuery</con:name>
-          <con:value/>
+          <con:value>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxxdWVyeUJ5UGFyYW1ldGVyIHhtbG5zPSJ1cm46aGw3LW9yZzp2MyIgeG1sbnM6bnMyPSJ1cm46aGw3LW9yZzpzZHRjIiB4bWxuczpuczM9InVybjpnb3Y6aGhzOmZoYTpuaGluYzpjb21tb246bmhpbmNjb21tb24iIHhtbG5zOm5zND0iaHR0cDovL3d3dy53My5vcmcvMjAwNS8wOC9hZGRyZXNzaW5nIiB4bWxuczpuczU9InVybjpnb3Y6aGhzOmZoYTpuaGluYzpjb21tb246cGF0aWVudGNvcnJlbGF0aW9uZmFjYWRlIj48cXVlcnlJZCByb290PSIxLjEiIGV4dGVuc2lvbj0iLWFiZDM0NTNkY2QyNHdra2tzNTQ1Ii8+PHN0YXR1c0NvZGUgY29kZT0ibmV3Ii8+PHJlc3BvbnNlTW9kYWxpdHlDb2RlIGNvZGU9IlIiLz48cmVzcG9uc2VQcmlvcml0eUNvZGUgY29kZT0iSSIvPjxwYXJhbWV0ZXJMaXN0PjxsaXZpbmdTdWJqZWN0QWRtaW5pc3RyYXRpdmVHZW5kZXI+PHZhbHVlIGNvZGU9Ik0iLz48c2VtYW50aWNzVGV4dCByZXByZXNlbnRhdGlvbj0iVFhUIj5MaXZpbmdTdWJqZWN0LmFkbWluaXN0cmF0aXZlR2VuZGVyPC9zZW1hbnRpY3NUZXh0PjwvbGl2aW5nU3ViamVjdEFkbWluaXN0cmF0aXZlR2VuZGVyPjxsaXZpbmdTdWJqZWN0QmlydGhUaW1lPjx2YWx1ZSB2YWx1ZT0iMTk2MzA4MDQiLz48c2VtYW50aWNzVGV4dCByZXByZXNlbnRhdGlvbj0iVFhUIj5MaXZpbmdTdWJqZWN0LmJpcnRoVGltZTwvc2VtYW50aWNzVGV4dD48L2xpdmluZ1N1YmplY3RCaXJ0aFRpbWU+PGxpdmluZ1N1YmplY3RJZD48dmFsdWUgcm9vdD0iMS4xIiBleHRlbnNpb249IjExMTEiLz48c2VtYW50aWNzVGV4dCByZXByZXNlbnRhdGlvbj0iVFhUIi8+PC9saXZpbmdTdWJqZWN0SWQ+PGxpdmluZ1N1YmplY3ROYW1lPjx2YWx1ZT48ZmFtaWx5IHBhcnRUeXBlPSJGQU0iPllvdW5nZXI8L2ZhbWlseT48Z2l2ZW4gcGFydFR5cGU9IkdJViI+R2FsbG93PC9naXZlbj4KICAgICAgICAgICAgICAgICAgICAgICAgPC92YWx1ZT48c2VtYW50aWNzVGV4dCByZXByZXNlbnRhdGlvbj0iVFhUIj5MaXZpbmdTdWJqZWN0Lm5hbWU8L3NlbWFudGljc1RleHQ+PC9saXZpbmdTdWJqZWN0TmFtZT48L3BhcmFtZXRlckxpc3Q+PC9xdWVyeUJ5UGFyYW1ldGVyPg==</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.ParticipantObjectName</con:name>
-          <con:value/>
+          <con:value>anonymus</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserID</con:name>
-          <con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value>
+          <con:value>https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName</con:name>
-          <con:value>IHE Transactions</con:value>
+          <con:value>Cross Gateway Patient Discovery</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name>
@@ -9262,11 +9627,11 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@code</con:name>
-          <con:value>f81d4fae-7dec-11d0-a765-00a0c91e6bf6</con:value>
+          <con:value>ITI-55</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.@ParticipantObjectID</con:name>
-          <con:value>D123401</con:value>
+          <con:value>a797fa28-45fd-4a29-867d-32f3301e73fe</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name>
@@ -9286,7 +9651,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name>
-          <con:value>D123401</con:value>
+          <con:value>Patient Number</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name>
@@ -9378,7 +9743,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.@ParticipantObjectTypeCodeRole</con:name>
-          <con:value>1</con:value>
+          <con:value>24</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.@ParticipantObjectName</con:name>
@@ -9410,7 +9775,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name>
-          <con:value>f81d4fae-7dec-11d0-a765-00a0c91e6bf6</con:value>
+          <con:value>2</con:value>
         </con:property>
         <con:property>
           <con:name>&lt;!--Source--></con:name>
@@ -9418,7 +9783,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
-          <con:value>D123401</con:value>
+          <con:value>1111^^^&amp;1.1&amp;ISO</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.ParticipantObjectDetail.@value</con:name>
@@ -9426,15 +9791,15 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
-          <con:value>Cross Gateway Patient Discovery</con:value>
+          <con:value>IHE Transactions</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.ParticipantObjectQuery</con:name>
-          <con:value/>
+          <con:value>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxxdWVyeUJ5UGFyYW1ldGVyIHhtbG5zPSJ1cm46aGw3LW9yZzp2MyIgeG1sbnM6bnMyPSJ1cm46aGw3LW9yZzpzZHRjIiB4bWxuczpuczM9InVybjpnb3Y6aGhzOmZoYTpuaGluYzpjb21tb246bmhpbmNjb21tb24iIHhtbG5zOm5zND0idXJuOmdvdjpoaHM6ZmhhOm5oaW5jOmNvbW1vbjpwYXRpZW50Y29ycmVsYXRpb25mYWNhZGUiIHhtbG5zOm5zNT0iaHR0cDovL3d3dy53My5vcmcvMjAwNS8wOC9hZGRyZXNzaW5nIj48cXVlcnlJZCByb290PSIxLjEiIGV4dGVuc2lvbj0iLWFiZDM0NTNkY2QyNHdra2tzNTQ1Ii8+PHN0YXR1c0NvZGUgY29kZT0ibmV3Ii8+PHJlc3BvbnNlTW9kYWxpdHlDb2RlIGNvZGU9IlIiLz48cmVzcG9uc2VQcmlvcml0eUNvZGUgY29kZT0iSSIvPjxwYXJhbWV0ZXJMaXN0PjxsaXZpbmdTdWJqZWN0QWRtaW5pc3RyYXRpdmVHZW5kZXI+PHZhbHVlIGNvZGU9Ik0iLz48c2VtYW50aWNzVGV4dCByZXByZXNlbnRhdGlvbj0iVFhUIj5MaXZpbmdTdWJqZWN0LmFkbWluaXN0cmF0aXZlR2VuZGVyPC9zZW1hbnRpY3NUZXh0PjwvbGl2aW5nU3ViamVjdEFkbWluaXN0cmF0aXZlR2VuZGVyPjxsaXZpbmdTdWJqZWN0QmlydGhUaW1lPjx2YWx1ZSB2YWx1ZT0iMTk2MzA4MDQiLz48c2VtYW50aWNzVGV4dCByZXByZXNlbnRhdGlvbj0iVFhUIj5MaXZpbmdTdWJqZWN0LmJpcnRoVGltZTwvc2VtYW50aWNzVGV4dD48L2xpdmluZ1N1YmplY3RCaXJ0aFRpbWU+PGxpdmluZ1N1YmplY3RJZD48dmFsdWUgcm9vdD0iMS4xIiBleHRlbnNpb249IjExMTEiLz48c2VtYW50aWNzVGV4dCByZXByZXNlbnRhdGlvbj0iVFhUIi8+PC9saXZpbmdTdWJqZWN0SWQ+PGxpdmluZ1N1YmplY3ROYW1lPjx2YWx1ZT48ZmFtaWx5IHBhcnRUeXBlPSJGQU0iPllvdW5nZXI8L2ZhbWlseT48Z2l2ZW4gcGFydFR5cGU9IkdJViI+R2FsbG93PC9naXZlbj4KICAgICAgICAgICAgICAgICAgICAgICAgPC92YWx1ZT48c2VtYW50aWNzVGV4dCByZXByZXNlbnRhdGlvbj0iVFhUIj5MaXZpbmdTdWJqZWN0Lm5hbWU8L3NlbWFudGljc1RleHQ+PC9saXZpbmdTdWJqZWN0TmFtZT48L3BhcmFtZXRlckxpc3Q+PC9xdWVyeUJ5UGFyYW1ldGVyPg==</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.ParticipantObjectName</con:name>
-          <con:value/>
+          <con:value>1.1</con:value>
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
@@ -9451,6 +9816,130 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         <con:property>
           <con:name>ActiveParticipant.@UserID</con:name>
           <con:value>kskagerb</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Query_Response.ParticipantObjectQuery</con:name>
+          <con:value>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxxdWVyeUJ5UGFyYW1ldGVyIHhtbG5zPSJ1cm46aGw3LW9yZzp2MyIgeG1sbnM6bnMyPSJ1cm46aGw3LW9yZzpzZHRjIiB4bWxuczpuczM9InVybjpnb3Y6aGhzOmZoYTpuaGluYzpjb21tb246bmhpbmNjb21tb24iIHhtbG5zOm5zND0iaHR0cDovL3d3dy53My5vcmcvMjAwNS8wOC9hZGRyZXNzaW5nIiB4bWxuczpuczU9InVybjpnb3Y6aGhzOmZoYTpuaGluYzpjb21tb246cGF0aWVudGNvcnJlbGF0aW9uZmFjYWRlIj48cXVlcnlJZCByb290PSIxLjEiIGV4dGVuc2lvbj0iLWFiZDM0NTNkY2QyNHdra2tzNTQ1Ii8+PHN0YXR1c0NvZGUgY29kZT0ibmV3Ii8+PHJlc3BvbnNlTW9kYWxpdHlDb2RlIGNvZGU9IlIiLz48cmVzcG9uc2VQcmlvcml0eUNvZGUgY29kZT0iSSIvPjxwYXJhbWV0ZXJMaXN0PjxsaXZpbmdTdWJqZWN0QWRtaW5pc3RyYXRpdmVHZW5kZXI+PHZhbHVlIGNvZGU9Ik0iLz48c2VtYW50aWNzVGV4dCByZXByZXNlbnRhdGlvbj0iVFhUIi8+PC9saXZpbmdTdWJqZWN0QWRtaW5pc3RyYXRpdmVHZW5kZXI+PGxpdmluZ1N1YmplY3RCaXJ0aFRpbWU+PHZhbHVlIHZhbHVlPSIxOTYzMDgwNCIvPjxzZW1hbnRpY3NUZXh0IHJlcHJlc2VudGF0aW9uPSJUWFQiLz48L2xpdmluZ1N1YmplY3RCaXJ0aFRpbWU+PGxpdmluZ1N1YmplY3RJZD48dmFsdWUgcm9vdD0iMS4xIiBleHRlbnNpb249IjExMTEiLz48c2VtYW50aWNzVGV4dCByZXByZXNlbnRhdGlvbj0iVFhUIi8+PC9saXZpbmdTdWJqZWN0SWQ+PGxpdmluZ1N1YmplY3ROYW1lPjx2YWx1ZT48ZmFtaWx5IHBhcnRUeXBlPSJGQU0iPllvdW5nZXI8L2ZhbWlseT48Z2l2ZW4gcGFydFR5cGU9IkdJViI+R2FsbG93PC9naXZlbj4KICAgICAgICAgICAgICAgICAgICAgICAgCQk8L3ZhbHVlPjxzZW1hbnRpY3NUZXh0IHJlcHJlc2VudGF0aW9uPSJUWFQiLz48L2xpdmluZ1N1YmplY3ROYW1lPjwvcGFyYW1ldGVyTGlzdD48L3F1ZXJ5QnlQYXJhbWV0ZXI+</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectDetail</con:name>
+          <con:value>test</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Query.ParticipantObjectDetail</con:name>
+          <con:value>test</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Query.@ParticipantObjectDataLifeCycle</con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectName.@value</con:name>
+          <con:value>anonymus</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectDataLifeCycle</con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectSensitivity</con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Query.@ParticipantObjectSensitivity</con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Responder.@ParticipantObjectID</con:name>
+          <con:value>D123401^^^&amp;1.1&amp;ISO</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectBirthTime.semanticsText</con:name>
+          <con:value>LivingSubject.birthTime</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectName.value.given.@partType</con:name>
+          <con:value>GIV</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectName.value.family.@partType</con:name>
+          <con:value>FAM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>responseModalityCode.@code</con:name>
+          <con:value>R</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectBirthTime.value.@value</con:name>
+          <con:value>19630804</con:value>
+        </con:property>
+        <con:property>
+          <con:name>&lt;--ParticipantObjectIdentification_Query.ParticipantObjectQuery</con:name>
+          <con:value>checks --></con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectId.value.@root</con:name>
+          <con:value>1.1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectName.semanticsText</con:name>
+          <con:value>LivingSubject.name</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectName.semanticsText.@representation</con:name>
+          <con:value>TXT</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectId.value.@extension</con:name>
+          <con:value>1111</con:value>
+        </con:property>
+        <con:property>
+          <con:name>responsePriorityCode.@code</con:name>
+          <con:value>I</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectName.value.family</con:name>
+          <con:value>Younger</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectName.value.given</con:name>
+          <con:value>Gallow</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectAdministrativeGender.semanticsText.@representation</con:name>
+          <con:value>TXT</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectId.semanticsText.@representation</con:name>
+          <con:value>TXT</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectAdministrativeGender.semanticsText</con:name>
+          <con:value>LivingSubject.administrativeGender</con:value>
+        </con:property>
+        <con:property>
+          <con:name>queryId.@root</con:name>
+          <con:value>1.1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectBirthTime.semanticsText.@representation</con:name>
+          <con:value>TXT</con:value>
+        </con:property>
+        <con:property>
+          <con:name>parameterList.livingSubjectAdministrativeGender.value.@code</con:name>
+          <con:value>M</con:value>
+        </con:property>
+        <con:property>
+          <con:name>queryId.@extension</con:name>
+          <con:value>-abd3453dcd24wkkks545</con:value>
+        </con:property>
+        <con:property>
+          <con:name>statusCode.@code</con:name>
+          <con:value>new</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -9815,19 +10304,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-04-02T03:44:47Z</con:value>
+          <con:value>2015-08-31T19:48:59Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-04-02T03:54:47Z</con:value>
+          <con:value>2015-08-31T19:58:59Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/02/2015 03:44:47</con:value>
+          <con:value>08/31/2015 19:48:59</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-05-02T00:00:00Z</con:value>
+          <con:value>2015-09-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -10161,19 +10650,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-04-02T03:44:50Z</con:value>
+          <con:value>2015-08-31T19:49:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-04-02T03:54:50Z</con:value>
+          <con:value>2015-08-31T19:59:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/02/2015 03:44:50</con:value>
+          <con:value>08/31/2015 19:49:03</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-05-02T00:00:00Z</con:value>
+          <con:value>2015-09-30T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -10567,19 +11056,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-04-02T03:44:53Z</con:value>
+          <con:value>2015-08-31T19:49:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-04-02T03:54:53Z</con:value>
+          <con:value>2015-08-31T19:59:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/02/2015 03:44:53</con:value>
+          <con:value>08/31/2015 19:49:07</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-05-02T00:00:00Z</con:value>
+          <con:value>2015-09-30T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -11239,19 +11728,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-17T20:26:45Z</con:value>
+          <con:value>2015-08-31T19:49:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-17T20:36:45Z</con:value>
+          <con:value>2015-08-31T19:59:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/17/2015 20:26:45</con:value>
+          <con:value>08/31/2015 19:49:11</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-09-16T00:00:00Z</con:value>
+          <con:value>2015-09-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.@UserIsRequestor</con:name>
@@ -12150,19 +12639,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-05-27T18:53:06Z</con:value>
+          <con:value>2015-08-31T19:49:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-05-27T19:03:06Z</con:value>
+          <con:value>2015-08-31T19:59:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/27/2015 18:53:06</con:value>
+          <con:value>08/31/2015 19:49:12</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-06-26T00:00:00Z</con:value>
+          <con:value>2015-09-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -12178,7 +12667,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserID</con:name>
-          <con:value>https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/X12DocumentSubmission_Service</con:value>
+          <con:value>https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/GenericBatchRequestTransaction_Service</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name>
@@ -12383,6 +12872,10 @@ if (propertiesFile.exists()) {
         <con:property>
           <con:name>ActiveParticipant_Source.@UserIsRequestor.inbound</con:name>
           <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@displayName.Inbound</con:name>
+          <con:value>Import</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -13035,19 +13528,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-05-27T18:53:27Z</con:value>
+          <con:value>2015-08-31T19:49:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-05-27T19:03:27Z</con:value>
+          <con:value>2015-08-31T19:59:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/27/2015 18:53:27</con:value>
+          <con:value>08/31/2015 19:49:13</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-06-26T00:00:00Z</con:value>
+          <con:value>2015-09-30T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -13067,7 +13560,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserID</con:name>
-          <con:value>https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/X12DocumentSubmission_Service</con:value>
+          <con:value>https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/GenericBatchResponseTransaction_Service</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name>
@@ -13264,6 +13757,10 @@ if (propertiesFile.exists()) {
         <con:property>
           <con:name>ActiveParticipant_Source.@UserIsRequestor.inbound</con:name>
           <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@displayName.Inbound</con:name>
+          <con:value>Import</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
