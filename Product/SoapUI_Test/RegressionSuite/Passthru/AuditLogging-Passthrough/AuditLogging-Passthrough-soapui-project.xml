@@ -644,15 +644,15 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-31T19:47:52Z</con:value>
+          <con:value>2015-08-31T20:00:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-31T19:57:52Z</con:value>
+          <con:value>2015-08-31T20:10:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2015 19:47:52</con:value>
+          <con:value>08/31/2015 20:00:45</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -1035,15 +1035,15 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-31T19:47:56Z</con:value>
+          <con:value>2015-08-31T20:00:50Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-31T19:57:56Z</con:value>
+          <con:value>2015-08-31T20:10:50Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2015 19:47:56</con:value>
+          <con:value>08/31/2015 20:00:50</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -1560,15 +1560,15 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-31T19:47:59Z</con:value>
+          <con:value>2015-08-31T20:00:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-31T19:57:59Z</con:value>
+          <con:value>2015-08-31T20:10:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2015 19:47:59</con:value>
+          <con:value>08/31/2015 20:00:54</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -2184,15 +2184,15 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-31T19:48:03Z</con:value>
+          <con:value>2015-08-31T20:00:58Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-31T19:58:03Z</con:value>
+          <con:value>2015-08-31T20:10:58Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2015 19:48:03</con:value>
+          <con:value>08/31/2015 20:00:58</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -2838,15 +2838,15 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-31T19:48:07Z</con:value>
+          <con:value>2015-08-31T20:01:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-31T19:58:07Z</con:value>
+          <con:value>2015-08-31T20:11:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2015 19:48:07</con:value>
+          <con:value>08/31/2015 20:01:03</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -3297,22 +3297,22 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
    				<parameterList>
    					<livingSubjectAdministrativeGender>
    						<value code="M"/>
-   						<semanticsText representation="TXT"/>
+   						<urn:semanticsText representation="TXT">LivingSubject.administrativeGender</urn:semanticsText>
    					</livingSubjectAdministrativeGender>
    					<livingSubjectBirthTime>
    						<value value="19630804"/>
-   						<semanticsText representation="TXT"/>
+   						 <urn:semanticsText representation="TXT">LivingSubject.birthTime</urn:semanticsText>
    					</livingSubjectBirthTime>
    					<livingSubjectId>
    						<value root="1.1" extension="1111"/>
-   						<semanticsText representation="TXT"/>
+   						<urn:semanticsText representation="TXT">livingSubjectId</urn:semanticsText>
    					</livingSubjectId>
    					<livingSubjectName>
    						<value>
    							<family partType="FAM">Younger</family>
    							<given partType="GIV">Gallow</given>
                         		</value>
-                        		<semanticsText representation="TXT"/>
+                        		 <urn:semanticsText representation="TXT">LivingSubject.name</urn:semanticsText>
                         	</livingSubjectName>
                      </parameterList>
                  </queryByParameter>
@@ -4032,15 +4032,15 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-31T19:48:11Z</con:value>
+          <con:value>2015-08-31T20:01:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-31T19:58:11Z</con:value>
+          <con:value>2015-08-31T20:11:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2015 19:48:11</con:value>
+          <con:value>08/31/2015 20:01:09</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -4809,15 +4809,15 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-31T19:48:15Z</con:value>
+          <con:value>2015-08-31T20:01:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-31T19:58:15Z</con:value>
+          <con:value>2015-08-31T20:11:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2015 19:48:15</con:value>
+          <con:value>08/31/2015 20:01:14</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -5155,15 +5155,15 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-31T19:48:19Z</con:value>
+          <con:value>2015-08-31T20:01:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-31T19:58:19Z</con:value>
+          <con:value>2015-08-31T20:11:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2015 19:48:19</con:value>
+          <con:value>08/31/2015 20:01:19</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -5566,15 +5566,15 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-31T19:48:23Z</con:value>
+          <con:value>2015-08-31T20:01:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-31T19:58:23Z</con:value>
+          <con:value>2015-08-31T20:11:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2015 19:48:23</con:value>
+          <con:value>08/31/2015 20:01:23</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -6151,15 +6151,15 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-31T19:48:37Z</con:value>
+          <con:value>2015-08-31T20:01:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-31T19:58:37Z</con:value>
+          <con:value>2015-08-31T20:11:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2015 19:48:37</con:value>
+          <con:value>08/31/2015 20:01:35</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -6542,15 +6542,15 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-31T19:48:40Z</con:value>
+          <con:value>2015-08-31T20:01:39Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-31T19:58:40Z</con:value>
+          <con:value>2015-08-31T20:11:39Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2015 19:48:40</con:value>
+          <con:value>08/31/2015 20:01:39</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -7067,15 +7067,15 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-31T19:48:44Z</con:value>
+          <con:value>2015-08-31T20:01:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-31T19:58:44Z</con:value>
+          <con:value>2015-08-31T20:11:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2015 19:48:44</con:value>
+          <con:value>08/31/2015 20:01:43</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -7691,15 +7691,15 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-31T19:48:47Z</con:value>
+          <con:value>2015-08-31T20:01:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-31T19:58:47Z</con:value>
+          <con:value>2015-08-31T20:11:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2015 19:48:47</con:value>
+          <con:value>08/31/2015 20:01:47</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -8345,11 +8345,11 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-31T19:58:51Z</con:value>
+          <con:value>2015-08-31T20:11:51Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2015 19:48:51</con:value>
+          <con:value>08/31/2015 20:01:51</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -8357,7 +8357,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-31T19:48:51Z</con:value>
+          <con:value>2015-08-31T20:01:51Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -9539,15 +9539,15 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-31T19:48:55Z</con:value>
+          <con:value>2015-08-31T20:01:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-31T19:58:55Z</con:value>
+          <con:value>2015-08-31T20:11:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2015 19:48:55</con:value>
+          <con:value>08/31/2015 20:01:56</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -10304,15 +10304,15 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-31T19:48:59Z</con:value>
+          <con:value>2015-08-31T20:02:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-31T19:58:59Z</con:value>
+          <con:value>2015-08-31T20:12:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2015 19:48:59</con:value>
+          <con:value>08/31/2015 20:02:01</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -10650,15 +10650,15 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-31T19:49:03Z</con:value>
+          <con:value>2015-08-31T20:02:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-31T19:59:03Z</con:value>
+          <con:value>2015-08-31T20:12:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2015 19:49:03</con:value>
+          <con:value>08/31/2015 20:02:04</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -11056,15 +11056,15 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-31T19:49:07Z</con:value>
+          <con:value>2015-08-31T20:02:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-31T19:59:07Z</con:value>
+          <con:value>2015-08-31T20:12:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2015 19:49:07</con:value>
+          <con:value>08/31/2015 20:02:08</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -11728,15 +11728,15 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-31T19:49:11Z</con:value>
+          <con:value>2015-08-31T20:02:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-31T19:59:11Z</con:value>
+          <con:value>2015-08-31T20:12:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2015 19:49:11</con:value>
+          <con:value>08/31/2015 20:02:13</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -12639,15 +12639,15 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-31T19:49:12Z</con:value>
+          <con:value>2015-08-31T20:02:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-31T19:59:12Z</con:value>
+          <con:value>2015-08-31T20:12:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2015 19:49:12</con:value>
+          <con:value>08/31/2015 20:02:15</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -13528,15 +13528,15 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-31T19:49:13Z</con:value>
+          <con:value>2015-08-31T20:02:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-31T19:59:13Z</con:value>
+          <con:value>2015-08-31T20:12:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/31/2015 19:49:13</con:value>
+          <con:value>08/31/2015 20:02:16</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>

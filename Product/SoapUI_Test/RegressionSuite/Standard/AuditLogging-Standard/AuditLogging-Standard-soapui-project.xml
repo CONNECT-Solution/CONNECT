@@ -4553,15 +4553,15 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-30T18:19:59Z</con:value>
+          <con:value>2015-08-30T17:08:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-30T18:29:59Z</con:value>
+          <con:value>2015-08-30T17:18:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/30/2015 18:19:59</con:value>
+          <con:value>08/30/2015 17:08:31</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -10602,15 +10602,15 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-08-30T18:20:56Z</con:value>
+          <con:value>2015-08-30T17:09:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-08-30T18:30:56Z</con:value>
+          <con:value>2015-08-30T17:19:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/30/2015 18:20:56</con:value>
+          <con:value>08/30/2015 17:09:02</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
