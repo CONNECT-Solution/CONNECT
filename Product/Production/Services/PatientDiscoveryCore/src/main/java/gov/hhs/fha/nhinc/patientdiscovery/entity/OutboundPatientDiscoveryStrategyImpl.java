@@ -44,7 +44,6 @@ import org.hl7.v3.PRPAIN201306UV02;
 public class OutboundPatientDiscoveryStrategyImpl extends OutboundPatientDiscoveryStrategy {
 
     private static final Logger LOG = Logger.getLogger(OutboundPatientDiscoveryStrategyImpl.class);
-    private final PatientDiscoveryAuditLogger patientDiscoveryAuditor = new PatientDiscoveryAuditLogger();
 
     /**
      * @param message contains request message to execute
@@ -61,10 +60,6 @@ public class OutboundPatientDiscoveryStrategyImpl extends OutboundPatientDiscove
 
     public void executeStrategy(OutboundPatientDiscoveryOrchestratable message) {
         LOG.debug("begin executeStrategy");
-        patientDiscoveryAuditor.auditRequestMessage(message.getRequest(), message.getAssertion(),
-            message.getTarget(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-            Boolean.TRUE, null, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
-
         try {
             NhinPatientDiscoveryProxy proxy = new NhinPatientDiscoveryProxyObjectFactory()
                 .getNhinPatientDiscoveryProxy();
@@ -85,9 +80,6 @@ public class OutboundPatientDiscoveryStrategyImpl extends OutboundPatientDiscove
             message.setResponse(response);
             LOG.debug("executeStrategy returning error response");
         }
-        patientDiscoveryAuditor.auditResponseMessage(message.getRequest(), message.getResponse(), message.getAssertion(),
-            message.getTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-            Boolean.TRUE, null, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
 
     }
 

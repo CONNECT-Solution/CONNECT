@@ -46,7 +46,12 @@
             <version>${project.parent.version}</version>
             <type>war</type>
         </dependency>
-
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>AuditRepositoryCore</artifactId>
+            <version>${project.parent.version}</version>
+            <type>ejb</type>
+        </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCommonWeb</artifactId>
@@ -130,6 +135,10 @@
                             <artifactId>CONNECTAdapterWeb</artifactId>
                             <contextRoot>/CONNECTAdapter</contextRoot>
                         </webModule>
+                        <ejbModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>AuditRepositoryCore</artifactId>
+                        </ejbModule>
                     </modules>
                     <version>6</version>
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
