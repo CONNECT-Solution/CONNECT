@@ -411,7 +411,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
 
     private void auditRequest(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetSystemType target) {
         patientDiscoveryAuditor.auditRequestMessage(request, assertion, target,
-            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE,
             null, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
     }
 }

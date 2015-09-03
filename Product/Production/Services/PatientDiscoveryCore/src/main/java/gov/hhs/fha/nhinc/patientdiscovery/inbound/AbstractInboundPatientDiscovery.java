@@ -54,9 +54,7 @@ public abstract class AbstractInboundPatientDiscovery implements InboundPatientD
         Properties webContextProperties) throws PatientDiscoveryException {
 
         PRPAIN201306UV02 response = process(body, assertion, webContextProperties);
-
         auditResponseToNhin(body, response, assertion, webContextProperties);
-
         return response;
     }
 
