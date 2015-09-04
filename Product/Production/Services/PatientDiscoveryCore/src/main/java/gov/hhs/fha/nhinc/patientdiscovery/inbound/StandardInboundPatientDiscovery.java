@@ -74,7 +74,7 @@ public class StandardInboundPatientDiscovery extends AbstractInboundPatientDisco
 
         PRPAIN201306UV02 response = process(body, assertion, webContextProperties);
 
-        auditResponseToNhin(response, assertion, webContextProperties);
+        auditResponseToNhin(body, response, assertion, webContextProperties);
 
         return response;
     }
@@ -85,7 +85,7 @@ public class StandardInboundPatientDiscovery extends AbstractInboundPatientDisco
 
         PRPAIN201306UV02 response = patientDiscoveryProcessor.process201305(body, assertion);
 
-        auditResponseFromAdapter(response, assertion, webContextProperties);
+        auditResponseFromAdapter(body, response, assertion, webContextProperties);
 
         return response;
     }

@@ -92,6 +92,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
      * We construct the orch impl class with references to both executor services that could be used for this particular
      * orchestration instance. Determination of which executor service to use (largejob or regular) is based on the size
      * of the pdlist and configs
+     *
      * @param e
      * @param le
      */
@@ -130,7 +131,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
             } else {
                 auditRequestFromAdapter(request, assertion);
                 response = getResponseFromCommunities(request, assertion);
-                auditResponseToAdapter(response, assertion);
+                auditResponseToAdapter(request, response, assertion);
             }
         } catch (Exception e) {
             LOG.error("Exception occurred while getting responses", e);
@@ -206,7 +207,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
                     LOG.debug("Executing tasks to concurrently retrieve responses");
                     NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> pdExecutor = new NhinTaskExecutor<>(
                         ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size())
-                        ? largejobExecutor : regularExecutor, callableList, transactionId);
+                            ? largejobExecutor : regularExecutor, callableList, transactionId);
                     pdExecutor.executeTask();
                     LOG.debug("Aggregating all responses");
                     response = getCumulativeResponse(pdExecutor);
@@ -294,6 +295,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
 
     /**
      * Policy Check verification done here....from connect code
+     *
      * @param request
      * @return
      */
@@ -417,11 +419,12 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
             null, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
     }
 
-    private void auditResponseToAdapter(RespondingGatewayPRPAIN201306UV02ResponseType response,
+    private void auditResponseToAdapter(RespondingGatewayPRPAIN201305UV02RequestType request,
+        RespondingGatewayPRPAIN201306UV02ResponseType response,
         AssertionType assertion) {
 
         for (CommunityPRPAIN201306UV02ResponseType responseEntry : response.getCommunityResponse()) {
-            patientDiscoveryAuditor.auditResponseMessage(responseEntry.getPRPAIN201306UV02(), assertion,
+            patientDiscoveryAuditor.auditResponseMessage(request.getPRPAIN201305UV02(), responseEntry.getPRPAIN201306UV02(), assertion,
                 MessageGeneratorUtils.getInstance().convertToNhinTargetSystemType(
                     responseEntry.getNhinTargetCommunity()), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null,

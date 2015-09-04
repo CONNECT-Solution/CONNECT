@@ -114,14 +114,14 @@ public abstract class AuditTransforms<T, K> {
      * @param serviceName Service Name
      * @return Audit Request
      */
-    public final LogEventRequestType transformResponseToAuditMsg(K response, AssertionType assertion,
+    public final LogEventRequestType transformResponseToAuditMsg(T request, K response, AssertionType assertion,
         NhinTargetSystemType target, String direction, String _interface, boolean isRequesting,
         Properties webContextProperties, String serviceName) {
 
         // TODO: auditMsg should either use a builder, or modify in-method with no return
         AuditMessageType auditMsg = createBaseAuditMessage(assertion, target, isRequesting, webContextProperties,
             serviceName);
-        auditMsg = getParticipantObjectIdentificationForResponse(response, assertion, auditMsg);
+        auditMsg = getParticipantObjectIdentificationForResponse(request, response, assertion, auditMsg);
 
         return buildLogEventRequestType(auditMsg, direction, _interface,
             getMessageCommunityId(assertion, target, isRequesting));
@@ -146,7 +146,7 @@ public abstract class AuditTransforms<T, K> {
      * @param auditMsg
      * @return
      */
-    protected abstract AuditMessageType getParticipantObjectIdentificationForResponse(K response,
+    protected abstract AuditMessageType getParticipantObjectIdentificationForResponse(T request, K response,
         AssertionType assertion, AuditMessageType auditMsg);
 
     private AuditSourceIdentificationType getAuditSourceIdentificationType() {

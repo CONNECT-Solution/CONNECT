@@ -92,7 +92,7 @@ public class StandardInboundPatientDiscoveryTest {
             eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME));
 
-        verify(auditLogger).auditResponseMessage(eq(actualResponse), eq(assertion), eq(target),
+        verify(auditLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), eq(target),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME));
 
@@ -100,7 +100,7 @@ public class StandardInboundPatientDiscoveryTest {
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
             eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME));
 
-        verify(auditLogger).auditResponseMessage(eq(actualResponse), eq(assertion), eq(target),
+        verify(auditLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), eq(target),
             eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
             eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME));
     }

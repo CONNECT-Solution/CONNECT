@@ -181,9 +181,10 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
 
         };
 
+        PRPAIN201305UV02 request = createPRPAIN201305UV02Request();
         PRPAIN201306UV02 response = createPRPAIN201306UV02Response();
         AssertionType assertion = createAssertion();
-        LogEventRequestType auditRequest = transforms.transformResponseToAuditMsg(response, assertion,
+        LogEventRequestType auditRequest = transforms.transformResponseToAuditMsg(request, response, assertion,
             createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
             Boolean.TRUE, webContextProperties, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
         testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE);

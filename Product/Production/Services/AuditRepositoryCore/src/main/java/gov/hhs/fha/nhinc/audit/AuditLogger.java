@@ -84,11 +84,11 @@ public abstract class AuditLogger<T, K> {
      * @param webContextProperties Properties loaded from message context
      * @param serviceName Name of the Service being audited
      */
-    public void auditResponseMessage(K response, AssertionType assertion, NhinTargetSystemType target, String direction,
+    public void auditResponseMessage(T request, K response, AssertionType assertion, NhinTargetSystemType target, String direction,
         String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName) {
 
         LOG.trace("--- Before auditing of response message ---");
-        LogEventRequestType auditLogMsg = getAuditTransforms().transformResponseToAuditMsg(response, assertion,
+        LogEventRequestType auditLogMsg = getAuditTransforms().transformResponseToAuditMsg(request, response, assertion,
             target, direction, _interface, isRequesting, webContextProperties, serviceName);
         auditLogMessages(auditLogMsg, assertion);
         LOG.trace("--- After auditing of response message ---");
