@@ -72,7 +72,7 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
     }
 
     @Override
-    protected AuditMessageType getParticipantObjectIdentificationForResponse(PRPAIN201306UV02 response,
+    protected AuditMessageType getParticipantObjectIdentificationForResponse(PRPAIN201305UV02 request, PRPAIN201306UV02 response,
         AssertionType assertion, AuditMessageType auditMsg) {
 
         auditMsg = getPatientParticipantObjectIdentificationForResponse(response, auditMsg);

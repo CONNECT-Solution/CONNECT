@@ -57,7 +57,7 @@ public abstract class AbstractInboundPatientDiscovery implements InboundPatientD
 
         PRPAIN201306UV02 response = process(body, assertion, webContextProperties);
 
-        auditResponseToNhin(response, assertion, webContextProperties);
+        auditResponseToNhin(body, response, assertion, webContextProperties);
 
         return response;
     }
@@ -70,10 +70,10 @@ public abstract class AbstractInboundPatientDiscovery implements InboundPatientD
             NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
     }
 
-    protected void auditResponseToNhin(PRPAIN201306UV02 response, AssertionType assertion,
+    protected void auditResponseToNhin(PRPAIN201305UV02 request, PRPAIN201306UV02 response, AssertionType assertion,
         Properties webContextProperties) {
 
-        getAuditLogger().auditResponseMessage(response, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+        getAuditLogger().auditResponseMessage(request, response, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
             NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, webContextProperties,
             NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
     }
@@ -86,10 +86,10 @@ public abstract class AbstractInboundPatientDiscovery implements InboundPatientD
             NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
     }
 
-    protected void auditResponseFromAdapter(PRPAIN201306UV02 response, AssertionType assertion,
+    protected void auditResponseFromAdapter(PRPAIN201305UV02 request, PRPAIN201306UV02 response, AssertionType assertion,
         Properties webContextProperties) {
 
-        getAuditLogger().auditResponseMessage(response, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+        getAuditLogger().auditResponseMessage(request, response, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
             NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, Boolean.FALSE, webContextProperties,
             NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
     }
