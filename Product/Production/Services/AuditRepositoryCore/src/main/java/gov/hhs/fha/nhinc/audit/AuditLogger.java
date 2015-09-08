@@ -68,8 +68,6 @@ public abstract class AuditLogger<T, K> {
         if (getAuditLogger() != null) {
             getAuditLogger().auditRequestMessage(request, assertion, target, direction, _interface, isRequesting,
                 webContextProperties, serviceName, getAuditTransforms());
-        } else {
-            LOG.error("Error looking into EJB JNDI Object");
         }
         LOG.trace("--- After auditing of request message ---");
     }
@@ -89,15 +87,14 @@ public abstract class AuditLogger<T, K> {
      * @param webContextProperties Properties loaded from message context
      * @param serviceName Name of the Service being audited
      */
-    public void auditResponseMessage(T request, K response, AssertionType assertion, NhinTargetSystemType target, String direction,
-        String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName) {
+    public void auditResponseMessage(T request, K response, AssertionType assertion, NhinTargetSystemType target,
+        String direction, String _interface, Boolean isRequesting, Properties webContextProperties,
+        String serviceName) {
 
         LOG.trace("--- Before auditing of response message ---");
         if (getAuditLogger() != null) {
-            getAuditLogger().auditResponseMessage(request, response, assertion, target, direction, _interface, isRequesting,
-                webContextProperties, serviceName, getAuditTransforms());
-        } else {
-            LOG.error("Error looking into EJB JNDI Object");
+            getAuditLogger().auditResponseMessage(request, response, assertion, target, direction, _interface,
+                isRequesting, webContextProperties, serviceName, getAuditTransforms());
         }
         LOG.trace("--- After auditing of response message ---");
     }

@@ -39,12 +39,9 @@ import org.hl7.v3.PRPAIN201306UV02;
 import static org.junit.Assert.assertSame;
 import org.junit.Test;
 import org.mockito.InOrder;
-import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**

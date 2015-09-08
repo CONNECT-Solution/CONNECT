@@ -205,8 +205,9 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
                 }
                 if (callableList.size() > 0) {
                     LOG.debug("Executing tasks to concurrently retrieve responses");
-                    NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> pdExecutor = new NhinTaskExecutor<>(
-                        ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size())
+                    NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> 
+                        pdExecutor = new NhinTaskExecutor<>(
+                            ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size())
                             ? largejobExecutor : regularExecutor, callableList, transactionId);
                     pdExecutor.executeTask();
                     LOG.debug("Aggregating all responses");

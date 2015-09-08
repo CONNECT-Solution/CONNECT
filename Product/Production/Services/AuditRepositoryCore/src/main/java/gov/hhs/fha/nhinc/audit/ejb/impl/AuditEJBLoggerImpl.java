@@ -59,22 +59,25 @@ public class AuditEJBLoggerImpl<T, K> implements AuditEJBLogger<T, K> {
      * @param isRequesting true for initiator, false for responder
      * @param webContextProperties Properties loaded from message context
      * @param serviceName Name of the Service being audited
+     * @param transforms Instance of service specific Transforms
      */
     @Asynchronous
     @Override
-    public void auditRequestMessage(T request, AssertionType assertion, NhinTargetSystemType target, String direction, String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName, AuditTransforms transforms) {
-        LOG.trace("--- Before auditing of request message ---");
+    public void auditRequestMessage(T request, AssertionType assertion, NhinTargetSystemType target,
+        String direction, String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName,
+        AuditTransforms transforms) {
+        LOG.trace("--- Before asynchronous audit call of request message ---");
         LogEventRequestType auditLogMsg = transforms.transformRequestToAuditMsg(request, assertion, target,
             direction, _interface, isRequesting, webContextProperties, serviceName);
         auditLogMessages(auditLogMsg, assertion);
-        LOG.trace("--- After auditing of request message ---");
+        LOG.trace("--- After asynchronous audit call of request message ---");
     }
 
     /**
      * EJB Asynchronous call to handle AuditRepository client
      *
-     * @param request
-     * @param response Request to be audited
+     * @param request Request needed for response auditing
+     * @param response Response to be audited
      * @param assertion assertion to be audited
      * @param target target community
      * @param direction defines the Outbound/Inbound message
@@ -82,16 +85,18 @@ public class AuditEJBLoggerImpl<T, K> implements AuditEJBLogger<T, K> {
      * @param isRequesting true for initiator, false for responder
      * @param webContextProperties Properties loaded from message context
      * @param serviceName Name of the Service being audited
-     * @param transforms
+     * @param transforms Instance of service specific Transforms
      */
     @Asynchronous
     @Override
-    public void auditResponseMessage(T request, K response, AssertionType assertion, NhinTargetSystemType target, String direction, String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName, AuditTransforms transforms) {
-        LOG.trace("--- Before auditing of response message ---");
+    public void auditResponseMessage(T request, K response, AssertionType assertion, NhinTargetSystemType target,
+        String direction, String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName,
+        AuditTransforms transforms) {
+        LOG.trace("--- Before asynchronous audit call of response message ---");
         LogEventRequestType auditLogMsg = transforms.transformResponseToAuditMsg(request, response, assertion,
             target, direction, _interface, isRequesting, webContextProperties, serviceName);
         auditLogMessages(auditLogMsg, assertion);
-        LOG.trace("--- After auditing of response message ---");
+        LOG.trace("--- After asynchronous audit call of response message ---");
     }
 
     private void auditLogMessages(LogEventRequestType auditLogMsg, AssertionType assertion) {
