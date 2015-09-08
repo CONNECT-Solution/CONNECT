@@ -24,34 +24,32 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.audit;
+package gov.hhs.fha.nhinc.audit.ejb.impl;
 
 import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
+import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
+import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.Properties;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import javax.ejb.Asynchronous;
+import javax.ejb.Stateless;
 import org.apache.log4j.Logger;
 
 /**
- * ATNA-compliant audit logger template class. Each individual service logger will implement this class, but provide its
- * own implementation.
  *
- * @author achidamb, cmay
- * @param <T>
- * @param <K>
+ * @author achidamb
+ * @param <T> Request
+ * @param <K> Response
  */
-public abstract class AuditLogger<T, K> {
+@Stateless
+public class AuditEJBLoggerImpl<T, K> implements AuditEJBLogger<T, K> {
 
-    private static final Logger LOG = Logger.getLogger(AuditLogger.class);
+    private static final Logger LOG = Logger.getLogger(AuditEJBLoggerImpl.class);
 
     /**
-     * ATNA-compliant logging for a request message of type T
-     * <P>
-     * TODO: This method should be final, but cannot due to the way PD inbound JUnit tests have been written.
+     * EJB Asynchronous call to handle AuditRepository client
      *
      * @param request Request to be audited
      * @param assertion assertion to be audited
@@ -61,59 +59,52 @@ public abstract class AuditLogger<T, K> {
      * @param isRequesting true for initiator, false for responder
      * @param webContextProperties Properties loaded from message context
      * @param serviceName Name of the Service being audited
+     * @param transforms Instance of service specific Transforms
      */
-    public void auditRequestMessage(T request, AssertionType assertion, NhinTargetSystemType target, String direction,
-        String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName) {
-        LOG.trace("--- Before auditing of request message ---");
-        if (getAuditLogger() != null) {
-            getAuditLogger().auditRequestMessage(request, assertion, target, direction, _interface, isRequesting,
-                webContextProperties, serviceName, getAuditTransforms());
-        }
-        LOG.trace("--- After auditing of request message ---");
+    @Asynchronous
+    @Override
+    public void auditRequestMessage(T request, AssertionType assertion, NhinTargetSystemType target,
+        String direction, String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName,
+        AuditTransforms transforms) {
+        LOG.trace("--- Before asynchronous audit call of request message ---");
+        LogEventRequestType auditLogMsg = transforms.transformRequestToAuditMsg(request, assertion, target,
+            direction, _interface, isRequesting, webContextProperties, serviceName);
+        auditLogMessages(auditLogMsg, assertion);
+        LOG.trace("--- After asynchronous audit call of request message ---");
     }
 
     /**
-     * ATNA-compliant logging for a response message of type K
-     * <P>
-     * TODO: This method should be final, but cannot due to the way PD inbound JUnit tests have been written.
+     * EJB Asynchronous call to handle AuditRepository client
      *
-     * @param request Request param
+     * @param request Request needed for response auditing
      * @param response Response to be audited
      * @param assertion assertion to be audited
      * @param target target community
      * @param direction defines the Outbound/Inbound message
      * @param _interface Entity, Adapter or Nwhin
-     * @param isRequesting true/false identifies initiator/responder
+     * @param isRequesting true for initiator, false for responder
      * @param webContextProperties Properties loaded from message context
      * @param serviceName Name of the Service being audited
+     * @param transforms Instance of service specific Transforms
      */
+    @Asynchronous
+    @Override
     public void auditResponseMessage(T request, K response, AssertionType assertion, NhinTargetSystemType target,
-        String direction, String _interface, Boolean isRequesting, Properties webContextProperties,
-        String serviceName) {
-
-        LOG.trace("--- Before auditing of response message ---");
-        if (getAuditLogger() != null) {
-            getAuditLogger().auditResponseMessage(request, response, assertion, target, direction, _interface,
-                isRequesting, webContextProperties, serviceName, getAuditTransforms());
-        }
-        LOG.trace("--- After auditing of response message ---");
+        String direction, String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName,
+        AuditTransforms transforms) {
+        LOG.trace("--- Before asynchronous audit call of response message ---");
+        LogEventRequestType auditLogMsg = transforms.transformResponseToAuditMsg(request, response, assertion,
+            target, direction, _interface, isRequesting, webContextProperties, serviceName);
+        auditLogMessages(auditLogMsg, assertion);
+        LOG.trace("--- After asynchronous audit call of response message ---");
     }
 
-    private AuditEJBLogger getAuditLogger() {
-        try {
-            String globalAuditLoggerAsyncEJBName = "java:app/" + NhincConstants.EJB_CORE_MODULE_NAME + "/"
-                + NhincConstants.AUDIT_LOGGER_EJB_BEAN_NAME;
-            return (AuditEJBLogger) (new InitialContext()).lookup(globalAuditLoggerAsyncEJBName);
-        } catch (NamingException ex) {
-            LOG.error("JNDI EJB Lookup Failed : " + ex.getMessage(), ex);
-            return null;
+    private void auditLogMessages(LogEventRequestType auditLogMsg, AssertionType assertion) {
+        if (auditLogMsg != null && auditLogMsg.getAuditMessage() != null) {
+            new AuditRepositoryProxyObjectFactory().getAuditRepositoryProxy().auditLog(auditLogMsg, assertion);
+        } else {
+            LOG.error("auditLogMsg is null, no auditing will take place.");
         }
     }
 
-    /**
-     * Returns the AuditTransforms implementation needed for auditing the current service.
-     *
-     * @return a constructed AuditTransforms implementation
-     */
-    protected abstract AuditTransforms<T, K> getAuditTransforms();
 }

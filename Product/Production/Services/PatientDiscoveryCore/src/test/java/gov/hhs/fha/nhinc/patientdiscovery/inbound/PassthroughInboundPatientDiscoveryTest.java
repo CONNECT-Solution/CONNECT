@@ -39,12 +39,9 @@ import org.hl7.v3.PRPAIN201306UV02;
 import static org.junit.Assert.assertSame;
 import org.junit.Test;
 import org.mockito.InOrder;
-import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -79,21 +76,11 @@ public class PassthroughInboundPatientDiscoveryTest {
 
         InOrder inOrder = inOrder(auditLogger);
 
-        inOrder.verify(auditLogger).auditRequestMessage(eq(request), eq(assertion), eq(target),
-            eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-            eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME));
 
         inOrder.verify(auditLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), eq(target),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME));
 
-        verify(auditLogger, never()).auditRequestMessage(eq(request), any(AssertionType.class), eq(target),
-            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
-            eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME));
-
-        verify(auditLogger, never()).auditResponseMessage(eq(request), eq(actualResponse), any(AssertionType.class),
-            eq(target), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
-            eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME));
     }
 
 }

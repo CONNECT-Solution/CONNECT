@@ -54,6 +54,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryDelegate;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryOrchestratable;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryProcessor;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
@@ -129,9 +130,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
             } else if (request.getPRPAIN201305UV02() == null) {
                 throw new Exception("PatientDiscovery PRPAIN201305UV02 request was null.");
             } else {
-                auditRequestFromAdapter(request, assertion);
                 response = getResponseFromCommunities(request, assertion);
-                auditResponseToAdapter(request, response, assertion);
             }
         } catch (Exception e) {
             LOG.error("Exception occurred while getting responses", e);
@@ -190,6 +189,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
 
                         OutboundPatientDiscoveryOrchestratable message = createOrchestratable(
                             newRequest.getPRPAIN201305UV02(), newRequest.getAssertion(), target, gatewayLevel);
+                        auditRequest(message.getRequest(), message.getAssertion(), message.getTarget());
                         callableList.add(new NhinCallableRequest<OutboundPatientDiscoveryOrchestratable>(message));
 
                         LOG.debug("Added NhinCallableRequest" + " for hcid="
@@ -205,8 +205,9 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
                 }
                 if (callableList.size() > 0) {
                     LOG.debug("Executing tasks to concurrently retrieve responses");
-                    NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> pdExecutor = new NhinTaskExecutor<>(
-                        ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size())
+                    NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> 
+                        pdExecutor = new NhinTaskExecutor<>(
+                            ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size())
                             ? largejobExecutor : regularExecutor, callableList, transactionId);
                     pdExecutor.executeTask();
                     LOG.debug("Aggregating all responses");
@@ -396,8 +397,8 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
         try {
             sHomeCommunity = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                 NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
-        } catch (Exception ex) {
-            LOG.error(ex.getMessage());
+        } catch (PropertyAccessException ex) {
+            LOG.error("Error while retrieving the HomeCommunityId: " + ex);
         }
         return sHomeCommunity;
     }
@@ -409,26 +410,9 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
         return new PatientDiscoveryAuditLogger();
     }
 
-    private void auditRequestFromAdapter(RespondingGatewayPRPAIN201305UV02RequestType request,
-        AssertionType assertion) {
-
-        NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance()
-            .convertFirstToNhinTargetSystemType(request.getNhinTargetCommunities());
-        patientDiscoveryAuditor.auditRequestMessage(request.getPRPAIN201305UV02(), assertion, targetSystem,
-            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE,
+    private void auditRequest(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetSystemType target) {
+        patientDiscoveryAuditor.auditRequestMessage(request, assertion, target,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE,
             null, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
-    }
-
-    private void auditResponseToAdapter(RespondingGatewayPRPAIN201305UV02RequestType request,
-        RespondingGatewayPRPAIN201306UV02ResponseType response,
-        AssertionType assertion) {
-
-        for (CommunityPRPAIN201306UV02ResponseType responseEntry : response.getCommunityResponse()) {
-            patientDiscoveryAuditor.auditResponseMessage(request.getPRPAIN201305UV02(), responseEntry.getPRPAIN201306UV02(), assertion,
-                MessageGeneratorUtils.getInstance().convertToNhinTargetSystemType(
-                    responseEntry.getNhinTargetCommunity()), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null,
-                NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
-        }
     }
 }

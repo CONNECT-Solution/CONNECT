@@ -64,7 +64,8 @@ public class PassthroughInboundPatientDiscovery extends AbstractInboundPatientDi
     }
 
     @Override
-    PRPAIN201306UV02 process(PRPAIN201305UV02 body, AssertionType assertion, Properties webContextProperties) throws PatientDiscoveryException {
+    PRPAIN201306UV02 process(PRPAIN201305UV02 body, AssertionType assertion, Properties webContextProperties) 
+        throws PatientDiscoveryException {
         PRPAIN201306UV02 response = sendToAdapter(body, assertion);
 
         return response;
@@ -82,7 +83,7 @@ public class PassthroughInboundPatientDiscovery extends AbstractInboundPatientDi
 
     private PRPAIN201306UV02 sendToAdapter(PRPAIN201305UV02 request, AssertionType assertion)
         throws PatientDiscoveryException {
-        
+
         return adapterFactory.create().respondingGatewayPRPAIN201305UV02(request, assertion);
     }
 

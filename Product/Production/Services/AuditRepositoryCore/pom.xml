@@ -26,6 +26,12 @@
             <groupId>org.connectopensource</groupId>
             <artifactId>AuditRepositoryWebservices</artifactId>
         </dependency>
+        
+        <!-- Java EE APIs -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+        </dependency>
 
         <!-- Persistence -->
         <dependency>
