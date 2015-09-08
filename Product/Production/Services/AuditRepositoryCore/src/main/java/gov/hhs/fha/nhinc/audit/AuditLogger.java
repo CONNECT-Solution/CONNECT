@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.audit;
 
 import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -69,6 +68,8 @@ public abstract class AuditLogger<T, K> {
         if (getAuditLogger() != null) {
             getAuditLogger().auditRequestMessage(request, assertion, target, direction, _interface, isRequesting,
                 webContextProperties, serviceName, getAuditTransforms());
+        } else {
+            LOG.error("Error looking into EJB JNDI Object");
         }
         LOG.trace("--- After auditing of request message ---");
     }
@@ -78,6 +79,7 @@ public abstract class AuditLogger<T, K> {
      * <P>
      * TODO: This method should be final, but cannot due to the way PD inbound JUnit tests have been written.
      *
+     * @param request Request param
      * @param response Response to be audited
      * @param assertion assertion to be audited
      * @param target target community
@@ -94,6 +96,8 @@ public abstract class AuditLogger<T, K> {
         if (getAuditLogger() != null) {
             getAuditLogger().auditResponseMessage(request, response, assertion, target, direction, _interface, isRequesting,
                 webContextProperties, serviceName, getAuditTransforms());
+        } else {
+            LOG.error("Error looking into EJB JNDI Object");
         }
         LOG.trace("--- After auditing of response message ---");
     }

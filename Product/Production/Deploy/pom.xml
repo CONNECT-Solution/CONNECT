@@ -120,7 +120,12 @@
                 <artifactId>maven-ear-plugin</artifactId>
                 <configuration>
                     <applicationName>CONNECT</applicationName>
+                    <initialize-in-order>true</initialize-in-order>
                     <modules>
+                        <ejbModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>AuditRepositoryCore</artifactId>
+                        </ejbModule>
                         <webModule>
                             <groupId>org.connectopensource</groupId>
                             <artifactId>CONNECTCommonWeb</artifactId>
@@ -136,10 +141,6 @@
                             <artifactId>CONNECTAdapterWeb</artifactId>
                             <contextRoot>/CONNECTAdapter</contextRoot>
                         </webModule>
-                        <ejbModule>
-                            <groupId>org.connectopensource</groupId>
-                            <artifactId>AuditRepositoryCore</artifactId>
-                        </ejbModule>
                     </modules>
                     <version>6</version>
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
