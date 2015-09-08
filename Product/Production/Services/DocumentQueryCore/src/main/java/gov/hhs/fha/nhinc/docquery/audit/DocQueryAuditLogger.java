@@ -24,32 +24,22 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery._20.nhin;
+package gov.hhs.fha.nhinc.docquery.audit;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docquery.inbound.InboundDocQuery;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
-
-import javax.xml.ws.WebServiceContext;
-
+import gov.hhs.fha.nhinc.audit.AuditLogger;
+import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
+import gov.hhs.fha.nhinc.docquery.audit.transform.DocQueryAuditTransforms;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-public class DocQueryImpl extends BaseService {
+/**
+ *
+ * @author tjafri
+ */
+public class DocQueryAuditLogger extends AuditLogger<AdhocQueryRequest, AdhocQueryResponse> {
 
-    private InboundDocQuery inboundDocQuery;
-
-    public DocQueryImpl(InboundDocQuery inboundDocQuery) {
-        this.inboundDocQuery = inboundDocQuery;
-    }
-
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, WebServiceContext context) {
-        AssertionType assertion = getAssertion(context, null);
-        if (assertion != null) {
-            assertion.setImplementsSpecVersion(UDDI_SPEC_VERSION.SPEC_2_0.toString());
-        }
-
-        return inboundDocQuery.respondingGatewayCrossGatewayQuery(body, assertion, this.getWebContextProperties(context));
+    @Override
+    protected AuditTransforms<AdhocQueryRequest, AdhocQueryResponse> getAuditTransforms() {
+        return new DocQueryAuditTransforms();
     }
 }

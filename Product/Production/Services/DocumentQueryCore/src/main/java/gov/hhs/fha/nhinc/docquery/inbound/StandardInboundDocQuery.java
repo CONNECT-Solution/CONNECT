@@ -27,17 +27,17 @@
 package gov.hhs.fha.nhinc.docquery.inbound;
 
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
 import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
+import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
@@ -55,7 +55,7 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
     }
 
     public StandardInboundDocQuery(DocQueryPolicyChecker policyChecker,
-            AdapterDocQueryProxyObjectFactory adapterFactory, DocQueryAuditLog auditLogger) {
+        AdapterDocQueryProxyObjectFactory adapterFactory, DocQueryAuditLogger auditLogger) {
         this.policyChecker = policyChecker;
         this.adapterFactory = adapterFactory;
         this.auditLogger = auditLogger;
@@ -63,25 +63,26 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
 
     /**
      *
-     * @param body
+     * @param msg
      * @param assertion
+     * @param webContextProperties
      * @return <code>AdhocQueryResponse</code>
      */
     @Override
     @InboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
-            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
-            version = "")
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
+        afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
+        version = "")
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, Properties webContextProperties) {
         String senderHcid = null;
         if (msg != null) {
             senderHcid = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
         }
 
-        auditRequestFromNhin(msg, assertion, senderHcid);
+        auditRequestFromNhin(msg, assertion, senderHcid, webContextProperties);
 
-        AdhocQueryResponse resp = processDocQuery(msg, assertion, getLocalHomeCommunityId());
+        AdhocQueryResponse resp = processDocQuery(msg, assertion, getLocalHomeCommunityId(), webContextProperties);
 
-        auditResponseToNhin(resp, assertion, senderHcid);
+        auditResponseToNhin(msg, resp, assertion, senderHcid, webContextProperties);
 
         return resp;
     }
@@ -94,12 +95,11 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
      * @return
      */
     @Override
-    AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String requestCommunityID) {
+    AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String requestCommunityID, Properties webContextProperties) {
         AdhocQueryResponse resp = null;
 
-        String respondingHcid = getLocalHomeCommunityId();
-
-        auditRequestToAdapter(msg, assertion, respondingHcid);
+        //String respondingHcid = getLocalHomeCommunityId();
+        auditRequestToAdapter(msg, assertion, webContextProperties);
 
         if (isPolicyValid(msg, assertion)) {
             resp = sendToAdapter(msg, assertion);
@@ -107,7 +107,7 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
             resp = MessageGeneratorUtils.getInstance().createPolicyErrorResponse();
         }
 
-        auditRequestFromAdapter(resp, assertion, respondingHcid);
+        auditRequestFromAdapter(msg, resp, assertion, webContextProperties);
 
         return resp;
     }
@@ -121,26 +121,19 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
         return adapterProxy.respondingGatewayCrossGatewayQuery(msg, assertion);
     }
 
-    private AcknowledgementType auditRequestToAdapter(AdhocQueryRequest msg, AssertionType assertion,
-            String requestCommunityID) {
-        AcknowledgementType ack = auditLogger
-                .auditDQRequest(msg, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                        NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, requestCommunityID);
-
-        return ack;
-    }
-
-    private AcknowledgementType auditRequestFromAdapter(AdhocQueryResponse response, AssertionType assertion,
-            String requestCommunityID) {
-        AcknowledgementType ack = auditLogger
-                .auditDQResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                        NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, requestCommunityID);
-
-        return ack;
-    }
-
-    protected String getLocalHomeCommunityId(){
+    protected String getLocalHomeCommunityId() {
         return HomeCommunityMap.getLocalHomeCommunityId();
     }
 
+    private void auditRequestToAdapter(AdhocQueryRequest msg, AssertionType assertion, Properties webContextProperties) {
+        auditLogger.auditRequestMessage(msg, assertion, null,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE,
+            Boolean.FALSE, webContextProperties, NhincConstants.DOC_QUERY_SERVICE_NAME);
+    }
+
+    private void auditRequestFromAdapter(AdhocQueryRequest request, AdhocQueryResponse response, AssertionType assertion, Properties webContextProperties) {
+        auditLogger.auditResponseMessage(request, response, assertion, null,
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE,
+            Boolean.FALSE, webContextProperties, NhincConstants.DOC_QUERY_SERVICE_NAME);
+    }
 }

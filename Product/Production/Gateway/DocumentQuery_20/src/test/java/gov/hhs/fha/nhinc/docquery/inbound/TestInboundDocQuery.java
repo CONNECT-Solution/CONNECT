@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.docquery.inbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
@@ -42,7 +43,7 @@ public class TestInboundDocQuery implements InboundDocQuery {
      * @return an empty AdhocQueryResponse
      */
     @Override
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, Properties webContextProperties) {
         return new AdhocQueryResponse();
     }
 }

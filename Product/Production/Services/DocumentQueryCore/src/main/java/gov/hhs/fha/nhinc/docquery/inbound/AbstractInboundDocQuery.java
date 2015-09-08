@@ -26,65 +26,61 @@
  */
 package gov.hhs.fha.nhinc.docquery.inbound;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
+import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 public abstract class AbstractInboundDocQuery implements InboundDocQuery {
 
-    abstract AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String hcid);
+    abstract AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String hcid, Properties webContextProperties);
 
-    protected DocQueryAuditLog auditLogger;
+    protected DocQueryAuditLogger auditLogger;
 
     AbstractInboundDocQuery() {
-        this.auditLogger = new DocQueryAuditLog();
+        this.auditLogger = new DocQueryAuditLogger();
     }
 
-    AbstractInboundDocQuery(DocQueryAuditLog auditLogger) {
+    AbstractInboundDocQuery(DocQueryAuditLogger auditLogger) {
         this.auditLogger = auditLogger;
     }
 
     /**
      *
-     * @param body
+     * @param msg
      * @param assertion
+     * @param webContextProperties
      * @return <code>AdhocQueryResponse</code>
      */
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
+    @Override
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, Properties webContextProperties) {
         String senderHcid = null;
         if (msg != null) {
             senderHcid = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
         }
 
-        auditRequestFromNhin(msg, assertion, senderHcid);
+        auditRequestFromNhin(msg, assertion, senderHcid, webContextProperties);
 
-        AdhocQueryResponse resp = processDocQuery(msg, assertion, HomeCommunityMap.getLocalHomeCommunityId());
+        AdhocQueryResponse resp = processDocQuery(msg, assertion, HomeCommunityMap.getLocalHomeCommunityId(), webContextProperties);
 
-        auditResponseToNhin(resp, assertion, senderHcid);
+        auditResponseToNhin(msg, resp, assertion, senderHcid, webContextProperties);
 
         return resp;
     }
 
-    protected AcknowledgementType auditRequestFromNhin(AdhocQueryRequest msg, AssertionType assertion,
-            String requestCommunityID) {
-        AcknowledgementType ack = auditLogger
-                .auditDQRequest(msg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                        NhincConstants.AUDIT_LOG_NHIN_INTERFACE, requestCommunityID);
-
-        return ack;
+    protected void auditRequestFromNhin(AdhocQueryRequest msg, AssertionType assertion,
+        String requestCommunityID, Properties webContextProperties) {
+        auditLogger.auditRequestMessage(msg, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, webContextProperties, NhincConstants.DOC_QUERY_SERVICE_NAME);
     }
 
-    protected AcknowledgementType auditResponseToNhin(AdhocQueryResponse msg, AssertionType assertion,
-            String requestCommunityID) {
-        AcknowledgementType ack = auditLogger.auditDQResponse(msg, assertion,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                requestCommunityID);
-
-        return ack;
+    protected void auditResponseToNhin(AdhocQueryRequest request, AdhocQueryResponse msg, AssertionType assertion,
+        String requestCommunityID, Properties webContextProperties) {
+        auditLogger.auditResponseMessage(request, msg, assertion, null,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+            Boolean.FALSE, webContextProperties, NhincConstants.DOC_QUERY_SERVICE_NAME);
     }
-
 }
