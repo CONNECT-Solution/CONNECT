@@ -37,7 +37,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-ear-plugin</artifactId>
                 <configuration>
-                    <version>5</version>
+                    <version>6</version>
                     <packagingExcludes>
                         lib/geronimo-stax-api-*.jar,
                         lib/jsr173*.jar,
