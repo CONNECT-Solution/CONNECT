@@ -87,7 +87,8 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
      * @return AdhocQueryResponse from Entity Interface.
      */
     @Override
-    @OutboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class, afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query", version = "")
+    @OutboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class, afterReturningBuilder
+        = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query", version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
         AssertionType assertion, NhinTargetCommunitiesType targets) {
         LOG.trace("EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
@@ -178,5 +179,4 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
     protected String getSenderHcid() {
         return HomeCommunityMap.getLocalHomeCommunityId();
     }
-
 }

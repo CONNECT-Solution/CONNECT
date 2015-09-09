@@ -46,7 +46,8 @@ public class PassthroughInboundDocQuery extends AbstractInboundDocQuery {
         super();
     }
 
-    public PassthroughInboundDocQuery(AdapterDocQueryProxyObjectFactory adapterFactory, DocQueryAuditLogger auditLogger) {
+    public PassthroughInboundDocQuery(AdapterDocQueryProxyObjectFactory adapterFactory,
+        DocQueryAuditLogger auditLogger) {
         this.adapterFactory = adapterFactory;
         this.auditLogger = auditLogger;
     }
@@ -59,7 +60,8 @@ public class PassthroughInboundDocQuery extends AbstractInboundDocQuery {
      * @return
      */
     @Override
-    AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String communityID, Properties webContextProperties) {
+    AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String communityID,
+        Properties webContextProperties) {
 
         AdapterDocQueryProxy adapterProxy = adapterFactory.getAdapterDocQueryProxy();
         AdhocQueryResponse resp = adapterProxy.respondingGatewayCrossGatewayQuery(msg, assertion);

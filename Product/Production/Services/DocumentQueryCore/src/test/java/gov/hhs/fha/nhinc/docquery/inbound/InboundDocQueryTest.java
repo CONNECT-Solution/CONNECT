@@ -99,7 +99,8 @@ public class InboundDocQueryTest {
         InboundDocQuery inboundDocQuery, int adapterAuditInvocations) {
         Properties webContextProperties = new Properties();
         NhinTargetSystemType target = null;
-        AdhocQueryResponse actualResponse = inboundDocQuery.respondingGatewayCrossGatewayQuery(request, assertion, webContextProperties);
+        AdhocQueryResponse actualResponse = inboundDocQuery.respondingGatewayCrossGatewayQuery(request, assertion,
+            webContextProperties);
 
         assertSame(expectedResponse, actualResponse);
 
@@ -112,13 +113,14 @@ public class InboundDocQueryTest {
             eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
 
         //TODO check service name with Alamelu
-        verify(mockAuditLogger, times(adapterAuditInvocations)).auditRequestMessage(eq(request), eq(assertion), eq(target),
-            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
+        verify(mockAuditLogger, times(adapterAuditInvocations)).auditRequestMessage(eq(request), eq(assertion),
+            eq(target), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
             eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
 
         verify(mockAuditLogger, times(adapterAuditInvocations)).auditResponseMessage(eq(request), eq(actualResponse),
-            eq(assertion), eq(target), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
-            eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
+            eq(assertion), eq(target), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),
+            eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
+            eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
     }
 
     protected AdapterDocQueryProxyObjectFactory getMockAdapterFactory(AssertionType assertion) {

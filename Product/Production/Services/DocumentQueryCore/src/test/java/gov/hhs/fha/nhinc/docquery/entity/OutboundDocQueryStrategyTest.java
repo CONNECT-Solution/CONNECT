@@ -97,11 +97,12 @@ public class OutboundDocQueryStrategyTest {
         strategy.execute(message);
 
         verify(strategy.getAuditLogger()).auditRequestMessage(eq(mockRequest), eq(mockAssertion), eq(nhinTargetSystem),
-            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE), eq(properties),
-            eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
-        verify(strategy.getAuditLogger()).auditResponseMessage(eq(mockRequest), eq(mockResponse), eq(mockAssertion), eq(nhinTargetSystem),
-            eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), eq(properties), eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
+        verify(strategy.getAuditLogger()).auditResponseMessage(eq(mockRequest), eq(mockResponse), eq(mockAssertion),
+            eq(nhinTargetSystem), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),
+            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE), eq(properties),
+            eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
     }
 
     private OutboundDocQueryOrchestratable getMockOutboundDocQueryOrchestratable(NhinTargetSystemType nhinTargetSystem) {

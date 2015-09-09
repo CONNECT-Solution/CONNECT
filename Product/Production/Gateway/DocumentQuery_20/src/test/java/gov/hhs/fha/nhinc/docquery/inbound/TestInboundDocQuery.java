@@ -43,7 +43,8 @@ public class TestInboundDocQuery implements InboundDocQuery {
      * @return an empty AdhocQueryResponse
      */
     @Override
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion, Properties webContextProperties) {
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
+        Properties webContextProperties) {
         return new AdhocQueryResponse();
     }
 }

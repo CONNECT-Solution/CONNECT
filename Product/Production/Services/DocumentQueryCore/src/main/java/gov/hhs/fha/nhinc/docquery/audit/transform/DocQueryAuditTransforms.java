@@ -53,7 +53,8 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
     private static final String JAXB_HL7_CONTEXT_NAME = "oasis.names.tc.ebxml_regrep.xsd.query._3";
 
     @Override
-    protected AuditMessageType getParticipantObjectIdentificationForRequest(AdhocQueryRequest request, AssertionType assertion, AuditMessageType auditMsg) {
+    protected AuditMessageType getParticipantObjectIdentificationForRequest(AdhocQueryRequest request,
+        AssertionType assertion, AuditMessageType auditMsg) {
         // ParticipantObjectIdentification for Patient is an optional element and can range from 0..1 . If PatientId is
         // not present in the request, the Audit Object will not hold ParticipantObjectIdentification for Patient.
         auditMsg = getPatientParticipantObjectIdentificationForRequest(request, auditMsg);
@@ -67,7 +68,8 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
     }
 
     @Override
-    protected AuditMessageType getParticipantObjectIdentificationForResponse(AdhocQueryRequest request, AdhocQueryResponse response,
+    protected AuditMessageType getParticipantObjectIdentificationForResponse(AdhocQueryRequest request,
+        AdhocQueryResponse response,
         AssertionType assertion, AuditMessageType auditMsg) {
         auditMsg = getPatientParticipantObjectIdentificationForResponse(request, response, auditMsg);
         try {
@@ -125,36 +127,44 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
         return DocQueryAuditTransformsConstants.EVENT_ACTION_CODE_RESPONDER;
     }
 
-    private AuditMessageType getQueryParamsParticipantObjectIdentificationForRequest(AdhocQueryRequest request, AuditMessageType auditMsg) throws JAXBException {
-        ParticipantObjectIdentificationType participantObject = createQueryParticipantObjectIdentification(getQueryIdFromRequest(request));
+    private AuditMessageType getQueryParamsParticipantObjectIdentificationForRequest(AdhocQueryRequest request,
+        AuditMessageType auditMsg) throws JAXBException {
+        ParticipantObjectIdentificationType participantObject
+            = createQueryParticipantObjectIdentification(getQueryIdFromRequest(request));
         participantObject.setParticipantObjectQuery(getParticipantObjectQueryForRequest(request));
         auditMsg.getParticipantObjectIdentification().add(participantObject);
         return auditMsg;
     }
 
-    // ParticipantObjectIdentification for Patient is an optional element and can range from 0..1 . If PatientId is not present in
-    // the request, the Audit Object will not hold ParticipantObjectIdentification for Patient.
-    private AuditMessageType getPatientParticipantObjectIdentificationForRequest(AdhocQueryRequest request, AuditMessageType auditMsg) {
+    // ParticipantObjectIdentification for Patient is an optional element and can range from 0..1 . If PatientId is
+    // not present in the request, the Audit Object will not hold ParticipantObjectIdentification for Patient.
+    private AuditMessageType getPatientParticipantObjectIdentificationForRequest(AdhocQueryRequest request,
+        AuditMessageType auditMsg) {
         String patientId = getPatientIdFromRequest(request);
         if (patientId != null) {
-            ParticipantObjectIdentificationType participantObject = createPatientParticipantObjectIdentification(patientId);
+            ParticipantObjectIdentificationType participantObject
+                = createPatientParticipantObjectIdentification(patientId);
             auditMsg.getParticipantObjectIdentification().add(participantObject);
         }
         return auditMsg;
     }
 
-    private AuditMessageType getPatientParticipantObjectIdentificationForResponse(AdhocQueryRequest request, AdhocQueryResponse response, AuditMessageType auditMsg) {
+    private AuditMessageType getPatientParticipantObjectIdentificationForResponse(AdhocQueryRequest request,
+        AdhocQueryResponse response, AuditMessageType auditMsg) {
         String patientId = getPatientIdFromRequest(request);
         if (patientId != null) {
-            ParticipantObjectIdentificationType participantObject = createPatientParticipantObjectIdentification(patientId);
+            ParticipantObjectIdentificationType participantObject
+                = createPatientParticipantObjectIdentification(patientId);
             auditMsg.getParticipantObjectIdentification().add(participantObject);
         }
         return auditMsg;
 
     }
 
-    private AuditMessageType getQueryParticipantObjectIdentificationForResponse(AdhocQueryRequest request, AdhocQueryResponse response, AuditMessageType auditMsg) throws JAXBException {
-        ParticipantObjectIdentificationType participantObject = createQueryParticipantObjectIdentification(getQueryIdFromRequest(request));
+    private AuditMessageType getQueryParticipantObjectIdentificationForResponse(AdhocQueryRequest request,
+        AdhocQueryResponse response, AuditMessageType auditMsg) throws JAXBException {
+        ParticipantObjectIdentificationType participantObject
+            = createQueryParticipantObjectIdentification(getQueryIdFromRequest(request));
         participantObject.setParticipantObjectQuery(getParticipantObjectQueryForRequest(request));
         auditMsg.getParticipantObjectIdentification().add(participantObject);
         return auditMsg;
@@ -205,8 +215,7 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
     }
 
     private ParticipantObjectIdentificationType createParticipantObject(short objTypeCodeSys, short objTypeCodeRole,
-        String objIdTypeCode, String objIdTypeCodeSys,
-        String objIdTypeDisplayName) {
+        String objIdTypeCode, String objIdTypeCodeSys, String objIdTypeDisplayName) {
 
         return createParticipantObjectIdentification(objTypeCodeSys, objTypeCodeRole,
             objIdTypeCode, objIdTypeCodeSys, objIdTypeDisplayName);

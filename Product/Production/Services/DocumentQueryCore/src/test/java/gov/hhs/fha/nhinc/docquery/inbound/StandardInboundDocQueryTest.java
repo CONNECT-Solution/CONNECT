@@ -103,7 +103,8 @@ public class StandardInboundDocQueryTest extends InboundDocQueryTest {
                     return RESPONDING_HCID_FORMATTED;
                 }
             };
-        AdhocQueryResponse actualResponse = standardDocQuery.respondingGatewayCrossGatewayQuery(request, assertion, webContextProperties);
+        AdhocQueryResponse actualResponse = standardDocQuery.respondingGatewayCrossGatewayQuery(request, assertion,
+            webContextProperties);
 
         assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE, actualResponse.getStatus());
         assertEquals(DocumentConstants.XDS_ERRORCODE_REPOSITORY_ERROR, actualResponse.getRegistryErrorList()

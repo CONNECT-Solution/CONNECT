@@ -41,7 +41,7 @@ public class DocQueryAuditTransformsConstants {
     public static final String PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME = "Patient Number";
     public static final short PARTICIPANT_QUERY_OBJ_TYPE_CODE_SYSTEM = 2;
     public static final short PARTICIPANT_QUERY_OBJ_TYPE_CODE_ROLE = 24;
-    public static final String PARTICIPANT_QUERY_OBJ_ID_TYPE_CODE = "ITI-38";//"ITI-18";
+    public static final String PARTICIPANT_QUERY_OBJ_ID_TYPE_CODE = "ITI-38";
     public static final String PARTICIPANT_QUERY_OBJ_ID_TYPE_CODE_SYSTEM = "IHE Transactions";
     public static final String PARTICIPANT_QUERY_OBJ_ID_TYPE_DISPLAY_NAME = "Cross Gateway Query";
     public static final String EVENT_ID_CODE = "110112";

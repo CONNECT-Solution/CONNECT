@@ -56,7 +56,8 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
     public void transformRequestToAuditMsg() throws ConnectionManagerException, UnknownHostException {
         final String localIP = "10.10.10.10";
         Properties webContextProperties = new Properties();
-        webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, "http://16.14.13.12:9090/AuditService");
+        webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL,
+            "http://16.14.13.12:9090/AuditService");
         webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, "16.14.13.12");
         final String remoteObjectIP = "http://16.14.13.12:9090/source/AuditService";
         DocQueryAuditTransforms transforms = new DocQueryAuditTransforms() {
@@ -82,9 +83,9 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
 
         AdhocQueryRequest request = createAdhocQueryRequest();
         AssertionType assertion = createAssertion();
-        LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(request, assertion, createNhinTarget(),
-            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE,
-            webContextProperties, NhincConstants.DOC_QUERY_SERVICE_NAME);
+        LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(request, assertion,
+            createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
+            Boolean.TRUE, webContextProperties, NhincConstants.DOC_QUERY_SERVICE_NAME);
         testGetEventIdentificationType(auditRequest, NhincConstants.DOC_QUERY_SERVICE_NAME, Boolean.TRUE);
         testGetActiveParticipantSource(auditRequest, Boolean.TRUE, localIP, webContextProperties);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectIP);
@@ -96,7 +97,8 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
     public void transformResponseToAuditMsg() throws ConnectionManagerException, UnknownHostException {
         final String localIP = "10.10.10.10";
         Properties webContextProperties = new Properties();
-        webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, "http://16.14.13.12:9090/AuditService");
+        webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL,
+            "http://16.14.13.12:9090/AuditService");
         webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, "16.14.13.12");
         final String remoteObjectIP = "http://16.14.13.12:9090/source/AuditService";
         DocQueryAuditTransforms transforms = new DocQueryAuditTransforms() {
@@ -118,7 +120,6 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
             protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
                 return remoteObjectIP;
             }
-
         };
 
         AdhocQueryRequest request = createAdhocQueryRequest();
@@ -138,7 +139,8 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
         assertEquals("D123401^^^&1.1&ISO",
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectID());
         assertSame(DocQueryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM,
-            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectTypeCode());
+            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).
+            getParticipantObjectTypeCode());
         assertSame(DocQueryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_ROLE,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).
             getParticipantObjectTypeCodeRole());
@@ -146,24 +148,25 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).
             getParticipantObjectIDTypeCode().getCode());
         assertEquals(DocQueryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE_SYSTEM,
-            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectIDTypeCode().
-            getCodeSystemName());
+            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).
+            getParticipantObjectIDTypeCode().getCodeSystemName());
         assertEquals(DocQueryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME,
-            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectIDTypeCode().
-            getDisplayName());
+            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).
+            getParticipantObjectIDTypeCode().getDisplayName());
         assertSame(DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_TYPE_CODE_SYSTEM,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectTypeCode());
         assertSame(DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_TYPE_CODE_ROLE,
-            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectTypeCodeRole());
+            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).
+            getParticipantObjectTypeCodeRole());
         assertEquals(DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_ID_TYPE_CODE,
-            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectIDTypeCode().
-            getCode());
+            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).
+            getParticipantObjectIDTypeCode().getCode());
         assertEquals(DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_ID_TYPE_CODE_SYSTEM,
-            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectIDTypeCode().
-            getCodeSystemName());
+            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).
+            getParticipantObjectIDTypeCode().getCodeSystemName());
         assertEquals(DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_ID_TYPE_DISPLAY_NAME,
-            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectIDTypeCode().
-            getDisplayName());
+            auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).
+            getParticipantObjectIDTypeCode().getDisplayName());
     }
 
     private AssertionType createAssertion() {
@@ -244,10 +247,9 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
      * @return
      */
     private JAXBElement<RegistryObjectType> createIdentifiable(RegistryObjectType registryObjectType) {
-        JAXBElement<RegistryObjectType> i = new JAXBElement<>(new QName(
+        return new JAXBElement<>(new QName(
             "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0", "Identifiable"), RegistryObjectType.class,
             registryObjectType);
-        return i;
     }
 
     @Override
