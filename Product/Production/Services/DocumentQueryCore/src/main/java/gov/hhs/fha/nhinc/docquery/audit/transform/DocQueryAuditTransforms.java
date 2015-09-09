@@ -97,7 +97,7 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
 
     @Override
     protected String getServiceEventDisplayResponder() {
-        return DocQueryAuditTransformsConstants.EVENT_ACTION_CODE_RESPONDER;
+        return DocQueryAuditTransformsConstants.EVENT_CODE_DISPLAY_RESPONDER;
     }
 
     @Override
