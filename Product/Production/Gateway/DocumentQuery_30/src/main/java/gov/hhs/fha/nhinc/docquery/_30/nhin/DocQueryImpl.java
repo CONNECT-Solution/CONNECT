@@ -37,6 +37,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 public class DocQueryImpl extends BaseService {
+
     private InboundDocQuery inboundDocQuery;
 
     public DocQueryImpl(InboundDocQuery inboundDocQuery) {
@@ -49,6 +50,6 @@ public class DocQueryImpl extends BaseService {
             assertion.setImplementsSpecVersion(UDDI_SPEC_VERSION.SPEC_3_0.toString());
         }
 
-        return inboundDocQuery.respondingGatewayCrossGatewayQuery(body, assertion);
+        return inboundDocQuery.respondingGatewayCrossGatewayQuery(body, assertion, getWebContextProperties(context));
     }
 }

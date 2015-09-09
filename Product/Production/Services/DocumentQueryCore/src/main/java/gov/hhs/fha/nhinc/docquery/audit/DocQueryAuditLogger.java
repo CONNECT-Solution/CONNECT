@@ -24,20 +24,22 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.inbound;
+package gov.hhs.fha.nhinc.docquery.audit;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import java.util.Properties;
+import gov.hhs.fha.nhinc.audit.AuditLogger;
+import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
+import gov.hhs.fha.nhinc.docquery.audit.transform.DocQueryAuditTransforms;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 /**
- * @author akong
  *
+ * @author tjafri
  */
-public interface InboundDocQuery {
+public class DocQueryAuditLogger extends AuditLogger<AdhocQueryRequest, AdhocQueryResponse> {
 
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
-        Properties webServiceContext);
-
+    @Override
+    protected AuditTransforms<AdhocQueryRequest, AdhocQueryResponse> getAuditTransforms() {
+        return new DocQueryAuditTransforms();
+    }
 }

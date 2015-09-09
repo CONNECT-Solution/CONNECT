@@ -34,8 +34,10 @@ import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
@@ -75,8 +77,7 @@ public class OutboundDocQueryStrategyTest {
      * Test {@link OutboundDocQueryStrategy#execute(OutboundDocQueryOrchestratable)} uses the target hcid for audit repo
      * logging.
      *
-     * @throws Exception
-     *             on exception.
+     * @throws Exception on exception.
      */
     @Test
     public void willAuditRepoLogHcidFromTargetAllStrategies() throws Exception {
@@ -87,6 +88,7 @@ public class OutboundDocQueryStrategyTest {
     private void willAuditRepoLogHcidFromTarget(final OutboundDocQueryStrategy strategy) throws Exception {
 
         NhinTargetSystemType nhinTargetSystem = getMockNhinTargetSystem();
+        Properties properties = null;
         OutboundDocQueryOrchestratable message = getMockOutboundDocQueryOrchestratable(nhinTargetSystem);
         when(message.getRequest()).thenReturn(mockRequest);
         when(message.getResponse()).thenReturn(mockResponse);
@@ -94,12 +96,13 @@ public class OutboundDocQueryStrategyTest {
 
         strategy.execute(message);
 
-        verify(strategy.getAuditLogger()).auditOutboundDocQueryStrategyRequest(eq(mockRequest), eq(mockAssertion),
-                eq(TARGET_HCID_FORMATTED));
-
-        verify(strategy.getAuditLogger()).auditOutboundDocQueryStrategyResponse(eq(mockResponse), eq(mockAssertion),
-                eq(TARGET_HCID_FORMATTED));
-
+        verify(strategy.getAuditLogger()).auditRequestMessage(eq(mockRequest), eq(mockAssertion), eq(nhinTargetSystem),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+            eq(Boolean.TRUE), eq(properties), eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
+        verify(strategy.getAuditLogger()).auditResponseMessage(eq(mockRequest), eq(mockResponse), eq(mockAssertion),
+            eq(nhinTargetSystem), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),
+            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE), eq(properties),
+            eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
     }
 
     private OutboundDocQueryOrchestratable getMockOutboundDocQueryOrchestratable(NhinTargetSystemType nhinTargetSystem) {
@@ -122,20 +125,20 @@ public class OutboundDocQueryStrategyTest {
     }
 
     private OutboundDocQueryStrategy getOutboundDocQueryStrategyG0() {
-        final DocQueryAuditLog mockAuditLogger = mock(DocQueryAuditLog.class);
+        final DocQueryAuditLogger mockAuditLogger = mock(DocQueryAuditLogger.class);
         return new OutboundDocQueryStrategyImpl_g0() {
             @Override
-            protected DocQueryAuditLog getAuditLogger() {
+            protected DocQueryAuditLogger getAuditLogger() {
                 return mockAuditLogger;
             }
         };
     }
 
     private OutboundDocQueryStrategy getOutboundDocQueryStrategyG1() {
-        final DocQueryAuditLog mockAuditLogger = mock(DocQueryAuditLog.class);
+        final DocQueryAuditLogger mockAuditLogger = mock(DocQueryAuditLogger.class);
         return new OutboundDocQueryStrategyImpl_g1() {
             @Override
-            protected DocQueryAuditLog getAuditLogger() {
+            protected DocQueryAuditLogger getAuditLogger() {
                 return mockAuditLogger;
             }
         };
