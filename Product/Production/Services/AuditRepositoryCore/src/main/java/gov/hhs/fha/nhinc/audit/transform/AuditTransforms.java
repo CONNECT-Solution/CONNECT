@@ -303,7 +303,9 @@ public abstract class AuditTransforms<T, K> {
                 participant.setNetworkAccessPointID(AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS);
             }
         }
-
+        if (!isRequesting) {
+            participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
+        }
         participant.setUserIsRequestor(Boolean.FALSE);
         participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(
             AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, null,

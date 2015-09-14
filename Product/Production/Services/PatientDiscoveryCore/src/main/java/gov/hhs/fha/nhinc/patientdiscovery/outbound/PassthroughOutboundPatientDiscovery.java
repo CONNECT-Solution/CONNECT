@@ -32,7 +32,7 @@ import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.patientdiscovery.MessageGeneratorUtils;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryDelegate;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryOrchestratable;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
@@ -78,6 +78,8 @@ public class PassthroughOutboundPatientDiscovery implements OutboundPatientDisco
         RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
 
         RespondingGatewayPRPAIN201306UV02ResponseType response = sendToNhin(request.getPRPAIN201305UV02(), assertion,
+            msgUtils.convertFirstToNhinTargetSystemType(request.getNhinTargetCommunities()));
+        auidtRequest(request, assertion,
             msgUtils.convertFirstToNhinTargetSystemType(request.getNhinTargetCommunities()));
 
         return response;
@@ -135,4 +137,11 @@ public class PassthroughOutboundPatientDiscovery implements OutboundPatientDisco
         return (new HL7PRPA201306Transforms()).createPRPA201306ForErrors(request, errStr);
     }
 
+    private void auidtRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion,
+        NhinTargetSystemType target) {
+
+        auditLogger.auditRequestMessage(request.getPRPAIN201305UV02(), assertion, target,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE,
+            null, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+    }
 }
