@@ -1604,7 +1604,7 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	parsedXmlMessage.ActiveParticipant[2].each{ node ->
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
-	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
 	     }
    	     if(!node.@AlternativeUserID.isEmpty()){
 	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
@@ -1703,7 +1703,7 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	parsedXmlMessage.ActiveParticipant[2].each{ node ->
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
-	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
 	     }
    	     if(!node.@AlternativeUserID.isEmpty()){
 	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
@@ -1802,7 +1802,7 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	parsedXmlMessage.ActiveParticipant[2].each{ node ->
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
-	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
 	     }
    	     if(!node.@AlternativeUserID.isEmpty()){
 	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
@@ -1901,7 +1901,7 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	parsedXmlMessage.ActiveParticipant[2].each{ node ->
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
-	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
 	     }
    	     if(!node.@AlternativeUserID.isEmpty()){
 	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
@@ -9320,7 +9320,7 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	parsedXmlMessage.ActiveParticipant[2].each{ node ->
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
-	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
 	     }
    	     if(!node.@AlternativeUserID.isEmpty()){
 	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
@@ -9419,7 +9419,7 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	parsedXmlMessage.ActiveParticipant[2].each{ node ->
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
-	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
 	     }
    	     if(!node.@AlternativeUserID.isEmpty()){
 	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
@@ -9518,7 +9518,7 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	parsedXmlMessage.ActiveParticipant[2].each{ node ->
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
-	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
 	     }
    	     if(!node.@AlternativeUserID.isEmpty()){
 	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
@@ -9617,7 +9617,7 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	parsedXmlMessage.ActiveParticipant[2].each{ node ->
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
-	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
 	     }
    	     if(!node.@AlternativeUserID.isEmpty()){
 	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
