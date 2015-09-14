@@ -3563,9 +3563,8 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
-   	     if(!node.@AlternativeUserID.isEmpty()){
-	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
-	     }
+	     assert(!node.@AlternativeUserID.isEmpty())
+	     //assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
      	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode" )
@@ -10532,9 +10531,8 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
-   	     if(!node.@AlternativeUserID.isEmpty()){
-	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
-	     }
+	     assert(!node.@AlternativeUserID.isEmpty())
+	     //assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
      	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode" )

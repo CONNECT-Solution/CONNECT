@@ -3406,9 +3406,8 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
-   	     if(!node.@AlternativeUserID.isEmpty()){
-	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
-	     }
+	    assert(!node.@AlternativeUserID.isEmpty())
+	    // assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID") 
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
      	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode" )
@@ -3538,19 +3537,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-09-09T01:14:43Z</con:value>
+          <con:value>2015-09-14T14:19:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-09-09T01:24:43Z</con:value>
+          <con:value>2015-09-14T14:29:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/09/2015 01:14:43</con:value>
+          <con:value>09/14/2015 14:19:14</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-10-09T00:00:00Z</con:value>
+          <con:value>2015-10-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -3734,7 +3733,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name>
-          <con:value>19233@192.168.1.2</con:value>
+          <con:value>12764@ACHIDAMB-F05745</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventDateTime</con:name>
@@ -3947,6 +3946,10 @@ if (propertiesFile.exists()) {
         <con:property>
           <con:name>statusCode.@code</con:name>
           <con:value>new</con:value>
+        </con:property>
+        <con:property>
+          <con:name>&lt;!--ActiveParticipant_Dest.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.2--></con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -11416,9 +11419,8 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
-   	     if(!node.@AlternativeUserID.isEmpty()){
-	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
-	     }
+	     assert(!node.@AlternativeUserID.isEmpty())
+	     //assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
      	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode" )
