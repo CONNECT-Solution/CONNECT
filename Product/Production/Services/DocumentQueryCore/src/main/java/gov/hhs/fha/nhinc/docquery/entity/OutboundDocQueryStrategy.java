@@ -105,18 +105,12 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
      */
     public void execute(OutboundDocQueryOrchestratable message) {
 
-        /*getAuditLogger().auditRequestMessage(message.getRequest(), message.getAssertion(), message.getTarget(),
-         NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null,
-         NhincConstants.DOC_QUERY_SERVICE_NAME);*/
         try {
             executeStrategy(message);
         } catch (Exception ex) {
             handleError(message, ex);
         }
 
-        /*getAuditLogger().auditResponseMessage(message.getRequest(), message.getResponse(), message.getAssertion(),
-         message.getTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-         Boolean.TRUE, null, NhincConstants.DOC_QUERY_SERVICE_NAME);*/
     }
 
     /**
