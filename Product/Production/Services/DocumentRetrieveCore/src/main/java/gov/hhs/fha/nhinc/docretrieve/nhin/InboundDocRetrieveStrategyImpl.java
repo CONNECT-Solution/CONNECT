@@ -26,6 +26,10 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
+import java.util.Properties;
+
+import org.apache.log4j.Logger;
+
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocumentRetrieveLogger;
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
@@ -33,17 +37,20 @@ import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectF
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveFileUtils;
 import gov.hhs.fha.nhinc.docretrieve.MessageGenerator;
 import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxy;
 import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxyObjectFactory;
+import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-
-import org.apache.log4j.Logger;
 
 /**
  *
@@ -54,6 +61,7 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
     private static final Logger LOG = Logger.getLogger(InboundDocRetrieveStrategyImpl.class);
     AdapterDocRetrieveProxy proxy;
     AuditRepositoryDocumentRetrieveLogger auditLogger;
+    DocRetrieveAuditLogger docRetrieveLogger;
 
     /**
      * Default constructor.
@@ -61,6 +69,7 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
     public InboundDocRetrieveStrategyImpl() {
         proxy = new AdapterDocRetrieveProxyObjectFactory().getAdapterDocRetrieveProxy();
         auditLogger = new AuditRepositoryLogger();
+        docRetrieveLogger = new DocRetrieveAuditLogger();
     }
 
     /**
@@ -69,10 +78,10 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
      * @param proxy AdapterDocRetrieveProxy
      * @param auditLogger the auditLogger
      */
-    InboundDocRetrieveStrategyImpl(AdapterDocRetrieveProxy proxy, AuditRepositoryDocumentRetrieveLogger auditLogger) {
+    InboundDocRetrieveStrategyImpl(AdapterDocRetrieveProxy proxy, DocRetrieveAuditLogger auditLogger) {
         super();
         this.proxy = proxy;
-        this.auditLogger = auditLogger;
+        this.docRetrieveLogger = auditLogger;
     }
 
     public void execute(InboundDocRetrieveOrchestratable message) {
@@ -103,63 +112,54 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
      */
     public RetrieveDocumentSetResponseType sendToAdapter(InboundDocRetrieveOrchestratable message) {
         RetrieveDocumentSetResponseType adapterResponse = proxy.retrieveDocumentSet(message.getRequest(),
-                message.getAssertion());
+            message.getAssertion());
 
         try {
             DocRetrieveFileUtils.getInstance().convertFileLocationToDataIfEnabled(adapterResponse);
         } catch (Exception e) {
             LOG.error("Failed to retrieve data from the file uri in the payload.", e);
             adapterResponse = MessageGenerator.getInstance().createRegistryResponseError(
-                    "Adapter Document Retrieve Processing");
+                "Adapter Document Retrieve Processing");
         }
         return adapterResponse;
     }
 
-    private void auditResponseMessage(RetrieveDocumentSetResponseType response, AssertionType assertion,
-            String requestCommunityID) {
-        gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType message = new gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType();
-        message.setRetrieveDocumentSetResponse(response);
-        message.setAssertion(assertion);
-        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieveResult(message,
-                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE,
-                requestCommunityID);
-        if (auditLogMsg != null) {
-            auditMessage(auditLogMsg, assertion);
-        }
-    }
-
     /**
+     * Creates the log event for response.
+     *
      * @param message
      */
     public void auditInboundResponseMessage(InboundDocRetrieveOrchestratable message) {
-        String requestCommunityID = HomeCommunityMap.getLocalHomeCommunityId();
 
         LOG.debug("Calling audit log for doc retrieve response received from adapter (a0)");
-        auditResponseMessage(message.getResponse(), message.getAssertion(), requestCommunityID);
-    }
-
-    private void auditRequestMessage(RetrieveDocumentSetRequestType request, AssertionType assertion,
-            String requestCommunityID) {
-        gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType message = new gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType();
-        message.setRetrieveDocumentSetRequest(request);
-        message.setAssertion(assertion);
-        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieve(message,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE,
-                requestCommunityID);
-        if (auditLogMsg != null) {
-            auditMessage(auditLogMsg, assertion);
-        }
+        docRetrieveLogger.auditResponseMessage(message.getRequest(), message.getResponse(), message.getAssertion(), null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, Boolean.FALSE, message.getWebContextProperties(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
     }
 
     /**
+     * Creates the log event for request.
+     *
      * @param message
-     * @return
      */
     public void auditOutboundRequestMessage(InboundDocRetrieveOrchestratable message) {
-        String requestCommunityID = HomeCommunityMap.getLocalHomeCommunityId();
 
         LOG.debug("Calling audit log for doc retrieve request (g0) sent to adapter (a0)");
-        auditRequestMessage(message.getRequest(), message.getAssertion(), requestCommunityID);
+        docRetrieveLogger.auditRequestMessage(message.getRequest(), message.getAssertion(), null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, Boolean.FALSE, message.getWebContextProperties(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+    }
+
+    protected NhinTargetSystemType getTargetNhinTargetSystemType(InboundDocRetrieveOrchestratable message) {
+        NhinTargetSystemType nhinTargetSystem = MessageGeneratorUtils.getInstance().convertToNhinTargetSystemType(getTargetCommunityType(message));
+        return nhinTargetSystem;
+    }
+
+    private NhinTargetCommunityType getTargetCommunityType(InboundDocRetrieveOrchestratable message) {
+        String homeCommunityId = message.getRequest().getDocumentRequest().get(0).getHomeCommunityId();
+        NhinTargetCommunityType nhinTargetCommunityType = new NhinTargetCommunityType();
+
+        HomeCommunityType homeCommunityType = new HomeCommunityType();
+        homeCommunityType.setHomeCommunityId(homeCommunityId);
+
+        nhinTargetCommunityType.setHomeCommunity(homeCommunityType);
+        return nhinTargetCommunityType;
     }
 
     private AcknowledgementType auditMessage(LogEventRequestType auditLogMsg, AssertionType assertion) {

@@ -26,19 +26,19 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocumentRetrieveLogger;
-import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
-import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import java.util.Properties;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
+import static org.mockito.Mockito.mock;
 
 /**
  *
@@ -46,45 +46,40 @@ import org.junit.Test;
  */
 public class NhinDocRetrieveAuditTransformer_g0Test {
 
+    NhinTargetSystemType nhinTargetSystemType = null;
+    private InboundDocRetrieveOrchestratable mockMessage = null;
+    private DocRetrieveAuditLogger docAuditLogger = null;
+    private InboundDocRetrieveAuditTransformer_g0 transform = null;
+
+    @Before
+    public void Setup() {
+        mockMessage = mock(InboundDocRetrieveOrchestratable.class);
+        docAuditLogger = mock(DocRetrieveAuditLogger.class);
+        transform = new InboundDocRetrieveAuditTransformer_g0(docAuditLogger);
+    }
 
     /**
      * Test of transformRequest method, of class NhinDocRetrieveAuditTransformer_g0.
      */
     @Test
     public void testTransformRequest() {
-        AuditRepositoryDocumentRetrieveLogger mockLogger = mock(AuditRepositoryDocumentRetrieveLogger.class);
-        InboundDocRetrieveAuditTransformer_g0 transform = new InboundDocRetrieveAuditTransformer_g0(mockLogger);
-        InboundDocRetrieveOrchestratable mockMessage = mock(InboundDocRetrieveOrchestratable.class);
 
-
-       transform.transformRequest(mockMessage);
-
-
+        transform.transformRequest(mockMessage);
         verify(mockMessage).getAssertion();
         verify(mockMessage).getRequest();
-        verify(mockLogger).logDocRetrieve(any(DocRetrieveMessageType.class),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-                any(String.class));
+        verify(docAuditLogger).auditRequestMessage(Mockito.any(RetrieveDocumentSetRequestType.class), Mockito.any(AssertionType.class), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), Mockito.any(Properties.class), eq(NhincConstants.DOC_RETRIEVE_SERVICE_NAME));
 
     }
 
-     /**
+    /**
      * Test of transformResponse method, of class NhinDocRetrieveAuditTransformer_g0.
      */
-     @Test
-     public void testTransformResponse() {
-         AuditRepositoryDocumentRetrieveLogger mockLogger = mock(AuditRepositoryDocumentRetrieveLogger.class);
-         InboundDocRetrieveAuditTransformer_g0 transform = new InboundDocRetrieveAuditTransformer_g0(mockLogger);
-         InboundDocRetrieveOrchestratable mockMessage = mock(InboundDocRetrieveOrchestratable.class);
+    @Test
+    public void testTransformResponse() {
 
-         transform.transformResponse(mockMessage);
+        transform.transformResponse(mockMessage);
+        verify(docAuditLogger).auditResponseMessage(Mockito.any(RetrieveDocumentSetRequestType.class), Mockito.any(RetrieveDocumentSetResponseType.class), Mockito.any(AssertionType.class), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), Mockito.any(Properties.class), eq(NhincConstants.DOC_RETRIEVE_SERVICE_NAME));
 
-         verify(mockMessage).getAssertion();
-         verify(mockMessage).getResponse();
-         verify(mockLogger).logDocRetrieveResult(any(DocRetrieveResponseMessageType.class),
-                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-                 any(String.class));
-
-     }
+    }
 
 }

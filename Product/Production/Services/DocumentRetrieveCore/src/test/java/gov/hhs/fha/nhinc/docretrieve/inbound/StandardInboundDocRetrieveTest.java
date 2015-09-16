@@ -27,13 +27,10 @@
 package gov.hhs.fha.nhinc.docretrieve.inbound;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import java.lang.reflect.Method;
+import java.util.Properties;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
@@ -45,11 +42,13 @@ import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrievePolicyTransformer_g0
 import gov.hhs.fha.nhinc.orchestration.CONNECTInboundOrchestrator;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-
-import java.lang.reflect.Method;
-
-import org.junit.Test;
-import org.mockito.ArgumentCaptor;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.any;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 
 /**
  * @author akong
@@ -61,7 +60,7 @@ public class StandardInboundDocRetrieveTest {
     public void hasInboundProcessingEvent() throws Exception {
         Class<StandardInboundDocRetrieve> clazz = StandardInboundDocRetrieve.class;
         Method method = clazz.getMethod("respondingGatewayCrossGatewayRetrieve", RetrieveDocumentSetRequestType.class,
-                AssertionType.class);
+            AssertionType.class, Properties.class);
         InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
         assertNotNull(annotation);
         assertEquals(RetrieveDocumentSetRequestTypeDescriptionBuilder.class, annotation.beforeBuilder());
@@ -75,6 +74,7 @@ public class StandardInboundDocRetrieveTest {
         RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
         RetrieveDocumentSetResponseType expectedResponse = new RetrieveDocumentSetResponseType();
+        Properties webContextProperties = new Properties();
 
         InboundDocRetrievePolicyTransformer_g0 pt = new InboundDocRetrievePolicyTransformer_g0();
         InboundDocRetrieveAuditTransformer_g0 at = new InboundDocRetrieveAuditTransformer_g0();
@@ -93,14 +93,14 @@ public class StandardInboundDocRetrieveTest {
         // Actual Invocation
         StandardInboundDocRetrieve inboundDocRetrieve = new StandardInboundDocRetrieve(pt, at, ad, orch);
         RetrieveDocumentSetResponseType actualResponse = inboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(
-                request, assertion);
+            request, assertion, webContextProperties);
 
         // Verify response is expected
         assertSame(expectedResponse, actualResponse);
 
         // Verify that the orchestrator is processing the correct orchestratable
         ArgumentCaptor<InboundDocRetrieveOrchestratable> orchArgument = ArgumentCaptor
-                .forClass(InboundDocRetrieveOrchestratable.class);
+            .forClass(InboundDocRetrieveOrchestratable.class);
 
         verify(orch).process(orchArgument.capture());
         assertEquals(pt, orchArgument.getValue().getPolicyTransformer());

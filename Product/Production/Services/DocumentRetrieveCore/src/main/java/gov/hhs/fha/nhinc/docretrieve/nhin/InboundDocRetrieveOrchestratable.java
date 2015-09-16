@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
+import java.util.Properties;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.orchestration.InboundOrchestratable;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
@@ -54,5 +56,9 @@ public interface InboundDocRetrieveOrchestratable extends InboundOrchestratable 
     public void setRequest(RetrieveDocumentSetRequestType request);
 
     public void setAssertion(AssertionType assertion);
+    
+    public void setWebContextProperties(Properties webContextProperties);
+    
+    public Properties getWebContextProperties();
 
 }

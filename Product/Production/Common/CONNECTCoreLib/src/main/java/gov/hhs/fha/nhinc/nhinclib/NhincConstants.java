@@ -281,6 +281,7 @@ public class NhincConstants {
     public static final String AUDIT_DISABLED_ACK_MSG = "Audit Service is not enabled";
     public static final String WEB_SERVICE_REQUEST_URL = "webservicerequesturl";
     public static final String REMOTE_HOST_ADDRESS = "remotehostaddress";
+    public static final String LOCAL_HOST_ADDRESS = "localhostaddress";
     // Policy Engine Constants
     public static final String POLICYENGINE_DTE_SERVICE_NAME = "policyenginedte";
     public static final String POLICYENGINE_SERVICE_NAME = "policyengineservice";

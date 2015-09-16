@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.inbound;
 
+import java.util.Properties;
+
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
@@ -83,11 +85,12 @@ public class StandardInboundDocRetrieve extends BaseInboundDocRetrieve {
      */
     @Override
     public InboundDocRetrieveOrchestratable createInboundOrchestrable(RetrieveDocumentSetRequestType body,
-            AssertionType assertion) {
+            AssertionType assertion, Properties webContextProperties) {
         InboundDocRetrieveOrchestratable inboundOrchestrable = new InboundStandardDocRetrieveOrchestratable(pt, at, ad);
         inboundOrchestrable.setAssertion(assertion);
         inboundOrchestrable.setRequest(body);
-
+        inboundOrchestrable.setWebContextProperties(webContextProperties);
+        
         return inboundOrchestrable;
     }
 
@@ -103,12 +106,13 @@ public class StandardInboundDocRetrieve extends BaseInboundDocRetrieve {
             afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class,
             serviceType = "Retrieve Document", version = "")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
-            AssertionType assertion) {
+            AssertionType assertion, Properties webContextProperties) {
 
-        InboundDocRetrieveOrchestratable inboundOrchestrable = createInboundOrchestrable(body, assertion);
+        InboundDocRetrieveOrchestratable inboundOrchestrable = createInboundOrchestrable(body, assertion, webContextProperties);
 
         InboundDocRetrieveOrchestratable orchResponse = (InboundDocRetrieveOrchestratable) getOrchestrator().process(
                 inboundOrchestrable);
         return orchResponse.getResponse();
     }
+
 }

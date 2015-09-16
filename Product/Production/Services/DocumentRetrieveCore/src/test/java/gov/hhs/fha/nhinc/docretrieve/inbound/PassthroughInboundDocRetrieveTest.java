@@ -27,17 +27,16 @@
 package gov.hhs.fha.nhinc.docretrieve.inbound;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
+import java.util.Properties;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
-import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveAuditTransformer_g0;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveDelegate;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveOrchestratable;
@@ -46,24 +45,18 @@ import gov.hhs.fha.nhinc.orchestration.CONNECTInboundOrchestrator;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
-import java.lang.reflect.Method;
-
-import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-
 /**
  * @author akong
  *
  */
 public class PassthroughInboundDocRetrieveTest {
 
-
-
     @Test
     public void invoke() {
         RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
         RetrieveDocumentSetResponseType expectedResponse = new RetrieveDocumentSetResponseType();
+        Properties webContextProperties = new Properties();
 
         InboundDocRetrievePolicyTransformer_g0 pt = new InboundDocRetrievePolicyTransformer_g0();
         InboundDocRetrieveAuditTransformer_g0 at = new InboundDocRetrieveAuditTransformer_g0();
@@ -82,14 +75,14 @@ public class PassthroughInboundDocRetrieveTest {
         // Actual Invocation
         PassthroughInboundDocRetrieve inboundDocRetrieve = new PassthroughInboundDocRetrieve(pt, at, ad, orch);
         RetrieveDocumentSetResponseType actualResponse = inboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(
-                request, assertion);
+            request, assertion, webContextProperties);
 
         // Verify response is expected
         assertSame(expectedResponse, actualResponse);
 
         // Verify that the orchestrator is processing the correct passthru orchestratable
         ArgumentCaptor<InboundDocRetrieveOrchestratable> orchArgument = ArgumentCaptor
-                .forClass(InboundDocRetrieveOrchestratable.class);
+            .forClass(InboundDocRetrieveOrchestratable.class);
 
         verify(orch).process(orchArgument.capture());
         assertEquals(pt, orchArgument.getValue().getPolicyTransformer());
@@ -97,5 +90,4 @@ public class PassthroughInboundDocRetrieveTest {
         assertEquals(ad, orchArgument.getValue().getDelegate());
         assertTrue(orchArgument.getValue().isPassthru());
     }
-
 }

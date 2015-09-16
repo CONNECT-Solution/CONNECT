@@ -35,11 +35,21 @@ import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocumentRetrieveLogger;
 import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxy;
+import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import java.util.Properties;
+import org.junit.Before;
 
 import org.junit.Test;
+import org.mockito.Mockito;
+import static org.mockito.Mockito.when;
 
 /**
  *
@@ -47,35 +57,64 @@ import org.junit.Test;
  */
 public class AdapterDocRetrieveStrategyImpl_a0Test {
 
+    InboundDocRetrieveOrchestratable message;
+
+    AdapterDocRetrieveProxy adapterProxy;
+    DocRetrieveAuditLogger logger;
+    InboundDocRetrieveStrategyImpl instance;
+    RetrieveDocumentSetRequestType retrieveDocumentSetRequestType;
+    RetrieveDocumentSetResponseType retrieveDocumentSetResponseType;
+    NhinTargetSystemType nhinTargetSystemType = null;
+    AssertionType assertionType = null;
+
+    @Before
+    public void Setup() {
+
+        // creating mocks for necessary arguments
+        assertionType = mock(AssertionType.class);
+        message = mock(InboundDocRetrieveOrchestratable.class);
+        adapterProxy = mock(AdapterDocRetrieveProxy.class);
+        logger = mock(DocRetrieveAuditLogger.class);
+        retrieveDocumentSetRequestType = mock(RetrieveDocumentSetRequestType.class);
+        retrieveDocumentSetResponseType = mock(RetrieveDocumentSetResponseType.class);
+
+        instance = new InboundDocRetrieveStrategyImpl(adapterProxy, logger) {
+            @Override
+            protected NhinTargetSystemType getTargetNhinTargetSystemType(InboundDocRetrieveOrchestratable message) {
+                return nhinTargetSystemType;
+            }
+
+        };
+
+    }
+
     /**
      * Test of execute method, of class AdapterDocRetrieveStrategyImpl_a0.
      */
     @Test
     public void testExecute() {
-        InboundDocRetrieveOrchestratable message = mock(InboundDocRetrieveOrchestratable.class);
-        AdapterDocRetrieveProxy adapterProxy = mock(AdapterDocRetrieveProxy.class);
-        AuditRepositoryDocumentRetrieveLogger logger = mock(AuditRepositoryDocumentRetrieveLogger.class);
-        InboundDocRetrieveStrategyImpl instance = new InboundDocRetrieveStrategyImpl(adapterProxy, logger);
+
+        Properties webContextProp = null;
+        when(message.getRequest()).thenReturn(retrieveDocumentSetRequestType);
+        when(message.getAssertion()).thenReturn(assertionType);
+        when(message.getResponse()).thenReturn(retrieveDocumentSetResponseType);
+
         instance.execute(message);
 
-        verify(logger).logDocRetrieveResult(any(DocRetrieveResponseMessageType.class),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
-                any(String.class));
+        verify(logger).auditRequestMessage(eq(retrieveDocumentSetRequestType), eq(assertionType), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE), eq(webContextProp), eq("RetrieveDocuments"));
+
+        verify(logger).auditResponseMessage(eq(retrieveDocumentSetRequestType), eq(retrieveDocumentSetResponseType), eq(assertionType), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE), eq(webContextProp), eq("RetrieveDocuments"));
 
         verify(adapterProxy).retrieveDocumentSet(any(RetrieveDocumentSetRequestType.class), any(AssertionType.class));
 
-
-        verify(logger).logDocRetrieve(any(DocRetrieveMessageType.class),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
-                any(String.class));
     }
 
     @Test
     public void testExecuteNull() {
-        InboundDocRetrieveOrchestratable message = null;
-        AdapterDocRetrieveProxy adapterProxy = mock(AdapterDocRetrieveProxy.class);
-        AuditRepositoryDocumentRetrieveLogger logger = mock(AuditRepositoryDocumentRetrieveLogger.class);
-        InboundDocRetrieveStrategyImpl instance = new InboundDocRetrieveStrategyImpl(adapterProxy, logger);
+        message = null;
+        adapterProxy = mock(AdapterDocRetrieveProxy.class);
+        logger = mock(DocRetrieveAuditLogger.class);
+        instance = new InboundDocRetrieveStrategyImpl(adapterProxy, logger);
         instance.execute(message);
         verifyZeroInteractions(adapterProxy, logger);
 

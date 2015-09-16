@@ -80,12 +80,10 @@ public class AuditTransformerTest {
 
     public class AuditTransformerImpl implements AuditTransformer {
 
-        public LogEventRequestType transformRequest(Orchestratable message) {
-            return null;
+        public void transformRequest(Orchestratable message) {
         }
 
-        public LogEventRequestType transformResponse(Orchestratable message) {
-            return null;
+        public void transformResponse(Orchestratable message) {
         }
     }
 }

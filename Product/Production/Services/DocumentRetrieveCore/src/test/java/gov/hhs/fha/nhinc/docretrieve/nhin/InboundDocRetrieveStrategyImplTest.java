@@ -32,11 +32,16 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocumentRetrieveLogger;
 import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxy;
+import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import java.util.Properties;
 
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.eq;
@@ -57,15 +62,27 @@ public class InboundDocRetrieveStrategyImplTest {
     private PolicyTransformer pt;
     private AuditTransformer at;
     private InboundDelegate d;
-    private AuditRepositoryDocumentRetrieveLogger auditLog;
+    private DocRetrieveAuditLogger auditLog;
+       NhinTargetSystemType nhinTargetSystemType;
+        private final    RetrieveDocumentSetRequestType    retrieveDocumentSetRequestType= mock(RetrieveDocumentSetRequestType.class);
+      Properties  webContextProp =null;
+      RetrieveDocumentSetRequestType request = null;
+      RetrieveDocumentSetResponseType response = null;
+      AssertionType assertion= null;
+         RetrieveDocumentSetResponseType     retrieveDocumentSetResponseType=null;
+        AssertionType assertionType = mock(AssertionType.class);
 
     @Before
     public void setup() {
+          nhinTargetSystemType =null;
         adapterproxy = mock(AdapterDocRetrieveProxy.class);
         pt = mock(PolicyTransformer.class);
         at = mock(AuditTransformer.class);
         d = mock(InboundDelegate.class);
-        auditLog = mock(AuditRepositoryDocumentRetrieveLogger.class);
+        auditLog = mock(DocRetrieveAuditLogger.class);
+               
+
+          
     }
 
     @Test
@@ -74,22 +91,24 @@ public class InboundDocRetrieveStrategyImplTest {
         InboundPassthroughDocRetrieveOrchestratable passthrough = new InboundPassthroughDocRetrieveOrchestratable(pt,
                 at, d);
 
-        InboundDocRetrieveStrategyImpl inboundDocRetrieve = new InboundDocRetrieveStrategyImpl(adapterproxy, auditLog) {
+        InboundDocRetrieveStrategyImpl inboundDocRetrieve = new InboundDocRetrieveStrategyImpl(adapterproxy,auditLog) {
             @Override
             public RetrieveDocumentSetResponseType sendToAdapter(InboundDocRetrieveOrchestratable message) {
-                return new RetrieveDocumentSetResponseType();
+               retrieveDocumentSetResponseType=  new RetrieveDocumentSetResponseType();
+               return retrieveDocumentSetResponseType;
             }
+             @Override
+              protected NhinTargetSystemType getTargetNhinTargetSystemType(InboundDocRetrieveOrchestratable message){
+                  return nhinTargetSystemType;
+              }
 
         };
 
         inboundDocRetrieve.execute(passthrough);
-
-        verify(auditLog, never()).logDocRetrieve(any(DocRetrieveMessageType.class), anyString(), anyString(),
-                anyString());
-
-        verify(auditLog, never()).logDocRetrieveResult(any(DocRetrieveResponseMessageType.class), anyString(),
-                anyString(), anyString());
-
+        
+        
+       verify(auditLog,never()).auditRequestMessage(eq(request), eq(assertion), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE), eq(webContextProp), eq("RetrieveDocuments"));
+       verify(auditLog,never()).auditResponseMessage(eq(request),eq(retrieveDocumentSetResponseType), eq(assertion), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),  eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE),eq(webContextProp), eq(new String("RetrieveDocuments")));
     }
 
     @Test
@@ -100,17 +119,18 @@ public class InboundDocRetrieveStrategyImplTest {
         InboundDocRetrieveStrategyImpl inboundDocRetrieve = new InboundDocRetrieveStrategyImpl(adapterproxy, auditLog) {
             @Override
             public RetrieveDocumentSetResponseType sendToAdapter(InboundDocRetrieveOrchestratable message) {
-                return new RetrieveDocumentSetResponseType();
+                retrieveDocumentSetResponseType=  new RetrieveDocumentSetResponseType();
+               return retrieveDocumentSetResponseType;
             }
+             @Override
+              protected NhinTargetSystemType getTargetNhinTargetSystemType(InboundDocRetrieveOrchestratable message){
+                  return nhinTargetSystemType;
+              }
         };
-
-        inboundDocRetrieve.execute(standard);
-        verify(auditLog).logDocRetrieve(any(DocRetrieveMessageType.class),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
-                anyString());
-
-        verify(auditLog).logDocRetrieveResult(any(DocRetrieveResponseMessageType.class),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
-                anyString());
+ 
+     inboundDocRetrieve.execute(standard);
+      verify(auditLog).auditRequestMessage(eq(request), eq(assertion), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE), eq(webContextProp), eq("RetrieveDocuments"));
+      verify(auditLog).auditResponseMessage(eq(request),eq(retrieveDocumentSetResponseType), eq(assertion), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),  eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE),eq(webContextProp), eq(new String("RetrieveDocuments")));
+    
     }
 }

@@ -242,11 +242,18 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
         return new JAXBContextHandler().getJAXBContext(JAXB_HL7_CONTEXT_NAME).createMarshaller();
     }
 
-    @Override
-    protected String getServiceEventIdCode() {
-        return PatientDiscoveryAuditTransformsConstants.EVENT_ID_CODE;
-    }
+    
+	@Override
+	protected String getServiceEventIdCodeRequestor() {
+		return PatientDiscoveryAuditTransformsConstants.EVENT_ID_CODE;
+	}
 
+	@Override
+	protected String getServiceEventIdCodeResponder() {
+		return PatientDiscoveryAuditTransformsConstants.EVENT_ID_CODE;
+	}
+	
+	
     @Override
     protected String getServiceEventCodeSystem() {
         return PatientDiscoveryAuditTransformsConstants.EVENT_CODE_SYSTEM;
@@ -286,4 +293,6 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
     protected String getServiceEventActionCodeResponder() {
         return PatientDiscoveryAuditTransformsConstants.EVENT_ACTION_CODE_RESPONDER;
     }
+
+
 }

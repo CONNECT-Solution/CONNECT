@@ -35,7 +35,7 @@ public interface AuditTransformer {
         INBOUND, OUTBOUND
     };
 
-    public gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType transformRequest(Orchestratable message);
+    public void transformRequest(Orchestratable message);
 
-    public gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType transformResponse(Orchestratable message);
+    public void transformResponse(Orchestratable message);
 }
