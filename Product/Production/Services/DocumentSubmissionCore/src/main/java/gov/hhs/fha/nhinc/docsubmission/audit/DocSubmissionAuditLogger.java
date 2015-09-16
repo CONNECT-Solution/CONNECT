@@ -24,35 +24,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docsubmission._20.nhin;
+package gov.hhs.fha.nhinc.docsubmission.audit;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docsubmission.inbound.InboundDocSubmission;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.fha.nhinc.audit.AuditLogger;
+import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
+import gov.hhs.fha.nhinc.docsubmission.audit.transform.DocSubmissionAuditTransforms;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
-import javax.xml.ws.WebServiceContext;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  *
- * @author dunnek
+ * @author tjafri
  */
-public class NhinDocSubmissionImpl_g1 extends BaseService {
+public class DocSubmissionAuditLogger extends AuditLogger<ProvideAndRegisterDocumentSetRequestType, RegistryResponseType> {
 
-    private InboundDocSubmission inboundDocSubmission;
-
-    public NhinDocSubmissionImpl_g1(InboundDocSubmission inboundDocSubmission) {
-        this.inboundDocSubmission = inboundDocSubmission;
+    protected AuditTransforms<ProvideAndRegisterDocumentSetRequestType, RegistryResponseType> getAuditTransforms() {
+        return new DocSubmissionAuditTransforms();
     }
-
-    public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
-        ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
-        AssertionType assertion = getAssertion(context, null);
-
-        return inboundDocSubmission.documentRepositoryProvideAndRegisterDocumentSetB(body, assertion,
-            getWebContextProperties(context));
-    }
-
 }

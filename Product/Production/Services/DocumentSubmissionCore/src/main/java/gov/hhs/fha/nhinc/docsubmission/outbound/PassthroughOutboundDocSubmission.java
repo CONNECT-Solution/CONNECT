@@ -33,8 +33,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
-import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -43,51 +43,56 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 public class PassthroughOutboundDocSubmission implements OutboundDocSubmission {
 
-    private XDRAuditLogger auditLogger = new XDRAuditLogger();
+    private DocSubmissionAuditLogger auditLogger = new DocSubmissionAuditLogger();
     private OutboundDocSubmissionDelegate dsDelegate = new OutboundDocSubmissionDelegate();
 
     public PassthroughOutboundDocSubmission() {
         super();
     }
 
-    public PassthroughOutboundDocSubmission(XDRAuditLogger auditLogger, OutboundDocSubmissionDelegate dsDelegate) {
+    public PassthroughOutboundDocSubmission(DocSubmissionAuditLogger auditLogger, OutboundDocSubmissionDelegate dsDelegate) {
         this.auditLogger = auditLogger;
         this.dsDelegate = dsDelegate;
     }
 
     @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType body,
-            AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
+        AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
 
         NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
-                targets);
+            targets);
 
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = createAuditRequest(body, assertion,
-                targetSystem);
+            targetSystem);
 
         auditRequestToNhin(request, assertion, request.getNhinTargetSystem());
 
         OutboundDocSubmissionOrchestratable dsOrchestratable = createOrchestratable(dsDelegate, body, targetSystem, assertion);
         RegistryResponseType response = ((OutboundDocSubmissionOrchestratable) dsDelegate.process(dsOrchestratable))
-                .getResponse();
+            .getResponse();
 
-        auditResponseFromNhin(response, assertion, request.getNhinTargetSystem());
+        auditResponseFromNhin(request, response, assertion, request.getNhinTargetSystem());
 
         return response;
     }
 
     private void auditRequestToNhin(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
-            AssertionType assertion, NhinTargetSystemType target) {
-        auditLogger.auditXDR(request, assertion, target, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        AssertionType assertion, NhinTargetSystemType target) {
+        auditLogger.auditRequestMessage(request.getProvideAndRegisterDocumentSetRequest(), assertion, target,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null,
+            NhincConstants.NHINC_XDR_SERVICE_NAME);
     }
 
-    private void auditResponseFromNhin(RegistryResponseType response, AssertionType assertion,
-            NhinTargetSystemType target) {
-        auditLogger.auditNhinXDRResponse(response, assertion, target, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, true);
+    private void auditResponseFromNhin(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
+        RegistryResponseType response, AssertionType assertion, NhinTargetSystemType target) {
+        //auditLogger.auditNhinXDRResponse(response, assertion, target, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, true);
+        auditLogger.auditResponseMessage(request.getProvideAndRegisterDocumentSetRequest(), response, assertion, target,
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null,
+            NhincConstants.NHINC_XDR_SERVICE_NAME);
     }
 
     private OutboundDocSubmissionOrchestratable createOrchestratable(OutboundDocSubmissionDelegate delegate,
-            ProvideAndRegisterDocumentSetRequestType request, NhinTargetSystemType targetSystem, AssertionType assertion) {
+        ProvideAndRegisterDocumentSetRequestType request, NhinTargetSystemType targetSystem, AssertionType assertion) {
 
         OutboundDocSubmissionOrchestratable dsOrchestratable = new OutboundDocSubmissionOrchestratable(delegate);
         dsOrchestratable.setAssertion(assertion);
@@ -98,7 +103,7 @@ public class PassthroughOutboundDocSubmission implements OutboundDocSubmission {
     }
 
     private RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType createAuditRequest(
-            ProvideAndRegisterDocumentSetRequestType msg, AssertionType assertion, NhinTargetSystemType targetSystem) {
+        ProvideAndRegisterDocumentSetRequestType msg, AssertionType assertion, NhinTargetSystemType targetSystem) {
 
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
         request.setNhinTargetSystem(targetSystem);
@@ -106,5 +111,4 @@ public class PassthroughOutboundDocSubmission implements OutboundDocSubmission {
 
         return request;
     }
-
 }

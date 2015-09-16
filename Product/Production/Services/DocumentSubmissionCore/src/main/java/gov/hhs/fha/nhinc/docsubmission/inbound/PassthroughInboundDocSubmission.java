@@ -31,8 +31,10 @@ import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory;
+import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionAuditLogger;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.log4j.Logger;
@@ -51,7 +53,8 @@ public class PassthroughInboundDocSubmission extends AbstractInboundDocSubmissio
      * Constructor.
      */
     public PassthroughInboundDocSubmission() {
-        this(new AdapterDocSubmissionProxyObjectFactory(), new XDRAuditLogger(), DocSubmissionUtils.getInstance());
+        this(new AdapterDocSubmissionProxyObjectFactory(), new DocSubmissionAuditLogger(),
+            DocSubmissionUtils.getInstance());
     }
 
     /**
@@ -62,13 +65,14 @@ public class PassthroughInboundDocSubmission extends AbstractInboundDocSubmissio
      * @param dsUtils
      */
     public PassthroughInboundDocSubmission(AdapterDocSubmissionProxyObjectFactory adapterFactory,
-            XDRAuditLogger auditLogger, DocSubmissionUtils dsUtils) {
+        DocSubmissionAuditLogger auditLogger, DocSubmissionUtils dsUtils) {
         super(adapterFactory, auditLogger);
         this.dsUtils = dsUtils;
     }
 
     @Override
-    RegistryResponseType processDocSubmission(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
+    RegistryResponseType processDocSubmission(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion,
+        Properties webContextProperties) {
         RegistryResponseType response = null;
 
         try {

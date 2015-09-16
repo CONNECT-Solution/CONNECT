@@ -32,56 +32,69 @@ import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxy;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionAuditLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 public abstract class AbstractInboundDocSubmission implements InboundDocSubmission {
 
     abstract RegistryResponseType processDocSubmission(ProvideAndRegisterDocumentSetRequestType body,
-            AssertionType assertion);
+        AssertionType assertion, Properties webContextProperties);
 
-    private XDRAuditLogger auditLogger;
+    private DocSubmissionAuditLogger auditLogger;
     private AdapterDocSubmissionProxyObjectFactory adapterFactory;
 
     public AbstractInboundDocSubmission(AdapterDocSubmissionProxyObjectFactory adapterFactory,
-            XDRAuditLogger auditLogger) {
+        DocSubmissionAuditLogger auditLogger) {
         this.adapterFactory = adapterFactory;
         this.auditLogger = auditLogger;
     }
 
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
-            ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
+        ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion, Properties webContextProperties) {
 
-        auditRequestFromNhin(body, assertion);
+        auditRequestFromNhin(body, assertion, webContextProperties);
 
-        RegistryResponseType response = processDocSubmission(body, assertion);
+        RegistryResponseType response = processDocSubmission(body, assertion, webContextProperties);
 
-        auditResponseToNhin(response, assertion);
+        auditResponseToNhin(body, response, assertion, webContextProperties);
 
         return response;
     }
 
     protected RegistryResponseType sendToAdapter(ProvideAndRegisterDocumentSetRequestType request,
-            AssertionType assertion) {
+        AssertionType assertion) {
         AdapterDocSubmissionProxy proxy = adapterFactory.getAdapterDocSubmissionProxy();
         return proxy.provideAndRegisterDocumentSetB(request, assertion);
     }
 
-    protected void auditRequestFromNhin(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
-        auditLogger.auditNhinXDR(request, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+    protected void auditRequestFromNhin(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
+        Properties webContextProperties) {
+        auditLogger.auditRequestMessage(request, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, webContextProperties,
+            NhincConstants.NHINC_XDR_SERVICE_NAME);
     }
 
-    protected void auditResponseToNhin(RegistryResponseType response, AssertionType assertion) {
-        auditLogger.auditNhinXDRResponse(response, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, false);
+    protected void auditResponseToNhin(ProvideAndRegisterDocumentSetRequestType request, RegistryResponseType response,
+        AssertionType assertion, Properties webContextProperties) {
+        auditLogger.auditResponseMessage(request, response, assertion, null,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+            Boolean.FALSE, webContextProperties, NhincConstants.NHINC_XDR_SERVICE_NAME);
     }
 
-    protected void auditRequestToAdapter(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
-        auditLogger.auditAdapterXDR(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+    protected void auditRequestToAdapter(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
+        Properties webContextProperties) {
+        auditLogger.auditRequestMessage(request, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+            NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, Boolean.FALSE, webContextProperties,
+            NhincConstants.NHINC_XDR_SERVICE_NAME);
     }
 
-    protected void auditResponseFromAdapter(RegistryResponseType response, AssertionType assertion) {
-        auditLogger.auditAdapterXDRResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+    protected void auditResponseFromAdapter(ProvideAndRegisterDocumentSetRequestType request,
+        RegistryResponseType response, AssertionType assertion, Properties webContextProperties) {
+        auditLogger.auditResponseMessage(request, response, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+            NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, Boolean.FALSE, webContextProperties,
+            NhincConstants.NHINC_XDR_SERVICE_NAME);
     }
-
 }

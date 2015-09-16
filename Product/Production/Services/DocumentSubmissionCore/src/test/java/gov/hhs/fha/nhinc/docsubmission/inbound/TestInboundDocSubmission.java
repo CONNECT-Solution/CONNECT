@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.docsubmission.inbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
@@ -38,7 +39,7 @@ public class TestInboundDocSubmission implements InboundDocSubmission {
 
     @Override
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
-            ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
+        ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion, Properties webContextProperties) {
         return new RegistryResponseType();
     }
 

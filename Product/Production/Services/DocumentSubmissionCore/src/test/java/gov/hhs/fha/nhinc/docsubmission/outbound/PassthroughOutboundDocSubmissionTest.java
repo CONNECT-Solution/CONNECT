@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.docsubmission.outbound;
 
 import static org.junit.Assert.assertEquals;
@@ -37,16 +36,18 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
-import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionOrchestratable;
 import gov.hhs.fha.nhinc.docsubmission.outbound.PassthroughOutboundDocSubmission;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.jmock.Expectations;
+import static org.jmock.Expectations.any;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
@@ -57,12 +58,13 @@ import org.junit.Test;
  *
  */
 public class PassthroughOutboundDocSubmissionTest {
+
     protected Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final XDRAuditLogger mockXDRLog = context.mock(XDRAuditLogger.class);
+    final DocSubmissionAuditLogger mockDocSubmissionLog = context.mock(DocSubmissionAuditLogger.class);
     final OutboundDocSubmissionDelegate mockDelegate = context.mock(OutboundDocSubmissionDelegate.class);
 
     @Test
@@ -82,22 +84,22 @@ public class PassthroughOutboundDocSubmissionTest {
         AssertionType assertion = new AssertionType();
         NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
 
-        PassthroughOutboundDocSubmission passthruOrch = new PassthroughOutboundDocSubmission(mockXDRLog, mockDelegate);
+        PassthroughOutboundDocSubmission passthruOrch = new PassthroughOutboundDocSubmission(mockDocSubmissionLog,
+            mockDelegate);
         return passthruOrch.provideAndRegisterDocumentSetB(request, assertion, targets, null);
     }
 
     private void expect2MockAudits() {
         context.checking(new Expectations() {
             {
-                oneOf(mockXDRLog)
-                        .auditXDR(
-                                with(any(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class)),
-                                with(any(AssertionType.class)), with(any(NhinTargetSystemType.class)),
-                                with(any(String.class)));
-
-                oneOf(mockXDRLog).auditNhinXDRResponse(with(any(RegistryResponseType.class)),
-                        with(any(AssertionType.class)), with(any(NhinTargetSystemType.class)), with(any(String.class)),
-                        with(equal(true)));
+                oneOf(mockDocSubmissionLog).auditRequestMessage(
+                    with(any(ProvideAndRegisterDocumentSetRequestType.class)), with(any(AssertionType.class)),
+                    with(any(NhinTargetSystemType.class)), with(any(String.class)), with(any(String.class)),
+                    with(any(Boolean.class)), with(any(Properties.class)), with(any(String.class)));
+                oneOf(mockDocSubmissionLog).auditResponseMessage(with(any(ProvideAndRegisterDocumentSetRequestType.class)),
+                    with(any(RegistryResponseType.class)), with(any(AssertionType.class)),
+                    with(any(NhinTargetSystemType.class)), with(any(String.class)), with(any(String.class)),
+                    with(any(Boolean.class)), with(any(Properties.class)), with(any(String.class)));
             }
         });
     }
