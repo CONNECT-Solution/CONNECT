@@ -2,9 +2,7 @@ package gov.hhs.fha.nhinc.docretrieve.audit.transform;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-
 import org.apache.log4j.Logger;
-
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import com.services.nhinc.schema.auditmessage.TypeValuePairType;
@@ -14,12 +12,10 @@ import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditTransformsConstants;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
- * This class is designed for supporting Audit Logging for Retrieve Document based on @link
- * <a href="https://cgiinterop.atlassian.net/wiki/pages/viewpage.action?pageId=18776072"> </a>.
+ * This class is designed for supporting Audit Logging for Retrieve Document.
  *
  * @author vimehta
  */
@@ -102,7 +98,9 @@ public class DocRetrieveAuditTransforms
             && request.getDocumentRequest() != null
             && request.getDocumentRequest().get(0) != null
             && request.getDocumentRequest().get(0).getHomeCommunityId() != null) {
+
             homeCommunityId = request.getDocumentRequest().get(0).getHomeCommunityId();
+
         } else {
             LOG.error("HomeCommunityId doesn't exist in the received RetrieveDocumentSetRequestType message");
         }

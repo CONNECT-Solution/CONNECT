@@ -85,8 +85,10 @@ public abstract class BaseService {
      */
     protected String getRemoteAddress(WebServiceContext context) {
         String remoteAddress = null;
-        if (context != null && context.getMessageContext() != null && context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST) != null) {
-            HttpServletRequest httpServletRequest = (HttpServletRequest) context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST);
+        if (context != null && context.getMessageContext() != null
+            && context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST) != null) {
+            HttpServletRequest httpServletRequest
+                = (HttpServletRequest) context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST);
             remoteAddress = httpServletRequest.getRemoteAddr();
         }
         return remoteAddress;
@@ -100,8 +102,10 @@ public abstract class BaseService {
      */
     protected String getLocalAddress(WebServiceContext context) {
         String remoteAddress = null;
-        if (context != null && context.getMessageContext() != null && context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST) != null) {
-            HttpServletRequest httpServletRequest = (HttpServletRequest) context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST);
+        if (context != null && context.getMessageContext() != null
+            && context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST) != null) {
+            HttpServletRequest httpServletRequest
+                = (HttpServletRequest) context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST);
             remoteAddress = httpServletRequest.getLocalAddr();
         }
         return remoteAddress;

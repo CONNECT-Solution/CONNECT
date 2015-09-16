@@ -22,14 +22,10 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import java.net.UnknownHostException;
 import java.util.Properties;
 import org.junit.AfterClass;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransformsTest;
@@ -37,11 +33,9 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 import java.lang.management.ManagementFactory;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
-import org.junit.Ignore;
 
 /**
- * This class is designed to test Retrieve Document Service based on @link
- * <a href="https://cgiinterop.atlassian.net/wiki/pages/viewpage.action?pageId=18776072"> </a>.
+ * This class is designed to test Retrieve Document Service.
  *
  * @author vimehta
  */
@@ -328,23 +322,24 @@ public class DocRetrieveAuditTransformsTest extends AuditTransformsTest<Retrieve
      */
     protected void testGetActiveParticipantDestination(LogEventRequestType request, Boolean isRequesting, String localIP,
         Properties webContextProperties, String remoteObjectIP) {
+
         ActiveParticipant destinationActiveParticipant = null;
         for (ActiveParticipant item : request.getAuditMessage().getActiveParticipant()) {
-            if (item.getRoleIDCode().get(0).getDisplayName() != null && item.getRoleIDCode().get(0).
-                getDisplayName().equals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME)) {
+            if (item.getRoleIDCode().get(0).getDisplayName() != null && item.getRoleIDCode().get(0).getDisplayName().
+                equals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME)) {
                 destinationActiveParticipant = item;
             }
         }
         if (!isRequesting) {
-            assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE, destinationActiveParticipant.getUserID());
+            assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE,
+                destinationActiveParticipant.getUserID());
         } else {
             assertEquals(webContextProperties.getProperty(NhincConstants.WEB_SERVICE_REQUEST_URL),
                 destinationActiveParticipant.getUserID());
         }
 
         assertEquals(!(isRequesting), destinationActiveParticipant.isUserIsRequestor());
-        assertEquals(localIP,
-            destinationActiveParticipant.getNetworkAccessPointID());
+        assertEquals(localIP, destinationActiveParticipant.getNetworkAccessPointID());
         assertEquals(AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME, destinationActiveParticipant.
             getNetworkAccessPointTypeCode());
         assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, destinationActiveParticipant.

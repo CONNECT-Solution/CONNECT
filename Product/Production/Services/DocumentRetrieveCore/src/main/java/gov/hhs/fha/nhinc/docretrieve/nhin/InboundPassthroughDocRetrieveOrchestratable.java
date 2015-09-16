@@ -43,7 +43,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
  *
  */
 public class InboundPassthroughDocRetrieveOrchestratable extends AbstractPassthroughOrchestratable implements
-        InboundDocRetrieveOrchestratable {
+    InboundDocRetrieveOrchestratable {
 
     private InboundDelegate inboundDelegate;
     private final String serviceName = "NhinDocumentRetrieve_g0";
@@ -62,6 +62,7 @@ public class InboundPassthroughDocRetrieveOrchestratable extends AbstractPassthr
 
     /**
      * Injectable constructor.
+     *
      * @param pt policy transformer
      * @param at audit transformer
      */
@@ -94,12 +95,10 @@ public class InboundPassthroughDocRetrieveOrchestratable extends AbstractPassthr
         return inboundDelegate;
     }
 
-
     @Override
     public RetrieveDocumentSetRequestType getRequest() {
         return request;
     }
-
 
     @Override
     public RetrieveDocumentSetResponseType getResponse() {
@@ -135,13 +134,12 @@ public class InboundPassthroughDocRetrieveOrchestratable extends AbstractPassthr
     public void setResponse(RetrieveDocumentSetResponseType response) {
         this.response = response;
     }
-    
-    
-    public Properties getWebContextProperties() {
-		return webContextProperties;
-	}
 
-	public void setWebContextProperties(Properties webContextProperties) {
-		this.webContextProperties = webContextProperties;
-	}  
+    public Properties getWebContextProperties() {
+        return webContextProperties;
+    }
+
+    public void setWebContextProperties(Properties webContextProperties) {
+        this.webContextProperties = webContextProperties;
+    }
 }

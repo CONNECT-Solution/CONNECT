@@ -31,24 +31,16 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
-import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocumentRetrieveLogger;
-import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
-import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxy;
 import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import java.util.Properties;
 import org.junit.Before;
-
 import org.junit.Test;
-import org.mockito.Mockito;
 import static org.mockito.Mockito.when;
 
 /**
@@ -101,9 +93,15 @@ public class AdapterDocRetrieveStrategyImpl_a0Test {
 
         instance.execute(message);
 
-        verify(logger).auditRequestMessage(eq(retrieveDocumentSetRequestType), eq(assertionType), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE), eq(webContextProp), eq("RetrieveDocuments"));
+        verify(logger).auditRequestMessage(eq(retrieveDocumentSetRequestType), eq(assertionType),
+            eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+            eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE), eq(webContextProp),
+            eq("RetrieveDocuments"));
 
-        verify(logger).auditResponseMessage(eq(retrieveDocumentSetRequestType), eq(retrieveDocumentSetResponseType), eq(assertionType), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE), eq(webContextProp), eq("RetrieveDocuments"));
+        verify(logger).auditResponseMessage(eq(retrieveDocumentSetRequestType), eq(retrieveDocumentSetResponseType),
+            eq(assertionType), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),
+            eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE), eq(webContextProp),
+            eq("RetrieveDocuments"));
 
         verify(adapterProxy).retrieveDocumentSet(any(RetrieveDocumentSetRequestType.class), any(AssertionType.class));
 

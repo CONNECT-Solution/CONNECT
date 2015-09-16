@@ -42,7 +42,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import java.util.List;
-
+import gov.hhs.fha.nhinc.common.auditlog.*;
 import org.apache.log4j.Logger;
 
 /**
@@ -52,7 +52,7 @@ import org.apache.log4j.Logger;
 public abstract class OutboundDocRetrieveStrategyBase implements OrchestrationStrategy {
 
     private static final Logger LOG = Logger.getLogger(OutboundDocRetrieveStrategyBase.class);
-    private final DocRetrieveAuditLogger docRetrieveAuditor = new DocRetrieveAuditLogger();
+    private static final DocRetrieveAuditLogger docRetrieveAuditor = new DocRetrieveAuditLogger();
 
     @Override
     public void execute(Orchestratable message) {
@@ -103,7 +103,7 @@ public abstract class OutboundDocRetrieveStrategyBase implements OrchestrationSt
 
     protected void auditRequestMessage(RetrieveDocumentSetRequestType request, String direction,
         String connectInterface, AssertionType assertion, String requestCommunityID) {
-        gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType message = new gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType();
+        DocRetrieveMessageType message = new DocRetrieveMessageType();
         message.setRetrieveDocumentSetRequest(request);
         message.setAssertion(assertion);
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
@@ -116,7 +116,7 @@ public abstract class OutboundDocRetrieveStrategyBase implements OrchestrationSt
 
     protected void auditResponseMessage(RetrieveDocumentSetResponseType response, String direction,
         String connectInterface, AssertionType assertion, String requestCommunityID) {
-        gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType message = new gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType();
+        DocRetrieveResponseMessageType message = new DocRetrieveResponseMessageType();
         message.setRetrieveDocumentSetResponse(response);
         message.setAssertion(assertion);
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();

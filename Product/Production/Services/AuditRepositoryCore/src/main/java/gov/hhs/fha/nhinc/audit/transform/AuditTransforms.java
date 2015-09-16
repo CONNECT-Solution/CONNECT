@@ -53,7 +53,6 @@ import java.util.GregorianCalendar;
 import java.util.Properties;
 import java.util.TimeZone;
 import java.util.UUID;
-import java.util.logging.Level;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -169,7 +168,8 @@ public abstract class AuditTransforms<T, K> {
     }
 
     private EventIdentificationType createEventIdentification(boolean isRequesting) {
-        CodedValueType eventId = createCodeValueType(isRequesting ? getServiceEventIdCodeRequestor() : getServiceEventIdCodeResponder(), null, getServiceEventCodeSystem(),
+        CodedValueType eventId = createCodeValueType(isRequesting ? getServiceEventIdCodeRequestor()
+            : getServiceEventIdCodeResponder(), null, getServiceEventCodeSystem(),
             isRequesting ? getServiceEventDisplayRequestor() : getServiceEventDisplayResponder());
 
         EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventId, isRequesting);
@@ -262,32 +262,38 @@ public abstract class AuditTransforms<T, K> {
      * @param webContextProperties
      * @return
      */
-    private ActiveParticipant getActiveParticipantSource(NhinTargetSystemType target, String serviceName, boolean isRequesting,
+    private ActiveParticipant getActiveParticipantSource(NhinTargetSystemType target, String serviceName,
+        boolean isRequesting,
         Properties webContextProperties) {
-        ActiveParticipant participant = new ActiveParticipant();
-        String hostAddress = null;
 
-        /* if Retrieve Document Service, Activeparticipant Source and destination is same on both initiator and responder side. And for this service, source is considered who generates the document, meaning that destination that generates the document is considered source for RD and vice versa for destination details for ActiveParticipant */
+        ActiveParticipant participant = new ActiveParticipant();
+
+        /* if Retrieve Document Service, Activeparticipant Source and destination is same on both initiator and
+         responder side. And for this service, source is considered who generates the document, meaning that
+         destination that generates the document is considered source for RD and vice versa for destination
+         details for ActiveParticipant */
         if (serviceName.equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME)) {
-            hostAddress = getWebServiceUrlFromRemoteObject(target, serviceName);
-            if (hostAddress != null) {
+            String hostDetails = getWebServiceUrlFromRemoteObject(target, serviceName);
+            if (hostDetails != null) {
                 try {
-                    URL url = new URL(hostAddress);
-                    participant.setUserID(hostAddress);
-                    hostAddress = url.getHost();
-                    participant.setNetworkAccessPointID(hostAddress);
-                    participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostAddress));
+                    URL url = new URL(hostDetails);
+                    participant.setUserID(hostDetails);
+                    hostDetails = url.getHost();
+                    participant.setNetworkAccessPointID(hostDetails);
+                    participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostDetails));
                 } catch (MalformedURLException ex) {
-                    LOG.error(ex);
+                    LOG.error("Error while extracting remote address : " + ex.getLocalizedMessage(), ex);
                     // The url is null or not a valid url; for now, set the user id to anonymous
                     participant.setUserID(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
                     // TODO: For now, hardcode the value to localhost; need to find out if this needs to be set
-                    participant.setNetworkAccessPointTypeCode(AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME);
-                    participant.setNetworkAccessPointID(AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS);
+                    participant.setNetworkAccessPointTypeCode(
+                        AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME);
+                    participant.setNetworkAccessPointID(
+                        AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS);
                 }
             }
         } else {
-            hostAddress = isRequesting ? getLocalHostAddress() : getRemoteHostAddress(webContextProperties);
+            String hostAddress = isRequesting ? getLocalHostAddress() : getRemoteHostAddress(webContextProperties);
             participant.setUserID(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
 
             participant.setNetworkAccessPointID(hostAddress);
@@ -295,8 +301,10 @@ public abstract class AuditTransforms<T, K> {
 
         }
 
-        /* if it is not RD service or required if RD and it's Initiator - ActiveParticipant Destination and Responder - ActiveParticipant Source*/
-        if (!(serviceName.equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME)) || (serviceName.equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME) && !isRequesting)) {
+        /* if it is not RD service or required if RD and it's Initiator - ActiveParticipant Destination and
+         Responder - ActiveParticipant Source*/
+        if (!(serviceName.equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME))
+            || (serviceName.equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME) && !isRequesting)) {
             participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
 
         }
@@ -307,7 +315,8 @@ public abstract class AuditTransforms<T, K> {
                     AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
                     AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
 
-        //for RD service condition is opposite than other service
+        /* if it's RD service condition is opposite which means that, for ActiveParticipant
+         for services other than RD is always True but not for RD*/
         if (serviceName.equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME)) {
             participant.setUserIsRequestor(Boolean.FALSE);
         } else {
@@ -339,7 +348,7 @@ public abstract class AuditTransforms<T, K> {
             participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostAddress));
 
         } else {
-            if ((serviceName.equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME)) && !isRequesting) {
+            if (serviceName.equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME) && !isRequesting) {
                 hostAddress = getLocalAddressFromProperties(webContextProperties);
             } else {
                 hostAddress = isRequesting ? getWebServiceUrlFromRemoteObject(target, serviceName)
@@ -353,7 +362,7 @@ public abstract class AuditTransforms<T, K> {
                     participant.setNetworkAccessPointID(hostAddress);
                     participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostAddress));
                 } catch (MalformedURLException ex) {
-                    LOG.error(ex);
+                    LOG.error("Error while returning remote address: " + ex.getLocalizedMessage(), ex);
                     // The url is null or not a valid url; for now, set the user id to anonymous
                     participant.setUserID(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
                     // TODO: For now, hardcode the value to localhost; need to find out if this needs to be set
@@ -364,8 +373,10 @@ public abstract class AuditTransforms<T, K> {
 
         }
 
-        // for RD service it is opposite than other services. For RD service it is required in initiating side and for other services it is required for responding side
-        if ((serviceName.equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME) && isRequesting) || (!(serviceName.equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME)) && !isRequesting)) {
+        /* for RD service it is opposite than other services. For RD service it is
+         required in initiating side and for other services it is required for responding side */
+        if ((serviceName.equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME) && isRequesting)
+            || (!(serviceName.equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME)) && !isRequesting)) {
             participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
         }
 
@@ -424,7 +435,7 @@ public abstract class AuditTransforms<T, K> {
             try {
                 return getConnectionManagerCache().getEndpointURLFromNhinTarget(target, serviceName);
             } catch (ConnectionManagerException ex) {
-                LOG.error(ex);
+                LOG.error("Error retrieving endpoint URL from target: " + ex.getLocalizedMessage(), ex);
             }
         }
         return AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE;
@@ -443,7 +454,7 @@ public abstract class AuditTransforms<T, K> {
         try {
             return InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException ex) {
-            LOG.error("Error while returning Local Host Address: " + ex.getLocalizedMessage(), ex);
+            LOG.error("Error while returning local host Address: " + ex.getLocalizedMessage(), ex);
             return AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
         }
     }

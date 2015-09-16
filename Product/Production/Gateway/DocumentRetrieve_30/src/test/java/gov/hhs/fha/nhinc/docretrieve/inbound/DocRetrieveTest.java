@@ -63,8 +63,6 @@ public class DocRetrieveTest {
         docRetrieve.setInboundDocRetrieve(service);
 
         docRetrieve.respondingGatewayCrossGatewayRetrieve(body);
-
-   /*     verify(service).respondingGatewayCrossGatewayRetrieve(same(body), any(AssertionType.class));*/
     }
 
     @Test
@@ -89,7 +87,6 @@ public class DocRetrieveTest {
 
         docRetrieve.respondingGatewayCrossGatewayRetrieve(body);
 
-    /*    verify(service).respondingGatewayCrossGatewayRetrieve(same(body), any(AssertionType.class));*/
         assertTrue(!StringUtils.isBlank(assertion.getImplementsSpecVersion()));
         assertEquals(NhincConstants.UDDI_SPEC_VERSION.SPEC_3_0.toString(), assertion.getImplementsSpecVersion());
     }
@@ -110,7 +107,7 @@ public class DocRetrieveTest {
     public void hasInboundProcessingEventStandard() throws Exception {
         Class<StandardInboundDocRetrieve> clazz = StandardInboundDocRetrieve.class;
         Method method = clazz.getMethod("respondingGatewayCrossGatewayRetrieve", RetrieveDocumentSetRequestType.class,
-                AssertionType.class, Properties.class);
+            AssertionType.class, Properties.class);
         InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
         assertNotNull(annotation);
         assertEquals(RetrieveDocumentSetRequestTypeDescriptionBuilder.class, annotation.beforeBuilder());
@@ -118,6 +115,5 @@ public class DocRetrieveTest {
         assertEquals("Retrieve Document", annotation.serviceType());
         assertEquals("", annotation.version());
     }
-
 
 }

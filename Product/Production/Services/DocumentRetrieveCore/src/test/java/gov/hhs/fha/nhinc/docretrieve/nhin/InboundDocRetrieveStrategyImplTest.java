@@ -29,9 +29,6 @@ package gov.hhs.fha.nhinc.docretrieve.nhin;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocumentRetrieveLogger;
-import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
-import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxy;
@@ -42,13 +39,8 @@ import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import java.util.Properties;
-
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.eq;
-import static org.mockito.Matchers.isA;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -63,74 +55,64 @@ public class InboundDocRetrieveStrategyImplTest {
     private AuditTransformer at;
     private InboundDelegate d;
     private DocRetrieveAuditLogger auditLog;
-       NhinTargetSystemType nhinTargetSystemType;
-        private final    RetrieveDocumentSetRequestType    retrieveDocumentSetRequestType= mock(RetrieveDocumentSetRequestType.class);
-      Properties  webContextProp =null;
-      RetrieveDocumentSetRequestType request = null;
-      RetrieveDocumentSetResponseType response = null;
-      AssertionType assertion= null;
-         RetrieveDocumentSetResponseType     retrieveDocumentSetResponseType=null;
-        AssertionType assertionType = mock(AssertionType.class);
+    NhinTargetSystemType nhinTargetSystemType;
+    Properties webContextProp = null;
+    RetrieveDocumentSetRequestType request = null;
+    RetrieveDocumentSetResponseType response = null;
+    AssertionType assertion = null;
+    RetrieveDocumentSetResponseType retrieveDocumentSetResponseType = null;
+    AssertionType assertionType = mock(AssertionType.class);
+    InboundStandardDocRetrieveOrchestratable standard = null;
+    InboundPassthroughDocRetrieveOrchestratable passthrough = null;
+    InboundDocRetrieveStrategyImpl inboundDocRetrieve = null;
 
     @Before
     public void setup() {
-          nhinTargetSystemType =null;
+        nhinTargetSystemType = null;
         adapterproxy = mock(AdapterDocRetrieveProxy.class);
         pt = mock(PolicyTransformer.class);
         at = mock(AuditTransformer.class);
         d = mock(InboundDelegate.class);
         auditLog = mock(DocRetrieveAuditLogger.class);
-               
+        standard = new InboundStandardDocRetrieveOrchestratable(pt, at, d);
+        passthrough = new InboundPassthroughDocRetrieveOrchestratable(pt, at, d);
+        inboundDocRetrieve = new InboundDocRetrieveStrategyImpl(adapterproxy, auditLog) {
+            @Override
+            public RetrieveDocumentSetResponseType sendToAdapter(InboundDocRetrieveOrchestratable message) {
+                retrieveDocumentSetResponseType = new RetrieveDocumentSetResponseType();
+                return retrieveDocumentSetResponseType;
+            }
 
-          
+            @Override
+            protected NhinTargetSystemType getTargetNhinTargetSystemType(InboundDocRetrieveOrchestratable message) {
+                return nhinTargetSystemType;
+            }
+        };
+
     }
 
     @Test
     public void testExecuteMethodForPassthru() {
-
-        InboundPassthroughDocRetrieveOrchestratable passthrough = new InboundPassthroughDocRetrieveOrchestratable(pt,
-                at, d);
-
-        InboundDocRetrieveStrategyImpl inboundDocRetrieve = new InboundDocRetrieveStrategyImpl(adapterproxy,auditLog) {
-            @Override
-            public RetrieveDocumentSetResponseType sendToAdapter(InboundDocRetrieveOrchestratable message) {
-               retrieveDocumentSetResponseType=  new RetrieveDocumentSetResponseType();
-               return retrieveDocumentSetResponseType;
-            }
-             @Override
-              protected NhinTargetSystemType getTargetNhinTargetSystemType(InboundDocRetrieveOrchestratable message){
-                  return nhinTargetSystemType;
-              }
-
-        };
-
         inboundDocRetrieve.execute(passthrough);
-        
-        
-       verify(auditLog,never()).auditRequestMessage(eq(request), eq(assertion), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE), eq(webContextProp), eq("RetrieveDocuments"));
-       verify(auditLog,never()).auditResponseMessage(eq(request),eq(retrieveDocumentSetResponseType), eq(assertion), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),  eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE),eq(webContextProp), eq(new String("RetrieveDocuments")));
+        verify(auditLog, never()).auditRequestMessage(eq(request), eq(assertion), eq(nhinTargetSystemType),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
+            eq(Boolean.FALSE), eq(webContextProp), eq("RetrieveDocuments"));
+        verify(auditLog, never()).auditResponseMessage(eq(request), eq(retrieveDocumentSetResponseType),
+            eq(assertion), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),
+            eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE), eq(webContextProp),
+            eq("RetrieveDocuments"));
     }
 
     @Test
     public void testExceuteMethodForStandard() {
+        inboundDocRetrieve.execute(standard);
+        verify(auditLog).auditRequestMessage(eq(request), eq(assertion), eq(nhinTargetSystemType),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
+            eq(Boolean.FALSE), eq(webContextProp), eq("RetrieveDocuments"));
+        verify(auditLog).auditResponseMessage(eq(request), eq(retrieveDocumentSetResponseType),
+            eq(assertion), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),
+            eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE), eq(webContextProp),
+            eq("RetrieveDocuments"));
 
-        InboundStandardDocRetrieveOrchestratable standard = new InboundStandardDocRetrieveOrchestratable(pt, at, d);
-
-        InboundDocRetrieveStrategyImpl inboundDocRetrieve = new InboundDocRetrieveStrategyImpl(adapterproxy, auditLog) {
-            @Override
-            public RetrieveDocumentSetResponseType sendToAdapter(InboundDocRetrieveOrchestratable message) {
-                retrieveDocumentSetResponseType=  new RetrieveDocumentSetResponseType();
-               return retrieveDocumentSetResponseType;
-            }
-             @Override
-              protected NhinTargetSystemType getTargetNhinTargetSystemType(InboundDocRetrieveOrchestratable message){
-                  return nhinTargetSystemType;
-              }
-        };
- 
-     inboundDocRetrieve.execute(standard);
-      verify(auditLog).auditRequestMessage(eq(request), eq(assertion), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE), eq(webContextProp), eq("RetrieveDocuments"));
-      verify(auditLog).auditResponseMessage(eq(request),eq(retrieveDocumentSetResponseType), eq(assertion), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),  eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE),eq(webContextProp), eq(new String("RetrieveDocuments")));
-    
     }
 }

@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
-import java.util.Properties;
-
 import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocumentRetrieveLogger;
@@ -47,9 +45,7 @@ import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxyObject
 import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
@@ -60,7 +56,6 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
 
     private static final Logger LOG = Logger.getLogger(InboundDocRetrieveStrategyImpl.class);
     AdapterDocRetrieveProxy proxy;
-    AuditRepositoryDocumentRetrieveLogger auditLogger;
     DocRetrieveAuditLogger docRetrieveLogger;
 
     /**
@@ -68,7 +63,6 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
      */
     public InboundDocRetrieveStrategyImpl() {
         proxy = new AdapterDocRetrieveProxyObjectFactory().getAdapterDocRetrieveProxy();
-        auditLogger = new AuditRepositoryLogger();
         docRetrieveLogger = new DocRetrieveAuditLogger();
     }
 
@@ -117,7 +111,7 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
         try {
             DocRetrieveFileUtils.getInstance().convertFileLocationToDataIfEnabled(adapterResponse);
         } catch (Exception e) {
-            LOG.error("Failed to retrieve data from the file uri in the payload.", e);
+            LOG.error("Failed to retrieve data from the file uri in the payload." + e.getLocalizedMessage(), e);
             adapterResponse = MessageGenerator.getInstance().createRegistryResponseError(
                 "Adapter Document Retrieve Processing");
         }
@@ -132,7 +126,9 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
     public void auditInboundResponseMessage(InboundDocRetrieveOrchestratable message) {
 
         LOG.debug("Calling audit log for doc retrieve response received from adapter (a0)");
-        docRetrieveLogger.auditResponseMessage(message.getRequest(), message.getResponse(), message.getAssertion(), null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, Boolean.FALSE, message.getWebContextProperties(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+        docRetrieveLogger.auditResponseMessage(message.getRequest(), message.getResponse(), message.getAssertion(),
+            null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE,
+            Boolean.FALSE, message.getWebContextProperties(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
     }
 
     /**
@@ -143,12 +139,14 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
     public void auditOutboundRequestMessage(InboundDocRetrieveOrchestratable message) {
 
         LOG.debug("Calling audit log for doc retrieve request (g0) sent to adapter (a0)");
-        docRetrieveLogger.auditRequestMessage(message.getRequest(), message.getAssertion(), null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, Boolean.FALSE, message.getWebContextProperties(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+        docRetrieveLogger.auditRequestMessage(message.getRequest(), message.getAssertion(), null,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, Boolean.FALSE,
+            message.getWebContextProperties(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
     }
 
     protected NhinTargetSystemType getTargetNhinTargetSystemType(InboundDocRetrieveOrchestratable message) {
-        NhinTargetSystemType nhinTargetSystem = MessageGeneratorUtils.getInstance().convertToNhinTargetSystemType(getTargetCommunityType(message));
-        return nhinTargetSystem;
+        return MessageGeneratorUtils.getInstance().
+            convertToNhinTargetSystemType(getTargetCommunityType(message));
     }
 
     private NhinTargetCommunityType getTargetCommunityType(InboundDocRetrieveOrchestratable message) {

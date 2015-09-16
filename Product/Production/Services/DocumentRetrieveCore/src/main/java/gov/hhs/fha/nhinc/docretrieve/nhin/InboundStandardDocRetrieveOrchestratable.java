@@ -43,7 +43,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
  *
  */
 public class InboundStandardDocRetrieveOrchestratable extends AbstractStandardOrchestratable implements
-        InboundDocRetrieveOrchestratable {
+    InboundDocRetrieveOrchestratable {
 
     private InboundDelegate inboundDelegate;
     private final String serviceName = "NhinDocumentRetrieve_g0";
@@ -52,9 +52,7 @@ public class InboundStandardDocRetrieveOrchestratable extends AbstractStandardOr
     private AssertionType assertion;
     private Properties webContextProperties;
 
-
-   
-	/**
+    /**
      * default constructor.
      */
     public InboundStandardDocRetrieveOrchestratable() {
@@ -135,17 +133,13 @@ public class InboundStandardDocRetrieveOrchestratable extends AbstractStandardOr
     public void setResponse(RetrieveDocumentSetResponseType response) {
         this.response = response;
     }
-    
-    
+
     public Properties getWebContextProperties() {
-		return webContextProperties;
-	}
+        return webContextProperties;
+    }
 
-	public void setWebContextProperties(Properties webContextProperties) {
-		this.webContextProperties = webContextProperties;
-	}
-
-	
-
+    public void setWebContextProperties(Properties webContextProperties) {
+        this.webContextProperties = webContextProperties;
+    }
 
 }
