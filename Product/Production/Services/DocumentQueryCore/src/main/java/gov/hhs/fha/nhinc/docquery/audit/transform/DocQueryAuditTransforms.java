@@ -34,14 +34,13 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditTransformsConstants;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
-import java.io.StringWriter;
+import java.io.ByteArrayOutputStream;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import org.apache.log4j.Logger;
-import org.apache.ws.security.util.Base64;
 
 /**
  *
@@ -129,7 +128,8 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
 
     private AuditMessageType getQueryParamsParticipantObjectIdentificationForRequest(AdhocQueryRequest request,
             AuditMessageType auditMsg) throws JAXBException {
-        ParticipantObjectIdentificationType participantObject = createQueryParticipantObjectIdentification(getQueryIdFromRequest(request));
+        ParticipantObjectIdentificationType participantObject =
+                createQueryParticipantObjectIdentification(getQueryIdFromRequest(request));
         participantObject.setParticipantObjectQuery(getParticipantObjectQueryForRequest(request));
         auditMsg.getParticipantObjectIdentification().add(participantObject);
         return auditMsg;
@@ -141,7 +141,8 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
             AuditMessageType auditMsg) {
         String patientId = getPatientIdFromRequest(request);
         if (patientId != null) {
-            ParticipantObjectIdentificationType participantObject = createPatientParticipantObjectIdentification(patientId);
+            ParticipantObjectIdentificationType participantObject =
+                    createPatientParticipantObjectIdentification(patientId);
             auditMsg.getParticipantObjectIdentification().add(participantObject);
         }
         return auditMsg;
@@ -151,7 +152,8 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
             AdhocQueryResponse response, AuditMessageType auditMsg) {
         String patientId = getPatientIdFromRequest(request);
         if (patientId != null) {
-            ParticipantObjectIdentificationType participantObject = createPatientParticipantObjectIdentification(patientId);
+            ParticipantObjectIdentificationType participantObject =
+                    createPatientParticipantObjectIdentification(patientId);
             auditMsg.getParticipantObjectIdentification().add(participantObject);
         }
         return auditMsg;
@@ -160,7 +162,8 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
 
     private AuditMessageType getQueryParticipantObjectIdentificationForResponse(AdhocQueryRequest request,
             AdhocQueryResponse response, AuditMessageType auditMsg) throws JAXBException {
-        ParticipantObjectIdentificationType participantObject = createQueryParticipantObjectIdentification(getQueryIdFromRequest(request));
+        ParticipantObjectIdentificationType participantObject =
+                createQueryParticipantObjectIdentification(getQueryIdFromRequest(request));
         participantObject.setParticipantObjectQuery(getParticipantObjectQueryForRequest(request));
         auditMsg.getParticipantObjectIdentification().add(participantObject);
         return auditMsg;
@@ -218,10 +221,10 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
     }
 
     private byte[] getParticipantObjectQueryForRequest(AdhocQueryRequest request) throws JAXBException {
-        StringWriter sw = new StringWriter();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
         if (request != null) {
-            getMarshaller().marshal(request, sw);
-            return sw.toString().getBytes();
+            getMarshaller().marshal(request, baos);
+            return baos.toByteArray();
         }
         return null;
     }
