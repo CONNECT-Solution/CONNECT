@@ -26,14 +26,12 @@
  */
 package gov.hhs.fha.nhinc.docquery.outbound;
 
-import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
-import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
-import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
+import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryDelegate;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -48,7 +46,6 @@ import org.apache.log4j.Logger;
 public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
     private static final Logger LOG = Logger.getLogger(PassthroughOutboundDocQuery.class);
-
     private OutboundDocQueryDelegate delegate = new OutboundDocQueryDelegate();
 
     public PassthroughOutboundDocQuery() {
@@ -62,12 +59,9 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
     /**
      * This method sends a AdhocQueryRequest to the NwHIN to a single gateway.
      *
-     * @param request
-     *            the AdhocQueryRequest message to be sent
-     * @param assertion
-     *            the AssertionType instance received from the adapter
-     * @param target
-     *            NhinTargetCommunitiesType where DocQuery Request is to be sent. Only the first one is used.
+     * @param request the AdhocQueryRequest message to be sent
+     * @param assertion the AssertionType instance received from the adapter
+     * @param target NhinTargetCommunitiesType where DocQuery Request is to be sent. Only the first one is used.
      * @return AdhocQueryResponse received from the NHIN
      */
     @Override
@@ -103,6 +97,7 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
             OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate, null, null,
                     assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, request);
             response = delegate.process(orchestratable).getResponse();
+            auditRequest(request, assertion);
         } catch (Exception ex) {
             String errorMsg = "Error from target homeId = " + targetCommunityID + ". " + ex.getMessage();
             response = MessageGeneratorUtils.getInstance().createRepositoryErrorResponse(errorMsg);
@@ -143,4 +138,13 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
         LOG.warn(warning);
     }
 
+    private void auditRequest(AdhocQueryRequest request, AssertionType assertion) {
+        getAuditLogger().auditRequestMessage(request, assertion, null,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+                Boolean.TRUE, null, NhincConstants.DOC_QUERY_SERVICE_NAME);
+    }
+
+    private DocQueryAuditLogger getAuditLogger() {
+        return new DocQueryAuditLogger();
+    }
 }
