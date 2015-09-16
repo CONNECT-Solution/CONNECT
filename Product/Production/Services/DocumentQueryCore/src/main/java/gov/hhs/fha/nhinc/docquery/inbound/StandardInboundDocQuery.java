@@ -78,8 +78,6 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
             senderHcid = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
         }
 
-        //auditRequestFromNhin(msg, assertion, senderHcid, webContextProperties);
-
         AdhocQueryResponse resp = processDocQuery(msg, assertion, getLocalHomeCommunityId(), webContextProperties);
 
         auditResponseToNhin(msg, resp, assertion, senderHcid, webContextProperties);
