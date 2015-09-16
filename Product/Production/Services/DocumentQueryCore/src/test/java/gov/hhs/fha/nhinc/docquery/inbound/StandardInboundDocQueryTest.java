@@ -70,12 +70,12 @@ public class StandardInboundDocQueryTest extends InboundDocQueryTest {
         AssertionType mockAssertion = getMockAssertion(sendingHcid);
 
         StandardInboundDocQuery standardDocQuery = new StandardInboundDocQuery(policyChecker,
-            getMockAdapterFactory(mockAssertion), mockAuditLogger) {
-                @Override
-                protected String getLocalHomeCommunityId() {
-                    return RESPONDING_HCID_FORMATTED;
-                }
-            };
+                getMockAdapterFactory(mockAssertion), mockAuditLogger) {
+            @Override
+            protected String getLocalHomeCommunityId() {
+                return RESPONDING_HCID_FORMATTED;
+            }
+        };
 
         when(policyChecker.checkIncomingPolicy(request, mockAssertion)).thenReturn(true);
 
@@ -97,21 +97,20 @@ public class StandardInboundDocQueryTest extends InboundDocQueryTest {
         when(policyChecker.checkIncomingPolicy(request, assertion)).thenReturn(false);
 
         StandardInboundDocQuery standardDocQuery = new StandardInboundDocQuery(policyChecker, mockAdapterFactory,
-            mockAuditLogger) {
-                @Override
-                protected String getLocalHomeCommunityId() {
-                    return RESPONDING_HCID_FORMATTED;
-                }
-            };
+                mockAuditLogger) {
+            @Override
+            protected String getLocalHomeCommunityId() {
+                return RESPONDING_HCID_FORMATTED;
+            }
+        };
         AdhocQueryResponse actualResponse = standardDocQuery.respondingGatewayCrossGatewayQuery(request, assertion,
-            webContextProperties);
+                webContextProperties);
 
         assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE, actualResponse.getStatus());
         assertEquals(DocumentConstants.XDS_ERRORCODE_REPOSITORY_ERROR, actualResponse.getRegistryErrorList()
-            .getRegistryError().get(0).getErrorCode());
+                .getRegistryError().get(0).getErrorCode());
         assertEquals(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, actualResponse.getRegistryErrorList()
-            .getRegistryError().get(0).getSeverity());
+                .getRegistryError().get(0).getSeverity());
 
     }
-
 }

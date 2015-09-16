@@ -28,17 +28,14 @@ package gov.hhs.fha.nhinc.docquery.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyFactory;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyObjectFactory;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
@@ -51,7 +48,6 @@ import org.apache.log4j.Logger;
 public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy {
 
     private static final Logger LOG = Logger.getLogger(OutboundDocQueryStrategy.class);
-
     private DocQueryAuditLogger auditLogger = null;
     private NhinDocQueryProxyFactory proxyFactory;
     private MessageGeneratorUtils messageGeneratorUtils;
@@ -109,18 +105,12 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
      */
     public void execute(OutboundDocQueryOrchestratable message) {
 
-        getAuditLogger().auditRequestMessage(message.getRequest(), message.getAssertion(), message.getTarget(),
-            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null,
-            NhincConstants.DOC_QUERY_SERVICE_NAME);
         try {
             executeStrategy(message);
         } catch (Exception ex) {
             handleError(message, ex);
         }
 
-        getAuditLogger().auditResponseMessage(message.getRequest(), message.getResponse(), message.getAssertion(),
-            message.getTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-            Boolean.TRUE, null, NhincConstants.DOC_QUERY_SERVICE_NAME);
     }
 
     /**
@@ -132,11 +122,11 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
      * @throws IllegalArgumentException
      */
     public void executeStrategy(OutboundDocQueryOrchestratable message) throws IllegalArgumentException,
-        ConnectionManagerException, Exception {
+            ConnectionManagerException, Exception {
 
         AdhocQueryResponse response;
         response = proxyFactory.getNhinDocQueryProxy().respondingGatewayCrossGatewayQuery(message.getRequest(),
-            message.getAssertion(), message.getTarget());
+                message.getAssertion(), message.getTarget());
 
         message.setResponse(response);
 
@@ -152,7 +142,7 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
      * @throws Exception
      */
     public String getUrl(NhinTargetSystemType target) throws IllegalArgumentException, ConnectionManagerException,
-        Exception {
+            Exception {
 
         return webServiceProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target, getServiceName(), getAPILevel());
     }
