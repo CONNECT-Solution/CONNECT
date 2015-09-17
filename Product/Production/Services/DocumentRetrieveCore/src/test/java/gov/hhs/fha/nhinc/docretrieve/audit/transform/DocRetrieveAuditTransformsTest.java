@@ -159,13 +159,15 @@ public class DocRetrieveAuditTransformsTest extends AuditTransformsTest<Retrieve
     private void assertParticiopantObjectIdentification(LogEventRequestType auditRequest, AssertionType assertion) {
         ParticipantObjectIdentificationType participantPatientObject;
 
-        if (assertion.getUniquePatientId() != null && assertion.getUniquePatientId().size() > 0 && assertion.getUniquePatientId().get(0).length() > 0) {
+        if (assertion.getUniquePatientId() != null && assertion.getUniquePatientId().size() > 0
+            && assertion.getUniquePatientId().get(0).length() > 0) {
 
             participantPatientObject = auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0);
             assertParticipantPatientObjectIdentification(participantPatientObject);
 
             //test for Participant Document Object Identification
-            ParticipantObjectIdentificationType participantDocumentObject = auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1);
+            ParticipantObjectIdentificationType participantDocumentObject = auditRequest.getAuditMessage().
+                getParticipantObjectIdentification().get(1);
             assertParticipantDocumentParticipantObjectIdentification(participantDocumentObject);
         } else {
             participantPatientObject = auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0);
@@ -175,7 +177,9 @@ public class DocRetrieveAuditTransformsTest extends AuditTransformsTest<Retrieve
 
     }
 
-    private void assertParticipantDocumentParticipantObjectIdentification(ParticipantObjectIdentificationType participantObject) {
+    private void assertParticipantDocumentParticipantObjectIdentification(
+        ParticipantObjectIdentificationType participantObject) {
+
         assertSame(DocRetrieveAuditTransformsConstants.PARTICIPANT_DOCUMENT_OBJ_TYPE_CODE,
             participantObject.getParticipantObjectTypeCode());
         assertSame(DocRetrieveAuditTransformsConstants.PARTICIPANT_DOCUMENT_OBJ_TYPE_CODE_ROLE,
@@ -313,7 +317,8 @@ public class DocRetrieveAuditTransformsTest extends AuditTransformsTest<Retrieve
         }
 
         if (isRequesting) {
-            assertEquals(ManagementFactory.getRuntimeMXBean().getName(), sourceActiveParticipant.getAlternativeUserID());
+            assertEquals(ManagementFactory.getRuntimeMXBean().getName(),
+                sourceActiveParticipant.getAlternativeUserID());
         }
         assertEquals(isRequesting, sourceActiveParticipant.isUserIsRequestor());
         if (isRequesting) {
@@ -341,8 +346,8 @@ public class DocRetrieveAuditTransformsTest extends AuditTransformsTest<Retrieve
      * @param webContextProperties
      * @param remoteObjectIP
      */
-    protected void testGetActiveParticipantDestination(LogEventRequestType request, Boolean isRequesting, String localIP,
-        Properties webContextProperties, String remoteObjectIP) {
+    protected void testGetActiveParticipantDestination(LogEventRequestType request, Boolean isRequesting,
+        String localIP, Properties webContextProperties, String remoteObjectIP) {
 
         ActiveParticipant destinationActiveParticipant = null;
         for (ActiveParticipant item : request.getAuditMessage().getActiveParticipant()) {
