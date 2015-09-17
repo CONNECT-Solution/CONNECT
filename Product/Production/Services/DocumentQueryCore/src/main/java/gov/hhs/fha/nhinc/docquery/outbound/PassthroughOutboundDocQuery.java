@@ -97,7 +97,7 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
             OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate, null, null,
                     assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, request);
             response = delegate.process(orchestratable).getResponse();
-            auditRequest(request, assertion);
+            auditRequest(request, assertion, target);
         } catch (Exception ex) {
             String errorMsg = "Error from target homeId = " + targetCommunityID + ". " + ex.getMessage();
             response = MessageGeneratorUtils.getInstance().createRepositoryErrorResponse(errorMsg);
@@ -138,10 +138,9 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
         LOG.warn(warning);
     }
 
-    private void auditRequest(AdhocQueryRequest request, AssertionType assertion) {
-        getAuditLogger().auditRequestMessage(request, assertion, null,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                Boolean.TRUE, null, NhincConstants.DOC_QUERY_SERVICE_NAME);
+    private void auditRequest(AdhocQueryRequest request, AssertionType assertion, NhinTargetSystemType target) {
+        getAuditLogger().auditRequestMessage(request, assertion, target, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null, NhincConstants.DOC_QUERY_SERVICE_NAME);
     }
 
     private DocQueryAuditLogger getAuditLogger() {
