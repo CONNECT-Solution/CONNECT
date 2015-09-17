@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.inbound;
 
+import java.util.Properties;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveAuditTransformer_g0;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveDelegate;
@@ -79,11 +81,12 @@ public class PassthroughInboundDocRetrieve extends BaseInboundDocRetrieve {
      */
     @Override
     public InboundDocRetrieveOrchestratable createInboundOrchestrable(RetrieveDocumentSetRequestType body,
-            AssertionType assertion) {
+            AssertionType assertion, Properties webContextProperties) {
 
         InboundDocRetrieveOrchestratable inboundOrchestrable = new InboundPassthroughDocRetrieveOrchestratable(pt, at, ad);
         inboundOrchestrable.setAssertion(assertion);
         inboundOrchestrable.setRequest(body);
+        inboundOrchestrable.setWebContextProperties(webContextProperties);
 
         return inboundOrchestrable;
     }

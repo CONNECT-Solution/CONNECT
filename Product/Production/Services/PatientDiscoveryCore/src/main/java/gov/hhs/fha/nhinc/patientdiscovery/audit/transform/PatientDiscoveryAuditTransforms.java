@@ -60,7 +60,6 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
 
         // TODO: auditMsg should either use a builder, or modify in-method with no return
         auditMsg = getPatientParticipantObjectIdentificationForRequest(request, auditMsg);
-
         try {
             auditMsg = getQueryParamsParticipantObjectIdentificationForRequest(request, auditMsg);
         } catch (JAXBException ex) {
@@ -243,7 +242,12 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
     }
 
     @Override
-    protected String getServiceEventIdCode() {
+    protected String getServiceEventIdCodeRequestor() {
+        return PatientDiscoveryAuditTransformsConstants.EVENT_ID_CODE;
+    }
+
+    @Override
+    protected String getServiceEventIdCodeResponder() {
         return PatientDiscoveryAuditTransformsConstants.EVENT_ID_CODE;
     }
 
@@ -286,4 +290,5 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
     protected String getServiceEventActionCodeResponder() {
         return PatientDiscoveryAuditTransformsConstants.EVENT_ACTION_CODE_RESPONDER;
     }
+
 }

@@ -62,7 +62,7 @@ public class DocRetrieve extends BaseService implements ihe.iti.xds_b._2007.Resp
             assertion.setImplementsSpecVersion(NhincConstants.UDDI_SPEC_VERSION.SPEC_2_0.toString());
         }
 
-        return service.respondingGatewayCrossGatewayRetrieve(body, assertion);
+        return service.respondingGatewayCrossGatewayRetrieve(body, assertion, getWebContextProperties(context));
     }
 
     /**

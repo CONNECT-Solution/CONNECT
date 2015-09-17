@@ -173,8 +173,8 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
 
         if (message != null && message.getAuditTransformer() != null) {
             AuditTransformer transformer = message.getAuditTransformer();
-            LogEventRequestType auditLogMsg = transformer.transformRequest(message);
-            resp = audit(auditLogMsg, message.getAssertion());
+            transformer.transformRequest(message);
+            
         }
         return resp;
     }
@@ -184,8 +184,8 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
 
         if (message != null && message.getAuditTransformer() != null) {
             AuditTransformer transformer = message.getAuditTransformer();
-            LogEventRequestType auditLogMsg = transformer.transformResponse(message);
-            resp = audit(auditLogMsg, message.getAssertion());
+            transformer.transformResponse(message);
+            
         }
         return resp;
     }

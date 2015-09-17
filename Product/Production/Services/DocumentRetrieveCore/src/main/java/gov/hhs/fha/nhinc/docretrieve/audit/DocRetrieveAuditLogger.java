@@ -24,18 +24,20 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.orchestration;
+package gov.hhs.fha.nhinc.docretrieve.audit;
 
-/**
- *
- * @author mweaver
- */
-public interface AuditTransformer {
-    public enum Direction {
-        INBOUND, OUTBOUND
-    };
+import gov.hhs.fha.nhinc.audit.AuditLogger;
+import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
+import gov.hhs.fha.nhinc.docretrieve.audit.transform.DocRetrieveAuditTransforms;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
-    public void transformRequest(Orchestratable message);
+public class DocRetrieveAuditLogger
+    extends AuditLogger<RetrieveDocumentSetRequestType, RetrieveDocumentSetResponseType> {
 
-    public void transformResponse(Orchestratable message);
+    @Override
+    protected AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetResponseType> getAuditTransforms() {
+        return new DocRetrieveAuditTransforms();
+    }
+
 }

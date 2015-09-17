@@ -82,7 +82,12 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
     }
 
     @Override
-    protected String getServiceEventIdCode() {
+    protected String getServiceEventIdCodeRequestor() {
+        return DocQueryAuditTransformsConstants.EVENT_ID_CODE;
+    }
+
+    @Override
+    protected String getServiceEventIdCodeResponder() {
         return DocQueryAuditTransformsConstants.EVENT_ID_CODE;
     }
 

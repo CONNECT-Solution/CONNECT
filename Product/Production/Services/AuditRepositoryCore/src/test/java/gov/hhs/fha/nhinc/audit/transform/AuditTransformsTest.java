@@ -38,11 +38,9 @@ import java.util.List;
 import java.util.Properties;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import static org.junit.Assert.assertEquals;
-
 
 /**
  *
@@ -89,7 +87,13 @@ public abstract class AuditTransformsTest<T, K> {
         }
         assertEquals(AuditTransformsConstants.EVENT_OUTCOME_INDICATOR_SUCCESS.toString(), eventIdentificationType
             .getEventOutcomeIndicator().toString());
-        assertEquals(getAuditTransforms().getServiceEventIdCode(), eventIdentificationType.getEventID().getCode());
+        if (isRequesting) {
+            assertEquals(getAuditTransforms().getServiceEventIdCodeRequestor(),
+                eventIdentificationType.getEventID().getCode());
+        } else {
+            assertEquals(getAuditTransforms().getServiceEventIdCodeResponder(),
+                eventIdentificationType.getEventID().getCode());
+        }
         assertEquals(getAuditTransforms().getServiceEventCodeSystem(),
             eventIdentificationType.getEventID().getCodeSystemName());
 
@@ -129,8 +133,8 @@ public abstract class AuditTransformsTest<T, K> {
                 }
             }
             assertEquals(assertion.getUserInfo().getUserName(), userActiveParticipant.getUserID());
-            assertEquals(assertion.getUserInfo().getPersonName().getGivenName() + " " +
-                assertion.getUserInfo().getPersonName().getFamilyName(), userActiveParticipant.getUserName());
+            assertEquals(assertion.getUserInfo().getPersonName().getGivenName() + " "
+                + assertion.getUserInfo().getPersonName().getFamilyName(), userActiveParticipant.getUserName());
             assertEquals(assertion.getUserInfo().getRoleCoded().getCode(), userActiveParticipant.
                 getRoleIDCode().get(0).getCode());
             assertEquals(assertion.getUserInfo().getRoleCoded().getCodeSystemName(), userActiveParticipant.
@@ -191,10 +195,12 @@ public abstract class AuditTransformsTest<T, K> {
      */
     protected void testGetActiveParticipantDestination(LogEventRequestType request, Boolean isRequesting,
         Properties webContextProperties, String remoteObjectIP) {
+
         ActiveParticipant destinationActiveParticipant = null;
         for (ActiveParticipant item : request.getAuditMessage().getActiveParticipant()) {
             if (item.getRoleIDCode().get(0).getDisplayName() != null && item.getRoleIDCode().get(0).
-                getDisplayName().equals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME)) {
+                getDisplayName().equals(
+                    AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME)) {
                 destinationActiveParticipant = item;
             }
         }
