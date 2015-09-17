@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docquery.outbound;
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
 import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
@@ -111,9 +112,10 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
             for (OutboundOrchestratable o : aggregateRequests) {
                 if (o instanceof OutboundDocQueryOrchestratable) {
                     AdhocQueryRequest docQueryRequest = ((OutboundDocQueryOrchestratable) o).getRequest();
+                    NhinTargetSystemType target = ((OutboundDocQueryOrchestratable) o).getTarget();
                     if (policyCheck(((OutboundDocQueryOrchestratable) o).getRequest(), o.getAssertion())) {
                         permittedPerPolicy.add(o);
-                        auditRequest(docQueryRequest, o.getAssertion());
+                        auditRequest(docQueryRequest, o.getAssertion(), target);
                     }
                 }
             }
@@ -157,8 +159,8 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
                 DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
     }
 
-    private void auditRequest(AdhocQueryRequest request, AssertionType assertion) {
-        getAuditLogger().auditRequestMessage(request, assertion, null,
+    private void auditRequest(AdhocQueryRequest request, AssertionType assertion, NhinTargetSystemType target) {
+        getAuditLogger().auditRequestMessage(request, assertion, target,
                 NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
                 Boolean.TRUE, null, NhincConstants.DOC_QUERY_SERVICE_NAME);
 
