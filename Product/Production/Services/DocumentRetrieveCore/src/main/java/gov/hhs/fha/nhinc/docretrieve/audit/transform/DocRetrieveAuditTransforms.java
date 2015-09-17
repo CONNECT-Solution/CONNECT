@@ -37,6 +37,14 @@ import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditTransformsConstants;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import java.net.URL;
+import java.lang.management.ManagementFactory;
+import java.util.Properties;
+import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
+import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformHelper;
+import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
+import java.net.MalformedURLException;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 
 /**
  * This class is designed for supporting Audit Logging for Retrieve Document.
@@ -303,6 +311,123 @@ public class DocRetrieveAuditTransforms
     @Override
     protected String getServiceEventActionCodeResponder() {
         return DocRetrieveAuditTransformsConstants.EVENT_ACTION_CODE_RESPONDER;
+    }
+
+    /**
+     * This method builds ActiveParticipant Source object
+     *
+     * @param target
+     * @param serviceName
+     * @param isRequesting
+     * @param webContextProperties
+     * @return
+     */
+    @Override
+    protected ActiveParticipant getActiveParticipantSource(NhinTargetSystemType target, String serviceName,
+        boolean isRequesting, Properties webContextProperties) {
+
+        ActiveParticipant participant = new ActiveParticipant();
+
+        /* if Retrieve Document Service, Activeparticipant Source and destination is same on both initiator and
+         responder side. And for this service, source is considered who generates the document, meaning that
+         destination that generates the document is considered source for RD and vice versa for destination
+         details for ActiveParticipant */
+        String hostDetails = getWebServiceUrlFromRemoteObject(target, serviceName);
+        if (hostDetails != null) {
+            try {
+                URL url = new URL(hostDetails);
+                participant.setUserID(hostDetails);
+                hostDetails = url.getHost();
+                participant.setNetworkAccessPointID(hostDetails);
+                participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostDetails));
+            } catch (MalformedURLException ex) {
+                LOG.error("Error while extracting remote address : " + ex.getLocalizedMessage(), ex);
+                // The url is null or not a valid url; for now, set the user id to anonymous
+                participant.setUserID(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
+                // TODO: For now, hardcode the value to localhost; need to find out if this needs to be set
+                participant.setNetworkAccessPointTypeCode(
+                    AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME);
+                participant.setNetworkAccessPointID(
+                    AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS);
+            }
+        }
+
+        /* if it is not RD service or required if RD and it's Initiator - ActiveParticipant Destination and
+         Responder - ActiveParticipant Source*/
+        if (!isRequesting) {
+            participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
+        }
+
+        participant.getRoleIDCode()
+            .add(AuditDataTransformHelper.createCodeValueType(
+                    AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
+                    AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+                    AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
+
+        participant.setUserIsRequestor(Boolean.FALSE);
+
+        return participant;
+    }
+
+    /**
+     * This method builds ActiveParticipant Destination object
+     *
+     * @param target
+     * @param isRequesting
+     * @param webContextProperties
+     * @param serviceName
+     * @return
+     */
+    @Override
+    protected ActiveParticipant getActiveParticipantDestination(NhinTargetSystemType target,
+        boolean isRequesting, Properties webContextProperties, String serviceName) {
+        ActiveParticipant participant = new ActiveParticipant();
+        String hostAddress = null;
+
+        if (isRequesting) {
+            hostAddress = getLocalHostAddress();
+            participant.setUserID(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
+            participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
+            participant.setNetworkAccessPointID(hostAddress);
+            participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostAddress));
+
+        } else {
+            hostAddress = getLocalAddressFromProperties(webContextProperties);
+
+            if (hostAddress != null) {
+                try {
+                    URL url = new URL(hostAddress);
+                    participant.setUserID(hostAddress);
+                    hostAddress = url.getHost();
+                    participant.setNetworkAccessPointID(hostAddress);
+                    participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostAddress));
+                } catch (MalformedURLException ex) {
+                    LOG.error("Error while returning remote address: " + ex.getLocalizedMessage(), ex);
+                    // The url is null or not a valid url; for now, set the user id to anonymous
+                    participant.setUserID(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
+                    // TODO: For now, hardcode the value to localhost; need to find out if this needs to be set
+                    participant.setNetworkAccessPointTypeCode(
+                        AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME);
+                    participant.setNetworkAccessPointID(AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS);
+                }
+            }
+        }
+
+        /* for RD service it is opposite than other services. For RD service it is
+         required in initiating side and for other services it is required for responding side */
+        if (isRequesting) {
+            participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
+        }
+
+        //for RD service condition is opposite than other service
+        participant.setUserIsRequestor(Boolean.TRUE);
+
+        participant.getRoleIDCode()
+            .add(AuditDataTransformHelper.createCodeValueType(
+                    AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, null,
+                    AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+                    AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME));
+        return participant;
     }
 
 }

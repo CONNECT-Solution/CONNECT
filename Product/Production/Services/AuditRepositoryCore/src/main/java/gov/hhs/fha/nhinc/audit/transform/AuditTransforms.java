@@ -262,67 +262,23 @@ public abstract class AuditTransforms<T, K> {
      * @param webContextProperties
      * @return
      */
-    private ActiveParticipant getActiveParticipantSource(NhinTargetSystemType target, String serviceName,
+    protected ActiveParticipant getActiveParticipantSource(NhinTargetSystemType target, String serviceName,
         boolean isRequesting, Properties webContextProperties) {
 
-        ActiveParticipant participant = new ActiveParticipant();
+        String hostAddress = isRequesting ? getLocalHostAddress() : getRemoteHostAddress(webContextProperties);
 
-        /* if Retrieve Document Service, Activeparticipant Source and destination is same on both initiator and
-         responder side. And for this service, source is considered who generates the document, meaning that
-         destination that generates the document is considered source for RD and vice versa for destination
-         details for ActiveParticipant */
-        if (serviceName.equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME)) {
-            String hostDetails = getWebServiceUrlFromRemoteObject(target, serviceName);
-            if (hostDetails != null) {
-                try {
-                    URL url = new URL(hostDetails);
-                    participant.setUserID(hostDetails);
-                    hostDetails = url.getHost();
-                    participant.setNetworkAccessPointID(hostDetails);
-                    participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostDetails));
-                } catch (MalformedURLException ex) {
-                    LOG.error("Error while extracting remote address : " + ex.getLocalizedMessage(), ex);
-                    // The url is null or not a valid url; for now, set the user id to anonymous
-                    participant.setUserID(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
-                    // TODO: For now, hardcode the value to localhost; need to find out if this needs to be set
-                    participant.setNetworkAccessPointTypeCode(
-                        AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME);
-                    participant.setNetworkAccessPointID(
-                        AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS);
-                }
-            }
-        } else {
-            String hostAddress = isRequesting ? getLocalHostAddress() : getRemoteHostAddress(webContextProperties);
-            participant.setUserID(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
-
-            participant.setNetworkAccessPointID(hostAddress);
-            participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostAddress));
-
-        }
-
-        /* if it is not RD service or required if RD and it's Initiator - ActiveParticipant Destination and
-         Responder - ActiveParticipant Source*/
-        if (!(serviceName.equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME))
-            || (serviceName.equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME) && !isRequesting)) {
-            participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
-
-        }
-
-        participant.getRoleIDCode()
-            .add(AuditDataTransformHelper.createCodeValueType(
-                    AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
-                    AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
-                    AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
-
-        /* if it's RD service condition is opposite which means that, for ActiveParticipant
-         for services other than RD is always True but not for RD*/
-        if (serviceName.equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME)) {
-            participant.setUserIsRequestor(Boolean.FALSE);
-        } else {
-            participant.setUserIsRequestor(Boolean.TRUE);
-        }
-
+        AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
+        participant.setUserID(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
+        participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
+        participant.setNetworkAccessPointID(hostAddress);
+        participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostAddress));
+        participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
+        participant.setUserIsRequestor(Boolean.TRUE);
         return participant;
+
     }
 
     /**
@@ -334,64 +290,42 @@ public abstract class AuditTransforms<T, K> {
      * @param serviceName
      * @return
      */
-    private ActiveParticipant getActiveParticipantDestination(NhinTargetSystemType target,
+    protected ActiveParticipant getActiveParticipantDestination(NhinTargetSystemType target,
         boolean isRequesting, Properties webContextProperties, String serviceName) {
-        ActiveParticipant participant = new ActiveParticipant();
-        String hostAddress = null;
 
-        if (serviceName.equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME) && isRequesting) {
-            hostAddress = getLocalHostAddress();
-            participant.setUserID(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
-            participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
-            participant.setNetworkAccessPointID(hostAddress);
-            participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostAddress));
+        String strUrl;
+        String strHost;
 
-        } else {
-            if (serviceName.equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME) && !isRequesting) {
-                hostAddress = getLocalAddressFromProperties(webContextProperties);
-            } else {
-                hostAddress = isRequesting ? getWebServiceUrlFromRemoteObject(target, serviceName)
-                    : getWebServiceRequestUrl(webContextProperties);
+        AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
+
+        strUrl = isRequesting ? getWebServiceUrlFromRemoteObject(target, serviceName)
+            : getWebServiceRequestUrl(webContextProperties);
+        if (strUrl != null) {
+            try {
+                URL url = new URL(strUrl);
+                participant.setUserID(strUrl);
+                strHost = url.getHost();
+                participant.setNetworkAccessPointID(strHost);
+                participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(strHost));
+            } catch (MalformedURLException ex) {
+                LOG.error(ex);
+                // The url is null or not a valid url; for now, set the user id to anonymous
+                participant.setUserID(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
+                // TODO: For now, hardcode the value to localhost; need to find out if this needs to be set
+                participant.setNetworkAccessPointTypeCode(AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME);
+                participant.setNetworkAccessPointID(AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS);
             }
-            if (hostAddress != null) {
-                try {
-                    URL url = new URL(hostAddress);
-                    participant.setUserID(hostAddress);
-                    hostAddress = url.getHost();
-                    participant.setNetworkAccessPointID(hostAddress);
-                    participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostAddress));
-                } catch (MalformedURLException ex) {
-                    LOG.error("Error while returning remote address: " + ex.getLocalizedMessage(), ex);
-                    // The url is null or not a valid url; for now, set the user id to anonymous
-                    participant.setUserID(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
-                    // TODO: For now, hardcode the value to localhost; need to find out if this needs to be set
-                    participant.setNetworkAccessPointTypeCode(AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME);
-                    participant.setNetworkAccessPointID(AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS);
-                }
-            }
-
         }
-
-        /* for RD service it is opposite than other services. For RD service it is
-         required in initiating side and for other services it is required for responding side */
-        if ((serviceName.equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME) && isRequesting)
-            || (!(serviceName.equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME)) && !isRequesting)) {
+        if (!isRequesting) {
             participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
         }
-
-        //for RD service condition is opposite than other service
-        if (serviceName.equals(NhincConstants.DOC_RETRIEVE_SERVICE_NAME)) {
-            participant.setUserIsRequestor(Boolean.TRUE);
-        } else {
-            participant.setUserIsRequestor(Boolean.FALSE);
-        }
-
-        participant.getRoleIDCode()
-            .add(AuditDataTransformHelper.createCodeValueType(
-                    AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, null,
-                    AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
-                    AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME));
+        participant.setUserIsRequestor(Boolean.FALSE);
+        participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, null,
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME));
         return participant;
+
     }
 
     private String getMessageCommunityId(AssertionType assertion, NhinTargetSystemType target, boolean isRequesting) {
@@ -404,7 +338,7 @@ public abstract class AuditTransforms<T, K> {
         return HomeCommunityMap.formatHomeCommunityId(communityId);
     }
 
-    private Short getNetworkAccessPointTypeCode(String hostAddress) {
+    protected Short getNetworkAccessPointTypeCode(String hostAddress) {
         if (InetAddressValidator.getInstance().isValid(hostAddress)) {
             return AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_IP;
         }
