@@ -105,6 +105,7 @@ public abstract class AuditTransforms<T, K> {
     /**
      * Build and AuditLog Request Message from response
      *
+     * @param request Request Object
      * @param response Response Object
      * @param assertion Assertion Object
      * @param target Target Community
@@ -142,6 +143,7 @@ public abstract class AuditTransforms<T, K> {
     /**
      * Adds Participant Object Identification information to auditMsg
      *
+     * @param request
      * @param response
      * @param assertion
      * @param auditMsg
