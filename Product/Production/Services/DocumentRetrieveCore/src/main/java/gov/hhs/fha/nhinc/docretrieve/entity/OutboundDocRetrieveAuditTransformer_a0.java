@@ -26,10 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.entity;
 
-import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
-import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
-import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
@@ -55,16 +51,24 @@ public class OutboundDocRetrieveAuditTransformer_a0 implements AuditTransformer 
 
         if (message instanceof OutboundDocRetrieveOrchestratable) {
             OutboundDocRetrieveOrchestratable EntityDROrchImp_g0Message = (OutboundDocRetrieveOrchestratable) message;
-            getAuditRepositoryLogger().auditRequestMessage(EntityDROrchImp_g0Message.getRequest(), EntityDROrchImp_g0Message.getAssertion(), EntityDROrchImp_g0Message.getTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null, NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+            getAuditRepositoryLogger().auditRequestMessage(EntityDROrchImp_g0Message.getRequest(),
+                EntityDROrchImp_g0Message.getAssertion(), EntityDROrchImp_g0Message.getTarget(),
+                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
+                Boolean.TRUE, null, NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
 
         }
     }
 
     @Override
     public void transformResponse(Orchestratable message) {
+
         if (message instanceof OutboundDocRetrieveOrchestratable) {
             OutboundDocRetrieveOrchestratable EntityDROrchImp_g0Message = (OutboundDocRetrieveOrchestratable) message;
-            getAuditRepositoryLogger().auditResponseMessage(EntityDROrchImp_g0Message.getRequest(), EntityDROrchImp_g0Message.getResponse(), EntityDROrchImp_g0Message.getAssertion(), EntityDROrchImp_g0Message.getTarget(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null, NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+            getAuditRepositoryLogger().auditResponseMessage(EntityDROrchImp_g0Message.getRequest(),
+                EntityDROrchImp_g0Message.getResponse(), EntityDROrchImp_g0Message.getAssertion(),
+                EntityDROrchImp_g0Message.getTarget(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null,
+                NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
         }
     }
 }

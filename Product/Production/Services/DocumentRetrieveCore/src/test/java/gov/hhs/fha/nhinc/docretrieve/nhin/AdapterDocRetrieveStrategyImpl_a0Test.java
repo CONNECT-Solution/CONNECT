@@ -70,13 +70,7 @@ public class AdapterDocRetrieveStrategyImpl_a0Test {
         retrieveDocumentSetRequestType = mock(RetrieveDocumentSetRequestType.class);
         retrieveDocumentSetResponseType = mock(RetrieveDocumentSetResponseType.class);
 
-        instance = new InboundDocRetrieveStrategyImpl(adapterProxy, logger) {
-            @Override
-            protected NhinTargetSystemType getTargetNhinTargetSystemType(InboundDocRetrieveOrchestratable message) {
-                return nhinTargetSystemType;
-            }
-
-        };
+        instance = new InboundDocRetrieveStrategyImpl(adapterProxy, logger);
 
     }
 

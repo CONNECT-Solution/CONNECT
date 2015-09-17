@@ -28,16 +28,11 @@ package gov.hhs.fha.nhinc.docretrieve.nhin;
 
 import org.apache.log4j.Logger;
 
-import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocumentRetrieveLogger;
-import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveFileUtils;
 import gov.hhs.fha.nhinc.docretrieve.MessageGenerator;
 import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxy;
@@ -45,7 +40,6 @@ import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxyObject
 import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
-import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
@@ -78,6 +72,7 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
         this.docRetrieveLogger = auditLogger;
     }
 
+    @Override
     public void execute(InboundDocRetrieveOrchestratable message) {
         LOG.debug("Begin NhinDocRetrieveOrchestratableImpl_g0.process");
         if (message == null) {
@@ -144,26 +139,10 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
             message.getWebContextProperties(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
     }
 
-    protected NhinTargetSystemType getTargetNhinTargetSystemType(InboundDocRetrieveOrchestratable message) {
-        return MessageGeneratorUtils.getInstance().
-            convertToNhinTargetSystemType(getTargetCommunityType(message));
-    }
-
-    private NhinTargetCommunityType getTargetCommunityType(InboundDocRetrieveOrchestratable message) {
-        String homeCommunityId = message.getRequest().getDocumentRequest().get(0).getHomeCommunityId();
-        NhinTargetCommunityType nhinTargetCommunityType = new NhinTargetCommunityType();
-
-        HomeCommunityType homeCommunityType = new HomeCommunityType();
-        homeCommunityType.setHomeCommunityId(homeCommunityId);
-
-        nhinTargetCommunityType.setHomeCommunity(homeCommunityType);
-        return nhinTargetCommunityType;
-    }
-
     private AcknowledgementType auditMessage(LogEventRequestType auditLogMsg, AssertionType assertion) {
         AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-        AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-        return proxy.auditLog(auditLogMsg, assertion);
+        AuditRepositoryProxy auditRepositoryProxy = auditRepoFactory.getAuditRepositoryProxy();
+        return auditRepositoryProxy.auditLog(auditLogMsg, assertion);
     }
 
     @Override

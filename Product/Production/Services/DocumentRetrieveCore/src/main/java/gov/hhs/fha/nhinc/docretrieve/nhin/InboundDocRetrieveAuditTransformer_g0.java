@@ -28,17 +28,12 @@ package gov.hhs.fha.nhinc.docretrieve.nhin;
 
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocumentRetrieveLogger;
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
-import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
-import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
  *
@@ -70,13 +65,18 @@ public class InboundDocRetrieveAuditTransformer_g0 implements AuditTransformer {
      * Transform this orchestrable to a log event.
      *
      * @param message the orchestrable to me transformed.
-     * @return the log event for a request
      */
+    @Override
     public void transformRequest(Orchestratable message) {
 
         if (message instanceof InboundDocRetrieveOrchestratable) {
-            InboundDocRetrieveOrchestratable message_InboundDocRetrieveOrchestratable = (InboundDocRetrieveOrchestratable) message;
-            docRetrieveAuditLogger.auditRequestMessage(message_InboundDocRetrieveOrchestratable.getRequest(), message_InboundDocRetrieveOrchestratable.getAssertion(), null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, message_InboundDocRetrieveOrchestratable.getWebContextProperties(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+            InboundDocRetrieveOrchestratable message_InboundDocRetrieveOrchestratable
+                = (InboundDocRetrieveOrchestratable) message;
+            docRetrieveAuditLogger.auditRequestMessage(message_InboundDocRetrieveOrchestratable.getRequest(),
+                message_InboundDocRetrieveOrchestratable.getAssertion(), null,
+                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE,
+                message_InboundDocRetrieveOrchestratable.getWebContextProperties(),
+                NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
         }
     }
 
@@ -84,12 +84,17 @@ public class InboundDocRetrieveAuditTransformer_g0 implements AuditTransformer {
      * Transform the message to a log event.
      *
      * @param message the orchestrable
-     * @return the log event request
      */
+    @Override
     public void transformResponse(Orchestratable message) {
         if (message instanceof InboundDocRetrieveOrchestratable) {
-            InboundDocRetrieveOrchestratable message_InboundDocRetrieveOrchestratable = (InboundDocRetrieveOrchestratable) message;
-            docRetrieveAuditLogger.auditResponseMessage(message_InboundDocRetrieveOrchestratable.getRequest(), message_InboundDocRetrieveOrchestratable.getResponse(), message.getAssertion(), null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, message_InboundDocRetrieveOrchestratable.getWebContextProperties(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+            InboundDocRetrieveOrchestratable message_InboundDocRetrieveOrchestratable
+                = (InboundDocRetrieveOrchestratable) message;
+            docRetrieveAuditLogger.auditResponseMessage(message_InboundDocRetrieveOrchestratable.getRequest(),
+                message_InboundDocRetrieveOrchestratable.getResponse(), message.getAssertion(), null,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+                Boolean.FALSE, message_InboundDocRetrieveOrchestratable.getWebContextProperties(),
+                NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
         }
 
     }

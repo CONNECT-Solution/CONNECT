@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docretrieve.audit.transform;
 
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import org.apache.log4j.Logger;
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
@@ -35,7 +34,6 @@ import com.services.nhinc.schema.auditmessage.TypeValuePairType;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditTransformsConstants;
-import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -50,14 +48,14 @@ public class DocRetrieveAuditTransforms
 
     private static final Logger LOG = Logger.getLogger(DocRetrieveAuditTransforms.class);
 
-    private static final String JAXB_HL7_CONTEXT_NAME = "org.hl7.v3";
-
     @Override
     protected AuditMessageType getParticipantObjectIdentificationForRequest(RetrieveDocumentSetRequestType request,
         AssertionType assertion, AuditMessageType auditMsg) {
 
-        // check to see if unique Patient Id exist or not - if created then only ParticipantObjectIdentification object will be created otherwise not
-        if (assertion.getUniquePatientId() != null && assertion.getUniquePatientId().size() > 0 && assertion.getUniquePatientId().get(0).length() > 0) {
+        /* check to see if unique Patient Id exist or not - if created then only ParticipantObjectIdentification
+         object will be created otherwise not*/
+        if (assertion.getUniquePatientId() != null && assertion.getUniquePatientId().size() > 0
+            && assertion.getUniquePatientId().get(0).length() > 0) {
             auditMsg = createPatientParticipantObjectIdentification(auditMsg, assertion.getUniquePatientId().get(0));
         }
         try {
@@ -71,8 +69,8 @@ public class DocRetrieveAuditTransforms
     }
 
     @Override
-    protected AuditMessageType getParticipantObjectIdentificationForResponse(RetrieveDocumentSetRequestType request, RetrieveDocumentSetResponseType response,
-        AssertionType assertion, AuditMessageType auditMsg) {
+    protected AuditMessageType getParticipantObjectIdentificationForResponse(RetrieveDocumentSetRequestType request,
+        RetrieveDocumentSetResponseType response, AssertionType assertion, AuditMessageType auditMsg) {
 
         try {
             auditMsg = getDocumentParticipantObjectIdentificationForResponse(response, auditMsg);
@@ -184,7 +182,8 @@ public class DocRetrieveAuditTransforms
         }
     }
 
-    private AuditMessageType createPatientParticipantObjectIdentification(AuditMessageType auditMsg, String uniquePatientId) {
+    private AuditMessageType createPatientParticipantObjectIdentification(AuditMessageType auditMsg,
+        String uniquePatientId) {
 
         ParticipantObjectIdentificationType participantObject = createParticipantObjectIdentification(
             DocRetrieveAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE,
@@ -199,59 +198,48 @@ public class DocRetrieveAuditTransforms
         return auditMsg;
     }
 
-    private AuditMessageType getDocumentParticipantObjectIdentificationForRequest(RetrieveDocumentSetRequestType request,
-        AuditMessageType auditMsg) throws JAXBException {
+    private AuditMessageType getDocumentParticipantObjectIdentificationForRequest(
+        RetrieveDocumentSetRequestType request, AuditMessageType auditMsg) throws JAXBException {
 
         ParticipantObjectIdentificationType participantObject = buildBaseParticipantObjectIdentificationType();
         participantObject.setParticipantObjectID(getDocumentUniqueIdFromRequest(request));
 
-        getParticipantObjectDetailForRequest(request, participantObject);
+        getParticipantObjectDetail((getRepositoryUniqueIdFromRequest(request)).getBytes(),
+            (getHomeCommunityIdFromRequest(request)).getBytes(), participantObject);
 
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         return auditMsg;
     }
 
-    private ParticipantObjectIdentificationType getParticipantObjectDetailForRequest(RetrieveDocumentSetRequestType request,
-        ParticipantObjectIdentificationType participantObject) {
-        TypeValuePairType valueRepositoryUniqueId = new TypeValuePairType();
-        valueRepositoryUniqueId.setType(DocRetrieveAuditTransformsConstants.PARTICIPANT_OBJECT_DETAIL_REPOSITORY_UNIQUE_TYPE);
-        valueRepositoryUniqueId.setValue((getRepositoryUniqueIdFromRequest(request)).getBytes());
-        participantObject.getParticipantObjectDetail().add(valueRepositoryUniqueId);
-
-        TypeValuePairType valueHomeCommunityId = new TypeValuePairType();
-        valueHomeCommunityId.setType(DocRetrieveAuditTransformsConstants.PARTICIPANT_OBJECT_DETAIL_HOME_COMMUNITY_ID_TYPE);
-        valueHomeCommunityId.setValue((getHomeCommunityIdFromRequest(request)).getBytes());
-        participantObject.getParticipantObjectDetail().add(valueHomeCommunityId);
-        return participantObject;
-    }
-
-    private ParticipantObjectIdentificationType getParticipantObjectDetailForResponse(RetrieveDocumentSetResponseType response,
-        ParticipantObjectIdentificationType participantObject) {
-        TypeValuePairType valueRepositoryUniqueId = new TypeValuePairType();
-
-        valueRepositoryUniqueId.setType(DocRetrieveAuditTransformsConstants.PARTICIPANT_OBJECT_DETAIL_REPOSITORY_UNIQUE_TYPE);
-        valueRepositoryUniqueId.setValue((getRepositoryUniqueIdFromResponse(response)).getBytes());
-        participantObject.getParticipantObjectDetail().add(valueRepositoryUniqueId);
-
-        TypeValuePairType valueHomeCommunityId = new TypeValuePairType();
-        valueHomeCommunityId.setType(DocRetrieveAuditTransformsConstants.PARTICIPANT_OBJECT_DETAIL_HOME_COMMUNITY_ID_TYPE);
-        valueHomeCommunityId.setValue((getHomeCommunityIdFromResponse(response)).getBytes());
-        participantObject.getParticipantObjectDetail().add(valueHomeCommunityId);
-        return participantObject;
-    }
-
-    //TODO
-    private AuditMessageType getDocumentParticipantObjectIdentificationForResponse(RetrieveDocumentSetResponseType response,
+    private AuditMessageType getDocumentParticipantObjectIdentificationForResponse(
+        RetrieveDocumentSetResponseType response,
         AuditMessageType auditMsg) throws JAXBException {
 
         ParticipantObjectIdentificationType participantObject = buildBaseParticipantObjectIdentificationType();
         participantObject.setParticipantObjectID(getDocumentUniqueIdFromResponse(response));
 
-        getParticipantObjectDetailForResponse(response, participantObject);
-
+        getParticipantObjectDetail((getRepositoryUniqueIdFromResponse(response)).getBytes(),
+            (getHomeCommunityIdFromResponse(response)).getBytes(), participantObject);
         auditMsg.getParticipantObjectIdentification().add(participantObject);
         return auditMsg;
+    }
+
+    private void getParticipantObjectDetail(byte[] repositoryUniqueId, byte[] homeCommunityId,
+        ParticipantObjectIdentificationType participantObject) {
+
+        TypeValuePairType valueRepositoryUniqueId = new TypeValuePairType();
+
+        valueRepositoryUniqueId.setType(
+            DocRetrieveAuditTransformsConstants.PARTICIPANT_OBJECT_DETAIL_REPOSITORY_UNIQUE_TYPE);
+        valueRepositoryUniqueId.setValue(repositoryUniqueId);
+        participantObject.getParticipantObjectDetail().add(valueRepositoryUniqueId);
+
+        TypeValuePairType valueHomeCommunityId = new TypeValuePairType();
+        valueHomeCommunityId.setType(
+            DocRetrieveAuditTransformsConstants.PARTICIPANT_OBJECT_DETAIL_HOME_COMMUNITY_ID_TYPE);
+        valueHomeCommunityId.setValue(homeCommunityId);
+        participantObject.getParticipantObjectDetail().add(valueHomeCommunityId);
     }
 
     private ParticipantObjectIdentificationType buildBaseParticipantObjectIdentificationType() {
@@ -265,10 +253,6 @@ public class DocRetrieveAuditTransforms
             HomeCommunityMap.getLocalHomeCommunityId()));
 
         return participantObject;
-    }
-
-    private Marshaller getMarshaller() throws JAXBException {
-        return new JAXBContextHandler().getJAXBContext(JAXB_HL7_CONTEXT_NAME).createMarshaller();
     }
 
     @Override

@@ -66,7 +66,6 @@ public class DocRetrieveTest {
         RetrieveDocumentSetRequestType body = new RetrieveDocumentSetRequestType();
         docRetrieve.respondingGatewayCrossGatewayRetrieve(body);
 
-        /*  verify(service).respondingGatewayCrossGatewayRetrieve(same(body), any(AssertionType.class));*/
     }
 
     @Test

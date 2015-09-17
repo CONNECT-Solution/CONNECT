@@ -82,11 +82,6 @@ public class InboundDocRetrieveStrategyImplTest {
                 retrieveDocumentSetResponseType = new RetrieveDocumentSetResponseType();
                 return retrieveDocumentSetResponseType;
             }
-
-            @Override
-            protected NhinTargetSystemType getTargetNhinTargetSystemType(InboundDocRetrieveOrchestratable message) {
-                return nhinTargetSystemType;
-            }
         };
 
     }

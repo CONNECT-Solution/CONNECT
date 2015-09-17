@@ -263,8 +263,7 @@ public abstract class AuditTransforms<T, K> {
      * @return
      */
     private ActiveParticipant getActiveParticipantSource(NhinTargetSystemType target, String serviceName,
-        boolean isRequesting,
-        Properties webContextProperties) {
+        boolean isRequesting, Properties webContextProperties) {
 
         ActiveParticipant participant = new ActiveParticipant();
 
