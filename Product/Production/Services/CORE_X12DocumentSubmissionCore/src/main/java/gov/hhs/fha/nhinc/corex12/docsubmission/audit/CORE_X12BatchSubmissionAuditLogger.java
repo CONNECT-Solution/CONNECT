@@ -28,19 +28,19 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.audit;
 
 import gov.hhs.fha.nhinc.audit.AuditLogger;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
-import gov.hhs.fha.nhinc.corex12.docsubmission.audit.transform.COREX12RealTimeAuditTransforms;
-import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
-import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
+import gov.hhs.fha.nhinc.corex12.docsubmission.audit.transform.COREX12BatchSubmissionAuditTransforms;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 
 /**
- * Class provides APIs to persist Audit data
  *
- * @author svalluripalli
+ * @author achidamb
  */
-public class CORE_X12AuditLogger extends AuditLogger<COREEnvelopeRealTimeRequest, COREEnvelopeRealTimeResponse> {
+public class CORE_X12BatchSubmissionAuditLogger extends AuditLogger<COREEnvelopeBatchSubmission, COREEnvelopeBatchSubmissionResponse> {
 
     @Override
-    protected AuditTransforms<COREEnvelopeRealTimeRequest, COREEnvelopeRealTimeResponse> getAuditTransforms() {
-        return new COREX12RealTimeAuditTransforms();
+    protected AuditTransforms<COREEnvelopeBatchSubmission, COREEnvelopeBatchSubmissionResponse> getAuditTransforms() {
+        return new COREX12BatchSubmissionAuditTransforms();
     }
+
 }

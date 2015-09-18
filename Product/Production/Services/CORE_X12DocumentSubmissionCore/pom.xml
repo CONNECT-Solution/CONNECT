@@ -58,6 +58,14 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
         </dependency>
+        <!-- Test-->
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>AuditRepositoryCore</artifactId>
+            <version>${project.parent.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

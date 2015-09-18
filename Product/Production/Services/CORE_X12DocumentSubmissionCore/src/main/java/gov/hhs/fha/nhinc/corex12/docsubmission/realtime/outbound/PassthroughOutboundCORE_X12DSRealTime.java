@@ -56,7 +56,8 @@ public class PassthroughOutboundCORE_X12DSRealTime implements OutboundCORE_X12DS
      * @param dsDelegate
      * @param auditLogger
      */
-    public PassthroughOutboundCORE_X12DSRealTime(OutboundCORE_X12DSRealTimeDelegate dsDelegate, CORE_X12AuditLogger auditLogger) {
+    public PassthroughOutboundCORE_X12DSRealTime(OutboundCORE_X12DSRealTimeDelegate dsDelegate, 
+        CORE_X12AuditLogger auditLogger) {
         this.dsDelegate = dsDelegate;
         this.auditLogger = auditLogger;
     }
@@ -75,17 +76,18 @@ public class PassthroughOutboundCORE_X12DSRealTime implements OutboundCORE_X12DS
         NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
             targets);
         this.auditRequestToNhin(body, assertion, targetSystem);
-        OutboundCORE_X12DSRealTimeOrchestratable dsOrchestratable = createOrchestratable(dsDelegate, body, targetSystem, assertion);
-        COREEnvelopeRealTimeResponse response = ((OutboundCORE_X12DSRealTimeOrchestratable) dsDelegate.process(dsOrchestratable))
-            .getResponse();
-        this.auditResponseFromNhin(response, assertion, targetSystem);
+        OutboundCORE_X12DSRealTimeOrchestratable dsOrchestratable = createOrchestratable(dsDelegate, body, targetSystem, 
+            assertion);
+        COREEnvelopeRealTimeResponse response = ((OutboundCORE_X12DSRealTimeOrchestratable) 
+            dsDelegate.process(dsOrchestratable)).getResponse();
         return response;
     }
 
     private OutboundCORE_X12DSRealTimeOrchestratable createOrchestratable(OutboundCORE_X12DSRealTimeDelegate delegate,
         COREEnvelopeRealTimeRequest request, NhinTargetSystemType targetSystem, AssertionType assertion) {
 
-        OutboundCORE_X12DSRealTimeOrchestratable core_x12dsOrchestratable = new OutboundCORE_X12DSRealTimeOrchestratable(delegate);
+        OutboundCORE_X12DSRealTimeOrchestratable core_x12dsOrchestratable = 
+            new OutboundCORE_X12DSRealTimeOrchestratable(delegate);
         core_x12dsOrchestratable.setAssertion(assertion);
         core_x12dsOrchestratable.setRequest(request);
         core_x12dsOrchestratable.setTarget(targetSystem);
@@ -95,11 +97,8 @@ public class PassthroughOutboundCORE_X12DSRealTime implements OutboundCORE_X12DS
 
     private void auditRequestToNhin(COREEnvelopeRealTimeRequest body, AssertionType assertion,
         NhinTargetSystemType targetSystem) {
-        auditLogger.auditNhinCoreX12RealtimeMessage(body, assertion, targetSystem, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, Boolean.TRUE, null, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME);
-    }
-
-    private void auditResponseFromNhin(COREEnvelopeRealTimeResponse body, AssertionType assertion,
-        NhinTargetSystemType targetSystem) {
-        auditLogger.auditNhinCoreX12RealtimeMessage(body, assertion, targetSystem, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, Boolean.TRUE, null, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME);
+        auditLogger.auditRequestMessage(body, assertion, targetSystem, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, 
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null, 
+            NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME);
     }
 }

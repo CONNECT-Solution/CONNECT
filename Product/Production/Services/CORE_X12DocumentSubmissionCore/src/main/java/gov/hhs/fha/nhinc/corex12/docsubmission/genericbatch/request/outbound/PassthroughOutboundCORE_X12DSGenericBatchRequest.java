@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
-import gov.hhs.fha.nhinc.corex12.docsubmission.audit.CORE_X12AuditLogger;
+import gov.hhs.fha.nhinc.corex12.docsubmission.audit.CORE_X12BatchSubmissionAuditLogger;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.entity.OutboundCORE_X12DSGenericBatchRequestDelegate;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.entity.OutboundCORE_X12DSGenericBatchRequestOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -44,8 +44,9 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  */
 public class PassthroughOutboundCORE_X12DSGenericBatchRequest implements OutboundCORE_X12DSGenericBatchRequest {
 
-    private OutboundCORE_X12DSGenericBatchRequestDelegate dsDelegate = new OutboundCORE_X12DSGenericBatchRequestDelegate();
-    private CORE_X12AuditLogger auditLogger = new CORE_X12AuditLogger();
+    private OutboundCORE_X12DSGenericBatchRequestDelegate dsDelegate
+        = new OutboundCORE_X12DSGenericBatchRequestDelegate();
+    private CORE_X12BatchSubmissionAuditLogger auditLogger = new CORE_X12BatchSubmissionAuditLogger();
 
     /**
      * Constructor..
@@ -72,14 +73,15 @@ public class PassthroughOutboundCORE_X12DSGenericBatchRequest implements Outboun
      * @return COREEnvelopeBatchSubmissionResponse
      */
     @Override
-    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
+    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg,
+        AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
         COREEnvelopeBatchSubmissionResponse oResponse = null;
         NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
             targets);
         this.auditRequestToNhin(msg, assertion, targetSystem);
-        OutboundCORE_X12DSGenericBatchRequestOrchestratable dsOrchestratable = createOrchestratable(dsDelegate, msg, targetSystem, assertion);
+        OutboundCORE_X12DSGenericBatchRequestOrchestratable dsOrchestratable = createOrchestratable(dsDelegate, msg,
+            targetSystem, assertion);
         oResponse = ((OutboundCORE_X12DSGenericBatchRequestOrchestratable) dsDelegate.process(dsOrchestratable)).getResponse();
-        this.auditResponseFromNhin(oResponse, assertion, targetSystem);
         return oResponse;
     }
 
@@ -91,11 +93,11 @@ public class PassthroughOutboundCORE_X12DSGenericBatchRequest implements Outboun
      * @param assertion
      * @return OutboundCORE_X12DSGenericBatchRequestOrchestratable
      */
-    public OutboundCORE_X12DSGenericBatchRequestOrchestratable createOrchestratable(OutboundCORE_X12DSGenericBatchRequestDelegate delegate,
-        COREEnvelopeBatchSubmission request,
-        NhinTargetSystemType targetSystem,
-        AssertionType assertion) {
-        OutboundCORE_X12DSGenericBatchRequestOrchestratable core_x12dsOrchestratable = new OutboundCORE_X12DSGenericBatchRequestOrchestratable(delegate);
+    public OutboundCORE_X12DSGenericBatchRequestOrchestratable createOrchestratable(
+        OutboundCORE_X12DSGenericBatchRequestDelegate delegate, COREEnvelopeBatchSubmission request,
+        NhinTargetSystemType targetSystem, AssertionType assertion) {
+        OutboundCORE_X12DSGenericBatchRequestOrchestratable core_x12dsOrchestratable
+            = new OutboundCORE_X12DSGenericBatchRequestOrchestratable(delegate);
         core_x12dsOrchestratable.setAssertion(assertion);
         core_x12dsOrchestratable.setRequest(request);
         core_x12dsOrchestratable.setTarget(targetSystem);
@@ -104,11 +106,9 @@ public class PassthroughOutboundCORE_X12DSGenericBatchRequest implements Outboun
 
     private void auditRequestToNhin(COREEnvelopeBatchSubmission body, AssertionType assertion,
         NhinTargetSystemType targetSystem) {
-        auditLogger.auditNhinCoreX12BatchMessage(body, assertion, targetSystem, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, Boolean.TRUE, null, NhincConstants.CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME);
+        auditLogger.auditRequestMessage(body, assertion, targetSystem,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+            Boolean.TRUE, null, NhincConstants.CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME);
     }
 
-    private void auditResponseFromNhin(COREEnvelopeBatchSubmissionResponse body, AssertionType assertion,
-        NhinTargetSystemType targetSystem) {
-        auditLogger.auditNhinCoreX12BatchMessage(body, assertion, targetSystem, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, Boolean.TRUE, null, NhincConstants.CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME);
-    }
 }

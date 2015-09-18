@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.inbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.corex12.docsubmission.audit.CORE_X12AuditLogger;
+import gov.hhs.fha.nhinc.corex12.docsubmission.audit.CORE_X12BatchSubmissionAuditLogger;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.AdapterCORE_X12DSGenericBatchRequestProxyObjectFactory;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
@@ -42,15 +42,17 @@ public class PassthroughInboundCORE_X12DSGenericBatchRequest extends AbstractInb
      * Default constructor.
      */
     public PassthroughInboundCORE_X12DSGenericBatchRequest() {
-        this(new AdapterCORE_X12DSGenericBatchRequestProxyObjectFactory(), new CORE_X12AuditLogger());
+        this(new AdapterCORE_X12DSGenericBatchRequestProxyObjectFactory(), new CORE_X12BatchSubmissionAuditLogger());
     }
 
     /**
      * Constructor with dependency injection of strategy components.
      *
      * @param adapterFactory
+     * @param auditLogger
      */
-    public PassthroughInboundCORE_X12DSGenericBatchRequest(AdapterCORE_X12DSGenericBatchRequestProxyObjectFactory adapterFactory, CORE_X12AuditLogger auditLogger) {
+    public PassthroughInboundCORE_X12DSGenericBatchRequest(AdapterCORE_X12DSGenericBatchRequestProxyObjectFactory 
+        adapterFactory, CORE_X12BatchSubmissionAuditLogger auditLogger) {
         super(adapterFactory, auditLogger);
     }
 
@@ -61,7 +63,8 @@ public class PassthroughInboundCORE_X12DSGenericBatchRequest extends AbstractInb
      * @return COREEnvelopeBatchSubmissionResponse
      */
     @Override
-    COREEnvelopeBatchSubmissionResponse processGenericBatchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
+    COREEnvelopeBatchSubmissionResponse processGenericBatchSubmitTransaction(COREEnvelopeBatchSubmission msg,
+        AssertionType assertion) {
         return sendToAdapter(msg, assertion);
     }
 

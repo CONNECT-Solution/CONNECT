@@ -35,18 +35,15 @@ public class CORE_X12AuditDataTransformConstants {
 
     //CORE X12 Constants....
     public static final String EVENT_ID_CODE_X12 = "110112";
+    public static final String EVENT_ID_CODE_SYS_NAME = "DCM";
     public static final String EVENT_ID_DISPLAY_NAME_X12_EXPORT = "Export";
     public static final String EVENT_ID_DISPLAY_NAME_X12_IMPORT = "Import";
     public static final String EVENT_ID_CODE_SYS_CODE_X12 = "X12";
     public static final String EVENT_ID_CODE_SYS_NAME_X12 = "CAQH CORE Transactions";
-
+    public static final String EVENT_ACTION_CODE_READ = "R";
+    public static final String EVENT_ACTION_CODE_CREATE = "C";
+    public static final short EVENT_OUTCOME_INDICATOR_SUCCESS = 0;
     public static final String EVENT_ID_DISPLAY_NAME_X12REALTIME = "NwHIN CAQH CORE X12 Document Submission";
-    public static final String ACTIVE_PARTICPANT_USER_ID_SOURCE = "anonymous";
-    public static final String ACTIVE_PARTICPANT_UNKNOWN_IP_ADDRESS = "unknown";
-    public static final String ACTIVE_PARTICPANT_ROLE_CODE_CDE = "110153";
-    public static final String ACTIVE_PARTICIPANT_ROLE_CODE_DEST = "110152";
-    public static final String ACTIVE_PARTICPANT_ROLE_CODE_SOURCE_DISPLAY_NAME = "Source";
-    public static final String ACTIVE_PARTICPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME = "Destination";
     public static final String CORE_X12_NAMESPACE_URI = "urn:org:caqh:soap:wsdl:corerule2_2_0";
     public static final String CORE_X12_JAXB_CONTEXT = "org.caqh.soap.wsdl.corerule2_2_0";
     public static final String CORE_X12_REQUEST_LOCALPART = "COREEnvelopeRealTimeRequest";
@@ -55,6 +52,6 @@ public class CORE_X12AuditDataTransformConstants {
     public static final String CORE_X12_BATCH_RESPONSE_LOCALPART = "COREEnvelopeBatchSubmissionResponse";
     public static final String CAQH_X12_CONNECTIVITY_CODED_SYS_NAME = "CAQH CORE Connectivity Metadata";
     public static final String CAQH_X12_CONNECTIVITY_CODED_SYS_DISPLAY_NAME = "Payload Identifier";
-    public static final Short PARTICIPANT_OBJ_TYPE_CODE_ROLE_X12 = 20;
-    public static final Short NETWORK_ACCESSOR_PT_TYPE_CODE_NAME = 1;
+    public static final short PARTICIPANT_OBJ_TYPE_CODE_ROLE_X12 = 20;
+    public static final short PARTICIPANT_OJB_TYPE_CODE_SYSTEM = 2;
 }
