@@ -65,7 +65,7 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
         RegistryResponseType response = null;
 
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = createRequestForInternalProcessing(
-            body, assertion, targets, urlInfo);
+            body, targets, urlInfo);
         MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
         NhinTargetSystemType target = msgUtils.convertFirstToNhinTargetSystemType(targets);
         auditRequestFromAdapter(request, assertion, target);
@@ -116,7 +116,7 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
     }
 
     private RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType createRequestForInternalProcessing(
-        ProvideAndRegisterDocumentSetRequestType msg, AssertionType assertion, NhinTargetCommunitiesType targets,
+        ProvideAndRegisterDocumentSetRequestType msg, NhinTargetCommunitiesType targets,
         UrlInfoType urlInfo) {
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request
             = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
@@ -199,7 +199,7 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
         return response;
     }
 
-    private OutboundDocSubmissionOrchestratable createOrchestratable(
+    protected OutboundDocSubmissionOrchestratable createOrchestratable(
         OutboundDocSubmissionDelegate delegate,
         gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
 
