@@ -190,16 +190,15 @@ public abstract class COREX12AuditTransforms<T, K> extends AuditTransforms<T, K>
      * @return
      */
     protected Marshaller getMarshaller() {
-        
+        Marshaller marshaller = null;
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext(CORE_X12AuditDataTransformConstants.CORE_X12_JAXB_CONTEXT);
-            Marshaller marshaller = jc.createMarshaller();
-            return marshaller;
+            marshaller = jc.createMarshaller();
         } catch (JAXBException ex) {
             LOG.error("JAXB Marshall error : " + ex.getMessage(), ex);
         }
-        return null;
+        return marshaller;
     }
 
     /**
@@ -209,8 +208,8 @@ public abstract class COREX12AuditTransforms<T, K> extends AuditTransforms<T, K>
      * @return
      */
     protected QName getQname(String nameSpaceURI, String localPart) {
-        
-        return(new QName(nameSpaceURI, localPart));
+
+        return (new QName(nameSpaceURI, localPart));
     }
 
     private TypeValuePairType getTypeValuePairType(byte[] byteArray) {
