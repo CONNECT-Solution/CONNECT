@@ -52,7 +52,6 @@ public class CORE_X12AuditDataTransformConstants {
     public static final String CORE_X12_BATCH_RESPONSE_LOCALPART = "COREEnvelopeBatchSubmissionResponse";
     public static final String CAQH_X12_CONNECTIVITY_CODED_SYS_NAME = "CAQH CORE Connectivity Metadata";
     public static final String CAQH_X12_CONNECTIVITY_CODED_SYS_DISPLAY_NAME = "Payload Identifier";
-    public static final Short PARTICIPANT_OBJ_TYPE_CODE_ROLE_X12 = 20;
-    public static final Short PARTICIPANT_OJB_TYPE_CODE_SYSTEM = 2;
-    public static final Short NETWORK_ACCESSOR_PT_TYPE_CODE_NAME = 1;
+    public static final short PARTICIPANT_OBJ_TYPE_CODE_ROLE_X12 = 20;
+    public static final short PARTICIPANT_OJB_TYPE_CODE_SYSTEM = 2;
 }

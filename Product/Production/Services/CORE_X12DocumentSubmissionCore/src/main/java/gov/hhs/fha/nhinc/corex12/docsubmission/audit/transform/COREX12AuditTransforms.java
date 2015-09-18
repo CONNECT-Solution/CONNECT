@@ -64,8 +64,8 @@ public abstract class COREX12AuditTransforms<T, K> extends AuditTransforms<T, K>
 
         ParticipantObjectIdentificationType participantObject
             = buildBaseParticipantObjectIdentificationType(getPayloadFromRequest(request));
-        byte[] baos = marshallToByteArrayFromRequest(request);
-        TypeValuePairType oType = getTypeValuePairType(baos);
+        byte[] bArray = marshallToByteArrayFromRequest(request);
+        TypeValuePairType oType = getTypeValuePairType(bArray);
         participantObject.getParticipantObjectDetail().add(oType);
         auditMsg.getParticipantObjectIdentification().add(participantObject);
         return auditMsg;
@@ -190,16 +190,16 @@ public abstract class COREX12AuditTransforms<T, K> extends AuditTransforms<T, K>
      * @return
      */
     protected Marshaller getMarshaller() {
-        Marshaller marshaller = null;
+        
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext(CORE_X12AuditDataTransformConstants.CORE_X12_JAXB_CONTEXT);
-            marshaller = jc.createMarshaller();
+            Marshaller marshaller = jc.createMarshaller();
             return marshaller;
         } catch (JAXBException ex) {
             LOG.error("JAXB Marshall error : " + ex.getMessage(), ex);
         }
-        return marshaller;
+        return null;
     }
 
     /**
@@ -209,9 +209,8 @@ public abstract class COREX12AuditTransforms<T, K> extends AuditTransforms<T, K>
      * @return
      */
     protected QName getQname(String nameSpaceURI, String localPart) {
-        QName xmlQname = null;
-        xmlQname = new QName(nameSpaceURI, localPart);
-        return xmlQname;
+        
+        return(new QName(nameSpaceURI, localPart));
     }
 
     private TypeValuePairType getTypeValuePairType(byte[] byteArray) {
