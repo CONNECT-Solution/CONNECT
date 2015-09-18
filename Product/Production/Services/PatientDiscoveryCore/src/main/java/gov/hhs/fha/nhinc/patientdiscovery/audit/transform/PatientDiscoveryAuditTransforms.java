@@ -149,6 +149,8 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
 
     private II getLivingSubjectIdFromAuthorOrPerformerValue(PRPAIN201305UV02 request, List<PRPAMT201306UV02LivingSubjectId> ids) {
 
+        II livingSubjectId = null;
+        
         // Get assignedDevice root
         if (request.getControlActProcess().getAuthorOrPerformer() != null
             && !request.getControlActProcess().getAuthorOrPerformer().isEmpty()
@@ -171,11 +173,15 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
                 II oII = getLivingSubjectId(id);
 
                 if (oII != null && oII.getRoot() != null && oII.getRoot().equals(root)) {
-                    return oII;
+                    livingSubjectId = oII;
+                    break;
                 }
-            }
-        } //TODO Is it correct to return a NULL here if no root value or should we return the first value found?
-        return null;
+            } 
+        } else {
+            livingSubjectId = getLivingSubjectId(ids.get(0));
+        }
+        
+        return livingSubjectId;
     }
 
     private II getLivingSubjectId(PRPAMT201306UV02LivingSubjectId id) {
