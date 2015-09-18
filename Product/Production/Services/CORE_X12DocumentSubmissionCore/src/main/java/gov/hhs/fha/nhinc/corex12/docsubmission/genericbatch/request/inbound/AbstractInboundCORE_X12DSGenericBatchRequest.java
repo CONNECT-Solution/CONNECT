@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.inbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.corex12.docsubmission.audit.CORE_X12AuditLogger;
+import gov.hhs.fha.nhinc.corex12.docsubmission.audit.CORE_X12BatchSubmissionAuditLogger;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.AdapterCORE_X12DGenericBatchRequestProxy;
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.AdapterCORE_X12DSGenericBatchRequestProxyObjectFactory;
 import gov.hhs.fha.nhinc.corex12.docsubmission.utils.CORE_X12DSLargePayloadUtils;
@@ -46,13 +46,13 @@ public abstract class AbstractInboundCORE_X12DSGenericBatchRequest implements In
 
     private static final Logger LOG = Logger.getLogger(AbstractInboundCORE_X12DSGenericBatchRequest.class);
     private AdapterCORE_X12DSGenericBatchRequestProxyObjectFactory oAdapterFactory;
-    private CORE_X12AuditLogger auditLogger;
+    private CORE_X12BatchSubmissionAuditLogger auditLogger;
 
     /**
      *
      * @param adapterFactory
      */
-    public AbstractInboundCORE_X12DSGenericBatchRequest(AdapterCORE_X12DSGenericBatchRequestProxyObjectFactory adapterFactory, CORE_X12AuditLogger auditLogger) {
+    public AbstractInboundCORE_X12DSGenericBatchRequest(AdapterCORE_X12DSGenericBatchRequestProxyObjectFactory adapterFactory, CORE_X12BatchSubmissionAuditLogger auditLogger) {
         oAdapterFactory = adapterFactory;
         this.auditLogger = auditLogger;
     }
@@ -75,9 +75,8 @@ public abstract class AbstractInboundCORE_X12DSGenericBatchRequest implements In
     @Override
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg,
         AssertionType assertion, Properties webContextProperties) {
-        auditRequestFromNhin(msg, assertion, webContextProperties);
         COREEnvelopeBatchSubmissionResponse oResponse = processGenericBatchSubmitTransaction(msg, assertion);
-        auditResponseToNhin(oResponse, assertion, webContextProperties);
+        auditResponseToNhin(msg, oResponse, assertion, webContextProperties);
         return oResponse;
     }
 
@@ -101,11 +100,10 @@ public abstract class AbstractInboundCORE_X12DSGenericBatchRequest implements In
         return oResponse;
     }
 
-    protected void auditRequestFromNhin(COREEnvelopeBatchSubmission request, AssertionType assertion, Properties webContextProperties) {
-        auditLogger.auditNhinCoreX12BatchMessage(request, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,Boolean.FALSE, webContextProperties, NhincConstants.CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME);
-    }
-
-    protected void auditResponseToNhin(COREEnvelopeBatchSubmissionResponse oResponsse, AssertionType assertion, Properties webContextProperties) {
-        auditLogger.auditNhinCoreX12BatchMessage(oResponsse, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, Boolean.FALSE, webContextProperties, NhincConstants.CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME);
+    protected void auditResponseToNhin(COREEnvelopeBatchSubmission request,
+        COREEnvelopeBatchSubmissionResponse oResponsse, AssertionType assertion, Properties webContextProperties) {
+        auditLogger.auditResponseMessage(request, oResponsse, assertion, null,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE,
+            webContextProperties, NhincConstants.CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME);
     }
 }

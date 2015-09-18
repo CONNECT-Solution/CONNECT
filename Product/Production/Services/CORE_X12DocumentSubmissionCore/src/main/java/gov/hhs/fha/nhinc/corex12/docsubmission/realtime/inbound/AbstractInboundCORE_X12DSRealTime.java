@@ -49,7 +49,8 @@ public abstract class AbstractInboundCORE_X12DSRealTime implements InboundCORE_X
      * @param adapterFactory
      * @param auditLogger
      */
-    public AbstractInboundCORE_X12DSRealTime(AdapterCORE_X12DSRealTimeProxyObjectFactory adapterFactory, CORE_X12AuditLogger auditLogger) {
+    public AbstractInboundCORE_X12DSRealTime(AdapterCORE_X12DSRealTimeProxyObjectFactory adapterFactory, 
+        CORE_X12AuditLogger auditLogger) {
         this.adapterFactory = adapterFactory;
         this.auditLogger = auditLogger;
     }
@@ -71,10 +72,10 @@ public abstract class AbstractInboundCORE_X12DSRealTime implements InboundCORE_X
      * @return
      */
     @Override
-    public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest msg, AssertionType assertion, Properties webContextProperties) {
-        auditRequestFromNhin(msg, assertion, webContextProperties);
+    public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest msg, AssertionType assertion, 
+        Properties webContextProperties) {
         COREEnvelopeRealTimeResponse oResponsse = processCORE_X12DocSubmission(msg, assertion);
-        auditResponseToNhin(oResponsse, assertion, webContextProperties);
+        auditResponseToNhin(msg, oResponsse, assertion, webContextProperties);
         return oResponsse;
     }
 
@@ -91,12 +92,11 @@ public abstract class AbstractInboundCORE_X12DSRealTime implements InboundCORE_X
         return proxy.realTimeTransaction(request, assertion);
     }
 
-    protected void auditRequestFromNhin(COREEnvelopeRealTimeRequest request, AssertionType assertion, Properties webContextProperties) {
-        auditLogger.auditNhinCoreX12RealtimeMessage(request, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, Boolean.FALSE, webContextProperties, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME);
-    }
-
-    protected void auditResponseToNhin(COREEnvelopeRealTimeResponse oResponsse, AssertionType assertion, Properties webContextProperties) {
-        auditLogger.auditNhinCoreX12RealtimeMessage(oResponsse, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, Boolean.FALSE, webContextProperties, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME);
+    protected void auditResponseToNhin(COREEnvelopeRealTimeRequest request, COREEnvelopeRealTimeResponse oResponsse, 
+        AssertionType assertion, Properties webContextProperties) {
+        auditLogger.auditResponseMessage(request, oResponsse, assertion, null, 
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, 
+            webContextProperties, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME);
     }
 
 }
