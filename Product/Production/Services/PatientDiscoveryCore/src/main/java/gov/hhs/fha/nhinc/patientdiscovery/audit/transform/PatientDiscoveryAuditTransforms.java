@@ -138,24 +138,49 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
             if (ids.size() == 1) {
                 livingSubjectId = getLivingSubjectId(ids.get(0));
             } else if (ids.size() > 1) {
-                // Get assignedDevice root
-                String root = request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice()
-                    .getValue().getId().get(0).getRoot();
-
-                // Compare assignedDevice root to each livingSubjectId root
-                for (PRPAMT201306UV02LivingSubjectId id : ids) {
-                    II oII = getLivingSubjectId(id);
-
-                    if (oII != null && oII.getRoot() != null && oII.getRoot().equals(root)) {
-                        livingSubjectId = oII;
-                        break;
-                    }
-                }
+                livingSubjectId = getLivingSubjectIdFromAuthorOrPerformerValue(request, ids);
             }
         } else {
             LOG.error("PatientId doesn't exist in the received PRPAIN201305UV02 message");
         }
 
+        return livingSubjectId;
+    }
+
+    private II getLivingSubjectIdFromAuthorOrPerformerValue(PRPAIN201305UV02 request, List<PRPAMT201306UV02LivingSubjectId> ids) {
+
+        II livingSubjectId = null;
+        
+        // Get assignedDevice root
+        if (request.getControlActProcess().getAuthorOrPerformer() != null
+            && !request.getControlActProcess().getAuthorOrPerformer().isEmpty()
+            && request.getControlActProcess().getAuthorOrPerformer().get(0) != null
+            && request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice() != null
+            && request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue() != null
+            && request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId() != null
+            && !request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId()
+            .isEmpty()
+            && request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId()
+            .get(0) != null
+            && request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId()
+            .get(0).getRoot() != null) {
+
+            String root = request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice()
+                .getValue().getId().get(0).getRoot();
+
+            // Compare assignedDevice root to each livingSubjectId root
+            for (PRPAMT201306UV02LivingSubjectId id : ids) {
+                II oII = getLivingSubjectId(id);
+
+                if (oII != null && oII.getRoot() != null && oII.getRoot().equals(root)) {
+                    livingSubjectId = oII;
+                    break;
+                }
+            } 
+        } else {
+            livingSubjectId = getLivingSubjectId(ids.get(0));
+        }
+        
         return livingSubjectId;
     }
 
