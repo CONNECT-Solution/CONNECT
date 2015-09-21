@@ -11788,7 +11788,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
                   </urn:assignedDevice>
                </urn:authorOrPerformer>
                <urn:queryByParameter>
-                  <urn:queryId root="${#Project#LocalHCID}" extension="-abd3453dcd24wkkks545"/>
+                  <urn:queryId root="${#Project#LocalHCID}" extension="${#TestCase#queryId.@extension}"/>
                   <urn:statusCode code="new"/>
                   <urn:responseModalityCode code="R"/>
                   <urn:responsePriorityCode code="I"/>

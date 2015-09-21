@@ -3357,7 +3357,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
                   </urn:assignedDevice>
                </urn:authorOrPerformer>
                <urn:queryByParameter>
-                  <urn:queryId root="${#Project#LocalHCID}" extension="${#TestCase#queryId.@extension"/>
+                  <urn:queryId root="${#Project#LocalHCID}" extension="${#TestCase#queryId.@extension}"/>
                   <urn:statusCode code="new"/>
                   <urn:responseModalityCode code="R"/>
                   <urn:responsePriorityCode code="I"/>
@@ -3737,13 +3737,19 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
           </con:response>
         </con:config>
       </con:testStep>
+      <con:testStep type="delay" name="Wait for Audit table to populate">
+        <con:settings/>
+        <con:config>
+          <delay>2000</delay>
+        </con:config>
+      </con:testStep>
       <con:testStep type="groovy" name="Verify Audit Logs" id="91fb646d-64ae-45b2-83a0-8190c122bfe6">
         <con:settings/>
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="2.2"')[0]
 }</script>
         </con:config>
       </con:testStep>
@@ -4105,19 +4111,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-09-20T07:22:54Z</con:value>
+          <con:value>2015-09-21T16:32:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-09-20T07:32:54Z</con:value>
+          <con:value>2015-09-21T16:42:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/20/2015 07:22:54</con:value>
+          <con:value>09/21/2015 16:32:04</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-10-20T00:00:00Z</con:value>
+          <con:value>2015-10-21T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -10391,7 +10397,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
                   </urn:assignedDevice>
                </urn:authorOrPerformer>
                <urn:queryByParameter>
-                  <urn:queryId root="${#Project#LocalHCID}" extension="-abd3453dcd24wkkks545"/>
+                  <urn:queryId root="${#Project#LocalHCID}" extension="${#TestCase#queryId.@extension}"/>
                   <urn:statusCode code="new"/>
                   <urn:responseModalityCode code="R"/>
                   <urn:responsePriorityCode code="I"/>
@@ -10771,13 +10777,19 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
           </con:response>
         </con:config>
       </con:testStep>
+      <con:testStep type="delay" name="Wait for Audit table to populate">
+        <con:settings/>
+        <con:config>
+          <delay>2000</delay>
+        </con:config>
+      </con:testStep>
       <con:testStep type="groovy" name="Verify Audit Logs" id="64fe5440-433b-4a61-9595-325885f88e42">
         <con:settings/>
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="2.2"')[0]
 }</script>
         </con:config>
       </con:testStep>
@@ -11139,19 +11151,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-09-20T07:24:49Z</con:value>
+          <con:value>2015-09-21T16:52:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-09-20T07:34:49Z</con:value>
+          <con:value>2015-09-21T17:02:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/20/2015 07:24:49</con:value>
+          <con:value>09/21/2015 16:52:49</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-10-20T00:00:00Z</con:value>
+          <con:value>2015-10-21T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -14398,6 +14410,12 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
           </con:request>
         </con:config>
       </con:testStep>
+      <con:testStep type="delay" name="Wait for Audit table to populate">
+        <con:settings/>
+        <con:config>
+          <delay>2000</delay>
+        </con:config>
+      </con:testStep>
       <con:testStep type="groovy" name="Verify Audit Logs" id="8845ff85-4918-48d9-b290-6058585f59c0">
         <con:settings/>
         <con:config>
@@ -14601,19 +14619,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-09-20T07:25:39Z</con:value>
+          <con:value>2015-09-21T16:59:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-09-20T07:35:39Z</con:value>
+          <con:value>2015-09-21T17:09:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/20/2015 07:25:39</con:value>
+          <con:value>09/21/2015 16:59:30</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-10-20T00:00:00Z</con:value>
+          <con:value>2015-10-21T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.@UserIsRequestor</con:name>
@@ -15139,6 +15157,12 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
+      <con:testStep type="delay" name="Wait for Audit table to populate">
+        <con:settings/>
+        <con:config>
+          <delay>2000</delay>
+        </con:config>
+      </con:testStep>
       <con:testStep type="groovy" name="Verify Audit Logs" id="5f2a20a9-b0d2-4f97-905a-64e5c59c297e">
         <con:settings/>
         <con:config>
@@ -15337,19 +15361,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-09-20T07:16:52Z</con:value>
+          <con:value>2015-09-21T16:59:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-09-20T07:26:52Z</con:value>
+          <con:value>2015-09-21T17:09:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/20/2015 07:16:52</con:value>
+          <con:value>09/21/2015 16:59:40</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-10-20T00:00:00Z</con:value>
+          <con:value>2015-10-21T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -15859,6 +15883,12 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
+      <con:testStep type="delay" name="Wait for Audit table to populate">
+        <con:settings/>
+        <con:config>
+          <delay>2000</delay>
+        </con:config>
+      </con:testStep>
       <con:testStep type="groovy" name="Verify Audit Logs" id="20ec8422-75b2-4ebb-9cdc-9718cb060aba">
         <con:settings/>
         <con:config>
@@ -16051,19 +16081,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-09-20T07:26:10Z</con:value>
+          <con:value>2015-09-21T16:59:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-09-20T07:36:10Z</con:value>
+          <con:value>2015-09-21T17:09:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/20/2015 07:26:10</con:value>
+          <con:value>09/21/2015 16:59:54</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-10-20T00:00:00Z</con:value>
+          <con:value>2015-10-21T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
