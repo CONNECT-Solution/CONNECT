@@ -31,6 +31,11 @@ import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.lang.management.ManagementFactory;
 import java.net.UnknownHostException;
@@ -38,13 +43,16 @@ import java.util.List;
 import java.util.Properties;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import static org.junit.Assert.assertEquals;
 
 /**
  *
  * @author achidamb
+ * @param <T> request Object Type
+ * @param <K> response Object Type
  */
 public abstract class AuditTransformsTest<T, K> {
 
@@ -78,38 +86,32 @@ public abstract class AuditTransformsTest<T, K> {
         Boolean isRequesting) {
 
         EventIdentificationType eventIdentificationType = request.getAuditMessage().getEventIdentification();
+
         if (isRequesting) {
             assertEquals(getAuditTransforms().getServiceEventActionCodeRequestor(),
                 eventIdentificationType.getEventActionCode());
-        } else {
-            assertEquals(getAuditTransforms().getServiceEventActionCodeResponder(),
-                eventIdentificationType.getEventActionCode());
-        }
-        assertEquals(AuditTransformsConstants.EVENT_OUTCOME_INDICATOR_SUCCESS.toString(), eventIdentificationType
-            .getEventOutcomeIndicator().toString());
-        if (isRequesting) {
             assertEquals(getAuditTransforms().getServiceEventIdCodeRequestor(),
                 eventIdentificationType.getEventID().getCode());
-        } else {
-            assertEquals(getAuditTransforms().getServiceEventIdCodeResponder(),
-                eventIdentificationType.getEventID().getCode());
-        }
-        assertEquals(getAuditTransforms().getServiceEventCodeSystem(),
-            eventIdentificationType.getEventID().getCodeSystemName());
-
-        if (isRequesting) {
             assertEquals(getAuditTransforms().getServiceEventDisplayRequestor(), eventIdentificationType.getEventID()
                 .getDisplayName());
         } else {
+            assertEquals(getAuditTransforms().getServiceEventActionCodeResponder(),
+                eventIdentificationType.getEventActionCode());
+            assertEquals(getAuditTransforms().getServiceEventIdCodeResponder(),
+                eventIdentificationType.getEventID().getCode());
             assertEquals(getAuditTransforms().getServiceEventDisplayResponder(), eventIdentificationType.getEventID()
                 .getDisplayName());
         }
 
-        assertEquals(getAuditTransforms().getServiceEventTypeCode(), eventIdentificationType.getEventTypeCode().get(0)
-            .getCode());
-        assertEquals(getAuditTransforms().getServiceEventTypeCodeSystem(), eventIdentificationType.getEventTypeCode()
-            .get(0).getCodeSystemName());
-        assertEquals(getAuditTransforms().getServiceEventTypeCodeDisplayName(),
+        assertEquals("EventOutcomeIndicator mismatch", AuditTransformsConstants.EVENT_OUTCOME_INDICATOR_SUCCESS
+            .toString(), eventIdentificationType.getEventOutcomeIndicator().toString());
+        assertEquals("EventID.CodeSystemName mismatch", getAuditTransforms().getServiceEventCodeSystem(),
+            eventIdentificationType.getEventID().getCodeSystemName());
+        assertEquals("EventTypeCode.Code mismatch", getAuditTransforms().getServiceEventTypeCode(),
+            eventIdentificationType.getEventTypeCode().get(0).getCode());
+        assertEquals("EventTypeCode.CodeSystemName mismatch", getAuditTransforms().getServiceEventTypeCodeSystem(),
+            eventIdentificationType.getEventTypeCode().get(0).getCodeSystemName());
+        assertEquals("EventTypeCode.DisplayName mismatch", getAuditTransforms().getServiceEventTypeCodeDisplayName(),
             eventIdentificationType.getEventTypeCode().get(0).getDisplayName());
     }
 
@@ -127,21 +129,28 @@ public abstract class AuditTransformsTest<T, K> {
             ActiveParticipant userActiveParticipant = null;
             List<ActiveParticipant> activeParticipant = request.getAuditMessage().getActiveParticipant();
             for (ActiveParticipant item : activeParticipant) {
-                if (item.getRoleIDCode().get(0).getCode() != null && item.getRoleIDCode().get(0).getCode().
-                    equals("Code")) {
+                // TODO: Where does this hard-coded value of "Code" come from?
+                if (item.getRoleIDCode().get(0).getCode() != null && item.getRoleIDCode().get(0).getCode()
+                    .equals("Code")) {
+
                     userActiveParticipant = item;
+                    break;
                 }
             }
-            assertEquals(assertion.getUserInfo().getUserName(), userActiveParticipant.getUserID());
-            assertEquals(assertion.getUserInfo().getPersonName().getGivenName() + " "
+
+            assertNotNull("userActiveParticipant is null", userActiveParticipant);
+            assertEquals("UserID mismatch", assertion.getUserInfo().getUserName(), userActiveParticipant.getUserID());
+            assertEquals("UserName mismatch", assertion.getUserInfo().getPersonName().getGivenName() + " "
                 + assertion.getUserInfo().getPersonName().getFamilyName(), userActiveParticipant.getUserName());
-            assertEquals(assertion.getUserInfo().getRoleCoded().getCode(), userActiveParticipant.
-                getRoleIDCode().get(0).getCode());
-            assertEquals(assertion.getUserInfo().getRoleCoded().getCodeSystemName(), userActiveParticipant.
-                getRoleIDCode().get(0).getCodeSystemName());
-            assertEquals(assertion.getUserInfo().getRoleCoded().getDisplayName(), userActiveParticipant.
-                getRoleIDCode().get(0).getDisplayName());
+            assertEquals("RoleIDCode.Code mismatch", assertion.getUserInfo().getRoleCoded().getCode(),
+                userActiveParticipant.getRoleIDCode().get(0).getCode());
+            assertEquals("RoleIDCode.CodeSystemName mismatch", assertion.getUserInfo().getRoleCoded()
+                .getCodeSystemName(), userActiveParticipant.getRoleIDCode().get(0).getCodeSystemName());
+            assertEquals("RoleIDCode.DisplayName mismatch", assertion.getUserInfo().getRoleCoded().getDisplayName(),
+                userActiveParticipant.getRoleIDCode().get(0).getDisplayName());
         }
+
+        // TODO: Should there be an else case here?
     }
 
     /**
@@ -150,32 +159,39 @@ public abstract class AuditTransformsTest<T, K> {
      * @param request
      * @param webContextProperties
      * @param isRequesting
-     * @param localIP
+     * @param localIp
      * @throws java.net.UnknownHostException
      */
-    protected void testGetActiveParticipantSource(LogEventRequestType request, Boolean isRequesting, String localIP,
+    protected void testGetActiveParticipantSource(LogEventRequestType request, Boolean isRequesting, String localIp,
         Properties webContextProperties) throws UnknownHostException {
 
+        String ipOrHost;
         ActiveParticipant sourceActiveParticipant = null;
         List<ActiveParticipant> activeParticipant = request.getAuditMessage().getActiveParticipant();
         for (ActiveParticipant item : activeParticipant) {
-            if (item.getRoleIDCode().get(0).getDisplayName() != null && item.getRoleIDCode().get(0).getDisplayName().
-                equals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME)) {
+            if (item.getRoleIDCode().get(0).getDisplayName() != null && item.getRoleIDCode().get(0).getDisplayName()
+                .equals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME)) {
+
                 sourceActiveParticipant = item;
+                break;
             }
         }
+
+        assertNotNull("sourceActiveParticipant is null", sourceActiveParticipant);
+
         if (isRequesting) {
             assertEquals(NhincConstants.WSA_REPLY_TO, sourceActiveParticipant.getUserID());
-            assertEquals(ManagementFactory.getRuntimeMXBean().getName(), sourceActiveParticipant.getAlternativeUserID());
-            assertEquals(localIP, sourceActiveParticipant.getNetworkAccessPointID());
+            assertEquals(ManagementFactory.getRuntimeMXBean().getName(), sourceActiveParticipant
+                .getAlternativeUserID());
+
+            ipOrHost = localIp;
+        } else {
+            ipOrHost = webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS);
         }
 
+        assertEquals(ipOrHost, sourceActiveParticipant.getNetworkAccessPointID());
         assertEquals(isRequesting, sourceActiveParticipant.isUserIsRequestor());
-        if (!isRequesting) {
-            assertEquals(webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS),
-                sourceActiveParticipant.getNetworkAccessPointID());
-        }
-        assertEquals(AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME,
+        assertEquals(getAuditTransforms().getNetworkAccessPointTypeCode(ipOrHost),
             sourceActiveParticipant.getNetworkAccessPointTypeCode());
         assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE,
             sourceActiveParticipant.getRoleIDCode().get(0).getCode());
@@ -198,12 +214,15 @@ public abstract class AuditTransformsTest<T, K> {
 
         ActiveParticipant destinationActiveParticipant = null;
         for (ActiveParticipant item : request.getAuditMessage().getActiveParticipant()) {
-            if (item.getRoleIDCode().get(0).getDisplayName() != null && item.getRoleIDCode().get(0).
-                getDisplayName().equals(
-                    AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME)) {
+            if (item.getRoleIDCode().get(0).getDisplayName() != null && item.getRoleIDCode().get(0).getDisplayName()
+                .equals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME)) {
+
                 destinationActiveParticipant = item;
             }
         }
+
+        assertNotNull("destinationActiveParticipant is null", destinationActiveParticipant);
+
         if (isRequesting) {
             assertEquals(remoteObjectIP, destinationActiveParticipant.getUserID());
         } else {
@@ -211,7 +230,7 @@ public abstract class AuditTransformsTest<T, K> {
                 destinationActiveParticipant.getUserID());
         }
 
-        assertEquals(!(isRequesting), destinationActiveParticipant.isUserIsRequestor());
+        assertEquals(!isRequesting, destinationActiveParticipant.isUserIsRequestor());
         assertEquals(webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS),
             destinationActiveParticipant.getNetworkAccessPointID());
         assertEquals(AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME, destinationActiveParticipant.
@@ -222,6 +241,58 @@ public abstract class AuditTransformsTest<T, K> {
             getRoleIDCode().get(0).getCodeSystemName());
         assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME,
             destinationActiveParticipant.getRoleIDCode().get(0).getDisplayName());
+    }
+
+    protected AssertionType createAssertion() {
+        UserType userType = new UserType();
+        userType.setOrg(createHomeCommunityType());
+        userType.setPersonName(createPersonNameType());
+        userType.setRoleCoded(createCeType());
+        userType.setUserName("Wanderson");
+
+        AssertionType assertion = new AssertionType();
+        assertion.setUserInfo(userType);
+        return assertion;
+    }
+
+    protected CeType createCeType() {
+        CeType ceType = new CeType();
+        ceType.setCode("Code");
+        ceType.setCodeSystem("CodeSystem");
+        ceType.setCodeSystemVersion("1.1");
+        ceType.setDisplayName("DisplayName");
+        return ceType;
+    }
+
+    protected HomeCommunityType createHomeCommunityType() {
+        HomeCommunityType homeCommunityType = new HomeCommunityType();
+        homeCommunityType.setHomeCommunityId("1.1");
+        homeCommunityType.setName("DOD");
+        homeCommunityType.setDescription("This is DOD Gateway");
+        return homeCommunityType;
+    }
+
+    protected PersonNameType createPersonNameType() {
+        PersonNameType personNameType = new PersonNameType();
+        personNameType.setFamilyName("Tamney");
+        personNameType.setFullName("Erica");
+        personNameType.setGivenName("Jasmine");
+        personNameType.setPrefix("Ms");
+        return personNameType;
+    }
+
+    protected NhinTargetSystemType createNhinTarget() {
+        NhinTargetSystemType targetSystem = new NhinTargetSystemType();
+        targetSystem.setHomeCommunity(createTargetHomeCommunityType());
+        return targetSystem;
+    }
+
+    protected HomeCommunityType createTargetHomeCommunityType() {
+        HomeCommunityType homeCommunityType = new HomeCommunityType();
+        homeCommunityType.setHomeCommunityId("2.2");
+        homeCommunityType.setName("SSA");
+        homeCommunityType.setDescription("This is DOD Gateway");
+        return homeCommunityType;
     }
 
     protected abstract AuditTransforms<T, K> getAuditTransforms();
