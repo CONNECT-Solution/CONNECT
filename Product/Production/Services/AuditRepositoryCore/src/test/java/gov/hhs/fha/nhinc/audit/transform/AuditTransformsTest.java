@@ -164,7 +164,9 @@ public abstract class AuditTransformsTest<T, K> {
                 sourceActiveParticipant = item;
             }
         }
-        assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE, sourceActiveParticipant.getUserID());
+        if (isRequesting) {
+            assertEquals(NhincConstants.WSA_REPLY_TO, sourceActiveParticipant.getUserID());
+        }
         if (isRequesting) {
             assertEquals(ManagementFactory.getRuntimeMXBean().getName(), sourceActiveParticipant.getAlternativeUserID());
         }

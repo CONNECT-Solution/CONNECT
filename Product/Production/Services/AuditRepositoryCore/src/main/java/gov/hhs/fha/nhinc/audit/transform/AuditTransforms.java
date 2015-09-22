@@ -270,7 +270,7 @@ public abstract class AuditTransforms<T, K> {
         String hostAddress = isRequesting ? getLocalHostAddress() : getRemoteHostAddress(webContextProperties);
 
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
-        participant.setUserID(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
+        participant.setUserID(isRequesting ? NhincConstants.WSA_REPLY_TO : getInboundReplyToFromHeader(webContextProperties));
         participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
         participant.setNetworkAccessPointID(hostAddress);
         participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostAddress));
@@ -383,6 +383,17 @@ public abstract class AuditTransforms<T, K> {
             return webContextProperties.getProperty(NhincConstants.LOCAL_HOST_ADDRESS);
         }
         return AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
+    }
+
+    protected String getInboundReplyToFromHeader(Properties webContextProperties) {
+
+        String inboundReplyTo = null;
+        if (webContextProperties != null && !webContextProperties.isEmpty() && webContextProperties.getProperty(
+            NhincConstants.INBOUND_REPLY_TO) != null) {
+
+            inboundReplyTo = webContextProperties.getProperty(NhincConstants.INBOUND_REPLY_TO);
+        }
+        return inboundReplyTo;
     }
 
     protected String getLocalHostAddress() {
@@ -560,4 +571,5 @@ public abstract class AuditTransforms<T, K> {
     protected abstract String getServiceEventActionCodeRequestor();
 
     protected abstract String getServiceEventActionCodeResponder();
+
 }

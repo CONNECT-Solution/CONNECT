@@ -357,7 +357,7 @@ public class DocRetrieveAuditTransformsTest extends AuditTransformsTest<Retrieve
             }
         }
         if (!isRequesting) {
-            assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE,
+            assertEquals(NhincConstants.WSA_REPLY_TO,
                 destinationActiveParticipant.getUserID());
         } else {
             assertEquals(webContextProperties.getProperty(NhincConstants.WEB_SERVICE_REQUEST_URL),
