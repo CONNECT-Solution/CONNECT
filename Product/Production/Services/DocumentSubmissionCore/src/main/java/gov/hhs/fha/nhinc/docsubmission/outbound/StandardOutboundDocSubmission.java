@@ -66,8 +66,7 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
 
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = createRequestForInternalProcessing(
             body, targets, urlInfo);
-        MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
-        NhinTargetSystemType target = msgUtils.convertFirstToNhinTargetSystemType(targets);
+        NhinTargetSystemType target = getMessageGeneratorUtils().convertFirstToNhinTargetSystemType(targets);
         auditRequestFromAdapter(request, assertion, target);
 
         if (isPolicyValid(request, assertion)) {
@@ -109,6 +108,10 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
 
     protected SubjectHelper getSubjectHelper() {
         return new SubjectHelper();
+    }
+    
+    protected MessageGeneratorUtils getMessageGeneratorUtils() {
+        return MessageGeneratorUtils.getInstance();
     }
 
     protected OutboundDocSubmissionDelegate getOutboundDocSubmissionDelegate() {
@@ -174,13 +177,16 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
         gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType nhinRequest
             = new gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
 
-        NhinTargetSystemType targetSystemType = new NhinTargetSystemType();
-        targetSystemType.setHomeCommunity(getNhinTargetHomeCommunity(request));
-
-        nhinRequest.setNhinTargetSystem(targetSystemType);
+        nhinRequest.setNhinTargetSystem(getTargetSystemTypeFromCommunity(getNhinTargetHomeCommunity(request)));
         nhinRequest.setProvideAndRegisterDocumentSetRequest(request.getProvideAndRegisterDocumentSetRequest());
 
         return nhinRequest;
+    }
+    
+    protected NhinTargetSystemType getTargetSystemTypeFromCommunity(HomeCommunityType community) {
+        NhinTargetSystemType targetSystemType = new NhinTargetSystemType();
+        targetSystemType.setHomeCommunity(community);
+        return targetSystemType;
     }
 
     private RegistryResponseType sendToNhinProxy(
