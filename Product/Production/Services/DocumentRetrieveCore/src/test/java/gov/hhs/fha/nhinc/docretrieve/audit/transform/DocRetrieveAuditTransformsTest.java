@@ -280,7 +280,7 @@ public class DocRetrieveAuditTransformsTest extends AuditTransformsTest<Retrieve
         }
 
         assertEquals(isRequesting, sourceActiveParticipant.isUserIsRequestor());
-        assertEquals(AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME, sourceActiveParticipant
+        assertEquals(AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_IP, sourceActiveParticipant
             .getNetworkAccessPointTypeCode());
         assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, sourceActiveParticipant
             .getRoleIDCode().get(0).getCode());
@@ -323,7 +323,7 @@ public class DocRetrieveAuditTransformsTest extends AuditTransformsTest<Retrieve
 
         assertEquals(!isRequesting, destinationActiveParticipant.isUserIsRequestor());
         assertEquals(localIP, destinationActiveParticipant.getNetworkAccessPointID());
-        assertEquals(AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME, destinationActiveParticipant.
+        assertEquals(AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_IP, destinationActiveParticipant.
             getNetworkAccessPointTypeCode());
         assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, destinationActiveParticipant.
             getRoleIDCode().get(0).getCode());

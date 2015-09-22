@@ -233,7 +233,7 @@ public abstract class AuditTransformsTest<T, K> {
         assertEquals(!isRequesting, destinationActiveParticipant.isUserIsRequestor());
         assertEquals(webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS),
             destinationActiveParticipant.getNetworkAccessPointID());
-        assertEquals(AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME, destinationActiveParticipant.
+        assertEquals(AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_IP, destinationActiveParticipant.
             getNetworkAccessPointTypeCode());
         assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, destinationActiveParticipant.
             getRoleIDCode().get(0).getCode());
