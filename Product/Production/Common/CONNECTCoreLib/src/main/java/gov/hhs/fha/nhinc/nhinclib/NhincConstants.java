@@ -467,6 +467,13 @@ public class NhincConstants {
     public static final String AUDIT_LOGGER_EJB_BEAN_NAME = "AuditEJBLoggerImpl";
     /* -- End Document Retrieve deferred Service Name -- */
 
+    //ReplyTo Header value for Nwhin Outbound messages
+    public static final String WSA_REPLY_TO = "http://www.w3.org/2005/08/addressing/anonymous";
+    //ReplyTo key value to be retrieved from cxf message Inbound Headers
+    public static final String INBOUND_REPLY_TO = "ReplyTo";
+    //ReplyTo Header to be retrieved from cxf Inbound messages
+    public static final String INBOUND_REPLY_TO_HEADER = "javax.xml.ws.addressing.context.inbound";
+
     private NhincConstants() {
     }
 }

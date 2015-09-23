@@ -36,7 +36,11 @@ import java.util.List;
 import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.handler.MessageContext;
+import org.apache.cxf.jaxws.context.WrappedMessageContext;
+import org.apache.cxf.message.Message;
 import org.apache.cxf.transport.http.AbstractHTTPDestination;
+import org.apache.cxf.ws.addressing.AddressingProperties;
 
 /**
  * @author bhumphrey
@@ -125,6 +129,17 @@ public abstract class BaseService {
         return requestWebServiceUrl;
     }
 
+    private String getInboundReplyToHeader(WebServiceContext context) {
+
+        MessageContext messageContext = context.getMessageContext();
+        if (messageContext == null || !(messageContext instanceof WrappedMessageContext)) {
+            return null;
+        }
+        Message message = ((WrappedMessageContext) messageContext).getWrappedMessage();
+        AddressingProperties maps = (AddressingProperties) message.get(NhincConstants.INBOUND_REPLY_TO_HEADER);
+        return maps.getReplyTo().getAddress().getValue();
+    }
+
     /**
      * Returns a Web Service Context properties object with the following properties: 1. Web Service Request URL 2.
      * Remote Host Address
@@ -133,15 +148,20 @@ public abstract class BaseService {
      * @return
      */
     public Properties getWebContextProperties(WebServiceContext context) {
+
         Properties webContextProperties = new Properties();
         if (context != null && context.getMessageContext() != null) {
             //add Web Service Request URL
             webContextProperties.put(NhincConstants.WEB_SERVICE_REQUEST_URL, getWebServiceRequestUrl(context));
+
             //add Remote Server address or Host
             webContextProperties.put(NhincConstants.REMOTE_HOST_ADDRESS, getRemoteAddress(context));
+
             //add Local Server address or Host
             webContextProperties.put(NhincConstants.LOCAL_HOST_ADDRESS, getLocalAddress(context));
 
+            //Get Inbound Message ReplyTo Header
+            webContextProperties.put(NhincConstants.INBOUND_REPLY_TO, getInboundReplyToHeader(context));
         }
         return webContextProperties;
     }

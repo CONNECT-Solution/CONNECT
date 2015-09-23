@@ -29,20 +29,19 @@ package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
-
 import javax.xml.ws.BindingProvider;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 import org.apache.cxf.ws.addressing.AttributedURIType;
+import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.apache.cxf.ws.addressing.JAXWSAConstants;
 import org.apache.cxf.ws.addressing.Names;
 import org.apache.cxf.ws.addressing.RelatesToType;
 import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
 import org.apache.log4j.Logger;
-import org.apache.cxf.ws.addressing.EndpointReferenceType;
 
 /**
  * @author akong and young weezy
@@ -57,7 +56,7 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
     private AssertionType assertion;
 
     public WsAddressingServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, String wsAddressingTo,
-            String wsAddressingAction, AssertionType assertion) {
+        String wsAddressingAction, AssertionType assertion) {
         super(decoratoredEndpoint);
 
         this.bindingProviderPort = (BindingProvider) decoratedEndpoint.getPort();
@@ -78,7 +77,7 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
 
         EndpointReferenceType replyTo = new EndpointReferenceType();
         AttributedURIType replyToAddress = new AttributedURIType();
-        replyToAddress.setValue("http://www.w3.org/2005/08/addressing/anonymous");
+        replyToAddress.setValue(NhincConstants.WSA_REPLY_TO);
         replyTo.setAddress(replyToAddress);
         maps.getMustUnderstand().add(Names.WSA_REPLYTO_QNAME);
         maps.setReplyTo(replyTo);

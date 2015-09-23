@@ -45,6 +45,7 @@ import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformHelper;
 import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
 import java.net.MalformedURLException;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 /**
  * This class is designed for supporting Audit Logging for Retrieve Document.
@@ -386,25 +387,22 @@ public class DocRetrieveAuditTransforms
 
         if (isRequesting) {
             hostAddress = getLocalHostAddress();
-            participant.setUserID(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
+            participant.setUserID(NhincConstants.WSA_REPLY_TO);
             participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
             participant.setNetworkAccessPointID(hostAddress);
             participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostAddress));
 
         } else {
             hostAddress = getLocalAddressFromProperties(webContextProperties);
-
+            participant.setUserID(getInboundReplyToFromHeader(webContextProperties));
             if (hostAddress != null) {
                 try {
                     URL url = new URL(hostAddress);
-                    participant.setUserID(hostAddress);
                     hostAddress = url.getHost();
                     participant.setNetworkAccessPointID(hostAddress);
                     participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostAddress));
                 } catch (MalformedURLException ex) {
                     LOG.error("Error while returning remote address: " + ex.getLocalizedMessage(), ex);
-                    // The url is null or not a valid url; for now, set the user id to anonymous
-                    participant.setUserID(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
                     // TODO: For now, hardcode the value to localhost; need to find out if this needs to be set
                     participant.setNetworkAccessPointTypeCode(
                         AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME);
