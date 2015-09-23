@@ -270,7 +270,8 @@ public abstract class AuditTransforms<T, K> {
         String hostAddress = isRequesting ? getLocalHostAddress() : getRemoteHostAddress(webContextProperties);
 
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
-        participant.setUserID(isRequesting ? NhincConstants.WSA_REPLY_TO : getInboundReplyToFromHeader(webContextProperties));
+        participant.setUserID(isRequesting ? NhincConstants.WSA_REPLY_TO
+            : getInboundReplyToFromHeader(webContextProperties));
         participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
         participant.setNetworkAccessPointID(hostAddress);
         participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostAddress));

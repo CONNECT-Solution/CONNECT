@@ -137,7 +137,7 @@ public abstract class BaseService {
         }
         Message message = ((WrappedMessageContext) messageContext).getWrappedMessage();
         AddressingProperties maps = (AddressingProperties) message.get(NhincConstants.INBOUND_REPLY_TO_HEADER);
-        return (maps.getReplyTo().getAddress().getValue());
+        return maps.getReplyTo().getAddress().getValue();
     }
 
     /**

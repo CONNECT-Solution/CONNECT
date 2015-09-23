@@ -166,14 +166,12 @@ public abstract class AuditTransformsTest<T, K> {
         }
         if (isRequesting) {
             assertEquals(NhincConstants.WSA_REPLY_TO, sourceActiveParticipant.getUserID());
-        }
-        if (isRequesting) {
             assertEquals(ManagementFactory.getRuntimeMXBean().getName(), sourceActiveParticipant.getAlternativeUserID());
-        }
-        assertEquals(isRequesting, sourceActiveParticipant.isUserIsRequestor());
-        if (isRequesting) {
             assertEquals(localIP, sourceActiveParticipant.getNetworkAccessPointID());
-        } else {
+        }
+
+        assertEquals(isRequesting, sourceActiveParticipant.isUserIsRequestor());
+        if (!isRequesting) {
             assertEquals(webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS),
                 sourceActiveParticipant.getNetworkAccessPointID());
         }
