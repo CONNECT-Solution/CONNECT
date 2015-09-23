@@ -26,7 +26,7 @@
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>AuditRepositoryCore</artifactId>
-            <version>${project.parent.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
