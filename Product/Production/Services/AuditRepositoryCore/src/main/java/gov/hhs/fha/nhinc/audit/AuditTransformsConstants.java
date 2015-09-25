@@ -38,9 +38,9 @@ public class AuditTransformsConstants {
     public static final String ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME = "Source";
     public static final String ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME = "Destination";
     public static final String ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS = "unknown";
-    public static final Short NETWORK_ACCESSOR_PT_TYPE_CODE_NAME = 2;
     public static final String ACTIVE_PARTICIPANT_ROLE_CODE_DEST = "110152";
     public static final String ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE = "110153";
     public static final String ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME = "DCM";
+    public static final Short NETWORK_ACCESSOR_PT_TYPE_CODE_NAME = 1;
     public static final Short NETWORK_ACCESSOR_PT_TYPE_CODE_IP = 2;
 }
