@@ -46,10 +46,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
 
 /**
  *
@@ -98,7 +94,7 @@ public class COREX12RealTimeAuditTransformsTest extends AuditTransformsTest<CORE
             NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME);
 
         testGetEventIdentificationType(auditRequest, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME, Boolean.TRUE);
-        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, localIp, webContextProperties);
+        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticipantObjectIdentification(auditRequest);
@@ -106,7 +102,7 @@ public class COREX12RealTimeAuditTransformsTest extends AuditTransformsTest<CORE
 
     @Test
     public void transformResponseToAuditMsg() throws ConnectionManagerException, UnknownHostException {
-        final String localIP = "10.10.10.10";
+        final String localIp = "10.10.10.10";
         final String remoteIp = "16.14.13.12";
         final String remoteObjectUrl = "http://" + remoteIp + ":9090/source/AuditService";
         final String wsRequestUrl = "http://" + remoteIp + ":9090/AuditService";
@@ -118,7 +114,7 @@ public class COREX12RealTimeAuditTransformsTest extends AuditTransformsTest<CORE
         COREX12RealTimeAuditTransforms transforms = new COREX12RealTimeAuditTransforms() {
             @Override
             protected String getLocalHostAddress() {
-                return localIP;
+                return localIp;
             }
 
             @Override
@@ -144,7 +140,7 @@ public class COREX12RealTimeAuditTransformsTest extends AuditTransformsTest<CORE
             webContextProperties, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME);
 
         testGetEventIdentificationType(auditRequest, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME, Boolean.TRUE);
-        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, localIP, webContextProperties);
+        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticipantObjectIdentification(auditRequest);
@@ -155,8 +151,8 @@ public class COREX12RealTimeAuditTransformsTest extends AuditTransformsTest<CORE
         return new COREX12RealTimeAuditTransforms();
     }
 
+    // TODO: Too many hard-coded inline values below
     private COREEnvelopeRealTimeRequest createCOREEnvelopeRealTimeRequest() {
-        // TODO: Too many hard-coded values
         COREEnvelopeRealTimeRequest request = new COREEnvelopeRealTimeRequest();
         request.setCORERuleVersion("2.2.0");
         request.setPayloadID("5");

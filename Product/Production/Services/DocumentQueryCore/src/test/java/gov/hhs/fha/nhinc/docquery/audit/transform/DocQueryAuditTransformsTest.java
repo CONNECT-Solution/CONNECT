@@ -111,7 +111,7 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
             Boolean.TRUE, webContextProperties, NhincConstants.DOC_QUERY_SERVICE_NAME);
 
         testGetEventIdentificationType(auditRequest, NhincConstants.DOC_QUERY_SERVICE_NAME, Boolean.TRUE);
-        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, localIp, webContextProperties);
+        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticipantObjectIdentification(auditRequest);
@@ -157,7 +157,7 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
             NhincConstants.DOC_QUERY_SERVICE_NAME);
 
         testGetEventIdentificationType(auditRequest, NhincConstants.DOC_QUERY_SERVICE_NAME, Boolean.TRUE);
-        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, localIp, webContextProperties);
+        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticipantObjectIdentification(auditRequest);

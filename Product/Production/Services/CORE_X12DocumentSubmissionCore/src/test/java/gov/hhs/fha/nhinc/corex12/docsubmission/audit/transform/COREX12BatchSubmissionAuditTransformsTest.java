@@ -46,10 +46,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
 
 /**
  *
@@ -98,7 +94,7 @@ public class COREX12BatchSubmissionAuditTransformsTest extends AuditTransformsTe
             webContextProperties, NhincConstants.CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME);
 
         testGetEventIdentificationType(auditRequest, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME, Boolean.TRUE);
-        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, localIp, webContextProperties);
+        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticipantObjectIdentification(auditRequest);
@@ -144,14 +140,14 @@ public class COREX12BatchSubmissionAuditTransformsTest extends AuditTransformsTe
             Boolean.TRUE, webContextProperties, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME);
 
         testGetEventIdentificationType(auditRequest, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME, Boolean.TRUE);
-        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, localIp, webContextProperties);
+        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticipantObjectIdentification(auditRequest);
     }
 
+    // TODO: Too many hard-coded inline values below
     private COREEnvelopeBatchSubmission createCOREEnvelopeBatchSubmissionRequest() {
-        // TODO: Too many hard-coded values
         COREEnvelopeBatchSubmission request = new COREEnvelopeBatchSubmission();
         request.setCORERuleVersion("2.2.0");
         request.setPayloadID("5");

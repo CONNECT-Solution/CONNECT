@@ -149,7 +149,7 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
             NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
 
         testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE);
-        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, localIp, webContextProperties);
+        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticipantObjectIdentification(auditRequest);
@@ -157,7 +157,7 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
 
     @Test
     public void transformResponseToAuditMsg() throws ConnectionManagerException, UnknownHostException {
-        final String localIP = "10.10.10.10";
+        final String localIp = "10.10.10.10";
         final String remoteIp = "16.14.13.12";
         final String remoteObjectUrl = "http://" + remoteIp + ":9090/source/AuditService";
         final String wsRequestUrl = "http://" + remoteIp + ":9090/AuditService";
@@ -169,7 +169,7 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         PatientDiscoveryAuditTransforms transforms = new PatientDiscoveryAuditTransforms() {
             @Override
             protected String getLocalHostAddress() {
-                return localIP;
+                return localIp;
             }
 
             @Override
@@ -195,7 +195,7 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
             NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
 
         testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE);
-        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, localIP, webContextProperties);
+        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticipantObjectIdentification(auditRequest);
@@ -213,6 +213,9 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
             .getParticipantObjectIdentification().get(0);
         ParticipantObjectIdentificationType participantQuery = auditRequest.getAuditMessage()
             .getParticipantObjectIdentification().get(1);
+
+        assertNotNull("participantPatient is null", participantPatient);
+        assertNotNull("participantQuery is null", participantQuery);
 
         assertEquals("ParticipantPatient.ParticipantObjectID mismatch", "D123401^^^&1.1&ISO",
             participantPatient.getParticipantObjectID());
@@ -266,7 +269,8 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         code.setCode("PRPA_TE201306UV02");
         code.setCodeSystem("2.16.840.1.113883.1.6");
 
-        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
+        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess
+            = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
         controlActProcess.setClassCode(ActClassControlAct.CACT);
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
         controlActProcess.setCode(code);

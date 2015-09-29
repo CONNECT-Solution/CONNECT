@@ -86,22 +86,23 @@ public abstract class AuditTransformsTest<T, K> {
         Boolean isRequesting) {
 
         EventIdentificationType eventIdentificationType = request.getAuditMessage().getEventIdentification();
+        String eventActionCode;
+        String eventIdCode;
+        String eventIdDisplayName;
 
         if (isRequesting) {
-            assertEquals(getAuditTransforms().getServiceEventActionCodeRequestor(),
-                eventIdentificationType.getEventActionCode());
-            assertEquals(getAuditTransforms().getServiceEventIdCodeRequestor(),
-                eventIdentificationType.getEventID().getCode());
-            assertEquals(getAuditTransforms().getServiceEventDisplayRequestor(), eventIdentificationType.getEventID()
-                .getDisplayName());
+            eventActionCode = getAuditTransforms().getServiceEventActionCodeRequestor();
+            eventIdCode = getAuditTransforms().getServiceEventIdCodeRequestor();
+            eventIdDisplayName = getAuditTransforms().getServiceEventDisplayRequestor();
         } else {
-            assertEquals(getAuditTransforms().getServiceEventActionCodeResponder(),
-                eventIdentificationType.getEventActionCode());
-            assertEquals(getAuditTransforms().getServiceEventIdCodeResponder(),
-                eventIdentificationType.getEventID().getCode());
-            assertEquals(getAuditTransforms().getServiceEventDisplayResponder(), eventIdentificationType.getEventID()
-                .getDisplayName());
+            eventActionCode = getAuditTransforms().getServiceEventActionCodeRequestor();
+            eventIdCode = getAuditTransforms().getServiceEventIdCodeRequestor();
+            eventIdDisplayName = getAuditTransforms().getServiceEventDisplayRequestor();
         }
+
+        assertEquals("EventActionCode mismatch", eventActionCode, eventIdentificationType.getEventActionCode());
+        assertEquals("EventId.Code", eventIdCode, eventIdentificationType.getEventID().getCode());
+        assertEquals("EventId.DisplayName", eventIdDisplayName, eventIdentificationType.getEventID().getDisplayName());
 
         assertEquals("EventOutcomeIndicator mismatch", AuditTransformsConstants.EVENT_OUTCOME_INDICATOR_SUCCESS
             .toString(), eventIdentificationType.getEventOutcomeIndicator().toString());
@@ -157,18 +158,34 @@ public abstract class AuditTransformsTest<T, K> {
      * Test of getActiveParticipantSource method, of class AuditTransforms.
      *
      * @param request
-     * @param webContextProperties
      * @param isRequesting
+     * @param webContextProperties
      * @param localIp
      * @throws java.net.UnknownHostException
      */
-    protected void testGetActiveParticipantSource(LogEventRequestType request, Boolean isRequesting, String localIp,
-        Properties webContextProperties) throws UnknownHostException {
+    protected void testGetActiveParticipantSource(LogEventRequestType request, Boolean isRequesting,
+        Properties webContextProperties, String localIp) throws UnknownHostException {
+
+        testGetActiveParticipantSource(request, isRequesting, webContextProperties, NhincConstants.WSA_REPLY_TO,
+            localIp);
+    }
+
+    /**
+     * Test of getActiveParticipantSource method, of class AuditTransforms.
+     *
+     * @param request
+     * @param isRequesting
+     * @param webContextProperties
+     * @param remoteObjectUrl
+     * @param localIp
+     * @throws java.net.UnknownHostException
+     */
+    protected void testGetActiveParticipantSource(LogEventRequestType request, Boolean isRequesting,
+        Properties webContextProperties, String remoteObjectUrl, String localIp) throws UnknownHostException {
 
         String ipOrHost;
         ActiveParticipant sourceActiveParticipant = null;
-        List<ActiveParticipant> activeParticipant = request.getAuditMessage().getActiveParticipant();
-        for (ActiveParticipant item : activeParticipant) {
+        for (ActiveParticipant item : request.getAuditMessage().getActiveParticipant()) {
             if (item.getRoleIDCode().get(0).getDisplayName() != null && item.getRoleIDCode().get(0).getDisplayName()
                 .equals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME)) {
 
@@ -180,24 +197,27 @@ public abstract class AuditTransformsTest<T, K> {
         assertNotNull("sourceActiveParticipant is null", sourceActiveParticipant);
 
         if (isRequesting) {
-            assertEquals(NhincConstants.WSA_REPLY_TO, sourceActiveParticipant.getUserID());
-            assertEquals(ManagementFactory.getRuntimeMXBean().getName(), sourceActiveParticipant
-                .getAlternativeUserID());
+            assertEquals("UserId mismatch", remoteObjectUrl, sourceActiveParticipant.getUserID());
+            assertEquals("AlternativeUserId mismatch", ManagementFactory.getRuntimeMXBean().getName(),
+                sourceActiveParticipant.getAlternativeUserID());
 
             ipOrHost = localIp;
         } else {
             ipOrHost = webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS);
         }
 
-        assertEquals(ipOrHost, sourceActiveParticipant.getNetworkAccessPointID());
-        assertEquals(isRequesting, sourceActiveParticipant.isUserIsRequestor());
-        assertEquals(getAuditTransforms().getNetworkAccessPointTypeCode(ipOrHost),
+        assertEquals("NetworkAccessPointID mismatch", ipOrHost, sourceActiveParticipant.getNetworkAccessPointID());
+        assertEquals("SourceActiveParticipant requestor flag mismatch", isRequesting,
+            sourceActiveParticipant.isUserIsRequestor());
+        assertEquals("NetworkAccessPointTypeCode mismatch",
+            getAuditTransforms().getNetworkAccessPointTypeCode(ipOrHost),
             sourceActiveParticipant.getNetworkAccessPointTypeCode());
-        assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE,
+        assertEquals("RoleIDCode.Code mistmatch", AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE,
             sourceActiveParticipant.getRoleIDCode().get(0).getCode());
-        assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+        assertEquals("RoleIDCode.CodeSystemName mismatch", AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
             sourceActiveParticipant.getRoleIDCode().get(0).getCodeSystemName());
-        assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME,
+        assertEquals("RoleIDCode.DisplayName mismatch",
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME,
             sourceActiveParticipant.getRoleIDCode().get(0).getDisplayName());
     }
 
@@ -207,42 +227,62 @@ public abstract class AuditTransformsTest<T, K> {
      * @param request
      * @param isRequesting
      * @param webContextProperties
-     * @param remoteObjectIP
+     * @param remoteObjectIp
      */
     protected void testGetActiveParticipantDestination(LogEventRequestType request, Boolean isRequesting,
-        Properties webContextProperties, String remoteObjectIP) {
+        Properties webContextProperties, String remoteObjectIp) {
 
+        testGetActiveParticipantDestination(request, isRequesting, webContextProperties, remoteObjectIp,
+            webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS));
+    }
+
+    /**
+     * Test of getActiveParticipantDestination method, of class AuditTransforms.
+     *
+     * @param request
+     * @param isRequesting
+     * @param webContextProperties
+     * @param remoteObjectIp
+     * @param localIp
+     */
+    protected void testGetActiveParticipantDestination(LogEventRequestType request, Boolean isRequesting,
+        Properties webContextProperties, String remoteObjectIp, String localIp) {
+
+        String userId;
         ActiveParticipant destinationActiveParticipant = null;
         for (ActiveParticipant item : request.getAuditMessage().getActiveParticipant()) {
             if (item.getRoleIDCode().get(0).getDisplayName() != null && item.getRoleIDCode().get(0).getDisplayName()
                 .equals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME)) {
 
                 destinationActiveParticipant = item;
+                break;
             }
         }
 
         assertNotNull("destinationActiveParticipant is null", destinationActiveParticipant);
 
         if (isRequesting) {
-            assertEquals(remoteObjectIP, destinationActiveParticipant.getUserID());
+            userId = remoteObjectIp;
         } else {
-            assertEquals(webContextProperties.getProperty(NhincConstants.WEB_SERVICE_REQUEST_URL),
-                destinationActiveParticipant.getUserID());
+            userId = webContextProperties.getProperty(NhincConstants.WEB_SERVICE_REQUEST_URL);
         }
 
-        assertEquals(!isRequesting, destinationActiveParticipant.isUserIsRequestor());
-        assertEquals(webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS),
-            destinationActiveParticipant.getNetworkAccessPointID());
-        assertEquals(AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_IP, destinationActiveParticipant.
-            getNetworkAccessPointTypeCode());
-        assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, destinationActiveParticipant.
-            getRoleIDCode().get(0).getCode());
-        assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME, destinationActiveParticipant.
-            getRoleIDCode().get(0).getCodeSystemName());
-        assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME,
+        assertEquals("UserID mismatch", userId, destinationActiveParticipant.getUserID());
+        assertEquals("DestinationActiveParticipant requestor flag mismatch", !isRequesting,
+            destinationActiveParticipant.isUserIsRequestor());
+        assertEquals("NetworkAccessPointID mismatch", localIp, destinationActiveParticipant.getNetworkAccessPointID());
+        assertEquals("NetworkAccessPointTypeCode mismatch", AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_IP,
+            destinationActiveParticipant.getNetworkAccessPointTypeCode());
+        assertEquals("RoleIDCode.Code mismatch", AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST,
+            destinationActiveParticipant.getRoleIDCode().get(0).getCode());
+        assertEquals("RoleIDCode.CodeSystemName mismatch", AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+            destinationActiveParticipant.getRoleIDCode().get(0).getCodeSystemName());
+        assertEquals("RoleIDCode.DisplayName mismatch",
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME,
             destinationActiveParticipant.getRoleIDCode().get(0).getDisplayName());
     }
 
+    // TODO: Too many hard-coded inline values below
     protected AssertionType createAssertion() {
         UserType userType = new UserType();
         userType.setOrg(createHomeCommunityType());
