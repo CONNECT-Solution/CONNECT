@@ -333,7 +333,13 @@ public class DocRetrieveAuditTransforms
          responder side. And for this service, source is considered who generates the document, meaning that
          destination that generates the document is considered source for RD and vice versa for destination
          details for ActiveParticipant */
-        String hostDetails = getWebServiceUrlFromRemoteObject(target, serviceName);
+        String hostDetails = null;
+        if (isRequesting) {
+            hostDetails = getWebServiceUrlFromRemoteObject(target, serviceName);
+        } else {
+            hostDetails = getWebServiceRequestUrl(webContextProperties);
+        }
+
         if (hostDetails != null) {
             try {
                 URL url = new URL(hostDetails);
@@ -344,7 +350,7 @@ public class DocRetrieveAuditTransforms
             } catch (MalformedURLException ex) {
                 LOG.error("Error while extracting remote address : " + ex.getLocalizedMessage(), ex);
                 // The url is null or not a valid url; for now, set the user id to anonymous
-                participant.setUserID(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
+                participant.setUserID(NhincConstants.WSA_REPLY_TO);
                 // TODO: For now, hardcode the value to localhost; need to find out if this needs to be set
                 participant.setNetworkAccessPointTypeCode(
                     AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME);
@@ -387,29 +393,14 @@ public class DocRetrieveAuditTransforms
 
         if (isRequesting) {
             hostAddress = getLocalHostAddress();
-            participant.setUserID(NhincConstants.WSA_REPLY_TO);
-            participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
-            participant.setNetworkAccessPointID(hostAddress);
-            participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostAddress));
-
         } else {
-            hostAddress = getLocalAddressFromProperties(webContextProperties);
-            participant.setUserID(getInboundReplyToFromHeader(webContextProperties));
-            if (hostAddress != null) {
-                try {
-                    URL url = new URL(hostAddress);
-                    hostAddress = url.getHost();
-                    participant.setNetworkAccessPointID(hostAddress);
-                    participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostAddress));
-                } catch (MalformedURLException ex) {
-                    LOG.error("Error while returning remote address: " + ex.getLocalizedMessage(), ex);
-                    // TODO: For now, hardcode the value to localhost; need to find out if this needs to be set
-                    participant.setNetworkAccessPointTypeCode(
-                        AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME);
-                    participant.setNetworkAccessPointID(AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS);
-                }
-            }
+            hostAddress = getRemoteHostAddress(webContextProperties);
         }
+
+        participant.setUserID(NhincConstants.WSA_REPLY_TO);
+        participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
+        participant.setNetworkAccessPointID(hostAddress);
+        participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostAddress));
 
         /* for RD service it is opposite than other services. For RD service it is
          required in initiating side and for other services it is required for responding side */
