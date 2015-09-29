@@ -18,6 +18,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditTransformsConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.net.UnknownHostException;
 import java.util.Properties;
 import javax.xml.bind.JAXBElement;
@@ -31,6 +32,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -167,6 +170,12 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
         assertEquals(DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_ID_TYPE_DISPLAY_NAME,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).
             getParticipantObjectIDTypeCode().getDisplayName());
+        assertNull(null, auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).
+            getParticipantObjectName());
+        assertNull(null, auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).
+            getParticipantObjectName());
+        assertNotNull(null, auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).
+            getParticipantObjectQuery());
     }
 
     private AssertionType createAssertion() {

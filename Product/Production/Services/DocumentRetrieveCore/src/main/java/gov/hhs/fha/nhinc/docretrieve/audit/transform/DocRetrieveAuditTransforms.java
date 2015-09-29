@@ -258,8 +258,6 @@ public class DocRetrieveAuditTransforms
             DocRetrieveAuditTransformsConstants.PARTICIPANT_DOCUMENT_OBJ_ID_TYPE_CODE,
             DocRetrieveAuditTransformsConstants.PARTICIPANT_DOCUMENT_OBJ_ID_TYPE_CODE_SYSTEM,
             DocRetrieveAuditTransformsConstants.PARTICIPANT_DOCUMENT_OBJ_ID_TYPE_DISPLAY_NAME);
-        participantObject.setParticipantObjectName(HomeCommunityMap.formatHomeCommunityId(
-            HomeCommunityMap.getLocalHomeCommunityId()));
 
         return participantObject;
     }

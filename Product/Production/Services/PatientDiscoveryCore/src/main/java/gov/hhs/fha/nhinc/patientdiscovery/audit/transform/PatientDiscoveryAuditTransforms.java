@@ -30,6 +30,7 @@ import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditTransformsConstants;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
@@ -150,7 +151,7 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
     private II getLivingSubjectIdFromAuthorOrPerformerValue(PRPAIN201305UV02 request, List<PRPAMT201306UV02LivingSubjectId> ids) {
 
         II livingSubjectId = null;
-        
+
         // Get assignedDevice root
         if (request.getControlActProcess().getAuthorOrPerformer() != null
             && !request.getControlActProcess().getAuthorOrPerformer().isEmpty()
@@ -176,11 +177,11 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
                     livingSubjectId = oII;
                     break;
                 }
-            } 
+            }
         } else {
             livingSubjectId = getLivingSubjectId(ids.get(0));
         }
-        
+
         return livingSubjectId;
     }
 
@@ -282,8 +283,6 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
             PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE_SYSTEM,
             PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME);
         participantObject.setParticipantObjectID(participantObjectId);
-        participantObject.setParticipantObjectName(HomeCommunityMap.formatHomeCommunityId(
-            HomeCommunityMap.getLocalHomeCommunityId()));
 
         return participantObject;
     }

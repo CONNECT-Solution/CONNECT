@@ -3,7 +3,7 @@
   <con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="../../../target/wsdl/EntityAdminDist_g1.wsdl" name="AdministrativeDistribution_Binding_Soap12_g1" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="c126afab-fa89-4571-a3dd-26a231fd90a8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/2_0/AdministrativeDistribution_Service</con:endpoint>
     </con:endpoints>
     <con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way" id="3ad22219-5a5d-4db3-8df4-5a9902fadc6a">
@@ -12,7 +12,7 @@
   </con:interface>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" definition="../../../target/wsdl/EntityXDR.wsdl" name="EntityXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="b45a46f7-4b7d-45cb-9cf8-7acfd1895d25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>${#TestSuite#Endpoint-XDREntity}</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
       <con:endpoint>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
@@ -23,7 +23,7 @@
   </con:interface>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response}EntityXDRAsyncResponse_Binding" definition="../../../target/wsdl/EntityXDRResponse.wsdl" name="EntityXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="092da90c-575f-4750-b484-1898cc96fea7" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>${#TestSuite#Endpoint-DSDeferredResp}</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRAsyncResponse</con:endpoint>
     </con:endpoints>
@@ -33,7 +33,7 @@
   </con:interface>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="../../../target/wsdl/EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="0e5015f2-97e8-4682-95ca-eb33ed4414d7" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>${#TestSuite#Endpoint-EntityXDRRequest}</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRAsyncRequest</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRRequest</con:endpoint>
@@ -45,7 +45,7 @@
   </con:interface>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="../../../target/wsdl/EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="8c8a5dbe-9819-47db-ae01-9bacac0e2c31" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint>
       <con:endpoint>http://localhost:8080/CONNECTGateway/EntityPatientDiscovery</con:endpoint>
     </con:endpoints>
@@ -55,7 +55,7 @@
   </con:interface>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq}EntityPatientDiscoveryAsyncReqBindingSoap" definition="../../../target/wsdl/EntityPatientDiscoveryAsyncReq.wsdl" name="EntityPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="c2372cf7-477b-46e4-bd1d-e5e1695d36bc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
       <con:endpoint>http://localhost/NhinConnect/EntityPatientDiscoveryAsyncReq</con:endpoint>
     </con:endpoints>
@@ -65,7 +65,7 @@
   </con:interface>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="../../../target/wsdl/EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="45ea3e5f-7537-4425-a33c-73709193c20c" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocRetrieve</con:endpoint>
     </con:endpoints>
@@ -75,7 +75,7 @@
   </con:interface>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" definition="../../../target/wsdl/EntityPatientDiscoveryAsyncResp.wsdl" name="EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="97d981d5-6f8d-4fca-a059-ce607375e8d1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
       <con:endpoint>http://localhost/NhinConnect/EntityPatientDiscoveryAsyncResp</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint>
@@ -86,7 +86,7 @@
   </con:interface>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="../../../target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="0b000165-8ffb-436c-b5f6-59762d0305f6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQuery</con:endpoint>
     </con:endpoints>
@@ -96,7 +96,7 @@
   </con:interface>
   <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdministrativeDistribution_Binding_Soap12_g0" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/EntityAdminDist.wsdl" id="90e3783f-3190-4d2a-967e-936d7eb18a7e" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:endpoint>
     </con:endpoints>
     <con:operation isOneWay="false" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" name="SendAlertMessage" bindingOperationName="SendAlertMessage" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional" id="4e1fefc3-eb03-4b53-8b7e-ca942994e7b1">
@@ -4224,8 +4224,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -4358,8 +4357,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 	 	}
 	}
   }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
         <con:settings/>
@@ -4505,19 +4503,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-09-23T16:24:46Z</con:value>
+          <con:value>2015-09-28T17:07:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-09-23T16:34:46Z</con:value>
+          <con:value>2015-09-28T17:17:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/23/2015 16:24:46</con:value>
+          <con:value>09/28/2015 17:07:43</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-10-23T00:00:00Z</con:value>
+          <con:value>2015-10-28T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>

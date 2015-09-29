@@ -54,6 +54,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 import java.lang.management.ManagementFactory;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * This class is designed to test Retrieve Document Service.
