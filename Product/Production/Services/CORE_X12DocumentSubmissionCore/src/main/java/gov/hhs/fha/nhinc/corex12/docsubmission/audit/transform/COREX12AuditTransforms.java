@@ -62,7 +62,7 @@ public abstract class COREX12AuditTransforms<T, K> extends AuditTransforms<T, K>
      */
     @Override
     protected final AuditMessageType getParticipantObjectIdentificationForRequest(T request,
-        AssertionType assertion, AuditMessageType auditMsg, NhinTargetSystemType target) {
+        AssertionType assertion, AuditMessageType auditMsg) {
 
         ParticipantObjectIdentificationType participantObject
             = buildBaseParticipantObjectIdentificationType(getPayloadFromRequest(request));

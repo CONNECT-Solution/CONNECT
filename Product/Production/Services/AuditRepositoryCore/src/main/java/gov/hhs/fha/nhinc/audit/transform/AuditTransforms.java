@@ -96,7 +96,7 @@ public abstract class AuditTransforms<T, K> {
         // TODO: auditMsg should either use a builder, or modify in-method with no return
         AuditMessageType auditMsg = createBaseAuditMessage(assertion, target, isRequesting, webContextProperties,
             serviceName);
-        auditMsg = getParticipantObjectIdentificationForRequest(request, assertion, auditMsg, target);
+        auditMsg = getParticipantObjectIdentificationForRequest(request, assertion, auditMsg);
 
         return buildLogEventRequestType(auditMsg, direction, _interface,
             getMessageCommunityId(assertion, target, isRequesting));
@@ -138,7 +138,7 @@ public abstract class AuditTransforms<T, K> {
      * @return
      */
     protected abstract AuditMessageType getParticipantObjectIdentificationForRequest(T request, AssertionType assertion,
-        AuditMessageType auditMsg, NhinTargetSystemType target);
+        AuditMessageType auditMsg);
 
     /**
      * Adds Participant Object Identification information to auditMsg

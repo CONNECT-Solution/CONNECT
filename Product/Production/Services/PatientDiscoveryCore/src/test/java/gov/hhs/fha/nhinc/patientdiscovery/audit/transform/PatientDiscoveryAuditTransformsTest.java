@@ -44,11 +44,19 @@ import gov.hhs.fha.nhinc.mpilib.Patients;
 import gov.hhs.fha.nhinc.mpilib.PersonName;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditTransformsConstants;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import java.io.StringReader;
 import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Properties;
 import javax.xml.bind.JAXBElement;
+import org.apache.xml.security.exceptions.Base64DecodingException;
+import javax.xml.bind.DatatypeConverter;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import org.hl7.v3.ActClassControlAct;
 import org.hl7.v3.CD;
 import org.hl7.v3.CE;
@@ -82,6 +90,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
 /**
@@ -90,7 +100,7 @@ import static org.junit.Assert.assertSame;
  */
 public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRPAIN201305UV02, PRPAIN201306UV02> {
 
-    private static final String TARGET_HCID = "2.2";
+    private static final String JAXB_HL7_CONTEXT_NAME = "org.hl7.v3";
 
     public PatientDiscoveryAuditTransformsTest() {
     }
@@ -114,7 +124,7 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
     }
 
     @Test
-    public void transformRequestToAuditMsg() throws ConnectionManagerException, UnknownHostException {
+    public void transformRequestToAuditMsg() throws ConnectionManagerException, UnknownHostException, JAXBException {
         final String localIP = "10.10.10.10";
         Properties webContextProperties = new Properties();
         webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, "http://16.14.13.12:9090/AuditService");
@@ -145,7 +155,7 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         PRPAIN201305UV02 request = createPRPAIN201305UV02Request();
         AssertionType assertion = createAssertion();
         LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(request, assertion,
-            createNhinTargetForInitiatingGateway(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+            createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
             NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, webContextProperties,
             NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
         testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE);
@@ -153,11 +163,10 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectIP);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticiopantObjectIdentification(auditRequest);
-        assertParticipantObjectNameForRequest(auditRequest);
     }
 
     @Test
-    public void transformResponseToAuditMsg() throws ConnectionManagerException, UnknownHostException {
+    public void transformResponseToAuditMsg() throws ConnectionManagerException, UnknownHostException, JAXBException {
         final String localIP = "10.10.10.10";
         Properties webContextProperties = new Properties();
         webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, "http://16.14.13.12:9090/AuditService");
@@ -189,7 +198,7 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         PRPAIN201306UV02 response = createPRPAIN201306UV02Response();
         AssertionType assertion = createAssertion();
         LogEventRequestType auditRequest = transforms.transformResponseToAuditMsg(request, response, assertion,
-            createNhinTargetForRespondingGateway(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+            createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
             NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, webContextProperties,
             NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
         testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE);
@@ -197,10 +206,9 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectIP);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticiopantObjectIdentification(auditRequest);
-        assertParticipantObjectNameForResponse(auditRequest);
     }
 
-    private void assertParticiopantObjectIdentification(LogEventRequestType auditRequest) {
+    private void assertParticiopantObjectIdentification(LogEventRequestType auditRequest) throws JAXBException {
         assertEquals("D123401^^^&1.1&ISO",
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectID());
         assertSame(PatientDiscoveryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM,
@@ -230,6 +238,12 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         assertEquals(PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectIDTypeCode().
             getDisplayName());
+        assertNull(null, auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).
+            getParticipantObjectName());
+        assertNull(null, auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).
+            getParticipantObjectName());
+        assertNotNull(null, auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).
+            getParticipantObjectQuery());
     }
 
     private AssertionType createAssertion() {
@@ -269,7 +283,7 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         return ceType;
     }
 
-    private NhinTargetSystemType createNhinTargetForInitiatingGateway() {
+    private NhinTargetSystemType createNhinTarget() {
         NhinTargetSystemType targetSystem = new NhinTargetSystemType();
         targetSystem.setHomeCommunity(createTragetHomeCommunityType());
         return targetSystem;
@@ -277,7 +291,7 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
 
     private HomeCommunityType createTragetHomeCommunityType() {
         HomeCommunityType homeCommunityType = new HomeCommunityType();
-        homeCommunityType.setHomeCommunityId(TARGET_HCID);
+        homeCommunityType.setHomeCommunityId("2.2");
         homeCommunityType.setName("SSA");
         homeCommunityType.setDescription("This is DOD Gateway");
         return homeCommunityType;
@@ -558,19 +572,8 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         return new PatientDiscoveryAuditTransforms();
     }
 
-    private void assertParticipantObjectNameForResponse(LogEventRequestType logEvent) {
-        assertEquals(HomeCommunityMap.formatHomeCommunityId(HomeCommunityMap.getLocalHomeCommunityId()),
-            logEvent.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectName());
-    }
-
-    private void assertParticipantObjectNameForRequest(LogEventRequestType logEvent) {
-        assertEquals(TARGET_HCID, logEvent.getAuditMessage().getParticipantObjectIdentification().get(1).
-            getParticipantObjectName());
-    }
-
-    private NhinTargetSystemType createNhinTargetForRespondingGateway() {
-        NhinTargetSystemType targetSystem = new NhinTargetSystemType();
-        targetSystem.setHomeCommunity(createHomeCommunityType());
-        return targetSystem;
+    private Marshaller getMarshaller() throws JAXBException {
+        JAXBContext jaxbContext = JAXBContext.newInstance("org.hl7.v3");
+        return jaxbContext.createMarshaller();
     }
 }

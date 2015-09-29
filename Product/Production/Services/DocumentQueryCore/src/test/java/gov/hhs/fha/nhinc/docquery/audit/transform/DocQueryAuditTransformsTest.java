@@ -32,6 +32,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -41,8 +43,6 @@ import org.junit.Test;
  * @author tjafri
  */
 public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryRequest, AdhocQueryResponse> {
-
-    private static final String TARGET_HCID = "2.2";
 
     public DocQueryAuditTransformsTest() {
     }
@@ -94,7 +94,6 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectIP);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticiopantObjectIdentification(auditRequest);
-        assertQueryParticipantObjectNameForRequest(auditRequest);
     }
 
     @Test
@@ -137,7 +136,6 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectIP);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticiopantObjectIdentification(auditRequest);
-        assertQueryParticipantObjectNameForResponse(auditRequest);
     }
 
     private void assertParticiopantObjectIdentification(LogEventRequestType auditRequest) {
@@ -172,6 +170,12 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
         assertEquals(DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_ID_TYPE_DISPLAY_NAME,
             auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).
             getParticipantObjectIDTypeCode().getDisplayName());
+        assertNull(null, auditRequest.getAuditMessage().getParticipantObjectIdentification().get(0).
+            getParticipantObjectName());
+        assertNull(null, auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).
+            getParticipantObjectName());
+        assertNotNull(null, auditRequest.getAuditMessage().getParticipantObjectIdentification().get(1).
+            getParticipantObjectQuery());
     }
 
     private AssertionType createAssertion() {
@@ -219,7 +223,7 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
 
     private HomeCommunityType createTragetHomeCommunityType() {
         HomeCommunityType homeCommunityType = new HomeCommunityType();
-        homeCommunityType.setHomeCommunityId(TARGET_HCID);
+        homeCommunityType.setHomeCommunityId("2.2");
         homeCommunityType.setName("SSA");
         homeCommunityType.setDescription("This is DOD Gateway");
         return homeCommunityType;
@@ -260,21 +264,5 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
     @Override
     protected AuditTransforms<AdhocQueryRequest, AdhocQueryResponse> getAuditTransforms() {
         return new DocQueryAuditTransforms();
-    }
-
-    private void assertQueryParticipantObjectNameForResponse(LogEventRequestType logEvent) {
-        assertEquals(HomeCommunityMap.formatHomeCommunityId(HomeCommunityMap.getLocalHomeCommunityId()),
-            logEvent.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectName());
-    }
-
-    private void assertQueryParticipantObjectNameForRequest(LogEventRequestType logEvent) {
-        assertEquals(TARGET_HCID, logEvent.getAuditMessage().getParticipantObjectIdentification().get(1).
-            getParticipantObjectName());
-    }
-
-    private NhinTargetSystemType createNhinTargetForRespondingGateway() {
-        NhinTargetSystemType targetSystem = new NhinTargetSystemType();
-        targetSystem.setHomeCommunity(createHomeCommunityType());
-        return targetSystem;
     }
 }
