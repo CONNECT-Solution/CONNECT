@@ -116,7 +116,9 @@ public class AuditRepositoryOrchImpl {
             if (activeParticipant != null) {
                 eventUserId = activeParticipant.getUserID();
                 if (eventUserId != null && !eventUserId.equals("")) {
-                    auditRec.setUserId(eventUserId);
+                    /* this value is temporary set to empty strings and due to length of characters are exceeding
+                     more than 100*/
+                    auditRec.setUserId("");
                 } else {
                     auditRec.setUserId("");
                 }
