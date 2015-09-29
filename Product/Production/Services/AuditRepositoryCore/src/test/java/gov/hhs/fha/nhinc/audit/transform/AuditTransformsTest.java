@@ -166,23 +166,6 @@ public abstract class AuditTransformsTest<T, K> {
     protected void testGetActiveParticipantSource(LogEventRequestType request, Boolean isRequesting,
         Properties webContextProperties, String localIp) throws UnknownHostException {
 
-        testGetActiveParticipantSource(request, isRequesting, webContextProperties, NhincConstants.WSA_REPLY_TO,
-            localIp);
-    }
-
-    /**
-     * Test of getActiveParticipantSource method, of class AuditTransforms.
-     *
-     * @param request
-     * @param isRequesting
-     * @param webContextProperties
-     * @param remoteObjectUrl
-     * @param localIp
-     * @throws java.net.UnknownHostException
-     */
-    protected void testGetActiveParticipantSource(LogEventRequestType request, Boolean isRequesting,
-        Properties webContextProperties, String remoteObjectUrl, String localIp) throws UnknownHostException {
-
         String ipOrHost;
         ActiveParticipant sourceActiveParticipant = null;
         for (ActiveParticipant item : request.getAuditMessage().getActiveParticipant()) {
@@ -197,7 +180,7 @@ public abstract class AuditTransformsTest<T, K> {
         assertNotNull("sourceActiveParticipant is null", sourceActiveParticipant);
 
         if (isRequesting) {
-            assertEquals("UserId mismatch", remoteObjectUrl, sourceActiveParticipant.getUserID());
+            assertEquals("UserId mismatch", NhincConstants.WSA_REPLY_TO, sourceActiveParticipant.getUserID());
             assertEquals("AlternativeUserId mismatch", ManagementFactory.getRuntimeMXBean().getName(),
                 sourceActiveParticipant.getAlternativeUserID());
 
@@ -227,12 +210,12 @@ public abstract class AuditTransformsTest<T, K> {
      * @param request
      * @param isRequesting
      * @param webContextProperties
-     * @param remoteObjectIp
+     * @param remoteObjectUrl
      */
     protected void testGetActiveParticipantDestination(LogEventRequestType request, Boolean isRequesting,
-        Properties webContextProperties, String remoteObjectIp) {
+        Properties webContextProperties, String remoteObjectUrl) {
 
-        testGetActiveParticipantDestination(request, isRequesting, webContextProperties, remoteObjectIp,
+        testGetActiveParticipantDestination(request, isRequesting, webContextProperties, remoteObjectUrl,
             webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS));
     }
 
@@ -242,11 +225,11 @@ public abstract class AuditTransformsTest<T, K> {
      * @param request
      * @param isRequesting
      * @param webContextProperties
-     * @param remoteObjectIp
+     * @param remoteObjectUrl
      * @param localIp
      */
     protected void testGetActiveParticipantDestination(LogEventRequestType request, Boolean isRequesting,
-        Properties webContextProperties, String remoteObjectIp, String localIp) {
+        Properties webContextProperties, String remoteObjectUrl, String localIp) {
 
         String userId;
         ActiveParticipant destinationActiveParticipant = null;
@@ -262,7 +245,7 @@ public abstract class AuditTransformsTest<T, K> {
         assertNotNull("destinationActiveParticipant is null", destinationActiveParticipant);
 
         if (isRequesting) {
-            userId = remoteObjectIp;
+            userId = remoteObjectUrl;
         } else {
             userId = webContextProperties.getProperty(NhincConstants.WEB_SERVICE_REQUEST_URL);
         }
