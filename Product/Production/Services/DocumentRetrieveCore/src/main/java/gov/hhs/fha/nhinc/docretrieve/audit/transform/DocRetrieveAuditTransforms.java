@@ -59,7 +59,7 @@ public class DocRetrieveAuditTransforms
 
     @Override
     protected AuditMessageType getParticipantObjectIdentificationForRequest(RetrieveDocumentSetRequestType request,
-        AssertionType assertion, AuditMessageType auditMsg) {
+        AssertionType assertion, AuditMessageType auditMsg, NhinTargetSystemType target) {
 
         /* check to see if unique Patient Id exist or not - if created then only ParticipantObjectIdentification
          object will be created otherwise not*/
@@ -258,8 +258,7 @@ public class DocRetrieveAuditTransforms
             DocRetrieveAuditTransformsConstants.PARTICIPANT_DOCUMENT_OBJ_ID_TYPE_CODE,
             DocRetrieveAuditTransformsConstants.PARTICIPANT_DOCUMENT_OBJ_ID_TYPE_CODE_SYSTEM,
             DocRetrieveAuditTransformsConstants.PARTICIPANT_DOCUMENT_OBJ_ID_TYPE_DISPLAY_NAME);
-        participantObject.setParticipantObjectName(HomeCommunityMap.formatHomeCommunityId(
-            HomeCommunityMap.getLocalHomeCommunityId()));
+        participantObject.setParticipantObjectName("");
 
         return participantObject;
     }

@@ -54,6 +54,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 import java.lang.management.ManagementFactory;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * This class is designed to test Retrieve Document Service.
@@ -193,6 +194,7 @@ public class DocRetrieveAuditTransformsTest extends AuditTransformsTest<Retrieve
         assertEquals(DocRetrieveAuditTransformsConstants.PARTICIPANT_DOCUMENT_OBJ_ID_TYPE_DISPLAY_NAME,
             participantObject.getParticipantObjectIDTypeCode().
             getDisplayName());
+        assertSame("", participantObject.getParticipantObjectName());
     }
 
     private void assertParticipantPatientObjectIdentification(ParticipantObjectIdentificationType participantObject) {

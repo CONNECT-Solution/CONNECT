@@ -31,6 +31,7 @@ import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationTyp
 import com.services.nhinc.schema.auditmessage.TypeValuePairType;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.corex12.docsubmission.audit.CORE_X12AuditDataTransformConstants;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import javax.xml.bind.JAXBContext;
@@ -56,11 +57,12 @@ public abstract class COREX12AuditTransforms<T, K> extends AuditTransforms<T, K>
      * @param request
      * @param assertion
      * @param auditMsg
+     * @param target
      * @return
      */
     @Override
     protected final AuditMessageType getParticipantObjectIdentificationForRequest(T request,
-        AssertionType assertion, AuditMessageType auditMsg) {
+        AssertionType assertion, AuditMessageType auditMsg, NhinTargetSystemType target) {
 
         ParticipantObjectIdentificationType participantObject
             = buildBaseParticipantObjectIdentificationType(getPayloadFromRequest(request));

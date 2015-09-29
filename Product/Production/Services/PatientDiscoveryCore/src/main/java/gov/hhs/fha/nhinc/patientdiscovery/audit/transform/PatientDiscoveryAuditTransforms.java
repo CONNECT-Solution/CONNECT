@@ -30,6 +30,7 @@ import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditTransformsConstants;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
@@ -57,12 +58,12 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
 
     @Override
     protected AuditMessageType getParticipantObjectIdentificationForRequest(PRPAIN201305UV02 request,
-        AssertionType assertion, AuditMessageType auditMsg) {
+        AssertionType assertion, AuditMessageType auditMsg, NhinTargetSystemType target) {
 
         // TODO: auditMsg should either use a builder, or modify in-method with no return
         auditMsg = getPatientParticipantObjectIdentificationForRequest(request, auditMsg);
         try {
-            auditMsg = getQueryParamsParticipantObjectIdentificationForRequest(request, auditMsg);
+            auditMsg = getQueryParamsParticipantObjectIdentificationForRequest(request, auditMsg, target);
         } catch (JAXBException ex) {
             LOG.error("Error while creating ParticipantObjectIdentificationQueryByParameters segment : "
                 + ex.getLocalizedMessage(), ex);
@@ -150,7 +151,7 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
     private II getLivingSubjectIdFromAuthorOrPerformerValue(PRPAIN201305UV02 request, List<PRPAMT201306UV02LivingSubjectId> ids) {
 
         II livingSubjectId = null;
-        
+
         // Get assignedDevice root
         if (request.getControlActProcess().getAuthorOrPerformer() != null
             && !request.getControlActProcess().getAuthorOrPerformer().isEmpty()
@@ -176,11 +177,11 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
                     livingSubjectId = oII;
                     break;
                 }
-            } 
+            }
         } else {
             livingSubjectId = getLivingSubjectId(ids.get(0));
         }
-        
+
         return livingSubjectId;
     }
 
@@ -237,10 +238,11 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
     }
 
     private AuditMessageType getQueryParamsParticipantObjectIdentificationForRequest(PRPAIN201305UV02 request,
-        AuditMessageType auditMsg) throws JAXBException {
+        AuditMessageType auditMsg, NhinTargetSystemType target) throws JAXBException {
 
         ParticipantObjectIdentificationType participantObject = buildBaseParticipantObjectIdentificationType(
-            getParticipantObjectId(request));
+            getParticipantObjectId(request), HomeCommunityMap.formatHomeCommunityId(target.getHomeCommunity().
+                getHomeCommunityId()));
         participantObject.setParticipantObjectQuery(getParticipantObjectQueryForRequest(request));
         auditMsg.getParticipantObjectIdentification().add(participantObject);
         return auditMsg;
@@ -250,7 +252,8 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
         AuditMessageType auditMsg) throws JAXBException {
 
         ParticipantObjectIdentificationType participantObject = buildBaseParticipantObjectIdentificationType(
-            getParticipantObjectId(response));
+            getParticipantObjectId(response), HomeCommunityMap.formatHomeCommunityId(
+                HomeCommunityMap.getLocalHomeCommunityId()));
         participantObject.setParticipantObjectQuery(getParticipantObjectQueryForResponse(response));
         auditMsg.getParticipantObjectIdentification().add(participantObject);
         return auditMsg;
@@ -273,7 +276,7 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
     }
 
     private ParticipantObjectIdentificationType buildBaseParticipantObjectIdentificationType(
-        String participantObjectId) {
+        String participantObjectId, String target) {
 
         ParticipantObjectIdentificationType participantObject = createParticipantObjectIdentification(
             PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_SYSTEM,
@@ -282,8 +285,9 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
             PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE_SYSTEM,
             PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME);
         participantObject.setParticipantObjectID(participantObjectId);
-        participantObject.setParticipantObjectName(HomeCommunityMap.formatHomeCommunityId(
-            HomeCommunityMap.getLocalHomeCommunityId()));
+        participantObject.setParticipantObjectName(target);
+        //participantObject.setParticipantObjectName(HomeCommunityMap.formatHomeCommunityId(
+        //  HomeCommunityMap.getLocalHomeCommunityId()));
 
         return participantObject;
     }

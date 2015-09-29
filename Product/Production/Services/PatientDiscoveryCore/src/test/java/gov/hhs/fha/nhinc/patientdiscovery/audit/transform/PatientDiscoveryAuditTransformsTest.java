@@ -90,6 +90,8 @@ import static org.junit.Assert.assertSame;
  */
 public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRPAIN201305UV02, PRPAIN201306UV02> {
 
+    private static final String TARGET_HCID = "2.2";
+
     public PatientDiscoveryAuditTransformsTest() {
     }
 
@@ -142,14 +144,16 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
 
         PRPAIN201305UV02 request = createPRPAIN201305UV02Request();
         AssertionType assertion = createAssertion();
-        LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(request, assertion, createNhinTarget(),
-            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE,
-            webContextProperties, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+        LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(request, assertion,
+            createNhinTargetForInitiatingGateway(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+            NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, webContextProperties,
+            NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
         testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE);
         testGetActiveParticipantSource(auditRequest, Boolean.TRUE, localIP, webContextProperties);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectIP);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticiopantObjectIdentification(auditRequest);
+        assertParticipantObjectNameForRequest(auditRequest);
     }
 
     @Test
@@ -185,13 +189,15 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         PRPAIN201306UV02 response = createPRPAIN201306UV02Response();
         AssertionType assertion = createAssertion();
         LogEventRequestType auditRequest = transforms.transformResponseToAuditMsg(request, response, assertion,
-            createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
-            Boolean.TRUE, webContextProperties, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+            createNhinTargetForRespondingGateway(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+            NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, webContextProperties,
+            NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
         testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE);
         testGetActiveParticipantSource(auditRequest, Boolean.TRUE, localIP, webContextProperties);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectIP);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticiopantObjectIdentification(auditRequest);
+        assertParticipantObjectNameForResponse(auditRequest);
     }
 
     private void assertParticiopantObjectIdentification(LogEventRequestType auditRequest) {
@@ -263,7 +269,7 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         return ceType;
     }
 
-    private NhinTargetSystemType createNhinTarget() {
+    private NhinTargetSystemType createNhinTargetForInitiatingGateway() {
         NhinTargetSystemType targetSystem = new NhinTargetSystemType();
         targetSystem.setHomeCommunity(createTragetHomeCommunityType());
         return targetSystem;
@@ -271,7 +277,7 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
 
     private HomeCommunityType createTragetHomeCommunityType() {
         HomeCommunityType homeCommunityType = new HomeCommunityType();
-        homeCommunityType.setHomeCommunityId("2.2");
+        homeCommunityType.setHomeCommunityId(TARGET_HCID);
         homeCommunityType.setName("SSA");
         homeCommunityType.setDescription("This is DOD Gateway");
         return homeCommunityType;
@@ -550,5 +556,21 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
     @Override
     protected AuditTransforms<PRPAIN201305UV02, PRPAIN201306UV02> getAuditTransforms() {
         return new PatientDiscoveryAuditTransforms();
+    }
+
+    private void assertParticipantObjectNameForResponse(LogEventRequestType logEvent) {
+        assertEquals(HomeCommunityMap.formatHomeCommunityId(HomeCommunityMap.getLocalHomeCommunityId()),
+            logEvent.getAuditMessage().getParticipantObjectIdentification().get(1).getParticipantObjectName());
+    }
+
+    private void assertParticipantObjectNameForRequest(LogEventRequestType logEvent) {
+        assertEquals(TARGET_HCID, logEvent.getAuditMessage().getParticipantObjectIdentification().get(1).
+            getParticipantObjectName());
+    }
+
+    private NhinTargetSystemType createNhinTargetForRespondingGateway() {
+        NhinTargetSystemType targetSystem = new NhinTargetSystemType();
+        targetSystem.setHomeCommunity(createHomeCommunityType());
+        return targetSystem;
     }
 }
