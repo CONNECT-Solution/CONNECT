@@ -147,17 +147,19 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
         return livingSubjectId;
     }
 
-    private II getLivingSubjectIdFromAuthorOrPerformerValue(PRPAIN201305UV02 request, List<PRPAMT201306UV02LivingSubjectId> ids) {
+    private II getLivingSubjectIdFromAuthorOrPerformerValue(PRPAIN201305UV02 request,
+        List<PRPAMT201306UV02LivingSubjectId> ids) {
 
         II livingSubjectId = null;
-        
+
         // Get assignedDevice root
         if (request.getControlActProcess().getAuthorOrPerformer() != null
             && !request.getControlActProcess().getAuthorOrPerformer().isEmpty()
             && request.getControlActProcess().getAuthorOrPerformer().get(0) != null
             && request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice() != null
             && request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue() != null
-            && request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId() != null
+            && request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue()
+            .getId() != null
             && !request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId()
             .isEmpty()
             && request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId()
@@ -176,11 +178,11 @@ public class PatientDiscoveryAuditTransforms extends AuditTransforms<PRPAIN20130
                     livingSubjectId = oII;
                     break;
                 }
-            } 
+            }
         } else {
             livingSubjectId = getLivingSubjectId(ids.get(0));
         }
-        
+
         return livingSubjectId;
     }
 

@@ -293,25 +293,24 @@ public abstract class AuditTransforms<T, K> {
      * @param serviceName
      * @return
      */
-    protected ActiveParticipant getActiveParticipantDestination(NhinTargetSystemType target,
-        boolean isRequesting, Properties webContextProperties, String serviceName) {
+    protected ActiveParticipant getActiveParticipantDestination(NhinTargetSystemType target, boolean isRequesting,
+        Properties webContextProperties, String serviceName) {
 
-        String strUrl;
-        String strHost;
+        String url;
+        String ipOrHost;
 
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
 
-        strUrl = isRequesting ? getWebServiceUrlFromRemoteObject(target, serviceName)
+        url = isRequesting ? getWebServiceUrlFromRemoteObject(target, serviceName)
             : getWebServiceRequestUrl(webContextProperties);
-        if (strUrl != null) {
+        if (url != null) {
             try {
-                URL url = new URL(strUrl);
-                participant.setUserID(strUrl);
-                strHost = url.getHost();
-                participant.setNetworkAccessPointID(strHost);
-                participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(strHost));
+                participant.setUserID(url);
+                ipOrHost = new URL(url).getHost();
+                participant.setNetworkAccessPointID(ipOrHost);
+                participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(ipOrHost));
             } catch (MalformedURLException ex) {
-                LOG.error(ex);
+                LOG.error("Couldn't parse the given NetworkAccessPointID as a URL: " + ex.getLocalizedMessage(), ex);
                 // The url is null or not a valid url; for now, set the user id to anonymous
                 participant.setUserID(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
                 // TODO: For now, hardcode the value to localhost; need to find out if this needs to be set
@@ -327,8 +326,8 @@ public abstract class AuditTransforms<T, K> {
             AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, null,
             AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
             AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME));
-        return participant;
 
+        return participant;
     }
 
     private String getMessageCommunityId(AssertionType assertion, NhinTargetSystemType target, boolean isRequesting) {

@@ -24,7 +24,8 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.audit.transform;
+
+package gov.hhs.fha.nhinc.corex12.docsubmission.audit.transform;
 
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
@@ -34,43 +35,24 @@ import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditTransformsConstants;
+import gov.hhs.fha.nhinc.corex12.docsubmission.audit.CORE_X12AuditDataTransformConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.net.UnknownHostException;
 import java.util.Properties;
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
-import org.junit.AfterClass;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
  *
- * @author tjafri
+ * @author achidamb
  */
-public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryRequest, AdhocQueryResponse> {
-
-    public DocQueryAuditTransformsTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
+public class COREX12RealTimeAuditTransformsTest extends AuditTransformsTest<COREEnvelopeRealTimeRequest,
+    COREEnvelopeRealTimeResponse> {
 
     @Test
     public void transformRequestToAuditMsg() throws ConnectionManagerException, UnknownHostException {
@@ -83,7 +65,7 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
         webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, wsRequestUrl);
         webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, remoteIp);
 
-        DocQueryAuditTransforms transforms = new DocQueryAuditTransforms() {
+        COREX12RealTimeAuditTransforms transforms = new COREX12RealTimeAuditTransforms() {
             @Override
             protected String getLocalHostAddress() {
                 return localIp;
@@ -106,11 +88,12 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
         };
 
         AssertionType assertion = createAssertion();
-        LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(createAdhocQueryRequest(), assertion,
-            createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
-            Boolean.TRUE, webContextProperties, NhincConstants.DOC_QUERY_SERVICE_NAME);
+        LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(createCOREEnvelopeRealTimeRequest(),
+            assertion, createNhinTarget(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, webContextProperties,
+            NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME);
 
-        testGetEventIdentificationType(auditRequest, NhincConstants.DOC_QUERY_SERVICE_NAME, Boolean.TRUE);
+        testGetEventIdentificationType(auditRequest, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME, Boolean.TRUE);
         testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
@@ -128,7 +111,7 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
         webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, wsRequestUrl);
         webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, remoteIp);
 
-        DocQueryAuditTransforms transforms = new DocQueryAuditTransforms() {
+        COREX12RealTimeAuditTransforms transforms = new COREX12RealTimeAuditTransforms() {
             @Override
             protected String getLocalHostAddress() {
                 return localIp;
@@ -136,8 +119,8 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
 
             @Override
             protected String getRemoteHostAddress(Properties webContextProperties) {
-                if (webContextProperties != null && !webContextProperties.isEmpty() && webContextProperties.
-                    getProperty(NhincConstants.REMOTE_HOST_ADDRESS) != null) {
+                if (webContextProperties != null && !webContextProperties.isEmpty() && webContextProperties
+                    .getProperty(NhincConstants.REMOTE_HOST_ADDRESS) != null) {
 
                     return webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS);
                 }
@@ -151,16 +134,46 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
         };
 
         AssertionType assertion = createAssertion();
-        LogEventRequestType auditRequest = transforms.transformResponseToAuditMsg(createAdhocQueryRequest(),
-            createAdhocQueryResponse(), assertion, createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-            NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, webContextProperties,
-            NhincConstants.DOC_QUERY_SERVICE_NAME);
+        LogEventRequestType auditRequest = transforms.transformResponseToAuditMsg(createCOREEnvelopeRealTimeRequest(),
+            createCOREEnvelopeRealTimeResponse(), assertion, createNhinTarget(),
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE,
+            webContextProperties, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME);
 
-        testGetEventIdentificationType(auditRequest, NhincConstants.DOC_QUERY_SERVICE_NAME, Boolean.TRUE);
+        testGetEventIdentificationType(auditRequest, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME, Boolean.TRUE);
         testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticipantObjectIdentification(auditRequest);
+    }
+
+    @Override
+    protected AuditTransforms<COREEnvelopeRealTimeRequest, COREEnvelopeRealTimeResponse> getAuditTransforms() {
+        return new COREX12RealTimeAuditTransforms();
+    }
+
+    // TODO: Too many hard-coded inline values below
+    private COREEnvelopeRealTimeRequest createCOREEnvelopeRealTimeRequest() {
+        COREEnvelopeRealTimeRequest request = new COREEnvelopeRealTimeRequest();
+        request.setCORERuleVersion("2.2.0");
+        request.setPayloadID("5");
+        request.setPayloadType("X12_270_Request_005010X279A1");
+        request.setProcessingMode("RealTime");
+        request.setPayloadID("f81d4fae-7dec-11d0-a765-00a0c91e6bf6");
+        request.setSenderID("HospitalA");
+        request.setReceiverID("PayerB");
+        return request;
+    }
+
+    private COREEnvelopeRealTimeResponse createCOREEnvelopeRealTimeResponse() {
+        COREEnvelopeRealTimeResponse response = new COREEnvelopeRealTimeResponse();
+        response.setCORERuleVersion("2.2.0");
+        response.setPayloadID("5");
+        response.setPayloadType("X12_270_Request_005010X279A1");
+        response.setProcessingMode("RealTime");
+        response.setPayloadID("f81d4fae-7dec-11d0-a765-00a0c91e6bf6");
+        response.setSenderID("HospitalA");
+        response.setReceiverID("PayerB");
+        return response;
     }
 
     private void assertParticipantObjectIdentification(LogEventRequestType auditRequest) {
@@ -169,84 +182,29 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
         assertNotNull("ParticipantObjectIdentification is null", auditRequest.getAuditMessage()
             .getParticipantObjectIdentification());
         assertFalse("ParticipantObjectIdentification list is missing test values", auditRequest.getAuditMessage()
-            .getParticipantObjectIdentification().size() < 2);
+            .getParticipantObjectIdentification().isEmpty());
 
         ParticipantObjectIdentificationType participantPatient = auditRequest.getAuditMessage()
             .getParticipantObjectIdentification().get(0);
-        ParticipantObjectIdentificationType participantQuery = auditRequest.getAuditMessage()
-            .getParticipantObjectIdentification().get(1);
 
-        assertEquals("ParticipantPatient.ParticipantObjectID mismatch", "D123401^^^&1.1&ISO",
+        assertEquals("ParticipantPatient.ParticipantObjectID mismatch", "f81d4fae-7dec-11d0-a765-00a0c91e6bf6",
             participantPatient.getParticipantObjectID());
 
         // TODO: assertSame vs assertEquals consistency when returning constants
         assertSame("ParticipantPatient.ParticipantObjectTypeCode object reference mismatch",
-            DocQueryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM,
+            CORE_X12AuditDataTransformConstants.PARTICIPANT_OJB_TYPE_CODE_SYSTEM,
             participantPatient.getParticipantObjectTypeCode());
         assertSame("ParticipantPatient.ParticipantObjectTypeCodeRole object reference mismatch",
-            DocQueryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_ROLE,
+            CORE_X12AuditDataTransformConstants.PARTICIPANT_OBJ_TYPE_CODE_ROLE_X12,
             participantPatient.getParticipantObjectTypeCodeRole());
         assertEquals("ParticipantPatient.ParticipantObjectIDTypeCode.Code mismatch",
-            DocQueryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE,
+            "f81d4fae-7dec-11d0-a765-00a0c91e6bf6",
             participantPatient.getParticipantObjectIDTypeCode().getCode());
         assertEquals("ParticipantPatient.ParticipantObjectIDTypeCode.CodeSystemName mismatch",
-            DocQueryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE_SYSTEM,
+            CORE_X12AuditDataTransformConstants.CAQH_X12_CONNECTIVITY_CODED_SYS_NAME,
             participantPatient.getParticipantObjectIDTypeCode().getCodeSystemName());
         assertEquals("ParticipantPatient.ParticipantObjectIDTypeCode.DisplayName mismatch",
-            DocQueryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME,
+            CORE_X12AuditDataTransformConstants.CAQH_X12_CONNECTIVITY_CODED_SYS_DISPLAY_NAME,
             participantPatient.getParticipantObjectIDTypeCode().getDisplayName());
-
-        assertSame("ParticipantQuery.ParticipantObjectTypeCode object reference mismatch",
-            DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_TYPE_CODE_SYSTEM,
-            participantQuery.getParticipantObjectTypeCode());
-        assertSame("ParticipantPatient.ParticipantObjectTypeCodeRole object reference mismatch",
-            DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_TYPE_CODE_ROLE,
-            participantQuery.getParticipantObjectTypeCodeRole());
-        assertEquals("ParticipantPatient.ParticipantObjectIDTypeCode.Code mismatch",
-            DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_ID_TYPE_CODE,
-            participantQuery.getParticipantObjectIDTypeCode().getCode());
-        assertEquals("ParticipantPatient.ParticipantObjectIDTypeCode.CodeSystemName mismatch",
-            DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_ID_TYPE_CODE_SYSTEM,
-            participantQuery.getParticipantObjectIDTypeCode().getCodeSystemName());
-        assertEquals("ParticipantPatient.ParticipantObjectIDTypeCode.DisplayName mismatch",
-            DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_ID_TYPE_DISPLAY_NAME,
-            participantQuery.getParticipantObjectIDTypeCode().getDisplayName());
-    }
-
-    private AdhocQueryResponse createAdhocQueryResponse() {
-        AdhocQueryResponse response = new AdhocQueryResponse();
-        response.setRegistryObjectList(new RegistryObjectListType());
-        response.getRegistryObjectList().getIdentifiable().add(createIdentifiable(new RegistryObjectType()));
-        return response;
-    }
-
-    private AdhocQueryRequest createAdhocQueryRequest() {
-        ValueListType val = new ValueListType();
-        val.getValue().add("D123401^^^&1.1&ISO");
-
-        SlotType1 pidSlot = new SlotType1();
-        pidSlot.setName(DocQueryAuditTransformsConstants.XDS_DOCUMENT_ENTRY_PATIENT_ID);
-        pidSlot.setValueList(val);
-
-        AdhocQueryRequest request = new AdhocQueryRequest();
-        request.setAdhocQuery(new AdhocQueryType());
-        request.getAdhocQuery().getSlot().add(pidSlot);
-        request.getAdhocQuery().setId("urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d");
-        return request;
-    }
-
-    /**
-     * @param registryObjectType
-     * @return
-     */
-    private JAXBElement<RegistryObjectType> createIdentifiable(RegistryObjectType registryObjectType) {
-        return new JAXBElement<>(new QName(
-            "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0", "Identifiable"), RegistryObjectType.class,
-            registryObjectType);
-    }
-
-    @Override
-    protected AuditTransforms<AdhocQueryRequest, AdhocQueryResponse> getAuditTransforms() {
-        return new DocQueryAuditTransforms();
     }
 }
