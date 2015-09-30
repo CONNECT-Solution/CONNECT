@@ -95,9 +95,9 @@ public abstract class AuditTransformsTest<T, K> {
             eventIdCode = getAuditTransforms().getServiceEventIdCodeRequestor();
             eventIdDisplayName = getAuditTransforms().getServiceEventDisplayRequestor();
         } else {
-            eventActionCode = getAuditTransforms().getServiceEventActionCodeRequestor();
-            eventIdCode = getAuditTransforms().getServiceEventIdCodeRequestor();
-            eventIdDisplayName = getAuditTransforms().getServiceEventDisplayRequestor();
+            eventActionCode = getAuditTransforms().getServiceEventActionCodeResponder();
+            eventIdCode = getAuditTransforms().getServiceEventIdCodeResponder();
+            eventIdDisplayName = getAuditTransforms().getServiceEventDisplayResponder();
         }
 
         assertEquals("EventActionCode mismatch", eventActionCode, eventIdentificationType.getEventActionCode());
