@@ -9,7 +9,6 @@
         <package-name>org.apache.geronimo.webservices.*</package-name>
         <package-name>org.apache.jcp.*</package-name>
         <package-name>org.apache.ws.*</package-name>
-        <package-name>org.apache.xerces.*</package-name>
         <package-name>org.apache.xml.*</package-name>
         <package-name>org.apache.xalan.*</package-name>
         <package-name>org.apache.log4j.*</package-name>
