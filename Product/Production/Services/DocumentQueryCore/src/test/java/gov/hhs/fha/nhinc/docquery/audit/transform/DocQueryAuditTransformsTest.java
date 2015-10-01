@@ -51,6 +51,7 @@ import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -211,6 +212,12 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
         assertEquals("ParticipantPatient.ParticipantObjectIDTypeCode.DisplayName mismatch",
             DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_ID_TYPE_DISPLAY_NAME,
             participantQuery.getParticipantObjectIDTypeCode().getDisplayName());
+        assertNull("ParticipantPatient.ParticipantObjectName is not null",
+            participantPatient.getParticipantObjectName());
+        assertNull("ParticipantQuery.ParticipantObjectName is not null",
+            participantQuery.getParticipantObjectName());
+        assertNotNull("ParticipantQuery.ParticipantObjectQuery is null",
+            participantQuery.getParticipantObjectQuery());
     }
 
     private AdhocQueryResponse createAdhocQueryResponse() {
