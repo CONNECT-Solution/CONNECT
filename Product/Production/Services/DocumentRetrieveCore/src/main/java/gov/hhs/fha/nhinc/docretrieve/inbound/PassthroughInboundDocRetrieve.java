@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docretrieve.inbound;
 import java.util.Properties;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveAuditTransformer_g0;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveDelegate;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveOrchestratable;
@@ -46,6 +47,7 @@ public class PassthroughInboundDocRetrieve extends BaseInboundDocRetrieve {
     private final AuditTransformer at;
     private final InboundDelegate ad;
     private final CONNECTInboundOrchestrator orch;
+    DocRetrieveAuditLogger docRetrieveAuditLogger = new DocRetrieveAuditLogger();
 
     /**
      * Constructor.
@@ -55,6 +57,7 @@ public class PassthroughInboundDocRetrieve extends BaseInboundDocRetrieve {
         at = new InboundDocRetrieveAuditTransformer_g0();
         ad = new InboundDocRetrieveDelegate();
         orch = new CONNECTInboundOrchestrator();
+
     }
 
     /**
@@ -66,7 +69,7 @@ public class PassthroughInboundDocRetrieve extends BaseInboundDocRetrieve {
      * @param orch
      */
     public PassthroughInboundDocRetrieve(PolicyTransformer pt, AuditTransformer at, InboundDelegate ad,
-            CONNECTInboundOrchestrator orch) {
+        CONNECTInboundOrchestrator orch) {
         this.pt = pt;
         this.at = at;
         this.ad = ad;
@@ -81,9 +84,10 @@ public class PassthroughInboundDocRetrieve extends BaseInboundDocRetrieve {
      */
     @Override
     public InboundDocRetrieveOrchestratable createInboundOrchestrable(RetrieveDocumentSetRequestType body,
-            AssertionType assertion, Properties webContextProperties) {
+        AssertionType assertion, Properties webContextProperties) {
 
-        InboundDocRetrieveOrchestratable inboundOrchestrable = new InboundPassthroughDocRetrieveOrchestratable(pt, at, ad);
+        InboundDocRetrieveOrchestratable inboundOrchestrable
+            = new InboundPassthroughDocRetrieveOrchestratable(pt, at, ad);
         inboundOrchestrable.setAssertion(assertion);
         inboundOrchestrable.setRequest(body);
         inboundOrchestrable.setWebContextProperties(webContextProperties);
@@ -98,4 +102,5 @@ public class PassthroughInboundDocRetrieve extends BaseInboundDocRetrieve {
     CONNECTInboundOrchestrator getOrchestrator() {
         return orch;
     }
+
 }

@@ -32,8 +32,11 @@ import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveOrchestratable;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.CONNECTInboundOrchestrator;
+import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
@@ -50,6 +53,8 @@ public abstract class BaseInboundDocRetrieve implements InboundDocRetrieve {
      */
     abstract CONNECTInboundOrchestrator getOrchestrator();
 
+    DocRetrieveAuditLogger docRetrieveAuditLogger = new DocRetrieveAuditLogger();
+
     /**
      * Creates the inbound orchestratable instance to be used by the orchestrator.
      *
@@ -57,16 +62,32 @@ public abstract class BaseInboundDocRetrieve implements InboundDocRetrieve {
      * @param assertion
      */
     abstract public InboundDocRetrieveOrchestratable createInboundOrchestrable(RetrieveDocumentSetRequestType body,
-            AssertionType assertion, Properties webContextProperties);
+        AssertionType assertion, Properties webContextProperties);
 
+    public void auditResponse(Orchestratable message) {
+        if (message instanceof InboundDocRetrieveOrchestratable) {
+            InboundDocRetrieveOrchestratable message_InboundDocRetrieveOrchestratable = (InboundDocRetrieveOrchestratable) message;
+            docRetrieveAuditLogger.auditResponseMessage(message_InboundDocRetrieveOrchestratable.getRequest(),
+                message_InboundDocRetrieveOrchestratable.getResponse(), message.getAssertion(), null,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+                Boolean.FALSE, message_InboundDocRetrieveOrchestratable.getWebContextProperties(),
+                NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
 
+        }
+    }
+
+    @InboundProcessingEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
+        afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class,
+        serviceType = "Retrieve Document", version = "")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
-            AssertionType assertion, Properties webContextProperties) {
+        AssertionType assertion, Properties webContextProperties) {
 
         InboundDocRetrieveOrchestratable inboundOrchestrable = createInboundOrchestrable(body, assertion, webContextProperties);
 
         InboundDocRetrieveOrchestratable orchResponse = (InboundDocRetrieveOrchestratable) getOrchestrator().process(
-                inboundOrchestrable);
+            inboundOrchestrable);
+        auditResponse(orchResponse);
+
         return orchResponse.getResponse();
     }
 }

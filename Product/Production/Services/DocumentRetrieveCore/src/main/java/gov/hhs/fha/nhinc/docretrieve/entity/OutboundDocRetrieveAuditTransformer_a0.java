@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docretrieve.entity;
 
 import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;

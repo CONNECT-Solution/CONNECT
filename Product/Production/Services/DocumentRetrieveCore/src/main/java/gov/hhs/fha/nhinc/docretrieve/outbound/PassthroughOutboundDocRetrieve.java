@@ -78,21 +78,22 @@ public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve 
      */
     @Override
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
-            RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetCommunitiesType targets,
-            ADAPTER_API_LEVEL entityAPILevel) {
+        RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetCommunitiesType targets,
+        ADAPTER_API_LEVEL entityAPILevel) {
 
         RetrieveDocumentSetResponseType response = null;
         if (validateGuidance(targets, entityAPILevel)) {
 
             NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
-                    targets);
+                targets);
 
             OutboundDocRetrieveDelegate delegate = new OutboundDocRetrieveDelegate();
             OutboundDocRetrieveOrchestratable orchestratable = new OutboundPassthroughDocRetrieveOrchestratable(null,
-                    null, delegate, null, request, assertion, targetSystem);
+                null, delegate, null, request, assertion, targetSystem);
 
             OutboundDocRetrieveOrchestratable orchResponse = (OutboundDocRetrieveOrchestratable) orchestrator
-                    .process(orchestratable);
+                .process(orchestratable);
+            auditRequest(orchResponse);
             response = orchResponse.getResponse();
 
             try {
@@ -100,7 +101,7 @@ public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve 
             } catch (IOException ioe) {
                 LOG.error("Failed to save documents to file system.", ioe);
                 response = MessageGenerator.getInstance().createRegistryResponseError(
-                        "Adapter Document Retrieve Processing: " + ioe.getLocalizedMessage());
+                    "Adapter Document Retrieve Processing: " + ioe.getLocalizedMessage());
             }
         } else {
             response = createGuidanceErrorResponse(entityAPILevel);

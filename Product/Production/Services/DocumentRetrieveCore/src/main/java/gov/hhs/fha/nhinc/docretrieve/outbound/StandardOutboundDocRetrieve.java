@@ -79,7 +79,7 @@ public class StandardOutboundDocRetrieve extends AbstractOutboundDocRetrieve imp
     @Override
     @OutboundProcessingEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class, afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, serviceType = "Retrieve Document", version = "")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
-            AssertionType assertion, NhinTargetCommunitiesType targets, ADAPTER_API_LEVEL entityAPILevel) {
+        AssertionType assertion, NhinTargetCommunitiesType targets, ADAPTER_API_LEVEL entityAPILevel) {
 
         RetrieveDocumentSetResponseType response = null;
         if (validateGuidance(targets, entityAPILevel)) {
@@ -89,11 +89,12 @@ public class StandardOutboundDocRetrieve extends AbstractOutboundDocRetrieve imp
             OutboundDelegate nd = new OutboundDocRetrieveDelegate();
             NhinAggregator na = new OutboundDocRetrieveAggregator_a0();
             NhinTargetSystemType target = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
-                    targets);
+                targets);
             OutboundDocRetrieveOrchestratable orchestratable = new OutboundStandardDocRetrieveOrchestratable(pt, at,
-                    nd, na, body, assertion, target);
+                nd, na, body, assertion, target);
             OutboundDocRetrieveOrchestratable orchResponse = (OutboundDocRetrieveOrchestratable) orchestrator
-                    .process(orchestratable);
+                .process(orchestratable);
+            auditRequest(orchResponse);
             response = orchResponse.getResponse();
         } else {
             response = createGuidanceErrorResponse(entityAPILevel);

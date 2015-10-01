@@ -29,8 +29,11 @@ package gov.hhs.fha.nhinc.docretrieve.outbound;
 import org.apache.commons.lang.StringUtils;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
+import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
+import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper;
 import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper.ErrorCodes;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -40,6 +43,8 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
  *
  */
 public class AbstractOutboundDocRetrieve {
+
+    DocRetrieveAuditLogger docRetrieveAuditLogger = new DocRetrieveAuditLogger();
 
     /**
      *
@@ -79,9 +84,21 @@ public class AbstractOutboundDocRetrieve {
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
         XDCommonResponseHelper helper = new XDCommonResponseHelper();
         response.setRegistryResponse(helper.createError(NhincConstants.INIT_MULTISPEC_ERROR_UNSUPPORTED_GUIDANCE,
-                ErrorCodes.XDSRepositoryError, NhincConstants.INIT_MULTISPEC_LOC_ENTITY_DR + entityAPILevel.toString()));
+            ErrorCodes.XDSRepositoryError, NhincConstants.INIT_MULTISPEC_LOC_ENTITY_DR + entityAPILevel.toString()));
 
         return response;
     }
 
+    public void auditRequest(Orchestratable message) {
+
+        if (message instanceof OutboundDocRetrieveOrchestratable) {
+            OutboundDocRetrieveOrchestratable EntityDROrchImp_g0Message = (OutboundDocRetrieveOrchestratable) message;
+            docRetrieveAuditLogger.auditRequestMessage(EntityDROrchImp_g0Message.getRequest(),
+                EntityDROrchImp_g0Message.getAssertion(), EntityDROrchImp_g0Message.getTarget(),
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+                Boolean.TRUE, null, NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+
+        }
+
+    }
 }

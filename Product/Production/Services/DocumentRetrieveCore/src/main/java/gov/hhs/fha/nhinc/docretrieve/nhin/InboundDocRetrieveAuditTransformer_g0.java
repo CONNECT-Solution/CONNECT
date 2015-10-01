@@ -87,15 +87,15 @@ public class InboundDocRetrieveAuditTransformer_g0 implements AuditTransformer {
      */
     @Override
     public void transformResponse(Orchestratable message) {
-        if (message instanceof InboundDocRetrieveOrchestratable) {
-            InboundDocRetrieveOrchestratable message_InboundDocRetrieveOrchestratable
-                = (InboundDocRetrieveOrchestratable) message;
-            docRetrieveAuditLogger.auditResponseMessage(message_InboundDocRetrieveOrchestratable.getRequest(),
-                message_InboundDocRetrieveOrchestratable.getResponse(), message.getAssertion(), null,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                Boolean.FALSE, message_InboundDocRetrieveOrchestratable.getWebContextProperties(),
-                NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
-        }
+//        if (message instanceof InboundDocRetrieveOrchestratable) {
+//            InboundDocRetrieveOrchestratable message_InboundDocRetrieveOrchestratable
+//                = (InboundDocRetrieveOrchestratable) message;
+//            docRetrieveAuditLogger.auditResponseMessage(message_InboundDocRetrieveOrchestratable.getRequest(),
+//                message_InboundDocRetrieveOrchestratable.getResponse(), message.getAssertion(), null,
+//                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+//                Boolean.FALSE, message_InboundDocRetrieveOrchestratable.getWebContextProperties(),
+//                NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+//        }
 
     }
 

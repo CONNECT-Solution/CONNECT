@@ -80,7 +80,7 @@ public class NhinDocRetrieveAuditTransformer_g0Test {
     public void testTransformResponse() {
 
         transform.transformResponse(mockMessage);
-        verify(docAuditLogger).auditResponseMessage(Mockito.any(RetrieveDocumentSetRequestType.class), Mockito.any(RetrieveDocumentSetResponseType.class), Mockito.any(AssertionType.class), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), Mockito.any(Properties.class), eq(NhincConstants.DOC_RETRIEVE_SERVICE_NAME));
+        verify(docAuditLogger, never()).auditResponseMessage(Mockito.any(RetrieveDocumentSetRequestType.class), Mockito.any(RetrieveDocumentSetResponseType.class), Mockito.any(AssertionType.class), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), Mockito.any(Properties.class), eq(NhincConstants.DOC_RETRIEVE_SERVICE_NAME));
 
     }
 

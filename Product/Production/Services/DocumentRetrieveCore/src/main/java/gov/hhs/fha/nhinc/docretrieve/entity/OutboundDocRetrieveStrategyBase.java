@@ -88,12 +88,12 @@ public abstract class OutboundDocRetrieveStrategyBase implements OrchestrationSt
                 }
             }
 
-            LOG.debug("Calling audit log for doc retrieve request (a0) sent to nhin (g0)");
-            docRetrieveAuditor.auditRequestMessage(NhinDRMessage.getRequest(), NhinDRMessage.getAssertion(),
-                NhinDRMessage.getTarget(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null, NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
-
-            NhinDRMessage.setResponse(callProxy(NhinDRMessage));
+//            LOG.debug("Calling audit log for doc retrieve request (a0) sent to nhin (g0)");
+//            docRetrieveAuditor.auditRequestMessage(NhinDRMessage.getRequest(), NhinDRMessage.getAssertion(),
+//                NhinDRMessage.getTarget(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+//                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null, NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+//
+//            NhinDRMessage.setResponse(callProxy(NhinDRMessage));
 //
 //            LOG.debug("Calling audit log for doc retrieve response received from nhin (g0)");
 //            docRetrieveAuditor.auditResponseMessage(NhinDRMessage.getRequest(), NhinDRMessage.getResponse(),
