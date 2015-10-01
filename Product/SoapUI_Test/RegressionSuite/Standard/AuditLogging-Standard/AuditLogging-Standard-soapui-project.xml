@@ -616,19 +616,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-03-31T14:02:06Z</con:value>
+          <con:value>2015-10-01T02:50:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-03-31T14:12:06Z</con:value>
+          <con:value>2015-10-01T03:00:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>03/31/2014 14:02:06</con:value>
+          <con:value>10/01/2015 02:50:33</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-04-30T00:00:00Z</con:value>
+          <con:value>2015-10-31T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1008,19 +1008,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-03-31T14:02:08Z</con:value>
+          <con:value>2015-10-01T02:50:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-03-31T14:12:08Z</con:value>
+          <con:value>2015-10-01T03:00:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>03/31/2014 14:02:08</con:value>
+          <con:value>10/01/2015 02:50:36</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-04-30T00:00:00Z</con:value>
+          <con:value>2015-10-31T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -2335,19 +2335,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-09-24T02:47:08Z</con:value>
+          <con:value>2015-10-01T02:50:39Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-09-24T02:57:08Z</con:value>
+          <con:value>2015-10-01T03:00:39Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/24/2015 02:47:08</con:value>
+          <con:value>10/01/2015 02:50:39</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-10-24T00:00:00Z</con:value>
+          <con:value>2015-10-31T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -2539,7 +2539,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.@UserID</con:name>
-          <con:value>anonymous</con:value>
+          <con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value>
         </con:property>
         <con:property>
           <con:name>AuditMessage.xmlns</con:name>
@@ -3201,19 +3201,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-03-31T14:02:11Z</con:value>
+          <con:value>2015-10-01T02:50:41Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-03-31T14:12:11Z</con:value>
+          <con:value>2015-10-01T03:00:41Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>03/31/2014 14:02:11</con:value>
+          <con:value>10/01/2015 02:50:41</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-04-30T00:00:00Z</con:value>
+          <con:value>2015-10-31T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3865,19 +3865,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-03-31T14:02:12Z</con:value>
+          <con:value>2015-10-01T02:50:46Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-03-31T14:12:12Z</con:value>
+          <con:value>2015-10-01T03:00:46Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>03/31/2014 14:02:12</con:value>
+          <con:value>10/01/2015 02:50:46</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-04-30T00:00:00Z</con:value>
+          <con:value>2015-10-31T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4224,8 +4224,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -4262,10 +4261,22 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
      	if(!node.@UserName.isEmpty())
      	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
-     	assert(!node.@NetworkAccessPointID.isEmpty())
-     	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
-   	 	//assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" )
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
           assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
@@ -4281,8 +4292,22 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
-     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
-     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
           assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
@@ -4358,13 +4383,11 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 	 	}
 	}
   }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -4388,10 +4411,22 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
      	assert(!node.@AlternativeUserID.isEmpty())
      	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
-     	assert(!node.@NetworkAccessPointID.isEmpty())
-     	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
-   	 	//assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" )
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
           assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
@@ -4406,8 +4441,22 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	    assert(!node.@AlternativeUserID.isEmpty())
 	    // assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID") 
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
-     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
-     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
          	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
@@ -4484,8 +4533,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
 	 	}
 	}
   }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
@@ -4505,19 +4553,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-09-23T16:24:46Z</con:value>
+          <con:value>2015-10-01T02:50:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-09-23T16:34:46Z</con:value>
+          <con:value>2015-10-01T03:00:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/23/2015 16:24:46</con:value>
+          <con:value>10/01/2015 02:50:54</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-10-23T00:00:00Z</con:value>
+          <con:value>2015-10-31T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -5280,8 +5328,7 @@ if (propertiesFile.exists()) {
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -5319,10 +5366,22 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
      	if(!node.@UserName.isEmpty())
      	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
-     	assert(!node.@NetworkAccessPointID.isEmpty())
-     	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
-   	 	//assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" )
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
           assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
@@ -5338,8 +5397,22 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
-     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
-     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
           assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
@@ -5394,13 +5467,11 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 	 	} 
   	}
   }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -5423,10 +5494,22 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
      	if(!node.@UserName.isEmpty())
      	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
-     	assert(!node.@NetworkAccessPointID.isEmpty())
-     	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
-   	 	//assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" )
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
           assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
@@ -5440,8 +5523,22 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
-     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
-     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
          	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
@@ -5497,8 +5594,7 @@ if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCo
 	 	} 
   	}
   }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
@@ -5518,19 +5614,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-09-24T03:37:06Z</con:value>
+          <con:value>2015-10-01T02:50:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-09-24T03:47:06Z</con:value>
+          <con:value>2015-10-01T03:00:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/24/2015 03:37:06</con:value>
+          <con:value>10/01/2015 02:50:57</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-10-24T00:00:00Z</con:value>
+          <con:value>2015-10-31T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -6135,21 +6231,20 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Audit Logs" id="837f4e46-0ed2-4b1f-8da7-261fcad448be" disabled="true">
+      <con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>2000</delay></con:config></con:testStep>
+      <con:testStep type="groovy" name="Verify Audit Logs" id="837f4e46-0ed2-4b1f-8da7-261fcad448be">
         <con:settings/>
-        <con:config>
-          <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
+        <con:config><script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Entity Inbound" and communityId="1.1"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 3 and messageType="Nhin Inbound" and communityId="1.1"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 4 and messageType="Adapter Outbound" and communityId="1.1"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 5 and messageType="Adapter Inbound" and communityId="1.1"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 6 and messageType="Nhin Outbound" and communityId="1.1"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 7 and messageType="Nhin Inbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 8 and messageType="Entity Outbound" and communityId="1.1"')[0]
-}</script>
-        </con:config>
+	//assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Entity Inbound" and communityId="1.1"')[0]
+	//assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="2.2"')[0]
+	//assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 3 and messageType="Nhin Inbound" and communityId="1.1"')[0]
+	//assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 4 and messageType="Adapter Outbound" and communityId="1.1"')[0]
+	//assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 5 and messageType="Adapter Inbound" and communityId="1.1"')[0]
+	//assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 6 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	//assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 7 and messageType="Nhin Inbound" and communityId="2.2"')[0]
+	//assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 8 and messageType="Entity Outbound" and communityId="1.1"')[0]
+}</script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-EntityInbound-InitiatingGateway(1.1)-ToBeRemoved" disabled="true">
         <con:settings/>
@@ -6312,10 +6407,9 @@ if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCo
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -6351,10 +6445,22 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
      		//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
      	}
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
-     	assert(!node.@NetworkAccessPointID.isEmpty())
-     	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
-   	 	//assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" )
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
           assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
@@ -6368,9 +6474,22 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	     	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
-     	//commented out as this element value is dynamic at runtime. Ref spec for more detail.
-     	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )     	
-     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Destination.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
          	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
@@ -6425,8 +6544,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 	 	}	    
       } 
   }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinInbound-RespondingGateway(2.2)-ToBeRemoved" disabled="true">
         <con:settings/>
@@ -6761,10 +6879,10 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[import java.util.regex.*
+context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -6783,16 +6901,27 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 	parsedXmlMessage.ActiveParticipant[0].each{ node ->
 	     
 	     if(!node.@UserID.isEmpty()){
-	     	//Commented out until code fixed to populate UserID as per spec   	
-	     	//assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
 	     }
      	assert(!node.@AlternativeUserID.isEmpty())
      	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
-     	assert(!node.@NetworkAccessPointID.isEmpty())
-     	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
-   	 	//assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" )
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
           assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
@@ -6802,9 +6931,22 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
-     	//commented out as this element value is dynamic at runtime. Ref spec for more detail.
-     	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
-     	//assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Destination.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
           assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
@@ -6848,8 +6990,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
 	 	}	  
 	}
  }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinInbound-InitiatingGateway(1.1)-ToBeRemoved" disabled="true">
         <con:settings/>
@@ -7172,8 +7313,7 @@ if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCo
  }
 }]]></script>
         </con:config>
-      </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
@@ -7195,19 +7335,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-09-24T02:42:47Z</con:value>
+          <con:value>2015-10-01T02:51:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-09-24T02:52:47Z</con:value>
+          <con:value>2015-10-01T03:01:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/24/2015 02:42:47</con:value>
+          <con:value>10/01/2015 02:51:03</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-10-24T00:00:00Z</con:value>
+          <con:value>2015-10-31T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@value</con:name>
@@ -7267,7 +7407,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name>
-          <con:value>192.168.1.2</con:value>
+          <con:value>localhost</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name>
@@ -7509,7 +7649,7 @@ if (propertiesFile.exists()) {
           <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
           <con:value>RFC-3881</con:value>
         </con:property>
-      </con:properties>
+      <con:property><con:name>ActiveParticipant_Source_g0.@UserID</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value></con:property></con:properties>
       <con:reportParameters/>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true" id="5783cde4-97f8-4dfb-bdda-ea9d97aee5d1">
@@ -7900,19 +8040,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-03-31T14:02:21Z</con:value>
+          <con:value>2015-10-01T02:51:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-03-31T14:12:21Z</con:value>
+          <con:value>2015-10-01T03:01:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>03/31/2014 14:02:21</con:value>
+          <con:value>10/01/2015 02:51:07</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-04-30T00:00:00Z</con:value>
+          <con:value>2015-10-31T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -8486,19 +8626,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-03-31T14:04:08Z</con:value>
+          <con:value>2015-10-01T02:52:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-03-31T14:14:08Z</con:value>
+          <con:value>2015-10-01T03:02:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>03/31/2014 14:04:08</con:value>
+          <con:value>10/01/2015 02:52:29</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-04-30T00:00:00Z</con:value>
+          <con:value>2015-10-31T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -8878,19 +9018,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-03-31T14:04:09Z</con:value>
+          <con:value>2015-10-01T02:52:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-03-31T14:14:09Z</con:value>
+          <con:value>2015-10-01T03:02:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>03/31/2014 14:04:09</con:value>
+          <con:value>10/01/2015 02:52:31</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-04-30T00:00:00Z</con:value>
+          <con:value>2015-10-31T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -10207,21 +10347,21 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-03-31T14:04:10Z</con:value>
+          <con:value>2015-10-01T02:52:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-03-31T14:14:10Z</con:value>
+          <con:value>2015-10-01T03:02:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>03/31/2014 14:04:10</con:value>
+          <con:value>10/01/2015 02:52:32</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-04-30T00:00:00Z</con:value>
+          <con:value>2015-10-31T00:00:00Z</con:value>
         </con:property>
-      </con:properties>
+      <con:property><con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name><con:value>110153</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCode</con:name><con:value>1</con:value></con:property><con:property><con:name>&lt;!--Destination--></con:name><con:value/></con:property><con:property><con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName</con:name><con:value>submission set classificationNode</con:value></con:property><con:property><con:name>EventIdentification_Responder.@EventActionCode</con:name><con:value>C</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserID</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name><con:value>false</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name><con:value>1</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@AlternativeUserID</con:name><con:value>19233@192.168.1.2</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@code</con:name><con:value>ITI-41</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name><con:value>1010</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name><con:value>IHE Transactions</con:value></con:property><con:property><con:name>EventIdentification_Responder.EventID.@code</con:name><con:value>110107</con:value></con:property><con:property><con:name>ActiveParticipant.@UserIsRequestor</con:name><con:value>true</con:value></con:property><con:property><con:name>&lt;--Patient--></con:name><con:value/></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name><con:value>Destination</con:value></con:property><con:property><con:name>&lt;--Submission</con:name><con:value>Set --></con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name><con:value>localhost</con:value></con:property><con:property><con:name>&lt;!--Human</con:name><con:value>Requestor--></con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name><con:value>Patient Number</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name><con:value>Source</con:value></con:property><con:property><con:name>ActiveParticipant.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name><con:value>192.168.1.2</con:value></con:property><con:property><con:name>EventIdentification.@EventActionCode</con:name><con:value>R</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name><con:value>110152</con:value></con:property><con:property><con:name>EventIdentification.EventID.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name><con:value>Gateway 1</con:value></con:property><con:property><con:name>EventIdentification.EventID.@displayName</con:name><con:value>Export</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole</con:name><con:value>1</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@codeSystemName</con:name><con:value>SNOMED_CT</con:value></con:property><con:property><con:name>ActiveParticipant.@AlternativeUserID</con:name><con:value>19233@192.168.1.1</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@displayName</con:name><con:value>Provide and Register Document Set-b</con:value></con:property><con:property><con:name>EventIdentification.EventID.@code</con:name><con:value>110106</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name><con:value>19233@192.168.1.2</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@code</con:name><con:value>307969004</con:value></con:property><con:property><con:name>EventIdentification.@EventDateTime</con:name><con:value>2015-04-02T13:47:30.199Z</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCodeRole</con:name><con:value>20</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@code</con:name><con:value>urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd</con:value></con:property><con:property><con:name>EventIdentification.@EventOutcomeIndicator</con:name><con:value>0</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name><con:value>RFC-3881</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserIsRequestor</con:name><con:value>true</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@displayName</con:name><con:value>Human Requestor</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserID</con:name><con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value></con:property><con:property><con:name>AuditMessage.xmlns</con:name><con:value>http://nhinc.services.com/schema/auditmessage</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@codeSystemName</con:name><con:value>IHE XDS Metadata</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name><con:value>2</con:value></con:property><con:property><con:name>&lt;!--Source--></con:name><con:value/></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>EventIdentification_Responder.EventID.@displayName</con:name><con:value>Import</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Set.@ParticipantObjectID</con:name><con:value>SubSetID_UniqueID01</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant.@UserID</con:name><con:value>kskagerb</con:value></con:property></con:properties>
       <con:reportParameters/>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true" id="2d01ba9b-8e2f-4495-9afb-0df274e6ff49">
@@ -10841,19 +10981,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-03-31T14:04:11Z</con:value>
+          <con:value>2015-10-01T02:52:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-03-31T14:14:11Z</con:value>
+          <con:value>2015-10-01T03:02:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>03/31/2014 14:04:11</con:value>
+          <con:value>10/01/2015 02:52:34</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-04-30T00:00:00Z</con:value>
+          <con:value>2015-10-31T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -11505,19 +11645,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-03-31T14:14:12Z</con:value>
+          <con:value>2015-10-01T03:02:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>03/31/2014 14:04:12</con:value>
+          <con:value>10/01/2015 02:52:37</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-04-30T00:00:00Z</con:value>
+          <con:value>2015-10-31T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-03-31T14:04:12Z</con:value>
+          <con:value>2015-10-01T02:52:37Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -11864,8 +12004,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -11902,10 +12041,22 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
      	if(!node.@UserName.isEmpty())
      	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
-     	assert(!node.@NetworkAccessPointID.isEmpty())
-     	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
-   	 	//assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" )
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
           assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
@@ -11921,8 +12072,22 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
-     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
-     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
           assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
@@ -11997,13 +12162,11 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 	 	}
 	}
   }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -12027,10 +12190,22 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
      	assert(!node.@AlternativeUserID.isEmpty())
      	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
-     	assert(!node.@NetworkAccessPointID.isEmpty())
-     	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
-   	 	//assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" )
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
           assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
@@ -12045,8 +12220,22 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	    assert(!node.@AlternativeUserID.isEmpty())
 	    // assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID") 
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
-     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
-     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
          	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
@@ -12122,8 +12311,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
 	 	}
 	}
   }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
@@ -12143,19 +12331,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-09-24T03:04:32Z</con:value>
+          <con:value>2015-10-01T02:52:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-09-24T03:14:32Z</con:value>
+          <con:value>2015-10-01T03:02:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/24/2015 03:04:32</con:value>
+          <con:value>10/01/2015 02:52:40</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-10-24T00:00:00Z</con:value>
+          <con:value>2015-10-31T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -12914,8 +13102,7 @@ if (propertiesFile.exists()) {
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -12953,10 +13140,22 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
      	if(!node.@UserName.isEmpty())
      	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
-     	assert(!node.@NetworkAccessPointID.isEmpty())
-     	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
-   	 	//assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" )
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
           assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
@@ -12973,8 +13172,22 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
-     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
-     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
           assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
@@ -13029,13 +13242,11 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 	 	} 
   	}
   }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -13058,10 +13269,22 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
      	if(!node.@UserName.isEmpty())
      	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
-     	assert(!node.@NetworkAccessPointID.isEmpty())
-     	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
-   	 	//assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" )
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
           assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
@@ -13075,8 +13298,22 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
-     	assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
-     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
          	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
@@ -13131,8 +13368,7 @@ if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCo
 	 	} 
   	}
   }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
@@ -13152,19 +13388,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-09-24T03:39:55Z</con:value>
+          <con:value>2015-10-01T02:52:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-09-24T03:49:55Z</con:value>
+          <con:value>2015-10-01T03:02:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/24/2015 03:39:55</con:value>
+          <con:value>10/01/2015 02:52:45</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-10-24T00:00:00Z</con:value>
+          <con:value>2015-10-31T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -13765,21 +14001,20 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
+      <con:testStep type="delay" name="Delay" disabled="true"><con:settings/><con:config><delay>2000</delay></con:config></con:testStep>
       <con:testStep type="groovy" name="Verify Audit Logs" id="1dbff829-fbb6-4825-ae7b-f224906e0299" disabled="true">
         <con:settings/>
-        <con:config>
-          <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
+        <con:config><script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Entity Inbound" and communityId="1.1"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 3 and messageType="Nhin Inbound" and communityId="1.1"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 4 and messageType="Adapter Outbound" and communityId="1.1"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 5 and messageType="Adapter Inbound" and communityId="1.1"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 6 and messageType="Nhin Outbound" and communityId="1.1"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 7 and messageType="Nhin Inbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 8 and messageType="Entity Outbound" and communityId="1.1"')[0]
-}</script>
-        </con:config>
+	//assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Entity Inbound" and communityId="1.1"')[0]
+	//assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="2.2"')[0]
+	//assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 3 and messageType="Nhin Inbound" and communityId="1.1"')[0]
+	//assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 4 and messageType="Adapter Outbound" and communityId="1.1"')[0]
+	//assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 5 and messageType="Adapter Inbound" and communityId="1.1"')[0]
+	//assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 6 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	//assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 7 and messageType="Nhin Inbound" and communityId="2.2"')[0]
+	//assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 8 and messageType="Entity Outbound" and communityId="1.1"')[0]
+}</script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-EntityInbound-InitiatingGateway(1.1)-ToBeRemoved" disabled="true">
         <con:settings/>
@@ -13942,10 +14177,9 @@ if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCo
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -13982,10 +14216,22 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
      		//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
      	}
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
-     	assert(!node.@NetworkAccessPointID.isEmpty())
-     	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
-   	 	//assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" )
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
           assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
@@ -13999,9 +14245,22 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	     	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
-     	//commented out as this element value is dynamic at runtime. Ref spec for more detail.
-     	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )     	
-     	assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Destination.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
          	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
@@ -14056,8 +14315,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 	 	}	    
       } 
   }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinInbound-RespondingGateway(2.2)-ToBeRemoved" disabled="true">
         <con:settings/>
@@ -14392,10 +14650,9 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -14420,10 +14677,22 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
      	assert(!node.@AlternativeUserID.isEmpty())
      	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
-     	assert(!node.@NetworkAccessPointID.isEmpty())
-     	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
-   	 	//assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointTypeCode" )
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
           assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
@@ -14433,9 +14702,22 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
-     	//commented out as this element value is dynamic at runtime. Ref spec for more detail.
-     	//assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
-     	//assert node.@NetworkAccessPointTypeCode == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointTypeCode" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Destination.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
           assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
@@ -14479,8 +14761,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
 	 	}	  
 	}
  }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinInbound-InitiatingGateway(1.1)-ToBeRemoved" disabled="true">
         <con:settings/>
@@ -14803,8 +15084,7 @@ if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCo
  }
 }]]></script>
         </con:config>
-      </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
@@ -14826,19 +15106,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-09-24T03:42:12Z</con:value>
+          <con:value>2015-10-01T02:52:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-09-24T03:52:12Z</con:value>
+          <con:value>2015-10-01T03:02:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/24/2015 03:42:12</con:value>
+          <con:value>10/01/2015 02:52:49</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-10-24T00:00:00Z</con:value>
+          <con:value>2015-10-31T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@value</con:name>
@@ -14898,7 +15178,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name>
-          <con:value>192.168.1.2</con:value>
+          <con:value>localhost</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name>
@@ -15535,19 +15815,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-03-31T14:04:17Z</con:value>
+          <con:value>2015-10-01T02:52:50Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-03-31T14:14:17Z</con:value>
+          <con:value>2015-10-01T03:02:50Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>03/31/2014 14:04:17</con:value>
+          <con:value>10/01/2015 02:52:50</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-04-30T00:00:00Z</con:value>
+          <con:value>2015-10-31T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -15745,7 +16025,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value/>
+      <con:value>D:\wildfly-8.2.0.Final\modules\org\connectopensource\configuration\main</con:value>
     </con:property>
     <con:property>
       <con:name>Gender</con:name>
