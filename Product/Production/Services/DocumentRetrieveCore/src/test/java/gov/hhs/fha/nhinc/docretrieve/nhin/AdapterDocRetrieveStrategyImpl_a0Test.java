@@ -41,6 +41,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import java.util.Properties;
 import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.when;
 
 /**
@@ -87,12 +88,12 @@ public class AdapterDocRetrieveStrategyImpl_a0Test {
 
         instance.execute(message);
 
-        verify(logger).auditRequestMessage(eq(retrieveDocumentSetRequestType), eq(assertionType),
+        verify(logger, never()).auditRequestMessage(eq(retrieveDocumentSetRequestType), eq(assertionType),
             eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE), eq(webContextProp),
             eq("RetrieveDocuments"));
 
-        verify(logger).auditResponseMessage(eq(retrieveDocumentSetRequestType), eq(retrieveDocumentSetResponseType),
+        verify(logger, never()).auditResponseMessage(eq(retrieveDocumentSetRequestType), eq(retrieveDocumentSetResponseType),
             eq(assertionType), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE), eq(webContextProp),
             eq("RetrieveDocuments"));

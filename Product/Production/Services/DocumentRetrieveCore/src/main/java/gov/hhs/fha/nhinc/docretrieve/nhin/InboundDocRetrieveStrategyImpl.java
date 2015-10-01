@@ -121,9 +121,9 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
     public void auditInboundResponseMessage(InboundDocRetrieveOrchestratable message) {
 
         LOG.debug("Calling audit log for doc retrieve response received from adapter (a0)");
-        docRetrieveLogger.auditResponseMessage(message.getRequest(), message.getResponse(), message.getAssertion(),
-            null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE,
-            Boolean.FALSE, message.getWebContextProperties(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+//        docRetrieveLogger.auditResponseMessage(message.getRequest(), message.getResponse(), message.getAssertion(),
+//            null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE,
+//            Boolean.FALSE, message.getWebContextProperties(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
     }
 
     /**
@@ -134,9 +134,9 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
     public void auditOutboundRequestMessage(InboundDocRetrieveOrchestratable message) {
 
         LOG.debug("Calling audit log for doc retrieve request (g0) sent to adapter (a0)");
-        docRetrieveLogger.auditRequestMessage(message.getRequest(), message.getAssertion(), null,
-            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, Boolean.FALSE,
-            message.getWebContextProperties(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+//        docRetrieveLogger.auditRequestMessage(message.getRequest(), message.getAssertion(), null,
+//            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, Boolean.FALSE,
+//            message.getWebContextProperties(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
     }
 
     private AcknowledgementType auditMessage(LogEventRequestType auditLogMsg, AssertionType assertion) {

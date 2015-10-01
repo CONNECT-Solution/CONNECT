@@ -49,26 +49,26 @@ public class OutboundDocRetrieveAuditTransformer_a0 implements AuditTransformer 
     @Override
     public void transformRequest(Orchestratable message) {
 
-        if (message instanceof OutboundDocRetrieveOrchestratable) {
-            OutboundDocRetrieveOrchestratable EntityDROrchImp_g0Message = (OutboundDocRetrieveOrchestratable) message;
-            getAuditRepositoryLogger().auditRequestMessage(EntityDROrchImp_g0Message.getRequest(),
-                EntityDROrchImp_g0Message.getAssertion(), EntityDROrchImp_g0Message.getTarget(),
-                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
-                Boolean.TRUE, null, NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
-
-        }
+//        if (message instanceof OutboundDocRetrieveOrchestratable) {
+//            OutboundDocRetrieveOrchestratable EntityDROrchImp_g0Message = (OutboundDocRetrieveOrchestratable) message;
+//            getAuditRepositoryLogger().auditRequestMessage(EntityDROrchImp_g0Message.getRequest(),
+//                EntityDROrchImp_g0Message.getAssertion(), EntityDROrchImp_g0Message.getTarget(),
+//                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
+//                Boolean.TRUE, null, NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+//
+//        }
     }
 
     @Override
     public void transformResponse(Orchestratable message) {
 
-        if (message instanceof OutboundDocRetrieveOrchestratable) {
-            OutboundDocRetrieveOrchestratable EntityDROrchImp_g0Message = (OutboundDocRetrieveOrchestratable) message;
-            getAuditRepositoryLogger().auditResponseMessage(EntityDROrchImp_g0Message.getRequest(),
-                EntityDROrchImp_g0Message.getResponse(), EntityDROrchImp_g0Message.getAssertion(),
-                EntityDROrchImp_g0Message.getTarget(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null,
-                NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
-        }
+//        if (message instanceof OutboundDocRetrieveOrchestratable) {
+//            OutboundDocRetrieveOrchestratable EntityDROrchImp_g0Message = (OutboundDocRetrieveOrchestratable) message;
+//            getAuditRepositoryLogger().auditResponseMessage(EntityDROrchImp_g0Message.getRequest(),
+//                EntityDROrchImp_g0Message.getResponse(), EntityDROrchImp_g0Message.getAssertion(),
+//                EntityDROrchImp_g0Message.getTarget(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+//                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null,
+//                NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+//        }
     }
 }

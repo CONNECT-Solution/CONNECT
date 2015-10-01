@@ -101,10 +101,10 @@ public class InboundDocRetrieveStrategyImplTest {
     @Test
     public void testExceuteMethodForStandard() {
         inboundDocRetrieve.execute(standard);
-        verify(auditLog).auditRequestMessage(eq(request), eq(assertion), eq(nhinTargetSystemType),
+        verify(auditLog, never()).auditRequestMessage(eq(request), eq(assertion), eq(nhinTargetSystemType),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
             eq(Boolean.FALSE), eq(webContextProp), eq("RetrieveDocuments"));
-        verify(auditLog).auditResponseMessage(eq(request), eq(retrieveDocumentSetResponseType),
+        verify(auditLog, never()).auditResponseMessage(eq(request), eq(retrieveDocumentSetResponseType),
             eq(assertion), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE), eq(Boolean.FALSE), eq(webContextProp),
             eq("RetrieveDocuments"));

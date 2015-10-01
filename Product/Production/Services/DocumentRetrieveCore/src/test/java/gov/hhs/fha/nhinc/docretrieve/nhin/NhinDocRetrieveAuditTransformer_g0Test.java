@@ -36,9 +36,11 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import java.util.Properties;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 
 /**
  *
@@ -65,9 +67,9 @@ public class NhinDocRetrieveAuditTransformer_g0Test {
     public void testTransformRequest() {
 
         transform.transformRequest(mockMessage);
-        verify(mockMessage).getAssertion();
-        verify(mockMessage).getRequest();
-        verify(docAuditLogger).auditRequestMessage(Mockito.any(RetrieveDocumentSetRequestType.class), Mockito.any(AssertionType.class), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), Mockito.any(Properties.class), eq(NhincConstants.DOC_RETRIEVE_SERVICE_NAME));
+        verify(mockMessage, never()).getAssertion();
+        verify(mockMessage, never()).getRequest();
+        verify(docAuditLogger, never()).auditRequestMessage(Mockito.any(RetrieveDocumentSetRequestType.class), Mockito.any(AssertionType.class), eq(nhinTargetSystemType), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), Mockito.any(Properties.class), eq(NhincConstants.DOC_RETRIEVE_SERVICE_NAME));
 
     }
 
