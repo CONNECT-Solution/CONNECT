@@ -90,7 +90,8 @@ public class AbstractOutboundDocRetrieve {
         return response;
     }
 
-    public void auditRequest(RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
+    public void auditRequest(RetrieveDocumentSetRequestType request, AssertionType assertion,
+        NhinTargetSystemType targetSystem) {
 
         getLogger().auditRequestMessage(request, assertion, targetSystem,
             NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,

@@ -104,7 +104,8 @@ public class StandardInboundDocRetrieve extends BaseInboundDocRetrieve {
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
         AssertionType assertion, Properties webContextProperties) {
 
-        InboundDocRetrieveOrchestratable inboundOrchestrable = createInboundOrchestrable(body, assertion, webContextProperties);
+        InboundDocRetrieveOrchestratable inboundOrchestrable = createInboundOrchestrable(body, assertion,
+            webContextProperties);
 
         InboundDocRetrieveOrchestratable orchResponse = (InboundDocRetrieveOrchestratable) getOrchestrator().process(
             inboundOrchestrable);
