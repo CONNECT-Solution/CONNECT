@@ -56,7 +56,7 @@ public class OutboundStandardDocRetrieveOrchestrator extends CONNECTOutboundOrch
             rdRequest.getDocumentRequest().add(docRequest);
 
             OutboundDocRetrieveOrchestratable newMessage = rdMessage.create(rdMessage.getPolicyTransformer(),
-                rdMessage.getAuditTransformer(), rdMessage.getNhinDelegate(), rdMessage.getAggregator());
+                rdMessage.getNhinDelegate(), rdMessage.getAggregator());
             newMessage.setRequest(rdRequest);
             newMessage.setAssertion(message.getAssertion());
             newMessage.setTarget(buildHomeCommunity(docRequest.getHomeCommunityId(), rdMessage.getTarget().getUseSpecVersion()));

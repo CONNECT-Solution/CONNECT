@@ -26,12 +26,11 @@
  */
 package gov.hhs.fha.nhinc.orchestration;
 
-
 /**
  * @author bhumphrey
  *
  */
-public abstract class AbstractPassthroughOrchestratable extends AbstractOrchestrable  {
+public abstract class AbstractPassthroughOrchestratable extends AbstractOrchestrable {
 
     /**
      * default constructor.
@@ -45,12 +44,13 @@ public abstract class AbstractPassthroughOrchestratable extends AbstractOrchestr
      * @param at audit transformer
      * @param ad
      */
-    protected AbstractPassthroughOrchestratable(PolicyTransformer pt, AuditTransformer at) {
-        super(pt, at);
+    protected AbstractPassthroughOrchestratable(PolicyTransformer pt) {
+        super(pt);
     }
 
     /**
      * This is always pass through.
+     *
      * @returns true
      */
     @Override

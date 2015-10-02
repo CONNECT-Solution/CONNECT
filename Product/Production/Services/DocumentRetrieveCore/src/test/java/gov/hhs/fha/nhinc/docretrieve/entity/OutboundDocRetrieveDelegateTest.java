@@ -82,10 +82,10 @@ public class OutboundDocRetrieveDelegateTest {
         instance.createErrorResponse(message, errorCode);
         assertNull(message);
 
-        message = new OutboundStandardDocRetrieveOrchestratable(null, null, instance, null, null, null, null);
+        message = new OutboundStandardDocRetrieveOrchestratable(null, instance, null, null, null, null);
         instance.createErrorResponse(message, errorCode);
         assertEquals(message.getResponse().getRegistryResponse().getStatus(),
-                "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+            "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
     }
 
 }

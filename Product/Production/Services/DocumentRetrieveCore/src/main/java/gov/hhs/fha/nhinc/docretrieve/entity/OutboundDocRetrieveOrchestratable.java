@@ -52,8 +52,8 @@ public abstract class OutboundDocRetrieveOrchestratable implements OutboundOrche
      * @param na the Aggregator to use
      * @return a concrete instance of the orchestratable
      */
-    abstract public OutboundDocRetrieveOrchestratable create(PolicyTransformer pt, AuditTransformer at,
-            OutboundDelegate nd, NhinAggregator na);
+    abstract public OutboundDocRetrieveOrchestratable create(PolicyTransformer pt,
+        OutboundDelegate nd, NhinAggregator na);
 
     protected RetrieveDocumentSetRequestType request = null;
     protected RetrieveDocumentSetResponseType response = null;
@@ -81,17 +81,16 @@ public abstract class OutboundDocRetrieveOrchestratable implements OutboundOrche
 
     }
 
-    public OutboundDocRetrieveOrchestratable(PolicyTransformer pt, AuditTransformer at, OutboundDelegate ad,
-            NhinAggregator na) {
+    public OutboundDocRetrieveOrchestratable(PolicyTransformer pt, OutboundDelegate ad,
+        NhinAggregator na) {
         _policyTransformer = pt;
-        _auditTransformer = at;
         _nhinDelegate = ad;
         _nhinAggregator = na;
     }
 
-    public OutboundDocRetrieveOrchestratable(PolicyTransformer pt, AuditTransformer at, OutboundDelegate nd,
-            NhinAggregator na, RetrieveDocumentSetRequestType body, AssertionType assertion, NhinTargetSystemType target) {
-        this(pt, at, nd, na);
+    public OutboundDocRetrieveOrchestratable(PolicyTransformer pt, OutboundDelegate nd,
+        NhinAggregator na, RetrieveDocumentSetRequestType body, AssertionType assertion, NhinTargetSystemType target) {
+        this(pt, nd, na);
         setRequest(body);
         setAssertion(assertion);
         setTarget(target);

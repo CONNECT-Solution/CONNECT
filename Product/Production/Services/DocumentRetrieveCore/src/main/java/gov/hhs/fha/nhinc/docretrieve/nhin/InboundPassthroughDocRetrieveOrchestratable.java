@@ -66,8 +66,8 @@ public class InboundPassthroughDocRetrieveOrchestratable extends AbstractPassthr
      * @param pt policy transformer
      * @param at audit transformer
      */
-    public InboundPassthroughDocRetrieveOrchestratable(PolicyTransformer pt, AuditTransformer at, InboundDelegate id) {
-        super(pt, at);
+    public InboundPassthroughDocRetrieveOrchestratable(PolicyTransformer pt, InboundDelegate id) {
+        super(pt);
         inboundDelegate = id;
     }
 

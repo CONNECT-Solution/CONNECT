@@ -26,14 +26,11 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.outbound;
 
-import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveFileUtils;
 import gov.hhs.fha.nhinc.docretrieve.MessageGenerator;
-import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
-import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveDelegate;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundPassthroughDocRetrieveOrchestratable;
@@ -82,18 +79,17 @@ public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve 
         ADAPTER_API_LEVEL entityAPILevel) {
 
         RetrieveDocumentSetResponseType response = null;
-        NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
-            targets);
-        auditRequest(request, assertion, targetSystem);
         if (validateGuidance(targets, entityAPILevel)) {
 
+            NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
+                targets);
+            auditRequest(request, assertion, targetSystem);
             OutboundDocRetrieveDelegate delegate = new OutboundDocRetrieveDelegate();
             OutboundDocRetrieveOrchestratable orchestratable = new OutboundPassthroughDocRetrieveOrchestratable(null,
-                null, delegate, null, request, assertion, targetSystem);
+                delegate, null, request, assertion, targetSystem);
 
             OutboundDocRetrieveOrchestratable orchResponse = (OutboundDocRetrieveOrchestratable) orchestrator
                 .process(orchestratable);
-
             response = orchResponse.getResponse();
 
             try {
@@ -104,6 +100,9 @@ public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve 
                     "Adapter Document Retrieve Processing: " + ioe.getLocalizedMessage());
             }
         } else {
+            NhinTargetSystemType target = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
+                targets);
+            auditRequest(request, assertion, target);
             response = createGuidanceErrorResponse(entityAPILevel);
         }
 

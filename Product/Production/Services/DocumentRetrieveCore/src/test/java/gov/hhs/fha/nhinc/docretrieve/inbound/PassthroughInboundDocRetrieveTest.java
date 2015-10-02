@@ -37,7 +37,6 @@ import java.util.Properties;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveAuditTransformer_g0;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveDelegate;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrievePolicyTransformer_g0;
@@ -59,7 +58,7 @@ public class PassthroughInboundDocRetrieveTest {
         Properties webContextProperties = new Properties();
 
         InboundDocRetrievePolicyTransformer_g0 pt = new InboundDocRetrievePolicyTransformer_g0();
-        InboundDocRetrieveAuditTransformer_g0 at = new InboundDocRetrieveAuditTransformer_g0();
+//        InboundDocRetrieveAuditTransformer_g0 at = new InboundDocRetrieveAuditTransformer_g0();
         InboundDocRetrieveDelegate ad = new InboundDocRetrieveDelegate();
 
         // Mocks
@@ -73,7 +72,7 @@ public class PassthroughInboundDocRetrieveTest {
         when(orchestratable.getResponse()).thenReturn(expectedResponse);
 
         // Actual Invocation
-        PassthroughInboundDocRetrieve inboundDocRetrieve = new PassthroughInboundDocRetrieve(pt, at, ad, orch);
+        PassthroughInboundDocRetrieve inboundDocRetrieve = new PassthroughInboundDocRetrieve(pt, ad, orch);
         RetrieveDocumentSetResponseType actualResponse = inboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(
             request, assertion, webContextProperties);
 
@@ -86,7 +85,6 @@ public class PassthroughInboundDocRetrieveTest {
 
         verify(orch).process(orchArgument.capture());
         assertEquals(pt, orchArgument.getValue().getPolicyTransformer());
-        assertEquals(at, orchArgument.getValue().getAuditTransformer());
         assertEquals(ad, orchArgument.getValue().getDelegate());
         assertTrue(orchArgument.getValue().isPassthru());
     }

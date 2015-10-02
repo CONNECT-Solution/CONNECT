@@ -29,13 +29,11 @@ package gov.hhs.fha.nhinc.docretrieve.entity.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveAggregator_a0;
-import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveAuditTransformer_a0;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveDelegate;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundStandardDocRetrieveOrchestrator;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrievePolicyTransformer_a0;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundStandardDocRetrieveOrchestratable;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
@@ -52,13 +50,12 @@ public class EntityDocRetrieveProxyJavaImpl implements EntityDocRetrieveProxy {
     }
 
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
-            AssertionType assertion, NhinTargetCommunitiesType targets) {
+        AssertionType assertion, NhinTargetCommunitiesType targets) {
         PolicyTransformer pt = new OutboundDocRetrievePolicyTransformer_a0();
-        AuditTransformer at = new OutboundDocRetrieveAuditTransformer_a0();
         OutboundDelegate nd = new OutboundDocRetrieveDelegate();
         NhinAggregator na = new OutboundDocRetrieveAggregator_a0();
-        OutboundDocRetrieveOrchestratable EntityDROrchImpl = new OutboundStandardDocRetrieveOrchestratable(pt, at, nd,
-                na, body, assertion, null);
+        OutboundDocRetrieveOrchestratable EntityDROrchImpl = new OutboundStandardDocRetrieveOrchestratable(pt, nd,
+            na, body, assertion, null);
         OutboundStandardDocRetrieveOrchestrator oOrchestrator = new OutboundStandardDocRetrieveOrchestrator();
         oOrchestrator.process(EntityDROrchImpl);
         return EntityDROrchImpl.getResponse();

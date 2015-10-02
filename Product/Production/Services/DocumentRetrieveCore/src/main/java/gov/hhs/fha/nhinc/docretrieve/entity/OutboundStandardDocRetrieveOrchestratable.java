@@ -55,9 +55,9 @@ public class OutboundStandardDocRetrieveOrchestratable extends OutboundDocRetrie
      * @param nd
      * @param na
      */
-    public OutboundStandardDocRetrieveOrchestratable(PolicyTransformer pt, AuditTransformer at, OutboundDelegate nd,
-            NhinAggregator na) {
-        super(pt, at, nd, na);
+    public OutboundStandardDocRetrieveOrchestratable(PolicyTransformer pt, OutboundDelegate nd,
+        NhinAggregator na) {
+        super(pt, nd, na);
     }
 
     /**
@@ -71,9 +71,9 @@ public class OutboundStandardDocRetrieveOrchestratable extends OutboundDocRetrie
      * @param assertion
      * @param target
      */
-    public OutboundStandardDocRetrieveOrchestratable(PolicyTransformer pt, AuditTransformer at, OutboundDelegate nd,
-            NhinAggregator na, RetrieveDocumentSetRequestType body, AssertionType assertion, NhinTargetSystemType target) {
-        super(pt, at, nd, na, body, assertion, target);
+    public OutboundStandardDocRetrieveOrchestratable(PolicyTransformer pt, OutboundDelegate nd,
+        NhinAggregator na, RetrieveDocumentSetRequestType body, AssertionType assertion, NhinTargetSystemType target) {
+        super(pt, nd, na, body, assertion, target);
     }
 
     /*
@@ -92,8 +92,8 @@ public class OutboundStandardDocRetrieveOrchestratable extends OutboundDocRetrie
      * @see gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable#create()
      */
     @Override
-    public OutboundDocRetrieveOrchestratable create(PolicyTransformer pt, AuditTransformer at, OutboundDelegate nd,
-            NhinAggregator na) {
-        return new OutboundStandardDocRetrieveOrchestratable(pt, at, nd, na);
+    public OutboundDocRetrieveOrchestratable create(PolicyTransformer pt, OutboundDelegate nd,
+        NhinAggregator na) {
+        return new OutboundStandardDocRetrieveOrchestratable(pt, nd, na);
     }
 }

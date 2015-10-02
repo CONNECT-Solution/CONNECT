@@ -66,8 +66,8 @@ public class InboundStandardDocRetrieveOrchestratable extends AbstractStandardOr
      * @param pt policy transformer
      * @param at audit transformer
      */
-    public InboundStandardDocRetrieveOrchestratable(PolicyTransformer pt, AuditTransformer at, InboundDelegate id) {
-        super(pt, at);
+    public InboundStandardDocRetrieveOrchestratable(PolicyTransformer pt, InboundDelegate id) {
+        super(pt);
         inboundDelegate = id;
     }
 

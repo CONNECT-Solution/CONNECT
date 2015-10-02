@@ -44,9 +44,8 @@ public abstract class AbstractOrchestrable implements Orchestratable {
 
     }
 
-    protected AbstractOrchestrable(PolicyTransformer pt, AuditTransformer at) {
+    protected AbstractOrchestrable(PolicyTransformer pt) {
         policyTransformer = pt;
-        auditTransformer = at;
     }
 
     public AuditTransformer getAuditTransformer() {
@@ -81,7 +80,5 @@ public abstract class AbstractOrchestrable implements Orchestratable {
     public void setAuditTransformer(AuditTransformer auditTransformer) {
         this.auditTransformer = auditTransformer;
     }
-
-
 
 }

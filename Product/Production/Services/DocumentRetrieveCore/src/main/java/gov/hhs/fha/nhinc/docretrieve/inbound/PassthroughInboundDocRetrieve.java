@@ -30,12 +30,10 @@ import java.util.Properties;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
-import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveAuditTransformer_g0;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveDelegate;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrievePolicyTransformer_g0;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundPassthroughDocRetrieveOrchestratable;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.CONNECTInboundOrchestrator;
 import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
@@ -44,7 +42,6 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 public class PassthroughInboundDocRetrieve extends BaseInboundDocRetrieve {
 
     private final PolicyTransformer pt;
-    private final AuditTransformer at;
     private final InboundDelegate ad;
     private final CONNECTInboundOrchestrator orch;
     DocRetrieveAuditLogger docRetrieveAuditLogger = new DocRetrieveAuditLogger();
@@ -54,7 +51,6 @@ public class PassthroughInboundDocRetrieve extends BaseInboundDocRetrieve {
      */
     public PassthroughInboundDocRetrieve() {
         pt = new InboundDocRetrievePolicyTransformer_g0();
-        at = new InboundDocRetrieveAuditTransformer_g0();
         ad = new InboundDocRetrieveDelegate();
         orch = new CONNECTInboundOrchestrator();
 
@@ -64,14 +60,12 @@ public class PassthroughInboundDocRetrieve extends BaseInboundDocRetrieve {
      * Constructor with dependency injection parameters.
      *
      * @param pt
-     * @param at
      * @param ad
      * @param orch
      */
-    public PassthroughInboundDocRetrieve(PolicyTransformer pt, AuditTransformer at, InboundDelegate ad,
+    public PassthroughInboundDocRetrieve(PolicyTransformer pt, InboundDelegate ad,
         CONNECTInboundOrchestrator orch) {
         this.pt = pt;
-        this.at = at;
         this.ad = ad;
         this.orch = orch;
     }
@@ -87,7 +81,7 @@ public class PassthroughInboundDocRetrieve extends BaseInboundDocRetrieve {
         AssertionType assertion, Properties webContextProperties) {
 
         InboundDocRetrieveOrchestratable inboundOrchestrable
-            = new InboundPassthroughDocRetrieveOrchestratable(pt, at, ad);
+            = new InboundPassthroughDocRetrieveOrchestratable(pt, ad);
         inboundOrchestrable.setAssertion(assertion);
         inboundOrchestrable.setRequest(body);
         inboundOrchestrable.setWebContextProperties(webContextProperties);

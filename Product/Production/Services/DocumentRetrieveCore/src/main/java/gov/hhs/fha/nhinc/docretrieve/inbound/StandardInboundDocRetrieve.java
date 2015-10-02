@@ -32,12 +32,10 @@ import java.util.Properties;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
-import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveAuditTransformer_g0;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveDelegate;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrievePolicyTransformer_g0;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundStandardDocRetrieveOrchestratable;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.CONNECTInboundOrchestrator;
 import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
@@ -47,7 +45,6 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 public class StandardInboundDocRetrieve extends BaseInboundDocRetrieve {
 
     private final PolicyTransformer pt;
-    private final AuditTransformer at;
     private final InboundDelegate ad;
     private final CONNECTInboundOrchestrator orch;
 
@@ -56,7 +53,6 @@ public class StandardInboundDocRetrieve extends BaseInboundDocRetrieve {
      */
     public StandardInboundDocRetrieve() {
         pt = new InboundDocRetrievePolicyTransformer_g0();
-        at = new InboundDocRetrieveAuditTransformer_g0();
         ad = new InboundDocRetrieveDelegate();
         orch = new CONNECTInboundOrchestrator();
     }
@@ -69,10 +65,9 @@ public class StandardInboundDocRetrieve extends BaseInboundDocRetrieve {
      * @param ad
      * @param orch
      */
-    public StandardInboundDocRetrieve(PolicyTransformer pt, AuditTransformer at, InboundDelegate ad,
+    public StandardInboundDocRetrieve(PolicyTransformer pt, InboundDelegate ad,
         CONNECTInboundOrchestrator orch) {
         this.pt = pt;
-        this.at = at;
         this.ad = ad;
         this.orch = orch;
     }
@@ -86,7 +81,7 @@ public class StandardInboundDocRetrieve extends BaseInboundDocRetrieve {
     @Override
     public InboundDocRetrieveOrchestratable createInboundOrchestrable(RetrieveDocumentSetRequestType body,
         AssertionType assertion, Properties webContextProperties) {
-        InboundDocRetrieveOrchestratable inboundOrchestrable = new InboundStandardDocRetrieveOrchestratable(pt, at, ad);
+        InboundDocRetrieveOrchestratable inboundOrchestrable = new InboundStandardDocRetrieveOrchestratable(pt, ad);
         inboundOrchestrable.setAssertion(assertion);
         inboundOrchestrable.setRequest(body);
         inboundOrchestrable.setWebContextProperties(webContextProperties);

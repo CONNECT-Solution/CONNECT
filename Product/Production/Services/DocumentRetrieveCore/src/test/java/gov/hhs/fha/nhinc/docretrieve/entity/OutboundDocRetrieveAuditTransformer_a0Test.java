@@ -64,53 +64,53 @@ import static org.mockito.Mockito.never;
  * @author mweaver
  */
 public class OutboundDocRetrieveAuditTransformer_a0Test {
-
-    private DocRetrieveAuditLogger docRetrieveLogger = mock(DocRetrieveAuditLogger.class);
-    private OutboundDocRetrieveAuditTransformer_a0 instance = null;
-    private Orchestratable message = null;
-    private OutboundDocRetrieveOrchestratableFactory factory = null;
-    private final Properties properties = null;
-
-    public OutboundDocRetrieveAuditTransformer_a0Test() {
-    }
-
-    @Before
-    public void setup() {
-        factory = new OutboundDocRetrieveOrchestratableFactory();
-        message = factory.createOutboundStandardDocRetrieveOrchestratable();
-        instance = new OutboundDocRetrieveAuditTransformer_a0() {
-            @Override
-            protected DocRetrieveAuditLogger getAuditRepositoryLogger() {
-                return docRetrieveLogger;
-            }
-        };
-
-    }
-
-    /**
-     * Test of transformRequest method, of class OutboundDocRetrieveAuditTransformer_a0.
-     */
-    @Test
-    public void testTransformRequest() {
-        instance.transformRequest(message);
-        verify(docRetrieveLogger, never()).auditRequestMessage(Mockito.any(RetrieveDocumentSetRequestType.class),
-            Mockito.any(AssertionType.class), Mockito.any(NhinTargetSystemType.class),
-            eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE),
-            eq(Boolean.TRUE), eq(properties), eq(NhincConstants.DOC_RETRIEVE_SERVICE_NAME));
-
-    }
-
-    /**
-     * Test of transformResponse method, of class OutboundDocRetrieveAuditTransformer_a0.
-     */
-    @Test
-    public void testTransformResponse() {
-        instance.transformResponse(message);
-        verify(docRetrieveLogger, never()).auditResponseMessage(Mockito.any(RetrieveDocumentSetRequestType.class),
-            Mockito.any(RetrieveDocumentSetResponseType.class), Mockito.any(AssertionType.class),
-            Mockito.any(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
-            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE), eq(properties),
-            eq(NhincConstants.DOC_RETRIEVE_SERVICE_NAME));
-
-    }
+//
+//    private DocRetrieveAuditLogger docRetrieveLogger = mock(DocRetrieveAuditLogger.class);
+//    private OutboundDocRetrieveAuditTransformer_a0 instance = null;
+//    private Orchestratable message = null;
+//    private OutboundDocRetrieveOrchestratableFactory factory = null;
+//    private final Properties properties = null;
+//
+//    public OutboundDocRetrieveAuditTransformer_a0Test() {
+//    }
+//
+//    @Before
+//    public void setup() {
+//        factory = new OutboundDocRetrieveOrchestratableFactory();
+//        message = factory.createOutboundStandardDocRetrieveOrchestratable();
+//        instance = new OutboundDocRetrieveAuditTransformer_a0() {
+//            @Override
+//            protected DocRetrieveAuditLogger getAuditRepositoryLogger() {
+//                return docRetrieveLogger;
+//            }
+//        };
+//
+//    }
+//
+//    /**
+//     * Test of transformRequest method, of class OutboundDocRetrieveAuditTransformer_a0.
+//     */
+//    @Test
+//    public void testTransformRequest() {
+//        instance.transformRequest(message);
+//        verify(docRetrieveLogger, never()).auditRequestMessage(Mockito.any(RetrieveDocumentSetRequestType.class),
+//            Mockito.any(AssertionType.class), Mockito.any(NhinTargetSystemType.class),
+//            eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE),
+//            eq(Boolean.TRUE), eq(properties), eq(NhincConstants.DOC_RETRIEVE_SERVICE_NAME));
+//
+//    }
+//
+//    /**
+//     * Test of transformResponse method, of class OutboundDocRetrieveAuditTransformer_a0.
+//     */
+//    @Test
+//    public void testTransformResponse() {
+//        instance.transformResponse(message);
+//        verify(docRetrieveLogger, never()).auditResponseMessage(Mockito.any(RetrieveDocumentSetRequestType.class),
+//            Mockito.any(RetrieveDocumentSetResponseType.class), Mockito.any(AssertionType.class),
+//            Mockito.any(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+//            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE), eq(properties),
+//            eq(NhincConstants.DOC_RETRIEVE_SERVICE_NAME));
+//
+//    }
 }

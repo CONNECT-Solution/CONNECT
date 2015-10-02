@@ -56,6 +56,7 @@ import org.junit.Test;
  *
  */
 public abstract class AbstractOutboundDocRetrieveTest {
+
     /**
      * @param orchestrator
      * @return
@@ -75,7 +76,7 @@ public abstract class AbstractOutboundDocRetrieveTest {
         NhinTargetCommunitiesType targets = getTargetWithGuidance(guidance);
 
         RetrieveDocumentSetResponseType resp = instance.respondingGatewayCrossGatewayRetrieve(request, assertion,
-                targets, ADAPTER_API_LEVEL.LEVEL_a0);
+            targets, ADAPTER_API_LEVEL.LEVEL_a0);
         validateErrorResponse(resp, ADAPTER_API_LEVEL.LEVEL_a0.toString(), guidance);
     }
 
@@ -92,7 +93,7 @@ public abstract class AbstractOutboundDocRetrieveTest {
         NhinTargetCommunitiesType targets = getTargetWithGuidance(guidance);
 
         RetrieveDocumentSetResponseType resp = instance.respondingGatewayCrossGatewayRetrieve(request, assertion,
-                targets, ADAPTER_API_LEVEL.LEVEL_a1);
+            targets, ADAPTER_API_LEVEL.LEVEL_a1);
         validateSuccessResponse(resp);
     }
 
@@ -109,7 +110,7 @@ public abstract class AbstractOutboundDocRetrieveTest {
         NhinTargetCommunitiesType targets = getTargetWithGuidance(guidance);
 
         RetrieveDocumentSetResponseType resp = instance.respondingGatewayCrossGatewayRetrieve(request, assertion,
-                targets, ADAPTER_API_LEVEL.LEVEL_a1);
+            targets, ADAPTER_API_LEVEL.LEVEL_a1);
         validateSuccessResponse(resp);
     }
 
@@ -126,7 +127,7 @@ public abstract class AbstractOutboundDocRetrieveTest {
         NhinTargetCommunitiesType targets = getTargetWithGuidance(guidance);
 
         RetrieveDocumentSetResponseType resp = instance.respondingGatewayCrossGatewayRetrieve(request, assertion,
-                targets, ADAPTER_API_LEVEL.LEVEL_a0);
+            targets, ADAPTER_API_LEVEL.LEVEL_a0);
         validateSuccessResponse(resp);
     }
 
@@ -143,7 +144,7 @@ public abstract class AbstractOutboundDocRetrieveTest {
         NhinTargetCommunitiesType targets = getTargetWithGuidance(guidance);
 
         RetrieveDocumentSetResponseType resp = instance.respondingGatewayCrossGatewayRetrieve(request, assertion,
-                targets, ADAPTER_API_LEVEL.LEVEL_a0);
+            targets, ADAPTER_API_LEVEL.LEVEL_a0);
         validateSuccessResponse(resp);
     }
 
@@ -160,7 +161,7 @@ public abstract class AbstractOutboundDocRetrieveTest {
         NhinTargetCommunitiesType targets = getTargetWithGuidance(guidance);
 
         RetrieveDocumentSetResponseType resp = instance.respondingGatewayCrossGatewayRetrieve(request, assertion,
-                targets, ADAPTER_API_LEVEL.LEVEL_a1);
+            targets, ADAPTER_API_LEVEL.LEVEL_a1);
         validateSuccessResponse(resp);
     }
 
@@ -190,8 +191,8 @@ public abstract class AbstractOutboundDocRetrieveTest {
             }
 
             @Override
-            public OutboundDocRetrieveOrchestratable create(PolicyTransformer pt, AuditTransformer at,
-                    OutboundDelegate nd, NhinAggregator na) {
+            public OutboundDocRetrieveOrchestratable create(PolicyTransformer pt,
+                OutboundDelegate nd, NhinAggregator na) {
                 // TODO Auto-generated method stub
                 return null;
             }
