@@ -33,12 +33,6 @@
             <artifactId>clientsdk</artifactId>
         </dependency>
 
-        <!-- XML -->
-        <dependency>
-            <groupId>xml-apis</groupId>
-            <artifactId>xml-apis</artifactId>
-        </dependency>
-
         <!-- Logging -->
         <dependency>
             <groupId>log4j</groupId>

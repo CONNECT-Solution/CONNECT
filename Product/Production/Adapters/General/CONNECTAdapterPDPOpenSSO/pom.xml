@@ -28,12 +28,6 @@
             </exclusions>
         </dependency>
 
-        <!-- XML -->
-        <dependency>
-            <groupId>xml-apis</groupId>
-            <artifactId>xml-apis</artifactId>
-        </dependency>
-
         <!-- Spring Framework -->
         <dependency>
             <groupId>org.springframework</groupId>

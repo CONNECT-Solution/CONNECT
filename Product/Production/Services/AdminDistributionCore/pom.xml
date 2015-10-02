@@ -43,13 +43,7 @@
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-api</artifactId>
         </dependency>
-
-        <!-- XML -->
-        <dependency>
-            <groupId>xml-apis</groupId>
-            <artifactId>xml-apis</artifactId>
-        </dependency>
-
+        
         <!-- Guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
