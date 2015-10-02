@@ -577,6 +577,10 @@
                         <groupId>xerces</groupId> 
                         <artifactId>xercesImpl</artifactId> 
                     </exclusion>
+                    <exclusion>
+                        <groupId>xml-apis</groupId>
+                        <artifactId>xml-apis</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -591,6 +595,10 @@
                     <exclusion>
                         <groupId>xerces</groupId> 
                         <artifactId>xercesImpl</artifactId> 
+                    </exclusion>
+                    <exclusion>
+                        <groupId>xml-apis</groupId>
+                        <artifactId>xml-apis</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -610,6 +618,10 @@
                     <exclusion>
                         <groupId>xerces</groupId> 
                         <artifactId>xercesImpl</artifactId> 
+                    </exclusion>
+                    <exclusion>
+                        <groupId>xml-apis</groupId>
+                        <artifactId>xml-apis</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
