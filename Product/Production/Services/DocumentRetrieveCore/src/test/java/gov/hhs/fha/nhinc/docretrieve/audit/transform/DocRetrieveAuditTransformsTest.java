@@ -48,6 +48,7 @@ import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -203,6 +204,9 @@ public class DocRetrieveAuditTransformsTest
             participantObject.getParticipantObjectIDTypeCode().getCodeSystemName());
         assertEquals(DocRetrieveAuditTransformsConstants.PARTICIPANT_DOCUMENT_OBJ_ID_TYPE_DISPLAY_NAME,
             participantObject.getParticipantObjectIDTypeCode().getDisplayName());
+        assertNull("ParticipantDocument.ParticpantObjectName is not null",
+            participantObject.getParticipantObjectName());
+
     }
 
     private void assertParticipantPatientObjectIdentification(ParticipantObjectIdentificationType participantObject) {

@@ -77,6 +77,7 @@ import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -252,6 +253,12 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         assertEquals("ParticipantPatient.ParticipantObjectIDTypeCode.DisplayName mismatch",
             PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME,
             participantQuery.getParticipantObjectIDTypeCode().getDisplayName());
+        assertNull("ParticipantPatient.ParticipantObjectName is not null",
+            participantPatient.getParticipantObjectName());
+        assertNull("ParticipantQuery.ParticipantObjectName is not null",
+            participantQuery.getParticipantObjectName());
+        assertNotNull("ParticipantQuery.ParticipantObjectQuery is null",
+            participantQuery.getParticipantObjectQuery());
     }
 
     private PRPAIN201305UV02 createPRPAIN201305UV02Request() {
