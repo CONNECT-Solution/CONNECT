@@ -64,21 +64,13 @@ public abstract class BaseInboundDocRetrieve implements InboundDocRetrieve {
     abstract public InboundDocRetrieveOrchestratable createInboundOrchestrable(RetrieveDocumentSetRequestType body,
         AssertionType assertion, Properties webContextProperties);
 
-    public void auditResponse(Orchestratable message) {
-        if (message instanceof InboundDocRetrieveOrchestratable) {
-            InboundDocRetrieveOrchestratable message_InboundDocRetrieveOrchestratable = (InboundDocRetrieveOrchestratable) message;
-            docRetrieveAuditLogger.auditResponseMessage(message_InboundDocRetrieveOrchestratable.getRequest(),
-                message_InboundDocRetrieveOrchestratable.getResponse(), message.getAssertion(), null,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                Boolean.FALSE, message_InboundDocRetrieveOrchestratable.getWebContextProperties(),
-                NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
-
-        }
+    public void auditResponse(RetrieveDocumentSetRequestType request, RetrieveDocumentSetResponseType response, AssertionType assertion, Properties webContextProperties) {
+        docRetrieveAuditLogger.auditResponseMessage(request, response, assertion, null,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+            Boolean.FALSE, webContextProperties,
+            NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
     }
 
-    @InboundProcessingEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
-        afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class,
-        serviceType = "Retrieve Document", version = "")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
         AssertionType assertion, Properties webContextProperties) {
 
@@ -86,7 +78,7 @@ public abstract class BaseInboundDocRetrieve implements InboundDocRetrieve {
 
         InboundDocRetrieveOrchestratable orchResponse = (InboundDocRetrieveOrchestratable) getOrchestrator().process(
             inboundOrchestrable);
-        auditResponse(orchResponse);
+        auditResponse(body, orchResponse.getResponse(), assertion, webContextProperties);
 
         return orchResponse.getResponse();
     }

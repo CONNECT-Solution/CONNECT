@@ -26,9 +26,11 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.outbound;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import org.apache.commons.lang.StringUtils;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -36,6 +38,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper;
 import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper.ErrorCodes;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
@@ -89,16 +92,11 @@ public class AbstractOutboundDocRetrieve {
         return response;
     }
 
-    public void auditRequest(Orchestratable message) {
+    public void auditRequest(RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
 
-        if (message instanceof OutboundDocRetrieveOrchestratable) {
-            OutboundDocRetrieveOrchestratable EntityDROrchImp_g0Message = (OutboundDocRetrieveOrchestratable) message;
-            docRetrieveAuditLogger.auditRequestMessage(EntityDROrchImp_g0Message.getRequest(),
-                EntityDROrchImp_g0Message.getAssertion(), EntityDROrchImp_g0Message.getTarget(),
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                Boolean.TRUE, null, NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
-
-        }
+        docRetrieveAuditLogger.auditRequestMessage(request, assertion, targetSystem,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+            Boolean.TRUE, null, NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
 
     }
 }

@@ -54,15 +54,15 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
     private final IPropertyAcessor propertyAcessor;
 
     /**
-	 *
-	 */
+     *
+     */
     public CONNECTOrchestrationBase() {
         propertyAcessor = PropertyAccessor.getInstance();
     }
 
     /**
-		 *
-		 */
+     *
+     */
     public CONNECTOrchestrationBase(IPropertyAcessor propertyAccesor) {
         propertyAcessor = propertyAccesor;
     }
@@ -80,14 +80,9 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
 
     public Orchestratable processNotNullMessage(Orchestratable message) {
         Orchestratable resp = null;
-        // audit
-        LOG.debug("Calling audit for " + message.getServiceName());
-        auditRequest(message);
 
         resp = processEnabledMessage(message);
-        // audit again
-        LOG.debug("Calling audit response for " + message.getServiceName());
-        auditResponse(message);
+
         LOG.debug("Returning from CONNECTNhinOrchestrator for " + message.getServiceName());
         return resp;
     }
@@ -168,28 +163,6 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
     /*
      * Begin Audit Methods
      */
-    protected AcknowledgementType auditRequest(Orchestratable message) {
-        AcknowledgementType resp = null;
-
-        if (message != null && message.getAuditTransformer() != null) {
-            AuditTransformer transformer = message.getAuditTransformer();
-            transformer.transformRequest(message);
-            
-        }
-        return resp;
-    }
-
-    protected AcknowledgementType auditResponse(Orchestratable message) {
-        AcknowledgementType resp = null;
-
-        if (message != null && message.getAuditTransformer() != null) {
-            AuditTransformer transformer = message.getAuditTransformer();
-            transformer.transformResponse(message);
-            
-        }
-        return resp;
-    }
-
     private AcknowledgementType audit(LogEventRequestType message, AssertionType assertion) {
         LOG.debug("Entering CONNECTNhinOrchestrator.audit(...)");
         AcknowledgementType ack = null;

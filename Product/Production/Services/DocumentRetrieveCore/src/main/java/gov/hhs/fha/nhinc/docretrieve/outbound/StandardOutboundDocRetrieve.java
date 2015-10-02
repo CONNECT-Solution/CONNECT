@@ -78,23 +78,25 @@ public class StandardOutboundDocRetrieve extends AbstractOutboundDocRetrieve imp
      */
     @Override
     @OutboundProcessingEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class, afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, serviceType = "Retrieve Document", version = "")
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType request,
         AssertionType assertion, NhinTargetCommunitiesType targets, ADAPTER_API_LEVEL entityAPILevel) {
 
         RetrieveDocumentSetResponseType response = null;
+        NhinTargetSystemType target = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
+            targets);
+        auditRequest(request, assertion, target);
         if (validateGuidance(targets, entityAPILevel)) {
 
             PolicyTransformer pt = new OutboundDocRetrievePolicyTransformer_a0();
             AuditTransformer at = new OutboundDocRetrieveAuditTransformer_a0();
             OutboundDelegate nd = new OutboundDocRetrieveDelegate();
             NhinAggregator na = new OutboundDocRetrieveAggregator_a0();
-            NhinTargetSystemType target = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
-                targets);
+
             OutboundDocRetrieveOrchestratable orchestratable = new OutboundStandardDocRetrieveOrchestratable(pt, at,
-                nd, na, body, assertion, target);
+                nd, na, request, assertion, target);
             OutboundDocRetrieveOrchestratable orchResponse = (OutboundDocRetrieveOrchestratable) orchestrator
                 .process(orchestratable);
-            auditRequest(orchResponse);
+
             response = orchResponse.getResponse();
         } else {
             response = createGuidanceErrorResponse(entityAPILevel);

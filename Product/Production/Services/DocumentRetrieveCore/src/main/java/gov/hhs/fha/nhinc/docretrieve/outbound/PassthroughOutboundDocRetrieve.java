@@ -82,10 +82,10 @@ public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve 
         ADAPTER_API_LEVEL entityAPILevel) {
 
         RetrieveDocumentSetResponseType response = null;
+        NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
+            targets);
+        auditRequest(request, assertion, targetSystem);
         if (validateGuidance(targets, entityAPILevel)) {
-
-            NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
-                targets);
 
             OutboundDocRetrieveDelegate delegate = new OutboundDocRetrieveDelegate();
             OutboundDocRetrieveOrchestratable orchestratable = new OutboundPassthroughDocRetrieveOrchestratable(null,
@@ -93,7 +93,7 @@ public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve 
 
             OutboundDocRetrieveOrchestratable orchResponse = (OutboundDocRetrieveOrchestratable) orchestrator
                 .process(orchestratable);
-            auditRequest(orchResponse);
+
             response = orchResponse.getResponse();
 
             try {
