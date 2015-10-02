@@ -53,12 +53,30 @@ import static org.mockito.Mockito.eq;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+import org.junit.Before;
+import org.mockito.Mockito;
 
 /**
  * @author akong
  *
  */
 public class StandardInboundDocRetrieveTest {
+
+    Properties webContextProp;
+    NhinTargetSystemType nhinTargetSystemType;
+    DocRetrieveAuditLogger logger;
+    AssertionType assertionType;
+    RetrieveDocumentSetRequestType retrieveDocumentSetRequestType;
+    RetrieveDocumentSetResponseType retrieveDocumentSetResponseType;
+
+    @Before
+    public void setup() {
+        retrieveDocumentSetRequestType = mock(RetrieveDocumentSetRequestType.class);
+        retrieveDocumentSetResponseType = mock(RetrieveDocumentSetResponseType.class);
+        webContextProp = mock(Properties.class);
+        nhinTargetSystemType = mock(NhinTargetSystemType.class);
+        assertionType = mock(AssertionType.class);
+    }
 
     @Test
     public void hasInboundProcessingEvent() throws Exception {
@@ -79,15 +97,10 @@ public class StandardInboundDocRetrieveTest {
         AssertionType assertion = new AssertionType();
         RetrieveDocumentSetResponseType expectedResponse = new RetrieveDocumentSetResponseType();
         Properties webContextProperties = new Properties();
-        DocRetrieveAuditLogger logger = mock(DocRetrieveAuditLogger.class);
+
         // creating mocks for necessary arguments
-        AssertionType assertionType = mock(AssertionType.class);
         InboundDocRetrieveOrchestratable message = mock(InboundDocRetrieveOrchestratable.class);
         AdapterDocRetrieveProxy adapterProxy = mock(AdapterDocRetrieveProxy.class);
-        RetrieveDocumentSetRequestType retrieveDocumentSetRequestType = mock(RetrieveDocumentSetRequestType.class);
-        RetrieveDocumentSetResponseType retrieveDocumentSetResponseType = mock(RetrieveDocumentSetResponseType.class);
-        Properties webContextProp = null;
-        NhinTargetSystemType nhinTargetSystemType = null;
 
         InboundDocRetrievePolicyTransformer_g0 pt = new InboundDocRetrievePolicyTransformer_g0();
         InboundDocRetrieveDelegate ad = new InboundDocRetrieveDelegate();
@@ -103,16 +116,26 @@ public class StandardInboundDocRetrieveTest {
         when(orchestratable.getResponse()).thenReturn(expectedResponse);
 
         // Actual Invocation
-        StandardInboundDocRetrieve inboundDocRetrieve = new StandardInboundDocRetrieve(pt, ad, orch);
+        StandardInboundDocRetrieve inboundDocRetrieve = new StandardInboundDocRetrieve(pt, ad, orch) {
+            @Override
+            protected DocRetrieveAuditLogger getLogger() {
+                logger = mock(DocRetrieveAuditLogger.class);
+                return logger;
+            }
+        };
+
         RetrieveDocumentSetResponseType actualResponse = inboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(
             request, assertion, webContextProperties);
 
         // Verify response is expected
         assertSame(expectedResponse, actualResponse);
 
-//        verify(logger).auditResponseMessage(request, actualResponse, eq(assertionType), eq(nhinTargetSystemType),
-//            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-//            eq(Boolean.FALSE), eq(webContextProp), eq("RetrieveDocuments"));
+        verify(logger).auditResponseMessage(eq(request),
+            eq(actualResponse), eq(assertion),
+            Mockito.any(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
+            eq(NhincConstants.DOC_RETRIEVE_SERVICE_NAME));
+
         // Verify that the orchestrator is processing the correct orchestratable
         ArgumentCaptor< InboundDocRetrieveOrchestratable> orchArgument = ArgumentCaptor
             .forClass(InboundDocRetrieveOrchestratable.class);

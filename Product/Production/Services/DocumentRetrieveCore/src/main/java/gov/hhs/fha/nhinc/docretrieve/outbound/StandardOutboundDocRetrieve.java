@@ -85,23 +85,25 @@ public class StandardOutboundDocRetrieve extends AbstractOutboundDocRetrieve imp
             PolicyTransformer pt = new OutboundDocRetrievePolicyTransformer_a0();
             OutboundDelegate nd = new OutboundDocRetrieveDelegate();
             NhinAggregator na = new OutboundDocRetrieveAggregator_a0();
-            NhinTargetSystemType target = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
-                targets);
-            auditRequest(request, assertion, target);
+            auditRequest(request, assertion, getTarget(targets));
             OutboundDocRetrieveOrchestratable orchestratable = new OutboundStandardDocRetrieveOrchestratable(pt,
-                nd, na, request, assertion, target);
+                nd, na, request, assertion, getTarget(targets));
             OutboundDocRetrieveOrchestratable orchResponse = (OutboundDocRetrieveOrchestratable) orchestrator
                 .process(orchestratable);
 
             response = orchResponse.getResponse();
 
         } else {
-            NhinTargetSystemType target = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
-                targets);
-            auditRequest(request, assertion, target);
+
+            auditRequest(request, assertion, getTarget(targets));
             response = createGuidanceErrorResponse(entityAPILevel);
         }
         return response;
+    }
+
+    private NhinTargetSystemType getTarget(NhinTargetCommunitiesType targets) {
+        return MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
+            targets);
     }
 
 }

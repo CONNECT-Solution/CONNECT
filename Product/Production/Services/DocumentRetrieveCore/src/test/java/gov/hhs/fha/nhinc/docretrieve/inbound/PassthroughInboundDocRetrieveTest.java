@@ -30,25 +30,47 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.util.Properties;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveDelegate;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrievePolicyTransformer_g0;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.CONNECTInboundOrchestrator;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import org.junit.Before;
+import static org.mockito.Matchers.eq;
+import org.mockito.Mockito;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 /**
  * @author akong
  *
  */
 public class PassthroughInboundDocRetrieveTest {
+
+    Properties webContextProp;
+    NhinTargetSystemType nhinTargetSystemType;
+    DocRetrieveAuditLogger logger;
+    AssertionType assertionType;
+    RetrieveDocumentSetRequestType retrieveDocumentSetRequestType;
+    RetrieveDocumentSetResponseType retrieveDocumentSetResponseType;
+
+    @Before
+    public void setup() {
+        retrieveDocumentSetRequestType = mock(RetrieveDocumentSetRequestType.class);
+        retrieveDocumentSetResponseType = mock(RetrieveDocumentSetResponseType.class);
+        webContextProp = mock(Properties.class);
+        nhinTargetSystemType = mock(NhinTargetSystemType.class);
+        assertionType = mock(AssertionType.class);
+    }
 
     @Test
     public void invoke() {
@@ -72,12 +94,24 @@ public class PassthroughInboundDocRetrieveTest {
         when(orchestratable.getResponse()).thenReturn(expectedResponse);
 
         // Actual Invocation
-        PassthroughInboundDocRetrieve inboundDocRetrieve = new PassthroughInboundDocRetrieve(pt, ad, orch);
+        PassthroughInboundDocRetrieve inboundDocRetrieve = new PassthroughInboundDocRetrieve(pt, ad, orch) {
+            @Override
+            protected DocRetrieveAuditLogger getLogger() {
+                logger = mock(DocRetrieveAuditLogger.class);
+                return logger;
+            }
+        };
         RetrieveDocumentSetResponseType actualResponse = inboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(
             request, assertion, webContextProperties);
 
         // Verify response is expected
         assertSame(expectedResponse, actualResponse);
+
+        verify(logger).auditResponseMessage(eq(request),
+            eq(actualResponse), eq(assertion),
+            Mockito.any(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
+            eq(NhincConstants.DOC_RETRIEVE_SERVICE_NAME));
 
         // Verify that the orchestrator is processing the correct passthru orchestratable
         ArgumentCaptor<InboundDocRetrieveOrchestratable> orchArgument = ArgumentCaptor

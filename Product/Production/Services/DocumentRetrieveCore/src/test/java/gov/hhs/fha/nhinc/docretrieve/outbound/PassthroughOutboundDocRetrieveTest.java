@@ -26,26 +26,28 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.outbound;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
-import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.orchestration.CONNECTOutboundOrchestrator;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
-import java.lang.reflect.Method;
+import java.util.Properties;
+import org.junit.Before;
 
 import org.junit.Test;
+import static org.mockito.Matchers.eq;
+import org.mockito.Mockito;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 /**
  * @author achidamb, mweaver
@@ -53,7 +55,21 @@ import org.junit.Test;
  */
 public class PassthroughOutboundDocRetrieveTest extends AbstractOutboundDocRetrieveTest {
 
+    Properties webContextProp;
+    NhinTargetSystemType nhinTargetSystemType;
+    DocRetrieveAuditLogger logger;
+    AssertionType assertionType;
+    RetrieveDocumentSetRequestType retrieveDocumentSetRequestType;
+    RetrieveDocumentSetResponseType retrieveDocumentSetResponseType;
 
+    @Before
+    public void setup() {
+        retrieveDocumentSetRequestType = mock(RetrieveDocumentSetRequestType.class);
+        retrieveDocumentSetResponseType = mock(RetrieveDocumentSetResponseType.class);
+        webContextProp = null;
+        nhinTargetSystemType = mock(NhinTargetSystemType.class);
+        assertionType = mock(AssertionType.class);
+    }
 
     @Test
     public void invoke() {
@@ -70,12 +86,24 @@ public class PassthroughOutboundDocRetrieveTest extends AbstractOutboundDocRetri
 
         when(orchResponse.getResponse()).thenReturn(expectedResponse);
 
-        PassthroughOutboundDocRetrieve outboundDocRetrieve = new PassthroughOutboundDocRetrieve(orchestrator);
+        PassthroughOutboundDocRetrieve outboundDocRetrieve = new PassthroughOutboundDocRetrieve(orchestrator) {
+            @Override
+            protected DocRetrieveAuditLogger getLogger() {
+                logger = mock(DocRetrieveAuditLogger.class);
+                return logger;
+            }
+        };
 
         RetrieveDocumentSetResponseType actualResponse = outboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(
-                request, assertion, targets, ADAPTER_API_LEVEL.LEVEL_a0);
+            request, assertion, targets, ADAPTER_API_LEVEL.LEVEL_a0);
 
         assertSame(expectedResponse, actualResponse);
+
+        verify(logger).auditRequestMessage(eq(request),
+            eq(assertion),
+            Mockito.any(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE), eq(webContextProp),
+            eq(NhincConstants.DOC_RETRIEVE_SERVICE_NAME));
     }
 
     /* (non-Javadoc)

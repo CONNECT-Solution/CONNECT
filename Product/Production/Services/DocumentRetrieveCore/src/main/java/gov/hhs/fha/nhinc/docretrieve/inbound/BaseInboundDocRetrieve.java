@@ -26,17 +26,14 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.inbound;
 
+import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import java.util.Properties;
 
-import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
-import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.CONNECTInboundOrchestrator;
-import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
@@ -65,7 +62,7 @@ public abstract class BaseInboundDocRetrieve implements InboundDocRetrieve {
         AssertionType assertion, Properties webContextProperties);
 
     public void auditResponse(RetrieveDocumentSetRequestType request, RetrieveDocumentSetResponseType response, AssertionType assertion, Properties webContextProperties) {
-        docRetrieveAuditLogger.auditResponseMessage(request, response, assertion, null,
+        getLogger().auditResponseMessage(request, response, assertion, null,
             NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
             Boolean.FALSE, webContextProperties,
             NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
@@ -81,5 +78,9 @@ public abstract class BaseInboundDocRetrieve implements InboundDocRetrieve {
         auditResponse(body, orchResponse.getResponse(), assertion, webContextProperties);
 
         return orchResponse.getResponse();
+    }
+
+    protected DocRetrieveAuditLogger getLogger() {
+        return new DocRetrieveAuditLogger();
     }
 }
