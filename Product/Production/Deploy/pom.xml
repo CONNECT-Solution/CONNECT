@@ -28,48 +28,6 @@
     </reporting>
 
     <dependencies>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>CONNECTCommonWeb</artifactId>
-            <version>${project.parent.version}</version>
-            <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>CONNECTGatewayWeb</artifactId>
-            <version>${project.parent.version}</version>
-            <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>CONNECTAdapterWeb</artifactId>
-            <version>${project.parent.version}</version>
-            <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>AuditRepositoryCore</artifactId>
-            <version>${project.parent.version}</version>
-            <type>ejb</type>
-        </dependency>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>CONNECTCommonWeb</artifactId>
-            <version>${project.parent.version}</version>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>CONNECTGatewayWeb</artifactId>
-            <version>${project.parent.version}</version>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>CONNECTAdapterWeb</artifactId>
-            <version>${project.parent.version}</version>
-            <type>pom</type>
-        </dependency>
 
         <!-- Security -->
         <dependency>
@@ -113,7 +71,6 @@
 
     <build>
         <finalName>${project.artifactId}</finalName>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -121,27 +78,6 @@
                 <configuration>
                     <applicationName>CONNECT</applicationName>
                     <initialize-in-order>true</initialize-in-order>
-                    <modules>
-                        <ejbModule>
-                            <groupId>org.connectopensource</groupId>
-                            <artifactId>AuditRepositoryCore</artifactId>
-                        </ejbModule>
-                        <webModule>
-                            <groupId>org.connectopensource</groupId>
-                            <artifactId>CONNECTCommonWeb</artifactId>
-                            <contextRoot>/CONNECTCommon</contextRoot>
-                        </webModule>
-                        <webModule>
-                            <groupId>org.connectopensource</groupId>
-                            <artifactId>CONNECTGatewayWeb</artifactId>
-                            <contextRoot>/CONNECTGateway</contextRoot>
-                        </webModule>
-                        <webModule>
-                            <groupId>org.connectopensource</groupId>
-                            <artifactId>CONNECTAdapterWeb</artifactId>
-                            <contextRoot>/CONNECTAdapter</contextRoot>
-                        </webModule>
-                    </modules>
                     <version>6</version>
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
                     <skinnyWars>true</skinnyWars>
