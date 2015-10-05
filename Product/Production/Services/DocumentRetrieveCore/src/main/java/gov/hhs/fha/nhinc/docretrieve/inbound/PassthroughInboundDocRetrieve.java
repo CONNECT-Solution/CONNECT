@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.docretrieve.inbound;
 import java.util.Properties;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveDelegate;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrievePolicyTransformer_g0;
@@ -44,7 +43,6 @@ public class PassthroughInboundDocRetrieve extends BaseInboundDocRetrieve {
     private final PolicyTransformer pt;
     private final InboundDelegate ad;
     private final CONNECTInboundOrchestrator orch;
-    DocRetrieveAuditLogger docRetrieveAuditLogger = new DocRetrieveAuditLogger();
 
     /**
      * Constructor.

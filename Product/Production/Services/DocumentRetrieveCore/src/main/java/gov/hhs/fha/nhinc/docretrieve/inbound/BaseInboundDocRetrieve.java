@@ -26,9 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.inbound;
 
-import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import java.util.Properties;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveOrchestratable;
@@ -43,6 +41,8 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
  */
 public abstract class BaseInboundDocRetrieve implements InboundDocRetrieve {
 
+    private DocRetrieveAuditLogger docRetrieveAuditLogger;
+
     /**
      * Returns the orchestrator.
      *
@@ -50,7 +50,9 @@ public abstract class BaseInboundDocRetrieve implements InboundDocRetrieve {
      */
     abstract CONNECTInboundOrchestrator getOrchestrator();
 
-    DocRetrieveAuditLogger docRetrieveAuditLogger = new DocRetrieveAuditLogger();
+    public BaseInboundDocRetrieve() {
+        docRetrieveAuditLogger = new DocRetrieveAuditLogger();
+    }
 
     /**
      * Creates the inbound orchestratable instance to be used by the orchestrator.
@@ -83,6 +85,6 @@ public abstract class BaseInboundDocRetrieve implements InboundDocRetrieve {
     }
 
     protected DocRetrieveAuditLogger getLogger() {
-        return new DocRetrieveAuditLogger();
+        return docRetrieveAuditLogger;
     }
 }

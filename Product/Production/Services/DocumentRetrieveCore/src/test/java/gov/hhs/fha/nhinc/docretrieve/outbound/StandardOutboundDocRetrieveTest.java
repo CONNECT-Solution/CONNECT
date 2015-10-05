@@ -62,19 +62,11 @@ import static org.mockito.Mockito.verify;
 public class StandardOutboundDocRetrieveTest extends AbstractOutboundDocRetrieveTest {
 
     Properties webContextProp;
-    NhinTargetSystemType nhinTargetSystemType;
     DocRetrieveAuditLogger logger;
-    AssertionType assertionType;
-    RetrieveDocumentSetRequestType retrieveDocumentSetRequestType;
-    RetrieveDocumentSetResponseType retrieveDocumentSetResponseType;
 
     @Before
     public void setup() {
-        retrieveDocumentSetRequestType = mock(RetrieveDocumentSetRequestType.class);
-        retrieveDocumentSetResponseType = mock(RetrieveDocumentSetResponseType.class);
         webContextProp = null;
-        nhinTargetSystemType = mock(NhinTargetSystemType.class);
-        assertionType = mock(AssertionType.class);
     }
 
     @Test

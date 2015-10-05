@@ -28,14 +28,11 @@ package gov.hhs.fha.nhinc.docretrieve.outbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import org.apache.commons.lang.StringUtils;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
-import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
-import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper;
 import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper.ErrorCodes;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
@@ -47,11 +44,14 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
  */
 public class AbstractOutboundDocRetrieve {
 
+    private DocRetrieveAuditLogger docRetrieveAuditLogger;
+
     /**
      *
      */
     public AbstractOutboundDocRetrieve() {
         super();
+        docRetrieveAuditLogger = new DocRetrieveAuditLogger();
     }
 
     /**
@@ -100,6 +100,6 @@ public class AbstractOutboundDocRetrieve {
     }
 
     protected DocRetrieveAuditLogger getLogger() {
-        return new DocRetrieveAuditLogger();
+        return docRetrieveAuditLogger;
     }
 }

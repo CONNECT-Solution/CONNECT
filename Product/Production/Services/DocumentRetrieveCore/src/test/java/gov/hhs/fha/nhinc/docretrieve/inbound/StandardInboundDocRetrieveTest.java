@@ -62,21 +62,7 @@ import org.mockito.Mockito;
  */
 public class StandardInboundDocRetrieveTest {
 
-    Properties webContextProp;
-    NhinTargetSystemType nhinTargetSystemType;
     DocRetrieveAuditLogger logger;
-    AssertionType assertionType;
-    RetrieveDocumentSetRequestType retrieveDocumentSetRequestType;
-    RetrieveDocumentSetResponseType retrieveDocumentSetResponseType;
-
-    @Before
-    public void setup() {
-        retrieveDocumentSetRequestType = mock(RetrieveDocumentSetRequestType.class);
-        retrieveDocumentSetResponseType = mock(RetrieveDocumentSetResponseType.class);
-        webContextProp = mock(Properties.class);
-        nhinTargetSystemType = mock(NhinTargetSystemType.class);
-        assertionType = mock(AssertionType.class);
-    }
 
     @Test
     public void hasInboundProcessingEvent() throws Exception {
