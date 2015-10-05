@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docretrieve.inbound;
 import java.util.Properties;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveDelegate;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrievePolicyTransformer_g0;
@@ -43,6 +44,7 @@ public class PassthroughInboundDocRetrieve extends BaseInboundDocRetrieve {
     private final PolicyTransformer pt;
     private final InboundDelegate ad;
     private final CONNECTInboundOrchestrator orch;
+    private final DocRetrieveAuditLogger auditLogger;
 
     /**
      * Constructor.
@@ -51,7 +53,7 @@ public class PassthroughInboundDocRetrieve extends BaseInboundDocRetrieve {
         pt = new InboundDocRetrievePolicyTransformer_g0();
         ad = new InboundDocRetrieveDelegate();
         orch = new CONNECTInboundOrchestrator();
-
+        auditLogger = new DocRetrieveAuditLogger();
     }
 
     /**
@@ -62,10 +64,11 @@ public class PassthroughInboundDocRetrieve extends BaseInboundDocRetrieve {
      * @param orch
      */
     public PassthroughInboundDocRetrieve(PolicyTransformer pt, InboundDelegate ad,
-        CONNECTInboundOrchestrator orch) {
+        CONNECTInboundOrchestrator orch, DocRetrieveAuditLogger auditLogger) {
         this.pt = pt;
         this.ad = ad;
         this.orch = orch;
+        this.auditLogger = auditLogger;
     }
 
     /*
@@ -95,4 +98,8 @@ public class PassthroughInboundDocRetrieve extends BaseInboundDocRetrieve {
         return orch;
     }
 
+    @Override
+    DocRetrieveAuditLogger getAuditLogger() {
+        return auditLogger;
+    }
 }

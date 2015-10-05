@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveAggregator_a0;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveDelegate;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
@@ -50,12 +51,14 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 public class StandardOutboundDocRetrieve extends AbstractOutboundDocRetrieve implements OutboundDocRetrieve {
 
     private final CONNECTOutboundOrchestrator orchestrator;
+    private final DocRetrieveAuditLogger auditLogger;
 
     /**
      * Constructor.
      */
     public StandardOutboundDocRetrieve() {
         orchestrator = new OutboundStandardDocRetrieveOrchestrator();
+        auditLogger = new DocRetrieveAuditLogger();
     }
 
     /**
@@ -63,8 +66,9 @@ public class StandardOutboundDocRetrieve extends AbstractOutboundDocRetrieve imp
      *
      * @param orchestrator
      */
-    public StandardOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator) {
+    public StandardOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator, DocRetrieveAuditLogger auditLogger) {
         this.orchestrator = orchestrator;
+        this.auditLogger = auditLogger;
     }
 
     /*
@@ -104,6 +108,11 @@ public class StandardOutboundDocRetrieve extends AbstractOutboundDocRetrieve imp
     private NhinTargetSystemType getTarget(NhinTargetCommunitiesType targets) {
         return MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
             targets);
+    }
+
+    @Override
+    DocRetrieveAuditLogger getAuditLogger() {
+        return auditLogger;
     }
 
 }

@@ -62,6 +62,11 @@ public class PassthroughInboundDocRetrieveTest {
     RetrieveDocumentSetRequestType retrieveDocumentSetRequestType;
     RetrieveDocumentSetResponseType retrieveDocumentSetResponseType;
 
+    @Before
+    public void setup() {
+        logger = mock(DocRetrieveAuditLogger.class);
+    }
+
     @Test
     public void invoke() {
         RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
@@ -84,13 +89,7 @@ public class PassthroughInboundDocRetrieveTest {
         when(orchestratable.getResponse()).thenReturn(expectedResponse);
 
         // Actual Invocation
-        PassthroughInboundDocRetrieve inboundDocRetrieve = new PassthroughInboundDocRetrieve(pt, ad, orch) {
-            @Override
-            protected DocRetrieveAuditLogger getLogger() {
-                logger = mock(DocRetrieveAuditLogger.class);
-                return logger;
-            }
-        };
+        PassthroughInboundDocRetrieve inboundDocRetrieve = new PassthroughInboundDocRetrieve(pt, ad, orch, logger);
         RetrieveDocumentSetResponseType actualResponse = inboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(
             request, assertion, webContextProperties);
 
@@ -112,4 +111,5 @@ public class PassthroughInboundDocRetrieveTest {
         assertEquals(ad, orchArgument.getValue().getDelegate());
         assertTrue(orchArgument.getValue().isPassthru());
     }
+
 }

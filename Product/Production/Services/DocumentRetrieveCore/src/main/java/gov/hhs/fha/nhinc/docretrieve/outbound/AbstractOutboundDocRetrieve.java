@@ -42,7 +42,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
  * @author msw
  *
  */
-public class AbstractOutboundDocRetrieve {
+public abstract class AbstractOutboundDocRetrieve {
 
     private DocRetrieveAuditLogger docRetrieveAuditLogger;
 
@@ -51,6 +51,10 @@ public class AbstractOutboundDocRetrieve {
      */
     public AbstractOutboundDocRetrieve() {
         super();
+        docRetrieveAuditLogger = new DocRetrieveAuditLogger();
+    }
+
+    public AbstractOutboundDocRetrieve(DocRetrieveAuditLogger docRetrieveAuditLogger) {
         docRetrieveAuditLogger = new DocRetrieveAuditLogger();
     }
 
@@ -93,13 +97,11 @@ public class AbstractOutboundDocRetrieve {
     public void auditRequest(RetrieveDocumentSetRequestType request, AssertionType assertion,
         NhinTargetSystemType targetSystem) {
 
-        getLogger().auditRequestMessage(request, assertion, targetSystem,
+        getAuditLogger().auditRequestMessage(request, assertion, targetSystem,
             NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
             Boolean.TRUE, null, NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
 
     }
 
-    protected DocRetrieveAuditLogger getLogger() {
-        return docRetrieveAuditLogger;
-    }
+    abstract DocRetrieveAuditLogger getAuditLogger();
 }

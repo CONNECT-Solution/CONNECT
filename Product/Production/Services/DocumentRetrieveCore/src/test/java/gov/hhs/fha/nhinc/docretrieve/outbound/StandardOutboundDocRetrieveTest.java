@@ -67,6 +67,7 @@ public class StandardOutboundDocRetrieveTest extends AbstractOutboundDocRetrieve
     @Before
     public void setup() {
         webContextProp = null;
+        logger = mock(DocRetrieveAuditLogger.class);
     }
 
     @Test
@@ -97,14 +98,7 @@ public class StandardOutboundDocRetrieveTest extends AbstractOutboundDocRetrieve
 
         when(orchResponse.getResponse()).thenReturn(expectedResponse);
 
-        StandardOutboundDocRetrieve outboundDocRetrieve = new StandardOutboundDocRetrieve(orchestrator) {
-            @Override
-            protected DocRetrieveAuditLogger getLogger() {
-                logger = mock(DocRetrieveAuditLogger.class);
-                return logger;
-            }
-        };
-
+        StandardOutboundDocRetrieve outboundDocRetrieve = new StandardOutboundDocRetrieve(orchestrator, logger);
         RetrieveDocumentSetResponseType actualResponse = outboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(
             request, assertion, targets, ADAPTER_API_LEVEL.LEVEL_a0);
 
@@ -123,6 +117,6 @@ public class StandardOutboundDocRetrieveTest extends AbstractOutboundDocRetrieve
      */
     @Override
     protected OutboundDocRetrieve getOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator) {
-        return new PassthroughOutboundDocRetrieve(orchestrator);
+        return new PassthroughOutboundDocRetrieve(orchestrator, logger);
     }
 }

@@ -64,6 +64,11 @@ public class StandardInboundDocRetrieveTest {
 
     DocRetrieveAuditLogger logger;
 
+    @Before
+    public void setup() {
+        logger = mock(DocRetrieveAuditLogger.class);
+    }
+
     @Test
     public void hasInboundProcessingEvent() throws Exception {
         Class<StandardInboundDocRetrieve> clazz = StandardInboundDocRetrieve.class;
@@ -102,13 +107,7 @@ public class StandardInboundDocRetrieveTest {
         when(orchestratable.getResponse()).thenReturn(expectedResponse);
 
         // Actual Invocation
-        StandardInboundDocRetrieve inboundDocRetrieve = new StandardInboundDocRetrieve(pt, ad, orch) {
-            @Override
-            protected DocRetrieveAuditLogger getLogger() {
-                logger = mock(DocRetrieveAuditLogger.class);
-                return logger;
-            }
-        };
+        StandardInboundDocRetrieve inboundDocRetrieve = new StandardInboundDocRetrieve(pt, ad, orch, logger);
 
         RetrieveDocumentSetResponseType actualResponse = inboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(
             request, assertion, webContextProperties);

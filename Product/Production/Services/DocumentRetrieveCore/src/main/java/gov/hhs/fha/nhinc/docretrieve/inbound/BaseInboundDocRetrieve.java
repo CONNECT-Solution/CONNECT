@@ -54,6 +54,10 @@ public abstract class BaseInboundDocRetrieve implements InboundDocRetrieve {
         docRetrieveAuditLogger = new DocRetrieveAuditLogger();
     }
 
+    public BaseInboundDocRetrieve(DocRetrieveAuditLogger auditLogger) {
+        docRetrieveAuditLogger = auditLogger;
+    }
+
     /**
      * Creates the inbound orchestratable instance to be used by the orchestrator.
      *
@@ -65,7 +69,7 @@ public abstract class BaseInboundDocRetrieve implements InboundDocRetrieve {
 
     public void auditResponse(RetrieveDocumentSetRequestType request, RetrieveDocumentSetResponseType response,
         AssertionType assertion, Properties webContextProperties) {
-        getLogger().auditResponseMessage(request, response, assertion, null,
+        getAuditLogger().auditResponseMessage(request, response, assertion, null,
             NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
             Boolean.FALSE, webContextProperties,
             NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
@@ -84,7 +88,5 @@ public abstract class BaseInboundDocRetrieve implements InboundDocRetrieve {
         return orchResponse.getResponse();
     }
 
-    protected DocRetrieveAuditLogger getLogger() {
-        return docRetrieveAuditLogger;
-    }
+    abstract DocRetrieveAuditLogger getAuditLogger();
 }

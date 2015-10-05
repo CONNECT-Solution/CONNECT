@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveFileUtils;
 import gov.hhs.fha.nhinc.docretrieve.MessageGenerator;
+import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveDelegate;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundPassthroughDocRetrieveOrchestratable;
@@ -47,7 +48,7 @@ import org.apache.log4j.Logger;
 public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve implements OutboundDocRetrieve {
 
     private static final Logger LOG = Logger.getLogger(PassthroughOutboundDocRetrieve.class);
-
+    private final DocRetrieveAuditLogger auditLogger;
     private final CONNECTOutboundOrchestrator orchestrator;
 
     /**
@@ -55,6 +56,7 @@ public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve 
      */
     public PassthroughOutboundDocRetrieve() {
         orchestrator = new CONNECTOutboundOrchestrator();
+        auditLogger = new DocRetrieveAuditLogger();
     }
 
     /**
@@ -62,8 +64,9 @@ public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve 
      *
      * @param orchestrator
      */
-    public PassthroughOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator) {
+    public PassthroughOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator, DocRetrieveAuditLogger auditLogger) {
         this.orchestrator = orchestrator;
+        this.auditLogger = auditLogger;
     }
 
     /*
@@ -107,6 +110,11 @@ public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve 
         }
 
         return response;
+    }
+
+    @Override
+    DocRetrieveAuditLogger getAuditLogger() {
+        return auditLogger;
     }
 
 }

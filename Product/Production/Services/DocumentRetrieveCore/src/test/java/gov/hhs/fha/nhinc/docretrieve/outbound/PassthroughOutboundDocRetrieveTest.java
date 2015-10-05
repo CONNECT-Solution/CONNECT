@@ -64,11 +64,7 @@ public class PassthroughOutboundDocRetrieveTest extends AbstractOutboundDocRetri
 
     @Before
     public void setup() {
-        retrieveDocumentSetRequestType = mock(RetrieveDocumentSetRequestType.class);
-        retrieveDocumentSetResponseType = mock(RetrieveDocumentSetResponseType.class);
-        webContextProp = null;
-        nhinTargetSystemType = mock(NhinTargetSystemType.class);
-        assertionType = mock(AssertionType.class);
+        logger = mock(DocRetrieveAuditLogger.class);
     }
 
     @Test
@@ -86,13 +82,7 @@ public class PassthroughOutboundDocRetrieveTest extends AbstractOutboundDocRetri
 
         when(orchResponse.getResponse()).thenReturn(expectedResponse);
 
-        PassthroughOutboundDocRetrieve outboundDocRetrieve = new PassthroughOutboundDocRetrieve(orchestrator) {
-            @Override
-            protected DocRetrieveAuditLogger getLogger() {
-                logger = mock(DocRetrieveAuditLogger.class);
-                return logger;
-            }
-        };
+        PassthroughOutboundDocRetrieve outboundDocRetrieve = new PassthroughOutboundDocRetrieve(orchestrator, logger);
 
         RetrieveDocumentSetResponseType actualResponse = outboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(
             request, assertion, targets, ADAPTER_API_LEVEL.LEVEL_a0);
@@ -111,6 +101,6 @@ public class PassthroughOutboundDocRetrieveTest extends AbstractOutboundDocRetri
      */
     @Override
     protected OutboundDocRetrieve getOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator) {
-        return new PassthroughOutboundDocRetrieve(orchestrator);
+        return new PassthroughOutboundDocRetrieve(orchestrator, logger);
     }
 }
