@@ -159,29 +159,6 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
     /*
      * End Delegate Methods
      */
-
-    /*
-     * Begin Audit Methods
-     */
-    private AcknowledgementType audit(LogEventRequestType message, AssertionType assertion) {
-        LOG.debug("Entering CONNECTNhinOrchestrator.audit(...)");
-        AcknowledgementType ack = null;
-        try {
-            AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-            AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-
-            ack = proxy.auditLog(message, assertion);
-        } catch (Exception exc) {
-            LOG.error("Error: Failed to Audit message.", exc);
-        }
-        LOG.debug("Exiting AuditRCONNECTNhinOrchestratorepositoryLogger.audit(...)");
-        return ack;
-    }
-
-    /*
-     * End Audit Methods
-     */
-
     /*
      * Begin Policy Methods
      */
