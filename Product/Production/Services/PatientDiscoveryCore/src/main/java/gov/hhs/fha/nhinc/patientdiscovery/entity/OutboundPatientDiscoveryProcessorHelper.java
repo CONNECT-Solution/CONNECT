@@ -50,11 +50,11 @@ public class OutboundPatientDiscoveryProcessorHelper {
      * @return OutboundPatientDiscoveryOrchestratable
      */
     public static OutboundPatientDiscoveryOrchestratable createNewCumulativeResponse(
-            OutboundPatientDiscoveryOrchestratable request) {
+        OutboundPatientDiscoveryOrchestratable request) {
 
         OutboundPatientDiscoveryOrchestratable cumulativeResponse = new OutboundPatientDiscoveryOrchestratable(null,
-                Optional.<OutboundResponseProcessor> absent(), null, null, request.getAssertion(),
-                request.getServiceName(), request.getTarget(), request.getRequest());
+            Optional.<OutboundResponseProcessor>absent(), null, request.getAssertion(),
+            request.getServiceName(), request.getTarget(), request.getRequest());
 
         // create new cumulativeResponse object
         RespondingGatewayPRPAIN201306UV02ResponseType newResponse = new RespondingGatewayPRPAIN201306UV02ResponseType();

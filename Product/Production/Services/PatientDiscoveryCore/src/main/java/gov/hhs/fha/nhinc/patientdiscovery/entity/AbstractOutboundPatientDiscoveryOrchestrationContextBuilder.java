@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
@@ -45,13 +44,12 @@ import com.google.common.base.Preconditions;
  *
  */
 public abstract class AbstractOutboundPatientDiscoveryOrchestrationContextBuilder implements
-        OrchestrationContextBuilder {
+    OrchestrationContextBuilder {
 
     private NhinTargetSystemType target = null;
     private PRPAIN201305UV02 request = null;
     private AssertionType assertionType = null;
     private PolicyTransformer policyTransformer = null;
-    private AuditTransformer auditTransformer = null;
     private OutboundDelegate nhinDelegate = null;
     private Optional<OutboundResponseProcessor> nhinProcessor = Optional.absent();
     private String serviceName = "";
@@ -95,14 +93,6 @@ public abstract class AbstractOutboundPatientDiscoveryOrchestrationContextBuilde
 
     public void setPolicyTransformer(PolicyTransformer policyTransformer) {
         this.policyTransformer = policyTransformer;
-    }
-
-    protected AuditTransformer getAuditTransformer() {
-        return auditTransformer;
-    }
-
-    public void setAuditTransformer(AuditTransformer auditTransformer) {
-        this.auditTransformer = auditTransformer;
     }
 
     protected OutboundDelegate getNhinDelegate() {

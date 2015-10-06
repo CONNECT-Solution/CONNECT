@@ -63,39 +63,39 @@ public class OutboundPatientDiscoveryDelegate implements OutboundDelegate {
             return process((OutboundPatientDiscoveryOrchestratable) message);
         }
         LOG.error(
-                "NhinPatientDiscoveryDelegate message is not an instance of EntityPatientDiscoveryOrchestratable!");
+            "NhinPatientDiscoveryDelegate message is not an instance of EntityPatientDiscoveryOrchestratable!");
         return null;
     }
 
     public OutboundPatientDiscoveryOrchestratable process(OutboundPatientDiscoveryOrchestratable message) {
         LOG.debug("NhinPatientDiscoveryDelegate::process EntityPatientDiscoveryOrchestratable");
 
-        AbstractOutboundPatientDiscoveryOrchestrationContextBuilder contextBuilder =
-                (AbstractOutboundPatientDiscoveryOrchestrationContextBuilder) OrchestrationContextFactory
-                .getInstance().getBuilder(message.getTarget().getHomeCommunity(),
-                        NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
+        AbstractOutboundPatientDiscoveryOrchestrationContextBuilder contextBuilder
+            = (AbstractOutboundPatientDiscoveryOrchestrationContextBuilder) OrchestrationContextFactory
+            .getInstance().getBuilder(message.getTarget().getHomeCommunity(),
+                NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
 
         contextBuilder.setAssertionType(message.getAssertion());
         contextBuilder.setRequest(message.getRequest());
         contextBuilder.setTarget(message.getTarget());
         contextBuilder.setServiceName(message.getServiceName());
         contextBuilder.setPolicyTransformer(message.getPolicyTransformer());
-        contextBuilder.setAuditTransformer(message.getAuditTransformer());
         contextBuilder.setProcessor(message.getResponseProcessor());
 
         OutboundPatientDiscoveryOrchestratable response = (OutboundPatientDiscoveryOrchestratable) contextBuilder
-                .build().execute();
+            .build().execute();
 
         return response;
     }
 
-	/* (non-Javadoc)
-	 * @see gov.hhs.fha.nhinc.orchestration.OutboundDelegate#createErrorResponse(gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable, java.lang.String)
-	 */
-	@Override
-	public void createErrorResponse(OutboundOrchestratable message, String error) {
-		// TODO Auto-generated method stub
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.orchestration.OutboundDelegate#createErrorResponse(gov.hhs.fha.nhinc.orchestration.
+     OutboundOrchestratable, java.lang.String)
+     */
+    @Override
+    public void createErrorResponse(OutboundOrchestratable message, String error) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
 }

@@ -96,7 +96,7 @@ public class PassthroughOutboundPatientDiscovery implements OutboundPatientDisco
 
         try {
             OutboundPatientDiscoveryOrchestratable inMessage = new OutboundPatientDiscoveryOrchestratable(delegate,
-                Optional.<OutboundResponseProcessor>absent(), null, null, assertion,
+                Optional.<OutboundResponseProcessor>absent(), null, assertion,
                 NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, target, request);
             OutboundPatientDiscoveryOrchestratable outMessage = delegate.process(inMessage);
             response = outMessage.getResponse();
