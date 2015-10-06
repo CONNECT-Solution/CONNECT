@@ -33,7 +33,9 @@ package gov.hhs.fha.nhinc.docquery.entity;
  */
 // CHECKSTYLE:OFF
 public class OutboundDocQueryOrchestrationContextBuilder_g1 extends OutboundDocQueryOrchestrationContextBuilder {
+
     // CHECKSTYLE:ON
+
     /**
      * @return strategy for g1
      */
@@ -48,8 +50,8 @@ public class OutboundDocQueryOrchestrationContextBuilder_g1 extends OutboundDocQ
     @Override
     protected OutboundDocQueryOrchestratable getOrchestratable() {
         OutboundDocQueryOrchestratable_a1 orcha1 = new OutboundDocQueryOrchestratable_a1(getNhinDelegate(),
-                getAuditTransformer(), getPolicyTransformer(), getAssertionType(), getServiceName(),
-                getTargetSystemType(), getRequest());
+            getPolicyTransformer(), getAssertionType(), getServiceName(),
+            getTargetSystemType(), getRequest());
         return orcha1;
     }
 }

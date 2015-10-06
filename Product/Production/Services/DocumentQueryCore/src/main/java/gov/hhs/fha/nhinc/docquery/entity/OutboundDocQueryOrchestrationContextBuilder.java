@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.docquery.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
@@ -49,7 +48,6 @@ public abstract class OutboundDocQueryOrchestrationContextBuilder implements Orc
     private AdhocQueryRequest request = null;
     private AssertionType assertionType = null;
     private PolicyTransformer policyTransformer = null;
-    private AuditTransformer auditTransformer = null;
     private OutboundDelegate nhinDelegate = null;
     private Optional<OutboundResponseProcessor> nhinProcessor = Optional.absent();
     private String serviceName = "";
@@ -70,8 +68,7 @@ public abstract class OutboundDocQueryOrchestrationContextBuilder implements Orc
     protected abstract OutboundDocQueryStrategy getStrategy();
 
     /**
-     * @param t
-     *            NhinTarget community passed.
+     * @param t NhinTarget community passed.
      */
     public void setTarget(NhinTargetSystemType t) {
         this.target = t;
@@ -85,8 +82,7 @@ public abstract class OutboundDocQueryOrchestrationContextBuilder implements Orc
     }
 
     /**
-     * @param dqRequest
-     *            AdhocQUery Request received.
+     * @param dqRequest AdhocQUery Request received.
      */
     public void setRequest(AdhocQueryRequest dqRequest) {
         this.request = dqRequest;
@@ -107,8 +103,7 @@ public abstract class OutboundDocQueryOrchestrationContextBuilder implements Orc
     }
 
     /**
-     * @param assertionType
-     *            Assertion received.
+     * @param assertionType Assertion received.
      */
     public void setAssertionType(AssertionType assertionType) {
         this.assertionType = assertionType;
@@ -122,26 +117,10 @@ public abstract class OutboundDocQueryOrchestrationContextBuilder implements Orc
     }
 
     /**
-     * @param policyTransformer
-     *            policyTransformer received.
+     * @param policyTransformer policyTransformer received.
      */
     public void setPolicyTransformer(PolicyTransformer policyTransformer) {
         this.policyTransformer = policyTransformer;
-    }
-
-    /**
-     * @return auditTransformer.
-     */
-    protected AuditTransformer getAuditTransformer() {
-        return auditTransformer;
-    }
-
-    /**
-     * @param auditTransformer
-     *            AuditTransformer to audit.
-     */
-    public void setAuditTransformer(AuditTransformer auditTransformer) {
-        this.auditTransformer = auditTransformer;
     }
 
     /**
@@ -152,8 +131,7 @@ public abstract class OutboundDocQueryOrchestrationContextBuilder implements Orc
     }
 
     /**
-     * @param nhinDelegate
-     *            nhinDelegate received.
+     * @param nhinDelegate nhinDelegate received.
      */
     public void setNhinDelegate(OutboundDelegate nhinDelegate) {
         this.nhinDelegate = nhinDelegate;
@@ -167,8 +145,7 @@ public abstract class OutboundDocQueryOrchestrationContextBuilder implements Orc
     }
 
     /**
-     * @param processor
-     *            DocQueryProcessor.
+     * @param processor DocQueryProcessor.
      */
     public void setAggregator(Optional<OutboundResponseProcessor> processor) {
         Preconditions.checkNotNull(processor);
@@ -183,8 +160,7 @@ public abstract class OutboundDocQueryOrchestrationContextBuilder implements Orc
     }
 
     /**
-     * @param processor
-     *            outboundReponseProcessor.
+     * @param processor outboundReponseProcessor.
      */
     public void setProcessor(Optional<OutboundResponseProcessor> processor) {
         Preconditions.checkNotNull(processor);
@@ -199,8 +175,7 @@ public abstract class OutboundDocQueryOrchestrationContextBuilder implements Orc
     }
 
     /**
-     * @param name
-     *            ServiceName DocQuery.
+     * @param name ServiceName DocQuery.
      */
     public void setServiceName(String name) {
         this.serviceName = name;
