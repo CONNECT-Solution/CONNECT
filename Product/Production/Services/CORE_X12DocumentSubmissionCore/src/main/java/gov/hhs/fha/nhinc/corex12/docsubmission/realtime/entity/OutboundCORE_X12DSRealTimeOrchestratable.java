@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.entity;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
@@ -117,11 +116,6 @@ public class OutboundCORE_X12DSRealTimeOrchestratable implements OutboundOrchest
     @Override
     public boolean isPassthru() {
         return true;
-    }
-
-    @Override
-    public AuditTransformer getAuditTransformer() {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
