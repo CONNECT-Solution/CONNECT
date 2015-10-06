@@ -39,6 +39,7 @@ import org.junit.Test;
  *
  */
 public class OutboundDocSubmissionDeferredRequestOrchestratableTest {
+
     @Test
     public void testGetters() {
         OutboundDocSubmissionDeferredRequestOrchestratable orchestratable = createOutboundDocSubmissionDeferredRequestOrchestratable();
@@ -51,28 +52,21 @@ public class OutboundDocSubmissionDeferredRequestOrchestratableTest {
         assertNull(orchestratable.getResponse());
     }
 
-    @Test(expected=UnsupportedOperationException.class)
+    @Test(expected = UnsupportedOperationException.class)
     public void testGetAggregator() throws UnsupportedOperationException {
         OutboundDocSubmissionDeferredRequestOrchestratable orchestratable = createOutboundDocSubmissionDeferredRequestOrchestratable();
 
         orchestratable.getAggregator();
     }
 
-    @Test(expected=UnsupportedOperationException.class)
+    @Test(expected = UnsupportedOperationException.class)
     public void testIsPassthru() throws UnsupportedOperationException {
         OutboundDocSubmissionDeferredRequestOrchestratable orchestratable = createOutboundDocSubmissionDeferredRequestOrchestratable();
 
         orchestratable.isPassthru();
     }
 
-    @Test(expected=UnsupportedOperationException.class)
-    public void testGetAuditTransformer() throws UnsupportedOperationException {
-        OutboundDocSubmissionDeferredRequestOrchestratable orchestratable = createOutboundDocSubmissionDeferredRequestOrchestratable();
-
-        orchestratable.getAuditTransformer();
-    }
-
-    @Test(expected=UnsupportedOperationException.class)
+    @Test(expected = UnsupportedOperationException.class)
     public void testGetPolicyTransformer() throws UnsupportedOperationException {
         OutboundDocSubmissionDeferredRequestOrchestratable orchestratable = createOutboundDocSubmissionDeferredRequestOrchestratable();
 

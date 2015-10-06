@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docsubmission.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
@@ -37,14 +36,10 @@ import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
  * @author zmelnick
  *
  */
-public class TestOrchestratable implements OutboundOrchestratable{
+public class TestOrchestratable implements OutboundOrchestratable {
 
     public boolean isPassthru() {
         return false;
-    }
-
-    public AuditTransformer getAuditTransformer() {
-        return null;
     }
 
     public PolicyTransformer getPolicyTransformer() {

@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.docsubmission.entity.deferred.response;
 
 import static org.junit.Assert.assertNotNull;
@@ -41,6 +40,7 @@ import org.junit.Test;
  *
  */
 public class OutboundDocSubmissionDeferredResponseOrchestratableTest {
+
     @Test
     public void testGetters() {
         OutboundDocSubmissionDeferredResponseOrchestratable orchestratable = createOutboundDocSubmissionDeferredResponseOrchestratable();
@@ -53,28 +53,21 @@ public class OutboundDocSubmissionDeferredResponseOrchestratableTest {
         assertNull(orchestratable.getResponse());
     }
 
-    @Test(expected=UnsupportedOperationException.class)
+    @Test(expected = UnsupportedOperationException.class)
     public void testGetAggregator() throws UnsupportedOperationException {
         OutboundDocSubmissionDeferredResponseOrchestratable orchestratable = createOutboundDocSubmissionDeferredResponseOrchestratable();
 
         orchestratable.getAggregator();
     }
 
-    @Test(expected=UnsupportedOperationException.class)
+    @Test(expected = UnsupportedOperationException.class)
     public void testIsPassthru() throws UnsupportedOperationException {
         OutboundDocSubmissionDeferredResponseOrchestratable orchestratable = createOutboundDocSubmissionDeferredResponseOrchestratable();
 
         orchestratable.isPassthru();
     }
 
-    @Test(expected=UnsupportedOperationException.class)
-    public void testGetAuditTransformer() throws UnsupportedOperationException {
-        OutboundDocSubmissionDeferredResponseOrchestratable orchestratable = createOutboundDocSubmissionDeferredResponseOrchestratable();
-
-        orchestratable.getAuditTransformer();
-    }
-
-    @Test(expected=UnsupportedOperationException.class)
+    @Test(expected = UnsupportedOperationException.class)
     public void testGetPolicyTransformer() throws UnsupportedOperationException {
         OutboundDocSubmissionDeferredResponseOrchestratable orchestratable = createOutboundDocSubmissionDeferredResponseOrchestratable();
 
