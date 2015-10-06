@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.docretrieve.entity;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
@@ -61,7 +60,6 @@ public abstract class OutboundDocRetrieveOrchestratable implements OutboundOrche
     private AssertionType _assertion = null;
     private final String serviceName = NhincConstants.DOC_RETRIEVE_SERVICE_NAME;
     private PolicyTransformer _policyTransformer = null;
-    private AuditTransformer _auditTransformer = null;
     private OutboundDelegate _nhinDelegate = null;
     private NhinAggregator _nhinAggregator = null;
 
@@ -106,10 +104,6 @@ public abstract class OutboundDocRetrieveOrchestratable implements OutboundOrche
 
     public OutboundDelegate getNhinDelegate() {
         return _nhinDelegate;
-    }
-
-    public AuditTransformer getAuditTransformer() {
-        return _auditTransformer;
     }
 
     public PolicyTransformer getPolicyTransformer() {
