@@ -1,7 +1,28 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.docsubmission.audit.transform;
 
@@ -16,7 +37,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionAuditTransformsConstants;
@@ -24,7 +44,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.io.StringWriter;
-import java.lang.management.ManagementFactory;
 import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Properties;
@@ -40,7 +59,6 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import org.junit.Test;
 
@@ -91,10 +109,6 @@ public class DocSubmissionAuditTransformsTest extends AuditTransformsTest<
         };
 
         ProvideAndRegisterDocumentSetRequestType request = createProvideAndRegisterDocumentSetRequestType();
-        //TODO this needs to be removed ..only for dev
-        StringWriter sw = new StringWriter();
-        getMarshaller().marshal(request.getSubmitObjectsRequest(), sw);
-        System.out.println(sw.toString());
 
         AssertionType assertion = createAssertion();
         LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(request, assertion,
@@ -102,7 +116,6 @@ public class DocSubmissionAuditTransformsTest extends AuditTransformsTest<
             Boolean.TRUE, webContextProperties, NhincConstants.XDR_REQUEST_ACTION);
         assertEventIdentificationTypeForRequest(auditRequest.getAuditMessage());
         assertActiveParticipantHumanRequestor(auditRequest.getAuditMessage());
-        assertActiveParticipantSource(auditRequest.getAuditMessage());
         assertActiveParticipantDestinationForRequest(auditRequest.getAuditMessage(), soapUIEndpoint, destinationIP);
         testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIP);
         assertParticipantObjectIdentification(auditRequest.getAuditMessage());
@@ -179,19 +192,6 @@ public class DocSubmissionAuditTransformsTest extends AuditTransformsTest<
         assertEquals(HUMAN_REQUESTOR, human.getRoleIDCode().get(0).getDisplayName());
     }
 
-    private void assertActiveParticipantSource(AuditMessageType auditMsg) {
-        ActiveParticipant source = getActiveParticipant(
-            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME, auditMsg.getActiveParticipant());
-        assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE, source.getUserID());
-        assertEquals(Boolean.TRUE, source.isUserIsRequestor());
-        assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE,
-            source.getRoleIDCode().get(0).getCode());
-        assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
-            source.getRoleIDCode().get(0).getCodeSystemName());
-        assertEquals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME,
-            source.getRoleIDCode().get(0).getDisplayName());
-    }
-
     private void assertActiveParticipantDestinationForRequest(AuditMessageType auditMsg, String remoteObjectIP,
         String destinationIP) {
         ActiveParticipant dest = getActiveParticipant(
@@ -211,11 +211,6 @@ public class DocSubmissionAuditTransformsTest extends AuditTransformsTest<
 
     private void assertActiveParticipantDestinationForResponse(AuditMessageType auditMsg, String remoteObjectIP,
         String destinationIP) {
-        ActiveParticipant dest = getActiveParticipant(
-            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME,
-            auditMsg.getActiveParticipant());
-        //assertNotNull(dest.getAlternativeUserID());
-        //assertEquals(ManagementFactory.getRuntimeMXBean().getName(), dest.getAlternativeUserID());
         assertActiveParticipantDestinationForRequest(auditMsg, remoteObjectIP, destinationIP);
     }
 
@@ -249,11 +244,6 @@ public class DocSubmissionAuditTransformsTest extends AuditTransformsTest<
 
     private void assertEventIdentificationTypeForResponse(AuditMessageType auditMsg) {
         EventIdentificationType eventType = auditMsg.getEventIdentification();
-        /*assertEquals(DocSubmissionAuditTransformsConstants.EVENT_ACTION_CODE_RECIPIENT, eventType.getEventActionCode());
-         assertEquals(DocSubmissionAuditTransformsConstants.EVENT_ID_CODE_DS_RCEIPIENT,
-         eventType.getEventID().getCode
-         assertEquals(DocSubmissionAuditTransformsConstants.EVENT_ID_DISPLAY_RECIPIENT,
-         eventType.getEventID().getDisplayName());*/
         assertEquals(DocSubmissionAuditTransformsConstants.EVENT_ID_CODE_SYSTEM,
             eventType.getEventID().getCodeSystemName());
         assertEquals(DocSubmissionAuditTransformsConstants.EVENT_TYPE_CODE,
@@ -283,14 +273,6 @@ public class DocSubmissionAuditTransformsTest extends AuditTransformsTest<
         ceType.setCodeSystemVersion("1.1");
         ceType.setDisplayName(HUMAN_REQUESTOR);
         return ceType;
-    }
-
-    private HomeCommunityType createTragetHomeCommunityType() {
-        HomeCommunityType homeCommunityType = new HomeCommunityType();
-        homeCommunityType.setHomeCommunityId("2.2");
-        homeCommunityType.setName("SSA");
-        homeCommunityType.setDescription("This is DOD Gateway");
-        return homeCommunityType;
     }
 
     private ProvideAndRegisterDocumentSetRequestType createProvideAndRegisterDocumentSetRequestType() {
@@ -326,10 +308,6 @@ public class DocSubmissionAuditTransformsTest extends AuditTransformsTest<
         extIdentifierType.setName(strInternational);
 
         return extIdentifierType;
-    }
-
-    private Marshaller getMarshaller() throws JAXBException {
-        return new JAXBContextHandler().getJAXBContext(JAXB_HL7_CONTEXT_NAME).createMarshaller();
     }
 
     private ActiveParticipant getActiveParticipant(String type, List<ActiveParticipant> activeParticipant) {
