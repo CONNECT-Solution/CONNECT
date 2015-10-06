@@ -36,8 +36,6 @@ public interface Orchestratable {
 
     boolean isPassthru();
 
-    AuditTransformer getAuditTransformer();
-
     PolicyTransformer getPolicyTransformer();
 
     AssertionType getAssertion();

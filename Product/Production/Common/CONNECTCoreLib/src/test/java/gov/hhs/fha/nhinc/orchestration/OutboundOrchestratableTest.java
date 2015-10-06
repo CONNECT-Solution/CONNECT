@@ -88,10 +88,6 @@ public class OutboundOrchestratableTest {
             return false;
         }
 
-        public AuditTransformer getAuditTransformer() {
-            return null;
-        }
-
         public PolicyTransformer getPolicyTransformer() {
             return null;
         }

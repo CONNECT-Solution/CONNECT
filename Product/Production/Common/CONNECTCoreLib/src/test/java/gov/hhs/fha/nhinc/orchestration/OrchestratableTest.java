@@ -73,17 +73,6 @@ public class OrchestratableTest {
     }
 
     /**
-     * Test of getAuditTransformer method, of class Orchestratable.
-     */
-    @Test
-    public void testGetAuditTransformer() {
-        Orchestratable instance = new OrchestratableImpl();
-        AuditTransformer expResult = null;
-        AuditTransformer result = instance.getAuditTransformer();
-        assertEquals(expResult, result);
-    }
-
-    /**
      * Test of getPolicyTransformer method, of class Orchestratable.
      */
     @Test
@@ -110,11 +99,6 @@ public class OrchestratableTest {
         @Override
         public boolean isPassthru() {
             return false;
-        }
-
-        @Override
-        public AuditTransformer getAuditTransformer() {
-            return null;
         }
 
         @Override
