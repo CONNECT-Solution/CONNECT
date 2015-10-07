@@ -38,6 +38,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.log4j.Logger;
 
@@ -78,7 +79,7 @@ public class DocSubmissionAuditTransforms extends AuditTransforms<ProvideAndRegi
 
     @Override
     protected String getServiceEventIdCodeResponder() {
-        return DocSubmissionAuditTransformsConstants.EVENT_ID_CODE_DS_SOURCE;
+        return DocSubmissionAuditTransformsConstants.EVENT_ID_CODE_DS_RECIPIENT;
     }
 
     @Override
@@ -207,7 +208,7 @@ public class DocSubmissionAuditTransforms extends AuditTransforms<ProvideAndRegi
         if (registryList != null && registryList.getIdentifiable() != null && registryList.getIdentifiable().size() > 0) {
             List<JAXBElement<? extends IdentifiableType>> identifiers = registryList.getIdentifiable();
             for (JAXBElement<? extends IdentifiableType> object : identifiers) {
-                if (object.getValue() != null && object.getValue() instanceof RegistryObjectType) {
+                if (object.getDeclaredType() != null && object.getDeclaredType().equals(RegistryPackageType.class)) {
                     registryObj = (RegistryObjectType) object.getValue();
                     break;
                 }

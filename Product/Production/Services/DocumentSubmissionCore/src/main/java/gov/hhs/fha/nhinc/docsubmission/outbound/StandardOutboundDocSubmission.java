@@ -109,7 +109,7 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
     protected SubjectHelper getSubjectHelper() {
         return new SubjectHelper();
     }
-    
+
     protected MessageGeneratorUtils getMessageGeneratorUtils() {
         return MessageGeneratorUtils.getInstance();
     }
@@ -182,7 +182,7 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
 
         return nhinRequest;
     }
-    
+
     protected NhinTargetSystemType getTargetSystemTypeFromCommunity(HomeCommunityType community) {
         NhinTargetSystemType targetSystemType = new NhinTargetSystemType();
         targetSystemType.setHomeCommunity(community);
@@ -220,14 +220,14 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
     private void auditRequestFromAdapter(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
         AssertionType assertion, NhinTargetSystemType target) {
         auditLogger.auditRequestMessage(request.getProvideAndRegisterDocumentSetRequest(), assertion, target,
-            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, Boolean.TRUE, null,
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null,
             NhincConstants.NHINC_XDR_SERVICE_NAME);
     }
 
     private void auditResponseToAdapter(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
         RegistryResponseType response, AssertionType assertion, NhinTargetSystemType target) {
         auditLogger.auditResponseMessage(request.getProvideAndRegisterDocumentSetRequest(), response, assertion, target,
-            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, Boolean.TRUE, null,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null,
             NhincConstants.NHINC_XDR_SERVICE_NAME);
     }
 
@@ -235,14 +235,14 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
         gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
         AssertionType assertion, NhinTargetSystemType target) {
         auditLogger.auditRequestMessage(request.getProvideAndRegisterDocumentSetRequest(), assertion, target,
-            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null,
             NhincConstants.NHINC_XDR_SERVICE_NAME);
     }
 
     private void auditResponseFromNhin(ProvideAndRegisterDocumentSetRequestType request,
         RegistryResponseType response, AssertionType assertion, NhinTargetSystemType target) {
-        auditLogger.auditResponseMessage(request, response, assertion, target, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-            NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null, NhincConstants.NHINC_XDR_SERVICE_NAME);
+        auditLogger.auditResponseMessage(request, response, assertion, target, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null, NhincConstants.NHINC_XDR_SERVICE_NAME);
     }
 
     private HomeCommunityType getNhinTargetHomeCommunity(

@@ -47,7 +47,7 @@ public class DocSubmissionAuditTransformsConstants {
     public static final String PARTICIPANT_SUBMISSION_SET_OBJ_ID_TYPE_DISPLAY_NAME = "submission set classificationNode";
 
     public static final String EVENT_ID_CODE_DS_SOURCE = "110106";
-    public static final String EVENT_ID_CODE_DS_RCEIPIENT = "110107";
+    public static final String EVENT_ID_CODE_DS_RECIPIENT = "110107";
     public static final String EVENT_ID_CODE_SYSTEM = "DCM";
     public static final String EVENT_ID_DISPLAY_SOURCE = "Export";
     public static final String EVENT_ID_DISPLAY_RECIPIENT = "Import";

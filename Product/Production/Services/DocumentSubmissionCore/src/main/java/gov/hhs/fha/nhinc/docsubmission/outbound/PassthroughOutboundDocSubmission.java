@@ -79,15 +79,14 @@ public class PassthroughOutboundDocSubmission implements OutboundDocSubmission {
     private void auditRequestToNhin(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
         AssertionType assertion, NhinTargetSystemType target) {
         auditLogger.auditRequestMessage(request.getProvideAndRegisterDocumentSetRequest(), assertion, target,
-            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null,
             NhincConstants.NHINC_XDR_SERVICE_NAME);
     }
 
     private void auditResponseFromNhin(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
         RegistryResponseType response, AssertionType assertion, NhinTargetSystemType target) {
-        //auditLogger.auditNhinXDRResponse(response, assertion, target, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, true);
         auditLogger.auditResponseMessage(request.getProvideAndRegisterDocumentSetRequest(), response, assertion, target,
-            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null,
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null,
             NhincConstants.NHINC_XDR_SERVICE_NAME);
     }
 
