@@ -73,7 +73,6 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
      * Constructor.
      *
      * @param d Delegate.
-     * @param at AuditTransformer.
      * @param pt PolicyTransformer.
      * @param a assertion.
      * @param name serviceName.

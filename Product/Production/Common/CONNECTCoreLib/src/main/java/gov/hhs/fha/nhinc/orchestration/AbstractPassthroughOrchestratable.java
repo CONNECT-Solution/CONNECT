@@ -41,8 +41,6 @@ public abstract class AbstractPassthroughOrchestratable extends AbstractOrchestr
     /**
      *
      * @param pt policy transformer
-     * @param at audit transformer
-     * @param ad
      */
     protected AbstractPassthroughOrchestratable(PolicyTransformer pt) {
         super(pt);

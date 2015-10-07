@@ -56,7 +56,6 @@ public class OutboundDocQueryOrchestratable_a0 extends OutboundDocQueryOrchestra
      * Override SuperClass Constructor.
      *
      * @param d Delegate.
-     * @param at AuditTransformer.
      * @param pt PolicyTransformer.
      * @param a assertion.
      * @param name serviceName.
