@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.docsubmission.entity;
 
 import static org.junit.Assert.*;
@@ -33,7 +32,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 import org.junit.Test;
-
 
 public class OutboundDocSubmissionOrchestratableTest {
 
@@ -49,28 +47,21 @@ public class OutboundDocSubmissionOrchestratableTest {
         assertNull(orchestratable.getResponse());
     }
 
-    @Test(expected=UnsupportedOperationException.class)
+    @Test(expected = UnsupportedOperationException.class)
     public void testGetAggregator() throws UnsupportedOperationException {
         OutboundDocSubmissionOrchestratable orchestratable = createOutboundDocSubmissionOrchestratable();
 
         orchestratable.getAggregator();
     }
 
-    @Test(expected=UnsupportedOperationException.class)
+    @Test(expected = UnsupportedOperationException.class)
     public void testIsPassthru() throws UnsupportedOperationException {
         OutboundDocSubmissionOrchestratable orchestratable = createOutboundDocSubmissionOrchestratable();
 
         orchestratable.isPassthru();
     }
 
-    @Test(expected=UnsupportedOperationException.class)
-    public void testGetAuditTransformer() throws UnsupportedOperationException {
-        OutboundDocSubmissionOrchestratable orchestratable = createOutboundDocSubmissionOrchestratable();
-
-        orchestratable.getAuditTransformer();
-    }
-
-    @Test(expected=UnsupportedOperationException.class)
+    @Test(expected = UnsupportedOperationException.class)
     public void testGetPolicyTransformer() throws UnsupportedOperationException {
         OutboundDocSubmissionOrchestratable orchestratable = createOutboundDocSubmissionOrchestratable();
 

@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
@@ -51,7 +50,6 @@ public class OutboundPatientDiscoveryOrchestratable implements OutboundOrchestra
 
     private OutboundDelegate delegate = null;
     private Optional<OutboundResponseProcessor> processor = Optional.absent();
-    private AuditTransformer auditTransformer = null;
     private PolicyTransformer policyTransformer = null;
     private AssertionType assertion = null;
     private String serviceName = null;
@@ -64,12 +62,11 @@ public class OutboundPatientDiscoveryOrchestratable implements OutboundOrchestra
     }
 
     public OutboundPatientDiscoveryOrchestratable(OutboundDelegate d, Optional<OutboundResponseProcessor> p,
-            AuditTransformer at, PolicyTransformer pt, AssertionType a, String name, NhinTargetSystemType t,
-            PRPAIN201305UV02 r) {
+        PolicyTransformer pt, AssertionType a, String name, NhinTargetSystemType t,
+        PRPAIN201305UV02 r) {
         Preconditions.checkNotNull(p);
         this.delegate = d;
         this.processor = p;
-        this.auditTransformer = at;
         this.policyTransformer = pt;
         this.assertion = a;
         this.serviceName = name;
@@ -87,10 +84,6 @@ public class OutboundPatientDiscoveryOrchestratable implements OutboundOrchestra
 
     public Optional<OutboundResponseProcessor> getResponseProcessor() {
         return processor;
-    }
-
-    public AuditTransformer getAuditTransformer() {
-        return auditTransformer;
     }
 
     public PolicyTransformer getPolicyTransformer() {

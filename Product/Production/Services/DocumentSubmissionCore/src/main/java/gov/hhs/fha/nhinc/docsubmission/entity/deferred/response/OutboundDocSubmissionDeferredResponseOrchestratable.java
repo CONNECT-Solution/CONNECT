@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.docsubmission.entity.deferred.response;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
@@ -54,7 +53,7 @@ public class OutboundDocSubmissionDeferredResponseOrchestratable implements Outb
     }
 
     public OutboundDocSubmissionDeferredResponseOrchestratable(OutboundDelegate delegate, RegistryResponseType request,
-            NhinTargetSystemType target, AssertionType assertion) {
+        NhinTargetSystemType target, AssertionType assertion) {
         this(delegate);
         this.assertion = assertion;
         this.request = request;
@@ -112,10 +111,6 @@ public class OutboundDocSubmissionDeferredResponseOrchestratable implements Outb
     }
 
     public boolean isPassthru() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public AuditTransformer getAuditTransformer() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

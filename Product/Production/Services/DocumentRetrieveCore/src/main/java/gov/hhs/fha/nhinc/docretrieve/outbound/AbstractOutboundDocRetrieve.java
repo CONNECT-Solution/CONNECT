@@ -26,26 +26,36 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.outbound;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import org.apache.commons.lang.StringUtils;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper;
 import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper.ErrorCodes;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
  * @author msw
  *
  */
-public class AbstractOutboundDocRetrieve {
+public abstract class AbstractOutboundDocRetrieve {
+
+    private DocRetrieveAuditLogger docRetrieveAuditLogger;
 
     /**
      *
      */
     public AbstractOutboundDocRetrieve() {
         super();
+        docRetrieveAuditLogger = new DocRetrieveAuditLogger();
+    }
+
+    public AbstractOutboundDocRetrieve(DocRetrieveAuditLogger docRetrieveAuditLogger) {
+        docRetrieveAuditLogger = new DocRetrieveAuditLogger();
     }
 
     /**
@@ -79,9 +89,19 @@ public class AbstractOutboundDocRetrieve {
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
         XDCommonResponseHelper helper = new XDCommonResponseHelper();
         response.setRegistryResponse(helper.createError(NhincConstants.INIT_MULTISPEC_ERROR_UNSUPPORTED_GUIDANCE,
-                ErrorCodes.XDSRepositoryError, NhincConstants.INIT_MULTISPEC_LOC_ENTITY_DR + entityAPILevel.toString()));
+            ErrorCodes.XDSRepositoryError, NhincConstants.INIT_MULTISPEC_LOC_ENTITY_DR + entityAPILevel.toString()));
 
         return response;
     }
 
+    public void auditRequest(RetrieveDocumentSetRequestType request, AssertionType assertion,
+        NhinTargetSystemType targetSystem) {
+
+        getAuditLogger().auditRequestMessage(request, assertion, targetSystem,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+            Boolean.TRUE, null, NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+
+    }
+
+    abstract DocRetrieveAuditLogger getAuditLogger();
 }

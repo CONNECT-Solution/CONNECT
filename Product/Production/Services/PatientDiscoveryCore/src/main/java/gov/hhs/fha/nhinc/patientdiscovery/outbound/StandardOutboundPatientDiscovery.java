@@ -205,9 +205,8 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
                 }
                 if (callableList.size() > 0) {
                     LOG.debug("Executing tasks to concurrently retrieve responses");
-                    NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> 
-                        pdExecutor = new NhinTaskExecutor<>(
-                            ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size())
+                    NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> pdExecutor = new NhinTaskExecutor<>(
+                        ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size())
                             ? largejobExecutor : regularExecutor, callableList, transactionId);
                     pdExecutor.executeTask();
                     LOG.debug("Aggregating all responses");
@@ -262,7 +261,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
         OutboundDelegate nd = new OutboundPatientDiscoveryDelegate();
         OutboundResponseProcessor np = new OutboundPatientDiscoveryProcessor(gatewayLevel);
         OutboundPatientDiscoveryOrchestratable orchestratable = new OutboundPatientDiscoveryOrchestratable(nd,
-            Optional.of(np), null, null, assertion, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, target, message);
+            Optional.of(np), null, assertion, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, target, message);
 
         return orchestratable;
     }

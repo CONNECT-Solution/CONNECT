@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.entity;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
@@ -158,11 +157,6 @@ public class OutboundCORE_X12DSGenericBatchResponseOrchestratable implements Out
     @Override
     public boolean isPassthru() {
         return true;
-    }
-
-    @Override
-    public AuditTransformer getAuditTransformer() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

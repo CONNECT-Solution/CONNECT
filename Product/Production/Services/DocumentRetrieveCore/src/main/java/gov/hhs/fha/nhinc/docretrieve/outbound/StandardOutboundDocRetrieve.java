@@ -32,15 +32,14 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveAggregator_a0;
-import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveAuditTransformer_a0;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveDelegate;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrievePolicyTransformer_a0;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundStandardDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundStandardDocRetrieveOrchestrator;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.CONNECTOutboundOrchestrator;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
@@ -52,12 +51,14 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 public class StandardOutboundDocRetrieve extends AbstractOutboundDocRetrieve implements OutboundDocRetrieve {
 
     private final CONNECTOutboundOrchestrator orchestrator;
+    private final DocRetrieveAuditLogger auditLogger;
 
     /**
      * Constructor.
      */
     public StandardOutboundDocRetrieve() {
         orchestrator = new OutboundStandardDocRetrieveOrchestrator();
+        auditLogger = new DocRetrieveAuditLogger();
     }
 
     /**
@@ -65,8 +66,9 @@ public class StandardOutboundDocRetrieve extends AbstractOutboundDocRetrieve imp
      *
      * @param orchestrator
      */
-    public StandardOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator) {
+    public StandardOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator, DocRetrieveAuditLogger auditLogger) {
         this.orchestrator = orchestrator;
+        this.auditLogger = auditLogger;
     }
 
     /*
@@ -78,27 +80,39 @@ public class StandardOutboundDocRetrieve extends AbstractOutboundDocRetrieve imp
      */
     @Override
     @OutboundProcessingEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class, afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, serviceType = "Retrieve Document", version = "")
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
-            AssertionType assertion, NhinTargetCommunitiesType targets, ADAPTER_API_LEVEL entityAPILevel) {
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType request,
+        AssertionType assertion, NhinTargetCommunitiesType targets, ADAPTER_API_LEVEL entityAPILevel) {
 
         RetrieveDocumentSetResponseType response = null;
         if (validateGuidance(targets, entityAPILevel)) {
 
             PolicyTransformer pt = new OutboundDocRetrievePolicyTransformer_a0();
-            AuditTransformer at = new OutboundDocRetrieveAuditTransformer_a0();
             OutboundDelegate nd = new OutboundDocRetrieveDelegate();
             NhinAggregator na = new OutboundDocRetrieveAggregator_a0();
-            NhinTargetSystemType target = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
-                    targets);
-            OutboundDocRetrieveOrchestratable orchestratable = new OutboundStandardDocRetrieveOrchestratable(pt, at,
-                    nd, na, body, assertion, target);
+            auditRequest(request, assertion, getTarget(targets));
+            OutboundDocRetrieveOrchestratable orchestratable = new OutboundStandardDocRetrieveOrchestratable(pt,
+                nd, na, request, assertion, getTarget(targets));
             OutboundDocRetrieveOrchestratable orchResponse = (OutboundDocRetrieveOrchestratable) orchestrator
-                    .process(orchestratable);
+                .process(orchestratable);
+
             response = orchResponse.getResponse();
+
         } else {
+
+            auditRequest(request, assertion, getTarget(targets));
             response = createGuidanceErrorResponse(entityAPILevel);
         }
         return response;
+    }
+
+    private NhinTargetSystemType getTarget(NhinTargetCommunitiesType targets) {
+        return MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
+            targets);
+    }
+
+    @Override
+    DocRetrieveAuditLogger getAuditLogger() {
+        return auditLogger;
     }
 
 }

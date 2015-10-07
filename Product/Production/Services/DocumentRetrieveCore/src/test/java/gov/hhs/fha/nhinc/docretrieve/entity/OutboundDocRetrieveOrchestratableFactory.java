@@ -50,7 +50,7 @@ public class OutboundDocRetrieveOrchestratableFactory {
 
     public OutboundStandardDocRetrieveOrchestratable createOutboundStandardDocRetrieveOrchestratable() {
         return new OutboundStandardDocRetrieveOrchestratable(
-                null, null, null, null, getRetrieveDocumentSetRequestType(), getAssertion(), getNhinTargetSystemType());
+            null, null, null, getRetrieveDocumentSetRequestType(), getAssertion(), getNhinTargetSystemType());
     }
 
     public RetrieveDocumentSetRequestType getRetrieveDocumentSetRequestType() {
@@ -90,7 +90,7 @@ public class OutboundDocRetrieveOrchestratableFactory {
         return assertion;
     }
 
-    public RetrieveDocumentSetResponseType getRetrieveDocumentSetResponseTypePartialSuccess(){
+    public RetrieveDocumentSetResponseType getRetrieveDocumentSetResponseTypePartialSuccess() {
         RetrieveDocumentSetResponseType resp = new RetrieveDocumentSetResponseType();
         resp.setRegistryResponse(new RegistryResponseType());
         DocumentResponse dr = new DocumentResponse();

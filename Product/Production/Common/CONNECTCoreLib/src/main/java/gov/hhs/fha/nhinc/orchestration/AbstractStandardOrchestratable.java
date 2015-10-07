@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.orchestration;
 
-
 /**
  *
  * @author bhumphrey
@@ -34,18 +33,16 @@ package gov.hhs.fha.nhinc.orchestration;
  */
 public abstract class AbstractStandardOrchestratable extends AbstractOrchestrable {
 
-
-
     /**
      * default constructor.
      */
     protected AbstractStandardOrchestratable() {
-     super();
+        super();
 
     }
 
-    protected AbstractStandardOrchestratable(PolicyTransformer pt, AuditTransformer at) {
-        super(pt, at);
+    protected AbstractStandardOrchestratable(PolicyTransformer pt) {
+        super(pt);
     }
 
     /**
@@ -57,6 +54,5 @@ public abstract class AbstractStandardOrchestratable extends AbstractOrchestrabl
     final public boolean isPassthru() {
         return false;
     }
-
 
 }

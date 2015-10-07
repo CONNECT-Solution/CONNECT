@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.docretrieve.entity;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
@@ -151,17 +150,6 @@ public class OutboundDocRetrieveOrchestratableTest {
         OutboundDocRetrieveOrchestratable instance = new OutboundPassthroughDocRetrieveOrchestratable();
         boolean expResult = true;
         boolean result = instance.isPassthru();
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of getAuditTransformer method, of class OutboundDocRetrieveOrchestratable.
-     */
-    @Test
-    public void testGetAuditTransformer() {
-        OutboundDocRetrieveOrchestratable instance = new OutboundStandardDocRetrieveOrchestratable();
-        AuditTransformer expResult = null;
-        AuditTransformer result = instance.getAuditTransformer();
         assertEquals(expResult, result);
     }
 

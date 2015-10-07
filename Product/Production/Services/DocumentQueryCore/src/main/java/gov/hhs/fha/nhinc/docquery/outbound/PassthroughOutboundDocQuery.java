@@ -66,7 +66,7 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
      */
     @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
-            NhinTargetCommunitiesType targets) {
+        NhinTargetCommunitiesType targets) {
 
         NhinTargetSystemType target = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
         String targetHCID = getTargetHCID(target);
@@ -90,12 +90,12 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
     }
 
     private AdhocQueryResponse sendRequestToNwhin(AdhocQueryRequest request, AssertionType assertion,
-            NhinTargetSystemType target, String targetCommunityID) {
+        NhinTargetSystemType target, String targetCommunityID) {
         AdhocQueryResponse response = null;
 
         try {
-            OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate, null, null,
-                    assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, request);
+            OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate, null,
+                assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, request);
             response = delegate.process(orchestratable).getResponse();
             auditRequest(request, assertion, target);
         } catch (Exception ex) {
@@ -110,7 +110,7 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
     private void warnTooManyTargets(String targetHCID, NhinTargetCommunitiesType targets) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Multiple targets in request message in passthrough mode."
-                + "  Only sending to target HCID: " + targetHCID + ".");
+            + "  Only sending to target HCID: " + targetHCID + ".");
         stringBuilder.append("  Not sending request to: ");
         Iterator<NhinTargetCommunityType> communityIterator = targets.getNhinTargetCommunity().iterator();
         Boolean first = true;
@@ -140,7 +140,7 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
     private void auditRequest(AdhocQueryRequest request, AssertionType assertion, NhinTargetSystemType target) {
         getAuditLogger().auditRequestMessage(request, assertion, target, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null, NhincConstants.DOC_QUERY_SERVICE_NAME);
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null, NhincConstants.DOC_QUERY_SERVICE_NAME);
     }
 
     private DocQueryAuditLogger getAuditLogger() {

@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
@@ -55,7 +54,7 @@ public class OutboundPatientDiscoveryDeferredRequestOrchestratable implements Ou
     }
 
     public OutboundPatientDiscoveryDeferredRequestOrchestratable(OutboundDelegate delegate, PRPAIN201305UV02 request,
-            NhinTargetSystemType target, AssertionType assertion) {
+        NhinTargetSystemType target, AssertionType assertion) {
         this(delegate);
         this.assertion = assertion;
         this.request = request;
@@ -113,10 +112,6 @@ public class OutboundPatientDiscoveryDeferredRequestOrchestratable implements Ou
     }
 
     public boolean isPassthru() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public AuditTransformer getAuditTransformer() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

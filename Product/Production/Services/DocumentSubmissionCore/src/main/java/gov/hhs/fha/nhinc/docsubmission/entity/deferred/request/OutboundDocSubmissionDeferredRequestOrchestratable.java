@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
@@ -54,7 +53,7 @@ public class OutboundDocSubmissionDeferredRequestOrchestratable implements Outbo
     }
 
     public OutboundDocSubmissionDeferredRequestOrchestratable(OutboundDelegate delegate,
-            ProvideAndRegisterDocumentSetRequestType request, NhinTargetSystemType target, AssertionType assertion) {
+        ProvideAndRegisterDocumentSetRequestType request, NhinTargetSystemType target, AssertionType assertion) {
         this(delegate);
         this.assertion = assertion;
         this.request = request;
@@ -112,10 +111,6 @@ public class OutboundDocSubmissionDeferredRequestOrchestratable implements Outbo
     }
 
     public boolean isPassthru() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public AuditTransformer getAuditTransformer() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

@@ -24,12 +24,10 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.docretrieve.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
@@ -52,29 +50,27 @@ public class OutboundPassthroughDocRetrieveOrchestratable extends OutboundDocRet
      * Constructor.
      *
      * @param pt
-     * @param at
      * @param nd
      * @param na
      */
-    public OutboundPassthroughDocRetrieveOrchestratable(PolicyTransformer pt, AuditTransformer at, OutboundDelegate nd,
-            NhinAggregator na) {
-        super(pt, at, nd, na);
+    public OutboundPassthroughDocRetrieveOrchestratable(PolicyTransformer pt, OutboundDelegate nd,
+        NhinAggregator na) {
+        super(pt, nd, na);
     }
 
     /**
      * Constructor.
      *
      * @param pt
-     * @param at
      * @param nd
      * @param na
      * @param body
      * @param assertion
      * @param target
      */
-    public OutboundPassthroughDocRetrieveOrchestratable(PolicyTransformer pt, AuditTransformer at, OutboundDelegate nd,
-            NhinAggregator na, RetrieveDocumentSetRequestType body, AssertionType assertion, NhinTargetSystemType target) {
-        super(pt, at, nd, na, body, assertion, target);
+    public OutboundPassthroughDocRetrieveOrchestratable(PolicyTransformer pt, OutboundDelegate nd,
+        NhinAggregator na, RetrieveDocumentSetRequestType body, AssertionType assertion, NhinTargetSystemType target) {
+        super(pt, nd, na, body, assertion, target);
 
     }
 
@@ -94,9 +90,9 @@ public class OutboundPassthroughDocRetrieveOrchestratable extends OutboundDocRet
      * @see gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable#create()
      */
     @Override
-    public OutboundDocRetrieveOrchestratable create(PolicyTransformer pt, AuditTransformer at, OutboundDelegate nd,
-            NhinAggregator na) {
-        return new OutboundPassthroughDocRetrieveOrchestratable(pt, at, nd, na);
+    public OutboundDocRetrieveOrchestratable create(PolicyTransformer pt, OutboundDelegate nd,
+        NhinAggregator na) {
+        return new OutboundPassthroughDocRetrieveOrchestratable(pt, nd, na);
     }
 
 }

@@ -98,10 +98,6 @@ public class CONNECTInboundOrchestratorTest {
             return true;
         }
 
-        public AuditTransformer getAuditTransformer() {
-            return null;
-        }
-
         public PolicyTransformer getPolicyTransformer() {
             return null;
         }

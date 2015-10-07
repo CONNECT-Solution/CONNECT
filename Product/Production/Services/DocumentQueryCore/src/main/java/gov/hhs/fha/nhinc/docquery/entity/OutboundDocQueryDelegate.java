@@ -78,15 +78,14 @@ public class OutboundDocQueryDelegate implements OutboundDelegate {
     public OutboundDocQueryOrchestratable process(OutboundDocQueryOrchestratable message) {
         LOG.debug("NhinDocQueryDelegate::process EntityDocQueryOrchestratable");
 
-        OutboundDocQueryOrchestrationContextBuilder contextBuilder =
-           (OutboundDocQueryOrchestrationContextBuilder) OrchestrationContextFactory.getInstance().
-           getBuilder(message.getTarget().getHomeCommunity(), NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY);
+        OutboundDocQueryOrchestrationContextBuilder contextBuilder
+            = (OutboundDocQueryOrchestrationContextBuilder) OrchestrationContextFactory.getInstance().
+            getBuilder(message.getTarget().getHomeCommunity(), NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY);
         contextBuilder.setAssertionType(message.getAssertion());
         contextBuilder.setRequest(message.getRequest());
         contextBuilder.setTarget(message.getTarget());
         contextBuilder.setServiceName(message.getServiceName());
         contextBuilder.setPolicyTransformer(message.getPolicyTransformer());
-        contextBuilder.setAuditTransformer(message.getAuditTransformer());
         contextBuilder.setProcessor(message.getResponseProcessor());
 
         OutboundDocQueryOrchestratable response = (OutboundDocQueryOrchestratable) contextBuilder.build().execute();
@@ -100,8 +99,6 @@ public class OutboundDocQueryDelegate implements OutboundDelegate {
         }
         return response;
     }
-
-
 
     @Override
     public void createErrorResponse(OutboundOrchestratable message, String error) {

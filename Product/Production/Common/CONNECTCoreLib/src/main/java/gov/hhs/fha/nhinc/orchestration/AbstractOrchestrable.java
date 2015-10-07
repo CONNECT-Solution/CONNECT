@@ -32,7 +32,6 @@ public abstract class AbstractOrchestrable implements Orchestratable {
 
     private AssertionType assertion;
     private PolicyTransformer policyTransformer;
-    private AuditTransformer auditTransformer;
 
     /**
      * default constructor.
@@ -40,17 +39,11 @@ public abstract class AbstractOrchestrable implements Orchestratable {
     protected AbstractOrchestrable() {
         assertion = null;
         policyTransformer = null;
-        auditTransformer = null;
 
     }
 
-    protected AbstractOrchestrable(PolicyTransformer pt, AuditTransformer at) {
+    protected AbstractOrchestrable(PolicyTransformer pt) {
         policyTransformer = pt;
-        auditTransformer = at;
-    }
-
-    public AuditTransformer getAuditTransformer() {
-        return auditTransformer;
     }
 
     public PolicyTransformer getPolicyTransformer() {
@@ -74,14 +67,5 @@ public abstract class AbstractOrchestrable implements Orchestratable {
     public void setPolicyTransformer(PolicyTransformer policyTransformer) {
         this.policyTransformer = policyTransformer;
     }
-
-    /**
-     * @param auditTransformer the auditTransformer to set
-     */
-    public void setAuditTransformer(AuditTransformer auditTransformer) {
-        this.auditTransformer = auditTransformer;
-    }
-
-
 
 }

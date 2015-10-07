@@ -38,7 +38,6 @@ import gov.hhs.fha.nhinc.docretrieve.MessageGenerator;
 import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxy;
 import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxyObjectFactory;
 import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
@@ -80,17 +79,9 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
             return;
         }
 
-        if (!message.isPassthru()) {
-            auditOutboundRequestMessage(message);
-        }
-
         RetrieveDocumentSetResponseType adapterResponse = sendToAdapter(message);
 
         message.setResponse(adapterResponse);
-
-        if (!message.isPassthru()) {
-            auditInboundResponseMessage(message);
-        }
 
         LOG.debug("End NhinDocRetrieveOrchestratableImpl_g0.process");
     }
@@ -111,32 +102,6 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
                 "Adapter Document Retrieve Processing");
         }
         return adapterResponse;
-    }
-
-    /**
-     * Creates the log event for response.
-     *
-     * @param message
-     */
-    public void auditInboundResponseMessage(InboundDocRetrieveOrchestratable message) {
-
-        LOG.debug("Calling audit log for doc retrieve response received from adapter (a0)");
-        docRetrieveLogger.auditResponseMessage(message.getRequest(), message.getResponse(), message.getAssertion(),
-            null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE,
-            Boolean.FALSE, message.getWebContextProperties(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
-    }
-
-    /**
-     * Creates the log event for request.
-     *
-     * @param message
-     */
-    public void auditOutboundRequestMessage(InboundDocRetrieveOrchestratable message) {
-
-        LOG.debug("Calling audit log for doc retrieve request (g0) sent to adapter (a0)");
-        docRetrieveLogger.auditRequestMessage(message.getRequest(), message.getAssertion(), null,
-            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, Boolean.FALSE,
-            message.getWebContextProperties(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
     }
 
     private AcknowledgementType auditMessage(LogEventRequestType auditLogMsg, AssertionType assertion) {

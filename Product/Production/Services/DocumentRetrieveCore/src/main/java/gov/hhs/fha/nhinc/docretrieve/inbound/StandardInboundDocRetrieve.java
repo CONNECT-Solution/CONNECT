@@ -26,18 +26,17 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.inbound;
 
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import java.util.Properties;
 
-import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
-import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveAuditTransformer_g0;
+import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveDelegate;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrievePolicyTransformer_g0;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundStandardDocRetrieveOrchestratable;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.CONNECTInboundOrchestrator;
 import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
@@ -47,18 +46,18 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 public class StandardInboundDocRetrieve extends BaseInboundDocRetrieve {
 
     private final PolicyTransformer pt;
-    private final AuditTransformer at;
     private final InboundDelegate ad;
     private final CONNECTInboundOrchestrator orch;
+    private final DocRetrieveAuditLogger auditLogger;
 
     /**
      * Constructor.
      */
     public StandardInboundDocRetrieve() {
         pt = new InboundDocRetrievePolicyTransformer_g0();
-        at = new InboundDocRetrieveAuditTransformer_g0();
         ad = new InboundDocRetrieveDelegate();
         orch = new CONNECTInboundOrchestrator();
+        auditLogger = new DocRetrieveAuditLogger();
     }
 
     /**
@@ -69,12 +68,12 @@ public class StandardInboundDocRetrieve extends BaseInboundDocRetrieve {
      * @param ad
      * @param orch
      */
-    public StandardInboundDocRetrieve(PolicyTransformer pt, AuditTransformer at, InboundDelegate ad,
-            CONNECTInboundOrchestrator orch) {
+    public StandardInboundDocRetrieve(PolicyTransformer pt, InboundDelegate ad,
+        CONNECTInboundOrchestrator orch, DocRetrieveAuditLogger auditLogger) {
         this.pt = pt;
-        this.at = at;
         this.ad = ad;
         this.orch = orch;
+        this.auditLogger = auditLogger;
     }
 
     /*
@@ -85,12 +84,12 @@ public class StandardInboundDocRetrieve extends BaseInboundDocRetrieve {
      */
     @Override
     public InboundDocRetrieveOrchestratable createInboundOrchestrable(RetrieveDocumentSetRequestType body,
-            AssertionType assertion, Properties webContextProperties) {
-        InboundDocRetrieveOrchestratable inboundOrchestrable = new InboundStandardDocRetrieveOrchestratable(pt, at, ad);
+        AssertionType assertion, Properties webContextProperties) {
+        InboundDocRetrieveOrchestratable inboundOrchestrable = new InboundStandardDocRetrieveOrchestratable(pt, ad);
         inboundOrchestrable.setAssertion(assertion);
         inboundOrchestrable.setRequest(body);
         inboundOrchestrable.setWebContextProperties(webContextProperties);
-        
+
         return inboundOrchestrable;
     }
 
@@ -101,18 +100,25 @@ public class StandardInboundDocRetrieve extends BaseInboundDocRetrieve {
     CONNECTInboundOrchestrator getOrchestrator() {
         return orch;
     }
+
     @Override
     @InboundProcessingEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
-            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class,
-            serviceType = "Retrieve Document", version = "")
+        afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class,
+        serviceType = "Retrieve Document", version = "")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
-            AssertionType assertion, Properties webContextProperties) {
+        AssertionType assertion, Properties webContextProperties) {
 
-        InboundDocRetrieveOrchestratable inboundOrchestrable = createInboundOrchestrable(body, assertion, webContextProperties);
+        InboundDocRetrieveOrchestratable inboundOrchestrable = createInboundOrchestrable(body, assertion,
+            webContextProperties);
 
         InboundDocRetrieveOrchestratable orchResponse = (InboundDocRetrieveOrchestratable) getOrchestrator().process(
-                inboundOrchestrable);
+            inboundOrchestrable);
+        auditResponse(body, orchResponse.getResponse(), assertion, webContextProperties);
         return orchResponse.getResponse();
     }
 
+    @Override
+    DocRetrieveAuditLogger getAuditLogger() {
+        return auditLogger;
+    }
 }

@@ -29,12 +29,11 @@ package gov.hhs.fha.nhinc.docretrieve.inbound;
 import java.util.Properties;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveAuditTransformer_g0;
+import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveDelegate;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrievePolicyTransformer_g0;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundPassthroughDocRetrieveOrchestratable;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.CONNECTInboundOrchestrator;
 import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
@@ -43,34 +42,33 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 public class PassthroughInboundDocRetrieve extends BaseInboundDocRetrieve {
 
     private final PolicyTransformer pt;
-    private final AuditTransformer at;
     private final InboundDelegate ad;
     private final CONNECTInboundOrchestrator orch;
+    private final DocRetrieveAuditLogger auditLogger;
 
     /**
      * Constructor.
      */
     public PassthroughInboundDocRetrieve() {
         pt = new InboundDocRetrievePolicyTransformer_g0();
-        at = new InboundDocRetrieveAuditTransformer_g0();
         ad = new InboundDocRetrieveDelegate();
         orch = new CONNECTInboundOrchestrator();
+        auditLogger = new DocRetrieveAuditLogger();
     }
 
     /**
      * Constructor with dependency injection parameters.
      *
      * @param pt
-     * @param at
      * @param ad
      * @param orch
      */
-    public PassthroughInboundDocRetrieve(PolicyTransformer pt, AuditTransformer at, InboundDelegate ad,
-            CONNECTInboundOrchestrator orch) {
+    public PassthroughInboundDocRetrieve(PolicyTransformer pt, InboundDelegate ad,
+        CONNECTInboundOrchestrator orch, DocRetrieveAuditLogger auditLogger) {
         this.pt = pt;
-        this.at = at;
         this.ad = ad;
         this.orch = orch;
+        this.auditLogger = auditLogger;
     }
 
     /*
@@ -81,9 +79,10 @@ public class PassthroughInboundDocRetrieve extends BaseInboundDocRetrieve {
      */
     @Override
     public InboundDocRetrieveOrchestratable createInboundOrchestrable(RetrieveDocumentSetRequestType body,
-            AssertionType assertion, Properties webContextProperties) {
+        AssertionType assertion, Properties webContextProperties) {
 
-        InboundDocRetrieveOrchestratable inboundOrchestrable = new InboundPassthroughDocRetrieveOrchestratable(pt, at, ad);
+        InboundDocRetrieveOrchestratable inboundOrchestrable
+            = new InboundPassthroughDocRetrieveOrchestratable(pt, ad);
         inboundOrchestrable.setAssertion(assertion);
         inboundOrchestrable.setRequest(body);
         inboundOrchestrable.setWebContextProperties(webContextProperties);
@@ -97,5 +96,10 @@ public class PassthroughInboundDocRetrieve extends BaseInboundDocRetrieve {
     @Override
     CONNECTInboundOrchestrator getOrchestrator() {
         return orch;
+    }
+
+    @Override
+    DocRetrieveAuditLogger getAuditLogger() {
+        return auditLogger;
     }
 }

@@ -26,14 +26,12 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.outbound;
 
-import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveFileUtils;
 import gov.hhs.fha.nhinc.docretrieve.MessageGenerator;
-import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
-import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveDelegate;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundPassthroughDocRetrieveOrchestratable;
@@ -50,7 +48,7 @@ import org.apache.log4j.Logger;
 public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve implements OutboundDocRetrieve {
 
     private static final Logger LOG = Logger.getLogger(PassthroughOutboundDocRetrieve.class);
-
+    private final DocRetrieveAuditLogger auditLogger;
     private final CONNECTOutboundOrchestrator orchestrator;
 
     /**
@@ -58,6 +56,7 @@ public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve 
      */
     public PassthroughOutboundDocRetrieve() {
         orchestrator = new CONNECTOutboundOrchestrator();
+        auditLogger = new DocRetrieveAuditLogger();
     }
 
     /**
@@ -65,8 +64,9 @@ public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve 
      *
      * @param orchestrator
      */
-    public PassthroughOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator) {
+    public PassthroughOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator, DocRetrieveAuditLogger auditLogger) {
         this.orchestrator = orchestrator;
+        this.auditLogger = auditLogger;
     }
 
     /*
@@ -78,21 +78,21 @@ public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve 
      */
     @Override
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
-            RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetCommunitiesType targets,
-            ADAPTER_API_LEVEL entityAPILevel) {
+        RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetCommunitiesType targets,
+        ADAPTER_API_LEVEL entityAPILevel) {
 
         RetrieveDocumentSetResponseType response = null;
         if (validateGuidance(targets, entityAPILevel)) {
 
             NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
-                    targets);
-
+                targets);
+            auditRequest(request, assertion, targetSystem);
             OutboundDocRetrieveDelegate delegate = new OutboundDocRetrieveDelegate();
             OutboundDocRetrieveOrchestratable orchestratable = new OutboundPassthroughDocRetrieveOrchestratable(null,
-                    null, delegate, null, request, assertion, targetSystem);
+                delegate, null, request, assertion, targetSystem);
 
             OutboundDocRetrieveOrchestratable orchResponse = (OutboundDocRetrieveOrchestratable) orchestrator
-                    .process(orchestratable);
+                .process(orchestratable);
             response = orchResponse.getResponse();
 
             try {
@@ -100,13 +100,21 @@ public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve 
             } catch (IOException ioe) {
                 LOG.error("Failed to save documents to file system.", ioe);
                 response = MessageGenerator.getInstance().createRegistryResponseError(
-                        "Adapter Document Retrieve Processing: " + ioe.getLocalizedMessage());
+                    "Adapter Document Retrieve Processing: " + ioe.getLocalizedMessage());
             }
         } else {
+            NhinTargetSystemType target = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
+                targets);
+            auditRequest(request, assertion, target);
             response = createGuidanceErrorResponse(entityAPILevel);
         }
 
         return response;
+    }
+
+    @Override
+    DocRetrieveAuditLogger getAuditLogger() {
+        return auditLogger;
     }
 
 }

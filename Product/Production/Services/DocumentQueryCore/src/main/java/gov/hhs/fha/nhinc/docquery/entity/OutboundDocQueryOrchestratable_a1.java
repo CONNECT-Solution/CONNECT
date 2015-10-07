@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.docquery.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -57,26 +56,18 @@ public class OutboundDocQueryOrchestratable_a1 extends OutboundDocQueryOrchestra
     /**
      * Override SuperClass Constructor.
      *
-     * @param d
-     *            Delegate.
-     * @param at
-     *            AuditTransformer.
-     * @param pt
-     *            PolicyTransformer.
-     * @param a
-     *            assertion.
-     * @param name
-     *            serviceName.
-     * @param t
-     *            target.
-     * @param req
-     *            AdhocQUery Request.
+     * @param d Delegate.
+     * @param pt PolicyTransformer.
+     * @param a assertion.
+     * @param name serviceName.
+     * @param t target.
+     * @param req AdhocQUery Request.
      */
     // CHECKSTYLE:OFF
-    public OutboundDocQueryOrchestratable_a1(OutboundDelegate d, AuditTransformer at, PolicyTransformer pt,
-            AssertionType a, String name, NhinTargetSystemType t, AdhocQueryRequest req) {
+    public OutboundDocQueryOrchestratable_a1(OutboundDelegate d, PolicyTransformer pt,
+        AssertionType a, String name, NhinTargetSystemType t, AdhocQueryRequest req) {
         // CHECKSTYLE:ON
-        super(d, at, pt, a, name, t, req);
+        super(d, pt, a, name, t, req);
     }
 
     // OutboundDocQueryOrchestratable objects are run by the nhin delegate
@@ -95,8 +86,7 @@ public class OutboundDocQueryOrchestratable_a1 extends OutboundDocQueryOrchestra
     }
 
     /**
-     * @param r
-     *            cumulativeResponse passed.
+     * @param r cumulativeResponse passed.
      */
     public void setCumulativeResponse(AdhocQueryResponse r) {
         cumulativeResponse = r;

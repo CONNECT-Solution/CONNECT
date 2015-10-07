@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.gateway.executorservice;
 
 import com.google.common.base.Optional;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
@@ -130,11 +129,6 @@ public class NhinCallableRequestTest {
 
         @Override
         public boolean isPassthru() {
-            throw new UnsupportedOperationException("Not supported yet.");
-        }
-
-        @Override
-        public AuditTransformer getAuditTransformer() {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
