@@ -75,7 +75,6 @@ public class PassthroughInboundDocRetrieveTest {
         Properties webContextProperties = new Properties();
 
         InboundDocRetrievePolicyTransformer_g0 pt = new InboundDocRetrievePolicyTransformer_g0();
-//        InboundDocRetrieveAuditTransformer_g0 at = new InboundDocRetrieveAuditTransformer_g0();
         InboundDocRetrieveDelegate ad = new InboundDocRetrieveDelegate();
 
         // Mocks
