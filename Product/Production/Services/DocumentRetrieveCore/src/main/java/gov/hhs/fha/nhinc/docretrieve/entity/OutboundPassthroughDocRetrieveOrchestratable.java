@@ -50,7 +50,6 @@ public class OutboundPassthroughDocRetrieveOrchestratable extends OutboundDocRet
      * Constructor.
      *
      * @param pt
-     * @param at
      * @param nd
      * @param na
      */
@@ -63,7 +62,6 @@ public class OutboundPassthroughDocRetrieveOrchestratable extends OutboundDocRet
      * Constructor.
      *
      * @param pt
-     * @param at
      * @param nd
      * @param na
      * @param body

@@ -46,7 +46,6 @@ public abstract class OutboundDocRetrieveOrchestratable implements OutboundOrche
      * Create an instance of the concrete orchestratable class that is the same type as the caller.
      *
      * @param pt the PolicyTransformer to use
-     * @param at the AuditTransformer to use
      * @param od the Outbound Delegate to use
      * @param na the Aggregator to use
      * @return a concrete instance of the orchestratable
