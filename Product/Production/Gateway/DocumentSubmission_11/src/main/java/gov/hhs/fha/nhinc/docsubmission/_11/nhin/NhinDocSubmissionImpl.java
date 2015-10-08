@@ -48,9 +48,10 @@ public class NhinDocSubmissionImpl extends BaseService {
     }
 
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
-            ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
+        ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
 
-        return inboundDocSubmission.documentRepositoryProvideAndRegisterDocumentSetB(body, assertion);
+        return inboundDocSubmission.documentRepositoryProvideAndRegisterDocumentSetB(body, assertion,
+            getWebContextProperties(context));
     }
 }
