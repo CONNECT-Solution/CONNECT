@@ -187,7 +187,8 @@ public class StandardOutboundDocSubmissionTest {
         boolean hasTargets = entityOrch.hasNhinTargetHomeCommunityId(null);
         assertFalse(hasTargets);
 
-        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
+        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request
+            = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
         hasTargets = entityOrch.hasNhinTargetHomeCommunityId(request);
         assertFalse(hasTargets);
 
@@ -240,9 +241,10 @@ public class StandardOutboundDocSubmissionTest {
         assertEquals("", annotation.version());
     }
 
-    private StandardOutboundDocSubmission getStandardOutboundDocSubmission(final DocSubmissionAuditLogger mockLogger, final XDRPolicyChecker mockChecker,
-        final OutboundDocSubmissionDelegate mockDelegate, final OutboundDocSubmissionOrchestratable mockOrchestratable,
-        final MessageGeneratorUtils mockUtils, final NhinTargetSystemType target) {
+    private StandardOutboundDocSubmission getStandardOutboundDocSubmission(final DocSubmissionAuditLogger mockLogger,
+        final XDRPolicyChecker mockChecker, final OutboundDocSubmissionDelegate mockDelegate,
+        final OutboundDocSubmissionOrchestratable mockOrchestratable, final MessageGeneratorUtils mockUtils,
+        final NhinTargetSystemType target) {
 
         return new StandardOutboundDocSubmission() {
 
@@ -264,11 +266,6 @@ public class StandardOutboundDocSubmissionTest {
             @Override
             protected MessageGeneratorUtils getMessageGeneratorUtils() {
                 return mockUtils;
-            }
-
-            @Override
-            protected NhinTargetSystemType getTargetSystemTypeFromCommunity(HomeCommunityType community) {
-                return target;
             }
 
             @Override

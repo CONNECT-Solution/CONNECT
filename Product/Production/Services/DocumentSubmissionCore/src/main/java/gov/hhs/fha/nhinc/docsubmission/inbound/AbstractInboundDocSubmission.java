@@ -26,12 +26,9 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.inbound;
 
-import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxy;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory;
-import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionAuditLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
@@ -52,6 +49,7 @@ public abstract class AbstractInboundDocSubmission implements InboundDocSubmissi
         this.auditLogger = auditLogger;
     }
 
+    @Override
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
         ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion, Properties webContextProperties) {
 

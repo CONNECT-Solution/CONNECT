@@ -47,14 +47,15 @@ import org.apache.log4j.Logger;
  *
  * @author tjafri
  */
-public class DocSubmissionAuditTransforms extends AuditTransforms<ProvideAndRegisterDocumentSetRequestType, RegistryResponseType> {
+public class DocSubmissionAuditTransforms extends
+    AuditTransforms<ProvideAndRegisterDocumentSetRequestType, RegistryResponseType> {
 
     private static final Logger LOG = Logger.getLogger(DocSubmissionAuditTransforms.class);
 
     @Override
     protected AuditMessageType getParticipantObjectIdentificationForRequest(
         ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, AuditMessageType auditMsg) {
-        // PatientParticipantObjetIdentification  and SubmissionSetParticipantObjetIdentificationis same for both
+        // PatientParticipantObjetIdentification  and SubmissionSetParticipantObjetIdentification is same for both
         //Request and Response in case of DS
         auditMsg = getPatientParticipantObjectIdentification(request, auditMsg);
         auditMsg = getSubmissionSetParticipantObjectIdentification(request, auditMsg);
@@ -65,7 +66,7 @@ public class DocSubmissionAuditTransforms extends AuditTransforms<ProvideAndRegi
     protected AuditMessageType getParticipantObjectIdentificationForResponse(
         ProvideAndRegisterDocumentSetRequestType request, RegistryResponseType response, AssertionType assertion,
         AuditMessageType auditMsg) {
-        // PatientParticipantObjetIdentification  and SubmissionSetParticipantObjetIdentificationis same for both
+        // PatientParticipantObjetIdentification  and SubmissionSetParticipantObjetIdentification is same for both
         //Request and Response in case of DS
         auditMsg = getPatientParticipantObjectIdentification(request, auditMsg);
         auditMsg = getSubmissionSetParticipantObjectIdentification(request, auditMsg);
@@ -133,7 +134,6 @@ public class DocSubmissionAuditTransforms extends AuditTransforms<ProvideAndRegi
     // SubmissionSetParticipantObjetIdentification is same for both Request and Response in case of DS
     private AuditMessageType getSubmissionSetParticipantObjectIdentification(
         ProvideAndRegisterDocumentSetRequestType request, AuditMessageType auditMsg) {
-        //TODO check with Deepthi/Alamelu how to get submission set id
         auditMsg.getParticipantObjectIdentification().add(createSubmissionSetParticipantObjectIdentification(
             getIdValue(request, DocSubmissionAuditTransformsConstants.XDS_SUBMISSIONSET_UNIQUE_ID)));
         return auditMsg;
@@ -180,7 +180,8 @@ public class DocSubmissionAuditTransforms extends AuditTransforms<ProvideAndRegi
         String idValue = null;
         RegistryObjectType registryObj = extractRegistryObject(
             request.getSubmitObjectsRequest().getRegistryObjectList());
-        if (registryObj != null && registryObj.getExternalIdentifier() != null && registryObj.getExternalIdentifier().size() > 0) {
+        if (registryObj != null && registryObj.getExternalIdentifier() != null
+            && registryObj.getExternalIdentifier().size() > 0) {
             idValue = getIdFromExternalIdentifiers(registryObj.getExternalIdentifier(), idType);
         }
         return idValue;
@@ -205,7 +206,8 @@ public class DocSubmissionAuditTransforms extends AuditTransforms<ProvideAndRegi
 
     private RegistryObjectType extractRegistryObject(RegistryObjectListType registryList) {
         RegistryObjectType registryObj = null;
-        if (registryList != null && registryList.getIdentifiable() != null && registryList.getIdentifiable().size() > 0) {
+        if (registryList != null && registryList.getIdentifiable() != null
+            && registryList.getIdentifiable().size() > 0) {
             List<JAXBElement<? extends IdentifiableType>> identifiers = registryList.getIdentifiable();
             for (JAXBElement<? extends IdentifiableType> object : identifiers) {
                 if (object.getDeclaredType() != null && object.getDeclaredType().equals(RegistryPackageType.class)) {

@@ -151,10 +151,10 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
 
     private RegistryResponseType getResponseFromTarget(
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
-
+        gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType nhinRequest;
         RegistryResponseType nhinResponse = new RegistryResponseType();
         if (hasNhinTargetHomeCommunityId(request)) {
-            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType nhinRequest = createRequestForNhin(request);
+            nhinRequest = createRequestForNhin(request);
 
             try {
                 nhinResponse = sendToNhinProxy(nhinRequest, assertion);
@@ -171,26 +171,22 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
         return nhinResponse;
     }
 
-    private gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType createRequestForNhin(
-        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request) {
+    private gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType
+        createRequestForNhin(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request) {
 
         gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType nhinRequest
             = new gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
 
-        nhinRequest.setNhinTargetSystem(getTargetSystemTypeFromCommunity(getNhinTargetHomeCommunity(request)));
+        nhinRequest.setNhinTargetSystem(getMessageGeneratorUtils().convertFirstToNhinTargetSystemType(
+            request.getNhinTargetCommunities()));
         nhinRequest.setProvideAndRegisterDocumentSetRequest(request.getProvideAndRegisterDocumentSetRequest());
 
         return nhinRequest;
     }
 
-    protected NhinTargetSystemType getTargetSystemTypeFromCommunity(HomeCommunityType community) {
-        NhinTargetSystemType targetSystemType = new NhinTargetSystemType();
-        targetSystemType.setHomeCommunity(community);
-        return targetSystemType;
-    }
-
     private RegistryResponseType sendToNhinProxy(
-        gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
+        gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
+        AssertionType assertion) {
 
         auditRequestToNhin(request, assertion, request.getNhinTargetSystem());
 
@@ -207,7 +203,8 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
 
     protected OutboundDocSubmissionOrchestratable createOrchestratable(
         OutboundDocSubmissionDelegate delegate,
-        gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
+        gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
+        AssertionType assertion) {
 
         OutboundDocSubmissionOrchestratable dsOrchestratable = new OutboundDocSubmissionOrchestratable(delegate);
         dsOrchestratable.setAssertion(assertion);
@@ -253,5 +250,4 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
     private String getNhinTargetHomeCommunityId(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request) {
         return getNhinTargetHomeCommunity(request).getHomeCommunityId();
     }
-
 }
