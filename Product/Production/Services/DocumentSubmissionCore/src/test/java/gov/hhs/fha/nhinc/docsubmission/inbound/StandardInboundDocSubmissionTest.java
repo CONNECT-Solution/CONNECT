@@ -53,6 +53,7 @@ import java.lang.reflect.Method;
 import java.util.Properties;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.junit.Before;
 
 import org.junit.Test;
 
@@ -61,6 +62,20 @@ import org.junit.Test;
  *
  */
 public class StandardInboundDocSubmissionTest {
+
+    private AdapterDocSubmissionProxyObjectFactory adapterFactory;
+    private DocSubmissionAuditLogger auditLogger;
+    private PropertyAccessor propertyAccessor;
+    private XDRPolicyChecker policyChecker;
+    private final DocSubmissionUtils mockDocSubmissionUtils = mock(DocSubmissionUtils.class);
+
+    @Before
+    public void setUp() {
+        adapterFactory = mock(AdapterDocSubmissionProxyObjectFactory.class);
+        auditLogger = mock(DocSubmissionAuditLogger.class);
+        propertyAccessor = mock(PropertyAccessor.class);
+        policyChecker = mock(XDRPolicyChecker.class);
+    }
 
     @Test
     public void standardInboundDocSubmission() throws PropertyAccessException {
@@ -71,17 +86,11 @@ public class StandardInboundDocSubmissionTest {
         assertion.setHomeCommunity(new HomeCommunityType());
         assertion.getHomeCommunity().setHomeCommunityId(senderHCID);
         RegistryResponseType expectedResponse = new RegistryResponseType();
-
-        AdapterDocSubmissionProxyObjectFactory adapterFactory = mock(AdapterDocSubmissionProxyObjectFactory.class);
         AdapterDocSubmissionProxy adapterProxy = mock(AdapterDocSubmissionProxy.class);
-        DocSubmissionAuditLogger auditLogger = mock(DocSubmissionAuditLogger.class);
         Properties webContextProperties = new Properties();
+
         when(adapterFactory.getAdapterDocSubmissionProxy()).thenReturn(adapterProxy);
-
         when(adapterProxy.provideAndRegisterDocumentSetB(request, assertion)).thenReturn(expectedResponse);
-
-        PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
-        XDRPolicyChecker policyChecker = mock(XDRPolicyChecker.class);
 
         when(propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
             NhincConstants.HOME_COMMUNITY_ID_PROPERTY)).thenReturn(localHCID);
@@ -89,28 +98,28 @@ public class StandardInboundDocSubmissionTest {
         when(policyChecker.checkXDRRequestPolicy(request, assertion, senderHCID, localHCID,
             NhincConstants.POLICYENGINE_INBOUND_DIRECTION)).thenReturn(true);
 
-        final DocSubmissionUtils mockDocSubmissionUtils = mock(DocSubmissionUtils.class);
-
         StandardInboundDocSubmission standardDocSubmission = new StandardInboundDocSubmission(adapterFactory,
             policyChecker, propertyAccessor, auditLogger) {
-                @Override
-                public DocSubmissionUtils getDocSubmissionUtils() {
-                    return mockDocSubmissionUtils;
-                }
-            };
+            @Override
+            public DocSubmissionUtils getDocSubmissionUtils() {
+                return mockDocSubmissionUtils;
+            }
+        };
         NhinTargetSystemType target = null;
         RegistryResponseType actualResponse = standardDocSubmission.documentRepositoryProvideAndRegisterDocumentSetB(
             request, assertion, webContextProperties);
 
         assertSame(expectedResponse, actualResponse);
 
-        verify(auditLogger).auditRequestMessage(eq(request), eq(assertion), eq(target),
-            eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-            eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.NHINC_XDR_SERVICE_NAME));
+        verify(auditLogger)
+            .auditRequestMessage(eq(request), eq(assertion), eq(target),
+                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+                eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.NHINC_XDR_SERVICE_NAME));
 
-        verify(auditLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), eq(target),
-            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-            eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.NHINC_XDR_SERVICE_NAME));
+        verify(auditLogger)
+            .auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), eq(target),
+                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+                eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.NHINC_XDR_SERVICE_NAME));
     }
 
     @Test
@@ -122,10 +131,6 @@ public class StandardInboundDocSubmissionTest {
         assertion.setHomeCommunity(new HomeCommunityType());
         assertion.getHomeCommunity().setHomeCommunityId(senderHCID);
 
-        AdapterDocSubmissionProxyObjectFactory adapterFactory = mock(AdapterDocSubmissionProxyObjectFactory.class);
-        PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
-        XDRPolicyChecker policyChecker = mock(XDRPolicyChecker.class);
-        DocSubmissionAuditLogger auditLogger = mock(DocSubmissionAuditLogger.class);
         Properties webContextProperties = new Properties();
         when(propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
             NhincConstants.HOME_COMMUNITY_ID_PROPERTY)).thenReturn(localHCID);
@@ -150,8 +155,8 @@ public class StandardInboundDocSubmissionTest {
 
         verify(auditLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), isNull(
             NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties), eq(
-                NhincConstants.NHINC_XDR_SERVICE_NAME));
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties), eq(
+            NhincConstants.NHINC_XDR_SERVICE_NAME));
     }
 
     @Test
@@ -160,10 +165,6 @@ public class StandardInboundDocSubmissionTest {
         ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
 
-        AdapterDocSubmissionProxyObjectFactory adapterFactory = mock(AdapterDocSubmissionProxyObjectFactory.class);
-        PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
-        XDRPolicyChecker policyChecker = mock(XDRPolicyChecker.class);
-        DocSubmissionAuditLogger auditLogger = mock(DocSubmissionAuditLogger.class);
         Properties webContextProperties = new Properties();
         StandardInboundDocSubmission standardDocSubmission = new StandardInboundDocSubmission(adapterFactory,
             policyChecker, propertyAccessor, auditLogger);
@@ -182,8 +183,8 @@ public class StandardInboundDocSubmissionTest {
 
         verify(auditLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), isNull(
             NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties), eq(
-                NhincConstants.NHINC_XDR_SERVICE_NAME));
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties), eq(
+            NhincConstants.NHINC_XDR_SERVICE_NAME));
     }
 
     @Test
