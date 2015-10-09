@@ -67,7 +67,7 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = createRequestForInternalProcessing(
             body, targets, urlInfo);
         NhinTargetSystemType target = getMessageGeneratorUtils().convertFirstToNhinTargetSystemType(targets);
-        auditRequestFromAdapter(request, assertion, target);
+        auditRequest(request.getProvideAndRegisterDocumentSetRequest(), assertion, target);
 
         if (isPolicyValid(request, assertion)) {
             LOG.info("Policy check successful");
@@ -76,8 +76,6 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
             LOG.error("Failed policy check.  Sending error response.");
             response = MessageGeneratorUtils.getInstance().createFailedPolicyCheckResponse();
         }
-
-        auditResponseToAdapter(request, response, assertion, target);
 
         return response;
     }
@@ -188,15 +186,10 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
         gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
         AssertionType assertion) {
 
-        auditRequestToNhin(request, assertion, request.getNhinTargetSystem());
-
         OutboundDocSubmissionDelegate dsDelegate = getOutboundDocSubmissionDelegate();
         OutboundDocSubmissionOrchestratable dsOrchestratable = createOrchestratable(dsDelegate, request, assertion);
         RegistryResponseType response = ((OutboundDocSubmissionOrchestratable) dsDelegate.process(dsOrchestratable)).
             getResponse();
-
-        auditResponseFromNhin(request.getProvideAndRegisterDocumentSetRequest(), response, assertion, request.
-            getNhinTargetSystem());
 
         return response;
     }
@@ -214,31 +207,9 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
         return dsOrchestratable;
     }
 
-    private void auditRequestFromAdapter(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
-        AssertionType assertion, NhinTargetSystemType target) {
-        auditLogger.auditRequestMessage(request.getProvideAndRegisterDocumentSetRequest(), assertion, target,
-            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null,
-            NhincConstants.NHINC_XDR_SERVICE_NAME);
-    }
-
-    private void auditResponseToAdapter(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
-        RegistryResponseType response, AssertionType assertion, NhinTargetSystemType target) {
-        auditLogger.auditResponseMessage(request.getProvideAndRegisterDocumentSetRequest(), response, assertion, target,
-            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, null,
-            NhincConstants.NHINC_XDR_SERVICE_NAME);
-    }
-
-    private void auditRequestToNhin(
-        gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
-        AssertionType assertion, NhinTargetSystemType target) {
-        auditLogger.auditRequestMessage(request.getProvideAndRegisterDocumentSetRequest(), assertion, target,
-            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null,
-            NhincConstants.NHINC_XDR_SERVICE_NAME);
-    }
-
-    private void auditResponseFromNhin(ProvideAndRegisterDocumentSetRequestType request,
-        RegistryResponseType response, AssertionType assertion, NhinTargetSystemType target) {
-        auditLogger.auditResponseMessage(request, response, assertion, target, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+    private void auditRequest(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
+        NhinTargetSystemType target) {
+        auditLogger.auditRequestMessage(request, assertion, target, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
             NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null, NhincConstants.NHINC_XDR_SERVICE_NAME);
     }
 

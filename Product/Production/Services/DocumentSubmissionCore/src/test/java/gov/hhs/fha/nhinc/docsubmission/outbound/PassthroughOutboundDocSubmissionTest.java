@@ -29,18 +29,12 @@ package gov.hhs.fha.nhinc.docsubmission.outbound;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.lang.reflect.Method;
-
-import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
-import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionOrchestratable;
-import gov.hhs.fha.nhinc.docsubmission.outbound.PassthroughOutboundDocSubmission;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.util.Properties;
@@ -94,10 +88,6 @@ public class PassthroughOutboundDocSubmissionTest {
             {
                 oneOf(mockDocSubmissionLog).auditRequestMessage(
                     with(any(ProvideAndRegisterDocumentSetRequestType.class)), with(any(AssertionType.class)),
-                    with(any(NhinTargetSystemType.class)), with(any(String.class)), with(any(String.class)),
-                    with(any(Boolean.class)), with(any(Properties.class)), with(any(String.class)));
-                oneOf(mockDocSubmissionLog).auditResponseMessage(with(any(ProvideAndRegisterDocumentSetRequestType.class)),
-                    with(any(RegistryResponseType.class)), with(any(AssertionType.class)),
                     with(any(NhinTargetSystemType.class)), with(any(String.class)), with(any(String.class)),
                     with(any(Boolean.class)), with(any(Properties.class)), with(any(String.class)));
             }

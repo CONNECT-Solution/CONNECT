@@ -109,16 +109,7 @@ public class StandardOutboundDocSubmissionTest {
             assertion, targets, new UrlInfoType());
 
         verify(mockLogger).auditRequestMessage(eq(request), eq(assertion), eq(target),
-            eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE),
-            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_SERVICE_NAME));
-        verify(mockLogger).auditRequestMessage(eq(request), eq(assertion), eq(target),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_SERVICE_NAME));
-        verify(mockLogger).auditResponseMessage(eq(request), eq(successResponse), eq(assertion), eq(target),
-            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE),
-            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_SERVICE_NAME));
-        verify(mockLogger).auditResponseMessage(eq(request), eq(successResponse), eq(assertion), eq(target),
-            eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_SERVICE_NAME));
 
         assertNotNull(actualResponse);
@@ -145,10 +136,7 @@ public class StandardOutboundDocSubmissionTest {
             assertion, targets, new UrlInfoType());
 
         verify(mockLogger).auditRequestMessage(eq(request), eq(assertion), eq(target),
-            eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE),
-            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_SERVICE_NAME));
-        verify(mockLogger).auditResponseMessage(eq(request), eq(response), eq(assertion), eq(target),
-            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_SERVICE_NAME));
 
         assertNotNull(response);
@@ -169,10 +157,7 @@ public class StandardOutboundDocSubmissionTest {
             assertion, null, new UrlInfoType());
 
         verify(mockLogger).auditRequestMessage(eq(request), eq(assertion), isNull(NhinTargetSystemType.class),
-            eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE),
-            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_SERVICE_NAME));
-        verify(mockLogger).auditResponseMessage(eq(request), eq(response), eq(assertion), isNull(NhinTargetSystemType.class),
-            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_SERVICE_NAME));
 
         assertNotNull(response);
