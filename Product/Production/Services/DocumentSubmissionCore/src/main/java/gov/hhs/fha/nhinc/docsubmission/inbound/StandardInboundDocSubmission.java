@@ -87,11 +87,9 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
         ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion, Properties webContextProperties) {
 
-        auditRequestFromNhin(body, assertion, webContextProperties);
-
         RegistryResponseType response = processDocSubmission(body, assertion, webContextProperties);
 
-        auditResponseToNhin(body, response, assertion, webContextProperties);
+        auditResponse(body, response, assertion, webContextProperties);
 
         return response;
     }
@@ -104,7 +102,6 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
         String localHCID = getLocalHCID();
         if (isPolicyValid(body, assertion, localHCID)) {
             try {
-                auditRequestToAdapter(body, assertion, webContextProperties);
                 getDocSubmissionUtils().convertDataToFileLocationIfEnabled(body);
                 response = sendToAdapter(body, assertion);
             } catch (LargePayloadException lpe) {
@@ -115,8 +112,6 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
             LOG.error("Failed policy check.  Sending error response.");
             response = msgUtils.createFailedPolicyCheckResponse();
         }
-
-        auditResponseFromAdapter(body, response, assertion, webContextProperties);
 
         return response;
     }
