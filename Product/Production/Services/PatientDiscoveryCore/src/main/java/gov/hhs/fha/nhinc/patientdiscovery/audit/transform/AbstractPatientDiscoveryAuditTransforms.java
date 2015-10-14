@@ -31,12 +31,16 @@ import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationTyp
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditTransformsConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.parser.PRPAIN201305UV02Parser;
+import gov.hhs.fha.nhinc.patientdiscovery.parser.PRPAIN201306UV02Parser;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import org.apache.log4j.Logger;
+import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  * AbstractPatientDiscoveryAuditTransforms encapsulate the common functionality used by both
@@ -156,5 +160,57 @@ public abstract class AbstractPatientDiscoveryAuditTransforms<T, K> extends Audi
     @Override
     protected String getServiceEventActionCodeResponder() {
         return PatientDiscoveryAuditTransformsConstants.EVENT_ACTION_CODE_RESPONDER;
+    }
+
+    protected AuditMessageType getPatientParticipantObjectIdentificationForResponse(PRPAIN201306UV02 response,
+        AuditMessageType auditMsg) {
+
+        List<II> oII = PRPAIN201306UV02Parser.getPatientIds(response);
+        if (oII != null && oII.size() > 0) {
+            for (II entry : oII) {
+                if (entry != null && entry.getRoot() != null && entry.getExtension() != null
+                    && !entry.getRoot().isEmpty() && !entry.getExtension().isEmpty()) {
+                    createPatientParticipantObjectIdentification(auditMsg, entry.getRoot(), entry.getExtension());
+                }
+            }
+        } else {
+            createPatientParticipantObjectIdentification(auditMsg, null, null);
+        }
+
+        return auditMsg;
+    }
+
+    protected AuditMessageType getQueryParamsParticipantObjectIdentificationForResponse(PRPAIN201306UV02 response,
+        AuditMessageType auditMsg) throws JAXBException {
+
+        ParticipantObjectIdentificationType participantObject = buildBaseParticipantObjectIdentificationType(
+            PRPAIN201306UV02Parser.getQueryId(response));
+        participantObject.setParticipantObjectQuery(getParticipantObjectQueryForResponse(response));
+        auditMsg.getParticipantObjectIdentification().add(participantObject);
+        return auditMsg;
+    }
+
+    protected AuditMessageType getPatientParticipantObjectIdentificationForRequest(PRPAIN201305UV02 request,
+        AuditMessageType auditMsg) {
+
+        // Set the Partipation Object Id (patient id)
+        II oII = PRPAIN201305UV02Parser.getPatientId(request);
+        if (oII != null && oII.getRoot() != null && oII.getExtension() != null && !oII.getRoot().isEmpty()
+            && !oII.getExtension().isEmpty()) {
+
+            createPatientParticipantObjectIdentification(auditMsg, oII.getRoot(), oII.getExtension());
+        } else {
+            createPatientParticipantObjectIdentification(auditMsg, null, null);
+        }
+
+        return auditMsg;
+    }
+
+    private byte[] getParticipantObjectQueryForResponse(PRPAIN201306UV02 response) throws JAXBException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        if (response.getControlActProcess() != null && response.getControlActProcess().getQueryByParameter() != null) {
+            getMarshaller().marshal(response.getControlActProcess().getQueryByParameter(), baos);
+        }
+        return baos.toByteArray();
     }
 }
