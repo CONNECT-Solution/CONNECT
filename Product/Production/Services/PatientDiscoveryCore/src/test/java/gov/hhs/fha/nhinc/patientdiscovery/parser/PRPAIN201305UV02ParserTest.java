@@ -42,20 +42,20 @@ public class PRPAIN201305UV02ParserTest {
 
     @Before
     public void setup() {
-        request = TestPatientDiscoveryMessageBuilder.createPRPAIN201305UV02Request();
+        request = TestPatientDiscoveryMessageHelper.createPRPAIN201305UV02Request();
     }
 
     @Test
     public void testPatientId() {
         II objPid = PRPAIN201305UV02Parser.getPatientId(request);
-        assertEquals("PatientId Root mismatch", TestPatientDiscoveryMessageBuilder.ROOT, objPid.getRoot());
-        assertEquals("PatientId Extension mismatch", TestPatientDiscoveryMessageBuilder.EXTENSION,
+        assertEquals("PatientId Root mismatch", TestPatientDiscoveryMessageHelper.ROOT, objPid.getRoot());
+        assertEquals("PatientId Extension mismatch", TestPatientDiscoveryMessageHelper.EXTENSION,
             objPid.getExtension());
     }
 
     @Test
     public void testParticipantObjectId() {
         String oid = PRPAIN201305UV02Parser.getQueryId(request);
-        assertEquals("QueryId mismatch", TestPatientDiscoveryMessageBuilder.QUERY_ID_EXTENSION, oid);
+        assertEquals("QueryId mismatch", TestPatientDiscoveryMessageHelper.QUERY_ID_EXTENSION, oid);
     }
 }

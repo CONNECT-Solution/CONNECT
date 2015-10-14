@@ -36,7 +36,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditTransformsConstants;
-import gov.hhs.fha.nhinc.patientdiscovery.parser.TestPatientDiscoveryMessageBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.parser.TestPatientDiscoveryMessageHelper;
 import java.net.UnknownHostException;
 import java.util.Properties;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -114,7 +114,7 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
 
         AssertionType assertion = createAssertion();
         LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(
-            TestPatientDiscoveryMessageBuilder.createPRPAIN201305UV02Request(), assertion, createNhinTarget(),
+            TestPatientDiscoveryMessageHelper.createPRPAIN201305UV02Request(), assertion, createNhinTarget(),
             NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE,
             webContextProperties, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
 
@@ -160,8 +160,8 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
 
         AssertionType assertion = createAssertion();
         LogEventRequestType auditRequest = transforms.transformResponseToAuditMsg(
-            TestPatientDiscoveryMessageBuilder.createPRPAIN201305UV02Request(),
-            TestPatientDiscoveryMessageBuilder.createPRPAIN201306UV02Response(), assertion, createNhinTarget(),
+            TestPatientDiscoveryMessageHelper.createPRPAIN201305UV02Request(),
+            TestPatientDiscoveryMessageHelper.createPRPAIN201306UV02Response(), assertion, createNhinTarget(),
             NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
             NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, webContextProperties,
             NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);

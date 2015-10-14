@@ -66,7 +66,7 @@ import org.hl7.v3.XActMoodIntentEvent;
  *
  * @author tjafri
  */
-public class TestPatientDiscoveryMessageBuilder {
+public class TestPatientDiscoveryMessageHelper {
 
     public static final String ROOT = "1.1";
     public static final String EXTENSION = "D123401";
