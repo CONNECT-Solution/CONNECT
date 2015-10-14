@@ -2586,7 +2586,7 @@ if (propertiesFile.exists()) {
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true" id="722d7a11-28b2-47ff-93a2-1393fc42abb3">
       <con:settings/>
-      <con:testStep type="groovy" name="Clear Audit Logs" id="9c898c67-4fd9-410c-a77d-103a33311ee2" disabled="true">
+      <con:testStep type="groovy" name="Clear Audit Logs" id="9c898c67-4fd9-410c-a77d-103a33311ee2">
         <con:settings/>
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) { sql -> 
@@ -2595,7 +2595,7 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Patient Discovery Deferred Req" type="request" id="27035536-f9f9-4c4f-8a1a-f709e11aed17" disabled="true">
+      <con:testStep name="Patient Discovery Deferred Req" type="request" id="27035536-f9f9-4c4f-8a1a-f709e11aed17">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityPatientDiscoveryAsyncReqBindingSoap</con:interface>
@@ -2919,7 +2919,7 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Audit Logs" id="db7e5156-753b-49f0-97ed-ab389757b9d5">
+      <con:testStep type="groovy" name="Verify Audit Logs" id="db7e5156-753b-49f0-97ed-ab389757b9d5" disabled="true">
         <con:settings/>
         <con:config><script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
@@ -2928,7 +2928,7 @@ if (propertiesFile.exists()) {
 	
 }</script></con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
         <con:settings/>
         <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
@@ -3089,7 +3089,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 	}
   }
 }]]></script></con:config>
-      </con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK">
+      </con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" disabled="true">
         <con:settings/>
         <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
@@ -3514,15 +3514,15 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-14T12:46:22Z</con:value>
+          <con:value>2015-10-14T15:29:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-14T12:56:22Z</con:value>
+          <con:value>2015-10-14T15:39:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/14/2015 12:46:22</con:value>
+          <con:value>10/14/2015 15:29:24</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -3533,7 +3533,7 @@ if (propertiesFile.exists()) {
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true" id="1bb2218d-381d-4724-8ba6-a019f2532778">
       <con:settings/>
-      <con:testStep type="groovy" name="Clear Audit Logs" id="19ec0cae-8bd8-4f38-94da-647b6036fb4b" disabled="true">
+      <con:testStep type="groovy" name="Clear Audit Logs" id="19ec0cae-8bd8-4f38-94da-647b6036fb4b">
         <con:settings/>
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) { sql -> 
@@ -3542,7 +3542,7 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Patient Discovery Deferred Resp" type="request" id="8f330759-6996-44bf-9d4c-da74d3459571" disabled="true">
+      <con:testStep name="Patient Discovery Deferred Resp" type="request" id="8f330759-6996-44bf-9d4c-da74d3459571">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityPatientDiscoveryAsyncRespBindingSoap</con:interface>
@@ -3892,7 +3892,7 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Audit Logs" id="e87c68a1-d465-4a76-8ca4-b06010e140bd">
+      <con:testStep type="groovy" name="Verify Audit Logs" id="e87c68a1-d465-4a76-8ca4-b06010e140bd" disabled="true">
         <con:settings/>
         <con:config><script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
@@ -3901,7 +3901,7 @@ if (propertiesFile.exists()) {
 	
 }</script></con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)" disabled="true">
         <con:settings/>
         <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
@@ -4058,7 +4058,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 	}
   }
 }]]></script></con:config>
-      </con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1) - ACK">
+      </con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1) - ACK" disabled="true">
         <con:settings/>
         <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
@@ -4495,15 +4495,15 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-14T12:46:30Z</con:value>
+          <con:value>2015-10-14T15:30:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-14T12:56:30Z</con:value>
+          <con:value>2015-10-14T15:40:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/14/2015 12:46:30</con:value>
+          <con:value>10/14/2015 15:30:29</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -10413,7 +10413,7 @@ if (propertiesFile.exists()) {
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true" id="2d01ba9b-8e2f-4495-9afb-0df274e6ff49">
       <con:settings/>
-      <con:testStep type="groovy" name="Clear Audit Logs" id="809a434a-ba0b-48e1-98db-e52ff6b22075" disabled="true">
+      <con:testStep type="groovy" name="Clear Audit Logs" id="809a434a-ba0b-48e1-98db-e52ff6b22075">
         <con:settings/>
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) { sql -> 
@@ -10422,7 +10422,7 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Patient Discovery Deferred Req" type="request" id="a49a8d24-19ba-4232-a4fa-a58cc9365089" disabled="true">
+      <con:testStep name="Patient Discovery Deferred Req" type="request" id="a49a8d24-19ba-4232-a4fa-a58cc9365089">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityPatientDiscoveryAsyncReqBindingSoap</con:interface>
@@ -10746,7 +10746,7 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Audit Logs" id="0fa073f7-7cd1-403b-a396-78420ded9acd">
+      <con:testStep type="groovy" name="Verify Audit Logs" id="0fa073f7-7cd1-403b-a396-78420ded9acd" disabled="true">
         <con:settings/>
         <con:config><script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
@@ -10755,7 +10755,7 @@ if (propertiesFile.exists()) {
 	
 }</script></con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
         <con:settings/>
         <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
@@ -10916,7 +10916,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 	}
   }
 }]]></script></con:config>
-      </con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK">
+      </con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" disabled="true">
         <con:settings/>
         <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
@@ -11341,15 +11341,15 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-14T12:36:39Z</con:value>
+          <con:value>2015-10-14T15:26:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-14T12:46:39Z</con:value>
+          <con:value>2015-10-14T15:36:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/14/2015 12:36:39</con:value>
+          <con:value>10/14/2015 15:26:03</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -11360,7 +11360,7 @@ if (propertiesFile.exists()) {
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true" id="62a59f14-2e37-40a3-90c8-4afd3041d32d">
       <con:settings/>
-      <con:testStep type="groovy" name="Clear Audit Logs" id="5239df91-5bfe-424b-a952-f22ba8e4c481" disabled="true">
+      <con:testStep type="groovy" name="Clear Audit Logs" id="5239df91-5bfe-424b-a952-f22ba8e4c481">
         <con:settings/>
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) { sql -> 
@@ -11369,7 +11369,7 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Patient Discovery Deferred Resp" type="request" id="53ed50fb-ec85-4d41-b161-a0cc67d1266f" disabled="true">
+      <con:testStep name="Patient Discovery Deferred Resp" type="request" id="53ed50fb-ec85-4d41-b161-a0cc67d1266f">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityPatientDiscoveryAsyncRespBindingSoap</con:interface>
@@ -11719,7 +11719,7 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Audit Logs" id="75840f83-2ae6-4898-8c2e-6c61104588a2">
+      <con:testStep type="groovy" name="Verify Audit Logs" id="75840f83-2ae6-4898-8c2e-6c61104588a2" disabled="true">
         <con:settings/>
         <con:config><script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
@@ -11728,7 +11728,7 @@ if (propertiesFile.exists()) {
 	
 }</script></con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)" disabled="true">
         <con:settings/>
         <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
@@ -11885,7 +11885,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 	}
   }
 }]]></script></con:config>
-      </con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1) - ACK">
+      </con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1) - ACK" disabled="true">
         <con:settings/>
         <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
@@ -12322,11 +12322,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-14T12:56:04Z</con:value>
+          <con:value>2015-10-14T15:37:41Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/14/2015 12:46:04</con:value>
+          <con:value>10/14/2015 15:27:41</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -12334,7 +12334,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-14T12:46:04Z</con:value>
+          <con:value>2015-10-14T15:27:41Z</con:value>
         </con:property>
       <con:property><con:name>EventIdentification.EventID.@code</con:name><con:value>110112</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name><con:value>1</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>ActiveParticipant.@UserID</con:name><con:value>kskagerb</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCode</con:name><con:value>1</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name><con:value>localhost</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@displayName</con:name><con:value>Cross Gateway Patient Discovery</con:value></con:property><con:property><con:name>ActiveParticipant.@UserIsRequestor</con:name><con:value>true</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.@ParticipantObjectTypeCodeRole</con:name><con:value>24</con:value></con:property><con:property><con:name>parameterList.livingSubjectBirthTime.semanticsText</con:name><con:value>LivingSubject.birthTime</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name><con:value>Destination</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name><con:value>192.168.1.2</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName</con:name><con:value>Cross Gateway Patient Discovery</con:value></con:property><con:property><con:name>parameterList.livingSubjectName.value.given.@partType</con:name><con:value>GIV</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@code</con:name><con:value>307969004</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name><con:value>1111^^^&amp;1.1&amp;ISO</con:value></con:property><con:property><con:name>EventIdentification.@EventDateTime</con:name><con:value>2015-04-02T13:47:30.199Z</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole</con:name><con:value>1</con:value></con:property><con:property><con:name>parameterList.livingSubjectName.value.family.@partType</con:name><con:value>FAM</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name><con:value>Source</con:value></con:property><con:property><con:name>responseModalityCode.@code</con:name><con:value>R</con:value></con:property><con:property><con:name>ActiveParticipant.@AlternativeUserID</con:name><con:value>19233@192.168.1.1</con:value></con:property><con:property><con:name>ActiveParticipant.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>&lt;!--Human</con:name><con:value>Requestor--></con:value></con:property><con:property><con:name>parameterList.livingSubjectBirthTime.value.@value</con:name><con:value>19630804</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.@ParticipantObjectID</con:name><con:value>a797fa28-45fd-4a29-867d-32f3301e73fe</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserIsRequestor.inbound</con:name><con:value>false</con:value></con:property><con:property><con:name>&lt;--ParticipantObjectIdentification_Query.ParticipantObjectQuery</con:name><con:value>checks --></con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@code</con:name><con:value>ITI-55</con:value></con:property><con:property><con:name>parameterList.livingSubjectId.value.@root</con:name><con:value>1.1</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>AuditMessage.xmlns</con:name><con:value>http://nhinc.services.com/schema/auditmessage</con:value></con:property><con:property><con:name>parameterList.livingSubjectName.semanticsText</con:name><con:value>LivingSubject.name</con:value></con:property><con:property><con:name>parameterList.livingSubjectName.semanticsText.@representation</con:name><con:value>TXT</con:value></con:property><con:property><con:name>parameterList.livingSubjectId.value.@extension</con:name><con:value>1111</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name><con:value>Gateway 1</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name><con:value>IHE Transactions</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@code</con:name><con:value>ITI-55</con:value></con:property><con:property><con:name>responsePriorityCode.@code</con:name><con:value>I</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name><con:value>1010</con:value></con:property><con:property><con:name>EventIdentification.@EventOutcomeIndicator</con:name><con:value>0</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name><con:value>Patient Number</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserID</con:name><con:value>https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery</con:value></con:property><con:property><con:name>&lt;!--Destination--></con:name><con:value/></con:property><con:property><con:name>parameterList.livingSubjectName.value.family</con:name><con:value>Younger</con:value></con:property><con:property><con:name>parameterList.livingSubjectName.value.given</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserIsRequestor</con:name><con:value>true</con:value></con:property><con:property><con:name>parameterList.livingSubjectAdministrativeGender.semanticsText.@representation</con:name><con:value>TXT</con:value></con:property><con:property><con:name>parameterList.livingSubjectId.semanticsText.@representation</con:name><con:value>TXT</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@displayName</con:name><con:value>Human Requestor</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name><con:value>false</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@AlternativeUserID</con:name><con:value>19233@192.168.1.2</con:value></con:property><con:property><con:name>EventIdentification.EventID.@displayName</con:name><con:value>Query</con:value></con:property><con:property><con:name>parameterList.livingSubjectAdministrativeGender.semanticsText</con:name><con:value>LivingSubject.administrativeGender</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name><con:value>110153</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name><con:value>110152</con:value></con:property><con:property><con:name>EventIdentification.@EventActionCode</con:name><con:value>E</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@codeSystemName</con:name><con:value>SNOMED_CT</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.ParticipantObjectName</con:name><con:value>1.1</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserID</con:name><con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name><con:value>2</con:value></con:property><con:property><con:name>&lt;!--Source--></con:name><con:value/></con:property><con:property><con:name>queryId.@root</con:name><con:value>1.1</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>EventIdentification.EventID.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>parameterList.livingSubjectBirthTime.semanticsText.@representation</con:name><con:value>TXT</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName</con:name><con:value>IHE Transactions</con:value></con:property><con:property><con:name>parameterList.livingSubjectAdministrativeGender.value.@code</con:name><con:value>M</con:value></con:property><con:property><con:name>ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>queryId.@extension</con:name><con:value>-abd3453dcd24wkkks545</con:value></con:property><con:property><con:name>statusCode.@code</con:name><con:value>new</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Responder.@ParticipantObjectID</con:name><con:value>D123401^^^&amp;1.1&amp;ISO</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name><con:value>19233@192.168.1.2</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name><con:value>RFC-3881</con:value></con:property></con:properties>
       <con:reportParameters/>
@@ -15744,263 +15744,71 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
     <con:reportParameters/>
   </con:testSuite>
   <con:properties>
-    <con:property>
-      <con:name>AAMappingDB</con:name>
-      <con:value>assigningauthoritydb</con:value>
-    </con:property>
-    <con:property>
-      <con:name>AAMappingTable</con:name>
-      <con:value>aa_to_home_community_mapping</con:value>
-    </con:property>
-    <con:property>
-      <con:name>AsyncMsgDB</con:name>
-      <con:value>asyncmsgs</con:value>
-    </con:property>
-    <con:property>
-      <con:name>AsyncMsgTable</con:name>
-      <con:value>asyncmsgrepo</con:value>
-    </con:property>
-    <con:property>
-      <con:name>AuditRepoDB</con:name>
-      <con:value>auditrepo</con:value>
-    </con:property>
-    <con:property>
-      <con:name>AuditRepoTable</con:name>
-      <con:value>auditrepository</con:value>
-    </con:property>
-    <con:property>
-      <con:name>BirthTime</con:name>
-      <con:value>19630804</con:value>
-    </con:property>
-    <con:property>
-      <con:name>City</con:name>
-      <con:value>Melbourne</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Country</con:name>
-      <con:value>US</con:value>
-    </con:property>
-    <con:property>
-      <con:name>DBHost</con:name>
-      <con:value>localhost</con:value>
-    </con:property>
-    <con:property>
-      <con:name>DBPass</con:name>
-      <con:value>nhincpass</con:value>
-    </con:property>
-    <con:property>
-      <con:name>DBPort</con:name>
-      <con:value>3306</con:value>
-    </con:property>
-    <con:property>
-      <con:name>DBUser</con:name>
-      <con:value>nhincuser</con:value>
-    </con:property>
-    <con:property>
-      <con:name>DeferredPatientDiscoveryReqMessageID</con:name>
-      <con:value>uuid:6666666666.66666.666.66</con:value>
-    </con:property>
-    <con:property>
-      <con:name>DOB</con:name>
-      <con:value>19800516</con:value>
-    </con:property>
-    <con:property>
-      <con:name>DQDocID</con:name>
-      <con:value>1.123401.55555</con:value>
-    </con:property>
-    <con:property>
-      <con:name>DQPatientID</con:name>
-      <con:value>D123401</con:value>
-    </con:property>
-    <con:property>
-      <con:name>DRDocID</con:name>
-      <con:value>1.123407.777777</con:value>
-    </con:property>
-    <con:property>
-      <con:name>DRRepoID</con:name>
-      <con:value>1</con:value>
-    </con:property>
-    <con:property>
-      <con:name>DynamicDQDocID</con:name>
-      <con:value>103.8.9284320.020.3590.75^1266324032288</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Endpoint-DocQuery</con:name>
-      <con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Endpoint-DocRetrieve</con:name>
-      <con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Endpoint-DSDeferredResp</con:name>
-      <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Endpoint-EntityAdminDist</con:name>
-      <con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Endpoint-EntityXDRRequest</con:name>
-      <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Endpoint-Notify</con:name>
-      <con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationConsumer</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Endpoint-PatientDiscovery</con:name>
-      <con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Endpoint-PatientDiscoveryAsyncReq</con:name>
-      <con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Endpoint-PatientDiscoveryAsyncResp</con:name>
-      <con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Endpoint-Subscribe</con:name>
-      <con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationProducer</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Endpoint-Unsubscribe</con:name>
-      <con:value>http://localhost:8080/Gateway/HIEM/2_0/EntitySubscriptionManager</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Endpoint-XDREntity</con:name>
-      <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value>
-    </con:property>
-    <con:property>
-      <con:name>ExpirationDate</con:name>
-      <con:value>20100520</con:value>
-    </con:property>
-    <con:property>
-      <con:name>FamilyName</con:name>
-      <con:value>Younger</con:value>
-    </con:property>
-    <con:property>
-      <con:name>GatewayPropDir</con:name>
-      <con:value/>
-    </con:property>
-    <con:property>
-      <con:name>Gender</con:name>
-      <con:value>M</con:value>
-    </con:property>
-    <con:property>
-      <con:name>GivenName</con:name>
-      <con:value>Gallow</con:value>
-    </con:property>
-    <con:property>
-      <con:name>LocalAA</con:name>
-      <con:value>1.1</con:value>
-    </con:property>
-    <con:property>
-      <con:name>LocalHCDescription</con:name>
-      <con:value>InternalTest1</con:value>
-    </con:property>
-    <con:property>
-      <con:name>LocalHCID</con:name>
-      <con:value>1.1</con:value>
-    </con:property>
-    <con:property>
-      <con:name>LocalPatientID</con:name>
-      <con:value>D123401</con:value>
-    </con:property>
-    <con:property>
-      <con:name>NotificationEndpoint</con:name>
-      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value>
-    </con:property>
-    <con:property>
-      <con:name>NotifySubscriptionID</con:name>
-      <con:value>f2064549-c802-41be-bb0d-6319c6437072</con:value>
-    </con:property>
-    <con:property>
-      <con:name>NotifySubscriptionManagerEndpointAddress</con:name>
-      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-    </con:property>
-    <con:property>
-      <con:name>PatientCorrelationDB</con:name>
-      <con:value>patientcorrelationdb</con:value>
-    </con:property>
-    <con:property>
-      <con:name>PatientCorrelationTable</con:name>
-      <con:value>correlatedidentifiers</con:value>
-    </con:property>
-    <con:property>
-      <con:name>project.name</con:name>
-      <con:value>EntityValidation</con:value>
-    </con:property>
-    <con:property>
-      <con:name>PurposeOfDisclosure</con:name>
-      <con:value>Mental</con:value>
-    </con:property>
-    <con:property>
-      <con:name>RemoteAA</con:name>
-      <con:value>2.2</con:value>
-    </con:property>
-    <con:property>
-      <con:name>RemoteHCDescription</con:name>
-      <con:value>InternalTest2</con:value>
-    </con:property>
-    <con:property>
-      <con:name>RemoteHCID</con:name>
-      <con:value>2.2</con:value>
-    </con:property>
-    <con:property>
-      <con:name>RemotePatientID</con:name>
-      <con:value>D123401</con:value>
-    </con:property>
-    <con:property>
-      <con:name>SSN</con:name>
-      <con:value>123456789</con:value>
-    </con:property>
-    <con:property>
-      <con:name>State</con:name>
-      <con:value>FL</con:value>
-    </con:property>
-    <con:property>
-      <con:name>StreetAddress</con:name>
-      <con:value>123 Johnson Rd</con:value>
-    </con:property>
-    <con:property>
-      <con:name>SubjectID</con:name>
-      <con:value>1111</con:value>
-    </con:property>
-    <con:property>
-      <con:name>SubscribePatientID</con:name>
-      <con:value>D123401</con:value>
-    </con:property>
-    <con:property>
-      <con:name>SubscriptionDB</con:name>
-      <con:value>subscriptionrepository</con:value>
-    </con:property>
-    <con:property>
-      <con:name>SubscriptionEndpoint</con:name>
-      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value>
-    </con:property>
-    <con:property>
-      <con:name>SubscriptionManagerEndpointAddress</con:name>
-      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-    </con:property>
-    <con:property>
-      <con:name>SubscriptionTable</con:name>
-      <con:value>subscription</con:value>
-    </con:property>
-    <con:property>
-      <con:name>UniquePatientId</con:name>
-      <con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value>
-    </con:property>
-    <con:property>
-      <con:name>UnSubscriptionID</con:name>
-      <con:value>664f3c6e-ea88-4dae-a88e-b58661d8c253</con:value>
-    </con:property>
-    <con:property>
-      <con:name>ZipCode</con:name>
-      <con:value>12345</con:value>
-    </con:property>
-  </con:properties>
+    
+    
+    <con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property>
+    
+    
+    <con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property>
+    
+    
+    
+    
+    
+    <con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property>
+    
+    
+    
+    <con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property>
+    
+    
+    
+    
+    
+    
+    
+    
+    <con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property>
+    
+    
+    <con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>Endpoint-DSDeferredResp</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value></con:property>
+    
+    
+    
+    
+    
+    <con:property><con:name>Endpoint-EntityAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-Notify</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationConsumer</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property>
+    
+    
+    
+    <con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-Subscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationProducer</con:value></con:property><con:property><con:name>Endpoint-Unsubscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntitySubscriptionManager</con:value></con:property>
+    
+    
+    <con:property><con:name>Endpoint-XDREntity</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property>
+    
+    
+    
+    
+    <con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>f2064549-c802-41be-bb0d-6319c6437072</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property>
+    
+    
+    
+    
+    <con:property><con:name>project.name</con:name><con:value>EntityValidation</con:value></con:property>
+    
+    
+    <con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property>
+    
+    
+    
+    <con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property>
+    
+    <con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property>
+    
+    
+    
+    
+  <con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>664f3c6e-ea88-4dae-a88e-b58661d8c253</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
