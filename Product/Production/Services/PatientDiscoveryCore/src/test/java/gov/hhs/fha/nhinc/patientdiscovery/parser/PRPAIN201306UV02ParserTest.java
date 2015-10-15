@@ -28,9 +28,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.parser;
 
 import java.util.List;
 import org.hl7.v3.II;
-import org.hl7.v3.PRPAIN201306UV02;
 import static org.junit.Assert.assertEquals;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -39,22 +37,16 @@ import org.junit.Test;
  */
 public class PRPAIN201306UV02ParserTest {
 
-    private PRPAIN201306UV02 response;
-
-    @Before
-    public void setup() {
-        response = TestPatientDiscoveryMessageHelper.createPRPAIN201306UV02Response();
-    }
-
     @Test
     public void testQueryId() {
-        String queryId = PRPAIN201306UV02Parser.getQueryId(response);
-        assertEquals("QueryId mismatch", queryId, TestPatientDiscoveryMessageHelper.QUERY_ID_EXTENSION);
+        assertEquals("QueryId mismatch", PRPAIN201306UV02Parser.getQueryId(TestPatientDiscoveryMessageHelper.
+            createPRPAIN201306UV02Response()), TestPatientDiscoveryMessageHelper.QUERY_ID_EXTENSION);
     }
 
     @Test
     public void testPatientId() {
-        List<II> pids = PRPAIN201306UV02Parser.getPatientIds(response);
+        List<II> pids = PRPAIN201306UV02Parser.getPatientIds(
+            TestPatientDiscoveryMessageHelper.createPRPAIN201306UV02Response());
         assertEquals("Response patientIds size mismatch", pids.size(), 1);
         assertEquals("Response patientId extension mismatch", pids.get(0).getExtension(),
             TestPatientDiscoveryMessageHelper.EXTENSION);

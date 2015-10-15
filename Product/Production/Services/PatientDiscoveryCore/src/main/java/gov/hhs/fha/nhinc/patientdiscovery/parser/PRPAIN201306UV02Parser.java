@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.parser;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hl7.v3.II;
@@ -63,17 +64,17 @@ public class PRPAIN201306UV02Parser {
         List<II> oIIs = null;
         if (response != null && response.getControlActProcess() != null
             && response.getControlActProcess().getSubject() != null) {
-
+            oIIs = new ArrayList<>();
             for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subject : response.getControlActProcess().getSubject()) {
                 if (subject.getRegistrationEvent() != null && subject.getRegistrationEvent().getSubject1() != null
                     && subject.getRegistrationEvent().getSubject1().getPatient() != null
                     && subject.getRegistrationEvent().getSubject1().getPatient().getId() != null) {
 
-                    oIIs = subject.getRegistrationEvent().getSubject1().getPatient().getId();
-                } else {
-                    LOG.error("PatientId doesn't exist in the received PRPAIN201306UV02 message");
+                    oIIs.addAll(subject.getRegistrationEvent().getSubject1().getPatient().getId());
                 }
             }
+        } else {
+            LOG.error("PatientId doesn't exist in the received PRPAIN201306UV02 message");
         }
         return oIIs;
     }

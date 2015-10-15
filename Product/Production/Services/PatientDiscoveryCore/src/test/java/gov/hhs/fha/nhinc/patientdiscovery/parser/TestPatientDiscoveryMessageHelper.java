@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.mpilib.Patient;
 import gov.hhs.fha.nhinc.mpilib.Patients;
 import gov.hhs.fha.nhinc.mpilib.PersonName;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
-import java.util.List;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import org.hl7.v3.ActClassControlAct;
@@ -125,19 +124,10 @@ public class TestPatientDiscoveryMessageHelper {
         String birthTime, II subjectId) {
 
         PRPAMT201306UV02ParameterList paramList = new PRPAMT201306UV02ParameterList();
-
-        // Set the Subject Gender Code
         paramList.getLivingSubjectAdministrativeGender().add(createGender(gender));
-
-        // Set the Subject Birth Time
         paramList.getLivingSubjectBirthTime().add(createBirthTime(birthTime));
-
-        // Set the Subject Name
         paramList.getLivingSubjectName().add(createName(firstName, lastName));
-
-        // Set the subject Id
         paramList.getLivingSubjectId().add(createSubjectId(subjectId));
-
         return paramList;
     }
 
@@ -153,14 +143,13 @@ public class TestPatientDiscoveryMessageHelper {
     private static PRPAMT201306UV02LivingSubjectName createName(String firstName, String lastName) {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
         ENExplicit name = factory.createENExplicit();
-        List namelist = name.getContent();
 
         if (lastName != null && lastName.length() > 0) {
             EnExplicitFamily familyName = new EnExplicitFamily();
             familyName.setPartType("FAM");
             familyName.setContent(lastName);
 
-            namelist.add(factory.createENExplicitFamily(familyName));
+            name.getContent().add(factory.createENExplicitFamily(familyName));
         }
 
         if (firstName != null && firstName.length() > 0) {
@@ -168,7 +157,7 @@ public class TestPatientDiscoveryMessageHelper {
             givenName.setPartType("GIV");
             givenName.setContent(firstName);
 
-            namelist.add(factory.createENExplicitGiven(givenName));
+            name.getContent().add(factory.createENExplicitGiven(givenName));
         }
 
         PRPAMT201306UV02LivingSubjectName subjectName = new PRPAMT201306UV02LivingSubjectName();
@@ -265,9 +254,7 @@ public class TestPatientDiscoveryMessageHelper {
     private static PRPAIN201306UV02MFMIMT700711UV01Subject2 createSubject1(Patient patient, PRPAIN201305UV02 query) {
         PRPAIN201306UV02MFMIMT700711UV01Subject2 subject = new PRPAIN201306UV02MFMIMT700711UV01Subject2();
         subject.setTypeCode(ParticipationTargetSubject.SBJ);
-        // Add in patient
         subject.setPatient(createPatient(patient, query));
-
         return subject;
     }
 
@@ -278,7 +265,6 @@ public class TestPatientDiscoveryMessageHelper {
         PRPAMT201310UV02Patient subjectPatient = new PRPAMT201310UV02Patient();
         subjectPatient.getClassCode().add("PAT");
         subjectPatient.setStatusCode(statusCode);
-        // Add in patient id
         subjectPatient.getId().add(createSubjectId(patient));
         return subjectPatient;
     }
@@ -303,15 +289,15 @@ public class TestPatientDiscoveryMessageHelper {
         return id;
     }
 
-    private static Identifier createIdentifier() {
+    private static Identifier createIdentifier(String extId, String rootId) {
         Identifier subjectId = new Identifier();
-        subjectId.setId("D123401");
-        subjectId.setOrganizationId("1.1");
+        subjectId.setId(extId);
+        subjectId.setOrganizationId(rootId);
         return subjectId;
     }
 
     private static Patients createPatients() {
-        Patient patient = createMpiPatient("Gallow", "Younger", "M", "08-20-1976", createIdentifier());
+        Patient patient = createMpiPatient("Gallow", "Younger", "M", "08-20-1976", createIdentifier(EXTENSION, ROOT));
         Patients patients = new Patients();
         patients.add(patient);
         return patients;
@@ -322,24 +308,15 @@ public class TestPatientDiscoveryMessageHelper {
 
         Patient result = new Patient();
 
-        // Set the patient name
         PersonName name = new PersonName();
         name.setFirstName(firstName);
         name.setLastName(lastName);
         result.getNames().add(name);
-
-        // Set the patient gender
         result.setGender(gender);
-
-        // Set the patient birth time
         result.setDateOfBirth(birthTime);
-
-        // Set the patient Id
         Identifiers ids = new Identifiers();
         ids.add(subjectId);
         result.setIdentifiers(ids);
-
         return result;
     }
-
 }

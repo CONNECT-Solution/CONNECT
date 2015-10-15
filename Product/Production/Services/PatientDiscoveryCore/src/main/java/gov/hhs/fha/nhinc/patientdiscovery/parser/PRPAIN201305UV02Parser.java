@@ -55,11 +55,12 @@ public class PRPAIN201305UV02Parser {
 
             List<PRPAMT201306UV02LivingSubjectId> ids = request.getControlActProcess().getQueryByParameter().getValue()
                 .getParameterList().getLivingSubjectId();
-
-            if (ids.size() == 1) {
-                livingSubjectId = getLivingSubjectId(ids.get(0));
-            } else if (ids.size() > 1) {
-                livingSubjectId = getLivingSubjectIdFromAuthorOrPerformerValue(request, ids);
+            if (ids != null) {
+                if (ids.size() == 1) {
+                    livingSubjectId = getLivingSubjectId(ids.get(0));
+                } else if (ids.size() > 1) {
+                    livingSubjectId = getLivingSubjectIdFromAuthorOrPerformerValue(request, ids);
+                }
             }
         } else {
             LOG.error("PatientId doesn't exist in the received PRPAIN201305UV02 message");
@@ -125,7 +126,7 @@ public class PRPAIN201305UV02Parser {
     private static II getLivingSubjectId(PRPAMT201306UV02LivingSubjectId id) {
         II oII = null;
 
-        if (id != null && id.getValue() != null) {
+        if (id != null && id.getValue() != null && id.getValue().size() > 0) {
             oII = id.getValue().get(0);
         }
 

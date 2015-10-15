@@ -37,7 +37,6 @@ import java.io.ByteArrayOutputStream;
 import java.util.List;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import org.apache.log4j.Logger;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -50,12 +49,11 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public abstract class AbstractPatientDiscoveryAuditTransforms<T, K> extends AuditTransforms<T, K> {
 
-    private static final Logger LOG = Logger.getLogger(AbstractPatientDiscoveryAuditTransforms.class);
     private static final String JAXB_HL7_CONTEXT_NAME = "org.hl7.v3";
 
     protected AuditMessageType createPatientParticipantObjectIdentification(AuditMessageType auditMsg, String aa,
         String patientId) {
-        LOG.info("createPatientParticipantObjectIdentification()");
+
         ParticipantObjectIdentificationType participantObject = createParticipantObjectIdentification(
             PatientDiscoveryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM,
             PatientDiscoveryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_ROLE,
@@ -73,13 +71,12 @@ public abstract class AbstractPatientDiscoveryAuditTransforms<T, K> extends Audi
     }
 
     protected static String createPatientId(String assigningAuthId, String patientId) {
-        LOG.info("createPatientId()");
         return patientId + "^^^&" + assigningAuthId + "&ISO";
     }
 
     protected AuditMessageType getQueryParamsParticipantObjectIdentificationForRequest(PRPAIN201305UV02 request,
         AuditMessageType auditMsg) throws JAXBException {
-        LOG.info("getQueryParamsParticipantObjectIdentificationForRequest()");
+
         ParticipantObjectIdentificationType participantObject = buildBaseParticipantObjectIdentificationType(
             PRPAIN201305UV02Parser.getQueryId(request));
         participantObject.setParticipantObjectQuery(getParticipantObjectQueryForRequest(request));
@@ -97,7 +94,7 @@ public abstract class AbstractPatientDiscoveryAuditTransforms<T, K> extends Audi
 
     protected ParticipantObjectIdentificationType buildBaseParticipantObjectIdentificationType(
         String participantObjectId) {
-        LOG.info("buildBaseParticipantObjectIdentificationType()");
+
         ParticipantObjectIdentificationType participantObject = createParticipantObjectIdentification(
             PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_SYSTEM,
             PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_ROLE,
@@ -168,9 +165,11 @@ public abstract class AbstractPatientDiscoveryAuditTransforms<T, K> extends Audi
         List<II> oII = PRPAIN201306UV02Parser.getPatientIds(response);
         if (oII != null && oII.size() > 0) {
             for (II entry : oII) {
-                if (entry != null && entry.getRoot() != null && entry.getExtension() != null
-                    && !entry.getRoot().isEmpty() && !entry.getExtension().isEmpty()) {
-                    createPatientParticipantObjectIdentification(auditMsg, entry.getRoot(), entry.getExtension());
+                if (entry == null) {
+                    createPatientParticipantObjectIdentification(auditMsg, null, null);
+                } else {
+                    createPatientParticipantObjectIdentification(auditMsg, isNotNullish(entry.getRoot()) ? entry.
+                        getRoot().trim() : null, isNotNullish(entry.getRoot()) ? entry.getExtension().trim() : null);
                 }
             }
         } else {
@@ -193,7 +192,7 @@ public abstract class AbstractPatientDiscoveryAuditTransforms<T, K> extends Audi
     protected AuditMessageType getPatientParticipantObjectIdentificationForRequest(PRPAIN201305UV02 request,
         AuditMessageType auditMsg) {
 
-        // Set the Partipation Object Id (patient id)
+        // Set the Participant Object Id (patient id)
         II oII = PRPAIN201305UV02Parser.getPatientId(request);
         if (oII != null && oII.getRoot() != null && oII.getExtension() != null && !oII.getRoot().isEmpty()
             && !oII.getExtension().isEmpty()) {
@@ -208,9 +207,14 @@ public abstract class AbstractPatientDiscoveryAuditTransforms<T, K> extends Audi
 
     private byte[] getParticipantObjectQueryForResponse(PRPAIN201306UV02 response) throws JAXBException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        if (response.getControlActProcess() != null && response.getControlActProcess().getQueryByParameter() != null) {
+        if (response != null && response.getControlActProcess() != null
+            && response.getControlActProcess().getQueryByParameter() != null) {
             getMarshaller().marshal(response.getControlActProcess().getQueryByParameter(), baos);
         }
         return baos.toByteArray();
+    }
+
+    private boolean isNotNullish(String value) {
+        return (value != null && !value.trim().isEmpty());
     }
 }

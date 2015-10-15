@@ -27,9 +27,7 @@
 package gov.hhs.fha.nhinc.patientdiscovery.parser;
 
 import org.hl7.v3.II;
-import org.hl7.v3.PRPAIN201305UV02;
 import static org.junit.Assert.assertEquals;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -38,16 +36,10 @@ import org.junit.Test;
  */
 public class PRPAIN201305UV02ParserTest {
 
-    private PRPAIN201305UV02 request;
-
-    @Before
-    public void setup() {
-        request = TestPatientDiscoveryMessageHelper.createPRPAIN201305UV02Request();
-    }
-
     @Test
     public void testPatientId() {
-        II objPid = PRPAIN201305UV02Parser.getPatientId(request);
+        II objPid = PRPAIN201305UV02Parser.getPatientId(
+            TestPatientDiscoveryMessageHelper.createPRPAIN201305UV02Request());
         assertEquals("PatientId Root mismatch", TestPatientDiscoveryMessageHelper.ROOT, objPid.getRoot());
         assertEquals("PatientId Extension mismatch", TestPatientDiscoveryMessageHelper.EXTENSION,
             objPid.getExtension());
@@ -55,7 +47,7 @@ public class PRPAIN201305UV02ParserTest {
 
     @Test
     public void testParticipantObjectId() {
-        String oid = PRPAIN201305UV02Parser.getQueryId(request);
-        assertEquals("QueryId mismatch", TestPatientDiscoveryMessageHelper.QUERY_ID_EXTENSION, oid);
+        assertEquals("QueryId mismatch", TestPatientDiscoveryMessageHelper.QUERY_ID_EXTENSION,
+            PRPAIN201305UV02Parser.getQueryId(TestPatientDiscoveryMessageHelper.createPRPAIN201305UV02Request()));
     }
 }
