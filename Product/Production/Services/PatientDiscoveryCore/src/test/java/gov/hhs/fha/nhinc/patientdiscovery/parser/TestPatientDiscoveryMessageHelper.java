@@ -67,56 +67,73 @@ import org.hl7.v3.XActMoodIntentEvent;
  */
 public class TestPatientDiscoveryMessageHelper {
 
-    public static final String ROOT = "1.1";
-    public static final String EXTENSION = "D123401";
-    public static final String QUERY_ID_ROOT = "2.2";
-    public static final String QUERY_ID_EXTENSION = "abd3453dcd24wkkks545";
+    private static final String CNTRL_CODE = "PRPA_TE201306UV02";
+    private static final String CNTRL_CODE_SYSTEM = "2.16.840.1.113883.1.6";
+    private static final String CNTRL_SUBJ_TYPECODE = "SUBJ";
+    private static final String STATUS_CD = "active";
+    private static final String REG_MOOD_CODE = "EVN";
+    private static final String REG_CLASS_CODE = "REG";
+    private static final String QUERY_BY_PARAMETER_TAG = "queryByParameter";
+    private static final String NAMESPACE_FOR_QUERY_BY_PARAMETER = "urn:hl7-org:v3";
+    private static final String NEW = "new";
+    private static final String NA = "NA";
+    private static final String FAMILY_NAME_CODE = "FAM";
+    private static final String GIVEN_NAME_CODE = "GIV";
+    private static final String SUBJ_PATIENT_STATUS_CODE = "SD";
+    private static final String SUBJ_PATIENT_CLASS_CODE = "PAT";
 
-    public static PRPAIN201305UV02 createPRPAIN201305UV02Request() {
+    public static PRPAIN201305UV02 createPRPAIN201305UV02Request(String firstName, String lastName, String gender,
+        String birthTime, String root, String extension, String queryIdRoot, String queryIdExtension) {
         PRPAIN201305UV02 request = new PRPAIN201305UV02();
-        request.setControlActProcess(createControlActProcess());
+        request.setControlActProcess(createControlActProcess(firstName, lastName, gender, birthTime, root, extension,
+            queryIdRoot, queryIdExtension));
         return request;
     }
 
-    public static PRPAIN201306UV02 createPRPAIN201306UV02Response() {
+    public static PRPAIN201306UV02 createPRPAIN201306UV02Response(String firstName, String lastName, String gender,
+        String birthTime, String root, String extension, String queryIdRoot, String queryIdExtension) {
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
-        response.setControlActProcess(createResponseControlActProcess());
+        response.setControlActProcess(createResponseControlActProcess(firstName, lastName, gender, birthTime, root,
+            extension, queryIdRoot, queryIdExtension));
         return response;
     }
 
-    private static PRPAIN201305UV02QUQIMT021001UV01ControlActProcess createControlActProcess() {
+    private static PRPAIN201305UV02QUQIMT021001UV01ControlActProcess createControlActProcess(String firstName,
+        String lastName, String gender, String birthTime, String root, String extension, String queryIdRoot,
+        String queryIdExtension) {
         II subjectId = new II();
-        subjectId.setRoot(ROOT);
-        subjectId.setExtension(EXTENSION);
+        subjectId.setRoot(root);
+        subjectId.setExtension(extension);
 
         CD code = new CD();
-        code.setCode("PRPA_TE201306UV02");
-        code.setCodeSystem("2.16.840.1.113883.1.6");
+        code.setCode(CNTRL_CODE);
+        code.setCodeSystem(CNTRL_CODE_SYSTEM);
 
         PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess
             = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
         controlActProcess.setClassCode(ActClassControlAct.CACT);
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
         controlActProcess.setCode(code);
-        controlActProcess.setQueryByParameter(createQueryParams("Allen", "Wanderson", "M", "09-8-1971", subjectId));
+        controlActProcess.setQueryByParameter(createQueryParams(firstName, lastName, gender, birthTime, subjectId,
+            queryIdRoot, queryIdExtension));
         return controlActProcess;
     }
 
     private static JAXBElement<PRPAMT201306UV02QueryByParameter> createQueryParams(String firstName, String lastName,
-        String gender, String birthTime, II subjectId) {
+        String gender, String birthTime, II subjectId, String queryIdRoot, String queryIdExtension) {
 
         II id = new II();
-        id.setRoot(QUERY_ID_ROOT);
-        id.setExtension(QUERY_ID_EXTENSION);
+        id.setRoot(queryIdRoot);
+        id.setExtension(queryIdExtension);
         CS statusCode = new CS();
-        statusCode.setCode("new");
+        statusCode.setCode(NEW);
 
         PRPAMT201306UV02QueryByParameter params = new PRPAMT201306UV02QueryByParameter();
         params.setQueryId(id);
         params.setStatusCode(statusCode);
         params.setParameterList(createParamList(firstName, lastName, gender, birthTime, subjectId));
 
-        return new JAXBElement<>(new QName("urn:hl7-org:v3", "queryByParameter"),
+        return new JAXBElement<>(new QName(NAMESPACE_FOR_QUERY_BY_PARAMETER, QUERY_BY_PARAMETER_TAG),
             PRPAMT201306UV02QueryByParameter.class, params);
     }
 
@@ -133,10 +150,7 @@ public class TestPatientDiscoveryMessageHelper {
 
     private static PRPAMT201306UV02LivingSubjectId createSubjectId(II subjectId) {
         PRPAMT201306UV02LivingSubjectId id = new PRPAMT201306UV02LivingSubjectId();
-        if (subjectId != null) {
-            id.getValue().add(subjectId);
-        }
-
+        id.getValue().add(subjectId);
         return id;
     }
 
@@ -146,7 +160,7 @@ public class TestPatientDiscoveryMessageHelper {
 
         if (lastName != null && lastName.length() > 0) {
             EnExplicitFamily familyName = new EnExplicitFamily();
-            familyName.setPartType("FAM");
+            familyName.setPartType(FAMILY_NAME_CODE);
             familyName.setContent(lastName);
 
             name.getContent().add(factory.createENExplicitFamily(familyName));
@@ -154,7 +168,7 @@ public class TestPatientDiscoveryMessageHelper {
 
         if (firstName != null && firstName.length() > 0) {
             EnExplicitGiven givenName = new EnExplicitGiven();
-            givenName.setPartType("GIV");
+            givenName.setPartType(GIVEN_NAME_CODE);
             givenName.setContent(firstName);
 
             name.getContent().add(factory.createENExplicitGiven(givenName));
@@ -190,10 +204,13 @@ public class TestPatientDiscoveryMessageHelper {
         return adminGender;
     }
 
-    private static PRPAIN201306UV02MFMIMT700711UV01ControlActProcess createResponseControlActProcess() {
-        PRPAIN201305UV02 query = createPRPAIN201305UV02Request();
+    private static PRPAIN201306UV02MFMIMT700711UV01ControlActProcess createResponseControlActProcess(String firstName,
+        String lastName, String gender, String birthTime, String root, String extension, String queryIdRoot,
+        String queryIdExtension) {
+        PRPAIN201305UV02 query = createPRPAIN201305UV02Request(firstName, lastName, gender, birthTime, root, extension,
+            queryIdRoot, queryIdExtension);
 
-        Patients patients = createPatients();
+        Patients patients = createPatients(firstName, lastName, gender, birthTime, root, extension);
 
         PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess
             = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
@@ -202,8 +219,8 @@ public class TestPatientDiscoveryMessageHelper {
         controlActProcess.setClassCode(ActClassControlAct.CACT);
 
         CD code = new CD();
-        code.setCode("PRPA_TE201306UV02");
-        code.setCodeSystem("2.16.840.1.113883.1.6");
+        code.setCode(CNTRL_CODE);
+        code.setCodeSystem(CNTRL_CODE_SYSTEM);
         controlActProcess.setCode(code);
 
         if (patients != null && !patients.isEmpty()) {
@@ -224,7 +241,7 @@ public class TestPatientDiscoveryMessageHelper {
 
     private static PRPAIN201306UV02MFMIMT700711UV01Subject1 createSubject(Patient patient, PRPAIN201305UV02 query) {
         PRPAIN201306UV02MFMIMT700711UV01Subject1 subject = new PRPAIN201306UV02MFMIMT700711UV01Subject1();
-        subject.getTypeCode().add("SUBJ");
+        subject.getTypeCode().add(CNTRL_SUBJ_TYPECODE);
         subject.setRegistrationEvent(createRegEvent(patient, query));
 
         return subject;
@@ -234,16 +251,16 @@ public class TestPatientDiscoveryMessageHelper {
         PRPAIN201305UV02 query) {
 
         II id = new II();
-        id.getNullFlavor().add("NA");
+        id.getNullFlavor().add(NA);
 
         CS statusCode = new CS();
-        statusCode.setCode("active");
+        statusCode.setCode(STATUS_CD);
 
         PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent regEvent
             = new PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent();
 
-        regEvent.getMoodCode().add("EVN");
-        regEvent.getClassCode().add("REG");
+        regEvent.getMoodCode().add(REG_MOOD_CODE);
+        regEvent.getClassCode().add(REG_CLASS_CODE);
         regEvent.getId().add(id);
         regEvent.setStatusCode(statusCode);
         regEvent.setSubject1(createSubject1(patient, query));
@@ -260,10 +277,10 @@ public class TestPatientDiscoveryMessageHelper {
 
     private static PRPAMT201310UV02Patient createPatient(Patient patient, PRPAIN201305UV02 query) {
         CS statusCode = new CS();
-        statusCode.setCode("SD");
+        statusCode.setCode(SUBJ_PATIENT_STATUS_CODE);
 
         PRPAMT201310UV02Patient subjectPatient = new PRPAMT201310UV02Patient();
-        subjectPatient.getClassCode().add("PAT");
+        subjectPatient.getClassCode().add(SUBJ_PATIENT_CLASS_CODE);
         subjectPatient.setStatusCode(statusCode);
         subjectPatient.getId().add(createSubjectId(patient));
         return subjectPatient;
@@ -296,10 +313,10 @@ public class TestPatientDiscoveryMessageHelper {
         return subjectId;
     }
 
-    private static Patients createPatients() {
-        Patient patient = createMpiPatient("Gallow", "Younger", "M", "08-20-1976", createIdentifier(EXTENSION, ROOT));
+    private static Patients createPatients(String firstName,
+        String lastName, String gender, String birthTime, String root, String extension) {
         Patients patients = new Patients();
-        patients.add(patient);
+        patients.add(createMpiPatient(firstName, lastName, gender, birthTime, createIdentifier(extension, root)));
         return patients;
     }
 

@@ -113,10 +113,11 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         };
 
         AssertionType assertion = createAssertion();
-        LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(
-            TestPatientDiscoveryMessageHelper.createPRPAIN201305UV02Request(), assertion, createNhinTarget(),
-            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE,
-            webContextProperties, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+        LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(TestPatientDiscoveryMessageHelper.
+            createPRPAIN201305UV02Request("Gallow", "Younger", "M", "01-12-2967", "1.1", "D123401", "2.2",
+                "abd3453dcd24wkkks545"), assertion, createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+            NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, webContextProperties,
+            NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
 
         testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE);
         testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
@@ -160,9 +161,10 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
 
         AssertionType assertion = createAssertion();
         LogEventRequestType auditRequest = transforms.transformResponseToAuditMsg(
-            TestPatientDiscoveryMessageHelper.createPRPAIN201305UV02Request(),
-            TestPatientDiscoveryMessageHelper.createPRPAIN201306UV02Response(), assertion, createNhinTarget(),
-            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+            TestPatientDiscoveryMessageHelper.createPRPAIN201305UV02Request("Gallow", "Younger", "M", "01-12-2967",
+                "1.1", "D123401", "2.2", "abd3453dcd24wkkks545"), TestPatientDiscoveryMessageHelper.
+            createPRPAIN201306UV02Response("Gallow", "Younger", "M", "01-12-2967", "1.1", "D123401", "2.2",
+                "abd3453dcd24wkkks545"), assertion, createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
             NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, webContextProperties,
             NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
 

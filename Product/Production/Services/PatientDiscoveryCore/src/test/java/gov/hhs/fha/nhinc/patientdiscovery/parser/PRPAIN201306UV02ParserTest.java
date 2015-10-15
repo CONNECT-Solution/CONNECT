@@ -40,17 +40,17 @@ public class PRPAIN201306UV02ParserTest {
     @Test
     public void testQueryId() {
         assertEquals("QueryId mismatch", PRPAIN201306UV02Parser.getQueryId(TestPatientDiscoveryMessageHelper.
-            createPRPAIN201306UV02Response()), TestPatientDiscoveryMessageHelper.QUERY_ID_EXTENSION);
+            createPRPAIN201306UV02Response("Gallow", "Younger", "M", "01-12-2967", "1.1", "D12345", "2.2",
+                "abd3453dcd24wkkks545")), "abd3453dcd24wkkks545");
     }
 
     @Test
     public void testPatientId() {
-        List<II> pids = PRPAIN201306UV02Parser.getPatientIds(
-            TestPatientDiscoveryMessageHelper.createPRPAIN201306UV02Response());
+        List<II> pids = PRPAIN201306UV02Parser.getPatientIds(TestPatientDiscoveryMessageHelper.
+            createPRPAIN201306UV02Response("Gallow", "Younger", "M", "01-12-2967", "1.1", "D12345", "2.2",
+                "abd3453dcd24wkkks545"));
         assertEquals("Response patientIds size mismatch", pids.size(), 1);
-        assertEquals("Response patientId extension mismatch", pids.get(0).getExtension(),
-            TestPatientDiscoveryMessageHelper.EXTENSION);
-        assertEquals("Response patientId root mismatch", pids.get(0).getRoot(),
-            TestPatientDiscoveryMessageHelper.ROOT);
+        assertEquals("Response patientId extension mismatch", pids.get(0).getExtension(), "D12345");
+        assertEquals("Response patientId root mismatch", pids.get(0).getRoot(), "1.1");
     }
 }

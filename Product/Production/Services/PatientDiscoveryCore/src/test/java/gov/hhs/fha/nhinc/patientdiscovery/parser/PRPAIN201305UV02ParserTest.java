@@ -39,15 +39,16 @@ public class PRPAIN201305UV02ParserTest {
     @Test
     public void testPatientId() {
         II objPid = PRPAIN201305UV02Parser.getPatientId(
-            TestPatientDiscoveryMessageHelper.createPRPAIN201305UV02Request());
-        assertEquals("PatientId Root mismatch", TestPatientDiscoveryMessageHelper.ROOT, objPid.getRoot());
-        assertEquals("PatientId Extension mismatch", TestPatientDiscoveryMessageHelper.EXTENSION,
-            objPid.getExtension());
+            TestPatientDiscoveryMessageHelper.createPRPAIN201305UV02Request("Gallow", "Younger", "M", "01-12-2967",
+                "1.1", "D12345", "2.2", "abd3453dcd24wkkks545"));
+        assertEquals("PatientId Root mismatch", "1.1", objPid.getRoot());
+        assertEquals("PatientId Extension mismatch", "D12345", objPid.getExtension());
     }
 
     @Test
     public void testParticipantObjectId() {
-        assertEquals("QueryId mismatch", TestPatientDiscoveryMessageHelper.QUERY_ID_EXTENSION,
-            PRPAIN201305UV02Parser.getQueryId(TestPatientDiscoveryMessageHelper.createPRPAIN201305UV02Request()));
+        assertEquals("QueryId mismatch", "abd3453dcd24wkkks545", PRPAIN201305UV02Parser.getQueryId(
+            TestPatientDiscoveryMessageHelper.createPRPAIN201305UV02Request("Gallow", "Younger", "M", "01-12-2967",
+                "1.1", "D12345", "2.2", "abd3453dcd24wkkks545")));
     }
 }

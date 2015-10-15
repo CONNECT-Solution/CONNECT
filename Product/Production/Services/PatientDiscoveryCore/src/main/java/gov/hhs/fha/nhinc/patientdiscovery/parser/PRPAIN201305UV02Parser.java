@@ -43,7 +43,6 @@ public class PRPAIN201305UV02Parser {
     private static final Logger LOG = Logger.getLogger(PRPAIN201305UV02Parser.class);
 
     public static II getPatientId(PRPAIN201305UV02 request) {
-        LOG.info("getPatientId()");
         II livingSubjectId = null;
 
         if (request != null && request.getControlActProcess() != null
@@ -55,7 +54,7 @@ public class PRPAIN201305UV02Parser {
 
             List<PRPAMT201306UV02LivingSubjectId> ids = request.getControlActProcess().getQueryByParameter().getValue()
                 .getParameterList().getLivingSubjectId();
-            if (ids != null) {
+            if (ids != null && !ids.isEmpty()) {
                 if (ids.size() == 1) {
                     livingSubjectId = getLivingSubjectId(ids.get(0));
                 } else if (ids.size() > 1) {
@@ -70,7 +69,6 @@ public class PRPAIN201305UV02Parser {
     }
 
     public static String getQueryId(PRPAIN201305UV02 request) {
-        LOG.info("getQueryId()");
         String oid = null;
 
         if (request != null
@@ -126,7 +124,7 @@ public class PRPAIN201305UV02Parser {
     private static II getLivingSubjectId(PRPAMT201306UV02LivingSubjectId id) {
         II oII = null;
 
-        if (id != null && id.getValue() != null && id.getValue().size() > 0) {
+        if (id != null && id.getValue() != null && !id.getValue().isEmpty()) {
             oII = id.getValue().get(0);
         }
 

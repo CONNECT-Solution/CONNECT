@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.audit.transform;
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditTransformsConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.parser.PRPAIN201305UV02Parser;
 import gov.hhs.fha.nhinc.patientdiscovery.parser.PRPAIN201306UV02Parser;
@@ -43,7 +44,8 @@ import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  * AbstractPatientDiscoveryAuditTransforms encapsulate the common functionality used by both
- * PatientDiscoveryAuditTransforms and PatientDiscoveryDeferredRequestAuditTransforms
+ * PatientDiscoveryAuditTransforms, PatientDiscoveryDeferredRequestAuditTransforms and
+ * PatientDiscoveryDeferredResponseAuditTransforms
  *
  * @author tjafri
  */
@@ -163,13 +165,14 @@ public abstract class AbstractPatientDiscoveryAuditTransforms<T, K> extends Audi
         AuditMessageType auditMsg) {
 
         List<II> oII = PRPAIN201306UV02Parser.getPatientIds(response);
-        if (oII != null && oII.size() > 0) {
+        if (oII != null && !oII.isEmpty()) {
             for (II entry : oII) {
                 if (entry == null) {
                     createPatientParticipantObjectIdentification(auditMsg, null, null);
                 } else {
-                    createPatientParticipantObjectIdentification(auditMsg, isNotNullish(entry.getRoot()) ? entry.
-                        getRoot().trim() : null, isNotNullish(entry.getRoot()) ? entry.getExtension().trim() : null);
+                    createPatientParticipantObjectIdentification(auditMsg, NullChecker.isNullishIgnoreSpace(entry.
+                        getRoot()) ? entry.getRoot().trim() : null, NullChecker.isNullishIgnoreSpace(entry.
+                            getRoot()) ? entry.getExtension().trim() : null);
                 }
             }
         } else {
@@ -212,9 +215,5 @@ public abstract class AbstractPatientDiscoveryAuditTransforms<T, K> extends Audi
             getMarshaller().marshal(response.getControlActProcess().getQueryByParameter(), baos);
         }
         return baos.toByteArray();
-    }
-
-    private boolean isNotNullish(String value) {
-        return (value != null && !value.trim().isEmpty());
     }
 }

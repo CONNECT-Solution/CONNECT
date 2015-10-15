@@ -44,7 +44,6 @@ public class PRPAIN201306UV02Parser {
     private static final Logger LOG = Logger.getLogger(PRPAIN201306UV02Parser.class);
 
     public static String getQueryId(PRPAIN201306UV02 response) {
-        LOG.info("getQueryId()");
         String oid = null;
 
         if (response != null
@@ -60,7 +59,6 @@ public class PRPAIN201306UV02Parser {
     }
 
     public static List<II> getPatientIds(PRPAIN201306UV02 response) {
-        LOG.info("getPatientIds()");
         List<II> oIIs = null;
         if (response != null && response.getControlActProcess() != null
             && response.getControlActProcess().getSubject() != null) {
