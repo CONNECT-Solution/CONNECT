@@ -24,43 +24,33 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.nhinclib;
+package gov.hhs.fha.nhinc.patientdiscovery.parser;
 
-import java.util.Collection;
 import java.util.List;
+import org.hl7.v3.II;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 /**
  *
- * @author rayj
+ * @author tjafri
  */
-public class NullChecker {
+public class PRPAIN201306UV02ParserTest {
 
-    public static boolean isNullish(String value) {
-        return ((value == null) || (value.contentEquals("")));
+    @Test
+    public void testQueryId() {
+        assertEquals("QueryId mismatch", PRPAIN201306UV02Parser.getQueryId(TestPatientDiscoveryMessageHelper.
+            createPRPAIN201306UV02Response("Gallow", "Younger", "M", "01-12-2967", "1.1", "D12345", "2.2",
+                "abd3453dcd24wkkks545")), "abd3453dcd24wkkks545");
     }
 
-    public static boolean isNotNullish(String value) {
-        return (!isNullish(value));
+    @Test
+    public void testPatientId() {
+        List<II> pids = PRPAIN201306UV02Parser.getPatientIds(TestPatientDiscoveryMessageHelper.
+            createPRPAIN201306UV02Response("Gallow", "Younger", "M", "01-12-2967", "1.1", "D12345", "2.2",
+                "abd3453dcd24wkkks545"));
+        assertEquals("Response patientIds size mismatch", pids.size(), 1);
+        assertEquals("Response patientId extension mismatch", pids.get(0).getExtension(), "D12345");
+        assertEquals("Response patientId root mismatch", pids.get(0).getRoot(), "1.1");
     }
-
-    public static boolean isNullish(List<?> value) {
-        return ((value == null) || (value.size() == 0));
-    }
-
-    public static boolean isNotNullish(List<?> value) {
-        return (!isNullish(value));
-    }
-
-    public static boolean isNullish(Collection<?> value) {
-        return ((value == null) || (value.isEmpty()));
-    }
-
-    public static boolean isNotNullish(Collection<?> value) {
-        return (!isNullish(value));
-    }
-
-    public static boolean isNullishIgnoreSpace(String value) {
-        return (value != null && !value.trim().isEmpty());
-    }
-
 }

@@ -24,43 +24,31 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.nhinclib;
+package gov.hhs.fha.nhinc.patientdiscovery.parser;
 
-import java.util.Collection;
-import java.util.List;
+import org.hl7.v3.II;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 /**
  *
- * @author rayj
+ * @author tjafri
  */
-public class NullChecker {
+public class PRPAIN201305UV02ParserTest {
 
-    public static boolean isNullish(String value) {
-        return ((value == null) || (value.contentEquals("")));
+    @Test
+    public void testPatientId() {
+        II objPid = PRPAIN201305UV02Parser.getPatientId(
+            TestPatientDiscoveryMessageHelper.createPRPAIN201305UV02Request("Gallow", "Younger", "M", "01-12-2967",
+                "1.1", "D12345", "2.2", "abd3453dcd24wkkks545"));
+        assertEquals("PatientId Root mismatch", "1.1", objPid.getRoot());
+        assertEquals("PatientId Extension mismatch", "D12345", objPid.getExtension());
     }
 
-    public static boolean isNotNullish(String value) {
-        return (!isNullish(value));
+    @Test
+    public void testParticipantObjectId() {
+        assertEquals("QueryId mismatch", "abd3453dcd24wkkks545", PRPAIN201305UV02Parser.getQueryId(
+            TestPatientDiscoveryMessageHelper.createPRPAIN201305UV02Request("Gallow", "Younger", "M", "01-12-2967",
+                "1.1", "D12345", "2.2", "abd3453dcd24wkkks545")));
     }
-
-    public static boolean isNullish(List<?> value) {
-        return ((value == null) || (value.size() == 0));
-    }
-
-    public static boolean isNotNullish(List<?> value) {
-        return (!isNullish(value));
-    }
-
-    public static boolean isNullish(Collection<?> value) {
-        return ((value == null) || (value.isEmpty()));
-    }
-
-    public static boolean isNotNullish(Collection<?> value) {
-        return (!isNullish(value));
-    }
-
-    public static boolean isNullishIgnoreSpace(String value) {
-        return (value != null && !value.trim().isEmpty());
-    }
-
 }
