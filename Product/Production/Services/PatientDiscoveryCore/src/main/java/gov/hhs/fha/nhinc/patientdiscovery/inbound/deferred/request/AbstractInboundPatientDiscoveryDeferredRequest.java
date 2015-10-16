@@ -77,21 +77,4 @@ public abstract class AbstractInboundPatientDiscoveryDeferredRequest implements 
             NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, webContextProperties,
             NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
     }
-    /*protected void auditRequestFromNhin(PRPAIN201305UV02 request, AssertionType assertion) {
-        getAuditLogger().auditNhinDeferred201305(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-    }
-
-    protected void auditResponseToNhin(MCCIIN000002UV01 response, AssertionType assertion) {
-        getAuditLogger().auditAck(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-    }
-
-    protected void auditRequestToAdapter(PRPAIN201305UV02 request, AssertionType assertion) {
-        getAuditLogger().auditAdapterDeferred201305(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-    }
-
-    protected void auditResponseFromAdapter(MCCIIN000002UV01 response, AssertionType assertion) {
-        getAuditLogger().auditAck(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
-    }*/
 }

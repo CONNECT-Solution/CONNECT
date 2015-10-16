@@ -73,13 +73,13 @@ public class StandardInboundPatientDiscovery extends AbstractInboundPatientDisco
 
         PRPAIN201306UV02 response = process(body, assertion, webContextProperties);
 
-        auditResponseToNhin(body, response, assertion, webContextProperties);
+        auditResponse(body, response, assertion, webContextProperties);
 
         return response;
     }
 
     @Override
-    PRPAIN201306UV02 process(PRPAIN201305UV02 body, AssertionType assertion, Properties webContextProperties) 
+    PRPAIN201306UV02 process(PRPAIN201305UV02 body, AssertionType assertion, Properties webContextProperties)
         throws PatientDiscoveryException {
 
         PRPAIN201306UV02 response = patientDiscoveryProcessor.process201305(body, assertion);
