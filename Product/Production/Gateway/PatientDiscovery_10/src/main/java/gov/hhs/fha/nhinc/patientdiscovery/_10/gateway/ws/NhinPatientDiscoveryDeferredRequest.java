@@ -45,7 +45,7 @@ import org.hl7.v3.PRPAIN201305UV02;
 @Addressing(enabled = true)
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class NhinPatientDiscoveryDeferredRequest extends BaseService implements
-        RespondingGatewayDeferredRequestPortType {
+    RespondingGatewayDeferredRequestPortType {
 
     private InboundPatientDiscoveryDeferredRequest inboundPatientDiscoveryRequest;
 
@@ -65,10 +65,12 @@ public class NhinPatientDiscoveryDeferredRequest extends BaseService implements
      * @return the response message to the Nhin
      */
     @InboundMessageEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class, afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Request", version = "1.0")
+    @Override
     public MCCIIN000002UV01 respondingGatewayDeferredPRPAIN201305UV02(PRPAIN201305UV02 body) {
         AssertionType assertion = getAssertion(context, null);
 
-        return inboundPatientDiscoveryRequest.respondingGatewayPRPAIN201305UV02(body, assertion);
+        return inboundPatientDiscoveryRequest.respondingGatewayPRPAIN201305UV02(body, assertion,
+            getWebContextProperties(context));
     }
 
     @Resource

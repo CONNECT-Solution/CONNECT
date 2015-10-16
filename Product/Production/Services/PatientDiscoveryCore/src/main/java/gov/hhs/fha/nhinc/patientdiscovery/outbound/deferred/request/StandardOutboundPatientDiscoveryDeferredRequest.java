@@ -39,17 +39,17 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.PDDeferredCorrelationDao;
 import gov.hhs.fha.nhinc.patientdiscovery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredRequestAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestDelegate;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestOrchestratable;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.hl7.v3.II;
@@ -69,7 +69,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
     private final OutboundPatientDiscoveryDeferredRequestDelegate delegate;
     private final PDDeferredCorrelationDao correlationDao;
     private final ConnectionManagerCache connectionManager;
-    private final PatientDiscoveryAuditor auditLogger;
+    private final PatientDiscoveryDeferredRequestAuditLogger auditLogger;
 
     /**
      * Constructor.
@@ -81,7 +81,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
         delegate = new OutboundPatientDiscoveryDeferredRequestDelegate();
         correlationDao = new PDDeferredCorrelationDao();
         connectionManager = ConnectionManagerCache.getInstance();
-        auditLogger = new PatientDiscoveryAuditLogger();
+        auditLogger = new PatientDiscoveryDeferredRequestAuditLogger();
     }
 
     /**
@@ -95,9 +95,9 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
      * @param connectionManager
      */
     public StandardOutboundPatientDiscoveryDeferredRequest(PatientDiscovery201305Processor pd201305Processor,
-            AsyncMessageProcessHelper asyncProcessHelper, PatientDiscoveryPolicyChecker policyChecker,
-            OutboundPatientDiscoveryDeferredRequestDelegate delegate, PDDeferredCorrelationDao correlationDao,
-            ConnectionManagerCache connectionManager, PatientDiscoveryAuditor auditLogger) {
+        AsyncMessageProcessHelper asyncProcessHelper, PatientDiscoveryPolicyChecker policyChecker,
+        OutboundPatientDiscoveryDeferredRequestDelegate delegate, PDDeferredCorrelationDao correlationDao,
+        ConnectionManagerCache connectionManager, PatientDiscoveryDeferredRequestAuditLogger auditLogger) {
         this.pd201305Processor = pd201305Processor;
         this.asyncProcessHelper = asyncProcessHelper;
         this.policyChecker = policyChecker;
@@ -111,20 +111,20 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
      * Processes and sends the request to the Nhin. This method will add mappings and correlations and will send the
      * request to all targets passed in.
      *
-     * @param request
+     * @param message
      * @param assertion
      * @param targets
      * @return the MCCIIN000002UV01 response from the Nhin
      */
     @Override
     @OutboundProcessingEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
-            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class,
-            serviceType = "Patient Discovery Deferred Request", version = "1.0")
+        afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class,
+        serviceType = "Patient Discovery Deferred Request", version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion,
-            NhinTargetCommunitiesType targets) {
+        NhinTargetCommunitiesType targets, Properties webContextProperties) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
 
-        auditRequestFromAdapter(message, assertion);
+        auditRequest(message, assertion, msgUtils.convertFirstToNhinTargetSystemType(targets), webContextProperties);
 
         List<UrlInfo> urlInfoList = getTargetEndpoints(targets);
         if (NullChecker.isNotNullish(urlInfoList)) {
@@ -135,7 +135,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
 
             for (UrlInfo urlInfo : urlInfoList) {
                 RespondingGatewayPRPAIN201305UV02RequestType newRequest = createNewRespondingGatewayRequestForOneTarget(
-                        message, assertion, targets, urlInfo.getHcid());
+                    message, assertion, targets, urlInfo.getHcid());
 
                 if (isPolicyValid(newRequest)) {
                     ack = sendToNhin(newRequest.getPRPAIN201305UV02(), newRequest.getAssertion(), urlInfo);
@@ -148,14 +148,11 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
             LOG.warn(ackMsg);
             ack = HL7AckTransforms.createAckErrorFrom201305(message, ackMsg);
         }
-
-        auditResponseToAdapter(ack, assertion);
-
         return ack;
     }
 
     @Override
-    PatientDiscoveryAuditor getPatientDiscoveryAuditor() {
+    PatientDiscoveryDeferredRequestAuditLogger getPatientDiscoveryDeferredAuditLogger() {
         return auditLogger;
     }
 
@@ -164,10 +161,10 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
 
         try {
             urlInfoList = connectionManager.getEndpointURLFromNhinTargetCommunities(targetCommunities,
-                    NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
+                NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             LOG.error("Failed to obtain target URLs for service "
-                    + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
+                + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
             return null;
         }
 
@@ -175,9 +172,9 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
     }
 
     private void createLocalHCIDtoPatientAAMapping(PRPAIN201305UV02 message, AssertionType assertion,
-            NhinTargetCommunitiesType targets) {
+        NhinTargetCommunitiesType targets) {
         RespondingGatewayPRPAIN201305UV02RequestType request = msgUtils.createRespondingGatewayRequest(message,
-                assertion, targets);
+            assertion, targets);
 
         // Process local unique patient id and home community id to create local aa to hcid mapping
         pd201305Processor.storeLocalMapping(request);
@@ -195,7 +192,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
     }
 
     private RespondingGatewayPRPAIN201305UV02RequestType createNewRespondingGatewayRequestForOneTarget(
-            PRPAIN201305UV02 message, AssertionType assertion, NhinTargetCommunitiesType targets, String hcid) {
+        PRPAIN201305UV02 message, AssertionType assertion, NhinTargetCommunitiesType targets, String hcid) {
 
         PRPAIN201305UV02 new201305 = createNewPRPAIN201305UV02ForOneTargetCommunity(message, hcid);
         AssertionType newAssertion = asyncProcessHelper.copyAssertionTypeObject(assertion);
@@ -210,7 +207,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
         // Make sure the response modality and response priority codes are set as per the spec
         if (new201305.getControlActProcess() != null && new201305.getControlActProcess().getQueryByParameter() != null) {
             PRPAMT201306UV02QueryByParameter queryParams = new201305.getControlActProcess().getQueryByParameter()
-                    .getValue();
+                .getValue();
             if (queryParams.getResponseModalityCode() == null) {
                 queryParams.setResponseModalityCode(HL7DataTransformHelper.CSFactory("R"));
             }
@@ -228,15 +225,15 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
 
     private MCCIIN000002UV01 sendToNhin(PRPAIN201305UV02 request, AssertionType assertion, UrlInfo urlInfo) {
         NhinTargetSystemType targetSystemType = msgUtils
-                .createNhinTargetSystemType(urlInfo.getUrl(), urlInfo.getHcid());
+            .createNhinTargetSystemType(urlInfo.getUrl(), urlInfo.getHcid());
 
-        OutboundPatientDiscoveryDeferredRequestOrchestratable orchestratable = new OutboundPatientDiscoveryDeferredRequestOrchestratable(
-                delegate);
+        OutboundPatientDiscoveryDeferredRequestOrchestratable orchestratable
+            = new OutboundPatientDiscoveryDeferredRequestOrchestratable(delegate);
         orchestratable.setAssertion(assertion);
         orchestratable.setRequest(request);
         orchestratable.setTarget(targetSystemType);
         MCCIIN000002UV01 resp = ((OutboundPatientDiscoveryDeferredRequestOrchestratable) delegate
-                .process(orchestratable)).getResponse();
+            .process(orchestratable)).getResponse();
 
         return resp;
     }

@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.proxy;
 import static org.junit.Assert.*;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import java.util.Properties;
 
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -66,12 +67,13 @@ public class EntityPatientDiscoveryAsyncReqNoOpImplTest {
     public void testProcessPatientDiscoveryAsyncReq() {
         System.out.println("testProcessPatientDiscoveryAsyncReq");
 
-        EntityPatientDiscoveryDeferredRequestProxyNoOpImpl instance = new EntityPatientDiscoveryDeferredRequestProxyNoOpImpl();
+        EntityPatientDiscoveryDeferredRequestProxyNoOpImpl instance
+            = new EntityPatientDiscoveryDeferredRequestProxyNoOpImpl();
 
         PRPAIN201305UV02 request = null;
         AssertionType assertion = null;
         NhinTargetCommunitiesType target = null;
-        MCCIIN000002UV01 result = instance.processPatientDiscoveryAsyncReq(request, assertion, target);
+        MCCIIN000002UV01 result = instance.processPatientDiscoveryAsyncReq(request, assertion, target, new Properties());
 
         assertNotNull(result);
     }

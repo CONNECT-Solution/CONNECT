@@ -35,8 +35,10 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredRequestAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestDelegate;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestOrchestratable;
+import java.util.Properties;
 
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -46,13 +48,13 @@ public class PassthroughOutboundPatientDiscoveryDeferredRequest extends Abstract
     private static final MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 
     private final OutboundPatientDiscoveryDeferredRequestDelegate delegate;
-    private final PatientDiscoveryAuditor auditLogger;
+    private final PatientDiscoveryDeferredRequestAuditLogger auditLogger;
 
     /**
      * Constructor.
      */
     public PassthroughOutboundPatientDiscoveryDeferredRequest() {
-        auditLogger = new PatientDiscoveryAuditLogger();
+        auditLogger = new PatientDiscoveryDeferredRequestAuditLogger();
         delegate = new OutboundPatientDiscoveryDeferredRequestDelegate();
     }
 
@@ -62,8 +64,8 @@ public class PassthroughOutboundPatientDiscoveryDeferredRequest extends Abstract
      * @param auditLogger
      * @param delegate
      */
-    public PassthroughOutboundPatientDiscoveryDeferredRequest(PatientDiscoveryAuditor auditLogger,
-            OutboundPatientDiscoveryDeferredRequestDelegate delegate) {
+    public PassthroughOutboundPatientDiscoveryDeferredRequest(PatientDiscoveryDeferredRequestAuditLogger auditLogger,
+        OutboundPatientDiscoveryDeferredRequestDelegate delegate) {
         this.auditLogger = auditLogger;
         this.delegate = delegate;
     }
@@ -74,28 +76,29 @@ public class PassthroughOutboundPatientDiscoveryDeferredRequest extends Abstract
      * @param request
      * @param assertion
      * @param targets
+     * @param webContextProperties
      * @return the MCCIIN000002UV01 response from the Nhin
      */
     @Override
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion,
-            NhinTargetCommunitiesType targets) {
+        NhinTargetCommunitiesType targets, Properties webContextProperties) {
 
+        auditRequest(request, assertion, msgUtils.convertFirstToNhinTargetSystemType(targets), webContextProperties);
         MCCIIN000002UV01 response = sendToNhin(request, assertion, targets);
-
         return response;
     }
 
     @Override
-    PatientDiscoveryAuditor getPatientDiscoveryAuditor() {
+    PatientDiscoveryDeferredRequestAuditLogger getPatientDiscoveryDeferredAuditLogger() {
         return auditLogger;
     }
 
     private MCCIIN000002UV01 sendToNhin(PRPAIN201305UV02 message, AssertionType assertion,
-            NhinTargetCommunitiesType targets) {
+        NhinTargetCommunitiesType targets) {
         NhinTargetSystemType target = msgUtils.convertFirstToNhinTargetSystemType(targets);
 
-        OutboundPatientDiscoveryDeferredRequestOrchestratable orchestratable = new OutboundPatientDiscoveryDeferredRequestOrchestratable(
-                delegate);
+        OutboundPatientDiscoveryDeferredRequestOrchestratable orchestratable
+            = new OutboundPatientDiscoveryDeferredRequestOrchestratable(delegate);
         orchestratable.setAssertion(assertion);
         orchestratable.setRequest(message);
         orchestratable.setTarget(target);

@@ -24,20 +24,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.proxy;
+package gov.hhs.fha.nhinc.patientdiscovery.audit;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import java.util.Properties;
-
+import gov.hhs.fha.nhinc.audit.AuditLogger;
+import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.transform.PatientDiscoveryDeferredRequestAuditTransforms;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 
-public class EntityPatientDiscoveryDeferredRequestProxyNoOpImpl implements EntityPatientDiscoveryDeferredRequestProxy {
+/**
+ * PatientDiscoveryDeferredRequestAuditLogger for ATNA AuditLogging
+ *
+ * @author tjafri
+ */
+public class PatientDiscoveryDeferredRequestAuditLogger extends AuditLogger<PRPAIN201305UV02, MCCIIN000002UV01> {
 
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion,
-        NhinTargetCommunitiesType target, Properties webContextProperties) {
-        return new MCCIIN000002UV01();
+    @Override
+    protected AuditTransforms<PRPAIN201305UV02, MCCIIN000002UV01> getAuditTransforms() {
+        return new PatientDiscoveryDeferredRequestAuditTransforms();
     }
 
 }

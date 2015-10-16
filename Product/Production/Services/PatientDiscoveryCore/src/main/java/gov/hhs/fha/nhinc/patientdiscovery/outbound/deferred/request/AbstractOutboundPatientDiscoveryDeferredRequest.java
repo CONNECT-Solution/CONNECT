@@ -27,33 +27,28 @@
 package gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.MessageGeneratorUtils;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
-
+import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredRequestAuditLogger;
+import java.util.Properties;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 /**
  * @author akong
  *
  */
 public abstract class AbstractOutboundPatientDiscoveryDeferredRequest implements
-        OutboundPatientDiscoveryDeferredRequest {
+    OutboundPatientDiscoveryDeferredRequest {
 
-    abstract PatientDiscoveryAuditor getPatientDiscoveryAuditor();
+    abstract PatientDiscoveryDeferredRequestAuditLogger getPatientDiscoveryDeferredAuditLogger();
 
-    protected void auditRequestFromAdapter(PRPAIN201305UV02 request, AssertionType assertion) {
-        RespondingGatewayPRPAIN201305UV02RequestType message = MessageGeneratorUtils.getInstance()
-                .createRespondingGatewayRequest(request, assertion, null);
+    protected void auditRequest(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetSystemType target,
+        Properties webContextProperties) {
 
-        getPatientDiscoveryAuditor().auditEntityDeferred201305(message, assertion,
-                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, null);
-    }
-
-    protected void auditResponseToAdapter(MCCIIN000002UV01 resp, AssertionType assertion) {
-        getPatientDiscoveryAuditor().auditAck(resp, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        getPatientDiscoveryDeferredAuditLogger().auditRequestMessage(request, assertion, target,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE,
+            webContextProperties, NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
     }
 }
