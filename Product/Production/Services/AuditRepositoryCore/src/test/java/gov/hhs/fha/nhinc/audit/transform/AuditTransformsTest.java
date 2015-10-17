@@ -190,7 +190,7 @@ public abstract class AuditTransformsTest<T, K> {
         }
 
         assertEquals("NetworkAccessPointID mismatch", ipOrHost, sourceActiveParticipant.getNetworkAccessPointID());
-        assertEquals("SourceActiveParticipant requestor flag mismatch", isRequesting,
+        assertEquals("SourceActiveParticipant requestor flag mismatch", Boolean.TRUE,
             sourceActiveParticipant.isUserIsRequestor());
         assertEquals("NetworkAccessPointTypeCode mismatch",
             getAuditTransforms().getNetworkAccessPointTypeCode(ipOrHost),
@@ -251,7 +251,7 @@ public abstract class AuditTransformsTest<T, K> {
         }
 
         assertEquals("UserID mismatch", userId, destinationActiveParticipant.getUserID());
-        assertEquals("DestinationActiveParticipant requestor flag mismatch", !isRequesting,
+        assertEquals("DestinationActiveParticipant requestor flag mismatch", Boolean.FALSE,
             destinationActiveParticipant.isUserIsRequestor());
         assertEquals("NetworkAccessPointID mismatch", localIp, destinationActiveParticipant.getNetworkAccessPointID());
         assertEquals("NetworkAccessPointTypeCode mismatch", AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_IP,

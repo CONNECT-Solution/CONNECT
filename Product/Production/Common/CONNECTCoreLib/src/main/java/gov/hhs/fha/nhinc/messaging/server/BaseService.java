@@ -99,23 +99,6 @@ public abstract class BaseService {
     }
 
     /**
-     * Returns the local client host address
-     *
-     * @param context
-     * @return
-     */
-    protected String getLocalAddress(WebServiceContext context) {
-        String remoteAddress = null;
-        if (context != null && context.getMessageContext() != null
-            && context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST) != null) {
-            HttpServletRequest httpServletRequest
-                = (HttpServletRequest) context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST);
-            remoteAddress = httpServletRequest.getLocalAddr();
-        }
-        return remoteAddress;
-    }
-
-    /**
      * Returns the called Web Service URL
      *
      * @param context
@@ -156,9 +139,6 @@ public abstract class BaseService {
 
             //add Remote Server address or Host
             webContextProperties.put(NhincConstants.REMOTE_HOST_ADDRESS, getRemoteAddress(context));
-
-            //add Local Server address or Host
-            webContextProperties.put(NhincConstants.LOCAL_HOST_ADDRESS, getLocalAddress(context));
 
             //Get Inbound Message ReplyTo Header
             webContextProperties.put(NhincConstants.INBOUND_REPLY_TO, getInboundReplyToHeader(context));

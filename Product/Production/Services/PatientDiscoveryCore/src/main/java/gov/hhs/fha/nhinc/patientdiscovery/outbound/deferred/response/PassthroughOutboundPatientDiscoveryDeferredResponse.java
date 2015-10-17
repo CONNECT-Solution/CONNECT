@@ -30,10 +30,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.patientdiscovery.MessageGeneratorUtils;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredResponseAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseDelegate;
-
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -42,7 +40,7 @@ public class PassthroughOutboundPatientDiscoveryDeferredResponse extends
 
     private static final MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 
-    private final PatientDiscoveryAuditor auditLogger;
+    private final PatientDiscoveryDeferredResponseAuditLogger auditLogger;
     private final OutboundPatientDiscoveryDeferredResponseDelegate delegate;
 
     /**
@@ -50,7 +48,7 @@ public class PassthroughOutboundPatientDiscoveryDeferredResponse extends
      */
     public PassthroughOutboundPatientDiscoveryDeferredResponse() {
         delegate = new OutboundPatientDiscoveryDeferredResponseDelegate();
-        auditLogger = new PatientDiscoveryAuditLogger();
+        auditLogger = new PatientDiscoveryDeferredResponseAuditLogger();
     }
 
     /**
@@ -59,8 +57,8 @@ public class PassthroughOutboundPatientDiscoveryDeferredResponse extends
      * @param delegate
      * @param auditLogger
      */
-    public PassthroughOutboundPatientDiscoveryDeferredResponse(
-            OutboundPatientDiscoveryDeferredResponseDelegate delegate, PatientDiscoveryAuditor auditLogger) {
+    public PassthroughOutboundPatientDiscoveryDeferredResponse(OutboundPatientDiscoveryDeferredResponseDelegate delegate, 
+        PatientDiscoveryDeferredResponseAuditLogger auditLogger) {
         this.delegate = delegate;
         this.auditLogger = auditLogger;
     }
@@ -76,7 +74,7 @@ public class PassthroughOutboundPatientDiscoveryDeferredResponse extends
     @Override
     MCCIIN000002UV01 process(PRPAIN201306UV02 request, AssertionType assertion, NhinTargetCommunitiesType target) {
         NhinTargetSystemType targetSystem = msgUtils.convertFirstToNhinTargetSystemType(target);
-
+        auditRequest(request, assertion, target);
         return sendToNhin(delegate, request, assertion, targetSystem);
     }
 
@@ -88,7 +86,7 @@ public class PassthroughOutboundPatientDiscoveryDeferredResponse extends
      * #getAuditLogger()
      */
     @Override
-    PatientDiscoveryAuditor getAuditLogger() {
+    PatientDiscoveryDeferredResponseAuditLogger getAuditLogger() {
         return auditLogger;
     }
 }

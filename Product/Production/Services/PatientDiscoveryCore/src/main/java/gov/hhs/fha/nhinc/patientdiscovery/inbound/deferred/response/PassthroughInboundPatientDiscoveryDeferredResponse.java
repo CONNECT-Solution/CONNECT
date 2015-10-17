@@ -28,9 +28,8 @@ package gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.generic.GenericFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxy;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredResponseAuditLogger;
 
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -41,13 +40,13 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public class PassthroughInboundPatientDiscoveryDeferredResponse extends AbstractInboundPatientDiscoveryDeferredResponse {
 
-    private final PatientDiscoveryAuditor auditLogger;
+    private PatientDiscoveryDeferredResponseAuditLogger auditLogger;
 
     /**
      * Constructor.
      */
     public PassthroughInboundPatientDiscoveryDeferredResponse() {
-        auditLogger = new PatientDiscoveryAuditLogger();
+        auditLogger = new PatientDiscoveryDeferredResponseAuditLogger();
     }
 
     /**
@@ -57,7 +56,7 @@ public class PassthroughInboundPatientDiscoveryDeferredResponse extends Abstract
      * @param auditLogger
      */
     public PassthroughInboundPatientDiscoveryDeferredResponse(
-            GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> proxyFactory, PatientDiscoveryAuditor auditLogger) {
+            GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> proxyFactory, PatientDiscoveryDeferredResponseAuditLogger auditLogger) {
         super(proxyFactory);
         this.auditLogger = auditLogger;
     }
@@ -84,7 +83,7 @@ public class PassthroughInboundPatientDiscoveryDeferredResponse extends Abstract
      * getAuditLogger()
      */
     @Override
-    PatientDiscoveryAuditor getAuditLogger() {
+    PatientDiscoveryDeferredResponseAuditLogger getAuditLogger() {
         return auditLogger;
     }
 

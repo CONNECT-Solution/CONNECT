@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.parser;
 
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -75,5 +76,72 @@ public class PRPAIN201306UV02Parser {
             LOG.error("PatientId doesn't exist in the received PRPAIN201306UV02 message");
         }
         return oIIs;
+    }
+
+    public static String getSenderHcid(PRPAIN201306UV02 response) {
+        String id = null;
+        if (response != null && response.getSender() != null && response.getSender() != null
+            && response.getSender().getDevice() != null && response.getSender().getDevice().
+            getAsAgent() != null
+            && response.getSender().getDevice().getAsAgent().getValue() != null
+            && response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+            && response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().
+            getId() != null
+            && !response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+            .getId().isEmpty()
+            && response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+            .getId().get(0) != null
+            && response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+            .getId().get(0).getRoot() != null
+            && !response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+            .getId().get(0).getRoot().isEmpty()) {
+            id = response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                .getValue().getId().get(0).getRoot();
+        } 
+        //If representedOrganization Id root is null get id from device
+        if(NullChecker.isNullish(id)) {
+            if (response != null && response.getSender() != null && response.getSender() != null
+            && response.getSender().getDevice() != null  && response.getSender().getDevice().getId() != null
+            && response.getSender().getDevice().getId().get(0) != null 
+            && response.getSender().getDevice().getId().get(0).getRoot() != null
+            && !response.getSender().getDevice().getId().get(0).getRoot().isEmpty()) {
+                id = response.getSender().getDevice().getId().get(0).getRoot();
+            }
+        }
+        return id;
+    }
+
+    public static String getReceiverHCID(PRPAIN201306UV02 response) {
+        String id = null;
+        if (response != null && response.getReceiver() != null && response.getReceiver().get(0) != null
+            && response.getReceiver().get(0).getDevice() != null && response.getReceiver().get(0).getDevice().
+            getAsAgent() != null
+            && response.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
+            && response.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+            && response.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                .getValue().getId() != null
+            && !response.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                .getValue().getId().isEmpty()
+            && response.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                .getValue().getId().get(0) != null
+            && response.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                .getValue().getId().get(0).getRoot() != null
+            && !response.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                .getValue().getId().get(0).getRoot().isEmpty()) {
+            id = response.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                .getValue().getId().get(0).getRoot();
+        }
+        //If representedOrganization Id root is null get id from device
+        if (NullChecker.isNullish(id)) {
+           if (response != null && response.getReceiver() != null && response.getReceiver().get(0) != null
+            && response.getReceiver().get(0).getDevice() != null 
+            && response.getReceiver().get(0).getDevice().getId() != null 
+            && response.getReceiver().get(0).getDevice().getId().get(0) != null
+            && response.getReceiver().get(0).getDevice().getId().get(0).getRoot() != null 
+            && !response.getReceiver().get(0).getDevice().getId().get(0).getRoot().isEmpty()) {
+               id = response.getReceiver().get(0).getDevice().getId().get(0).getRoot();
+           }
+        }
+        return id;
     }
 }

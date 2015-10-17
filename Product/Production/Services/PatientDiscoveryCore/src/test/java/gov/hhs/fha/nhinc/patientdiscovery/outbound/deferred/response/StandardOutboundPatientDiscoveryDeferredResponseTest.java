@@ -26,41 +26,42 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.response;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306PolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredResponseAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseOrchestratable;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
-
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Properties;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import org.mockito.Mockito;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * @author akong
@@ -74,6 +75,9 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
     private MCCIIN000002UV01 expectedResponse;
     private PRPAIN201306UV02 firstTargetRequest;
     private PRPAIN201306UV02 secondTargetRequest;
+    
+    PatientDiscoveryDeferredResponseAuditLogger auditLogger = mock(PatientDiscoveryDeferredResponseAuditLogger.class);
+    Properties webContextProperties = null;
 
     @Before
     public void initialize() {
@@ -115,9 +119,11 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
         // Mocks
         PatientDiscovery201306PolicyChecker policyChecker = mock(PatientDiscovery201306PolicyChecker.class);
         PatientDiscovery201306Processor pd201306Processor = mock(PatientDiscovery201306Processor.class);
-        PatientDiscoveryAuditor auditLogger = mock(PatientDiscoveryAuditor.class);
-        OutboundPatientDiscoveryDeferredResponseDelegate delegate = mock(OutboundPatientDiscoveryDeferredResponseDelegate.class);
-        OutboundPatientDiscoveryDeferredResponseOrchestratable returnedOrchestratable = mock(OutboundPatientDiscoveryDeferredResponseOrchestratable.class);
+        
+        OutboundPatientDiscoveryDeferredResponseDelegate delegate = 
+            mock(OutboundPatientDiscoveryDeferredResponseDelegate.class);
+        OutboundPatientDiscoveryDeferredResponseOrchestratable returnedOrchestratable = 
+            mock(OutboundPatientDiscoveryDeferredResponseOrchestratable.class);
         ConnectionManagerCache connectionManager = mock(ConnectionManagerCache.class);
 
         // Stubbing the methods
@@ -163,13 +169,11 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
 
         // Verify request from adapter is audited
         requestArgument.getAllValues().clear();
-        verify(auditLogger).auditEntityDeferred201306(requestArgument.capture(), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
-        assertEquals(request, requestArgument.getValue().getPRPAIN201306UV02());
-
-        // Verify response to adapter is audited
-        verify(auditLogger).auditAck(actualResponse, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        verify(auditLogger).auditRequestMessage(eq(request), eq(assertion), 
+            Mockito.any(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE),eq(webContextProperties),
+            eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME));
+       
     }
 
     @Test
@@ -177,7 +181,6 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
 
         // Mocks
         ConnectionManagerCache connectionManager = mock(ConnectionManagerCache.class);
-        PatientDiscoveryAuditor auditLogger = mock(PatientDiscoveryAuditor.class);
 
         // Stubbing the methods
         when(connectionManager.getEndpointURLFromNhinTargetCommunities(eq(targets),
@@ -200,13 +203,11 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
         // Verify request from adapter is audited
         ArgumentCaptor<RespondingGatewayPRPAIN201306UV02RequestType> requestArgument = ArgumentCaptor
                 .forClass(RespondingGatewayPRPAIN201306UV02RequestType.class);
-        verify(auditLogger).auditEntityDeferred201306(requestArgument.capture(), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
-        assertEquals(request, requestArgument.getValue().getPRPAIN201306UV02());
-
-        // Verify response to adapter is audited
-        verify(auditLogger).auditAck(errorResponse, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        verify(auditLogger).auditRequestMessage(eq(request), eq(assertion), 
+            Mockito.any(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE),eq(webContextProperties),
+            eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME));
+        
     }
 
     @Test
@@ -216,7 +217,6 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
         // Mocks
         PatientDiscovery201306PolicyChecker policyChecker = mock(PatientDiscovery201306PolicyChecker.class);
         PatientDiscovery201306Processor pd201306Processor = mock(PatientDiscovery201306Processor.class);
-        PatientDiscoveryAuditor auditLogger = mock(PatientDiscoveryAuditor.class);
         OutboundPatientDiscoveryDeferredResponseDelegate delegate = mock(OutboundPatientDiscoveryDeferredResponseDelegate.class);
         ConnectionManagerCache connectionManager = mock(ConnectionManagerCache.class);
 
@@ -246,12 +246,9 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
         // Verify request from adapter is audited
         ArgumentCaptor<RespondingGatewayPRPAIN201306UV02RequestType> requestArgument = ArgumentCaptor
                 .forClass(RespondingGatewayPRPAIN201306UV02RequestType.class);
-        verify(auditLogger).auditEntityDeferred201306(requestArgument.capture(), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
-        assertEquals(request, requestArgument.getValue().getPRPAIN201306UV02());
-
-        // Verify response to adapter is audited
-        verify(auditLogger).auditAck(errorResponse, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        verify(auditLogger).auditRequestMessage(eq(request), eq(assertion), 
+            Mockito.any(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE),eq(webContextProperties),
+            eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME));
     }
 }
