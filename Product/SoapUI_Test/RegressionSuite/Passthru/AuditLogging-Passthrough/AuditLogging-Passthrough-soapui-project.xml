@@ -3444,11 +3444,11 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
                   <urn:parameterList>
                      <urn:livingSubjectAdministrativeGender>
                         <urn:value code="M"/>
-                        <urn:semanticsText representation="TXT"/>
+                        <urn:semanticsText representation="TXT">LivingSubject.administrativeGender</urn:semanticsText>
                      </urn:livingSubjectAdministrativeGender>
                      <urn:livingSubjectBirthTime>
                         <urn:value value="19630804"/>
-                        <urn:semanticsText representation="TXT"/>
+                        <urn:semanticsText representation="TXT">LivingSubject.birthTime</urn:semanticsText>
                      </urn:livingSubjectBirthTime>
                      <urn:livingSubjectId>
                         <urn:value extension="D123401" root="1.1"/>
@@ -3459,7 +3459,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
                            <urn:family partType="FAM">Younger</urn:family>
                            <urn:given partType="GIV">Gallow</urn:given>
                         </urn:value>
-                        <urn:semanticsText representation="TXT"/>
+                        <urn:semanticsText representation="TXT">LivingSubject.name</urn:semanticsText>
                      </urn:livingSubjectName>
                   </urn:parameterList>
                </urn:queryByParameter>
@@ -3483,7 +3483,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
             <urn1:haveWitnessSignature>true</urn1:haveWitnessSignature>
             <urn1:homeCommunity>
                <urn1:description>Test HCID1</urn1:description>
-               <urn1:homeCommunityId>2.16.840.1.113883.3.337</urn1:homeCommunityId>
+               <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
                <urn1:name>HCID1</urn1:name>
             </urn1:homeCommunity>
             <urn1:personName>
@@ -3684,21 +3684,21 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:testStep type="delay" name="Wait for Audit table to populate">
         <con:settings/>
         <con:config>
-          <delay>10000</delay>
+          <delay>50000</delay>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Audit Logs" id="82f1d25c-add6-4cf8-8851-9522bf94bc4b" disabled="true">
+      <con:testStep type="groovy" name="Verify Audit Logs" id="82f1d25c-add6-4cf8-8851-9522bf94bc4b">
         <con:settings/>
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="1.1"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where  messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where  messageType="Nhin Outbound" and communityId="2.2"')[0]
 	
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -3858,7 +3858,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1) - ACK" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1) - ACK">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -4022,7 +4022,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
-def propertiesFilename = projectPath + "/PatientDiscoveryDeferredAuditLog.properties"
+def propertiesFilename = projectPath + "/PatientDiscoveryDeferredResponseAuditLog.properties"
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
  def props = new Properties()
@@ -4032,8 +4032,8 @@ if (propertiesFile.exists()) {
  }
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+//context.setGatewayStandard(true);
+//log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>LocalHCID</con:name>
@@ -4301,19 +4301,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-14T15:16:09Z</con:value>
+          <con:value>2015-10-17T05:09:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-14T15:26:09Z</con:value>
+          <con:value>2015-10-17T05:19:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/14/2015 15:16:09</con:value>
+          <con:value>10/17/2015 05:09:40</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-13T00:00:00Z</con:value>
+          <con:value>2015-11-16T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@code</con:name>
@@ -4381,7 +4381,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
-          <con:value>1111^^^&amp;1.1&amp;ISO</con:value>
+          <con:value>D123402^^^&amp;2.2&amp;ISO</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventDateTime</con:name>
@@ -4457,7 +4457,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>parameterList.livingSubjectId.value.@extension</con:name>
-          <con:value>1111</con:value>
+          <con:value>D123401</con:value>
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name>
@@ -4493,7 +4493,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserID</con:name>
-          <con:value>https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery</con:value>
+          <con:value>https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncResp</con:value>
         </con:property>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -4577,7 +4577,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>queryId.@root</con:name>
-          <con:value>1.1</con:value>
+          <con:value>2.2</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode</con:name>
@@ -4613,7 +4613,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Responder.@ParticipantObjectID</con:name>
-          <con:value>D123401^^^&amp;1.1&amp;ISO</con:value>
+          <con:value>D123402^^^&amp;2.2&amp;ISO</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserName</con:name>
@@ -11520,11 +11520,11 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
                   <urn:parameterList>
                      <urn:livingSubjectAdministrativeGender>
                         <urn:value code="M"/>
-                        <urn:semanticsText representation="TXT"/>
+                        <urn:semanticsText representation="TXT">LivingSubject.administrativeGender</urn:semanticsText>
                      </urn:livingSubjectAdministrativeGender>
                      <urn:livingSubjectBirthTime>
                         <urn:value value="19630804"/>
-                        <urn:semanticsText representation="TXT"/>
+                        <urn:semanticsText representation="TXT">LivingSubject.birthTime</urn:semanticsText>
                      </urn:livingSubjectBirthTime>
                      <urn:livingSubjectId>
                         <urn:value extension="D123401" root="1.1"/>
@@ -11535,7 +11535,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
                            <urn:family partType="FAM">Younger</urn:family>
                            <urn:given partType="GIV">Gallow</urn:given>
                         </urn:value>
-                        <urn:semanticsText representation="TXT"/>
+                        <urn:semanticsText representation="TXT">LivingSubject.name</urn:semanticsText>
                      </urn:livingSubjectName>
                   </urn:parameterList>
                </urn:queryByParameter>
@@ -11559,7 +11559,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
             <urn1:haveWitnessSignature>true</urn1:haveWitnessSignature>
             <urn1:homeCommunity>
                <urn1:description>Test HCID1</urn1:description>
-               <urn1:homeCommunityId>2.16.840.1.113883.3.337</urn1:homeCommunityId>
+               <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
                <urn1:name>HCID1</urn1:name>
             </urn1:homeCommunity>
             <urn1:personName>
@@ -11760,21 +11760,21 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:testStep type="delay" name="Wait for Audit table to populate">
         <con:settings/>
         <con:config>
-          <delay>10000</delay>
+          <delay>30000</delay>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Audit Logs" id="51e31a14-520c-4ebe-9d91-1614db33b08d" disabled="true">
+      <con:testStep type="groovy" name="Verify Audit Logs" id="51e31a14-520c-4ebe-9d91-1614db33b08d">
         <con:settings/>
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="1.1"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 	
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -11934,7 +11934,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1) - ACK" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1) - ACK">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -12098,7 +12098,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
-def propertiesFilename = projectPath + "/PatientDiscoveryDeferredAuditLog.properties"
+def propertiesFilename = projectPath + "/PatientDiscoveryDeferredResponseAuditLog.properties"
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
  def props = new Properties()
@@ -12108,7 +12108,7 @@ if (propertiesFile.exists()) {
  }
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
+//context.setGatewayStandard(true);
 log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
@@ -12377,19 +12377,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-14T15:22:46Z</con:value>
+          <con:value>2015-10-17T05:25:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/14/2015 15:12:46</con:value>
+          <con:value>10/17/2015 05:15:32</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-13T00:00:00Z</con:value>
+          <con:value>2015-11-16T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-14T15:12:46Z</con:value>
+          <con:value>2015-10-17T05:15:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@code</con:name>
@@ -12457,7 +12457,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
-          <con:value>1111^^^&amp;1.1&amp;ISO</con:value>
+          <con:value>D123402^^^&amp;2.2&amp;ISO</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventDateTime</con:name>
@@ -12533,7 +12533,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>parameterList.livingSubjectId.value.@extension</con:name>
-          <con:value>1111</con:value>
+          <con:value>D123401</con:value>
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name>
@@ -12569,7 +12569,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserID</con:name>
-          <con:value>https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery</con:value>
+          <con:value>https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncResp</con:value>
         </con:property>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -12653,7 +12653,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>queryId.@root</con:name>
-          <con:value>1.1</con:value>
+          <con:value>2.2</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode</con:name>
@@ -12689,7 +12689,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Responder.@ParticipantObjectID</con:name>
-          <con:value>D123401^^^&amp;1.1&amp;ISO</con:value>
+          <con:value>D123402^^^&amp;2.2&amp;ISO</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserName</con:name>
@@ -18749,7 +18749,7 @@ if (propertiesFile.exists()) {
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value/>
+      <con:value>C:\app\wildfly-8.2.1.Final\wildfly-8.2.1.Final\modules\system\layers\base\org\connectopensource\configuration\main</con:value>
     </con:property>
     <con:property>
       <con:name>Gender</con:name>
