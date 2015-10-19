@@ -3483,7 +3483,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
             <urn1:haveWitnessSignature>true</urn1:haveWitnessSignature>
             <urn1:homeCommunity>
                <urn1:description>Test HCID1</urn1:description>
-               <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>HCID1</urn1:name>
             </urn1:homeCommunity>
             <urn1:personName>
@@ -11559,7 +11559,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
             <urn1:haveWitnessSignature>true</urn1:haveWitnessSignature>
             <urn1:homeCommunity>
                <urn1:description>Test HCID1</urn1:description>
-               <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>HCID1</urn1:name>
             </urn1:homeCommunity>
             <urn1:personName>

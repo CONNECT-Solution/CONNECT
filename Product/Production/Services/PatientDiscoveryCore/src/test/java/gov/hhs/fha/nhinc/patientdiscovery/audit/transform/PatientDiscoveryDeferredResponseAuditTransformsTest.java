@@ -1,7 +1,28 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.patientdiscovery.audit.transform;
 
@@ -34,7 +55,7 @@ import org.junit.Test;
  */
 public class PatientDiscoveryDeferredResponseAuditTransformsTest extends AuditTransformsTest<PRPAIN201306UV02, MCCIIN000002UV01> {
 
-    /*@Test
+    @Test
      public void transformRequestToAuditMsg() throws ConnectionManagerException, UnknownHostException {
      final String localIp = "10.10.10.10";
      final String remoteIp = "16.14.13.12";
@@ -71,7 +92,7 @@ public class PatientDiscoveryDeferredResponseAuditTransformsTest extends AuditTr
      LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(TestPatientDiscoveryMessageHelper.
      createPRPAIN201305UV02Request("Gallow", "Younger", "M", "01-12-2967", "1.1", "D123401", "2.2",
      "abd3453dcd24wkkks545"), assertion, createNhinTarget(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-     NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, webContextProperties,
+     NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, webContextProperties,
      NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
 
      testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME,
@@ -80,7 +101,7 @@ public class PatientDiscoveryDeferredResponseAuditTransformsTest extends AuditTr
      testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
      testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
      assertParticipantObjectIdentification(auditRequest);
-     }*/
+     }
     /**
      *
      * @throws ConnectionManagerException
@@ -187,19 +208,19 @@ public class PatientDiscoveryDeferredResponseAuditTransformsTest extends AuditTr
         assertSame("ParticipantQuery.ParticipantObjectTypeCode object reference mismatch",
             PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_SYSTEM,
             participantQuery.getParticipantObjectTypeCode());
-        assertSame("ParticipantPatient.ParticipantObjectTypeCodeRole object reference mismatch",
+        assertSame("ParticipantQuery.ParticipantObjectTypeCodeRole object reference mismatch",
             PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_ROLE,
             participantQuery.getParticipantObjectTypeCodeRole());
-        assertEquals("ParticipantPatient.ParticipantObjectIDTypeCode.Code mismatch",
+        assertEquals("ParticipantQuery.ParticipantObjectTypeCodeRole.Code mismatch",
             PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE,
             participantQuery.getParticipantObjectIDTypeCode().getCode());
-        assertEquals("ParticipantPatient.ParticipantObjectIDTypeCode.CodeSystemName mismatch",
+        assertEquals("ParticipantQuery.ParticipantObjectIDTypeCode.CodeSystemName mismatch",
             PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE_SYSTEM,
             participantQuery.getParticipantObjectIDTypeCode().getCodeSystemName());
-        assertEquals("ParticipantPatient.ParticipantObjectIDTypeCode.DisplayName mismatch",
+        assertEquals("ParticipantQuery.ParticipantObjectIDTypeCode.DisplayName mismatch",
             PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME,
             participantQuery.getParticipantObjectIDTypeCode().getDisplayName());
-        assertNull("ParticipantPatient.ParticipantObjectName is not null",
+        assertNull("ParticipantQuery.ParticipantObjectName is not null",
             participantPatient.getParticipantObjectName());
         assertNull("ParticipantQuery.ParticipantObjectName is not null",
             participantQuery.getParticipantObjectName());

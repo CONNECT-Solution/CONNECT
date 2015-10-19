@@ -165,13 +165,13 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
                 "1.1", "D123401", "2.2", "abd3453dcd24wkkks545"), TestPatientDiscoveryMessageHelper.
             createPRPAIN201306UV02Response("Gallow", "Younger", "M", "01-12-2967", "1.1", "D123401", "2.2",
                 "abd3453dcd24wkkks545"), assertion, createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-            NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, webContextProperties,
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, webContextProperties,
             NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
 
         testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE);
-        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
-        testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
-        testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
+        testGetActiveParticipantSource(auditRequest, Boolean.FALSE, webContextProperties, localIp);
+        testGetActiveParticipantDestination(auditRequest, Boolean.FALSE, webContextProperties, remoteObjectUrl);
+        testCreateActiveParticipantFromUser(auditRequest, Boolean.FALSE, assertion);
         assertParticipantObjectIdentification(auditRequest);
     }
 
@@ -214,19 +214,19 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         assertSame("ParticipantQuery.ParticipantObjectTypeCode object reference mismatch",
             PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_SYSTEM,
             participantQuery.getParticipantObjectTypeCode());
-        assertSame("ParticipantPatient.ParticipantObjectTypeCodeRole object reference mismatch",
+        assertSame("ParticipantQuery.ParticipantObjectTypeCodeRole object reference mismatch",
             PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_ROLE,
             participantQuery.getParticipantObjectTypeCodeRole());
-        assertEquals("ParticipantPatient.ParticipantObjectIDTypeCode.Code mismatch",
+        assertEquals("ParticipantQuery.ParticipantObjectIDTypeCode.Code mismatch",
             PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE,
             participantQuery.getParticipantObjectIDTypeCode().getCode());
-        assertEquals("ParticipantPatient.ParticipantObjectIDTypeCode.CodeSystemName mismatch",
+        assertEquals("ParticipantQuery.ParticipantObjectIDTypeCode.CodeSystemName mismatch",
             PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE_SYSTEM,
             participantQuery.getParticipantObjectIDTypeCode().getCodeSystemName());
-        assertEquals("ParticipantPatient.ParticipantObjectIDTypeCode.DisplayName mismatch",
+        assertEquals("ParticipantQuery.ParticipantObjectIDTypeCode.DisplayName mismatch",
             PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME,
             participantQuery.getParticipantObjectIDTypeCode().getDisplayName());
-        assertNull("ParticipantPatient.ParticipantObjectName is not null",
+        assertNull("ParticipantQuery.ParticipantObjectName is not null",
             participantPatient.getParticipantObjectName());
         assertNull("ParticipantQuery.ParticipantObjectName is not null",
             participantQuery.getParticipantObjectName());
