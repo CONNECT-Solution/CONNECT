@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.audit.transform;
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditTransformsConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.parser.PRPAIN201305UV02Parser;
@@ -48,6 +49,8 @@ import org.hl7.v3.PRPAIN201306UV02;
  * PatientDiscoveryDeferredResponseAuditTransforms
  *
  * @author tjafri
+ * @param <T>
+ * @param <K>
  */
 public abstract class AbstractPatientDiscoveryAuditTransforms<T, K> extends AuditTransforms<T, K> {
 
@@ -75,6 +78,23 @@ public abstract class AbstractPatientDiscoveryAuditTransforms<T, K> extends Audi
     protected static String createPatientId(String assigningAuthId, String patientId) {
         return patientId + "^^^&" + assigningAuthId + "&ISO";
     }
+
+    @Override
+    protected abstract AuditMessageType getParticipantObjectIdentificationForRequest(T request, AssertionType assertion,
+        AuditMessageType auditMsg);
+
+    /**
+     * Adds Participant Object Identification information to auditMsg
+     *
+     * @param request
+     * @param response
+     * @param assertion
+     * @param auditMsg
+     * @return
+     */
+    @Override
+    protected abstract AuditMessageType getParticipantObjectIdentificationForResponse(T request, K response,
+        AssertionType assertion, AuditMessageType auditMsg);
 
     protected AuditMessageType getQueryParamsParticipantObjectIdentificationForRequest(PRPAIN201305UV02 request,
         AuditMessageType auditMsg) throws JAXBException {

@@ -26,18 +26,13 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy.NhinPatientDiscoveryDeferredRespProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy.NhinPatientDiscoveryDeferredRespProxyObjectFactory;
 
 import org.apache.log4j.Logger;
 import org.hl7.v3.MCCIIN000002UV01;
-import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  * @author akong
@@ -64,32 +59,20 @@ public class OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0 implements 
         }
 
         if (message instanceof OutboundPatientDiscoveryDeferredResponseOrchestratable) {
-            auditRequestToNhin(message.getRequest(), message.getAssertion());
 
-            NhinPatientDiscoveryDeferredRespProxy nhinPatientDiscovery = new NhinPatientDiscoveryDeferredRespProxyObjectFactory()
-                    .getNhinPatientDiscoveryAsyncRespProxy();
+            NhinPatientDiscoveryDeferredRespProxy nhinPatientDiscovery
+                = new NhinPatientDiscoveryDeferredRespProxyObjectFactory().getNhinPatientDiscoveryAsyncRespProxy();
 
             MCCIIN000002UV01 response = nhinPatientDiscovery.respondingGatewayPRPAIN201306UV02(message.getRequest(),
-                    message.getAssertion(), message.getTarget());
+                message.getAssertion(), message.getTarget());
             message.setResponse(response);
 
-            auditResponseFromNhin(message.getResponse(), message.getAssertion());
         } else {
             LOG.error(
-                    "OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0 received a message "
-                            + "which was not of type OutboundPatientDiscoveryDeferredResponseOrchestratable.");
+                "OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0 received a message "
+                + "which was not of type OutboundPatientDiscoveryDeferredResponseOrchestratable.");
         }
-       	LOG.debug("End OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0.process");
+        LOG.debug("End OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0.process");
     }
 
-    private void auditRequestToNhin(PRPAIN201306UV02 request, AssertionType assertion) {
-        PatientDiscoveryAuditor auditLog = new PatientDiscoveryAuditLogger();
-        auditLog.auditNhinDeferred201306(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-    }
-
-    private void auditResponseFromNhin(MCCIIN000002UV01 resp, AssertionType assertion) {
-        PatientDiscoveryAuditor auditLog = new PatientDiscoveryAuditLogger();
-        auditLog.auditAck(resp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-    }
 }

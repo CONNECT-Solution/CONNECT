@@ -24,30 +24,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response;
+package gov.hhs.fha.nhinc.patientdiscovery.audit;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import java.util.Properties;
+import gov.hhs.fha.nhinc.audit.AuditLogger;
+import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.transform.PatientDiscoveryDeferredResponseAuditTransforms;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- * @author akong
  *
+ * @author achidamb
  */
-public class TestInboundPatientDiscoveryDeferredResponse implements InboundPatientDiscoveryDeferredResponse {
+public class PatientDiscoveryDeferredResponseAuditLogger extends AuditLogger<PRPAIN201306UV02, MCCIIN000002UV01> {
 
-    /**
-     *
-     * @param body
-     * @param assertion
-     * @param webContextProperties
-     * @return
-     */
     @Override
-    public MCCIIN000002UV01 respondingGatewayDeferredPRPAIN201306UV02(PRPAIN201306UV02 body, AssertionType assertion,
-        Properties webContextProperties) {
-        return new MCCIIN000002UV01();
+    protected AuditTransforms<PRPAIN201306UV02, MCCIIN000002UV01> getAuditTransforms() {
+        return new PatientDiscoveryDeferredResponseAuditTransforms();
     }
 
 }

@@ -76,6 +76,8 @@ public abstract class AuditTransforms<T, K> {
 
     private static final Logger LOG = Logger.getLogger(AuditTransforms.class);
 
+    private T request;
+
     /**
      * Build an AuditLog Request Message from request
      *
@@ -92,6 +94,7 @@ public abstract class AuditTransforms<T, K> {
     public final LogEventRequestType transformRequestToAuditMsg(T request, AssertionType assertion,
         NhinTargetSystemType target, String direction, String _interface, boolean isRequesting,
         Properties webContextProperties, String serviceName) {
+        setRequest(request);
 
         // TODO: auditMsg should either use a builder, or modify in-method with no return
         AuditMessageType auditMsg = createBaseAuditMessage(assertion, target, isRequesting, webContextProperties,
@@ -119,7 +122,7 @@ public abstract class AuditTransforms<T, K> {
     public final LogEventRequestType transformResponseToAuditMsg(T request, K response, AssertionType assertion,
         NhinTargetSystemType target, String direction, String _interface, boolean isRequesting,
         Properties webContextProperties, String serviceName) {
-
+        setRequest(request);
         // TODO: auditMsg should either use a builder, or modify in-method with no return
         AuditMessageType auditMsg = createBaseAuditMessage(assertion, target, isRequesting, webContextProperties,
             serviceName);
@@ -157,7 +160,7 @@ public abstract class AuditTransforms<T, K> {
         return createAuditSourceIdentification(hcid, HomeCommunityMap.getHomeCommunityName(hcid));
     }
 
-    private ActiveParticipant getActiveParticipant(UserType oUserInfo) {
+    protected ActiveParticipant getActiveParticipant(UserType oUserInfo) {
         // Create Active Participant Section
         // create a method to call the AuditDataTransformHelper - one expectation
         ActiveParticipant participant = createActiveParticipantFromUser(oUserInfo);
@@ -267,14 +270,14 @@ public abstract class AuditTransforms<T, K> {
     protected ActiveParticipant getActiveParticipantSource(NhinTargetSystemType target, String serviceName,
         boolean isRequesting, Properties webContextProperties) {
 
-        String hostAddress = isRequesting ? getLocalHostAddress() : getRemoteHostAddress(webContextProperties);
+        String ipOrHost = isRequesting ? getLocalHostAddress() : getRemoteHostAddress(webContextProperties);
 
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
         participant.setUserID(isRequesting ? NhincConstants.WSA_REPLY_TO
             : getInboundReplyToFromHeader(webContextProperties));
         participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
-        participant.setNetworkAccessPointID(hostAddress);
-        participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostAddress));
+        participant.setNetworkAccessPointID(ipOrHost);
+        participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(ipOrHost));
         participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(
             AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
             AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
@@ -374,15 +377,6 @@ public abstract class AuditTransforms<T, K> {
             }
         }
         return AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE;
-    }
-
-    protected String getLocalAddressFromProperties(Properties webContextProperties) {
-        if (webContextProperties != null && !webContextProperties.isEmpty() && webContextProperties.getProperty(
-            NhincConstants.LOCAL_HOST_ADDRESS) != null) {
-
-            return webContextProperties.getProperty(NhincConstants.LOCAL_HOST_ADDRESS);
-        }
-        return AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
     }
 
     protected String getInboundReplyToFromHeader(Properties webContextProperties) {
@@ -513,7 +507,9 @@ public abstract class AuditTransforms<T, K> {
         // Active Participant for human requester only required for requesting gateway
         if (isRequesting) {
             ActiveParticipant participantHumanFactor = getActiveParticipant(assertion.getUserInfo());
-            auditMsg.getActiveParticipant().add(participantHumanFactor);
+            if (participantHumanFactor != null) {
+                auditMsg.getActiveParticipant().add(participantHumanFactor);
+            }
         }
         ActiveParticipant participantSource = getActiveParticipantSource(target, serviceName, isRequesting,
             webContextProperties);
@@ -544,7 +540,7 @@ public abstract class AuditTransforms<T, K> {
         return result;
     }
 
-    private ConnectionManagerCache getConnectionManagerCache() {
+    protected ConnectionManagerCache getConnectionManagerCache() {
         return ConnectionManagerCache.getInstance();
     }
 
@@ -571,5 +567,14 @@ public abstract class AuditTransforms<T, K> {
     protected abstract String getServiceEventActionCodeRequestor();
 
     protected abstract String getServiceEventActionCodeResponder();
+
+    //PD Deferred Response services require incoming Request. so getters and setters are created.
+    protected void setRequest(T request) {
+        this.request = request;
+    }
+
+    protected T getRequest() {
+        return request;
+    }
 
 }

@@ -29,21 +29,19 @@ package gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.generic.GenericFactory;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.PDDeferredCorrelationDao;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306PolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredResponseAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory.ResponseModeType;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseMode;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
-
+import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -56,7 +54,7 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
     private final ResponseFactory responseFactory;
     private final PatientDiscovery201306Processor msgProcessor;
     private final PDDeferredCorrelationDao pdCorrelationDao;
-    private final PatientDiscoveryAuditor auditLogger;
+    private final PatientDiscoveryDeferredResponseAuditLogger auditLogger;
     private static final Logger LOG = Logger.getLogger(StandardInboundPatientDiscoveryDeferredResponse.class);
 
     /**
@@ -67,7 +65,7 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
         responseFactory = new ResponseFactory();
         msgProcessor = new PatientDiscovery201306Processor();
         pdCorrelationDao = new PDDeferredCorrelationDao();
-        auditLogger = new PatientDiscoveryAuditLogger();
+        auditLogger = new PatientDiscoveryDeferredResponseAuditLogger();
     }
 
     /**
@@ -76,16 +74,15 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
      * @param policyChecker
      * @param responseFactory
      * @param msgProcessor
+     * @param proxyFactory
      * @param pdCorrelationDao
-     * @param passthroughPatientDiscovery
      * @param auditLogger
-     * @param LOG
      */
     public StandardInboundPatientDiscoveryDeferredResponse(
-            PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType, PRPAIN201306UV02> policyChecker,
-            ResponseFactory responseFactory, PatientDiscovery201306Processor msgProcessor,
-            GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> proxyFactory,
-            PDDeferredCorrelationDao pdCorrelationDao, PatientDiscoveryAuditor auditLogger) {
+        PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType, PRPAIN201306UV02> policyChecker,
+        ResponseFactory responseFactory, PatientDiscovery201306Processor msgProcessor,
+        GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> proxyFactory,
+        PDDeferredCorrelationDao pdCorrelationDao, PatientDiscoveryDeferredResponseAuditLogger auditLogger) {
         super(proxyFactory);
         this.policyChecker = policyChecker;
         this.responseFactory = responseFactory;
@@ -96,12 +93,12 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
 
     @Override
     @InboundProcessingEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Response", version = "1.0")
-    public MCCIIN000002UV01 respondingGatewayDeferredPRPAIN201306UV02(PRPAIN201306UV02 request, AssertionType assertion) {
-        auditRequestFromNhin(request, assertion);
+    public MCCIIN000002UV01 respondingGatewayDeferredPRPAIN201306UV02(PRPAIN201306UV02 request, AssertionType assertion,
+        Properties webContextProperties) {
 
         MCCIIN000002UV01 response = process(request, assertion);
 
-        auditResponseToNhin(response, assertion);
+        auditResponseToNhin(request, response, assertion, webContextProperties);
 
         return response;
     }
@@ -119,8 +116,6 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
         String ackMsg = "";
 
-        auditRequestToAdapter(request, assertion);
-
         if (isPolicyValid(request, assertion)) {
 
             ResponseModeType respModeType = responseFactory.getResponseModeType();
@@ -137,8 +132,6 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
             response = HL7AckTransforms.createAckErrorFrom201306(request, ackMsg);
         }
 
-        auditResponseFromAdapter(response, assertion);
-
         return response;
     }
 
@@ -150,7 +143,7 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
      * getAuditLogger()
      */
     @Override
-    PatientDiscoveryAuditor getAuditLogger() {
+    PatientDiscoveryDeferredResponseAuditLogger getAuditLogger() {
         return auditLogger;
     }
 
@@ -186,14 +179,5 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
             ResponseMode respProcessor = responseFactory.getResponseMode();
             respProcessor.processResponse(request, assertion, patientId);
         }
-    }
-
-    protected void auditRequestToAdapter(PRPAIN201306UV02 request, AssertionType assertion) {
-        getAuditLogger().auditAdapterDeferred201306(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-    }
-
-    protected void auditResponseFromAdapter(MCCIIN000002UV01 response, AssertionType assertion) {
-        getAuditLogger().auditAck(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
     }
 }

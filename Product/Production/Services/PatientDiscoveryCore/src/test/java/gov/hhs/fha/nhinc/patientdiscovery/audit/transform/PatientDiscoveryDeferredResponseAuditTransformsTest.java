@@ -39,45 +39,20 @@ import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditTransformsC
 import gov.hhs.fha.nhinc.patientdiscovery.parser.TestPatientDiscoveryMessageHelper;
 import java.net.UnknownHostException;
 import java.util.Properties;
-import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
-import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
  *
  * @author achidamb
  */
-public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRPAIN201305UV02, PRPAIN201306UV02> {
-
-    public PatientDiscoveryAuditTransformsTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    @Override
-    public void setUp() {
-    }
-
-    @After
-    @Override
-    public void tearDown() {
-    }
+public class PatientDiscoveryDeferredResponseAuditTransformsTest extends AuditTransformsTest<PRPAIN201306UV02, MCCIIN000002UV01> {
 
     @Test
     public void transformRequestToAuditMsg() throws ConnectionManagerException, UnknownHostException {
@@ -90,45 +65,58 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, wsRequestUrl);
         webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, remoteIp);
 
-        PatientDiscoveryAuditTransforms transforms = new PatientDiscoveryAuditTransforms() {
-            @Override
-            protected String getLocalHostAddress() {
-                return localIp;
-            }
+        PatientDiscoveryDeferredResponseAuditTransforms transforms
+            = new PatientDiscoveryDeferredResponseAuditTransforms() {
+                @Override
+                protected String getLocalHostAddress() {
+                    return remoteIp;
+                }
 
-            @Override
-            protected String getRemoteHostAddress(Properties webContextProperties) {
-                if (webContextProperties != null && !webContextProperties.isEmpty() && webContextProperties
+                @Override
+                protected String getRemoteHostAddress(Properties webContextProperties) {
+                    if (webContextProperties != null && !webContextProperties.isEmpty() && webContextProperties
                     .getProperty(NhincConstants.REMOTE_HOST_ADDRESS) != null) {
 
-                    return webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS);
+                        return webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS);
+                    }
+                    return AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
                 }
-                return AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
-            }
 
-            @Override
-            protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
-                return remoteObjectUrl;
-            }
-        };
+                @Override
+                protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
+                    return remoteObjectUrl;
+                }
+
+                @Override
+                protected String getPDDeferredRequestInitiatorAddress() {
+                    return localIp;
+                }
+            };
 
         AssertionType assertion = createAssertion();
-        LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(TestPatientDiscoveryMessageHelper.
-            createPRPAIN201305UV02Request("Gallow", "Younger", "M", "01-12-2967", "1.1", "D123401", "2.2",
-                "abd3453dcd24wkkks545"), assertion, createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-            NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, webContextProperties,
-            NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+        LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(
+            TestPatientDiscoveryMessageHelper.createPRPAIN201306UV02Response("Gallow", "Younger", "M", "01-12-2967",
+                "1.1", "D123401", "2.2", "abd3453dcd24wkkks545"), assertion, createNhinTarget(),
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE,
+            webContextProperties, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
 
-        testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE);
+        testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME,
+            Boolean.TRUE);
         testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
-        testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticipantObjectIdentification(auditRequest);
     }
 
+    /**
+     *
+     * @throws ConnectionManagerException
+     * @throws UnknownHostException
+     */
     @Test
     public void transformResponseToAuditMsg() throws ConnectionManagerException, UnknownHostException {
+        //Local Ip Address
         final String localIp = "10.10.10.10";
+        //Destination Ip Address
         final String remoteIp = "16.14.13.12";
         final String remoteObjectUrl = "http://" + remoteIp + ":9090/source/AuditService";
         final String wsRequestUrl = "http://" + remoteIp + ":9090/AuditService";
@@ -136,11 +124,12 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         Properties webContextProperties = new Properties();
         webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, wsRequestUrl);
         webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, remoteIp);
+        webContextProperties.setProperty(NhincConstants.INBOUND_REPLY_TO, "http://www.w3.org/2005/08/addressing/anonymous");
 
-        PatientDiscoveryAuditTransforms transforms = new PatientDiscoveryAuditTransforms() {
+        PatientDiscoveryDeferredResponseAuditTransforms transforms = new PatientDiscoveryDeferredResponseAuditTransforms() {
             @Override
             protected String getLocalHostAddress() {
-                return localIp;
+                return remoteIp;
             }
 
             @Override
@@ -154,21 +143,38 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
             }
 
             @Override
-            protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
-                return remoteObjectUrl;
+            protected String getInboundReplyToFromHeader(Properties webContextProperties) {
+
+                String inboundReplyTo = null;
+                if (webContextProperties != null && !webContextProperties.isEmpty() && webContextProperties.getProperty(
+                    NhincConstants.INBOUND_REPLY_TO) != null) {
+
+                    inboundReplyTo = webContextProperties.getProperty(NhincConstants.INBOUND_REPLY_TO);
+                }
+                return inboundReplyTo;
             }
+
+            @Override
+            protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
+                return wsRequestUrl;
+            }
+
+            @Override
+            protected String getPDDeferredRequestInitiatorAddress() {
+                return localIp;
+            }
+
         };
 
         AssertionType assertion = createAssertion();
         LogEventRequestType auditRequest = transforms.transformResponseToAuditMsg(
-            TestPatientDiscoveryMessageHelper.createPRPAIN201305UV02Request("Gallow", "Younger", "M", "01-12-2967",
-                "1.1", "D123401", "2.2", "abd3453dcd24wkkks545"), TestPatientDiscoveryMessageHelper.
-            createPRPAIN201306UV02Response("Gallow", "Younger", "M", "01-12-2967", "1.1", "D123401", "2.2",
-                "abd3453dcd24wkkks545"), assertion, createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-            NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, webContextProperties,
-            NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+            TestPatientDiscoveryMessageHelper.createPRPAIN201306UV02Response("Gallow", "Younger", "M", "01-12-2967",
+                "1.1", "D123401", "2.2", "abd3453dcd24wkkks545"), new MCCIIN000002UV01(), assertion, createNhinTarget(),
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE,
+            webContextProperties, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
 
-        testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE);
+        testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME,
+            Boolean.FALSE);
         testGetActiveParticipantSource(auditRequest, Boolean.FALSE, webContextProperties, localIp);
         testGetActiveParticipantDestination(auditRequest, Boolean.FALSE, webContextProperties, remoteObjectUrl);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.FALSE, assertion);
@@ -217,7 +223,7 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         assertSame("ParticipantQuery.ParticipantObjectTypeCodeRole object reference mismatch",
             PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_ROLE,
             participantQuery.getParticipantObjectTypeCodeRole());
-        assertEquals("ParticipantQuery.ParticipantObjectIDTypeCode.Code mismatch",
+        assertEquals("ParticipantQuery.ParticipantObjectTypeCodeRole.Code mismatch",
             PatientDiscoveryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE,
             participantQuery.getParticipantObjectIDTypeCode().getCode());
         assertEquals("ParticipantQuery.ParticipantObjectIDTypeCode.CodeSystemName mismatch",
@@ -235,7 +241,8 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
     }
 
     @Override
-    protected AuditTransforms<PRPAIN201305UV02, PRPAIN201306UV02> getAuditTransforms() {
-        return new PatientDiscoveryAuditTransforms();
+    protected AuditTransforms<PRPAIN201306UV02, MCCIIN000002UV01> getAuditTransforms() {
+        return new PatientDiscoveryDeferredResponseAuditTransforms();
     }
+
 }
