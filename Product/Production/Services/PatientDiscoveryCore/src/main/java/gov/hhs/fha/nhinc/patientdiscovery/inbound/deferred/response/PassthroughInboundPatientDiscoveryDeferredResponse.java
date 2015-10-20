@@ -38,7 +38,8 @@ import org.hl7.v3.PRPAIN201306UV02;
  * @author akong
  *
  */
-public class PassthroughInboundPatientDiscoveryDeferredResponse extends AbstractInboundPatientDiscoveryDeferredResponse {
+public class PassthroughInboundPatientDiscoveryDeferredResponse extends
+    AbstractInboundPatientDiscoveryDeferredResponse {
 
     private PatientDiscoveryDeferredResponseAuditLogger auditLogger;
 
@@ -56,7 +57,8 @@ public class PassthroughInboundPatientDiscoveryDeferredResponse extends Abstract
      * @param auditLogger
      */
     public PassthroughInboundPatientDiscoveryDeferredResponse(
-            GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> proxyFactory, PatientDiscoveryDeferredResponseAuditLogger auditLogger) {
+        GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> proxyFactory,
+        PatientDiscoveryDeferredResponseAuditLogger auditLogger) {
         super(proxyFactory);
         this.auditLogger = auditLogger;
     }

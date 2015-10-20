@@ -53,13 +53,13 @@ import org.hl7.v3.PRPAIN201306UV02;
  *
  * @author achidamb
  */
-public class PatientDiscoveryDeferredResponseAuditTransforms extends AbstractPatientDiscoveryAuditTransforms<PRPAIN201306UV02, 
-    MCCIIN000002UV01> {
+public class PatientDiscoveryDeferredResponseAuditTransforms extends
+    AbstractPatientDiscoveryAuditTransforms<PRPAIN201306UV02, MCCIIN000002UV01> {
 
     private static final Logger LOG = Logger.getLogger(PatientDiscoveryDeferredResponseAuditTransforms.class);
 
     public PatientDiscoveryDeferredResponseAuditTransforms() {
-        
+
     }
 
     @Override
@@ -69,10 +69,8 @@ public class PatientDiscoveryDeferredResponseAuditTransforms extends AbstractPat
         try {
             auditMsg = getQueryParamsParticipantObjectIdentificationForResponse(request, auditMsg);
         } catch (JAXBException ex) {
-            if (LOG.isDebugEnabled()) {
             LOG.error("Error while creating ParticipantObjectIdentificationQueryByParameters segment : "
                 + ex.getLocalizedMessage(), ex);
-            }
         }
 
         return auditMsg;
@@ -92,17 +90,17 @@ public class PatientDiscoveryDeferredResponseAuditTransforms extends AbstractPat
 
         return auditMsg;
     }
-    
+
     @Override
     protected AuditMessageType.ActiveParticipant getActiveParticipant(UserType oUserInfo) {
         return null;
     }
-    
-    @Override
-    protected AuditMessageType.ActiveParticipant getActiveParticipantSource(NhinTargetSystemType target, String serviceName,
-        boolean isRequesting, Properties webContextProperties) {
 
-        String ipOrHost = isRequesting ? getPDDeferredRequestInitiatorAdress() : getLocalHostAddress();
+    @Override
+    protected AuditMessageType.ActiveParticipant getActiveParticipantSource(NhinTargetSystemType target,
+        String serviceName, boolean isRequesting, Properties webContextProperties) {
+
+        String ipOrHost = isRequesting ? getPDDeferredRequestInitiatorAddress() : getLocalHostAddress();
 
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
         participant.setUserID(isRequesting ? NhincConstants.WSA_REPLY_TO
@@ -118,9 +116,9 @@ public class PatientDiscoveryDeferredResponseAuditTransforms extends AbstractPat
         return participant;
 
     }
-    
+
     @Override
-    protected AuditMessageType.ActiveParticipant getActiveParticipantDestination(NhinTargetSystemType target, 
+    protected AuditMessageType.ActiveParticipant getActiveParticipantDestination(NhinTargetSystemType target,
         boolean isRequesting, Properties webContextProperties, String serviceName) {
 
         String url;
@@ -128,10 +126,10 @@ public class PatientDiscoveryDeferredResponseAuditTransforms extends AbstractPat
 
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
 
-            url = isRequesting ? getWebServiceUrlFromRemoteObject(getLocalHCIDNhinTarget(),
-                NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME): getWebServiceUrlFromRemoteObject(
-                    convertToNhinTarget(PRPAIN201306UV02Parser.getSenderHcid(getRequest())),
-                    NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME );
+        url = isRequesting ? getWebServiceUrlFromRemoteObject(getLocalHCIDNhinTarget(),
+            NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME) : getWebServiceUrlFromRemoteObject(
+                convertToNhinTarget(PRPAIN201306UV02Parser.getSenderHcid(getRequest())),
+                NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
         if (url != null) {
             try {
                 participant.setUserID(url);
@@ -159,21 +157,15 @@ public class PatientDiscoveryDeferredResponseAuditTransforms extends AbstractPat
         return participant;
     }
 
-
-    
-    protected String getPDDeferredRequestInitiatorAdress() {
-        String ipOrHost;
+    protected String getPDDeferredRequestInitiatorAddress() {
         try {
             String hcid = PRPAIN201306UV02Parser.getReceiverHCID(getRequest());
-            ipOrHost = new URL(getWebServiceUrlFromRemoteObject(MessageGeneratorUtils.getInstance().
+            return new URL(getWebServiceUrlFromRemoteObject(MessageGeneratorUtils.getInstance().
                 convertToNhinTargetSystemType(createNhinTargetCommunity(hcid)),
                 NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME)).getHost();
-            return ipOrHost;
         } catch (MalformedURLException ex) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Exception while Reading Url for the PatientDiscovery Deferred Request Service Endpoint: "
-                    + ex.getMessage(), ex);
-            }
+            LOG.error("Exception while Reading Url for the PatientDiscovery Deferred Request Service Endpoint: "
+                + ex.getLocalizedMessage(), ex);
         }
         return AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
     }
@@ -182,12 +174,10 @@ public class PatientDiscoveryDeferredResponseAuditTransforms extends AbstractPat
     protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
         try {
             return getConnectionManagerCache().getEndpointURLFromNhinTarget(target,
-                NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME); 
+                NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Exception while Reading Url for the PatientDiscovery Deferred Response Service Endpoint: "
-                    + ex.getMessage(), ex);
-            }
+            LOG.error("Exception while Reading Url for the PatientDiscovery Deferred Response Service Endpoint: "
+                + ex.getLocalizedMessage(), ex);
         }
         return AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE;
     }
@@ -203,17 +193,15 @@ public class PatientDiscoveryDeferredResponseAuditTransforms extends AbstractPat
     private NhinTargetSystemType getLocalHCIDNhinTarget() {
         String hcid = null;
         try {
-            hcid = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, 
+            hcid = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                 NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Exception while reading local hcid from "+ NhincConstants.GATEWAY_PROPERTY_FILE + 
-                    ex.getMessage(), ex);
-            }
+            LOG.error("Exception while reading local hcid from " + NhincConstants.GATEWAY_PROPERTY_FILE
+                + ex.getLocalizedMessage(), ex);
         }
         return convertToNhinTarget(hcid);
     }
-    
+
     private NhinTargetSystemType convertToNhinTarget(String hcid) {
         return MessageGeneratorUtils.getInstance().convertToNhinTargetSystemType(createNhinTargetCommunity(hcid));
     }

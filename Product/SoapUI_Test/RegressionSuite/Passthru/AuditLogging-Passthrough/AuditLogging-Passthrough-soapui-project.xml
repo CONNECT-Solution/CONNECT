@@ -4301,19 +4301,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-17T05:09:40Z</con:value>
+          <con:value>2015-10-20T17:26:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-17T05:19:40Z</con:value>
+          <con:value>2015-10-20T17:36:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/17/2015 05:09:40</con:value>
+          <con:value>10/20/2015 17:26:27</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-16T00:00:00Z</con:value>
+          <con:value>2015-11-19T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@code</con:name>

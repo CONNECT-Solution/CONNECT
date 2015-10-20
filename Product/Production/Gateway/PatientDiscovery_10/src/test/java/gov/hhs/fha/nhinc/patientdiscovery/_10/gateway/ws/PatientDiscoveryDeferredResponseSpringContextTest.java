@@ -66,7 +66,7 @@ public class PatientDiscoveryDeferredResponseSpringContextTest {
     StandardInboundPatientDiscoveryDeferredResponse stdInboundPDRespOrchImpl;
 
     @Autowired
-    StandardInboundPatientDiscoveryDeferredResponse ptInboundPDRespOrchImpl;
+    PassthroughInboundPatientDiscoveryDeferredResponse ptInboundPDRespOrchImpl;
 
     @Autowired
     PassthroughOutboundPatientDiscoveryDeferredResponse ptOutboundPDRespOrchImpl;

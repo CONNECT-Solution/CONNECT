@@ -38,7 +38,8 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  *
  * @author achidamb
  */
-public class COREX12BatchSubmissionAuditTransforms extends COREX12AuditTransforms<COREEnvelopeBatchSubmission, COREEnvelopeBatchSubmissionResponse> {
+public class COREX12BatchSubmissionAuditTransforms extends COREX12AuditTransforms<COREEnvelopeBatchSubmission, 
+    COREEnvelopeBatchSubmissionResponse> {
 
     private static final Logger LOG = Logger.getLogger(COREX12BatchSubmissionAuditTransforms.class);
 

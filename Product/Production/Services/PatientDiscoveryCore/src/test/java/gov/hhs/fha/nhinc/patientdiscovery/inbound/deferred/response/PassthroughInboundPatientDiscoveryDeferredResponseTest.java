@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyObjectFactory;
@@ -52,13 +51,13 @@ public class PassthroughInboundPatientDiscoveryDeferredResponseTest {
         PRPAIN201306UV02 request = new PRPAIN201306UV02();
         AssertionType assertion = new AssertionType();
         MCCIIN000002UV01 expectedResponse = new MCCIIN000002UV01();
-        NhinTargetSystemType target = new NhinTargetSystemType();
 
         // Mocks
-        AdapterPatientDiscoveryDeferredRespProxyObjectFactory adapterFactory = 
-            mock(AdapterPatientDiscoveryDeferredRespProxyObjectFactory.class);
+        AdapterPatientDiscoveryDeferredRespProxyObjectFactory adapterFactory
+            = mock(AdapterPatientDiscoveryDeferredRespProxyObjectFactory.class);
         AdapterPatientDiscoveryDeferredRespProxy adapterProxy = mock(AdapterPatientDiscoveryDeferredRespProxy.class);
-        PatientDiscoveryDeferredResponseAuditLogger auditLogger = mock(PatientDiscoveryDeferredResponseAuditLogger.class);
+        PatientDiscoveryDeferredResponseAuditLogger auditLogger
+            = mock(PatientDiscoveryDeferredResponseAuditLogger.class);
         Properties webContextProperties = new Properties();
 
         // Stubbing the methods
@@ -67,19 +66,18 @@ public class PassthroughInboundPatientDiscoveryDeferredResponseTest {
         when(adapterProxy.processPatientDiscoveryAsyncResp(request, assertion)).thenReturn(expectedResponse);
 
         // Actual invocation
-        PassthroughInboundPatientDiscoveryDeferredResponse passthroughPatientDiscovery = new       
-            PassthroughInboundPatientDiscoveryDeferredResponse(adapterFactory, auditLogger);
+        PassthroughInboundPatientDiscoveryDeferredResponse passthroughPatientDiscovery
+            = new PassthroughInboundPatientDiscoveryDeferredResponse(adapterFactory, auditLogger);
 
         MCCIIN000002UV01 actualResponse = passthroughPatientDiscovery.respondingGatewayDeferredPRPAIN201306UV02(
-                request, assertion, webContextProperties);
+            request, assertion, webContextProperties);
 
         // Verify
         assertSame(expectedResponse, actualResponse);
 
-
-        verify(auditLogger).auditResponseMessage(request, actualResponse, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, webContextProperties, 
-                NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
+        verify(auditLogger).auditResponseMessage(request, actualResponse, assertion, null,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE,
+            webContextProperties, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
 
     }
 
