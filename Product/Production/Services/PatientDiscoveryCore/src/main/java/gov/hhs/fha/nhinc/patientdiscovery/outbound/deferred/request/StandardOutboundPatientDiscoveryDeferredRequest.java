@@ -49,7 +49,6 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 
 import java.util.List;
-import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.hl7.v3.II;
@@ -93,6 +92,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
      * @param delegate
      * @param correlationDao
      * @param connectionManager
+     * @param auditLogger
      */
     public StandardOutboundPatientDiscoveryDeferredRequest(PatientDiscovery201305Processor pd201305Processor,
         AsyncMessageProcessHelper asyncProcessHelper, PatientDiscoveryPolicyChecker policyChecker,
@@ -121,10 +121,10 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
         afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class,
         serviceType = "Patient Discovery Deferred Request", version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion,
-        NhinTargetCommunitiesType targets, Properties webContextProperties) {
+        NhinTargetCommunitiesType targets) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
 
-        auditRequest(message, assertion, msgUtils.convertFirstToNhinTargetSystemType(targets), webContextProperties);
+        auditRequest(message, assertion, msgUtils.convertFirstToNhinTargetSystemType(targets));
 
         List<UrlInfo> urlInfoList = getTargetEndpoints(targets);
         if (NullChecker.isNotNullish(urlInfoList)) {

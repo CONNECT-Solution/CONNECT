@@ -35,7 +35,6 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.proxy.service.EntityPatientDiscoverySecuredAsyncReqServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -58,7 +57,7 @@ public class EntityPatientDiscoveryDeferredRequestProxyWebServiceSecuredImpl imp
 
     @Override
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion,
-        NhinTargetCommunitiesType targets, Properties webContextProperties) {
+        NhinTargetCommunitiesType targets) {
         LOG.debug("Begin processPatientDiscoveryAsyncReq");
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
 
@@ -77,7 +76,7 @@ public class EntityPatientDiscoveryDeferredRequestProxyWebServiceSecuredImpl imp
             response = (MCCIIN000002UV01) client.invokePort(EntityPatientDiscoverySecuredAsyncReqPortType.class,
                 "processPatientDiscoveryAsyncReq", securedRequest);
         } catch (Exception ex) {
-            LOG.error("Error calling processPatientDiscoveryAsyncReq: " + ex.getMessage(), ex);
+            LOG.error("Error calling processPatientDiscoveryAsyncReq: " + ex.getLocalizedMessage(), ex);
         }
 
         LOG.debug("End processPatientDiscoveryAsyncReq");

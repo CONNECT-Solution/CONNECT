@@ -60,7 +60,7 @@ public class NullChecker {
     }
 
     public static boolean isNotNullishIgnoreSpace(String value) {
-        return (value != null && !value.trim().isEmpty());
+        return value != null && !value.trim().isEmpty();
     }
 
 }

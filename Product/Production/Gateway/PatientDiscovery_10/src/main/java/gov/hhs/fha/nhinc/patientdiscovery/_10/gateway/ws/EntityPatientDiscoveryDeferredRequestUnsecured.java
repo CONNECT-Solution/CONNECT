@@ -63,7 +63,7 @@ public class EntityPatientDiscoveryDeferredRequestUnsecured extends BaseService 
         AssertionType assertion = getAssertion(context, request.getAssertion());
 
         return outboundPatientDiscoveryRequest.processPatientDiscoveryAsyncReq(request.getPRPAIN201305UV02(),
-            assertion, request.getNhinTargetCommunities(), getWebContextProperties(context));
+            assertion, request.getNhinTargetCommunities());
     }
 
     @Resource

@@ -38,7 +38,6 @@ import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptio
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredRequestAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestDelegate;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestOrchestratable;
-import java.util.Properties;
 
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -76,14 +75,13 @@ public class PassthroughOutboundPatientDiscoveryDeferredRequest extends Abstract
      * @param request
      * @param assertion
      * @param targets
-     * @param webContextProperties
      * @return the MCCIIN000002UV01 response from the Nhin
      */
     @Override
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion,
-        NhinTargetCommunitiesType targets, Properties webContextProperties) {
+        NhinTargetCommunitiesType targets) {
 
-        auditRequest(request, assertion, msgUtils.convertFirstToNhinTargetSystemType(targets), webContextProperties);
+        auditRequest(request, assertion, msgUtils.convertFirstToNhinTargetSystemType(targets));
         MCCIIN000002UV01 response = sendToNhin(request, assertion, targets);
         return response;
     }

@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredRequestAuditLogger;
-import java.util.Properties;
 import org.hl7.v3.PRPAIN201305UV02;
 
 /**
@@ -42,11 +41,10 @@ public abstract class AbstractOutboundPatientDiscoveryDeferredRequest implements
 
     abstract PatientDiscoveryDeferredRequestAuditLogger getPatientDiscoveryDeferredAuditLogger();
 
-    protected void auditRequest(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetSystemType target,
-        Properties webContextProperties) {
+    protected void auditRequest(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetSystemType target) {
 
         getPatientDiscoveryDeferredAuditLogger().auditRequestMessage(request, assertion, target,
             NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE,
-            webContextProperties, NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
+            null, NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
     }
 }

@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import java.util.Properties;
 
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -40,6 +39,6 @@ import org.hl7.v3.PRPAIN201305UV02;
 public interface OutboundPatientDiscoveryDeferredRequest {
 
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion,
-        NhinTargetCommunitiesType targets, Properties webContextProperties);
+        NhinTargetCommunitiesType targets);
 
 }

@@ -78,7 +78,7 @@ public class PatientDiscoveryDeferredRequestAuditTransforms extends AbstractPati
 
         ParticipantObjectIdentificationType participantObject = buildBaseParticipantObjectIdentificationType(
             PRPAIN201305UV02Parser.getQueryId(request));
-        // For PDDeffered request we are populating queryByParameter from request as we don't have queryByParameter
+        // For PDDeferred request we are populating queryByParameter from request as we don't have queryByParameter
         // segment in Ack.
         participantObject.setParticipantObjectQuery(getParticipantObjectQueryForAck(request));
         auditMsg.getParticipantObjectIdentification().add(participantObject);

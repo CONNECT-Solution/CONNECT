@@ -43,6 +43,7 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.junit.Test;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -74,12 +75,12 @@ public class PassthroughOutboundPatientDiscoveryDeferredRequestTest {
                 auditLogger, delegate);
 
         MCCIIN000002UV01 actualResponse = passthroughPatientDiscovery.processPatientDiscoveryAsyncReq(request,
-            assertion, targets, webContextProperties);
+            assertion, targets);
 
         assertSame(expectedResponse, actualResponse);
 
         verify(auditLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-            eq(Boolean.TRUE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME));
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME));
     }
 }

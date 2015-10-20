@@ -62,6 +62,8 @@ import org.junit.Test;
  */
 public class StandardInboundPatientDiscoveryDeferredRequestTest {
 
+    private final PatientDiscoveryDeferredRequestAuditLogger auditLogger = mock(PatientDiscoveryDeferredRequestAuditLogger.class);
+
     @Test
     public void hasInboundProcessingEvent() throws Exception {
         Class<StandardInboundPatientDiscoveryDeferredRequest> clazz = StandardInboundPatientDiscoveryDeferredRequest.class;
@@ -84,7 +86,6 @@ public class StandardInboundPatientDiscoveryDeferredRequestTest {
         PatientDiscoveryPolicyChecker policyChecker = mock(PatientDiscoveryPolicyChecker.class);
         AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory proxyErrorFactory
             = mock(AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory.class);
-        PatientDiscoveryDeferredRequestAuditLogger auditLogger = mock(PatientDiscoveryDeferredRequestAuditLogger.class);
         AdapterPatientDiscoveryDeferredReqProxyObjectFactory adapterFactory
             = mock(AdapterPatientDiscoveryDeferredReqProxyObjectFactory.class);
         AdapterPatientDiscoveryDeferredReqProxy adapterProxy = mock(AdapterPatientDiscoveryDeferredReqProxy.class);
@@ -119,7 +120,6 @@ public class StandardInboundPatientDiscoveryDeferredRequestTest {
         AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory proxyErrorFactory
             = mock(AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory.class);
         AdapterPatientDiscoveryDeferredReqErrorProxy errorProxy = mock(AdapterPatientDiscoveryDeferredReqErrorProxy.class);
-        PatientDiscoveryDeferredRequestAuditLogger auditLogger = mock(PatientDiscoveryDeferredRequestAuditLogger.class);
         Properties webContextProperties = new Properties();
 
         AdapterPatientDiscoveryDeferredReqProxyObjectFactory adapterProxyFactory
