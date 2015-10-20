@@ -71,8 +71,8 @@ public class StandardInboundPatientDiscoveryDeferredResponseTest {
 
     @Test
     public void hasInboundProcessingEvent() throws Exception {
-        Class<StandardInboundPatientDiscoveryDeferredResponse> clazz = 
-            StandardInboundPatientDiscoveryDeferredResponse.class;
+        Class<StandardInboundPatientDiscoveryDeferredResponse> clazz
+            = StandardInboundPatientDiscoveryDeferredResponse.class;
         Method method = clazz.getDeclaredMethod("respondingGatewayDeferredPRPAIN201306UV02", PRPAIN201306UV02.class,
             AssertionType.class, Properties.class);
         InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
@@ -94,8 +94,8 @@ public class StandardInboundPatientDiscoveryDeferredResponseTest {
         PatientDiscovery201306Processor msgProcessor = mock(PatientDiscovery201306Processor.class);
         PDDeferredCorrelationDao pdCorrelationDao = mock(PDDeferredCorrelationDao.class);
         ResponseMode responseMode = mock(ResponseMode.class);
-        AdapterPatientDiscoveryDeferredRespProxyObjectFactory adapterProxyFactory = 
-            mock(AdapterPatientDiscoveryDeferredRespProxyObjectFactory.class);
+        AdapterPatientDiscoveryDeferredRespProxyObjectFactory adapterProxyFactory
+            = mock(AdapterPatientDiscoveryDeferredRespProxyObjectFactory.class);
         AdapterPatientDiscoveryDeferredRespProxy adapterProxy = mock(AdapterPatientDiscoveryDeferredRespProxy.class);
 
         // Stubbing the methods
@@ -112,9 +112,9 @@ public class StandardInboundPatientDiscoveryDeferredResponseTest {
         when(adapterProxy.processPatientDiscoveryAsyncResp(request, assertion)).thenReturn(expectedResponse);
 
         // Actual invocation
-        StandardInboundPatientDiscoveryDeferredResponse standardPatientDiscovery = 
-            new StandardInboundPatientDiscoveryDeferredResponse(
-            policyChecker, responseFactory, msgProcessor, adapterProxyFactory, pdCorrelationDao, auditLogger);
+        StandardInboundPatientDiscoveryDeferredResponse standardPatientDiscovery
+            = new StandardInboundPatientDiscoveryDeferredResponse(
+                policyChecker, responseFactory, msgProcessor, adapterProxyFactory, pdCorrelationDao, auditLogger);
 
         MCCIIN000002UV01 actualResponse = standardPatientDiscovery.respondingGatewayDeferredPRPAIN201306UV02(request,
             assertion, webContextProperties);
@@ -146,8 +146,8 @@ public class StandardInboundPatientDiscoveryDeferredResponseTest {
         PatientDiscovery201306PolicyChecker policyChecker = mock(PatientDiscovery201306PolicyChecker.class);
         ResponseFactory responseFactory = mock(ResponseFactory.class);
         ResponseMode responseMode = mock(ResponseMode.class);
-        AdapterPatientDiscoveryDeferredRespProxyObjectFactory adapterProxyFactory = 
-            mock(AdapterPatientDiscoveryDeferredRespProxyObjectFactory.class);
+        AdapterPatientDiscoveryDeferredRespProxyObjectFactory adapterProxyFactory
+            = mock(AdapterPatientDiscoveryDeferredRespProxyObjectFactory.class);
         AdapterPatientDiscoveryDeferredRespProxy adapterProxy = mock(AdapterPatientDiscoveryDeferredRespProxy.class);
 
         // Stubbing the methods
@@ -160,8 +160,8 @@ public class StandardInboundPatientDiscoveryDeferredResponseTest {
         when(adapterProxy.processPatientDiscoveryAsyncResp(request, assertion)).thenReturn(expectedResponse);
 
         // Actual invocation
-        StandardInboundPatientDiscoveryDeferredResponse standardPatientDiscovery = 
-            new StandardInboundPatientDiscoveryDeferredResponse(policyChecker, responseFactory, null, 
+        StandardInboundPatientDiscoveryDeferredResponse standardPatientDiscovery
+            = new StandardInboundPatientDiscoveryDeferredResponse(policyChecker, responseFactory, null,
                 adapterProxyFactory, null, auditLogger);
 
         MCCIIN000002UV01 actualResponse = standardPatientDiscovery.respondingGatewayDeferredPRPAIN201306UV02(request,
@@ -198,8 +198,7 @@ public class StandardInboundPatientDiscoveryDeferredResponseTest {
             false);
 
         // Actual invocation
-        StandardInboundPatientDiscoveryDeferredResponse standardPatientDiscovery = new 
-            StandardInboundPatientDiscoveryDeferredResponse(policyChecker, null, null, null, null, auditLogger);
+        StandardInboundPatientDiscoveryDeferredResponse standardPatientDiscovery = new StandardInboundPatientDiscoveryDeferredResponse(policyChecker, null, null, null, null, auditLogger);
 
         MCCIIN000002UV01 errorResponse = standardPatientDiscovery.respondingGatewayDeferredPRPAIN201306UV02(request,
             assertion, webContextProperties);

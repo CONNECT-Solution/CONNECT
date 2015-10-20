@@ -37,6 +37,6 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public interface InboundPatientDiscoveryDeferredResponse {
 
-    public MCCIIN000002UV01 respondingGatewayDeferredPRPAIN201306UV02(PRPAIN201306UV02 body, AssertionType assertion, 
+    public MCCIIN000002UV01 respondingGatewayDeferredPRPAIN201306UV02(PRPAIN201306UV02 body, AssertionType assertion,
         Properties webContextProperties);
 }

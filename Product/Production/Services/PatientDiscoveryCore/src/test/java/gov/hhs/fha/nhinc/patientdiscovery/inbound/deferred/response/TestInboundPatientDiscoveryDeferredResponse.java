@@ -35,7 +35,7 @@ import org.hl7.v3.PRPAIN201306UV02;
  * @author akong
  *
  */
-public class TestInboundPatientDiscoveryDeferredResponse implements InboundPatientDiscoveryDeferredResponse{
+public class TestInboundPatientDiscoveryDeferredResponse implements InboundPatientDiscoveryDeferredResponse {
 
     /**
      *
@@ -45,7 +45,7 @@ public class TestInboundPatientDiscoveryDeferredResponse implements InboundPatie
      * @return
      */
     @Override
-    public MCCIIN000002UV01 respondingGatewayDeferredPRPAIN201306UV02(PRPAIN201306UV02 body, AssertionType assertion, 
+    public MCCIIN000002UV01 respondingGatewayDeferredPRPAIN201306UV02(PRPAIN201306UV02 body, AssertionType assertion,
         Properties webContextProperties) {
         return new MCCIIN000002UV01();
     }

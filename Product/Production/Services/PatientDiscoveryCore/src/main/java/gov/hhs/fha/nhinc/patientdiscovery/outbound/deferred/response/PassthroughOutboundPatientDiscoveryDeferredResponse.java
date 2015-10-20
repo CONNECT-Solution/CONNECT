@@ -36,7 +36,7 @@ import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 
 public class PassthroughOutboundPatientDiscoveryDeferredResponse extends
-        AbstractOutboundPatientDiscoveryDeferredResponse {
+    AbstractOutboundPatientDiscoveryDeferredResponse {
 
     private static final MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 
@@ -57,8 +57,7 @@ public class PassthroughOutboundPatientDiscoveryDeferredResponse extends
      * @param delegate
      * @param auditLogger
      */
-    public PassthroughOutboundPatientDiscoveryDeferredResponse(OutboundPatientDiscoveryDeferredResponseDelegate delegate, 
-        PatientDiscoveryDeferredResponseAuditLogger auditLogger) {
+    public PassthroughOutboundPatientDiscoveryDeferredResponse(OutboundPatientDiscoveryDeferredResponseDelegate delegate, PatientDiscoveryDeferredResponseAuditLogger auditLogger) {
         this.delegate = delegate;
         this.auditLogger = auditLogger;
     }

@@ -41,7 +41,7 @@ import org.hl7.v3.PRPAIN201306UV02;
  *
  */
 public abstract class AbstractInboundPatientDiscoveryDeferredResponse implements
-        InboundPatientDiscoveryDeferredResponse {
+    InboundPatientDiscoveryDeferredResponse {
 
     private final GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> proxyFactory;
 
@@ -54,17 +54,17 @@ public abstract class AbstractInboundPatientDiscoveryDeferredResponse implements
     }
 
     public AbstractInboundPatientDiscoveryDeferredResponse(
-            GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> factory) {
+        GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> factory) {
         proxyFactory = factory;
     }
 
     @Override
-    public MCCIIN000002UV01 respondingGatewayDeferredPRPAIN201306UV02(PRPAIN201306UV02 request, AssertionType assertion, 
+    public MCCIIN000002UV01 respondingGatewayDeferredPRPAIN201306UV02(PRPAIN201306UV02 request, AssertionType assertion,
         Properties webContextProperties) {
 
         MCCIIN000002UV01 response = process(request, assertion);
 
-        auditResponseToNhin(request,response, assertion, webContextProperties);
+        auditResponseToNhin(request, response, assertion, webContextProperties);
 
         return response;
     }
@@ -75,10 +75,10 @@ public abstract class AbstractInboundPatientDiscoveryDeferredResponse implements
         return proxy.processPatientDiscoveryAsyncResp(request, assertion);
     }
 
-    protected void auditResponseToNhin(PRPAIN201306UV02 request, MCCIIN000002UV01 response, AssertionType assertion, 
+    protected void auditResponseToNhin(PRPAIN201306UV02 request, MCCIIN000002UV01 response, AssertionType assertion,
         Properties webContextProperties) {
-        getAuditLogger().auditResponseMessage(request, response, assertion, null, 
-            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, 
+        getAuditLogger().auditResponseMessage(request, response, assertion, null,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE,
             webContextProperties, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
     }
 

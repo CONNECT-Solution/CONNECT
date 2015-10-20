@@ -38,8 +38,8 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  *
  * @author achidamb
  */
-public class COREX12BatchSubmissionAuditTransforms extends COREX12AuditTransforms<COREEnvelopeBatchSubmission, 
-    COREEnvelopeBatchSubmissionResponse> {
+public class COREX12BatchSubmissionAuditTransforms extends
+    COREX12AuditTransforms<COREEnvelopeBatchSubmission, COREEnvelopeBatchSubmissionResponse> {
 
     private static final Logger LOG = Logger.getLogger(COREX12BatchSubmissionAuditTransforms.class);
 
@@ -58,7 +58,8 @@ public class COREX12BatchSubmissionAuditTransforms extends COREX12AuditTransform
                 getMarshaller().marshal(element, baOutStrm);
                 bObject = baOutStrm.toByteArray();
             } catch (JAXBException ex) {
-                LOG.error("Error while Marshalling COREEnvelopeBatchSubmission Request:  " + ex.getMessage(), ex);
+                LOG.error("Error while Marshalling COREEnvelopeBatchSubmission Request:  "
+                    + ex.getLocalizedMessage(), ex);
             }
         }
         return bObject;
@@ -79,7 +80,8 @@ public class COREX12BatchSubmissionAuditTransforms extends COREX12AuditTransform
                 getMarshaller().marshal(element, baOutStrm);
                 bObject = baOutStrm.toByteArray();
             } catch (JAXBException ex) {
-                LOG.error("Error while Marshalling COREEnvelopeBatchSubmission Response:  " + ex.getMessage(), ex);
+                LOG.error("Error while Marshalling COREEnvelopeBatchSubmission Response:  "
+                    + ex.getLocalizedMessage(), ex);
             }
         }
         return bObject;

@@ -97,14 +97,14 @@ public class PRPAIN201306UV02Parser {
             .getId().get(0).getRoot().isEmpty()) {
             id = response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
                 .getValue().getId().get(0).getRoot();
-        } 
+        }
         //If representedOrganization Id root is null get id from device
-        if(NullChecker.isNullish(id)) {
+        if (NullChecker.isNullish(id)) {
             if (response != null && response.getSender() != null && response.getSender() != null
-            && response.getSender().getDevice() != null  && response.getSender().getDevice().getId() != null
-            && response.getSender().getDevice().getId().get(0) != null 
-            && response.getSender().getDevice().getId().get(0).getRoot() != null
-            && !response.getSender().getDevice().getId().get(0).getRoot().isEmpty()) {
+                && response.getSender().getDevice() != null && response.getSender().getDevice().getId() != null
+                && response.getSender().getDevice().getId().get(0) != null
+                && response.getSender().getDevice().getId().get(0).getRoot() != null
+                && !response.getSender().getDevice().getId().get(0).getRoot().isEmpty()) {
                 id = response.getSender().getDevice().getId().get(0).getRoot();
             }
         }
@@ -119,28 +119,28 @@ public class PRPAIN201306UV02Parser {
             && response.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
             && response.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
             && response.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                .getValue().getId() != null
+            .getValue().getId() != null
             && !response.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                .getValue().getId().isEmpty()
+            .getValue().getId().isEmpty()
             && response.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                .getValue().getId().get(0) != null
+            .getValue().getId().get(0) != null
             && response.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                .getValue().getId().get(0).getRoot() != null
+            .getValue().getId().get(0).getRoot() != null
             && !response.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                .getValue().getId().get(0).getRoot().isEmpty()) {
+            .getValue().getId().get(0).getRoot().isEmpty()) {
             id = response.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
                 .getValue().getId().get(0).getRoot();
         }
         //If representedOrganization Id root is null get id from device
         if (NullChecker.isNullish(id)) {
-           if (response != null && response.getReceiver() != null && response.getReceiver().get(0) != null
-            && response.getReceiver().get(0).getDevice() != null 
-            && response.getReceiver().get(0).getDevice().getId() != null 
-            && response.getReceiver().get(0).getDevice().getId().get(0) != null
-            && response.getReceiver().get(0).getDevice().getId().get(0).getRoot() != null 
-            && !response.getReceiver().get(0).getDevice().getId().get(0).getRoot().isEmpty()) {
-               id = response.getReceiver().get(0).getDevice().getId().get(0).getRoot();
-           }
+            if (response != null && response.getReceiver() != null && response.getReceiver().get(0) != null
+                && response.getReceiver().get(0).getDevice() != null
+                && response.getReceiver().get(0).getDevice().getId() != null
+                && response.getReceiver().get(0).getDevice().getId().get(0) != null
+                && response.getReceiver().get(0).getDevice().getId().get(0).getRoot() != null
+                && !response.getReceiver().get(0).getDevice().getId().get(0).getRoot().isEmpty()) {
+                id = response.getReceiver().get(0).getDevice().getId().get(0).getRoot();
+            }
         }
         return id;
     }

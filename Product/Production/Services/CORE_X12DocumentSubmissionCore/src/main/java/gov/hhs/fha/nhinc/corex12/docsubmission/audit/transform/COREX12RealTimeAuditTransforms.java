@@ -38,7 +38,8 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  *
  * @author achidamb
  */
-public class COREX12RealTimeAuditTransforms extends COREX12AuditTransforms<COREEnvelopeRealTimeRequest, COREEnvelopeRealTimeResponse> {
+public class COREX12RealTimeAuditTransforms extends
+    COREX12AuditTransforms<COREEnvelopeRealTimeRequest, COREEnvelopeRealTimeResponse> {
 
     private static final Logger LOG = Logger.getLogger(COREX12RealTimeAuditTransforms.class);
 
@@ -57,7 +58,8 @@ public class COREX12RealTimeAuditTransforms extends COREX12AuditTransforms<COREE
                 getMarshaller().marshal(element, baOutStrm);
                 bObject = baOutStrm.toByteArray();
             } catch (JAXBException ex) {
-                LOG.error("Error while marshalling COREEnvelopeRealTimeRequest Request: " + ex.getMessage(), ex);
+                LOG.error("Error while marshalling COREEnvelopeRealTimeRequest Request: "
+                    + ex.getLocalizedMessage(), ex);
             }
         }
         return bObject;
@@ -78,7 +80,8 @@ public class COREX12RealTimeAuditTransforms extends COREX12AuditTransforms<COREE
                 getMarshaller().marshal(element, baOutStrm);
                 bObject = baOutStrm.toByteArray();
             } catch (JAXBException ex) {
-                LOG.error("Error while marshalling COREEnvelopeRealTimeResponse Response: " + ex.getMessage(), ex);
+                LOG.error("Error while marshalling COREEnvelopeRealTimeResponse Response: "
+                    + ex.getLocalizedMessage(), ex);
             }
         }
         return bObject;

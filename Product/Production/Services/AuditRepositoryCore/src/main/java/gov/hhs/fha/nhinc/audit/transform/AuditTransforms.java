@@ -572,7 +572,7 @@ public abstract class AuditTransforms<T, K> {
     protected void setRequest(T request) {
         this.request = request;
     }
-    
+
     protected T getRequest() {
         return request;
     }

@@ -67,25 +67,25 @@ public class PassthroughOutboundPatientDiscoveryDeferredResponseTest {
         Properties webContextProperties = null;
 
         when(delegate.process(any(OutboundPatientDiscoveryDeferredResponseOrchestratable.class))).thenReturn(
-                returnedOrchestratable);
+            returnedOrchestratable);
 
         when(returnedOrchestratable.getResponse()).thenReturn(expectedResponse);
 
         PassthroughOutboundPatientDiscoveryDeferredResponse passthroughPatientDiscovery = new PassthroughOutboundPatientDiscoveryDeferredResponse(
-                delegate, auditLogger);
+            delegate, auditLogger);
 
         MCCIIN000002UV01 actualResponse = passthroughPatientDiscovery.processPatientDiscoveryAsyncResp(request,
-                assertion, target);
+            assertion, target);
 
         assertSame(expectedResponse, actualResponse);
 
         ArgumentCaptor<OutboundPatientDiscoveryDeferredResponseOrchestratable> orchestratableArgument = ArgumentCaptor
-                .forClass(OutboundPatientDiscoveryDeferredResponseOrchestratable.class);
+            .forClass(OutboundPatientDiscoveryDeferredResponseOrchestratable.class);
         verify(delegate).process(orchestratableArgument.capture());
         assertEquals(request, orchestratableArgument.getValue().getRequest());
 
-        verify(auditLogger).auditRequestMessage(eq(request), eq(assertion),Mockito.any(NhinTargetSystemType.class) , 
-            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), 
+        verify(auditLogger).auditRequestMessage(eq(request), eq(assertion), Mockito.any(NhinTargetSystemType.class),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME));
 
     }

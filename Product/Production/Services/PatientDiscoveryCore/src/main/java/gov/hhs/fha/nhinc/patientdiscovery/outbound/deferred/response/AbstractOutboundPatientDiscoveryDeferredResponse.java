@@ -66,8 +66,8 @@ public abstract class AbstractOutboundPatientDiscoveryDeferredResponse implement
 
     protected MCCIIN000002UV01 sendToNhin(OutboundPatientDiscoveryDeferredResponseDelegate delegate,
         PRPAIN201306UV02 request, AssertionType assertion, NhinTargetSystemType target) {
-        OutboundPatientDiscoveryDeferredResponseOrchestratable orchestratable = 
-            new OutboundPatientDiscoveryDeferredResponseOrchestratable(delegate);
+        OutboundPatientDiscoveryDeferredResponseOrchestratable orchestratable
+            = new OutboundPatientDiscoveryDeferredResponseOrchestratable(delegate);
         orchestratable.setAssertion(assertion);
         orchestratable.setRequest(request);
         orchestratable.setTarget(target);

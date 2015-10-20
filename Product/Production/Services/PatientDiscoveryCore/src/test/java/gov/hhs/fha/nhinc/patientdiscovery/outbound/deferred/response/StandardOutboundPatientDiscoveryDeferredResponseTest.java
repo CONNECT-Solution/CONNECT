@@ -75,7 +75,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
     private MCCIIN000002UV01 expectedResponse;
     private PRPAIN201306UV02 firstTargetRequest;
     private PRPAIN201306UV02 secondTargetRequest;
-    
+
     PatientDiscoveryDeferredResponseAuditLogger auditLogger = mock(PatientDiscoveryDeferredResponseAuditLogger.class);
     Properties webContextProperties = null;
 
@@ -103,7 +103,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
     public void hasOutboundProcessingEvent() throws Exception {
         Class<StandardOutboundPatientDiscoveryDeferredResponse> clazz = StandardOutboundPatientDiscoveryDeferredResponse.class;
         Method method = clazz.getMethod("processPatientDiscoveryAsyncResp", PRPAIN201306UV02.class,
-                AssertionType.class, NhinTargetCommunitiesType.class);
+            AssertionType.class, NhinTargetCommunitiesType.class);
         OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
         assertNotNull(annotation);
         assertEquals(PRPAIN201306UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
@@ -119,41 +119,41 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
         // Mocks
         PatientDiscovery201306PolicyChecker policyChecker = mock(PatientDiscovery201306PolicyChecker.class);
         PatientDiscovery201306Processor pd201306Processor = mock(PatientDiscovery201306Processor.class);
-        
-        OutboundPatientDiscoveryDeferredResponseDelegate delegate = 
-            mock(OutboundPatientDiscoveryDeferredResponseDelegate.class);
-        OutboundPatientDiscoveryDeferredResponseOrchestratable returnedOrchestratable = 
-            mock(OutboundPatientDiscoveryDeferredResponseOrchestratable.class);
+
+        OutboundPatientDiscoveryDeferredResponseDelegate delegate
+            = mock(OutboundPatientDiscoveryDeferredResponseDelegate.class);
+        OutboundPatientDiscoveryDeferredResponseOrchestratable returnedOrchestratable
+            = mock(OutboundPatientDiscoveryDeferredResponseOrchestratable.class);
         ConnectionManagerCache connectionManager = mock(ConnectionManagerCache.class);
 
         // Stubbing the methods
         when(connectionManager.getEndpointURLFromNhinTargetCommunities(targets,
-                NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME)).thenReturn(urlInfoList);
+            NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME)).thenReturn(urlInfoList);
 
         when(pd201306Processor.createNewRequest(request, "1.1")).thenReturn(firstTargetRequest);
         when(pd201306Processor.createNewRequest(request, "2.2")).thenReturn(secondTargetRequest);
 
         when(policyChecker.checkOutgoingPolicy(any(RespondingGatewayPRPAIN201306UV02RequestType.class))).thenReturn(
-                true);
+            true);
 
         when(delegate.process(any(OutboundPatientDiscoveryDeferredResponseOrchestratable.class))).thenReturn(
-                returnedOrchestratable);
+            returnedOrchestratable);
 
         when(returnedOrchestratable.getResponse()).thenReturn(expectedResponse);
 
         // Actual invocation
         StandardOutboundPatientDiscoveryDeferredResponse standardPatientDiscovery = new StandardOutboundPatientDiscoveryDeferredResponse(
-                policyChecker, pd201306Processor, auditLogger, delegate, connectionManager);
+            policyChecker, pd201306Processor, auditLogger, delegate, connectionManager);
 
         MCCIIN000002UV01 actualResponse = standardPatientDiscovery.processPatientDiscoveryAsyncResp(request, assertion,
-                targets);
+            targets);
 
         // Verify actual response is the same as expected
         assertSame(expectedResponse, actualResponse);
 
         // Verify policy is checking the request containing the first target and then the second target
         ArgumentCaptor<RespondingGatewayPRPAIN201306UV02RequestType> requestArgument = ArgumentCaptor
-                .forClass(RespondingGatewayPRPAIN201306UV02RequestType.class);
+            .forClass(RespondingGatewayPRPAIN201306UV02RequestType.class);
 
         verify(policyChecker, times(2)).checkOutgoingPolicy(requestArgument.capture());
         assertEquals(firstTargetRequest, requestArgument.getAllValues().get(0).getPRPAIN201306UV02());
@@ -161,7 +161,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
 
         // Verify the orchestratable is processing the request containing the first target and then the second target
         ArgumentCaptor<OutboundPatientDiscoveryDeferredResponseOrchestratable> orchestratableArgument = ArgumentCaptor
-                .forClass(OutboundPatientDiscoveryDeferredResponseOrchestratable.class);
+            .forClass(OutboundPatientDiscoveryDeferredResponseOrchestratable.class);
 
         verify(delegate, times(2)).process(orchestratableArgument.capture());
         assertEquals(firstTargetRequest, orchestratableArgument.getAllValues().get(0).getRequest());
@@ -169,11 +169,11 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
 
         // Verify request from adapter is audited
         requestArgument.getAllValues().clear();
-        verify(auditLogger).auditRequestMessage(eq(request), eq(assertion), 
+        verify(auditLogger).auditRequestMessage(eq(request), eq(assertion),
             Mockito.any(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
-            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE),eq(webContextProperties),
+            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE), eq(webContextProperties),
             eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME));
-       
+
     }
 
     @Test
@@ -184,30 +184,30 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
 
         // Stubbing the methods
         when(connectionManager.getEndpointURLFromNhinTargetCommunities(eq(targets),
-                eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME))).thenThrow(new ConnectionManagerException());
+            eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME))).thenThrow(new ConnectionManagerException());
 
         // Actual invocation
         StandardOutboundPatientDiscoveryDeferredResponse standardPatientDiscovery = new StandardOutboundPatientDiscoveryDeferredResponse(
-                null, null, auditLogger, null, connectionManager);
+            null, null, auditLogger, null, connectionManager);
 
         MCCIIN000002UV01 errorResponse = standardPatientDiscovery.processPatientDiscoveryAsyncResp(request, assertion,
-                targets);
+            targets);
 
         // Verify error response
         assertEquals(HL7AckTransforms.ACK_DETAIL_TYPE_CODE_ERROR, errorResponse.getAcknowledgement().get(0)
-                .getAcknowledgementDetail().get(0).getTypeCode().toString());
+            .getAcknowledgementDetail().get(0).getTypeCode().toString());
 
         assertEquals("No Targets Found", errorResponse.getAcknowledgement().get(0).getAcknowledgementDetail().get(0)
-                .getText().getContent().get(0).toString());
+            .getText().getContent().get(0).toString());
 
         // Verify request from adapter is audited
         ArgumentCaptor<RespondingGatewayPRPAIN201306UV02RequestType> requestArgument = ArgumentCaptor
-                .forClass(RespondingGatewayPRPAIN201306UV02RequestType.class);
-        verify(auditLogger).auditRequestMessage(eq(request), eq(assertion), 
+            .forClass(RespondingGatewayPRPAIN201306UV02RequestType.class);
+        verify(auditLogger).auditRequestMessage(eq(request), eq(assertion),
             Mockito.any(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
-            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE),eq(webContextProperties),
+            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE), eq(webContextProperties),
             eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME));
-        
+
     }
 
     @Test
@@ -222,33 +222,33 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
 
         // Stubbing the methods
         when(connectionManager.getEndpointURLFromNhinTargetCommunities(targets,
-                NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME)).thenReturn(urlInfoList);
+            NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME)).thenReturn(urlInfoList);
 
         when(pd201306Processor.createNewRequest(request, "1.1")).thenReturn(firstTargetRequest);
 
         when(policyChecker.checkOutgoingPolicy(any(RespondingGatewayPRPAIN201306UV02RequestType.class))).thenReturn(
-                false);
+            false);
 
         // Actual invocation
         StandardOutboundPatientDiscoveryDeferredResponse standardPatientDiscovery = new StandardOutboundPatientDiscoveryDeferredResponse(
-                policyChecker, pd201306Processor, auditLogger, delegate, connectionManager);
+            policyChecker, pd201306Processor, auditLogger, delegate, connectionManager);
 
         MCCIIN000002UV01 errorResponse = standardPatientDiscovery.processPatientDiscoveryAsyncResp(request, assertion,
-                targets);
+            targets);
 
         // Verify error response
         assertEquals(HL7AckTransforms.ACK_DETAIL_TYPE_CODE_ERROR, errorResponse.getAcknowledgement().get(0)
-                .getAcknowledgementDetail().get(0).getTypeCode().toString());
+            .getAcknowledgementDetail().get(0).getTypeCode().toString());
 
         assertEquals("Policy Check Failed", errorResponse.getAcknowledgement().get(0).getAcknowledgementDetail().get(0)
-                .getText().getContent().get(0).toString());
+            .getText().getContent().get(0).toString());
 
         // Verify request from adapter is audited
         ArgumentCaptor<RespondingGatewayPRPAIN201306UV02RequestType> requestArgument = ArgumentCaptor
-                .forClass(RespondingGatewayPRPAIN201306UV02RequestType.class);
-        verify(auditLogger).auditRequestMessage(eq(request), eq(assertion), 
+            .forClass(RespondingGatewayPRPAIN201306UV02RequestType.class);
+        verify(auditLogger).auditRequestMessage(eq(request), eq(assertion),
             Mockito.any(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
-            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE),eq(webContextProperties),
+            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE), eq(webContextProperties),
             eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME));
     }
 }

@@ -60,19 +60,19 @@ public class OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0 implements 
 
         if (message instanceof OutboundPatientDiscoveryDeferredResponseOrchestratable) {
 
-            NhinPatientDiscoveryDeferredRespProxy nhinPatientDiscovery = new NhinPatientDiscoveryDeferredRespProxyObjectFactory()
-                    .getNhinPatientDiscoveryAsyncRespProxy();
+            NhinPatientDiscoveryDeferredRespProxy nhinPatientDiscovery
+                = new NhinPatientDiscoveryDeferredRespProxyObjectFactory().getNhinPatientDiscoveryAsyncRespProxy();
 
             MCCIIN000002UV01 response = nhinPatientDiscovery.respondingGatewayPRPAIN201306UV02(message.getRequest(),
-                    message.getAssertion(), message.getTarget());
+                message.getAssertion(), message.getTarget());
             message.setResponse(response);
 
         } else {
             LOG.error(
-                    "OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0 received a message "
-                            + "which was not of type OutboundPatientDiscoveryDeferredResponseOrchestratable.");
+                "OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0 received a message "
+                + "which was not of type OutboundPatientDiscoveryDeferredResponseOrchestratable.");
         }
-       	LOG.debug("End OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0.process");
+        LOG.debug("End OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0.process");
     }
 
 }

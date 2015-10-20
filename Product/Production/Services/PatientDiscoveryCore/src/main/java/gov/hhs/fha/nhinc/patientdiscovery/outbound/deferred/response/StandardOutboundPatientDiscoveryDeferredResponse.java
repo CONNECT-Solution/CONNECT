@@ -81,9 +81,9 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
      * @param connectionManager
      */
     public StandardOutboundPatientDiscoveryDeferredResponse(
-            PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType, PRPAIN201306UV02> policyChecker,
-            PatientDiscovery201306Processor pd201306Processor, PatientDiscoveryDeferredResponseAuditLogger auditLogger,
-            OutboundPatientDiscoveryDeferredResponseDelegate delegate, ConnectionManagerCache connectionManager) {
+        PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType, PRPAIN201306UV02> policyChecker,
+        PatientDiscovery201306Processor pd201306Processor, PatientDiscoveryDeferredResponseAuditLogger auditLogger,
+        OutboundPatientDiscoveryDeferredResponseDelegate delegate, ConnectionManagerCache connectionManager) {
         this.policyChecker = policyChecker;
         this.pd201306Processor = pd201306Processor;
         this.auditLogger = auditLogger;
@@ -94,7 +94,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
     @Override
     @OutboundProcessingEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Response", version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion,
-            NhinTargetCommunitiesType target) {
+        NhinTargetCommunitiesType target) {
         MCCIIN000002UV01 response = process(request, assertion, target);
 
         return response;
@@ -118,7 +118,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
             for (UrlInfo urlInfo : urlInfoList) {
 
                 RespondingGatewayPRPAIN201306UV02RequestType newRequest = createNewRequestForSingleTarget(body,
-                        assertion, targets, urlInfo.getHcid());
+                    assertion, targets, urlInfo.getHcid());
 
                 if (isPolicyValid(newRequest)) {
                     ack = sendToNhin(newRequest, urlInfo);
@@ -151,10 +151,10 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
 
         try {
             urlInfoList = connectionManager.getEndpointURLFromNhinTargetCommunities(targetCommunities,
-                    NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
+                NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             LOG.error("Failed to obtain target URLs for service "
-                    + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME + ex.getMessage(), ex);
+                + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME + ex.getLocalizedMessage(), ex);
             return null;
         }
 
@@ -162,7 +162,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
     }
 
     private RespondingGatewayPRPAIN201306UV02RequestType createNewRequestForSingleTarget(PRPAIN201306UV02 body,
-            AssertionType assertion, NhinTargetCommunitiesType targets, String hcid) {
+        AssertionType assertion, NhinTargetCommunitiesType targets, String hcid) {
 
         PRPAIN201306UV02 new201306 = pd201306Processor.createNewRequest(body, hcid);
         return msgUtils.createRespondingGatewayRequest(new201306, assertion, targets);
@@ -175,7 +175,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
     private MCCIIN000002UV01 sendToNhin(RespondingGatewayPRPAIN201306UV02RequestType request, UrlInfo urlInfo) {
 
         NhinTargetSystemType targetSystemType = msgUtils
-                .createNhinTargetSystemType(urlInfo.getUrl(), urlInfo.getHcid());
+            .createNhinTargetSystemType(urlInfo.getUrl(), urlInfo.getHcid());
 
         return sendToNhin(delegate, request.getPRPAIN201306UV02(), request.getAssertion(), targetSystemType);
     }

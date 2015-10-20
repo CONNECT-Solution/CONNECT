@@ -79,10 +79,10 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
      * @param auditLogger
      */
     public StandardInboundPatientDiscoveryDeferredResponse(
-            PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType, PRPAIN201306UV02> policyChecker,
-            ResponseFactory responseFactory, PatientDiscovery201306Processor msgProcessor,
-            GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> proxyFactory,
-            PDDeferredCorrelationDao pdCorrelationDao, PatientDiscoveryDeferredResponseAuditLogger auditLogger) {
+        PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType, PRPAIN201306UV02> policyChecker,
+        ResponseFactory responseFactory, PatientDiscovery201306Processor msgProcessor,
+        GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> proxyFactory,
+        PDDeferredCorrelationDao pdCorrelationDao, PatientDiscoveryDeferredResponseAuditLogger auditLogger) {
         super(proxyFactory);
         this.policyChecker = policyChecker;
         this.responseFactory = responseFactory;
@@ -115,7 +115,6 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
     MCCIIN000002UV01 process(PRPAIN201306UV02 request, AssertionType assertion) {
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
         String ackMsg = "";
-
 
         if (isPolicyValid(request, assertion)) {
 
