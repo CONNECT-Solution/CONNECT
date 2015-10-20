@@ -572,8 +572,7 @@ public abstract class AuditTransforms<T, K> {
     protected void setRequest(T request) {
         this.request = request;
     }
-
-    //PD Deferred Response services require incoming Request
+    
     protected T getRequest() {
         return request;
     }
