@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.patientdiscovery.audit;
 
 import gov.hhs.fha.nhinc.audit.AuditLogger;
@@ -37,11 +36,11 @@ import org.hl7.v3.PRPAIN201306UV02;
  *
  * @author achidamb
  */
-public class PatientDiscoveryDeferredResponseAuditLogger extends AuditLogger<PRPAIN201306UV02, MCCIIN000002UV01>  {
-    
-     @Override
+public class PatientDiscoveryDeferredResponseAuditLogger extends AuditLogger<PRPAIN201306UV02, MCCIIN000002UV01> {
+
+    @Override
     protected AuditTransforms<PRPAIN201306UV02, MCCIIN000002UV01> getAuditTransforms() {
         return new PatientDiscoveryDeferredResponseAuditTransforms();
     }
-    
+
 }
