@@ -480,13 +480,9 @@ public abstract class AuditTransforms<T, K> {
 
         // Set the Audit Source Id (community id)
         if (communityId != null) {
-            if (communityId.startsWith(NhincConstants.HCID_PREFIX)) {
-                auditSrcId.setAuditSourceID(communityId);
-
-            } else {
-                auditSrcId.setAuditSourceID(HomeCommunityMap.getHomeCommunityIdWithPrefix(communityId));
-
-            }
+            /* HomeCommunityMap.getHomeCommunityIdWithPrefix(communityId) mehtod
+             checks & takes care of prefix if not populated*/
+            auditSrcId.setAuditSourceID(HomeCommunityMap.getHomeCommunityIdWithPrefix(communityId));
         }
 
         // If specified, set the Audit Enterprise Site Id (community name)
