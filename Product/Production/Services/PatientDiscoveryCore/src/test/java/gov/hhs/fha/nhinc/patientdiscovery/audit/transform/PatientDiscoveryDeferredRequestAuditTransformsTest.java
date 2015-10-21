@@ -162,8 +162,8 @@ public class PatientDiscoveryDeferredRequestAuditTransformsTest extends AuditTra
             getParticipantObjectIdentification());
         assertFalse("ParticipantObjectIdentification is empty", auditResponse.getAuditMessage().
             getParticipantObjectIdentification().isEmpty());
-        assertEquals("ParticipantObjectIdentification size is 1", auditResponse.getAuditMessage().
-            getParticipantObjectIdentification().size(), 1);
+        assertEquals("ParticipantObjectIdentification should have only one entry for response", auditResponse
+            .getAuditMessage().getParticipantObjectIdentification().size(), 1);
         assertQueryParticipantObjectIdentification(auditResponse.getAuditMessage().getParticipantObjectIdentification().
             get(0));
     }

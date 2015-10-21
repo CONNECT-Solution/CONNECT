@@ -62,7 +62,8 @@ import org.junit.Test;
  */
 public class StandardInboundPatientDiscoveryDeferredRequestTest {
 
-    private final PatientDiscoveryDeferredRequestAuditLogger auditLogger = mock(PatientDiscoveryDeferredRequestAuditLogger.class);
+    private final PatientDiscoveryDeferredRequestAuditLogger auditLogger = mock(
+        PatientDiscoveryDeferredRequestAuditLogger.class);
 
     @Test
     public void hasInboundProcessingEvent() throws Exception {
