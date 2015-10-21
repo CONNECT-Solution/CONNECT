@@ -66,7 +66,8 @@ public class EntityPatientDiscoveryAsyncReqNoOpImplTest {
     public void testProcessPatientDiscoveryAsyncReq() {
         System.out.println("testProcessPatientDiscoveryAsyncReq");
 
-        EntityPatientDiscoveryDeferredRequestProxyNoOpImpl instance = new EntityPatientDiscoveryDeferredRequestProxyNoOpImpl();
+        EntityPatientDiscoveryDeferredRequestProxyNoOpImpl instance
+            = new EntityPatientDiscoveryDeferredRequestProxyNoOpImpl();
 
         PRPAIN201305UV02 request = null;
         AssertionType assertion = null;

@@ -1783,15 +1783,15 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-14T19:20:15Z</con:value>
+          <con:value>2015-10-14T23:02:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-14T19:30:15Z</con:value>
+          <con:value>2015-10-14T23:12:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/14/2015 19:20:15</con:value>
+          <con:value>10/14/2015 23:02:30</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -2138,9 +2138,9 @@ if (propertiesFile.exists()) {
             <urn1:haveSignature>true</urn1:haveSignature>
             <urn1:haveWitnessSignature>true</urn1:haveWitnessSignature>
             <urn1:homeCommunity>
-               <urn1:description>Test HCID1</urn1:description>
-               <urn1:homeCommunityId>2.16.840.1.113883.3.337</urn1:homeCommunityId>
-               <urn1:name>HCID1</urn1:name>
+               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
             <urn1:personName>
                <urn1:familyName>YOUNGER</urn1:familyName>
@@ -2367,7 +2367,7 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Audit Logs" id="db7e5156-753b-49f0-97ed-ab389757b9d5" disabled="true">
+      <con:testStep type="groovy" name="Verify Audit Logs" id="db7e5156-753b-49f0-97ed-ab389757b9d5">
         <con:settings/>
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
@@ -2378,7 +2378,7 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -2542,7 +2542,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -2970,19 +2970,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-14T15:29:24Z</con:value>
+          <con:value>2015-10-21T00:35:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-14T15:39:24Z</con:value>
+          <con:value>2015-10-21T00:45:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/14/2015 15:29:24</con:value>
+          <con:value>10/21/2015 00:35:32</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-13T00:00:00Z</con:value>
+          <con:value>2015-11-20T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@code</con:name>
@@ -3050,7 +3050,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
-          <con:value>1111^^^&amp;1.1&amp;ISO</con:value>
+          <con:value>D123401^^^&amp;1.1&amp;ISO</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventDateTime</con:name>
@@ -3126,7 +3126,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>parameterList.livingSubjectId.value.@extension</con:name>
-          <con:value>1111</con:value>
+          <con:value>D123401</con:value>
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name>
@@ -3162,7 +3162,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserID</con:name>
-          <con:value>https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery</con:value>
+          <con:value>https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncReq</con:value>
         </con:property>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -3246,7 +3246,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>queryId.@root</con:name>
-          <con:value>1.1</con:value>
+          <con:value>2.2</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode</con:name>
@@ -5275,19 +5275,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-08T19:04:14Z</con:value>
+          <con:value>2015-10-15T16:11:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-08T19:14:14Z</con:value>
+          <con:value>2015-10-15T16:21:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/08/2015 19:04:14</con:value>
+          <con:value>10/15/2015 16:11:28</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-07T00:00:00Z</con:value>
+          <con:value>2015-11-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -9702,15 +9702,15 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-14T19:28:13Z</con:value>
+          <con:value>2015-10-14T23:02:51Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-14T19:38:13Z</con:value>
+          <con:value>2015-10-14T23:12:51Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/14/2015 19:28:13</con:value>
+          <con:value>10/14/2015 23:02:51</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -10057,9 +10057,9 @@ if (propertiesFile.exists()) {
             <urn1:haveSignature>true</urn1:haveSignature>
             <urn1:haveWitnessSignature>true</urn1:haveWitnessSignature>
             <urn1:homeCommunity>
-               <urn1:description>Test HCID1</urn1:description>
-               <urn1:homeCommunityId>2.16.840.1.113883.3.337</urn1:homeCommunityId>
-               <urn1:name>HCID1</urn1:name>
+               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
             <urn1:personName>
                <urn1:familyName>YOUNGER</urn1:familyName>
@@ -10286,7 +10286,7 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Audit Logs" id="0fa073f7-7cd1-403b-a396-78420ded9acd" disabled="true">
+      <con:testStep type="groovy" name="Verify Audit Logs" id="0fa073f7-7cd1-403b-a396-78420ded9acd">
         <con:settings/>
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
@@ -10297,7 +10297,7 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -10461,7 +10461,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -10889,19 +10889,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-14T15:26:03Z</con:value>
+          <con:value>2015-10-21T00:35:53Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-14T15:36:03Z</con:value>
+          <con:value>2015-10-21T00:45:53Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/14/2015 15:26:03</con:value>
+          <con:value>10/21/2015 00:35:53</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-13T00:00:00Z</con:value>
+          <con:value>2015-11-20T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@code</con:name>
@@ -10969,7 +10969,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
-          <con:value>1111^^^&amp;1.1&amp;ISO</con:value>
+          <con:value>D123401^^^&amp;1.1&amp;ISO</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventDateTime</con:name>
@@ -11045,7 +11045,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>parameterList.livingSubjectId.value.@extension</con:name>
-          <con:value>1111</con:value>
+          <con:value>D123401</con:value>
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name>
@@ -11081,7 +11081,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserID</con:name>
-          <con:value>https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery</con:value>
+          <con:value>https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncReq</con:value>
         </con:property>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -11165,7 +11165,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>queryId.@root</con:name>
-          <con:value>1.1</con:value>
+          <con:value>2.2</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode</con:name>
@@ -13192,19 +13192,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-08T19:08:03Z</con:value>
+          <con:value>2015-10-15T16:11:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-08T19:18:03Z</con:value>
+          <con:value>2015-10-15T16:21:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/08/2015 19:08:03</con:value>
+          <con:value>10/15/2015 16:11:54</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-07T00:00:00Z</con:value>
+          <con:value>2015-11-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>

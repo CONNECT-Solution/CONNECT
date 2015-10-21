@@ -24,27 +24,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request;
+package gov.hhs.fha.nhinc.patientdiscovery.audit;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredRequestAuditLogger;
+import gov.hhs.fha.nhinc.audit.AuditLogger;
+import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.transform.PatientDiscoveryDeferredRequestAuditTransforms;
+import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 
 /**
- * @author akong
+ * PatientDiscoveryDeferredRequestAuditLogger for ATNA AuditLogging
  *
+ * @author tjafri
  */
-public abstract class AbstractOutboundPatientDiscoveryDeferredRequest implements
-    OutboundPatientDiscoveryDeferredRequest {
+public class PatientDiscoveryDeferredRequestAuditLogger extends AuditLogger<PRPAIN201305UV02, MCCIIN000002UV01> {
 
-    abstract PatientDiscoveryDeferredRequestAuditLogger getPatientDiscoveryDeferredAuditLogger();
-
-    protected void auditRequest(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetSystemType target) {
-
-        getPatientDiscoveryDeferredAuditLogger().auditRequestMessage(request, assertion, target,
-            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE,
-            null, NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
+    @Override
+    protected AuditTransforms<PRPAIN201305UV02, MCCIIN000002UV01> getAuditTransforms() {
+        return new PatientDiscoveryDeferredRequestAuditTransforms();
     }
+
 }

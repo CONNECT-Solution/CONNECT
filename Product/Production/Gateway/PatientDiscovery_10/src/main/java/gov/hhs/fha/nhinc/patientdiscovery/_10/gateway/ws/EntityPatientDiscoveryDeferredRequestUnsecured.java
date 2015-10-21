@@ -45,7 +45,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 @Addressing(enabled = true)
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class EntityPatientDiscoveryDeferredRequestUnsecured extends BaseService implements
-        EntityPatientDiscoveryAsyncReqPortType {
+    EntityPatientDiscoveryAsyncReqPortType {
 
     private OutboundPatientDiscoveryDeferredRequest outboundPatientDiscoveryRequest;
 
@@ -56,13 +56,14 @@ public class EntityPatientDiscoveryDeferredRequestUnsecured extends BaseService 
     }
 
     @OutboundMessageEvent(beforeBuilder = PRPAIN201305UV02ArgTransformer.class,
-            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class,
-            serviceType = "Patient Discovery Deferred Request", version = "1.0")
+        afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class,
+        serviceType = "Patient Discovery Deferred Request", version = "1.0")
+    @Override
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(RespondingGatewayPRPAIN201305UV02RequestType request) {
         AssertionType assertion = getAssertion(context, request.getAssertion());
 
         return outboundPatientDiscoveryRequest.processPatientDiscoveryAsyncReq(request.getPRPAIN201305UV02(),
-                assertion, request.getNhinTargetCommunities());
+            assertion, request.getNhinTargetCommunities());
     }
 
     @Resource
@@ -71,7 +72,7 @@ public class EntityPatientDiscoveryDeferredRequestUnsecured extends BaseService 
     }
 
     public void setOutboundPatientDiscoveryRequest(
-            OutboundPatientDiscoveryDeferredRequest outboundPatientDiscoveryRequest) {
+        OutboundPatientDiscoveryDeferredRequest outboundPatientDiscoveryRequest) {
         this.outboundPatientDiscoveryRequest = outboundPatientDiscoveryRequest;
     }
 

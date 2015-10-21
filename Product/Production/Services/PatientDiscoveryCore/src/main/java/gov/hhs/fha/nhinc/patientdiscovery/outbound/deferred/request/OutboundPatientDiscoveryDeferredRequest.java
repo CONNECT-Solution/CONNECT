@@ -39,6 +39,6 @@ import org.hl7.v3.PRPAIN201305UV02;
 public interface OutboundPatientDiscoveryDeferredRequest {
 
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion,
-            NhinTargetCommunitiesType targets);
+        NhinTargetCommunitiesType targets);
 
 }

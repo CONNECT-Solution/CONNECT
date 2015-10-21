@@ -28,9 +28,10 @@ package gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxyObjectFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredRequestAuditLogger;
+import java.util.Properties;
 
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -45,22 +46,22 @@ public abstract class AbstractInboundPatientDiscoveryDeferredRequest implements 
 
     abstract MCCIIN000002UV01 process(PRPAIN201305UV02 request, AssertionType assertion);
 
-    abstract PatientDiscoveryAuditor getAuditLogger();
+    abstract PatientDiscoveryDeferredRequestAuditLogger getAuditLogger();
 
     /**
      * Processes the PD Deferred request message. This call will audit the message and send it to the Nhin.
      *
      * @param request
      * @param assertion
+     * @param webContextProperties
      * @return MCCIIN000002UV01
      */
-    public MCCIIN000002UV01 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion) {
-        auditRequestFromNhin(request, assertion);
+    @Override
+    public MCCIIN000002UV01 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion,
+        Properties webContextProperties) {
 
         MCCIIN000002UV01 response = process(request, assertion);
-
-        auditResponseToNhin(response, assertion);
-
+        auditResponse(request, response, assertion, webContextProperties);
         return response;
     }
 
@@ -69,22 +70,10 @@ public abstract class AbstractInboundPatientDiscoveryDeferredRequest implements 
         return proxy.processPatientDiscoveryAsyncReq(request, assertion);
     }
 
-    protected void auditRequestFromNhin(PRPAIN201305UV02 request, AssertionType assertion) {
-        getAuditLogger().auditNhinDeferred201305(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+    protected void auditResponse(PRPAIN201305UV02 req, MCCIIN000002UV01 resp, AssertionType assertion,
+        Properties webContextProperties) {
+        getAuditLogger().auditResponseMessage(req, resp, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, webContextProperties,
+            NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
     }
-
-    protected void auditResponseToNhin(MCCIIN000002UV01 response, AssertionType assertion) {
-        getAuditLogger().auditAck(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-    }
-
-    protected void auditRequestToAdapter(PRPAIN201305UV02 request, AssertionType assertion) {
-        getAuditLogger().auditAdapterDeferred201305(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-    }
-
-    protected void auditResponseFromAdapter(MCCIIN000002UV01 response, AssertionType assertion) {
-        getAuditLogger().auditAck(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
-    }
-
 }

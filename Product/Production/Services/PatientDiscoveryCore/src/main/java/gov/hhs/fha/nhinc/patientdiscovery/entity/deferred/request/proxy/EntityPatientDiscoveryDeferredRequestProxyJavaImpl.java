@@ -36,10 +36,11 @@ import org.hl7.v3.PRPAIN201305UV02;
 public class EntityPatientDiscoveryDeferredRequestProxyJavaImpl implements EntityPatientDiscoveryDeferredRequestProxy {
 
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion,
-            NhinTargetCommunitiesType targets) {
+        NhinTargetCommunitiesType targets) {
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
 
-        StandardOutboundPatientDiscoveryDeferredRequest outboundPatientDiscovery = new StandardOutboundPatientDiscoveryDeferredRequest();
+        StandardOutboundPatientDiscoveryDeferredRequest outboundPatientDiscovery
+            = new StandardOutboundPatientDiscoveryDeferredRequest();
         response = outboundPatientDiscovery.processPatientDiscoveryAsyncReq(request, assertion, targets);
 
         return response;

@@ -190,8 +190,8 @@ public abstract class AbstractPatientDiscoveryAuditTransforms<T, K> extends Audi
                 if (entry == null) {
                     createPatientParticipantObjectIdentification(auditMsg, null, null);
                 } else {
-                    createPatientParticipantObjectIdentification(auditMsg, NullChecker.isNullishIgnoreSpace(entry.
-                        getRoot()) ? entry.getRoot().trim() : null, NullChecker.isNullishIgnoreSpace(entry.
+                    createPatientParticipantObjectIdentification(auditMsg, NullChecker.isNotNullishIgnoreSpace(entry.
+                        getRoot()) ? entry.getRoot().trim() : null, NullChecker.isNotNullishIgnoreSpace(entry.
                             getRoot()) ? entry.getExtension().trim() : null);
                 }
             }

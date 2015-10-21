@@ -27,9 +27,8 @@
 package gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxyObjectFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredRequestAuditLogger;
 
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -40,14 +39,14 @@ import org.hl7.v3.PRPAIN201305UV02;
  */
 public class PassthroughInboundPatientDiscoveryDeferredRequest extends AbstractInboundPatientDiscoveryDeferredRequest {
 
-    private final PatientDiscoveryAuditor auditLogger;
+    private final PatientDiscoveryDeferredRequestAuditLogger auditLogger;
 
     /**
      * Constructor.
      */
     public PassthroughInboundPatientDiscoveryDeferredRequest() {
         super(new AdapterPatientDiscoveryDeferredReqProxyObjectFactory());
-        this.auditLogger = new PatientDiscoveryAuditLogger();
+        this.auditLogger = new PatientDiscoveryDeferredRequestAuditLogger();
     }
 
     /**
@@ -57,11 +56,13 @@ public class PassthroughInboundPatientDiscoveryDeferredRequest extends AbstractI
      * @param auditLogger
      */
     public PassthroughInboundPatientDiscoveryDeferredRequest(
-            AdapterPatientDiscoveryDeferredReqProxyObjectFactory adapterFactory, PatientDiscoveryAuditor auditLogger) {
+        AdapterPatientDiscoveryDeferredReqProxyObjectFactory adapterFactory,
+        PatientDiscoveryDeferredRequestAuditLogger auditLogger) {
         super(adapterFactory);
         this.auditLogger = auditLogger;
     }
 
+    @Override
     MCCIIN000002UV01 process(PRPAIN201305UV02 request, AssertionType assertion) {
 
         MCCIIN000002UV01 response = sendToAdapter(request, assertion);
@@ -69,7 +70,8 @@ public class PassthroughInboundPatientDiscoveryDeferredRequest extends AbstractI
         return response;
     }
 
-    PatientDiscoveryAuditor getAuditLogger() {
+    @Override
+    PatientDiscoveryDeferredRequestAuditLogger getAuditLogger() {
         return auditLogger;
     }
 

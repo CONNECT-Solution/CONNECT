@@ -40,7 +40,7 @@ public class TestOutboundPatientDiscoveryDeferredRequest implements OutboundPati
 
     @Override
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion,
-            NhinTargetCommunitiesType targets) {
+        NhinTargetCommunitiesType targets) {
         return new MCCIIN000002UV01();
     }
 
