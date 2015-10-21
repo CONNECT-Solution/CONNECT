@@ -38,6 +38,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.lang.management.ManagementFactory;
 import java.net.UnknownHostException;
 import java.util.List;
@@ -220,13 +221,14 @@ public abstract class AuditTransformsTest<T, K> {
             webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS));
     }
 
-    protected void testAuditSourceIdentification(List<AuditSourceIdentificationType> auditSourceIdentification, AssertionType assertion) {
+    protected void testAuditSourceIdentification(List<AuditSourceIdentificationType> auditSourceIdentification,
+        AssertionType assertion) {
         if (assertion != null && assertion.getUserInfo() != null && assertion.getUserInfo().getOrg() != null
             && assertion.getUserInfo().getOrg().getHomeCommunityId() != null
-            && auditSourceIdentification != null && !auditSourceIdentification.isEmpty()
-            && auditSourceIdentification.size() > 0) {
+            && auditSourceIdentification != null) {
             for (AuditSourceIdentificationType auditSourceId : auditSourceIdentification) {
-                assertEquals(AuditTransformsConstants.HOME_COMMUNITY_ID_PREFIX + assertion.getUserInfo().getOrg().getHomeCommunityId(), auditSourceId.getAuditSourceID());
+                assertEquals(HomeCommunityMap.getHomeCommunityIdWithPrefix(
+                    assertion.getUserInfo().getOrg().getHomeCommunityId()), auditSourceId.getAuditSourceID());
             }
         }
     }

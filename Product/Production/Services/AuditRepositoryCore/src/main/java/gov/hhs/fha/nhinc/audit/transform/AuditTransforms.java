@@ -480,11 +480,11 @@ public abstract class AuditTransforms<T, K> {
 
         // Set the Audit Source Id (community id)
         if (communityId != null) {
-            if (communityId.startsWith(AuditTransformsConstants.HOME_COMMUNITY_ID_PREFIX)) {
+            if (communityId.startsWith(NhincConstants.HCID_PREFIX)) {
                 auditSrcId.setAuditSourceID(communityId);
 
             } else {
-                auditSrcId.setAuditSourceID(AuditTransformsConstants.HOME_COMMUNITY_ID_PREFIX + communityId);
+                auditSrcId.setAuditSourceID(HomeCommunityMap.getHomeCommunityIdWithPrefix(communityId));
 
             }
         }
