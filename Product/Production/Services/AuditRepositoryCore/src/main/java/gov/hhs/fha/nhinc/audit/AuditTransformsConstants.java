@@ -43,6 +43,5 @@ public class AuditTransformsConstants {
     public static final String ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME = "DCM";
     public static final Short NETWORK_ACCESSOR_PT_TYPE_CODE_NAME = 1;
     public static final Short NETWORK_ACCESSOR_PT_TYPE_CODE_IP = 2;
-    public static final String HOME_COMMUNITY_ID_PREFIX = "urn:oid:";
 
 }
