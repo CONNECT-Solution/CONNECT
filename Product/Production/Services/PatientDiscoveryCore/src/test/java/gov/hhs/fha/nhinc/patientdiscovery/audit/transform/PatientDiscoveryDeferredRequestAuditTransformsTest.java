@@ -123,7 +123,7 @@ public class PatientDiscoveryDeferredRequestAuditTransformsTest extends AuditTra
         webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, wsRequestUrl);
         webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, remoteIp);
         webContextProperties.setProperty(NhincConstants.INBOUND_REPLY_TO,
-            "http://www.w3.org/2005/08/addressing/anonymous");
+            NhincConstants.WSA_REPLY_TO);
 
         PatientDiscoveryDeferredRequestAuditTransforms transforms = new PatientDiscoveryDeferredRequestAuditTransforms() {
             @Override
@@ -156,8 +156,8 @@ public class PatientDiscoveryDeferredRequestAuditTransformsTest extends AuditTra
 
         testGetEventIdentificationType(auditResponse, NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME,
             Boolean.FALSE);
-        testGetActiveParticipantSource(auditResponse, Boolean.TRUE, webContextProperties, remoteIp);
-        testGetActiveParticipantDestination(auditResponse, Boolean.TRUE, webContextProperties, wsRequestUrl);
+        testGetActiveParticipantSource(auditResponse, Boolean.FALSE, webContextProperties, remoteIp);
+        testGetActiveParticipantDestination(auditResponse, Boolean.FALSE, webContextProperties, wsRequestUrl);
         assertNotNull("ParticipantObjectIdentification is null", auditResponse.getAuditMessage().
             getParticipantObjectIdentification());
         assertFalse("ParticipantObjectIdentification is empty", auditResponse.getAuditMessage().
