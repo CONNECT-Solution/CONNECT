@@ -83,7 +83,8 @@ public class StandardOutboundPatientDiscoverDeferredRequestTest {
     private MCCIIN000002UV01 expectedResponse;
     private II patientId;
     private AssertionType assertion;
-    private final PatientDiscoveryDeferredRequestAuditLogger auditLogger = mock(PatientDiscoveryDeferredRequestAuditLogger.class);
+    private final PatientDiscoveryDeferredRequestAuditLogger auditLogger = mock(
+        PatientDiscoveryDeferredRequestAuditLogger.class);
 
     @Before
     public void initialize() {

@@ -58,7 +58,6 @@ public class PassthroughOutboundPatientDiscoveryDeferredRequestTest {
         AssertionType assertion = new AssertionType();
         NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
         MCCIIN000002UV01 expectedResponse = new MCCIIN000002UV01();
-        Properties webContextProperties = new Properties();
         PatientDiscoveryDeferredRequestAuditLogger auditLogger = mock(PatientDiscoveryDeferredRequestAuditLogger.class);
         OutboundPatientDiscoveryDeferredRequestDelegate delegate
             = mock(OutboundPatientDiscoveryDeferredRequestDelegate.class);
