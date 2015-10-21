@@ -50,7 +50,8 @@ import org.junit.Test;
  *
  * @author achidamb
  */
-public class COREX12BatchSubmissionAuditTransformsTest extends AuditTransformsTest<COREEnvelopeBatchSubmission, COREEnvelopeBatchSubmissionResponse> {
+public class COREX12BatchSubmissionAuditTransformsTest extends
+    AuditTransformsTest<COREEnvelopeBatchSubmission, COREEnvelopeBatchSubmissionResponse> {
 
     @Test
     public void transformRequestToAuditMsg() throws ConnectionManagerException, UnknownHostException {
