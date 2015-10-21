@@ -293,6 +293,12 @@
             <groupId>me.fhir</groupId>
             <artifactId>fhir-0.12</artifactId>
             <version>0.3</version>
+			<exclusions>
+				<exclusion>
+					<groupId>net.sf.saxon</groupId>
+					<artifactId>Saxon-HE</artifactId>
+				</exclusion>
+			</exclusions>
         </dependency>
     </dependencies>
 
