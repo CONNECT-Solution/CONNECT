@@ -104,6 +104,7 @@ public class PatientDiscoveryDeferredResponseAuditTransformsTest extends AuditTr
             Boolean.TRUE);
         testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
+        testAuditSourceIdentification(auditRequest.getAuditMessage().getAuditSourceIdentification(), assertion);
         assertParticipantObjectIdentification(auditRequest);
     }
 
@@ -177,6 +178,7 @@ public class PatientDiscoveryDeferredResponseAuditTransformsTest extends AuditTr
             Boolean.FALSE);
         testGetActiveParticipantSource(auditRequest, Boolean.FALSE, webContextProperties, localIp);
         testGetActiveParticipantDestination(auditRequest, Boolean.FALSE, webContextProperties, remoteObjectUrl);
+        testAuditSourceIdentification(auditRequest.getAuditMessage().getAuditSourceIdentification(), assertion);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.FALSE, assertion);
         assertParticipantObjectIdentification(auditRequest);
     }

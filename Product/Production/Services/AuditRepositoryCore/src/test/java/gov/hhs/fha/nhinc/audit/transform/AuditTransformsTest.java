@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.audit.transform;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
+import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
@@ -217,6 +218,17 @@ public abstract class AuditTransformsTest<T, K> {
 
         testGetActiveParticipantDestination(request, isRequesting, webContextProperties, remoteObjectUrl,
             webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS));
+    }
+
+    protected void testAuditSourceIdentification(List<AuditSourceIdentificationType> auditSourceIdentification, AssertionType assertion) {
+        if (assertion != null && assertion.getUserInfo() != null && assertion.getUserInfo().getOrg() != null
+            && assertion.getUserInfo().getOrg().getHomeCommunityId() != null
+            && auditSourceIdentification != null && !auditSourceIdentification.isEmpty()
+            && auditSourceIdentification.size() > 0) {
+            for (AuditSourceIdentificationType auditSourceId : auditSourceIdentification) {
+                assertEquals(AuditTransformsConstants.HOME_COMMUNITY_ID_PREFIX + assertion.getUserInfo().getOrg().getHomeCommunityId(), auditSourceId.getAuditSourceID());
+            }
+        }
     }
 
     /**

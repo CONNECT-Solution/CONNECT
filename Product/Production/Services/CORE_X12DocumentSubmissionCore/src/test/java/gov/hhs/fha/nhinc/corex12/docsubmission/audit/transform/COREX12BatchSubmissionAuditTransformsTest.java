@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.corex12.docsubmission.audit.transform;
 
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
@@ -51,8 +50,7 @@ import org.junit.Test;
  *
  * @author achidamb
  */
-public class COREX12BatchSubmissionAuditTransformsTest extends AuditTransformsTest<COREEnvelopeBatchSubmission,
-    COREEnvelopeBatchSubmissionResponse> {
+public class COREX12BatchSubmissionAuditTransformsTest extends AuditTransformsTest<COREEnvelopeBatchSubmission, COREEnvelopeBatchSubmissionResponse> {
 
     @Test
     public void transformRequestToAuditMsg() throws ConnectionManagerException, UnknownHostException {
@@ -96,6 +94,7 @@ public class COREX12BatchSubmissionAuditTransformsTest extends AuditTransformsTe
         testGetEventIdentificationType(auditRequest, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME, Boolean.TRUE);
         testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
+        testAuditSourceIdentification(auditRequest.getAuditMessage().getAuditSourceIdentification(), assertion);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticipantObjectIdentification(auditRequest);
     }
@@ -142,6 +141,7 @@ public class COREX12BatchSubmissionAuditTransformsTest extends AuditTransformsTe
         testGetEventIdentificationType(auditRequest, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME, Boolean.TRUE);
         testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
+        testAuditSourceIdentification(auditRequest.getAuditMessage().getAuditSourceIdentification(), assertion);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticipantObjectIdentification(auditRequest);
     }

@@ -103,6 +103,7 @@ public class DocSubmissionAuditTransformsTest extends AuditTransformsTest<
         testGetEventIdentificationType(auditRequest, NhincConstants.NHINC_XDR_SERVICE_NAME, Boolean.TRUE);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, soapUIEndpoint);
+        testAuditSourceIdentification(auditRequest.getAuditMessage().getAuditSourceIdentification(), assertion);
         testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIP);
         assertParticipantObjectIdentification(auditRequest.getAuditMessage());
     }
@@ -146,6 +147,7 @@ public class DocSubmissionAuditTransformsTest extends AuditTransformsTest<
             Boolean.FALSE, webContextProperties, NhincConstants.NHINC_XDR_SERVICE_NAME);
         testGetEventIdentificationType(auditResponse, NhincConstants.NHINC_XDR_SERVICE_NAME, Boolean.FALSE);
         testGetActiveParticipantDestination(auditResponse, Boolean.TRUE, webContextProperties, soapUIEndpoint);
+        testAuditSourceIdentification(auditResponse.getAuditMessage().getAuditSourceIdentification(), assertion);
         testGetActiveParticipantSource(auditResponse, Boolean.TRUE, webContextProperties, destinationIP);
         assertParticipantObjectIdentification(auditResponse.getAuditMessage());
     }
