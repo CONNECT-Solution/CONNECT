@@ -10,7 +10,7 @@
     <name>CONNECT Administration GUI</name>
     <packaging>war</packaging>
     <modelVersion>4.0.0</modelVersion>
-    
+
     <properties>
         <cxf.version>2.7.8</cxf.version>
     </properties>
@@ -21,7 +21,7 @@
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
         </dependency>
-        
+
         <!-- CXF -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
@@ -287,12 +287,18 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
         </dependency>
-        
+
         <!-- FHIR -->
         <dependency>
             <groupId>me.fhir</groupId>
             <artifactId>fhir-0.12</artifactId>
             <version>0.3</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>net.sf.saxon</groupId>
+                    <artifactId>Saxon-HE</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
