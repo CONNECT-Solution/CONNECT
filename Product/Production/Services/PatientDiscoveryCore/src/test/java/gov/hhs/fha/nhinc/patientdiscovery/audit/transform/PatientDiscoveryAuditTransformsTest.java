@@ -122,6 +122,7 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE);
         testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
+        testAuditSourceIdentification(auditRequest.getAuditMessage().getAuditSourceIdentification(), assertion);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticipantObjectIdentification(auditRequest);
     }
@@ -172,6 +173,7 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         testGetActiveParticipantSource(auditRequest, Boolean.FALSE, webContextProperties, localIp);
         testGetActiveParticipantDestination(auditRequest, Boolean.FALSE, webContextProperties, remoteObjectUrl);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.FALSE, assertion);
+        testAuditSourceIdentification(auditRequest.getAuditMessage().getAuditSourceIdentification(), assertion);
         assertParticipantObjectIdentification(auditRequest);
     }
 

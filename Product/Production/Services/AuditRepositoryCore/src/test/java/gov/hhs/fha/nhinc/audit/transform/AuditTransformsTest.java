@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.audit.transform;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
+import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
@@ -37,6 +38,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.lang.management.ManagementFactory;
 import java.net.UnknownHostException;
 import java.util.List;
@@ -217,6 +219,18 @@ public abstract class AuditTransformsTest<T, K> {
 
         testGetActiveParticipantDestination(request, isRequesting, webContextProperties, remoteObjectUrl,
             webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS));
+    }
+
+    protected void testAuditSourceIdentification(List<AuditSourceIdentificationType> auditSourceIdentification,
+        AssertionType assertion) {
+        if (assertion != null && assertion.getUserInfo() != null && assertion.getUserInfo().getOrg() != null
+            && assertion.getUserInfo().getOrg().getHomeCommunityId() != null
+            && auditSourceIdentification != null) {
+            for (AuditSourceIdentificationType auditSourceId : auditSourceIdentification) {
+                assertEquals(HomeCommunityMap.getHomeCommunityIdWithPrefix(
+                    assertion.getUserInfo().getOrg().getHomeCommunityId()), auditSourceId.getAuditSourceID());
+            }
+        }
     }
 
     /**

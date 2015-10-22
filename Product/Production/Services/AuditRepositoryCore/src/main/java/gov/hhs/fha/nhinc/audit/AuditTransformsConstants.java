@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.audit;
 
 /**
@@ -33,6 +32,7 @@ package gov.hhs.fha.nhinc.audit;
  * @author achidamb
  */
 public class AuditTransformsConstants {
+
     public static final Integer EVENT_OUTCOME_INDICATOR_SUCCESS = 0;
     public static final String ACTIVE_PARTICIPANT_USER_ID_SOURCE = "anonymous";
     public static final String ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME = "Source";
@@ -43,4 +43,5 @@ public class AuditTransformsConstants {
     public static final String ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME = "DCM";
     public static final Short NETWORK_ACCESSOR_PT_TYPE_CODE_NAME = 1;
     public static final Short NETWORK_ACCESSOR_PT_TYPE_CODE_IP = 2;
+
 }

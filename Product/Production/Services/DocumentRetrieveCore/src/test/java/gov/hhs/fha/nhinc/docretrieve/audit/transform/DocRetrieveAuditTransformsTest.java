@@ -114,6 +114,7 @@ public class DocRetrieveAuditTransformsTest
         testGetEventIdentificationType(auditRequest, NhincConstants.DOC_RETRIEVE_SERVICE_NAME, Boolean.TRUE);
         testGetActiveParticipantSource(auditRequest, Boolean.FALSE, webContextProperties, remoteObjectUrl);
         testGetActiveParticipantDestination(auditRequest, Boolean.FALSE, webContextProperties, localIp);
+        testAuditSourceIdentification(auditRequest.getAuditMessage().getAuditSourceIdentification(), assertion);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticipantObjectIdentification(auditRequest, assertion);
     }
@@ -160,6 +161,7 @@ public class DocRetrieveAuditTransformsTest
         testGetEventIdentificationType(auditResponse, NhincConstants.DOC_RETRIEVE_SERVICE_NAME, Boolean.TRUE);
         testGetActiveParticipantSource(auditResponse, Boolean.FALSE, webContextProperties, remoteObjectUrl);
         testGetActiveParticipantDestination(auditResponse, Boolean.FALSE, webContextProperties, localIp);
+        testAuditSourceIdentification(auditResponse.getAuditMessage().getAuditSourceIdentification(), assertion);
         testCreateActiveParticipantFromUser(auditResponse, Boolean.TRUE, assertion);
         assertParticipantObjectIdentification(auditResponse, assertion);
     }
