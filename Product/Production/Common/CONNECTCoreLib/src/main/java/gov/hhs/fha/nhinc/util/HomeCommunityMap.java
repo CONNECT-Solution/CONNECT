@@ -147,13 +147,12 @@ public class HomeCommunityMap {
      */
     public static String getHomeCommunityIdFromAssertion(AssertionType assertion) {
         String homeCommunity = null;
-        try {
-            if (NullChecker.isNotNullish(assertion.getHomeCommunity().getHomeCommunityId())) {
-                homeCommunity = assertion.getHomeCommunity().getHomeCommunityId();
-            }
-        } catch (NullPointerException ex) {
-            LOG.warn("Could not obtain HCID from HomeCommunity in assertion.", ex);
+
+        if (assertion != null && assertion.getHomeCommunity() != null
+            && NullChecker.isNotNullish(assertion.getHomeCommunity().getHomeCommunityId())) {
+            homeCommunity = assertion.getHomeCommunity().getHomeCommunityId();
         }
+
         return homeCommunity;
     }
 
