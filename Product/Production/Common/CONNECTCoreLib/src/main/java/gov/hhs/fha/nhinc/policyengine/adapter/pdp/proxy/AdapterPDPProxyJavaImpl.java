@@ -175,47 +175,6 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         return policyType;
     }
 
-    private String getResourceIdFromPdpRequest(Request pdpRequest) {
-        LOG.debug("Begin AdapterPDPProxyJavaImpl.getPatientIdFromPdpRequest()");
-        List<Resource> resources = null;
-        resources = (List<Resource>) pdpRequest.getResources();
-        String attrValue = "";
-        if (resources != null) {
-            LOG.debug("Resources list size:" + resources.size());
-            for (Resource resource : resources) {
-                List<Attribute> attributes = null;
-                attributes = (List<Attribute>) resource.getAttributes();
-                LOG.debug("Attributes list size:" + attributes.size());
-                for (Attribute attribute : attributes) {
-                    String attrId = "";
-                    String attrDataType = "";
-                    if (attribute.getAttributeId() != null) {
-                        attrId = attribute.getAttributeId().toString();
-                        LOG.debug("AttributeId: " + attrId);
-                    } else {
-                        LOG.debug("AttributeId not found in the Attribute");
-                    }
-                    if (attribute.getDataType() != null) {
-                        attrDataType = attribute.getDataType().toString();
-                        LOG.debug("Attribute DataType : " + attrDataType);
-                    } else {
-                        LOG.debug("DataType not found in the Attribute");
-                    }
-                    if ((attrId.trim().equals(AdapterPDPConstants.REQUEST_CONTEXT_ATTRIBUTE_RESOURCEID))
-                        && attrDataType.trim().equals(AdapterPDPConstants.ATTRIBUTEVALUE_DATATYPE_STRING)) {
-                        Element sidElement = (Element) attribute.getAttributeValues().get(0);
-                        attrValue = XMLUtils.getElementValue(sidElement);
-                        LOG.debug("Attriute Value: " + attrValue);
-                    }
-                }
-            }
-        } else {
-            LOG.info("No resources found in the Request context");
-        }
-        LOG.debug("End AdapterPDPProxyJavaImpl.getPatientIdFromPdpRequest()");
-        return attrValue;
-    }
-
     private String getAttrValFromPdpRequest(Request pdpRequest, String sAttrId, String sAttrDataType) {
         LOG.debug("Begin AdapterPDPProxyJavaImpl.getAttrValFromPdpRequest()");
         LOG.debug("getAttrValFromPdpRequest - sAttrId:" + sAttrId);
@@ -372,8 +331,8 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                                                                 }
                                                                 policyAttrDataType = (subjectMatch.getAttributeValue()
                                                                     .getDataType() == null) ? subjectMatch.getAttributeValue()
-                                                                    .getDataType() : subjectMatch.getAttributeValue()
-                                                                    .getDataType().trim();
+                                                                        .getDataType() : subjectMatch.getAttributeValue()
+                                                                        .getDataType().trim();
                                                                 LOG.debug("AttributeValue Value: " + policyAttrValue);
                                                                 LOG.debug("AttributeValue DataType: " + policyAttrDataType);
                                                             } else {
@@ -382,14 +341,14 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                                                             if (subjectMatch.getSubjectAttributeDesignator() != null) {
                                                                 policyAttrDesAttrId = (subjectMatch.getSubjectAttributeDesignator()
                                                                     .getAttributeId() == null) ? subjectMatch
-                                                                    .getSubjectAttributeDesignator().getAttributeId()
-                                                                    : subjectMatch.getSubjectAttributeDesignator()
-                                                                    .getAttributeId().trim();
+                                                                        .getSubjectAttributeDesignator().getAttributeId()
+                                                                        : subjectMatch.getSubjectAttributeDesignator()
+                                                                        .getAttributeId().trim();
                                                                 policyAttrDesAttrDataType = (subjectMatch
                                                                     .getSubjectAttributeDesignator().getDataType() == null) ? subjectMatch
-                                                                    .getSubjectAttributeDesignator().getDataType()
-                                                                    : subjectMatch.getSubjectAttributeDesignator()
-                                                                    .getDataType().trim();
+                                                                        .getSubjectAttributeDesignator().getDataType()
+                                                                        : subjectMatch.getSubjectAttributeDesignator()
+                                                                        .getDataType().trim();
                                                                 LOG.debug("SubjectAttributeDesignator DataType: "
                                                                     + policyAttrDesAttrDataType);
                                                                 LOG.debug("SubjectAttributeDesignator AttributeId: "

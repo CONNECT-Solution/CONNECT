@@ -268,47 +268,4 @@ public class TrustMode implements ResponseMode {
         return result;
     }
 
-    private PRPAIN201301UV02 mergeIds(PRPAIN201301UV02 patient, II localId) {
-        PRPAIN201301UV02 result = patient;
-
-        II remoteId;
-
-        LOG.debug("begin MergeIds");
-
-        if (result != null
-                && result.getControlActProcess() != null
-                && NullChecker.isNotNullish(result.getControlActProcess().getSubject())
-                && result.getControlActProcess().getSubject().get(0) != null
-                && result.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null
-                && result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null
-                && result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null
-                && NullChecker.isNotNullish(result.getControlActProcess().getSubject().get(0).getRegistrationEvent()
-                        .getSubject1().getPatient().getId())
-                && result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
-                        .getId().get(0) != null) {
-            try {
-                remoteId = result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
-                        .getPatient().getId().get(0);
-
-                LOG.debug("Local Id = " + localId.getExtension() + "; remote id = " + remoteId.getExtension());
-
-                // clear Id's
-                result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
-                        .getId().clear();
-
-                // add both the local and remote id.
-                result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
-                        .getId().add(localId);
-                result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
-                        .getId().add(remoteId);
-
-            } catch (Exception ex) {
-                LOG.error(ex.getMessage(), ex);
-            }
-        } else {
-            return null;
-        }
-
-        return result;
-    }
 }

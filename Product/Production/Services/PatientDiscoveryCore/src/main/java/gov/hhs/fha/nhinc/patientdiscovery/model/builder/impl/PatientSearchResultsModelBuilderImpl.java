@@ -43,7 +43,6 @@ import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
 import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
 import gov.hhs.fha.nhinc.patientdiscovery.model.builder.AbstractPatientSearchResultsModelBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.model.builder.PatientSearchResultsModelBuilder;
-import org.apache.commons.lang.NotImplementedException;
 import org.hl7.v3.AdxpExplicitCity;
 import org.hl7.v3.AdxpExplicitPostalCode;
 import org.hl7.v3.AdxpExplicitState;
@@ -219,9 +218,4 @@ public class PatientSearchResultsModelBuilderImpl extends
         }
     }
 
-    private void extractDriverLicense(PRPAMT201310UV02Person person,
-        Patient patient) {
-        throw new NotImplementedException("Method not supported yet");
-
-    }
 }

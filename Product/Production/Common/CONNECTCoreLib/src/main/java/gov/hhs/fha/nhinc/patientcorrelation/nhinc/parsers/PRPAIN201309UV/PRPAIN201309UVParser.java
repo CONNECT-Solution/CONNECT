@@ -56,11 +56,6 @@ public class PRPAIN201309UVParser {
     // private static String DETERMINER_CODE = "INSTANCE";
     private static String QUERY_RESPONSE = "OK";
 
-    private static CS getCS(String value) {
-        CS cs = new CS();
-        cs.setCode(value);
-        return cs;
-    }
 
     public static PRPAMT201307UV02ParameterList parseHL7ParameterListFrom201309Message(PRPAIN201309UV02 message) {
         if (message == null) {

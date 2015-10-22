@@ -118,26 +118,6 @@ public class MessageMonitoringUtil {
         return recipients;
     }
 
-    /**
-     * Returns Mail Sender from the message
-     *
-     * @return
-     */
-    private static String getMailSender(MimeMessage message) throws MessagingException {
-
-        //get it from sender
-        InternetAddress sender = (InternetAddress) message.getSender();
-
-        if (sender == null) {
-            //get it From
-            InternetAddress[] fromAddress = (InternetAddress[]) message.getFrom();
-            if (fromAddress != null & fromAddress.length > 1) {
-                return (fromAddress[0]).getAddress();
-            }
-            return null;
-        }
-        return sender.getAddress();
-    }
 
     protected static Tx getTxToTrack(MimeMessage msg, String sender, NHINDAddressCollection recipients) {
 

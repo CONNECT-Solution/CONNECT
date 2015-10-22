@@ -66,6 +66,7 @@ import org.w3c.dom.Element;
  * @author Les Westberg
  */
 public class XACMLCreator {
+
     private static final String HL7_DATE_ONLY_FORMAT = "yyyyMMdd";
     private static final String HL7_DATE_TIME_FORMAT = "yyyyMMddHHmmssZ";
     private static final String XML_DATE_ONLY_FORMAT = "yyyy-MM-dd";
@@ -130,7 +131,7 @@ public class XACMLCreator {
      * @return
      */
     private ResourceType createResourcePatientId(String sPatientId, String sAssigningAuthority)
-            throws AdapterPIPException {
+        throws AdapterPIPException {
         ResourceType oResource = new ResourceType();
 
         // Resource Match
@@ -159,7 +160,7 @@ public class XACMLCreator {
             oDOMBuilder = oDOMFactory.newDocumentBuilder();
             oDOMDocument = oDOMBuilder.newDocument();
             oElement = oDOMDocument
-                    .createElementNS(XACMLConstants.NAMESPACE_HL7_V3, XACMLConstants.NHIN_PATIENT_ID_TAG);
+                .createElementNS(XACMLConstants.NAMESPACE_HL7_V3, XACMLConstants.NHIN_PATIENT_ID_TAG);
         } catch (Exception e) {
             String sErrorMessage = "Failed to create DOM factory and builder objects.  Error: " + e.getMessage();
             throw new AdapterPIPException(sErrorMessage, e);
@@ -273,7 +274,7 @@ public class XACMLCreator {
      * @return
      */
     private EnvironmentType createEnvironment(String sMatchId, String sDataType, String sAttributeId,
-            String sAttributeValue) {
+        String sAttributeValue) {
         EnvironmentType oEnvironment = new EnvironmentType();
 
         // Environment Match
@@ -300,37 +301,6 @@ public class XACMLCreator {
 
     }
 
-    /**
-     * This formats a string that represents the patient ID in the format of:
-     *
-     * <nhin:PatientId root="1.1" extension="11111" />
-     *
-     * @param oPtPref The patient preference information.
-     * @return
-     */
-    private String createNhinPatientId(PatientPreferencesType oPtPref) {
-        String sPatientId = "";
-        StringBuffer sbPatientId = new StringBuffer();
-
-        // Make sure we have an assigning authority or a patient ID.
-        // -----------------------------------------------------------
-        if (((oPtPref.getAssigningAuthority() != null) && (oPtPref.getAssigningAuthority().trim().length() > 0))
-                || ((oPtPref.getPatientId() != null) && (oPtPref.getPatientId().trim().length() > 0))) {
-            sbPatientId.append("<" + XACMLConstants.NHIN_PATIENT_ID_TAG + " " + XACMLConstants.NHIN_PATIENT_ID_TAG_ROOT
-                    + "=\"");
-            if (oPtPref.getAssigningAuthority() != null) {
-                sbPatientId.append(oPtPref.getAssigningAuthority().trim());
-            }
-            sbPatientId.append("\" " + XACMLConstants.NHIN_PATIENT_ID_TAG_EXTENSION + "=\"");
-            if (oPtPref.getPatientId() != null) {
-                sbPatientId.append(oPtPref.getPatientId().trim());
-            }
-            sbPatientId.append("\" />");
-            sPatientId = sbPatientId.toString();
-        }
-
-        return sPatientId;
-    }
 
     /**
      * This method creates an date formatted according to XML default from a HL7 date/time format.
@@ -351,8 +321,7 @@ public class XACMLCreator {
                 String sErrorMessage = "Date had invalid HL7 format: " + sHL7DateTime + ".  Error = " + e.getMessage();
                 throw new AdapterPIPException(sErrorMessage, e);
             }
-        }
-        // Date + Time
+        } // Date + Time
         // ------------
         else if ((sHL7DateTime != null) && (sHL7DateTime.length() > 8)) {
             try {
@@ -360,11 +329,10 @@ public class XACMLCreator {
                 sXMLDate = oXMLDateTimeFormatter.format(oHL7Date);
             } catch (Exception e) {
                 String sErrorMessage = "Date-time had invalid HL7 format: " + sHL7DateTime + ".  Error = "
-                        + e.getMessage();
+                    + e.getMessage();
                 throw new AdapterPIPException(sErrorMessage, e);
             }
-        }
-        // Do not know format - put it in as is.
+        } // Do not know format - put it in as is.
         else {
             sXMLDate = sHL7DateTime;
         }
@@ -381,7 +349,7 @@ public class XACMLCreator {
      * @return The rule representing a single fine grained policy settings.
      */
     private RuleType createFineGrainedRule(int iRuleId, FineGrainedPolicyCriterionType oCriterion)
-            throws AdapterPIPException {
+        throws AdapterPIPException {
         RuleType oRule = new RuleType();
 
         oRule.setRuleId(Integer.toString(iRuleId));
@@ -419,10 +387,10 @@ public class XACMLCreator {
         // User Role
         // -----------
         if ((oCriterion.getUserRole() != null) && (oCriterion.getUserRole().getCode() != null)
-                && (oCriterion.getUserRole().getCode().length() > 0)) {
+            && (oCriterion.getUserRole().getCode().length() > 0)) {
             SubjectType oSubject = createSubject(XACMLConstants.MATCH_ID_STRING_EQUAL,
-                    XACMLConstants.ATTRIBUTE_VALUE_TYPE_STRING, XACMLConstants.SUBJECT_ROLE, oCriterion.getUserRole()
-                            .getCode());
+                XACMLConstants.ATTRIBUTE_VALUE_TYPE_STRING, XACMLConstants.SUBJECT_ROLE, oCriterion.getUserRole()
+                .getCode());
             olSubject.add(oSubject);
             bHaveSubjectInfo = true;
 
@@ -432,8 +400,8 @@ public class XACMLCreator {
         // -----------------
         if ((oCriterion.getOrganizationId() != null) && (oCriterion.getOrganizationId().length() > 0)) {
             SubjectType oSubject = createSubject(XACMLConstants.MATCH_ID_URI_EQUAL,
-                    XACMLConstants.ATTRIBUTE_VALUE_TYPE_ANYURI, XACMLConstants.SUBJECT_ORGANIZATION_ID,
-                    oCriterion.getOrganizationId());
+                XACMLConstants.ATTRIBUTE_VALUE_TYPE_ANYURI, XACMLConstants.SUBJECT_ORGANIZATION_ID,
+                oCriterion.getOrganizationId());
             olSubject.add(oSubject);
             bHaveSubjectInfo = true;
         } // Organization ID
@@ -442,8 +410,8 @@ public class XACMLCreator {
         // ------------------
         if ((oCriterion.getHomeCommunityId() != null) && (oCriterion.getHomeCommunityId().length() > 0)) {
             SubjectType oSubject = createSubject(XACMLConstants.MATCH_ID_URI_EQUAL,
-                    XACMLConstants.ATTRIBUTE_VALUE_TYPE_ANYURI, XACMLConstants.SUBJECT_HOME_COMMUNITY_ID,
-                    oCriterion.getHomeCommunityId());
+                XACMLConstants.ATTRIBUTE_VALUE_TYPE_ANYURI, XACMLConstants.SUBJECT_HOME_COMMUNITY_ID,
+                oCriterion.getHomeCommunityId());
             olSubject.add(oSubject);
             bHaveSubjectInfo = true;
         } // Organization ID
@@ -451,16 +419,16 @@ public class XACMLCreator {
         // User ID
         // --------
         if ((oCriterion.getUserId() != null) && (oCriterion.getUserId().length() > 0)
-                && (oCriterion.getUserIdFormat() != null)
-                && (!oCriterion.getUserIdFormat().equals(UserIdFormatType.NONE))) {
+            && (oCriterion.getUserIdFormat() != null)
+            && (!oCriterion.getUserIdFormat().equals(UserIdFormatType.NONE))) {
             SubjectType oSubject = null;
             if (oCriterion.getUserIdFormat().equals(UserIdFormatType.EMAIL)) {
                 oSubject = createSubject(XACMLConstants.MATCH_ID_EMAIL_EQUAL,
-                        XACMLConstants.ATTRIBUTE_VALUE_TYPE_EMAIL, XACMLConstants.SUBJECT_USER_ID,
-                        oCriterion.getUserId());
+                    XACMLConstants.ATTRIBUTE_VALUE_TYPE_EMAIL, XACMLConstants.SUBJECT_USER_ID,
+                    oCriterion.getUserId());
             } else {
                 oSubject = createSubject(XACMLConstants.MATCH_ID_X500_EQUAL, XACMLConstants.ATTRIBUTE_VALUE_TYPE_X500,
-                        XACMLConstants.SUBJECT_USER_ID, oCriterion.getUserId());
+                    XACMLConstants.SUBJECT_USER_ID, oCriterion.getUserId());
             }
             olSubject.add(oSubject);
             bHaveSubjectInfo = true;
@@ -469,10 +437,10 @@ public class XACMLCreator {
         // Purpose of Use
         // ----------------
         if ((oCriterion.getPurposeOfUse() != null) && (oCriterion.getPurposeOfUse().getCode() != null)
-                && (oCriterion.getPurposeOfUse().getCode().length() > 0)) {
+            && (oCriterion.getPurposeOfUse().getCode().length() > 0)) {
             SubjectType oSubject = createSubject(XACMLConstants.MATCH_ID_STRING_EQUAL,
-                    XACMLConstants.ATTRIBUTE_VALUE_TYPE_STRING, XACMLConstants.SUBJECT_PURPOSE_OF_USE, oCriterion
-                            .getPurposeOfUse().getCode());
+                XACMLConstants.ATTRIBUTE_VALUE_TYPE_STRING, XACMLConstants.SUBJECT_PURPOSE_OF_USE, oCriterion
+                .getPurposeOfUse().getCode());
             olSubject.add(oSubject);
             bHaveSubjectInfo = true;
         } // User Role
@@ -496,10 +464,10 @@ public class XACMLCreator {
         // Confidentiality Code
         // ---------------------
         if ((oCriterion.getConfidentialityCode() != null) && (oCriterion.getConfidentialityCode().getCode() != null)
-                && (oCriterion.getConfidentialityCode().getCode().length() > 0)) {
+            && (oCriterion.getConfidentialityCode().getCode().length() > 0)) {
             ResourceType oRuleResource = createResource(XACMLConstants.MATCH_ID_STRING_EQUAL,
-                    XACMLConstants.ATTRIBUTE_VALUE_TYPE_STRING, XACMLConstants.RESOURCE_CONFIDENTIALITY_CODE,
-                    oCriterion.getConfidentialityCode().getCode());
+                XACMLConstants.ATTRIBUTE_VALUE_TYPE_STRING, XACMLConstants.RESOURCE_CONFIDENTIALITY_CODE,
+                oCriterion.getConfidentialityCode().getCode());
 
             olResource.add(oRuleResource);
             bHaveResourceInfo = true;
@@ -508,10 +476,10 @@ public class XACMLCreator {
         // Document Type Code
         // ---------------------
         if ((oCriterion.getDocumentTypeCode() != null) && (oCriterion.getDocumentTypeCode().getCode() != null)
-                && (oCriterion.getDocumentTypeCode().getCode().length() > 0)) {
+            && (oCriterion.getDocumentTypeCode().getCode().length() > 0)) {
             ResourceType oRuleResource = createResource(XACMLConstants.MATCH_ID_STRING_EQUAL,
-                    XACMLConstants.ATTRIBUTE_VALUE_TYPE_STRING, XACMLConstants.RESOURCE_DOCUMENT_TYPE, oCriterion
-                            .getDocumentTypeCode().getCode());
+                XACMLConstants.ATTRIBUTE_VALUE_TYPE_STRING, XACMLConstants.RESOURCE_DOCUMENT_TYPE, oCriterion
+                .getDocumentTypeCode().getCode());
 
             olResource.add(oRuleResource);
             bHaveResourceInfo = true;
@@ -521,8 +489,8 @@ public class XACMLCreator {
         // ------------
         if ((oCriterion.getUniqueDocumentId() != null) && (oCriterion.getUniqueDocumentId().length() > 0)) {
             ResourceType oRuleResource = createResource(XACMLConstants.MATCH_ID_STRING_EQUAL,
-                    XACMLConstants.ATTRIBUTE_VALUE_TYPE_STRING, XACMLConstants.RESOURCE_DOCUMENT_ID,
-                    oCriterion.getUniqueDocumentId());
+                XACMLConstants.ATTRIBUTE_VALUE_TYPE_STRING, XACMLConstants.RESOURCE_DOCUMENT_ID,
+                oCriterion.getUniqueDocumentId());
 
             olResource.add(oRuleResource);
             bHaveResourceInfo = true;
@@ -547,8 +515,8 @@ public class XACMLCreator {
         // ---------------------
         if (oCriterion.getRuleStartDate() != null) {
             EnvironmentType oRuleEnv = createEnvironment(XACMLConstants.MATCH_ID_DATE_GREATER_OR_EQUAL,
-                    XACMLConstants.ATTRIBUTE_VALUE_TYPE_DATE, XACMLConstants.ENVIRONMENT_RULE_START_DATE,
-                    createXMLDate(oCriterion.getRuleStartDate()));
+                XACMLConstants.ATTRIBUTE_VALUE_TYPE_DATE, XACMLConstants.ENVIRONMENT_RULE_START_DATE,
+                createXMLDate(oCriterion.getRuleStartDate()));
 
             olEnv.add(oRuleEnv);
             bHaveEnvInfo = true;
@@ -558,8 +526,8 @@ public class XACMLCreator {
         // ---------------------
         if (oCriterion.getRuleEndDate() != null) {
             EnvironmentType oRuleEnv = createEnvironment(XACMLConstants.MATCH_ID_DATE_LESS_OR_EQUAL,
-                    XACMLConstants.ATTRIBUTE_VALUE_TYPE_DATE, XACMLConstants.ENVIRONMENT_RULE_END_DATE,
-                    createXMLDate(oCriterion.getRuleEndDate()));
+                XACMLConstants.ATTRIBUTE_VALUE_TYPE_DATE, XACMLConstants.ENVIRONMENT_RULE_END_DATE,
+                createXMLDate(oCriterion.getRuleEndDate()));
 
             olEnv.add(oRuleEnv);
             bHaveEnvInfo = true;
@@ -613,7 +581,7 @@ public class XACMLCreator {
      * @param oPtPref The patient's consent preference information.
      * @return The XACML Policy that represents this consent information.
      * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException This exception is thrown if any error
-     *             occurs.
+     * occurs.
      */
     public PolicyType createConsentXACMLDoc(PatientPreferencesType oPtPref) throws AdapterPIPException {
         PolicyType oPolicy = new PolicyType();
@@ -622,8 +590,8 @@ public class XACMLCreator {
         // use the one we already know.
         // --------------------------------------------------------------------------------------
         if ((oPtPref.getFineGrainedPolicyMetadata() != null)
-                && (oPtPref.getFineGrainedPolicyMetadata().getPolicyOID() != null)
-                && (oPtPref.getFineGrainedPolicyMetadata().getPolicyOID().length() > 0)) {
+            && (oPtPref.getFineGrainedPolicyMetadata().getPolicyOID() != null)
+            && (oPtPref.getFineGrainedPolicyMetadata().getPolicyOID().length() > 0)) {
             oPolicy.setPolicyId(oPtPref.getFineGrainedPolicyMetadata().getPolicyOID());
         } else {
             UUID oPolicyId = UUID.randomUUID();
@@ -653,14 +621,14 @@ public class XACMLCreator {
         // Action for Doc Retrieve
         // ------------------------
         ActionType oAction = createAction(XACMLConstants.MATCH_ID_URI_EQUAL,
-                XACMLConstants.ATTRIBUTE_VALUE_TYPE_ANYURI, XACMLConstants.ACTION_ID,
-                NhincConstants.DOC_RETRIEVE_WS_ADDRESS_ACTION);
+            XACMLConstants.ATTRIBUTE_VALUE_TYPE_ANYURI, XACMLConstants.ACTION_ID,
+            NhincConstants.DOC_RETRIEVE_WS_ADDRESS_ACTION);
         oActions.getAction().add(oAction);
 
         // Action for Doc Query
         // ------------------------
         oAction = createAction(XACMLConstants.MATCH_ID_URI_EQUAL, XACMLConstants.ATTRIBUTE_VALUE_TYPE_ANYURI,
-                XACMLConstants.ACTION_ID, XACMLConstants.ATTRIBUTE_VALUE_QUERY_DOCUMENT);
+            XACMLConstants.ACTION_ID, XACMLConstants.ATTRIBUTE_VALUE_QUERY_DOCUMENT);
         oActions.getAction().add(oAction);
 
         // Set up resource to pertain to the correct patient ID and assigning authority.
@@ -671,7 +639,6 @@ public class XACMLCreator {
         ResourcesType oResourcess = new ResourcesType();
         oTarget.setResources(oResourcess);
         List<ResourceType> olResource = oResourcess.getResource();
-        // String sNHINPatientId = createNhinPatientId(oPtPref);
         String sPatientId = "";
         if (oPtPref.getPatientId() != null) {
             sPatientId = oPtPref.getPatientId();
@@ -694,8 +661,8 @@ public class XACMLCreator {
         // Put blanket opt-in or opt-out rule if there is no fine-grained criteria.
         // --------------------------------------------------------------------------
         if ((oPtPref.getFineGrainedPolicyCriteria() == null)
-                || (oPtPref.getFineGrainedPolicyCriteria().getFineGrainedPolicyCriterion() == null)
-                || (oPtPref.getFineGrainedPolicyCriteria().getFineGrainedPolicyCriterion().size() <= 0)) {
+            || (oPtPref.getFineGrainedPolicyCriteria().getFineGrainedPolicyCriterion() == null)
+            || (oPtPref.getFineGrainedPolicyCriteria().getFineGrainedPolicyCriterion().size() <= 0)) {
             // Add in a rule for the Opt-in/Opt-Out setting
             // ----------------------------------------------
             RuleType oRule = createOptInOutRule(iRuleIdx++, oPtPref);
@@ -706,7 +673,7 @@ public class XACMLCreator {
             // Add in rule for each of the Fine Grained Policy Settings
             // ----------------------------------------------------------
             List<FineGrainedPolicyCriterionType> olCriterion = oPtPref.getFineGrainedPolicyCriteria()
-                    .getFineGrainedPolicyCriterion();
+                .getFineGrainedPolicyCriterion();
             for (FineGrainedPolicyCriterionType oCriterion : olCriterion) {
                 RuleType oRule = createFineGrainedRule(iRuleIdx++, oCriterion);
                 if (oRule != null) {

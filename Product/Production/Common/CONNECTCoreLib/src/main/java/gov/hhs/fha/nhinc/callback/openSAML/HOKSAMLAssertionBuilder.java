@@ -238,22 +238,6 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         return createSubject(x509Name, certificate, publicKey);
     }
 
-    /**
-     *
-     * @param value
-     * @return String
-     */
-    private String formatUID(String value) {
-        String newValue = null;
-        if (NullChecker.isNotNullish(value)) {
-            if (value.startsWith("UID=") || value.startsWith("CN=")) {
-                newValue = value;
-            } else {
-                newValue = "UID=" + value;
-            }
-        }
-        return newValue;
-    }
 
     protected Subject createSubject(String x509Name, X509Certificate certificate, PublicKey publicKey) throws Exception {
         Subject subject;

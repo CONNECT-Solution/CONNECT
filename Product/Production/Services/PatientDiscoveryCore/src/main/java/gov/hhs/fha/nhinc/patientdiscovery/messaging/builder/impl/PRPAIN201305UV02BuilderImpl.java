@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.patientdiscovery.messaging.builder.impl;
 import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import javax.xml.bind.JAXBElement;
-import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.Logger;
 import org.hl7.v3.CE;
 import org.hl7.v3.CS;
@@ -38,7 +37,6 @@ import org.hl7.v3.EnExplicitFamily;
 import org.hl7.v3.EnExplicitGiven;
 import org.hl7.v3.II;
 import org.hl7.v3.IVLTSExplicit;
-import org.hl7.v3.ObjectFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectAdministrativeGender;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectBirthTime;
@@ -168,17 +166,6 @@ public class PRPAIN201305UV02BuilderImpl extends AbstractPRPAIN201305UV02Builder
         parameterList.getLivingSubjectAdministrativeGender().add(adminGender);
     }
 
-    private void setAddress(PRPAMT201306UV02ParameterList parameterList,
-        ObjectFactory factory) {
-        throw new NotImplementedException("Method not supported yet");
-
-    }
-
-    private void setPhone(PRPAMT201306UV02ParameterList parameterList) {
-        throw new NotImplementedException("Method not supported yet");
-
-    }
-
     private void setPid(PRPAMT201306UV02ParameterList parameterList) {
         PRPAMT201306UV02LivingSubjectId subjectId = new PRPAMT201306UV02LivingSubjectId();
         II id = new II();
@@ -186,16 +173,6 @@ public class PRPAIN201305UV02BuilderImpl extends AbstractPRPAIN201305UV02Builder
         id.setRoot(patient.getDomain());
         subjectId.getValue().add(id);
         parameterList.getLivingSubjectId().add(subjectId);
-    }
-
-    private void setSsn(PRPAMT201306UV02ParameterList parameterList) {
-        throw new NotImplementedException("Method not supported yet");
-
-    }
-
-    private void setDLicense(PRPAMT201306UV02ParameterList parameterList) {
-        throw new NotImplementedException("Method not supported yet");
-
     }
 
     @Override

@@ -558,10 +558,6 @@ public class XDRTransforms {
         return result;
     }
 
-    private String getCompositePatientId(String sCommunityId, String sPatientId) {
-        sPatientId = AuditDataTransformHelper.createCompositePatientId(sCommunityId, sPatientId);
-        return sPatientId;
-    }
 
     protected void marshalRequestMessage(ByteArrayOutputStream baOutStrm,
         ProvideAndRegisterDocumentSetRequestType request) throws RuntimeException {

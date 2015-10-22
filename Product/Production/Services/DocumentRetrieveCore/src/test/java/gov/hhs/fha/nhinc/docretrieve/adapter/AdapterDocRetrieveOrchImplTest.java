@@ -27,9 +27,6 @@
 package gov.hhs.fha.nhinc.docretrieve.adapter;
 
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxy;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -44,6 +41,7 @@ import static org.junit.Assert.*;
  */
 @RunWith(JMock.class)
 public class AdapterDocRetrieveOrchImplTest {
+
     Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);

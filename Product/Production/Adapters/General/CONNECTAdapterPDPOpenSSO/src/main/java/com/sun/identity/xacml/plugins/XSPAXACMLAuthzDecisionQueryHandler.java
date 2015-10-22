@@ -74,7 +74,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.w3c.dom.Document;
@@ -128,11 +127,11 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
      * @exception SAML2Exception if the query can not be handled
      */
     public com.sun.identity.saml2.protocol.Response handleQuery(String pdpEntityId, String pepEntityId,
-            RequestAbstract samlpRequest, SOAPMessage soapMessage) throws SAML2Exception {
+        RequestAbstract samlpRequest, SOAPMessage soapMessage) throws SAML2Exception {
 
         System.out.println("Entering XSPAXACMLAuthzDecisionQueryHandler.handleQuery() with " + ":pdpEntityId="
-                + pdpEntityId + ":pepEntityId=" + pepEntityId + ":samlpRequest=\n"
-                + samlpRequest.toXMLString(true, true) + ":soapMessage=\n" + soapMessage);
+            + pdpEntityId + ":pepEntityId=" + pepEntityId + ":samlpRequest=\n"
+            + samlpRequest.toXMLString(true, true) + ":soapMessage=\n" + soapMessage);
 
         SubjectMapper subjectMapper = new FMSubjectMapper();
         subjectMapper.initialize(pdpEntityId, pepEntityId, null);
@@ -197,10 +196,10 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
             environmentLocality = getEnvironmentLocality(xacmlRequest);
 
             System.out.println("xspa.handleQuery():\n" + "userId = " + userId + "\n" + "Roles = " + userRoles + "\n"
-                    + "resourceId = " + resourceId + "\n" + "purpose = " + pou + "\n" + "communityId = " + communityId
-                    + "\n" + "serviceType = " + serviceType + "\n" + "OptIN = " + new Boolean(optIn).toString() + "\n"
-                    + "userLocality = " + userLocality + "\n" + "environmentLocality = " + environmentLocality + "\n"
-                    + "actionId = " + actionId + "\n");
+                + "resourceId = " + resourceId + "\n" + "purpose = " + pou + "\n" + "communityId = " + communityId
+                + "\n" + "serviceType = " + serviceType + "\n" + "OptIN = " + new Boolean(optIn).toString() + "\n"
+                + "userLocality = " + userLocality + "\n" + "environmentLocality = " + environmentLocality + "\n"
+                + "actionId = " + actionId + "\n");
 
             // BEGIN CUSTOM BUS LOGIC
             if (optIn) {
@@ -217,12 +216,11 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
             statusCodeValue = XACMLConstants.STATUS_CODE_MISSING_ATTRIBUTE;
             evaluationFailed = true;
             System.out.println("XSPAXACMLAuthzDecisionQueryHandler.handleQuery()," + "caught exception "
-                    + e.getMessage());
+                + e.getMessage());
         }
 
         // decision: Indeterminate, Deny, Permit, NotApplicable
         // status code: missing_attribute, syntax_error, processing_error, ok
-
         Decision decision = ContextFactory.getInstance().createDecision();
         Status status = ContextFactory.getInstance().createStatus();
         StatusCode code = ContextFactory.getInstance().createStatusCode();
@@ -238,7 +236,7 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
             detail.getElement().insertBefore(textNode, null);
         } catch (Exception e) {
             System.out.println("XSPAXACMLAuthzDecisionQueryHandler.handleQuery()," + "caught exception "
-                    + e.getMessage());
+                + e.getMessage());
         }
 
         if (PERMIT.equals(effect)) {
@@ -286,19 +284,18 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
         }
 
         com.sun.identity.saml2.protocol.Response samlpResponse = createSamlpResponse(statement, status.getStatusCode()
-                .getValue());
+            .getValue());
 
         System.out.println("XSPAXACMLAuthzDecisionQueryHandler.handleQuery(), returning " + ":samlResponse=\n"
-                + samlpResponse.toXMLString(true, true));
+            + samlpResponse.toXMLString(true, true));
 
         return samlpResponse;
     }
 
     // END CUSTOM BUS LOGIC
-
     // BEGIN HELPER METHODS
     private com.sun.identity.saml2.protocol.Response createSamlpResponse(XACMLAuthzDecisionStatement statement,
-            String statusCodeValue) throws XACMLException, SAML2Exception {
+        String statusCodeValue) throws XACMLException, SAML2Exception {
 
         com.sun.identity.saml2.protocol.Response samlpResponse = ProtocolFactory.getInstance().createResponse();
         samlpResponse.setID("response-id:1");
@@ -336,59 +333,6 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
             obligation.setFulfillOn(permitAccess ? PERMIT : DENY);
             obligations = PolicyFactory.getInstance().createObligations();
             obligations.addObligation(obligation);
-        } catch (Exception e) {
-            throw new XACMLException("Error: failed to create obligations");
-        }
-        return obligations;
-    }
-
-    private Obligations createObligations(Map advices) throws XACMLException {
-        return null;
-    }
-
-    private Obligations createObligations(String filter) throws XACMLException {
-        Obligations obligations = null;
-        try {
-            Obligation obligation = PolicyFactory.getInstance().createObligation();
-            obligation.setObligationId(new URI("obligation-0"));
-            obligation.setFulfillOn("Permit");
-            List list = new ArrayList();
-            Document doc = XMLUtils.newDocument();
-            Element elem = doc.createElementNS(XACMLConstants.XACML_NS_URI, "xacml:AttributeAssignment");
-            elem.setAttribute("AttributeId", "a-120");
-            elem.setAttribute("DataType", "f-120");
-            list.add(elem);
-            obligation.setAttributeAssignments(list);
-
-            obligations = PolicyFactory.getInstance().createObligations();
-            obligations.addObligation(obligation);
-        } catch (Exception e) {
-            throw new XACMLException("Error: failed to create obligations");
-        }
-        return obligations;
-    }
-
-    private Obligations createSampleObligations(Map advices) throws XACMLException {
-        Obligations obligations = null;
-        try {
-            Obligation obligation1 = PolicyFactory.getInstance().createObligation();
-            obligation1.setObligationId(new URI("obligation-10"));
-            obligation1.setFulfillOn("Permit");
-
-            Obligation obligation2 = PolicyFactory.getInstance().createObligation();
-            obligation2.setObligationId(new URI("obligation-20"));
-            obligation2.setFulfillOn("Permit");
-            List list = new ArrayList();
-            Document doc = XMLUtils.newDocument();
-            Element elem = doc.createElementNS(XACMLConstants.XACML_NS_URI, "xacml:AttributeAssignment");
-            elem.setAttribute("AttributeId", "a-120");
-            elem.setAttribute("DataType", "f-120");
-            list.add(elem);
-            obligation2.setAttributeAssignments(list);
-
-            obligations = PolicyFactory.getInstance().createObligations();
-            obligations.addObligation(obligation1);
-            obligations.addObligation(obligation2);
         } catch (Exception e) {
             throw new XACMLException("Error: failed to create obligations");
         }
