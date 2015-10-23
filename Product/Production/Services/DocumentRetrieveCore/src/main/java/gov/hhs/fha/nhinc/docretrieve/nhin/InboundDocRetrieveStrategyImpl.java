@@ -28,11 +28,6 @@ package gov.hhs.fha.nhinc.docretrieve.nhin;
 
 import org.apache.log4j.Logger;
 
-import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
-import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveFileUtils;
 import gov.hhs.fha.nhinc.docretrieve.MessageGenerator;
 import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxy;
@@ -102,12 +97,6 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
                 "Adapter Document Retrieve Processing");
         }
         return adapterResponse;
-    }
-
-    private AcknowledgementType auditMessage(LogEventRequestType auditLogMsg, AssertionType assertion) {
-        AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-        AuditRepositoryProxy auditRepositoryProxy = auditRepoFactory.getAuditRepositoryProxy();
-        return auditRepositoryProxy.auditLog(auditLogMsg, assertion);
     }
 
     @Override

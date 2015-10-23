@@ -69,7 +69,6 @@ public class Document {
     private byte[] documentContent;
     private boolean documentRetrieved;
 
-    private String document;
     private String contentType;
     private String documentType;
 

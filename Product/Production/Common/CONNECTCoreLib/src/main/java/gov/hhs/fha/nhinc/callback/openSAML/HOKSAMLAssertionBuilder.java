@@ -219,7 +219,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         return isValid;
     }
 
-    protected Subject createEvidenceSubject(CallbackProperties properties, X509Certificate certificate, PublicKey publicKey)
+    protected Subject createEvidenceSubject(CallbackProperties properties, X509Certificate certificate,
+        PublicKey publicKey)
         throws Exception {
         String evidenceSubject = properties.getEvidenceSubject();
         String x509Name = null;
@@ -238,24 +239,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         return createSubject(x509Name, certificate, publicKey);
     }
 
-    /**
-     *
-     * @param value
-     * @return String
-     */
-    private String formatUID(String value) {
-        String newValue = null;
-        if (NullChecker.isNotNullish(value)) {
-            if (value.startsWith("UID=") || value.startsWith("CN=")) {
-                newValue = value;
-            } else {
-                newValue = "UID=" + value;
-            }
-        }
-        return newValue;
-    }
-
-    protected Subject createSubject(String x509Name, X509Certificate certificate, PublicKey publicKey) throws Exception {
+    protected Subject createSubject(String x509Name, X509Certificate certificate,
+        PublicKey publicKey) throws Exception {
         Subject subject;
         subject = OpenSAML2ComponentBuilder.getInstance().createSubject(x509Name, certificate, publicKey);
         return subject;
@@ -433,8 +418,10 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
         evidenceAssertion.getAttributeStatements().addAll(statements);
 
-        //Only set the default value for AuthzDecisionStatement->Evidence->Assertion->Conditions--> notBefore and notOnOrAfter
-        //attributes if the enableAuthDecEvidenceConditionsDefaultValue flag enabled or not provided in gateway proeprties
+        //Only set the default value for
+        //AuthzDecisionStatement->Evidence->Assertion->Conditions--> notBefore and notOnOrAfter
+        //attributes if the enableAuthDecEvidenceConditionsDefaultValue flag
+        //enabled or not provided in gateway proeprties
         if (isAuthDEvidenceConditionsDefaultValueEnabled()) {
             DateTime now = new DateTime();
 
@@ -464,7 +451,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
         //Only create the Conditions if NotBefore and/or NotOnOrAfter is present
         if (beginValidTime != null || endValidTime != null) {
-            Conditions conditions = OpenSAML2ComponentBuilder.getInstance().createConditions(beginValidTime, endValidTime, null);
+            Conditions conditions = OpenSAML2ComponentBuilder.getInstance().createConditions(beginValidTime,
+                endValidTime, null);
             evidenceAssertion.setConditions(conditions);
         }
         evidenceAssertion.setIssueInstant(issueInstant);
@@ -711,7 +699,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     protected boolean isAuthDEvidenceConditionsDefaultValueEnabled() {
         //if not provided or invalid return true else false
         try {
-            String authDEvidenceConditionsDefaultValueEnabled = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.ENABLE_AUTH_DEC_EVIDENCE_CONDITIONS_DEFAULT_VALUE);
+            String authDEvidenceConditionsDefaultValueEnabled = PropertyAccessor.getInstance().getProperty(
+                NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.ENABLE_AUTH_DEC_EVIDENCE_CONDITIONS_DEFAULT_VALUE);
             if (authDEvidenceConditionsDefaultValueEnabled != null) {
                 return !authDEvidenceConditionsDefaultValueEnabled.equals(Boolean.FALSE.toString());
             }

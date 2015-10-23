@@ -359,7 +359,7 @@ public class DocumentQueryTransforms {
      * @param assertion
      * @param direction
      * @param _interface
-     * @param action
+     * @param requestCommunityID
      * @return <code>LogEventRequestType</code>
      */
     public LogEventRequestType transformAcknowledgementToAuditMsg(DocQueryAcknowledgementType acknowledgement,
@@ -422,7 +422,6 @@ public class DocumentQueryTransforms {
         auditMsg.getParticipantObjectIdentification().add(partObjId);
 
         /* Create the AuditSourceIdentifierType object */
-
         // Home Community ID
         // -------------------
         /* Create the AuditSourceIdentifierType object */

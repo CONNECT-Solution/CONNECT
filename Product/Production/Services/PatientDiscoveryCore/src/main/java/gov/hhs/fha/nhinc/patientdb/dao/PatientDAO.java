@@ -26,15 +26,12 @@
  */
 package gov.hhs.fha.nhinc.patientdb.dao;
 
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.model.Identifier;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -80,7 +77,6 @@ public class PatientDAO {
     // =========================
     // Standard CRUD DML Methods
     // =========================
-
     /**
      * Create a single <code>Patient</code> record. The generated id will be available in the patientRecord.
      *
@@ -238,7 +234,6 @@ public class PatientDAO {
     // ===============================
     // Patient Lookup / Search Methods
     // ===============================
-
     /**
      * Fetch all the matching patients from all the community and all assigning authorities on a known id.
      *
@@ -279,7 +274,7 @@ public class PatientDAO {
 
             // Build the select with query criteria
             StringBuffer sqlSelect = new StringBuffer(
-                    "SELECT DISTINCT p.patientId, p.dateOfBirth, p.gender, p.ssn, i.id, i.organizationid");
+                "SELECT DISTINCT p.patientId, p.dateOfBirth, p.gender, p.ssn, i.id, i.organizationid");
             sqlSelect.append(" FROM patientdb.patient p");
             sqlSelect.append(" INNER JOIN patientdb.identifier i ON p.patientId = i.patientId");
             sqlSelect.append(" INNER JOIN patientdb.personname n ON p.patientId = n.patientId");
@@ -408,9 +403,9 @@ public class PatientDAO {
             sqlSelect.append(" ORDER BY i.id, i.organizationid");
 
             SQLQuery sqlQuery = session.createSQLQuery(sqlSelect.toString()).addScalar("patientId", Hibernate.LONG)
-                    .addScalar("dateOfBirth", Hibernate.TIMESTAMP).addScalar("gender", Hibernate.STRING)
-                    .addScalar("ssn", Hibernate.STRING).addScalar("id", Hibernate.STRING)
-                    .addScalar("organizationid", Hibernate.STRING);
+                .addScalar("dateOfBirth", Hibernate.TIMESTAMP).addScalar("gender", Hibernate.STRING)
+                .addScalar("ssn", Hibernate.STRING).addScalar("id", Hibernate.STRING)
+                .addScalar("organizationid", Hibernate.STRING);
 
             int iParam = 0;
             if (NullChecker.isNotNullish(gender)) {
@@ -509,11 +504,11 @@ public class PatientDAO {
 
                     // Populate demographic data
                     patientData
-                            .setAddresses(AddressDAO.getAddressDAOInstance().findPatientAddresses(patientIdArray[i]));
+                        .setAddresses(AddressDAO.getAddressDAOInstance().findPatientAddresses(patientIdArray[i]));
                     patientData.setPersonnames(PersonnameDAO.getPersonnameDAOInstance().findPatientPersonnames(
-                            patientIdArray[i]));
+                        patientIdArray[i]));
                     patientData.setPhonenumbers(PhonenumberDAO.getPhonenumberDAOInstance().findPatientPhonenumbers(
-                            patientIdArray[i]));
+                        patientIdArray[i]));
 
                     patientsList.add(patientData);
                 }
@@ -532,31 +527,4 @@ public class PatientDAO {
         return patientsList;
     }
 
-    // ========================
-    // Utility / Helper Methods
-    // ========================
-    /**
-     * Return gateway property key perf.monitor.expected.errors value
-     *
-     * @return String gateway property value
-     */
-    private static boolean isAllowSSNQuery() {
-        boolean result = false;
-        try {
-            // Use CONNECT utility class to access gateway.properties
-            String allowString = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, ALLOW_SSN_QUERY);
-            if (allowString != null && allowString.equalsIgnoreCase("true")) {
-                result = true;
-            }
-        } catch (PropertyAccessException pae) {
-            LOG.error("Error: Failed to retrieve " + ALLOW_SSN_QUERY + " from property file: "
-                    + NhincConstants.GATEWAY_PROPERTY_FILE);
-            LOG.error(pae.getMessage());
-        } catch (NumberFormatException nfe) {
-            LOG.error("Error: Failed to convert " + ALLOW_SSN_QUERY + " from property file: "
-                    + NhincConstants.GATEWAY_PROPERTY_FILE);
-            LOG.error(nfe.getMessage());
-        }
-        return result;
-    }
 }

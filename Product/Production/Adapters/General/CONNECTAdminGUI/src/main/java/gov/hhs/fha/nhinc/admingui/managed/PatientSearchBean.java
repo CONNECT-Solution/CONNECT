@@ -73,15 +73,6 @@ public class PatientSearchBean {
     private static final String DOCUMENT_FOUND = "Documents Found:";
 
     private int activeIndex = 0;
-    private Document selectedCurrentDocument;
-
-    private String documentXml;
-    private StreamedContent documentImage;
-    private StreamedContent documentPdf;
-    private boolean renderDocumentimage;
-    private boolean renderDocumentPdf;
-    private boolean renderDocumentText;
-    private boolean renderDcoumentNotSupported;
     private String displayOrganizationName;
 
     //For Lookup..should be moved to a different managed bean
@@ -107,10 +98,6 @@ public class PatientSearchBean {
     private String documentMessage;
     private List<String> querySelectedDocuments;
     private int selectedDocument;
-    private String documentTypeName;
-
-    private String documentInfoModalWindowHeader;
-
     //TODO: Temporary should be removed, should use the patient object documentList
     private List<Document> documentList;
 
