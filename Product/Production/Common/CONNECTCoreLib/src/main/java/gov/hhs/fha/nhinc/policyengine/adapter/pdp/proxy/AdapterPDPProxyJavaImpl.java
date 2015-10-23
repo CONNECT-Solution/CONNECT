@@ -325,27 +325,35 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                                                             policyAttrValue = null;
                                                             policyAttrDataType = null;
                                                             if (subjectMatch.getAttributeValue() != null) {
-                                                                if (subjectMatch.getAttributeValue().getContent() != null) {
-                                                                    policyAttrValue = (String) subjectMatch.getAttributeValue()
+                                                                if (subjectMatch.getAttributeValue().getContent()
+                                                                    != null) {
+                                                                    policyAttrValue
+                                                                        = (String) subjectMatch.getAttributeValue()
                                                                         .getContent().get(0);
                                                                 }
                                                                 policyAttrDataType = (subjectMatch.getAttributeValue()
-                                                                    .getDataType() == null) ? subjectMatch.getAttributeValue()
-                                                                        .getDataType() : subjectMatch.getAttributeValue()
+                                                                    .getDataType() == null)
+                                                                        ? subjectMatch.getAttributeValue()
+                                                                        .getDataType()
+                                                                        : subjectMatch.getAttributeValue()
                                                                         .getDataType().trim();
                                                                 LOG.debug("AttributeValue Value: " + policyAttrValue);
-                                                                LOG.debug("AttributeValue DataType: " + policyAttrDataType);
+                                                                LOG.debug("AttributeValue DataType: "
+                                                                    + policyAttrDataType);
                                                             } else {
                                                                 LOG.debug("AttributeValue is null!");
                                                             }
                                                             if (subjectMatch.getSubjectAttributeDesignator() != null) {
-                                                                policyAttrDesAttrId = (subjectMatch.getSubjectAttributeDesignator()
+                                                                policyAttrDesAttrId
+                                                                    = (subjectMatch.getSubjectAttributeDesignator()
                                                                     .getAttributeId() == null) ? subjectMatch
-                                                                        .getSubjectAttributeDesignator().getAttributeId()
+                                                                        .getSubjectAttributeDesignator()
+                                                                        .getAttributeId()
                                                                         : subjectMatch.getSubjectAttributeDesignator()
                                                                         .getAttributeId().trim();
                                                                 policyAttrDesAttrDataType = (subjectMatch
-                                                                    .getSubjectAttributeDesignator().getDataType() == null) ? subjectMatch
+                                                                    .getSubjectAttributeDesignator().getDataType()
+                                                                    == null) ? subjectMatch
                                                                         .getSubjectAttributeDesignator().getDataType()
                                                                         : subjectMatch.getSubjectAttributeDesignator()
                                                                         .getDataType().trim();
@@ -354,7 +362,8 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                                                                 LOG.debug("SubjectAttributeDesignator AttributeId: "
                                                                     + policyAttrDesAttrId);
                                                                 foundMatchingAttributes = false;
-                                                                isMatch = evaluateSubjectMatch(pdpRequest, policyMatchId,
+                                                                isMatch = evaluateSubjectMatch(pdpRequest,
+                                                                    policyMatchId,
                                                                     policyAttrValue, policyAttrDesAttrId,
                                                                     policyAttrDesAttrDataType);
                                                                 if (!foundMatchingAttributes) {
@@ -473,7 +482,8 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                                 LOG.debug("evaluateSubjectMatch - Request Attribute DataType : " + requestAttrDataType);
                                 if ((policyAttrDesAttrId.equals(requestAttrId))
                                     && (policyAttrDesAttrDataType.equals(requestAttrDataType))) {
-                                    isMatch = evaluateMatchWithFunction(policyMatchId, policyAttrValue, requestAttrValue);
+                                    isMatch = evaluateMatchWithFunction(policyMatchId, policyAttrValue,
+                                        requestAttrValue);
                                     foundMatchingAttributes = true;
                                 }
                             }

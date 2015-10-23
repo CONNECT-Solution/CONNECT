@@ -137,7 +137,8 @@ public class AssertionHelper {
 
     public String extractUserName(AssertionType assertion) {
         String username = null;
-        if ((assertion != null) && (assertion.getUserInfo() != null) && (assertion.getUserInfo().getUserName() != null)) {
+        if ((assertion != null) && (assertion.getUserInfo() != null) && (assertion.getUserInfo().getUserName()
+            != null)) {
             username = assertion.getUserInfo().getUserName();
         }
 
@@ -381,10 +382,12 @@ public class AssertionHelper {
             try {
                 orgIdURI = new URI(attributeValue);
             } catch (URISyntaxException ex) {
-                LOG.warn("Home Community in SAML is not a valid URI, it will not be included in message to policy engine");
+                LOG.warn("Home Community in SAML is not a valid URI, it will not be included in message to policy"
+                    + " engine");
             }
         } else {
-            LOG.warn("User Organization in SAML is not a valid URI, it will not be included in message to policy engine");
+            LOG.warn("User Organization in SAML is not a valid URI, it will not be included in message to policy"
+                + " engine");
         }
         AttributeHelper attrHelper = new AttributeHelper();
         attrHelper.appendAttributeToParent(parent, attributeId, dataType, orgIdURI, appendAttributesIfNull);
@@ -636,7 +639,8 @@ public class AssertionHelper {
             value = assertion.getSamlAuthzDecisionStatement().getDecision();
             LOG.debug("Extracted AuthzDecisionStatementDecision value=" + value);
         } else {
-            LOG.warn("Unable to find AuthzDecisionStatementDecision in SAML, will not be included in message to policy engine");
+            LOG.warn("Unable to find AuthzDecisionStatementDecision in SAML, will not be included in message to "
+                + "policy engine");
         }
 
         return value;
@@ -710,7 +714,8 @@ public class AssertionHelper {
             value = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getId();
             LOG.debug("Extracted AuthzDecisionStatementEvidenceAssertionID value=" + value);
         } else {
-            LOG.warn("Unable to find AuthzDecisionStatement Evidence Assertion in SAML, will not be included in message to policy engine");
+            LOG.warn("Unable to find AuthzDecisionStatement Evidence Assertion in SAML, will not be included in "
+                + "message to policy engine");
         }
 
         return value;
@@ -737,13 +742,15 @@ public class AssertionHelper {
             value = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssueInstant();
             LOG.debug("Extracted AuthzDecisionStatementEvidenceAssertionIssueInstant value=" + value);
         } else {
-            LOG.debug("Unable to find AuthzDecisionStatement Evidence Assertion in SAML, will not be included in message to policy engine");
+            LOG.debug("Unable to find AuthzDecisionStatement Evidence Assertion in SAML, will not be included in"
+                + " message to policy engine");
         }
 
         return value;
     }
 
-    private void appendAuthzDecisionStatementEvidenceAssertionVersion(RequestType policyRequest, AssertionType assertion) {
+    private void appendAuthzDecisionStatementEvidenceAssertionVersion(RequestType policyRequest,
+        AssertionType assertion) {
         LOG.debug("begin appending AuthzDecisionStatementEvidenceAssertionVersion");
         ResourceType parent = getResource(policyRequest);
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionVersion;
@@ -763,14 +770,16 @@ public class AssertionHelper {
             value = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getVersion();
             LOG.debug("Extracted AuthzDecisionStatementEvidenceAssertionVersion value=" + value);
         } else {
-            LOG.warn("Unable to find AuthzDecisionStatement Evidence Assertion in SAML, will not be included in message to policy engine");
+            LOG.warn("Unable to find AuthzDecisionStatement Evidence Assertion in SAML, will not be included in message"
+                + " to policy engine");
         }
 
         return value;
 
     }
 
-    private void appendAuthzDecisionStatementEvidenceAssertionIssuer(RequestType policyRequest, AssertionType assertion) {
+    private void appendAuthzDecisionStatementEvidenceAssertionIssuer(RequestType policyRequest,
+        AssertionType assertion) {
         LOG.debug("begin appending AuthzDecisionStatementEvidenceAssertionIssuer");
         ResourceType parent = getResource(policyRequest);
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionIssuer;
@@ -807,7 +816,8 @@ public class AssertionHelper {
                 .getNotBefore();
             LOG.debug("Extracted AuthzDecisionStatementEvidenceAssertionConditionsNotBefore value=" + value);
         } else {
-            LOG.warn("Unable to find AuthzDecisionStatement Evidence Assertion Condition in SAML, will not be included in message to policy engine");
+            LOG.warn("Unable to find AuthzDecisionStatement Evidence Assertion Condition in SAML, will not be included"
+                + " in message to policy engine");
         }
 
         return value;
@@ -837,7 +847,8 @@ public class AssertionHelper {
                 .getNotOnOrAfter();
             LOG.debug("Extracted AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter value=" + value);
         } else {
-            LOG.warn("Unable to find AuthzDecisionStatement Evidence Assertion Condition in SAML, will not be included in message to policy engine");
+            LOG.warn("Unable to find AuthzDecisionStatement Evidence Assertion Condition in SAML, will not be included"
+                + " in message to policy engine");
         }
 
         return value;
@@ -897,7 +908,8 @@ public class AssertionHelper {
             value = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy();
             LOG.debug("Extracted AuthzDecisionStatementEvidenceAssertionAccessConsentPolicy value=" + value);
         } else {
-            LOG.warn("Unable to find AuthzDecisionStatement Evidence Assertion in SAML, will not be included in message to policy engine");
+            LOG.warn("Unable to find AuthzDecisionStatement Evidence Assertion in SAML, will not be included in"
+                + " message to policy engine");
         }
 
         return value;
@@ -928,7 +940,8 @@ public class AssertionHelper {
                 .getInstanceAccessConsentPolicy();
             LOG.debug("Extracted AuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy value=" + value);
         } else {
-            LOG.warn("Unable to find AuthzDecisionStatement Evidence Assertion in SAML, will not be included in message to policy engine");
+            LOG.warn("Unable to find AuthzDecisionStatement Evidence Assertion in SAML, will not be included in"
+                + " message to policy engine");
         }
 
         return value;
@@ -940,7 +953,8 @@ public class AssertionHelper {
         ResourceType parent = getResource(policyRequest);
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy;
         String dataType = Constants.DataTypeAnyURI;
-        List<String> attributeValue = extractAuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy(assertion);
+        List<String> attributeValue
+            = extractAuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy(assertion);
         AttributeHelper attrHelper = new AttributeHelper();
         attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         LOG.debug("end appending AuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy");

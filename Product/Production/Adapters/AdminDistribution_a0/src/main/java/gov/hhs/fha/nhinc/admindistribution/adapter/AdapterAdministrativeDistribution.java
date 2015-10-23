@@ -33,9 +33,11 @@ import javax.xml.ws.BindingType;
  * @author dunnek
  */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterAdministrativeDistribution implements gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionPortType {
+public class AdapterAdministrativeDistribution implements
+    gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionPortType {
 
-    public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageType body) {
+    public void sendAlertMessage(
+        gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageType body) {
         getImpl().sendAlertMessage(body.getEDXLDistribution(), body.getAssertion());
     }
 

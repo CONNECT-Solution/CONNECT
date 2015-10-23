@@ -179,7 +179,8 @@ public class CdaPdfExtractor {
 
                     if (oJAXBElement.getValue() != null) {
                         if (oJAXBElement.getValue() instanceof AdxpExplicitStreetAddressLine) {
-                            AdxpExplicitStreetAddressLine oStreetAddressLine = (AdxpExplicitStreetAddressLine) oJAXBElement
+                            AdxpExplicitStreetAddressLine oStreetAddressLine
+                                = (AdxpExplicitStreetAddressLine) oJAXBElement
                                 .getValue();
                             if ((oStreetAddressLine != null) && (oStreetAddressLine.getContent() != null)) {
                                 oAddr.setStreetAddress(oStreetAddressLine.getContent());
@@ -325,7 +326,8 @@ public class CdaPdfExtractor {
      * @return The Patient Info object to be reutnred.
      * @throws AdapterPIPException This exception is thrown if there is an exception thrown in the conversion.
      */
-    private PolicyPatientInfoType createPatientInfo(POCDMT000040PatientRole oHL7PatientRole) throws AdapterPIPException {
+    private PolicyPatientInfoType createPatientInfo(POCDMT000040PatientRole oHL7PatientRole)
+        throws AdapterPIPException {
         PolicyPatientInfoType oPatientInfo = new PolicyPatientInfoType();
         boolean bHaveData = false;
 
@@ -421,7 +423,7 @@ public class CdaPdfExtractor {
 
         // Original author information will have a specific template ID - locate that template ID and then extract the
         // data from there.
-        // ------------------------------------------------------------------------------------------------------------------------------
+        // -----------------------------------------------------------------------------------------------------------
         POCDMT000040Author oHL7Author = findAuthor(oHL7Authors, CDAConstants.TEMPLATE_ID_ROOT_AUTHOR_ORIGINAL);
         if (oHL7Author != null) {
             // Author time
@@ -497,7 +499,8 @@ public class CdaPdfExtractor {
 
                     // Represented organization ID
                     // ----------------------------
-                    if ((oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().get(0).getExtension() != null)
+                    if ((oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().get(0).getExtension()
+                        != null)
                         && (oHL7Author.getAssignedAuthor().getRepresentedOrganization().getId().get(0)
                         .getExtension().length() > 0)) {
                         oOriginalAuthor.setRepresentedOrganizationId(oHL7Author.getAssignedAuthor()
@@ -518,7 +521,7 @@ public class CdaPdfExtractor {
                     // In this case we should only have serializable objects that are "Strings". Gather all of the
                     // strings up and concatenate them
                     // together.
-                    // -----------------------------------------------------------------------------------------------------------------------------
+                    // -----------------------------------------------------------------------------------------------
                     StringBuilder sbName = new StringBuilder();
                     for (Serializable oSerialElement : oHL7Author.getAssignedAuthor().getRepresentedOrganization()
                         .getName().get(0).getContent()) {
@@ -625,7 +628,7 @@ public class CdaPdfExtractor {
 
         // Scanner author information will have a specific template ID - locate that template ID and then extract the
         // data from there.
-        // ------------------------------------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------
         POCDMT000040Author oHL7Author = findAuthor(oHL7Authors, CDAConstants.TEMPLATE_ID_ROOT_AUTHOR_SCANNER);
         if (oHL7Author != null) {
             // Author time

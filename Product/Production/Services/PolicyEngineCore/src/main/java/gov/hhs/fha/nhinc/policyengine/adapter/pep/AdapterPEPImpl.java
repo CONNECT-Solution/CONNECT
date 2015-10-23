@@ -228,7 +228,8 @@ public class AdapterPEPImpl {
             subjAttrList.addAll(subjIdList);
 
             // Subject organization must be present it is extracted from the Subject of the request
-            List<Attribute> subjOrgList = createSubjAttrs(checkPolicyRequest, XACML_SUBJECT_ORG, XSPA_SUBJECT_ORG, null);
+            List<Attribute> subjOrgList = createSubjAttrs(checkPolicyRequest, XACML_SUBJECT_ORG, XSPA_SUBJECT_ORG,
+                null);
             removeEmptyItems(subjOrgList);
             if (subjOrgList.isEmpty()) {
                 LOG.debug(XSPA_SUBJECT_ORG + " Attribute is empty");
@@ -347,7 +348,8 @@ public class AdapterPEPImpl {
                 // Note that these are not used in the construction of the request
 
                 createResourceAttrs(checkPolicyRequest, XACML_DOCUMENT_ID, XSPA_RESOURCE_ID, extractedDocIds);
-                createResourceAttrs(checkPolicyRequest, XACML_DOC_COMMUNITY_ID, XSPA_RESOURCE_ID, extractedCommunityIds);
+                createResourceAttrs(checkPolicyRequest, XACML_DOC_COMMUNITY_ID, XSPA_RESOURCE_ID,
+                    extractedCommunityIds);
                 createResourceAttrs(checkPolicyRequest, XACML_DOC_REPOSITORY_ID, XSPA_RESOURCE_ID,
                     extractedRepositoryIds);
 
@@ -703,7 +705,6 @@ public class AdapterPEPImpl {
         return xspaAttrs;
     }
 
-
     /**
      * Creates the XSPA Attributes for the document opt-in status
      *
@@ -756,7 +757,8 @@ public class AdapterPEPImpl {
         int numDocIdAttr = documentIds.size();
         int numCommunityIdAttr = communityIds.size();
         int numRepoIdAttr = repositoryIds.size();
-        if (numDocIdAttr != numCommunityIdAttr || numDocIdAttr != numRepoIdAttr || numCommunityIdAttr != numRepoIdAttr) {
+        if (numDocIdAttr != numCommunityIdAttr || numDocIdAttr != numRepoIdAttr || numCommunityIdAttr
+            != numRepoIdAttr) {
             LOG.error("Error in extracting DocumentOptInStatus values: "
                 + "Number of DocumentId Attributes should match number of Community and Repository Attributes");
         } else {
