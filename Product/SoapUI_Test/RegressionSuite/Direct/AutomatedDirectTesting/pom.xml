@@ -6,8 +6,8 @@
         <version>4.6.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>AutomatedDirectOutboundTesting</artifactId>
-    <name>Maven 3 soapUI AutomatedDirectOutboundTesting</name>
+    <artifactId>AutomatedDirectTesting</artifactId>
+    <name>Maven 3 soapUI AutomatedDirectTesting</name>
     <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
 
@@ -73,13 +73,13 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>AutomatedDirectOutboundTesting-soapui-project</id>
+                        <id>AutomatedDirectTesting-soapui-project</id>
                         <phase>integration-test</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <projectFile>${project.basedir}/AutomatedDirectOutboundTesting-soapui-project.xml</projectFile>
+                            <projectFile>${project.basedir}/AutomatedDirectTesting-soapui-project.xml</projectFile>
                             <outputFolder>${project.build.directory}/soapui/output</outputFolder>
                         </configuration>
                     </execution>

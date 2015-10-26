@@ -24,7 +24,7 @@
                 </property>
             </activation>
             <modules>
-                <module>AutomatedDirectOutboundTesting</module>
+                <module>AutomatedDirectTesting</module>
             </modules>
         </profile>
     </profiles>
