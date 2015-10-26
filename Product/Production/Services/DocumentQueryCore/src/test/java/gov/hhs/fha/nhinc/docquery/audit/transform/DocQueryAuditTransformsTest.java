@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransformsTest;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditTransformsConstants;
@@ -62,6 +63,14 @@ import org.junit.Test;
  */
 public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryRequest, AdhocQueryResponse> {
 
+    private final String REMOTE_HCID_WITHOUT_PREFIX = "2.2";
+    private final String REMOTE_HCID_WITH_PREFIX = "urn:oid:2.2";
+    private final String LOCAL_HCID_WITH_PREFIX = "urn:oid:1.1";
+    private final String LOCAL_IP = "10.10.10.10";
+    private final String REMOTE_IP = "16.14.13.12";
+    private final String REMOTE_OBJECT_URL = "http://" + REMOTE_IP + ":9090/source/AuditService";
+    private final String WS_REEQUEST_URL = "http://" + REMOTE_IP + ":9090/AuditService";
+
     public DocQueryAuditTransformsTest() {
     }
 
@@ -74,20 +83,38 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
     }
 
     @Test
-    public void transformRequestToAuditMsg() throws ConnectionManagerException, UnknownHostException {
-        final String localIp = "10.10.10.10";
-        final String remoteIp = "16.14.13.12";
-        final String remoteObjectUrl = "http://" + remoteIp + ":9090/source/AuditService";
-        final String wsRequestUrl = "http://" + remoteIp + ":9090/AuditService";
+    public void testRequestAuditMsgHCIDWithOutPrefix() throws ConnectionManagerException, UnknownHostException {
+        transformRequestToAuditMsg(createAdhocQueryRequest(), createNhinTarget(REMOTE_HCID_WITHOUT_PREFIX),
+            REMOTE_HCID_WITH_PREFIX);
+    }
+
+    @Test
+    public void testRequestAuditMsgHCIDWithPrefix() throws ConnectionManagerException, UnknownHostException {
+        transformRequestToAuditMsg(createAdhocQueryRequest(), createNhinTarget(REMOTE_HCID_WITH_PREFIX),
+            REMOTE_HCID_WITH_PREFIX);
+    }
+
+    @Test
+    public void testResponseAuditMsgHCIDWithOutPrefix() throws ConnectionManagerException, UnknownHostException {
+        transformResponseToAuditMsg(createAdhocQueryRequest(), createAdhocQueryResponse(), LOCAL_HCID_WITH_PREFIX);
+    }
+
+    @Test
+    public void testResponseAuditMsgHCIDWithPrefix() throws ConnectionManagerException, UnknownHostException {
+        transformResponseToAuditMsg(createAdhocQueryRequest(), createAdhocQueryResponse(), LOCAL_HCID_WITH_PREFIX);
+    }
+
+    private void transformRequestToAuditMsg(AdhocQueryRequest request, NhinTargetSystemType target, String hcid) throws
+        ConnectionManagerException, UnknownHostException {
 
         Properties webContextProperties = new Properties();
-        webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, wsRequestUrl);
-        webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, remoteIp);
+        webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, WS_REEQUEST_URL);
+        webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, REMOTE_IP);
 
         DocQueryAuditTransforms transforms = new DocQueryAuditTransforms() {
             @Override
             protected String getLocalHostAddress() {
-                return localIp;
+                return LOCAL_IP;
             }
 
             @Override
@@ -102,38 +129,33 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
 
             @Override
             protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
-                return remoteObjectUrl;
+                return REMOTE_OBJECT_URL;
             }
         };
 
         AssertionType assertion = createAssertion();
-        LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(createAdhocQueryRequest(), assertion,
-            createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
-            Boolean.TRUE, webContextProperties, NhincConstants.DOC_QUERY_SERVICE_NAME);
+        LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(request, assertion, target,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null,
+            NhincConstants.DOC_QUERY_SERVICE_NAME);
 
         testGetEventIdentificationType(auditRequest, NhincConstants.DOC_QUERY_SERVICE_NAME, Boolean.TRUE);
-        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
-        testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
+        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, LOCAL_IP);
+        testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, REMOTE_OBJECT_URL);
         testAuditSourceIdentification(auditRequest.getAuditMessage().getAuditSourceIdentification(), assertion);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
-        assertParticipantObjectIdentification(auditRequest);
+        assertParticipantObjectIdentification(auditRequest, hcid);
     }
 
-    @Test
-    public void transformResponseToAuditMsg() throws ConnectionManagerException, UnknownHostException {
-        final String localIp = "10.10.10.10";
-        final String remoteIp = "16.14.13.12";
-        final String remoteObjectUrl = "http://" + remoteIp + ":9090/source/AuditService";
-        final String wsRequestUrl = "http://" + remoteIp + ":9090/AuditService";
-
+    private void transformResponseToAuditMsg(AdhocQueryRequest request, AdhocQueryResponse response, String hcid) throws
+        ConnectionManagerException, UnknownHostException {
         Properties webContextProperties = new Properties();
-        webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, wsRequestUrl);
-        webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, remoteIp);
+        webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, WS_REEQUEST_URL);
+        webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, REMOTE_IP);
 
         DocQueryAuditTransforms transforms = new DocQueryAuditTransforms() {
             @Override
             protected String getLocalHostAddress() {
-                return localIp;
+                return LOCAL_IP;
             }
 
             @Override
@@ -148,25 +170,23 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
 
             @Override
             protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
-                return remoteObjectUrl;
+                return REMOTE_OBJECT_URL;
             }
         };
 
         AssertionType assertion = createAssertion();
-        LogEventRequestType auditRequest = transforms.transformResponseToAuditMsg(createAdhocQueryRequest(),
-            createAdhocQueryResponse(), assertion, createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-            NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, webContextProperties,
-            NhincConstants.DOC_QUERY_SERVICE_NAME);
+        LogEventRequestType auditResponse = transforms.transformResponseToAuditMsg(request, response, assertion, null,
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE,
+            webContextProperties, NhincConstants.DOC_QUERY_SERVICE_NAME);
 
-        testGetEventIdentificationType(auditRequest, NhincConstants.DOC_QUERY_SERVICE_NAME, Boolean.TRUE);
-        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
-        testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
-        testAuditSourceIdentification(auditRequest.getAuditMessage().getAuditSourceIdentification(), assertion);
-        testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
-        assertParticipantObjectIdentification(auditRequest);
+        testGetEventIdentificationType(auditResponse, NhincConstants.DOC_QUERY_SERVICE_NAME, Boolean.FALSE);
+        testAuditSourceIdentification(auditResponse.getAuditMessage().getAuditSourceIdentification(), assertion);
+        testGetActiveParticipantSource(auditResponse, Boolean.FALSE, webContextProperties, LOCAL_IP);
+        testGetActiveParticipantDestination(auditResponse, Boolean.FALSE, webContextProperties, REMOTE_OBJECT_URL);
+        assertParticipantObjectIdentification(auditResponse, hcid);
     }
 
-    private void assertParticipantObjectIdentification(LogEventRequestType auditRequest) {
+    private void assertParticipantObjectIdentification(LogEventRequestType auditRequest, String hcid) {
         assertNotNull("auditRequest is null", auditRequest);
         assertNotNull("AuditMessage is null", auditRequest.getAuditMessage());
         assertNotNull("ParticipantObjectIdentification is null", auditRequest.getAuditMessage()
@@ -202,16 +222,16 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
         assertSame("ParticipantQuery.ParticipantObjectTypeCode object reference mismatch",
             DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_TYPE_CODE_SYSTEM,
             participantQuery.getParticipantObjectTypeCode());
-        assertSame("ParticipantPatient.ParticipantObjectTypeCodeRole object reference mismatch",
+        assertSame("ParticipantQuery.ParticipantObjectTypeCodeRole object reference mismatch",
             DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_TYPE_CODE_ROLE,
             participantQuery.getParticipantObjectTypeCodeRole());
-        assertEquals("ParticipantPatient.ParticipantObjectIDTypeCode.Code mismatch",
+        assertEquals("ParticipantQuery.ParticipantObjectIDTypeCode.Code mismatch",
             DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_ID_TYPE_CODE,
             participantQuery.getParticipantObjectIDTypeCode().getCode());
-        assertEquals("ParticipantPatient.ParticipantObjectIDTypeCode.CodeSystemName mismatch",
+        assertEquals("ParticipantQuery.ParticipantObjectIDTypeCode.CodeSystemName mismatch",
             DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_ID_TYPE_CODE_SYSTEM,
             participantQuery.getParticipantObjectIDTypeCode().getCodeSystemName());
-        assertEquals("ParticipantPatient.ParticipantObjectIDTypeCode.DisplayName mismatch",
+        assertEquals("ParticipantQuery.ParticipantObjectIDTypeCode.DisplayName mismatch",
             DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_ID_TYPE_DISPLAY_NAME,
             participantQuery.getParticipantObjectIDTypeCode().getDisplayName());
         assertNull("ParticipantPatient.ParticipantObjectName is not null",
@@ -220,6 +240,8 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
             participantQuery.getParticipantObjectName());
         assertNotNull("ParticipantQuery.ParticipantObjectQuery is null",
             participantQuery.getParticipantObjectQuery());
+        assertEquals("ParticipantQuery.ParticipantObjectDetail HomeCommunityId mismatch", hcid,
+            decodeBase64Value(participantQuery.getParticipantObjectDetail().get(1).getValue()));
     }
 
     private AdhocQueryResponse createAdhocQueryResponse() {
@@ -257,5 +279,23 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
     @Override
     protected AuditTransforms<AdhocQueryRequest, AdhocQueryResponse> getAuditTransforms() {
         return new DocQueryAuditTransforms();
+    }
+
+    private NhinTargetSystemType createNhinTarget(String hcid) {
+        NhinTargetSystemType targetSystem = new NhinTargetSystemType();
+        targetSystem.setHomeCommunity(createTargetHomeCommunityType(hcid));
+        return targetSystem;
+    }
+
+    private HomeCommunityType createTargetHomeCommunityType(String hcid) {
+        HomeCommunityType homeCommunityType = new HomeCommunityType();
+        homeCommunityType.setHomeCommunityId(hcid);
+        homeCommunityType.setName("SSA");
+        homeCommunityType.setDescription("This is DOD Gateway");
+        return homeCommunityType;
+    }
+
+    private String decodeBase64Value(byte[] encodedBytes) {
+        return new String(encodedBytes);
     }
 }

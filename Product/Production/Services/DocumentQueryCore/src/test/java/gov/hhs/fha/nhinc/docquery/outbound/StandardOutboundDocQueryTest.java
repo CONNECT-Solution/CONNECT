@@ -98,15 +98,14 @@ public class StandardOutboundDocQueryTest {
 
         NhinTargetCommunitiesType targets = createNhinTargetCommunites();
         AdhocQueryResponse response = entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest,
-                assertion, targets);
+            assertion, targets);
         verify(service).createChildRequests(eq(adhocQueryRequest), eq(assertion), eq(targets));
 
         verify(mockAuditLogger, never()).auditRequestMessage(eq(adhocQueryRequest), eq(assertion), eq(target),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-                eq(Boolean.TRUE), eq(webContextProperties), eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+            eq(Boolean.TRUE), eq(webContextProperties), eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
 
         AdhocQueryResponseAsserter.assertSchemaCompliant(response);
-
     }
 
     @Test
@@ -130,7 +129,7 @@ public class StandardOutboundDocQueryTest {
         AssertionType assertion = mock(AssertionType.class);
         NhinTargetCommunitiesType targets = mock(NhinTargetCommunitiesType.class);
         AdhocQueryResponse response = docQuery
-                .respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion, targets);
+            .respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion, targets);
         AdhocQueryResponseAsserter.assertSchemaCompliant(response);
     }
 
@@ -144,7 +143,7 @@ public class StandardOutboundDocQueryTest {
     }
 
     private List<SlotType1> createSlotList() {
-        List<SlotType1> slotList = new ArrayList<SlotType1>();
+        List<SlotType1> slotList = new ArrayList<>();
         SlotType1 t = new SlotType1();
         t.setName(NhincConstants.DOC_QUERY_XDS_PATIENT_ID_SLOT_NAME);
         ValueListType value = new ValueListType();
@@ -156,7 +155,7 @@ public class StandardOutboundDocQueryTest {
     }
 
     /**
-     * @param targetCommunity
+     * @param targetCommunities
      * @return
      */
     public NhinTargetCommunitiesType createTargetCommunities(NhinTargetCommunityType... targetCommunities) {
@@ -193,7 +192,7 @@ public class StandardOutboundDocQueryTest {
     public void hasBeginOutboundProcessingEvent() throws Exception {
         Class<StandardOutboundDocQuery> clazz = StandardOutboundDocQuery.class;
         Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery", AdhocQueryRequest.class,
-                AssertionType.class, NhinTargetCommunitiesType.class);
+            AssertionType.class, NhinTargetCommunitiesType.class);
         OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
         assertNotNull(annotation);
         assertEquals(AdhocQueryRequestDescriptionBuilder.class, annotation.beforeBuilder());
@@ -212,7 +211,7 @@ public class StandardOutboundDocQueryTest {
         AggregationService service = mock(AggregationService.class);
         DocQueryPolicyChecker policyChecker = mock(DocQueryPolicyChecker.class);
         OutboundDocQueryOrchestratable orch1 = mock(OutboundDocQueryOrchestratable.class);
-        List<OutboundOrchestratable> list = new ArrayList<OutboundOrchestratable>();
+        List<OutboundOrchestratable> list = new ArrayList<>();
         list.add(orch1);
 
         AssertionType assertion = new AssertionType();
@@ -237,12 +236,12 @@ public class StandardOutboundDocQueryTest {
         when(policyChecker.checkOutgoingPolicy(any(AdhocQueryRequest.class), any(AssertionType.class))).thenReturn(false);
 
         AdhocQueryResponse response = entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest,
-                assertion, targets);
+            assertion, targets);
         verify(service).createChildRequests(eq(adhocQueryRequest), eq(assertion), eq(targets));
 
         verify(mockAuditLogger, never()).auditRequestMessage(eq(adhocQueryRequest), eq(assertion), eq(target),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-                eq(Boolean.TRUE), eq(webContextProperties), eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+            eq(Boolean.TRUE), eq(webContextProperties), eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
         assertNotNull(response);
 
     }
@@ -258,7 +257,7 @@ public class StandardOutboundDocQueryTest {
         DocQueryPolicyChecker policyChecker = mock(DocQueryPolicyChecker.class);
         OutboundDocQueryOrchestratable orch1 = mock(OutboundDocQueryOrchestratable.class);
         OutboundDocQueryOrchestratable orch2 = mock(OutboundDocQueryOrchestratable.class);
-        List<OutboundOrchestratable> list = new ArrayList<OutboundOrchestratable>();
+        List<OutboundOrchestratable> list = new ArrayList<>();
         list.add(orch1);
         list.add(orch2);
         AssertionType assertion = new AssertionType();
@@ -275,7 +274,8 @@ public class StandardOutboundDocQueryTest {
             }
         };
 
-        when(policyChecker.checkOutgoingPolicy(any(AdhocQueryRequest.class), any(AssertionType.class))).thenReturn(false).thenReturn(true);
+        when(policyChecker.checkOutgoingPolicy(any(AdhocQueryRequest.class), any(AssertionType.class))).thenReturn(false)
+            .thenReturn(true);
         when(orch1.getAssertion()).thenReturn(assertion);
         when(orch1.getRequest()).thenReturn(adhocQueryRequest);
         when(orch1.getTarget()).thenReturn(target);
@@ -286,11 +286,11 @@ public class StandardOutboundDocQueryTest {
         when(service.createChildRequests(eq(adhocQueryRequest), eq(assertion), eq(targets))).thenReturn(list);
 
         AdhocQueryResponse response = entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest,
-                assertion, targets);
+            assertion, targets);
 
         verify(mockAuditLogger, atLeast(1)).auditRequestMessage(eq(adhocQueryRequest), eq(assertion), eq(target),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-                eq(Boolean.TRUE), eq(webContextProperties), eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+            eq(Boolean.TRUE), eq(webContextProperties), eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
 
         verify(strategy).execute(any(Aggregate.class));
     }

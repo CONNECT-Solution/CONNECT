@@ -77,6 +77,7 @@ public abstract class AuditTransforms<T, K> {
     private static final Logger LOG = Logger.getLogger(AuditTransforms.class);
 
     private T request;
+    private NhinTargetSystemType target;
 
     /**
      * Build an AuditLog Request Message from request
@@ -95,7 +96,7 @@ public abstract class AuditTransforms<T, K> {
         NhinTargetSystemType target, String direction, String _interface, boolean isRequesting,
         Properties webContextProperties, String serviceName) {
         setRequest(request);
-
+        setTarget(target);
         // TODO: auditMsg should either use a builder, or modify in-method with no return
         AuditMessageType auditMsg = createBaseAuditMessage(assertion, target, isRequesting, webContextProperties,
             serviceName);
@@ -575,4 +576,13 @@ public abstract class AuditTransforms<T, K> {
         return request;
     }
 
+    //Getter and setters are provided for NhinTargetSystemType as DQ requires to store the responding gateway HCID in
+    //ParticpantObjectDetail element
+    protected NhinTargetSystemType getTarget() {
+        return target;
+    }
+
+    protected void setTarget(NhinTargetSystemType target) {
+        this.target = target;
+    }
 }

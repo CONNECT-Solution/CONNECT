@@ -61,6 +61,13 @@ import org.junit.Test;
 public class DocRetrieveAuditTransformsTest
     extends AuditTransformsTest<RetrieveDocumentSetRequestType, RetrieveDocumentSetResponseType> {
 
+    private final String HCID_WITHOUT_PREFIX = "2.2";
+    private final String HCID_WITH_PREFIX = "urn:oid:2.2";
+    private final String LOCAL_IP = "10.10.10.10";
+    private final String REMOTE_IP = "16.14.13.12";
+    private final String REMOTE_OBJECT_URL = "http://" + REMOTE_IP + ":9090/source/AuditService";
+    private final String WS_REQUEST_URL = "http://" + REMOTE_IP + ":9090/AuditService";
+
     public DocRetrieveAuditTransformsTest() {
     }
 
@@ -73,20 +80,38 @@ public class DocRetrieveAuditTransformsTest
     }
 
     @Test
-    public void transformRequestToAuditMsg() throws ConnectionManagerException, UnknownHostException {
-        final String localIp = "10.10.10.10";
-        final String remoteIp = "16.14.13.12";
-        final String remoteObjectUrl = "http://" + remoteIp + ":9090/source/AuditService";
-        final String wsRequestUrl = "http://" + remoteIp + ":9090/AuditService";
+    public void testRequestAuditMsgHCIDWithoutPrefix() throws ConnectionManagerException, UnknownHostException {
+        transformRequestToAuditMsg(createRetrieveDocumentSetRequest(HCID_WITHOUT_PREFIX));
+    }
+
+    @Test
+    public void testRequestAuditMsgHCIDWithPrefix() throws ConnectionManagerException, UnknownHostException {
+        transformRequestToAuditMsg(createRetrieveDocumentSetRequest(HCID_WITH_PREFIX));
+    }
+
+    @Test
+    public void testResponseAuditMsgHCIDWithoutPrefix() throws ConnectionManagerException, UnknownHostException {
+        transformResponseToAuditMsg(createRetrieveDocumentSetRequest(HCID_WITHOUT_PREFIX),
+            createRetrieveDocumentSetResponse(HCID_WITHOUT_PREFIX));
+    }
+
+    @Test
+    public void testResponseAuditMsgHCIDWithPrefix() throws ConnectionManagerException, UnknownHostException {
+        transformResponseToAuditMsg(createRetrieveDocumentSetRequest(HCID_WITH_PREFIX),
+            createRetrieveDocumentSetResponse(HCID_WITH_PREFIX));
+    }
+
+    private void transformRequestToAuditMsg(RetrieveDocumentSetRequestType request) throws ConnectionManagerException,
+        UnknownHostException {
 
         Properties webContextProperties = new Properties();
-        webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, wsRequestUrl);
-        webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, remoteIp);
+        webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, WS_REQUEST_URL);
+        webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, REMOTE_IP);
 
         DocRetrieveAuditTransforms transforms = new DocRetrieveAuditTransforms() {
             @Override
             protected String getLocalHostAddress() {
-                return localIp;
+                return LOCAL_IP;
             }
 
             @Override
@@ -101,39 +126,34 @@ public class DocRetrieveAuditTransformsTest
 
             @Override
             protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
-                return remoteObjectUrl;
+                return REMOTE_OBJECT_URL;
             }
         };
 
         AssertionType assertion = createAssertion();
-        LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(createRetrieveDocumentSetRequest(),
-            assertion, createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-            NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE, webContextProperties,
-            NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+        LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(request, assertion, createNhinTarget(),
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE,
+            null, NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
 
         testGetEventIdentificationType(auditRequest, NhincConstants.DOC_RETRIEVE_SERVICE_NAME, Boolean.TRUE);
-        testGetActiveParticipantSource(auditRequest, Boolean.FALSE, webContextProperties, remoteObjectUrl);
-        testGetActiveParticipantDestination(auditRequest, Boolean.FALSE, webContextProperties, localIp);
+        testGetActiveParticipantSource(auditRequest, Boolean.FALSE, webContextProperties, REMOTE_OBJECT_URL);
+        testGetActiveParticipantDestination(auditRequest, Boolean.FALSE, webContextProperties, LOCAL_IP);
         testAuditSourceIdentification(auditRequest.getAuditMessage().getAuditSourceIdentification(), assertion);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticipantObjectIdentification(auditRequest, assertion);
     }
 
-    @Test
-    public void transformResponseToAuditMsg() throws ConnectionManagerException, UnknownHostException {
-        final String localIp = "10.10.10.10";
-        final String remoteIp = "16.14.13.12";
-        final String remoteObjectUrl = "http://" + remoteIp + ":9090/source/AuditService";
-        final String wsRequestUrl = "http://" + remoteIp + ":9090/AuditService";
+    private void transformResponseToAuditMsg(RetrieveDocumentSetRequestType request,
+        RetrieveDocumentSetResponseType response) throws ConnectionManagerException, UnknownHostException {
 
         Properties webContextProperties = new Properties();
-        webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, wsRequestUrl);
-        webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, remoteIp);
+        webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, REMOTE_OBJECT_URL);
+        webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, REMOTE_IP);
 
         DocRetrieveAuditTransforms transforms = new DocRetrieveAuditTransforms() {
             @Override
             protected String getLocalHostAddress() {
-                return localIp;
+                return LOCAL_IP;
             }
 
             @Override
@@ -148,21 +168,19 @@ public class DocRetrieveAuditTransformsTest
 
             @Override
             protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
-                return remoteObjectUrl;
+                return REMOTE_OBJECT_URL;
             }
         };
 
         AssertionType assertion = createAssertion();
-        LogEventRequestType auditResponse = transforms.transformResponseToAuditMsg(createRetrieveDocumentSetRequest(),
-            createRetrieveDocumentSetResponse(), assertion, createNhinTarget(),
-            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, Boolean.TRUE,
+        LogEventRequestType auditResponse = transforms.transformResponseToAuditMsg(request, response, assertion, null,
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE,
             webContextProperties, NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
 
-        testGetEventIdentificationType(auditResponse, NhincConstants.DOC_RETRIEVE_SERVICE_NAME, Boolean.TRUE);
-        testGetActiveParticipantSource(auditResponse, Boolean.FALSE, webContextProperties, remoteObjectUrl);
-        testGetActiveParticipantDestination(auditResponse, Boolean.FALSE, webContextProperties, localIp);
+        testGetEventIdentificationType(auditResponse, NhincConstants.DOC_RETRIEVE_SERVICE_NAME, Boolean.FALSE);
+        testGetActiveParticipantSource(auditResponse, Boolean.FALSE, webContextProperties, REMOTE_OBJECT_URL);
         testAuditSourceIdentification(auditResponse.getAuditMessage().getAuditSourceIdentification(), assertion);
-        testCreateActiveParticipantFromUser(auditResponse, Boolean.TRUE, assertion);
+        testGetActiveParticipantDestination(auditResponse, Boolean.FALSE, webContextProperties, REMOTE_IP);
         assertParticipantObjectIdentification(auditResponse, assertion);
     }
 
@@ -208,7 +226,8 @@ public class DocRetrieveAuditTransformsTest
             participantObject.getParticipantObjectIDTypeCode().getDisplayName());
         assertNull("ParticipantDocument.ParticpantObjectName is not null",
             participantObject.getParticipantObjectName());
-
+        assertEquals("ParticipantDocument.ParticipantObjectDetail HomeCommunityId mismatch", HCID_WITH_PREFIX,
+            decodeBase64Value(participantObject.getParticipantObjectDetail().get(1).getValue()));
     }
 
     private void assertParticipantPatientObjectIdentification(ParticipantObjectIdentificationType participantObject) {
@@ -233,21 +252,21 @@ public class DocRetrieveAuditTransformsTest
             participantObject.getParticipantObjectIDTypeCode().getDisplayName());
     }
 
-    private RetrieveDocumentSetRequestType createRetrieveDocumentSetRequest() {
+    private RetrieveDocumentSetRequestType createRetrieveDocumentSetRequest(String hcid) {
         RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
         DocumentRequest docRequest = new DocumentRequest();
         docRequest.setDocumentUniqueId("D123401");
-        docRequest.setHomeCommunityId("ihe:homeCommunityID");
+        docRequest.setHomeCommunityId(hcid);
         docRequest.setRepositoryUniqueId("ihe:RepositoryUniqueId");
         request.getDocumentRequest().add(docRequest);
         return request;
     }
 
-    private RetrieveDocumentSetResponseType createRetrieveDocumentSetResponse() {
+    private RetrieveDocumentSetResponseType createRetrieveDocumentSetResponse(String hcid) {
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
         DocumentResponse docResponse = new DocumentResponse();
         docResponse.setDocumentUniqueId("D123401");
-        docResponse.setHomeCommunityId("ihe:homeCommunityID");
+        docResponse.setHomeCommunityId(hcid);
         docResponse.setRepositoryUniqueId("ihe:RepositoryUniqueId");
         response.getDocumentResponse().add(docResponse);
         return response;
@@ -347,5 +366,9 @@ public class DocRetrieveAuditTransformsTest
         assertEquals("RoleIDCode.DisplayName mismatch",
             AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME,
             destinationActiveParticipant.getRoleIDCode().get(0).getDisplayName());
+    }
+
+    private String decodeBase64Value(byte[] encodedBytes) {
+        return new String(encodedBytes);
     }
 }

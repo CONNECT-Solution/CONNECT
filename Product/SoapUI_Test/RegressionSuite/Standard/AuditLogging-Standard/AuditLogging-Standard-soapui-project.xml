@@ -6050,8 +6050,7 @@ if (propertiesFile.exists()) {
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -6181,19 +6180,25 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
   			assert decodedData1 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@value" )
 	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@type" )
 	 		def decodedData2 = new String (parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@value.text().decodeBase64())
-  			assert decodedData2 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@value" )
+	 		def remoteHCID = testRunner.testCase.testSuite.project.getPropertyValue("RemoteHCID")
+	 		def remoteHCIDWithPrefix 
+	 		if(remoteHCID.startsWith("urn:oid:")){
+	 			remoteHCIDWithPrefix= remoteHCID
+	 		}
+	 		else{
+	 			remoteHCIDWithPrefix = "urn:oid:"+remoteHCID
+	 		}
+  			assert decodedData2 == remoteHCIDWithPrefix
 	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@type" )
 	 		
 	 	} 
   	}
   }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -6307,14 +6312,21 @@ if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCo
   			assert decodedData1 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@value" )
 	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@type" )
 	 		def decodedData2 = new String (parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@value.text().decodeBase64())
-  			assert decodedData2 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@value" )
+	 		def localHCID = testRunner.testCase.testSuite.project.getPropertyValue("LocalHCID")
+	 		def localHCIDWithPrefix 
+	 		if(localHCID.startsWith("urn:oid:")){
+	 			localHCIDWithPrefix= localHCID
+	 		}
+	 		else{
+	 			localHCIDWithPrefix = "urn:oid:"+localHCID
+	 		}
+  			assert decodedData2 == localHCIDWithPrefix
 	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@type" )
 	 		
 	 	} 
   	}
   }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
@@ -6334,19 +6346,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-08T18:33:14Z</con:value>
+          <con:value>2015-10-26T20:46:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-08T18:43:14Z</con:value>
+          <con:value>2015-10-26T20:56:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/08/2015 18:33:14</con:value>
+          <con:value>10/26/2015 20:46:17</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-07T00:00:00Z</con:value>
+          <con:value>2015-11-25T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -6570,7 +6582,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@value</con:name>
-          <con:value>1.1</con:value>
+          <con:value>urn:oid:2.2</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
@@ -6594,7 +6606,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
-          <con:value>'D123401^^^&amp;2.2&amp;ISO'</con:value>
+          <con:value>D123401^^^&amp;2.2&amp;ISO</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@type</con:name>
@@ -6618,7 +6630,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
-          <con:value>1.1</con:value>
+          <con:value>urn:oid:1.1</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserName</con:name>
@@ -6648,7 +6660,7 @@ if (propertiesFile.exists()) {
           <con:name>ActiveParticipant_Dest_g0.@UserID</con:name>
           <con:value>https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery</con:value>
         </con:property>
-      </con:properties>
+      <con:property><con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail_1_Responding.@value</con:name><con:value>urn:oid:1.1</con:value></con:property><con:property><con:name>&lt;--Responding</con:name><con:value>Gateway HCID --></con:value></con:property></con:properties>
       <con:reportParameters/>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true" id="aaab3ed0-71f1-4f72-83f0-cc840ec185cd">
@@ -6969,8 +6981,7 @@ if (propertiesFile.exists()) {
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -7097,19 +7108,24 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
   			assert decodedData1 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@value" )
 	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@type" )	 		
 	 		def decodedData2 = new String (parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@value.text().decodeBase64())
-	 		//Commented until code is fixed to populate correct value as per spec.
-  			//assert decodedData2 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@value" )
+	 		def remoteHCID = testRunner.testCase.testSuite.project.getPropertyValue("RemoteHCID")
+	 		def remoteHCIDWithPrefix 
+	 		if(remoteHCID.startsWith("urn:oid:")){
+	 			remoteHCIDWithPrefix= remoteHCID
+	 		}
+	 		else{
+	 			remoteHCIDWithPrefix = "urn:oid:"+remoteHCID
+	 		}
+  			assert decodedData2 == remoteHCIDWithPrefix
 	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@type" )	 		
 	 	}	    
       } 
   }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[import java.util.regex.*
+        <con:config><script><![CDATA[import java.util.regex.*
 context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
@@ -7210,13 +7226,20 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
   			assert decodedData1 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@value" )
 	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@type" )
 	 		def decodedData2 = new String (parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@value.text().decodeBase64())
-  			assert decodedData2 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@value" )
+  			def remoteHCID = testRunner.testCase.testSuite.project.getPropertyValue("RemoteHCID")
+	 		def remoteHCIDWithPrefix 
+	 		if(remoteHCID.startsWith("urn:oid:")){
+	 			remoteHCIDWithPrefix= remoteHCID
+	 		}
+	 		else{
+	 			remoteHCIDWithPrefix = "urn:oid:"+remoteHCID
+	 		}
+  			assert decodedData2 == remoteHCIDWithPrefix
 	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@type" )	 		
 	 	}	  
 	}
  }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
@@ -7240,19 +7263,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-08T19:07:47Z</con:value>
+          <con:value>2015-10-26T20:54:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-08T19:17:47Z</con:value>
+          <con:value>2015-10-26T21:04:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/08/2015 19:07:47</con:value>
+          <con:value>10/26/2015 20:54:35</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-07T00:00:00Z</con:value>
+          <con:value>2015-11-25T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@value</con:name>
@@ -7268,7 +7291,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
-          <con:value>1.1</con:value>
+          <con:value>urn:oid:1.1</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.ParticipantObjectName</con:name>
@@ -13963,8 +13986,7 @@ if (propertiesFile.exists()) {
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -14095,19 +14117,24 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
   			assert decodedData1 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@value" )
 	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@type" )
 	 		def decodedData2 = new String (parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@value.text().decodeBase64())
-  			assert decodedData2 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@value" )
-	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@type" )
-	 		
+	 			 		def remoteHCID = testRunner.testCase.testSuite.project.getPropertyValue("RemoteHCID")
+	 		def remoteHCIDWithPrefix 
+	 		if(remoteHCID.startsWith("urn:oid:")){
+	 			remoteHCIDWithPrefix= remoteHCID
+	 		}
+	 		else{
+	 			remoteHCIDWithPrefix = "urn:oid:"+remoteHCID
+	 		}
+  			assert decodedData2 == remoteHCIDWithPrefix
+	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@type" )	 		
 	 	} 
   	}
   }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -14220,14 +14247,21 @@ if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCo
   			assert decodedData1 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@value" )
 	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@type" )
 	 		def decodedData2 = new String (parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@value.text().decodeBase64())
-  			assert decodedData2 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@value" )
+			def localHCID = testRunner.testCase.testSuite.project.getPropertyValue("LocalHCID")
+	 		def localHCIDWithPrefix 
+	 		if(localHCID.startsWith("urn:oid:")){
+	 			localHCIDWithPrefix= localHCID
+	 		}
+	 		else{
+	 			localHCIDWithPrefix = "urn:oid:"+localHCID
+	 		}
+  			assert decodedData2 == localHCIDWithPrefix
 	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@type" )
 	 		
 	 	} 
   	}
   }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
@@ -14247,19 +14281,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-01T20:23:01Z</con:value>
+          <con:value>2015-10-26T20:46:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-01T20:33:01Z</con:value>
+          <con:value>2015-10-26T20:56:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/01/2015 20:23:01</con:value>
+          <con:value>10/26/2015 20:46:27</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-10-31T00:00:00Z</con:value>
+          <con:value>2015-11-25T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -14507,7 +14541,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
-          <con:value>'D123401^^^&amp;2.2&amp;ISO'</con:value>
+          <con:value>D123401^^^&amp;2.2&amp;ISO</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@type</con:name>
@@ -14531,7 +14565,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
-          <con:value>1.1</con:value>
+          <con:value>urn:oid:1.1</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserName</con:name>
@@ -14878,8 +14912,7 @@ if (propertiesFile.exists()) {
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -15006,19 +15039,24 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
   			assert decodedData1 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@value" )
 	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@type" )
 	 		def decodedData2 = new String (parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@value.text().decodeBase64())
-	 		//Commented until code fixed to populate correct value as per spec
-  			//assert decodedData2 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@value" )
+  			def remoteHCID = testRunner.testCase.testSuite.project.getPropertyValue("RemoteHCID")
+	 		def remoteHCIDWithPrefix 
+	 		if(remoteHCID.startsWith("urn:oid:")){
+	 			remoteHCIDWithPrefix= remoteHCID
+	 		}
+	 		else{
+	 			remoteHCIDWithPrefix = "urn:oid:"+remoteHCID
+	 		}
+  			assert decodedData2 == remoteHCIDWithPrefix
 	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@type" )	 		
 	 	}	    
       } 
   }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -15119,13 +15157,20 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
   			assert decodedData1 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@value" )
 	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@type" )
 	 		def decodedData2 = new String (parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@value.text().decodeBase64())
-  			assert decodedData2 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@value" )
+  			def remoteHCID = testRunner.testCase.testSuite.project.getPropertyValue("RemoteHCID")
+	 		def remoteHCIDWithPrefix 
+	 		if(remoteHCID.startsWith("urn:oid:")){
+	 			remoteHCIDWithPrefix= remoteHCID
+	 		}
+	 		else{
+	 			remoteHCIDWithPrefix = "urn:oid:"+remoteHCID
+	 		}
+  			assert decodedData2 == remoteHCIDWithPrefix
 	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@type" )	 		
 	 	}	  
 	}
  }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
@@ -15149,19 +15194,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-08T19:08:40Z</con:value>
+          <con:value>2015-10-26T20:54:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-08T19:18:40Z</con:value>
+          <con:value>2015-10-26T21:04:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/08/2015 19:08:40</con:value>
+          <con:value>10/26/2015 20:54:26</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-07T00:00:00Z</con:value>
+          <con:value>2015-11-25T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@value</con:name>
@@ -15177,7 +15222,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
-          <con:value>1.1</con:value>
+          <con:value>urn:oid:1.1</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.ParticipantObjectName</con:name>

@@ -61,7 +61,7 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
      *
      * @param request the AdhocQueryRequest message to be sent
      * @param assertion the AssertionType instance received from the adapter
-     * @param target NhinTargetCommunitiesType where DocQuery Request is to be sent. Only the first one is used.
+     * @param targets
      * @return AdhocQueryResponse received from the NHIN
      */
     @Override
@@ -109,8 +109,9 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
     private void warnTooManyTargets(String targetHCID, NhinTargetCommunitiesType targets) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Multiple targets in request message in passthrough mode."
-            + "  Only sending to target HCID: " + targetHCID + ".");
+        stringBuilder.append("Multiple targets in request message in passthrough mode.");
+        stringBuilder.append("  Only sending to target HCID: ");
+        stringBuilder.append(targetHCID).append(".");
         stringBuilder.append("  Not sending request to: ");
         Iterator<NhinTargetCommunityType> communityIterator = targets.getNhinTargetCommunity().iterator();
         Boolean first = true;
@@ -143,7 +144,7 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
             NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null, NhincConstants.DOC_QUERY_SERVICE_NAME);
     }
 
-    private DocQueryAuditLogger getAuditLogger() {
+    protected DocQueryAuditLogger getAuditLogger() {
         return new DocQueryAuditLogger();
     }
 }

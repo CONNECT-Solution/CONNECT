@@ -30,6 +30,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
@@ -41,6 +42,9 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 import org.junit.Test;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.isNull;
+import static org.mockito.Mockito.verify;
 
 /**
  * @author akong
@@ -70,7 +74,7 @@ public class StandardInboundDocQueryTest extends InboundDocQueryTest {
         AssertionType mockAssertion = getMockAssertion(sendingHcid);
 
         StandardInboundDocQuery standardDocQuery = new StandardInboundDocQuery(policyChecker,
-                getMockAdapterFactory(mockAssertion), mockAuditLogger) {
+            getMockAdapterFactory(mockAssertion), mockAuditLogger) {
             @Override
             protected String getLocalHomeCommunityId() {
                 return RESPONDING_HCID_FORMATTED;
@@ -84,33 +88,36 @@ public class StandardInboundDocQueryTest extends InboundDocQueryTest {
 
     @Test
     public void failedPolicy() {
-        AdhocQueryRequest request = new AdhocQueryRequest();
+        //AdhocQueryRequest request = new AdhocQueryRequest();
         AssertionType assertion = new AssertionType();
         Properties webContextProperties = new Properties();
         AdapterDocQueryProxyObjectFactory mockAdapterFactory = mock(AdapterDocQueryProxyObjectFactory.class);
         AdapterDocQueryProxy mockAdapterProxy = mock(AdapterDocQueryProxy.class);
 
-        DocQueryAuditLogger mockAuditLogger = mock(DocQueryAuditLogger.class);
-        DocQueryPolicyChecker policyChecker = mock(DocQueryPolicyChecker.class);
+        //DocQueryAuditLogger mockAuditLogger = mock(DocQueryAuditLogger.class);
+        //DocQueryPolicyChecker policyChecker = mock(DocQueryPolicyChecker.class);
         when(mockAdapterFactory.getAdapterDocQueryProxy()).thenReturn(mockAdapterProxy);
 
         when(policyChecker.checkIncomingPolicy(request, assertion)).thenReturn(false);
 
         StandardInboundDocQuery standardDocQuery = new StandardInboundDocQuery(policyChecker, mockAdapterFactory,
-                mockAuditLogger) {
+            mockAuditLogger) {
             @Override
             protected String getLocalHomeCommunityId() {
                 return RESPONDING_HCID_FORMATTED;
             }
         };
         AdhocQueryResponse actualResponse = standardDocQuery.respondingGatewayCrossGatewayQuery(request, assertion,
-                webContextProperties);
+            webContextProperties);
 
         assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE, actualResponse.getStatus());
         assertEquals(DocumentConstants.XDS_ERRORCODE_REPOSITORY_ERROR, actualResponse.getRegistryErrorList()
-                .getRegistryError().get(0).getErrorCode());
+            .getRegistryError().get(0).getErrorCode());
         assertEquals(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, actualResponse.getRegistryErrorList()
-                .getRegistryError().get(0).getSeverity());
-
+            .getRegistryError().get(0).getSeverity());
+        verify(mockAuditLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), isNull(
+            NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
+            eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
     }
 }
