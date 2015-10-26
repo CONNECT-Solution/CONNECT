@@ -31,14 +31,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
-import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.Properties;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 import org.junit.Test;
@@ -88,14 +85,11 @@ public class StandardInboundDocQueryTest extends InboundDocQueryTest {
 
     @Test
     public void failedPolicy() {
-        //AdhocQueryRequest request = new AdhocQueryRequest();
         AssertionType assertion = new AssertionType();
         Properties webContextProperties = new Properties();
         AdapterDocQueryProxyObjectFactory mockAdapterFactory = mock(AdapterDocQueryProxyObjectFactory.class);
         AdapterDocQueryProxy mockAdapterProxy = mock(AdapterDocQueryProxy.class);
 
-        //DocQueryAuditLogger mockAuditLogger = mock(DocQueryAuditLogger.class);
-        //DocQueryPolicyChecker policyChecker = mock(DocQueryPolicyChecker.class);
         when(mockAdapterFactory.getAdapterDocQueryProxy()).thenReturn(mockAdapterProxy);
 
         when(policyChecker.checkIncomingPolicy(request, assertion)).thenReturn(false);
