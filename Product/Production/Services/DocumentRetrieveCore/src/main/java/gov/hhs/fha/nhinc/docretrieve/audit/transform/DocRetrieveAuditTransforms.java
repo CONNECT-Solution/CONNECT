@@ -45,6 +45,7 @@ import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant
 import java.net.MalformedURLException;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 /**
  * This class is designed for supporting Audit Logging for Retrieve Document.
@@ -131,7 +132,8 @@ public class DocRetrieveAuditTransforms
             && request.getDocumentRequest().get(0) != null
             && request.getDocumentRequest().get(0).getHomeCommunityId() != null) {
 
-            homeCommunityId = request.getDocumentRequest().get(0).getHomeCommunityId();
+            homeCommunityId = HomeCommunityMap.getHomeCommunityIdWithPrefix(request.getDocumentRequest().get(0).
+                getHomeCommunityId());
 
         } else {
             LOG.error("HomeCommunityId doesn't exist in the received RetrieveDocumentSetRequestType message");
@@ -172,7 +174,8 @@ public class DocRetrieveAuditTransforms
             && response.getDocumentResponse() != null
             && response.getDocumentResponse().get(0) != null
             && response.getDocumentResponse().get(0).getHomeCommunityId() != null) {
-            homeCommunityId = response.getDocumentResponse().get(0).getHomeCommunityId();
+            homeCommunityId = HomeCommunityMap.getHomeCommunityIdWithPrefix(response.getDocumentResponse().get(0).
+                getHomeCommunityId());
         } else {
             LOG.error("HomeCommunityId doesn't exist in RetrieveDocumentSetResponseType message");
         }
@@ -185,9 +188,8 @@ public class DocRetrieveAuditTransforms
             && response.getDocumentResponse().get(0) != null
             && response.getDocumentResponse().get(0).getDocumentUniqueId() != null) {
             return response.getDocumentResponse().get(0).getDocumentUniqueId();
-        } else {
-            return null;
         }
+        return null;
     }
 
     private AuditMessageType createPatientParticipantObjectIdentification(AuditMessageType auditMsg,
@@ -236,18 +238,10 @@ public class DocRetrieveAuditTransforms
     private void getParticipantObjectDetail(byte[] repositoryUniqueId, byte[] homeCommunityId,
         ParticipantObjectIdentificationType participantObject) {
 
-        TypeValuePairType valueRepositoryUniqueId = new TypeValuePairType();
-
-        valueRepositoryUniqueId.setType(
-            DocRetrieveAuditTransformsConstants.PARTICIPANT_OBJECT_DETAIL_REPOSITORY_UNIQUE_TYPE);
-        valueRepositoryUniqueId.setValue(repositoryUniqueId);
-        participantObject.getParticipantObjectDetail().add(valueRepositoryUniqueId);
-
-        TypeValuePairType valueHomeCommunityId = new TypeValuePairType();
-        valueHomeCommunityId.setType(
-            DocRetrieveAuditTransformsConstants.PARTICIPANT_OBJECT_DETAIL_HOME_COMMUNITY_ID_TYPE);
-        valueHomeCommunityId.setValue(homeCommunityId);
-        participantObject.getParticipantObjectDetail().add(valueHomeCommunityId);
+        participantObject.getParticipantObjectDetail().add(getTypeValuePair(
+            DocRetrieveAuditTransformsConstants.PARTICIPANT_OBJECT_DETAIL_REPOSITORY_UNIQUE_TYPE, repositoryUniqueId));
+        participantObject.getParticipantObjectDetail().add(getTypeValuePair(
+            DocRetrieveAuditTransformsConstants.PARTICIPANT_OBJECT_DETAIL_HOME_COMMUNITY_ID_TYPE, homeCommunityId));
     }
 
     private ParticipantObjectIdentificationType buildBaseParticipantObjectIdentificationType() {
@@ -364,9 +358,9 @@ public class DocRetrieveAuditTransforms
 
         participant.getRoleIDCode()
             .add(AuditDataTransformHelper.createCodeValueType(
-                    AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
-                    AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
-                    AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
+                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
+                AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
 
         participant.setUserIsRequestor(Boolean.FALSE);
 
@@ -410,10 +404,16 @@ public class DocRetrieveAuditTransforms
 
         participant.getRoleIDCode()
             .add(AuditDataTransformHelper.createCodeValueType(
-                    AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, null,
-                    AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
-                    AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME));
+                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, null,
+                AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME));
         return participant;
     }
 
+    private TypeValuePairType getTypeValuePair(String key, byte[] value) {
+        TypeValuePairType type = new TypeValuePairType();
+        type.setType(key);
+        type.setValue(value);
+        return type;
+    }
 }

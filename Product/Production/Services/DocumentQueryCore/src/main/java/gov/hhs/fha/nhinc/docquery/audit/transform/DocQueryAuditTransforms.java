@@ -31,9 +31,12 @@ import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationTyp
 import com.services.nhinc.schema.auditmessage.TypeValuePairType;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditTransformsConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import java.io.ByteArrayOutputStream;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -58,7 +61,7 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
         // not present in the request, the Audit Object will not hold ParticipantObjectIdentification for Patient.
         auditMsg = getPatientParticipantObjectIdentificationForRequest(request, auditMsg);
         try {
-            auditMsg = getQueryParamsParticipantObjectIdentificationForRequest(request, auditMsg);
+            auditMsg = getQueryParamsParticipantObjectIdentificationForRequest(request, auditMsg, getTarget());
         } catch (JAXBException ex) {
             LOG.error("Error while creating ParticipantObjectIdentificationQueryByParameters segment : "
                 + ex.getLocalizedMessage(), ex);
@@ -68,17 +71,15 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
 
     @Override
     protected AuditMessageType getParticipantObjectIdentificationForResponse(AdhocQueryRequest request,
-        AdhocQueryResponse response,
-        AssertionType assertion, AuditMessageType auditMsg) {
-        auditMsg = getPatientParticipantObjectIdentificationForResponse(request, response, auditMsg);
+        AdhocQueryResponse response, AssertionType assertion, AuditMessageType auditMsg) {
+        auditMsg = getPatientParticipantObjectIdentificationForResponse(request, auditMsg);
         try {
-            auditMsg = getQueryParticipantObjectIdentificationForResponse(request, response, auditMsg);
+            auditMsg = getQueryParticipantObjectIdentificationForResponse(request, auditMsg);
         } catch (JAXBException ex) {
             LOG.error("Error while creating ParticipantObjectIdentificationQueryByParameters segment : "
                 + ex.getLocalizedMessage(), ex);
         }
         return auditMsg;
-
     }
 
     @Override
@@ -132,11 +133,14 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
     }
 
     private AuditMessageType getQueryParamsParticipantObjectIdentificationForRequest(AdhocQueryRequest request,
-        AuditMessageType auditMsg) throws JAXBException {
-        ParticipantObjectIdentificationType participantObject
-            = createQueryParticipantObjectIdentification(getQueryIdFromRequest(request));
-        participantObject.setParticipantObjectQuery(getParticipantObjectQueryForRequest(request));
-        auditMsg.getParticipantObjectIdentification().add(participantObject);
+        AuditMessageType auditMsg, NhinTargetSystemType target) throws JAXBException {
+        String respondingHCID = (target != null && target.getHomeCommunity() != null) ? target.getHomeCommunity()
+            .getHomeCommunityId() : null;
+        ParticipantObjectIdentificationType participantObj = createQueryParticipantObjectIdentification(
+            getQueryIdFromRequest(request), HomeCommunityMap.getHomeCommunityIdWithPrefix(respondingHCID));
+
+        participantObj.setParticipantObjectQuery(getParticipantObjectQueryForRequest(request));
+        auditMsg.getParticipantObjectIdentification().add(participantObj);
         return auditMsg;
     }
 
@@ -145,36 +149,36 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
     private AuditMessageType getPatientParticipantObjectIdentificationForRequest(AdhocQueryRequest request,
         AuditMessageType auditMsg) {
         String patientId = getPatientIdFromRequest(request);
-        if (patientId != null) {
-            ParticipantObjectIdentificationType participantObject
-                = createPatientParticipantObjectIdentification(patientId);
-            auditMsg.getParticipantObjectIdentification().add(participantObject);
+        if (NullChecker.isNotNullish(patientId)) {
+            ParticipantObjectIdentificationType participantObj = createPatientParticipantObjectIdentification(patientId);
+            auditMsg.getParticipantObjectIdentification().add(participantObj);
         }
         return auditMsg;
     }
 
     private AuditMessageType getPatientParticipantObjectIdentificationForResponse(AdhocQueryRequest request,
-        AdhocQueryResponse response, AuditMessageType auditMsg) {
+        AuditMessageType auditMsg) {
         String patientId = getPatientIdFromRequest(request);
-        if (patientId != null) {
-            ParticipantObjectIdentificationType participantObject
-                = createPatientParticipantObjectIdentification(patientId);
-            auditMsg.getParticipantObjectIdentification().add(participantObject);
+        if (NullChecker.isNotNullish(patientId)) {
+            ParticipantObjectIdentificationType participantObj = createPatientParticipantObjectIdentification(patientId);
+            auditMsg.getParticipantObjectIdentification().add(participantObj);
         }
         return auditMsg;
-
     }
 
     private AuditMessageType getQueryParticipantObjectIdentificationForResponse(AdhocQueryRequest request,
-        AdhocQueryResponse response, AuditMessageType auditMsg) throws JAXBException {
-        ParticipantObjectIdentificationType participantObject
-            = createQueryParticipantObjectIdentification(getQueryIdFromRequest(request));
-        participantObject.setParticipantObjectQuery(getParticipantObjectQueryForRequest(request));
-        auditMsg.getParticipantObjectIdentification().add(participantObject);
+        AuditMessageType auditMsg) throws JAXBException {
+
+        ParticipantObjectIdentificationType participantObj = createQueryParticipantObjectIdentification(
+            getQueryIdFromRequest(request), HomeCommunityMap.getHomeCommunityIdWithPrefix(HomeCommunityMap.
+            getLocalHomeCommunityId()));
+        participantObj.setParticipantObjectQuery(getParticipantObjectQueryForRequest(request));
+        auditMsg.getParticipantObjectIdentification().add(participantObj);
         return auditMsg;
     }
 
-    private ParticipantObjectIdentificationType createQueryParticipantObjectIdentification(String queryId) {
+    private ParticipantObjectIdentificationType createQueryParticipantObjectIdentification(String queryId,
+        String hcid) {
         ParticipantObjectIdentificationType participantObject = createParticipantObject(
             DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_TYPE_CODE_SYSTEM,
             DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_TYPE_CODE_ROLE,
@@ -182,20 +186,15 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
             DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_ID_TYPE_CODE_SYSTEM,
             DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_ID_TYPE_DISPLAY_NAME);
 
-        if (queryId != null && !queryId.isEmpty()) {
+        if (NullChecker.isNotNullish(queryId)) {
             participantObject.setParticipantObjectID(queryId);
         }
-        TypeValuePairType encoding = new TypeValuePairType();
-        encoding.setType(DocQueryAuditTransformsConstants.QUERY_ENCODING_TYPE);
-        encoding.setValue(DocQueryAuditTransformsConstants.UTF_8.getBytes());
-        participantObject.getParticipantObjectDetail().add(encoding);
-        //TODO is the homeCommunityId of responding gateway ???
-        TypeValuePairType homeCommunityTypeValue = new TypeValuePairType();
-        homeCommunityTypeValue.setType(DocQueryAuditTransformsConstants.HOME_COMMUNITY_ID);
-        homeCommunityTypeValue.setValue(HomeCommunityMap.formatHomeCommunityId(
-            HomeCommunityMap.getLocalHomeCommunityId()).getBytes());
-        participantObject.getParticipantObjectDetail().add(homeCommunityTypeValue);
-
+        participantObject.getParticipantObjectDetail().add(getTypeValuePair(
+            DocQueryAuditTransformsConstants.QUERY_ENCODING_TYPE, DocQueryAuditTransformsConstants.UTF_8.getBytes()));
+        if (NullChecker.isNotNullish(hcid)) {
+            participantObject.getParticipantObjectDetail().add(getTypeValuePair(
+                DocQueryAuditTransformsConstants.HOME_COMMUNITY_ID, hcid.getBytes()));
+        }
         return participantObject;
     }
 
@@ -209,10 +208,9 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
             DocQueryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE_SYSTEM,
             DocQueryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME);
 
-        if (pid != null && !pid.isEmpty()) {
+        if (NullChecker.isNotNullish(pid)) {
             participantObject.setParticipantObjectID(pid);
         }
-
         return participantObject;
     }
 
@@ -251,14 +249,22 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
             && request.getAdhocQuery().getSlot() != null
             && !request.getAdhocQuery().getSlot().isEmpty()) {
             for (SlotType1 slot : request.getAdhocQuery().getSlot()) {
-                if (slot.getName().equals(DocQueryAuditTransformsConstants.XDS_DOCUMENT_ENTRY_PATIENT_ID)) {
-                    String value = slot.getValueList().getValue().toString();
-                    return value.replaceAll("\\[|\\]", "");
+                if (slot != null && slot.getName().equals(DocQueryAuditTransformsConstants.XDS_DOCUMENT_ENTRY_PATIENT_ID)
+                    && slot.getValueList() != null && NullChecker.isNotNullish(slot.getValueList().getValue())
+                    && NullChecker.isNotNullish(slot.getValueList().getValue().get(0))) {
+                    return PatientIdFormatUtil.stripQuotesFromPatientId(slot.getValueList().getValue().get(0));
                 }
             }
         } else {
             LOG.error("PatientId doesn't exist in the received AdhocQueryRequest message");
         }
         return null;
+    }
+
+    private TypeValuePairType getTypeValuePair(String key, byte[] value) {
+        TypeValuePairType type = new TypeValuePairType();
+        type.setType(key);
+        type.setValue(value);
+        return type;
     }
 }
