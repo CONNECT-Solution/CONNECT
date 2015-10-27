@@ -241,7 +241,7 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
         assertNotNull("ParticipantQuery.ParticipantObjectQuery is null",
             participantQuery.getParticipantObjectQuery());
         assertEquals("ParticipantQuery.ParticipantObjectDetail HomeCommunityId mismatch", hcid,
-            decodeBase64Value(participantQuery.getParticipantObjectDetail().get(1).getValue()));
+            new String(participantQuery.getParticipantObjectDetail().get(1).getValue()));
     }
 
     private AdhocQueryResponse createAdhocQueryResponse() {
@@ -293,9 +293,5 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
         homeCommunityType.setName("SSA");
         homeCommunityType.setDescription("This is DOD Gateway");
         return homeCommunityType;
-    }
-
-    private String decodeBase64Value(byte[] encodedBytes) {
-        return new String(encodedBytes);
     }
 }

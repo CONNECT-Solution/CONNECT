@@ -188,9 +188,8 @@ public class DocRetrieveAuditTransforms
             && response.getDocumentResponse().get(0) != null
             && response.getDocumentResponse().get(0).getDocumentUniqueId() != null) {
             return response.getDocumentResponse().get(0).getDocumentUniqueId();
-        } else {
-            return null;
         }
+        return null;
     }
 
     private AuditMessageType createPatientParticipantObjectIdentification(AuditMessageType auditMsg,
@@ -239,18 +238,10 @@ public class DocRetrieveAuditTransforms
     private void getParticipantObjectDetail(byte[] repositoryUniqueId, byte[] homeCommunityId,
         ParticipantObjectIdentificationType participantObject) {
 
-        TypeValuePairType valueRepositoryUniqueId = new TypeValuePairType();
-
-        valueRepositoryUniqueId.setType(
-            DocRetrieveAuditTransformsConstants.PARTICIPANT_OBJECT_DETAIL_REPOSITORY_UNIQUE_TYPE);
-        valueRepositoryUniqueId.setValue(repositoryUniqueId);
-        participantObject.getParticipantObjectDetail().add(valueRepositoryUniqueId);
-
-        TypeValuePairType valueHomeCommunityId = new TypeValuePairType();
-        valueHomeCommunityId.setType(
-            DocRetrieveAuditTransformsConstants.PARTICIPANT_OBJECT_DETAIL_HOME_COMMUNITY_ID_TYPE);
-        valueHomeCommunityId.setValue(homeCommunityId);
-        participantObject.getParticipantObjectDetail().add(valueHomeCommunityId);
+        participantObject.getParticipantObjectDetail().add(getTypeValuePair(
+            DocRetrieveAuditTransformsConstants.PARTICIPANT_OBJECT_DETAIL_REPOSITORY_UNIQUE_TYPE, repositoryUniqueId));
+        participantObject.getParticipantObjectDetail().add(getTypeValuePair(
+            DocRetrieveAuditTransformsConstants.PARTICIPANT_OBJECT_DETAIL_HOME_COMMUNITY_ID_TYPE, homeCommunityId));
     }
 
     private ParticipantObjectIdentificationType buildBaseParticipantObjectIdentificationType() {
@@ -419,4 +410,10 @@ public class DocRetrieveAuditTransforms
         return participant;
     }
 
+    private TypeValuePairType getTypeValuePair(String key, byte[] value) {
+        TypeValuePairType type = new TypeValuePairType();
+        type.setType(key);
+        type.setValue(value);
+        return type;
+    }
 }

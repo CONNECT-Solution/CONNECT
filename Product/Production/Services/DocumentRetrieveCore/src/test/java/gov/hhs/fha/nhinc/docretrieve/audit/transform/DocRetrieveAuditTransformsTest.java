@@ -227,7 +227,7 @@ public class DocRetrieveAuditTransformsTest
         assertNull("ParticipantDocument.ParticpantObjectName is not null",
             participantObject.getParticipantObjectName());
         assertEquals("ParticipantDocument.ParticipantObjectDetail HomeCommunityId mismatch", HCID_WITH_PREFIX,
-            decodeBase64Value(participantObject.getParticipantObjectDetail().get(1).getValue()));
+            new String(participantObject.getParticipantObjectDetail().get(1).getValue()));
     }
 
     private void assertParticipantPatientObjectIdentification(ParticipantObjectIdentificationType participantObject) {
@@ -366,9 +366,5 @@ public class DocRetrieveAuditTransformsTest
         assertEquals("RoleIDCode.DisplayName mismatch",
             AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME,
             destinationActiveParticipant.getRoleIDCode().get(0).getDisplayName());
-    }
-
-    private String decodeBase64Value(byte[] encodedBytes) {
-        return new String(encodedBytes);
     }
 }

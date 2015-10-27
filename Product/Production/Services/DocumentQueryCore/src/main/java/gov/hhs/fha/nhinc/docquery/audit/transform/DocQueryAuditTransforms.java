@@ -189,15 +189,11 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
         if (NullChecker.isNotNullish(queryId)) {
             participantObject.setParticipantObjectID(queryId);
         }
-        TypeValuePairType encoding = new TypeValuePairType();
-        encoding.setType(DocQueryAuditTransformsConstants.QUERY_ENCODING_TYPE);
-        encoding.setValue(DocQueryAuditTransformsConstants.UTF_8.getBytes());
-        participantObject.getParticipantObjectDetail().add(encoding);
+        participantObject.getParticipantObjectDetail().add(getTypeValuePair(
+            DocQueryAuditTransformsConstants.QUERY_ENCODING_TYPE, DocQueryAuditTransformsConstants.UTF_8.getBytes()));
         if (NullChecker.isNotNullish(hcid)) {
-            TypeValuePairType homeCommunityTypeValue = new TypeValuePairType();
-            homeCommunityTypeValue.setType(DocQueryAuditTransformsConstants.HOME_COMMUNITY_ID);
-            homeCommunityTypeValue.setValue(hcid.getBytes());
-            participantObject.getParticipantObjectDetail().add(homeCommunityTypeValue);
+            participantObject.getParticipantObjectDetail().add(getTypeValuePair(
+                DocQueryAuditTransformsConstants.HOME_COMMUNITY_ID, hcid.getBytes()));
         }
         return participantObject;
     }
@@ -263,5 +259,12 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
             LOG.error("PatientId doesn't exist in the received AdhocQueryRequest message");
         }
         return null;
+    }
+
+    private TypeValuePairType getTypeValuePair(String key, byte[] value) {
+        TypeValuePairType type = new TypeValuePairType();
+        type.setType(key);
+        type.setValue(value);
+        return type;
     }
 }
