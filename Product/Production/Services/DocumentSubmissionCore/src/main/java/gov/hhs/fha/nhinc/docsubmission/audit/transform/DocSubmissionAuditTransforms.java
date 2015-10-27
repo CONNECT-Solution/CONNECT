@@ -27,30 +27,18 @@
 package gov.hhs.fha.nhinc.docsubmission.audit.transform;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
-import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
-import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionAuditTransformsConstants;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import java.util.List;
-import javax.xml.bind.JAXBElement;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.log4j.Logger;
 
 /**
  * Document Submission audit transforms to support DS audit logging.
  *
  * @author tjafri
  */
-public class DocSubmissionAuditTransforms extends
-    AuditTransforms<ProvideAndRegisterDocumentSetRequestType, RegistryResponseType> {
-
-    private static final Logger LOG = Logger.getLogger(DocSubmissionAuditTransforms.class);
+public class DocSubmissionAuditTransforms extends AbstractDocSubmissionAuditTransforms<
+    ProvideAndRegisterDocumentSetRequestType, RegistryResponseType> {
 
     @Override
     protected AuditMessageType getParticipantObjectIdentificationForRequest(
@@ -72,8 +60,8 @@ public class DocSubmissionAuditTransforms extends
         auditMsg = getSubmissionSetParticipantObjectIdentification(request, auditMsg);
         return auditMsg;
     }
-    
-        @Override
+
+    @Override
     protected String getServiceEventIdCodeRequestor() {
         return DocSubmissionAuditTransformsConstants.EVENT_ID_CODE_DS_SOURCE;
     }
@@ -121,103 +109,5 @@ public class DocSubmissionAuditTransforms extends
     @Override
     protected String getServiceEventActionCodeResponder() {
         return DocSubmissionAuditTransformsConstants.EVENT_ACTION_CODE_RECIPIENT;
-    }
-
-    // PatientParticipantObjetIdentification is same for both Request and Response in case of DS
-    private AuditMessageType getPatientParticipantObjectIdentification(
-        ProvideAndRegisterDocumentSetRequestType request, AuditMessageType auditMsg) {
-        auditMsg.getParticipantObjectIdentification().add(createPatientParticipantObjectIdentification(
-            getIdValue(request, DocSubmissionAuditTransformsConstants.XDS_SUBMISSIONSET_PATIENT_ID)));
-        return auditMsg;
-    }
-
-    // SubmissionSetParticipantObjetIdentification is same for both Request and Response in case of DS
-    private AuditMessageType getSubmissionSetParticipantObjectIdentification(
-        ProvideAndRegisterDocumentSetRequestType request, AuditMessageType auditMsg) {
-        auditMsg.getParticipantObjectIdentification().add(createSubmissionSetParticipantObjectIdentification(
-            getIdValue(request, DocSubmissionAuditTransformsConstants.XDS_SUBMISSIONSET_UNIQUE_ID)));
-        return auditMsg;
-    }
-
-    private ParticipantObjectIdentificationType createPatientParticipantObjectIdentification(String pid) {
-
-        ParticipantObjectIdentificationType participantObject = createParticipantObject(
-            DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM,
-            DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_ROLE,
-            DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE,
-            DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE_SYSTEM,
-            DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME);
-
-        if (pid != null && !pid.isEmpty()) {
-            participantObject.setParticipantObjectID(pid);
-        }
-        return participantObject;
-    }
-
-    private ParticipantObjectIdentificationType createSubmissionSetParticipantObjectIdentification(String submissionId) {
-
-        ParticipantObjectIdentificationType participantObject = createParticipantObject(
-            DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_TYPE_CODE_SYSTEM,
-            DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_TYPE_CODE_ROLE,
-            DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_ID_TYPE_CODE,
-            DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_ID_TYPE_CODE_SYSTEM,
-            DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_ID_TYPE_DISPLAY_NAME);
-
-        if (submissionId != null && !submissionId.isEmpty()) {
-            participantObject.setParticipantObjectID(submissionId);
-        }
-        return participantObject;
-    }
-
-    private ParticipantObjectIdentificationType createParticipantObject(short objTypeCodeSys, short objTypeCodeRole,
-        String objIdTypeCode, String objIdTypeCodeSys, String objIdTypeDisplayName) {
-
-        return createParticipantObjectIdentification(objTypeCodeSys, objTypeCodeRole,
-            objIdTypeCode, objIdTypeCodeSys, objIdTypeDisplayName);
-    }
-
-    private String getIdValue(ProvideAndRegisterDocumentSetRequestType request, String idType) {
-        String idValue = null;
-        RegistryObjectType registryObj = extractRegistryObject(
-            request.getSubmitObjectsRequest().getRegistryObjectList());
-        if (registryObj != null && registryObj.getExternalIdentifier() != null
-            && registryObj.getExternalIdentifier().size() > 0) {
-            idValue = getIdFromExternalIdentifiers(registryObj.getExternalIdentifier(), idType);
-        }
-        return idValue;
-    }
-
-    private String getIdFromExternalIdentifiers(List<ExternalIdentifierType> externalIdentifiers, String type) {
-        String patientId = null;
-        for (ExternalIdentifierType identifier : externalIdentifiers) {
-            if (identifier.getName() != null
-                && identifier.getName().getLocalizedString() != null
-                && identifier.getName().getLocalizedString().size() > 0
-                && identifier.getName().getLocalizedString().get(0) != null
-                && identifier.getName().getLocalizedString().get(0).getValue()
-                .equals(type)) {
-                patientId = identifier.getValue();
-                break;
-            }
-
-        }
-        return patientId;
-    }
-
-    private RegistryObjectType extractRegistryObject(RegistryObjectListType registryList) {
-        RegistryObjectType registryObj = null;
-        if (registryList != null && registryList.getIdentifiable() != null
-            && registryList.getIdentifiable().size() > 0) {
-            List<JAXBElement<? extends IdentifiableType>> identifiers = registryList.getIdentifiable();
-            for (JAXBElement<? extends IdentifiableType> object : identifiers) {
-                if (object.getDeclaredType() != null && object.getDeclaredType().equals(RegistryPackageType.class)) {
-                    registryObj = (RegistryObjectType) object.getValue();
-                    break;
-                }
-            }
-        } else {
-            LOG.error("RegistryPackage is null.");
-        }
-        return registryObj;
     }
 }
