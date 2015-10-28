@@ -131,14 +131,14 @@ public abstract class AbstractDocSubmissionAuditTransforms<T, K> extends AuditTr
     private RegistryObjectType extractRegistryObject(RegistryObjectListType registryList) {
         RegistryObjectType registryObj = null;
         if (registryList != null && NullChecker.isNotNullish(registryList.getIdentifiable())) {
-            List<JAXBElement<? extends IdentifiableType>> identifiers = registryList.getIdentifiable();
-            for (JAXBElement<? extends IdentifiableType> object : identifiers) {
+            for (JAXBElement<? extends IdentifiableType> object : registryList.getIdentifiable()) {
                 if (object.getDeclaredType() != null && object.getDeclaredType().equals(RegistryPackageType.class)) {
                     registryObj = (RegistryObjectType) object.getValue();
                     break;
                 }
             }
-        } else {
+        }
+        if (registryObj == null) {
             LOG.error("RegistryPackage is null.");
         }
         return registryObj;
