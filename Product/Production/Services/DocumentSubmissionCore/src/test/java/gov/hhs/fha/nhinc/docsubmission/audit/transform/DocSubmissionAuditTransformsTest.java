@@ -95,7 +95,7 @@ public class DocSubmissionAuditTransformsTest extends AuditTransformsTest<
 
         AssertionType assertion = createAssertion();
         LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(request, assertion,
-            createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+            createNhinTarget(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
             Boolean.TRUE, null, NhincConstants.NHINC_XDR_SERVICE_NAME);
         testGetEventIdentificationType(auditRequest, NhincConstants.NHINC_XDR_SERVICE_NAME, Boolean.TRUE);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
@@ -103,6 +103,10 @@ public class DocSubmissionAuditTransformsTest extends AuditTransformsTest<
         testAuditSourceIdentification(auditRequest.getAuditMessage().getAuditSourceIdentification(), assertion);
         testGetActiveParticipantSource(auditRequest, Boolean.TRUE, null, LOCAL_IP);
         assertParticipantObjectIdentification(auditRequest.getAuditMessage());
+        assertEquals("AuditMessage.Request direction mismatch", auditRequest.getDirection(),
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        assertEquals("AuditMessage.Request interface mismatch", auditRequest.getInterface(),
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
     }
 
     @Test
@@ -136,13 +140,17 @@ public class DocSubmissionAuditTransformsTest extends AuditTransformsTest<
         RegistryResponseType response = new RegistryResponseType();
         AssertionType assertion = createAssertion();
         LogEventRequestType auditResponse = transforms.transformResponseToAuditMsg(request, response, assertion, null,
-            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
             Boolean.FALSE, webContextProperties, NhincConstants.NHINC_XDR_SERVICE_NAME);
         testGetEventIdentificationType(auditResponse, NhincConstants.NHINC_XDR_SERVICE_NAME, Boolean.FALSE);
         testGetActiveParticipantDestination(auditResponse, Boolean.FALSE, webContextProperties, WS_REQUEST_URL);
         testAuditSourceIdentification(auditResponse.getAuditMessage().getAuditSourceIdentification(), assertion);
         testGetActiveParticipantSource(auditResponse, Boolean.FALSE, webContextProperties, REMOTE_IP);
         assertParticipantObjectIdentification(auditResponse.getAuditMessage());
+        assertEquals("AuditMessage.Response direction mismatch", auditResponse.getDirection(),
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        assertEquals("AuditMessage.Response interface mismatch", auditResponse.getInterface(),
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
     }
 
     @Override
@@ -151,30 +159,40 @@ public class DocSubmissionAuditTransformsTest extends AuditTransformsTest<
     }
 
     private void assertParticipantObjectIdentification(AuditMessageType auditMsg) {
-        assertEquals(PATIENT_ID, auditMsg.getParticipantObjectIdentification().get(0).getParticipantObjectID());
-        assertSame(DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM,
+        assertEquals("ParticipantObjectIdentification.Patient.ParticipantObjectID mismatch", PATIENT_ID,
+            auditMsg.getParticipantObjectIdentification().get(0).getParticipantObjectID());
+        assertSame("ParticipantObjectIdentification.Patient.ParticipantObjectTypeCode mismatch",
+            DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM,
             auditMsg.getParticipantObjectIdentification().get(0).getParticipantObjectTypeCode());
-        assertSame(DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_ROLE,
+        assertSame("ParticipantObjectIdentification.Patient.ParticipantObjectTypeCodeRole mismatch",
+            DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_ROLE,
             auditMsg.getParticipantObjectIdentification().get(0).getParticipantObjectTypeCodeRole());
-        assertEquals(DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE,
+        assertEquals("ParticipantObjectIdentification.Patient.ParticipantObjectIDTypeCode mismatch",
+            DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE,
             auditMsg.getParticipantObjectIdentification().get(0).getParticipantObjectIDTypeCode().getCode());
-        assertEquals(DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE_SYSTEM,
+        assertEquals("ParticipantObjectIdentification.Patient.ParticipantObjectIDTypeCodeSystem mismatch",
+            DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE_SYSTEM,
             auditMsg.getParticipantObjectIdentification().get(0).getParticipantObjectIDTypeCode().getCodeSystemName());
-        assertEquals(DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME,
+        assertEquals("ParticipantObjectIdentification.Patient.ParticipantObjectIDTypeDisplayName mismatch",
+            DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME,
             auditMsg.getParticipantObjectIdentification().get(0).getParticipantObjectIDTypeCode().getDisplayName());
-        assertEquals(SUBMISSION_SET_UNIQUE_ID, auditMsg.getParticipantObjectIdentification().get(1).
-            getParticipantObjectID());
 
-        assertSame(DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_TYPE_CODE_SYSTEM,
+        assertEquals("ParticipantObjectIdentification.SubmissionSet.ParticipantObjectID mismatch",
+            SUBMISSION_SET_UNIQUE_ID, auditMsg.getParticipantObjectIdentification().get(1).getParticipantObjectID());
+        assertSame("ParticipantObjectIdentification.SubmissionSet.ParticipantObjectTypeCode mismatch",
+            DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_TYPE_CODE_SYSTEM,
             auditMsg.getParticipantObjectIdentification().get(1).getParticipantObjectTypeCode());
-        assertSame(DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_TYPE_CODE_ROLE,
-            auditMsg.getParticipantObjectIdentification().get(1).
-            getParticipantObjectTypeCodeRole());
-        assertEquals(DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_ID_TYPE_CODE,
+        assertSame("ParticipantObjectIdentification.SubmissionSet.ParticipantObjectTypeCodeRole mismatch",
+            DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_TYPE_CODE_ROLE,
+            auditMsg.getParticipantObjectIdentification().get(1).getParticipantObjectTypeCodeRole());
+        assertEquals("ParticipantObjectIdentification.SubmissionSet.ParticipantObjectIDTypeCode mismatch",
+            DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_ID_TYPE_CODE,
             auditMsg.getParticipantObjectIdentification().get(1).getParticipantObjectIDTypeCode().getCode());
-        assertEquals(DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_ID_TYPE_CODE_SYSTEM,
+        assertEquals("ParticipantObjectIdentification.SubmissionSet.ParticipantObjectIDTypeCodeSystem mismatch",
+            DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_ID_TYPE_CODE_SYSTEM,
             auditMsg.getParticipantObjectIdentification().get(1).getParticipantObjectIDTypeCode().getCodeSystemName());
-        assertEquals(DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_ID_TYPE_DISPLAY_NAME,
+        assertEquals("ParticipantObjectIdentification.SubmissionSet.ParticipantObjectTypeDisplayName mismatch",
+            DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_ID_TYPE_DISPLAY_NAME,
             auditMsg.getParticipantObjectIdentification().get(1).getParticipantObjectIDTypeCode().getDisplayName());
     }
 

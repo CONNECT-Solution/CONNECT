@@ -108,8 +108,7 @@ public abstract class AbstractDocSubmissionAuditTransforms<T, K> extends AuditTr
         String idValue = null;
         RegistryObjectType registryObj = extractRegistryObject(
             request.getSubmitObjectsRequest().getRegistryObjectList());
-        if (registryObj != null && registryObj.getExternalIdentifier() != null
-            && registryObj.getExternalIdentifier().size() > 0) {
+        if (registryObj != null && NullChecker.isNotNullish(registryObj.getExternalIdentifier())) {
             idValue = getIdFromExternalIdentifiers(registryObj.getExternalIdentifier(), idType);
         }
         return idValue;
@@ -119,8 +118,7 @@ public abstract class AbstractDocSubmissionAuditTransforms<T, K> extends AuditTr
         String id = null;
         for (ExternalIdentifierType identifier : externalIdentifiers) {
             if (identifier.getName() != null
-                && identifier.getName().getLocalizedString() != null
-                && !identifier.getName().getLocalizedString().isEmpty()
+                && NullChecker.isNotNullish(identifier.getName().getLocalizedString())
                 && identifier.getName().getLocalizedString().get(0) != null
                 && identifier.getName().getLocalizedString().get(0).getValue().equals(type)) {
                 id = identifier.getValue();
@@ -132,8 +130,7 @@ public abstract class AbstractDocSubmissionAuditTransforms<T, K> extends AuditTr
 
     private RegistryObjectType extractRegistryObject(RegistryObjectListType registryList) {
         RegistryObjectType registryObj = null;
-        if (registryList != null && registryList.getIdentifiable() != null
-            && !registryList.getIdentifiable().isEmpty()) {
+        if (registryList != null && NullChecker.isNotNullish(registryList.getIdentifiable())) {
             List<JAXBElement<? extends IdentifiableType>> identifiers = registryList.getIdentifiable();
             for (JAXBElement<? extends IdentifiableType> object : identifiers) {
                 if (object.getDeclaredType() != null && object.getDeclaredType().equals(RegistryPackageType.class)) {
