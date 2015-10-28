@@ -51,7 +51,7 @@ public abstract class AbstractDocSubmissionAuditTransforms<T, K> extends AuditTr
 
     private static final Logger LOG = Logger.getLogger(AbstractDocSubmissionAuditTransforms.class);
 
-    // PatientParticipantObjetIdentification is same for both Request and Response in case of DS
+    // PatientParticipantObjectIdentification is same for both Request and Response in case of DS
     protected AuditMessageType getPatientParticipantObjectIdentification(
         ProvideAndRegisterDocumentSetRequestType request, AuditMessageType auditMsg) {
         auditMsg.getParticipantObjectIdentification().add(createPatientParticipantObjectIdentification(
@@ -59,7 +59,7 @@ public abstract class AbstractDocSubmissionAuditTransforms<T, K> extends AuditTr
         return auditMsg;
     }
 
-    // SubmissionSetParticipantObjetIdentification is same for both Request and Response in case of DS
+    // SubmissionSetParticipantObjectIdentification is same for both Request and Response in case of DS
     protected AuditMessageType getSubmissionSetParticipantObjectIdentification(
         ProvideAndRegisterDocumentSetRequestType request, AuditMessageType auditMsg) {
         auditMsg.getParticipantObjectIdentification().add(createSubmissionSetParticipantObjectIdentification(
@@ -130,7 +130,7 @@ public abstract class AbstractDocSubmissionAuditTransforms<T, K> extends AuditTr
 
     private RegistryObjectType extractRegistryObject(RegistryObjectListType registryList) {
         RegistryObjectType registryObj = null;
-        if (registryList != null && NullChecker.isNotNullish(registryList.getIdentifiable())) {
+        if (registryList != null && registryList.getIdentifiable() != null) {
             for (JAXBElement<? extends IdentifiableType> object : registryList.getIdentifiable()) {
                 if (object.getDeclaredType() != null && object.getDeclaredType().equals(RegistryPackageType.class)) {
                     registryObj = (RegistryObjectType) object.getValue();
