@@ -40072,6 +40072,10 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
           </con:request>
         </con:config>
       </con:testStep>
+      <con:testStep type="delay" name="Wait for Audit table to populate">
+        <con:settings/>
+        <con:config><delay>2000</delay></con:config>
+      </con:testStep>
       <con:testStep type="groovy" name="Verify Audit Logs" id="92119199-812d-4282-9182-b3f3e4ebac54" disabled="true">
         <con:settings/>
         <con:config><script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
@@ -40080,8 +40084,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
 	
 }</script></con:config>
-      </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
+      </con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
         <con:settings/>
         <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
@@ -40798,6 +40801,10 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
           </con:request>
         </con:config>
       </con:testStep>
+      <con:testStep type="delay" name="Wait for Audit table to populate">
+        <con:settings/>
+        <con:config><delay>2000</delay></con:config>
+      </con:testStep>
       <con:testStep type="groovy" name="Verify Audit Logs" id="8d894511-06da-4f8c-b281-7637f7fe3c56" disabled="true">
         <con:settings/>
         <con:config><script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
@@ -40806,8 +40813,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
 	
 }</script></con:config>
-      </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
+      </con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
         <con:settings/>
         <con:config><script>context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
@@ -48762,6 +48768,10 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
           </con:request>
         </con:config>
       </con:testStep>
+      <con:testStep type="delay" name="Wait for Audit table to populate">
+        <con:settings/>
+        <con:config><delay>2000</delay></con:config>
+      </con:testStep>
       <con:testStep type="groovy" name="Verify Audit Logs" id="f48a57a8-e26c-40a0-9de4-1245b744f953" disabled="true">
         <con:settings/>
         <con:config><script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
@@ -48770,8 +48780,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
 	
 }</script></con:config>
-      </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
+      </con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
         <con:settings/>
         <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
@@ -49488,6 +49497,10 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
           </con:request>
         </con:config>
       </con:testStep>
+      <con:testStep type="delay" name="Wait for Audit table to populate">
+        <con:settings/>
+        <con:config><delay>2000</delay></con:config>
+      </con:testStep>
       <con:testStep type="groovy" name="Verify Audit Logs" id="55485d23-b657-4913-8606-4bc6d4b94c67" disabled="true">
         <con:settings/>
         <con:config><script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
@@ -49496,8 +49509,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
 	
 }</script></con:config>
-      </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
+      </con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
         <con:settings/>
         <con:config><script>context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
@@ -59426,7 +59438,7 @@ if (propertiesFile.exists()) {
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>C:\jboss-as-7.1.1.Final\modules\org\connectopensource\configuration\main</con:value>
+      <con:value/>
     </con:property>
     <con:property>
       <con:name>Gender</con:name>
