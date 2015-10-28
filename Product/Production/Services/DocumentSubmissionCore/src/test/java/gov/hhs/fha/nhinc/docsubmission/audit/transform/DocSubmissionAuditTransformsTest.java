@@ -64,19 +64,16 @@ public class DocSubmissionAuditTransformsTest extends AuditTransformsTest<
     private final String PATIENT_ID_SCHEME = "urn:uuid:6b5aea1a-874d-4603-a4bc-96a0a7b38446";
     private final String PATIENT_ID = "D123401^^^&1.1&ISO";
     private final String SUBMISSION_SET_UNIQUE_ID = "1.3.6.1.4.1.21367.2005.3.9999.33";
+    private final String LOCAL_IP = "10.10.10.10";
+    private final String REMOTE_IP = "16.14.13.12";
+    private final String WS_REQUEST_URL = "http://" + REMOTE_IP + ":9090/AuditService";
 
     @Test
     public void transformRequestToAuditMsg() throws ConnectionManagerException, UnknownHostException, JAXBException {
-        final String localIP = "10.10.10.10";
-        final String destinationIP = "16.14.13.12";
-        final String soapUIEndpoint = "http://" + destinationIP + ":9090/AuditService";
-        Properties webContextProperties = new Properties();
-        webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, soapUIEndpoint);
-        webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, destinationIP);
         DocSubmissionAuditTransforms transforms = new DocSubmissionAuditTransforms() {
             @Override
             protected String getLocalHostAddress() {
-                return localIP;
+                return LOCAL_IP;
             }
 
             @Override
@@ -90,7 +87,7 @@ public class DocSubmissionAuditTransformsTest extends AuditTransformsTest<
 
             @Override
             protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
-                return soapUIEndpoint;
+                return WS_REQUEST_URL;
             }
         };
 
@@ -98,30 +95,30 @@ public class DocSubmissionAuditTransformsTest extends AuditTransformsTest<
 
         AssertionType assertion = createAssertion();
         LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(request, assertion,
-            createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
-            Boolean.TRUE, webContextProperties, NhincConstants.NHINC_XDR_SERVICE_NAME);
+            createNhinTarget(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+            Boolean.TRUE, null, NhincConstants.NHINC_XDR_SERVICE_NAME);
         testGetEventIdentificationType(auditRequest, NhincConstants.NHINC_XDR_SERVICE_NAME, Boolean.TRUE);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
-        testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, soapUIEndpoint);
+        testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, null, WS_REQUEST_URL, REMOTE_IP);
         testAuditSourceIdentification(auditRequest.getAuditMessage().getAuditSourceIdentification(), assertion);
-        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIP);
+        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, null, LOCAL_IP);
         assertParticipantObjectIdentification(auditRequest.getAuditMessage());
+        assertEquals("AuditMessage.Request direction mismatch", auditRequest.getDirection(),
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        assertEquals("AuditMessage.Request interface mismatch", auditRequest.getInterface(),
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
     }
 
     @Test
     public void transformResponseToAuditMsg() throws ConnectionManagerException, UnknownHostException {
-        final String localIP = "10.10.10.10";
-        final String destinationIP = "16.14.13.12";
-        final String soapUIEndpoint = "http://" + destinationIP + ":9090/AuditService";
         Properties webContextProperties = new Properties();
-        webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, soapUIEndpoint);
-        webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, destinationIP);
-        webContextProperties.setProperty(NhincConstants.INBOUND_REPLY_TO,
-            "http://www.w3.org/2005/08/addressing/anonymous");
+        webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, WS_REQUEST_URL);
+        webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, REMOTE_IP);
+        webContextProperties.setProperty(NhincConstants.INBOUND_REPLY_TO, NhincConstants.WSA_REPLY_TO);
         DocSubmissionAuditTransforms transforms = new DocSubmissionAuditTransforms() {
             @Override
             protected String getLocalHostAddress() {
-                return localIP;
+                return LOCAL_IP;
             }
 
             @Override
@@ -135,21 +132,25 @@ public class DocSubmissionAuditTransformsTest extends AuditTransformsTest<
 
             @Override
             protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
-                return soapUIEndpoint;
+                return WS_REQUEST_URL;
             }
         };
 
         ProvideAndRegisterDocumentSetRequestType request = createProvideAndRegisterDocumentSetRequestType();
         RegistryResponseType response = new RegistryResponseType();
         AssertionType assertion = createAssertion();
-        LogEventRequestType auditResponse = transforms.transformResponseToAuditMsg(request, response, assertion,
-            createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
+        LogEventRequestType auditResponse = transforms.transformResponseToAuditMsg(request, response, assertion, null,
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
             Boolean.FALSE, webContextProperties, NhincConstants.NHINC_XDR_SERVICE_NAME);
         testGetEventIdentificationType(auditResponse, NhincConstants.NHINC_XDR_SERVICE_NAME, Boolean.FALSE);
-        testGetActiveParticipantDestination(auditResponse, Boolean.TRUE, webContextProperties, soapUIEndpoint);
+        testGetActiveParticipantDestination(auditResponse, Boolean.FALSE, webContextProperties, WS_REQUEST_URL);
         testAuditSourceIdentification(auditResponse.getAuditMessage().getAuditSourceIdentification(), assertion);
-        testGetActiveParticipantSource(auditResponse, Boolean.TRUE, webContextProperties, destinationIP);
+        testGetActiveParticipantSource(auditResponse, Boolean.FALSE, webContextProperties, REMOTE_IP);
         assertParticipantObjectIdentification(auditResponse.getAuditMessage());
+        assertEquals("AuditMessage.Response direction mismatch", auditResponse.getDirection(),
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        assertEquals("AuditMessage.Response interface mismatch", auditResponse.getInterface(),
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
     }
 
     @Override
@@ -158,30 +159,40 @@ public class DocSubmissionAuditTransformsTest extends AuditTransformsTest<
     }
 
     private void assertParticipantObjectIdentification(AuditMessageType auditMsg) {
-        assertEquals(PATIENT_ID, auditMsg.getParticipantObjectIdentification().get(0).getParticipantObjectID());
-        assertSame(DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM,
+        assertEquals("ParticipantObjectIdentification.Patient.ParticipantObjectID mismatch", PATIENT_ID,
+            auditMsg.getParticipantObjectIdentification().get(0).getParticipantObjectID());
+        assertSame("ParticipantObjectIdentification.Patient.ParticipantObjectTypeCode mismatch",
+            DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM,
             auditMsg.getParticipantObjectIdentification().get(0).getParticipantObjectTypeCode());
-        assertSame(DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_ROLE,
+        assertSame("ParticipantObjectIdentification.Patient.ParticipantObjectTypeCodeRole mismatch",
+            DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_ROLE,
             auditMsg.getParticipantObjectIdentification().get(0).getParticipantObjectTypeCodeRole());
-        assertEquals(DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE,
+        assertEquals("ParticipantObjectIdentification.Patient.ParticipantObjectIDTypeCode mismatch",
+            DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE,
             auditMsg.getParticipantObjectIdentification().get(0).getParticipantObjectIDTypeCode().getCode());
-        assertEquals(DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE_SYSTEM,
+        assertEquals("ParticipantObjectIdentification.Patient.ParticipantObjectIDTypeCodeSystem mismatch",
+            DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_CODE_SYSTEM,
             auditMsg.getParticipantObjectIdentification().get(0).getParticipantObjectIDTypeCode().getCodeSystemName());
-        assertEquals(DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME,
+        assertEquals("ParticipantObjectIdentification.Patient.ParticipantObjectIDTypeDisplayName mismatch",
+            DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME,
             auditMsg.getParticipantObjectIdentification().get(0).getParticipantObjectIDTypeCode().getDisplayName());
-        assertEquals(SUBMISSION_SET_UNIQUE_ID, auditMsg.getParticipantObjectIdentification().get(1).
-            getParticipantObjectID());
 
-        assertSame(DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_TYPE_CODE_SYSTEM,
+        assertEquals("ParticipantObjectIdentification.SubmissionSet.ParticipantObjectID mismatch",
+            SUBMISSION_SET_UNIQUE_ID, auditMsg.getParticipantObjectIdentification().get(1).getParticipantObjectID());
+        assertSame("ParticipantObjectIdentification.SubmissionSet.ParticipantObjectTypeCode mismatch",
+            DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_TYPE_CODE_SYSTEM,
             auditMsg.getParticipantObjectIdentification().get(1).getParticipantObjectTypeCode());
-        assertSame(DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_TYPE_CODE_ROLE,
-            auditMsg.getParticipantObjectIdentification().get(1).
-            getParticipantObjectTypeCodeRole());
-        assertEquals(DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_ID_TYPE_CODE,
+        assertSame("ParticipantObjectIdentification.SubmissionSet.ParticipantObjectTypeCodeRole mismatch",
+            DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_TYPE_CODE_ROLE,
+            auditMsg.getParticipantObjectIdentification().get(1).getParticipantObjectTypeCodeRole());
+        assertEquals("ParticipantObjectIdentification.SubmissionSet.ParticipantObjectIDTypeCode mismatch",
+            DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_ID_TYPE_CODE,
             auditMsg.getParticipantObjectIdentification().get(1).getParticipantObjectIDTypeCode().getCode());
-        assertEquals(DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_ID_TYPE_CODE_SYSTEM,
+        assertEquals("ParticipantObjectIdentification.SubmissionSet.ParticipantObjectIDTypeCodeSystem mismatch",
+            DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_ID_TYPE_CODE_SYSTEM,
             auditMsg.getParticipantObjectIdentification().get(1).getParticipantObjectIDTypeCode().getCodeSystemName());
-        assertEquals(DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_ID_TYPE_DISPLAY_NAME,
+        assertEquals("ParticipantObjectIdentification.SubmissionSet.ParticipantObjectTypeDisplayName mismatch",
+            DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_ID_TYPE_DISPLAY_NAME,
             auditMsg.getParticipantObjectIdentification().get(1).getParticipantObjectIDTypeCode().getDisplayName());
     }
 
