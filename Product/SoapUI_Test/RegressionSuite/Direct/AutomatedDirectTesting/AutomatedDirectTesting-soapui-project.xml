@@ -281,7 +281,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript><con:properties><con:property><con:name>startDate</con:name><con:value>2015-10-24T13:41:16Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2015-10-24T13:51:16Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>10/24/2015 13:41:16</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-11-23T00:00:00Z</con:value></con:property></con:properties>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript><con:properties><con:property><con:name>startDate</con:name><con:value>2015-10-28T00:41:03Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2015-10-28T00:51:03Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>10/28/2015 00:41:03</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2015-11-27T00:00:00Z</con:value></con:property></con:properties>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Speed up Direct Settings Refresh" searchProperties="true" id="519a245d-33a9-44c0-9f01-e0bf91187ac3">
       <con:settings/>
@@ -2326,8 +2326,7 @@ values ('PublicStoreType','DNS', NOW()),
           <script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "AgentSettingsCacheRefreshTime", "300000", log);</script>
         </con:config>
       </con:testStep>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript><con:properties/>
+      <con:properties/>
     </con:testCase>
     <con:properties>
       <con:property>
@@ -2405,7 +2404,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript><con:propert
       <con:name>settingTable</con:name>
       <con:value>setting</con:value>
     </con:property>
-  <con:property><con:name>GatewayPropDir</con:name><con:value/></con:property></con:properties>
+  </con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
@@ -2447,8 +2446,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty 
 return delegate.getProperty(propertyName) ?:
 delegate.testCase.getPropertyValue(propertyName) ?:
 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
-delegate.testCase.testSuite.project.getPropertyValue(propertyName) ?:
-com.eviware.soapui.SoapUI.globalProperties.getPropertyValue(propertyName)
+delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
 com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
