@@ -24,19 +24,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docsubmission.inbound.deferred.request;
+package gov.hhs.fha.nhinc.docsubmission.audit;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.audit.AuditLogger;
+import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
+import gov.hhs.fha.nhinc.docsubmission.audit.transform.DocSubmissionDeferredRequestAuditTransforms;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import java.util.Properties;
 
 /**
- * @author akong
  *
+ * @author tjafri
  */
-public interface InboundDocSubmissionDeferredRequest {
+public class DocSubmissionDeferredRequestAuditLogger extends AuditLogger<
+    ProvideAndRegisterDocumentSetRequestType, XDRAcknowledgementType> {
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
-        AssertionType assertion, Properties webContextProperties);
+    @Override
+    protected AuditTransforms<ProvideAndRegisterDocumentSetRequestType, XDRAcknowledgementType> getAuditTransforms() {
+        return new DocSubmissionDeferredRequestAuditTransforms();
+    }
 }

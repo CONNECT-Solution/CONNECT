@@ -54,10 +54,11 @@ public class NhinDocSubmissionDeferredRequestImpl20 extends BaseService {
      * @return
      */
     public RegistryResponseType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
-            WebServiceContext context) {
+        WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
 
-        return inboundDocSubmissionRequest.provideAndRegisterDocumentSetBRequest(body, assertion).getMessage();
+        return inboundDocSubmissionRequest.provideAndRegisterDocumentSetBRequest(body, assertion,
+            getWebContextProperties(context)).getMessage();
     }
 
 }

@@ -54,10 +54,11 @@ public class NhinDocSubmissionDeferredRequestImpl extends BaseService {
      * @return
      */
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
-            WebServiceContext context) {
+        WebServiceContext context) {
 
         AssertionType assertion = getAssertion(context, null);
-        return inboundDocSubmissionRequest.provideAndRegisterDocumentSetBRequest(body, assertion);
+        return inboundDocSubmissionRequest.provideAndRegisterDocumentSetBRequest(body, assertion,
+            getWebContextProperties(context));
     }
 
 }
