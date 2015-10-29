@@ -81,7 +81,7 @@ public class PassthroughInboundDocSubmissionDeferredRequest extends AbstractInbo
             dsUtils.convertDataToFileLocationIfEnabled(body);
             response = sendToAdapter(body, assertion);
         } catch (LargePayloadException lpe) {
-            LOG.error("Failed to retrieve payload document.", lpe);
+            LOG.error("Failed to retrieve payload document." + lpe.getLocalizedMessage(), lpe);
             response = msgUtils.createXDRAckWithRegistryErrorResponse();
         }
 

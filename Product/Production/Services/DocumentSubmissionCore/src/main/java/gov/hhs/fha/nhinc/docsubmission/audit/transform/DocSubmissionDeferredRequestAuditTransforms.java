@@ -33,6 +33,7 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 /**
+ * ATNA Audit Logging for DocSubmissionDeferredRequest
  *
  * @author tjafri
  */
@@ -42,10 +43,10 @@ public class DocSubmissionDeferredRequestAuditTransforms extends AbstractDocSubm
     @Override
     protected AuditMessageType getParticipantObjectIdentificationForRequest(
         ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, AuditMessageType auditMsg) {
-        // PatientParticipantObjetIdentification  and SubmissionSetParticipantObjetIdentification is same for both
+        // PatientParticipantObjectIdentification  and SubmissionSetParticipantObjectIdentification is same for both
         //Request and Response in case of DS
-        auditMsg = getPatientParticipantObjectIdentification(request, auditMsg);
-        auditMsg = getSubmissionSetParticipantObjectIdentification(request, auditMsg);
+        getPatientParticipantObjectIdentification(request, auditMsg);
+        getSubmissionSetParticipantObjectIdentification(request, auditMsg);
         return auditMsg;
     }
 
@@ -53,10 +54,10 @@ public class DocSubmissionDeferredRequestAuditTransforms extends AbstractDocSubm
     protected AuditMessageType getParticipantObjectIdentificationForResponse(
         ProvideAndRegisterDocumentSetRequestType request, XDRAcknowledgementType response, AssertionType assertion,
         AuditMessageType auditMsg) {
-        // PatientParticipantObjetIdentification  and SubmissionSetParticipantObjetIdentification is same for both
+        // PatientParticipantObjectIdentification  and SubmissionSetParticipantObjectIdentification is same for both
         //Request and Response in case of DS
-        auditMsg = getPatientParticipantObjectIdentification(request, auditMsg);
-        auditMsg = getSubmissionSetParticipantObjectIdentification(request, auditMsg);
+        getPatientParticipantObjectIdentification(request, auditMsg);
+        getSubmissionSetParticipantObjectIdentification(request, auditMsg);
         return auditMsg;
     }
 
