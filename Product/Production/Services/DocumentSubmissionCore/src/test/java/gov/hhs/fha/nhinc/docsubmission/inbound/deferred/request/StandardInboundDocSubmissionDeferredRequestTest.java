@@ -65,6 +65,19 @@ import static org.mockito.Mockito.verify;
  */
 public class StandardInboundDocSubmissionDeferredRequestTest {
 
+    private final AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory
+        = mock(AdapterDocSubmissionDeferredRequestProxyObjectFactory.class);
+    private final AdapterDocSubmissionDeferredRequestProxy adapterProxy
+        = mock(AdapterDocSubmissionDeferredRequestProxy.class);
+    private final DocSubmissionDeferredRequestAuditLogger auditLogger
+        = mock(DocSubmissionDeferredRequestAuditLogger.class);
+    private final PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
+    private final XDRPolicyChecker policyChecker = mock(XDRPolicyChecker.class);
+    private final AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory errorAdapterFactory
+        = mock(AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory.class);
+    private final AdapterDocSubmissionDeferredRequestErrorProxy errorAdapter
+        = mock(AdapterDocSubmissionDeferredRequestErrorProxy.class);
+
     @Test
     public void standardInboundDocSubmissionDeferredRequest() throws PropertyAccessException {
         String localHCID = "1.1";
@@ -75,19 +88,10 @@ public class StandardInboundDocSubmissionDeferredRequestTest {
         assertion.getHomeCommunity().setHomeCommunityId(senderHCID);
         XDRAcknowledgementType expectedResponse = new XDRAcknowledgementType();
 
-        AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory
-            = mock(AdapterDocSubmissionDeferredRequestProxyObjectFactory.class);
-        AdapterDocSubmissionDeferredRequestProxy adapterProxy = mock(AdapterDocSubmissionDeferredRequestProxy.class);
-        DocSubmissionDeferredRequestAuditLogger auditLogger = mock(DocSubmissionDeferredRequestAuditLogger.class);
         Properties webContextProperties = new Properties();
         when(adapterFactory.getAdapterDocSubmissionDeferredRequestProxy()).thenReturn(adapterProxy);
 
         when(adapterProxy.provideAndRegisterDocumentSetBRequest(request, assertion)).thenReturn(expectedResponse);
-
-        PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
-        XDRPolicyChecker policyChecker = mock(XDRPolicyChecker.class);
-        AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory errorAdapterFactory
-            = mock(AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory.class);
 
         when(propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
             NhincConstants.HOME_COMMUNITY_ID_PROPERTY)).thenReturn(localHCID);
@@ -125,13 +129,6 @@ public class StandardInboundDocSubmissionDeferredRequestTest {
         assertion.getHomeCommunity().setHomeCommunityId(senderHCID);
         XDRAcknowledgementType expectedResponse = new XDRAcknowledgementType();
 
-        AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory = mock(AdapterDocSubmissionDeferredRequestProxyObjectFactory.class);
-        PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
-        XDRPolicyChecker policyChecker = mock(XDRPolicyChecker.class);
-        DocSubmissionDeferredRequestAuditLogger auditLogger = mock(DocSubmissionDeferredRequestAuditLogger.class);
-        AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory errorAdapterFactory
-            = mock(AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory.class);
-        AdapterDocSubmissionDeferredRequestErrorProxy errorAdapter = mock(AdapterDocSubmissionDeferredRequestErrorProxy.class);
         Properties webContextProperties = new Properties();
         when(propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
             NhincConstants.HOME_COMMUNITY_ID_PROPERTY)).thenReturn(localHCID);
@@ -165,15 +162,6 @@ public class StandardInboundDocSubmissionDeferredRequestTest {
         AssertionType assertion = new AssertionType();
         XDRAcknowledgementType expectedResponse = new XDRAcknowledgementType();
 
-        AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory
-            = mock(AdapterDocSubmissionDeferredRequestProxyObjectFactory.class);
-        PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
-        XDRPolicyChecker policyChecker = mock(XDRPolicyChecker.class);
-        DocSubmissionDeferredRequestAuditLogger auditLogger = mock(DocSubmissionDeferredRequestAuditLogger.class);
-        AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory errorAdapterFactory
-            = mock(AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory.class);
-        AdapterDocSubmissionDeferredRequestErrorProxy errorAdapter
-            = mock(AdapterDocSubmissionDeferredRequestErrorProxy.class);
         Properties webContextProperties = new Properties();
         when(errorAdapterFactory.getAdapterDocSubmissionDeferredRequestErrorProxy()).thenReturn(errorAdapter);
 

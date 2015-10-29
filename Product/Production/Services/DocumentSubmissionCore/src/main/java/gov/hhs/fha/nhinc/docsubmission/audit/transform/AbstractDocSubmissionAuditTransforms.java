@@ -143,4 +143,54 @@ public abstract class AbstractDocSubmissionAuditTransforms<T, K> extends AuditTr
         }
         return registryObj;
     }
+
+    @Override
+    protected String getServiceEventIdCodeRequestor() {
+        return DocSubmissionAuditTransformsConstants.EVENT_ID_CODE_DS_SOURCE;
+    }
+
+    @Override
+    protected String getServiceEventIdCodeResponder() {
+        return DocSubmissionAuditTransformsConstants.EVENT_ID_CODE_DS_RECIPIENT;
+    }
+
+    @Override
+    protected String getServiceEventCodeSystem() {
+        return DocSubmissionAuditTransformsConstants.EVENT_ID_CODE_SYSTEM;
+    }
+
+    @Override
+    protected String getServiceEventDisplayRequestor() {
+        return DocSubmissionAuditTransformsConstants.EVENT_ID_DISPLAY_SOURCE;
+    }
+
+    @Override
+    protected String getServiceEventDisplayResponder() {
+        return DocSubmissionAuditTransformsConstants.EVENT_ID_DISPLAY_RECIPIENT;
+    }
+
+    @Override
+    protected String getServiceEventTypeCode() {
+        return DocSubmissionAuditTransformsConstants.EVENT_TYPE_CODE;
+    }
+
+    @Override
+    protected String getServiceEventTypeCodeSystem() {
+        return DocSubmissionAuditTransformsConstants.EVENT_TYPE_CODE_SYSTEM;
+    }
+
+    @Override
+    protected String getServiceEventTypeCodeDisplayName() {
+        return DocSubmissionAuditTransformsConstants.EVENT_TYPE_CODE_DISPLAY_NAME;
+    }
+
+    @Override
+    protected String getServiceEventActionCodeRequestor() {
+        return DocSubmissionAuditTransformsConstants.EVENT_ACTION_CODE_SOURCE;
+    }
+
+    @Override
+    protected String getServiceEventActionCodeResponder() {
+        return DocSubmissionAuditTransformsConstants.EVENT_ACTION_CODE_RECIPIENT;
+    }
 }

@@ -72,14 +72,10 @@ public class OutboundDocSubmissionDeferredRequestStrategyImpl_g1 implements Orch
      * @param message
      */
     public void execute(OutboundDocSubmissionDeferredRequestOrchestratable message) {
-        LOG.debug("Begin OutboundDocSubmissionOrchestratableImpl_g1.process");
-
         NhinDocSubmissionDeferredRequestProxy nhincDocSubmission = getNhinDocSubmissionDeferredRequestProxy();
         XDRAcknowledgementType response = new XDRAcknowledgementType();
         response.setMessage(nhincDocSubmission.provideAndRegisterDocumentSetBRequest20(message.getRequest(),
             message.getAssertion(), message.getTarget()));
         message.setResponse(response);
-
-        LOG.debug("End OutboundDocSubmissionDeferredRequestStrategyImpl_g1.process");
     }
 }

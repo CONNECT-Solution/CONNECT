@@ -55,16 +55,20 @@ import static org.mockito.Mockito.mock;
  */
 public class PassthroughInboundDocSubmissionDeferredRequestTest {
 
+    private final AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory
+        = mock(AdapterDocSubmissionDeferredRequestProxyObjectFactory.class);
+    private final AdapterDocSubmissionDeferredRequestProxy adapterProxy
+        = mock(AdapterDocSubmissionDeferredRequestProxy.class);
+    private final DocSubmissionDeferredRequestAuditLogger auditLogger
+        = mock(DocSubmissionDeferredRequestAuditLogger.class);
+    private final DocSubmissionUtils dsUtils = mock(DocSubmissionUtils.class);
+
     @Test
     public void passthroughInboundDocSubmissionDeferredRequest() {
         ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
         XDRAcknowledgementType expectedResponse = new XDRAcknowledgementType();
 
-        AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory = mock(AdapterDocSubmissionDeferredRequestProxyObjectFactory.class);
-        AdapterDocSubmissionDeferredRequestProxy adapterProxy = mock(AdapterDocSubmissionDeferredRequestProxy.class);
-        DocSubmissionDeferredRequestAuditLogger auditLogger = mock(DocSubmissionDeferredRequestAuditLogger.class);
-        DocSubmissionUtils dsUtils = mock(DocSubmissionUtils.class);
         Properties webContextProperties = new Properties();
         when(adapterFactory.getAdapterDocSubmissionDeferredRequestProxy()).thenReturn(adapterProxy);
 
@@ -88,9 +92,6 @@ public class PassthroughInboundDocSubmissionDeferredRequestTest {
         ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
 
-        AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory = mock(AdapterDocSubmissionDeferredRequestProxyObjectFactory.class);
-        DocSubmissionDeferredRequestAuditLogger auditLogger = mock(DocSubmissionDeferredRequestAuditLogger.class);
-        DocSubmissionUtils dsUtils = mock(DocSubmissionUtils.class);
         Properties webContextProperties = new Properties();
         doThrow(new LargePayloadException()).when(dsUtils).convertDataToFileLocationIfEnabled(request);
 
