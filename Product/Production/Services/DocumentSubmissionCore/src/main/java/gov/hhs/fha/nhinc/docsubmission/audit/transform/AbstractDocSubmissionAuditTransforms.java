@@ -49,7 +49,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class AbstractDocSubmissionAuditTransforms<T, K> extends AuditTransforms<T, K> {
 
-    private static final Logger LOG = Logger.getLogger(AbstractDocSubmissionAuditTransforms.class);
+    static final Logger LOG = Logger.getLogger(AbstractDocSubmissionAuditTransforms.class);
 
     // PatientParticipantObjectIdentification is same for both Request and Response in case of DS
     protected AuditMessageType getPatientParticipantObjectIdentification(

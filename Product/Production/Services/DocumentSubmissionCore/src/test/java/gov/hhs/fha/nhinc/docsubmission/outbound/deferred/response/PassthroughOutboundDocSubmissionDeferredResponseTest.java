@@ -24,49 +24,59 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
-import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docsubmission.audit.DSDeferredResponseAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-
-import java.lang.reflect.Method;
-
+import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.isNotNull;
+import static org.mockito.Matchers.isNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 /**
  * @author akong
  *
  */
 public class PassthroughOutboundDocSubmissionDeferredResponseTest {
+
+    private final DSDeferredResponseAuditLogger auditLogger = mock(DSDeferredResponseAuditLogger.class);
     protected Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
     final OutboundDocSubmissionDeferredResponseDelegate mockDelegate = context
-            .mock(OutboundDocSubmissionDeferredResponseDelegate.class);
+        .mock(OutboundDocSubmissionDeferredResponseDelegate.class);
 
     @Test
     public void testProvideAndRegisterDocumentSetB() {
+        RegistryResponseType request = new RegistryResponseType();
+        AssertionType assertion = new AssertionType();
+        NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
         expectMockDelegateProcessAndReturnValidResponse();
 
-        XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBResponse();
+        XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBResponse(request, assertion,
+            targetCommunities);
+
+        verify(auditLogger).auditRequestMessage(eq(request), eq(assertion), isNotNull(NhinTargetSystemType.class),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME));
 
         context.assertIsSatisfied();
         assertNotNull(response);
@@ -80,12 +90,11 @@ public class PassthroughOutboundDocSubmissionDeferredResponseTest {
         assertNotNull(passthruOrch.getOutboundDocSubmissionDeferredResponseDelegate());
     }
 
-    private XDRAcknowledgementType runProvideAndRegisterDocumentSetBResponse() {
-        RegistryResponseType request = new RegistryResponseType();
-        AssertionType assertion = new AssertionType();
-        NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
+    private XDRAcknowledgementType runProvideAndRegisterDocumentSetBResponse(RegistryResponseType request,
+        AssertionType assertion, NhinTargetCommunitiesType targetCommunities) {
 
-        PassthroughOutboundDocSubmissionDeferredResponse passthruOrch = createPassthruDocSubmissionDeferredResponseOrchImpl();
+        PassthroughOutboundDocSubmissionDeferredResponse passthruOrch
+            = createPassthruDocSubmissionDeferredResponseOrchImpl();
         return passthruOrch.provideAndRegisterDocumentSetBAsyncResponse(request, assertion, targetCommunities);
     }
 
@@ -98,15 +107,16 @@ public class PassthroughOutboundDocSubmissionDeferredResponseTest {
         });
     }
 
-    private OutboundDocSubmissionDeferredResponseOrchestratable createOutboundDocSubmissionDeferredResponseOrchestratable() {
+    private OutboundDocSubmissionDeferredResponseOrchestratable
+        createOutboundDocSubmissionDeferredResponseOrchestratable() {
         RegistryResponseType regResponse = new RegistryResponseType();
         regResponse.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
 
         XDRAcknowledgementType response = new XDRAcknowledgementType();
         response.setMessage(regResponse);
 
-        OutboundDocSubmissionDeferredResponseOrchestratable orchestratable = new OutboundDocSubmissionDeferredResponseOrchestratable(
-                null);
+        OutboundDocSubmissionDeferredResponseOrchestratable orchestratable
+            = new OutboundDocSubmissionDeferredResponseOrchestratable(null);
         orchestratable.setResponse(response);
 
         return orchestratable;
@@ -116,6 +126,10 @@ public class PassthroughOutboundDocSubmissionDeferredResponseTest {
         return new PassthroughOutboundDocSubmissionDeferredResponse() {
             protected OutboundDocSubmissionDeferredResponseDelegate getOutboundDocSubmissionDeferredResponseDelegate() {
                 return mockDelegate;
+            }
+
+            protected DSDeferredResponseAuditLogger getAuditLogger() {
+                return auditLogger;
             }
         };
     }

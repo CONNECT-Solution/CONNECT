@@ -32,10 +32,11 @@ import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
-import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.audit.DSDeferredResponseAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -43,30 +44,29 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import org.apache.log4j.Logger;
 
 public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDocSubmissionDeferredResponse {
 
     private static final Logger LOG = Logger.getLogger(StandardOutboundDocSubmissionDeferredResponse.class);
-    private XDRAuditLogger auditLogger = null;
+    private DSDeferredResponseAuditLogger auditLogger = null;
 
     public StandardOutboundDocSubmissionDeferredResponse() {
-        auditLogger = getXDRAuditLogger();
+        auditLogger = getAuditLogger();
     }
 
     @OutboundProcessingEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
-            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
-            serviceType = "Document Submission Deferred Response", version = "")
+        afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
+        serviceType = "Document Submission Deferred Response", version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RegistryResponseType request,
-            AssertionType assertion, NhinTargetCommunitiesType targets) {
+        AssertionType assertion, NhinTargetCommunitiesType targets) {
 
         XDRAcknowledgementType response = null;
 
-        RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType internalRequest = createRequestForInternalProcessing(
-                request, targets);
+        RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType internalRequest
+            = createRequestForInternalProcessing(request, targets);
 
-        auditRequestFromAdapter(internalRequest, assertion);
+        auditRequest(internalRequest.getRegistryResponse(), assertion, internalRequest.getNhinTargetCommunities());
 
         if (isPolicyValid(internalRequest, assertion)) {
             LOG.info("Policy check successful");
@@ -76,14 +76,13 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
             response = createFailedPolicyCheckResponse();
         }
 
-        auditResponseToAdapter(response, assertion);
-
         return response;
     }
 
     private RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType createRequestForInternalProcessing(
-            RegistryResponseType msg, NhinTargetCommunitiesType targets) {
-        RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType();
+        RegistryResponseType msg, NhinTargetCommunitiesType targets) {
+        RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request
+            = new RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType();
         request.setNhinTargetCommunities(targets);
         request.setRegistryResponse(msg);
 
@@ -91,17 +90,17 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
     }
 
     private boolean isPolicyValid(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request,
-            AssertionType assertion) {
+        AssertionType assertion) {
         boolean isValid = false;
 
         if (hasNhinTargetHomeCommunityId(request)) {
             String senderHCID = getSubjectHelper().determineSendingHomeCommunityId(assertion.getHomeCommunity(),
-                    assertion);
+                assertion);
             String receiverHCID = getNhinTargetHomeCommunityId(request);
             String direction = NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION;
 
             isValid = getXDRPolicyChecker().checkXDRResponsePolicy(request.getRegistryResponse(), assertion,
-                    senderHCID, receiverHCID, direction);
+                senderHCID, receiverHCID, direction);
         } else {
             LOG.warn("Check on policy requires a non null target home community ID specified in the request");
         }
@@ -111,11 +110,12 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
     }
 
     private XDRAcknowledgementType getResponseFromTarget(
-            RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request, AssertionType assertion) {
+        RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request, AssertionType assertion) {
         NhinTargetSystemType targetSystemType = new NhinTargetSystemType();
         targetSystemType.setHomeCommunity(getNhinTargetHomeCommunity(request));
 
-        gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType nhinRequest = new gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType();
+        gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType nhinRequest
+            = new gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType();
         nhinRequest.setRegistryResponse(request.getRegistryResponse());
         nhinRequest.setNhinTargetSystem(targetSystemType);
 
@@ -123,22 +123,21 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
     }
 
     private XDRAcknowledgementType sendToNhinProxy(
-            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request,
-            AssertionType assertion) {
+        gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request, AssertionType assertion) {
 
         OutboundDocSubmissionDeferredResponseDelegate delegate = getOutboundDocSubmissionDeferredResponseDelegate();
         OutboundDocSubmissionDeferredResponseOrchestratable orchestratable = createOrchestratable(delegate, request,
-                assertion);
+            assertion);
         return ((OutboundDocSubmissionDeferredResponseOrchestratable) delegate.process(orchestratable)).getResponse();
     }
 
     private OutboundDocSubmissionDeferredResponseOrchestratable createOrchestratable(
-            OutboundDocSubmissionDeferredResponseDelegate delegate,
-            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request,
-            AssertionType assertion) {
+        OutboundDocSubmissionDeferredResponseDelegate delegate,
+        gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request,
+        AssertionType assertion) {
 
-        OutboundDocSubmissionDeferredResponseOrchestratable orchestratable = new OutboundDocSubmissionDeferredResponseOrchestratable(
-                delegate);
+        OutboundDocSubmissionDeferredResponseOrchestratable orchestratable
+            = new OutboundDocSubmissionDeferredResponseOrchestratable(delegate);
         orchestratable.setAssertion(assertion);
         orchestratable.setRequest(request.getRegistryResponse());
         orchestratable.setTarget(request.getNhinTargetSystem());
@@ -156,26 +155,24 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
         return response;
     }
 
-    private void auditRequestFromAdapter(
-            RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request, AssertionType assertion) {
-        auditLogger.auditEntityXDRResponseRequest(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-    }
-
-    private void auditResponseToAdapter(XDRAcknowledgementType response, AssertionType assertion) {
-        auditLogger.auditEntityAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                NhincConstants.XDR_RESPONSE_ACTION);
+    private void auditRequest(RegistryResponseType request, AssertionType assertion,
+        NhinTargetCommunitiesType targets) {
+        auditLogger.auditRequestMessage(request, assertion,
+            MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets),
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null,
+            NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME);
     }
 
     protected boolean hasNhinTargetHomeCommunityId(
-            RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request) {
+        RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request) {
 
         if (request != null
-                && request.getNhinTargetCommunities() != null
-                && NullChecker.isNotNullish(request.getNhinTargetCommunities().getNhinTargetCommunity())
-                && request.getNhinTargetCommunities().getNhinTargetCommunity().get(0) != null
-                && request.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity() != null
-                && NullChecker.isNotNullish(request.getNhinTargetCommunities().getNhinTargetCommunity().get(0)
-                        .getHomeCommunity().getHomeCommunityId())) {
+            && request.getNhinTargetCommunities() != null
+            && NullChecker.isNotNullish(request.getNhinTargetCommunities().getNhinTargetCommunity())
+            && request.getNhinTargetCommunities().getNhinTargetCommunity().get(0) != null
+            && request.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity() != null
+            && NullChecker.isNotNullish(request.getNhinTargetCommunities().getNhinTargetCommunity().get(0)
+                .getHomeCommunity().getHomeCommunityId())) {
             return true;
         }
 
@@ -183,17 +180,17 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
     }
 
     private HomeCommunityType getNhinTargetHomeCommunity(
-            RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request) {
+        RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request) {
         return request.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity();
     }
 
     private String getNhinTargetHomeCommunityId(
-            RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request) {
+        RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request) {
         return getNhinTargetHomeCommunity(request).getHomeCommunityId();
     }
 
-    protected XDRAuditLogger getXDRAuditLogger() {
-        return new XDRAuditLogger();
+    protected DSDeferredResponseAuditLogger getAuditLogger() {
+        return new DSDeferredResponseAuditLogger();
     }
 
     protected SubjectHelper getSubjectHelper() {

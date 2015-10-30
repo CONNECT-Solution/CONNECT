@@ -267,7 +267,14 @@ public abstract class AuditTransformsTest<T, K> {
         assertEquals("UserID mismatch", userId, destinationActiveParticipant.getUserID());
         assertEquals("DestinationActiveParticipant requestor flag mismatch", Boolean.FALSE,
             destinationActiveParticipant.isUserIsRequestor());
-        assertEquals("NetworkAccessPointID mismatch", localIp, destinationActiveParticipant.getNetworkAccessPointID());
+        if (!isRequesting) {
+            assertEquals("NetworkAccessPointID mismatch",
+                webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS),
+                destinationActiveParticipant.getNetworkAccessPointID());
+        } else {
+            assertEquals("NetworkAccessPointID mismatch", localIp, destinationActiveParticipant.
+                getNetworkAccessPointID());
+        }
         assertEquals("NetworkAccessPointTypeCode mismatch", AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_IP,
             destinationActiveParticipant.getNetworkAccessPointTypeCode());
         assertEquals("RoleIDCode.Code mismatch", AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST,

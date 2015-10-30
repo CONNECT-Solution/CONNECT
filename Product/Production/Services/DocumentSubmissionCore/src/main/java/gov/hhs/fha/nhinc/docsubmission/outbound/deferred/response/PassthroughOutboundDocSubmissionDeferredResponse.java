@@ -30,40 +30,44 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docsubmission.audit.DSDeferredResponseAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseOrchestratable;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.NhinDocSubmissionDeferredResponseProxy;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.NhinDocSubmissionDeferredResponseProxyObjectFactory;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 public class PassthroughOutboundDocSubmissionDeferredResponse implements OutboundDocSubmissionDeferredResponse {
 
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
+    private DSDeferredResponseAuditLogger auditLogger = null;
 
     public PassthroughOutboundDocSubmissionDeferredResponse() {
-
+        auditLogger = getAuditLogger();
     }
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RegistryResponseType body,
-            AssertionType assertion, NhinTargetCommunitiesType targets) {
+        AssertionType assertion, NhinTargetCommunitiesType targets) {
 
         NhinTargetSystemType targetSystem = msgUtils.convertFirstToNhinTargetSystemType(targets);
 
         OutboundDocSubmissionDeferredResponseDelegate delegate = getOutboundDocSubmissionDeferredResponseDelegate();
         OutboundDocSubmissionDeferredResponseOrchestratable dsOrchestratable = createOrchestratable(delegate, body,
-                assertion, targetSystem);
+            assertion, targetSystem);
+        auditRequest(body, assertion, targetSystem);
         XDRAcknowledgementType response = ((OutboundDocSubmissionDeferredResponseOrchestratable) delegate
-                .process(dsOrchestratable)).getResponse();
+            .process(dsOrchestratable)).getResponse();
 
         return response;
     }
 
     private OutboundDocSubmissionDeferredResponseOrchestratable createOrchestratable(
-            OutboundDocSubmissionDeferredResponseDelegate delegate, RegistryResponseType request,
-            AssertionType assertion, NhinTargetSystemType targetSystem) {
+        OutboundDocSubmissionDeferredResponseDelegate delegate, RegistryResponseType request,
+        AssertionType assertion, NhinTargetSystemType targetSystem) {
         OutboundDocSubmissionDeferredResponseOrchestratable orchestratable = new OutboundDocSubmissionDeferredResponseOrchestratable(
-                delegate);
+            delegate);
         orchestratable.setAssertion(assertion);
         orchestratable.setRequest(request);
         orchestratable.setTarget(targetSystem);
@@ -77,6 +81,17 @@ public class PassthroughOutboundDocSubmissionDeferredResponse implements Outboun
 
     protected NhinDocSubmissionDeferredResponseProxy createNhinProxy() {
         return new NhinDocSubmissionDeferredResponseProxyObjectFactory().getNhinDocSubmissionDeferredResponseProxy();
+    }
+
+    private void auditRequest(RegistryResponseType request, AssertionType assertion,
+        NhinTargetSystemType targets) {
+        auditLogger.auditRequestMessage(request, assertion, targets,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null,
+            NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME);
+    }
+
+    protected DSDeferredResponseAuditLogger getAuditLogger() {
+        return new DSDeferredResponseAuditLogger();
     }
 
 }

@@ -35,7 +35,6 @@ import javax.xml.ws.WebServiceContext;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-
 public class NhinDocSubmissionDeferredResponseImpl extends BaseService {
 
     private InboundDocSubmissionDeferredResponse inboundDocSubmissionResponse;
@@ -51,10 +50,11 @@ public class NhinDocSubmissionDeferredResponseImpl extends BaseService {
      * @return
      */
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
-            WebServiceContext context) {
+        WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
 
-        return inboundDocSubmissionResponse.provideAndRegisterDocumentSetBResponse(body, assertion);
+        return inboundDocSubmissionResponse.provideAndRegisterDocumentSetBResponse(body, assertion,
+            getWebContextProperties(context));
     }
 
 }
