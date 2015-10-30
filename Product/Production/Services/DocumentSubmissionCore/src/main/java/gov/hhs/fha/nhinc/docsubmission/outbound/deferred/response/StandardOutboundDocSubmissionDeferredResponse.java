@@ -94,13 +94,9 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
         boolean isValid = false;
 
         if (hasNhinTargetHomeCommunityId(request)) {
-            String senderHCID = getSubjectHelper().determineSendingHomeCommunityId(assertion.getHomeCommunity(),
-                assertion);
-            String receiverHCID = getNhinTargetHomeCommunityId(request);
-            String direction = NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION;
-
             isValid = getXDRPolicyChecker().checkXDRResponsePolicy(request.getRegistryResponse(), assertion,
-                senderHCID, receiverHCID, direction);
+                getSubjectHelper().determineSendingHomeCommunityId(assertion.getHomeCommunity(), assertion),
+                getNhinTargetHomeCommunityId(request), NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
         } else {
             LOG.warn("Check on policy requires a non null target home community ID specified in the request");
         }
@@ -166,17 +162,13 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
     protected boolean hasNhinTargetHomeCommunityId(
         RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request) {
 
-        if (request != null
+        return (request != null
             && request.getNhinTargetCommunities() != null
             && NullChecker.isNotNullish(request.getNhinTargetCommunities().getNhinTargetCommunity())
             && request.getNhinTargetCommunities().getNhinTargetCommunity().get(0) != null
             && request.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity() != null
             && NullChecker.isNotNullish(request.getNhinTargetCommunities().getNhinTargetCommunity().get(0)
-                .getHomeCommunity().getHomeCommunityId())) {
-            return true;
-        }
-
-        return false;
+                .getHomeCommunity().getHomeCommunityId()));
     }
 
     private HomeCommunityType getNhinTargetHomeCommunity(

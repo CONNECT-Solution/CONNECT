@@ -126,7 +126,7 @@ public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboun
             localHCID = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                 NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
-            LOG.error("Exception while retrieving home community ID", ex);
+            LOG.error("Exception while retrieving home community ID : " + ex.getLocalizedMessage(), ex);
         }
 
         return localHCID;

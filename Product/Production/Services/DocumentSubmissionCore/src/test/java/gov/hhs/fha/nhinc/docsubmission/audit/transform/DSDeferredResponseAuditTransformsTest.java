@@ -115,8 +115,6 @@ public class DSDeferredResponseAuditTransformsTest extends
 
             assertNull("userActiveParticipant is null", userActiveParticipant);
         }
-
-        // TODO: Should there be an else case here?
     }
 
     @Test
@@ -137,11 +135,7 @@ public class DSDeferredResponseAuditTransformsTest extends
 
             @Override
             protected String getRemoteHostAddress(Properties webContextProeprties) {
-                if (webContextProeprties != null && !webContextProeprties.isEmpty() && webContextProeprties.
-                    getProperty(NhincConstants.REMOTE_HOST_ADDRESS) != null) {
-                    return webContextProeprties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS);
-                }
-                return AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
+                return REQUEST_LOCAL_IP;
             }
 
             @Override

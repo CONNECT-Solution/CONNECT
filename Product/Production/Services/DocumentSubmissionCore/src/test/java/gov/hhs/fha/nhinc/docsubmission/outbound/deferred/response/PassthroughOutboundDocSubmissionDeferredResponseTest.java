@@ -124,10 +124,12 @@ public class PassthroughOutboundDocSubmissionDeferredResponseTest {
 
     private PassthroughOutboundDocSubmissionDeferredResponse createPassthruDocSubmissionDeferredResponseOrchImpl() {
         return new PassthroughOutboundDocSubmissionDeferredResponse() {
+            @Override
             protected OutboundDocSubmissionDeferredResponseDelegate getOutboundDocSubmissionDeferredResponseDelegate() {
                 return mockDelegate;
             }
 
+            @Override
             protected DSDeferredResponseAuditLogger getAuditLogger() {
                 return auditLogger;
             }

@@ -76,12 +76,12 @@ public class DSDeferredResponseAuditTransforms extends
 
     @Override
     protected String getServiceEventIdCodeRequestor() {
-        return DocSubmissionAuditTransformsConstants.EVENT_ID_CODE_DS_SOURCE;
+        return DocSubmissionAuditTransformsConstants.EVENT_ID_CODE_DS_RECIPIENT;
     }
 
     @Override
     protected String getServiceEventIdCodeResponder() {
-        return DocSubmissionAuditTransformsConstants.EVENT_ID_CODE_DS_RECIPIENT;
+        return DocSubmissionAuditTransformsConstants.EVENT_ID_CODE_DS_SOURCE;
     }
 
     @Override
@@ -91,12 +91,12 @@ public class DSDeferredResponseAuditTransforms extends
 
     @Override
     protected String getServiceEventDisplayRequestor() {
-        return DocSubmissionAuditTransformsConstants.EVENT_ID_DISPLAY_SOURCE;
+        return DocSubmissionAuditTransformsConstants.EVENT_ID_DISPLAY_RECIPIENT;
     }
 
     @Override
     protected String getServiceEventDisplayResponder() {
-        return DocSubmissionAuditTransformsConstants.EVENT_ID_DISPLAY_RECIPIENT;
+        return DocSubmissionAuditTransformsConstants.EVENT_ID_DISPLAY_SOURCE;
     }
 
     @Override
@@ -116,12 +116,12 @@ public class DSDeferredResponseAuditTransforms extends
 
     @Override
     protected String getServiceEventActionCodeRequestor() {
-        return DocSubmissionAuditTransformsConstants.EVENT_ACTION_CODE_SOURCE;
+        return DocSubmissionAuditTransformsConstants.EVENT_ACTION_CODE_RECIPIENT;
     }
 
     @Override
     protected String getServiceEventActionCodeResponder() {
-        return DocSubmissionAuditTransformsConstants.EVENT_ACTION_CODE_RECIPIENT;
+        return DocSubmissionAuditTransformsConstants.EVENT_ACTION_CODE_SOURCE;
     }
 
     @Override
@@ -213,53 +213,6 @@ public class DSDeferredResponseAuditTransforms extends
                 + ex.getLocalizedMessage(), ex);
         }
         return AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE;
-    }
-
-    @Override
-    protected EventIdentificationType createEventIdentification(boolean isRequesting) {
-        CodedValueType eventId = createCodeValueType(isRequesting ? getServiceEventIdCodeResponder()
-            : getServiceEventIdCodeRequestor(), null, getServiceEventCodeSystem(),
-            isRequesting ? getServiceEventDisplayResponder() : getServiceEventDisplayRequestor());
-
-        EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventId, isRequesting);
-        oEventIdentificationType.getEventTypeCode().add(AuditDataTransformHelper
-            .createCodeValueType(getServiceEventTypeCode(), null, getServiceEventTypeCodeSystem(),
-                getServiceEventTypeCodeDisplayName()));
-
-        return oEventIdentificationType;
-    }
-
-    @Override
-    protected EventIdentificationType getEventIdentificationType(CodedValueType eventId, boolean isRequesting) {
-        EventIdentificationType eventIdentification = new EventIdentificationType();
-
-        // Set the Event Action Code
-        eventIdentification.setEventActionCode(
-            isRequesting ? getServiceEventActionCodeResponder() : getServiceEventActionCodeRequestor());
-
-        // Set the Event Action Time
-        try {
-            GregorianCalendar today = new java.util.GregorianCalendar(TimeZone.getTimeZone("GMT"));
-            DatatypeFactory factory = javax.xml.datatype.DatatypeFactory.newInstance();
-            XMLGregorianCalendar calendar = factory.newXMLGregorianCalendar(
-                today.get(java.util.GregorianCalendar.YEAR), today.get(java.util.GregorianCalendar.MONTH) + 1,
-                today.get(java.util.GregorianCalendar.DAY_OF_MONTH), today.get(java.util.GregorianCalendar.HOUR_OF_DAY),
-                today.get(java.util.GregorianCalendar.MINUTE), today.get(java.util.GregorianCalendar.SECOND),
-                today.get(java.util.GregorianCalendar.MILLISECOND), 0);
-            eventIdentification.setEventDateTime(calendar);
-        } catch (DatatypeConfigurationException | ArrayIndexOutOfBoundsException e) {
-            LOG.error("Exception when creating XMLGregorian Date: " + e.getLocalizedMessage(), e);
-            // TODO -- do we need to set anything on failure, or throw an exception?
-        }
-
-        // Set the Event Outcome Indicator
-        eventIdentification.setEventOutcomeIndicator(
-            new BigInteger(AuditTransformsConstants.EVENT_OUTCOME_INDICATOR_SUCCESS.toString()));
-
-        // Set the Event Id
-        eventIdentification.setEventID(eventId);
-
-        return eventIdentification;
     }
 
     private NhinTargetSystemType getLocalHCIDNhinTarget() {
