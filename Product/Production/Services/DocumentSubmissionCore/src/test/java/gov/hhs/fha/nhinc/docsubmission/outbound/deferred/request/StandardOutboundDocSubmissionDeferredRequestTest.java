@@ -56,6 +56,7 @@ import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.junit.Before;
 import org.junit.Test;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -70,20 +71,26 @@ import static org.mockito.Mockito.when;
  */
 public class StandardOutboundDocSubmissionDeferredRequestTest {
 
-    private final String senderHCID = "1.1";
-    private final String receiverHCID = "2.2";
-    private final DocSubmissionDeferredRequestAuditLogger mockAuditLogger
-        = mock(DocSubmissionDeferredRequestAuditLogger.class);
-    private final XDRPolicyChecker mockPolicyChecker = mock(XDRPolicyChecker.class);
-    private final SubjectHelper mockSubjectHelper = mock(SubjectHelper.class);
-    private final OutboundDocSubmissionDeferredRequestDelegate mockDelegate
-        = mock(OutboundDocSubmissionDeferredRequestDelegate.class);
+    private static final String SENDER_HCID = "1.1";
+    private static final String RECEIVER_HCID = "2.2";
+    private DocSubmissionDeferredRequestAuditLogger mockAuditLogger;
+    private XDRPolicyChecker mockPolicyChecker;
+    private SubjectHelper mockSubjectHelper;
+    private OutboundDocSubmissionDeferredRequestDelegate mockDelegate;
+
+    @Before()
+    public void setup() {
+        mockAuditLogger = mock(DocSubmissionDeferredRequestAuditLogger.class);
+        mockPolicyChecker = mock(XDRPolicyChecker.class);
+        mockSubjectHelper = mock(SubjectHelper.class);
+        mockDelegate = mock(OutboundDocSubmissionDeferredRequestDelegate.class);
+    }
 
     @Test
     public void testProvideAndRegisterDocumentSetB() {
-        NhinTargetCommunitiesType targets = createNhinTargetCommunitiesType(receiverHCID);
+        NhinTargetCommunitiesType targets = createNhinTargetCommunitiesType(RECEIVER_HCID);
         ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
-        final AssertionType assertion = createAssertion(senderHCID);
+        final AssertionType assertion = createAssertion(SENDER_HCID);
         UrlInfoType urlInfo = new UrlInfoType();
 
         when(mockPolicyChecker.checkXDRRequestPolicy(any(ProvideAndRegisterDocumentSetRequestType.class),
@@ -106,9 +113,9 @@ public class StandardOutboundDocSubmissionDeferredRequestTest {
 
     @Test
     public void testProvideAndRegisterDocumentSetB_policyFailure() {
-        NhinTargetCommunitiesType targets = createNhinTargetCommunitiesType(receiverHCID);
+        NhinTargetCommunitiesType targets = createNhinTargetCommunitiesType(RECEIVER_HCID);
         ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
-        final AssertionType assertion = createAssertion(senderHCID);
+        final AssertionType assertion = createAssertion(SENDER_HCID);
         UrlInfoType urlInfo = new UrlInfoType();
 
         when(mockPolicyChecker.checkXDRRequestPolicy(any(ProvideAndRegisterDocumentSetRequestType.class),
@@ -133,7 +140,7 @@ public class StandardOutboundDocSubmissionDeferredRequestTest {
     public void testProvideAndRegisterDocumentSetB_emptyTargets() {
         NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
         ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
-        final AssertionType assertion = createAssertion(senderHCID);
+        final AssertionType assertion = createAssertion(SENDER_HCID);
         UrlInfoType urlInfo = new UrlInfoType();
 
         when(mockPolicyChecker.checkXDRRequestPolicy(any(ProvideAndRegisterDocumentSetRequestType.class),
@@ -158,36 +165,29 @@ public class StandardOutboundDocSubmissionDeferredRequestTest {
     public void testHasNhinTargetHomeCommunityId() {
         StandardOutboundDocSubmissionDeferredRequest entityOrch = createDocSubmissionDeferredRequestOrchImpl();
 
-        boolean hasTargets = entityOrch.hasNhinTargetHomeCommunityId(null);
-        assertFalse(hasTargets);
+        assertFalse(entityOrch.hasNhinTargetHomeCommunityId(null));
 
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request
             = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
-        hasTargets = entityOrch.hasNhinTargetHomeCommunityId(request);
-        assertFalse(hasTargets);
+        assertFalse(entityOrch.hasNhinTargetHomeCommunityId(request));
 
         NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
         request.setNhinTargetCommunities(targetCommunities);
-        hasTargets = entityOrch.hasNhinTargetHomeCommunityId(request);
-        assertFalse(hasTargets);
+        assertFalse(entityOrch.hasNhinTargetHomeCommunityId(request));
 
         request.getNhinTargetCommunities().getNhinTargetCommunity().add(null);
         request.setNhinTargetCommunities(targetCommunities);
-        hasTargets = entityOrch.hasNhinTargetHomeCommunityId(request);
-        assertFalse(hasTargets);
+        assertFalse(entityOrch.hasNhinTargetHomeCommunityId(request));
 
-        targetCommunities = createNhinTargetCommunitiesType(receiverHCID);
+        targetCommunities = createNhinTargetCommunitiesType(RECEIVER_HCID);
         request.setNhinTargetCommunities(targetCommunities);
-        hasTargets = entityOrch.hasNhinTargetHomeCommunityId(request);
-        assertTrue(hasTargets);
+        assertTrue(entityOrch.hasNhinTargetHomeCommunityId(request));
 
         request.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity().setHomeCommunityId(null);
-        hasTargets = entityOrch.hasNhinTargetHomeCommunityId(request);
-        assertFalse(hasTargets);
+        assertFalse(entityOrch.hasNhinTargetHomeCommunityId(request));
 
         request.getNhinTargetCommunities().getNhinTargetCommunity().get(0).setHomeCommunity(null);
-        hasTargets = entityOrch.hasNhinTargetHomeCommunityId(request);
-        assertFalse(hasTargets);
+        assertFalse(entityOrch.hasNhinTargetHomeCommunityId(request));
     }
 
     @Test
