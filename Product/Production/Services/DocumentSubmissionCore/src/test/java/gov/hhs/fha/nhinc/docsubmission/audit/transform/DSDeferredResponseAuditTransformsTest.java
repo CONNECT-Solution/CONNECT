@@ -59,7 +59,7 @@ public class DSDeferredResponseAuditTransformsTest extends
     private final String REQUEST_WS_REQUEST_URL = "http://" + REQUEST_LOCAL_IP + ":9090/AuditService";
 
     @Test
-    public void transformRequestToAuditMsg() throws ConnectionManagerException, UnknownHostException, JAXBException {
+    public void testTransformRequestToAuditMsg() throws ConnectionManagerException, UnknownHostException, JAXBException {
 
         DSDeferredResponseAuditTransforms transforms = new DSDeferredResponseAuditTransforms() {
 
@@ -118,7 +118,7 @@ public class DSDeferredResponseAuditTransformsTest extends
     }
 
     @Test
-    public void transformResponseToAuditMsg() throws ConnectionManagerException, UnknownHostException {
+    public void testTransformResponseToAuditMsg() throws ConnectionManagerException, UnknownHostException {
 
         Properties webContextProperties = new Properties();
 

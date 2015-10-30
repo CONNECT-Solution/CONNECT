@@ -27,8 +27,6 @@
 package gov.hhs.fha.nhinc.docsubmission.audit.transform;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
-import com.services.nhinc.schema.auditmessage.CodedValueType;
-import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
@@ -44,15 +42,9 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import java.lang.management.ManagementFactory;
-import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.GregorianCalendar;
 import java.util.Properties;
-import java.util.TimeZone;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
@@ -165,20 +157,17 @@ public class DSDeferredResponseAuditTransforms extends
             NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME) : getWebServiceUrlFromRemoteObject(
                 convertToNhinTarget(getMessageCommunityId(getAssertion(), target, isRequesting)),
                 NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME);
-        if (url != null) {
-            try {
-                participant.setUserID(url);
-                ipOrHost = new URL(url).getHost();
-                participant.setNetworkAccessPointID(ipOrHost);
-                participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(ipOrHost));
-            } catch (MalformedURLException ex) {
-                LOG.error("Couldn't parse the given NetworkAccessPointID as a URL: " + ex.getLocalizedMessage(), ex);
-                // The url is null or not a valid url; for now, set the user id to anonymous
-                participant.setUserID(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
-                // TODO: For now, hardcode the value to localhost; need to find out if this needs to be set
-                participant.setNetworkAccessPointTypeCode(AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME);
-                participant.setNetworkAccessPointID(AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS);
-            }
+        try {
+            participant.setUserID(url);
+            ipOrHost = new URL(url).getHost();
+            participant.setNetworkAccessPointID(ipOrHost);
+            participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(ipOrHost));
+        } catch (MalformedURLException ex) {
+            LOG.error("Couldn't parse the given NetworkAccessPointID as a URL: " + ex.getLocalizedMessage(), ex);
+            participant.setUserID(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
+            // TODO: For now, hardcode the value to localhost; need to find out if this needs to be set
+            participant.setNetworkAccessPointTypeCode(AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME);
+            participant.setNetworkAccessPointID(AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS);
         }
         if (!isRequesting) {
             participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());

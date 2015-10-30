@@ -1565,7 +1565,13 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Audit Logs" id="2518c97d-6055-4a7a-a2bf-4e7af8674da0" disabled="true">
+      <con:testStep type="delay" name="Delay">
+        <con:settings/>
+        <con:config>
+          <delay>10000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Verify Audit Logs" id="2518c97d-6055-4a7a-a2bf-4e7af8674da0">
         <con:settings/>
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
@@ -1576,7 +1582,7 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
         <con:config>
           <script>context.withSql('AuditRepoDB') {sql ->
@@ -1634,7 +1640,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() &am
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
-   	    assert(!node.@AlternativeUserID.isEmpty())
+   	    //assert(!node.@AlternativeUserID.isEmpty())
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -1674,7 +1680,7 @@ parsedXmlMessage.AuditSourceIdentification.find{
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK">
         <con:settings/>
         <con:config>
           <script>context.withSql('AuditRepoDB') {sql ->
@@ -1788,19 +1794,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-28T18:08:35Z</con:value>
+          <con:value>2015-10-30T21:17:59Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-28T18:18:35Z</con:value>
+          <con:value>2015-10-30T21:27:59Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/28/2015 18:08:35</con:value>
+          <con:value>10/30/2015 21:17:59</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-27T00:00:00Z</con:value>
+          <con:value>2015-11-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -1864,7 +1870,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name>
-          <con:value>192.168.1.2</con:value>
+          <con:value>localhost</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -1884,7 +1890,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name>
-          <con:value>Gateway 1</con:value>
+          <con:value>DoD</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@displayName</con:name>
@@ -9489,7 +9495,8 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
-        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -9659,11 +9666,13 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 	 	}
 	}
   }
-}]]></script></con:config>
+}]]></script>
+        </con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK">
         <con:settings/>
-        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -9813,7 +9822,8 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
 	 	}
 	}
   }
-}]]></script></con:config>
+}]]></script>
+        </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
@@ -10443,7 +10453,13 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Audit Logs" id="1beb8e26-5072-49a0-ac2f-43a76017455b" disabled="true">
+      <con:testStep type="delay" name="Delay">
+        <con:settings/>
+        <con:config>
+          <delay>10000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Verify Audit Logs" id="1beb8e26-5072-49a0-ac2f-43a76017455b">
         <con:settings/>
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
@@ -10454,7 +10470,7 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
         <con:config>
           <script>context.withSql('AuditRepoDB') {sql ->
@@ -10508,11 +10524,11 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() &am
 //check for ActiveParticipant Destination details
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() &amp;&amp; parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
-	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	     
+	     //assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
-   	    assert(!node.@AlternativeUserID.isEmpty())
+   	   // assert(!node.@AlternativeUserID.isEmpty())
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -10552,7 +10568,7 @@ parsedXmlMessage.AuditSourceIdentification.find{
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK">
         <con:settings/>
         <con:config>
           <script>context.withSql('AuditRepoDB') {sql ->
@@ -10604,7 +10620,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() &am
 //check for ActiveParticipant Destination details
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() &amp;&amp; parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
-	    	assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	    
+	    //	assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	    
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
@@ -10666,19 +10682,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-28T18:05:07Z</con:value>
+          <con:value>2015-10-30T21:19:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-28T18:15:07Z</con:value>
+          <con:value>2015-10-30T21:29:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/28/2015 18:05:07</con:value>
+          <con:value>10/30/2015 21:19:22</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-27T00:00:00Z</con:value>
+          <con:value>2015-11-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -10742,7 +10758,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name>
-          <con:value>192.168.1.2</con:value>
+          <con:value>localhost</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -10762,7 +10778,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name>
-          <con:value>Gateway 1</con:value>
+          <con:value>DoD</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@displayName</con:name>
