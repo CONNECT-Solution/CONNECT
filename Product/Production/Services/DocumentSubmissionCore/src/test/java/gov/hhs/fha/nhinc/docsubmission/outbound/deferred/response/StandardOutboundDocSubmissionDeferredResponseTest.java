@@ -51,57 +51,13 @@ import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNotNull;
 import static org.mockito.Matchers.isNull;
-import static org.mockito.Matchers.isNull;
-import static org.mockito.Matchers.isNull;
-import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -167,9 +123,10 @@ public class StandardOutboundDocSubmissionDeferredResponseTest {
         AssertionType assertionLocal = new AssertionType();
         XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBAsyncRequest_emptyTargets(requestLocal,
             assertionLocal);
-        verify(auditLogger).auditRequestMessage(eq(requestLocal), eq(assertionLocal), isNotNull(NhinTargetSystemType.class),
-            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME));
+        verify(auditLogger).auditRequestMessage(eq(requestLocal), eq(assertionLocal),
+            isNotNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE), isNull(Properties.class),
+            eq(NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME));
         context.assertIsSatisfied();
         assertNotNull(response);
         assertEquals(NhincConstants.XDR_ACK_FAILURE_STATUS_MSG, response.getMessage().getStatus());
@@ -275,15 +232,16 @@ public class StandardOutboundDocSubmissionDeferredResponseTest {
         });
     }
 
-    private OutboundDocSubmissionDeferredResponseOrchestratable createOutboundDocSubmissionDeferredResponseOrchestratable() {
+    private OutboundDocSubmissionDeferredResponseOrchestratable
+        createOutboundDocSubmissionDeferredResponseOrchestratable() {
         RegistryResponseType regResponse = new RegistryResponseType();
         regResponse.setStatus(NhincConstants.XDR_RESP_ACK_STATUS_MSG);
 
         XDRAcknowledgementType response = new XDRAcknowledgementType();
         response.setMessage(regResponse);
 
-        OutboundDocSubmissionDeferredResponseOrchestratable orchestratable = new OutboundDocSubmissionDeferredResponseOrchestratable(
-            null);
+        OutboundDocSubmissionDeferredResponseOrchestratable orchestratable
+            = new OutboundDocSubmissionDeferredResponseOrchestratable(null);
         orchestratable.setResponse(response);
 
         return orchestratable;

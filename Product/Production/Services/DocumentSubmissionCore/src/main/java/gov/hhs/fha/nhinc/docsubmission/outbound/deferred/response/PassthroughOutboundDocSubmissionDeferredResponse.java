@@ -66,8 +66,8 @@ public class PassthroughOutboundDocSubmissionDeferredResponse implements Outboun
     private OutboundDocSubmissionDeferredResponseOrchestratable createOrchestratable(
         OutboundDocSubmissionDeferredResponseDelegate delegate, RegistryResponseType request,
         AssertionType assertion, NhinTargetSystemType targetSystem) {
-        OutboundDocSubmissionDeferredResponseOrchestratable orchestratable = new OutboundDocSubmissionDeferredResponseOrchestratable(
-            delegate);
+        OutboundDocSubmissionDeferredResponseOrchestratable orchestratable
+            = new OutboundDocSubmissionDeferredResponseOrchestratable(delegate);
         orchestratable.setAssertion(assertion);
         orchestratable.setRequest(request);
         orchestratable.setTarget(targetSystem);
