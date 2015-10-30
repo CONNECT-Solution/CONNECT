@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docsubmission.inbound.deferred.request;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import java.util.Properties;
 
 /**
  * @author akong
@@ -37,5 +38,5 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 public interface InboundDocSubmissionDeferredRequest {
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
-            AssertionType assertion);
+        AssertionType assertion, Properties webContextProperties);
 }

@@ -28,35 +28,35 @@ package gov.hhs.fha.nhinc.docsubmission.audit.transform;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- * Document Submission audit transforms to support DS audit logging.
+ * ATNA Audit Logging for DocSubmissionDeferredRequest
  *
  * @author tjafri
  */
-public class DocSubmissionAuditTransforms extends AbstractDocSubmissionAuditTransforms<
-    ProvideAndRegisterDocumentSetRequestType, RegistryResponseType> {
+public class DocSubmissionDeferredRequestAuditTransforms extends AbstractDocSubmissionAuditTransforms<
+    ProvideAndRegisterDocumentSetRequestType, XDRAcknowledgementType> {
 
     @Override
     protected AuditMessageType getParticipantObjectIdentificationForRequest(
         ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, AuditMessageType auditMsg) {
         // PatientParticipantObjectIdentification  and SubmissionSetParticipantObjectIdentification is same for both
         //Request and Response in case of DS
-        auditMsg = getPatientParticipantObjectIdentification(request, auditMsg);
-        auditMsg = getSubmissionSetParticipantObjectIdentification(request, auditMsg);
+        getPatientParticipantObjectIdentification(request, auditMsg);
+        getSubmissionSetParticipantObjectIdentification(request, auditMsg);
         return auditMsg;
     }
 
     @Override
     protected AuditMessageType getParticipantObjectIdentificationForResponse(
-        ProvideAndRegisterDocumentSetRequestType request, RegistryResponseType response, AssertionType assertion,
+        ProvideAndRegisterDocumentSetRequestType request, XDRAcknowledgementType response, AssertionType assertion,
         AuditMessageType auditMsg) {
         // PatientParticipantObjectIdentification  and SubmissionSetParticipantObjectIdentification is same for both
         //Request and Response in case of DS
-        auditMsg = getPatientParticipantObjectIdentification(request, auditMsg);
-        auditMsg = getSubmissionSetParticipantObjectIdentification(request, auditMsg);
+        getPatientParticipantObjectIdentification(request, auditMsg);
+        getSubmissionSetParticipantObjectIdentification(request, auditMsg);
         return auditMsg;
     }
 }

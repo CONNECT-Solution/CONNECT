@@ -29,8 +29,8 @@ package gov.hhs.fha.nhinc.docsubmission.inbound.deferred.request;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
-import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxyObjectFactory;
+import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionDeferredRequestAuditLogger;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
@@ -52,8 +52,8 @@ public class PassthroughInboundDocSubmissionDeferredRequest extends AbstractInbo
      * Constructor.
      */
     public PassthroughInboundDocSubmissionDeferredRequest() {
-        this(new AdapterDocSubmissionDeferredRequestProxyObjectFactory(), new XDRAuditLogger(), DocSubmissionUtils
-                .getInstance());
+        this(new AdapterDocSubmissionDeferredRequestProxyObjectFactory(), new DocSubmissionDeferredRequestAuditLogger(),
+            DocSubmissionUtils.getInstance());
     }
 
     /**
@@ -64,15 +64,16 @@ public class PassthroughInboundDocSubmissionDeferredRequest extends AbstractInbo
      * @param dsUtils
      */
     public PassthroughInboundDocSubmissionDeferredRequest(
-            AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory, XDRAuditLogger auditLogger,
-            DocSubmissionUtils dsUtils) {
+        AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory,
+        DocSubmissionDeferredRequestAuditLogger auditLogger,
+        DocSubmissionUtils dsUtils) {
         super(adapterFactory, auditLogger);
         this.dsUtils = dsUtils;
     }
 
     @Override
     XDRAcknowledgementType processDocSubmissionRequest(ProvideAndRegisterDocumentSetRequestType body,
-            AssertionType assertion) {
+        AssertionType assertion) {
 
         XDRAcknowledgementType response = null;
 
@@ -80,7 +81,7 @@ public class PassthroughInboundDocSubmissionDeferredRequest extends AbstractInbo
             dsUtils.convertDataToFileLocationIfEnabled(body);
             response = sendToAdapter(body, assertion);
         } catch (LargePayloadException lpe) {
-            LOG.error("Failed to retrieve payload document.", lpe);
+            LOG.error("Failed to retrieve payload document. " + lpe.getLocalizedMessage(), lpe);
             response = msgUtils.createXDRAckWithRegistryErrorResponse();
         }
 

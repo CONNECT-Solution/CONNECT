@@ -24,55 +24,54 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.docsubmission.outbound.deferred.request;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
-import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
-import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
-import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionDeferredRequestAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
-import java.lang.reflect.Method;
-
+import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.isNull;
+import static org.mockito.Mockito.verify;
 
 /**
  * @author akong
  *
  */
 public class PassthroughOutboundDocSubmissionDeferredRequestTest {
-    protected Mockery context = new JUnit4Mockery() {
-        {
-            setImposteriser(ClassImposteriser.INSTANCE);
-        }
-    };
-    final XDRAuditLogger mockXDRLog = context.mock(XDRAuditLogger.class);
-    final OutboundDocSubmissionDeferredRequestDelegate mockDelegate = context.mock(OutboundDocSubmissionDeferredRequestDelegate.class);
+
+    final OutboundDocSubmissionDeferredRequestDelegate mockDelegate = mock(OutboundDocSubmissionDeferredRequestDelegate.class);
+    final DocSubmissionDeferredRequestAuditLogger auditLogger = mock(DocSubmissionDeferredRequestAuditLogger.class);
 
     @Test
     public void testProvideAndRegisterDocumentSetB() {
-        expectMockDelegateProcessAndReturnValidResponse();
+        ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
+        AssertionType assertion = new AssertionType();
+        NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
 
-        XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBRequest();
+        when(mockDelegate.process(any(OutboundDocSubmissionDeferredRequestOrchestratable.class))).thenReturn(
+            createOutboundDocSubmissionDeferredRequestOrchestratable());
+
+        XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBRequest(request, assertion, targetCommunities);
 
         assertNotNull(response);
         assertEquals(NhincConstants.XDR_ACK_STATUS_MSG, response.getMessage().getStatus());
+        verify(auditLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE),
+            isNull(Properties.class), eq(NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME));
     }
 
     @Test
@@ -82,22 +81,12 @@ public class PassthroughOutboundDocSubmissionDeferredRequestTest {
         assertNotNull(passthruOrch.getOutboundDocSubmissionDeferredRequestDelegate());
     }
 
-    private XDRAcknowledgementType runProvideAndRegisterDocumentSetBRequest() {
-        ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
-        AssertionType assertion = new AssertionType();
-        NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
+    private XDRAcknowledgementType runProvideAndRegisterDocumentSetBRequest(
+        ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
+        NhinTargetCommunitiesType targetCommunities) {
 
         PassthroughOutboundDocSubmissionDeferredRequest passthruOrch = createPassthruDocSubmissionDeferredRequestOrchImpl();
         return passthruOrch.provideAndRegisterDocumentSetBAsyncRequest(request, assertion, targetCommunities, null);
-    }
-
-    private void expectMockDelegateProcessAndReturnValidResponse() {
-        context.checking(new Expectations() {
-            {
-                oneOf(mockDelegate).process(with(any(OutboundDocSubmissionDeferredRequestOrchestratable.class)));
-                will(returnValue(createOutboundDocSubmissionDeferredRequestOrchestratable()));
-            }
-        });
     }
 
     private OutboundDocSubmissionDeferredRequestOrchestratable createOutboundDocSubmissionDeferredRequestOrchestratable() {
@@ -107,7 +96,8 @@ public class PassthroughOutboundDocSubmissionDeferredRequestTest {
         XDRAcknowledgementType response = new XDRAcknowledgementType();
         response.setMessage(regResponse);
 
-        OutboundDocSubmissionDeferredRequestOrchestratable orchestratable = new OutboundDocSubmissionDeferredRequestOrchestratable(null);
+        OutboundDocSubmissionDeferredRequestOrchestratable orchestratable
+            = new OutboundDocSubmissionDeferredRequestOrchestratable(null);
         orchestratable.setResponse(response);
 
         return orchestratable;
@@ -115,10 +105,15 @@ public class PassthroughOutboundDocSubmissionDeferredRequestTest {
 
     private PassthroughOutboundDocSubmissionDeferredRequest createPassthruDocSubmissionDeferredRequestOrchImpl() {
         return new PassthroughOutboundDocSubmissionDeferredRequest() {
+            @Override
             protected OutboundDocSubmissionDeferredRequestDelegate getOutboundDocSubmissionDeferredRequestDelegate() {
                 return mockDelegate;
             }
+
+            @Override
+            protected DocSubmissionDeferredRequestAuditLogger getAuditLogger() {
+                return auditLogger;
+            }
         };
     }
-
 }
