@@ -596,16 +596,19 @@
       </con:testStep>
       <con:testStep type="groovy" name="Verify Audit Logs" id="9af1f656-9833-42d1-8b82-b79f779c22ae" disabled="true">
         <con:settings/>
-        <con:config><script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
+        <con:config>
+          <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 	
-}</script></con:config>
+}</script>
+        </con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
         <con:settings/>
-        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -775,10 +778,13 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 	 	}
 	}
   }
-}]]></script></con:config>
-      </con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" disabled="true">
+}]]></script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" disabled="true">
         <con:settings/>
-        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -928,8 +934,10 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
 	 	}
 	}
   }
-}]]></script></con:config>
-      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+}]]></script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
@@ -961,7 +969,247 @@ if (propertiesFile.exists()) {
           <con:name>expireDate</con:name>
           <con:value>2015-11-27T00:00:00Z</con:value>
         </con:property>
-      <con:property><con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name><con:value>110153</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCode</con:name><con:value>1</con:value></con:property><con:property><con:name>&lt;!--Destination--></con:name><con:value/></con:property><con:property><con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName</con:name><con:value>submission set classificationNode</con:value></con:property><con:property><con:name>EventIdentification_Responder.@EventActionCode</con:name><con:value>C</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserID</con:name><con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name><con:value>false</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name><con:value>1</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@AlternativeUserID</con:name><con:value>19233@192.168.1.2</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@code</con:name><con:value>ITI-41</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name><con:value>1010</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name><con:value>IHE Transactions</con:value></con:property><con:property><con:name>EventIdentification_Responder.EventID.@code</con:name><con:value>110107</con:value></con:property><con:property><con:name>ActiveParticipant.@UserIsRequestor</con:name><con:value>true</con:value></con:property><con:property><con:name>&lt;--Patient--></con:name><con:value/></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name><con:value>Destination</con:value></con:property><con:property><con:name>&lt;--Submission</con:name><con:value>Set --></con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name><con:value>localhost</con:value></con:property><con:property><con:name>&lt;!--Human</con:name><con:value>Requestor--></con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name><con:value>Patient Number</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name><con:value>Source</con:value></con:property><con:property><con:name>ActiveParticipant.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name><con:value>192.168.1.2</con:value></con:property><con:property><con:name>EventIdentification.@EventActionCode</con:name><con:value>R</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name><con:value>110152</con:value></con:property><con:property><con:name>EventIdentification.EventID.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name><con:value>Gateway 1</con:value></con:property><con:property><con:name>EventIdentification.EventID.@displayName</con:name><con:value>Export</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole</con:name><con:value>1</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@codeSystemName</con:name><con:value>SNOMED_CT</con:value></con:property><con:property><con:name>ActiveParticipant.@AlternativeUserID</con:name><con:value>19233@192.168.1.1</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@displayName</con:name><con:value>Provide and Register Document Set-b</con:value></con:property><con:property><con:name>EventIdentification.EventID.@code</con:name><con:value>110106</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name><con:value>19233@192.168.1.2</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@code</con:name><con:value>307969004</con:value></con:property><con:property><con:name>EventIdentification.@EventDateTime</con:name><con:value>2015-04-02T13:47:30.199Z</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCodeRole</con:name><con:value>20</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@code</con:name><con:value>urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd</con:value></con:property><con:property><con:name>EventIdentification.@EventOutcomeIndicator</con:name><con:value>0</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name><con:value>RFC-3881</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserIsRequestor</con:name><con:value>true</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@displayName</con:name><con:value>Human Requestor</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserID</con:name><con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value></con:property><con:property><con:name>AuditMessage.xmlns</con:name><con:value>http://nhinc.services.com/schema/auditmessage</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@codeSystemName</con:name><con:value>IHE XDS Metadata</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name><con:value>2</con:value></con:property><con:property><con:name>&lt;!--Source--></con:name><con:value/></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name><con:value>SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO</con:value></con:property><con:property><con:name>EventIdentification_Responder.EventID.@displayName</con:name><con:value>Import</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Set.@ParticipantObjectID</con:name><con:value>1.3.6.1.4.1.21367.2005.3.9999.33</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceID</con:name><con:value>urn:oid:1.1</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant.@UserID</con:name><con:value>kskagerb</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserID_g1</con:name><con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRRequest_Service</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserID_g0</con:name><con:value>https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRRequest_Service</con:value></con:property></con:properties>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
+          <con:value>110153</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCode</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>&lt;!--Destination--></con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName</con:name>
+          <con:value>submission set classificationNode</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.@EventActionCode</con:name>
+          <con:value>C</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@code</con:name>
+          <con:value>ITI-41</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name>
+          <con:value>1010</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name>
+          <con:value>IHE Transactions</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.EventID.@code</con:name>
+          <con:value>110107</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@UserIsRequestor</con:name>
+          <con:value>true</con:value>
+        </con:property>
+        <con:property>
+          <con:name>&lt;--Patient--></con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name>
+          <con:value>Destination</con:value>
+        </con:property>
+        <con:property>
+          <con:name>&lt;--Submission</con:name>
+          <con:value>Set --></con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name>
+          <con:value>localhost</con:value>
+        </con:property>
+        <con:property>
+          <con:name>&lt;!--Human</con:name>
+          <con:value>Requestor--></con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name>
+          <con:value>Patient Number</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name>
+          <con:value>Source</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name>
+          <con:value>192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventActionCode</con:name>
+          <con:value>R</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name>
+          <con:value>110152</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name>
+          <con:value>Gateway 1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@displayName</con:name>
+          <con:value>Export</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.RoleIDCode.@codeSystemName</con:name>
+          <con:value>SNOMED_CT</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@displayName</con:name>
+          <con:value>Provide and Register Document Set-b</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@code</con:name>
+          <con:value>110106</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.RoleIDCode.@code</con:name>
+          <con:value>307969004</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventDateTime</con:name>
+          <con:value>2015-04-02T13:47:30.199Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCodeRole</con:name>
+          <con:value>20</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@code</con:name>
+          <con:value>urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventOutcomeIndicator</con:name>
+          <con:value>0</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
+          <con:value>RFC-3881</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserIsRequestor</con:name>
+          <con:value>true</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.RoleIDCode.@displayName</con:name>
+          <con:value>Human Requestor</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserID</con:name>
+          <con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditMessage.xmlns</con:name>
+          <con:value>http://nhinc.services.com/schema/auditmessage</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
+          <con:value>IHE XDS Metadata</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>&lt;!--Source--></con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
+          <con:value>SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.EventID.@displayName</con:name>
+          <con:value>Import</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectID</con:name>
+          <con:value>1.3.6.1.4.1.21367.2005.3.9999.33</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
+          <con:value>urn:oid:1.1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@UserID</con:name>
+          <con:value>kskagerb</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserID_g1</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRRequest_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserID_g0</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRRequest_Service</con:value>
+        </con:property>
+      </con:properties>
       <con:reportParameters/>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true" id="28f122a1-cdca-487c-ba68-f9d985f97826">
@@ -1319,16 +1567,19 @@ if (propertiesFile.exists()) {
       </con:testStep>
       <con:testStep type="groovy" name="Verify Audit Logs" id="2518c97d-6055-4a7a-a2bf-4e7af8674da0" disabled="true">
         <con:settings/>
-        <con:config><script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
+        <con:config>
+          <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 	
-}</script></con:config>
+}</script>
+        </con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
         <con:settings/>
-        <con:config><script>context.withSql('AuditRepoDB') {sql ->
+        <con:config>
+          <script>context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -1420,10 +1671,13 @@ parsedXmlMessage.AuditSourceIdentification.find{
 		}
 }
 
-}</script></con:config>
-      </con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" disabled="true">
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" disabled="true">
         <con:settings/>
-        <con:config><script>context.withSql('AuditRepoDB') {sql ->
+        <con:config>
+          <script>context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -1513,8 +1767,10 @@ parsedXmlMessage.AuditSourceIdentification.find{
 }
 
 
-}</script></con:config>
-      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
@@ -1546,7 +1802,159 @@ if (propertiesFile.exists()) {
           <con:name>expireDate</con:name>
           <con:value>2015-11-27T00:00:00Z</con:value>
         </con:property>
-      <con:property><con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name><con:value>110153</con:value></con:property><con:property><con:name>&lt;!--Destination--></con:name><con:value/></con:property><con:property><con:name>EventIdentification_Responder.@EventActionCode</con:name><con:value>R</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserID</con:name><con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name><con:value>false</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name><con:value>1</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@AlternativeUserID</con:name><con:value>19233@192.168.1.2</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@code</con:name><con:value>ITI-41</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name><con:value>1010</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name><con:value>IHE Transactions</con:value></con:property><con:property><con:name>EventIdentification_Responder.EventID.@code</con:name><con:value>110106</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name><con:value>Destination</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name><con:value>localhost</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name><con:value>Source</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name><con:value>192.168.1.2</con:value></con:property><con:property><con:name>EventIdentification.@EventActionCode</con:name><con:value>C</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name><con:value>110152</con:value></con:property><con:property><con:name>EventIdentification.EventID.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name><con:value>Gateway 1</con:value></con:property><con:property><con:name>EventIdentification.EventID.@displayName</con:name><con:value>Import</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@displayName</con:name><con:value>Provide and Register Document Set-b</con:value></con:property><con:property><con:name>EventIdentification.EventID.@code</con:name><con:value>110107</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name><con:value>19233@192.168.1.2</con:value></con:property><con:property><con:name>EventIdentification.@EventDateTime</con:name><con:value>2015-04-02T13:47:30.199Z</con:value></con:property><con:property><con:name>EventIdentification.@EventOutcomeIndicator</con:name><con:value>0</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserIsRequestor</con:name><con:value>true</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserID</con:name><con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value></con:property><con:property><con:name>AuditMessage.xmlns</con:name><con:value>http://nhinc.services.com/schema/auditmessage</con:value></con:property><con:property><con:name>&lt;!--Source--></con:name><con:value/></con:property><con:property><con:name>EventIdentification_Responder.EventID.@displayName</con:name><con:value>Export</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceID</con:name><con:value>urn:oid:1.1</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserID_g1</con:name><con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRResponse_Service</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserID_g0</con:name><con:value>https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRResponse_Service</con:value></con:property></con:properties>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
+          <con:value>110153</con:value>
+        </con:property>
+        <con:property>
+          <con:name>&lt;!--Destination--></con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.@EventActionCode</con:name>
+          <con:value>R</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@code</con:name>
+          <con:value>ITI-41</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name>
+          <con:value>1010</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name>
+          <con:value>IHE Transactions</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.EventID.@code</con:name>
+          <con:value>110106</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name>
+          <con:value>Destination</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name>
+          <con:value>localhost</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name>
+          <con:value>Source</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name>
+          <con:value>192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventActionCode</con:name>
+          <con:value>C</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name>
+          <con:value>110152</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name>
+          <con:value>Gateway 1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@displayName</con:name>
+          <con:value>Import</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@displayName</con:name>
+          <con:value>Provide and Register Document Set-b</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@code</con:name>
+          <con:value>110107</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventDateTime</con:name>
+          <con:value>2015-04-02T13:47:30.199Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventOutcomeIndicator</con:name>
+          <con:value>0</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserIsRequestor</con:name>
+          <con:value>true</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserID</con:name>
+          <con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditMessage.xmlns</con:name>
+          <con:value>http://nhinc.services.com/schema/auditmessage</con:value>
+        </con:property>
+        <con:property>
+          <con:name>&lt;!--Source--></con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.EventID.@displayName</con:name>
+          <con:value>Export</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
+          <con:value>urn:oid:1.1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserID_g1</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRResponse_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserID_g0</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRResponse_Service</con:value>
+        </con:property>
+      </con:properties>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="bfb21e63-366d-4679-9fe6-33293702838f">
       <con:settings/>
@@ -2047,8 +2455,8 @@ if (propertiesFile.exists()) {
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 }</script>
         </con:config>
       </con:testStep>
@@ -2307,19 +2715,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-14T23:02:30Z</con:value>
+          <con:value>2015-10-30T09:48:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-14T23:12:30Z</con:value>
+          <con:value>2015-10-30T09:58:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/14/2015 23:02:30</con:value>
+          <con:value>10/30/2015 09:48:21</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-13T00:00:00Z</con:value>
+          <con:value>2015-11-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -2543,7 +2951,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
-          <con:value>1.1</con:value>
+          <con:value>urn:oid:1.1</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserName</con:name>
@@ -2896,8 +3304,8 @@ if (propertiesFile.exists()) {
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 	
 }</script>
         </con:config>
@@ -3494,19 +3902,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-21T00:35:32Z</con:value>
+          <con:value>2015-10-30T09:48:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-21T00:45:32Z</con:value>
+          <con:value>2015-10-30T09:58:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/21/2015 00:35:32</con:value>
+          <con:value>10/30/2015 09:48:32</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-20T00:00:00Z</con:value>
+          <con:value>2015-11-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@code</con:name>
@@ -3518,7 +3926,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
-          <con:value>1.1</con:value>
+          <con:value>urn:oid:1.1</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.@UserID</con:name>
@@ -4801,19 +5209,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-17T04:30:00Z</con:value>
+          <con:value>2015-10-30T09:48:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-17T04:40:00Z</con:value>
+          <con:value>2015-10-30T09:58:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/17/2015 04:30:00</con:value>
+          <con:value>10/30/2015 09:48:42</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-16T00:00:00Z</con:value>
+          <con:value>2015-11-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@code</con:name>
@@ -4825,7 +5233,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
-          <con:value>1.1</con:value>
+          <con:value>urn:oid:1.1</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.@UserID</con:name>
@@ -5465,8 +5873,8 @@ if (propertiesFile.exists()) {
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 }</script>
         </con:config>
       </con:testStep>
@@ -5799,19 +6207,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-15T16:11:28Z</con:value>
+          <con:value>2015-10-30T09:49:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-15T16:21:28Z</con:value>
+          <con:value>2015-10-30T09:59:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/15/2015 16:11:28</con:value>
+          <con:value>10/30/2015 09:49:47</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-14T00:00:00Z</con:value>
+          <con:value>2015-11-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -6063,7 +6471,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
-          <con:value>1.1</con:value>
+          <con:value>urn:oid:1.1</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserName</con:name>
@@ -6566,15 +6974,16 @@ if (propertiesFile.exists()) {
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 	
 }</script>
         </con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
-        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -6718,11 +7127,13 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 	 	} 
   	}
   }
-}]]></script></con:config>
+}]]></script>
+        </con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
         <con:settings/>
-        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -6850,7 +7261,8 @@ if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCo
 	 	} 
   	}
   }
-}]]></script></con:config>
+}]]></script>
+        </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
@@ -6870,19 +7282,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-27T16:14:44Z</con:value>
+          <con:value>2015-10-30T09:49:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-27T16:24:44Z</con:value>
+          <con:value>2015-10-30T09:59:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/27/2015 16:14:44</con:value>
+          <con:value>10/30/2015 09:49:57</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-26T00:00:00Z</con:value>
+          <con:value>2015-11-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -7498,14 +7910,15 @@ if (propertiesFile.exists()) {
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 }</script>
         </con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
-        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -7645,11 +8058,13 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 	 	}	    
       } 
   }
-}]]></script></con:config>
+}]]></script>
+        </con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
         <con:settings/>
-        <con:config><script><![CDATA[import java.util.regex.*
+        <con:config>
+          <script><![CDATA[import java.util.regex.*
 context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
@@ -7763,7 +8178,8 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
 	 	}	  
 	}
  }
-}]]></script></con:config>
+}]]></script>
+        </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
@@ -7787,19 +8203,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-27T16:15:27Z</con:value>
+          <con:value>2015-10-30T09:50:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-27T16:25:27Z</con:value>
+          <con:value>2015-10-30T10:00:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/27/2015 16:15:27</con:value>
+          <con:value>10/30/2015 09:50:11</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-26T00:00:00Z</con:value>
+          <con:value>2015-11-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@value</con:name>
@@ -9062,16 +9478,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       </con:testStep>
       <con:testStep type="groovy" name="Verify Audit Logs" id="9b286e1c-cf4f-4a95-971b-c012ef67150f" disabled="true">
         <con:settings/>
-        <con:config><script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
+        <con:config>
+          <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 	
-}</script></con:config>
+}</script>
+        </con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
         <con:settings/>
-        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -9241,10 +9660,13 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 	 	}
 	}
   }
-}]]></script></con:config>
-      </con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" disabled="true">
+}]]></script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" disabled="true">
         <con:settings/>
-        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -9394,8 +9816,10 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
 	 	}
 	}
   }
-}]]></script></con:config>
-      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+}]]></script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
@@ -9427,7 +9851,247 @@ if (propertiesFile.exists()) {
           <con:name>expireDate</con:name>
           <con:value>2015-11-27T00:00:00Z</con:value>
         </con:property>
-      <con:property><con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name><con:value>110153</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCode</con:name><con:value>1</con:value></con:property><con:property><con:name>&lt;!--Destination--></con:name><con:value/></con:property><con:property><con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName</con:name><con:value>submission set classificationNode</con:value></con:property><con:property><con:name>EventIdentification_Responder.@EventActionCode</con:name><con:value>C</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserID</con:name><con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name><con:value>false</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name><con:value>1</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@AlternativeUserID</con:name><con:value>19233@192.168.1.2</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@code</con:name><con:value>ITI-41</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name><con:value>1010</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name><con:value>IHE Transactions</con:value></con:property><con:property><con:name>EventIdentification_Responder.EventID.@code</con:name><con:value>110107</con:value></con:property><con:property><con:name>ActiveParticipant.@UserIsRequestor</con:name><con:value>true</con:value></con:property><con:property><con:name>&lt;--Patient--></con:name><con:value/></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name><con:value>Destination</con:value></con:property><con:property><con:name>&lt;--Submission</con:name><con:value>Set --></con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name><con:value>localhost</con:value></con:property><con:property><con:name>&lt;!--Human</con:name><con:value>Requestor--></con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name><con:value>Patient Number</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name><con:value>Source</con:value></con:property><con:property><con:name>ActiveParticipant.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name><con:value>192.168.1.2</con:value></con:property><con:property><con:name>EventIdentification.@EventActionCode</con:name><con:value>R</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name><con:value>110152</con:value></con:property><con:property><con:name>EventIdentification.EventID.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name><con:value>Gateway 1</con:value></con:property><con:property><con:name>EventIdentification.EventID.@displayName</con:name><con:value>Export</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole</con:name><con:value>1</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@codeSystemName</con:name><con:value>SNOMED_CT</con:value></con:property><con:property><con:name>ActiveParticipant.@AlternativeUserID</con:name><con:value>19233@192.168.1.1</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@displayName</con:name><con:value>Provide and Register Document Set-b</con:value></con:property><con:property><con:name>EventIdentification.EventID.@code</con:name><con:value>110106</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name><con:value>19233@192.168.1.2</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@code</con:name><con:value>307969004</con:value></con:property><con:property><con:name>EventIdentification.@EventDateTime</con:name><con:value>2015-04-02T13:47:30.199Z</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCodeRole</con:name><con:value>20</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@code</con:name><con:value>urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd</con:value></con:property><con:property><con:name>EventIdentification.@EventOutcomeIndicator</con:name><con:value>0</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name><con:value>RFC-3881</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserIsRequestor</con:name><con:value>true</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@displayName</con:name><con:value>Human Requestor</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserID</con:name><con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value></con:property><con:property><con:name>AuditMessage.xmlns</con:name><con:value>http://nhinc.services.com/schema/auditmessage</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@codeSystemName</con:name><con:value>IHE XDS Metadata</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name><con:value>2</con:value></con:property><con:property><con:name>&lt;!--Source--></con:name><con:value/></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name><con:value>SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO</con:value></con:property><con:property><con:name>EventIdentification_Responder.EventID.@displayName</con:name><con:value>Import</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Set.@ParticipantObjectID</con:name><con:value>1.3.6.1.4.1.21367.2005.3.9999.33</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceID</con:name><con:value>urn:oid:1.1</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant.@UserID</con:name><con:value>kskagerb</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserID_g1</con:name><con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRRequest_Service</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserID_g0</con:name><con:value>https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRRequest_Service</con:value></con:property></con:properties>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
+          <con:value>110153</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCode</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>&lt;!--Destination--></con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName</con:name>
+          <con:value>submission set classificationNode</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.@EventActionCode</con:name>
+          <con:value>C</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@code</con:name>
+          <con:value>ITI-41</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name>
+          <con:value>1010</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name>
+          <con:value>IHE Transactions</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.EventID.@code</con:name>
+          <con:value>110107</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@UserIsRequestor</con:name>
+          <con:value>true</con:value>
+        </con:property>
+        <con:property>
+          <con:name>&lt;--Patient--></con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name>
+          <con:value>Destination</con:value>
+        </con:property>
+        <con:property>
+          <con:name>&lt;--Submission</con:name>
+          <con:value>Set --></con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name>
+          <con:value>localhost</con:value>
+        </con:property>
+        <con:property>
+          <con:name>&lt;!--Human</con:name>
+          <con:value>Requestor--></con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name>
+          <con:value>Patient Number</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name>
+          <con:value>Source</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name>
+          <con:value>192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventActionCode</con:name>
+          <con:value>R</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name>
+          <con:value>110152</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name>
+          <con:value>Gateway 1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@displayName</con:name>
+          <con:value>Export</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.RoleIDCode.@codeSystemName</con:name>
+          <con:value>SNOMED_CT</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@displayName</con:name>
+          <con:value>Provide and Register Document Set-b</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@code</con:name>
+          <con:value>110106</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.RoleIDCode.@code</con:name>
+          <con:value>307969004</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventDateTime</con:name>
+          <con:value>2015-04-02T13:47:30.199Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCodeRole</con:name>
+          <con:value>20</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@code</con:name>
+          <con:value>urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventOutcomeIndicator</con:name>
+          <con:value>0</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
+          <con:value>RFC-3881</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserIsRequestor</con:name>
+          <con:value>true</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.RoleIDCode.@displayName</con:name>
+          <con:value>Human Requestor</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserID</con:name>
+          <con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditMessage.xmlns</con:name>
+          <con:value>http://nhinc.services.com/schema/auditmessage</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
+          <con:value>IHE XDS Metadata</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>&lt;!--Source--></con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
+          <con:value>SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.EventID.@displayName</con:name>
+          <con:value>Import</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectID</con:name>
+          <con:value>1.3.6.1.4.1.21367.2005.3.9999.33</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
+          <con:value>urn:oid:1.1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@UserID</con:name>
+          <con:value>kskagerb</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserID_g1</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRRequest_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserID_g0</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRRequest_Service</con:value>
+        </con:property>
+      </con:properties>
       <con:reportParameters/>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true" id="fffd46f0-f42b-442d-a5f4-3c91df14ea93">
@@ -9785,16 +10449,19 @@ if (propertiesFile.exists()) {
       </con:testStep>
       <con:testStep type="groovy" name="Verify Audit Logs" id="1beb8e26-5072-49a0-ac2f-43a76017455b" disabled="true">
         <con:settings/>
-        <con:config><script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
+        <con:config>
+          <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 	
-}</script></con:config>
+}</script>
+        </con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
         <con:settings/>
-        <con:config><script>context.withSql('AuditRepoDB') {sql ->
+        <con:config>
+          <script>context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -9886,10 +10553,13 @@ parsedXmlMessage.AuditSourceIdentification.find{
 		}
 }
 
-}</script></con:config>
-      </con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" disabled="true">
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" disabled="true">
         <con:settings/>
-        <con:config><script>context.withSql('AuditRepoDB') {sql ->
+        <con:config>
+          <script>context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -9979,8 +10649,10 @@ parsedXmlMessage.AuditSourceIdentification.find{
 }
 
 
-}</script></con:config>
-      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
@@ -10012,7 +10684,159 @@ if (propertiesFile.exists()) {
           <con:name>expireDate</con:name>
           <con:value>2015-11-27T00:00:00Z</con:value>
         </con:property>
-      <con:property><con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name><con:value>110153</con:value></con:property><con:property><con:name>&lt;!--Destination--></con:name><con:value/></con:property><con:property><con:name>EventIdentification_Responder.@EventActionCode</con:name><con:value>R</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserID</con:name><con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name><con:value>false</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name><con:value>1</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@AlternativeUserID</con:name><con:value>19233@192.168.1.2</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@code</con:name><con:value>ITI-41</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name><con:value>1010</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name><con:value>IHE Transactions</con:value></con:property><con:property><con:name>EventIdentification_Responder.EventID.@code</con:name><con:value>110106</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name><con:value>Destination</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name><con:value>localhost</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name><con:value>Source</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name><con:value>192.168.1.2</con:value></con:property><con:property><con:name>EventIdentification.@EventActionCode</con:name><con:value>C</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name><con:value>110152</con:value></con:property><con:property><con:name>EventIdentification.EventID.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name><con:value>Gateway 1</con:value></con:property><con:property><con:name>EventIdentification.EventID.@displayName</con:name><con:value>Import</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@displayName</con:name><con:value>Provide and Register Document Set-b</con:value></con:property><con:property><con:name>EventIdentification.EventID.@code</con:name><con:value>110107</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name><con:value>19233@192.168.1.2</con:value></con:property><con:property><con:name>EventIdentification.@EventDateTime</con:name><con:value>2015-04-02T13:47:30.199Z</con:value></con:property><con:property><con:name>EventIdentification.@EventOutcomeIndicator</con:name><con:value>0</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserIsRequestor</con:name><con:value>true</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserID</con:name><con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value></con:property><con:property><con:name>AuditMessage.xmlns</con:name><con:value>http://nhinc.services.com/schema/auditmessage</con:value></con:property><con:property><con:name>&lt;!--Source--></con:name><con:value/></con:property><con:property><con:name>EventIdentification_Responder.EventID.@displayName</con:name><con:value>Export</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceID</con:name><con:value>urn:oid:1.1</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserID_g1</con:name><con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRResponse_Service</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserID_g0</con:name><con:value>https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRResponse_Service</con:value></con:property></con:properties>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
+          <con:value>110153</con:value>
+        </con:property>
+        <con:property>
+          <con:name>&lt;!--Destination--></con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.@EventActionCode</con:name>
+          <con:value>R</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@code</con:name>
+          <con:value>ITI-41</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name>
+          <con:value>1010</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name>
+          <con:value>IHE Transactions</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.EventID.@code</con:name>
+          <con:value>110106</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name>
+          <con:value>Destination</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name>
+          <con:value>localhost</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name>
+          <con:value>Source</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name>
+          <con:value>192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventActionCode</con:name>
+          <con:value>C</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name>
+          <con:value>110152</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name>
+          <con:value>Gateway 1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@displayName</con:name>
+          <con:value>Import</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@displayName</con:name>
+          <con:value>Provide and Register Document Set-b</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@code</con:name>
+          <con:value>110107</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventDateTime</con:name>
+          <con:value>2015-04-02T13:47:30.199Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventOutcomeIndicator</con:name>
+          <con:value>0</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserIsRequestor</con:name>
+          <con:value>true</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserID</con:name>
+          <con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditMessage.xmlns</con:name>
+          <con:value>http://nhinc.services.com/schema/auditmessage</con:value>
+        </con:property>
+        <con:property>
+          <con:name>&lt;!--Source--></con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.EventID.@displayName</con:name>
+          <con:value>Export</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
+          <con:value>urn:oid:1.1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserID_g1</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRResponse_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserID_g0</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRResponse_Service</con:value>
+        </con:property>
+      </con:properties>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="fb0a6077-5978-4615-ae36-a77a19ceef7d">
       <con:settings/>
@@ -10513,8 +11337,8 @@ if (propertiesFile.exists()) {
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 }</script>
         </con:config>
       </con:testStep>
@@ -10773,19 +11597,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-27T20:03:24Z</con:value>
+          <con:value>2015-10-30T09:50:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-27T20:13:24Z</con:value>
+          <con:value>2015-10-30T10:00:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/27/2015 20:03:24</con:value>
+          <con:value>10/30/2015 09:50:33</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-26T00:00:00Z</con:value>
+          <con:value>2015-11-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -11357,13 +12181,19 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
+      <con:testStep type="delay" name="Delay">
+        <con:settings/>
+        <con:config>
+          <delay>10000</delay>
+        </con:config>
+      </con:testStep>
       <con:testStep type="groovy" name="Verify Audit Logs" id="0fa073f7-7cd1-403b-a396-78420ded9acd">
         <con:settings/>
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 	
 }</script>
         </con:config>
@@ -11534,7 +12364,8 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK">
         <con:settings/>
-        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -11678,7 +12509,8 @@ if (parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCo
 	 	}
 	}
   }
-}]]></script></con:config>
+}]]></script>
+        </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
@@ -11958,19 +12790,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-21T00:35:53Z</con:value>
+          <con:value>2015-10-30T09:52:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-21T00:45:53Z</con:value>
+          <con:value>2015-10-30T10:02:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/21/2015 00:35:53</con:value>
+          <con:value>10/30/2015 09:52:22</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-20T00:00:00Z</con:value>
+          <con:value>2015-11-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@code</con:name>
@@ -11982,7 +12814,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
-          <con:value>1.1</con:value>
+          <con:value>urn:oid:1.1</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.@UserID</con:name>
@@ -12651,7 +13483,7 @@ if (propertiesFile.exists()) {
       <con:testStep type="delay" name="Delay">
         <con:settings/>
         <con:config>
-          <delay>50000</delay>
+          <delay>10000</delay>
         </con:config>
       </con:testStep>
       <con:testStep type="groovy" name="Verify Audit Logs" id="75840f83-2ae6-4898-8c2e-6c61104588a2">
@@ -13265,19 +14097,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-17T05:03:24Z</con:value>
+          <con:value>2015-10-30T10:02:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/17/2015 04:53:24</con:value>
+          <con:value>10/30/2015 09:52:42</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-16T00:00:00Z</con:value>
+          <con:value>2015-11-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-17T04:53:24Z</con:value>
+          <con:value>2015-10-30T09:52:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@code</con:name>
@@ -13289,7 +14121,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
-          <con:value>1.1</con:value>
+          <con:value>urn:oid:1.1</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.@UserID</con:name>
@@ -13929,8 +14761,8 @@ if (propertiesFile.exists()) {
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 }</script>
         </con:config>
       </con:testStep>
@@ -14261,19 +15093,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-15T16:11:54Z</con:value>
+          <con:value>2015-10-30T09:53:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-15T16:21:54Z</con:value>
+          <con:value>2015-10-30T10:03:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/15/2015 16:11:54</con:value>
+          <con:value>10/30/2015 09:53:04</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-14T00:00:00Z</con:value>
+          <con:value>2015-11-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -14525,7 +15357,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
-          <con:value>1.1</con:value>
+          <con:value>urn:oid:1.1</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserName</con:name>
@@ -15024,15 +15856,16 @@ if (propertiesFile.exists()) {
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 	
 }</script>
         </con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
-        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -15176,11 +16009,13 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 	 	} 
   	}
   }
-}]]></script></con:config>
+}]]></script>
+        </con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
         <con:settings/>
-        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -15307,7 +16142,8 @@ if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCo
 	 	} 
   	}
   }
-}]]></script></con:config>
+}]]></script>
+        </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
@@ -15327,19 +16163,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-27T16:15:46Z</con:value>
+          <con:value>2015-10-30T09:53:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-27T16:25:46Z</con:value>
+          <con:value>2015-10-30T10:03:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/27/2015 16:15:46</con:value>
+          <con:value>10/30/2015 09:53:19</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-26T00:00:00Z</con:value>
+          <con:value>2015-11-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -15951,14 +16787,15 @@ if (propertiesFile.exists()) {
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 }</script>
         </con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
-        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -16098,11 +16935,13 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 	 	}	    
       } 
   }
-}]]></script></con:config>
+}]]></script>
+        </con:config>
       </con:testStep>
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
         <con:settings/>
-        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -16216,7 +17055,8 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
 	 	}	  
 	}
  }
-}]]></script></con:config>
+}]]></script>
+        </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
@@ -16240,19 +17080,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-27T16:16:08Z</con:value>
+          <con:value>2015-10-30T09:53:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-27T16:26:08Z</con:value>
+          <con:value>2015-10-30T10:03:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/27/2015 16:16:08</con:value>
+          <con:value>10/30/2015 09:53:30</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-26T00:00:00Z</con:value>
+          <con:value>2015-11-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@value</con:name>
