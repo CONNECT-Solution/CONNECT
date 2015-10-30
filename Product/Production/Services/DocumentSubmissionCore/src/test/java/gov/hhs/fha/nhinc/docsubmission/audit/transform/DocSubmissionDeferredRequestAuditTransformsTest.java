@@ -78,10 +78,10 @@ public class DocSubmissionDeferredRequestAuditTransformsTest extends AuditTransf
             }
 
             @Override
-            protected String getRemoteHostAddress(Properties webContextProeprties) {
-                if (webContextProeprties != null && !webContextProeprties.isEmpty() && webContextProeprties.
+            protected String getRemoteHostAddress(Properties webContextProperties) {
+                if (webContextProperties != null && !webContextProperties.isEmpty() && webContextProperties.
                     getProperty(NhincConstants.REMOTE_HOST_ADDRESS) != null) {
-                    return webContextProeprties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS);
+                    return webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS);
                 }
                 return AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
             }
@@ -123,10 +123,10 @@ public class DocSubmissionDeferredRequestAuditTransformsTest extends AuditTransf
             }
 
             @Override
-            protected String getRemoteHostAddress(Properties webContextProeprties) {
-                if (webContextProeprties != null && !webContextProeprties.isEmpty() && webContextProeprties.
+            protected String getRemoteHostAddress(Properties webContextProperties) {
+                if (webContextProperties != null && !webContextProperties.isEmpty() && webContextProperties.
                     getProperty(NhincConstants.REMOTE_HOST_ADDRESS) != null) {
-                    return webContextProeprties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS);
+                    return webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS);
                 }
                 return AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
             }

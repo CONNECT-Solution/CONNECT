@@ -114,7 +114,7 @@ public class StandardInboundDocSubmissionDeferredRequest extends AbstractInbound
                 getDocSubmissionUtils().convertDataToFileLocationIfEnabled(body);
                 response = sendToAdapter(body, assertion);
             } catch (LargePayloadException lpe) {
-                LOG.error("Failed to retrieve payload document." + lpe.getLocalizedMessage(), lpe);
+                LOG.error("Failed to retrieve payload document. " + lpe.getLocalizedMessage(), lpe);
                 response = MessageGeneratorUtils.getInstance().createXDRAckWithRegistryErrorResponse();
             }
         } else {
@@ -131,7 +131,7 @@ public class StandardInboundDocSubmissionDeferredRequest extends AbstractInbound
             localHCID = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                 NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
-            LOG.error("Exception while retrieving home community ID" + ex.getLocalizedMessage(), ex);
+            LOG.error("Exception while retrieving home community, " + ex.getLocalizedMessage(), ex);
         }
 
         return localHCID;
