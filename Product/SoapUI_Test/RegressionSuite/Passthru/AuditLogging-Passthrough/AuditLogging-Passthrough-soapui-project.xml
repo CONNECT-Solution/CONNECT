@@ -4635,7 +4635,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:testStep type="delay" name="Wait for Audit table to populate">
         <con:settings/>
         <con:config>
-          <delay>50000</delay>
+          <delay>10000</delay>
         </con:config>
       </con:testStep>
       <con:testStep type="groovy" name="Verify Audit Logs" id="82f1d25c-add6-4cf8-8851-9522bf94bc4b">
