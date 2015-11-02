@@ -102,7 +102,8 @@ public class DSDeferredResponseAuditTransformsTest extends
 
         if (isRequesting) {
             AuditMessageType.ActiveParticipant userActiveParticipant = null;
-            List<AuditMessageType.ActiveParticipant> activeParticipant = request.getAuditMessage().getActiveParticipant();
+            List<AuditMessageType.ActiveParticipant> activeParticipant
+                = request.getAuditMessage().getActiveParticipant();
             for (AuditMessageType.ActiveParticipant item : activeParticipant) {
                 // TODO: Where does this hard-coded value of "Code" come from?
                 if (item.getRoleIDCode().get(0).getCode() != null && item.getRoleIDCode().get(0).getCode()

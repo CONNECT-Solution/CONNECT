@@ -46,6 +46,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -53,6 +54,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  */
 public class DSDeferredResponseAuditTransforms extends
     AbstractDocSubmissionAuditTransforms<RegistryResponseType, XDRAcknowledgementType> {
+
+    private static final Logger LOG = Logger.getLogger(DSDeferredResponseAuditTransforms.class);
 
     @Override
     protected AuditMessageType getParticipantObjectIdentificationForRequest(RegistryResponseType request,
@@ -148,12 +151,11 @@ public class DSDeferredResponseAuditTransforms extends
     protected AuditMessageType.ActiveParticipant getActiveParticipantDestination(NhinTargetSystemType target,
         boolean isRequesting, Properties webContextProperties, String serviceName) {
 
-        String url;
         String ipOrHost;
 
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
 
-        url = isRequesting ? getWebServiceUrlFromRemoteObject(getLocalHCIDNhinTarget(),
+        String url = isRequesting ? getWebServiceUrlFromRemoteObject(getLocalHCIDNhinTarget(),
             NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME) : getWebServiceUrlFromRemoteObject(
                 convertToNhinTarget(getMessageCommunityId(getAssertion(), target, isRequesting)),
                 NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME);

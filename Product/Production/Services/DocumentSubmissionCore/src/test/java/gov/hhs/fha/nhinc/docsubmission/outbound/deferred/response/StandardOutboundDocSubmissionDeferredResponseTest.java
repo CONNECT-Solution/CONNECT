@@ -38,6 +38,7 @@ import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.fha.nhinc.docsubmission.audit.DSDeferredResponseAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestOrchestratable;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -46,10 +47,6 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import java.lang.reflect.Method;
 import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -58,8 +55,10 @@ import org.junit.Test;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNotNull;
 import static org.mockito.Matchers.isNull;
+import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * @author akong
@@ -68,17 +67,11 @@ import static org.mockito.Mockito.verify;
 public class StandardOutboundDocSubmissionDeferredResponseTest {
 
     private final DSDeferredResponseAuditLogger auditLogger = mock(DSDeferredResponseAuditLogger.class);
-
-    protected Mockery context = new JUnit4Mockery() {
-        {
-            setImposteriser(ClassImposteriser.INSTANCE);
-        }
-    };
-    final XDRAuditLogger mockXDRLog = context.mock(XDRAuditLogger.class);
-    final XDRPolicyChecker mockPolicyCheck = context.mock(XDRPolicyChecker.class);
-    final SubjectHelper mockSubjectHelper = context.mock(SubjectHelper.class);
-    final OutboundDocSubmissionDeferredResponseDelegate mockDelegate = context
-        .mock(OutboundDocSubmissionDeferredResponseDelegate.class);
+    final XDRAuditLogger mockXDRLog = mock(XDRAuditLogger.class);
+    final XDRPolicyChecker mockPolicyCheck = mock(XDRPolicyChecker.class);
+    final SubjectHelper mockSubjectHelper = mock(SubjectHelper.class);
+    final OutboundDocSubmissionDeferredResponseDelegate mockDelegate
+        = mock(OutboundDocSubmissionDeferredResponseDelegate.class);
 
     private final RegistryResponseType request = new RegistryResponseType();
     private final AssertionType assertion = new AssertionType();
@@ -86,24 +79,31 @@ public class StandardOutboundDocSubmissionDeferredResponseTest {
 
     @Test
     public void testProvideAndRegisterDocumentSetB() {
-        setMockPolicyCheck(true);
-        setMockSubjectHelperToReturnValidHcid();
-        setMockDelegateToReturnValidResponse();
+        when(mockPolicyCheck.checkXDRResponsePolicy(Mockito.any(RegistryResponseType.class),
+            Mockito.any(AssertionType.class),
+            Mockito.any(String.class), Mockito.any(String.class),
+            eq(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION))).thenReturn(Boolean.TRUE);
+        when(mockDelegate.process(Mockito.any(OutboundDocSubmissionDeferredRequestOrchestratable.class))).thenReturn(
+            createOutboundDocSubmissionDeferredResponseOrchestratable());
 
         XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBAsyncRequest();
         verify(auditLogger).auditRequestMessage(eq(request), eq(assertion), isNotNull(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME));
 
-        context.assertIsSatisfied();
         assertNotNull(response);
         assertEquals(NhincConstants.XDR_RESP_ACK_STATUS_MSG, response.getMessage().getStatus());
     }
 
     @Test
     public void testProvideAndRegisterDocumentSetB_policyFailure() {
-        setMockPolicyCheck(false);
-        setMockSubjectHelperToReturnValidHcid();
+        when(mockPolicyCheck.checkXDRResponsePolicy(Mockito.any(RegistryResponseType.class),
+            Mockito.any(AssertionType.class),
+            Mockito.any(String.class), Mockito.any(String.class),
+            eq(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION))).thenReturn(Boolean.FALSE);
+
+        when(mockSubjectHelper.determineSendingHomeCommunityId(Mockito.any(HomeCommunityType.class),
+            Mockito.any(AssertionType.class))).thenReturn("2.2");
 
         XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBAsyncRequest();
 
@@ -111,7 +111,6 @@ public class StandardOutboundDocSubmissionDeferredResponseTest {
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME));
 
-        context.assertIsSatisfied();
         assertNotNull(response);
         assertEquals(NhincConstants.XDR_ACK_FAILURE_STATUS_MSG, response.getMessage().getStatus());
     }
@@ -127,7 +126,6 @@ public class StandardOutboundDocSubmissionDeferredResponseTest {
             isNotNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE), isNull(Properties.class),
             eq(NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME));
-        context.assertIsSatisfied();
         assertNotNull(response);
         assertEquals(NhincConstants.XDR_ACK_FAILURE_STATUS_MSG, response.getMessage().getStatus());
     }
@@ -200,36 +198,6 @@ public class StandardOutboundDocSubmissionDeferredResponseTest {
         targets.getNhinTargetCommunity().add(target);
 
         return targets;
-    }
-
-    private void setMockPolicyCheck(final boolean allow) {
-        context.checking(new Expectations() {
-            {
-                oneOf(mockPolicyCheck).checkXDRResponsePolicy(with(any(RegistryResponseType.class)),
-                    with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)),
-                    with(equal(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION)));
-                will(returnValue(allow));
-            }
-        });
-    }
-
-    private void setMockSubjectHelperToReturnValidHcid() {
-        context.checking(new Expectations() {
-            {
-                oneOf(mockSubjectHelper).determineSendingHomeCommunityId(with(any(HomeCommunityType.class)),
-                    with(any(AssertionType.class)));
-                will(returnValue("2.2"));
-            }
-        });
-    }
-
-    private void setMockDelegateToReturnValidResponse() {
-        context.checking(new Expectations() {
-            {
-                oneOf(mockDelegate).process(with(any(OutboundDocSubmissionDeferredResponseOrchestratable.class)));
-                will(returnValue(createOutboundDocSubmissionDeferredResponseOrchestratable()));
-            }
-        });
     }
 
     private OutboundDocSubmissionDeferredResponseOrchestratable

@@ -62,26 +62,25 @@ public class StandardInboundDocSubmissionDeferredResponseTest {
     private final Properties webContextProperties = new Properties();
     private final DSDeferredResponseAuditLogger auditLogger = mock(DSDeferredResponseAuditLogger.class);
 
+    private final AdapterDocSubmissionDeferredResponseProxyObjectFactory adapterFactory
+        = mock(AdapterDocSubmissionDeferredResponseProxyObjectFactory.class);
+    AdapterDocSubmissionDeferredResponseProxy adapterProxy = mock(AdapterDocSubmissionDeferredResponseProxy.class);
+    private final PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
+    private final XDRPolicyChecker policyChecker = mock(XDRPolicyChecker.class);
+    private final RegistryResponseType regResponse = new RegistryResponseType();
+    private final AssertionType assertion = new AssertionType();
+
     @Test
     public void standardInboundDocSubmissionDeferredResponse() throws PropertyAccessException {
         String localHCID = "1.1";
         String senderHCID = "2.2";
-        RegistryResponseType regResponse = new RegistryResponseType();
-        AssertionType assertion = new AssertionType();
         assertion.setHomeCommunity(new HomeCommunityType());
         assertion.getHomeCommunity().setHomeCommunityId(senderHCID);
         XDRAcknowledgementType expectedResponse = new XDRAcknowledgementType();
 
-        AdapterDocSubmissionDeferredResponseProxyObjectFactory adapterFactory
-            = mock(AdapterDocSubmissionDeferredResponseProxyObjectFactory.class);
-        AdapterDocSubmissionDeferredResponseProxy adapterProxy = mock(AdapterDocSubmissionDeferredResponseProxy.class);
-
         when(adapterFactory.getAdapterDocSubmissionDeferredResponseProxy()).thenReturn(adapterProxy);
 
         when(adapterProxy.provideAndRegisterDocumentSetBResponse(regResponse, assertion)).thenReturn(expectedResponse);
-
-        PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
-        XDRPolicyChecker policyChecker = mock(XDRPolicyChecker.class);
 
         when(
             propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
@@ -110,15 +109,8 @@ public class StandardInboundDocSubmissionDeferredResponseTest {
     public void failedPolicyCheck() throws PropertyAccessException {
         String localHCID = "1.1";
         String senderHCID = "2.2";
-        RegistryResponseType regResponse = new RegistryResponseType();
-        AssertionType assertion = new AssertionType();
         assertion.setHomeCommunity(new HomeCommunityType());
         assertion.getHomeCommunity().setHomeCommunityId(senderHCID);
-
-        AdapterDocSubmissionDeferredResponseProxyObjectFactory adapterFactory
-            = mock(AdapterDocSubmissionDeferredResponseProxyObjectFactory.class);
-        PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
-        XDRPolicyChecker policyChecker = mock(XDRPolicyChecker.class);
 
         when(
             propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
@@ -150,13 +142,6 @@ public class StandardInboundDocSubmissionDeferredResponseTest {
 
     @Test
     public void badIncomingAssertion() {
-        RegistryResponseType regResponse = new RegistryResponseType();
-        AssertionType assertion = new AssertionType();
-
-        AdapterDocSubmissionDeferredResponseProxyObjectFactory adapterFactory
-            = mock(AdapterDocSubmissionDeferredResponseProxyObjectFactory.class);
-        PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
-        XDRPolicyChecker policyChecker = mock(XDRPolicyChecker.class);
 
         StandardInboundDocSubmissionDeferredResponse standardDocSubmission
             = new StandardInboundDocSubmissionDeferredResponse(adapterFactory, policyChecker, propertyAccessor,

@@ -100,11 +100,11 @@ public class StandardInboundDocSubmissionTest {
 
         StandardInboundDocSubmission standardDocSubmission = new StandardInboundDocSubmission(adapterFactory,
             policyChecker, propertyAccessor, auditLogger) {
-            @Override
-            public DocSubmissionUtils getDocSubmissionUtils() {
-                return mockDocSubmissionUtils;
-            }
-        };
+                @Override
+                public DocSubmissionUtils getDocSubmissionUtils() {
+                    return mockDocSubmissionUtils;
+                }
+            };
         NhinTargetSystemType target = null;
         RegistryResponseType actualResponse = standardDocSubmission.documentRepositoryProvideAndRegisterDocumentSetB(
             request, assertion, webContextProperties);
@@ -139,15 +139,16 @@ public class StandardInboundDocSubmissionTest {
         RegistryResponseType actualResponse = standardDocSubmission.documentRepositoryProvideAndRegisterDocumentSetB(
             request, assertion, webContextProperties);
 
-        assertEquals("CONNECTPolicyCheckFailed", actualResponse.getRegistryErrorList().getRegistryError().get(0).getErrorCode());
+        assertEquals("CONNECTPolicyCheckFailed",
+            actualResponse.getRegistryErrorList().getRegistryError().get(0).getErrorCode());
         assertEquals("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure", actualResponse.getStatus());
         assertEquals("urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error", actualResponse.getRegistryErrorList()
             .getRegistryError().get(0).getSeverity());
 
         verify(auditLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), isNull(
             NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(
-            NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties), eq(
-            NhincConstants.NHINC_XDR_SERVICE_NAME));
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties), eq(
+                NhincConstants.NHINC_XDR_SERVICE_NAME));
     }
 
     @Test
@@ -170,8 +171,8 @@ public class StandardInboundDocSubmissionTest {
 
         verify(auditLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), isNull(
             NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(
-            NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties), eq(
-            NhincConstants.NHINC_XDR_SERVICE_NAME));
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties), eq(
+                NhincConstants.NHINC_XDR_SERVICE_NAME));
     }
 
     @Test
