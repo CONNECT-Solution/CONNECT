@@ -83,7 +83,11 @@ public class StandardOutboundDocSubmissionDeferredResponseTest {
             Mockito.any(AssertionType.class),
             Mockito.any(String.class), Mockito.any(String.class),
             eq(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION))).thenReturn(Boolean.TRUE);
-        when(mockDelegate.process(Mockito.any(OutboundDocSubmissionDeferredRequestOrchestratable.class))).thenReturn(
+
+        when(mockSubjectHelper.determineSendingHomeCommunityId(Mockito.any(HomeCommunityType.class),
+            Mockito.any(AssertionType.class))).thenReturn("2.2");
+
+        when(mockDelegate.process(Mockito.any(OutboundDocSubmissionDeferredResponseOrchestratable.class))).thenReturn(
             createOutboundDocSubmissionDeferredResponseOrchestratable());
 
         XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBAsyncRequest();
