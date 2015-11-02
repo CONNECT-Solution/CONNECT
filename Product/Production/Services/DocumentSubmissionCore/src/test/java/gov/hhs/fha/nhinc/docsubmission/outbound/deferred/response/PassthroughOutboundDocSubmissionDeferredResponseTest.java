@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.audit.DSDeferredResponseAuditLogger;
-import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestOrchestratable;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -62,7 +61,7 @@ public class PassthroughOutboundDocSubmissionDeferredResponseTest {
         RegistryResponseType request = new RegistryResponseType();
         AssertionType assertion = new AssertionType();
         NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
-        when(mockDelegate.process(Mockito.any(OutboundDocSubmissionDeferredRequestOrchestratable.class))).thenReturn(
+        when(mockDelegate.process(Mockito.any(OutboundDocSubmissionDeferredResponseOrchestratable.class))).thenReturn(
             createOutboundDocSubmissionDeferredResponseOrchestratable());
 
         XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBResponse(request, assertion,
@@ -78,7 +77,8 @@ public class PassthroughOutboundDocSubmissionDeferredResponseTest {
 
     @Test
     public void testGetters() {
-        PassthroughOutboundDocSubmissionDeferredResponse passthruOrch = new PassthroughOutboundDocSubmissionDeferredResponse();
+        PassthroughOutboundDocSubmissionDeferredResponse passthruOrch
+            = new PassthroughOutboundDocSubmissionDeferredResponse();
 
         assertNotNull(passthruOrch.getOutboundDocSubmissionDeferredResponseDelegate());
     }
