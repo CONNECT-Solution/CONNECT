@@ -51,14 +51,6 @@ public class OutboundDocSubmissionDeferredResponseStrategyImpl_g1 implements Orc
         return new NhinDocSubmissionDeferredResponseProxyObjectFactory().getNhinDocSubmissionDeferredResponseProxy();
     }
 
-    /**
-     * Gets an instance of the XDRAuditLogger
-     * @return
-     */
-    protected XDRAuditLogger getXDRAuditLogger() {
-        return new XDRAuditLogger();
-    }
-
     @Override
     public void execute(Orchestratable message) {
         if (message instanceof OutboundDocSubmissionDeferredResponseOrchestratable) {
@@ -71,30 +63,14 @@ public class OutboundDocSubmissionDeferredResponseStrategyImpl_g1 implements Orc
     public void execute(OutboundDocSubmissionDeferredResponseOrchestratable message) {
         LOG.trace("Begin OutboundDocSubmissionOrchestratableImpl_g1.process");
 
-        auditRequestToNhin(message.getRequest(), message.getAssertion(), message.getTarget());
-
         XDRAcknowledgementType ack = new XDRAcknowledgementType();
         NhinDocSubmissionDeferredResponseProxy nhincDocSubmission = getNhinDocSubmissionDeferredResponseProxy();
         RegistryResponseType response = nhincDocSubmission.provideAndRegisterDocumentSetBDeferredResponse20(
-                message.getRequest(), message.getAssertion(), message.getTarget());
+            message.getRequest(), message.getAssertion(), message.getTarget());
 
         ack.setMessage(response);
         message.setResponse(ack);
-
-        auditResponseFromNhin(ack, message.getAssertion(), message.getTarget());
-
         LOG.trace("End OutboundDocSubmissionDeferredResponseStrategyImpl_g1.process");
-    }
-
-    private void auditRequestToNhin(RegistryResponseType request, AssertionType assertion, NhinTargetSystemType target) {
-        getXDRAuditLogger().auditNhinXDRResponse(request, assertion, target,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, true);
-    }
-
-    private void auditResponseFromNhin(XDRAcknowledgementType response, AssertionType assertion,
-            NhinTargetSystemType target) {
-        getXDRAuditLogger().auditAcknowledgement(response, assertion, target,
-                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.XDR_RESPONSE_ACTION);
     }
 
 }

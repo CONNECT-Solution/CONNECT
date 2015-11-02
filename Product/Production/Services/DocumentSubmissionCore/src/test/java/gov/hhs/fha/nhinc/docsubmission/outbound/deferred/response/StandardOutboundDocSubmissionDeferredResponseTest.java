@@ -24,89 +24,112 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.audit.DSDeferredResponseAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestOrchestratable;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-
 import java.lang.reflect.Method;
-
+import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.isNotNull;
+import static org.mockito.Matchers.isNull;
+import org.mockito.Mockito;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * @author akong
  *
  */
 public class StandardOutboundDocSubmissionDeferredResponseTest {
-    protected Mockery context = new JUnit4Mockery() {
-        {
-            setImposteriser(ClassImposteriser.INSTANCE);
-        }
-    };
-    final XDRAuditLogger mockXDRLog = context.mock(XDRAuditLogger.class);
-    final XDRPolicyChecker mockPolicyCheck = context.mock(XDRPolicyChecker.class);
-    final SubjectHelper mockSubjectHelper = context.mock(SubjectHelper.class);
-    final OutboundDocSubmissionDeferredResponseDelegate mockDelegate = context
-            .mock(OutboundDocSubmissionDeferredResponseDelegate.class);
+
+    private final DSDeferredResponseAuditLogger auditLogger = mock(DSDeferredResponseAuditLogger.class);
+    final XDRAuditLogger mockXDRLog = mock(XDRAuditLogger.class);
+    final XDRPolicyChecker mockPolicyCheck = mock(XDRPolicyChecker.class);
+    final SubjectHelper mockSubjectHelper = mock(SubjectHelper.class);
+    final OutboundDocSubmissionDeferredResponseDelegate mockDelegate
+        = mock(OutboundDocSubmissionDeferredResponseDelegate.class);
+
+    private final RegistryResponseType request = new RegistryResponseType();
+    private final AssertionType assertion = new AssertionType();
+    private final NhinTargetCommunitiesType targets = createNhinTargetCommunitiesType();
 
     @Test
     public void testProvideAndRegisterDocumentSetB() {
-        expect2MockAudits();
-        setMockPolicyCheck(true);
-        setMockSubjectHelperToReturnValidHcid();
-        setMockDelegateToReturnValidResponse();
+        when(mockPolicyCheck.checkXDRResponsePolicy(Mockito.any(RegistryResponseType.class),
+            Mockito.any(AssertionType.class),
+            Mockito.any(String.class), Mockito.any(String.class),
+            eq(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION))).thenReturn(Boolean.TRUE);
+
+        when(mockSubjectHelper.determineSendingHomeCommunityId(Mockito.any(HomeCommunityType.class),
+            Mockito.any(AssertionType.class))).thenReturn("2.2");
+
+        when(mockDelegate.process(Mockito.any(OutboundDocSubmissionDeferredResponseOrchestratable.class))).thenReturn(
+            createOutboundDocSubmissionDeferredResponseOrchestratable());
 
         XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBAsyncRequest();
+        verify(auditLogger).auditRequestMessage(eq(request), eq(assertion), isNotNull(NhinTargetSystemType.class),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME));
 
-        context.assertIsSatisfied();
         assertNotNull(response);
         assertEquals(NhincConstants.XDR_RESP_ACK_STATUS_MSG, response.getMessage().getStatus());
     }
 
     @Test
     public void testProvideAndRegisterDocumentSetB_policyFailure() {
-        expect2MockAudits();
-        setMockPolicyCheck(false);
-        setMockSubjectHelperToReturnValidHcid();
+        when(mockPolicyCheck.checkXDRResponsePolicy(Mockito.any(RegistryResponseType.class),
+            Mockito.any(AssertionType.class),
+            Mockito.any(String.class), Mockito.any(String.class),
+            eq(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION))).thenReturn(Boolean.FALSE);
+
+        when(mockSubjectHelper.determineSendingHomeCommunityId(Mockito.any(HomeCommunityType.class),
+            Mockito.any(AssertionType.class))).thenReturn("2.2");
 
         XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBAsyncRequest();
 
-        context.assertIsSatisfied();
+        verify(auditLogger).auditRequestMessage(eq(request), eq(assertion), isNotNull(NhinTargetSystemType.class),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME));
+
         assertNotNull(response);
         assertEquals(NhincConstants.XDR_ACK_FAILURE_STATUS_MSG, response.getMessage().getStatus());
     }
 
     @Test
     public void testProvideAndRegisterDocumentSetB_emptyTargets() {
-        expect2MockAudits();
 
-        XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBAsyncRequest_emptyTargets();
-
-        context.assertIsSatisfied();
+        RegistryResponseType requestLocal = new RegistryResponseType();
+        AssertionType assertionLocal = new AssertionType();
+        XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBAsyncRequest_emptyTargets(requestLocal,
+            assertionLocal);
+        verify(auditLogger).auditRequestMessage(eq(requestLocal), eq(assertionLocal),
+            isNotNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE), isNull(Properties.class),
+            eq(NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME));
         assertNotNull(response);
         assertEquals(NhincConstants.XDR_ACK_FAILURE_STATUS_MSG, response.getMessage().getStatus());
     }
@@ -118,7 +141,8 @@ public class StandardOutboundDocSubmissionDeferredResponseTest {
         boolean hasTargets = entityOrch.hasNhinTargetHomeCommunityId(null);
         assertFalse(hasTargets);
 
-        RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType();
+        RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request
+            = new RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType();
         hasTargets = entityOrch.hasNhinTargetHomeCommunityId(request);
         assertFalse(hasTargets);
 
@@ -151,26 +175,21 @@ public class StandardOutboundDocSubmissionDeferredResponseTest {
         StandardOutboundDocSubmissionDeferredResponse entityOrch = new StandardOutboundDocSubmissionDeferredResponse();
 
         assertNotNull(entityOrch.getSubjectHelper());
-        assertNotNull(entityOrch.getXDRAuditLogger());
+        assertNotNull(entityOrch.getAuditLogger());
         assertNotNull(entityOrch.getXDRPolicyChecker());
     }
 
     private XDRAcknowledgementType runProvideAndRegisterDocumentSetBAsyncRequest() {
-        RegistryResponseType request = new RegistryResponseType();
-        AssertionType assertion = new AssertionType();
-        NhinTargetCommunitiesType targets = createNhinTargetCommunitiesType();
 
         StandardOutboundDocSubmissionDeferredResponse entityOrch = createEntityDocSubmissionDeferredResponseOrchImpl();
         return entityOrch.provideAndRegisterDocumentSetBAsyncResponse(request, assertion, targets);
     }
 
-    private XDRAcknowledgementType runProvideAndRegisterDocumentSetBAsyncRequest_emptyTargets() {
-        RegistryResponseType request = new RegistryResponseType();
-        AssertionType assertion = new AssertionType();
-        NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
-
+    private XDRAcknowledgementType runProvideAndRegisterDocumentSetBAsyncRequest_emptyTargets(
+        RegistryResponseType requestLocal, AssertionType assertionLocal) {
+        NhinTargetCommunitiesType targetLocal = new NhinTargetCommunitiesType();
         StandardOutboundDocSubmissionDeferredResponse entityOrch = createEntityDocSubmissionDeferredResponseOrchImpl();
-        return entityOrch.provideAndRegisterDocumentSetBAsyncResponse(request, assertion, targets);
+        return entityOrch.provideAndRegisterDocumentSetBAsyncResponse(requestLocal, assertionLocal, targetLocal);
     }
 
     private NhinTargetCommunitiesType createNhinTargetCommunitiesType() {
@@ -185,59 +204,16 @@ public class StandardOutboundDocSubmissionDeferredResponseTest {
         return targets;
     }
 
-    private void expect2MockAudits() {
-        context.checking(new Expectations() {
-            {
-                oneOf(mockXDRLog).auditEntityXDRResponseRequest(
-                        with(any(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType.class)),
-                        with(any(AssertionType.class)), with(equal(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION)));
-
-                oneOf(mockXDRLog).auditEntityAcknowledgement(with(any(XDRAcknowledgementType.class)),
-                        with(any(AssertionType.class)), with(equal(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION)),
-                        with(equal(NhincConstants.XDR_RESPONSE_ACTION)));
-            }
-        });
-    }
-
-    private void setMockPolicyCheck(final boolean allow) {
-        context.checking(new Expectations() {
-            {
-                oneOf(mockPolicyCheck).checkXDRResponsePolicy(with(any(RegistryResponseType.class)),
-                        with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)),
-                        with(equal(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION)));
-                will(returnValue(allow));
-            }
-        });
-    }
-
-    private void setMockSubjectHelperToReturnValidHcid() {
-        context.checking(new Expectations() {
-            {
-                oneOf(mockSubjectHelper).determineSendingHomeCommunityId(with(any(HomeCommunityType.class)),
-                        with(any(AssertionType.class)));
-                will(returnValue("2.2"));
-            }
-        });
-    }
-
-    private void setMockDelegateToReturnValidResponse() {
-        context.checking(new Expectations() {
-            {
-                oneOf(mockDelegate).process(with(any(OutboundDocSubmissionDeferredResponseOrchestratable.class)));
-                will(returnValue(createOutboundDocSubmissionDeferredResponseOrchestratable()));
-            }
-        });
-    }
-
-    private OutboundDocSubmissionDeferredResponseOrchestratable createOutboundDocSubmissionDeferredResponseOrchestratable() {
+    private OutboundDocSubmissionDeferredResponseOrchestratable
+        createOutboundDocSubmissionDeferredResponseOrchestratable() {
         RegistryResponseType regResponse = new RegistryResponseType();
         regResponse.setStatus(NhincConstants.XDR_RESP_ACK_STATUS_MSG);
 
         XDRAcknowledgementType response = new XDRAcknowledgementType();
         response.setMessage(regResponse);
 
-        OutboundDocSubmissionDeferredResponseOrchestratable orchestratable = new OutboundDocSubmissionDeferredResponseOrchestratable(
-                null);
+        OutboundDocSubmissionDeferredResponseOrchestratable orchestratable
+            = new OutboundDocSubmissionDeferredResponseOrchestratable(null);
         orchestratable.setResponse(response);
 
         return orchestratable;
@@ -245,9 +221,6 @@ public class StandardOutboundDocSubmissionDeferredResponseTest {
 
     private StandardOutboundDocSubmissionDeferredResponse createEntityDocSubmissionDeferredResponseOrchImpl() {
         return new StandardOutboundDocSubmissionDeferredResponse() {
-            protected XDRAuditLogger getXDRAuditLogger() {
-                return mockXDRLog;
-            }
 
             protected XDRPolicyChecker getXDRPolicyChecker() {
                 return mockPolicyCheck;
@@ -260,6 +233,10 @@ public class StandardOutboundDocSubmissionDeferredResponseTest {
             protected OutboundDocSubmissionDeferredResponseDelegate getOutboundDocSubmissionDeferredResponseDelegate() {
                 return mockDelegate;
             }
+
+            protected DSDeferredResponseAuditLogger getAuditLogger() {
+                return auditLogger;
+            }
         };
     }
 
@@ -267,7 +244,7 @@ public class StandardOutboundDocSubmissionDeferredResponseTest {
     public void hasOutboundProcessingEvent() throws Exception {
         Class<StandardOutboundDocSubmissionDeferredResponse> clazz = StandardOutboundDocSubmissionDeferredResponse.class;
         Method method = clazz.getMethod("provideAndRegisterDocumentSetBAsyncResponse", RegistryResponseType.class,
-                AssertionType.class, NhinTargetCommunitiesType.class);
+            AssertionType.class, NhinTargetCommunitiesType.class);
         OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
         assertNotNull(annotation);
         assertEquals(DeferredResponseDescriptionBuilder.class, annotation.beforeBuilder());

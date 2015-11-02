@@ -29,18 +29,18 @@ package gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
-import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyObjectFactory;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.audit.DSDeferredResponseAuditLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import org.apache.log4j.Logger;
 
 /**
@@ -59,7 +59,7 @@ public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboun
      */
     public StandardInboundDocSubmissionDeferredResponse() {
         this(new AdapterDocSubmissionDeferredResponseProxyObjectFactory(), new XDRPolicyChecker(), PropertyAccessor
-                .getInstance(), new XDRAuditLogger());
+            .getInstance(), new DSDeferredResponseAuditLogger());
     }
 
     /**
@@ -71,8 +71,8 @@ public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboun
      * @param auditLogger
      */
     public StandardInboundDocSubmissionDeferredResponse(
-            AdapterDocSubmissionDeferredResponseProxyObjectFactory adapterFactory, XDRPolicyChecker policyChecker,
-            PropertyAccessor propertyAccessor, XDRAuditLogger auditLogger) {
+        AdapterDocSubmissionDeferredResponseProxyObjectFactory adapterFactory, XDRPolicyChecker policyChecker,
+        PropertyAccessor propertyAccessor, DSDeferredResponseAuditLogger auditLogger) {
         super(adapterFactory, auditLogger);
         this.policyChecker = policyChecker;
         this.propertyAccessor = propertyAccessor;
@@ -80,25 +80,22 @@ public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboun
 
     @Override
     @InboundProcessingEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
-            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
-            serviceType = "Document Submission Deferred Response", version = "")
+        afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
+        serviceType = "Document Submission Deferred Response", version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
-            AssertionType assertion) {
-        auditRequestFromNhin(body, assertion);
+        AssertionType assertion, Properties webContextProperties) {
 
         XDRAcknowledgementType response = processDocSubmissionResponse(body, assertion);
 
-        auditResponseToNhin(response, assertion);
+        auditResponse(body, response, assertion, webContextProperties);
 
         return response;
     }
 
     @Override
     XDRAcknowledgementType processDocSubmissionResponse(RegistryResponseType body, AssertionType assertion) {
+
         XDRAcknowledgementType response;
-
-        auditRequestToAdapter(body, assertion);
-
         String localHCID = getLocalHCID();
         if (isPolicyValid(body, assertion, localHCID)) {
             LOG.debug("Policy Check Succeeded");
@@ -107,8 +104,6 @@ public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboun
             LOG.error("Policy Check Failed");
             response = msgUtils.createFailedPolicyCheckXDRAcknowledgementType();
         }
-
-        auditResponseFromAdapter(response, assertion);
 
         return response;
     }
@@ -122,16 +117,16 @@ public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboun
         String senderHCID = assertion.getHomeCommunity().getHomeCommunityId();
 
         return policyChecker.checkXDRResponsePolicy(request, assertion, senderHCID, receiverHCID,
-                NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
+            NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
     }
 
     private String getLocalHCID() {
         String localHCID = null;
         try {
             localHCID = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+                NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
-            LOG.error("Exception while retrieving home community ID", ex);
+            LOG.error("Exception while retrieving home community ID : " + ex.getLocalizedMessage(), ex);
         }
 
         return localHCID;
@@ -139,7 +134,7 @@ public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboun
 
     private boolean hasHomeCommunityId(AssertionType assertion) {
         if (assertion != null && assertion.getHomeCommunity() != null
-                && NullChecker.isNotNullish(assertion.getHomeCommunity().getHomeCommunityId())) {
+            && NullChecker.isNotNullish(assertion.getHomeCommunity().getHomeCommunityId())) {
             return true;
         }
         return false;

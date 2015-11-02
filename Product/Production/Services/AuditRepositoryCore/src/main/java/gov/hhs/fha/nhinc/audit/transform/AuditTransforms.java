@@ -78,6 +78,7 @@ public abstract class AuditTransforms<T, K> {
 
     private T request;
     private NhinTargetSystemType target;
+    private AssertionType assertion;
 
     /**
      * Build an AuditLog Request Message from request
@@ -97,6 +98,7 @@ public abstract class AuditTransforms<T, K> {
         Properties webContextProperties, String serviceName) {
         setRequest(request);
         setTarget(target);
+        setAssertion(assertion);
         // TODO: auditMsg should either use a builder, or modify in-method with no return
         AuditMessageType auditMsg = createBaseAuditMessage(assertion, target, isRequesting, webContextProperties,
             serviceName);
@@ -124,6 +126,7 @@ public abstract class AuditTransforms<T, K> {
         NhinTargetSystemType target, String direction, String _interface, boolean isRequesting,
         Properties webContextProperties, String serviceName) {
         setRequest(request);
+        setAssertion(assertion);
         // TODO: auditMsg should either use a builder, or modify in-method with no return
         AuditMessageType auditMsg = createBaseAuditMessage(assertion, target, isRequesting, webContextProperties,
             serviceName);
@@ -173,7 +176,7 @@ public abstract class AuditTransforms<T, K> {
         return participant;
     }
 
-    private EventIdentificationType createEventIdentification(boolean isRequesting) {
+    protected EventIdentificationType createEventIdentification(boolean isRequesting) {
         CodedValueType eventId = createCodeValueType(isRequesting ? getServiceEventIdCodeRequestor()
             : getServiceEventIdCodeResponder(), null, getServiceEventCodeSystem(),
             isRequesting ? getServiceEventDisplayRequestor() : getServiceEventDisplayResponder());
@@ -227,7 +230,7 @@ public abstract class AuditTransforms<T, K> {
         return participant;
     }
 
-    private EventIdentificationType getEventIdentificationType(CodedValueType eventId, boolean isRequesting) {
+    protected EventIdentificationType getEventIdentificationType(CodedValueType eventId, boolean isRequesting) {
         EventIdentificationType eventIdentification = new EventIdentificationType();
 
         // Set the Event Action Code
@@ -334,7 +337,7 @@ public abstract class AuditTransforms<T, K> {
         return participant;
     }
 
-    private String getMessageCommunityId(AssertionType assertion, NhinTargetSystemType target, boolean isRequesting) {
+    protected String getMessageCommunityId(AssertionType assertion, NhinTargetSystemType target, boolean isRequesting) {
         String communityId;
         if (isRequesting) {
             communityId = HomeCommunityMap.getCommunityIdFromTargetSystem(target);
@@ -439,7 +442,7 @@ public abstract class AuditTransforms<T, K> {
      * @param dispName
      * @return <code>CodedValueType</code>
      */
-    private static CodedValueType createCodeValueType(String code, String codeSys, String codeSysName,
+    protected static CodedValueType createCodeValueType(String code, String codeSys, String codeSysName,
         String dispName) {
 
         CodedValueType codeValueType = new CodedValueType();
@@ -584,5 +587,14 @@ public abstract class AuditTransforms<T, K> {
 
     protected void setTarget(NhinTargetSystemType target) {
         this.target = target;
+    }
+
+    //DS Deferred Response services require assertion. so getters and setters are created.
+    protected AssertionType getAssertion() {
+        return assertion;
+    }
+
+    protected void setAssertion(AssertionType assertion) {
+        this.assertion = assertion;
     }
 }

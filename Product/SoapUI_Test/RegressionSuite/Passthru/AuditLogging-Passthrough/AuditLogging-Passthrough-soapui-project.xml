@@ -993,15 +993,15 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-30T16:13:53Z</con:value>
+          <con:value>2015-10-30T21:48:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-30T16:23:53Z</con:value>
+          <con:value>2015-10-30T21:58:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/30/2015 16:13:53</con:value>
+          <con:value>10/30/2015 21:48:08</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -1609,7 +1609,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
           <delay>2000</delay>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Audit Logs" id="8d894511-06da-4f8c-b281-7637f7fe3c56" disabled="true">
+      <con:testStep type="groovy" name="Verify Audit Logs" id="8d894511-06da-4f8c-b281-7637f7fe3c56">
         <con:settings/>
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
@@ -1620,7 +1620,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
         <con:config>
           <script>context.withSql('AuditRepoDB') {sql ->
@@ -1678,7 +1678,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() &am
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
-   	    assert(!node.@AlternativeUserID.isEmpty())
+   	    //assert(!node.@AlternativeUserID.isEmpty())
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -1718,7 +1718,7 @@ parsedXmlMessage.AuditSourceIdentification.find{
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK">
         <con:settings/>
         <con:config>
           <script>context.withSql('AuditRepoDB') {sql ->
@@ -1834,19 +1834,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-28T17:57:48Z</con:value>
+          <con:value>2015-10-30T21:45:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-28T18:07:48Z</con:value>
+          <con:value>2015-10-30T21:55:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/28/2015 17:57:48</con:value>
+          <con:value>10/30/2015 21:45:40</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-27T00:00:00Z</con:value>
+          <con:value>2015-11-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -1910,7 +1910,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name>
-          <con:value>192.168.1.2</con:value>
+          <con:value>localhost</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -1930,7 +1930,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name>
-          <con:value>Gateway 1</con:value>
+          <con:value>DoD</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@displayName</con:name>
@@ -2501,8 +2501,8 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
 }</script>
         </con:config>
       </con:testStep>
@@ -2764,19 +2764,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-30T10:18:58Z</con:value>
+          <con:value>2015-10-26T21:09:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-30T10:28:58Z</con:value>
+          <con:value>2015-10-26T21:19:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/30/2015 10:18:58</con:value>
+          <con:value>10/26/2015 21:09:40</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-29T00:00:00Z</con:value>
+          <con:value>2015-11-25T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -3350,8 +3350,8 @@ if (propertiesFile.exists()) {
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
 	
 }</script>
         </con:config>
@@ -3767,7 +3767,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-30T10:26:55Z</con:value>
+          <con:value>2015-10-26T21:19:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -3811,7 +3811,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-29T00:00:00Z</con:value>
+          <con:value>2015-11-25T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -3911,7 +3911,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/30/2015 10:16:55</con:value>
+          <con:value>10/26/2015 21:09:45</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -3919,7 +3919,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-30T10:16:55Z</con:value>
+          <con:value>2015-10-26T21:09:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -5252,19 +5252,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-30T10:17:21Z</con:value>
+          <con:value>2015-10-26T21:10:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-30T10:27:21Z</con:value>
+          <con:value>2015-10-26T21:20:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/30/2015 10:17:21</con:value>
+          <con:value>10/26/2015 21:10:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-29T00:00:00Z</con:value>
+          <con:value>2015-11-25T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@code</con:name>
@@ -6066,8 +6066,8 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="2.2"')[0]
 }</script>
         </con:config>
       </con:testStep>
@@ -6401,19 +6401,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-30T10:17:44Z</con:value>
+          <con:value>2015-10-26T21:10:52Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-30T10:27:44Z</con:value>
+          <con:value>2015-10-26T21:20:52Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/30/2015 10:17:44</con:value>
+          <con:value>10/26/2015 21:10:52</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-29T00:00:00Z</con:value>
+          <con:value>2015-11-25T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -7168,8 +7168,8 @@ if (propertiesFile.exists()) {
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="2.2"')[0]
 }</script>
         </con:config>
       </con:testStep>
@@ -7474,19 +7474,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-30T10:18:22Z</con:value>
+          <con:value>2015-10-26T21:21:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-30T10:28:22Z</con:value>
+          <con:value>2015-10-26T21:31:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/30/2015 10:18:22</con:value>
+          <con:value>10/26/2015 21:21:38</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-29T00:00:00Z</con:value>
+          <con:value>2015-11-25T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -8098,8 +8098,8 @@ if (propertiesFile.exists()) {
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]	
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]	
 }</script>
         </con:config>
       </con:testStep>
@@ -8395,19 +8395,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-30T10:18:33Z</con:value>
+          <con:value>2015-10-26T21:22:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-30T10:28:33Z</con:value>
+          <con:value>2015-10-26T21:32:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/30/2015 10:18:33</con:value>
+          <con:value>10/26/2015 21:22:15</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-29T00:00:00Z</con:value>
+          <con:value>2015-11-25T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@value</con:name>
@@ -9104,8 +9104,8 @@ if (propertiesFile.exists()) {
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Inbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Inbound" and communityId="1.1"')[0]
 }</script>
         </con:config>
       </con:testStep>
@@ -9688,20 +9688,21 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
           <delay>2000</delay>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Audit Logs" id="f48a57a8-e26c-40a0-9de4-1245b744f953">
+      <con:testStep type="groovy" name="Verify Audit Logs" id="f48a57a8-e26c-40a0-9de4-1245b744f953" disabled="true">
         <con:settings/>
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
 	
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
         <con:settings/>
-        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -9763,7 +9764,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 //check for ActiveParticipant Destination details
 if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[2].each{ node ->
-	     //assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
@@ -9871,11 +9872,13 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 	 	}
 	}
   }
-}]]></script></con:config>
+}]]></script>
+        </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" disabled="true">
         <con:settings/>
-        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -9924,7 +9927,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 //check for ActiveParticipant Destination details
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
-	    //	assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	    
+	    	assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	    
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
@@ -10025,7 +10028,8 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
 	 	}
 	}
   }
-}]]></script></con:config>
+}]]></script>
+        </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 //context.setGatewayStandard(false);
@@ -10048,19 +10052,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-30T16:15:42Z</con:value>
+          <con:value>2015-10-28T17:58:58Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-30T16:25:42Z</con:value>
+          <con:value>2015-10-28T18:08:58Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/30/2015 16:15:42</con:value>
+          <con:value>10/28/2015 17:58:58</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-29T00:00:00Z</con:value>
+          <con:value>2015-11-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -10664,18 +10668,18 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
           <delay>2000</delay>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Verify Audit Logs" id="55485d23-b657-4913-8606-4bc6d4b94c67" disabled="true">
+      <con:testStep type="groovy" name="Verify Audit Logs" id="55485d23-b657-4913-8606-4bc6d4b94c67">
         <con:settings/>
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where  messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where  messageType="Nhin Outbound" and communityId="1.1"')[0]
 	
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
         <con:settings/>
         <con:config>
           <script>context.withSql('AuditRepoDB') {sql ->
@@ -10729,11 +10733,11 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() &am
 //check for ActiveParticipant Destination details
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() &amp;&amp; parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
-	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	     
+	    // assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
-   	    assert(!node.@AlternativeUserID.isEmpty())
+   	    //assert(!node.@AlternativeUserID.isEmpty())
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -10773,7 +10777,7 @@ parsedXmlMessage.AuditSourceIdentification.find{
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" disabled="true">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK">
         <con:settings/>
         <con:config>
           <script>context.withSql('AuditRepoDB') {sql ->
@@ -10825,7 +10829,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() &am
 //check for ActiveParticipant Destination details
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() &amp;&amp; parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
-	    	assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	    
+	    	//assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	    
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
@@ -10889,19 +10893,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-28T17:59:26Z</con:value>
+          <con:value>2015-10-30T21:35:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-28T18:09:26Z</con:value>
+          <con:value>2015-10-30T21:45:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/28/2015 17:59:26</con:value>
+          <con:value>10/30/2015 21:35:13</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-27T00:00:00Z</con:value>
+          <con:value>2015-11-29T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -10965,7 +10969,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name>
-          <con:value>192.168.1.2</con:value>
+          <con:value>localhost</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -10985,7 +10989,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name>
-          <con:value>Gateway 1</con:value>
+          <con:value>DoD</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@displayName</con:name>
@@ -11556,8 +11560,8 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
 }</script>
         </con:config>
       </con:testStep>
@@ -11819,19 +11823,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-30T10:19:18Z</con:value>
+          <con:value>2015-10-14T19:48:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-30T10:29:18Z</con:value>
+          <con:value>2015-10-14T19:58:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/30/2015 10:19:18</con:value>
+          <con:value>10/14/2015 19:48:31</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-29T00:00:00Z</con:value>
+          <con:value>2015-11-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -12055,7 +12059,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
-          <con:value>urn:oid:1.1</con:value>
+          <con:value>1.1</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserName</con:name>
@@ -12405,8 +12409,8 @@ if (propertiesFile.exists()) {
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
 	
 }</script>
         </con:config>
@@ -12822,7 +12826,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-30T10:29:31Z</con:value>
+          <con:value>2015-10-21T00:42:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -12866,7 +12870,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-29T00:00:00Z</con:value>
+          <con:value>2015-11-20T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -12966,7 +12970,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/30/2015 10:19:31</con:value>
+          <con:value>10/21/2015 00:32:57</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -12974,7 +12978,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-30T10:19:31Z</con:value>
+          <con:value>2015-10-21T00:32:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -13030,7 +13034,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
-          <con:value>urn:oid:1.1</con:value>
+          <con:value>1.1</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.@UserID</con:name>
@@ -13690,7 +13694,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:testStep type="delay" name="Wait for Audit table to populate">
         <con:settings/>
         <con:config>
-          <delay>10000</delay>
+          <delay>30000</delay>
         </con:config>
       </con:testStep>
       <con:testStep type="groovy" name="Verify Audit Logs" id="51e31a14-520c-4ebe-9d91-1614db33b08d">
@@ -14307,19 +14311,19 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-30T10:29:51Z</con:value>
+          <con:value>2015-10-17T05:25:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/30/2015 10:19:51</con:value>
+          <con:value>10/17/2015 05:15:32</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-29T00:00:00Z</con:value>
+          <con:value>2015-11-16T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-30T10:19:51Z</con:value>
+          <con:value>2015-10-17T05:15:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@code</con:name>
@@ -14331,7 +14335,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
-          <con:value>urn:oid:1.1</con:value>
+          <con:value>1.1</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.@UserID</con:name>
@@ -15121,8 +15125,8 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="2.2"')[0]
 }</script>
         </con:config>
       </con:testStep>
@@ -15456,19 +15460,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-30T10:20:14Z</con:value>
+          <con:value>2015-10-08T16:53:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-30T10:30:14Z</con:value>
+          <con:value>2015-10-08T17:03:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/30/2015 10:20:14</con:value>
+          <con:value>10/08/2015 16:53:40</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-29T00:00:00Z</con:value>
+          <con:value>2015-11-07T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -15720,7 +15724,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
-          <con:value>urn:oid:1.1</con:value>
+          <con:value>1.1</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserName</con:name>
@@ -16211,8 +16215,8 @@ if (propertiesFile.exists()) {
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="2.2"')[0]
 }</script>
         </con:config>
       </con:testStep>
@@ -16520,19 +16524,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-30T10:20:51Z</con:value>
+          <con:value>2015-10-26T21:21:53Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-30T10:30:51Z</con:value>
+          <con:value>2015-10-26T21:31:53Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/30/2015 10:20:51</con:value>
+          <con:value>10/26/2015 21:21:53</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-29T00:00:00Z</con:value>
+          <con:value>2015-11-25T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -17144,8 +17148,8 @@ if (propertiesFile.exists()) {
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
 }</script>
         </con:config>
       </con:testStep>
@@ -17440,19 +17444,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-30T10:21:01Z</con:value>
+          <con:value>2015-10-26T21:22:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-30T10:31:01Z</con:value>
+          <con:value>2015-10-26T21:32:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/30/2015 10:21:01</con:value>
+          <con:value>10/26/2015 21:22:04</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-29T00:00:00Z</con:value>
+          <con:value>2015-11-25T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@value</con:name>
@@ -18136,8 +18140,8 @@ if (propertiesFile.exists()) {
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Inbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Inbound" and communityId="1.1"')[0]
 }</script>
         </con:config>
       </con:testStep>
@@ -18454,8 +18458,8 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript>
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
 }</script>
         </con:config>
       </con:testStep>
@@ -18706,19 +18710,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-30T10:21:15Z</con:value>
+          <con:value>2015-10-01T20:10:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-30T10:31:15Z</con:value>
+          <con:value>2015-10-01T20:20:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/30/2015 10:21:15</con:value>
+          <con:value>10/01/2015 20:10:56</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-29T00:00:00Z</con:value>
+          <con:value>2015-10-31T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.@UserIsRequestor</con:name>
@@ -18730,7 +18734,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
-          <con:value>urn:oid:1.1</con:value>
+          <con:value>1.1</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@code</con:name>
@@ -19255,8 +19259,8 @@ if (propertiesFile.exists()) {
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]	
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]	
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]	
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]	
 }</script>
         </con:config>
       </con:testStep>
@@ -19504,19 +19508,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-30T10:21:25Z</con:value>
+          <con:value>2015-10-01T20:10:58Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-30T10:31:25Z</con:value>
+          <con:value>2015-10-01T20:20:58Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/30/2015 10:21:25</con:value>
+          <con:value>10/01/2015 20:10:58</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-29T00:00:00Z</con:value>
+          <con:value>2015-10-31T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -19684,7 +19688,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
-          <con:value>urn:oid:1.1</con:value>
+          <con:value>1.1</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.@UserID</con:name>
@@ -20037,8 +20041,8 @@ if (propertiesFile.exists()) {
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 1 and messageType="Nhin Outbound" and communityId="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where id = 2 and messageType="Nhin Outbound" and communityId="1.1"')[0]
 }</script>
         </con:config>
       </con:testStep>
@@ -20282,19 +20286,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-10-30T10:21:37Z</con:value>
+          <con:value>2015-10-01T20:11:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-10-30T10:31:37Z</con:value>
+          <con:value>2015-10-01T20:21:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/30/2015 10:21:37</con:value>
+          <con:value>10/01/2015 20:11:01</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-11-29T00:00:00Z</con:value>
+          <con:value>2015-10-31T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -20470,7 +20474,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
-          <con:value>urn:oid:1.1</con:value>
+          <con:value>1.1</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.@UserIsRequestor</con:name>

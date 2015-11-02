@@ -27,8 +27,8 @@
 package gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyObjectFactory;
+import gov.hhs.fha.nhinc.docsubmission.audit.DSDeferredResponseAuditLogger;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
@@ -38,11 +38,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  */
 public class PassthroughInboundDocSubmissionDeferredResponse extends AbstractInboundDocSubmissionDeferredResponse {
 
-    /**
-     * Constructor.
-     */
     public PassthroughInboundDocSubmissionDeferredResponse() {
-        this(new AdapterDocSubmissionDeferredResponseProxyObjectFactory(), new XDRAuditLogger());
+        this(new AdapterDocSubmissionDeferredResponseProxyObjectFactory(), new DSDeferredResponseAuditLogger());
     }
 
     /**
@@ -52,7 +49,8 @@ public class PassthroughInboundDocSubmissionDeferredResponse extends AbstractInb
      * @param auditLogger
      */
     public PassthroughInboundDocSubmissionDeferredResponse(
-            AdapterDocSubmissionDeferredResponseProxyObjectFactory adapterFactory, XDRAuditLogger auditLogger) {
+        AdapterDocSubmissionDeferredResponseProxyObjectFactory adapterFactory,
+        DSDeferredResponseAuditLogger auditLogger) {
         super(adapterFactory, auditLogger);
     }
 

@@ -24,35 +24,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response;
+package gov.hhs.fha.nhinc.docsubmission.audit;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response.InboundDocSubmissionDeferredResponse;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
-
-import javax.xml.ws.WebServiceContext;
-
+import gov.hhs.fha.nhinc.audit.AuditLogger;
+import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
+import gov.hhs.fha.nhinc.docsubmission.audit.transform.DSDeferredResponseAuditTransforms;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-public class NhinDocSubmissionDeferredResponseImpl20 extends BaseService {
+/**
+ *
+ * @author achidamb
+ */
+public class DSDeferredResponseAuditLogger extends AuditLogger<RegistryResponseType, XDRAcknowledgementType> {
 
-    private InboundDocSubmissionDeferredResponse inboundDocSubmissionResponse;
-
-    public NhinDocSubmissionDeferredResponseImpl20(InboundDocSubmissionDeferredResponse inboundDocSubmissionResponse) {
-        this.inboundDocSubmissionResponse = inboundDocSubmissionResponse;
+    @Override
+    protected AuditTransforms<RegistryResponseType, XDRAcknowledgementType> getAuditTransforms() {
+        return new DSDeferredResponseAuditTransforms();
     }
 
-    /**
-     *
-     * @param body
-     * @param context
-     * @return
-     */
-    public RegistryResponseType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
-        WebServiceContext context) {
-        AssertionType assertion = getAssertion(context, null);
-
-        return inboundDocSubmissionResponse.provideAndRegisterDocumentSetBResponse(body, assertion,
-            getWebContextProperties(context)).getMessage();
-    }
 }

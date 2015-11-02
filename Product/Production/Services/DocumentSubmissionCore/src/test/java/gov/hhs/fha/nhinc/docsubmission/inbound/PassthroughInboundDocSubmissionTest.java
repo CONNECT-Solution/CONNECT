@@ -56,17 +56,19 @@ import static org.mockito.Mockito.when;
  */
 public class PassthroughInboundDocSubmissionTest {
 
+    private final DocSubmissionAuditLogger auditLogger = mock(DocSubmissionAuditLogger.class);
+    private final AdapterDocSubmissionProxyObjectFactory adapterFactory = mock(AdapterDocSubmissionProxyObjectFactory.class);
+    private final DocSubmissionUtils dsUtils = mock(DocSubmissionUtils.class);
+    private final Properties webContextProperties = new Properties();
+    private final ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
+    private final AssertionType assertion = new AssertionType();
+
     @Test
     public void passthroughInboundDocSubmission() {
-        ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
-        AssertionType assertion = new AssertionType();
-        RegistryResponseType expectedResponse = new RegistryResponseType();
 
-        AdapterDocSubmissionProxyObjectFactory adapterFactory = mock(AdapterDocSubmissionProxyObjectFactory.class);
+        RegistryResponseType expectedResponse = new RegistryResponseType();
         AdapterDocSubmissionProxy adapterProxy = mock(AdapterDocSubmissionProxy.class);
-        DocSubmissionAuditLogger auditLogger = mock(DocSubmissionAuditLogger.class);
-        DocSubmissionUtils dsUtils = mock(DocSubmissionUtils.class);
-        Properties webContextProperties = new Properties();
+
         when(adapterFactory.getAdapterDocSubmissionProxy()).thenReturn(adapterProxy);
 
         when(adapterProxy.provideAndRegisterDocumentSetB(request, assertion)).thenReturn(expectedResponse);
@@ -87,13 +89,7 @@ public class PassthroughInboundDocSubmissionTest {
 
     @Test
     public void convertDataToFileError() throws LargePayloadException {
-        ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
-        AssertionType assertion = new AssertionType();
 
-        AdapterDocSubmissionProxyObjectFactory adapterFactory = mock(AdapterDocSubmissionProxyObjectFactory.class);
-        DocSubmissionAuditLogger auditLogger = mock(DocSubmissionAuditLogger.class);
-        DocSubmissionUtils dsUtils = mock(DocSubmissionUtils.class);
-        Properties webContextProperties = new Properties();
         doThrow(new LargePayloadException()).when(dsUtils).convertDataToFileLocationIfEnabled(request);
 
         PassthroughInboundDocSubmission passthroughDocSubmission = new PassthroughInboundDocSubmission(adapterFactory,
