@@ -30,24 +30,23 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.audit.DSDeferredResponseAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestOrchestratable;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNotNull;
 import static org.mockito.Matchers.isNull;
+import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * @author akong
@@ -56,20 +55,15 @@ import static org.mockito.Mockito.verify;
 public class PassthroughOutboundDocSubmissionDeferredResponseTest {
 
     private final DSDeferredResponseAuditLogger auditLogger = mock(DSDeferredResponseAuditLogger.class);
-    protected Mockery context = new JUnit4Mockery() {
-        {
-            setImposteriser(ClassImposteriser.INSTANCE);
-        }
-    };
-    final OutboundDocSubmissionDeferredResponseDelegate mockDelegate = context
-        .mock(OutboundDocSubmissionDeferredResponseDelegate.class);
+    final OutboundDocSubmissionDeferredResponseDelegate mockDelegate = mock(OutboundDocSubmissionDeferredResponseDelegate.class);
 
     @Test
     public void testProvideAndRegisterDocumentSetB() {
         RegistryResponseType request = new RegistryResponseType();
         AssertionType assertion = new AssertionType();
         NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
-        expectMockDelegateProcessAndReturnValidResponse();
+        when(mockDelegate.process(Mockito.any(OutboundDocSubmissionDeferredRequestOrchestratable.class))).thenReturn(
+            createOutboundDocSubmissionDeferredResponseOrchestratable());
 
         XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBResponse(request, assertion,
             targetCommunities);
@@ -78,7 +72,6 @@ public class PassthroughOutboundDocSubmissionDeferredResponseTest {
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME));
 
-        context.assertIsSatisfied();
         assertNotNull(response);
         assertEquals(NhincConstants.XDR_ACK_STATUS_MSG, response.getMessage().getStatus());
     }
@@ -96,15 +89,6 @@ public class PassthroughOutboundDocSubmissionDeferredResponseTest {
         PassthroughOutboundDocSubmissionDeferredResponse passthruOrch
             = createPassthruDocSubmissionDeferredResponseOrchImpl();
         return passthruOrch.provideAndRegisterDocumentSetBAsyncResponse(request, assertion, targetCommunities);
-    }
-
-    private void expectMockDelegateProcessAndReturnValidResponse() {
-        context.checking(new Expectations() {
-            {
-                oneOf(mockDelegate).process(with(any(OutboundDocSubmissionDeferredResponseOrchestratable.class)));
-                will(returnValue(createOutboundDocSubmissionDeferredResponseOrchestratable()));
-            }
-        });
     }
 
     private OutboundDocSubmissionDeferredResponseOrchestratable
