@@ -525,14 +525,12 @@ public abstract class AuditTransforms<T, K> {
     protected String getUserName(UserType userInfo) {
         String userName = null;
         if (userInfo != null && userInfo.getPersonName() != null) {
-            if (userInfo.getPersonName().getGivenName() != null && userInfo.getPersonName().getGivenName().
-                length() > 0) {
+            if (NullChecker.isNotNullish(userInfo.getPersonName().getGivenName())) {
 
                 userName = userInfo.getPersonName().getGivenName();
             }
 
-            if (userInfo.getPersonName().getFamilyName() != null
-                && userInfo.getPersonName().getFamilyName().length() > 0) {
+            if (NullChecker.isNotNullish(userInfo.getPersonName().getFamilyName())) {
 
                 if (userName != null) {
                     userName += (" " + userInfo.getPersonName().getFamilyName());
