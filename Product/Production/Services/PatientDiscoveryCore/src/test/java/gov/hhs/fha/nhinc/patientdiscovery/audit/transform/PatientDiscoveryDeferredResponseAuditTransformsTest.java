@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.audit.transform;
 
+import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
@@ -37,6 +38,7 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditTransformsConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.parser.TestPatientDiscoveryMessageHelper;
+import java.lang.management.ManagementFactory;
 import java.net.UnknownHostException;
 import java.util.Properties;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -240,6 +242,14 @@ public class PatientDiscoveryDeferredResponseAuditTransformsTest extends AuditTr
             participantQuery.getParticipantObjectName());
         assertNotNull("ParticipantQuery.ParticipantObjectQuery is null",
             participantQuery.getParticipantObjectQuery());
+    }
+
+    @Override
+    protected void checkAlternativeUserId(String alternativeUserID, Boolean isRequesting) {
+        if (!isRequesting) {
+            assertEquals("AlternativeUserId mismatch", ManagementFactory.getRuntimeMXBean().getName(),
+                alternativeUserID);
+        }
     }
 
     @Override

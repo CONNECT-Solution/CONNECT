@@ -38,12 +38,14 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionAuditTransformsConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import java.lang.management.ManagementFactory;
 import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Properties;
 import javax.xml.bind.JAXBException;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
@@ -201,6 +203,14 @@ public class DSDeferredResponseAuditTransformsTest extends
         assertEquals("EventTypeCode.DisplayName mismatch",
             DocSubmissionAuditTransformsConstants.EVENT_TYPE_CODE_DISPLAY_NAME,
             eventIdentificationType.getEventTypeCode().get(0).getDisplayName());
+    }
+
+    @Override
+    protected void checkAlternativeUserId(String alternativeUserID, Boolean isRequesting) {
+        if (!isRequesting) {
+            assertEquals("AlternativeUserId mismatch", ManagementFactory.getRuntimeMXBean().getName(),
+                alternativeUserID);
+        }
     }
 
     @Override
