@@ -64,7 +64,7 @@ public class HibernateUtil {
         try {
             result = HibernateAccessor.getInstance().getHibernateFile(NhincConstants.HIBERNATE_AUDIT_REPOSITORY);
         } catch (PropertyAccessException ex) {
-            LOG.error("Unable to load " + NhincConstants.HIBERNATE_AUDIT_REPOSITORY + " " + ex.getMessage(), ex);
+            LOG.error("Unable to load " + NhincConstants.HIBERNATE_AUDIT_REPOSITORY + " " + ex.getLocalizedMessage(), ex);
         }
 
         return result;

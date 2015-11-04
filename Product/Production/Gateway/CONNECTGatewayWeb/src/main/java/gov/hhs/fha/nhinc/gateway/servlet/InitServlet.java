@@ -34,7 +34,6 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import org.apache.log4j.Logger;
-import org.hibernate.SessionFactory;
 import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil;
 
 /**
@@ -65,7 +64,7 @@ public class InitServlet extends HttpServlet {
             .getLargeJobExecutorPoolSize());
         //Initialize HibernateUtil when CONNECTGatewayWeb is initialized required for AuditRepo JavaImpl EJB calls.
         //Do not Remove this ...
-        SessionFactory session = HibernateUtil.getSessionFactory();
+        HibernateUtil.getSessionFactory();
         // register event loggers as observers...
         EventLoggerFactory.getInstance().registerLoggers();
     }

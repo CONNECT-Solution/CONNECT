@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.auditrepository.hibernate;
 
-import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryRecord;
-import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryDAO;
 import java.util.Date;
 import java.util.List;
 import org.junit.After;
@@ -47,6 +45,7 @@ import org.junit.Ignore;
 @Ignore
 // TODO: Move to an integration test
 public class AuditRepositoryDAOTest {
+
     private AuditRepositoryDAO auditDao = null;
 
     public AuditRepositoryDAOTest() {
