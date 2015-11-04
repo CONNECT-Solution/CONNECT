@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
 
-import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.service.AuditRepositoryUnsecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
@@ -49,17 +48,21 @@ public class AuditRepositoryProxyWebServiceUnsecuredImpl implements AuditReposit
     private static final Logger LOG = Logger.getLogger(AuditRepositoryProxyWebServiceUnsecuredImpl.class);
 
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
-    private AcknowledgementType result;
+    private AcknowledgementType result = new AcknowledgementType();
 
     @Override
     public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion) {
+
         LOG.debug("Entering AuditRepositoryProxyWebServiceUnsecuredImpl.auditLog(...)");
 
-        try {
+        if (request.getAuditMessage() == null) {
+            LOG.error("Audit Request Message is null.");
             synchronized (result) {
-                result = new AcknowledgementType();
+                return result;
             }
+        }
 
+        try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.AUDIT_REPO_SERVICE_NAME);
 
             if (NullChecker.isNotNullish(url)) {

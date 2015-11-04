@@ -51,30 +51,26 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
     private static final Logger LOG = Logger.getLogger(AuditRepositoryProxyWebServiceSecuredImpl.class);
 
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
-    private AcknowledgementType result;
+    private AcknowledgementType result = new AcknowledgementType();
     private LogEventSecureRequestType secureRequest = new LogEventSecureRequestType();
 
     @Override
     public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion) {
         LOG.debug("Entering AuditRepositoryProxyWebServiceSecured.auditLog(...)");
 
-        try {
-            secureRequest.setAuditMessage(request.getAuditMessage());
-        } catch (NullPointerException ex) {
-            LOG.error("LogEventRequestType Audit Message is a Required field " + ex.getLocalizedMessage(), ex);
+        if (request.getAuditMessage() == null) {
+            LOG.error("Audit Request Message is null");
             synchronized (result) {
                 return result;
             }
+        } else {
+            secureRequest.setAuditMessage(request.getAuditMessage());
         }
         secureRequest.setDirection(request.getDirection());
         secureRequest.setInterface(request.getInterface());
         secureRequest.setCommunityId(request.getCommunityId());
 
         try {
-            synchronized (result) {
-                result = new AcknowledgementType();
-            }
-
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME);
 
             if (NullChecker.isNotNullish(url)) {
