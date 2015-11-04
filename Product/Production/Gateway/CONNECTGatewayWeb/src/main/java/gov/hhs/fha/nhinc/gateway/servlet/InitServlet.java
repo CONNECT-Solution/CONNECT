@@ -28,15 +28,14 @@ package gov.hhs.fha.nhinc.gateway.servlet;
 
 import gov.hhs.fha.nhinc.event.EventLoggerFactory;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-
 import org.apache.log4j.Logger;
+import org.hibernate.SessionFactory;
+import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil;
 
 /**
  * Started on webapplication init, creates the main ExecutorService and CamelContext instances Note the following: 1.
@@ -63,8 +62,10 @@ public class InitServlet extends HttpServlet {
         LOG.debug("InitServlet start...");
         executor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getExecutorPoolSize());
         largeJobExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance()
-                .getLargeJobExecutorPoolSize());
-
+            .getLargeJobExecutorPoolSize());
+        //Initialize HibernateUtil when CONNECTGatewayWeb is initialized required for AuditRepo JavaImpl EJB calls.
+        //Do not Remove this ...
+        SessionFactory session = HibernateUtil.getSessionFactory();
         // register event loggers as observers...
         EventLoggerFactory.getInstance().registerLoggers();
     }

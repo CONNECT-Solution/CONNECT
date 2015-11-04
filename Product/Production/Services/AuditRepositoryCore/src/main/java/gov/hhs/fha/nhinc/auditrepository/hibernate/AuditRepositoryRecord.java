@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.hibernate;
+package gov.hhs.fha.nhinc.auditrepository.hibernate;
 
 import java.util.Date;
 import java.sql.Blob;
@@ -34,6 +34,7 @@ import java.sql.Blob;
  * @author MFLYNN02
  */
 public class AuditRepositoryRecord {
+
     private int id = 0;
     private Date timeStamp = null;
     private int eventId = 0;

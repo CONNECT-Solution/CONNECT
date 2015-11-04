@@ -50,13 +50,14 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
 
     private static final Logger LOG = Logger.getLogger(AuditRepositoryProxyWebServiceSecuredImpl.class);
 
-    private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
+    private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
+    private AcknowledgementType result = new AcknowledgementType();
+    private LogEventSecureRequestType secureRequest = new LogEventSecureRequestType();
 
+    @Override
     public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion) {
         LOG.debug("Entering AuditRepositoryProxyWebServiceSecured.auditLog(...)");
-        AcknowledgementType result = new AcknowledgementType();
 
-        LogEventSecureRequestType secureRequest = new LogEventSecureRequestType();
         if (request.getAuditMessage() == null) {
             LOG.error("Audit Request is null");
         }
@@ -66,28 +67,25 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
         secureRequest.setCommunityId(request.getCommunityId());
 
         try {
-            if (request != null) {
 
-                String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME);
+            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME);
 
-                if (NullChecker.isNotNullish(url)) {
+            if (NullChecker.isNotNullish(url)) {
 
-                    ServicePortDescriptor<AuditRepositoryManagerSecuredPortType> portDescriptor = new AuditRepositorySecuredServicePortDescriptor();
+                ServicePortDescriptor<AuditRepositoryManagerSecuredPortType> portDescriptor
+                    = new AuditRepositorySecuredServicePortDescriptor();
 
-                    CONNECTClient<AuditRepositoryManagerSecuredPortType> client = CONNECTCXFClientFactory.getInstance()
-                            .getCONNECTClientSecured(portDescriptor, url, assertion);
+                CONNECTClient<AuditRepositoryManagerSecuredPortType> client = CONNECTCXFClientFactory.getInstance()
+                    .getCONNECTClientSecured(portDescriptor, url, assertion);
 
+                synchronized (result) {
                     result = (AcknowledgementType) client.invokePort(AuditRepositoryManagerSecuredPortType.class,
-                            "logEvent", secureRequest);
-
-                } else {
-                    LOG.error("Failed to call the web service (" + NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME
-                            + ").  The URL is null.");
+                        "logEvent", secureRequest);
                 }
             }
         } catch (Exception e) {
             LOG.error("Failed to call the web service (" + NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME
-                    + ").  An unexpected exception occurred.  " + "Exception: " + e.getMessage(), e);
+                + ").  An unexpected exception occurred.  " + "Exception: " + e.getLocalizedMessage(), e);
         }
 
         LOG.debug("In AuditRepositoryProxyWebServiceSecured.auditLog(...) - completed called to ConnectionManager to retrieve endpoint.");
