@@ -48,12 +48,13 @@ public class AuditRepositoryProxyWebServiceUnsecuredImpl implements AuditReposit
     private static final Logger LOG = Logger.getLogger(AuditRepositoryProxyWebServiceUnsecuredImpl.class);
 
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
+
     private AcknowledgementType result = new AcknowledgementType();
+
+    private final String invokeMethodName = "logEvent";
 
     @Override
     public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion) {
-
-        LOG.debug("Entering AuditRepositoryProxyWebServiceUnsecuredImpl.auditLog(...)");
 
         if (request.getAuditMessage() == null) {
             LOG.error("Audit Request Message is null.");
@@ -75,7 +76,7 @@ public class AuditRepositoryProxyWebServiceUnsecuredImpl implements AuditReposit
 
                 synchronized (result) {
                     result = (AcknowledgementType) client.invokePort(AuditRepositoryManagerPortType.class,
-                        "logEvent", request);
+                        invokeMethodName, request);
                 }
 
             }

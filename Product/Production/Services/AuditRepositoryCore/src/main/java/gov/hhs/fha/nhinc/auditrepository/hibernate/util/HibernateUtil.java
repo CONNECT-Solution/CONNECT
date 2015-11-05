@@ -49,11 +49,10 @@ public class HibernateUtil {
     static {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
-
             sessionFactory = new Configuration().configure(getConfigFile()).buildSessionFactory();
         } catch (HibernateException ex) {
             // Make sure you log the exception, as it might be swallowed
-            LOG.error("Initial SessionFactory creation failed." + ex);
+            LOG.error("Initial SessionFactory creation failed." + ex.getLocalizedMessage(), ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
@@ -64,7 +63,8 @@ public class HibernateUtil {
         try {
             result = HibernateAccessor.getInstance().getHibernateFile(NhincConstants.HIBERNATE_AUDIT_REPOSITORY);
         } catch (PropertyAccessException ex) {
-            LOG.error("Unable to load " + NhincConstants.HIBERNATE_AUDIT_REPOSITORY + " " + ex.getLocalizedMessage(), ex);
+            LOG.error("Unable to load " + NhincConstants.HIBERNATE_AUDIT_REPOSITORY + " " + ex.getLocalizedMessage(),
+                ex);
         }
 
         return result;

@@ -58,7 +58,6 @@ public class InitServlet extends HttpServlet {
     @SuppressWarnings("static-access")
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        LOG.debug("InitServlet start...");
         executor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getExecutorPoolSize());
         largeJobExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance()
             .getLargeJobExecutorPoolSize());
@@ -84,12 +83,14 @@ public class InitServlet extends HttpServlet {
             try {
                 executor.shutdown();
             } catch (Exception e) {
+                LOG.error("Error while shutdown of ExecutorService: " + e.getLocalizedMessage(), e);
             }
         }
         if (largeJobExecutor != null) {
             try {
                 largeJobExecutor.shutdown();
             } catch (Exception e) {
+                LOG.error("Error while shutdown of ExecutorService: " + e.getLocalizedMessage(), e);
             }
         }
     }

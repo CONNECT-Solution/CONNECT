@@ -55,7 +55,7 @@ public class AuditRepositoryDAO {
      * Constructor
      */
     private AuditRepositoryDAO() {
-        LOG.info("AuditRepositoryDAO - Initialized");
+        LOG.trace("AuditRepositoryDAO - Initialized");
     }
 
     /**
@@ -64,7 +64,7 @@ public class AuditRepositoryDAO {
      * @return AuditRepositoryDAO
      */
     public static AuditRepositoryDAO getAuditRepositoryDAOInstance() {
-        LOG.debug("getAuditRepositoryDAOInstance()..");
+        LOG.trace("AuditRepositoryDAO instance initialized");
         return auditDAO;
     }
 
@@ -74,7 +74,7 @@ public class AuditRepositoryDAO {
      * @return boolean
      */
     public boolean insertAuditRepository(List<AuditRepositoryRecord> auditList) {
-        LOG.debug("AuditRepositoryDAO.createAuditRepository() - Begin");
+
         Session session = null;
         Transaction tx = null;
         boolean result = true;
@@ -106,7 +106,7 @@ public class AuditRepositoryDAO {
                 }
             }
         }
-        LOG.debug("AuditRepositoryDAO.createAuditRepository() - End");
+
         return result;
     }
 
@@ -121,11 +121,9 @@ public class AuditRepositoryDAO {
      * @return List
      */
     public List queryAuditRepositoryOnCriteria(String eUserId, String ePatientId, Date startDate, Date endDate) {
-        LOG.debug("AuditRepositoryDAO.getAuditRepositoryOnCriteria() Begin");
 
         if (eUserId == null && ePatientId == null && startDate == null) {
             LOG.info("-- No - Input Parameters found for Audit Query --");
-            LOG.debug("AuditRepositoryDAO.getAuditRepositoryOnCriteria() End");
             return null;
         }
 
@@ -153,7 +151,7 @@ public class AuditRepositoryDAO {
             }
             queryList = aCriteria.list();
         } catch (HibernateException e) {
-            LOG.error("Exception in AuditLog.get() occured due to :" + e.getLocalizedMessage(), e);
+            LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
         } finally {
             // Actual contact insertion will happen at this step
             if (session != null) {
@@ -161,7 +159,6 @@ public class AuditRepositoryDAO {
                 session.close();
             }
         }
-        LOG.debug("AuditRepositoryDAO.getAuditRepositoryOnCriteria() End");
         return queryList;
     }
 }

@@ -51,8 +51,12 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
     private static final Logger LOG = Logger.getLogger(AuditRepositoryProxyWebServiceSecuredImpl.class);
 
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
+
     private AcknowledgementType result = new AcknowledgementType();
-    private LogEventSecureRequestType secureRequest = new LogEventSecureRequestType();
+
+    private final LogEventSecureRequestType secureRequest = new LogEventSecureRequestType();
+
+    private final String invokeMethodName = "logEvent";
 
     @Override
     public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion) {
@@ -83,7 +87,7 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
 
                 synchronized (result) {
                     result = (AcknowledgementType) client.invokePort(AuditRepositoryManagerSecuredPortType.class,
-                        "logEvent", secureRequest);
+                        invokeMethodName, secureRequest);
                 }
             }
         } catch (Exception e) {
@@ -91,7 +95,8 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
                 + ").  An unexpected exception occurred.  " + "Exception: " + e.getLocalizedMessage(), e);
         }
 
-        LOG.debug("In AuditRepositoryProxyWebServiceSecured.auditLog(...) - completed called to ConnectionManager to retrieve endpoint.");
+        LOG.debug("In AuditRepositoryProxyWebServiceSecured.auditLog(...) - completed called to ConnectionManager to "
+            + "retrieve endpoint.");
 
         return result;
     }
