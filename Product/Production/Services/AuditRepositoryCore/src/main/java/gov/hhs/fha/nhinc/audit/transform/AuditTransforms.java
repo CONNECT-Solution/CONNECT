@@ -533,7 +533,7 @@ public abstract class AuditTransforms<T, K> {
             if (NullChecker.isNotNullish(userInfo.getPersonName().getFamilyName())) {
 
                 if (userName != null) {
-                    userName += (" " + userInfo.getPersonName().getFamilyName());
+                    userName += " " + userInfo.getPersonName().getFamilyName();
                 } else {
                     userName = userInfo.getPersonName().getFamilyName();
                 }

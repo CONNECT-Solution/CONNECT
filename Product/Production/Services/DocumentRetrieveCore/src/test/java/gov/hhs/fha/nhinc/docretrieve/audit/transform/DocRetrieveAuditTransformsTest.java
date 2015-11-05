@@ -317,7 +317,7 @@ public class DocRetrieveAuditTransformsTest
             assertEquals("SourceActiveParticipant requestor flag mismatch", !isRequesting,
                 sourceActiveParticipant.isUserIsRequestor());
         } else {
-            assertEquals("SourceActiveParticipant requestor flag mismatch", isRequesting,
+            assertEquals("SourceActiveParticipant responder flag mismatch", isRequesting,
                 sourceActiveParticipant.isUserIsRequestor());
         }
 
@@ -371,7 +371,7 @@ public class DocRetrieveAuditTransformsTest
             assertEquals("DestinationActiveParticipant requestor flag mismatch", isRequesting,
                 destinationActiveParticipant.isUserIsRequestor());
         } else {
-            assertEquals("DestinationActiveParticipant requestor flag mismatch", !isRequesting,
+            assertEquals("DestinationActiveParticipant responder flag mismatch", !isRequesting,
                 destinationActiveParticipant.isUserIsRequestor());
         }
 
