@@ -204,26 +204,9 @@ public abstract class AuditTransforms<T, K> {
         }
 
         // If specified, set the User Name
-        String userName = null;
-        if (userInfo != null && userInfo.getPersonName() != null) {
-            if (userInfo.getPersonName().getGivenName() != null && userInfo.getPersonName().getGivenName().
-                length() > 0) {
-
-                userName = userInfo.getPersonName().getGivenName();
-            }
-
-            if (userInfo.getPersonName().getFamilyName() != null
-                && userInfo.getPersonName().getFamilyName().length() > 0) {
-
-                if (userName != null) {
-                    userName += (" " + userInfo.getPersonName().getFamilyName());
-                } else {
-                    userName = userInfo.getPersonName().getFamilyName();
-                }
-            }
-            if (userName != null) {
-                participant.setUserName(userName);
-            }
+        String userName = getUserName(userInfo);
+        if (userName != null) {
+            participant.setUserName(userName);
         }
 
         participant.setUserIsRequestor(Boolean.TRUE);
@@ -269,17 +252,17 @@ public abstract class AuditTransforms<T, K> {
      * @param serviceName
      * @param isRequesting
      * @param webContextProperties
+     * @param oUserInfo
      * @return
      */
     protected ActiveParticipant getActiveParticipantSource(NhinTargetSystemType target, String serviceName,
-        boolean isRequesting, Properties webContextProperties) {
+        boolean isRequesting, Properties webContextProperties, UserType oUserInfo) {
 
         String ipOrHost = isRequesting ? getLocalHostAddress() : getRemoteHostAddress(webContextProperties);
 
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
         participant.setUserID(isRequesting ? NhincConstants.WSA_REPLY_TO
             : getInboundReplyToFromHeader(webContextProperties));
-        participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
         participant.setNetworkAccessPointID(ipOrHost);
         participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(ipOrHost));
         participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(
@@ -287,6 +270,15 @@ public abstract class AuditTransforms<T, K> {
             AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
             AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
         participant.setUserIsRequestor(Boolean.TRUE);
+
+        if (isRequesting) {
+            participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
+        }
+
+        String userName = getUserName(oUserInfo);
+        if (userName != null) {
+            participant.setUserName(userName);
+        }
         return participant;
 
     }
@@ -514,7 +506,7 @@ public abstract class AuditTransforms<T, K> {
             }
         }
         ActiveParticipant participantSource = getActiveParticipantSource(target, serviceName, isRequesting,
-            webContextProperties);
+            webContextProperties, assertion.getUserInfo());
         ActiveParticipant participantDestination = getActiveParticipantDestination(target,
             isRequesting, webContextProperties, serviceName);
         auditMsg.getActiveParticipant().add(participantSource);
@@ -528,6 +520,27 @@ public abstract class AuditTransforms<T, K> {
         // ******************************Construct Audit Source Identification**********************
         auditMsg.getAuditSourceIdentification().add(auditSource);
         return auditMsg;
+    }
+
+    protected String getUserName(UserType userInfo) {
+        String userName = null;
+        if (userInfo != null && userInfo.getPersonName() != null) {
+            if (NullChecker.isNotNullish(userInfo.getPersonName().getGivenName())) {
+
+                userName = userInfo.getPersonName().getGivenName();
+            }
+
+            if (NullChecker.isNotNullish(userInfo.getPersonName().getFamilyName())) {
+
+                if (userName != null) {
+                    userName += " " + userInfo.getPersonName().getFamilyName();
+                } else {
+                    userName = userInfo.getPersonName().getFamilyName();
+                }
+            }
+
+        }
+        return userName;
     }
 
     private LogEventRequestType buildLogEventRequestType(AuditMessageType auditMsg, String direction,

@@ -44,6 +44,7 @@ import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformHelper;
 import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
 import java.net.MalformedURLException;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
@@ -316,7 +317,7 @@ public class DocRetrieveAuditTransforms
      */
     @Override
     protected ActiveParticipant getActiveParticipantSource(NhinTargetSystemType target, String serviceName,
-        boolean isRequesting, Properties webContextProperties) {
+        boolean isRequesting, Properties webContextProperties, UserType oUserInfo) {
 
         ActiveParticipant participant = new ActiveParticipant();
 
@@ -356,11 +357,16 @@ public class DocRetrieveAuditTransforms
             participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
         }
 
+        String userName = getUserName(oUserInfo);
+        if (userName != null) {
+            participant.setUserName(userName);
+        }
+
         participant.getRoleIDCode()
             .add(AuditDataTransformHelper.createCodeValueType(
-                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
-                AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
-                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
+                    AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
+                    AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+                    AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
 
         participant.setUserIsRequestor(Boolean.FALSE);
 
@@ -404,9 +410,9 @@ public class DocRetrieveAuditTransforms
 
         participant.getRoleIDCode()
             .add(AuditDataTransformHelper.createCodeValueType(
-                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, null,
-                AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
-                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME));
+                    AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, null,
+                    AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+                    AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME));
         return participant;
     }
 

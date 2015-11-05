@@ -183,14 +183,12 @@ public abstract class AuditTransformsTest<T, K> {
 
         if (isRequesting) {
             assertEquals("UserId mismatch", NhincConstants.WSA_REPLY_TO, sourceActiveParticipant.getUserID());
-            assertEquals("AlternativeUserId mismatch", ManagementFactory.getRuntimeMXBean().getName(),
-                sourceActiveParticipant.getAlternativeUserID());
-
             ipOrHost = localIp;
         } else {
             ipOrHost = webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS);
         }
 
+        checkAlternativeUserId(sourceActiveParticipant.getAlternativeUserID(), isRequesting);
         assertEquals("NetworkAccessPointID mismatch", ipOrHost, sourceActiveParticipant.getNetworkAccessPointID());
         assertEquals("SourceActiveParticipant requestor flag mismatch", Boolean.TRUE,
             sourceActiveParticipant.isUserIsRequestor());
@@ -230,6 +228,19 @@ public abstract class AuditTransformsTest<T, K> {
                 assertEquals(HomeCommunityMap.getHomeCommunityIdWithPrefix(
                     assertion.getUserInfo().getOrg().getHomeCommunityId()), auditSourceId.getAuditSourceID());
             }
+        }
+    }
+
+    /**
+     * Tests for alternativeUserID
+     *
+     * @param alternativeUserID
+     * @param isRequesting
+     */
+    protected void checkAlternativeUserId(String alternativeUserID, Boolean isRequesting) {
+        if (isRequesting) {
+            assertEquals("AlternativeUserId mismatch", ManagementFactory.getRuntimeMXBean().getName(),
+                alternativeUserID);
         }
     }
 

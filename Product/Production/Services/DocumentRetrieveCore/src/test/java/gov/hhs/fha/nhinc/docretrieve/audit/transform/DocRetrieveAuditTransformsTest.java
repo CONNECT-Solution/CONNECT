@@ -136,8 +136,8 @@ public class DocRetrieveAuditTransformsTest
             null, NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
 
         testGetEventIdentificationType(auditRequest, NhincConstants.DOC_RETRIEVE_SERVICE_NAME, Boolean.TRUE);
-        testGetActiveParticipantSource(auditRequest, Boolean.FALSE, webContextProperties, REMOTE_OBJECT_URL);
-        testGetActiveParticipantDestination(auditRequest, Boolean.FALSE, webContextProperties, LOCAL_IP);
+        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, REMOTE_OBJECT_URL);
+        testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, LOCAL_IP);
         testAuditSourceIdentification(auditRequest.getAuditMessage().getAuditSourceIdentification(), assertion);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticipantObjectIdentification(auditRequest, assertion);
@@ -303,7 +303,7 @@ public class DocRetrieveAuditTransformsTest
 
         assertNotNull("sourceActiveParticipant is null", sourceActiveParticipant);
 
-        if (isRequesting) {
+        if (!isRequesting) {
             assertEquals("AlternativeUserId mismatch", ManagementFactory.getRuntimeMXBean().getName(),
                 sourceActiveParticipant.getAlternativeUserID());
         }
@@ -312,8 +312,15 @@ public class DocRetrieveAuditTransformsTest
 
         assertEquals("UserId mismatch", remoteObjectUrl, sourceActiveParticipant.getUserID());
         assertEquals("NetworkAccessPointID mismatch", ipOrHost, sourceActiveParticipant.getNetworkAccessPointID());
-        assertEquals("SourceActiveParticipant requestor flag mismatch", isRequesting,
-            sourceActiveParticipant.isUserIsRequestor());
+
+        if (isRequesting) {
+            assertEquals("SourceActiveParticipant requestor flag mismatch", !isRequesting,
+                sourceActiveParticipant.isUserIsRequestor());
+        } else {
+            assertEquals("SourceActiveParticipant responder flag mismatch", isRequesting,
+                sourceActiveParticipant.isUserIsRequestor());
+        }
+
         assertEquals("NetworkAccessPointTypeCode mismatch",
             AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_IP,
             sourceActiveParticipant.getNetworkAccessPointTypeCode());
@@ -353,9 +360,21 @@ public class DocRetrieveAuditTransformsTest
 
         userId = NhincConstants.WSA_REPLY_TO;
 
+        if (isRequesting) {
+            assertEquals("AlternativeUserId mismatch", ManagementFactory.getRuntimeMXBean().getName(),
+                destinationActiveParticipant.getAlternativeUserID());
+        }
+
         assertEquals("UserID mismatch", userId, destinationActiveParticipant.getUserID());
-        assertEquals("DestinationActiveParticipant requestor flag mismatch", !isRequesting,
-            destinationActiveParticipant.isUserIsRequestor());
+
+        if (isRequesting) {
+            assertEquals("DestinationActiveParticipant requestor flag mismatch", isRequesting,
+                destinationActiveParticipant.isUserIsRequestor());
+        } else {
+            assertEquals("DestinationActiveParticipant responder flag mismatch", !isRequesting,
+                destinationActiveParticipant.isUserIsRequestor());
+        }
+
         assertEquals("NetworkAccessPointID mismatch", localIp, destinationActiveParticipant.getNetworkAccessPointID());
         assertEquals("NetworkAccessPointTypeCode mismatch", AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_IP,
             destinationActiveParticipant.getNetworkAccessPointTypeCode());

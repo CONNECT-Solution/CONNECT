@@ -126,14 +126,14 @@ public class DSDeferredResponseAuditTransforms extends
 
     @Override
     protected AuditMessageType.ActiveParticipant getActiveParticipantSource(NhinTargetSystemType target,
-        String serviceName, boolean isRequesting, Properties webContextProperties) {
+        String serviceName, boolean isRequesting, Properties webContextProperties, UserType oUserInfo) {
 
         String ipOrHost = isRequesting ? getDSDeferredRequestInitiatorAddress(target) : getLocalHostAddress();
 
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
         participant.setUserID(isRequesting ? NhincConstants.WSA_REPLY_TO
             : getInboundReplyToFromHeader(webContextProperties));
-        if (isRequesting) {
+        if (!isRequesting) {
             participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
         }
         participant.setNetworkAccessPointID(ipOrHost);
@@ -143,6 +143,11 @@ public class DSDeferredResponseAuditTransforms extends
             AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
             AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
         participant.setUserIsRequestor(Boolean.TRUE);
+
+        String userName = getUserName(oUserInfo);
+        if (userName != null) {
+            participant.setUserName(userName);
+        }
         return participant;
 
     }
@@ -171,7 +176,7 @@ public class DSDeferredResponseAuditTransforms extends
             participant.setNetworkAccessPointTypeCode(AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME);
             participant.setNetworkAccessPointID(AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS);
         }
-        if (!isRequesting) {
+        if (isRequesting) {
             participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
         }
         participant.setUserIsRequestor(Boolean.FALSE);
