@@ -128,6 +128,57 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="DocSubmissionDeferredResp" keyValue="DocSubmissionDeferredResp"/>
                 </categoryBag>
             </businessService>
+			
+			<!--  CORE X12 Document Submission RealTime-->
+
+            <businessService serviceKey="uddi:nhincnode:CORE_X12DSRealTime" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">CORE_X12DSRealTime</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:CORE_X12DSRealTime" serviceKey="uddi:nhincnode:CORE_X12DSRealTime">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/X12DocumentSubmission_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="CORE_X12DSRealTime" keyValue="CORE_X12DSRealTime"/>
+                </categoryBag>
+            </businessService>
+
+			<!--  CORE X12 Document Submission Generic Batch Request-->
+
+            <businessService serviceKey="uddi:nhincnode:CORE_X12DSGenericBatchRequest" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">CORE_X12DSGenericBatchRequest</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:CORE_X12DSGenericBatchRequest" serviceKey="uddi:nhincnode:CORE_X12DSGenericBatchRequest">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/GenericBatchRequestTransaction_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="CORE_X12DSGenericBatchRequest" keyValue="CORE_X12DSGenericBatchRequest"/>
+                </categoryBag>
+            </businessService>
+			
+			<!--  CORE X12 Document Submission Generic Batch Response-->
+
+            <businessService serviceKey="uddi:nhincnode:CORE_X12DSGenericBatchResponse" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">CORE_X12DSGenericBatchResponse</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:CORE_X12DSGenericBatchResponse" serviceKey="uddi:nhincnode:CORE_X12DSGenericBatchResponse">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/GenericBatchResponseTransaction_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="CORE_X12DSGenericBatchResponse" keyValue="CORE_X12DSGenericBatchResponse"/>
+                </categoryBag>
+            </businessService>
 
             <!--  Administrative Distribution  -->
 
@@ -161,7 +212,7 @@
         <name xml:lang="en">DoD</name>
         <businessServices>
 
-            <!--  Query for Documents -->
+		<!--  Query for Documents -->
 
             <businessService serviceKey="uddi:testnhincnode:QueryForDocuments">
                 <name xml:lang="en">QueryForDocuments</name>
@@ -196,7 +247,7 @@
                         </categoryBag>
                     </bindingTemplate>
 					<bindingTemplate bindingKey="uddi:testnhincnode:RetrieveDocuments" serviceKey="uddi:testnhincnode:RetrieveDocuments">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentQuery/3_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve<categoryBag>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentQuery/3_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                         </categoryBag>
@@ -315,6 +366,57 @@
                 </categoryBag>
             </businessService>
 
+            <!-- CORE X12 Document Submission -->
+
+            <businessService serviceKey="uddi:nhincnode:CORE_X12DSRealTime" businessKey="uddi:testnhieonenode:2.2">
+                <name xml:lang="en">CORE_X12DSRealTime</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:CORE_X12DSRealTime" serviceKey="uddi:nhincnode:CORE_X12DSRealTime">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/X12DocumentSubmission_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="CORE_X12DSRealTime" keyValue="CORE_X12DSRealTime"/>
+                </categoryBag>
+            </businessService>
+
+			<!--  CORE X12 Document Submission Generic Batch Request-->
+
+            <businessService serviceKey="uddi:nhincnode:CORE_X12DSGenericBatchRequest" businessKey="uddi:testnhieonenode:2.2">
+                <name xml:lang="en">CORE_X12DSGenericBatchRequest</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:CORE_X12DSGenericBatchRequest" serviceKey="uddi:nhincnode:CORE_X12DSGenericBatchRequest">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/GenericBatchRequestTransaction_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="CORE_X12DSGenericBatchRequest" keyValue="CORE_X12DSGenericBatchRequest"/>
+                </categoryBag>
+            </businessService>
+			
+			<!--  CORE X12 Document Submission Generic Batch Response-->
+
+            <businessService serviceKey="uddi:nhincnode:CORE_X12DSGenericBatchResponse" businessKey="uddi:testnhieonenode:2.2">
+                <name xml:lang="en">CORE_X12DSGenericBatchResponse</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:CORE_X12DSGenericBatchResponse" serviceKey="uddi:nhincnode:CORE_X12DSGenericBatchResponse">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/GenericBatchResponseTransaction_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="CORE_X12DSGenericBatchResponse" keyValue="CORE_X12DSGenericBatchResponse"/>
+                </categoryBag>
+            </businessService>
+			
             <!--  Administrative Distribution  -->
 
             <businessService serviceKey="uddi:testnhincnode:AdminDistribution">
