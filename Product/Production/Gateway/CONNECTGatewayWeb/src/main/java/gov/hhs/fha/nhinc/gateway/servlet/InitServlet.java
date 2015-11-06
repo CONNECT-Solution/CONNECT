@@ -28,15 +28,13 @@ package gov.hhs.fha.nhinc.gateway.servlet;
 
 import gov.hhs.fha.nhinc.event.EventLoggerFactory;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-
 import org.apache.log4j.Logger;
+import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil;
 
 /**
  * Started on webapplication init, creates the main ExecutorService and CamelContext instances Note the following: 1.
@@ -60,11 +58,12 @@ public class InitServlet extends HttpServlet {
     @SuppressWarnings("static-access")
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        LOG.debug("InitServlet start...");
         executor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getExecutorPoolSize());
         largeJobExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance()
-                .getLargeJobExecutorPoolSize());
-
+            .getLargeJobExecutorPoolSize());
+        //Initialize HibernateUtil when CONNECTGatewayWeb is initialized required for AuditRepo JavaImpl EJB calls.
+        //Do not Remove this ...
+        HibernateUtil.getSessionFactory();
         // register event loggers as observers...
         EventLoggerFactory.getInstance().registerLoggers();
     }
@@ -84,12 +83,14 @@ public class InitServlet extends HttpServlet {
             try {
                 executor.shutdown();
             } catch (Exception e) {
+                LOG.error("Error while shutdown of ExecutorService: " + e.getLocalizedMessage(), e);
             }
         }
         if (largeJobExecutor != null) {
             try {
                 largeJobExecutor.shutdown();
             } catch (Exception e) {
+                LOG.error("Error while shutdown of ExecutorService: " + e.getLocalizedMessage(), e);
             }
         }
     }

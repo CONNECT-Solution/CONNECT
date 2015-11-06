@@ -8,7 +8,7 @@
         Purpose of the document follows.
 -->
 <hibernate-mapping>
-  <class name="gov.hhs.fha.nhinc.hibernate.AuditRepositoryRecord" table="auditrepository">
+  <class name="gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryRecord" table="auditrepository">
     <id name="id" type="int">
       <column name="id" sql-type="INTEGER"/>
       <generator class="native"/>

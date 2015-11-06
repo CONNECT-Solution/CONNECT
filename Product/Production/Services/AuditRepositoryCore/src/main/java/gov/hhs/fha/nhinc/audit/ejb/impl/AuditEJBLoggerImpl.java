@@ -35,6 +35,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import java.util.Properties;
 import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import org.apache.log4j.Logger;
 
 /**
@@ -44,6 +46,7 @@ import org.apache.log4j.Logger;
  * @param <K> Response
  */
 @Stateless
+@TransactionManagement(value = TransactionManagementType.BEAN)
 public class AuditEJBLoggerImpl<T, K> implements AuditEJBLogger<T, K> {
 
     private static final Logger LOG = Logger.getLogger(AuditEJBLoggerImpl.class);

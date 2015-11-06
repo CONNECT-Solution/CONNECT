@@ -24,15 +24,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.hibernate.util;
+package gov.hhs.fha.nhinc.auditrepository.hibernate.util;
 
 import gov.hhs.fha.nhinc.properties.HibernateAccessor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.apache.log4j.Logger;
 
 import java.io.File;
+import org.hibernate.HibernateException;
 
 /**
  * This class will be used as a Utility Class to access the Data Object using Hibernate SessionFactory
@@ -43,14 +45,14 @@ public class HibernateUtil {
 
     private static final SessionFactory sessionFactory;
     private static final Logger LOG = Logger.getLogger(HibernateUtil.class);
+
     static {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
-
             sessionFactory = new Configuration().configure(getConfigFile()).buildSessionFactory();
-        } catch (Throwable ex) {
+        } catch (HibernateException ex) {
             // Make sure you log the exception, as it might be swallowed
-            LOG.error("Initial SessionFactory creation failed." + ex);
+            LOG.error("Initial SessionFactory creation failed." + ex.getLocalizedMessage(), ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
@@ -60,8 +62,9 @@ public class HibernateUtil {
 
         try {
             result = HibernateAccessor.getInstance().getHibernateFile(NhincConstants.HIBERNATE_AUDIT_REPOSITORY);
-        } catch (Exception ex) {
-            LOG.error("Unable to load " + NhincConstants.HIBERNATE_AUDIT_REPOSITORY + " " + ex.getMessage(), ex);
+        } catch (PropertyAccessException ex) {
+            LOG.error("Unable to load " + NhincConstants.HIBERNATE_AUDIT_REPOSITORY + " " + ex.getLocalizedMessage(),
+                ex);
         }
 
         return result;

@@ -24,15 +24,16 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.hibernate;
+package gov.hhs.fha.nhinc.auditrepository.hibernate;
 
-import gov.hhs.fha.nhinc.hibernate.util.HibernateUtil;
+import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil;
 
 import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -44,6 +45,7 @@ import org.hibernate.criterion.Expression;
  * @author svalluripalli
  */
 public class AuditRepositoryDAO {
+
     // Log4j logging initiated
     private static final Logger LOG = Logger.getLogger(AuditRepositoryDAO.class);
     private static AuditRepositoryDAO auditDAO = new AuditRepositoryDAO();
@@ -53,7 +55,7 @@ public class AuditRepositoryDAO {
      * Constructor
      */
     private AuditRepositoryDAO() {
-        LOG.info("AuditRepositoryDAO - Initialized");
+        LOG.trace("AuditRepositoryDAO - Initialized");
     }
 
     /**
@@ -62,7 +64,7 @@ public class AuditRepositoryDAO {
      * @return AuditRepositoryDAO
      */
     public static AuditRepositoryDAO getAuditRepositoryDAOInstance() {
-        LOG.debug("getAuditRepositoryDAOInstance()..");
+        LOG.trace("AuditRepositoryDAO instance initialized");
         return auditDAO;
     }
 
@@ -72,7 +74,7 @@ public class AuditRepositoryDAO {
      * @return boolean
      */
     public boolean insertAuditRepository(List<AuditRepositoryRecord> auditList) {
-        LOG.debug("AuditRepositoryDAO.createAuditRepository() - Begin");
+
         Session session = null;
         Transaction tx = null;
         boolean result = true;
@@ -91,12 +93,12 @@ public class AuditRepositoryDAO {
                 }
                 LOG.info("AuditRepository List Inserted seccussfully...");
                 tx.commit();
-            } catch (Exception e) {
+            } catch (HibernateException e) {
                 result = false;
                 if (tx != null) {
                     tx.rollback();
                 }
-                LOG.error("Error during insertion caused by :" + e.getMessage());
+                LOG.error("Error during insertion caused by :" + e.getLocalizedMessage(), e);
             } finally {
                 // Actual event_log insertion will happen at this step
                 if (session != null) {
@@ -104,7 +106,7 @@ public class AuditRepositoryDAO {
                 }
             }
         }
-        LOG.debug("AuditRepositoryDAO.createAuditRepository() - End");
+
         return result;
     }
 
@@ -119,11 +121,9 @@ public class AuditRepositoryDAO {
      * @return List
      */
     public List queryAuditRepositoryOnCriteria(String eUserId, String ePatientId, Date startDate, Date endDate) {
-        LOG.debug("AuditRepositoryDAO.getAuditRepositoryOnCriteria() Begin");
 
         if (eUserId == null && ePatientId == null && startDate == null) {
             LOG.info("-- No - Input Parameters found for Audit Query --");
-            LOG.debug("AuditRepositoryDAO.getAuditRepositoryOnCriteria() End");
             return null;
         }
 
@@ -145,13 +145,13 @@ public class AuditRepositoryDAO {
 
             if (startDate != null && endDate != null) {
                 aCriteria.add(Expression.between("timeStamp", new Date(startDate.getTime()),
-                        new Date(endDate.getTime())));
+                    new Date(endDate.getTime())));
             } else if (startDate != null && endDate == null) {
                 aCriteria.add(Expression.ge("timeStamp", new Date(startDate.getTime())));
             }
             queryList = aCriteria.list();
-        } catch (Exception e) {
-            LOG.error("Exception in AuditLog.get() occured due to :" + e.getMessage());
+        } catch (HibernateException e) {
+            LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
         } finally {
             // Actual contact insertion will happen at this step
             if (session != null) {
@@ -159,7 +159,6 @@ public class AuditRepositoryDAO {
                 session.close();
             }
         }
-        LOG.debug("AuditRepositoryDAO.getAuditRepositoryOnCriteria() End");
         return queryList;
     }
 }

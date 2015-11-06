@@ -30,8 +30,8 @@ import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
-import gov.hhs.fha.nhinc.hibernate.AuditRepositoryDAO;
-import gov.hhs.fha.nhinc.hibernate.AuditRepositoryRecord;
+import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryDAO;
+import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryRecord;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
 import gov.hhs.fha.nhinc.util.StreamUtils;
@@ -64,6 +64,8 @@ import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
 import com.services.nhinc.schema.auditmessage.ObjectFactory;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import java.io.IOException;
+import javax.xml.bind.JAXBException;
 
 /**
  *
@@ -79,7 +81,7 @@ public class AuditRepositoryOrchImpl {
      * constructor.
      */
     public AuditRepositoryOrchImpl() {
-        LOG.debug("AuditRepositoryOrchImpl Initialized");
+        LOG.trace("AuditRepositoryOrchImpl Initialized");
     }
 
     /**
@@ -91,7 +93,7 @@ public class AuditRepositoryOrchImpl {
      * @return AcknowledgementType
      */
     public AcknowledgementType logAudit(LogEventSecureRequestType mess, AssertionType assertion) {
-        LOG.debug("AuditRepositoryOrchImpl.logAudit() -- Begin");
+
         AcknowledgementType response = null;
 
         ActiveParticipant activeParticipant = null;
@@ -126,7 +128,7 @@ public class AuditRepositoryOrchImpl {
         }
 
         eventCommunityId = getCommunityID(mess);
-        LOG.debug("auditSourceID : " + eventCommunityId);
+        LOG.info("auditSourceID : " + eventCommunityId);
         if (eventCommunityId != null && !eventCommunityId.equals("")) {
             auditRec.setCommunityId(eventCommunityId);
         } else {
@@ -134,8 +136,8 @@ public class AuditRepositoryOrchImpl {
         }
 
         if (participantObjectIdentificationList != null && participantObjectIdentificationList.size() > 0) {
-            participantObjectIdentificationType = (ParticipantObjectIdentificationType) participantObjectIdentificationList
-                .get(0);
+            participantObjectIdentificationType
+                = (ParticipantObjectIdentificationType) participantObjectIdentificationList.get(0);
             if (participantObjectIdentificationType != null) {
                 eventPatientID = participantObjectIdentificationType.getParticipantObjectID();
                 auditRec.setReceiverPatientId(eventPatientID);
@@ -160,9 +162,9 @@ public class AuditRepositoryOrchImpl {
 
         List<AuditRepositoryRecord> auditRecList = new ArrayList<AuditRepositoryRecord>();
         auditRecList.add(auditRec);
-        LOG.debug("AuditRepositoryOrchImpl.logAudit() -- Calling auditLogDao to insert record into database.");
+        LOG.trace("AuditRepositoryOrchImpl.logAudit() -- Calling auditLogDao to insert record into database.");
         boolean result = auditLogDao.insertAuditRepository(auditRecList);
-        LOG.debug("AuditRepositoryOrchImpl.logAudit() -- Done calling auditLogDao to insert record into database.");
+        LOG.trace("AuditRepositoryOrchImpl.logAudit() -- Done calling auditLogDao to insert record into database.");
 
         response = new AcknowledgementType();
         if (result) {
@@ -170,7 +172,7 @@ public class AuditRepositoryOrchImpl {
         } else {
             response.setMessage("Unable to create Log Message in Database...");
         }
-        LOG.debug("AuditRepositoryOrchImpl.logAudit() -- End");
+
         return response;
     }
 
@@ -188,9 +190,8 @@ public class AuditRepositoryOrchImpl {
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
             eventMessage = Hibernate.createBlob(buffer);
-        } catch (Exception e) {
-            LOG.error("Exception during Blob conversion :" + e.getMessage());
-            e.printStackTrace();
+        } catch (JAXBException | IOException e) {
+            LOG.error("Exception during Blob conversion :" + e.getLocalizedMessage(), e);
         }
         return eventMessage;
     }
@@ -203,7 +204,6 @@ public class AuditRepositoryOrchImpl {
      * @return the found FindAuditEventsResponseType
      */
     public FindCommunitiesAndAuditEventsResponseType findAudit(FindAuditEventsType query, AssertionType assertion) {
-        LOG.debug("AuditRepositoryOrchImpl.findAudit() -- Begin");
 
         if (logStatus.equals("")) {
             logStatus = "on";
@@ -237,7 +237,6 @@ public class AuditRepositoryOrchImpl {
         auditEvents = buildAuditReponseType(responseList);
         /* } */
 
-        LOG.debug("AuditRepositoryOrchImpl.findAudit() -- End");
         return auditEvents;
     }
 
@@ -248,7 +247,7 @@ public class AuditRepositoryOrchImpl {
      * @return CommunitiesAndFindAdutiEventResponse
      */
     private FindCommunitiesAndAuditEventsResponseType buildAuditReponseType(List<AuditRepositoryRecord> auditRecList) {
-        LOG.debug("AuditRepositoryOrchImpl.buildAuditResponseType -- Begin");
+
         FindCommunitiesAndAuditEventsResponseType auditResType = new FindCommunitiesAndAuditEventsResponseType();
         FindAuditEventsResponseType response = new FindAuditEventsResponseType();
         AuditMessageType auditMessageType = null;
@@ -286,7 +285,6 @@ public class AuditRepositoryOrchImpl {
         }
 
         auditResType.setFindAuditEventResponse(response);
-        LOG.debug("AuditRepositoryOrchImpl.buildAuditResponseType -- End");
         return auditResType;
     }
 
@@ -297,7 +295,7 @@ public class AuditRepositoryOrchImpl {
      * @return AuditMessageType
      */
     private AuditMessageType unMarshallBlobToAuditMess(Blob auditBlob) {
-        LOG.debug("AuditRepositoryOrchImpl.unMarshallBlobToAuditMess -- Begin");
+
         AuditMessageType auditMessageType = null;
         InputStream in = null;
         try {
@@ -317,7 +315,6 @@ public class AuditRepositoryOrchImpl {
             StreamUtils.closeStreamSilently(in);
         }
 
-        LOG.debug("AuditRepositoryOrchImpl.unMarshallBlobToAuditMess -- End");
         return auditMessageType;
     }
 

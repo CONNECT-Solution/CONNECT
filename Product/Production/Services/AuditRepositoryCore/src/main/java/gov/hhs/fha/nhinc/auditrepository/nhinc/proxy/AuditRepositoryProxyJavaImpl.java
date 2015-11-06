@@ -38,7 +38,9 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
  */
 public class AuditRepositoryProxyJavaImpl implements AuditRepositoryProxy {
 
-	protected AuditRepositoryOrchImpl getAuditRepositoryOrchImpl() {
+    private final LogEventSecureRequestType securedRequest = new LogEventSecureRequestType();
+
+    protected AuditRepositoryOrchImpl getAuditRepositoryOrchImpl() {
         return new AuditRepositoryOrchImpl();
     }
 
@@ -48,9 +50,8 @@ public class AuditRepositoryProxyJavaImpl implements AuditRepositoryProxy {
      * @param request Audit record
      * @return Repsonse that is a simple ack.
      */
+    @Override
     public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion) {
-
-        LogEventSecureRequestType securedRequest = new LogEventSecureRequestType();
         securedRequest.setAuditMessage(request.getAuditMessage());
         securedRequest.setDirection(request.getDirection());
         securedRequest.setInterface(request.getInterface());
