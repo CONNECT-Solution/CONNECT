@@ -26,10 +26,12 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response;
 
+import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.audit.DSDeferredResponseAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.audit.transform.DSDeferredResponseAuditTransforms;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -39,13 +41,15 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.isNotNull;
-import static org.mockito.Matchers.isNull;
 import org.mockito.Mockito;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.isNotNull;
+import static org.mockito.Mockito.isNull;
 
 /**
  * @author akong
@@ -53,8 +57,9 @@ import static org.mockito.Mockito.when;
  */
 public class PassthroughOutboundDocSubmissionDeferredResponseTest {
 
-    private final DSDeferredResponseAuditLogger auditLogger = mock(DSDeferredResponseAuditLogger.class);
-    final OutboundDocSubmissionDeferredResponseDelegate mockDelegate = mock(OutboundDocSubmissionDeferredResponseDelegate.class);
+    private final AuditEJBLogger mockEJBLogger = mock(AuditEJBLogger.class);
+    final OutboundDocSubmissionDeferredResponseDelegate mockDelegate
+        = mock(OutboundDocSubmissionDeferredResponseDelegate.class);
 
     @Test
     public void testProvideAndRegisterDocumentSetB() {
@@ -65,11 +70,12 @@ public class PassthroughOutboundDocSubmissionDeferredResponseTest {
             createOutboundDocSubmissionDeferredResponseOrchestratable());
 
         XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBResponse(request, assertion,
-            targetCommunities);
+            targetCommunities, getAuditLogger(true));
 
-        verify(auditLogger).auditRequestMessage(eq(request), eq(assertion), isNotNull(NhinTargetSystemType.class),
+        verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), isNotNull(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME));
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME),
+            any(DSDeferredResponseAuditTransforms.class));
 
         assertNotNull(response);
         assertEquals(NhincConstants.XDR_ACK_STATUS_MSG, response.getMessage().getStatus());
@@ -83,11 +89,31 @@ public class PassthroughOutboundDocSubmissionDeferredResponseTest {
         assertNotNull(passthruOrch.getOutboundDocSubmissionDeferredResponseDelegate());
     }
 
+    @Test
+    public void testAuditLoggingOffForDSDeferredResponse() {
+        RegistryResponseType request = new RegistryResponseType();
+        AssertionType assertion = new AssertionType();
+        NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
+        when(mockDelegate.process(Mockito.any(OutboundDocSubmissionDeferredResponseOrchestratable.class))).thenReturn(
+            createOutboundDocSubmissionDeferredResponseOrchestratable());
+
+        XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBResponse(request, assertion,
+            targetCommunities, getAuditLogger(false));
+
+        verify(mockEJBLogger, never()).auditRequestMessage(eq(request), eq(assertion), isNotNull(NhinTargetSystemType.class),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME),
+            any(DSDeferredResponseAuditTransforms.class));
+
+        assertNotNull(response);
+        assertEquals(NhincConstants.XDR_ACK_STATUS_MSG, response.getMessage().getStatus());
+    }
+
     private XDRAcknowledgementType runProvideAndRegisterDocumentSetBResponse(RegistryResponseType request,
-        AssertionType assertion, NhinTargetCommunitiesType targetCommunities) {
+        AssertionType assertion, NhinTargetCommunitiesType targetCommunities, DSDeferredResponseAuditLogger auditLogger) {
 
         PassthroughOutboundDocSubmissionDeferredResponse passthruOrch
-            = createPassthruDocSubmissionDeferredResponseOrchImpl();
+            = createPassthruDocSubmissionDeferredResponseOrchImpl(auditLogger);
         return passthruOrch.provideAndRegisterDocumentSetBAsyncResponse(request, assertion, targetCommunities);
     }
 
@@ -106,7 +132,8 @@ public class PassthroughOutboundDocSubmissionDeferredResponseTest {
         return orchestratable;
     }
 
-    private PassthroughOutboundDocSubmissionDeferredResponse createPassthruDocSubmissionDeferredResponseOrchImpl() {
+    private PassthroughOutboundDocSubmissionDeferredResponse createPassthruDocSubmissionDeferredResponseOrchImpl(
+        final DSDeferredResponseAuditLogger auditLogger) {
         return new PassthroughOutboundDocSubmissionDeferredResponse() {
             @Override
             protected OutboundDocSubmissionDeferredResponseDelegate getOutboundDocSubmissionDeferredResponseDelegate() {
@@ -120,4 +147,17 @@ public class PassthroughOutboundDocSubmissionDeferredResponseTest {
         };
     }
 
+    private DSDeferredResponseAuditLogger getAuditLogger(final boolean isAuditOn) {
+        return new DSDeferredResponseAuditLogger() {
+            @Override
+            protected AuditEJBLogger getAuditLogger() {
+                return mockEJBLogger;
+            }
+
+            @Override
+            protected boolean isAuditLoggingOn(String serviceName) {
+                return isAuditOn;
+            }
+        };
+    }
 }

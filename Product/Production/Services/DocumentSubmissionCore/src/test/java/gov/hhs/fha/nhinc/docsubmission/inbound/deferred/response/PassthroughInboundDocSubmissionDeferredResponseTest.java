@@ -26,11 +26,13 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response;
 
+import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxy;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyObjectFactory;
 import gov.hhs.fha.nhinc.docsubmission.audit.DSDeferredResponseAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.audit.transform.DSDeferredResponseAuditTransforms;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
@@ -38,9 +40,11 @@ import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import static org.junit.Assert.assertSame;
 import org.junit.Test;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.isNull;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.isNull;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -51,7 +55,7 @@ import static org.mockito.Mockito.when;
 public class PassthroughInboundDocSubmissionDeferredResponseTest {
 
     private final Properties webContextProperties = new Properties();
-    private final DSDeferredResponseAuditLogger auditLogger = mock(DSDeferredResponseAuditLogger.class);
+    private final AuditEJBLogger mockEJBLogger = mock(AuditEJBLogger.class);
     XDRAcknowledgementType expectedResponse = new XDRAcknowledgementType();
 
     @Test
@@ -67,21 +71,66 @@ public class PassthroughInboundDocSubmissionDeferredResponseTest {
 
         when(adapterProxy.provideAndRegisterDocumentSetBResponse(regResponse, assertion)).thenReturn(expectedResponse);
         PassthroughInboundDocSubmissionDeferredResponse passthroughDocSubmission
-            = new PassthroughInboundDocSubmissionDeferredResponse(adapterFactory, auditLogger) {
-                @Override
-                protected DSDeferredResponseAuditLogger getAuditLogger() {
-                    return new DSDeferredResponseAuditLogger();
-                }
-            };
+            = new PassthroughInboundDocSubmissionDeferredResponse(adapterFactory, getAuditLogger(true)) {
+            @Override
+            protected DSDeferredResponseAuditLogger getAuditLogger() {
+                return new DSDeferredResponseAuditLogger();
+            }
+        };
 
         XDRAcknowledgementType actualResponse = passthroughDocSubmission.provideAndRegisterDocumentSetBResponse(
             regResponse, assertion, webContextProperties);
 
         assertSame(expectedResponse, actualResponse);
 
-        verify(auditLogger).auditResponseMessage(eq(regResponse), eq(actualResponse), eq(assertion),
+        verify(mockEJBLogger).auditResponseMessage(eq(regResponse), eq(actualResponse), eq(assertion),
             isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
-            eq(NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME));
+            eq(NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME), any(DSDeferredResponseAuditTransforms.class));
+    }
+
+    @Test
+    public void testAuditLoggingOffForDSDeferredResponse() {
+        RegistryResponseType regResponse = new RegistryResponseType();
+        AssertionType assertion = new AssertionType();
+
+        AdapterDocSubmissionDeferredResponseProxyObjectFactory adapterFactory
+            = mock(AdapterDocSubmissionDeferredResponseProxyObjectFactory.class);
+        AdapterDocSubmissionDeferredResponseProxy adapterProxy = mock(AdapterDocSubmissionDeferredResponseProxy.class);
+
+        when(adapterFactory.getAdapterDocSubmissionDeferredResponseProxy()).thenReturn(adapterProxy);
+
+        when(adapterProxy.provideAndRegisterDocumentSetBResponse(regResponse, assertion)).thenReturn(expectedResponse);
+        PassthroughInboundDocSubmissionDeferredResponse passthroughDocSubmission
+            = new PassthroughInboundDocSubmissionDeferredResponse(adapterFactory, getAuditLogger(false)) {
+            @Override
+            protected DSDeferredResponseAuditLogger getAuditLogger() {
+                return new DSDeferredResponseAuditLogger();
+            }
+        };
+
+        XDRAcknowledgementType actualResponse = passthroughDocSubmission.provideAndRegisterDocumentSetBResponse(
+            regResponse, assertion, webContextProperties);
+
+        assertSame(expectedResponse, actualResponse);
+
+        verify(mockEJBLogger, never()).auditResponseMessage(eq(regResponse), eq(actualResponse), eq(assertion),
+            isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
+            eq(NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME), any(DSDeferredResponseAuditTransforms.class));
+    }
+
+    private DSDeferredResponseAuditLogger getAuditLogger(final boolean isAuditOn) {
+        return new DSDeferredResponseAuditLogger() {
+            @Override
+            protected AuditEJBLogger getAuditLogger() {
+                return mockEJBLogger;
+            }
+
+            @Override
+            protected boolean isAuditLoggingOn(String serviceName) {
+                return isAuditOn;
+            }
+        };
     }
 }

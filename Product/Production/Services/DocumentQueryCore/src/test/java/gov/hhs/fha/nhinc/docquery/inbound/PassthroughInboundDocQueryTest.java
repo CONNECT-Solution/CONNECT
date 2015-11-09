@@ -27,8 +27,18 @@
 package gov.hhs.fha.nhinc.docquery.inbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docquery.audit.transform.DocQueryAuditTransforms;
+import static gov.hhs.fha.nhinc.docquery.inbound.InboundDocQueryTest.request;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import java.util.Properties;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 import org.junit.Test;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.isNull;
+import static org.mockito.Mockito.verify;
 
 /**
  * @author akong
@@ -51,13 +61,11 @@ public class PassthroughInboundDocQueryTest extends InboundDocQueryTest {
     private void passthroughInboundDocQueryHomeHcid(String sendingHcid, String sendingHcidFormatted) {
 
         AssertionType mockAssertion = getMockAssertion(sendingHcid);
-
         PassthroughInboundDocQuery passthroughDocQuery = new PassthroughInboundDocQuery(
-                getMockAdapterFactory(mockAssertion), mockAuditLogger);
+            getMockAdapterFactory(mockAssertion), getAuditLogger(true));
 
         verifyInboundDocQuery(mockAssertion, sendingHcidFormatted, passthroughDocQuery,
-                NUM_TIMES_TO_INVOKE_ADAPTER_AUDIT);
-
+            NUM_TIMES_TO_INVOKE_ADAPTER_AUDIT);
     }
 
 }

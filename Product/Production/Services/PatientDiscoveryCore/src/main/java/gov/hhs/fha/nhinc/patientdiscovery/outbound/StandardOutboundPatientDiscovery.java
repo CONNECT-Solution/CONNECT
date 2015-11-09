@@ -78,7 +78,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
     private ExecutorService regularExecutor = null;
     private ExecutorService largejobExecutor = null;
     private final TransactionLogger transactionLogger = new TransactionLogger();
-    private final PatientDiscoveryAuditLogger patientDiscoveryAuditor = new PatientDiscoveryAuditLogger();
+    private PatientDiscoveryAuditLogger patientDiscoveryAuditor;
 
     /**
      * Add default constructor that is used by test cases Note that implementations should always use constructor that
@@ -207,7 +207,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
                     LOG.debug("Executing tasks to concurrently retrieve responses");
                     NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> pdExecutor = new NhinTaskExecutor<>(
                         ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size())
-                            ? largejobExecutor : regularExecutor, callableList, transactionId);
+                        ? largejobExecutor : regularExecutor, callableList, transactionId);
                     pdExecutor.executeTask();
                     LOG.debug("Aggregating all responses");
                     response = getCumulativeResponse(pdExecutor);
@@ -410,7 +410,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
     }
 
     private void auditRequest(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetSystemType target) {
-        patientDiscoveryAuditor.auditRequestMessage(request, assertion, target,
+        getNewPatientDiscoveryAuditLogger().auditRequestMessage(request, assertion, target,
             NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE,
             null, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
     }

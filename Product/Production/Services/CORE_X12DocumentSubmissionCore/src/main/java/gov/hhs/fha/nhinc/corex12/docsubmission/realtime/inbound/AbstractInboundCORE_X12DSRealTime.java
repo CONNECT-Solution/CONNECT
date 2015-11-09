@@ -41,15 +41,15 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  */
 public abstract class AbstractInboundCORE_X12DSRealTime implements InboundCORE_X12DSRealTime {
 
-    private AdapterCORE_X12DSRealTimeProxyObjectFactory adapterFactory;
-    private CORE_X12AuditLogger auditLogger;
+    private AdapterCORE_X12DSRealTimeProxyObjectFactory adapterFactory = null;
+    private CORE_X12AuditLogger auditLogger = null;
 
     /**
      *
      * @param adapterFactory
      * @param auditLogger
      */
-    public AbstractInboundCORE_X12DSRealTime(AdapterCORE_X12DSRealTimeProxyObjectFactory adapterFactory, 
+    public AbstractInboundCORE_X12DSRealTime(AdapterCORE_X12DSRealTimeProxyObjectFactory adapterFactory,
         CORE_X12AuditLogger auditLogger) {
         this.adapterFactory = adapterFactory;
         this.auditLogger = auditLogger;
@@ -72,7 +72,7 @@ public abstract class AbstractInboundCORE_X12DSRealTime implements InboundCORE_X
      * @return
      */
     @Override
-    public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest msg, AssertionType assertion, 
+    public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest msg, AssertionType assertion,
         Properties webContextProperties) {
         COREEnvelopeRealTimeResponse oResponsse = processCORE_X12DocSubmission(msg, assertion);
         auditResponseToNhin(msg, oResponsse, assertion, webContextProperties);
@@ -92,11 +92,17 @@ public abstract class AbstractInboundCORE_X12DSRealTime implements InboundCORE_X
         return proxy.realTimeTransaction(request, assertion);
     }
 
-    protected void auditResponseToNhin(COREEnvelopeRealTimeRequest request, COREEnvelopeRealTimeResponse oResponsse, 
+    protected void auditResponseToNhin(COREEnvelopeRealTimeRequest request, COREEnvelopeRealTimeResponse oResponsse,
         AssertionType assertion, Properties webContextProperties) {
-        auditLogger.auditResponseMessage(request, oResponsse, assertion, null, 
-            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, 
+        getAuditLogger().auditResponseMessage(request, oResponsse, assertion, null,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE,
             webContextProperties, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME);
     }
 
+    protected CORE_X12AuditLogger getAuditLogger() {
+        if (auditLogger == null) {
+            auditLogger = new CORE_X12AuditLogger();
+        }
+        return auditLogger;
+    }
 }

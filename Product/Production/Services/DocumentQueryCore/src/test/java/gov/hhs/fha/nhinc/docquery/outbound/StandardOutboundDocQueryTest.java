@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.docquery.outbound;
 
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
+import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
+import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -37,6 +39,7 @@ import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
+import gov.hhs.fha.nhinc.docquery.audit.transform.DocQueryAuditTransforms;
 import gov.hhs.fha.nhinc.docquery.entity.Aggregate;
 import gov.hhs.fha.nhinc.docquery.entity.AggregationService;
 import gov.hhs.fha.nhinc.docquery.entity.AggregationStrategy;
@@ -45,6 +48,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -55,9 +59,10 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.isNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -68,26 +73,24 @@ import static org.mockito.Mockito.when;
  */
 public class StandardOutboundDocQueryTest {
 
-    final DocQueryAuditLogger mockAuditLogger = mock(DocQueryAuditLogger.class);
+    private final AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
+    private final DocQueryPolicyChecker policyChecker = mock(DocQueryPolicyChecker.class);
+    private final AggregationStrategy strategy = mock(AggregationStrategy.class);
+    private final AggregationService service = mock(AggregationService.class);
     private static final String HOME_HCID = "1.0";
     private static final String SENDING_HCID_FORMATTED = "1.2";
 
     @Test
     public void testrespondingGatewayCrossGatewayQueryforNullEndPoint() throws Exception {
-
-        AggregationStrategy strategy = mock(AggregationStrategy.class);
-        Properties webContextProperties = null;
         AdhocQueryRequest adhocQueryRequest = createRequest(createSlotList());
         NhinTargetSystemType target = null;
-        AggregationService service = mock(AggregationService.class);
-        DocQueryPolicyChecker policyChecker = mock(DocQueryPolicyChecker.class);
-
+        final DocQueryAuditLogger auditLogger = getAuditLogger(true);
         AssertionType assertion = new AssertionType();
 
         StandardOutboundDocQuery entitydocqueryimpl = new StandardOutboundDocQuery(strategy, service, policyChecker) {
             @Override
             protected DocQueryAuditLogger getAuditLogger() {
-                return mockAuditLogger;
+                return auditLogger;
             }
 
             @Override
@@ -101,22 +104,21 @@ public class StandardOutboundDocQueryTest {
             assertion, targets);
         verify(service).createChildRequests(eq(adhocQueryRequest), eq(assertion), eq(targets));
 
-        verify(mockAuditLogger, never()).auditRequestMessage(eq(adhocQueryRequest), eq(assertion), eq(target),
+        verify(mockEJBLogger, never()).auditRequestMessage(eq(adhocQueryRequest), eq(assertion), eq(target),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-            eq(Boolean.TRUE), eq(webContextProperties), eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_QUERY_SERVICE_NAME),
+            any(DocQueryAuditTransforms.class));
 
         AdhocQueryResponseAsserter.assertSchemaCompliant(response);
     }
 
     @Test
     public void errorResponseHasRegistryObjectList() throws Exception {
-        AggregationStrategy strategy = mock(AggregationStrategy.class);
-        AggregationService service = mock(AggregationService.class);
-        DocQueryPolicyChecker policyChecker = mock(DocQueryPolicyChecker.class);
+        final DocQueryAuditLogger auditLogger = getAuditLogger(true);
         StandardOutboundDocQuery docQuery = new StandardOutboundDocQuery(strategy, service, policyChecker) {
             @Override
             protected DocQueryAuditLogger getAuditLogger() {
-                return mockAuditLogger;
+                return auditLogger;
             }
 
             @Override
@@ -131,6 +133,10 @@ public class StandardOutboundDocQueryTest {
         AdhocQueryResponse response = docQuery
             .respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion, targets);
         AdhocQueryResponseAsserter.assertSchemaCompliant(response);
+        verify(mockEJBLogger, never()).auditRequestMessage(eq(adhocQueryRequest), eq(assertion), any(NhinTargetSystemType.class),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_QUERY_SERVICE_NAME),
+            any(DocQueryAuditTransforms.class));
     }
 
     private AdhocQueryRequest createRequest(List<SlotType1> slotList) {
@@ -161,9 +167,7 @@ public class StandardOutboundDocQueryTest {
     public NhinTargetCommunitiesType createTargetCommunities(NhinTargetCommunityType... targetCommunities) {
         NhinTargetCommunitiesType targetCommunitiesType = new NhinTargetCommunitiesType();
 
-        for (NhinTargetCommunityType targetCommunity : targetCommunities) {
-            targetCommunitiesType.getNhinTargetCommunity().add(targetCommunity);
-        }
+        targetCommunitiesType.getNhinTargetCommunity().addAll(Arrays.asList(targetCommunities));
 
         return targetCommunitiesType;
     }
@@ -204,13 +208,10 @@ public class StandardOutboundDocQueryTest {
     @Test
     public void testWithPolicyFailures() throws Exception {
 
-        AggregationStrategy strategy = mock(AggregationStrategy.class);
-        Properties webContextProperties = null;
         AdhocQueryRequest adhocQueryRequest = createRequest(createSlotList());
         NhinTargetSystemType target = null;
-        AggregationService service = mock(AggregationService.class);
-        DocQueryPolicyChecker policyChecker = mock(DocQueryPolicyChecker.class);
         OutboundDocQueryOrchestratable orch1 = mock(OutboundDocQueryOrchestratable.class);
+        final DocQueryAuditLogger auditLogger = getAuditLogger(true);
         List<OutboundOrchestratable> list = new ArrayList<>();
         list.add(orch1);
 
@@ -219,7 +220,7 @@ public class StandardOutboundDocQueryTest {
         StandardOutboundDocQuery entitydocqueryimpl = new StandardOutboundDocQuery(strategy, service, policyChecker) {
             @Override
             protected DocQueryAuditLogger getAuditLogger() {
-                return mockAuditLogger;
+                return auditLogger;
             }
 
             @Override
@@ -239,33 +240,29 @@ public class StandardOutboundDocQueryTest {
             assertion, targets);
         verify(service).createChildRequests(eq(adhocQueryRequest), eq(assertion), eq(targets));
 
-        verify(mockAuditLogger, never()).auditRequestMessage(eq(adhocQueryRequest), eq(assertion), eq(target),
+        verify(mockEJBLogger, never()).auditRequestMessage(eq(adhocQueryRequest), eq(assertion), eq(target),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-            eq(Boolean.TRUE), eq(webContextProperties), eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_QUERY_SERVICE_NAME),
+            any(DocQueryAuditTransforms.class));
         assertNotNull(response);
-
     }
 
     @Test
     public void testWithMixOfPolicyFailures() throws Exception {
-
-        AggregationStrategy strategy = mock(AggregationStrategy.class);
-        Properties webContextProperties = null;
         AdhocQueryRequest adhocQueryRequest = createRequest(createSlotList());
         NhinTargetSystemType target = null;
-        AggregationService service = mock(AggregationService.class);
-        DocQueryPolicyChecker policyChecker = mock(DocQueryPolicyChecker.class);
+
         OutboundDocQueryOrchestratable orch1 = mock(OutboundDocQueryOrchestratable.class);
         OutboundDocQueryOrchestratable orch2 = mock(OutboundDocQueryOrchestratable.class);
         List<OutboundOrchestratable> list = new ArrayList<>();
         list.add(orch1);
         list.add(orch2);
         AssertionType assertion = new AssertionType();
-
+        final DocQueryAuditLogger auditLogger = getAuditLogger(true);
         StandardOutboundDocQuery entitydocqueryimpl = new StandardOutboundDocQuery(strategy, service, policyChecker) {
             @Override
             protected DocQueryAuditLogger getAuditLogger() {
-                return mockAuditLogger;
+                return auditLogger;
             }
 
             @Override
@@ -285,13 +282,65 @@ public class StandardOutboundDocQueryTest {
         NhinTargetCommunitiesType targets = createNhinTargetCommunites();
         when(service.createChildRequests(eq(adhocQueryRequest), eq(assertion), eq(targets))).thenReturn(list);
 
-        AdhocQueryResponse response = entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest,
-            assertion, targets);
+        entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion, targets);
 
-        verify(mockAuditLogger, atLeast(1)).auditRequestMessage(eq(adhocQueryRequest), eq(assertion), eq(target),
+        verify(mockEJBLogger, atLeast(1)).auditRequestMessage(eq(adhocQueryRequest), eq(assertion), eq(target),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-            eq(Boolean.TRUE), eq(webContextProperties), eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_QUERY_SERVICE_NAME),
+            any(DocQueryAuditTransforms.class));
 
         verify(strategy).execute(any(Aggregate.class));
+    }
+
+    @Test
+    public void auditLoggingOffForOutboundDQ() throws Exception {
+        AdhocQueryRequest adhocQueryRequest = createRequest(createSlotList());
+        NhinTargetSystemType target = null;
+
+        OutboundDocQueryOrchestratable orch1 = mock(OutboundDocQueryOrchestratable.class);
+        List<OutboundOrchestratable> list = new ArrayList<>();
+        list.add(orch1);
+        AssertionType assertion = new AssertionType();
+        final DocQueryAuditLogger auditLogger = getAuditLogger(false);
+        StandardOutboundDocQuery entitydocqueryimpl = new StandardOutboundDocQuery(strategy, service, policyChecker) {
+            @Override
+            protected DocQueryAuditLogger getAuditLogger() {
+                return auditLogger;
+            }
+
+            @Override
+            protected String getSenderHcid() {
+                return SENDING_HCID_FORMATTED;
+            }
+        };
+
+        when(policyChecker.checkOutgoingPolicy(any(AdhocQueryRequest.class), any(AssertionType.class))).thenReturn(false)
+            .thenReturn(true);
+        when(orch1.getAssertion()).thenReturn(assertion);
+        when(orch1.getRequest()).thenReturn(adhocQueryRequest);
+        when(orch1.getTarget()).thenReturn(target);
+        NhinTargetCommunitiesType targets = createNhinTargetCommunites();
+        when(service.createChildRequests(eq(adhocQueryRequest), eq(assertion), eq(targets))).thenReturn(list);
+
+        entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion, targets);
+
+        verify(mockEJBLogger, never()).auditRequestMessage(eq(adhocQueryRequest), eq(assertion), eq(target),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_QUERY_SERVICE_NAME),
+            any(DocQueryAuditTransforms.class));
+    }
+
+    private DocQueryAuditLogger getAuditLogger(final boolean isLoggingOn) {
+        return new DocQueryAuditLogger() {
+            @Override
+            protected AuditEJBLogger getAuditLogger() {
+                return mockEJBLogger;
+            }
+
+            @Override
+            protected boolean isAuditLoggingOn(String serviceName) {
+                return isLoggingOn;
+            }
+        };
     }
 }

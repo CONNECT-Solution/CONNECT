@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.patientdiscovery.inbound;
 
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
+import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
+import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -35,6 +37,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.transform.PatientDiscoveryAuditTransforms;
 import java.lang.reflect.Method;
 import java.util.Properties;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -43,8 +46,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import org.junit.Test;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -53,6 +59,9 @@ import static org.mockito.Mockito.when;
  *
  */
 public class StandardInboundPatientDiscoveryTest {
+
+    private final AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
+    private final PatientDiscovery201305Processor patientDiscoveryProcessor = mock(PatientDiscovery201305Processor.class);
 
     @Test
     public void hasInboundProcessingEvent() throws Exception {
@@ -73,10 +82,7 @@ public class StandardInboundPatientDiscoveryTest {
         AssertionType assertion = new AssertionType();
         Properties webContextProperties = new Properties();
         PRPAIN201306UV02 expectedResponse = new PRPAIN201306UV02();
-        NhinTargetSystemType target = null;
-
-        PatientDiscovery201305Processor patientDiscoveryProcessor = mock(PatientDiscovery201305Processor.class);
-        PatientDiscoveryAuditLogger auditLogger = mock(PatientDiscoveryAuditLogger.class);
+        PatientDiscoveryAuditLogger auditLogger = getAuditLogger(true);
 
         when(patientDiscoveryProcessor.process201305(request, assertion)).thenReturn(expectedResponse);
 
@@ -88,8 +94,48 @@ public class StandardInboundPatientDiscoveryTest {
 
         assertSame(expectedResponse, actualResponse);
 
-        verify(auditLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), eq(target),
-            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-            eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME));
+        verify(mockEJBLogger).auditResponseMessage(any(PRPAIN201305UV02.class), any(PRPAIN201306UV02.class),
+            any(AssertionType.class), isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
+            eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME), any(PatientDiscoveryAuditTransforms.class));
+    }
+
+    @Test
+    public void standardInboundPDWithAuditLoggingOff() throws PatientDiscoveryException {
+        PRPAIN201305UV02 request = new PRPAIN201305UV02();
+        AssertionType assertion = new AssertionType();
+        Properties webContextProperties = new Properties();
+        PRPAIN201306UV02 expectedResponse = new PRPAIN201306UV02();
+
+        PatientDiscoveryAuditLogger auditLogger = getAuditLogger(false);
+
+        when(patientDiscoveryProcessor.process201305(request, assertion)).thenReturn(expectedResponse);
+
+        StandardInboundPatientDiscovery standardPatientDiscovery = new StandardInboundPatientDiscovery(
+            patientDiscoveryProcessor, auditLogger);
+
+        PRPAIN201306UV02 actualResponse = standardPatientDiscovery
+            .respondingGatewayPRPAIN201305UV02(request, assertion, webContextProperties);
+
+        assertSame(expectedResponse, actualResponse);
+
+        verify(mockEJBLogger, never()).auditResponseMessage(any(PRPAIN201305UV02.class), any(PRPAIN201306UV02.class),
+            any(AssertionType.class), isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
+            eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME), any(PatientDiscoveryAuditTransforms.class));
+    }
+
+    private PatientDiscoveryAuditLogger getAuditLogger(final boolean isLoggingOn) {
+        return new PatientDiscoveryAuditLogger() {
+            @Override
+            protected AuditEJBLogger getAuditLogger() {
+                return mockEJBLogger;
+            }
+
+            @Override
+            protected boolean isAuditLoggingOn(String serviceName) {
+                return isLoggingOn;
+            }
+        };
     }
 }

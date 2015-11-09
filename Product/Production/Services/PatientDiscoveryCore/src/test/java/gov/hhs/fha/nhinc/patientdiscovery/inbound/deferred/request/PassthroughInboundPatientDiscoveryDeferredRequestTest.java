@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.request;
 
+import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
+import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -35,13 +37,16 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredRequestAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.transform.PatientDiscoveryDeferredRequestAuditTransforms;
 import java.util.Properties;
 
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.junit.Test;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNull;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -49,6 +54,8 @@ import static org.mockito.Mockito.verify;
  *
  */
 public class PassthroughInboundPatientDiscoveryDeferredRequestTest {
+
+    private final AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
 
     @Test
     public void passthroughInboundPatientDiscoveryRequest() {
@@ -59,22 +66,66 @@ public class PassthroughInboundPatientDiscoveryDeferredRequestTest {
         AdapterPatientDiscoveryDeferredReqProxyObjectFactory adapterFactory
             = mock(AdapterPatientDiscoveryDeferredReqProxyObjectFactory.class);
         AdapterPatientDiscoveryDeferredReqProxy adapterProxy = mock(AdapterPatientDiscoveryDeferredReqProxy.class);
-        PatientDiscoveryDeferredRequestAuditLogger auditLogger = mock(PatientDiscoveryDeferredRequestAuditLogger.class);
+        PatientDiscoveryDeferredRequestAuditLogger auditLogger = getAuditLogger(true);
         Properties webContextProperties = new Properties();
         when(adapterFactory.getAdapterPatientDiscoveryDeferredReqProxy()).thenReturn(adapterProxy);
 
         when(adapterProxy.processPatientDiscoveryAsyncReq(request, assertion)).thenReturn(expectedResponse);
 
-        PassthroughInboundPatientDiscoveryDeferredRequest passthroughPatientDiscovery = new PassthroughInboundPatientDiscoveryDeferredRequest(
-            adapterFactory, auditLogger);
+        PassthroughInboundPatientDiscoveryDeferredRequest passthroughPatientDiscovery
+            = new PassthroughInboundPatientDiscoveryDeferredRequest(adapterFactory, auditLogger);
 
         MCCIIN000002UV01 actualResponse = passthroughPatientDiscovery.respondingGatewayPRPAIN201305UV02(request,
             assertion, webContextProperties);
 
         assertSame(expectedResponse, actualResponse);
-        verify(auditLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), isNull(
+        verify(mockEJBLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), isNull(
             NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(
             NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties), eq(
-            NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME));
+            NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME), any(
+                PatientDiscoveryDeferredRequestAuditTransforms.class));
+    }
+
+    @Test
+    public void auditOffForInboundPDDeferredReq() {
+        PRPAIN201305UV02 request = new PRPAIN201305UV02();
+        AssertionType assertion = new AssertionType();
+        MCCIIN000002UV01 expectedResponse = new MCCIIN000002UV01();
+
+        AdapterPatientDiscoveryDeferredReqProxyObjectFactory adapterFactory
+            = mock(AdapterPatientDiscoveryDeferredReqProxyObjectFactory.class);
+        AdapterPatientDiscoveryDeferredReqProxy adapterProxy = mock(AdapterPatientDiscoveryDeferredReqProxy.class);
+        PatientDiscoveryDeferredRequestAuditLogger auditLogger = getAuditLogger(false);
+        Properties webContextProperties = new Properties();
+        when(adapterFactory.getAdapterPatientDiscoveryDeferredReqProxy()).thenReturn(adapterProxy);
+
+        when(adapterProxy.processPatientDiscoveryAsyncReq(request, assertion)).thenReturn(expectedResponse);
+
+        PassthroughInboundPatientDiscoveryDeferredRequest passthroughPatientDiscovery
+            = new PassthroughInboundPatientDiscoveryDeferredRequest(adapterFactory, auditLogger);
+
+        MCCIIN000002UV01 actualResponse = passthroughPatientDiscovery.respondingGatewayPRPAIN201305UV02(request,
+            assertion, webContextProperties);
+
+        assertSame(expectedResponse, actualResponse);
+        verify(mockEJBLogger, never()).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), isNull(
+            NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties), eq(
+            NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME), any(
+                PatientDiscoveryDeferredRequestAuditTransforms.class));
+    }
+
+    private PatientDiscoveryDeferredRequestAuditLogger getAuditLogger(final boolean isLoggingOn) {
+        return new PatientDiscoveryDeferredRequestAuditLogger() {
+            @Override
+            protected AuditEJBLogger getAuditLogger() {
+                return mockEJBLogger;
+            }
+
+            @Override
+            protected boolean isAuditLoggingOn(String serviceName) {
+                return isLoggingOn;
+            }
+        };
     }
 }

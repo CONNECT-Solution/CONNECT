@@ -24,21 +24,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response;
+package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.inbound;
 
+/**
+ *
+ * @author tjafri
+ */
 import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
 import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.corex12.docsubmission.audit.CORE_X12AuditLogger;
+import gov.hhs.fha.nhinc.corex12.docsubmission.audit.transform.COREX12RealTimeAuditTransforms;
+import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.AdapterCORE_X12DSRealTimeProxy;
+import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.AdapterCORE_X12DSRealTimeProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxy;
-import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyObjectFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredResponseAuditLogger;
-import gov.hhs.fha.nhinc.patientdiscovery.audit.transform.PatientDiscoveryDeferredResponseAuditTransforms;
 import java.util.Properties;
-import org.hl7.v3.MCCIIN000002UV01;
-import org.hl7.v3.PRPAIN201306UV02;
-import static org.junit.Assert.assertSame;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 import org.junit.Test;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.eq;
@@ -48,80 +51,52 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-/**
- * @author akong
- *
- */
-public class PassthroughInboundPatientDiscoveryDeferredResponseTest {
+public class PassthroughInboundCORE_X12DSRealTimeTest {
 
     private final AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
-    private final AdapterPatientDiscoveryDeferredRespProxyObjectFactory adapterFactory
-        = mock(AdapterPatientDiscoveryDeferredRespProxyObjectFactory.class);
-    private final AdapterPatientDiscoveryDeferredRespProxy adapterProxy
-        = mock(AdapterPatientDiscoveryDeferredRespProxy.class);
 
     @Test
-    public void invoke() {
-        PRPAIN201306UV02 request = new PRPAIN201306UV02();
+    public void auditLoggingOnForInboundRealTime() {
+        AdapterCORE_X12DSRealTimeProxyObjectFactory mockFactory = mock(AdapterCORE_X12DSRealTimeProxyObjectFactory.class);
+        PassthroughInboundCORE_X12DSRealTime realTimeX12
+            = new PassthroughInboundCORE_X12DSRealTime(mockFactory, getAuditLogger(true));
+        COREEnvelopeRealTimeRequest request = new COREEnvelopeRealTimeRequest();
         AssertionType assertion = new AssertionType();
-        MCCIIN000002UV01 expectedResponse = new MCCIIN000002UV01();
-        PatientDiscoveryDeferredResponseAuditLogger auditLogger = getAuditLogger(true);
         Properties webContextProperties = new Properties();
-
-        // Stubbing the methods
-        when(adapterFactory.create()).thenReturn(adapterProxy);
-
-        when(adapterProxy.processPatientDiscoveryAsyncResp(request, assertion)).thenReturn(expectedResponse);
-
-        // Actual invocation
-        PassthroughInboundPatientDiscoveryDeferredResponse passthroughPatientDiscovery
-            = new PassthroughInboundPatientDiscoveryDeferredResponse(adapterFactory, auditLogger);
-
-        MCCIIN000002UV01 actualResponse = passthroughPatientDiscovery.respondingGatewayDeferredPRPAIN201306UV02(
-            request, assertion, webContextProperties);
-
-        // Verify
-        assertSame(expectedResponse, actualResponse);
-
+        AdapterCORE_X12DSRealTimeProxy mockAdapterProxy = mock(AdapterCORE_X12DSRealTimeProxy.class);
+        when(mockFactory.getAdapterCORE_X12DocSubmissionProxy()).thenReturn(mockAdapterProxy);
+        COREEnvelopeRealTimeResponse expectedResponse = new COREEnvelopeRealTimeResponse();
+        when(mockAdapterProxy.realTimeTransaction(request, assertion)).thenReturn(expectedResponse);
+        COREEnvelopeRealTimeResponse actualResponse = realTimeX12.realTimeTransaction(request, assertion,
+            webContextProperties);
         verify(mockEJBLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion),
             isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
-            eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
-            any(PatientDiscoveryDeferredResponseAuditTransforms.class));
+            eq(NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME), any(COREX12RealTimeAuditTransforms.class));
     }
 
     @Test
-    public void auditOffForInboundPDDeferredResp() {
-        PRPAIN201306UV02 request = new PRPAIN201306UV02();
+    public void auditLoggingOffForInboundRealTime() {
+        AdapterCORE_X12DSRealTimeProxyObjectFactory mockFactory = mock(AdapterCORE_X12DSRealTimeProxyObjectFactory.class);
+        PassthroughInboundCORE_X12DSRealTime realTimeX12
+            = new PassthroughInboundCORE_X12DSRealTime(mockFactory, getAuditLogger(false));
+        COREEnvelopeRealTimeRequest request = new COREEnvelopeRealTimeRequest();
         AssertionType assertion = new AssertionType();
-        MCCIIN000002UV01 expectedResponse = new MCCIIN000002UV01();
-        PatientDiscoveryDeferredResponseAuditLogger auditLogger = getAuditLogger(false);
         Properties webContextProperties = new Properties();
-
-        // Stubbing the methods
-        when(adapterFactory.create()).thenReturn(adapterProxy);
-
-        when(adapterProxy.processPatientDiscoveryAsyncResp(request, assertion)).thenReturn(expectedResponse);
-
-        // Actual invocation
-        PassthroughInboundPatientDiscoveryDeferredResponse passthroughPatientDiscovery
-            = new PassthroughInboundPatientDiscoveryDeferredResponse(adapterFactory, auditLogger);
-
-        MCCIIN000002UV01 actualResponse = passthroughPatientDiscovery.respondingGatewayDeferredPRPAIN201306UV02(
-            request, assertion, webContextProperties);
-
-        // Verify
-        assertSame(expectedResponse, actualResponse);
-
+        AdapterCORE_X12DSRealTimeProxy mockAdapterProxy = mock(AdapterCORE_X12DSRealTimeProxy.class);
+        when(mockFactory.getAdapterCORE_X12DocSubmissionProxy()).thenReturn(mockAdapterProxy);
+        COREEnvelopeRealTimeResponse expectedResponse = new COREEnvelopeRealTimeResponse();
+        when(mockAdapterProxy.realTimeTransaction(request, assertion)).thenReturn(expectedResponse);
+        COREEnvelopeRealTimeResponse actualResponse = realTimeX12.realTimeTransaction(request, assertion,
+            webContextProperties);
         verify(mockEJBLogger, never()).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion),
             isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
-            eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
-            any(PatientDiscoveryDeferredResponseAuditTransforms.class));
+            eq(NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME), any(COREX12RealTimeAuditTransforms.class));
     }
 
-    private PatientDiscoveryDeferredResponseAuditLogger getAuditLogger(final boolean isLoggingOn) {
-        return new PatientDiscoveryDeferredResponseAuditLogger() {
+    private CORE_X12AuditLogger getAuditLogger(final boolean isLoggingOn) {
+        return new CORE_X12AuditLogger() {
             @Override
             protected AuditEJBLogger getAuditLogger() {
                 return mockEJBLogger;

@@ -31,6 +31,8 @@ import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.Properties;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -65,7 +67,7 @@ public abstract class AuditLogger<T, K> {
     public void auditRequestMessage(T request, AssertionType assertion, NhinTargetSystemType target, String direction,
         String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName) {
         LOG.trace("--- Before auditing of request message ---");
-        if (getAuditLogger() != null) {
+        if (getAuditLogger() != null && isAuditLoggingOn(serviceName)) {
             getAuditLogger().auditRequestMessage(request, assertion, target, direction, _interface, isRequesting,
                 webContextProperties, serviceName, getAuditTransforms());
         }
@@ -92,14 +94,14 @@ public abstract class AuditLogger<T, K> {
         String serviceName) {
 
         LOG.trace("--- Before auditing of response message ---");
-        if (getAuditLogger() != null) {
+        if (getAuditLogger() != null && isAuditLoggingOn(serviceName)) {
             getAuditLogger().auditResponseMessage(request, response, assertion, target, direction, _interface,
                 isRequesting, webContextProperties, serviceName, getAuditTransforms());
         }
         LOG.trace("--- After auditing of response message ---");
     }
 
-    private AuditEJBLogger getAuditLogger() {
+    protected AuditEJBLogger getAuditLogger() {
         try {
             String globalAuditLoggerAsyncEJBName = "java:app/" + NhincConstants.EJB_CORE_MODULE_NAME + "/"
                 + NhincConstants.AUDIT_LOGGER_EJB_BEAN_NAME;
@@ -116,4 +118,15 @@ public abstract class AuditLogger<T, K> {
      * @return a constructed AuditTransforms implementation
      */
     protected abstract AuditTransforms<T, K> getAuditTransforms();
+
+    protected boolean isAuditLoggingOn(String serviceName) {
+
+        try {
+            return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.AUDIT_LOGGING_PROPERTY_FILE,
+                serviceName);
+        } catch (PropertyAccessException ex) {
+            LOG.error("Unable to read the Audit logging property: " + ex.getLocalizedMessage(), ex);
+        }
+        return false;
+    }
 }

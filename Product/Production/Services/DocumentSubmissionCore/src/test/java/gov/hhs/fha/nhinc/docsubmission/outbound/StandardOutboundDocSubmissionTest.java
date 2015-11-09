@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.docsubmission.outbound;
 
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
+import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -39,6 +40,7 @@ import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionAuditTransformsConstants;
+import gov.hhs.fha.nhinc.docsubmission.audit.transform.DocSubmissionAuditTransforms;
 import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionOrchestratable;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
@@ -59,9 +61,11 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.isNull;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.isNull;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -75,12 +79,12 @@ public class StandardOutboundDocSubmissionTest {
     private final String senderHcid = "1.1";
     private final String receiverHcid = "2.2";
 
-    private final DocSubmissionAuditLogger mockLogger = mock(DocSubmissionAuditLogger.class);
     private final XDRPolicyChecker mockChecker = mock(XDRPolicyChecker.class);
     private final OutboundDocSubmissionDelegate mockDelegate = mock(OutboundDocSubmissionDelegate.class);
     private final OutboundDocSubmissionOrchestratable mockOrchestratable = mock(OutboundDocSubmissionOrchestratable.class);
     private final MessageGeneratorUtils mockUtils = mock(MessageGeneratorUtils.class);
     private final RegistryResponseType successResponse = new RegistryResponseType();
+    private final AuditEJBLogger mockEJBLogger = mock(AuditEJBLogger.class);
 
     @Before
     public void setUp() {
@@ -96,8 +100,8 @@ public class StandardOutboundDocSubmissionTest {
 
         AssertionType assertion = getAssertion(senderHcid);
 
-        StandardOutboundDocSubmission outbound = getStandardOutboundDocSubmission(mockLogger, mockChecker, mockDelegate,
-            mockOrchestratable, mockUtils, target);
+        StandardOutboundDocSubmission outbound = getStandardOutboundDocSubmission(getAuditLogger(true), mockChecker,
+            mockDelegate, mockOrchestratable, mockUtils, target);
 
         when(mockUtils.convertFirstToNhinTargetSystemType(targets)).thenReturn(target);
         when(mockChecker.checkXDRRequestPolicy(request, assertion, senderHcid, receiverHcid,
@@ -108,9 +112,10 @@ public class StandardOutboundDocSubmissionTest {
         RegistryResponseType actualResponse = outbound.provideAndRegisterDocumentSetB(request,
             assertion, targets, new UrlInfoType());
 
-        verify(mockLogger).auditRequestMessage(eq(request), eq(assertion), eq(target),
+        verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), eq(target),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_SERVICE_NAME));
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_SERVICE_NAME),
+            any(DocSubmissionAuditTransforms.class));
 
         assertNotNull(actualResponse);
         assertEquals(actualResponse.getStatus(), successResponse.getStatus());
@@ -125,8 +130,8 @@ public class StandardOutboundDocSubmissionTest {
 
         AssertionType assertion = getAssertion(senderHcid);
 
-        StandardOutboundDocSubmission outbound = getStandardOutboundDocSubmission(mockLogger, mockChecker, mockDelegate,
-            mockOrchestratable, mockUtils, target);
+        StandardOutboundDocSubmission outbound = getStandardOutboundDocSubmission(getAuditLogger(true), mockChecker,
+            mockDelegate, mockOrchestratable, mockUtils, target);
 
         when(mockUtils.convertFirstToNhinTargetSystemType(targets)).thenReturn(target);
         when(mockChecker.checkXDRRequestPolicy(request, assertion, senderHcid, receiverHcid,
@@ -135,9 +140,10 @@ public class StandardOutboundDocSubmissionTest {
         RegistryResponseType response = outbound.provideAndRegisterDocumentSetB(request,
             assertion, targets, new UrlInfoType());
 
-        verify(mockLogger).auditRequestMessage(eq(request), eq(assertion), eq(target),
+        verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), eq(target),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_SERVICE_NAME));
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_SERVICE_NAME),
+            any(DocSubmissionAuditTransforms.class));
 
         assertNotNull(response);
         assertTrue(response.getRegistryErrorList().getRegistryError().size() > 0);
@@ -150,15 +156,16 @@ public class StandardOutboundDocSubmissionTest {
         AssertionType assertion = getAssertion(senderHcid);
         ProvideAndRegisterDocumentSetRequestType request = createProvideAndRegisterDocumentSetRequestType();
 
-        StandardOutboundDocSubmission outbound = getStandardOutboundDocSubmission(mockLogger, mockChecker, mockDelegate,
-            mockOrchestratable, mockUtils, null);
+        StandardOutboundDocSubmission outbound = getStandardOutboundDocSubmission(getAuditLogger(true), mockChecker,
+            mockDelegate, mockOrchestratable, mockUtils, null);
 
         RegistryResponseType response = outbound.provideAndRegisterDocumentSetB(request,
             assertion, null, new UrlInfoType());
 
-        verify(mockLogger).auditRequestMessage(eq(request), eq(assertion), isNull(NhinTargetSystemType.class),
+        verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), isNull(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_SERVICE_NAME));
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_SERVICE_NAME),
+            any(DocSubmissionAuditTransforms.class));
 
         assertNotNull(response);
         assertTrue(response.getRegistryErrorList().getRegistryError().size() > 0);
@@ -169,36 +176,29 @@ public class StandardOutboundDocSubmissionTest {
     public void testHasNhinTargetHomeCommunityId() {
         StandardOutboundDocSubmission entityOrch = new StandardOutboundDocSubmission();
 
-        boolean hasTargets = entityOrch.hasNhinTargetHomeCommunityId(null);
-        assertFalse(hasTargets);
+        assertFalse(entityOrch.hasNhinTargetHomeCommunityId(null));
 
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request
             = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
-        hasTargets = entityOrch.hasNhinTargetHomeCommunityId(request);
-        assertFalse(hasTargets);
+        assertFalse(entityOrch.hasNhinTargetHomeCommunityId(request));
 
         NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
         request.setNhinTargetCommunities(targetCommunities);
-        hasTargets = entityOrch.hasNhinTargetHomeCommunityId(request);
-        assertFalse(hasTargets);
+        assertFalse(entityOrch.hasNhinTargetHomeCommunityId(request));
 
         request.getNhinTargetCommunities().getNhinTargetCommunity().add(null);
         request.setNhinTargetCommunities(targetCommunities);
-        hasTargets = entityOrch.hasNhinTargetHomeCommunityId(request);
-        assertFalse(hasTargets);
+        assertFalse(entityOrch.hasNhinTargetHomeCommunityId(request));
 
         targetCommunities = createNhinTargetCommunitiesType(receiverHcid);
         request.setNhinTargetCommunities(targetCommunities);
-        hasTargets = entityOrch.hasNhinTargetHomeCommunityId(request);
-        assertTrue(hasTargets);
+        assertTrue(entityOrch.hasNhinTargetHomeCommunityId(request));
 
         request.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity().setHomeCommunityId(null);
-        hasTargets = entityOrch.hasNhinTargetHomeCommunityId(request);
-        assertFalse(hasTargets);
+        assertFalse(entityOrch.hasNhinTargetHomeCommunityId(request));
 
         request.getNhinTargetCommunities().getNhinTargetCommunity().get(0).setHomeCommunity(null);
-        hasTargets = entityOrch.hasNhinTargetHomeCommunityId(request);
-        assertFalse(hasTargets);
+        assertFalse(entityOrch.hasNhinTargetHomeCommunityId(request));
     }
 
     @Test
@@ -226,7 +226,37 @@ public class StandardOutboundDocSubmissionTest {
         assertEquals("", annotation.version());
     }
 
-    private StandardOutboundDocSubmission getStandardOutboundDocSubmission(final DocSubmissionAuditLogger mockLogger,
+    @Test
+    public void testAuditLoggingOffForOutboundDS() {
+
+        NhinTargetCommunitiesType targets = createNhinTargetCommunitiesType(receiverHcid);
+        NhinTargetSystemType target = createNhinTargetSystemType(receiverHcid);
+        ProvideAndRegisterDocumentSetRequestType request = createProvideAndRegisterDocumentSetRequestType();
+
+        AssertionType assertion = getAssertion(senderHcid);
+
+        StandardOutboundDocSubmission outbound = getStandardOutboundDocSubmission(getAuditLogger(false), mockChecker,
+            mockDelegate, mockOrchestratable, mockUtils, target);
+
+        when(mockUtils.convertFirstToNhinTargetSystemType(targets)).thenReturn(target);
+        when(mockChecker.checkXDRRequestPolicy(request, assertion, senderHcid, receiverHcid,
+            NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION)).thenReturn(Boolean.TRUE);
+        when(mockDelegate.process(mockOrchestratable)).thenReturn(mockOrchestratable);
+        when(mockOrchestratable.getResponse()).thenReturn(successResponse);
+
+        RegistryResponseType actualResponse = outbound.provideAndRegisterDocumentSetB(request,
+            assertion, targets, new UrlInfoType());
+
+        verify(mockEJBLogger, never()).auditRequestMessage(eq(request), eq(assertion), eq(target),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_SERVICE_NAME),
+            any(DocSubmissionAuditTransforms.class));
+
+        assertNotNull(actualResponse);
+        assertEquals(actualResponse.getStatus(), successResponse.getStatus());
+    }
+
+    private StandardOutboundDocSubmission getStandardOutboundDocSubmission(final DocSubmissionAuditLogger auditLogger,
         final XDRPolicyChecker mockChecker, final OutboundDocSubmissionDelegate mockDelegate,
         final OutboundDocSubmissionOrchestratable mockOrchestratable, final MessageGeneratorUtils mockUtils,
         final NhinTargetSystemType target) {
@@ -235,7 +265,7 @@ public class StandardOutboundDocSubmissionTest {
 
             @Override
             protected DocSubmissionAuditLogger getDocSubmissionAuditLogger() {
-                return mockLogger;
+                return auditLogger;
             }
 
             @Override
@@ -323,5 +353,19 @@ public class StandardOutboundDocSubmissionTest {
         extIdentifierType.setValue(value);
         extIdentifierType.setName(strInternational);
         return extIdentifierType;
+    }
+
+    private DocSubmissionAuditLogger getAuditLogger(final boolean isAuditOn) {
+        return new DocSubmissionAuditLogger() {
+            @Override
+            protected AuditEJBLogger getAuditLogger() {
+                return mockEJBLogger;
+            }
+
+            @Override
+            protected boolean isAuditLoggingOn(String serviceName) {
+                return isAuditOn;
+            }
+        };
     }
 }

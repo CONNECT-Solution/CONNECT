@@ -35,6 +35,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
+import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
+import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -45,6 +47,7 @@ import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactor
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
+import gov.hhs.fha.nhinc.docquery.audit.transform.DocQueryAuditTransforms;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import java.lang.reflect.Method;
@@ -54,6 +57,8 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 import org.junit.Before;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.mock;
 
 /**
  * Common base class for InboundDocQuery Tests.
@@ -74,16 +79,16 @@ public class InboundDocQueryTest {
     protected static final AdhocQueryRequest request = new AdhocQueryRequest();
     protected static final AdhocQueryResponse expectedResponse = new AdhocQueryResponse();
     protected static final DocQueryPolicyChecker policyChecker = mock(DocQueryPolicyChecker.class);
-    protected DocQueryAuditLogger mockAuditLogger;
+    protected AuditEJBLoggerImpl mockEJBLogger;
 
     @Before
     public void setUp() {
-        mockAuditLogger = mock(DocQueryAuditLogger.class);
+        mockEJBLogger = mock(AuditEJBLoggerImpl.class);
     }
 
     protected void hasInboundProcessingEvent(Class<? extends InboundDocQuery> clazz) throws Exception {
         Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery", AdhocQueryRequest.class,
-                AssertionType.class, Properties.class);
+            AssertionType.class, Properties.class);
         InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
         assertNotNull(annotation);
         assertEquals(AdhocQueryRequestDescriptionBuilder.class, annotation.beforeBuilder());
@@ -93,18 +98,18 @@ public class InboundDocQueryTest {
     }
 
     protected void verifyInboundDocQuery(AssertionType assertion, String sendingHcid,
-            InboundDocQuery inboundDocQuery, int adapterAuditInvocations) {
+        InboundDocQuery inboundDocQuery, int adapterAuditInvocations) {
         Properties webContextProperties = new Properties();
         NhinTargetSystemType target = null;
         AdhocQueryResponse actualResponse = inboundDocQuery.respondingGatewayCrossGatewayQuery(request, assertion,
-                webContextProperties);
+            webContextProperties);
 
         assertSame(expectedResponse, actualResponse);
 
-        verify(mockAuditLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), eq(target),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-                eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
-
+        verify(mockEJBLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), eq(target),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+            eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.DOC_QUERY_SERVICE_NAME),
+            any(DocQueryAuditTransforms.class));
     }
 
     protected AdapterDocQueryProxyObjectFactory getMockAdapterFactory(AssertionType assertion) {
@@ -126,5 +131,19 @@ public class InboundDocQueryTest {
         when(user.getOrg()).thenReturn(homeCommunity);
         when(homeCommunity.getHomeCommunityId()).thenReturn(hcid);
         return assertion;
+    }
+
+    protected DocQueryAuditLogger getAuditLogger(final boolean isLoggingOn) {
+        return new DocQueryAuditLogger() {
+            @Override
+            protected AuditEJBLogger getAuditLogger() {
+                return mockEJBLogger;
+            }
+
+            @Override
+            protected boolean isAuditLoggingOn(String serviceName) {
+                return isLoggingOn;
+            }
+        };
     }
 }

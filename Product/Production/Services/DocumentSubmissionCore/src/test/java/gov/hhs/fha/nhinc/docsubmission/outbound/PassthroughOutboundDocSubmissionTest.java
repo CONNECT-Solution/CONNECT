@@ -26,26 +26,30 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.outbound;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
+import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.audit.transform.DocSubmissionAuditTransforms;
 import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionOrchestratable;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import org.jmock.Expectations;
-import static org.jmock.Expectations.any;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.isNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 /**
  * @author akong
@@ -53,54 +57,51 @@ import org.junit.Test;
  */
 public class PassthroughOutboundDocSubmissionTest {
 
-    protected Mockery context = new JUnit4Mockery() {
-        {
-            setImposteriser(ClassImposteriser.INSTANCE);
-        }
-    };
-    final DocSubmissionAuditLogger mockDocSubmissionLog = context.mock(DocSubmissionAuditLogger.class);
-    final OutboundDocSubmissionDelegate mockDelegate = context.mock(OutboundDocSubmissionDelegate.class);
+    private final AuditEJBLogger mockEJBLogger = mock(AuditEJBLogger.class);
+    private final OutboundDocSubmissionDelegate mockDelegate = mock(OutboundDocSubmissionDelegate.class);
 
     @Test
     public void testProvideAndRegisterDocumentSetB() {
-        expect2MockAudits();
-        expectMockDelegateProcessAndReturnValidResponse();
-
-        RegistryResponseType response = runProvideAndRegisterDocumentSetB();
-
-        context.assertIsSatisfied();
-        assertNotNull(response);
-        assertEquals(DocumentConstants.XDS_SUBMISSION_RESPONSE_STATUS_SUCCESS, response.getStatus());
-    }
-
-    private RegistryResponseType runProvideAndRegisterDocumentSetB() {
+        when(mockDelegate.process(any(OutboundDocSubmissionOrchestratable.class))).thenReturn(
+            createOutboundDocSubmissionOrchestratable());
         ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
         NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
 
-        PassthroughOutboundDocSubmission passthruOrch = new PassthroughOutboundDocSubmission(mockDocSubmissionLog,
+        RegistryResponseType response = runProvideAndRegisterDocumentSetB(request, assertion, targets, true);
+
+        assertNotNull(response);
+        assertEquals(DocumentConstants.XDS_SUBMISSION_RESPONSE_STATUS_SUCCESS, response.getStatus());
+        verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_SERVICE_NAME),
+            any(DocSubmissionAuditTransforms.class));
+    }
+
+    @Test
+    public void testAuditLoggingOffForOutboundDS() {
+        when(mockDelegate.process(any(OutboundDocSubmissionOrchestratable.class))).thenReturn(
+            createOutboundDocSubmissionOrchestratable());
+        ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
+        AssertionType assertion = new AssertionType();
+        NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
+
+        RegistryResponseType response = runProvideAndRegisterDocumentSetB(request, assertion, targets, false);
+
+        assertNotNull(response);
+        assertEquals(DocumentConstants.XDS_SUBMISSION_RESPONSE_STATUS_SUCCESS, response.getStatus());
+        verify(mockEJBLogger, never()).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_SERVICE_NAME),
+            any(DocSubmissionAuditTransforms.class));
+    }
+
+    private RegistryResponseType runProvideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request,
+        AssertionType assertion, NhinTargetCommunitiesType targets, boolean isAuditOn) {
+
+        PassthroughOutboundDocSubmission passthruOrch = new PassthroughOutboundDocSubmission(getAuditLogger(isAuditOn),
             mockDelegate);
         return passthruOrch.provideAndRegisterDocumentSetB(request, assertion, targets, null);
-    }
-
-    private void expect2MockAudits() {
-        context.checking(new Expectations() {
-            {
-                oneOf(mockDocSubmissionLog).auditRequestMessage(
-                    with(any(ProvideAndRegisterDocumentSetRequestType.class)), with(any(AssertionType.class)),
-                    with(any(NhinTargetSystemType.class)), with(any(String.class)), with(any(String.class)),
-                    with(any(Boolean.class)), with(any(Properties.class)), with(any(String.class)));
-            }
-        });
-    }
-
-    private void expectMockDelegateProcessAndReturnValidResponse() {
-        context.checking(new Expectations() {
-            {
-                oneOf(mockDelegate).process(with(any(OutboundDocSubmissionOrchestratable.class)));
-                will(returnValue(createOutboundDocSubmissionOrchestratable()));
-            }
-        });
     }
 
     private OutboundDocSubmissionOrchestratable createOutboundDocSubmissionOrchestratable() {
@@ -113,4 +114,17 @@ public class PassthroughOutboundDocSubmissionTest {
         return orchestratable;
     }
 
+    private DocSubmissionAuditLogger getAuditLogger(final boolean isAuditOn) {
+        return new DocSubmissionAuditLogger() {
+            @Override
+            protected AuditEJBLogger getAuditLogger() {
+                return mockEJBLogger;
+            }
+
+            @Override
+            protected boolean isAuditLoggingOn(String serviceName) {
+                return isAuditOn;
+            }
+        };
+    }
 }

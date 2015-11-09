@@ -46,13 +46,14 @@ public class PassthroughOutboundCORE_X12DSGenericBatchRequest implements Outboun
 
     private OutboundCORE_X12DSGenericBatchRequestDelegate dsDelegate
         = new OutboundCORE_X12DSGenericBatchRequestDelegate();
-    private CORE_X12BatchSubmissionAuditLogger auditLogger = new CORE_X12BatchSubmissionAuditLogger();
+    private CORE_X12BatchSubmissionAuditLogger auditLogger = null;
 
     /**
      * Constructor..
      */
     public PassthroughOutboundCORE_X12DSGenericBatchRequest() {
         super();
+        this.auditLogger = new CORE_X12BatchSubmissionAuditLogger();
     }
 
     /**
@@ -62,6 +63,7 @@ public class PassthroughOutboundCORE_X12DSGenericBatchRequest implements Outboun
      */
     public PassthroughOutboundCORE_X12DSGenericBatchRequest(OutboundCORE_X12DSGenericBatchRequestDelegate dsDelegate) {
         this.dsDelegate = dsDelegate;
+        this.auditLogger = new CORE_X12BatchSubmissionAuditLogger();
     }
 
     /**
@@ -106,9 +108,12 @@ public class PassthroughOutboundCORE_X12DSGenericBatchRequest implements Outboun
 
     private void auditRequestToNhin(COREEnvelopeBatchSubmission body, AssertionType assertion,
         NhinTargetSystemType targetSystem) {
-        auditLogger.auditRequestMessage(body, assertion, targetSystem,
+        getAuditLogger().auditRequestMessage(body, assertion, targetSystem,
             NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
             Boolean.TRUE, null, NhincConstants.CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME);
     }
 
+    protected CORE_X12BatchSubmissionAuditLogger getAuditLogger() {
+        return this.auditLogger;
+    }
 }

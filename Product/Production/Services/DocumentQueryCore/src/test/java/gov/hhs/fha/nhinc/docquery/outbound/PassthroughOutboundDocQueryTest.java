@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docquery.outbound;
 
+import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
+import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -35,6 +37,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
+import gov.hhs.fha.nhinc.docquery.audit.transform.DocQueryAuditTransforms;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryDelegate;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -50,6 +53,8 @@ import org.mockito.ArgumentCaptor;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -58,7 +63,7 @@ import static org.mockito.Mockito.verify;
  */
 public class PassthroughOutboundDocQueryTest {
 
-    private final DocQueryAuditLogger auditLogger = mock(DocQueryAuditLogger.class);
+    private final AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
 
     @Test
     public void passthroughOutboundDocQuery() {
@@ -67,7 +72,7 @@ public class PassthroughOutboundDocQueryTest {
         AdhocQueryResponse expectedResponse = new AdhocQueryResponse();
         OutboundDocQueryOrchestratable orchestratableResponse = new OutboundDocQueryOrchestratable();
         orchestratableResponse.setResponse(expectedResponse);
-
+        final DocQueryAuditLogger auditLogger = getAuditLogger(true);
         when(mockDelegate.process(any(OutboundDocQueryOrchestratable.class))).thenReturn(orchestratableResponse);
 
         AdhocQueryRequest request = new AdhocQueryRequest();
@@ -84,9 +89,10 @@ public class PassthroughOutboundDocQueryTest {
             targets);
 
         assertSame(expectedResponse, actualResponse);
-        verify(auditLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
+        verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_QUERY_SERVICE_NAME),
+            any(DocQueryAuditTransforms.class));
     }
 
     @Test
@@ -101,7 +107,7 @@ public class PassthroughOutboundDocQueryTest {
             + "  Only sending to target HCID: " + HCID1 + ".  Not sending request to: " + HCID2 + ".";
 
         OutboundDocQueryDelegate mockDelegate = mock(OutboundDocQueryDelegate.class);
-
+        final DocQueryAuditLogger auditLogger = getAuditLogger(true);
         AdhocQueryResponse expectedResponse = new AdhocQueryResponse();
         OutboundDocQueryOrchestratable orchestratableResponse = new OutboundDocQueryOrchestratable();
         orchestratableResponse.setResponse(expectedResponse);
@@ -143,8 +149,54 @@ public class PassthroughOutboundDocQueryTest {
         verify(mockLogger).warn(loggerCaptor.capture());
         assertSame(expectedResponse, actualResponse);
         assertEquals(compareOutput, loggerCaptor.getValue());
-        verify(auditLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
+        verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_QUERY_SERVICE_NAME),
+            any(DocQueryAuditTransforms.class));
     }
+
+    @Test
+    public void auditLoggingOffForOutboundDQ() {
+        OutboundDocQueryDelegate mockDelegate = mock(OutboundDocQueryDelegate.class);
+
+        AdhocQueryResponse expectedResponse = new AdhocQueryResponse();
+        OutboundDocQueryOrchestratable orchestratableResponse = new OutboundDocQueryOrchestratable();
+        orchestratableResponse.setResponse(expectedResponse);
+        final DocQueryAuditLogger auditLogger = getAuditLogger(false);
+        when(mockDelegate.process(any(OutboundDocQueryOrchestratable.class))).thenReturn(orchestratableResponse);
+
+        AdhocQueryRequest request = new AdhocQueryRequest();
+        AssertionType assertion = new AssertionType();
+        NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
+
+        PassthroughOutboundDocQuery passthroughDocQuery = new PassthroughOutboundDocQuery(mockDelegate) {
+            @Override
+            protected DocQueryAuditLogger getAuditLogger() {
+                return auditLogger;
+            }
+        };
+        AdhocQueryResponse actualResponse = passthroughDocQuery.respondingGatewayCrossGatewayQuery(request, assertion,
+            targets);
+
+        assertSame(expectedResponse, actualResponse);
+        verify(mockEJBLogger, never()).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_QUERY_SERVICE_NAME),
+            any(DocQueryAuditTransforms.class));
+    }
+
+    private DocQueryAuditLogger getAuditLogger(final boolean isLoggingOn) {
+        return new DocQueryAuditLogger() {
+            @Override
+            protected AuditEJBLogger getAuditLogger() {
+                return mockEJBLogger;
+            }
+
+            @Override
+            protected boolean isAuditLoggingOn(String serviceName) {
+                return isLoggingOn;
+            }
+        };
+    }
+
 }
