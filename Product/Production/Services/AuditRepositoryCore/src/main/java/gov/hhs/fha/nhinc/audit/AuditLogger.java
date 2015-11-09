@@ -67,7 +67,7 @@ public abstract class AuditLogger<T, K> {
     public void auditRequestMessage(T request, AssertionType assertion, NhinTargetSystemType target, String direction,
         String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName) {
         LOG.trace("--- Before auditing of request message ---");
-        if (getAuditLogger() != null && isAuditLoggingOn(serviceName)) {
+        if (isAuditLoggingOn(serviceName) && getAuditLogger() != null) {
             getAuditLogger().auditRequestMessage(request, assertion, target, direction, _interface, isRequesting,
                 webContextProperties, serviceName, getAuditTransforms());
         }
@@ -94,7 +94,7 @@ public abstract class AuditLogger<T, K> {
         String serviceName) {
 
         LOG.trace("--- Before auditing of response message ---");
-        if (getAuditLogger() != null && isAuditLoggingOn(serviceName)) {
+        if (isAuditLoggingOn(serviceName) && getAuditLogger() != null) {
             getAuditLogger().auditResponseMessage(request, response, assertion, target, direction, _interface,
                 isRequesting, webContextProperties, serviceName, getAuditTransforms());
         }

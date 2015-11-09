@@ -76,8 +76,8 @@ public class PassthroughOutboundCORE_X12DSRealTime implements OutboundCORE_X12DS
         NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
             targets);
         this.auditRequestToNhin(body, assertion, targetSystem);
-        OutboundCORE_X12DSRealTimeOrchestratable dsOrchestratable = createOrchestratable(getDelegate(), body, targetSystem,
-            assertion);
+        OutboundCORE_X12DSRealTimeOrchestratable dsOrchestratable = createOrchestratable(getDelegate(), body,
+            targetSystem, assertion);
         COREEnvelopeRealTimeResponse response = ((OutboundCORE_X12DSRealTimeOrchestratable) getDelegate().process(
             dsOrchestratable)).getResponse();
         return response;

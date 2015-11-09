@@ -106,9 +106,9 @@ public abstract class AbstractInboundCORE_X12DSGenericBatchResponse implements I
         return oResponse;
     }
 
-    protected void auditResponseToNhin(COREEnvelopeBatchSubmission request, COREEnvelopeBatchSubmissionResponse oResponsse,
-        AssertionType assertion, Properties webContextProperties) {
-        getAuditLogger().auditResponseMessage(request, oResponsse, assertion, null,
+    protected void auditResponseToNhin(COREEnvelopeBatchSubmission request,
+        COREEnvelopeBatchSubmissionResponse oResponse, AssertionType assertion, Properties webContextProperties) {
+        getAuditLogger().auditResponseMessage(request, oResponse, assertion, null,
             NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE,
             webContextProperties, NhincConstants.CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
     }
