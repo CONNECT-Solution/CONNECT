@@ -57,17 +57,17 @@ import static org.mockito.Mockito.when;
 public class PassthroughOutboundCORE_X12DSGenericBatchResponseTest {
 
     private final AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
-    OutboundCORE_X12DSGenericBatchResponseOrchestratable mockOrchestratable
+    private final OutboundCORE_X12DSGenericBatchResponseOrchestratable mockOrchestratable
         = mock(OutboundCORE_X12DSGenericBatchResponseOrchestratable.class);
-    OutboundCORE_X12DSGenericBatchResponseDelegate mockDelegate
+    private final OutboundCORE_X12DSGenericBatchResponseDelegate mockDelegate
         = mock(OutboundCORE_X12DSGenericBatchResponseDelegate.class);
+    private final AssertionType assertion = new AssertionType();
+    private final NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
+    private final UrlInfoType urlInfo = new UrlInfoType();
 
     @Test
     public void auditLoggingOffForOutboundX12BatchResponse() {
         COREEnvelopeBatchSubmission request = new COREEnvelopeBatchSubmission();
-        AssertionType assertion = new AssertionType();
-        NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
-        UrlInfoType urlInfo = new UrlInfoType();
         COREEnvelopeBatchSubmissionResponse successResponse = new COREEnvelopeBatchSubmissionResponse();
         PassthroughOutboundCORE_X12DSGenericBatchResponse batchResp = createPassthruOutboundBatchResponse(
             getAuditLogger(false));
@@ -83,9 +83,6 @@ public class PassthroughOutboundCORE_X12DSGenericBatchResponseTest {
     @Test
     public void auditLoggingOnForOutboundX12BatchResponse() {
         COREEnvelopeBatchSubmission request = new COREEnvelopeBatchSubmission();
-        AssertionType assertion = new AssertionType();
-        NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
-        UrlInfoType urlInfo = new UrlInfoType();
         COREEnvelopeBatchSubmissionResponse successResponse = new COREEnvelopeBatchSubmissionResponse();
         PassthroughOutboundCORE_X12DSGenericBatchResponse batchResp = createPassthruOutboundBatchResponse(
             getAuditLogger(true));

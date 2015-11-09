@@ -60,14 +60,14 @@ import static org.mockito.Mockito.when;
 public class PassthroughOutboundCORE_X12DSRealTimeTest {
 
     private final AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
+    private final COREEnvelopeRealTimeRequest request = new COREEnvelopeRealTimeRequest();
+    private final AssertionType assertion = new AssertionType();
+    private final UrlInfoType urlInfo = new UrlInfoType();
+    private final OutboundCORE_X12DSRealTimeOrchestratable mockOrch = mock(OutboundCORE_X12DSRealTimeOrchestratable.class);
+    private final OutboundCORE_X12DSRealTimeDelegate mockDelegate = mock(OutboundCORE_X12DSRealTimeDelegate.class);
 
     @Test
     public void auditLoggingOnForOutboundRealTime() {
-        COREEnvelopeRealTimeRequest request = new COREEnvelopeRealTimeRequest();
-        AssertionType assertion = new AssertionType();
-        UrlInfoType urlInfo = new UrlInfoType();
-        OutboundCORE_X12DSRealTimeOrchestratable mockOrch = mock(OutboundCORE_X12DSRealTimeOrchestratable.class);
-        OutboundCORE_X12DSRealTimeDelegate mockDelegate = mock(OutboundCORE_X12DSRealTimeDelegate.class);
         COREEnvelopeRealTimeResponse expectedResponse = new COREEnvelopeRealTimeResponse();
         PassthroughOutboundCORE_X12DSRealTime realTime = new PassthroughOutboundCORE_X12DSRealTime(
             mockDelegate, getAuditLogger(true));
@@ -84,11 +84,6 @@ public class PassthroughOutboundCORE_X12DSRealTimeTest {
 
     @Test
     public void auditLoggingOffForOutboundRealTime() {
-        COREEnvelopeRealTimeRequest request = new COREEnvelopeRealTimeRequest();
-        AssertionType assertion = new AssertionType();
-        UrlInfoType urlInfo = new UrlInfoType();
-        OutboundCORE_X12DSRealTimeOrchestratable mockOrch = mock(OutboundCORE_X12DSRealTimeOrchestratable.class);
-        OutboundCORE_X12DSRealTimeDelegate mockDelegate = mock(OutboundCORE_X12DSRealTimeDelegate.class);
         COREEnvelopeRealTimeResponse expectedResponse = new COREEnvelopeRealTimeResponse();
         PassthroughOutboundCORE_X12DSRealTime realTime = new PassthroughOutboundCORE_X12DSRealTime(
             mockDelegate, getAuditLogger(false));

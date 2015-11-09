@@ -54,16 +54,17 @@ import static org.mockito.Mockito.when;
 public class PassthroughInboundCORE_X12DSRealTimeTest {
 
     private final AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
+    private final AdapterCORE_X12DSRealTimeProxyObjectFactory mockFactory
+        = mock(AdapterCORE_X12DSRealTimeProxyObjectFactory.class);
+    private final AdapterCORE_X12DSRealTimeProxy mockAdapterProxy = mock(AdapterCORE_X12DSRealTimeProxy.class);
+    private final COREEnvelopeRealTimeRequest request = new COREEnvelopeRealTimeRequest();
+    private final AssertionType assertion = new AssertionType();
+    private final Properties webContextProperties = new Properties();
 
     @Test
     public void auditLoggingOnForInboundRealTime() {
-        AdapterCORE_X12DSRealTimeProxyObjectFactory mockFactory = mock(AdapterCORE_X12DSRealTimeProxyObjectFactory.class);
         PassthroughInboundCORE_X12DSRealTime realTimeX12
             = new PassthroughInboundCORE_X12DSRealTime(mockFactory, getAuditLogger(true));
-        COREEnvelopeRealTimeRequest request = new COREEnvelopeRealTimeRequest();
-        AssertionType assertion = new AssertionType();
-        Properties webContextProperties = new Properties();
-        AdapterCORE_X12DSRealTimeProxy mockAdapterProxy = mock(AdapterCORE_X12DSRealTimeProxy.class);
         when(mockFactory.getAdapterCORE_X12DocSubmissionProxy()).thenReturn(mockAdapterProxy);
         COREEnvelopeRealTimeResponse expectedResponse = new COREEnvelopeRealTimeResponse();
         when(mockAdapterProxy.realTimeTransaction(request, assertion)).thenReturn(expectedResponse);
@@ -77,13 +78,9 @@ public class PassthroughInboundCORE_X12DSRealTimeTest {
 
     @Test
     public void auditLoggingOffForInboundRealTime() {
-        AdapterCORE_X12DSRealTimeProxyObjectFactory mockFactory = mock(AdapterCORE_X12DSRealTimeProxyObjectFactory.class);
         PassthroughInboundCORE_X12DSRealTime realTimeX12
             = new PassthroughInboundCORE_X12DSRealTime(mockFactory, getAuditLogger(false));
-        COREEnvelopeRealTimeRequest request = new COREEnvelopeRealTimeRequest();
-        AssertionType assertion = new AssertionType();
-        Properties webContextProperties = new Properties();
-        AdapterCORE_X12DSRealTimeProxy mockAdapterProxy = mock(AdapterCORE_X12DSRealTimeProxy.class);
+
         when(mockFactory.getAdapterCORE_X12DocSubmissionProxy()).thenReturn(mockAdapterProxy);
         COREEnvelopeRealTimeResponse expectedResponse = new COREEnvelopeRealTimeResponse();
         when(mockAdapterProxy.realTimeTransaction(request, assertion)).thenReturn(expectedResponse);

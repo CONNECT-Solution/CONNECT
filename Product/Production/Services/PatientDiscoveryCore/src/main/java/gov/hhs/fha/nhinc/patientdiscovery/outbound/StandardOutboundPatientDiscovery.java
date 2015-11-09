@@ -405,12 +405,12 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
     /**
      * @return a new instance of PatientDiscoveryAuditLogger
      */
-    protected PatientDiscoveryAuditLogger getNewPatientDiscoveryAuditLogger() {
+    protected PatientDiscoveryAuditLogger getAuditLogger() {
         return new PatientDiscoveryAuditLogger();
     }
 
     private void auditRequest(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetSystemType target) {
-        getNewPatientDiscoveryAuditLogger().auditRequestMessage(request, assertion, target,
+        getAuditLogger().auditRequestMessage(request, assertion, target,
             NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE,
             null, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
     }

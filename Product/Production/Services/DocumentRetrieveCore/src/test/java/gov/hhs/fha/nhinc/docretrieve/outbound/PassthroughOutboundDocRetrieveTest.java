@@ -41,6 +41,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 import java.util.Properties;
+import org.junit.Before;
 
 import org.junit.Test;
 import static org.mockito.Matchers.eq;
@@ -55,21 +56,25 @@ import static org.mockito.Mockito.verify;
  */
 public class PassthroughOutboundDocRetrieveTest extends AbstractOutboundDocRetrieveTest {
 
-    NhinTargetSystemType nhinTargetSystemType;
-    AssertionType assertionType;
-    RetrieveDocumentSetRequestType retrieveDocumentSetRequestType;
-    RetrieveDocumentSetResponseType retrieveDocumentSetResponseType;
+    private RetrieveDocumentSetRequestType request;
+    private AssertionType assertion;
+    private NhinTargetCommunitiesType targets;
+    private CONNECTOutboundOrchestrator orchestrator;
+    private OutboundDocRetrieveOrchestratable orchResponse;
+
+    @Before
+    public void setup() {
+        request = new RetrieveDocumentSetRequestType();
+        assertion = new AssertionType();
+        targets = new NhinTargetCommunitiesType();
+        orchestrator = mock(CONNECTOutboundOrchestrator.class);
+        orchResponse = mock(OutboundDocRetrieveOrchestratable.class);
+    }
 
     @Test
     public void invoke() {
-        RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
-        AssertionType assertion = new AssertionType();
-        NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
         targets.setUseSpecVersion("2.0");
         RetrieveDocumentSetResponseType expectedResponse = new RetrieveDocumentSetResponseType();
-
-        CONNECTOutboundOrchestrator orchestrator = mock(CONNECTOutboundOrchestrator.class);
-        OutboundDocRetrieveOrchestratable orchResponse = mock(OutboundDocRetrieveOrchestratable.class);
 
         when(orchestrator.process(any(OutboundDocRetrieveOrchestratable.class))).thenReturn(orchResponse);
 
@@ -91,14 +96,8 @@ public class PassthroughOutboundDocRetrieveTest extends AbstractOutboundDocRetri
 
     @Test
     public void auditLoggingOffForOutboundDR() {
-        RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
-        AssertionType assertion = new AssertionType();
-        NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
         targets.setUseSpecVersion("2.0");
         RetrieveDocumentSetResponseType expectedResponse = new RetrieveDocumentSetResponseType();
-
-        CONNECTOutboundOrchestrator orchestrator = mock(CONNECTOutboundOrchestrator.class);
-        OutboundDocRetrieveOrchestratable orchResponse = mock(OutboundDocRetrieveOrchestratable.class);
 
         when(orchestrator.process(any(OutboundDocRetrieveOrchestratable.class))).thenReturn(orchResponse);
 

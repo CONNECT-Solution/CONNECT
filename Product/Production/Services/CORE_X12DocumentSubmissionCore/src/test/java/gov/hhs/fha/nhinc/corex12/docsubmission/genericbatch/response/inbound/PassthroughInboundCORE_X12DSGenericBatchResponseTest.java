@@ -55,19 +55,19 @@ import static org.mockito.Mockito.when;
 public class PassthroughInboundCORE_X12DSGenericBatchResponseTest {
 
     private final AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
+    private final AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory mockFactory
+        = mock(AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory.class);
+    private final AdapterCORE_X12DGenericBatchResponseProxy mockResponseProxy
+        = mock(AdapterCORE_X12DGenericBatchResponseProxy.class);
+    private final COREEnvelopeBatchSubmission request = new COREEnvelopeBatchSubmission();
+    private final AssertionType assertion = new AssertionType();
+    private final Properties webContextProperties = new Properties();
 
     @Test
     public void auditLoggingOnForInboundX12BatchResponseTest() {
-        AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory mockFactory
-            = mock(AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory.class);
         PassthroughInboundCORE_X12DSGenericBatchResponse inboundResp
             = new PassthroughInboundCORE_X12DSGenericBatchResponse(mockFactory, getAuditLogger(true));
-        AdapterCORE_X12DGenericBatchResponseProxy mockResponseProxy
-            = mock(AdapterCORE_X12DGenericBatchResponseProxy.class);
-        COREEnvelopeBatchSubmission request = new COREEnvelopeBatchSubmission();
         COREEnvelopeBatchSubmissionResponse expectedResponse = new COREEnvelopeBatchSubmissionResponse();
-        AssertionType assertion = new AssertionType();
-        Properties webContextProperties = new Properties();
         when(mockFactory.getAdapterCORE_X12DocSubmissionProxy()).thenReturn(mockResponseProxy);
         when(mockResponseProxy.batchSubmitTransaction(eq(request), eq(assertion))).thenReturn(expectedResponse);
 
@@ -83,16 +83,9 @@ public class PassthroughInboundCORE_X12DSGenericBatchResponseTest {
 
     @Test
     public void auditLoggingOffForInboundX12BatchResponseTest() {
-        AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory mockFactory
-            = mock(AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory.class);
         PassthroughInboundCORE_X12DSGenericBatchResponse inboundResp
             = new PassthroughInboundCORE_X12DSGenericBatchResponse(mockFactory, getAuditLogger(false));
-        AdapterCORE_X12DGenericBatchResponseProxy mockResponseProxy
-            = mock(AdapterCORE_X12DGenericBatchResponseProxy.class);
-        COREEnvelopeBatchSubmission request = new COREEnvelopeBatchSubmission();
         COREEnvelopeBatchSubmissionResponse expectedResponse = new COREEnvelopeBatchSubmissionResponse();
-        AssertionType assertion = new AssertionType();
-        Properties webContextProperties = new Properties();
         when(mockFactory.getAdapterCORE_X12DocSubmissionProxy()).thenReturn(mockResponseProxy);
         when(mockResponseProxy.batchSubmitTransaction(eq(request), eq(assertion))).thenReturn(expectedResponse);
 

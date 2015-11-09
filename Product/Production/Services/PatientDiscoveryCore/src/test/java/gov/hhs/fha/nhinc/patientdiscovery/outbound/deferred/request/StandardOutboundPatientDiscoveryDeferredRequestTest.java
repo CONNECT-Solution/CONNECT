@@ -88,6 +88,14 @@ public class StandardOutboundPatientDiscoveryDeferredRequestTest {
     private II patientId;
     private AssertionType assertion;
     private final AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
+    private final PatientDiscovery201305Processor pd201305Processor = mock(PatientDiscovery201305Processor.class);
+    private final AsyncMessageProcessHelper asyncProcessHelper = mock(AsyncMessageProcessHelper.class);
+    private final PatientDiscoveryPolicyChecker policyChecker = mock(PatientDiscoveryPolicyChecker.class);
+    private final OutboundPatientDiscoveryDeferredRequestDelegate delegate = mock(OutboundPatientDiscoveryDeferredRequestDelegate.class);
+    private final PDDeferredCorrelationDao correlationDao = mock(PDDeferredCorrelationDao.class);
+    private final ConnectionManagerCache connectionManager = mock(ConnectionManagerCache.class);
+    private final OutboundPatientDiscoveryDeferredRequestOrchestratable orchestratableResponse
+        = mock(OutboundPatientDiscoveryDeferredRequestOrchestratable.class);
 
     @Before
     public void initialize() {
@@ -139,16 +147,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequestTest {
     public void invoke() throws ConnectionManagerException {
         List<UrlInfo> urlInfoList = createUrlInfoList("1.1", "2.2");
 
-        // Mocks
-        PatientDiscovery201305Processor pd201305Processor = mock(PatientDiscovery201305Processor.class);
-        AsyncMessageProcessHelper asyncProcessHelper = mock(AsyncMessageProcessHelper.class);
-        PatientDiscoveryPolicyChecker policyChecker = mock(PatientDiscoveryPolicyChecker.class);
-        OutboundPatientDiscoveryDeferredRequestDelegate delegate = mock(OutboundPatientDiscoveryDeferredRequestDelegate.class);
-        PDDeferredCorrelationDao correlationDao = mock(PDDeferredCorrelationDao.class);
-        ConnectionManagerCache connectionManager = mock(ConnectionManagerCache.class);
         PatientDiscoveryDeferredRequestAuditLogger auditLogger = getAuditLogger(true);
-        OutboundPatientDiscoveryDeferredRequestOrchestratable orchestratableResponse
-            = mock(OutboundPatientDiscoveryDeferredRequestOrchestratable.class);
         // Stubbing the methods
         when(
             connectionManager.getEndpointURLFromNhinTargetCommunities(eq(targets),
@@ -204,8 +203,6 @@ public class StandardOutboundPatientDiscoveryDeferredRequestTest {
     @Test
     public void noTargets() throws ConnectionManagerException {
         PatientDiscoveryDeferredRequestAuditLogger auditLogger = getAuditLogger(true);
-        // Mocks
-        ConnectionManagerCache connectionManager = mock(ConnectionManagerCache.class);
         // Stubbing the methods
         when(
             connectionManager.getEndpointURLFromNhinTargetCommunities(eq(targets),
@@ -240,14 +237,6 @@ public class StandardOutboundPatientDiscoveryDeferredRequestTest {
     public void policyFailed() throws ConnectionManagerException {
         List<UrlInfo> urlInfoList = createUrlInfoList("1.1");
         PatientDiscoveryDeferredRequestAuditLogger auditLogger = getAuditLogger(true);
-        // Mocks
-        PatientDiscovery201305Processor pd201305Processor = mock(PatientDiscovery201305Processor.class);
-        AsyncMessageProcessHelper asyncProcessHelper = mock(AsyncMessageProcessHelper.class);
-        PatientDiscoveryPolicyChecker policyChecker = mock(PatientDiscoveryPolicyChecker.class);
-        OutboundPatientDiscoveryDeferredRequestDelegate delegate
-            = mock(OutboundPatientDiscoveryDeferredRequestDelegate.class);
-        PDDeferredCorrelationDao correlationDao = mock(PDDeferredCorrelationDao.class);
-        ConnectionManagerCache connectionManager = mock(ConnectionManagerCache.class);
         // Stubbing the methods
         when(
             connectionManager.getEndpointURLFromNhinTargetCommunities(eq(targets),
@@ -300,16 +289,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequestTest {
     public void auditOffForOutboundPDDeferredReq() throws ConnectionManagerException {
         List<UrlInfo> urlInfoList = createUrlInfoList("1.1", "2.2");
 
-        // Mocks
-        PatientDiscovery201305Processor pd201305Processor = mock(PatientDiscovery201305Processor.class);
-        AsyncMessageProcessHelper asyncProcessHelper = mock(AsyncMessageProcessHelper.class);
-        PatientDiscoveryPolicyChecker policyChecker = mock(PatientDiscoveryPolicyChecker.class);
-        OutboundPatientDiscoveryDeferredRequestDelegate delegate = mock(OutboundPatientDiscoveryDeferredRequestDelegate.class);
-        PDDeferredCorrelationDao correlationDao = mock(PDDeferredCorrelationDao.class);
-        ConnectionManagerCache connectionManager = mock(ConnectionManagerCache.class);
         PatientDiscoveryDeferredRequestAuditLogger auditLogger = getAuditLogger(false);
-        OutboundPatientDiscoveryDeferredRequestOrchestratable orchestratableResponse
-            = mock(OutboundPatientDiscoveryDeferredRequestOrchestratable.class);
         // Stubbing the methods
         when(
             connectionManager.getEndpointURLFromNhinTargetCommunities(eq(targets),
