@@ -36,26 +36,50 @@ import java.sql.Blob;
 public class AuditRepositoryRecord {
 
     private int id = 0;
-    private Date timeStamp = null;
-    private int eventId = 0;
-    private String userId = null;
-    private int participationTypeCode = 0;
-    private int participationTypeCodeRole = 0;
-    private String participationIDTypeCode = null;
-    private String receiverPatientId = null;
-    private String senderPatientId = null;
-    private String communityId = null;
-    private String messageType = null;
-    private Blob message = null;
+    private Date eventTimeStamp;
+    private String eventId;
+    private String userId;
+    private String direction;
+    private String remoteHcid;
+    private String relatesTo;
+    private String messageId;
+    private String transactionId;
+    private String eventType;
+    private int outcome;
+    private Blob message;
 
     public AuditRepositoryRecord() {
     }
 
-    public int getEventId() {
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public String getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
+    }
+
+    public int getOutcome() {
+        return outcome;
+    }
+
+    public void setOutcome(int outcome) {
+        this.outcome = outcome;
+    }
+
+    public String getEventId() {
         return eventId;
     }
 
-    public void setEventId(int eventId) {
+    public void setEventId(String eventId) {
         this.eventId = eventId;
     }
 
@@ -75,68 +99,20 @@ public class AuditRepositoryRecord {
         this.message = message;
     }
 
-    public String getMessageType() {
-        return messageType;
+    public String getRemoteHcid() {
+        return remoteHcid;
     }
 
-    public void setMessageType(String messageType) {
-        this.messageType = messageType;
+    public void setRemoteHcid(String communityId) {
+        this.remoteHcid = communityId;
     }
 
-    public String getParticipationIDTypeCode() {
-        return participationIDTypeCode;
+    public Date getEventTimeStamp() {
+        return eventTimeStamp;
     }
 
-    public void setParticipationIDTypeCode(String participationIDTypeCode) {
-        this.participationIDTypeCode = participationIDTypeCode;
-    }
-
-    public int getParticipationTypeCode() {
-        return participationTypeCode;
-    }
-
-    public void setParticipationTypeCode(int participationTypeCode) {
-        this.participationTypeCode = participationTypeCode;
-    }
-
-    public int getParticipationTypeCodeRole() {
-        return participationTypeCodeRole;
-    }
-
-    public void setParticipationTypeCodeRole(int participationTypeCodeRole) {
-        this.participationTypeCodeRole = participationTypeCodeRole;
-    }
-
-    public String getCommunityId() {
-        return communityId;
-    }
-
-    public void setCommunityId(String communityId) {
-        this.communityId = communityId;
-    }
-
-    public String getReceiverPatientId() {
-        return receiverPatientId;
-    }
-
-    public void setReceiverPatientId(String receiverPatientId) {
-        this.receiverPatientId = receiverPatientId;
-    }
-
-    public String getSenderPatientId() {
-        return senderPatientId;
-    }
-
-    public void setSenderPatientId(String senderPatientId) {
-        this.senderPatientId = senderPatientId;
-    }
-
-    public Date getTimeStamp() {
-        return timeStamp;
-    }
-
-    public void setTimeStamp(Date timeStamp) {
-        this.timeStamp = timeStamp;
+    public void setEventTimeStamp(Date timeStamp) {
+        this.eventTimeStamp = timeStamp;
     }
 
     public String getUserId() {
@@ -145,6 +121,30 @@ public class AuditRepositoryRecord {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getRelatesTo() {
+        return relatesTo;
+    }
+
+    public void setRelatesTo(String relatesTo) {
+        this.relatesTo = relatesTo;
+    }
+
+    public String getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
     }
 
 }

@@ -69,14 +69,6 @@ public class AuditRepositoryDAOTest {
     }
 
     /**
-     * Test of getAuditRepositoryDAOInstance method, of class AuditRepositoryDAO.
-     */
-    @Test
-    public void testGetAuditRepositoryDAOInstance() {
-        AuditRepositoryDAO result = AuditRepositoryDAO.getAuditRepositoryDAOInstance();
-    }
-
-    /**
      * Test of insertAuditRepository method, of class AuditRepositoryDAO.
      */
     @Test
@@ -85,8 +77,8 @@ public class AuditRepositoryDAOTest {
         Date now = new Date();
 
         AuditRepositoryRecord record = new AuditRepositoryRecord();
-        record.setMessageType("Record 1 - Message Type");
-        record.setTimeStamp(now);
+        record.setDirection("Record 1 - Message Type");
+        record.setEventTimeStamp(now);
         record.setUserId("UnitTest1");
         eventLogList.add(record);
 
