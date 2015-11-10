@@ -66,15 +66,7 @@ public class PassthroughOutboundCORE_X12DSGenericBatchRequestTest {
 
     @Test
     public void auditLoggingOnForOutboundX12BatchRequest() {
-        final CORE_X12BatchSubmissionAuditLogger auditLogger = getAuditLogger(true);
-        PassthroughOutboundCORE_X12DSGenericBatchRequest x12BatchReq
-            = new PassthroughOutboundCORE_X12DSGenericBatchRequest(mockDelegate) {
-            @Override
-            protected CORE_X12BatchSubmissionAuditLogger getAuditLogger() {
-                return auditLogger;
-            }
-        };
-
+        PassthroughOutboundCORE_X12DSGenericBatchRequest x12BatchReq = createGenericBatchRequest(getAuditLogger(true));
         when(mockDelegate.process(any(OutboundCORE_X12DSGenericBatchRequestOrchestratable.class))).thenReturn(mockOrch);
         x12BatchReq.batchSubmitTransaction(msg, assertion, targets, urlInfo);
         verify(mockEJBLogger).auditRequestMessage(eq(msg), eq(assertion), any(NhinTargetSystemType.class),
@@ -85,15 +77,7 @@ public class PassthroughOutboundCORE_X12DSGenericBatchRequestTest {
 
     @Test
     public void auditLoggingOffForOutboundX12BatchRequest() {
-        final CORE_X12BatchSubmissionAuditLogger auditLogger = getAuditLogger(false);
-        PassthroughOutboundCORE_X12DSGenericBatchRequest x12BatchReq
-            = new PassthroughOutboundCORE_X12DSGenericBatchRequest(mockDelegate) {
-            @Override
-            protected CORE_X12BatchSubmissionAuditLogger getAuditLogger() {
-                return auditLogger;
-            }
-        };
-
+        PassthroughOutboundCORE_X12DSGenericBatchRequest x12BatchReq = createGenericBatchRequest(getAuditLogger(false));
         when(mockDelegate.process(any(OutboundCORE_X12DSGenericBatchRequestOrchestratable.class))).thenReturn(mockOrch);
         x12BatchReq.batchSubmitTransaction(msg, assertion, targets, urlInfo);
         verify(mockEJBLogger, never()).auditRequestMessage(eq(msg), eq(assertion), any(NhinTargetSystemType.class),
@@ -114,5 +98,16 @@ public class PassthroughOutboundCORE_X12DSGenericBatchRequestTest {
                 return isLoggingOn;
             }
         };
+    }
+
+    private PassthroughOutboundCORE_X12DSGenericBatchRequest createGenericBatchRequest(
+        final CORE_X12BatchSubmissionAuditLogger auditLogger) {
+        return new PassthroughOutboundCORE_X12DSGenericBatchRequest(mockDelegate) {
+            @Override
+            protected CORE_X12BatchSubmissionAuditLogger getAuditLogger() {
+                return auditLogger;
+            }
+        };
+
     }
 }

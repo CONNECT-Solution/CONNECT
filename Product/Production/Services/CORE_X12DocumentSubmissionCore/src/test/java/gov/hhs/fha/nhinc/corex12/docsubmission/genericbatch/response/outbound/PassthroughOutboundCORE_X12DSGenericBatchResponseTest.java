@@ -64,13 +64,13 @@ public class PassthroughOutboundCORE_X12DSGenericBatchResponseTest {
     private final AssertionType assertion = new AssertionType();
     private final NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
     private final UrlInfoType urlInfo = new UrlInfoType();
+    private final COREEnvelopeBatchSubmission request = new COREEnvelopeBatchSubmission();
+    private final COREEnvelopeBatchSubmissionResponse successResponse = new COREEnvelopeBatchSubmissionResponse();
+    private PassthroughOutboundCORE_X12DSGenericBatchResponse batchResp = null;
 
     @Test
     public void auditLoggingOffForOutboundX12BatchResponse() {
-        COREEnvelopeBatchSubmission request = new COREEnvelopeBatchSubmission();
-        COREEnvelopeBatchSubmissionResponse successResponse = new COREEnvelopeBatchSubmissionResponse();
-        PassthroughOutboundCORE_X12DSGenericBatchResponse batchResp = createPassthruOutboundBatchResponse(
-            getAuditLogger(false));
+        batchResp = createPassthruOutboundBatchResponse(getAuditLogger(false));
         when(mockOrchestratable.getResponse()).thenReturn(successResponse);
         when(mockDelegate.process(any(OutboundOrchestratable.class))).thenReturn(mockOrchestratable);
         batchResp.batchSubmitTransaction(request, assertion, targets, urlInfo);
@@ -82,10 +82,7 @@ public class PassthroughOutboundCORE_X12DSGenericBatchResponseTest {
 
     @Test
     public void auditLoggingOnForOutboundX12BatchResponse() {
-        COREEnvelopeBatchSubmission request = new COREEnvelopeBatchSubmission();
-        COREEnvelopeBatchSubmissionResponse successResponse = new COREEnvelopeBatchSubmissionResponse();
-        PassthroughOutboundCORE_X12DSGenericBatchResponse batchResp = createPassthruOutboundBatchResponse(
-            getAuditLogger(true));
+        batchResp = createPassthruOutboundBatchResponse(getAuditLogger(true));
         when(mockOrchestratable.getResponse()).thenReturn(successResponse);
         when(mockDelegate.process(any(OutboundOrchestratable.class))).thenReturn(mockOrchestratable);
         batchResp.batchSubmitTransaction(request, assertion, targets, urlInfo);

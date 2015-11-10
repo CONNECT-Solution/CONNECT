@@ -61,17 +61,16 @@ public class PassthroughInboundCORE_X12DSGenericBatchReqTest {
         = mock(AdapterCORE_X12DSGenericBatchRequestProxyObjectFactory.class);
     private final AdapterCORE_X12DGenericBatchRequestProxy reqProxy
         = mock(AdapterCORE_X12DGenericBatchRequestProxy.class);
+    private final COREEnvelopeBatchSubmissionResponse expectedResponse = new COREEnvelopeBatchSubmissionResponse();
+    private COREEnvelopeBatchSubmissionResponse actualResposne = null;
+    private PassthroughInboundCORE_X12DSGenericBatchRequest batchReq = null;
 
     @Test
     public void auditLoggingOnForInboundX12BatchRequest() {
-        final CORE_X12BatchSubmissionAuditLogger auditLogger = getAuditLogger(true);
-        COREEnvelopeBatchSubmissionResponse expectedResponse = new COREEnvelopeBatchSubmissionResponse();
         when(adpFactory.getAdapterCORE_X12DocSubmissionProxy()).thenReturn(reqProxy);
         when(reqProxy.batchSubmitTransaction(request, assertion)).thenReturn(expectedResponse);
-        PassthroughInboundCORE_X12DSGenericBatchRequest batchReq
-            = new PassthroughInboundCORE_X12DSGenericBatchRequest(adpFactory, auditLogger);
-        COREEnvelopeBatchSubmissionResponse actualResposne = batchReq.batchSubmitTransaction(
-            request, assertion, webContextProperties);
+        batchReq = new PassthroughInboundCORE_X12DSGenericBatchRequest(adpFactory, getAuditLogger(true));
+        actualResposne = batchReq.batchSubmitTransaction(request, assertion, webContextProperties);
         verify(mockEJBLogger).auditResponseMessage(eq(request), eq(actualResposne),
             eq(assertion), isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
@@ -81,15 +80,10 @@ public class PassthroughInboundCORE_X12DSGenericBatchReqTest {
 
     @Test
     public void auditLoggingOffForInboundX12BatchRequest() {
-        final CORE_X12BatchSubmissionAuditLogger auditLogger = getAuditLogger(false);
-        COREEnvelopeBatchSubmissionResponse expectedResponse = new COREEnvelopeBatchSubmissionResponse();
         when(adpFactory.getAdapterCORE_X12DocSubmissionProxy()).thenReturn(reqProxy);
         when(reqProxy.batchSubmitTransaction(request, assertion)).thenReturn(expectedResponse);
-
-        PassthroughInboundCORE_X12DSGenericBatchRequest batchReq
-            = new PassthroughInboundCORE_X12DSGenericBatchRequest(adpFactory, auditLogger);
-        COREEnvelopeBatchSubmissionResponse actualResposne = batchReq.batchSubmitTransaction(
-            request, assertion, webContextProperties);
+        batchReq = new PassthroughInboundCORE_X12DSGenericBatchRequest(adpFactory, getAuditLogger(false));
+        actualResposne = batchReq.batchSubmitTransaction(request, assertion, webContextProperties);
         verify(mockEJBLogger, never()).auditResponseMessage(eq(request), eq(actualResposne),
             eq(assertion), isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
