@@ -26,11 +26,14 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.response;
 
+import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
+import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredResponseAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.transform.PatientDiscoveryDeferredResponseAuditTransforms;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseOrchestratable;
 import java.util.Properties;
@@ -42,8 +45,10 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.isNull;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -53,26 +58,27 @@ import static org.mockito.Mockito.when;
  */
 public class PassthroughOutboundPatientDiscoveryDeferredResponseTest {
 
+    private final AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
+    private final OutboundPatientDiscoveryDeferredResponseDelegate delegate
+        = mock(OutboundPatientDiscoveryDeferredResponseDelegate.class);
+    private final OutboundPatientDiscoveryDeferredResponseOrchestratable returnedOrchestratable
+        = mock(OutboundPatientDiscoveryDeferredResponseOrchestratable.class);
+
     @Test
     public void invoke() {
         PRPAIN201306UV02 request = new PRPAIN201306UV02();
         AssertionType assertion = new AssertionType();
         NhinTargetCommunitiesType target = new NhinTargetCommunitiesType();
         MCCIIN000002UV01 expectedResponse = new MCCIIN000002UV01();
-        final NhinTargetSystemType targetSystem = mock(NhinTargetSystemType.class);
 
-        OutboundPatientDiscoveryDeferredResponseDelegate delegate = mock(OutboundPatientDiscoveryDeferredResponseDelegate.class);
-        OutboundPatientDiscoveryDeferredResponseOrchestratable returnedOrchestratable = mock(OutboundPatientDiscoveryDeferredResponseOrchestratable.class);
-        PatientDiscoveryDeferredResponseAuditLogger auditLogger = mock(PatientDiscoveryDeferredResponseAuditLogger.class);
-        Properties webContextProperties = null;
-
+        PatientDiscoveryDeferredResponseAuditLogger auditLogger = getAuditLogger(true);
         when(delegate.process(any(OutboundPatientDiscoveryDeferredResponseOrchestratable.class))).thenReturn(
             returnedOrchestratable);
 
         when(returnedOrchestratable.getResponse()).thenReturn(expectedResponse);
 
-        PassthroughOutboundPatientDiscoveryDeferredResponse passthroughPatientDiscovery = new PassthroughOutboundPatientDiscoveryDeferredResponse(
-            delegate, auditLogger);
+        PassthroughOutboundPatientDiscoveryDeferredResponse passthroughPatientDiscovery
+            = new PassthroughOutboundPatientDiscoveryDeferredResponse(delegate, auditLogger);
 
         MCCIIN000002UV01 actualResponse = passthroughPatientDiscovery.processPatientDiscoveryAsyncResp(request,
             assertion, target);
@@ -84,9 +90,56 @@ public class PassthroughOutboundPatientDiscoveryDeferredResponseTest {
         verify(delegate).process(orchestratableArgument.capture());
         assertEquals(request, orchestratableArgument.getValue().getRequest());
 
-        verify(auditLogger).auditRequestMessage(eq(request), eq(assertion), Mockito.any(NhinTargetSystemType.class),
+        verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-            eq(Boolean.TRUE), eq(webContextProperties), eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME));
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
+            any(PatientDiscoveryDeferredResponseAuditTransforms.class));
+    }
 
+    @Test
+    public void auditOffForOutboundPDDeferredResp() {
+        PRPAIN201306UV02 request = new PRPAIN201306UV02();
+        AssertionType assertion = new AssertionType();
+        NhinTargetCommunitiesType target = new NhinTargetCommunitiesType();
+        MCCIIN000002UV01 expectedResponse = new MCCIIN000002UV01();
+
+        PatientDiscoveryDeferredResponseAuditLogger auditLogger = getAuditLogger(false);
+        when(delegate.process(any(OutboundPatientDiscoveryDeferredResponseOrchestratable.class))).thenReturn(
+            returnedOrchestratable);
+
+        when(returnedOrchestratable.getResponse()).thenReturn(expectedResponse);
+
+        PassthroughOutboundPatientDiscoveryDeferredResponse passthroughPatientDiscovery
+            = new PassthroughOutboundPatientDiscoveryDeferredResponse(delegate, auditLogger);
+
+        MCCIIN000002UV01 actualResponse = passthroughPatientDiscovery.processPatientDiscoveryAsyncResp(request,
+            assertion, target);
+
+        assertSame(expectedResponse, actualResponse);
+
+        ArgumentCaptor<OutboundPatientDiscoveryDeferredResponseOrchestratable> orchestratableArgument = ArgumentCaptor
+            .forClass(OutboundPatientDiscoveryDeferredResponseOrchestratable.class);
+        verify(delegate).process(orchestratableArgument.capture());
+        assertEquals(request, orchestratableArgument.getValue().getRequest());
+
+        verify(mockEJBLogger, never()).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
+            any(PatientDiscoveryDeferredResponseAuditTransforms.class));
+
+    }
+
+    private PatientDiscoveryDeferredResponseAuditLogger getAuditLogger(final boolean isLoggingOn) {
+        return new PatientDiscoveryDeferredResponseAuditLogger() {
+            @Override
+            protected AuditEJBLogger getAuditLogger() {
+                return mockEJBLogger;
+            }
+
+            @Override
+            protected boolean isAuditLoggingOn(String serviceName) {
+                return isLoggingOn;
+            }
+        };
     }
 }

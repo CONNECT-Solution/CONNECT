@@ -53,8 +53,9 @@ public abstract class AbstractInboundCORE_X12DSGenericBatchResponse implements I
      * @param adapterFactory
      * @param auditLogger
      */
-    public AbstractInboundCORE_X12DSGenericBatchResponse(AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory 
-        adapterFactory, CORE_X12BatchSubmissionAuditLogger auditLogger) {
+    public AbstractInboundCORE_X12DSGenericBatchResponse(
+        AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory adapterFactory,
+        CORE_X12BatchSubmissionAuditLogger auditLogger) {
         oAdapterFactory = adapterFactory;
         this.auditLogger = auditLogger;
     }
@@ -95,7 +96,8 @@ public abstract class AbstractInboundCORE_X12DSGenericBatchResponse implements I
         COREEnvelopeBatchSubmissionResponse oResponse = null;
         try {
             CORE_X12DSLargePayloadUtils.convertDataToFileLocationIfEnabled(msg);
-            AdapterCORE_X12DGenericBatchResponseProxy oProxy = oAdapterFactory.getAdapterCORE_X12DocSubmissionProxy();
+            AdapterCORE_X12DGenericBatchResponseProxy oProxy
+                = getProxyObjectFactory().getAdapterCORE_X12DocSubmissionProxy();
             oResponse = oProxy.batchSubmitTransaction(msg, assertion);
             CORE_X12DSLargePayloadUtils.convertFileLocationToDataIfEnabled(oResponse);
         } catch (LargePayloadException e) {
@@ -104,10 +106,24 @@ public abstract class AbstractInboundCORE_X12DSGenericBatchResponse implements I
         return oResponse;
     }
 
-    protected void auditResponseToNhin(COREEnvelopeBatchSubmission request, COREEnvelopeBatchSubmissionResponse 
-        oResponsse, AssertionType assertion, Properties webContextProperties) {
-        auditLogger.auditResponseMessage(request, oResponsse, assertion, null,
+    protected void auditResponseToNhin(COREEnvelopeBatchSubmission request,
+        COREEnvelopeBatchSubmissionResponse oResponse, AssertionType assertion, Properties webContextProperties) {
+        getAuditLogger().auditResponseMessage(request, oResponse, assertion, null,
             NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE,
             webContextProperties, NhincConstants.CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
+    }
+
+    protected CORE_X12BatchSubmissionAuditLogger getAuditLogger() {
+        if (auditLogger == null) {
+            auditLogger = new CORE_X12BatchSubmissionAuditLogger();
+        }
+        return auditLogger;
+    }
+
+    protected AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory getProxyObjectFactory() {
+        if (oAdapterFactory == null) {
+            oAdapterFactory = new AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory();
+        }
+        return oAdapterFactory;
     }
 }

@@ -77,7 +77,7 @@ public class NhincConstants {
 
         PATIENT_DISCOVERY(PATIENT_DISCOVERY_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_REQUEST(
             PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_RESPONSE(
-                PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
+            PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
         DOCUMENT_QUERY(DOC_QUERY_SERVICE_NAME),
         DOCUMENT_RETRIEVE(DOC_RETRIEVE_SERVICE_NAME),
         DOCUMENT_SUBMISSION(NHINC_XDR_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_REQUEST(
@@ -473,6 +473,9 @@ public class NhincConstants {
     public static final String INBOUND_REPLY_TO = "ReplyTo";
     //ReplyTo Header to be retrieved from cxf Inbound messages
     public static final String INBOUND_REPLY_TO_HEADER = "javax.xml.ws.addressing.context.inbound";
+
+    // audit logging properties file name
+    public static final String AUDIT_LOGGING_PROPERTY_FILE = "audit";
 
     private NhincConstants() {
     }

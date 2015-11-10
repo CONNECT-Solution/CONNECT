@@ -33,12 +33,14 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
+import gov.hhs.fha.nhinc.docquery.audit.transform.DocQueryAuditTransforms;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 import org.junit.Test;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.verify;
@@ -71,7 +73,7 @@ public class StandardInboundDocQueryTest extends InboundDocQueryTest {
         AssertionType mockAssertion = getMockAssertion(sendingHcid);
 
         StandardInboundDocQuery standardDocQuery = new StandardInboundDocQuery(policyChecker,
-            getMockAdapterFactory(mockAssertion), mockAuditLogger) {
+            getMockAdapterFactory(mockAssertion), getAuditLogger(true)) {
             @Override
             protected String getLocalHomeCommunityId() {
                 return RESPONDING_HCID_FORMATTED;
@@ -95,7 +97,7 @@ public class StandardInboundDocQueryTest extends InboundDocQueryTest {
         when(policyChecker.checkIncomingPolicy(request, assertion)).thenReturn(false);
 
         StandardInboundDocQuery standardDocQuery = new StandardInboundDocQuery(policyChecker, mockAdapterFactory,
-            mockAuditLogger) {
+            getAuditLogger(true)) {
             @Override
             protected String getLocalHomeCommunityId() {
                 return RESPONDING_HCID_FORMATTED;
@@ -109,9 +111,9 @@ public class StandardInboundDocQueryTest extends InboundDocQueryTest {
             .getRegistryError().get(0).getErrorCode());
         assertEquals(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, actualResponse.getRegistryErrorList()
             .getRegistryError().get(0).getSeverity());
-        verify(mockAuditLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), isNull(
+        verify(mockEJBLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), isNull(
             NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
-            eq(NhincConstants.DOC_QUERY_SERVICE_NAME));
+            eq(NhincConstants.DOC_QUERY_SERVICE_NAME), any(DocQueryAuditTransforms.class));
     }
 }

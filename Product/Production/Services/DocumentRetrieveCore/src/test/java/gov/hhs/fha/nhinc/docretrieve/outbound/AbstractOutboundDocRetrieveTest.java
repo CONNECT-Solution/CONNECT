@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.outbound;
 
+import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
+import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
@@ -34,6 +36,7 @@ import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
+import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
@@ -56,11 +59,15 @@ import org.junit.Test;
  */
 public abstract class AbstractOutboundDocRetrieveTest {
 
+    protected AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
+
     /**
      * @param orchestrator
+     * @param isAuditOn
      * @return
      */
-    protected abstract OutboundDocRetrieve getOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator);
+    protected abstract OutboundDocRetrieve getOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator,
+        boolean isAuditOn);
 
     @Test
     public void test30GuidanceOnA0Interface() {
@@ -68,7 +75,7 @@ public abstract class AbstractOutboundDocRetrieveTest {
 
         CONNECTOutboundOrchestrator orchestrator = mock(CONNECTOutboundOrchestrator.class);
         when(orchestrator.process(any(Orchestratable.class))).thenReturn(getSuccessOrchResult());
-        OutboundDocRetrieve instance = getOutboundDocRetrieve(orchestrator);
+        OutboundDocRetrieve instance = getOutboundDocRetrieve(orchestrator, true);
 
         RetrieveDocumentSetRequestType request = mock(RetrieveDocumentSetRequestType.class);
         AssertionType assertion = mock(AssertionType.class);
@@ -85,7 +92,7 @@ public abstract class AbstractOutboundDocRetrieveTest {
 
         CONNECTOutboundOrchestrator orchestrator = mock(CONNECTOutboundOrchestrator.class);
         when(orchestrator.process(any(Orchestratable.class))).thenReturn(getSuccessOrchResult());
-        OutboundDocRetrieve instance = getOutboundDocRetrieve(orchestrator);
+        OutboundDocRetrieve instance = getOutboundDocRetrieve(orchestrator, true);
 
         RetrieveDocumentSetRequestType request = mock(RetrieveDocumentSetRequestType.class);
         AssertionType assertion = mock(AssertionType.class);
@@ -102,7 +109,7 @@ public abstract class AbstractOutboundDocRetrieveTest {
 
         CONNECTOutboundOrchestrator orchestrator = mock(CONNECTOutboundOrchestrator.class);
         when(orchestrator.process(any(Orchestratable.class))).thenReturn(getSuccessOrchResult());
-        OutboundDocRetrieve instance = getOutboundDocRetrieve(orchestrator);
+        OutboundDocRetrieve instance = getOutboundDocRetrieve(orchestrator, true);
 
         RetrieveDocumentSetRequestType request = mock(RetrieveDocumentSetRequestType.class);
         AssertionType assertion = mock(AssertionType.class);
@@ -119,7 +126,7 @@ public abstract class AbstractOutboundDocRetrieveTest {
 
         CONNECTOutboundOrchestrator orchestrator = mock(CONNECTOutboundOrchestrator.class);
         when(orchestrator.process(any(Orchestratable.class))).thenReturn(getSuccessOrchResult());
-        OutboundDocRetrieve instance = getOutboundDocRetrieve(orchestrator);
+        OutboundDocRetrieve instance = getOutboundDocRetrieve(orchestrator, true);
 
         RetrieveDocumentSetRequestType request = mock(RetrieveDocumentSetRequestType.class);
         AssertionType assertion = mock(AssertionType.class);
@@ -136,7 +143,7 @@ public abstract class AbstractOutboundDocRetrieveTest {
 
         CONNECTOutboundOrchestrator orchestrator = mock(CONNECTOutboundOrchestrator.class);
         when(orchestrator.process(any(Orchestratable.class))).thenReturn(getSuccessOrchResult());
-        OutboundDocRetrieve instance = getOutboundDocRetrieve(orchestrator);
+        OutboundDocRetrieve instance = getOutboundDocRetrieve(orchestrator, true);
 
         RetrieveDocumentSetRequestType request = mock(RetrieveDocumentSetRequestType.class);
         AssertionType assertion = mock(AssertionType.class);
@@ -153,7 +160,7 @@ public abstract class AbstractOutboundDocRetrieveTest {
 
         CONNECTOutboundOrchestrator orchestrator = mock(CONNECTOutboundOrchestrator.class);
         when(orchestrator.process(any(Orchestratable.class))).thenReturn(getSuccessOrchResult());
-        OutboundDocRetrieve instance = getOutboundDocRetrieve(orchestrator);
+        OutboundDocRetrieve instance = getOutboundDocRetrieve(orchestrator, true);
 
         RetrieveDocumentSetRequestType request = mock(RetrieveDocumentSetRequestType.class);
         AssertionType assertion = mock(AssertionType.class);
@@ -244,5 +251,19 @@ public abstract class AbstractOutboundDocRetrieveTest {
         NhinTargetCommunityType targetCommunity = new NhinTargetCommunityType();
         target.getNhinTargetCommunity().add(targetCommunity);
         return target;
+    }
+
+    protected DocRetrieveAuditLogger getAuditLogger(final boolean isLoggingOn) {
+        return new DocRetrieveAuditLogger() {
+            @Override
+            protected AuditEJBLogger getAuditLogger() {
+                return mockEJBLogger;
+            }
+
+            @Override
+            protected boolean isAuditLoggingOn(String serviceName) {
+                return isLoggingOn;
+            }
+        };
     }
 }

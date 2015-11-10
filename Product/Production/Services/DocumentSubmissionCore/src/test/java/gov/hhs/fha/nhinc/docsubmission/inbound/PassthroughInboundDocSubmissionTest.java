@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.inbound;
 
+import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -33,6 +34,7 @@ import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxy;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory;
 import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.audit.transform.DocSubmissionAuditTransforms;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.Properties;
@@ -45,8 +47,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -56,7 +60,7 @@ import static org.mockito.Mockito.when;
  */
 public class PassthroughInboundDocSubmissionTest {
 
-    private final DocSubmissionAuditLogger auditLogger = mock(DocSubmissionAuditLogger.class);
+    private final AuditEJBLogger mockEJBLogger = mock(AuditEJBLogger.class);
     private final AdapterDocSubmissionProxyObjectFactory adapterFactory = mock(AdapterDocSubmissionProxyObjectFactory.class);
     private final DocSubmissionUtils dsUtils = mock(DocSubmissionUtils.class);
     private final Properties webContextProperties = new Properties();
@@ -74,17 +78,17 @@ public class PassthroughInboundDocSubmissionTest {
         when(adapterProxy.provideAndRegisterDocumentSetB(request, assertion)).thenReturn(expectedResponse);
 
         PassthroughInboundDocSubmission passthroughDocSubmission = new PassthroughInboundDocSubmission(adapterFactory,
-            auditLogger, dsUtils);
+            getAuditLogger(true), dsUtils);
 
         RegistryResponseType actualResponse = passthroughDocSubmission
             .documentRepositoryProvideAndRegisterDocumentSetB(request, assertion, webContextProperties);
 
         assertSame(expectedResponse, actualResponse);
 
-        verify(auditLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion),
+        verify(mockEJBLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion),
             isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
-            eq(NhincConstants.NHINC_XDR_SERVICE_NAME));
+            eq(NhincConstants.NHINC_XDR_SERVICE_NAME), any(DocSubmissionAuditTransforms.class));
     }
 
     @Test
@@ -93,7 +97,7 @@ public class PassthroughInboundDocSubmissionTest {
         doThrow(new LargePayloadException()).when(dsUtils).convertDataToFileLocationIfEnabled(request);
 
         PassthroughInboundDocSubmission passthroughDocSubmission = new PassthroughInboundDocSubmission(adapterFactory,
-            auditLogger, dsUtils);
+            getAuditLogger(true), dsUtils);
 
         RegistryResponseType actualResponse = passthroughDocSubmission
             .documentRepositoryProvideAndRegisterDocumentSetB(request, assertion, webContextProperties);
@@ -103,10 +107,47 @@ public class PassthroughInboundDocSubmissionTest {
         assertEquals("urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error", actualResponse.getRegistryErrorList()
             .getRegistryError().get(0).getSeverity());
 
-        verify(auditLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion),
+        verify(mockEJBLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion),
             isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
-            eq(NhincConstants.NHINC_XDR_SERVICE_NAME));
+            eq(NhincConstants.NHINC_XDR_SERVICE_NAME), any(DocSubmissionAuditTransforms.class));
     }
 
+    @Test
+    public void testAuditLoggingOffForInboundDS() {
+
+        RegistryResponseType expectedResponse = new RegistryResponseType();
+        AdapterDocSubmissionProxy adapterProxy = mock(AdapterDocSubmissionProxy.class);
+
+        when(adapterFactory.getAdapterDocSubmissionProxy()).thenReturn(adapterProxy);
+
+        when(adapterProxy.provideAndRegisterDocumentSetB(request, assertion)).thenReturn(expectedResponse);
+
+        PassthroughInboundDocSubmission passthroughDocSubmission = new PassthroughInboundDocSubmission(adapterFactory,
+            getAuditLogger(false), dsUtils);
+
+        RegistryResponseType actualResponse = passthroughDocSubmission
+            .documentRepositoryProvideAndRegisterDocumentSetB(request, assertion, webContextProperties);
+
+        assertSame(expectedResponse, actualResponse);
+
+        verify(mockEJBLogger, never()).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion),
+            isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
+            eq(NhincConstants.NHINC_XDR_SERVICE_NAME), any(DocSubmissionAuditTransforms.class));
+    }
+
+    private DocSubmissionAuditLogger getAuditLogger(final boolean isAuditOn) {
+        return new DocSubmissionAuditLogger() {
+            @Override
+            protected AuditEJBLogger getAuditLogger() {
+                return mockEJBLogger;
+            }
+
+            @Override
+            protected boolean isAuditLoggingOn(String serviceName) {
+                return isAuditOn;
+            }
+        };
+    }
 }

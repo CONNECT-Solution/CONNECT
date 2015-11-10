@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.docretrieve.outbound;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
@@ -37,7 +36,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
-import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
+import gov.hhs.fha.nhinc.docretrieve.audit.transform.DocRetrieveAuditTransforms;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
@@ -47,12 +46,13 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 import java.lang.reflect.Method;
 import java.util.Properties;
-import org.junit.Before;
+import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
-import static org.mockito.Matchers.eq;
-import org.mockito.Mockito;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.isNull;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -60,15 +60,6 @@ import static org.mockito.Mockito.verify;
  *
  */
 public class StandardOutboundDocRetrieveTest extends AbstractOutboundDocRetrieveTest {
-
-    Properties webContextProp;
-    DocRetrieveAuditLogger logger;
-
-    @Before
-    public void setup() {
-        webContextProp = null;
-        logger = mock(DocRetrieveAuditLogger.class);
-    }
 
     @Test
     public void hasOutboundProcessingEvent() throws Exception {
@@ -98,17 +89,18 @@ public class StandardOutboundDocRetrieveTest extends AbstractOutboundDocRetrieve
 
         when(orchResponse.getResponse()).thenReturn(expectedResponse);
 
-        StandardOutboundDocRetrieve outboundDocRetrieve = new StandardOutboundDocRetrieve(orchestrator, logger);
+        StandardOutboundDocRetrieve outboundDocRetrieve = (StandardOutboundDocRetrieve) getOutboundDocRetrieve(
+            orchestrator, true);
+
         RetrieveDocumentSetResponseType actualResponse = outboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(
             request, assertion, targets, ADAPTER_API_LEVEL.LEVEL_a0);
 
         assertSame(expectedResponse, actualResponse);
 
-        verify(logger).auditRequestMessage(eq(request),
-            eq(assertion),
-            Mockito.any(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
-            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE), eq(webContextProp),
-            eq(NhincConstants.DOC_RETRIEVE_SERVICE_NAME));
+        verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_RETRIEVE_SERVICE_NAME),
+            any(DocRetrieveAuditTransforms.class));
 
     }
 
@@ -116,7 +108,36 @@ public class StandardOutboundDocRetrieveTest extends AbstractOutboundDocRetrieve
      * @see gov.hhs.fha.nhinc.docretrieve.outbound.AbstractOutboundDocRetrieveTest#getOutboundDocRetrieve(gov.hhs.fha.nhinc.orchestration.CONNECTOutboundOrchestrator)
      */
     @Override
-    protected OutboundDocRetrieve getOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator) {
-        return new PassthroughOutboundDocRetrieve(orchestrator, logger);
+    protected OutboundDocRetrieve getOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator, boolean isAuditOn) {
+        return new StandardOutboundDocRetrieve(orchestrator, getAuditLogger(isAuditOn));
+    }
+
+    @Test
+    public void auditLoggingOffForOutboundDR() {
+        RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
+        AssertionType assertion = new AssertionType();
+        NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
+        targets.setUseSpecVersion("2.0");
+        RetrieveDocumentSetResponseType expectedResponse = new RetrieveDocumentSetResponseType();
+
+        CONNECTOutboundOrchestrator orchestrator = mock(CONNECTOutboundOrchestrator.class);
+        OutboundDocRetrieveOrchestratable orchResponse = mock(OutboundDocRetrieveOrchestratable.class);
+
+        when(orchestrator.process(any(OutboundDocRetrieveOrchestratable.class))).thenReturn(orchResponse);
+
+        when(orchResponse.getResponse()).thenReturn(expectedResponse);
+
+        StandardOutboundDocRetrieve outboundDocRetrieve = (StandardOutboundDocRetrieve) getOutboundDocRetrieve(
+            orchestrator, false);
+
+        RetrieveDocumentSetResponseType actualResponse = outboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(
+            request, assertion, targets, ADAPTER_API_LEVEL.LEVEL_a0);
+
+        assertSame(expectedResponse, actualResponse);
+
+        verify(mockEJBLogger, never()).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+            eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_RETRIEVE_SERVICE_NAME),
+            any(DocRetrieveAuditTransforms.class));
     }
 }

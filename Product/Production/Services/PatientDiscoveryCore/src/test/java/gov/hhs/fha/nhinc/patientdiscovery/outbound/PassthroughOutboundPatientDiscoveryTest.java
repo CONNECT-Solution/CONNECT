@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.outbound;
 
+import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
+import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -33,6 +35,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.audit.transform.PatientDiscoveryAuditTransforms;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryDelegate;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryOrchestratable;
 import java.util.Properties;
@@ -44,7 +47,8 @@ import static org.junit.Assert.assertSame;
 import org.junit.Test;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import org.mockito.Mockito;
+import static org.mockito.Matchers.isNull;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -55,34 +59,57 @@ import static org.mockito.Mockito.when;
  */
 public class PassthroughOutboundPatientDiscoveryTest {
 
+    private final AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
+    private final OutboundPatientDiscoveryDelegate delegate = mock(OutboundPatientDiscoveryDelegate.class);
+    private final String TARGET_HCID = "1.1";
+
     @Test
     public void invoke() {
         RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
         request.setPRPAIN201305UV02(new PRPAIN201305UV02());
-        request.setNhinTargetCommunities(createNhinTargetCommunitiesType("1.1"));
+        request.setNhinTargetCommunities(createNhinTargetCommunitiesType(TARGET_HCID));
         AssertionType assertion = new AssertionType();
-        Properties webContextProperties = null;
-        PRPAIN201306UV02 expectedResponse = new PRPAIN201306UV02();
         OutboundPatientDiscoveryOrchestratable outOrchestratable = new OutboundPatientDiscoveryOrchestratable();
-        outOrchestratable.setResponse(expectedResponse);
-        OutboundPatientDiscoveryDelegate delegate = mock(OutboundPatientDiscoveryDelegate.class);
-        PatientDiscoveryAuditLogger auditLogger = mock(PatientDiscoveryAuditLogger.class);
+        outOrchestratable.setResponse(new PRPAIN201306UV02());
+        PatientDiscoveryAuditLogger auditLogger = getAuditLogger(true);
 
         when(delegate.process(any(OutboundPatientDiscoveryOrchestratable.class))).thenReturn(outOrchestratable);
-
         PassthroughOutboundPatientDiscovery passthroughPatientDiscovery = new PassthroughOutboundPatientDiscovery(
             delegate, auditLogger);
-
         RespondingGatewayPRPAIN201306UV02ResponseType actualMessage = passthroughPatientDiscovery
             .respondingGatewayPRPAIN201305UV02(request, assertion);
 
         assertSame(outOrchestratable.getResponse(), actualMessage.getCommunityResponse().get(0).getPRPAIN201306UV02());
 
-        verify(auditLogger).auditRequestMessage(eq(request.getPRPAIN201305UV02()), eq(assertion),
-            Mockito.any(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
-            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE), eq(webContextProperties),
-            eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME));
+        verify(mockEJBLogger).auditRequestMessage(eq(request.getPRPAIN201305UV02()), any(AssertionType.class), any(
+            NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE), isNull(Properties.class),
+            eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME), any(PatientDiscoveryAuditTransforms.class));
+    }
 
+    @Test
+    public void auditLoggingTurnedOffForPD() {
+        RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
+        request.setPRPAIN201305UV02(new PRPAIN201305UV02());
+        request.setNhinTargetCommunities(createNhinTargetCommunitiesType(TARGET_HCID));
+        AssertionType assertion = new AssertionType();
+
+        OutboundPatientDiscoveryOrchestratable outOrchestratable = new OutboundPatientDiscoveryOrchestratable();
+        outOrchestratable.setResponse(new PRPAIN201306UV02());
+        PatientDiscoveryAuditLogger auditLogger = getAuditLogger(false);
+
+        when(delegate.process(any(OutboundPatientDiscoveryOrchestratable.class))).thenReturn(outOrchestratable);
+        PassthroughOutboundPatientDiscovery passthroughPatientDiscovery = new PassthroughOutboundPatientDiscovery(
+            delegate, auditLogger);
+        RespondingGatewayPRPAIN201306UV02ResponseType actualMessage = passthroughPatientDiscovery
+            .respondingGatewayPRPAIN201305UV02(request, assertion);
+
+        assertSame(outOrchestratable.getResponse(), actualMessage.getCommunityResponse().get(0).getPRPAIN201306UV02());
+
+        verify(mockEJBLogger, never()).auditRequestMessage(eq(request.getPRPAIN201305UV02()), any(AssertionType.class),
+            any(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+            eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE), isNull(Properties.class),
+            eq(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME), any(PatientDiscoveryAuditTransforms.class));
     }
 
     private NhinTargetCommunitiesType createNhinTargetCommunitiesType(String hcid) {
@@ -99,4 +126,17 @@ public class PassthroughOutboundPatientDiscoveryTest {
         return homeCommunity;
     }
 
+    private PatientDiscoveryAuditLogger getAuditLogger(final boolean isLoggingOn) {
+        return new PatientDiscoveryAuditLogger() {
+            @Override
+            protected AuditEJBLogger getAuditLogger() {
+                return mockEJBLogger;
+            }
+
+            @Override
+            protected boolean isAuditLoggingOn(String serviceName) {
+                return isLoggingOn;
+            }
+        };
+    }
 }
