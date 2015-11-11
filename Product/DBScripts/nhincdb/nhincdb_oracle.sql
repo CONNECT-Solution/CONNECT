@@ -1,4 +1,4 @@
---------------------------------------------------------
+﻿--------------------------------------------------------
 --  File created - Tuesday-February-25-2014   
 --------------------------------------------------------
 
@@ -68,11 +68,11 @@
 	"EVENTID" VARCHAR2(100 BYTE) NOT NULL, 
 	"USERID" VARCHAR2(100 BYTE) DEFAULT NULL, 
 	"EVENTTYPE" VARCHAR2(100 BYTE) NOT NULL,
-    "OUTCOME" NUMBER(3,0) NOT NULL,
-    "MESSAGEID" varchar2(100 BYTE) DEFAULT NULL,
-    "RELATESTO" varchar2(100 BYTE) DEFAULT NULL,
-    "TRANSACTIONID" varchar2(100 BYTE) DEFAULT NULL,
-    "DIRECTION" varchar2(20 BYTE) NOT NULL,
+  "OUTCOME" NUMBER(3,0) NOT NULL,
+  "MESSAGEID" varchar2(100 BYTE) DEFAULT NULL,
+  "RELATESTO" varchar2(100 BYTE) DEFAULT NULL,
+  "TRANSACTIONID" varchar2(100 BYTE) DEFAULT NULL,
+  "DIRECTION" varchar2(20 BYTE) NOT NULL,
 	"REMOTEHCID" VARCHAR2(255 BYTE) DEFAULT NULL,  
 	"MESSAGE" BLOB NOT NULL
    ) ;
