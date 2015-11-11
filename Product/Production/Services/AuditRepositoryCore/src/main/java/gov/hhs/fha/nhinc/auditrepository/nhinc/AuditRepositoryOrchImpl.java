@@ -56,16 +56,15 @@ import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
-import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
 import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
 import com.services.nhinc.schema.auditmessage.ObjectFactory;
-import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.io.IOException;
 import javax.xml.bind.JAXBException;
+import javax.xml.stream.XMLStreamException;
 
 /**
  *
@@ -74,7 +73,7 @@ import javax.xml.bind.JAXBException;
 public class AuditRepositoryOrchImpl {
 
     private static final Logger LOG = Logger.getLogger(AuditRepositoryOrchImpl.class);
-    private static AuditRepositoryDAO auditLogDao = AuditRepositoryDAO.getAuditRepositoryDAOInstance();
+    private static final AuditRepositoryDAO auditLogDao = AuditRepositoryDAO.getAuditRepositoryDAOInstance();
     private static String logStatus = "";
 
     /**
@@ -95,72 +94,43 @@ public class AuditRepositoryOrchImpl {
     public AcknowledgementType logAudit(LogEventSecureRequestType mess, AssertionType assertion) {
 
         AcknowledgementType response = null;
-
-        ActiveParticipant activeParticipant = null;
-        ParticipantObjectIdentificationType participantObjectIdentificationType = null;
         AuditRepositoryRecord auditRec = new AuditRepositoryRecord();
 
         Date eventTimeStamp = null;
         String eventCommunityId = null;
-        String eventUserId = null;
-        String eventParticipationIDTypeCode = null;
-        String eventPatientID = null;
-        int eventParticipationTypeCode = 0;
-        int eventParticipationTypeCodeRole = 0;
 
-        List<ActiveParticipant> activeParticipantList = mess.getAuditMessage().getActiveParticipant();
+        // This method should be removed when AuditLog.xsd schema changes are done. The values will be avialable from
+        //schema.
         EventIdentificationType eventIdentification = mess.getAuditMessage().getEventIdentification();
-        List<ParticipantObjectIdentificationType> participantObjectIdentificationList = mess.getAuditMessage()
-            .getParticipantObjectIdentification();
 
-        if (activeParticipantList != null && activeParticipantList.size() > 0) {
-            activeParticipant = (ActiveParticipant) activeParticipantList.get(0);
-            if (activeParticipant != null) {
-                eventUserId = activeParticipant.getUserID();
-                if (eventUserId != null && !eventUserId.equals("")) {
-                    /* this value is temporary set to empty strings and due to length of characters are exceeding
-                     more than 100*/
-                    auditRec.setUserId("");
-                } else {
-                    auditRec.setUserId("");
-                }
-            }
-        }
+        auditRec.setUserId("");
 
+        // This method call should be removed when AuditLog.xsd schema changes are done. The values will be avialable
+        //from schema.
         eventCommunityId = getCommunityID(mess);
         LOG.info("auditSourceID : " + eventCommunityId);
         if (eventCommunityId != null && !eventCommunityId.equals("")) {
-            auditRec.setCommunityId(eventCommunityId);
+            auditRec.setRemoteHcid(eventCommunityId);
         } else {
-            auditRec.setCommunityId("");
+            auditRec.setRemoteHcid("");
         }
 
-        if (participantObjectIdentificationList != null && participantObjectIdentificationList.size() > 0) {
-            participantObjectIdentificationType
-                = (ParticipantObjectIdentificationType) participantObjectIdentificationList.get(0);
-            if (participantObjectIdentificationType != null) {
-                eventPatientID = participantObjectIdentificationType.getParticipantObjectID();
-                auditRec.setReceiverPatientId(eventPatientID);
-                eventParticipationTypeCode = participantObjectIdentificationType.getParticipantObjectTypeCode();
-                auditRec.setParticipationTypeCode(eventParticipationTypeCode);
-                eventParticipationTypeCodeRole = participantObjectIdentificationType.getParticipantObjectTypeCodeRole();
-                auditRec.setParticipationTypeCodeRole(eventParticipationTypeCodeRole);
-                eventParticipationIDTypeCode = participantObjectIdentificationType.getParticipantObjectIDTypeCode()
-                    .getCode();
-                auditRec.setParticipationIDTypeCode(eventParticipationIDTypeCode);
-            }
-        }
-
-        auditRec.setMessageType(mess.getInterface() + " " + mess.getDirection());
+        auditRec.setDirection(mess.getInterface() + " " + mess.getDirection());
         auditRec.setMessage(getBlobFromAuditMessage(mess.getAuditMessage()));
 
         XMLGregorianCalendar xMLCalDate = eventIdentification.getEventDateTime();
         if (xMLCalDate != null) {
             eventTimeStamp = convertXMLGregorianCalendarToDate(xMLCalDate);
-            auditRec.setTimeStamp(eventTimeStamp);
+            auditRec.setEventTimeStamp(eventTimeStamp);
         }
 
-        List<AuditRepositoryRecord> auditRecList = new ArrayList<AuditRepositoryRecord>();
+        // These are required DB data elements. But they should be cleaned up with appropriate values when
+        //AuditLog schema is updated
+        auditRec.setEventType("EventType");
+        auditRec.setOutcome(0);
+        auditRec.setEventId("EventId");
+
+        List<AuditRepositoryRecord> auditRecList = new ArrayList<>();
         auditRecList.add(auditRec);
         LOG.trace("AuditRepositoryOrchImpl.logAudit() -- Calling auditLogDao to insert record into database.");
         boolean result = auditLogDao.insertAuditRepository(auditRecList);
@@ -308,9 +278,8 @@ public class AuditRepositoryOrchImpl {
                 JAXBElement jaxEle = (JAXBElement) unmarshaller.unmarshal(util.getSafeStreamReaderFromInputStream(in));
                 auditMessageType = (AuditMessageType) jaxEle.getValue();
             }
-        } catch (Exception e) {
-            LOG.error("Blob to Audit Message Conversion Error : " + e.getMessage());
-            e.printStackTrace();
+        } catch (SQLException | JAXBException | XMLStreamException e) {
+            LOG.error("Blob to Audit Message Conversion Error : " + e.getLocalizedMessage(), e);
         } finally {
             StreamUtils.closeStreamSilently(in);
         }
@@ -333,6 +302,8 @@ public class AuditRepositoryOrchImpl {
         return eventDate;
     }
 
+    // This method should be removed when AuditLog.xsd schema changes are done. The values will be avialable from
+    //schema.
     private String getCommunityID(LogEventSecureRequestType mess) {
         String eventCommunityId = mess.getCommunityId();
         //if the communityId is populated then use it else use the current logic getting the HCID from

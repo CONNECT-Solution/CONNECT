@@ -2,7 +2,7 @@
 CREATE USER nhincuser IDENTIFIED BY 'nhincpass';
 
 -- begin assigning authority
-CREATE DATABASE assigningauthoritydb;
+CREATE DATABASE IF NOT EXISTS assigningauthoritydb;
 
 CREATE TABLE IF NOT EXISTS assigningauthoritydb.aa_to_home_community_mapping (
   id int(10) unsigned NOT NULL auto_increment,
@@ -15,31 +15,28 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON assigningauthoritydb.* to nhincuser;
 -- end assigning authority
 
 -- begin auditrepo
-CREATE DATABASE auditrepo;
+CREATE DATABASE IF NOT EXISTS auditrepo;
 
-CREATE TABLE IF NOT EXISTS auditrepo.auditrepository
-(
-    id BIGINT NOT NULL AUTO_INCREMENT,
-    audit_timestamp DATETIME,
-    eventId BIGINT NOT NULL,
-    userId VARCHAR(100),
-    participationTypeCode SMALLINT,
-    participationTypeCodeRole SMALLINT,
-    participationIDTypeCode VARCHAR(100),
-    receiverPatientId VARCHAR(128),
-    senderPatientId VARCHAR(128),
-    communityId VARCHAR(255),
-    messageType VARCHAR(100) NOT NULL,
-    message LONGBLOB,
-    PRIMARY KEY (id),
-    UNIQUE UQ_eventlog_id(id)
+CREATE TABLE IF NOT EXISTS auditrepo.auditrepository (
+  id SERIAL PRIMARY KEY,
+  eventTimestamp datetime NOT NULL COMMENT 'column EventTimeSTAMP provides timestamp recorded in audit Blob',
+  eventId varchar(100) NOT NULL COMMENT 'column EVENTID provides type of Event Query/Import/Export',
+  userId varchar(100) DEFAULT NULL COMMENT 'column userId provides Human initiated the transaction',
+  eventType varchar(100) NOT NULL COMMENT 'column provides Name of Service Nwhin service',
+  outcome tinyint(2) NOT NULL COMMENT 'column outcome identifies Audit Event Success or Failure',
+  messageId varchar(100) DEFAULT NULL COMMENT 'column MessageId provides messageId of Request',
+  relatesTo varchar(100) DEFAULT NULL COMMENT 'column relatesTo provides ID Relates to deferred Request',
+  transactionId varchar(100) DEFAULT NULL COMMENT 'column transactionId provides ID for transaction',
+  direction char(20) NOT NULL COMMENT 'column direction identifies Inbound or Outbound transaction',
+  remoteHcid varchar(255) DEFAULT NULL COMMENT 'column remoteHcid always persists Remote Organization Id',
+  message longblob NOT NULL COMMENT 'column provides Audit Blob for ATNA complaint audit message'
 );
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON auditrepo.* to nhincuser;
 -- end auditrepo
 
 -- begin configdb
-CREATE DATABASE configdb;
+CREATE DATABASE IF NOT EXISTS configdb;
 
 -- -----------------------------------------------------
 -- Table `configdb`.`domain`
@@ -250,7 +247,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON configdb.* to nhincuser;
 -- end configdb
 
 -- begin docrepository
-CREATE DATABASE docrepository;
+CREATE DATABASE IF NOT EXISTS docrepository;
 
 CREATE TABLE IF NOT EXISTS docrepository.document (
   documentid int(11) NOT NULL,
@@ -322,7 +319,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON docrepository.* to nhincuser;
 -- end docrepository
 
 -- begin patientcorrelationdb
-CREATE DATABASE patientcorrelationdb;
+CREATE DATABASE IF NOT EXISTS patientcorrelationdb;
 
 CREATE TABLE IF NOT EXISTS patientcorrelationdb.correlatedidentifiers (
   correlationId int(10) unsigned NOT NULL auto_increment,
@@ -347,7 +344,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON patientcorrelationdb.* to nhincuser;
 -- end patientcorrelationdb
 
 -- begin asyncmsgs
-CREATE DATABASE asyncmsgs;
+CREATE DATABASE IF NOT EXISTS asyncmsgs;
 
 CREATE TABLE IF NOT EXISTS asyncmsgs.asyncmsgrepo (
     Id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -371,7 +368,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON asyncmsgs.* to nhincuser;
 -- end asyncmsgs
 
 -- begin logging
-CREATE DATABASE logging;
+CREATE DATABASE IF NOT EXISTS logging;
 
 CREATE TABLE IF NOT EXISTS logging.log (
     dt timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -385,7 +382,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON logging.* to nhincuser;
 -- end logging
 
 -- begin patientdb
-CREATE DATABASE patientdb;
+CREATE DATABASE IF NOT EXISTS patientdb;
 
 CREATE TABLE IF NOT EXISTS patientdb.patient (
   patientId BIGINT NOT NULL AUTO_INCREMENT,
@@ -466,7 +463,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON patientdb.* to nhincuser;
 
 -- begin transrepo
 
-CREATE DATABASE transrepo;
+CREATE DATABASE IF NOT EXISTS transrepo;
 
 CREATE TABLE IF NOT EXISTS transrepo.transactionrepository (
     id BIGINT NOT NULL AUTO_INCREMENT,
@@ -483,7 +480,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON transrepo.* to nhincuser;
 
 -- begin eventdb
 
-CREATE DATABASE eventdb;
+CREATE DATABASE IF NOT EXISTS eventdb;
 
 CREATE TABLE IF NOT EXISTS eventdb.event (
   id BIGINT NOT NULL AUTO_INCREMENT,
@@ -502,7 +499,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON eventdb.* to nhincuser;
 -- end eventdb
 
 -- begin adminguidb
-CREATE DATABASE adminguidb;
+CREATE DATABASE IF NOT EXISTS adminguidb;
 
 -- -----------------------------------------------------
 -- Table `adminguidb`.`UserLogin`
@@ -578,9 +575,9 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON adminguidb.* to nhincuser;
 -- end adminguidb
 
 -- begin message monitoringdb
-CREATE DATABASE messagemonitoringdb;
+CREATE DATABASE IF NOT EXISTS messagemonitoringdb;
 
-CREATE TABLE messagemonitoringdb.monitoredmessage (
+CREATE TABLE IF NOT EXISTS messagemonitoringdb.monitoredmessage (
   id bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Unique identifier',
   senderemailid varchar(255) DEFAULT NULL COMMENT 'sender email identifier',
   subject varchar(255) DEFAULT NULL COMMENT 'email Subject',
@@ -594,7 +591,7 @@ CREATE TABLE messagemonitoringdb.monitoredmessage (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-CREATE TABLE messagemonitoringdb.monitoredmessagenotification (
+CREATE TABLE IF NOT EXISTS messagemonitoringdb.monitoredmessagenotification (
   id bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Unique identifier',
   emailid varchar(255) NOT NULL COMMENT 'notification email identifier',
   messageid varchar(100) DEFAULT NULL COMMENT 'unique email message identifier',
@@ -606,6 +603,8 @@ CREATE TABLE messagemonitoringdb.monitoredmessagenotification (
   KEY fk_monitoredmessageId (monitoredmessageid),
   CONSTRAINT fk_monitoredmessageId FOREIGN KEY (monitoredmessageid) REFERENCES monitoredmessage (id) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table to track outbound Message Monitoring notification';
+
+-- ------------------------------------------------------------------------------------------------------------------
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON messagemonitoringdb.* to nhincuser;
 -- end message monitoring db

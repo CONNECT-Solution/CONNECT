@@ -13,8 +13,8 @@
       <column name="id" sql-type="INTEGER"/>
       <generator class="native"/>
     </id>
-    <property name="timeStamp">
-      <column name="audit_timeStamp"/>
+    <property name="eventTimeStamp">
+      <column name="eventTimeStamp"/>
     </property>
     <property name="eventId">
       <column name="eventId"/>
@@ -22,26 +22,26 @@
     <property name="userId">
       <column name="userId"/>
     </property>
-    <property name="participationTypeCode">
-      <column name="participationTypeCode"/>
+    <property name="eventType">
+      <column name="eventType"/>
     </property>
-    <property name="participationTypeCodeRole">
-      <column name="participationTypeCodeRole"/>
+    <property name="outcome">
+      <column name="outcome"/>
     </property>
-    <property name="participationIDTypeCode">
-      <column name="participationIDTypeCode"/>
+    <property name="messageId">
+      <column name="messageId"/>
     </property>
-    <property name="receiverPatientId">
-      <column name="receiverPatientId"/>
+    <property name="relatesTo">
+      <column name="relatesTo"/>
     </property>
-    <property name="senderPatientId">
-      <column name="senderPatientId"/>
+    <property name="transactionId">
+      <column name="transactionId"/>
     </property>
-    <property name="communityId">
-      <column name="communityId"/>
+    <property name="remoteHcid">
+      <column name="remoteHcid"/>
     </property>
-    <property name="messageType">
-      <column name="messageType"/>
+    <property name="direction">
+      <column name="direction"/>
     </property>
     <property name="message">
       <column name="message"/>
