@@ -19,17 +19,17 @@ CREATE DATABASE IF NOT EXISTS auditrepo;
 
 CREATE TABLE IF NOT EXISTS auditrepo.auditrepository (
   id SERIAL PRIMARY KEY,
-  eventTimestamp datetime NOT NULL,
-  eventId varchar(100) NOT NULL,
-  userId varchar(100) DEFAULT NULL,
-  eventType varchar(100) NOT NULL,
-  outcome tinyint(2) NOT NULL,
-  messageId varchar(100) DEFAULT NULL,
-  relatesTo varchar(100) DEFAULT NULL,
-  transactionId varchar(100) DEFAULT NULL,
-  direction char(20) NOT NULL,
-  remoteHcid varchar(255) DEFAULT NULL,
-  message longblob NOT NULL
+  eventTimestamp datetime NOT NULL COMMENT 'column EventTimeSTAMP provides timestamp recorded in audit Blob',
+  eventId varchar(100) NOT NULL COMMENT 'column EVENTID provides type of Event Query/Import/Export',
+  userId varchar(100) DEFAULT NULL COMMENT 'column userId provides Human initiated the transaction',
+  eventType varchar(100) NOT NULL COMMENT 'column provides Name of Service Nwhin service',
+  outcome tinyint(2) NOT NULL COMMENT 'column outcome identifies Audit Event Success or Failure',
+  messageId varchar(100) DEFAULT NULL COMMENT 'column MessageId provides messageId of Request',
+  relatesTo varchar(100) DEFAULT NULL COMMENT 'column relatesTo provides ID Relates to deferred Request',
+  transactionId varchar(100) DEFAULT NULL COMMENT 'column transactionId provides ID for transaction',
+  direction char(20) NOT NULL COMMENT 'column direction identifies Inbound or Outbound transaction',
+  remoteHcid varchar(255) DEFAULT NULL COMMENT 'column remoteHcid always persists Remote Organization Id',
+  message longblob NOT NULL COMMENT 'column provides Audit Blob for ATNA complaint audit message'
 );
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON auditrepo.* to nhincuser;

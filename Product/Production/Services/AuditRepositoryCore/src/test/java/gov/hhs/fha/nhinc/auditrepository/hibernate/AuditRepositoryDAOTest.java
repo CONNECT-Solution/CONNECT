@@ -77,6 +77,9 @@ public class AuditRepositoryDAOTest {
         Date now = new Date();
 
         AuditRepositoryRecord record = new AuditRepositoryRecord();
+
+        //All data elements for auditrepo should be added for junit Tests when work on auditrepo adapter data
+        //persistence
         record.setDirection("Record 1 - Message Type");
         record.setEventTimeStamp(now);
         record.setUserId("UnitTest1");

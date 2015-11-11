@@ -98,12 +98,15 @@ public class AuditRepositoryOrchImpl {
 
         Date eventTimeStamp = null;
         String eventCommunityId = null;
-        String eventUserId = null;
 
+        // This method should be removed when AuditLog.xsd schema changes are done. The values will be avialable from
+        //schema.
         EventIdentificationType eventIdentification = mess.getAuditMessage().getEventIdentification();
 
         auditRec.setUserId("");
 
+        // This method call should be removed when AuditLog.xsd schema changes are done. The values will be avialable
+        //from schema.
         eventCommunityId = getCommunityID(mess);
         LOG.info("auditSourceID : " + eventCommunityId);
         if (eventCommunityId != null && !eventCommunityId.equals("")) {
@@ -120,10 +123,11 @@ public class AuditRepositoryOrchImpl {
             eventTimeStamp = convertXMLGregorianCalendarToDate(xMLCalDate);
             auditRec.setEventTimeStamp(eventTimeStamp);
         }
-        auditRec.setDirection("EventId");
+
+        // These are required DB data elements. But they should be cleaned up with appropriate values when
+        //AuditLog schema is updated
         auditRec.setEventType("EventType");
         auditRec.setOutcome(0);
-        auditRec.setDirection("Nhin Outbound");
         auditRec.setEventId("EventId");
 
         List<AuditRepositoryRecord> auditRecList = new ArrayList<>();
@@ -298,6 +302,8 @@ public class AuditRepositoryOrchImpl {
         return eventDate;
     }
 
+    // This method should be removed when AuditLog.xsd schema changes are done. The values will be avialable from
+    //schema.
     private String getCommunityID(LogEventSecureRequestType mess) {
         String eventCommunityId = mess.getCommunityId();
         //if the communityId is populated then use it else use the current logic getting the HCID from
