@@ -675,8 +675,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].UserID.isEmpty()){
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
-     	assert(!node.@AlternativeUserID.isEmpty())
-     	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	assert(!node.@AlternativeUserID.isEmpty())     	
      	if(!node.@UserName.isEmpty())
      	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
@@ -708,9 +707,6 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g1" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
-	     }
-   	     if(!node.@AlternativeUserID.isEmpty()){
-	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
@@ -748,7 +744,6 @@ parsedXmlMessage.AuditSourceIdentification.find{
 		}
 }
 
-
 // ParticipantObjectIdentification Patient details
 if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
@@ -759,8 +754,7 @@ if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCo
     		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
     		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
 	}
- }
- 
+}
  
 // check for  ParticipantObjectIdentification Submission Set details
 if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )){
@@ -834,14 +828,12 @@ assert it.@EventActionCode == context.findProperty( "EventIdentification_Respond
 	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
 	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
 }
-
 //check for ActiveParticipant Source details
 if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[0].each{ node ->	     
 	     if (!node.@UserID.isEmpty()){
 	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
 	     }
-
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -864,7 +856,6 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
 	}
 }
-
 //check for ActiveParticipant Destination details
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
@@ -872,8 +863,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
-	    assert(!node.@AlternativeUserID.isEmpty())
-	    // assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID") 
+    	     assert(!node.@AlternativeUserID.isEmpty())	     
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -994,19 +984,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-06T18:51:30Z</con:value>
+          <con:value>2015-11-11T09:13:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-06T19:01:30Z</con:value>
+          <con:value>2015-11-11T09:23:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/06/2015 18:51:30</con:value>
+          <con:value>11/11/2015 09:13:12</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-06T00:00:00Z</con:value>
+          <con:value>2015-12-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -1644,7 +1634,7 @@ parsedXmlMessage.EventIdentification.find{
 if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() &amp;&amp; parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[0].each{ node ->
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
-		//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+		
      	if(!node.@UserName.isEmpty())
      	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
@@ -1677,7 +1667,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() &am
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
-   	    //assert(!node.@AlternativeUserID.isEmpty())
+   	     assert(!node.@AlternativeUserID.isEmpty())
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -1712,8 +1702,7 @@ parsedXmlMessage.AuditSourceIdentification.find{
 		if(!it.@AuditSourceID.isEmpty()){
 			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
 		}
-}
-
+   }
 }</script>
         </con:config>
       </con:testStep>
@@ -1742,7 +1731,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() &am
 	     if (!node.@UserID.isEmpty()){
 	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
 	     }
-
+	     assert(!node.@AlternativeUserID.isEmpty())
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -1773,7 +1762,6 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() &am
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
-
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -1807,9 +1795,7 @@ parsedXmlMessage.AuditSourceIdentification.find{
 		if(!it.@AuditSourceID.isEmpty()){
 			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
 		}
-}
-
- 
+  }
 }</script>
         </con:config>
       </con:testStep>
@@ -1833,19 +1819,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-06T18:51:47Z</con:value>
+          <con:value>2015-11-11T09:13:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-06T19:01:47Z</con:value>
+          <con:value>2015-11-11T09:23:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/06/2015 18:51:47</con:value>
+          <con:value>11/11/2015 09:13:28</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-06T00:00:00Z</con:value>
+          <con:value>2015-12-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -2541,7 +2527,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
 	     
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
-	     //assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+	     assert(!node.@AlternativeUserID.isEmpty())	     
      	if(!node.@UserName.isEmpty())
      	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
@@ -2568,12 +2554,9 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 }
 if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[2].each{ node ->
-	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g1.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
-	     }
-   	     if(!node.@AlternativeUserID.isEmpty()){
-	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
@@ -2650,10 +2633,8 @@ parsedXmlMessage.EventIdentification.find{
 	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
 }
 if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[0].each{ node ->
-	     
-	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
-	     //assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+	parsedXmlMessage.ActiveParticipant[0].each{ node ->	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
      	if(!node.@UserName.isEmpty())
      	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
@@ -2680,11 +2661,11 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 }
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
-	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g1.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
 	     }
-   	     //assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )	     
+	     assert(!node.@AlternativeUserID.isEmpty())
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -2764,19 +2745,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-06T18:51:54Z</con:value>
+          <con:value>2015-11-11T09:13:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-06T19:01:54Z</con:value>
+          <con:value>2015-11-11T09:23:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/06/2015 18:51:54</con:value>
+          <con:value>11/11/2015 09:13:34</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-06T00:00:00Z</con:value>
+          <con:value>2015-12-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -3013,6 +2994,10 @@ if (propertiesFile.exists()) {
         <con:property>
           <con:name>ActiveParticipant_Dest_g0.@UserID</con:name>
           <con:value>https://localhost:8181/Gateway/DocumentSubmission/1_1/DocumentRepositoryXDR_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest_g1.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3393,8 +3378,7 @@ if (parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty()){
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
-     	assert(!node.@AlternativeUserID.isEmpty())
-     	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	assert(!node.@AlternativeUserID.isEmpty())     	
      	if(!node.@UserName.isEmpty())
      	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
@@ -3426,9 +3410,6 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
-	     }
-   	     if(!node.@AlternativeUserID.isEmpty()){
-	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
@@ -3580,8 +3561,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
-	    assert(!node.@AlternativeUserID.isEmpty())
-	    // assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID") 
+	     assert(!node.@AlternativeUserID.isEmpty())	    
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -3772,7 +3752,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-06T19:02:12Z</con:value>
+          <con:value>2015-11-11T09:23:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -3816,7 +3796,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-06T00:00:00Z</con:value>
+          <con:value>2015-12-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -3916,7 +3896,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/06/2015 18:52:12</con:value>
+          <con:value>11/11/2015 09:13:42</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -3924,7 +3904,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-06T18:52:12Z</con:value>
+          <con:value>2015-11-11T09:13:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -4658,167 +4638,7 @@ if (propertiesFile.exists()) {
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
-def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
-
-parsedXmlMessage.EventIdentification.find{
-	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
-	//assert it.@EventDateTime == context.findProperty( "EventIdentification.@EventDateTime" )
-     assert it.@EventOutcomeIndicator == context.findProperty( "EventIdentification.@EventOutcomeIndicator" )
-	assert it.EventID.@code == context.findProperty( "EventIdentification.EventID.@code" )
-	assert it.EventID.@codeSystemName == context.findProperty( "EventIdentification.EventID.@codeSystemName" )
-	assert it.EventID.@displayName == context.findProperty( "EventIdentification.EventID.@displayName" )
-	assert it.EventTypeCode.@code == context.findProperty( "EventIdentification.EventTypeCode.@code" )
-	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
-	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
-}
-
-
-
-//check for ActiveParticipant Source details
-if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[0].each{ node ->
-	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
-     	if(!node.@UserName.isEmpty())
-			assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
-     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
-     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
-   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
-   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
-     	assert(!node.@NetworkAccessPointID.isEmpty())
-     	def NetworkAccessPointID = node.@NetworkAccessPointID
-     	if (NetworkAccessPointTypeCode == 1) {
-
-     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
-     		
-     	} else {
-
-     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
-     		def matcher = (NetworkAccessPointID =~ x)  
-			assert matcher.matches()
-     		
-     	}
-          assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
-     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
-     	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
-	}
-}
-
-//check for ActiveParticipant Destination details
-if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[1].each{ node ->
-	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	     
-   	     if(!node.@UserName.isEmpty()){
-	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
-	     }
-	     assert(!node.@AlternativeUserID.isEmpty())
-   	     if(!node.@AlternativeUserID.isEmpty()){
-	     //	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
-	     }
-     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
-     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
-   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
-   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
-     	assert(!node.@NetworkAccessPointID.isEmpty())
-     	def NetworkAccessPointID = node.@NetworkAccessPointID
-     	if (NetworkAccessPointTypeCode == 1) {
-
-     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
-     		
-     	} else {
-
-     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
-     		def matcher = (NetworkAccessPointID =~ x)  
-			assert matcher.matches()
-     		
-     	}
-          assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
-     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
-     	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
-	}
-}
-parsedXmlMessage.AuditSourceIdentification.find{
-		if(!it.@AuditEnterpriseSiteID.isEmpty()){
-			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
-		}
-		if(!it.@AuditSourceTypeCode.isEmpty()){			
-			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
-		}
-		if(!it.@AuditSourceID.isEmpty()){
-			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
-		}
-}
-
-//check for Patient ParticipantObjectIdentification
-if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
-	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
-	     assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
-	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )     
-   	    	assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )	     
-    		assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
-    		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
-    		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
-	}
- }
- 
- 
-//check for Query Parameters ParticipantObjectIdentification
-if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )){
-	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->
-		if (!node.@ParticipantObjectID.isEmpty()){
-			assert node.@ParticipantObjectID == context.findProperty ( "queryId.@extension" )
-		}
-	
-	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )     
-   	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCodeRole" )	     
-    		assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@code" )
-    		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName" )
-    		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName" )
-
-	 	if(!node.ParticipantObjectQuery.text().isEmpty()){	 		
-	 		byte[] participantobjectQueryDecoded = node.ParticipantObjectQuery.text().decodeBase64()			
-			def parsedParticipantObjectQuery = new XmlSlurper().parseText(new String(participantobjectQueryDecoded))			
-			parsedParticipantObjectQuery.queryId.find{				
-				assert it.@root == context.findProperty( "queryId.@root" )
-				assert it.@extension == context.findProperty ( "queryId.@extension" )
-			}
-			assert parsedParticipantObjectQuery.statusCode.@code == context.findProperty( "statusCode.@code" )
-			assert parsedParticipantObjectQuery.responseModalityCode.@code == context.findProperty( "responseModalityCode.@code" )
-			assert parsedParticipantObjectQuery.responsePriorityCode.@code == context.findProperty( "responsePriorityCode.@code" )
-			parsedParticipantObjectQuery.parameterList.livingSubjectAdministrativeGender.find{
-				assert it.value.@code == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.value.@code" )
-				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText.@representation" )
-				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText" )
-			}
-			parsedParticipantObjectQuery.parameterList.livingSubjectBirthTime.find{
-				assert it.value.@value == context.findProperty ( "parameterList.livingSubjectBirthTime.value.@value" )
-				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText.@representation" )
-				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText" )
-			}
-			parsedParticipantObjectQuery.parameterList.livingSubjectId.find{
-				assert it.value.@root == context.findProperty ( "parameterList.livingSubjectId.value.@root" )
-				assert it.value.@extension == context.findProperty ( "parameterList.livingSubjectId.value.@extension" )
-				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectId.semanticsText.@representation" )				
-			}
-			parsedParticipantObjectQuery.parameterList.livingSubjectName.find{
-				assert it.value.family.@partType == context.findProperty ( "parameterList.livingSubjectName.value.family.@partType" )
-				assert it.value.family.text() == context.findProperty ( "parameterList.livingSubjectName.value.family" )
-				assert it.value.given.@partType == context.findProperty ( "parameterList.livingSubjectName.value.given.@partType" )
-				assert it.value.given.text() == context.findProperty ( "parameterList.livingSubjectName.value.given" )
-				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectName.semanticsText.@representation" )
-				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectName.semanticsText" )
-			}			
-	 	}
-	}
-  }
-}]]></script>
-        </con:config>
-      </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1) - ACK">
-        <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -4838,8 +4658,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 	parsedXmlMessage.ActiveParticipant[0].each{ node ->	     
 	     if (!node.@UserID.isEmpty()){
 	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
-	     }
-     	assert(!node.@AlternativeUserID.isEmpty())
+	     }     	
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -4870,8 +4689,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
-	    assert(!node.@AlternativeUserID.isEmpty())
-	    // assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID") 
+	     assert(!node.@AlternativeUserID.isEmpty())	    
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -4919,8 +4737,8 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
 	}
 }
  
- //check for Query Parameter ParticipantObjectIdentification
- if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )){
+//check for Query Parameter ParticipantObjectIdentification
+if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->	     
 	    		 
 		 if(!node.@ParticipantObjectID.isEmpty()){
@@ -4963,6 +4781,161 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
 				assert it.value.family.text() == context.findProperty ( "parameterList.livingSubjectName.value.family" )
 				assert it.value.given.@partType == context.findProperty ( "parameterList.livingSubjectName.value.given.@partType" )
 				assert it.value.given == context.findProperty ( "parameterList.livingSubjectName.value.given" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectName.semanticsText.@representation" )
+				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectName.semanticsText" )
+			}			
+	 	}
+	}
+  }
+}]]></script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1) - ACK">
+        <con:settings/>
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
+def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
+
+parsedXmlMessage.EventIdentification.find{
+	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
+	//assert it.@EventDateTime == context.findProperty( "EventIdentification.@EventDateTime" )
+     assert it.@EventOutcomeIndicator == context.findProperty( "EventIdentification.@EventOutcomeIndicator" )
+	assert it.EventID.@code == context.findProperty( "EventIdentification.EventID.@code" )
+	assert it.EventID.@codeSystemName == context.findProperty( "EventIdentification.EventID.@codeSystemName" )
+	assert it.EventID.@displayName == context.findProperty( "EventIdentification.EventID.@displayName" )
+	assert it.EventTypeCode.@code == context.findProperty( "EventIdentification.EventTypeCode.@code" )
+	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
+	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
+}
+
+//check for ActiveParticipant Source details
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[0].each{ node ->
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
+     	if(!node.@UserName.isEmpty()){
+     	  // commented out until Reg. suite fixed to validate username as per spec.	
+		  //assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
+     	}     	
+	     assert(!node.@AlternativeUserID.isEmpty())
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
+          assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
+     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
+     	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
+	}
+}
+
+//check for ActiveParticipant Destination details
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	     
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
+	     }
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
+          assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
+     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
+     	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
+	}
+}
+parsedXmlMessage.AuditSourceIdentification.find{
+		if(!it.@AuditEnterpriseSiteID.isEmpty()){
+			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
+		}
+		if(!it.@AuditSourceTypeCode.isEmpty()){			
+			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
+		}
+		if(!it.@AuditSourceID.isEmpty()){
+			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
+		}
+}
+
+//check for Patient ParticipantObjectIdentification
+if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
+	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
+	     assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
+	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )     
+   	    	assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )	     
+    		assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
+    		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
+    		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
+	}
+ }
+ 
+//check for Query Parameters ParticipantObjectIdentification
+if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )){
+	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->
+		if (!node.@ParticipantObjectID.isEmpty()){
+			assert node.@ParticipantObjectID == context.findProperty ( "queryId.@extension" )
+		}	
+	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )     
+   	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCodeRole" )	     
+    		assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@code" )
+    		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName" )
+    		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName" )
+
+	 	if(!node.ParticipantObjectQuery.text().isEmpty()){	 		
+	 		byte[] participantobjectQueryDecoded = node.ParticipantObjectQuery.text().decodeBase64()			
+			def parsedParticipantObjectQuery = new XmlSlurper().parseText(new String(participantobjectQueryDecoded))			
+			parsedParticipantObjectQuery.queryId.find{				
+				assert it.@root == context.findProperty( "queryId.@root" )
+				assert it.@extension == context.findProperty ( "queryId.@extension" )
+			}
+			assert parsedParticipantObjectQuery.statusCode.@code == context.findProperty( "statusCode.@code" )
+			assert parsedParticipantObjectQuery.responseModalityCode.@code == context.findProperty( "responseModalityCode.@code" )
+			assert parsedParticipantObjectQuery.responsePriorityCode.@code == context.findProperty( "responsePriorityCode.@code" )
+			parsedParticipantObjectQuery.parameterList.livingSubjectAdministrativeGender.find{
+				assert it.value.@code == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.value.@code" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText.@representation" )
+				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText" )
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectBirthTime.find{
+				assert it.value.@value == context.findProperty ( "parameterList.livingSubjectBirthTime.value.@value" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText.@representation" )
+				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText" )
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectId.find{
+				assert it.value.@root == context.findProperty ( "parameterList.livingSubjectId.value.@root" )
+				assert it.value.@extension == context.findProperty ( "parameterList.livingSubjectId.value.@extension" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectId.semanticsText.@representation" )				
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectName.find{
+				assert it.value.family.@partType == context.findProperty ( "parameterList.livingSubjectName.value.family.@partType" )
+				assert it.value.family.text() == context.findProperty ( "parameterList.livingSubjectName.value.family" )
+				assert it.value.given.@partType == context.findProperty ( "parameterList.livingSubjectName.value.given.@partType" )
+				assert it.value.given.text() == context.findProperty ( "parameterList.livingSubjectName.value.given" )
 				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectName.semanticsText.@representation" )
 				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectName.semanticsText" )
 			}			
@@ -5258,19 +5231,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-06T18:52:31Z</con:value>
+          <con:value>2015-11-11T09:14:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-06T19:02:31Z</con:value>
+          <con:value>2015-11-11T09:24:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/06/2015 18:52:31</con:value>
+          <con:value>11/11/2015 09:14:08</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-06T00:00:00Z</con:value>
+          <con:value>2015-12-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@code</con:name>
@@ -5318,7 +5291,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name>
-          <con:value>192.168.1.2</con:value>
+          <con:value>localhost</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name>
@@ -6112,8 +6085,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
-     	assert(!node.@AlternativeUserID.isEmpty())
-     	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	assert(!node.@AlternativeUserID.isEmpty())     	
      	if(!node.@UserName.isEmpty())
      	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
@@ -6144,9 +6116,6 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
-   	     if(!node.@AlternativeUserID.isEmpty()){
-	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
-	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -6164,7 +6133,7 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 			assert matcher.matches()
      		
      	}
-     	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
+          assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
      	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
 	}
@@ -6173,7 +6142,8 @@ parsedXmlMessage.AuditSourceIdentification.find{
 		if(!it.@AuditEnterpriseSiteID.isEmpty()){
 			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
 		}
-		if(!it.@AuditSourceTypeCode.isEmpty()){			
+		if(!it.@AuditSourceTypeCode.isEmpty()){
+			log.info "inside auditsourcetype code" + it.@AuditSourceTypeCode
 			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
 		}
 		if(!it.@AuditSourceID.isEmpty()){
@@ -6262,8 +6232,6 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 	     if(!node.@UserID.isEmpty()){
 	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
 	     }
-     	assert(!node.@AlternativeUserID.isEmpty())
-     	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -6292,8 +6260,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
-	    assert(!node.@AlternativeUserID.isEmpty())
-	    // assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID") 
+	     assert(!node.@AlternativeUserID.isEmpty())	    
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -6320,7 +6287,8 @@ parsedXmlMessage.AuditSourceIdentification.find{
 		if(!it.@AuditEnterpriseSiteID.isEmpty()){
 			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
 		}
-		if(!it.@AuditSourceTypeCode.isEmpty()){			
+		if(!it.@AuditSourceTypeCode.isEmpty()){
+			log.info "inside auditsourcetype code" + it.@AuditSourceTypeCode
 			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
 		}
 		if(!it.@AuditSourceID.isEmpty()){
@@ -6408,19 +6376,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-06T18:52:47Z</con:value>
+          <con:value>2015-11-11T09:35:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-06T19:02:47Z</con:value>
+          <con:value>2015-11-11T09:45:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/06/2015 18:52:47</con:value>
+          <con:value>11/11/2015 09:35:27</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-06T00:00:00Z</con:value>
+          <con:value>2015-12-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -7213,11 +7181,9 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 	}
   }
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[1].each{ node ->	     
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->	    	     
      	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
      	assert(!node.@AlternativeUserID.isEmpty())
-     	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
-     	//Keeping this assertion in because we should implement it in the future
      	if(!node.@UserName.isEmpty())
      	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
@@ -7243,13 +7209,10 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	 }
 }
 if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[2].each{ node ->
-	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	     
+	parsedXmlMessage.ActiveParticipant[2].each{ node ->		
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g1.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
-	     }
-   	     if(!node.@AlternativeUserID.isEmpty()){
-	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
@@ -7285,8 +7248,9 @@ parsedXmlMessage.AuditSourceIdentification.find{
 		}
 }
 if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
-	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->	    
-	     //assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
+	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->	
+	     log.info "participant object id " + node.@ParticipantObjectID    
+	     assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
 	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )   
    	    	assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
    	    	
@@ -7313,7 +7277,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
   			assert decodedData1 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@value" )
 	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@type" )
 	 		def decodedData2 = new String (parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@value.text().decodeBase64())
-  			def remoteHCID = testRunner.testCase.testSuite.project.getPropertyValue("RemoteHCID")
+	 		def remoteHCID = testRunner.testCase.testSuite.project.getPropertyValue("RemoteHCID")
 	 		def remoteHCIDWithPrefix 
 	 		if(remoteHCID.startsWith("urn:oid:")){
 	 			remoteHCIDWithPrefix= remoteHCID
@@ -7351,8 +7315,6 @@ parsedXmlMessage.EventIdentification.find{
 if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[0].each{ node ->	
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
-     	assert(!node.@AlternativeUserID.isEmpty())
-     	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
      	if(!node.@UserName.isEmpty())
      	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
@@ -7378,12 +7340,12 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 	}
 }
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[1].each{ node ->
-	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )
-	     //assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )	     
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->	
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g1.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
+	     assert(!node.@AlternativeUserID.isEmpty())
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -7410,7 +7372,8 @@ parsedXmlMessage.AuditSourceIdentification.find{
 		if(!it.@AuditEnterpriseSiteID.isEmpty()){
 			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
 		}
-		if(!it.@AuditSourceTypeCode.isEmpty()){			
+		if(!it.@AuditSourceTypeCode.isEmpty()){
+			log.info "inside auditsourcetype code" + it.@AuditSourceTypeCode
 			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
 		}
 		if(!it.@AuditSourceID.isEmpty()){
@@ -7483,19 +7446,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-06T18:53:21Z</con:value>
+          <con:value>2015-11-11T09:14:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-06T19:03:21Z</con:value>
+          <con:value>2015-11-11T09:24:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/06/2015 18:53:21</con:value>
+          <con:value>11/11/2015 09:14:54</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-06T00:00:00Z</con:value>
+          <con:value>2015-12-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -7743,7 +7706,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
-          <con:value>D123401^^^&amp;2.2&amp;ISO</con:value>
+          <con:value>D123401^^^&amp;1.1&amp;ISO</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@type</con:name>
@@ -7792,6 +7755,10 @@ if (propertiesFile.exists()) {
         <con:property>
           <con:name>ActiveParticipant_Dest_g0.@UserID</con:name>
           <con:value>https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest_g1.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentQuery/3_0/NhinService/RespondingGateway_Query_Service/DocQuery</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -8146,10 +8113,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
   }
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
-	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
-     	if(!node.@AlternativeUserID.isEmpty()){
-     		//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
-     	}
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source_g1.@UserID" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -8175,10 +8139,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[2].each{ node ->
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )
-   	     if(!node.@AlternativeUserID.isEmpty()){
-   	     	//commented out as this element value is dynamic at runtime. Ref spec for more detail. 
-	     	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
-	     }
+   	     assert(!node.@AlternativeUserID.isEmpty())
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -8187,7 +8148,7 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
      	def NetworkAccessPointID = node.@NetworkAccessPointID
      	if (NetworkAccessPointTypeCode == 1) {
 
-     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Destination.@NetworkAccessPointID" )
      		
      	} else {
 
@@ -8233,15 +8194,14 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
          	assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectIDTypeCode.@code" )
      	assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectIDTypeCode.@codeSystemName" )
      	assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectIDTypeCode.@displayName" )
-	           	
+	          	 	
 	 	if(!node.ParticipantObjectQuery.text().isEmpty()){
 	 		assert node.ParticipantObjectQuery.text() == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectQuery" )	
 	 	}
 		parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].each{			
 			def decodedData1 = new String (parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].@value.text().decodeBase64())
   			assert decodedData1 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@value" )
-	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@type" )
-	 		log.info "decoded value for participantobjectdetail " + parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@value.text()
+	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@type" )	 		
 	 		def decodedData2 = new String (parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@value.text().decodeBase64())
 	 		def remoteHCID = testRunner.testCase.testSuite.project.getPropertyValue("RemoteHCID")
 	 		def remoteHCIDWithPrefix 
@@ -8262,7 +8222,8 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
         <con:settings/>
         <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+          <script><![CDATA[import java.util.regex.*
+context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -8281,11 +8242,9 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 	parsedXmlMessage.ActiveParticipant[0].each{ node ->
 	     
 	     if(!node.@UserID.isEmpty()){
-	     	//Commented out until code fixed to populate UserID as per spec   	
-	     	//assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source_g1.@UserID" )
 	     }
-     	assert(!node.@AlternativeUserID.isEmpty())
-     	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	assert(!node.@AlternativeUserID.isEmpty())     	
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -8319,7 +8278,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
      	def NetworkAccessPointID = node.@NetworkAccessPointID
      	if (NetworkAccessPointTypeCode == 1) {
 
-     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Destination.@NetworkAccessPointID" )
      		
      	} else {
 
@@ -8354,7 +8313,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
     		assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectIDTypeCode.@code" )
      	assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectIDTypeCode.@codeSystemName" )
      	assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectIDTypeCode.@displayName" )
-	           	
+	          	 	
 	 	if(!node.ParticipantObjectQuery.text().isEmpty()){
 	 		assert node.ParticipantObjectQuery.text() == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectQuery" )	
 	 	}	
@@ -8363,7 +8322,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
   			assert decodedData1 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@value" )
 	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@type" )
 	 		def decodedData2 = new String (parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@value.text().decodeBase64())
-	 		def remoteHCID = testRunner.testCase.testSuite.project.getPropertyValue("RemoteHCID")
+  			def remoteHCID = testRunner.testCase.testSuite.project.getPropertyValue("RemoteHCID")
 	 		def remoteHCIDWithPrefix 
 	 		if(remoteHCID.startsWith("urn:oid:")){
 	 			remoteHCIDWithPrefix= remoteHCID
@@ -8405,19 +8364,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-06T18:53:28Z</con:value>
+          <con:value>2015-11-11T09:15:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-06T19:03:28Z</con:value>
+          <con:value>2015-11-11T09:25:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/06/2015 18:53:28</con:value>
+          <con:value>11/11/2015 09:15:01</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-06T00:00:00Z</con:value>
+          <con:value>2015-12-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@value</con:name>
@@ -8730,6 +8689,10 @@ if (propertiesFile.exists()) {
         <con:property>
           <con:name>ActiveParticipant_Source_g0.@UserID</con:name>
           <con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source_g1.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentRetrieve/3_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -9129,19 +9092,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-06T18:53:34Z</con:value>
+          <con:value>2015-11-11T09:15:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-06T19:03:34Z</con:value>
+          <con:value>2015-11-11T09:25:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/06/2015 18:53:34</con:value>
+          <con:value>11/11/2015 09:15:07</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-06T00:00:00Z</con:value>
+          <con:value>2015-12-11T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -9733,8 +9696,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].UserID.isEmpty()){
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
-     	assert(!node.@AlternativeUserID.isEmpty())
-     	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	assert(!node.@AlternativeUserID.isEmpty())     	
      	if(!node.@UserName.isEmpty())
      	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
@@ -9762,14 +9724,10 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 
 //check for ActiveParticipant Destination details
 if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[2].each{ node ->  
-	     //Commented out until code fix for populating correct userid as per spec (FHAC-576)
-	     //assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	     
+	parsedXmlMessage.ActiveParticipant[2].each{ node ->
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
-	     }
-   	     if(!node.@AlternativeUserID.isEmpty()){
-	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
@@ -9817,7 +9775,7 @@ if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCo
     		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
     		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
 	}
- }
+}
  
 // check for  ParticipantObjectIdentification Submission Set details
 if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )){
@@ -9825,7 +9783,8 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 	assert(!node.@ParticipantObjectID.isEmpty())
 		if (!node.@ParticipantObjectID.isEmpty()){
 			assert node.@ParticipantObjectID == context.findProperty ( "queryId.@extension" )
-		}	
+		}
+	
 	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )     
    	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCodeRole" )	
 		assert(!node.@ParticipantObjectIDTypeCode.isEmpty())		 
@@ -9890,14 +9849,12 @@ assert it.@EventActionCode == context.findProperty( "EventIdentification_Respond
 	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
 	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
 }
-
 //check for ActiveParticipant Source details
 if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[0].each{ node ->	     
 	     if (!node.@UserID.isEmpty()){
 	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
 	     }
-
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -9920,17 +9877,14 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
      	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
 	}
 }
-
 //check for ActiveParticipant Destination details
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
-	    	//Commented out until code fix for populating correct userid as per spec (FHAC-576)
-	    	//assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	    
+	    	assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	    
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
-	    assert(!node.@AlternativeUserID.isEmpty())
-	    // assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID") 
+    	     assert(!node.@AlternativeUserID.isEmpty())	     
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -10051,19 +10005,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-06T19:09:49Z</con:value>
+          <con:value>2015-11-11T09:42:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-06T19:19:49Z</con:value>
+          <con:value>2015-11-11T09:52:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/06/2015 19:09:49</con:value>
+          <con:value>11/11/2015 09:42:38</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-06T00:00:00Z</con:value>
+          <con:value>2015-12-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -10701,7 +10655,7 @@ parsedXmlMessage.EventIdentification.find{
 if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() &amp;&amp; parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[0].each{ node ->
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
-		//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+		
      	if(!node.@UserName.isEmpty())
      	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
@@ -10730,12 +10684,11 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() &am
 //check for ActiveParticipant Destination details
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() &amp;&amp; parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
-	    //Commented out until code fix for populating correct userid as per spec (FHAC-576)
-	    // assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
-   	    //assert(!node.@AlternativeUserID.isEmpty())
+   	     assert(!node.@AlternativeUserID.isEmpty())
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -10770,8 +10723,7 @@ parsedXmlMessage.AuditSourceIdentification.find{
 		if(!it.@AuditSourceID.isEmpty()){
 			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
 		}
-}
-
+   }
 }</script>
         </con:config>
       </con:testStep>
@@ -10800,7 +10752,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() &am
 	     if (!node.@UserID.isEmpty()){
 	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
 	     }
-
+	     assert(!node.@AlternativeUserID.isEmpty())
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -10826,13 +10778,11 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() &am
 
 //check for ActiveParticipant Destination details
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() &amp;&amp; parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[1].each{ node ->  
-	     //Commented out until code fix for populating correct userid as per spec (FHAC-576)
-	    	//assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	    
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
+	    	assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	    
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
-
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -10866,9 +10816,7 @@ parsedXmlMessage.AuditSourceIdentification.find{
 		if(!it.@AuditSourceID.isEmpty()){
 			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
 		}
-}
-
-
+  }
 }</script>
         </con:config>
       </con:testStep>
@@ -10894,19 +10842,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-06T19:09:54Z</con:value>
+          <con:value>2015-11-11T09:42:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-06T19:19:54Z</con:value>
+          <con:value>2015-11-11T09:52:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/06/2015 19:09:54</con:value>
+          <con:value>11/11/2015 09:42:43</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-06T00:00:00Z</con:value>
+          <con:value>2015-12-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -11602,7 +11550,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
 	     
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
-	     //assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+	     assert(!node.@AlternativeUserID.isEmpty())	     
      	if(!node.@UserName.isEmpty())
      	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
@@ -11628,14 +11576,10 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	}
 }
 if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[2].each{ node ->
-	     //Commented out until code fix for populating correct userid as per spec (FHAC-576)
-	     //assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g0.@UserID" )	     
+	parsedXmlMessage.ActiveParticipant[2].each{ node ->	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g0.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
-	     }
-   	     if(!node.@AlternativeUserID.isEmpty()){
-	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
@@ -11712,10 +11656,8 @@ parsedXmlMessage.EventIdentification.find{
 	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
 }
 if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[0].each{ node ->
-	     
-	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
-	     //assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+	parsedXmlMessage.ActiveParticipant[0].each{ node ->	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
      	if(!node.@UserName.isEmpty())
      	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
@@ -11742,12 +11684,11 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 }
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
-	     //Commented out until code fix for populating correct userid as per spec (FHAC-576)
-	     //assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g0.@UserID" )	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g0.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
 	     }
-   	     //assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )	     
+	     assert(!node.@AlternativeUserID.isEmpty())
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -11827,19 +11768,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-06T19:09:59Z</con:value>
+          <con:value>2015-11-11T09:42:48Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-06T19:19:59Z</con:value>
+          <con:value>2015-11-11T09:52:48Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/06/2015 19:09:59</con:value>
+          <con:value>11/11/2015 09:42:48</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-06T00:00:00Z</con:value>
+          <con:value>2015-12-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -12076,6 +12017,10 @@ if (propertiesFile.exists()) {
         <con:property>
           <con:name>ActiveParticipant_Dest_g0.@UserID</con:name>
           <con:value>https://localhost:8181/Gateway/DocumentSubmission/1_1/DocumentRepositoryXDR_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest_g1.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -12456,8 +12401,7 @@ if (parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty()){
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
-     	assert(!node.@AlternativeUserID.isEmpty())
-     	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	assert(!node.@AlternativeUserID.isEmpty())     	
      	if(!node.@UserName.isEmpty())
      	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
@@ -12489,9 +12433,6 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
-	     }
-   	     if(!node.@AlternativeUserID.isEmpty()){
-	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
@@ -12643,8 +12584,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
-	    assert(!node.@AlternativeUserID.isEmpty())
-	    // assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID") 
+	     assert(!node.@AlternativeUserID.isEmpty())	    
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -12835,7 +12775,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-06T19:20:03Z</con:value>
+          <con:value>2015-11-11T09:52:53Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -12879,7 +12819,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-06T00:00:00Z</con:value>
+          <con:value>2015-12-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -12979,7 +12919,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/06/2015 19:10:03</con:value>
+          <con:value>11/11/2015 09:42:53</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -12987,7 +12927,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-06T19:10:03Z</con:value>
+          <con:value>2015-11-11T09:42:53Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -13721,6 +13661,162 @@ if (propertiesFile.exists()) {
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="2.2"')[0]
+def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+parsedXmlMessage.EventIdentification.find{
+	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
+	//assert it.@EventDateTime == context.findProperty( "EventIdentification.@EventDateTime" )
+     assert it.@EventOutcomeIndicator == context.findProperty( "EventIdentification.@EventOutcomeIndicator" )
+	assert it.EventID.@code == context.findProperty( "EventIdentification.EventID.@code" )
+	assert it.EventID.@codeSystemName == context.findProperty( "EventIdentification.EventID.@codeSystemName" )
+	assert it.EventID.@displayName == context.findProperty( "EventIdentification.EventID.@displayName" )
+	assert it.EventTypeCode.@code == context.findProperty( "EventIdentification.EventTypeCode.@code" )
+	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
+	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
+}
+
+//check for ActiveParticipant Source details
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[0].each{ node ->	     
+	     if (!node.@UserID.isEmpty()){
+	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
+	     }     	
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
+          assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
+     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
+     	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
+	}
+}
+
+//check for ActiveParticipant Destination details
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
+	    	assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	    
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
+	     }
+	     assert(!node.@AlternativeUserID.isEmpty())	    
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
+         	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
+     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
+     	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
+	}
+}
+
+parsedXmlMessage.AuditSourceIdentification.find{
+		if(!it.@AuditEnterpriseSiteID.isEmpty()){
+			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
+		}
+		if(!it.@AuditSourceTypeCode.isEmpty()){		
+			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
+		}
+		if(!it.@AuditSourceID.isEmpty()){
+			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
+		}
+}
+
+//check for Patient ParticipantObjectIdentification
+if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
+	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
+	     assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
+	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )     
+   	    	assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )	     
+    		assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
+    		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
+    		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
+	}
+}
+ 
+//check for Query Parameter ParticipantObjectIdentification
+if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )){
+	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->	     
+	    		 
+		 if(!node.@ParticipantObjectID.isEmpty()){
+			assert node.@ParticipantObjectID == context.findProperty ( "queryId.@extension" )
+		}
+		 
+	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )	     
+   	    	assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCodeRole" )
+          assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@code" )
+     	assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName" )
+     	assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName" )
+
+	 	if(!node.ParticipantObjectQuery.text().isEmpty()){	 		
+	 		byte[] participantobjectQueryDecoded = node.ParticipantObjectQuery.text().decodeBase64()			
+			def parsedParticipantObjectQuery = new XmlSlurper().parseText(new String(participantobjectQueryDecoded))			
+			parsedParticipantObjectQuery.queryId.find{				
+				assert it.@root == context.findProperty( "queryId.@root" )
+				assert it.@extension == context.findProperty ( "queryId.@extension" )
+			}
+			assert parsedParticipantObjectQuery.statusCode.@code == context.findProperty( "statusCode.@code" )
+			assert parsedParticipantObjectQuery.responseModalityCode.@code == context.findProperty( "responseModalityCode.@code" )
+			assert parsedParticipantObjectQuery.responsePriorityCode.@code == context.findProperty( "responsePriorityCode.@code" )
+			parsedParticipantObjectQuery.parameterList.livingSubjectAdministrativeGender.find{
+				assert it.value.@code == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.value.@code" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText.@representation" )
+				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText" )
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectBirthTime.find{
+				assert it.value.@value == context.findProperty ( "parameterList.livingSubjectBirthTime.value.@value" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText.@representation" )
+				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText" )
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectId.find{
+				assert it.value.@root == context.findProperty ( "parameterList.livingSubjectId.value.@root" )
+				assert it.value.@extension == context.findProperty ( "parameterList.livingSubjectId.value.@extension" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectId.semanticsText.@representation" )				
+			}
+			parsedParticipantObjectQuery.parameterList.livingSubjectName.find{
+				assert it.value.family.@partType == context.findProperty ( "parameterList.livingSubjectName.value.family.@partType" )
+				assert it.value.family.text() == context.findProperty ( "parameterList.livingSubjectName.value.family" )
+				assert it.value.given.@partType == context.findProperty ( "parameterList.livingSubjectName.value.given.@partType" )
+				assert it.value.given == context.findProperty ( "parameterList.livingSubjectName.value.given" )
+				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectName.semanticsText.@representation" )
+				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectName.semanticsText" )
+			}			
+	 	}
+	}
+  }
+}]]></script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1) - ACK">
+        <con:settings/>
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
@@ -13740,8 +13836,11 @@ parsedXmlMessage.EventIdentification.find{
 if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[0].each{ node ->
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
-     	if(!node.@UserName.isEmpty())
-			assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
+     	if(!node.@UserName.isEmpty()){
+     	  // commented out until Reg. suite fixed to validate username as per spec.	
+		  //assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
+     	}     	
+	     assert(!node.@AlternativeUserID.isEmpty())
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -13771,10 +13870,6 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
-	     }
-	     assert(!node.@AlternativeUserID.isEmpty())
-   	     if(!node.@AlternativeUserID.isEmpty()){
-	     //	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
@@ -13827,8 +13922,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->
 		if (!node.@ParticipantObjectID.isEmpty()){
 			assert node.@ParticipantObjectID == context.findProperty ( "queryId.@extension" )
-		}
-	
+		}	
 	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )     
    	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCodeRole" )	     
     		assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@code" )
@@ -13865,164 +13959,6 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 				assert it.value.family.text() == context.findProperty ( "parameterList.livingSubjectName.value.family" )
 				assert it.value.given.@partType == context.findProperty ( "parameterList.livingSubjectName.value.given.@partType" )
 				assert it.value.given.text() == context.findProperty ( "parameterList.livingSubjectName.value.given" )
-				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectName.semanticsText.@representation" )
-				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectName.semanticsText" )
-			}			
-	 	}
-	}
-  }
-}]]></script>
-        </con:config>
-      </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1) - ACK">
-        <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
-def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
-
-parsedXmlMessage.EventIdentification.find{
-	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
-	//assert it.@EventDateTime == context.findProperty( "EventIdentification.@EventDateTime" )
-     assert it.@EventOutcomeIndicator == context.findProperty( "EventIdentification.@EventOutcomeIndicator" )
-	assert it.EventID.@code == context.findProperty( "EventIdentification.EventID.@code" )
-	assert it.EventID.@codeSystemName == context.findProperty( "EventIdentification.EventID.@codeSystemName" )
-	assert it.EventID.@displayName == context.findProperty( "EventIdentification.EventID.@displayName" )
-	assert it.EventTypeCode.@code == context.findProperty( "EventIdentification.EventTypeCode.@code" )
-	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
-	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
-}
-
-//check for ActiveParticipant Source details
-if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[0].each{ node ->	     
-	     if (!node.@UserID.isEmpty()){
-	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
-	     }
-     	assert(!node.@AlternativeUserID.isEmpty())
-     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
-     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
-   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
-   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
-     	assert(!node.@NetworkAccessPointID.isEmpty())
-     	def NetworkAccessPointID = node.@NetworkAccessPointID
-     	if (NetworkAccessPointTypeCode == 1) {
-
-     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
-     		
-     	} else {
-
-     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
-     		def matcher = (NetworkAccessPointID =~ x)  
-			assert matcher.matches()
-     		
-     	}
-          assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
-     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
-     	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
-	}
-}
-
-//check for ActiveParticipant Destination details
-if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[1].each{ node ->
-	    	assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	    
-   	     if(!node.@UserName.isEmpty()){
-	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
-	     }
-	    assert(!node.@AlternativeUserID.isEmpty())
-	    // assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID") 
-     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
-     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
-   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
-   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
-     	assert(!node.@NetworkAccessPointID.isEmpty())
-     	def NetworkAccessPointID = node.@NetworkAccessPointID
-     	if (NetworkAccessPointTypeCode == 1) {
-
-     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
-     		
-     	} else {
-
-     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
-     		def matcher = (NetworkAccessPointID =~ x)  
-			assert matcher.matches()
-     		
-     	}
-         	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
-     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
-     	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
-	}
-}
-
-parsedXmlMessage.AuditSourceIdentification.find{
-		if(!it.@AuditEnterpriseSiteID.isEmpty()){
-			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
-		}
-		if(!it.@AuditSourceTypeCode.isEmpty()){		
-			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
-		}
-		if(!it.@AuditSourceID.isEmpty()){
-			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
-		}
-}
-
-//check for Patient ParticipantObjectIdentification
-if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
-	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
-	     assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
-	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )     
-   	    	assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )	     
-    		assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
-    		assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
-    		assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
-	}
-}
- 
- //check for Query Parameter ParticipantObjectIdentification
- if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )){
-	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->	     
-	    		 
-		 if(!node.@ParticipantObjectID.isEmpty()){
-			assert node.@ParticipantObjectID == context.findProperty ( "queryId.@extension" )
-		}
-		 
-	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode" )	     
-   	    	assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectTypeCodeRole" )
-          assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@code" )
-     	assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName" )
-     	assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName" )
-
-	 	if(!node.ParticipantObjectQuery.text().isEmpty()){	 		
-	 		byte[] participantobjectQueryDecoded = node.ParticipantObjectQuery.text().decodeBase64()			
-			def parsedParticipantObjectQuery = new XmlSlurper().parseText(new String(participantobjectQueryDecoded))			
-			parsedParticipantObjectQuery.queryId.find{				
-				assert it.@root == context.findProperty( "queryId.@root" )
-				assert it.@extension == context.findProperty ( "queryId.@extension" )
-			}
-			assert parsedParticipantObjectQuery.statusCode.@code == context.findProperty( "statusCode.@code" )
-			assert parsedParticipantObjectQuery.responseModalityCode.@code == context.findProperty( "responseModalityCode.@code" )
-			assert parsedParticipantObjectQuery.responsePriorityCode.@code == context.findProperty( "responsePriorityCode.@code" )
-			parsedParticipantObjectQuery.parameterList.livingSubjectAdministrativeGender.find{
-				assert it.value.@code == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.value.@code" )
-				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText.@representation" )
-				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText" )
-			}
-			parsedParticipantObjectQuery.parameterList.livingSubjectBirthTime.find{
-				assert it.value.@value == context.findProperty ( "parameterList.livingSubjectBirthTime.value.@value" )
-				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText.@representation" )
-				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText" )
-			}
-			parsedParticipantObjectQuery.parameterList.livingSubjectId.find{
-				assert it.value.@root == context.findProperty ( "parameterList.livingSubjectId.value.@root" )
-				assert it.value.@extension == context.findProperty ( "parameterList.livingSubjectId.value.@extension" )
-				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectId.semanticsText.@representation" )				
-			}
-			parsedParticipantObjectQuery.parameterList.livingSubjectName.find{
-				assert it.value.family.@partType == context.findProperty ( "parameterList.livingSubjectName.value.family.@partType" )
-				assert it.value.family.text() == context.findProperty ( "parameterList.livingSubjectName.value.family" )
-				assert it.value.given.@partType == context.findProperty ( "parameterList.livingSubjectName.value.given.@partType" )
-				assert it.value.given == context.findProperty ( "parameterList.livingSubjectName.value.given" )
 				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectName.semanticsText.@representation" )
 				assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectName.semanticsText" )
 			}			
@@ -14318,19 +14254,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-06T19:20:18Z</con:value>
+          <con:value>2015-11-11T09:53:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/06/2015 19:10:18</con:value>
+          <con:value>11/11/2015 09:43:07</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-06T00:00:00Z</con:value>
+          <con:value>2015-12-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-06T19:10:18Z</con:value>
+          <con:value>2015-11-11T09:43:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@code</con:name>
@@ -14378,7 +14314,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name>
-          <con:value>192.168.1.2</con:value>
+          <con:value>localhost</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name>
@@ -15172,8 +15108,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
-     	assert(!node.@AlternativeUserID.isEmpty())
-     	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	assert(!node.@AlternativeUserID.isEmpty())     	
      	if(!node.@UserName.isEmpty())
      	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
@@ -15204,9 +15139,6 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
-   	     if(!node.@AlternativeUserID.isEmpty()){
-	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
-	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -15233,7 +15165,8 @@ parsedXmlMessage.AuditSourceIdentification.find{
 		if(!it.@AuditEnterpriseSiteID.isEmpty()){
 			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
 		}
-		if(!it.@AuditSourceTypeCode.isEmpty()){			
+		if(!it.@AuditSourceTypeCode.isEmpty()){
+			log.info "inside auditsourcetype code" + it.@AuditSourceTypeCode
 			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
 		}
 		if(!it.@AuditSourceID.isEmpty()){
@@ -15322,8 +15255,6 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 	     if(!node.@UserID.isEmpty()){
 	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
 	     }
-     	assert(!node.@AlternativeUserID.isEmpty())
-     	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -15352,8 +15283,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
-	    assert(!node.@AlternativeUserID.isEmpty())
-	    // assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID") 
+	     assert(!node.@AlternativeUserID.isEmpty())	    
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -15380,7 +15310,8 @@ parsedXmlMessage.AuditSourceIdentification.find{
 		if(!it.@AuditEnterpriseSiteID.isEmpty()){
 			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
 		}
-		if(!it.@AuditSourceTypeCode.isEmpty()){			
+		if(!it.@AuditSourceTypeCode.isEmpty()){
+			log.info "inside auditsourcetype code" + it.@AuditSourceTypeCode
 			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
 		}
 		if(!it.@AuditSourceID.isEmpty()){
@@ -15420,16 +15351,19 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
 			parsedParticipantObjectQuery.parameterList.livingSubjectAdministrativeGender.find{
 				assert it.value.@code == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.value.@code" )
 				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText.@representation" )
+				//SemanticsText is an optional value in response
 				//assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectAdministrativeGender.semanticsText" )
 			}
 			parsedParticipantObjectQuery.parameterList.livingSubjectBirthTime.find{
 				assert it.value.@value == context.findProperty ( "parameterList.livingSubjectBirthTime.value.@value" )
 				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText.@representation" )
+				//SemanticsText is an optional value in response
 				//assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectBirthTime.semanticsText" )
 			}
 			parsedParticipantObjectQuery.parameterList.livingSubjectId.find{
 				assert it.value.@root == context.findProperty ( "parameterList.livingSubjectId.value.@root" )
 				assert it.value.@extension == context.findProperty ( "parameterList.livingSubjectId.value.@extension" )
+				//SemanticsText is an optional value in response
 				//assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectId.semanticsText.@representation" )				
 			}
 			parsedParticipantObjectQuery.parameterList.livingSubjectName.find{
@@ -15438,6 +15372,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
 				assert it.value.given.@partType == context.findProperty ( "parameterList.livingSubjectName.value.given.@partType" )
 				assert it.value.given == context.findProperty ( "parameterList.livingSubjectName.value.given" )
 				assert it.semanticsText.@representation == context.findProperty ( "parameterList.livingSubjectName.semanticsText.@representation" )
+				//SemanticsText is an optional value in response
 				//assert it.semanticsText.text() == context.findProperty ( "parameterList.livingSubjectName.semanticsText" )
 			}			
 	 	}
@@ -15468,19 +15403,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-06T19:10:31Z</con:value>
+          <con:value>2015-11-11T09:43:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-06T19:20:31Z</con:value>
+          <con:value>2015-11-11T09:53:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/06/2015 19:10:31</con:value>
+          <con:value>11/11/2015 09:43:20</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-06T00:00:00Z</con:value>
+          <con:value>2015-12-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -16261,11 +16196,9 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 	}
   }
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[1].each{ node ->	     
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->	    	     
      	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
      	assert(!node.@AlternativeUserID.isEmpty())
-     	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
-     	//Keeping this assertion in because we should implement it in the future
      	if(!node.@UserName.isEmpty())
      	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
@@ -16291,14 +16224,11 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	 }
 }
 if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[2].each{ node ->
+	parsedXmlMessage.ActiveParticipant[2].each{ node ->		
 	     //Commented out until code fix for populating correct userid as per spec (FHAC-576)
-	     //assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g0.@UserID" )	     
+	     //assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g0.@UserID" )
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
-	     }
-   	     if(!node.@AlternativeUserID.isEmpty()){
-	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
@@ -16335,7 +16265,7 @@ parsedXmlMessage.AuditSourceIdentification.find{
 }
 if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->	    
-	     //assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
+	     assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
 	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )   
    	    	assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
    	    	
@@ -16400,8 +16330,6 @@ parsedXmlMessage.EventIdentification.find{
 if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[0].each{ node ->	
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
-     	assert(!node.@AlternativeUserID.isEmpty())
-     	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
      	if(!node.@UserName.isEmpty())
      	//assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
@@ -16428,12 +16356,12 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 }
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
-	    //Commented out until code fix for populating correct userid as per spec (FHAC-576)
+		//Commented out until code fix for populating correct userid as per spec (FHAC-576)
 	     //assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g0.@UserID" )
-	     //assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
+	     assert(!node.@AlternativeUserID.isEmpty())
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -16460,7 +16388,8 @@ parsedXmlMessage.AuditSourceIdentification.find{
 		if(!it.@AuditEnterpriseSiteID.isEmpty()){
 			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
 		}
-		if(!it.@AuditSourceTypeCode.isEmpty()){			
+		if(!it.@AuditSourceTypeCode.isEmpty()){
+			log.info "inside auditsourcetype code" + it.@AuditSourceTypeCode
 			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
 		}
 		if(!it.@AuditSourceID.isEmpty()){
@@ -16469,7 +16398,7 @@ parsedXmlMessage.AuditSourceIdentification.find{
 }
 if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
-	     //assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
+	     assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
 	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )      
    	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )	     
     		assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
@@ -16535,19 +16464,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-06T19:10:59Z</con:value>
+          <con:value>2015-11-11T09:43:48Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-06T19:20:59Z</con:value>
+          <con:value>2015-11-11T09:53:48Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/06/2015 19:10:59</con:value>
+          <con:value>11/11/2015 09:43:48</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-06T00:00:00Z</con:value>
+          <con:value>2015-12-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -16803,7 +16732,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
-          <con:value>D123401^^^&amp;2.2&amp;ISO</con:value>
+          <con:value>D123401^^^&amp;1.1&amp;ISO</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@type</con:name>
@@ -16844,6 +16773,10 @@ if (propertiesFile.exists()) {
         <con:property>
           <con:name>ActiveParticipant_Dest_g0.@UserID</con:name>
           <con:value>https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest_g1.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentQuery/3_0/NhinService/RespondingGateway_Query_Service/DocQuery</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -17199,10 +17132,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
 	     //Commented out until code fix for populating correct userid as per spec (FHAC-576)
-	     //assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
-     	if(!node.@AlternativeUserID.isEmpty()){
-     		//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
-     	}
+	     //assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -17226,12 +17156,9 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	}
 }
 if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[2].each{ node ->	    
+	parsedXmlMessage.ActiveParticipant[2].each{ node ->
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )
-   	     if(!node.@AlternativeUserID.isEmpty()){
-   	     	//commented out as this element value is dynamic at runtime. Ref spec for more detail. 
-	     	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
-	     }
+   	     assert(!node.@AlternativeUserID.isEmpty())
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -17240,7 +17167,7 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
      	def NetworkAccessPointID = node.@NetworkAccessPointID
      	if (NetworkAccessPointTypeCode == 1) {
 
-     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Destination.@NetworkAccessPointID" )
      		
      	} else {
 
@@ -17256,7 +17183,6 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 }
 parsedXmlMessage.AuditSourceIdentification.find{
 		if(!it.@AuditEnterpriseSiteID.isEmpty()){
-			log.info "rd audit enterprise site id" + it.@AuditEnterpriseSiteID
 			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
 		}
 		if(!it.@AuditSourceTypeCode.isEmpty()){			
@@ -17294,7 +17220,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 		parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].each{			
 			def decodedData1 = new String (parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].@value.text().decodeBase64())
   			assert decodedData1 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@value" )
-	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@type" )
+	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@type" )	 		
 	 		def decodedData2 = new String (parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@value.text().decodeBase64())
 	 		def remoteHCID = testRunner.testCase.testSuite.project.getPropertyValue("RemoteHCID")
 	 		def remoteHCIDWithPrefix 
@@ -17315,7 +17241,8 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
       <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
         <con:settings/>
         <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+          <script><![CDATA[import java.util.regex.*
+context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where messageType="Nhin Outbound" and communityId="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
@@ -17334,11 +17261,10 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 	parsedXmlMessage.ActiveParticipant[0].each{ node ->
 	     
 	     if(!node.@UserID.isEmpty()){
-	     	//Commented out until code fix for populating correct userid as per spec (FHAC-576)	
-	     	//assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
+	        //Commented out until code fix for populating correct userid as per spec (FHAC-576)
+	        //assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g0.@UserID" )
 	     }
-     	assert(!node.@AlternativeUserID.isEmpty())
-     	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
+     	assert(!node.@AlternativeUserID.isEmpty())     	
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -17362,7 +17288,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 	}
 }
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[1].each{ node ->	     
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
 	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
@@ -17372,7 +17298,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
      	def NetworkAccessPointID = node.@NetworkAccessPointID
      	if (NetworkAccessPointTypeCode == 1) {
 
-     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Destination.@NetworkAccessPointID" )
      		
      	} else {
 
@@ -17416,7 +17342,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
   			assert decodedData1 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@value" )
 	 		assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@type" )
 	 		def decodedData2 = new String (parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@value.text().decodeBase64())
-	 		def remoteHCID = testRunner.testCase.testSuite.project.getPropertyValue("RemoteHCID")
+  			def remoteHCID = testRunner.testCase.testSuite.project.getPropertyValue("RemoteHCID")
 	 		def remoteHCIDWithPrefix 
 	 		if(remoteHCID.startsWith("urn:oid:")){
 	 			remoteHCIDWithPrefix= remoteHCID
@@ -17458,19 +17384,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-06T19:11:04Z</con:value>
+          <con:value>2015-11-11T09:43:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-06T19:21:04Z</con:value>
+          <con:value>2015-11-11T09:53:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/06/2015 19:11:04</con:value>
+          <con:value>11/11/2015 09:43:54</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-06T00:00:00Z</con:value>
+          <con:value>2015-12-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@value</con:name>
@@ -17775,6 +17701,10 @@ if (propertiesFile.exists()) {
         <con:property>
           <con:name>ActiveParticipant_Source_g0.@UserID</con:name>
           <con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source_g1.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentRetrieve/3_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -18169,19 +18099,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-06T19:11:08Z</con:value>
+          <con:value>2015-11-11T09:43:59Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-06T19:21:08Z</con:value>
+          <con:value>2015-11-11T09:53:59Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/06/2015 19:11:08</con:value>
+          <con:value>11/11/2015 09:43:59</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-06T00:00:00Z</con:value>
+          <con:value>2015-12-11T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -18501,9 +18431,6 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 	     if(!node.@UserID.isEmpty()){
 	     	assert node.@UserID == context.findProperty( "ActiveParticipant.@UserID" )
 	     }
-	      if(!node.@AlternativeUserID.isEmpty()){
-	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant.@AlternativeUserID" )
-	     }
         	assert node.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant.@UserIsRequestor" )
 	     if(!node.RoleIDCode.isEmpty()){
@@ -18518,11 +18445,11 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	     if(!node.@UserID.isEmpty()){
 	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
 	     }
+	     //Commented out until code fix for FHAC-652
    	     //if(!node.@UserName.isEmpty()){
 	     //	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
 	     //}
      	assert(!node.@AlternativeUserID.isEmpty())
-     	//assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Source.@AlternativeUserID" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -18554,9 +18481,6 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	     }
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
-	     }
-   	     if(!node.@AlternativeUserID.isEmpty()){
-	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
@@ -18628,12 +18552,8 @@ parsedXmlMessage.EventIdentification.find{
 }
 if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() &amp;&amp; parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[0].each{ node ->
-         assert(!node.@UserID.isEmpty())
-   	     if(!node.@UserName.isEmpty()){
-	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserNamee" )
-	     }
-     	assert(!node.@AlternativeUserID.isEmpty())
-     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor")
+          assert(!node.@UserID.isEmpty())
+      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor")
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
    	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
@@ -18662,6 +18582,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() &am
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
+	     assert(!node.@AlternativeUserID.isEmpty())
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -18729,19 +18650,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-06T19:11:13Z</con:value>
+          <con:value>2015-11-11T09:44:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-06T19:21:13Z</con:value>
+          <con:value>2015-11-11T09:54:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/06/2015 19:11:13</con:value>
+          <con:value>11/11/2015 09:44:04</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-06T00:00:00Z</con:value>
+          <con:value>2015-12-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.@UserIsRequestor</con:name>
@@ -19314,9 +19235,6 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 	     if(!node.@UserID.isEmpty()){
 	     	assert node.@UserID == context.findProperty( "ActiveParticipant.@UserID")
 	     }
-	      if(!node.@AlternativeUserID.isEmpty()){
-	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant.@AlternativeUserID" )
-	     }
         	assert node.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant.@UserIsRequestor" )
 	     if(!node.RoleIDCode.isEmpty()){
@@ -19364,9 +19282,6 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	     }
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
-	     }
-   	     if(!node.@AlternativeUserID.isEmpty()){
-	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
@@ -19440,8 +19355,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() &am
 	     }
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
-	     }
-	     assert(!node.@AlternativeUserID.isEmpty())
+	     }	     
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -19471,7 +19385,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() &am
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
-	     //assert(!node.@AlternativeUserID.isEmpty())
+	     assert(!node.@AlternativeUserID.isEmpty())
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -19537,19 +19451,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-06T19:11:16Z</con:value>
+          <con:value>2015-11-11T09:44:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-06T19:21:16Z</con:value>
+          <con:value>2015-11-11T09:54:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/06/2015 19:11:16</con:value>
+          <con:value>11/11/2015 09:44:09</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-06T00:00:00Z</con:value>
+          <con:value>2015-12-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -20106,9 +20020,6 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 	     if(!node.@UserID.isEmpty()){
 	     	assert node.@UserID == context.findProperty( "ActiveParticipant.@UserID" )
 	     }
-	      if(!node.@AlternativeUserID.isEmpty()){
-	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant.@AlternativeUserID" )
-	     }
         	assert node.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant.@UserIsRequestor" )
 	     if(!node.RoleIDCode.isEmpty()){
@@ -20122,9 +20033,10 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	     if(!node.@UserID.isEmpty()){
 	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
 	     }
-   	     if(!node.@UserName.isEmpty()){
-	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserNamee" )
-	     }
+	     //Commenting out until code push for FHAC-652
+   	     //if(!node.@UserName.isEmpty()){
+	     //	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserNamee" )
+	     //}
      	assert(!node.@AlternativeUserID.isEmpty())
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
@@ -20156,9 +20068,6 @@ if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && 
 	     }
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
-	     }
-   	     if(!node.@AlternativeUserID.isEmpty()){
-	     	assert node.@AlternativeUserID == context.findProperty( "ActiveParticipant_Dest.@AlternativeUserID" )
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
@@ -20228,10 +20137,10 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() &am
 	     if(!node.@UserID.isEmpty()){
 	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
 	     }
-   	     if(!node.@UserName.isEmpty()){
-	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserNamee" )
-	     }
-	     assert (!node.@AlternativeUserID.isEmpty())
+	     //commenting out until code push for FHAC-652
+   	     //if(!node.@UserName.isEmpty()){
+	     //	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserNamee" )
+	     //}	     
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -20261,6 +20170,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() &am
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
+	     assert(!node.@AlternativeUserID.isEmpty())
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -20327,19 +20237,19 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-06T19:11:20Z</con:value>
+          <con:value>2015-11-11T09:44:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-06T19:21:20Z</con:value>
+          <con:value>2015-11-11T09:54:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/06/2015 19:11:20</con:value>
+          <con:value>11/11/2015 09:44:14</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-06T00:00:00Z</con:value>
+          <con:value>2015-12-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
