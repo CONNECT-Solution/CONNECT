@@ -26,17 +26,12 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 
 import org.apache.log4j.Logger;
-import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  * @author bhumphrey/paul
@@ -65,16 +60,6 @@ public abstract class OutboundPatientDiscoveryStrategy implements OrchestrationS
     }
 
     abstract public void execute(OutboundPatientDiscoveryOrchestratable message);
-
-    protected void auditRequestMessage(PRPAIN201305UV02 request, AssertionType assertion, String hcid) {
-        new PatientDiscoveryAuditLogger().auditNhin201305(request, assertion,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-    }
-
-    protected void auditResponseMessage(PRPAIN201306UV02 response, AssertionType assertion, String hcid) {
-        new PatientDiscoveryAuditLogger().auditNhin201306(response, assertion,
-                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-    }
 
     protected NhinTargetCommunityType createNhinTargetCommunityType(String hcid) {
         NhinTargetCommunityType target = new NhinTargetCommunityType();

@@ -56,7 +56,6 @@ public class UnsubscribeTransforms {
         AuditMessageType auditMsg = new AuditMessageType();
         if (message != null) {
             response.setDirection(message.getDirection());
-            response.setInterface(message.getInterface());
         }
 
         LOG.info("******************************************************************");
@@ -93,7 +92,6 @@ public class UnsubscribeTransforms {
         String patientId = "";
 
         // An unsubscribe message does not contain a patient identifier.
-
         if (userInfo != null && userInfo.getOrg() != null) {
             if (userInfo.getOrg().getHomeCommunityId() != null) {
                 communityId = userInfo.getOrg().getHomeCommunityId();
@@ -153,7 +151,6 @@ public class UnsubscribeTransforms {
         AuditMessageType auditMsg = new AuditMessageType();
         if (message != null) {
             response.setDirection(message.getDirection());
-            response.setInterface(message.getInterface());
         }
 
         LOG.info("******************************************************************");
@@ -190,7 +187,6 @@ public class UnsubscribeTransforms {
         String patientId = "";
 
         // An unsubscribe response message does not contain a patient identifier.
-
         if (userInfo != null && userInfo.getOrg() != null) {
             if (userInfo.getOrg().getHomeCommunityId() != null) {
                 communityId = userInfo.getOrg().getHomeCommunityId();

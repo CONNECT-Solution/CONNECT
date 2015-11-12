@@ -100,7 +100,6 @@ public class AdminDistTransforms {
 
         result.setAuditMessage(auditMsg);
         result.setDirection(direction);
-        result.setInterface(_interface);
 
         LOG.trace("Exiting ADTransform-getLogEventRequestType() method.");
 

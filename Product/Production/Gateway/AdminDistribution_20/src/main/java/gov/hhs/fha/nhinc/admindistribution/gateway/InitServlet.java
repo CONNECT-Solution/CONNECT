@@ -43,7 +43,9 @@ import gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean;
  */
 public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
 
-    /** The Constant serialVersionUID. */
+    /**
+     * The Constant serialVersionUID.
+     */
     private static final long serialVersionUID = -331241203887741599L;
 
     /* (non-Javadoc)

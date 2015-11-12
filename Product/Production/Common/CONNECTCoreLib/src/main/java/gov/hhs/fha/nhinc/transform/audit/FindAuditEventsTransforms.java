@@ -55,7 +55,6 @@ public class FindAuditEventsTransforms {
         LogEventRequestType response = new LogEventRequestType();
         if (message != null) {
             response.setDirection(message.getDirection());
-            response.setInterface(message.getInterface());
         }
 
         if (message != null) {
@@ -79,7 +78,6 @@ public class FindAuditEventsTransforms {
 
             // ActiveParticipant
             // NOTE: This is [1..*] in schema but only one item to map to from FindAuditEventsType
-
             if (userInfo != null && NullChecker.isNotNullish(userInfo.getUserName())) {
                 userID = userInfo.getUserName();
                 LOG.info("userID " + userID);

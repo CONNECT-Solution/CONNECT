@@ -94,8 +94,6 @@ public class DSDeferredResponseAuditTransformsTest extends
         testGetActiveParticipantSource(auditRequest, Boolean.TRUE, null, REQUEST_REMOTE_IP);
         assertEquals("AuditMessage.Request direction mismatch", auditRequest.getDirection(),
             NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-        assertEquals("AuditMessage.Request interface mismatch", auditRequest.getInterface(),
-            NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
     }
 
     @Override
@@ -163,9 +161,6 @@ public class DSDeferredResponseAuditTransformsTest extends
         assertEquals(
             "AuditMessage.Response direction mismatch", auditResponse.getDirection(),
             NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-        assertEquals(
-            "AuditMessage.Response interface mismatch", auditResponse.getInterface(),
-            NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
     }
 
     @Override

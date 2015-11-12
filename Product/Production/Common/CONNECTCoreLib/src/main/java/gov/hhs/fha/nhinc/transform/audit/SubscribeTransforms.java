@@ -62,7 +62,6 @@ public class SubscribeTransforms {
         AuditMessageType auditMsg = new AuditMessageType();
         if (message != null) {
             response.setDirection(message.getDirection());
-            response.setInterface(message.getInterface());
         }
 
         LOG.info("******************************************************************");
@@ -161,7 +160,6 @@ public class SubscribeTransforms {
         AuditMessageType auditMsg = new AuditMessageType();
         if (message != null) {
             response.setDirection(message.getDirection());
-            response.setInterface(message.getInterface());
         }
 
         LOG.info("******************************************************************");

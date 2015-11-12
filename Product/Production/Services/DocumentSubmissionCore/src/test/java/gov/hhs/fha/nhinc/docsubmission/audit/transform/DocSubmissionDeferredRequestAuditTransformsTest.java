@@ -106,8 +106,6 @@ public class DocSubmissionDeferredRequestAuditTransformsTest extends AuditTransf
         assertParticipantObjectIdentification(auditRequest.getAuditMessage());
         assertEquals("AuditMessage.Request direction mismatch", auditRequest.getDirection(),
             NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-        assertEquals("AuditMessage.Request interface mismatch", auditRequest.getInterface(),
-            NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
     }
 
     @Test
@@ -150,8 +148,6 @@ public class DocSubmissionDeferredRequestAuditTransformsTest extends AuditTransf
         assertParticipantObjectIdentification(auditResponse.getAuditMessage());
         assertEquals("AuditMessage.Response direction mismatch", auditResponse.getDirection(),
             NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-        assertEquals("AuditMessage.Response interface mismatch", auditResponse.getInterface(),
-            NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
     }
 
     @Override
