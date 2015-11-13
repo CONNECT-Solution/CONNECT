@@ -646,6 +646,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -979,7 +980,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredReq',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
@@ -989,6 +995,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredReq', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -1002,188 +1009,245 @@ if (propertiesFile.exists()) {
  }
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredReq','true', log);
 //context.setGatewayStandard(true);
 //log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
-          <con:name>startDate</con:name>
-          <con:value>2015-11-12T18:23:56Z</con:value>
-        </con:property>
-        <con:property>
-          <con:name>endDate</con:name>
-          <con:value>2015-11-12T18:33:56Z</con:value>
-        </con:property>
-        <con:property>
-          <con:name>sigDate</con:name>
-          <con:value>11/12/2015 18:23:56</con:value>
-        </con:property>
-        <con:property>
-          <con:name>expireDate</con:name>
-          <con:value>2015-12-12T00:00:00Z</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
-          <con:value>110153</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode</con:name>
-          <con:value>2</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCode</con:name>
-          <con:value>1</con:value>
-        </con:property>
-        <con:property>
           <con:name>&lt;!--Destination--></con:name>
           <con:value/>
-        </con:property>
-        <con:property>
-          <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName</con:name>
-          <con:value>submission set classificationNode</con:value>
-        </con:property>
-        <con:property>
-          <con:name>EventIdentification_Responder.@EventActionCode</con:name>
-          <con:value>C</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Dest.@UserID</con:name>
-          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name>
-          <con:value>false</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name>
-          <con:value>1</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Source.@AlternativeUserID</con:name>
-          <con:value>19233@192.168.1.2</con:value>
-        </con:property>
-        <con:property>
-          <con:name>EventIdentification.EventTypeCode.@code</con:name>
-          <con:value>ITI-41</con:value>
-        </con:property>
-        <con:property>
-          <con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name>
-          <con:value>1010</con:value>
-        </con:property>
-        <con:property>
-          <con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name>
-          <con:value>IHE Transactions</con:value>
-        </con:property>
-        <con:property>
-          <con:name>EventIdentification_Responder.EventID.@code</con:name>
-          <con:value>110107</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant.@UserIsRequestor</con:name>
-          <con:value>true</con:value>
-        </con:property>
-        <con:property>
-          <con:name>&lt;--Patient--></con:name>
-          <con:value/>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name>
-          <con:value>Destination</con:value>
-        </con:property>
-        <con:property>
-          <con:name>&lt;--Submission</con:name>
-          <con:value>Set --></con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name>
-          <con:value>localhost</con:value>
         </con:property>
         <con:property>
           <con:name>&lt;!--Human</con:name>
           <con:value>Requestor--></con:value>
         </con:property>
         <con:property>
-          <con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name>
-          <con:value>2</con:value>
+          <con:name>&lt;!--Source--></con:name>
+          <con:value/>
         </con:property>
         <con:property>
-          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name>
-          <con:value>Patient Number</con:value>
+          <con:name>&lt;--Patient--></con:name>
+          <con:value/>
         </con:property>
         <con:property>
-          <con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name>
-          <con:value>Source</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant.@UserName</con:name>
-          <con:value>Karl Skagerberg</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name>
-          <con:value>192.168.1.2</con:value>
-        </con:property>
-        <con:property>
-          <con:name>EventIdentification.@EventActionCode</con:name>
-          <con:value>R</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name>
-          <con:value>110152</con:value>
-        </con:property>
-        <con:property>
-          <con:name>EventIdentification.EventID.@codeSystemName</con:name>
-          <con:value>DCM</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name>
-          <con:value>DCM</con:value>
-        </con:property>
-        <con:property>
-          <con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name>
-          <con:value>DoD</con:value>
-        </con:property>
-        <con:property>
-          <con:name>EventIdentification.EventID.@displayName</con:name>
-          <con:value>Export</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole</con:name>
-          <con:value>1</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Source.@UserName</con:name>
-          <con:value>Karl Skagerberg</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant.RoleIDCode.@codeSystemName</con:name>
-          <con:value>SNOMED_CT</con:value>
+          <con:name>&lt;--Submission</con:name>
+          <con:value>Set --></con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.@AlternativeUserID</con:name>
           <con:value>19233@192.168.1.1</con:value>
         </con:property>
         <con:property>
-          <con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name>
-          <con:value>DCM</con:value>
+          <con:name>ActiveParticipant.@UserID</con:name>
+          <con:value>kskagerb</con:value>
         </con:property>
         <con:property>
-          <con:name>EventIdentification.EventTypeCode.@displayName</con:name>
-          <con:value>Provide and Register Document Set-b</con:value>
+          <con:name>ActiveParticipant.@UserIsRequestor</con:name>
+          <con:value>true</con:value>
         </con:property>
         <con:property>
-          <con:name>EventIdentification.EventID.@code</con:name>
-          <con:value>110106</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name>
-          <con:value>19233@192.168.1.2</con:value>
+          <con:name>ActiveParticipant.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.RoleIDCode.@code</con:name>
           <con:value>307969004</con:value>
         </con:property>
         <con:property>
+          <con:name>ActiveParticipant.RoleIDCode.@codeSystemName</con:name>
+          <con:value>SNOMED_CT</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.RoleIDCode.@displayName</con:name>
+          <con:value>Human Requestor</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name>
+          <con:value>localhost</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserID_g0</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRRequest_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserID_g1</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRRequest_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name>
+          <con:value>110152</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name>
+          <con:value>Destination</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name>
+          <con:value>192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserID</con:name>
+          <con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserIsRequestor</con:name>
+          <con:value>true</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
+          <con:value>110153</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name>
+          <con:value>Source</con:value>
+        </con:property>
+        <con:property>
+          <con:name>auditLogStatus</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditMessage.xmlns</con:name>
+          <con:value>http://nhinc.services.com/schema/auditmessage</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name>
+          <con:value>DoD</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
+          <con:value>urn:oid:1.1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name>
+          <con:value>1010</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2015-11-13T08:31:27Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventActionCode</con:name>
+          <con:value>R</con:value>
+        </con:property>
+        <con:property>
           <con:name>EventIdentification.@EventDateTime</con:name>
           <con:value>2015-04-02T13:47:30.199Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventOutcomeIndicator</con:name>
+          <con:value>0</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@code</con:name>
+          <con:value>110106</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@displayName</con:name>
+          <con:value>Export</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@code</con:name>
+          <con:value>ITI-41</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name>
+          <con:value>IHE Transactions</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@displayName</con:name>
+          <con:value>Provide and Register Document Set-b</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.@EventActionCode</con:name>
+          <con:value>C</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.EventID.@code</con:name>
+          <con:value>110107</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.EventID.@displayName</con:name>
+          <con:value>Import</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2015-12-13T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
+          <con:value>SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCode</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
+          <con:value>RFC-3881</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name>
+          <con:value>Patient Number</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectID</con:name>
+          <con:value>1.3.6.1.4.1.21367.2005.3.9999.33</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode</con:name>
+          <con:value>2</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCodeRole</con:name>
@@ -1194,75 +1258,23 @@ if (propertiesFile.exists()) {
           <con:value>urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd</con:value>
         </con:property>
         <con:property>
-          <con:name>EventIdentification.@EventOutcomeIndicator</con:name>
-          <con:value>0</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
-          <con:value>RFC-3881</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Source.@UserIsRequestor</con:name>
-          <con:value>true</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant.RoleIDCode.@displayName</con:name>
-          <con:value>Human Requestor</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Source.@UserID</con:name>
-          <con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value>
-        </con:property>
-        <con:property>
-          <con:name>AuditMessage.xmlns</con:name>
-          <con:value>http://nhinc.services.com/schema/auditmessage</con:value>
-        </con:property>
-        <con:property>
           <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
           <con:value>IHE XDS Metadata</con:value>
         </con:property>
         <con:property>
-          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name>
-          <con:value>2</con:value>
+          <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName</con:name>
+          <con:value>submission set classificationNode</con:value>
         </con:property>
         <con:property>
-          <con:name>&lt;!--Source--></con:name>
-          <con:value/>
+          <con:name>sigDate</con:name>
+          <con:value>11/13/2015 08:21:27</con:value>
         </con:property>
         <con:property>
-          <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
-          <con:value>SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO</con:value>
+          <con:name>startDate</con:name>
+          <con:value>2015-11-13T08:21:27Z</con:value>
         </con:property>
         <con:property>
-          <con:name>EventIdentification_Responder.EventID.@displayName</con:name>
-          <con:value>Import</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectID</con:name>
-          <con:value>1.3.6.1.4.1.21367.2005.3.9999.33</con:value>
-        </con:property>
-        <con:property>
-          <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
-          <con:value>urn:oid:1.1</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Dest.@UserName</con:name>
-          <con:value>Karl Skagerberg</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant.@UserID</con:name>
-          <con:value>kskagerb</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Dest.@UserID_g1</con:name>
-          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRRequest_Service</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Dest.@UserID_g0</con:name>
-          <con:value>https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRRequest_Service</con:value>
-        </con:property>
-        <con:property>
-          <con:name>auditLogStatus</con:name>
+          <con:name>AuditOff</con:name>
           <con:value>true</con:value>
         </con:property>
       </con:properties>
@@ -1645,6 +1657,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -1843,7 +1856,12 @@ parsedXmlMessage.AuditSourceIdentification.find{
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredResp',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -1851,6 +1869,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredResp', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -1864,24 +1883,25 @@ if (propertiesFile.exists()) {
  }
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredResp','true', log);
 //context.setGatewayStandard(true);
 //log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-12T18:24:09Z</con:value>
+          <con:value>2015-11-13T08:11:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-12T18:34:09Z</con:value>
+          <con:value>2015-11-13T08:21:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/12/2015 18:24:09</con:value>
+          <con:value>11/13/2015 08:11:26</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-12T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -2037,6 +2057,10 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
           <con:value>true</con:value>
         </con:property>
       </con:properties>
@@ -2553,6 +2577,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -2794,7 +2819,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmission',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
@@ -2805,6 +2835,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmission', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -2818,24 +2849,25 @@ if (propertiesFile.exists()) {
  }
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmission','true', log);
 //context.setGatewayStandard(true);
 //log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-12T18:24:17Z</con:value>
+          <con:value>2015-11-13T08:11:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-12T18:34:17Z</con:value>
+          <con:value>2015-11-13T08:21:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/12/2015 18:24:17</con:value>
+          <con:value>11/13/2015 08:11:45</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-12T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -3079,6 +3111,10 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
           <con:value>true</con:value>
         </con:property>
       </con:properties>
@@ -3434,6 +3470,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+		testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -3754,7 +3791,12 @@ if (parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCo
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredReq',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
@@ -3764,6 +3806,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredReq', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -3777,6 +3820,7 @@ if (propertiesFile.exists()) {
  }
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredReq','true', log);
 //context.setGatewayStandard(true);
 //log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
@@ -3858,7 +3902,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-12T18:34:41Z</con:value>
+          <con:value>2015-11-13T08:22:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -3902,7 +3946,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-12T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -4002,7 +4046,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/12/2015 18:24:41</con:value>
+          <con:value>11/13/2015 08:12:00</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -4010,7 +4054,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-12T18:24:41Z</con:value>
+          <con:value>2015-11-13T08:12:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -4370,6 +4414,10 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
           <con:value>true</con:value>
         </con:property>
       </con:properties>
@@ -4751,6 +4799,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -5071,7 +5120,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredResp',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
@@ -5081,6 +5135,8 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredResp', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
+
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -5094,6 +5150,7 @@ if (propertiesFile.exists()) {
  }
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredResp','true', log);
 //context.setGatewayStandard(true);
 //log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
@@ -5363,19 +5420,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-12T18:24:59Z</con:value>
+          <con:value>2015-11-13T08:12:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-12T18:34:59Z</con:value>
+          <con:value>2015-11-13T08:22:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/12/2015 18:24:59</con:value>
+          <con:value>11/13/2015 08:12:29</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-12T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@code</con:name>
@@ -5691,6 +5748,10 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
           <con:value>true</con:value>
         </con:property>
       </con:properties>
@@ -6193,6 +6254,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -6508,7 +6570,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscovery',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
@@ -6518,6 +6585,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscovery', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -6531,24 +6599,25 @@ if (propertiesFile.exists()) {
  }
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscovery','true', log);
 //context.setGatewayStandard(true);
 //log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-12T18:25:17Z</con:value>
+          <con:value>2015-11-13T08:13:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-12T18:35:17Z</con:value>
+          <con:value>2015-11-13T08:23:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/12/2015 18:25:17</con:value>
+          <con:value>11/13/2015 08:13:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-12T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -6952,6 +7021,10 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
           <con:value>true</con:value>
         </con:property>
       </con:properties>
@@ -7319,6 +7392,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -7606,7 +7680,12 @@ if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCo
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'QueryForDocuments',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -7614,6 +7693,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'QueryForDocuments', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -7627,24 +7707,25 @@ if (propertiesFile.exists()) {
  }
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'QueryForDocuments','true', log);
 //context.setGatewayStandard(true);
 //log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-12T18:25:49Z</con:value>
+          <con:value>2015-11-13T08:14:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-12T18:35:49Z</con:value>
+          <con:value>2015-11-13T08:24:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/12/2015 18:25:49</con:value>
+          <con:value>11/13/2015 08:14:05</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-12T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -7948,6 +8029,10 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
           <con:value>true</con:value>
         </con:property>
       </con:properties>
@@ -8276,6 +8361,7 @@ context.withSql(context.findProperty('AuditRepoDB')) {sql ->
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 }
+testRunner.testCase.setPropertyValue('AuditOff', 'true')
 testRunner.gotoStepByName( "Success")
  }
  else
@@ -8548,7 +8634,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'RetrieveDocuments',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
@@ -8558,6 +8649,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'RetrieveDocuments', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -8571,6 +8663,7 @@ if (propertiesFile.exists()) {
  }
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'RetrieveDocuments','true', log);
 //context.setGatewayStandard(true);
 //log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
@@ -8580,19 +8673,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-12T18:26:01Z</con:value>
+          <con:value>2015-11-13T08:14:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-12T18:36:01Z</con:value>
+          <con:value>2015-11-13T08:24:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/12/2015 18:26:01</con:value>
+          <con:value>11/13/2015 08:14:21</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-12T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@value</con:name>
@@ -8912,6 +9005,10 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
           <con:value>true</con:value>
         </con:property>
       </con:properties>
@@ -9312,19 +9409,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-12T18:26:29Z</con:value>
+          <con:value>2015-11-13T08:14:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-12T18:36:29Z</con:value>
+          <con:value>2015-11-13T08:24:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/12/2015 18:26:29</con:value>
+          <con:value>11/13/2015 08:14:49</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-12T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -9873,7 +9970,8 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:testStep type="groovy" name="Verify Audit Logs" id="f48a57a8-e26c-40a0-9de4-1245b744f953">
         <con:settings/>
         <con:config>
-          <script>if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "true")
+          <script>log.info " ### Verify Audit Logs auditLogStatus " + testRunner.testCase.getPropertyValue("auditLogStatus")
+if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "true")
 {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
@@ -9887,6 +9985,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -10220,7 +10319,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredReq',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
@@ -10230,7 +10334,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredReq', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
-
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -10244,188 +10348,249 @@ if (propertiesFile.exists()) {
  }
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredReq','true', log);
 //context.setGatewayStandard(true);
 //log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
-          <con:name>startDate</con:name>
-          <con:value>2015-11-12T18:26:43Z</con:value>
-        </con:property>
-        <con:property>
-          <con:name>endDate</con:name>
-          <con:value>2015-11-12T18:36:43Z</con:value>
-        </con:property>
-        <con:property>
-          <con:name>sigDate</con:name>
-          <con:value>11/12/2015 18:26:43</con:value>
-        </con:property>
-        <con:property>
-          <con:name>expireDate</con:name>
-          <con:value>2015-12-12T00:00:00Z</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
-          <con:value>110153</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode</con:name>
-          <con:value>2</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCode</con:name>
-          <con:value>1</con:value>
-        </con:property>
-        <con:property>
           <con:name>&lt;!--Destination--></con:name>
           <con:value/>
-        </con:property>
-        <con:property>
-          <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName</con:name>
-          <con:value>submission set classificationNode</con:value>
-        </con:property>
-        <con:property>
-          <con:name>EventIdentification_Responder.@EventActionCode</con:name>
-          <con:value>C</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Dest.@UserID</con:name>
-          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name>
-          <con:value>false</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name>
-          <con:value>1</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Source.@AlternativeUserID</con:name>
-          <con:value>19233@192.168.1.2</con:value>
-        </con:property>
-        <con:property>
-          <con:name>EventIdentification.EventTypeCode.@code</con:name>
-          <con:value>ITI-41</con:value>
-        </con:property>
-        <con:property>
-          <con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name>
-          <con:value>1010</con:value>
-        </con:property>
-        <con:property>
-          <con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name>
-          <con:value>IHE Transactions</con:value>
-        </con:property>
-        <con:property>
-          <con:name>EventIdentification_Responder.EventID.@code</con:name>
-          <con:value>110107</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant.@UserIsRequestor</con:name>
-          <con:value>true</con:value>
-        </con:property>
-        <con:property>
-          <con:name>&lt;--Patient--></con:name>
-          <con:value/>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name>
-          <con:value>Destination</con:value>
-        </con:property>
-        <con:property>
-          <con:name>&lt;--Submission</con:name>
-          <con:value>Set --></con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name>
-          <con:value>localhost</con:value>
         </con:property>
         <con:property>
           <con:name>&lt;!--Human</con:name>
           <con:value>Requestor--></con:value>
         </con:property>
         <con:property>
-          <con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name>
-          <con:value>2</con:value>
+          <con:name>&lt;!--Source--></con:name>
+          <con:value/>
         </con:property>
         <con:property>
-          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name>
-          <con:value>Patient Number</con:value>
+          <con:name>&lt;--Patient--></con:name>
+          <con:value/>
         </con:property>
         <con:property>
-          <con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name>
-          <con:value>Source</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant.@UserName</con:name>
-          <con:value>Karl Skagerberg</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name>
-          <con:value>192.168.1.2</con:value>
-        </con:property>
-        <con:property>
-          <con:name>EventIdentification.@EventActionCode</con:name>
-          <con:value>R</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name>
-          <con:value>110152</con:value>
-        </con:property>
-        <con:property>
-          <con:name>EventIdentification.EventID.@codeSystemName</con:name>
-          <con:value>DCM</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name>
-          <con:value>DCM</con:value>
-        </con:property>
-        <con:property>
-          <con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name>
-          <con:value>DoD</con:value>
-        </con:property>
-        <con:property>
-          <con:name>EventIdentification.EventID.@displayName</con:name>
-          <con:value>Export</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole</con:name>
-          <con:value>1</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Source.@UserName</con:name>
-          <con:value>Karl Skagerberg</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant.RoleIDCode.@codeSystemName</con:name>
-          <con:value>SNOMED_CT</con:value>
+          <con:name>&lt;--Submission</con:name>
+          <con:value>Set --></con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.@AlternativeUserID</con:name>
           <con:value>19233@192.168.1.1</con:value>
         </con:property>
         <con:property>
-          <con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name>
-          <con:value>DCM</con:value>
+          <con:name>ActiveParticipant.@UserID</con:name>
+          <con:value>kskagerb</con:value>
         </con:property>
         <con:property>
-          <con:name>EventIdentification.EventTypeCode.@displayName</con:name>
-          <con:value>Provide and Register Document Set-b</con:value>
+          <con:name>ActiveParticipant.@UserIsRequestor</con:name>
+          <con:value>true</con:value>
         </con:property>
         <con:property>
-          <con:name>EventIdentification.EventID.@code</con:name>
-          <con:value>110106</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name>
-          <con:value>19233@192.168.1.2</con:value>
+          <con:name>ActiveParticipant.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.RoleIDCode.@code</con:name>
           <con:value>307969004</con:value>
         </con:property>
         <con:property>
+          <con:name>ActiveParticipant.RoleIDCode.@codeSystemName</con:name>
+          <con:value>SNOMED_CT</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.RoleIDCode.@displayName</con:name>
+          <con:value>Human Requestor</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name>
+          <con:value>localhost</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserID_g0</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRRequest_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserID_g1</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRRequest_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name>
+          <con:value>110152</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name>
+          <con:value>Destination</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name>
+          <con:value>192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserID</con:name>
+          <con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserIsRequestor</con:name>
+          <con:value>true</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
+          <con:value>110153</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name>
+          <con:value>Source</con:value>
+        </con:property>
+        <con:property>
+          <con:name>auditLogStatus</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditMessage.xmlns</con:name>
+          <con:value>http://nhinc.services.com/schema/auditmessage</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
+          <con:value>true</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name>
+          <con:value>DoD</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
+          <con:value>urn:oid:1.1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name>
+          <con:value>1010</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2015-11-13T08:33:16Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventActionCode</con:name>
+          <con:value>R</con:value>
+        </con:property>
+        <con:property>
           <con:name>EventIdentification.@EventDateTime</con:name>
           <con:value>2015-04-02T13:47:30.199Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventOutcomeIndicator</con:name>
+          <con:value>0</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@code</con:name>
+          <con:value>110106</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@displayName</con:name>
+          <con:value>Export</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@code</con:name>
+          <con:value>ITI-41</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name>
+          <con:value>IHE Transactions</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@displayName</con:name>
+          <con:value>Provide and Register Document Set-b</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.@EventActionCode</con:name>
+          <con:value>C</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.EventID.@code</con:name>
+          <con:value>110107</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.EventID.@displayName</con:name>
+          <con:value>Import</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2015-12-13T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
+          <con:value>SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCode</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
+          <con:value>RFC-3881</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name>
+          <con:value>Patient Number</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectID</con:name>
+          <con:value>1.3.6.1.4.1.21367.2005.3.9999.33</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode</con:name>
+          <con:value>2</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCodeRole</con:name>
@@ -10436,76 +10601,20 @@ if (propertiesFile.exists()) {
           <con:value>urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd</con:value>
         </con:property>
         <con:property>
-          <con:name>EventIdentification.@EventOutcomeIndicator</con:name>
-          <con:value>0</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
-          <con:value>RFC-3881</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Source.@UserIsRequestor</con:name>
-          <con:value>true</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant.RoleIDCode.@displayName</con:name>
-          <con:value>Human Requestor</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Source.@UserID</con:name>
-          <con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value>
-        </con:property>
-        <con:property>
-          <con:name>AuditMessage.xmlns</con:name>
-          <con:value>http://nhinc.services.com/schema/auditmessage</con:value>
-        </con:property>
-        <con:property>
           <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
           <con:value>IHE XDS Metadata</con:value>
         </con:property>
         <con:property>
-          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name>
-          <con:value>2</con:value>
+          <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName</con:name>
+          <con:value>submission set classificationNode</con:value>
         </con:property>
         <con:property>
-          <con:name>&lt;!--Source--></con:name>
-          <con:value/>
+          <con:name>sigDate</con:name>
+          <con:value>11/13/2015 08:23:16</con:value>
         </con:property>
         <con:property>
-          <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
-          <con:value>SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO</con:value>
-        </con:property>
-        <con:property>
-          <con:name>EventIdentification_Responder.EventID.@displayName</con:name>
-          <con:value>Import</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectID</con:name>
-          <con:value>1.3.6.1.4.1.21367.2005.3.9999.33</con:value>
-        </con:property>
-        <con:property>
-          <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
-          <con:value>urn:oid:1.1</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Dest.@UserName</con:name>
-          <con:value>Karl Skagerberg</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant.@UserID</con:name>
-          <con:value>kskagerb</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Dest.@UserID_g1</con:name>
-          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRRequest_Service</con:value>
-        </con:property>
-        <con:property>
-          <con:name>ActiveParticipant_Dest.@UserID_g0</con:name>
-          <con:value>https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRRequest_Service</con:value>
-        </con:property>
-        <con:property>
-          <con:name>auditLogStatus</con:name>
-          <con:value>true</con:value>
+          <con:name>startDate</con:name>
+          <con:value>2015-11-13T08:23:16Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -10887,6 +10996,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -11086,7 +11196,12 @@ parsedXmlMessage.AuditSourceIdentification.find{
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredResp',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -11096,6 +11211,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredResp', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -11109,24 +11225,25 @@ if (propertiesFile.exists()) {
  }
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredResp','true', log);
 //context.setGatewayStandard(true);
 //log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-12T18:26:53Z</con:value>
+          <con:value>2015-11-13T08:23:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-12T18:36:53Z</con:value>
+          <con:value>2015-11-13T08:33:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/12/2015 18:26:53</con:value>
+          <con:value>11/13/2015 08:23:32</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-12T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -11282,6 +11399,10 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
           <con:value>true</con:value>
         </con:property>
       </con:properties>
@@ -11798,6 +11919,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -12039,7 +12161,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmission',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
@@ -12049,6 +12176,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmission', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -12062,24 +12190,25 @@ if (propertiesFile.exists()) {
  }
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmission','true', log);
 //context.setGatewayStandard(true);
 //log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-12T18:27:00Z</con:value>
+          <con:value>2015-11-13T08:23:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-12T18:37:00Z</con:value>
+          <con:value>2015-11-13T08:33:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/12/2015 18:27:00</con:value>
+          <con:value>11/13/2015 08:23:47</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-12T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -12323,6 +12452,10 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
           <con:value>true</con:value>
         </con:property>
       </con:properties>
@@ -12678,6 +12811,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -12998,17 +13132,23 @@ if (parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCo
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredReq',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
+
 //context.setGatewayStandard(false);
 //log.info ("Setting the gateway to Passthrough");
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredReq', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
-
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -13022,6 +13162,7 @@ if (propertiesFile.exists()) {
  }
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredReq','true', log);
 //context.setGatewayStandard(true);
 //log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
@@ -13103,7 +13244,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-12T18:37:10Z</con:value>
+          <con:value>2015-11-13T08:34:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -13147,7 +13288,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-12T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -13247,7 +13388,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/12/2015 18:27:10</con:value>
+          <con:value>11/13/2015 08:24:04</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -13255,7 +13396,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-12T18:27:10Z</con:value>
+          <con:value>2015-11-13T08:24:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -13615,6 +13756,10 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
           <con:value>true</con:value>
         </con:property>
       </con:properties>
@@ -13996,6 +14141,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -14316,7 +14462,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredResp',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
@@ -14326,6 +14477,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredResp', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -14339,6 +14491,7 @@ if (propertiesFile.exists()) {
  }
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredResp','true', log);
 //context.setGatewayStandard(true);
 //log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
@@ -14608,19 +14761,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-11T23:37:45Z</con:value>
+          <con:value>2015-11-13T08:34:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/11/2015 23:27:45</con:value>
+          <con:value>11/13/2015 08:24:32</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-11T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-11T23:27:45Z</con:value>
+          <con:value>2015-11-13T08:24:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@code</con:name>
@@ -14937,6 +15090,10 @@ if (propertiesFile.exists()) {
         <con:property>
           <con:name>auditLogStatus</con:name>
           <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
+          <con:value>true</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -15438,6 +15595,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -15628,6 +15786,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 	     	assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
 	     }
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
+     	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
    	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
@@ -15652,8 +15811,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
 	    	assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	    
-   	    assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
-	     assert(!node.@AlternativeUserID.isEmpty())	    
+   	     assert(!node.@AlternativeUserID.isEmpty())	    
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
    	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
@@ -15754,7 +15912,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscovery',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
@@ -15764,6 +15927,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscovery', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -15777,24 +15941,25 @@ if (propertiesFile.exists()) {
  }
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredResp','true', log);
 //context.setGatewayStandard(true);
 //log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-11T23:28:00Z</con:value>
+          <con:value>2015-11-13T08:25:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-11T23:38:00Z</con:value>
+          <con:value>2015-11-13T08:35:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/11/2015 23:28:00</con:value>
+          <con:value>11/13/2015 08:25:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-11T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -16188,6 +16353,10 @@ if (propertiesFile.exists()) {
           <con:name>auditLogStatus</con:name>
           <con:value>false</con:value>
         </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
+          <con:value>true</con:value>
+        </con:property>
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
@@ -16553,6 +16722,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -16841,7 +17011,12 @@ if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCo
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'QueryForDocuments',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
@@ -16852,6 +17027,8 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'QueryForDocuments', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
+
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -16865,24 +17042,25 @@ if (propertiesFile.exists()) {
  }
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'QueryForDocuments','true', log);
 //context.setGatewayStandard(true);
 //log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-11T23:28:31Z</con:value>
+          <con:value>2015-11-13T08:26:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-11T23:38:31Z</con:value>
+          <con:value>2015-11-13T08:36:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/11/2015 23:28:31</con:value>
+          <con:value>11/13/2015 08:26:08</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-11T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -17195,6 +17373,10 @@ if (propertiesFile.exists()) {
         <con:property>
           <con:name>auditLogStatus</con:name>
           <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
+          <con:value>true</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -17522,6 +17704,7 @@ context.withSql(context.findProperty('AuditRepoDB')) {sql ->
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 }
+testRunner.testCase.setPropertyValue('AuditOff', 'true')
 testRunner.gotoStepByName( "Success")
  }
  else
@@ -17796,7 +17979,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'RetrieveDocuments',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
@@ -17806,7 +17994,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'RetrieveDocuments', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
-
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -17820,6 +18008,7 @@ if (propertiesFile.exists()) {
  }
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'RetrieveDocuments','true', log);
 //context.setGatewayStandard(true);
 //log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
@@ -17977,7 +18166,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-11T23:38:41Z</con:value>
+          <con:value>2015-11-13T08:36:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -18029,7 +18218,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-11T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectDataLifeCycle</con:name>
@@ -18145,15 +18334,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/11/2015 23:28:41</con:value>
+          <con:value>11/13/2015 08:26:23</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-11T23:28:41Z</con:value>
+          <con:value>2015-11-13T08:26:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
           <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
+          <con:value>true</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -18548,19 +18741,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-11T23:28:58Z</con:value>
+          <con:value>2015-11-13T08:26:51Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-11T23:38:58Z</con:value>
+          <con:value>2015-11-13T08:36:51Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/11/2015 23:28:58</con:value>
+          <con:value>11/13/2015 08:26:51</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-11T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -18864,6 +19057,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -19097,7 +19291,12 @@ parsedXmlMessage.ParticipantObjectIdentification.find{
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'CORE_X12DSRealTime',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
@@ -19105,6 +19304,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'CORE_X12DSRealTime', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -19117,23 +19317,24 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'CORE_X12DSRealTime','true', log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-11T23:29:04Z</con:value>
+          <con:value>2015-11-13T08:29:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-11T23:39:04Z</con:value>
+          <con:value>2015-11-13T08:39:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/11/2015 23:29:04</con:value>
+          <con:value>11/13/2015 08:29:34</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-11T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.@UserIsRequestor</con:name>
@@ -19390,6 +19591,10 @@ if (propertiesFile.exists()) {
         <con:property>
           <con:name>auditLogStatus</con:name>
           <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
+          <con:value>true</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -19694,6 +19899,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -19922,7 +20128,12 @@ parsedXmlMessage.ParticipantObjectIdentification.find{
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'CORE_X12DSGenericBatchRequest',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
@@ -19930,6 +20141,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'CORE_X12DSGenericBatchRequest', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -19942,23 +20154,24 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'CORE_X12DSGenericBatchRequest','true', log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-11T23:29:11Z</con:value>
+          <con:value>2015-11-13T08:27:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-11T23:39:11Z</con:value>
+          <con:value>2015-11-13T08:37:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/11/2015 23:29:11</con:value>
+          <con:value>11/13/2015 08:27:07</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-11T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -20194,6 +20407,10 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
           <con:value>false</con:value>
         </con:property>
       </con:properties>
@@ -20503,6 +20720,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -20734,7 +20952,12 @@ parsedXmlMessage.ParticipantObjectIdentification.find{
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'CORE_X12DSGenericBatchResponse',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
@@ -20742,6 +20965,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'CORE_X12DSGenericBatchResponse', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -20754,23 +20978,24 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'CORE_X12DSGenericBatchResponse','true', log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-11T23:29:18Z</con:value>
+          <con:value>2015-11-13T08:27:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-11T23:39:18Z</con:value>
+          <con:value>2015-11-13T08:37:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/11/2015 23:29:18</con:value>
+          <con:value>11/13/2015 08:27:23</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-11T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -21000,6 +21225,10 @@ if (propertiesFile.exists()) {
           <con:name>auditLogStatus</con:name>
           <con:value>false</con:value>
         </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
+          <con:value>true</con:value>
+        </con:property>
       </con:properties>
     </con:testCase>
     <con:properties>
@@ -21155,7 +21384,7 @@ if (propertiesFile.exists()) {
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value/>
+      <con:value>C:\jboss-as-7.1.1.Final\modules\org\connectopensource\configuration\main</con:value>
     </con:property>
     <con:property>
       <con:name>Gender</con:name>

@@ -617,6 +617,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -950,7 +951,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredReq',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -958,6 +964,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredReq', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -970,7 +977,8 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredReq','true', log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -1611,6 +1619,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -1810,7 +1819,12 @@ parsedXmlMessage.AuditSourceIdentification.find{
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredResp',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -1818,6 +1832,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredResp', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -1830,7 +1845,8 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredResp','true', log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -2517,6 +2533,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -2758,7 +2775,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmission',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -2766,6 +2788,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmission', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -2778,7 +2801,8 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmission','true', log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -3401,6 +3425,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -3721,7 +3746,12 @@ if (parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCo
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredReq',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -3729,7 +3759,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredReq', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
-
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -3742,7 +3772,8 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredReq','true', log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>LocalHCID</con:name>
@@ -4724,6 +4755,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -5044,7 +5076,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredResp',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -5053,6 +5090,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredResp', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -5065,7 +5103,8 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredReq','true', log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>LocalHCID</con:name>
@@ -6013,6 +6052,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -6327,7 +6367,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscovery',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -6335,6 +6380,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscovery', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -6347,7 +6393,8 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscovery','true', log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -7134,6 +7181,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -7420,7 +7468,12 @@ if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCo
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'QueryForDocuments',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -7428,6 +7481,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'QueryForDocuments', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -7440,7 +7494,8 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'QueryForDocuments','true', log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -7780,6 +7835,12 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
+      <con:testStep type="delay" name="Wait for Audit table to populate">
+        <con:settings/>
+        <con:config>
+          <delay>2000</delay>
+        </con:config>
+      </con:testStep>
       <con:testStep name="Document Retrieve" type="request" id="0b684917-158e-4591-ab73-952037ca7338">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -8069,12 +8130,6 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Audit table to populate">
-        <con:settings/>
-        <con:config>
-          <delay>2000</delay>
-        </con:config>
-      </con:testStep>
       <con:testStep type="groovy" name="Verify Audit Logs" id="837f4e46-0ed2-4b1f-8da7-261fcad448be">
         <con:settings/>
         <con:config>
@@ -8092,6 +8147,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -8364,7 +8420,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'RetrieveDocuments',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -8372,6 +8433,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'RetrieveDocuments', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -8384,7 +8446,8 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'RetrieveDocuments','true', log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>CorrectedRemoteHCID</con:name>
@@ -9684,6 +9747,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -10017,7 +10081,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredReq',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -10025,6 +10094,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredReq', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -10037,23 +10107,24 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredReq','true', log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-12T17:18:11Z</con:value>
+          <con:value>2015-11-13T09:02:55Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-12T17:28:11Z</con:value>
+          <con:value>2015-11-13T09:12:55Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/12/2015 17:18:11</con:value>
+          <con:value>11/13/2015 09:02:55</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-12T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -10297,7 +10368,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
-          <con:value>true</con:value>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
+          <con:value>false</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -10679,6 +10754,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -10877,7 +10953,12 @@ parsedXmlMessage.AuditSourceIdentification.find{
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredResp',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -10885,6 +10966,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredResp', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -10897,23 +10979,24 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmissionDeferredResp','true', log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-12T17:32:40Z</con:value>
+          <con:value>2015-11-13T09:00:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-12T17:42:40Z</con:value>
+          <con:value>2015-11-13T09:10:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/12/2015 17:32:40</con:value>
+          <con:value>11/13/2015 09:00:23</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-12T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -11069,7 +11152,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
-          <con:value>true</con:value>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
+          <con:value>false</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -11585,6 +11672,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -11826,7 +11914,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmission',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -11834,6 +11927,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmission', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -11846,23 +11940,24 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmission','true', log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-12T17:18:42Z</con:value>
+          <con:value>2015-11-13T09:04:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-12T17:28:42Z</con:value>
+          <con:value>2015-11-13T09:14:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/12/2015 17:18:42</con:value>
+          <con:value>11/13/2015 09:04:07</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-12T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -12106,7 +12201,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
-          <con:value>true</con:value>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
+          <con:value>false</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -12470,6 +12569,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -12789,7 +12889,12 @@ if (parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCo
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredReq',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -12797,6 +12902,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredReq', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -12809,7 +12915,8 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredReq','true', log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>LocalHCID</con:name>
@@ -13073,19 +13180,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-12T17:18:59Z</con:value>
+          <con:value>2015-11-13T09:13:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-12T17:28:59Z</con:value>
+          <con:value>2015-11-13T09:23:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/12/2015 17:18:59</con:value>
+          <con:value>11/13/2015 09:13:10</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-12T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@code</con:name>
@@ -13401,7 +13508,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
-          <con:value>true</con:value>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
+          <con:value>false</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -13791,6 +13902,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -14111,7 +14223,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredResp',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -14120,6 +14237,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredResp', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -14132,7 +14250,8 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredResp','true', log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>LocalHCID</con:name>
@@ -14400,19 +14519,19 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-12T17:29:12Z</con:value>
+          <con:value>2015-11-13T09:22:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/12/2015 17:19:12</con:value>
+          <con:value>11/13/2015 09:12:06</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-12T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-12T17:19:12Z</con:value>
+          <con:value>2015-11-13T09:12:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@code</con:name>
@@ -14728,7 +14847,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
-          <con:value>true</con:value>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
+          <con:value>false</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -15080,6 +15203,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -15395,7 +15519,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscovery',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -15403,7 +15532,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscovery', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
-
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -15416,23 +15545,24 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscovery','true', log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-12T17:19:30Z</con:value>
+          <con:value>2015-11-13T09:11:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-12T17:29:30Z</con:value>
+          <con:value>2015-11-13T09:21:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/12/2015 17:19:30</con:value>
+          <con:value>11/13/2015 09:11:23</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-12T00:00:00Z</con:value>
+          <con:value>2015-12-13T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
@@ -15832,6 +15962,10 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditOff</con:name>
           <con:value>true</con:value>
         </con:property>
       </con:properties>
@@ -16199,6 +16333,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -16487,7 +16622,12 @@ if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCo
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'QueryForDocuments',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -16496,6 +16636,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'QueryForDocuments', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -16508,7 +16649,8 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'QueryForDocuments','true', log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -17157,6 +17299,7 @@ else if ( testRunner.testCase.getPropertyValue("auditLogStatus") == "false")
  	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	}
+	testRunner.testCase.setPropertyValue('AuditOff', 'true')
 	testRunner.gotoStepByName( "Success")
 }
 else
@@ -17431,7 +17574,12 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeC
       <con:testStep type="groovy" name="Success">
         <con:settings/>
         <con:config>
-          <script/>
+          <script>if ( testRunner.testCase.getPropertyValue("AuditOff") == "false")
+{
+testRunner.testCase.setPropertyValue('auditLogStatus', 'false')
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'RetrieveDocuments',''+testRunner.testCase.getPropertyValue("auditLogStatus"), log);
+testRunner.gotoStepByName( "Clear Audit Logs")
+}</script>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -17440,6 +17588,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 def auditLogStatus = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'RetrieveDocuments', log);
 testCase.setPropertyValue('auditLogStatus', auditLogStatus)
+testCase.setPropertyValue('AuditOff', 'false')
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -17452,7 +17601,8 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'RetrieveDocuments','true', log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>CorrectedRemoteHCID</con:name>
@@ -18327,7 +18477,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value/>
+      <con:value>C:\jboss-as-7.1.1.Final\modules\org\connectopensource\configuration\main</con:value>
     </con:property>
     <con:property>
       <con:name>Gender</con:name>
