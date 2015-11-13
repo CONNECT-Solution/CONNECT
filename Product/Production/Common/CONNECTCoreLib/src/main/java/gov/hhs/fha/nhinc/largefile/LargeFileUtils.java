@@ -45,12 +45,13 @@ import java.net.URL;
 
 import javax.activation.DataHandler;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.cxf.aegis.type.mtom.StreamDataSource;
 import org.apache.cxf.attachment.ByteDataSource;
 
 public class LargeFileUtils {
-    private static final Logger LOG = Logger.getLogger(LargeFileUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LargeFileUtils.class);
 
     private static LargeFileUtils INSTANCE = new LargeFileUtils();
     private static String ATTACHMENT_FILE_PREFIX = "nhin";

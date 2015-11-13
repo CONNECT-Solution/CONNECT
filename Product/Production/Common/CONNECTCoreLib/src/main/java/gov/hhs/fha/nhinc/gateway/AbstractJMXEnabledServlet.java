@@ -42,7 +42,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class AbstractJMXEnabledServlet.
@@ -55,7 +56,7 @@ public abstract class AbstractJMXEnabledServlet extends HttpServlet {
     private static final long serialVersionUID = 1339014755670360100L;
 
     /** The Constant LOG. */
-    private static final Logger LOG = Logger.getLogger(AbstractJMXEnabledServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractJMXEnabledServlet.class);
 
     /** The Constant UNABLE_TO_REGISTER_MBEAN_MSG. */
     private static final String UNABLE_TO_REGISTER_MBEAN_MSG = "Unable to register MBean: ";

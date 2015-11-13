@@ -31,15 +31,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import javax.xml.ws.WebServiceContext;
-import org.apache.log4j.Logger;
-import org.apache.log4j.NDC;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This helper class sets up a logging context such that message flow can be traced through process log messages.
  */
 public class LoggingContextHelper {
 
-    private static final Logger LOG = Logger.getLogger(LoggingContextHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LoggingContextHelper.class);
 
     /**
      * Builds the Nested Diapnostic Context for the current thread and initializes the generated logging context id in

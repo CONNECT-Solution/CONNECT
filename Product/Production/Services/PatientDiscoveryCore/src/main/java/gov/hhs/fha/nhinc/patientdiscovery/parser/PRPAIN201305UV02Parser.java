@@ -27,7 +27,8 @@
 package gov.hhs.fha.nhinc.patientdiscovery.parser;
 
 import java.util.List;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
@@ -40,7 +41,7 @@ import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
  */
 public class PRPAIN201305UV02Parser {
 
-    private static final Logger LOG = Logger.getLogger(PRPAIN201305UV02Parser.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PRPAIN201305UV02Parser.class);
 
     public static II getPatientId(PRPAIN201305UV02 request) {
         II livingSubjectId = null;

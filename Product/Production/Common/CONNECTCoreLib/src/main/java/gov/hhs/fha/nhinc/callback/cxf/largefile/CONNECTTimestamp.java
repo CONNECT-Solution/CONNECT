@@ -28,7 +28,8 @@ package gov.hhs.fha.nhinc.callback.cxf.largefile;
 
 import java.util.Date;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.ws.security.WSSecurityException;
 import org.apache.ws.security.message.token.Timestamp;
 import org.w3c.dom.Element;
@@ -39,7 +40,7 @@ import org.w3c.dom.Element;
  */
 public class CONNECTTimestamp extends Timestamp {
 
-    private static final Logger LOG = Logger.getLogger(CONNECTTimestamp.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CONNECTTimestamp.class);
 
     /**
      * {@inheritDoc}

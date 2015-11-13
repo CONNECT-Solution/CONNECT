@@ -37,7 +37,8 @@ import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -49,7 +50,7 @@ import org.apache.log4j.Logger;
 @TransactionManagement(value = TransactionManagementType.BEAN)
 public class AuditEJBLoggerImpl<T, K> implements AuditEJBLogger<T, K> {
 
-    private static final Logger LOG = Logger.getLogger(AuditEJBLoggerImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AuditEJBLoggerImpl.class);
 
     /**
      * EJB Asynchronous call to handle AuditRepository client

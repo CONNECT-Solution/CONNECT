@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.adapter.cppgui.valueobject;
 import gov.hhs.fha.nhinc.adapter.cppgui.CPPConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -37,7 +38,7 @@ import org.apache.log4j.Logger;
  */
 public class FineGrainedPolicyCriterionVO {
 
-    private static final Logger LOG = Logger.getLogger(FineGrainedPolicyCriterionVO.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FineGrainedPolicyCriterionVO.class);
 
     /** Creates a new instance of FineGrainedPolicyCriteriaForm */
     public FineGrainedPolicyCriterionVO() {

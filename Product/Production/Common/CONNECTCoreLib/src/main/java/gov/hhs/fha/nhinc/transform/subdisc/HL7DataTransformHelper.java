@@ -34,7 +34,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
 import javax.xml.bind.JAXBElement;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.*;
 
 /**
@@ -43,7 +44,7 @@ import org.hl7.v3.*;
  */
 public class HL7DataTransformHelper {
 
-    private static final Logger LOG = Logger.getLogger(HL7DataTransformHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HL7DataTransformHelper.class);
 
     public static II IIFactory(String root) {
         return IIFactory(root, null, null);

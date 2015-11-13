@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.common.connectionmanager.persistence;
 import gov.hhs.fha.nhinc.properties.HibernateAccessor;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.File;
 
 /**
@@ -39,7 +40,7 @@ import java.io.File;
  */
 public class HibernateUtil {
     private static final SessionFactory sessionFactory;
-    private static final Logger LOG = Logger.getLogger(HibernateUtil.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HibernateUtil.class);
 
     private static final String HIBERNATE_ASSIGNING_AUTHORITY = "assignauthority.hibernate.cfg.xml";
     static {

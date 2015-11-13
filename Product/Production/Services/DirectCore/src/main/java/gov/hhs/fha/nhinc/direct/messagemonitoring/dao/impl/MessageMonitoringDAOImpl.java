@@ -33,7 +33,8 @@ import gov.hhs.fha.nhinc.direct.messagemonitoring.domain.MonitoredMessageNotific
 import gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -46,7 +47,7 @@ import org.hibernate.Transaction;
  */
 public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
 
-    private static final Logger LOG = Logger.getLogger(MessageMonitoringDAOImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MessageMonitoringDAOImpl.class);
 
     private static class SingletonHolder {
 

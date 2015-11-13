@@ -32,14 +32,15 @@ import java.io.File;
 import java.io.InputStreamReader;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author akong
  *
  */
 public class PropertyAccessorFileUtilities {
-	private static final Logger LOG = Logger.getLogger(PropertyAccessorFileUtilities.class);
+	private static final Logger LOG = LoggerFactory.getLogger(PropertyAccessorFileUtilities.class);
 	private String propertyFileDirAbsolutePath = "";
 
 	/**

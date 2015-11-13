@@ -45,7 +45,8 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.COCTMT090300UV01AssignedDevice;
 import org.hl7.v3.II;
 import org.hl7.v3.MCAIMT900001UV01DetectedIssueEvent;
@@ -66,7 +67,7 @@ import org.hl7.v3.XParticipationAuthorPerformer;
  */
 public class PatientDiscovery201305Processor implements PatientDiscoveryProcessor {
 
-    private static final Logger LOG = Logger.getLogger(PatientDiscovery201305Processor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientDiscovery201305Processor.class);
 
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 

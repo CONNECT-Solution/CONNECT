@@ -35,7 +35,8 @@ import gov.hhs.fha.nhinc.event.model.DatabaseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -66,7 +67,7 @@ public class EventServiceImpl implements EventService {
     private static final String AD_SERVICE_TYPE = "Admin Distribution";
     private static final String DIRECT_SERVICE_TYPE = "Direct";
 
-    private static final Logger LOG = Logger.getLogger(EventServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EventServiceImpl.class);
 
     /*
      * (non-Javadoc)

@@ -33,14 +33,15 @@ import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResultType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Jon Hoppesch
  */
 public class PolicyEngineProxyNoOpImpl implements PolicyEngineProxy {
-    private static final Logger LOG = Logger.getLogger(PolicyEngineProxyNoOpImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PolicyEngineProxyNoOpImpl.class);
 
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         LOG.trace("Begin PolicyEngineNoOpImpl.checkPolicy");

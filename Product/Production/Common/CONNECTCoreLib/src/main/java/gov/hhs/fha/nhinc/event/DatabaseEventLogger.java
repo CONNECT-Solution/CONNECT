@@ -34,8 +34,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Use the database to log events.
@@ -44,7 +42,7 @@ public class DatabaseEventLogger extends EventLogger {
 
     private final DatabaseEventLoggerDao databaseEventLoggerDao;
 
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DatabaseEventLogger.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DatabaseEventLogger.class);
 
     /**
      * Constructor.

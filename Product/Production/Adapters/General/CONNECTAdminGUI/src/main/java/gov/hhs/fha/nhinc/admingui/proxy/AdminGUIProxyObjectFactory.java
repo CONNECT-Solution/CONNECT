@@ -28,7 +28,8 @@ package gov.hhs.fha.nhinc.admingui.proxy;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -39,7 +40,7 @@ public class AdminGUIProxyObjectFactory extends ComponentProxyObjectFactory {
     private static final String CONFIG_FILE_NAME = NhincConstants.ADMIN_GUI_PROXY_CONFIG_FILE_NAME;
     private static final String BEAN_NAME = "directconfigwsclient";
 
-    private static final Logger LOG = Logger.getLogger(AdminGUIProxyObjectFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdminGUIProxyObjectFactory.class);
 
     /**
      *

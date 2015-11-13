@@ -33,7 +33,8 @@ import java.math.BigInteger;
 
 import javax.xml.bind.JAXBElement;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.hl7.v3.ActClassControlAct;
 import org.hl7.v3.ActRelationshipMitigates;
@@ -77,7 +78,7 @@ import gov.hhs.fha.nhinc.util.HomeCommunityMap;
  */
 public class HL7PRPA201306Transforms {
 
-    private static final Logger LOG = Logger.getLogger(HL7PRPA201306Transforms.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HL7PRPA201306Transforms.class);
 
     private static HL7MessageIdGenerator idGenerator = new HL7MessageIdGenerator();
 

@@ -33,7 +33,8 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author bhumphrey
@@ -44,7 +45,7 @@ public class TimeoutServiceEndpointDecorator<T> extends ServiceEndpointDecorator
 
     public static final String CONFIG_KEY_TIMEOUT = "webserviceproxy.timeout";
 
-    private static final Logger LOG = Logger.getLogger(TimeoutServiceEndpointDecorator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TimeoutServiceEndpointDecorator.class);
 
     private final int transactionTimeout;
 

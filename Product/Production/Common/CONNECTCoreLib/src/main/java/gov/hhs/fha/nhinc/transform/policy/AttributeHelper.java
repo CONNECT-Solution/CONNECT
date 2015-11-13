@@ -40,7 +40,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.hl7.v3.II;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -48,7 +49,7 @@ import org.apache.log4j.Logger;
  */
 public class AttributeHelper {
 
-    private static final Logger LOG = Logger.getLogger(AttributeHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AttributeHelper.class);
 
     public AttributeType attributeFactory(String attributeId, String dataType, String value) {
         return attributeFactory(attributeId, dataType, (Object) value);

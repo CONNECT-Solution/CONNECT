@@ -41,14 +41,15 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author dunnek
  */
 public class EntityAdminDistributionProxyWebServiceSecuredImpl {
-    private static final Logger LOG = Logger.getLogger(EntityAdminDistributionProxyWebServiceSecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EntityAdminDistributionProxyWebServiceSecuredImpl.class);
 
     /**
      * @return instance of AdminDistributionHelper.

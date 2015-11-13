@@ -32,7 +32,8 @@ import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -40,7 +41,7 @@ import org.apache.log4j.Logger;
  */
 public class PatientService {
 
-    private static final Logger LOG = Logger.getLogger(PatientService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientService.class);
     private static PatientService patientService = new PatientService();
 
     /**

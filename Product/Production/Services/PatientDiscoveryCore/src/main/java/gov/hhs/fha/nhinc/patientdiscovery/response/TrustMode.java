@@ -38,7 +38,8 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -51,7 +52,7 @@ import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
  */
 public class TrustMode implements ResponseMode {
 
-    private static final Logger LOG = Logger.getLogger(TrustMode.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TrustMode.class);
 
     public TrustMode() {
         super();

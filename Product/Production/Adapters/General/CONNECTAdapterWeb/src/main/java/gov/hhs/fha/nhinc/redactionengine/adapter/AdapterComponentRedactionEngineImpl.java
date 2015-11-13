@@ -38,7 +38,8 @@ import javax.xml.ws.WebServiceContext;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -46,7 +47,7 @@ import org.apache.log4j.Logger;
  */
 public class AdapterComponentRedactionEngineImpl {
 
-    private static final Logger LOG = Logger.getLogger(AdapterComponentRedactionEngineImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentRedactionEngineImpl.class);
     private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
 
     public FilterDocQueryResultsResponseType filterDocQueryResults(

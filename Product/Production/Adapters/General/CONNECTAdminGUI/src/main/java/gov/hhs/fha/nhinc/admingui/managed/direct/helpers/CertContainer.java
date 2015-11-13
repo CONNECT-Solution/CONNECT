@@ -38,7 +38,8 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.security.auth.x500.X500Principal;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -47,7 +48,7 @@ import org.apache.log4j.Logger;
 public class CertContainer {
     private X509Certificate cert;
     private Key key;
-    private static final Logger LOG = Logger.getLogger(CertContainer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CertContainer.class);
 
     /**
      *

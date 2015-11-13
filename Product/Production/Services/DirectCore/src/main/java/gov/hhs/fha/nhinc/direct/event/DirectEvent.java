@@ -39,7 +39,8 @@ import java.util.List;
 import java.util.Locale;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -48,7 +49,7 @@ import org.json.JSONObject;
  */
 public class DirectEvent extends BaseEvent {
 
-    private static final Logger LOG = Logger.getLogger(DirectEvent.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectEvent.class);
 
     private static final String XML_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
 

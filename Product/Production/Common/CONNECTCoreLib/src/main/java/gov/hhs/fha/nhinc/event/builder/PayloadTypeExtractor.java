@@ -31,7 +31,8 @@ import gov.hhs.fha.nhinc.util.JaxbDocumentUtils;
 
 import javax.xml.bind.JAXBElement;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
@@ -50,7 +51,7 @@ import com.google.common.collect.Iterables;
  */
 public class PayloadTypeExtractor implements Function<JAXBElement<? extends IdentifiableType>, Optional<String>> {
 
-    private static final Logger LOG = Logger.getLogger(PayloadTypeExtractor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PayloadTypeExtractor.class);
 
     @Override
     public Optional<String> apply(JAXBElement<? extends IdentifiableType> jaxbElement) {

@@ -32,7 +32,8 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -40,7 +41,7 @@ import org.apache.log4j.Logger;
  */
 public class AdapterComponentDocRepositoryProxyNoOpImpl implements AdapterComponentDocRepositoryProxy {
 
-    private static final Logger LOG = Logger.getLogger(AdapterComponentDocRepositoryProxyNoOpImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocRepositoryProxyNoOpImpl.class);
 
     public RetrieveDocumentSetResponseType retrieveDocument(RetrieveDocumentSetRequestType request,
             AssertionType assertion) {

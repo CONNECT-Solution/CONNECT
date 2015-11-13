@@ -31,7 +31,8 @@ import gov.hhs.fha.nhinc.direct.DirectSender;
 import javax.mail.Address;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.nhindirect.xd.common.DirectDocuments;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -43,7 +44,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class DirectSenderProxyJavaImpl {
 
     /** The Constant LOG. */
-    private static final Logger LOG = Logger.getLogger(DirectSenderProxyJavaImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectSenderProxyJavaImpl.class);
 
     /** The direct sender. */
     @Autowired

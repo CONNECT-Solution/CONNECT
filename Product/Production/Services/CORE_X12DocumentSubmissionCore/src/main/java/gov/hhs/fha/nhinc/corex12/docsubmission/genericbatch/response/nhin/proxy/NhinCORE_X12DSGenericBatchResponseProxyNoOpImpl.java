@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.nhin.proxy
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 
@@ -38,7 +39,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  * @author svalluripalli
  */
 public class NhinCORE_X12DSGenericBatchResponseProxyNoOpImpl implements NhinCORE_X12DSGenericBatchResponseProxy {
-    private static final Logger LOG = Logger.getLogger(NhinCORE_X12DSGenericBatchResponseProxyNoOpImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NhinCORE_X12DSGenericBatchResponseProxyNoOpImpl.class);
 
     /**
      *

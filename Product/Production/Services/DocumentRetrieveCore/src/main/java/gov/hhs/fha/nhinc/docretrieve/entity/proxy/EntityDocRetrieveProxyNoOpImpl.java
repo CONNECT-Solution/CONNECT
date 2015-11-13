@@ -31,14 +31,15 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author dunnek
  */
 public class EntityDocRetrieveProxyNoOpImpl implements EntityDocRetrieveProxy {
-    private static final Logger LOG = Logger.getLogger(EntityDocRetrieveProxyNoOpImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EntityDocRetrieveProxyNoOpImpl.class);
 
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
             AssertionType assertion, NhinTargetCommunitiesType targets) {

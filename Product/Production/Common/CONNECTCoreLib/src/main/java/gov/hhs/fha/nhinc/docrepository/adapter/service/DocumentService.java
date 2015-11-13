@@ -43,7 +43,8 @@ import java.util.Set;
 
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Persistence service for Document records
@@ -52,7 +53,7 @@ import org.apache.log4j.Logger;
  */
 public class DocumentService {
 
-    private static final Logger LOG = Logger.getLogger(DocumentService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DocumentService.class);
     private DocumentDao documentDao = new DocumentDao();
     private EventCodeDao eventCodeDao = new EventCodeDao();
 

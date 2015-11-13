@@ -33,7 +33,8 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -50,7 +51,7 @@ import org.xml.sax.SAXException;
  */
 public class ConfigurationManager {
     public static final String XDR_CONFIG_FILE = "XDRConfiguration.xml";
-    private static final Logger LOG = Logger.getLogger(ConfigurationManager.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ConfigurationManager.class);
 
     public Config loadConfiguration() {
         Config result;

@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.entity;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 
@@ -39,7 +40,7 @@ public class OutboundAdminDistributionOrchestrationContextBuilder_g0 extends
         OutboundAdminDistributionOrchestrationContextBuilder {
 //CHECKSTYLE:ON
 
-    private static final Logger LOG = Logger.getLogger(OutboundAdminDistributionOrchestrationContextBuilder_g0.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundAdminDistributionOrchestrationContextBuilder_g0.class);
 
     /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionOrchestrationContextBuilder#build()

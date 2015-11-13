@@ -28,7 +28,8 @@ package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request;
 
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.request.proxy.AdapterComponentDocSubmissionRequestProxy;
@@ -41,7 +42,7 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
  */
 public class AdapterDocSubmissionDeferredRequestOrchImpl {
 
-    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionDeferredRequestOrchImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocSubmissionDeferredRequestOrchImpl.class);
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion) {

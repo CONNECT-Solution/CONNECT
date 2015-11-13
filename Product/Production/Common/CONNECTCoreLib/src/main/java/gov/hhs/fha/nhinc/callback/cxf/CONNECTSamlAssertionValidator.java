@@ -41,7 +41,8 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.ws.security.WSSecurityException;
 import org.apache.ws.security.handler.RequestData;
 import org.apache.ws.security.saml.SAMLKeyInfo;
@@ -65,7 +66,7 @@ import org.opensaml.xml.validation.ValidatorSuite;
 public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
 
     /** The Constant LOG. */
-    private static final Logger LOG = Logger.getLogger(CONNECTSamlAssertionValidator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CONNECTSamlAssertionValidator.class);
 
     /** The Constant ALLOW_NO_SUBJECT_ASSERTION_PROP. */
     private static final String ALLOW_NO_SUBJECT_ASSERTION_PROP = "allowNoSubjectAssertion";

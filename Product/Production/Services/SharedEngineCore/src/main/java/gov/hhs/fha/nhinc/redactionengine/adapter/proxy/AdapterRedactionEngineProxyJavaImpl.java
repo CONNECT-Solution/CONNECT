@@ -33,7 +33,8 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Simple redirection to the Java implementation of the redaction engine.
@@ -41,7 +42,7 @@ import org.apache.log4j.Logger;
  * @author Neil Webb
  */
 public class AdapterRedactionEngineProxyJavaImpl implements AdapterRedactionEngineProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterRedactionEngineProxyJavaImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterRedactionEngineProxyJavaImpl.class);
 
     public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest,
             AdhocQueryResponse adhocQueryResponse, AssertionType assertion) {

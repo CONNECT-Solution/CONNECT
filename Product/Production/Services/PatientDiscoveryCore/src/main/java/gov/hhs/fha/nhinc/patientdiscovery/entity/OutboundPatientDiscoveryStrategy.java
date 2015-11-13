@@ -30,8 +30,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
-
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author bhumphrey/paul
@@ -39,7 +39,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class OutboundPatientDiscoveryStrategy implements OrchestrationStrategy {
 
-    private static final Logger LOG = Logger.getLogger(OutboundPatientDiscoveryStrategy.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundPatientDiscoveryStrategy.class);
 
     /*
      * (non-Javadoc)
@@ -69,5 +69,4 @@ public abstract class OutboundPatientDiscoveryStrategy implements OrchestrationS
 
         return target;
     }
-
 }

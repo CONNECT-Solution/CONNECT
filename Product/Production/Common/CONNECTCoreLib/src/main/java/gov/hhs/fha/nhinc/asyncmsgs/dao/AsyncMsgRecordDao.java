@@ -38,7 +38,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -52,7 +53,7 @@ import org.hibernate.criterion.Restrictions;
  */
 public class AsyncMsgRecordDao {
 
-    private static final Logger LOG = Logger.getLogger(AsyncMsgRecordDao.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AsyncMsgRecordDao.class);
 
     private PropertyAccessor accessor;
 

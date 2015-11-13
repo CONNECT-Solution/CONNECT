@@ -37,7 +37,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -45,7 +46,7 @@ import org.apache.log4j.Logger;
  */
 public class AdminDistTransforms {
 
-    private static final Logger LOG = Logger.getLogger(AdminDistTransforms.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdminDistTransforms.class);
 
     public LogEventRequestType transformEDXLDistributionRequestToAuditMsg(EDXLDistribution body,
         AssertionType assertion, NhinTargetSystemType target, String direction, String _interface) {

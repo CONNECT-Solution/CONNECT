@@ -45,7 +45,8 @@ import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author bhumphrey/jasonasmith
@@ -58,7 +59,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      */
     private static final QName TRANSACTION_QNAME = new QName("http://connectopensource.org/transaction/",
             "TransactionID");
-    private static final Logger LOG = Logger.getLogger(TransactionHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TransactionHandler.class);
     private static final String WSA_NS_2005 = "http://www.w3.org/2005/08/addressing";
     private static final String WSA_NS_2004 = "http://www.w3.org/2004/08/addressing";
     private static final String MESSAGE_ID = "MessageID";

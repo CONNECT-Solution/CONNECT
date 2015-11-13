@@ -31,7 +31,8 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy.NhinPatientDiscoveryDeferredRespProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy.NhinPatientDiscoveryDeferredRespProxyObjectFactory;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 
 /**
@@ -40,7 +41,7 @@ import org.hl7.v3.MCCIIN000002UV01;
  */
 public class OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0 implements OrchestrationStrategy {
 
-    private static final Logger LOG = Logger.getLogger(OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0.class);
 
     @Override
     public void execute(Orchestratable message) {

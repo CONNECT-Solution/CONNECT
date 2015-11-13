@@ -50,7 +50,8 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -61,7 +62,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
 
     private static final MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 
-    private static final Logger LOG = Logger.getLogger(StandardOutboundPatientDiscoveryDeferredRequest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(StandardOutboundPatientDiscoveryDeferredRequest.class);
     private final PatientDiscovery201305Processor pd201305Processor;
     private final AsyncMessageProcessHelper asyncProcessHelper;
     private final PatientDiscoveryPolicyChecker policyChecker;

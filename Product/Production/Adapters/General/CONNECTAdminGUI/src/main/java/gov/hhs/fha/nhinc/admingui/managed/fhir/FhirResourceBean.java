@@ -37,7 +37,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -54,7 +55,7 @@ public class FhirResourceBean {
     private List<ResourceInfo> fhirResources;
     private ConformanceView confView;
 
-    private static final Logger LOG = Logger.getLogger(FhirResourceBean.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FhirResourceBean.class);
 
     @Autowired
     private FhirResourceService fhirService;

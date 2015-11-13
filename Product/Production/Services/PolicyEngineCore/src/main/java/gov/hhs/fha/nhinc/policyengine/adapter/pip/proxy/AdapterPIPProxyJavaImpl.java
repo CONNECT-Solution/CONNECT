@@ -36,7 +36,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
 
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPImpl;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is the concrete implementation for the Java based call to the AdapterPIP.
@@ -44,7 +45,7 @@ import org.apache.log4j.Logger;
  * @author Les Westberg
  */
 public class AdapterPIPProxyJavaImpl implements AdapterPIPProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterPIPProxyJavaImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPIPProxyJavaImpl.class);
 
     /**
      * Retrieve the patient consent settings for the given patient ID.

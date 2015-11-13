@@ -32,7 +32,8 @@ import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -40,7 +41,7 @@ import org.apache.log4j.Logger;
  */
 public class OutboundDocSubmissionDeferredRequestStrategyImpl_g0 implements OrchestrationStrategy {
 
-    private static final Logger LOG = Logger.getLogger(OutboundDocSubmissionDeferredRequestStrategyImpl_g0.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundDocSubmissionDeferredRequestStrategyImpl_g0.class);
 
     /**
      *

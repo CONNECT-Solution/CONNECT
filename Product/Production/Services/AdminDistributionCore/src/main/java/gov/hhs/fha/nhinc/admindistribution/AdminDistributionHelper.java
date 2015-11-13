@@ -36,7 +36,8 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -44,7 +45,7 @@ import org.apache.log4j.Logger;
  */
 public class AdminDistributionHelper {
 
-    private static final Logger LOG = Logger.getLogger(AdminDistributionHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdminDistributionHelper.class);
     private final WebServiceProxyHelper webServiceProxyHelper;
 
     /**

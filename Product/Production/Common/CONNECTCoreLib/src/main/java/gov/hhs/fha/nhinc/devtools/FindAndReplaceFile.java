@@ -34,7 +34,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -42,7 +43,7 @@ import org.apache.log4j.Logger;
  */
 public class FindAndReplaceFile {
 
-    private static final Logger LOG = Logger.getLogger(FindAndReplaceFile.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FindAndReplaceFile.class);
 
     /**
      * Copy contents of the file from the src to the dest. If the dest exists, it will be deleted first.

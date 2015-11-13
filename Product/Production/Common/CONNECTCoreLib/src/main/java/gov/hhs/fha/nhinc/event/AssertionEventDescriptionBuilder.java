@@ -33,7 +33,8 @@ import com.google.common.base.Optional;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import javax.xml.ws.WebServiceContext;
 import org.apache.cxf.jaxws.context.WebServiceContextImpl;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Builder that pulls NPI and InitiatingHCID from an Assertion. To use,
@@ -44,7 +45,7 @@ public abstract class AssertionEventDescriptionBuilder extends BaseEventDescript
 
     private AssertionDescriptionExtractor assertionExtractor = new AssertionDescriptionExtractor();
     private Optional<AssertionType> assertion = Optional.absent();
-    private static final Logger LOG = Logger.getLogger(AssertionEventDescriptionBuilder.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AssertionEventDescriptionBuilder.class);
 
     @Override
     public final void buildNPI() {

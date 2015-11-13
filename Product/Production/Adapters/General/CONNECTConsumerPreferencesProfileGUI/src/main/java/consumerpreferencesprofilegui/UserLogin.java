@@ -43,7 +43,8 @@ import java.io.IOException;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>
@@ -71,7 +72,7 @@ public class UserLogin extends AbstractPageBean {
 
     private static final String PROPERTY_FILE_NAME_ADAPTER = "adapter";
     private static final String PROPERTY_FILE_KEY_AGENCY = "AgencyName";
-    private static final Logger LOG = Logger.getLogger(UserLogin.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UserLogin.class);
 
     // </editor-fold>
 

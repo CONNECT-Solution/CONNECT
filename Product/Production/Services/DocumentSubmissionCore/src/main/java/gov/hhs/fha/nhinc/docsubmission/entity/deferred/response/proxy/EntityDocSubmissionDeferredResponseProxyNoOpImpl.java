@@ -32,14 +32,15 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author jhoppesc
  */
 public class EntityDocSubmissionDeferredResponseProxyNoOpImpl implements EntityDocSubmissionDeferredResponseProxy {
-    private static final Logger LOG = Logger.getLogger(EntityDocSubmissionDeferredResponseProxyNoOpImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EntityDocSubmissionDeferredResponseProxyNoOpImpl.class);
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RegistryResponseType request,
             AssertionType assertion, NhinTargetCommunitiesType targets) {

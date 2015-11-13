@@ -33,7 +33,8 @@ import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.transform.policy.PatientDiscoveryPolicyTransformHelper;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
@@ -44,7 +45,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 public class PatientDiscoveryPolicyChecker extends
         AbstractPatientDiscoveryPolicyChecker<RespondingGatewayPRPAIN201305UV02RequestType, PRPAIN201305UV02> {
 
-    private static final Logger LOG = Logger.getLogger(PatientDiscoveryPolicyChecker.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientDiscoveryPolicyChecker.class);
 
     private static PatientDiscoveryPolicyChecker INSTANCE = new PatientDiscoveryPolicyChecker(
             new PolicyEngineProxyObjectFactory());

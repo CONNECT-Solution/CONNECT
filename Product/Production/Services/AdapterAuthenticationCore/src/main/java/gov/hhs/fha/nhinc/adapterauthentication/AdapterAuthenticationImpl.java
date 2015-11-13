@@ -33,7 +33,8 @@ import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.NameCallback;
 import javax.security.auth.callback.PasswordCallback;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.iplanet.sso.SSOException;
 import com.iplanet.sso.SSOToken;
@@ -43,7 +44,7 @@ import com.sun.identity.authentication.spi.AuthLoginException;
 
 public class AdapterAuthenticationImpl {
 
-    private static final Logger LOG = Logger.getLogger(AdapterAuthenticationImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterAuthenticationImpl.class);
 
     /**
      * Given a request to authenticate a user, this service will determine if this is an identifiable user within

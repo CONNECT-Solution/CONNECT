@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.adaptermpimanager.HL7Parsers;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201301UV02;
 
@@ -35,7 +36,7 @@ import org.hl7.v3.PRPAIN201301UV02;
  * @author rayj
  */
 public class HL7Parser {
-    private static final Logger LOG = Logger.getLogger(HL7Parser.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HL7Parser.class);
     public static final String SSN_OID = "2.16.840.1.113883.4.1";
 
     public static void PrintMessageIdFromMessage(Object message) {

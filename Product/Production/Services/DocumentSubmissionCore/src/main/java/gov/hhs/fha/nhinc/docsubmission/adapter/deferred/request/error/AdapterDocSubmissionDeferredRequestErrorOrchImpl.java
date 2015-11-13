@@ -37,14 +37,15 @@ import java.util.List;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Neil Webb
  */
 public class AdapterDocSubmissionDeferredRequestErrorOrchImpl {
-    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionDeferredRequestErrorOrchImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocSubmissionDeferredRequestErrorOrchImpl.class);
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
             ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion) {

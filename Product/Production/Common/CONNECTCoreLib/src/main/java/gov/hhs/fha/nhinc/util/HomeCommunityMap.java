@@ -39,7 +39,8 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessEntity;
 
 /**
@@ -53,7 +54,7 @@ import org.uddi.api_v3.BusinessEntity;
  */
 public class HomeCommunityMap {
 
-    private static final Logger LOG = Logger.getLogger(HomeCommunityMap.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HomeCommunityMap.class);
     private static ConnectionManagerCache connection = ConnectionManagerCache.getInstance();
     private static PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
 

@@ -34,7 +34,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import javax.xml.ws.WebServiceContext;
-import org.apache.log4j.NDC;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;

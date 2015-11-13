@@ -42,7 +42,8 @@ import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptio
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
@@ -54,7 +55,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 public class AdapterPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl implements
         AdapterPatientDiscoveryDeferredRespProxy {
 
-    private static final Logger LOG = Logger.getLogger(AdapterPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl() {

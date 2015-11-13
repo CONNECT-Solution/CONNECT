@@ -39,7 +39,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.docsubmission.adapter.component.routing.RoutingObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -50,7 +51,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  * @author dunnek
  */
 public class XDRHelper {
-    private static final Logger LOG = Logger.getLogger(XDRHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(XDRHelper.class);
 
     public static String XDR_EC_XDSMissingDocument = "XDSMissingDocument";
     public static String XDR_EC_XDSMissingDocumentMetadata = "XDSMissingDocumentMetadata";

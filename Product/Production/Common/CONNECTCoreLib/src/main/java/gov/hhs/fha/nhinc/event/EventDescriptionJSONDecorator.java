@@ -28,7 +28,8 @@ package gov.hhs.fha.nhinc.event;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONString;
@@ -52,7 +53,7 @@ public class EventDescriptionJSONDecorator implements JSONString, EventDescripti
     private final EventDescription description;
     private final JSONObject jsonObject;
 
-    private static final Logger LOG = Logger.getLogger(EventDescriptionJSONDecorator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EventDescriptionJSONDecorator.class);
 
     public EventDescriptionJSONDecorator(EventDescription description) {
         this.description = description;

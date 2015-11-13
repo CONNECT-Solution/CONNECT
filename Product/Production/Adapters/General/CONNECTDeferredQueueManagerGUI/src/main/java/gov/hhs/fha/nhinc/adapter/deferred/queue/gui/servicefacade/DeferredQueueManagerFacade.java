@@ -35,7 +35,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.sun.webui.jsf.model.Option;
 
 /**
@@ -44,7 +45,7 @@ import com.sun.webui.jsf.model.Option;
  */
 public class DeferredQueueManagerFacade implements DeferredGUIConstants {
 
-    private static final Logger LOG = Logger.getLogger(DeferredQueueManagerFacade.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeferredQueueManagerFacade.class);
 
     protected AsyncMsgRecordDao getAsyncMsgRecordDao() {
         AsyncMsgRecordDao dao = new AsyncMsgRecordDao();

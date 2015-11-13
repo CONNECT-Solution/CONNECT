@@ -35,14 +35,15 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author achidamb
  *
  */
 public class AdapterDocQueryProxyNoOpImpl implements AdapterDocQueryProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterDocQueryProxyNoOpImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocQueryProxyNoOpImpl.class);
 
     /**
      * The respondingGatewayCrossGatewayQuery takes AdhocQueryRequestmessage and assertion and returns

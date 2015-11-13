@@ -43,7 +43,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyObjectFactory;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -51,7 +52,7 @@ import org.apache.log4j.Logger;
  */
 public class AdapterPIPFacade {
 
-    private static final Logger LOG = Logger.getLogger(AdapterPIPFacade.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPIPFacade.class);
 
     public String saveConsumerPreferences(StorePtConsentRequestType consentRequest) {
         AdapterPIPProxy adapterPIPProxy = getAdapterPIPProxy();

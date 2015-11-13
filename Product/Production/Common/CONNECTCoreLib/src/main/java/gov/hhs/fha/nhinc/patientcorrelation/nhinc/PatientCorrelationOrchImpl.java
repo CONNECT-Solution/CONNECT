@@ -42,7 +42,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201301UV02;
@@ -62,7 +63,7 @@ import org.hl7.v3.RetrievePatientCorrelationsResponseType;
  */
 public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
 
-    private static final Logger LOG = Logger.getLogger(PatientCorrelationOrchImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientCorrelationOrchImpl.class);
     private final CorrelatedIdentifiersDao dao;
 
     public PatientCorrelationOrchImpl(CorrelatedIdentifiersDao dao) {

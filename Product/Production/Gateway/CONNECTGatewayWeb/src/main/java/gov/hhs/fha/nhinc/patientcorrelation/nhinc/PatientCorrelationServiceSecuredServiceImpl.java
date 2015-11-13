@@ -35,7 +35,8 @@ import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 import org.hl7.v3.RetrievePatientCorrelationsSecuredRequestType;
 import org.hl7.v3.RetrievePatientCorrelationsSecuredResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  *
  * @author svalluripalli
@@ -48,7 +49,7 @@ public class PatientCorrelationServiceSecuredServiceImpl
 
     private PatientCorrelationOrch orchestration;
 
-    private static final Logger LOG = Logger.getLogger(PatientCorrelationServiceSecuredServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientCorrelationServiceSecuredServiceImpl.class);
 
     PatientCorrelationServiceSecuredServiceImpl(PatientCorrelationOrch orchestration) {
         this.orchestration = orchestration;

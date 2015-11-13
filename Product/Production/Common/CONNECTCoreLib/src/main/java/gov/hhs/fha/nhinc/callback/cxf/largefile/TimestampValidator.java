@@ -32,7 +32,8 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import java.util.Date;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.cxf.message.Message;
 import org.apache.ws.security.WSSConfig;
 import org.apache.ws.security.WSSecurityException;
@@ -51,7 +52,7 @@ import org.apache.ws.security.validate.Validator;
  */
 public class TimestampValidator implements Validator {
 
-    private static final Logger LOG = Logger.getLogger(TimestampValidator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TimestampValidator.class);
     protected static final long INVALID_LONG_VALUE = -1;
 
     /**

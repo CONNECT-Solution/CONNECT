@@ -43,7 +43,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BindingTemplate;
 import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.BusinessEntity;
@@ -61,7 +62,7 @@ import org.uddi.api_v3.Name;
  */
 public class ConnectionManagerCache implements ConnectionManager {
 
-    private static final Logger LOG = Logger.getLogger(ConnectionManagerCache.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerCache.class);
     private PropertyAccessor accessor;
     public static String UDDI_SPEC_VERSION_KEY = "uddi:nhin:versionofservice";
     private static final String HOME_COMMUNITY_PREFIX = "urn:oid:";

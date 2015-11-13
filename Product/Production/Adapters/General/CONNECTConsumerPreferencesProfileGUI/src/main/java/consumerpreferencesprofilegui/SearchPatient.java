@@ -59,7 +59,8 @@ import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.event.ValueChangeEvent;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>
@@ -75,7 +76,7 @@ import org.apache.log4j.Logger;
 public class SearchPatient extends AbstractPageBean {
     // <editor-fold defaultstate="collapsed" desc="Managed Component Definition">
 
-    private static final Logger LOG = Logger.getLogger(SearchPatient.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SearchPatient.class);
 
     /**
      * <p>

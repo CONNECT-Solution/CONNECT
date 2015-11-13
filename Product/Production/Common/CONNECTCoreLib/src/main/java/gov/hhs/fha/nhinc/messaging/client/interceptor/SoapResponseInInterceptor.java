@@ -40,7 +40,8 @@ import org.apache.cxf.headers.Header;
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.Phase;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 
 /**
@@ -49,7 +50,7 @@ import org.w3c.dom.Element;
  */
 public class SoapResponseInInterceptor extends AbstractSoapInterceptor {
 
-    private static final Logger LOG = Logger.getLogger(SoapResponseInInterceptor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SoapResponseInInterceptor.class);
 
     public SoapResponseInInterceptor() {
         super(Phase.USER_PROTOCOL);

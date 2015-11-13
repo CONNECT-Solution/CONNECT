@@ -32,7 +32,8 @@ import gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -47,7 +48,7 @@ import org.hibernate.criterion.Restrictions;
  * @author Neil Webb
  */
 public class DocumentDao {
-    private static final Logger LOG = Logger.getLogger(DocumentDao.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DocumentDao.class);
 
     /**
      * Save a document record to the database. Insert if document id is null. Update otherwise.

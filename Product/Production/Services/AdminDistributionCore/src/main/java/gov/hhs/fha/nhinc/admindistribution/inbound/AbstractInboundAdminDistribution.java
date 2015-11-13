@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.inbound;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionUtils;
@@ -42,7 +43,7 @@ import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 public abstract class AbstractInboundAdminDistribution implements InboundAdminDistribution {
 
-	private static final Logger LOG = Logger.getLogger(AbstractInboundAdminDistribution.class);
+	private static final Logger LOG = LoggerFactory.getLogger(AbstractInboundAdminDistribution.class);
 	protected AdminDistributionAuditLogger auditLogger = new AdminDistributionAuditLogger();
 	protected AdminDistributionUtils adminUtils = AdminDistributionUtils.getInstance();
     protected AdapterAdminDistributionProxyObjectFactory adapterFactory = new AdapterAdminDistributionProxyObjectFactory();

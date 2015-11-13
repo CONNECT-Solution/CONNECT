@@ -31,7 +31,8 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -39,7 +40,7 @@ import org.apache.log4j.Logger;
  */
 public class AdapterComponentDocSubmissionRequestProxyNoOpImpl implements AdapterComponentDocSubmissionRequestProxy {
 
-    private static final Logger LOG = Logger.getLogger(AdapterComponentDocSubmissionRequestProxyNoOpImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocSubmissionRequestProxyNoOpImpl.class);
 
     /**
      * Receive document deferred document submission request.

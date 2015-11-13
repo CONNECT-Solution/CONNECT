@@ -35,7 +35,8 @@ import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEnginePro
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -43,7 +44,7 @@ import org.apache.log4j.Logger;
  */
 public class AdapterDocRetrieveOrchImpl {
 
-    private static final Logger LOG = Logger.getLogger(AdapterDocRetrieveOrchImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocRetrieveOrchImpl.class);
 
     /**
      *

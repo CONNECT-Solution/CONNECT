@@ -33,14 +33,15 @@ import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.request.StandardOutboun
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author jhoppesc
  */
 public class EntityDocSubmissionDeferredRequestProxyJavaImpl implements EntityDocSubmissionDeferredRequestProxy {
-    private static final Logger LOG = Logger.getLogger(EntityDocSubmissionDeferredRequestProxyJavaImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EntityDocSubmissionDeferredRequestProxyJavaImpl.class);
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
             ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,

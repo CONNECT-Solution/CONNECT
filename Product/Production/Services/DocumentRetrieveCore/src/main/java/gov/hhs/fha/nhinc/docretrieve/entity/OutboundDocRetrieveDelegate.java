@@ -36,7 +36,8 @@ import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -44,7 +45,7 @@ import org.apache.log4j.Logger;
  */
 public class OutboundDocRetrieveDelegate implements OutboundDelegate {
 
-    private static final Logger LOG = Logger.getLogger(OutboundDocRetrieveDelegate.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundDocRetrieveDelegate.class);
 
     @Override
     public Orchestratable process(Orchestratable message) {

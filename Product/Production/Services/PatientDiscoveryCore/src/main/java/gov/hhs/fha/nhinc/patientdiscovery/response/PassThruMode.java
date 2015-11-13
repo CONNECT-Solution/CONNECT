@@ -28,7 +28,8 @@ package gov.hhs.fha.nhinc.patientdiscovery.response;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -37,7 +38,7 @@ import org.hl7.v3.PRPAIN201306UV02;
  * @author dunnek
  */
 public class PassThruMode implements ResponseMode {
-    private static final Logger LOG = Logger.getLogger(PassThruMode.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PassThruMode.class);
 
     public PassThruMode() {
         super();

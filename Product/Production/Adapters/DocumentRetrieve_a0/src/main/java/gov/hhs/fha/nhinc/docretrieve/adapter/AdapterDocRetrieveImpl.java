@@ -31,7 +31,8 @@ import javax.xml.ws.WebServiceContext;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
@@ -41,7 +42,7 @@ import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
  * @author svalluripalli
  */
 public class AdapterDocRetrieveImpl {
-    private static final Logger LOG = Logger.getLogger(AdapterDocRetrieveImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocRetrieveImpl.class);
 
     /**
      * Perform Doc Retrieve.

@@ -33,14 +33,15 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author dunnek
  */
 public class AdapterAdminDistributionProxyJavaImpl implements AdapterAdminDistributionProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterAdminDistributionProxyJavaImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterAdminDistributionProxyJavaImpl.class);
 
     /**
      * This method calls AdapterAdminDistOrchImpl to SendAlertMessage.

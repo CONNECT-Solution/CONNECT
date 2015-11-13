@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.direct;
 import gov.hhs.fha.nhinc.event.EventLoggerFactory;
 import gov.hhs.fha.nhinc.mail.ManageTaskScheduler;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.SessionFactory;
 import org.nhindirect.gateway.smtp.GatewayState;
 
@@ -38,7 +39,7 @@ import org.nhindirect.gateway.smtp.GatewayState;
  */
 public class DirectAdapterFactory extends DirectAdapterEntity {
 
-    private static final Logger LOG = Logger.getLogger(DirectAdapterFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectAdapterFactory.class);
     private static final String BEAN_NAME_MANAGE_TASK_SCHEDULER = "manageTaskScheduler";
 
     /**

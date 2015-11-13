@@ -33,7 +33,8 @@ import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -41,7 +42,7 @@ import org.apache.log4j.Logger;
  */
 class OutboundDocSubmissionStrategyImpl_g1 implements OrchestrationStrategy {
 
-    private static final Logger LOG = Logger.getLogger(OutboundDocSubmissionStrategyImpl_g1.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundDocSubmissionStrategyImpl_g1.class);
 
     protected NhinDocSubmissionProxy getNhinDocSubmissionProxy() {
         return new NhinDocSubmissionProxyObjectFactory().getNhinDocSubmissionProxy();

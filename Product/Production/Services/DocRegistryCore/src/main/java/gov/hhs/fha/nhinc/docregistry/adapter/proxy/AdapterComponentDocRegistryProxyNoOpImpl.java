@@ -32,7 +32,8 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -40,7 +41,7 @@ import org.apache.log4j.Logger;
  */
 public class AdapterComponentDocRegistryProxyNoOpImpl implements AdapterComponentDocRegistryProxy {
 
-    private static final Logger LOG = Logger.getLogger(AdapterComponentDocRegistryProxyNoOpImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocRegistryProxyNoOpImpl.class);
 
     public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request, AssertionType assertion) {
         LOG.trace("Using NoOp Implementation for Adapter Component Doc Registry Service");

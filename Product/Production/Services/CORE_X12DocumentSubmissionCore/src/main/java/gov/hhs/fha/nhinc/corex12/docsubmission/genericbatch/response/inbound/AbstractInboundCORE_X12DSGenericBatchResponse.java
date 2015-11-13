@@ -34,7 +34,8 @@ import gov.hhs.fha.nhinc.corex12.docsubmission.utils.CORE_X12DSLargePayloadUtils
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.Properties;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 
@@ -44,7 +45,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  */
 public abstract class AbstractInboundCORE_X12DSGenericBatchResponse implements InboundCORE_X12DSGenericBatchResponse {
 
-    private static final Logger LOG = Logger.getLogger(AbstractInboundCORE_X12DSGenericBatchResponse.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractInboundCORE_X12DSGenericBatchResponse.class);
     private AdapterCORE_X12DSGenericBatchResponseProxyObjectFactory oAdapterFactory;
     private CORE_X12BatchSubmissionAuditLogger auditLogger;
 

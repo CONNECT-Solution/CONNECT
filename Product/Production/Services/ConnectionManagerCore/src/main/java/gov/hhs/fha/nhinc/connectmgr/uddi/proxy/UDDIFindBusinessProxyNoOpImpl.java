@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.uddi.proxy;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.BusinessList;
@@ -38,7 +39,7 @@ import org.uddi.api_v3.GetBusinessDetail;
  */
 public class UDDIFindBusinessProxyNoOpImpl extends UDDIFindBusinessProxyBase {
 
-    private static final Logger LOG = Logger.getLogger(UDDIFindBusinessProxyNoOpImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UDDIFindBusinessProxyNoOpImpl.class);
 
     public BusinessList findBusinessesFromUDDI() throws UDDIFindBusinessException {
         LOG.debug("Using NoOp Implementation for UDDI Business Info Service");

@@ -32,7 +32,8 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is the java implementation of the AdapterPatientDiscovery component proxy.
@@ -41,7 +42,7 @@ import org.apache.log4j.Logger;
  */
 public class AdapterComponentDocSubmissionResponseProxyJavaImpl implements AdapterComponentDocSubmissionResponseProxy {
 
-    private static final Logger LOG = Logger.getLogger(AdapterComponentDocSubmissionResponseProxyJavaImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocSubmissionResponseProxyJavaImpl.class);
 
     /**
      * Receive document deferred document submission response.

@@ -38,7 +38,8 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.fhir.instance.model.Conformance;
 import org.springframework.stereotype.Service;
 
@@ -58,7 +59,7 @@ public class FhirResourceServiceImpl implements FhirResourceService {
     private static final String DOCREF_DISPLAY = "Document Reference Resource";
     private static final String BINARY_DISPLAY = "Binary Resource";
 
-    private static final Logger LOG = Logger.getLogger(FhirResourceServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FhirResourceServiceImpl.class);
 
     /**
      * {@inheritDoc}

@@ -31,7 +31,8 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is responsible for handling the work that is done each time the timer goes off; i.e. processing the
@@ -41,7 +42,7 @@ import org.apache.log4j.Logger;
  */
 public class DeferredQueueTimerTask {
 
-    private static final Logger LOG = Logger.getLogger(DeferredQueueTimerTask.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeferredQueueTimerTask.class);
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static final String DEFERRED_QUEUE_SWITCH_PROPERTY = "DeferredQueueProcessActive";
 

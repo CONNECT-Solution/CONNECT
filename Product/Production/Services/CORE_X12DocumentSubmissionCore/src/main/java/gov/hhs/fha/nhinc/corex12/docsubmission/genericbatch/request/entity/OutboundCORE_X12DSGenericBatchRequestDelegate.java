@@ -27,7 +27,8 @@
 package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.entity;
 
 import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.orchestration.OrchestrationContextFactory;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
@@ -41,7 +42,7 @@ import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
  */
 public class OutboundCORE_X12DSGenericBatchRequestDelegate implements OutboundDelegate {
 
-    private static final Logger LOG = Logger.getLogger(OutboundCORE_X12DSGenericBatchRequestDelegate.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundCORE_X12DSGenericBatchRequestDelegate.class);
 
     /**
      *

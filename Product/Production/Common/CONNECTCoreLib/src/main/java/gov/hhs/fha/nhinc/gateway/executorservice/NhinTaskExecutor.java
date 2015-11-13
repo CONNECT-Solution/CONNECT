@@ -37,7 +37,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.Future;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
 
@@ -59,7 +60,7 @@ import com.google.common.base.Optional;
  */
 public class NhinTaskExecutor<CumulativeResponse extends OutboundOrchestratableMessage, IndividualResponse extends OutboundOrchestratableMessage> {
 
-    private static final Logger LOG = Logger.getLogger(NhinTaskExecutor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NhinTaskExecutor.class);
 
     private CumulativeResponse cumulativeResponse = null;
 

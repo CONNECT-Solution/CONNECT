@@ -28,7 +28,8 @@ package gov.hhs.fha.nhinc.patientdiscovery.response;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -43,7 +44,7 @@ public class ResponseFactory {
         VERIFY, TRUST, PASSTHROUGH
     };
 
-    private static final Logger LOG = Logger.getLogger(ResponseFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ResponseFactory.class);
 
     public ResponseMode getResponseMode() {
         ResponseMode result = null;

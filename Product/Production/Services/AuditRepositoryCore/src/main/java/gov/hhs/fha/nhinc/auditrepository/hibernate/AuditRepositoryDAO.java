@@ -31,7 +31,8 @@ import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -46,8 +47,7 @@ import org.hibernate.criterion.Expression;
  */
 public class AuditRepositoryDAO {
 
-    // Log4j logging initiated
-    private static final Logger LOG = Logger.getLogger(AuditRepositoryDAO.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AuditRepositoryDAO.class);
     private static AuditRepositoryDAO auditDAO = new AuditRepositoryDAO();
     public static String JAVA_IO_TMPDIR = "java.io.tmpdir";
 

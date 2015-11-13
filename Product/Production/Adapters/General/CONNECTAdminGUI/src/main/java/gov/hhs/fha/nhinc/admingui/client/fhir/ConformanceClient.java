@@ -42,7 +42,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.fhir.instance.client.EFhirClientException;
 import org.hl7.fhir.instance.client.FeedFormat;
 import org.hl7.fhir.instance.client.ResourceAddress;
@@ -68,7 +69,7 @@ public class ConformanceClient {
 
     public static String DEFAULT_CHARSET = "utf-8";
 
-    private static final Logger LOG = Logger.getLogger(ConformanceClient.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ConformanceClient.class);
 
     public Conformance getConformanceStatement(String baseServiceUrl) throws URISyntaxException {
         ResourceAddress resourceAddress = new ResourceAddress(baseServiceUrl);

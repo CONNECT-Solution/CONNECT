@@ -35,7 +35,8 @@ import javax.xml.ws.handler.MessageContext;
 
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 
 /**
@@ -48,7 +49,7 @@ import org.w3c.dom.Element;
  */
 public class SAML2AssertionExtractor {
 
-    private static final Logger LOG = Logger.getLogger(SAML2AssertionExtractor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SAML2AssertionExtractor.class);
 
     private static SAML2AssertionExtractor INSTANCE = null;
 

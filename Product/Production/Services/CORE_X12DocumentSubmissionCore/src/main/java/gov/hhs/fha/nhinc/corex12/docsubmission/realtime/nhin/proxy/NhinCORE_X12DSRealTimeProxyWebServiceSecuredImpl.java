@@ -35,7 +35,8 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.caqh.soap.wsdl.CORETransactions;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
@@ -46,7 +47,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  */
 public class NhinCORE_X12DSRealTimeProxyWebServiceSecuredImpl implements NhinCORE_X12DSRealTimeProxy {
 
-    private static final Logger LOG = Logger.getLogger(NhinCORE_X12DSRealTimeProxyWebServiceSecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NhinCORE_X12DSRealTimeProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper proxyHelper = null;
 
     public NhinCORE_X12DSRealTimeProxyWebServiceSecuredImpl() {

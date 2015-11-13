@@ -43,7 +43,8 @@ import java.util.StringTokenizer;
 
 import javax.xml.ws.BindingProvider;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is used as a helper in each of the Web Service Proxies. Since the bulk of the work being done in each web
@@ -56,7 +57,7 @@ public class WebServiceProxyHelper {
     public static final String KEY_CONNECT_TIMEOUT = "com.sun.xml.ws.connect.timeout";
     public static final String KEY_REQUEST_TIMEOUT = "com.sun.xml.ws.request.timeout";
     public static final String KEY_URL = javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY;
-    private static final Logger LOG = Logger.getLogger(WebServiceProxyHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(WebServiceProxyHelper.class);
     private final WebServiceProxyHelperProperties properties;
     public WebServiceProxyHelper() {
         properties = WebServiceProxyHelperProperties.getInstance();

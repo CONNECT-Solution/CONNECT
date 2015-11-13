@@ -31,14 +31,15 @@ import gov.hhs.fha.nhinc.docregistry.adapter.AdapterComponentDocRegistryOrchImpl
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author jhoppesc
  */
 public class AdapterComponentDocRegistryProxyJavaImpl implements AdapterComponentDocRegistryProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterComponentDocRegistryProxyJavaImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocRegistryProxyJavaImpl.class);
 
     public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request, AssertionType assertion) {
         LOG.trace("Using Java Implementation for Adapter Component Doc Registry Service");

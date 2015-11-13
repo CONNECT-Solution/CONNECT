@@ -36,7 +36,8 @@ import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.PassthroughOutb
 import gov.hhs.fha.nhinc.corex12.docsubmission.utils.CORE_X12DSEntityExceptionBuilder;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import javax.xml.ws.WebServiceContext;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
@@ -46,7 +47,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  */
 public class EntityCORE_X12DSRealTimeImpl extends CORE_X12DSEntityExceptionBuilder {
 
-    private static final Logger LOG = Logger.getLogger(EntityCORE_X12DSRealTimeImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EntityCORE_X12DSRealTimeImpl.class);
 
     private OutboundCORE_X12DSRealTime outboundCORE_X12DSRealTime;
 

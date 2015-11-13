@@ -39,7 +39,8 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import javax.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -54,7 +55,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserAuthorizationListener implements PhaseListener {
 
-    private static final Logger LOG = Logger.getLogger(UserAuthorizationListener.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UserAuthorizationListener.class);
 
     /**
      * The Constant LOGIN_REQUIRED_DIR.

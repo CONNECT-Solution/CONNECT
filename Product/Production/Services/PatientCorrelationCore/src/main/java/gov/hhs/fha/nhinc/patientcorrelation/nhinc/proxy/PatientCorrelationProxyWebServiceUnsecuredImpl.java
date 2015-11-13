@@ -36,7 +36,8 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.description.PatientCorre
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.description.PatientCorrelationRetrieveServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.AddPatientCorrelationRequestType;
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.PRPAIN201301UV02;
@@ -49,7 +50,7 @@ import org.hl7.v3.RetrievePatientCorrelationsResponseType;
  * @author jhoppesc
  */
 public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCorrelationProxy {
-    private static final Logger LOG = Logger.getLogger(PatientCorrelationProxyWebServiceUnsecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientCorrelationProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     /**

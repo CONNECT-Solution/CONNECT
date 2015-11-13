@@ -38,11 +38,12 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AdapterEndpointManager {
     public static final String ADAPTER_API_LEVEL_KEY = "CONNECT:adapter:apilevel";
-    public static final Logger LOG = Logger.getLogger(AdapterEndpointManager.class);
+    public static final Logger LOG = LoggerFactory.getLogger(AdapterEndpointManager.class);
 
     public ADAPTER_API_LEVEL getApiVersion(String serviceName) {
         ADAPTER_API_LEVEL result = null;

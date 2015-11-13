@@ -39,14 +39,15 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author
  *
  */
 public class EntityDocQueryProxyWebServiceUnsecuredImpl implements EntityDocQueryProxy {
-    private static final Logger LOG = Logger.getLogger(EntityDocQueryProxyWebServiceUnsecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EntityDocQueryProxyWebServiceUnsecuredImpl.class);
 
     private WebServiceProxyHelper oProxyHelper = null;
 

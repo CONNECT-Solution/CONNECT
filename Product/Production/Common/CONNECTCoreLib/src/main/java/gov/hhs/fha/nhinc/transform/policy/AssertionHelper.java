@@ -43,7 +43,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.II;
 
 /**
@@ -52,7 +53,7 @@ import org.hl7.v3.II;
  */
 public class AssertionHelper {
 
-    private static final Logger LOG = Logger.getLogger(AssertionHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AssertionHelper.class);
     private static final boolean appendAttributesIfNull = false;
 
     public void appendAssertionDataToRequest(RequestType policyRequest, AssertionType assertion) {

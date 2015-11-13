@@ -36,7 +36,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.stagent.AddressSource;
 import org.nhindirect.stagent.MessageEnvelope;
@@ -49,7 +50,7 @@ import org.nhindirect.stagent.mail.notifications.NotificationMessage;
  */
 public class DirectAdapterUtils {
 
-    private static final Logger LOG = Logger.getLogger(DirectAdapterUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectAdapterUtils.class);
     private static final String MDN_CONTENT_TYPE = "DISPOSITION-NOTIFICATION";
 
     /**

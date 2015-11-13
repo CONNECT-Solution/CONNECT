@@ -44,7 +44,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.apache.http.impl.cookie.DateUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BindingTemplate;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.BusinessService;
@@ -60,7 +61,7 @@ import org.uddi.api_v3.KeyedReference;
 @ViewScoped
 public class ConnectionManagerBean {
 
-    private static final Logger LOG = Logger.getLogger(ConnectionManagerBean.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerBean.class);
 
     private final HashMap<String, BusinessEntity> externalEntities = new HashMap<String, BusinessEntity>();
     private final List<String> entityNames = new ArrayList<String>();

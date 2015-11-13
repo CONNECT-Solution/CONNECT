@@ -30,7 +30,8 @@ import gov.hhs.fha.nhinc.event.model.DatabaseEvent;
 import gov.hhs.fha.nhinc.event.persistence.HibernateUtil;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -45,7 +46,7 @@ import org.hibernate.criterion.Restrictions;
  */
 public class DatabaseEventLoggerDao {
 
-    private static final Logger LOG = Logger.getLogger(DatabaseEventLoggerDao.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DatabaseEventLoggerDao.class);
 
     private static final String EVENT_TYPE_NAME = "eventName";
     private static final String EVENT_SERVICETYPE_NAME = "serviceType";

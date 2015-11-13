@@ -53,7 +53,8 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamSource;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import javax.ws.rs.core.MediaType;
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamResult;
@@ -66,7 +67,7 @@ import javax.xml.transform.stream.StreamResult;
  */
 public class GatewayService {
 
-    private static final Logger LOG = Logger.getLogger(GatewayService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GatewayService.class);
 
     private PatientService patientService;
     private DocumentQueryService documentQueryService;

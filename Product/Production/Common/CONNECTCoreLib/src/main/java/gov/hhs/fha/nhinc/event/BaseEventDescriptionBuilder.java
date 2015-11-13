@@ -32,7 +32,8 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Base builder implementation that fills the event description from the message routing and event context. Concrete
@@ -45,7 +46,7 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
     private MessageRoutingAccessor msgRouting;
     private EventContextAccessor msgContext;
 
-    private static final Logger LOG = Logger.getLogger(BaseEventDescriptionBuilder.class);
+    private static final Logger LOG = LoggerFactory.getLogger(BaseEventDescriptionBuilder.class);
 
     public BaseEventDescriptionBuilder() {
 

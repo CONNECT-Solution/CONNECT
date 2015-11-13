@@ -32,14 +32,15 @@ import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response.StandardOutbou
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author jhoppesc
  */
 public class EntityDocSubmissionDeferredResponseProxyJavaImpl implements EntityDocSubmissionDeferredResponseProxy {
-    private static final Logger LOG = Logger.getLogger(EntityDocSubmissionDeferredResponseProxyJavaImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EntityDocSubmissionDeferredResponseProxyJavaImpl.class);
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RegistryResponseType request,
             AssertionType assertion, NhinTargetCommunitiesType targets) {

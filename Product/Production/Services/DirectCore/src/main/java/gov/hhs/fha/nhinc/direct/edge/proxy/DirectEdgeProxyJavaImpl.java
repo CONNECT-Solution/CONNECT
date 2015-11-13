@@ -30,7 +30,8 @@ import javax.mail.internet.MimeMessage;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -38,7 +39,7 @@ import org.apache.log4j.Logger;
  */
 public class DirectEdgeProxyJavaImpl implements DirectEdgeProxy {
 
-    private static final Logger LOG = Logger.getLogger(DirectEdgeProxyJavaImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectEdgeProxyJavaImpl.class);
 
     /**
      * {@inheritDoc}

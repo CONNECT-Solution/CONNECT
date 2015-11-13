@@ -46,14 +46,15 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author dunnek
  */
 public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdminDistributionProxy {
-    private static final Logger LOG = Logger.getLogger(NhinAdminDistributionProxyWebServiceSecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NhinAdminDistributionProxyWebServiceSecuredImpl.class);
     private AdminDistributionAuditLogger adLogger = null;
 
     /**
@@ -168,7 +169,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
     /**
      * @return Nhin AdminDist audit logger.
      */
-    protected AdminDistributionAuditLogger getLogger() {
+    protected AdminDistributionAuditLoggerFactory.getLogger() {
         return (adLogger != null) ? adLogger : new AdminDistributionAuditLogger();
     }
 

@@ -38,7 +38,8 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.CE;
 import org.hl7.v3.ENXPExplicit;
 import org.hl7.v3.EnExplicitFamily;
@@ -63,7 +64,7 @@ import org.hl7.v3.TSExplicit;
  */
 public class HL7Parser201301 {
 
-    private static final Logger LOG = Logger.getLogger(HL7Parser201301.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HL7Parser201301.class);
 
     public static void PrintMessageIdFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
         if (!(message == null)) {

@@ -41,7 +41,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -54,7 +55,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ManageUserBean {
 
-    private static Logger log = Logger.getLogger(ManageUserBean.class);
+    private static Logger log = LoggerFactory.getLogger(ManageUserBean.class);
     private String userName = null;
     private String password = null;
     private String role;

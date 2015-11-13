@@ -28,7 +28,8 @@ package gov.hhs.fha.nhinc.connectmgr.uddi;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is used to start a timer which when it wakes up will read the UDDI data from the UDDI server, updte the
@@ -37,7 +38,7 @@ import org.apache.log4j.Logger;
  * @author Les Westberg
  */
 public class UDDITimer extends Thread {
-    private static final Logger LOG = Logger.getLogger(UDDITimer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UDDITimer.class);
     private boolean m_bRunnable = false;
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static final String UDDI_REFRESH_DURATION_PROPERTY = "UDDIRefreshDuration";

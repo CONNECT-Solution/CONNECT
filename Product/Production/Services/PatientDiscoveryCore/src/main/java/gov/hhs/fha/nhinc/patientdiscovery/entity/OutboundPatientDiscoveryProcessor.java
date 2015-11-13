@@ -39,7 +39,8 @@ import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseParams;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
@@ -52,7 +53,7 @@ import com.google.common.base.Optional;
  */
 public class OutboundPatientDiscoveryProcessor implements OutboundResponseProcessor {
 
-    private static final Logger LOG = Logger.getLogger(OutboundPatientDiscoveryProcessor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundPatientDiscoveryProcessor.class);
 
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 

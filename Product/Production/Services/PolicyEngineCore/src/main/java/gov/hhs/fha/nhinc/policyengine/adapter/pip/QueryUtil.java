@@ -40,7 +40,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Utility Methods for AdhocQuery requests and responses
@@ -49,7 +50,7 @@ import org.apache.log4j.Logger;
  */
 public class QueryUtil {
 
-    private static final Logger LOG = Logger.getLogger(QueryUtil.class);
+    private static final Logger LOG = LoggerFactory.getLogger(QueryUtil.class);
 
     /**
      * This method extracts the patient ID from the AdhocQueryResponse message and returns it.

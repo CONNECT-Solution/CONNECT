@@ -42,7 +42,8 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Started on webapplication init, creates the main ExecutorService and CamelContext instances Note the following: 1.
@@ -63,7 +64,7 @@ public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
     private static final long serialVersionUID = -4229185731377926278L;
 
     /** The Constant LOG. */
-    private static final Logger LOG = Logger.getLogger(InitServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(InitServlet.class);
 
     /** The executor. */
     private static ExecutorService executor = null;

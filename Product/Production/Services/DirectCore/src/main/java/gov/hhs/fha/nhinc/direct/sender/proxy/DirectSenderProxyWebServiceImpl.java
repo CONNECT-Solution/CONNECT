@@ -38,7 +38,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.Addressing;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -48,7 +49,7 @@ import org.apache.log4j.Logger;
 @Addressing(enabled = true)
 public class DirectSenderProxyWebServiceImpl {
 
-    private static final Logger LOG = Logger.getLogger(DirectSenderProxyWebServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectSenderProxyWebServiceImpl.class);
 
     /**
      *

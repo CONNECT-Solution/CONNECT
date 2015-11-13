@@ -39,7 +39,7 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 public class CsrfBean {
 
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CsrfBean.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CsrfBean.class);
 
     private String token = null;
 
@@ -66,3 +66,4 @@ public class CsrfBean {
     }
 
 }
+

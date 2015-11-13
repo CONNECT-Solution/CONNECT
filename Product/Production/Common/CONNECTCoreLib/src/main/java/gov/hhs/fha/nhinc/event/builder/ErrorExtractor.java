@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.event.builder;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 
@@ -40,7 +41,7 @@ import com.google.common.base.Function;
  */
 public class ErrorExtractor implements Function<RegistryError, String> {
 
-    private static final Logger LOG = Logger.getLogger(ErrorExtractor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ErrorExtractor.class);
 
     @Override
     public String apply(RegistryError error) {

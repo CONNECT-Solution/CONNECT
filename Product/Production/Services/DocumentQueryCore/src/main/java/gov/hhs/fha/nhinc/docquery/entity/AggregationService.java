@@ -59,7 +59,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 
@@ -70,7 +71,7 @@ import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 public class AggregationService {
 
     private ConnectionManager connectionManager;
-    private static final Logger LOG = Logger.getLogger(AggregationService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AggregationService.class);
     private PatientCorrelationProxyFactory patientCorrelationProxyFactory;
 
     private OutboundDocQueryDelegate delegate = new OutboundDocQueryDelegate();

@@ -40,7 +40,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -54,7 +55,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoginBean {
 
-    private static final Logger LOG = Logger.getLogger(LoginBean.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LoginBean.class);
 
     /**
      * The user name.

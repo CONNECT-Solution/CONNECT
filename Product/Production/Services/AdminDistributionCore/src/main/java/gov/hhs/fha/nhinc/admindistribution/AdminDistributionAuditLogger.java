@@ -37,14 +37,15 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author dunnek
  */
 public class AdminDistributionAuditLogger {
-    private static final Logger LOG = Logger.getLogger(AdminDistributionAuditLogger.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdminDistributionAuditLogger.class);
 
     private AcknowledgementType audit(LogEventRequestType auditLogMsg, AssertionType assertion) {
         LOG.debug("begin audit()");

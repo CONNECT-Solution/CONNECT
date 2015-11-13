@@ -28,7 +28,8 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.entity;
 
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author svalluripalli
@@ -36,7 +37,7 @@ import org.apache.log4j.Logger;
  */
 public class OutboundCORE_X12DSGenericBatchRequestOrchestrationContextBuilder_g0 extends OutboundCORE_X12DSGenericBatchRequestOrchestrationContextBuilder {
 
-    private static final Logger LOG = Logger.getLogger(OutboundCORE_X12DSGenericBatchRequestOrchestrationContextBuilder_g0.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundCORE_X12DSGenericBatchRequestOrchestrationContextBuilder_g0.class);
 
     /**
      *

@@ -38,7 +38,8 @@ import javax.xml.ws.BindingProvider;
 
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.jaxb.JAXBDataBinding;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author achidamb
@@ -47,7 +48,7 @@ import org.apache.log4j.Logger;
  */
 public class SoapHeaderServiceEndPointDecorator<T> extends ServiceEndpointDecorator<T> {
 
-    private static final Logger LOG = Logger.getLogger(SoapHeaderServiceEndPointDecorator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SoapHeaderServiceEndPointDecorator.class);
 
     private String subscriptionId = null;
 

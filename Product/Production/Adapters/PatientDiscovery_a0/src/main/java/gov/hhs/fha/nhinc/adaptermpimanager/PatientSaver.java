@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.adaptermpimanager;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.*;
 import gov.hhs.fha.nhinc.mpilib.*;
 import gov.hhs.fha.nhinc.adaptermpimanager.HL7Parsers.*;
@@ -41,7 +42,7 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
  */
 public class PatientSaver {
 
-    private static final Logger LOG = Logger.getLogger(PatientSaver.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientSaver.class);
     private static final String PROPERTY_FILE = "adapter";
     private static final String PROPERTY_NAME = "assigningAuthorityId";
 

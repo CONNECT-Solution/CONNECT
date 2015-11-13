@@ -35,7 +35,8 @@ import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescr
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is the java implementation of the Adapter Doc Retrieve component proxy.
@@ -44,7 +45,7 @@ import org.apache.log4j.Logger;
  */
 public class AdapterDocRetrieveProxyJavaImpl implements AdapterDocRetrieveProxy {
 
-    private static final Logger LOG = Logger.getLogger(AdapterDocRetrieveProxyJavaImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocRetrieveProxyJavaImpl.class);
 
     /**
      * Retrieve the specified document.

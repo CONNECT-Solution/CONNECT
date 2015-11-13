@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.async;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -39,7 +40,7 @@ import org.w3c.dom.Element;
  */
 public final class ElementBuilder {
 
-	private static final Logger LOG = Logger.getLogger(ElementBuilder.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ElementBuilder.class);
 
 	private Document document;
 

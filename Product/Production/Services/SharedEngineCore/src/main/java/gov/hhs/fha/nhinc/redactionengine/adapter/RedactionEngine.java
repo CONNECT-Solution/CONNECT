@@ -32,14 +32,15 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Neil Webb
  */
 public class RedactionEngine {
-    private static final Logger LOG = Logger.getLogger(RedactionEngine.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RedactionEngine.class);
 
     protected DocQueryResponseProcessor getDocQueryResponseProcessor() {
         return new DocQueryResponseProcessor();

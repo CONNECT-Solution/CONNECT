@@ -40,11 +40,12 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class EntityDocSubmissionProxyWebServiceSecuredImpl implements EntityDocSubmissionProxy {
 
-    private static final Logger LOG = Logger.getLogger(EntityDocSubmissionProxyWebServiceSecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EntityDocSubmissionProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public EntityDocSubmissionProxyWebServiceSecuredImpl() {

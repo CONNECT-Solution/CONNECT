@@ -32,7 +32,8 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -40,7 +41,7 @@ import org.apache.log4j.Logger;
  */
 public class XMLDateUtil {
 
-    private static final Logger LOG = Logger.getLogger(XMLDateUtil.class);
+    private static final Logger LOG = LoggerFactory.getLogger(XMLDateUtil.class);
 
     /**
      * Transform a date in a long to a XMLGregorianCalendar

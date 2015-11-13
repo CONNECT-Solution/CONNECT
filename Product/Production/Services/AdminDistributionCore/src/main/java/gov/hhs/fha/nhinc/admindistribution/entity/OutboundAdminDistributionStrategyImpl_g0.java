@@ -32,7 +32,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -42,7 +43,7 @@ import org.apache.log4j.Logger;
 public class OutboundAdminDistributionStrategyImpl_g0 implements OrchestrationStrategy {
 //CHECKSTYLE:ON
 
-    private static final Logger LOG = Logger.getLogger(OutboundAdminDistributionStrategyImpl_g0.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundAdminDistributionStrategyImpl_g0.class);
 
     @Override
     public void execute(Orchestratable message) {

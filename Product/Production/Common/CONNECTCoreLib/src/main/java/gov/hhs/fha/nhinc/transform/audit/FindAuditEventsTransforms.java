@@ -43,11 +43,12 @@ import java.io.ByteArrayOutputStream;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FindAuditEventsTransforms {
 
-    private static final Logger LOG = Logger.getLogger(FindAuditEventsTransforms.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FindAuditEventsTransforms.class);
 
     public static LogEventRequestType transformFindAuditEventsReq2AuditMsg(LogFindAuditEventsRequestType message) {
 

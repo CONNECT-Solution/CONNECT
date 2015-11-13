@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.uddi.proxy;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.BusinessList;
@@ -43,7 +44,7 @@ import gov.hhs.fha.nhinc.nhin_uddi_api_v3.UDDIInquiryPortType;
  */
 public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxyBase {
 
-    private static final Logger LOG = Logger.getLogger(UDDIFindBusinessProxyHPImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UDDIFindBusinessProxyHPImpl.class);
 
     /**
      *

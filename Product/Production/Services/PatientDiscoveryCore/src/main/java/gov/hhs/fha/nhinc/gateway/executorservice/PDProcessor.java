@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.gateway.executorservice;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
@@ -63,7 +64,7 @@ public class PDProcessor<Target extends UrlInfo, Request extends RespondingGatew
     Response extends PRPAIN201306UV02, CumulativeResponse extends RespondingGatewayPRPAIN201306UV02ResponseType>
         extends ResponseProcessor<Target, Request, Response, CumulativeResponse> {
 
-    private static final Logger LOG = Logger.getLogger(PDProcessor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PDProcessor.class);
 
     private RespondingGatewayPRPAIN201306UV02ResponseType cumulativeResponse = null;
     private AssertionType pdassertion = null;

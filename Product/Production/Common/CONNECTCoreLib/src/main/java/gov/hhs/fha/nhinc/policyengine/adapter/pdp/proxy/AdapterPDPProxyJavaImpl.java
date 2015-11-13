@@ -55,7 +55,8 @@ import oasis.names.tc.xacml._2_0.policy.schema.os.RuleType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectMatchType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.TargetType;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 
 /**
@@ -65,7 +66,7 @@ import org.w3c.dom.Element;
  */
 public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
 
-    private static final Logger LOG = Logger.getLogger(AdapterPDPProxyJavaImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPDPProxyJavaImpl.class);
     private String statusCodeValue = "";
     private String statusMessageValue = "";
     private boolean foundMatchingAttributes = false;

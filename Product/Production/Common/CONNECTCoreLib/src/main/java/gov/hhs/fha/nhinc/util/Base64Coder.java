@@ -27,11 +27,12 @@
 package gov.hhs.fha.nhinc.util;
 
 import java.io.UnsupportedEncodingException;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Base64Coder {
 
-    private static final Logger LOG = Logger.getLogger(Base64Coder.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Base64Coder.class);
     // Mapping table from 6-bit nibbles to Base64 characters.
     private static char[] map1 = new char[64];
 

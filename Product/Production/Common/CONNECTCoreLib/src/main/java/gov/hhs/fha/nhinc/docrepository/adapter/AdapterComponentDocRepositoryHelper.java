@@ -39,13 +39,14 @@ import java.util.Iterator;
 import java.util.List;
 import javax.activation.DataHandler;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class AdapterComponentDocRepositoryHelper {
 
 	private static final String VALUE_LIST_SEPERATOR = "~";
-	private static final Logger LOG = Logger.getLogger(AdapterComponentDocRepositoryHelper.class);
+	private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocRepositoryHelper.class);
 
 	RegistryError setRegistryError(String codeContext, String location, String errorCode,
     		String value){

@@ -38,7 +38,8 @@ import ihe.iti.xcpd._2009.RespondingGatewayPortType;
 import ihe.iti.xcpd._2009.RespondingGatewayService;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.CS;
 import org.hl7.v3.EDExplicit;
 import org.hl7.v3.II;
@@ -64,7 +65,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayPRPAIN201305UV02RequestType, Response extends ResponseWrapper>
     implements WebServiceClient<Target, Request, Response> {
 
-    private static final Logger LOG = Logger.getLogger(PDClient.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PDClient.class);
     private static RespondingGatewayService serviceInstance = null;
     private static final Object PDSYNC = new Object();
     private AssertionType assertion = null;

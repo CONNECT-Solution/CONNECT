@@ -32,7 +32,8 @@ import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
 import java.util.List;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -50,7 +51,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserLoginDAOImpl implements UserLoginDAO {
 
-    private static final Logger LOG = Logger.getLogger(UserLoginDAOImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UserLoginDAOImpl.class);
 
     @Autowired
     private SessionFactory sessionFactory;

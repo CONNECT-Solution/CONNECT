@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Returns the OrchestrationContextBuilder appropriate for the particular apiLevel
@@ -38,7 +39,7 @@ import org.apache.log4j.Logger;
  */
 public class OutboundPatientDiscoveryFactory {
 
-    private static final Logger LOG = Logger.getLogger(OutboundPatientDiscoveryFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundPatientDiscoveryFactory.class);
 
     private static OutboundPatientDiscoveryFactory INSTANCE = new OutboundPatientDiscoveryFactory();
 

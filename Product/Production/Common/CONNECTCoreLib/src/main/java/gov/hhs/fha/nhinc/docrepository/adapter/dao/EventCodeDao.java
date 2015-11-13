@@ -40,7 +40,8 @@ import java.util.Set;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -63,7 +64,7 @@ import org.hibernate.type.Type;
 public class EventCodeDao {
 
     /** The Constant LOG. */
-    private static final Logger LOG = Logger.getLogger(EventCodeDao.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EventCodeDao.class);
 
     /** The Constant EBXML_EVENT_CODE_LIST. */
     private static final String EBXML_EVENT_CODE_LIST = "$XDSDocumentEntryEventCodeList";

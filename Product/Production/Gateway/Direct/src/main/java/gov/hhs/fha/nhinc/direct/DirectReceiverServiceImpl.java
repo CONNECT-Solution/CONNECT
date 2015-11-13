@@ -40,7 +40,8 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.SOAPBinding;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -49,7 +50,7 @@ import org.apache.log4j.Logger;
 @BindingType(SOAPBinding.SOAP12HTTP_BINDING)
 public class DirectReceiverServiceImpl extends DirectAdapterEntity implements DirectReceiverPortType, Serializable {
 
-    private static final Logger LOG = Logger.getLogger(DirectReceiverServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectReceiverServiceImpl.class);
 
     @Override
     public void receiveInbound(ConnectCustomMimeMessage message) {

@@ -52,7 +52,8 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -61,7 +62,7 @@ import org.apache.log4j.Logger;
  */
 public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetrieveProxy {
 
-    private static final Logger LOG = Logger.getLogger(NhinDocRetrieveProxyWebServiceSecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NhinDocRetrieveProxyWebServiceSecuredImpl.class);
 
     /**
      * Retrieve the document(s) specified in the request.

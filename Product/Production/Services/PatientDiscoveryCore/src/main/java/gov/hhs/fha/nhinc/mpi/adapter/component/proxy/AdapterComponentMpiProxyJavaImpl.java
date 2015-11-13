@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component.proxy;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -40,7 +41,7 @@ import gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpiOrchImpl;
  * @author Les Westberg
  */
 public class AdapterComponentMpiProxyJavaImpl implements AdapterComponentMpiProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterComponentMpiProxyJavaImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentMpiProxyJavaImpl.class);
 
     /**
      * Find the matching candidates from the MPI.

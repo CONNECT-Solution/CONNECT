@@ -31,7 +31,8 @@ import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxyObjectFactor
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
@@ -42,7 +43,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 public class OutboundDocRetrieveStrategyImpl_g0 extends OutboundDocRetrieveStrategyBase implements
         OrchestrationStrategy {
 
-    private static final Logger LOG = Logger.getLogger(OutboundDocRetrieveStrategyImpl_g0.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundDocRetrieveStrategyImpl_g0.class);
 
     @Override
     protected RetrieveDocumentSetResponseType callProxy(OutboundDocRetrieveOrchestratable message) {

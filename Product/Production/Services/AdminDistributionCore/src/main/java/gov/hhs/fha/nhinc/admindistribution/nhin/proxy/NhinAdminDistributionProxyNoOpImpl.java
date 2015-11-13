@@ -33,14 +33,15 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author dunnek
  */
 public class NhinAdminDistributionProxyNoOpImpl implements NhinAdminDistributionProxy {
-    private static final Logger LOG = Logger.getLogger(NhinAdminDistributionProxyNoOpImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NhinAdminDistributionProxyNoOpImpl.class);
 
     /**
      * This method does not do any implementation.

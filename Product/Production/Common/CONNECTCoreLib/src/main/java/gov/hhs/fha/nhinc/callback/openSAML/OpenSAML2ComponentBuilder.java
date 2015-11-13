@@ -40,7 +40,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import javax.xml.namespace.QName;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.joda.time.DateTime;
 import org.opensaml.Configuration;
 import org.opensaml.DefaultBootstrap;
@@ -169,7 +170,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      */
     private static XMLObjectBuilderFactory builderFactory = Configuration.getBuilderFactory();
 
-    private static final Logger LOG = Logger.getLogger(OpenSAML2ComponentBuilder.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OpenSAML2ComponentBuilder.class);
 
     /**
      * Instantiates a new open sam l2 component builder.

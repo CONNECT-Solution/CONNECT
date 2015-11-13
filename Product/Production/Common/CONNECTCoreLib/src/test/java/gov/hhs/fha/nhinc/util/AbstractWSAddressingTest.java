@@ -43,7 +43,8 @@ import net.sf.saxon.s9api.XQueryExecutable;
 import net.sf.saxon.s9api.XdmItem;
 import net.sf.saxon.s9api.XdmNode;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.core.io.Resource;
@@ -51,7 +52,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 public abstract class AbstractWSAddressingTest {
 
-    private static final Logger LOG = Logger.getLogger(AbstractWSAddressingTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractWSAddressingTest.class);
 
     private static Processor proc;
     private static XQueryExecutable BINDING_LEVEL_ACTION;

@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.nhin.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
@@ -39,7 +40,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  */
 public class NhinCORE_X12DSRealTimeProxyNoOpImpl implements NhinCORE_X12DSRealTimeProxy {
 
-    private static final Logger LOG = Logger.getLogger(NhinCORE_X12DSRealTimeProxyNoOpImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NhinCORE_X12DSRealTimeProxyNoOpImpl.class);
 
     @Override
     public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest msg, AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {

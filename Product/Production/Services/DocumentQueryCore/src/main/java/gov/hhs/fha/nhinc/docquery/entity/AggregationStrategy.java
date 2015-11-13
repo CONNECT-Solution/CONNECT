@@ -40,7 +40,8 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
 import org.apache.cxf.jaxws.context.WebServiceContextImpl;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author bhumphrey
@@ -48,7 +49,7 @@ import org.apache.log4j.Logger;
  */
 public class AggregationStrategy {
 
-    private static final Logger LOG = Logger.getLogger(AggregationStrategy.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AggregationStrategy.class);
 
     public void execute(Aggregate aggregate) {
         Executor executor = Executors.newCachedThreadPool();

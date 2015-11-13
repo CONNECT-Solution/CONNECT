@@ -32,7 +32,8 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.File;
 
 import javax.xml.bind.JAXBException;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;
 
 /**
@@ -46,7 +47,7 @@ public class UddiConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase impl
 
     private static UddiConnectionInfoDAOFileImpl instance = null;
     private File file = null;
-    private static final Logger LOG = Logger.getLogger(UddiConnectionInfoDAOFileImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UddiConnectionInfoDAOFileImpl.class);
     private static final String UDDI_XML_FILE_NAME = "uddiConnectionInfo.xml";
 
     public static UddiConnectionInfoDAOFileImpl getInstance() {

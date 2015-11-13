@@ -40,7 +40,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -48,7 +49,7 @@ import org.apache.log4j.Logger;
  */
 
 public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
-    private static final Logger LOG = Logger.getLogger(EntityAdminDistributionProxyWebServiceUnsecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EntityAdminDistributionProxyWebServiceUnsecuredImpl.class);
 
     /**
      * @return instance of AdminDistributionHelper.

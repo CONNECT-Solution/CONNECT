@@ -28,7 +28,8 @@ package gov.hhs.fha.nhinc.adapter.deferred.queue;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is used to start a timer which when it wakes up will process any deferred queue request messages.
@@ -37,7 +38,7 @@ import org.apache.log4j.Logger;
  */
 public class DeferredQueueTimer extends Thread {
 
-    private static final Logger LOG = Logger.getLogger(DeferredQueueTimer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeferredQueueTimer.class);
     private boolean m_bRunnable = false;
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static final String DEFERRED_QUEUE_REFRESH_DURATION_PROPERTY = "DeferredQueueRefreshDuration";

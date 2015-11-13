@@ -41,7 +41,8 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -49,7 +50,7 @@ import org.apache.log4j.Logger;
  */
 public class AdapterDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl implements
         AdapterDocSubmissionDeferredRequestProxy {
-    private static final Logger LOG =Logger.getLogger(AdapterDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl.class);
+    private static final Logger LOG =LoggerFactory.getLogger(AdapterDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl() {

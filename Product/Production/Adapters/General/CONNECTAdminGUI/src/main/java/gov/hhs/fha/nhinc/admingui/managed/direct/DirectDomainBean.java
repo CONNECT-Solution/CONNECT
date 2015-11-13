@@ -51,7 +51,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
@@ -98,7 +99,7 @@ public class DirectDomainBean {
     private String addressName;
     private String addressEmail;
 
-    private static final Logger LOG = Logger.getLogger(DirectDomainBean.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectDomainBean.class);
 
     /**
      *

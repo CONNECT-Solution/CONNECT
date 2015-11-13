@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.entity;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.docsubmission.orchestration.OrchestrationContextFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -41,7 +42,7 @@ import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
  */
 public class OutboundDocSubmissionDelegate implements OutboundDelegate {
 
-    private static final Logger LOG = Logger.getLogger(OutboundDocSubmissionDelegate.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundDocSubmissionDelegate.class);
 
     @Override
     public Orchestratable process(Orchestratable message) {

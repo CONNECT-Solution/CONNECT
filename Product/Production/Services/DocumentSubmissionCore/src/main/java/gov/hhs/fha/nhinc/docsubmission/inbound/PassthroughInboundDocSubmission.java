@@ -36,7 +36,8 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author akong
@@ -44,7 +45,7 @@ import org.apache.log4j.Logger;
  */
 public class PassthroughInboundDocSubmission extends AbstractInboundDocSubmission {
 
-    private static final Logger LOG = Logger.getLogger(PassthroughInboundDocSubmission.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PassthroughInboundDocSubmission.class);
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
     private DocSubmissionUtils dsUtils;
 

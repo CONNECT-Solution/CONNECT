@@ -34,7 +34,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class creates a generic assertion class. Some services need this class to proceed.
@@ -61,7 +62,7 @@ public class AssertionCreator {
     private static final String PROPERTY_KEY_SIGN = "AssertionSignDate";
     private static final String PROPERTY_KEY_ACCESS_CONSENT = "AssertionAccessConsent";
 
-    private static final Logger LOG = Logger.getLogger(AssertionCreator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AssertionCreator.class);
 
     public AssertionType createAssertion() {
 

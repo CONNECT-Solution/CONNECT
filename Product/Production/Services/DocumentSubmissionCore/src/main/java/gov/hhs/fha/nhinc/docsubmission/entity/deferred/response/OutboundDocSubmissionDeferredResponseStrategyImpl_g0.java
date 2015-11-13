@@ -31,8 +31,8 @@ import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.NhinDocSub
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -40,7 +40,7 @@ import org.apache.log4j.Logger;
  */
 public class OutboundDocSubmissionDeferredResponseStrategyImpl_g0 implements OrchestrationStrategy {
 
-    private static final Logger LOG = Logger.getLogger(OutboundDocSubmissionDeferredResponseStrategyImpl_g0.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundDocSubmissionDeferredResponseStrategyImpl_g0.class);
 
     protected NhinDocSubmissionDeferredResponseProxy getNhinDocSubmissionDeferredResponseProxy() {
         return new NhinDocSubmissionDeferredResponseProxyObjectFactory().getNhinDocSubmissionDeferredResponseProxy();
@@ -65,5 +65,4 @@ public class OutboundDocSubmissionDeferredResponseStrategyImpl_g0 implements Orc
 
         LOG.debug("End OutboundDocSubmissionDeferredResponseStrategyImpl_g0.process");
     }
-
 }

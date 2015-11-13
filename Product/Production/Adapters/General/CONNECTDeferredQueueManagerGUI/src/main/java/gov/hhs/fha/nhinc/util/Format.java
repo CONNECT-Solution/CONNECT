@@ -33,11 +33,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class Format {
 
-    private static final Logger LOG = Logger.getLogger("gov.hhs.fha.nhinc.util.Format");
+    private static final Logger LOG = LoggerFactory.getLogger("gov.hhs.fha.nhinc.util.Format");
 
     public static final String MMDDYYYY_DATEFORMAT = "MMddyyyy";
     public static final String MMDDYYYYHHMMSS_DATEFORMAT = "MMddyyyy HH:mm:ss";

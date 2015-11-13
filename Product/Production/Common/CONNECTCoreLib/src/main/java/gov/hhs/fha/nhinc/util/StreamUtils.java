@@ -37,14 +37,15 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author cmay
  *
  */
 public class StreamUtils {
-    private static final Logger LOG = Logger.getLogger(StreamUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(StreamUtils.class);
 
     public static OutputStreamWriter openOutputStream (String sPropFile) throws Exception {
         OutputStreamWriter propWriter = null;

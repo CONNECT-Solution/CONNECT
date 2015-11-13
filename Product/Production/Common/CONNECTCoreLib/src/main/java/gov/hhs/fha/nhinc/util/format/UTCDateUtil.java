@@ -32,7 +32,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Date utility for UTC dates.
@@ -46,7 +47,7 @@ public class UTCDateUtil {
     public static final String DATE_FORMAT_FULL = DATE_FORMAT_UTC + "Z";
     private static final String TIME_ZONE_UTC = "UTC";
 
-    private static final Logger LOG = Logger.getLogger(UTCDateUtil.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UTCDateUtil.class);
 
     /**
      * Parse a date string as a UTC date. The date may optionally have a time zone which will be used if present.

@@ -30,14 +30,15 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Neil Webb
  */
 public class AdapterPEPServiceImpl {
-    private static final Logger LOG = Logger.getLogger(AdapterPEPServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPEPServiceImpl.class);
 
     protected AdapterPEPImpl getAdapterPEPImpl() {
         return new AdapterPEPImpl();

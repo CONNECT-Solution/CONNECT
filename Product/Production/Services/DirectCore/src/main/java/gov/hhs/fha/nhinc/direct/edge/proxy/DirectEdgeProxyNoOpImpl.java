@@ -29,14 +29,15 @@ import javax.mail.internet.MimeMessage;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * No-op impl of the direct edge client proxy.
  */
 public class DirectEdgeProxyNoOpImpl implements DirectEdgeProxy {
 
-    private static final Logger LOG = Logger.getLogger(DirectEdgeProxyNoOpImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectEdgeProxyNoOpImpl.class);
 
     /**
      * {@inheritDoc}

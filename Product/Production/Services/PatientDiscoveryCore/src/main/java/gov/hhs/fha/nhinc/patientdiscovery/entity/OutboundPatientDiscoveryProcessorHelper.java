@@ -28,7 +28,8 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
 import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 import com.google.common.base.Optional;
@@ -41,7 +42,7 @@ import com.google.common.base.Optional;
  */
 public class OutboundPatientDiscoveryProcessorHelper {
 
-    private static final Logger LOG = Logger.getLogger(OutboundPatientDiscoveryProcessorHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundPatientDiscoveryProcessorHelper.class);
 
     /**
      * constructs a new OutboundPatientDiscoveryOrchestratable object with associated new cumulativeResponse

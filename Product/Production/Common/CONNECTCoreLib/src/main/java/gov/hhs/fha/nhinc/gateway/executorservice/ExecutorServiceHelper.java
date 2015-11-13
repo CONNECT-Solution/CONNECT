@@ -35,7 +35,8 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Singleton class that holds the ExecutorService configs as follows - concurrentPoolSize is the size of the pool for
@@ -54,7 +55,7 @@ import org.apache.log4j.Logger;
  */
 public class ExecutorServiceHelper {
 
-    private static final Logger LOG = Logger.getLogger(ExecutorServiceHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ExecutorServiceHelper.class);
 
     // default pool size is 100
     private static int concurrentPoolSize;

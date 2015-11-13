@@ -32,7 +32,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
@@ -46,7 +47,7 @@ import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
  */
 public class XDRPolicyTransformHelper {
 
-    private static final Logger LOG = Logger.getLogger(XDRPolicyTransformHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(XDRPolicyTransformHelper.class);
     private static final String ActionInValue = "XDRIn";
     private static final String ActionOutValue = "XDROut";
     private static final String XDRRESPONSE_ACTION_IN_VALUE = "XDRResponseIn";

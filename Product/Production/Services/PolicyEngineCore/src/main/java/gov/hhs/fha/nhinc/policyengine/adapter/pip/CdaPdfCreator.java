@@ -46,7 +46,8 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.ActClassClinicalDocument;
 import org.hl7.v3.AdxpExplicitCity;
@@ -99,7 +100,7 @@ import org.hl7.v3.TSExplicit;
  */
 public class CdaPdfCreator {
 
-    private static final Logger LOG = Logger.getLogger(CdaPdfCreator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CdaPdfCreator.class);
     private static final String HL7_DATE_ONLY_FORMAT = "yyyyMMdd";
     private static final SimpleDateFormat oHL7DateOnlyFormatter = new SimpleDateFormat(HL7_DATE_ONLY_FORMAT);
     private static final String HL7_DATE_TIME_FORMAT = "yyyyMMddHHmmssZ";

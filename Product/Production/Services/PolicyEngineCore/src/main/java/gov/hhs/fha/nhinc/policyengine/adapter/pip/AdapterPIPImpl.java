@@ -34,7 +34,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRespon
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This contains the implementation of the Adapter PIP (Policy Information Point).
@@ -43,7 +44,7 @@ import org.apache.log4j.Logger;
  */
 public class AdapterPIPImpl {
 
-    private static final Logger LOG = Logger.getLogger(AdapterPIPImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPIPImpl.class);
     private static final String ASSERTIONINFO_PROPFILE_NAME = "assertioninfo";
 
     protected PatientConsentManager getPatientConsentManager() {

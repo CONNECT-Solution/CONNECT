@@ -30,7 +30,8 @@ import gov.hhs.fha.nhinc.corex12.docsubmission.audit.CORE_X12AuditDataTransformC
 import java.io.ByteArrayOutputStream;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 
@@ -41,7 +42,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 public class COREX12BatchSubmissionAuditTransforms extends
     COREX12AuditTransforms<COREEnvelopeBatchSubmission, COREEnvelopeBatchSubmissionResponse> {
 
-    private static final Logger LOG = Logger.getLogger(COREX12BatchSubmissionAuditTransforms.class);
+    private static final Logger LOG = LoggerFactory.getLogger(COREX12BatchSubmissionAuditTransforms.class);
 
     @Override
     protected byte[] marshallToByteArrayFromRequest(COREEnvelopeBatchSubmission request) {

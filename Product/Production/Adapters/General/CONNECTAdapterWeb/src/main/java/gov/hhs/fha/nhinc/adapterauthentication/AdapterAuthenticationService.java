@@ -31,7 +31,8 @@ import javax.xml.ws.BindingType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -40,7 +41,7 @@ import org.apache.log4j.Logger;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterAuthenticationService implements gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationPortType{
 
-    private static final Logger LOG = Logger.getLogger(AdapterAuthenticationService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterAuthenticationService.class);
 
     /**
      * Given a request to authenticate a user, this service will determine if an authentication service is configured

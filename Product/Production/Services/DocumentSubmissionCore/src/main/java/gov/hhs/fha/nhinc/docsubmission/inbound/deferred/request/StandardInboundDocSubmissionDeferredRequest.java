@@ -46,7 +46,8 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author akong
@@ -54,7 +55,7 @@ import org.apache.log4j.Logger;
  */
 public class StandardInboundDocSubmissionDeferredRequest extends AbstractInboundDocSubmissionDeferredRequest {
 
-    private static final Logger LOG = Logger.getLogger(StandardInboundDocSubmissionDeferredRequest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(StandardInboundDocSubmissionDeferredRequest.class);
 
     private XDRPolicyChecker policyChecker;
     private PropertyAccessor propertyAccessor;

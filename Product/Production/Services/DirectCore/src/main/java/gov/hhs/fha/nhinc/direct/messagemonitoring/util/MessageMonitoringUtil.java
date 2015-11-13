@@ -41,7 +41,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -70,7 +71,7 @@ import org.nhindirect.stagent.NHINDAddressCollection;
  */
 public class MessageMonitoringUtil {
 
-    private static final Logger LOG = Logger.getLogger(MessageMonitoringUtil.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MessageMonitoringUtil.class);
 
     private static final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
     private static final Class<ConfigurationService> directConfigClazz = ConfigurationService.class;

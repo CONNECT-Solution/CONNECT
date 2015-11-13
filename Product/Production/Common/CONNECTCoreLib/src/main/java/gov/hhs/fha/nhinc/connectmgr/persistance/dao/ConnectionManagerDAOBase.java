@@ -34,7 +34,8 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.ObjectFactory;
 
@@ -44,7 +45,7 @@ import org.uddi.api_v3.ObjectFactory;
  */
 public class ConnectionManagerDAOBase {
 
-    private static final Logger LOG = Logger.getLogger(ConnectionManagerDAOBase.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerDAOBase.class);
 
     protected BusinessDetail loadBusinessDetail(File file) throws JAXBException {
         BusinessDetail resp = null;

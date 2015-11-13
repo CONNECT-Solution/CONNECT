@@ -33,14 +33,15 @@ import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionB
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author jhoppesc
  */
 public class AdapterDocSubmissionProxyJavaImpl implements AdapterDocSubmissionProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionProxyJavaImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocSubmissionProxyJavaImpl.class);
 
     @AdapterDelegationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission",

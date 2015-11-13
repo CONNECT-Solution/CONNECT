@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.utils;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
@@ -40,7 +41,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  * @author svalluripalli
  */
 public class CORE_X12DSAdapterExceptionBuilder {
-   private static final Logger LOG = Logger.getLogger(CORE_X12DSAdapterExceptionBuilder.class);
+   private static final Logger LOG = LoggerFactory.getLogger(CORE_X12DSAdapterExceptionBuilder.class);
    private static final String ADAPTER_ERROR_CODE = "Receiver";
    private static final String ADAPTER_ERROR_MESSAGE = "Failed to connect to backend adapter to process the message";
    private static final String ADAPTER_PAYLOAD_TYPE = "CoreEnvelopeError";

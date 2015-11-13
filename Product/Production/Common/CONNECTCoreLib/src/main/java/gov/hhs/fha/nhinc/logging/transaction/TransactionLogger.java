@@ -32,12 +32,14 @@ import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
 import java.sql.Timestamp;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.apache.log4j.MDC;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TransactionLogger {
 
-    private static final Logger LOG = Logger.getLogger(TransactionLogger.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TransactionLogger.class);
 
     TransactionStoreFactory transactionStoreFactory = null;
 

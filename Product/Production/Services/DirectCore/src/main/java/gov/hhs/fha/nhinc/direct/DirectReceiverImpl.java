@@ -39,7 +39,8 @@ import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.mailet.Mailet;
 import org.nhindirect.common.mail.dsn.DSNFailureTextBodyPartGenerator;
 import org.nhindirect.common.mail.dsn.DSNGenerator;
@@ -83,7 +84,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
     /**
      * The Constant LOG.
      */
-    private static final Logger LOG = Logger.getLogger(DirectAdapter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectAdapter.class);
     /**
      * SuppressMDNEdgeNotification system property
      */

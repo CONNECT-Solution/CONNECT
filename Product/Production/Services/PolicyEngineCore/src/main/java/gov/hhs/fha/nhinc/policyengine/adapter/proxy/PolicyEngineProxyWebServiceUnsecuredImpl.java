@@ -38,14 +38,15 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.service.PolicyEngineUnsecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Jon Hoppesch
  */
 public class PolicyEngineProxyWebServiceUnsecuredImpl implements PolicyEngineProxy {
-    private static final Logger LOG = Logger.getLogger(PolicyEngineProxyWebServiceUnsecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PolicyEngineProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public PolicyEngineProxyWebServiceUnsecuredImpl() {

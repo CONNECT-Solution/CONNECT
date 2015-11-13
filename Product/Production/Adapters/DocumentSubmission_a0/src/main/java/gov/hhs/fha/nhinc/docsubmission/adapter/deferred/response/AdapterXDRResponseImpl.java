@@ -39,14 +39,15 @@ import javax.xml.ws.WebServiceContext;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author dunnek
  */
 public class AdapterXDRResponseImpl {
-    private static final Logger LOG = Logger.getLogger(AdapterXDRResponseImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterXDRResponseImpl.class);
     private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(AdapterRegistryResponseType body,

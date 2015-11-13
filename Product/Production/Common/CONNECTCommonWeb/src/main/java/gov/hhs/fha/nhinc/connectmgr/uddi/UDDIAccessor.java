@@ -33,7 +33,8 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.BusinessInfo;
 import org.uddi.api_v3.BusinessInfos;
@@ -47,7 +48,7 @@ import org.uddi.api_v3.GetBusinessDetail;
  */
 public class UDDIAccessor {
 
-    private static final Logger LOG = Logger.getLogger(UDDIAccessor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UDDIAccessor.class);
 
     private static String GATEWAY_PROPFILE_NAME = "gateway";
     private static String UDDI_BUSINESSES_TO_IGNORE = "UDDIBusinessesToIgnore";

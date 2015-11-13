@@ -32,14 +32,16 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-import org.apache.log4j.Appender;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
 /**
- * Suppresses any appenders on the root log4j logger for the duration of the test. Adds a mock appender that can be used
+ * Suppresses any appenders on the root logger for the duration of the test. Adds a mock appender that can be used
  * to verify logging behavior (if desired.) Useful if you log scary warnings or errors for unusual conditions that are
  * exercised by the unit tests.
  */
@@ -81,3 +83,4 @@ public class AbstractSuppressRootLoggerTest {
         return mockAppender;
     }
 }
+

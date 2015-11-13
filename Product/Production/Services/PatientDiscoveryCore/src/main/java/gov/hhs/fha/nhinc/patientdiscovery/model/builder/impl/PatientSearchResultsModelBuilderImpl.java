@@ -38,7 +38,8 @@ import java.io.Serializable;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
 import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
 import gov.hhs.fha.nhinc.patientdiscovery.model.builder.AbstractPatientSearchResultsModelBuilder;

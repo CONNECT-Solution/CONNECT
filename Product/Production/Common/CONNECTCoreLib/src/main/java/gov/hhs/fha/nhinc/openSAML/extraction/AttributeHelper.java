@@ -32,7 +32,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.schema.impl.XSAnyImpl;
@@ -47,7 +48,7 @@ import org.w3c.dom.NodeList;
  */
 public class AttributeHelper {
 
-    private static final Logger LOG = Logger.getLogger(AttributeHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AttributeHelper.class);
 
     /**
      * The value of the UserRole and PurposeOfUse attributes are formatted according to the specifications of an

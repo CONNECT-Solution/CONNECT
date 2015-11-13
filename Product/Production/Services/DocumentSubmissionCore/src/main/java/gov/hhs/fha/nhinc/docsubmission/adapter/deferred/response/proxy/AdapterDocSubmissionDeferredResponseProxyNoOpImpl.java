@@ -34,14 +34,15 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author patlollav
  */
 public class AdapterDocSubmissionDeferredResponseProxyNoOpImpl implements AdapterDocSubmissionDeferredResponseProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionDeferredResponseProxyNoOpImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocSubmissionDeferredResponseProxyNoOpImpl.class);
 
     @AdapterDelegationEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,

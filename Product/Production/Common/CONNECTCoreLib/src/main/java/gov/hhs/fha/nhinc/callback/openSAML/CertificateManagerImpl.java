@@ -42,7 +42,8 @@ import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
 import java.util.HashMap;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author mweaver
@@ -50,7 +51,7 @@ import org.apache.log4j.Logger;
  */
 public class CertificateManagerImpl implements CertificateManager {
 
-    private static final Logger LOG = Logger.getLogger(CertificateManagerImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CertificateManagerImpl.class);
 
     private KeyStore keyStore = null;
     private KeyStore trustStore = null;

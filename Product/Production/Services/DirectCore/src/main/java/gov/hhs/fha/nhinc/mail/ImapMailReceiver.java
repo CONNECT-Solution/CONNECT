@@ -34,14 +34,15 @@ import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
 import javax.mail.Store;
 import javax.mail.internet.MimeMessage;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Uses Imap to receive Javamail messages.
  */
 public class ImapMailReceiver extends AbstractMailClient implements MailReceiver {
 
-    private static final Logger LOG = Logger.getLogger(ImapMailReceiver.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ImapMailReceiver.class);
 
     private static final int IMAP_MSG_INDEX_START = 1;
     private static final String DEF_NUM_MSGS_TO_HANDLE = "25";

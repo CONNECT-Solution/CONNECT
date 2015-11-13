@@ -32,7 +32,8 @@ import java.io.File;
 import java.net.URI;
 import java.util.HashMap;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -44,7 +45,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  * @author Neil Webb, Les Westberg
  */
 public abstract class ComponentProxyObjectFactory {
-    private static final Logger LOG = Logger.getLogger(ComponentProxyObjectFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ComponentProxyObjectFactory.class);
 
     /**
      * As the contextMap cache is static, the lock for this class MUST be at the object level and not at the instance

@@ -39,7 +39,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -47,7 +48,7 @@ import org.apache.log4j.Logger;
  */
 public class PingServiceImpl implements PingService {
 
-    private static final Logger LOG = Logger.getLogger(PingServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PingServiceImpl.class);
 
     private static final String WSDL_SUFFIX = "?wsdl";
     private static final String LOG_WSDL_KEY = "logWsdlPing";

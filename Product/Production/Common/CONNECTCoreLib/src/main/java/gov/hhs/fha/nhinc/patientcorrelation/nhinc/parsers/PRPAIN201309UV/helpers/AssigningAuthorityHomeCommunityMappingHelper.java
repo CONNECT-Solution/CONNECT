@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helper
 import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
@@ -39,7 +40,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 public class AssigningAuthorityHomeCommunityMappingHelper {
 
     private AssigningAuthorityHomeCommunityMappingDAO mappingDao;
-    private static final Logger LOG = Logger.getLogger(AssigningAuthorityHomeCommunityMappingDAO.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AssigningAuthorityHomeCommunityMappingDAO.class);
 
     /**
      *

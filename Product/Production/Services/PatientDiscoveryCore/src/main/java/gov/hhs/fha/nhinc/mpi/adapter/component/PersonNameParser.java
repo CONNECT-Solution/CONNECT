@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.mpilib.PersonName;
 
@@ -36,7 +37,7 @@ import gov.hhs.fha.nhinc.mpilib.PersonName;
  */
 public class PersonNameParser {
 
-    private static final Logger LOG = Logger.getLogger(PersonNameParser.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PersonNameParser.class);
 
     /**
      *An enum for possible combinations of name order.

@@ -36,7 +36,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.nhindirect.xd.common.DirectDocuments;
 import org.nhindirect.xd.transform.parse.ParserHL7;
 

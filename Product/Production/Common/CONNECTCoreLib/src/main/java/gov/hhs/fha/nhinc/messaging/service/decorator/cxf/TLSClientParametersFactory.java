@@ -39,7 +39,8 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
 
 import org.apache.cxf.configuration.jsse.TLSClientParameters;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author bhumphrey
@@ -47,7 +48,7 @@ import org.apache.log4j.Logger;
  */
 public class TLSClientParametersFactory {
 
-    private static final Logger LOG = Logger.getLogger(TLSClientParametersFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TLSClientParametersFactory.class);
 
     private static TLSClientParametersFactory INSTANCE = null;
     private KeyManagerFactory keyFactory;

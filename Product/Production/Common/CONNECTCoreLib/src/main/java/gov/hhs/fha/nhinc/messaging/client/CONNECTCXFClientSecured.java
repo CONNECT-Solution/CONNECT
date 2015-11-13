@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.messaging.client;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.decorator.SAMLServiceEndpointDecorator;
@@ -41,7 +42,7 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
  */
 public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
 
-    private static final Logger LOG = Logger.getLogger(CONNECTCXFClientSecured.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CONNECTCXFClientSecured.class);
 
     CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
             String wsAddressingTo, String SoapHeader) {

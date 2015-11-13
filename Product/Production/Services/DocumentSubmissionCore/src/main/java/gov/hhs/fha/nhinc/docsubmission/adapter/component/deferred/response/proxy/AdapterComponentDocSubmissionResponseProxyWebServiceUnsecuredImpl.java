@@ -38,7 +38,8 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -47,7 +48,7 @@ import org.apache.log4j.Logger;
 public class AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl implements
     AdapterComponentDocSubmissionResponseProxy {
 
-    private static final Logger LOG = Logger.getLogger(AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl.class);
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     protected CONNECTClient<AdapterComponentXDRResponsePortType> getCONNECTClientUnsecured(

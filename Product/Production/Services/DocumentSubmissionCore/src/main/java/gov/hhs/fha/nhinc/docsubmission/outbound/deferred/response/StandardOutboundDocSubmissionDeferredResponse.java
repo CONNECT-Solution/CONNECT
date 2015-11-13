@@ -44,11 +44,12 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDocSubmissionDeferredResponse {
 
-    private static final Logger LOG = Logger.getLogger(StandardOutboundDocSubmissionDeferredResponse.class);
+    private static final Logger LOG = LoggerFactory.getLogger(StandardOutboundDocSubmissionDeferredResponse.class);
     private DSDeferredResponseAuditLogger auditLogger = null;
 
     public StandardOutboundDocSubmissionDeferredResponse() {

@@ -43,11 +43,12 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve implements OutboundDocRetrieve {
 
-    private static final Logger LOG = Logger.getLogger(PassthroughOutboundDocRetrieve.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PassthroughOutboundDocRetrieve.class);
     private final DocRetrieveAuditLogger auditLogger;
     private final CONNECTOutboundOrchestrator orchestrator;
 

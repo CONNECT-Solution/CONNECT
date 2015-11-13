@@ -36,7 +36,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.proxy.service.EntityPatientDiscoverySecuredAsyncReqServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType;
@@ -44,7 +45,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType;
 public class EntityPatientDiscoveryDeferredRequestProxyWebServiceSecuredImpl implements
     EntityPatientDiscoveryDeferredRequestProxy {
 
-    private static final Logger LOG = Logger.getLogger(EntityPatientDiscoveryDeferredRequestProxyWebServiceSecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EntityPatientDiscoveryDeferredRequestProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public EntityPatientDiscoveryDeferredRequestProxyWebServiceSecuredImpl() {

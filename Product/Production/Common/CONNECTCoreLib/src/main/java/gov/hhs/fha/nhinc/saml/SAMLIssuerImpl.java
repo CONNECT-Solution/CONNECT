@@ -30,7 +30,8 @@ import java.util.Properties;
 
 import javax.security.auth.callback.CallbackHandler;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.ws.security.WSSecurityException;
 import org.apache.ws.security.components.crypto.Crypto;
 import org.apache.ws.security.saml.SAMLIssuer;
@@ -50,7 +51,7 @@ import org.apache.ws.security.saml.ext.AssertionWrapper;
  */
 public class SAMLIssuerImpl implements SAMLIssuer {
 
-    private static final Logger LOG = Logger.getLogger(SAMLIssuerImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SAMLIssuerImpl.class);
     private static SAMLIssuer DEFAULT_DELEGATE;
     private SAMLIssuer delegate = DEFAULT_DELEGATE;
 

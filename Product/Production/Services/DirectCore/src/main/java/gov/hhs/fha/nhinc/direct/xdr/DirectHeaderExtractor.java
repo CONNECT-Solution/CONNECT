@@ -35,7 +35,8 @@ import javax.xml.ws.handler.MessageContext;
 import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.jaxws.context.WrappedMessageContext;
 import org.apache.cxf.message.Message;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -44,7 +45,7 @@ import org.w3c.dom.NodeList;
  */
 public class DirectHeaderExtractor {
 
-    private static final Logger LOG = Logger.getLogger(DirectHeaderExtractor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectHeaderExtractor.class);
 
     /**
      * Gets the header properties.

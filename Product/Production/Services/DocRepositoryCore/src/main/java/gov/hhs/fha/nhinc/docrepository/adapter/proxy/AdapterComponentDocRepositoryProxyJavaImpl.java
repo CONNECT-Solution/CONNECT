@@ -33,14 +33,15 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author jhoppesc
  */
 public class AdapterComponentDocRepositoryProxyJavaImpl implements AdapterComponentDocRepositoryProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterComponentDocRepositoryProxyJavaImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocRepositoryProxyJavaImpl.class);
 
     public RetrieveDocumentSetResponseType retrieveDocument(RetrieveDocumentSetRequestType request,
             AssertionType assertion) {

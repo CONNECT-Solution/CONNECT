@@ -34,7 +34,8 @@ import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -57,7 +58,7 @@ import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
  */
 public class PatientDiscoveryPolicyTransformHelper {
 
-    private static final Logger LOG = Logger.getLogger(PatientDiscoveryPolicyTransformHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientDiscoveryPolicyTransformHelper.class);
     private static final String ActionInValue = "PatientDiscoveryIn";
     private static final String ActionOutValue = "PatientDiscoveryOut";
     private static final String PatientAssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;

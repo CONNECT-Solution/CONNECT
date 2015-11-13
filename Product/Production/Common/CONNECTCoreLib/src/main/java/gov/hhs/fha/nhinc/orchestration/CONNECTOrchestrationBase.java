@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.orchestration;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResultType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
@@ -49,7 +50,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  */
 public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
 
-    private static final Logger LOG = Logger.getLogger(CONNECTOrchestrationBase.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CONNECTOrchestrationBase.class);
 
     private final IPropertyAcessor propertyAcessor;
 

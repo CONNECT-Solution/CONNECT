@@ -31,7 +31,8 @@ import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -43,7 +44,7 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public class AdapterComponentMpiImpl {
 
-    private static final Logger LOG = Logger.getLogger(AdapterComponentMpiImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentMpiImpl.class);
 
     /**
      * Perform a look up on the MPI.

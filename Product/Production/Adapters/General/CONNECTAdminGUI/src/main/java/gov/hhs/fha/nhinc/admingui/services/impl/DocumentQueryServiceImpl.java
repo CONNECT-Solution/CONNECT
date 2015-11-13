@@ -45,7 +45,8 @@ import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * DocumentQueryServiceImpl construct an AdhocQueryRequest object with assertion and nhinTargetCommunities object, makes
@@ -57,7 +58,7 @@ import org.apache.log4j.Logger;
  */
 public class DocumentQueryServiceImpl implements DocumentQueryService {
 
-    private static Logger LOG = Logger.getLogger(DocumentQueryServiceImpl.class);
+    private static Logger LOG = LoggerFactory.getLogger(DocumentQueryServiceImpl.class);
     private AdhocQueryRequestBuilder requestBuilder;
     private DocumentMetadataResultsModelBuilder responseBuilder;
 

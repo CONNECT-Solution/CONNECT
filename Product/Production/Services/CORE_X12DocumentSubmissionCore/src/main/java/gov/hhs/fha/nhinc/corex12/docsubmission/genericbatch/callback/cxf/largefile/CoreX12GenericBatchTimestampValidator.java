@@ -30,7 +30,8 @@ import gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class overrides the default CONNECT Core TimestampValidator to get the
@@ -41,7 +42,7 @@ import org.apache.log4j.Logger;
  */
 public class CoreX12GenericBatchTimestampValidator extends TimestampValidator {
 
-    private static final Logger LOG = Logger.getLogger(CoreX12GenericBatchTimestampValidator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CoreX12GenericBatchTimestampValidator.class);
 
     @Override
     protected long getTimeStampTTL() {
