@@ -93,7 +93,7 @@ public class AuditRepositoryOrchImpl {
      */
     public AcknowledgementType logAudit(LogEventSecureRequestType mess, AssertionType assertion) {
 
-        AcknowledgementType response = new AcknowledgementType();;
+        AcknowledgementType response = new AcknowledgementType();
         AuditRepositoryRecord auditRec = new AuditRepositoryRecord();
 
         EventIdentificationType eventIdentification = mess.getAuditMessage().getEventIdentification();
