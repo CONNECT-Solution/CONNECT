@@ -32,13 +32,12 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public final class Format {
 
-    private static final Logger LOG = LoggerFactory.getLogger("gov.hhs.fha.nhinc.util.Format");
+    private static final Logger LOG = LoggerFactory.getLogger(Format.class);
 
     public static final String MMDDYYYY_DATEFORMAT = "MMddyyyy";
     public static final String MMDDYYYYHHMMSS_DATEFORMAT = "MMddyyyy HH:mm:ss";
@@ -72,7 +71,7 @@ public final class Format {
                 isValidDate = true;
             }
         } catch (Exception e) {
-            LOG.debug(e);
+            LOG.debug("Could not verify date: " + e.getLocalizedMessage(), e);
             isValidDate = false;
         }
 
@@ -85,9 +84,9 @@ public final class Format {
 
     /**
      *
+     * @param format
      * @param date
      * @return
-     * @throws ServiceException
      */
     public static Calendar getCalendarInstance(String format, String date) {
         return getCalendarInstance(format, date, false);
@@ -96,9 +95,10 @@ public final class Format {
     public static Calendar getCalendarInstance(String format, String date, boolean strict) {
         // The date has to be in a valid format
         Calendar calendar = null;
-        java.sql.Date dateValue = null;
+        java.sql.Date dateValue;
         SimpleDateFormat formatter = new SimpleDateFormat(format);
         formatter.setLenient(false);
+
         try {
             if (date != null && !date.trim().equals("") && formatter.parse(date) != null) {
                 ParsePosition pos = new ParsePosition(0);
@@ -108,12 +108,12 @@ public final class Format {
                     // no-op
                     if (LOG.isDebugEnabled()) {
                         LOG.debug("Strict Formatting Failed! [format='" + format + "'; date='" + date + "'; strict="
-                                + strict + "]");
+                            + strict + "]");
                     }
                 } else {
                     if (LOG.isDebugEnabled()) {
                         LOG.debug("parseDate = " + parseDate + "[format='" + format + "'; date='" + date + "'; strict="
-                                + strict + "]");
+                            + strict + "]");
                     }
                     if (parseDate != null) {
                         dateValue = new java.sql.Date(parseDate.getTime());
@@ -130,9 +130,9 @@ public final class Format {
 
     /**
      *
+     * @param format
      * @param date
      * @return
-     * @throws ServiceException
      */
     public static Timestamp getTimestampInstance(String format, String date) {
         return getTimestampInstance(format, date, false);
@@ -152,12 +152,12 @@ public final class Format {
                     // no-op
                     if (LOG.isDebugEnabled()) {
                         LOG.debug("Strict Formatting Failed! [format='" + format + "'; date='" + date + "'; strict="
-                                + strict + "]");
+                            + strict + "]");
                     }
                 } else {
                     if (LOG.isDebugEnabled()) {
                         LOG.debug("parseDate = " + parseDate + "[format='" + format + "'; date='" + date + "'; strict="
-                                + strict + "]");
+                            + strict + "]");
                     }
                     if (parseDate != null) {
                         ts = new Timestamp(parseDate.getTime());
@@ -179,6 +179,7 @@ public final class Format {
     public static String getFormattedDate(String format, Calendar cal) {
         String retStr = null;
         SimpleDateFormat formatter = new SimpleDateFormat(format);
+
         if (cal != null) {
             retStr = formatter.format(cal.getTime());
         }
@@ -277,7 +278,6 @@ public final class Format {
     }
 
     public static boolean isNumericString(String str) {
-
         boolean answer = true;
         if (str.equals("")) {
             answer = false;

@@ -26,9 +26,6 @@
  */
 package gov.hhs.fha.nhinc.logging.transaction;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
@@ -37,21 +34,18 @@ import javax.xml.soap.SOAPHeaderElement;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.eq;
-import static org.mockito.Mockito.any;
 import org.junit.Test;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import org.slf4j.MDC;
 
 /**
  *
  * @author jasonasmith
- *
  */
 public class TransactionHandlerTest {
 
@@ -257,7 +251,7 @@ public class TransactionHandlerTest {
      * @param transactionHandler
      */
     private void runHandleMessage(Boolean enableMessageId, Boolean enableTransactionId, Boolean enableRelatesToId,
-            TransactionHandler transactionHandler) {
+        TransactionHandler transactionHandler) {
 
         MDC.remove("transaction-id");
 
@@ -273,19 +267,19 @@ public class TransactionHandlerTest {
 
             if (enableMessageId) {
                 SOAPHeaderElement headerElementMessageID = soapHeader.addHeaderElement(soapEnvelope.createName(
-                        "MessageID", "", WSA_NS));
+                    "MessageID", "", WSA_NS));
                 headerElementMessageID.setTextContent(MESSAGE_ID);
             }
 
             if (enableTransactionId) {
                 SOAPHeaderElement headerElementTransID = soapHeader.addHeaderElement(soapEnvelope.createName(
-                        "TransactionID", "txn", TRANS_NS));
+                    "TransactionID", "txn", TRANS_NS));
                 headerElementTransID.addTextNode(TRANSACTION_ID);
             }
 
             if (enableRelatesToId) {
                 SOAPHeaderElement headerElementTransID = soapHeader.addHeaderElement(soapEnvelope.createName(
-                        "RelatesTo", "", WSA_NS));
+                    "RelatesTo", "", WSA_NS));
                 headerElementTransID.addTextNode(RELATESTO_ID);
             }
 
@@ -298,5 +292,4 @@ public class TransactionHandlerTest {
             e.printStackTrace();
         }
     }
-
 }

@@ -26,14 +26,11 @@
  */
 package gov.hhs.fha.nhinc.logging.transaction;
 
-import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
 import gov.hhs.fha.nhinc.logging.transaction.factory.TransactionStoreFactory;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-
 import javax.xml.namespace.QName;
 import javax.xml.soap.SOAPElement;
 import javax.xml.soap.SOAPEnvelope;
@@ -44,7 +41,6 @@ import javax.xml.soap.SOAPPart;
 import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,7 +54,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      * \<txn:TransactionID xmlns:txn="http://connectopensource.org/transaction/"\>SOME-UUID\</txn:TransactionID\>.
      */
     private static final QName TRANSACTION_QNAME = new QName("http://connectopensource.org/transaction/",
-            "TransactionID");
+        "TransactionID");
     private static final Logger LOG = LoggerFactory.getLogger(TransactionHandler.class);
     private static final String WSA_NS_2005 = "http://www.w3.org/2005/08/addressing";
     private static final String WSA_NS_2004 = "http://www.w3.org/2004/08/addressing";
@@ -78,17 +74,18 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
 
         LOG.debug("TransactionHandler handleMessage() START ");
 
-        String messageId = null;
-        String transactionId = null;
-        String currentWSA = null;
+        String messageId;
+        String transactionId;
+        String currentWSA;
 
         SOAPMessage soapMessage = context.getMessage();
         SOAPPart soapPart = soapMessage.getSOAPPart();
         SOAPEnvelope soapEnvelope;
+
         try {
             soapEnvelope = soapPart.getEnvelope();
             SOAPHeader soapHeader = soapEnvelope.getHeader();
-            SOAPElement messageIdElement = null;
+            SOAPElement messageIdElement;
             SOAPElement messageId05Element = getFirstChild(soapHeader, WSA_NS_2005, MESSAGE_ID);
 
             if (messageId05Element != null) {
@@ -127,8 +124,9 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
             }
 
         } catch (SOAPException e) {
-            LOG.error(e);
+            LOG.error("Unable to handle message: " + e.getLocalizedMessage(), e);
         }
+
         return true;
     }
 
@@ -200,7 +198,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
     }
 
     private String iterateThroughRelatesTo(Iterator<SOAPElement> iter, String messageId) {
-        String relatesToId = null;
+        String relatesToId;
         String transactionId = null;
 
         if (iter != null) {
@@ -284,9 +282,8 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      */
     @Override
     public Set<QName> getHeaders() {
-        Set<QName> headers = new HashSet<QName>();
+        Set<QName> headers = new HashSet<>();
         headers.add(TRANSACTION_QNAME);
         return headers;
     }
-
 }

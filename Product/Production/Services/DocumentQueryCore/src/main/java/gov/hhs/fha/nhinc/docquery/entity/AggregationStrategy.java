@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docquery.entity;
 
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
-
 import java.util.Collection;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletionService;
@@ -35,10 +34,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.Executors;
-
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
-
 import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,30 +50,30 @@ public class AggregationStrategy {
 
     public void execute(Aggregate aggregate) {
         Executor executor = Executors.newCachedThreadPool();
-        CompletionService<OutboundOrchestratable> completionService = new ExecutorCompletionService<OutboundOrchestratable>(executor);
+        CompletionService<OutboundOrchestratable> completionService = new ExecutorCompletionService<>(executor);
         Collection<OutboundOrchestratable> aggregationRequests = aggregate.getAggregateRequests();
 
         int size = aggregationRequests.size();
 
-        for(OutboundOrchestratable orchestrationContext : aggregationRequests) {
+        for (OutboundOrchestratable orchestrationContext : aggregationRequests) {
             completionService.submit(new CallableAggregation(orchestrationContext));
         }
 
         int i = 0;
-        for(; i < size; i++) {
+        for (; i < size; i++) {
             try {
                 aggregate.aggregate(completionService.take().get());
-                LOG.trace("got response " + (i+1) + " of " + size);
+                LOG.trace("got response " + (i + 1) + " of " + size);
             } catch (InterruptedException e) {
-                LOG.error(e);
+                LOG.error("Failure during aggregation, aborting: " + e.getLocalizedMessage(), e);
                 break;
             } catch (ExecutionException e) {
-                LOG.error(e);
+                LOG.error("Could not aggregrate response #" + (i + 1) + ": " + e.getLocalizedMessage(), e);
                 continue;
             }
         }
 
-        if ( i < size) {
+        if (i < size) {
             LOG.info((size - i) + " responses failed.");
         }
 
@@ -98,9 +95,5 @@ public class AggregationStrategy {
             WebServiceContextImpl.setMessageContext(mContext);
             return orchestrable.getDelegate().process(orchestrable);
         }
-
     }
-
-
-
 }

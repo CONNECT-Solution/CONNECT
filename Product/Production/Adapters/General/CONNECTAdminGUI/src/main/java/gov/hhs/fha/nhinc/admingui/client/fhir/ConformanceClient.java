@@ -38,12 +38,9 @@ import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.fhir.instance.client.EFhirClientException;
 import org.hl7.fhir.instance.client.FeedFormat;
 import org.hl7.fhir.instance.client.ResourceAddress;
@@ -57,6 +54,8 @@ import org.hl7.fhir.instance.model.AtomEntry;
 import org.hl7.fhir.instance.model.Conformance;
 import org.hl7.fhir.instance.model.OperationOutcome;
 import org.hl7.fhir.instance.model.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Modified FHIR client taken from reference client used strictly for Conformance resource lookup.
@@ -73,7 +72,8 @@ public class ConformanceClient {
 
     public Conformance getConformanceStatement(String baseServiceUrl) throws URISyntaxException {
         ResourceAddress resourceAddress = new ResourceAddress(baseServiceUrl);
-        return (Conformance) issueGetResourceRequest(resourceAddress.resolveMetadataUri(), ResourceFormat.RESOURCE_XML.getHeader()).getResource();
+        return (Conformance) issueGetResourceRequest(resourceAddress.resolveMetadataUri(),
+            ResourceFormat.RESOURCE_XML.getHeader()).getResource();
     }
 
     protected static <T extends Resource> ResourceRequest<T> issueGetResourceRequest(URI resourceUri, String format) {
@@ -81,13 +81,15 @@ public class ConformanceClient {
         return issueResourceRequest(format, httpget);
     }
 
-    protected static <T extends Resource> ResourceRequest<T> issueResourceRequest(String format, HttpUriRequest request) {
+    protected static <T extends Resource> ResourceRequest<T> issueResourceRequest(String format,
+        HttpUriRequest request) {
+
         configureFhirRequest(format, request);
         HttpResponse response = sendRequest(request);
 
         T resource = unmarshalResource(response, format);
         AtomEntry<T> atomEntry = buildAtomEntry(response, resource);
-        return new ResourceRequest<T>(atomEntry, response.getStatusLine().getStatusCode());
+        return new ResourceRequest<>(atomEntry, response.getStatusLine().getStatusCode());
     }
 
     protected static void configureFhirRequest(String resourceFormat, HttpRequest request) {
@@ -97,15 +99,15 @@ public class ConformanceClient {
         request.addHeader("Accept", resourceFormat + ", " + FeedFormat.FEED_XML.getHeader());
         request.addHeader("Content-Type", ResourceFormat.RESOURCE_XML.getHeader() + ";charset=" + DEFAULT_CHARSET);
         request.addHeader("Accept-Charset", DEFAULT_CHARSET);
-        request.addHeader("Accept-Encoding", "deflate"); // Added to pull conformance from HAPI.
+        // Added the following to pull conformance from HAPI.
+        request.addHeader("Accept-Encoding", "deflate");
     }
 
     protected static HttpResponse sendRequest(HttpUriRequest request) {
         HttpResponse response = null;
         LOG.info("Conformance request method: " + request.getURI().getQuery());
         try {
-            HttpClient httpclient = new DefaultHttpClient();
-            response = httpclient.execute(request);
+            response = new DefaultHttpClient().execute(request);
         } catch (IOException ioe) {
             throw new EFhirClientException("Error sending Http Request", ioe);
         }
@@ -117,6 +119,7 @@ public class ConformanceClient {
         T resource = null;
         InputStream instream = null;
         HttpEntity entity = response.getEntity();
+
         if (entity != null) {
             try {
                 instream = entity.getContent();
@@ -129,13 +132,15 @@ public class ConformanceClient {
                 StreamUtils.closeStreamSilently(instream);
             }
         }
+
         if (resource instanceof OperationOutcome) {
             if (((OperationOutcome) resource).getIssue().size() > 0) {
                 throw new EFhirClientException((OperationOutcome) resource);
             } else {
-                System.out.println(((OperationOutcome) resource).getText().getDiv().allText());//TODO change to formal logging
+                LOG.debug(((OperationOutcome) resource).getText().getDiv().allText());
             }
         }
+
         return resource;
     }
 
@@ -143,9 +148,13 @@ public class ConformanceClient {
         if (StringUtils.isBlank(format)) {
             format = ResourceFormat.RESOURCE_XML.getHeader();
         }
-        if (format.equalsIgnoreCase("json") || format.equalsIgnoreCase(ResourceFormat.RESOURCE_JSON.getHeader()) || format.equalsIgnoreCase(FeedFormat.FEED_JSON.getHeader())) {
+        if (format.equalsIgnoreCase("json") || format.equalsIgnoreCase(ResourceFormat.RESOURCE_JSON.getHeader())
+            || format.equalsIgnoreCase(FeedFormat.FEED_JSON.getHeader())) {
+
             return new JsonParser();
-        } else if (format.equalsIgnoreCase("xml") || format.equalsIgnoreCase(ResourceFormat.RESOURCE_XML.getHeader()) || format.equalsIgnoreCase(FeedFormat.FEED_XML.getHeader())) {
+        } else if (format.equalsIgnoreCase("xml") || format.equalsIgnoreCase(ResourceFormat.RESOURCE_XML.getHeader())
+            || format.equalsIgnoreCase(FeedFormat.FEED_XML.getHeader())) {
+
             return new XmlParser();
         } else {
             throw new EFhirClientException("Invalid format: " + format);
@@ -153,26 +162,30 @@ public class ConformanceClient {
     }
 
     protected static <T extends Resource> AtomEntry<T> buildAtomEntry(HttpResponse response, T resource) {
-        AtomEntry<T> entry = new AtomEntry<T>();
+        AtomEntry<T> entry = new AtomEntry<>();
         String location = null;
+
         if (response.getHeaders("location").length > 0) {//TODO Distinguish between both cases if necessary
             location = response.getHeaders("location")[0].getValue();
         } else if (response.getHeaders("content-location").length > 0) {
             location = response.getHeaders("content-location")[0].getValue();
         }
+
         if (location != null) {
             entry.getLinks().put("self", location);//TODO Make sure this is right.
         }
+
         List<AtomCategory> tags = parseTags(response);
         entry.getTags().addAll(tags);
-
         entry.setResource(resource);
+
         return entry;
     }
 
     protected static List<AtomCategory> parseTags(HttpResponse response) {
-        List<AtomCategory> tags = new ArrayList<AtomCategory>();
+        List<AtomCategory> tags = new ArrayList<>();
         Header[] categoryHeaders = response.getHeaders("Category");
+
         for (Header categoryHeader : categoryHeaders) {
             if (categoryHeader == null || categoryHeader.getValue().trim().isEmpty()) {
                 continue;
@@ -180,6 +193,7 @@ public class ConformanceClient {
             List<AtomCategory> categories = new TagParser().parse(categoryHeader.getValue());
             tags.addAll(categories);
         }
+
         return tags;
     }
 }

@@ -31,9 +31,9 @@ import gov.hhs.fha.nhinc.event.model.DatabaseEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Use the database to log events.
@@ -67,7 +67,6 @@ public class DatabaseEventLogger extends EventLogger {
      */
     @Override
     void recordEvent(EventManager manager, Event event) {
-
         if (event != null) {
             DatabaseEvent dbEvent = new DatabaseEvent();
             dbEvent.setEventName(event.getEventName());
@@ -85,11 +84,13 @@ public class DatabaseEventLogger extends EventLogger {
     public Date getFormattedEventTime() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
+
         try {
             date = dateFormat.parse(dateFormat.format(date));
         } catch (ParseException ex) {
             LOG.error("EventTime could not be parsed: " + ex.getMessage());
         }
+
         return date;
     }
 }

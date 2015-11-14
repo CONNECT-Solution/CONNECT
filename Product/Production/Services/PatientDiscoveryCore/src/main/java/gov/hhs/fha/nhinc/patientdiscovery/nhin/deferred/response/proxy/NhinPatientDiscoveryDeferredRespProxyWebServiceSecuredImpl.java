@@ -37,77 +37,78 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
-import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy.service.RespondingGatewayDeferredResponseServicePortDescriptor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xcpd._2009.RespondingGatewayDeferredResponsePortType;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
-//CheckStyle:OFF
-//CheckStyle:ON
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author JHOPPESC
  */
-public class NhinPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl implements
-        NhinPatientDiscoveryDeferredRespProxy {
+public class NhinPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl
+    implements NhinPatientDiscoveryDeferredRespProxy {
 
-    private static final Logger LOG = Logger
-            .getLogger(NhinPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl.class);
+    private static final Logger LOG
+        = LoggerFactory.getLogger(NhinPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     protected CONNECTClient<RespondingGatewayDeferredResponsePortType> getCONNECTSecuredClient(
-            ServicePortDescriptor<RespondingGatewayDeferredResponsePortType> portDescriptor, AssertionType assertion,
-            String url, NhinTargetSystemType target) {
+        ServicePortDescriptor<RespondingGatewayDeferredResponsePortType> portDescriptor, AssertionType assertion,
+        String url, NhinTargetSystemType target) {
         return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
-                target.getHomeCommunity().getHomeCommunityId(),
-                NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
+            target.getHomeCommunity().getHomeCommunityId(),
+            NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
     }
 
-    @NwhinInvocationEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class, afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Response", version = "1.0")
+    @Override
+    @NwhinInvocationEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
+        afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class,
+        serviceType = "Patient Discovery Deferred Response", version = "1.0")
     public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02(PRPAIN201306UV02 request, AssertionType assertion,
-            NhinTargetSystemType target) {
-        String url = null;
-        String ackMessage = null;
-        MCCIIN000002UV01 response = new MCCIIN000002UV01();
+        NhinTargetSystemType target) {
+
+        String url;
+        String ackMessage;
+        MCCIIN000002UV01 response;
 
         try {
             if (request != null) {
                 LOG.debug("Before target system URL look up.");
                 url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target,
-                        NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
+                    NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
                 LOG.debug("After target system URL look up. URL for service: "
-                        + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME + " is: " + url);
+                    + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
-                    ServicePortDescriptor<RespondingGatewayDeferredResponsePortType> portDescriptor = new RespondingGatewayDeferredResponseServicePortDescriptor();
+                    ServicePortDescriptor<RespondingGatewayDeferredResponsePortType> portDescriptor
+                        = new RespondingGatewayDeferredResponseServicePortDescriptor();
                     CONNECTClient<RespondingGatewayDeferredResponsePortType> client = getCONNECTSecuredClient(
-                            portDescriptor, assertion, url, target);
+                        portDescriptor, assertion, url, target);
 
                     response = (MCCIIN000002UV01) client.invokePort(RespondingGatewayDeferredResponsePortType.class,
-                            "respondingGatewayDeferredPRPAIN201306UV02", request);
+                        "respondingGatewayDeferredPRPAIN201306UV02", request);
                 } else {
                     ackMessage = "Failed to call the web service ("
-                            + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME + ").  The URL is null.";
+                        + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME + ").  The URL is null.";
                     response = HL7AckTransforms.createAckErrorFrom201306(request, ackMessage);
                     LOG.error(ackMessage);
                 }
             } else {
                 ackMessage = "Failed to call the web service ("
-                        + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME
-                        + ").  The input parameter is null.";
+                    + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME
+                    + ").  The input parameter is null.";
                 response = HL7AckTransforms.createAckErrorFrom201306(request, ackMessage);
                 LOG.error(ackMessage);
             }
         } catch (Exception e) {
             ackMessage = "Failed to call the web service ("
-                    + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME
-                    + ").  An unexpected exception occurred.";
+                + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME
+                + ").  An unexpected exception occurred.";
             response = HL7AckTransforms.createAckErrorFrom201306(request, ackMessage);
             LOG.error(ackMessage + "  Exception: " + e.getMessage(), e);
         }

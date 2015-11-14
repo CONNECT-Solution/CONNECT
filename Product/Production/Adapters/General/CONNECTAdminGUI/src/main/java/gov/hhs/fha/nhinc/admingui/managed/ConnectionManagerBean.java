@@ -92,7 +92,7 @@ public class ConnectionManagerBean {
     public String getSelectedEntityName() {
         String name = NULL_DISPLAY;
         if (selectedEntity != null && selectedEntity.getName() != null
-                && !selectedEntity.getName().isEmpty()) {
+            && !selectedEntity.getName().isEmpty()) {
             name = selectedEntity.getName().get(0).getValue();
         }
         return name;
@@ -122,8 +122,9 @@ public class ConnectionManagerBean {
     public String getSelectedEntityRegions() {
         String regions = NULL_DISPLAY;
         if (selectedEntity != null && selectedEntity.getCategoryBag() != null
-                && selectedEntity.getCategoryBag().getKeyedReference() != null
-                && !selectedEntity.getCategoryBag().getKeyedReference().isEmpty()) {
+            && selectedEntity.getCategoryBag().getKeyedReference() != null
+            && !selectedEntity.getCategoryBag().getKeyedReference().isEmpty()) {
+
             StringBuilder regionBuilder = new StringBuilder();
             for (KeyedReference ref : selectedEntity.getCategoryBag().getKeyedReference()) {
                 if (ref.getTModelKey().equals(ConnectionManagerCacheHelper.UDDI_STATE_KEY)) {
@@ -141,7 +142,7 @@ public class ConnectionManagerBean {
         String contactValue = NULL_DISPLAY;
 
         if (selectedEntity != null && selectedEntity.getContacts() != null && selectedEntity.getContacts().getContact() != null
-                && !selectedEntity.getContacts().getContact().isEmpty()) {
+            && !selectedEntity.getContacts().getContact().isEmpty()) {
             Contact contact = selectedEntity.getContacts().getContact().get(0);
 
             if (contact.getPersonName() != null && !contact.getPersonName().isEmpty()) {
@@ -155,8 +156,8 @@ public class ConnectionManagerBean {
     public String getSelectedEntityHcid() {
         String hcid = NULL_DISPLAY;
         if (selectedEntity != null && selectedEntity.getIdentifierBag() != null
-                && selectedEntity.getIdentifierBag().getKeyedReference() != null
-                && !selectedEntity.getIdentifierBag().getKeyedReference().isEmpty()) {
+            && selectedEntity.getIdentifierBag().getKeyedReference() != null
+            && !selectedEntity.getIdentifierBag().getKeyedReference().isEmpty()) {
             for (KeyedReference ref : selectedEntity.getIdentifierBag().getKeyedReference()) {
                 if (ref.getTModelKey().equals(ConnectionManagerCacheHelper.UDDI_HOME_COMMUNITY_ID_KEY)) {
                     hcid = ref.getKeyValue();
@@ -174,10 +175,10 @@ public class ConnectionManagerBean {
     }
 
     public List<ConnectionEndpoint> getEndpoints() {
-        endpoints = new ArrayList<ConnectionEndpoint>();
+        endpoints = new ArrayList<>();
         if (selectedEntity != null && selectedEntity.getBusinessKey() != null
-                && selectedEntity.getBusinessServices().getBusinessService() != null
-                && !selectedEntity.getBusinessServices().getBusinessService().isEmpty()) {
+            && selectedEntity.getBusinessServices().getBusinessService() != null
+            && !selectedEntity.getBusinessServices().getBusinessService().isEmpty()) {
             for (BusinessService bService : selectedEntity.getBusinessServices().getBusinessService()) {
                 if (bService.getBindingTemplates() != null && bService.getBindingTemplates().getBindingTemplate() != null) {
                     for (BindingTemplate template : bService.getBindingTemplates().getBindingTemplate()) {
@@ -212,7 +213,7 @@ public class ConnectionManagerBean {
             for (int i = 0; i < externalEntityList.size(); i++) {
                 BusinessEntity entity = externalEntityList.get(i);
                 if (entity.getIdentifierBag() != null && entity.getIdentifierBag().getKeyedReference() != null
-                        && !entity.getIdentifierBag().getKeyedReference().isEmpty()) {
+                    && !entity.getIdentifierBag().getKeyedReference().isEmpty()) {
                     if (isLocalEntity(entity.getIdentifierBag().getKeyedReference(), localHcid)) {
                         localEntity = entity;
                     } else if (entity.getName() != null && !entity.getName().isEmpty()) {
@@ -220,10 +221,8 @@ public class ConnectionManagerBean {
                     }
                 }
             }
-        } catch (ConnectionManagerException ex) {
-            LOG.error(ex, ex);
-        } catch (PropertyAccessException ex) {
-            LOG.error(ex, ex);
+        } catch (ConnectionManagerException | PropertyAccessException ex) {
+            LOG.error("Unable to refresh connection manager: " + ex.getLocalizedMessage(), ex);
         }
 
         entityNames.addAll(externalEntities.keySet());
@@ -235,7 +234,7 @@ public class ConnectionManagerBean {
     private boolean isLocalEntity(List<KeyedReference> references, String localHcid) {
         for (KeyedReference ref : references) {
             if (ref.getTModelKey().equalsIgnoreCase(ConnectionManagerCacheHelper.UDDI_HOME_COMMUNITY_ID_KEY)
-                    && formatHcid(localHcid).equals(formatHcid(ref.getKeyValue()))) {
+                && formatHcid(localHcid).equals(formatHcid(ref.getKeyValue()))) {
                 return true;
             }
         }
@@ -260,14 +259,17 @@ public class ConnectionManagerBean {
 
     private String getSpecVersion(CategoryBag categoryBag) {
         if (categoryBag != null && categoryBag.getKeyedReference() != null
-                && !categoryBag.getKeyedReference().isEmpty()) {
+            && !categoryBag.getKeyedReference().isEmpty()) {
+
             for (KeyedReference kRef : categoryBag.getKeyedReference()) {
-                if (kRef.getTModelKey() != null && kRef.getTModelKey().equals(ConnectionManagerCache.UDDI_SPEC_VERSION_KEY)) {
+                if (kRef.getTModelKey() != null && kRef.getTModelKey()
+                    .equals(ConnectionManagerCache.UDDI_SPEC_VERSION_KEY)) {
+
                     return kRef.getKeyValue();
                 }
             }
         }
+
         return NULL_DISPLAY;
     }
-
 }

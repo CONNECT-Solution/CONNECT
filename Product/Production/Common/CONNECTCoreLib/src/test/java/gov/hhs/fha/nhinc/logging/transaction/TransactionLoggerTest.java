@@ -26,21 +26,19 @@
  */
 package gov.hhs.fha.nhinc.logging.transaction;
 
+import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
+import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.ArgumentCaptor;
+import org.slf4j.MDC;
 
 /**
  * @author akong
@@ -51,9 +49,9 @@ public class TransactionLoggerTest {
     private static final String MESSAGE_ID_MDC_KEY = "message-id";
     private static final String TRANSACTION_ID_MDC_KEY = "transaction-id";
 
-    private static final String transactionId = "transactionId";
-    private static final String messageId = "messageId";
-    private static final String relatedMessageId = "relatedMessageId";
+    private static final String TRANSACTION_ID = "transactionId";
+    private static final String MESSAGE_ID = "messageId";
+    private static final String RELATED_MESSAGE_ID = "relatedMessageId";
 
     @Before
     public void setup() {
@@ -70,17 +68,17 @@ public class TransactionLoggerTest {
         final TransactionStore transactionStore = mock(TransactionStore.class);
 
         TransactionLogger transactionLogger = new TransactionLogger() {
-        	@Override
-        	protected TransactionStore getTransactionStore() {
-        		return transactionStore;
-        	}
+            @Override
+            protected TransactionStore getTransactionStore() {
+                return transactionStore;
+            }
         };
 
         when(transactionStore.insertIntoTransactionRepo(any(TransactionRepo.class))).thenReturn(true);
 
-        transactionLogger.logTransaction(transactionId, messageId);
+        transactionLogger.logTransaction(TRANSACTION_ID, MESSAGE_ID);
 
-        verifyLog(transactionStore, messageId, transactionId);
+        verifyLog(transactionStore, MESSAGE_ID, TRANSACTION_ID);
     }
 
     @Test
@@ -88,10 +86,10 @@ public class TransactionLoggerTest {
         final TransactionStore transactionStore = mock(TransactionStore.class);
 
         TransactionLogger transactionLogger = new TransactionLogger() {
-        	@Override
-        	protected TransactionStore getTransactionStore() {
-        		return transactionStore;
-        	}
+            @Override
+            protected TransactionStore getTransactionStore() {
+                return transactionStore;
+            }
         };
 
         transactionLogger.logTransaction(null, "messageId");
@@ -109,17 +107,17 @@ public class TransactionLoggerTest {
         final TransactionStore transactionStore = mock(TransactionStore.class);
 
         TransactionLogger transactionLogger = new TransactionLogger() {
-        	@Override
-        	protected TransactionStore getTransactionStore() {
-        		return transactionStore;
-        	}
+            @Override
+            protected TransactionStore getTransactionStore() {
+                return transactionStore;
+            }
         };
 
-        when(transactionStore.getTransactionId(relatedMessageId)).thenReturn(transactionId);
+        when(transactionStore.getTransactionId(RELATED_MESSAGE_ID)).thenReturn(TRANSACTION_ID);
         when(transactionStore.insertIntoTransactionRepo(any(TransactionRepo.class))).thenReturn(true);
 
-        transactionLogger.logTransactionFromRelatedMessageId(relatedMessageId, messageId);
-        verifyLog(transactionStore, messageId, transactionId);
+        transactionLogger.logTransactionFromRelatedMessageId(RELATED_MESSAGE_ID, MESSAGE_ID);
+        verifyLog(transactionStore, MESSAGE_ID, TRANSACTION_ID);
     }
 
     @Test
@@ -127,15 +125,15 @@ public class TransactionLoggerTest {
         final TransactionStore transactionStore = mock(TransactionStore.class);
 
         TransactionLogger transactionLogger = new TransactionLogger() {
-        	@Override
-        	protected TransactionStore getTransactionStore() {
-        		return transactionStore;
-        	}
+            @Override
+            protected TransactionStore getTransactionStore() {
+                return transactionStore;
+            }
         };
 
-        when(transactionStore.getTransactionId(relatedMessageId)).thenReturn(null);
+        when(transactionStore.getTransactionId(RELATED_MESSAGE_ID)).thenReturn(null);
 
-        transactionLogger.logTransactionFromRelatedMessageId(relatedMessageId, messageId);
+        transactionLogger.logTransactionFromRelatedMessageId(RELATED_MESSAGE_ID, MESSAGE_ID);
         verifyNothingLogged(transactionStore);
     }
 

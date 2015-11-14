@@ -27,46 +27,37 @@
 package gov.hhs.fha.nhinc.direct.addressparsing;
 
 import gov.hhs.fha.nhinc.direct.DirectException;
-
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import javax.mail.Address;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.nhindirect.xd.common.DirectDocuments;
 import org.nhindirect.xd.transform.parse.ParserHL7;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DefaultFromAddresParser implements FromAddressParser {
 
-    private static final Logger LOG = Logger
-            .getLogger(DefaultFromAddresParser.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultFromAddresParser.class);
 
     @Override
     public Address parse(String addresses, DirectDocuments documents) {
         Address address = null;
         String replyEmail = null;
 
-        // Get a reply address (first check direct:from header, then
-        // go to authorPerson)
+        // Get a reply address (first check direct:from header, then go to authorPerson)
         if (StringUtils.isNotBlank(addresses)) {
             try {
                 replyEmail = (new URI(addresses)).getSchemeSpecificPart();
             } catch (URISyntaxException e) {
-                LOG.error(
-                        "Unable to parse Direct From header, attempting to parse XDR author telecom.",
-                        e);
+                LOG.error("Unable to parse Direct From header, attempting to parse XDR author telecom: "
+                    + e.getLocalizedMessage(), e);
             }
-        } else {
-            if (null != documents && null != documents.getSubmissionSet()) {
-                replyEmail = documents.getSubmissionSet()
-                        .getAuthorTelecommunication();
-                replyEmail = ParserHL7.parseXTN(replyEmail);
-            }
+        } else if (null != documents && null != documents.getSubmissionSet()) {
+            replyEmail = documents.getSubmissionSet().getAuthorTelecommunication();
+            replyEmail = ParserHL7.parseXTN(replyEmail);
         }
 
         try {

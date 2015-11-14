@@ -28,14 +28,11 @@ package gov.hhs.fha.nhinc.logging.transaction;
 
 import gov.hhs.fha.nhinc.logging.transaction.factory.TransactionStoreFactory;
 import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
-
 import java.sql.Timestamp;
-
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 
 public class TransactionLogger {
 
@@ -56,7 +53,7 @@ public class TransactionLogger {
      * @return The TransactionStore.
      */
     protected TransactionStore getTransactionStore() {
-    	return transactionStoreFactory.getTransactionStore();
+        return transactionStoreFactory.getTransactionStore();
     }
 
     /**
@@ -106,7 +103,7 @@ public class TransactionLogger {
      */
     void createTransactionRecord(String messageId, String transactionId) {
         if (StringUtils.isNotBlank(messageId) && StringUtils.isNotBlank(transactionId)) {
-            Long newId = null;
+            Long newId;
 
             TransactionRepo transRepo = new TransactionRepo();
             transRepo.setMessageId(messageId);
@@ -130,5 +127,4 @@ public class TransactionLogger {
     private Timestamp createTimestamp() {
         return new Timestamp(System.currentTimeMillis());
     }
-
 }

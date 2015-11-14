@@ -27,6 +27,7 @@
         <package-name>com.sun.faces.*</package-name>
         <package-name>com.bea.faces.*</package-name>
         <package-name>javax.wsdl.*</package-name>
+        <package-name>org.slf4j.*</package-name>
     </prefer-application-packages>
     <prefer-application-resources>
         <resource-name>javax.faces.*</resource-name>

@@ -177,7 +177,7 @@ public class LoginBean {
                 checkDisplays();
             }
         } catch (UserLoginException e) {
-            LOG.error(e, e);
+            LOG.error("Exception during login: " + e.getLocalizedMessage(), e);
         }
 
         userName = null;
@@ -194,6 +194,4 @@ public class LoginBean {
             firstTimeLogged = false;
         }
     }
-
 }
-

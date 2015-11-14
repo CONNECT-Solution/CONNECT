@@ -27,10 +27,9 @@
 package gov.hhs.fha.nhinc.callback.openSAML;
 
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
-
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.FileInputStream;
 import java.security.KeyStore;
 import java.security.KeyStore.PrivateKeyEntry;
 import java.security.KeyStoreException;
@@ -41,7 +40,6 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
 import java.util.HashMap;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,7 +72,7 @@ public class CertificateManagerImpl implements CertificateManager {
                 initTrustStore();
             }
         } catch (Exception e) {
-            LOG.error("unable to initialize keystores", e);
+            LOG.error("Unable to initialize keystores: " + e.getLocalizedMessage(), e);
         }
     }
 
@@ -156,13 +154,13 @@ public class CertificateManagerImpl implements CertificateManager {
                 }
                 keyStore.load(is, password.toCharArray());
             } catch (NoSuchAlgorithmException ex) {
-                LOG.error("Error initializing KeyStore: " + ex);
+                LOG.error("Error initializing KeyStore: " + ex.getLocalizedMessage(), ex);
                 throw new Exception(ex.getMessage());
             } catch (CertificateException ex) {
-                LOG.error("Error initializing KeyStore: " + ex);
+                LOG.error("Error initializing KeyStore: " + ex.getLocalizedMessage(), ex);
                 throw new Exception(ex.getMessage());
             } catch (KeyStoreException ex) {
-                LOG.error("Error initializing KeyStore: " + ex);
+                LOG.error("Error initializing KeyStore: " + ex.getLocalizedMessage(), ex);
                 throw new Exception(ex.getMessage());
             } finally {
                 try {
@@ -210,13 +208,13 @@ public class CertificateManagerImpl implements CertificateManager {
                     }
                     trustStore.load(is, password.toCharArray());
                 } catch (NoSuchAlgorithmException ex) {
-                    LOG.error("Error initializing TrustStore: " + ex);
+                    LOG.error("Error initializing TrustStore: " + ex.getLocalizedMessage(), ex);
                     throw new Exception(ex.getMessage());
                 } catch (CertificateException ex) {
-                    LOG.error("Error initializing TrustStore: " + ex);
+                    LOG.error("Error initializing TrustStore: " + ex.getLocalizedMessage(), ex);
                     throw new IOException(ex.getMessage());
                 } catch (KeyStoreException ex) {
-                    LOG.error("Error initializing TrustStore: " + ex);
+                    LOG.error("Error initializing TrustStore: " + ex.getLocalizedMessage(), ex);
                     throw new IOException(ex.getMessage());
                 } finally {
                     try {
@@ -239,6 +237,7 @@ public class CertificateManagerImpl implements CertificateManager {
      *
      * @see gov.hhs.fha.nhinc.callback.openSAML.CertificateManager#getDefaultCertificate()
      */
+    @Override
     public X509Certificate getDefaultCertificate() throws Exception {
         return (X509Certificate) getPrivateKeyEntry().getCertificate();
     }
@@ -295,18 +294,18 @@ public class CertificateManagerImpl implements CertificateManager {
      */
     @Override
     public RSAPublicKey getDefaultPublicKey() {
-
         try {
             return (RSAPublicKey) getDefaultCertificate().getPublicKey();
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error("Could not get default public key: " + e.getLocalizedMessage(), e);
 
         }
+
         return null;
     }
 
     protected HashMap<String, String> getTrustStoreSystemProperties() {
-        HashMap<String, String> map = new HashMap<String, String>();
+        HashMap<String, String> map = new HashMap<>();
         map.put(TRUST_STORE_KEY, System.getProperty(TRUST_STORE_KEY));
         map.put(TRUST_STORE_PASSWORD_KEY, System.getProperty(TRUST_STORE_PASSWORD_KEY));
         map.put(TRUST_STORE_TYPE_KEY, System.getProperty(TRUST_STORE_TYPE_KEY));
@@ -314,7 +313,7 @@ public class CertificateManagerImpl implements CertificateManager {
     }
 
     protected HashMap<String, String> getKeyStoreSystemProperties() {
-        HashMap<String, String> map = new HashMap<String, String>();
+        HashMap<String, String> map = new HashMap<>();
         map.put(KEY_STORE_KEY, System.getProperty(KEY_STORE_KEY));
         map.put(KEY_STORE_TYPE_KEY, System.getProperty(KEY_STORE_TYPE_KEY));
         map.put(KEY_STORE_PASSWORD_KEY, System.getProperty(KEY_STORE_PASSWORD_KEY));

@@ -31,12 +31,11 @@ import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,6 +44,7 @@ import org.slf4j.LoggerFactory;
  * @author dunnek
  */
 public class AdminDistributionAuditLogger {
+
     private static final Logger LOG = LoggerFactory.getLogger(AdminDistributionAuditLogger.class);
 
     private AcknowledgementType audit(LogEventRequestType auditLogMsg, AssertionType assertion) {
@@ -55,14 +55,17 @@ public class AdminDistributionAuditLogger {
         return proxy.auditLog(auditLogMsg, assertion);
     }
 
-    /** This method audits the Entity AdminDist.
+    /**
+     * This method audits the Entity AdminDist.
+     *
      * @param request SendAlertMessage received.
      * @param assertion Assertion received.
      * @param direction The direction could be eigther outbound or inbound.
      * @return ack Acknowledgement
      */
     public AcknowledgementType auditEntityAdminDist(RespondingGatewaySendAlertMessageType request,
-            AssertionType assertion, String direction) {
+        AssertionType assertion, String direction) {
+
         LOG.debug("begin auditEntityAdminDist() " + direction);
         AcknowledgementType ack = new AcknowledgementType();
 
@@ -77,7 +80,9 @@ public class AdminDistributionAuditLogger {
         return ack;
     }
 
-    /** This method audits the MsgProxy AdminDist.
+    /**
+     * This method audits the MsgProxy AdminDist.
+     *
      * @param body Emergency Message Distribution Element transaction body received.
      * @param assertion Assertion received.
      * @param target Target community to send/receive to be audited.
@@ -85,13 +90,14 @@ public class AdminDistributionAuditLogger {
      * @return ack Acknowledgement.
      */
     public AcknowledgementType auditNhincAdminDist(EDXLDistribution body, AssertionType assertion,
-            NhinTargetSystemType target, String direction) {
+        NhinTargetSystemType target, String direction) {
+
         LOG.debug("begin auditNhincAdminDist() " + direction);
         AcknowledgementType ack = null;
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
         LogEventRequestType auditLogMsg = auditLogger.logNhincAdminDist(body, assertion, target, direction,
-        		NhincConstants.AUDIT_LOG_PROXY_INTERFACE);
+            NhincConstants.AUDIT_LOG_PROXY_INTERFACE);
 
         if (auditLogMsg != null) {
             ack = audit(auditLogMsg, assertion);
@@ -102,23 +108,28 @@ public class AdminDistributionAuditLogger {
         return ack;
     }
 
-    /**this method audits the Nhin AdminDist.
+    /**
+     * This method audits the Nhin AdminDist.
+     *
      * @param body Emergency Message Distribution Element transaction body received.
      * @param assertion Assertion received.
      * @param direction The direction could be outbound/inbound.
+     * @param target
      * @param logInterface The logInterface could be Adapter/Entity/MsgProxy.
      * @return ack Acknowledgement.
      */
     public AcknowledgementType auditNhinAdminDist(EDXLDistribution body, AssertionType assertion, String direction,
-            NhinTargetSystemType target, String logInterface) {
+        NhinTargetSystemType target, String logInterface) {
+
         LOG.debug("begin auditNhinAdminDist() " + direction);
         AcknowledgementType ack = null;
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
-        LOG.debug("body == null = " + body == null);
-        LOG.debug("assertion == null = " + assertion == null);
+        LOG.debug("body == null = " + (body == null));
+        LOG.debug("assertion == null = " + (assertion == null));
 
-        LogEventRequestType auditLogMsg = auditLogger.logNhincAdminDist(body, assertion, target, direction, logInterface);
+        LogEventRequestType auditLogMsg = auditLogger.logNhincAdminDist(body, assertion, target, direction,
+            logInterface);
 
         if (auditLogMsg != null) {
             ack = audit(auditLogMsg, assertion);
@@ -128,5 +139,4 @@ public class AdminDistributionAuditLogger {
         LOG.debug("end auditNhinAdminDist() " + direction);
         return ack;
     }
-
 }

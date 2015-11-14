@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.direct.addressparsing;
 
 import gov.hhs.fha.nhinc.direct.DirectException;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -35,54 +34,47 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.mail.Address;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.nhindirect.xd.common.DirectDocuments;
 import org.nhindirect.xd.routing.RoutingResolver;
 import org.nhindirect.xd.routing.impl.RoutingResolverImpl;
 import org.nhindirect.xd.transform.parse.ParserHL7;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SmtpOnlyToAddresParser implements ToAddressParser {
 
-    private static final Logger LOG = Logger
-            .getLogger(SmtpOnlyToAddresParser.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SmtpOnlyToAddresParser.class);
     RoutingResolver resolver = null;
 
     @Override
     public Set<Address> parse(String addresses, DirectDocuments documents) {
-        Set<Address> addressTo = new HashSet<Address>();
+        Set<Address> addressTo = new HashSet<>();
 
         // Get endpoints (first check direct:to header, then go to
         // intendedRecipients)
-        List<String> forwards = new ArrayList<String>();
+        List<String> forwards = new ArrayList<>();
         if (null != addresses && StringUtils.isNotBlank(addresses)) {
             try {
-                forwards = Arrays.asList((new URI(addresses)
-                        .getSchemeSpecificPart()));
+                forwards = Arrays.asList((new URI(addresses).getSchemeSpecificPart()));
             } catch (URISyntaxException e) {
-                LOG.error(
-                        "Unable to parse Direct To header, attempting to parse XDR intended recipients.",
-                        e);
+                LOG.error("Unable to parse Direct To header, attempting to parse XDR intended recipients: "
+                    + e.getLocalizedMessage(), e);
             }
-        } else {
-            if (null != documents && null != documents.getSubmissionSet()) {
-                forwards = ParserHL7.parseDirectRecipients(documents);
-            }
+        } else if (documents != null && documents.getSubmissionSet() != null) {
+            forwards = ParserHL7.parseDirectRecipients(documents);
         }
 
         if (forwards.size() > 0 && getResolver().hasSmtpEndpoints(forwards)) {
-
             for (String recipient : getResolver().getSmtpEndpoints(forwards)) {
                 try {
                     addressTo.add(new InternetAddress(recipient));
                 } catch (AddressException e) {
-                    LOG.error("Unable to convert " + recipient + " to an InternetAdress.", e);
+                    LOG.error("Unable to convert " + recipient + " to an InternetAdress: " + e.getLocalizedMessage(),
+                        e);
                 }
             }
         } else {

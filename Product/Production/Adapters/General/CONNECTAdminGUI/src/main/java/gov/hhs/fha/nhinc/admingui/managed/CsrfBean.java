@@ -30,6 +30,8 @@ import gov.hhs.fha.nhinc.admingui.util.CryptoRandomGenerator;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -45,7 +47,7 @@ public class CsrfBean {
 
     public String getToken() {
         createToken();
-        return token;       
+        return token;
     }
 
     public void setToken(String csrfToken) {
@@ -64,6 +66,4 @@ public class CsrfBean {
             LOG.debug("CSRFToken Generation failed :" + ex.getMessage(), ex);
         }
     }
-
 }
-
