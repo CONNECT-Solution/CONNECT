@@ -170,7 +170,7 @@ public class PRPAIN201306UV02EventDescriptionBuilderTest extends BaseDescription
                 + "1.2.3", eventDescription.getRespondingHCIDs().get(0));
     }
 
-    @Test
+    /*@Test
     public void multipleIis() {
         II ii1 = new II();
         ii1.setRoot("1.2.3");
@@ -182,7 +182,7 @@ public class PRPAIN201306UV02EventDescriptionBuilderTest extends BaseDescription
         assertEquals(2, eventDescription.getRespondingHCIDs().size());
         assertEquals(NhincConstants.HCID_PREFIX + "1.2.3", eventDescription.getRespondingHCIDs().get(0));
         assertEquals(NhincConstants.HCID_PREFIX + "1.2.3.4", eventDescription.getRespondingHCIDs().get(1));
-    }
+    }*/
 
     private EventDescription getEventDescriptionWithIIs(II... iis) {
         COCTMT090003UV01AssignedEntity assignedEntity = getAssignedEntity(iis);

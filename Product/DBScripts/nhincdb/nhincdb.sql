@@ -604,7 +604,7 @@ CREATE TABLE messagemonitoringdb.monitoredmessagenotification (
   updatetime timestamp NULL DEFAULT NULL,
   PRIMARY KEY (id),
   KEY fk_monitoredmessageId (monitoredmessageid),
-  CONSTRAINT fk_monitoredmessageId FOREIGN KEY (monitoredmessageid) REFERENCES monitoredmessage (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT fk_monitoredmessageId FOREIGN KEY (monitoredmessageid) REFERENCES messagemonitoringdb.monitoredmessage (id) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table to track outbound Message Monitoring notification';
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON messagemonitoringdb.* to nhincuser;
