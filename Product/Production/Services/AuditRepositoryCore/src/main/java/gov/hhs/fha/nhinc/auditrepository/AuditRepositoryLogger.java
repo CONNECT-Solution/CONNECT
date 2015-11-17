@@ -27,22 +27,8 @@
 package gov.hhs.fha.nhinc.auditrepository;
 
 import gov.hhs.fha.nhinc.common.auditlog.FindAuditEventsMessageType;
-import gov.hhs.fha.nhinc.common.auditlog.FindAuditEventsResponseMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.LogFindAuditEventsRequestType;
-import gov.hhs.fha.nhinc.common.auditlog.LogFindAuditEventsResultRequestType;
-import gov.hhs.fha.nhinc.common.hiemauditlog.EntityCdcNotifyRequestMessageType;
-import gov.hhs.fha.nhinc.common.hiemauditlog.EntityCdcSubscribeRequestMessageType;
-import gov.hhs.fha.nhinc.common.hiemauditlog.EntityDocumentNotifyRequestMessageType;
-import gov.hhs.fha.nhinc.common.hiemauditlog.EntityDocumentSubscribeRequestMessageType;
-import gov.hhs.fha.nhinc.common.hiemauditlog.EntityNotifyResponseMessageType;
-import gov.hhs.fha.nhinc.common.hiemauditlog.EntityUnsubscribeRequestMessageType;
-import gov.hhs.fha.nhinc.common.hiemauditlog.LogEntityCdcNotifyRequestType;
-import gov.hhs.fha.nhinc.common.hiemauditlog.LogEntityCdcSubscribeRequestType;
-import gov.hhs.fha.nhinc.common.hiemauditlog.LogEntityDocumentNotifyRequestType;
-import gov.hhs.fha.nhinc.common.hiemauditlog.LogEntityDocumentSubscribeRequestType;
-import gov.hhs.fha.nhinc.common.hiemauditlog.LogEntityNotifyResponseType;
-import gov.hhs.fha.nhinc.common.hiemauditlog.LogEntityUnsubscribeRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -85,154 +71,6 @@ public class AuditRepositoryLogger {
         logReqMsg.setInterface(_interface);
         auditMsg = FindAuditEventsTransforms.transformFindAuditEventsReq2AuditMsg(logReqMsg);
         LOG.debug("Exiting AuditRepositoryLogger.logFindAuditEvents(...)");
-        return auditMsg;
-    }
-
-    /**
-     * This method will create the generic Audit Log Message from an audit query response.
-     *
-     * @param message The Audit Query Response message to be audit logged.
-     * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit Repository
-     */
-    public LogEventRequestType logFindAuditEventsResult(FindAuditEventsResponseMessageType message, String direction,
-        String _interface) {
-        LOG.debug("Entering AuditRepositoryLogger.logFindAuditEventsResult(...)");
-        LogEventRequestType auditMsg = null;
-        LogFindAuditEventsResultRequestType logReqMsg = new LogFindAuditEventsResultRequestType();
-        logReqMsg.setDirection(direction);
-        logReqMsg.setInterface(_interface);
-        logReqMsg.setMessage(message);
-        LOG.warn("logFindAuditEventsResult method is not implemented");
-        LOG.debug("Exiting AuditRepositoryLogger.logFindAuditEventsResult(...)");
-        return auditMsg;
-    }
-
-    /**
-     * This method will create the generic Audit Log Message from an entity document subscribe request.
-     *
-     * @param message The Entity Document Subscribe Request message to be audit logged.
-     * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit Repository
-     */
-    public LogEventRequestType logEntityDocSubscribeRequest(EntityDocumentSubscribeRequestMessageType message,
-        String direction, String _interface) {
-        LOG.debug("Entering AuditRepositoryLogger.logEntityDocSubscribeRequest(...)");
-        LogEventRequestType auditMsg = null;
-        LogEntityDocumentSubscribeRequestType logReqMsg = new LogEntityDocumentSubscribeRequestType();
-        logReqMsg.setDirection(direction);
-        logReqMsg.setInterface(_interface);
-        logReqMsg.setMessage(message);
-        LOG.warn("logEntityDocSubscribeRequest method is not implemented");
-        LOG.debug("Exiting AuditRepositoryLogger.logEntityDocSubscribeRequest(...)");
-        return auditMsg;
-    }
-
-    /**
-     * This method will create the generic Audit Log Message from an entity CDC subscribe request.
-     *
-     * @param message The Entity CDC Subscribe Request message to be audit logged.
-     * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit Repository
-     */
-    public LogEventRequestType logEntityCdcSubscribeRequest(EntityCdcSubscribeRequestMessageType message,
-        String direction, String _interface) {
-        LOG.debug("Entering AuditRepositoryLogger.logEntityCdcSubscribeRequest(...)");
-        LogEventRequestType auditMsg = null;
-        LogEntityCdcSubscribeRequestType logReqMsg = new LogEntityCdcSubscribeRequestType();
-        logReqMsg.setDirection(direction);
-        logReqMsg.setInterface(_interface);
-        logReqMsg.setMessage(message);
-        LOG.warn("logEntityCdcSubscribeRequest method is not implemented");
-        LOG.debug("Exiting AuditRepositoryLogger.logEntityCdcSubscribeRequest(...)");
-        return auditMsg;
-    }
-
-    /**
-     * This method will create the generic Audit Log Message from an entity document notify request.
-     *
-     * @param message The Entity Document Notify Request message to be audit logged.
-     * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit Repository
-     */
-    public LogEventRequestType logEntityDocNotifyRequest(EntityDocumentNotifyRequestMessageType message,
-        String direction, String _interface) {
-        LOG.debug("Entering AuditRepositoryLogger.logEntityDocNotifyRequest(...)");
-        LogEventRequestType auditMsg = null;
-        LogEntityDocumentNotifyRequestType logReqMsg = new LogEntityDocumentNotifyRequestType();
-        logReqMsg.setDirection(direction);
-        logReqMsg.setInterface(_interface);
-        logReqMsg.setMessage(message);
-        LOG.warn("logEntityDocNotifyRequest method is not implemented");
-        LOG.debug("Exiting AuditRepositoryLogger.logEntityDocNotifyRequest(...)");
-        return auditMsg;
-    }
-
-    /**
-     * This method will create the generic Audit Log Message from an entity CDC notify request.
-     *
-     * @param message The Entity CDC Notify Request message to be audit logged.
-     * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit Repository
-     */
-    public LogEventRequestType logEntityCdcNotifyRequest(EntityCdcNotifyRequestMessageType message, String direction,
-        String _interface) {
-        LOG.debug("Entering AuditRepositoryLogger.logEntityCdcNotifyRequest(...)");
-        LogEventRequestType auditMsg = null;
-        LogEntityCdcNotifyRequestType logReqMsg = new LogEntityCdcNotifyRequestType();
-        logReqMsg.setDirection(direction);
-        logReqMsg.setInterface(_interface);
-        logReqMsg.setMessage(message);
-        LOG.warn("logEntityCdcNotifyRequest method is not implemented");
-        LOG.debug("Exiting AuditRepositoryLogger.logEntityCdcNotifyRequest(...)");
-        return auditMsg;
-    }
-
-    /**
-     * This method will create the generic Audit Log Message from an entity notify response.
-     *
-     * @param message The Entity Notify Response message to be audit logged.
-     * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit Repository
-     */
-    public LogEventRequestType logEntityNotifyResponse(EntityNotifyResponseMessageType message, String direction,
-        String _interface) {
-        LOG.debug("Entering AuditRepositoryLogger.logEntityNotifyResponse(...)");
-        LogEventRequestType auditMsg = null;
-        LogEntityNotifyResponseType logReqMsg = new LogEntityNotifyResponseType();
-        logReqMsg.setDirection(direction);
-        logReqMsg.setInterface(_interface);
-        logReqMsg.setMessage(message);
-        LOG.warn("logEntityNotifyRespRequest method is not implemented");
-        LOG.debug("Exiting AuditRepositoryLogger.logEntityNotifyResponse(...)");
-        return auditMsg;
-    }
-
-    /**
-     * This method will create the generic Audit Log Message from an entity unsubscribe request.
-     *
-     * @param message The Entity Unsubscribe Request message to be audit logged.
-     * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit Repository
-     */
-    public LogEventRequestType logEntityUnsubscribeRequest(EntityUnsubscribeRequestMessageType message,
-        String direction, String _interface) {
-        LOG.debug("Entering AuditRepositoryLogger.logEntityUnsubscribeRequest(...)");
-        LogEventRequestType auditMsg = null;
-        LogEntityUnsubscribeRequestType logReqMsg = new LogEntityUnsubscribeRequestType();
-        logReqMsg.setDirection(direction);
-        logReqMsg.setInterface(_interface);
-        logReqMsg.setMessage(message);
-
-        LOG.warn("logEntityUnsubscribeRequest method is not implemented");
-        LOG.debug("Exiting AuditRepositoryLogger.logEntityUnsubscribeRequest(...)");
         return auditMsg;
     }
 
@@ -292,5 +130,4 @@ public class AuditRepositoryLogger {
 
         return adAuditTransformer.transformEDXLDistributionRequestToAuditMsg(message, assertion, direction, _interface);
     }
-
 }
