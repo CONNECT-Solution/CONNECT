@@ -107,7 +107,8 @@ public class AdminDistTransformsTest {
             NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
         assertNotNull(result);
-        assertEquals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, result.getDirection());
+        assertEquals(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE + " " + NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+            result.getDirection());
 
         assertNotNull(result.getAuditMessage());
         assertEquals(1, result.getAuditMessage().getActiveParticipant().size());
@@ -141,7 +142,8 @@ public class AdminDistTransformsTest {
             NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
         assertNotNull(result);
-        assertEquals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, result.getDirection());
+        assertEquals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE + " " + NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+            result.getDirection());
 
         assertNotNull(result.getAuditMessage());
         assertEquals(1, result.getAuditMessage().getActiveParticipant().size());
@@ -177,7 +179,8 @@ public class AdminDistTransformsTest {
             target, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
         assertNotNull(result);
-        assertEquals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, result.getDirection());
+        assertEquals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE + " " + NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+            result.getDirection());
 
         assertNotNull(result.getAuditMessage());
         assertEquals(1, result.getAuditMessage().getActiveParticipant().size());

@@ -126,7 +126,7 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
             // check the policy for the outgoing request to the target community
             boolean bIsPolicyOk = checkPolicy(newRequest, assertion);
             if (bIsPolicyOk) {
-                //Removed the old PatientDiscoveryAuditLogger. 
+                //Removed the old PatientDiscoveryAuditLogger.
                 String serviceAddress = target.getUrl();
 
                 RespondingGatewayPortType servicePort = getWebServiceInstance().getRespondingGatewayPortSoap();

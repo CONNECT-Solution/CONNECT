@@ -60,7 +60,6 @@ import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
 import com.services.nhinc.schema.auditmessage.ObjectFactory;
-import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.io.IOException;
 import javax.xml.bind.JAXBException;
@@ -118,7 +117,7 @@ public class AuditRepositoryOrchImpl {
 
         auditRec.setEventType("servicetype");
         auditRec.setOutcome(0);
-        auditRec.setEventId("evenId");
+        auditRec.setEventId("EventId");
 
         List<AuditRepositoryRecord> auditRecList = new ArrayList<>();
         auditRecList.add(auditRec);

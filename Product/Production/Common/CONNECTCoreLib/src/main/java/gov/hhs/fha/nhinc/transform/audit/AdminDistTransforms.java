@@ -99,7 +99,7 @@ public class AdminDistTransforms {
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
         result.setAuditMessage(auditMsg);
-        result.setDirection(direction);
+        result.setDirection(_interface + " " + direction);
         result.setRemoteHCID(HomeCommunityMap.formatHomeCommunityId(communityId));
         LOG.trace("Exiting ADTransform-getLogEventRequestType() method.");
 

@@ -86,37 +86,4 @@ public abstract class OutboundDocRetrieveStrategyBase implements OrchestrationSt
     }
 
     protected abstract RetrieveDocumentSetResponseType callProxy(OutboundDocRetrieveOrchestratable message);
-    /*
-    protected void auditRequestMessage(RetrieveDocumentSetRequestType request, String direction,
-        String connectInterface, AssertionType assertion, String requestCommunityID) {
-        DocRetrieveMessageType message = new DocRetrieveMessageType();
-        message.setRetrieveDocumentSetRequest(request);
-        message.setAssertion(assertion);
-        AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieve(message, direction, connectInterface,
-            requestCommunityID);
-        if (auditLogMsg != null) {
-            auditMessage(auditLogMsg, assertion);
-        }
-    }
-
-    protected void auditResponseMessage(RetrieveDocumentSetResponseType response, String direction,
-        String connectInterface, AssertionType assertion, String requestCommunityID) {
-        DocRetrieveResponseMessageType message = new DocRetrieveResponseMessageType();
-        message.setRetrieveDocumentSetResponse(response);
-        message.setAssertion(assertion);
-        AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieveResult(message, direction, connectInterface,
-            requestCommunityID);
-        if (auditLogMsg != null) {
-            auditMessage(auditLogMsg, assertion);
-        }
-    }
-
-    protected AcknowledgementType auditMessage(LogEventRequestType auditLogMsg, AssertionType assertion) {
-        AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-        AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-        return proxy.auditLog(auditLogMsg, assertion);
-    }*/
-
 }

@@ -43,24 +43,11 @@ import gov.hhs.fha.nhinc.common.hiemauditlog.LogEntityDocumentNotifyRequestType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.LogEntityDocumentSubscribeRequestType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.LogEntityNotifyResponseType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.LogEntityUnsubscribeRequestType;
-import gov.hhs.fha.nhinc.common.hiemauditlog.LogNhinNotifyRequestType;
-import gov.hhs.fha.nhinc.common.hiemauditlog.LogNhinSubscribeRequestType;
-import gov.hhs.fha.nhinc.common.hiemauditlog.LogNhinUnsubscribeRequestType;
-import gov.hhs.fha.nhinc.common.hiemauditlog.LogSubscribeResponseType;
-import gov.hhs.fha.nhinc.common.hiemauditlog.LogUnsubscribeResponseType;
-import gov.hhs.fha.nhinc.common.hiemauditlog.SubscribeResponseMessageType;
-import gov.hhs.fha.nhinc.common.hiemauditlog.UnsubscribeResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.common.nhinccommoninternalorch.NotifyRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommoninternalorch.UnsubscribeRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.transform.audit.AdminDistTransforms;
 import gov.hhs.fha.nhinc.transform.audit.FindAuditEventsTransforms;
-import gov.hhs.fha.nhinc.transform.audit.NotifyTransforms;
-import gov.hhs.fha.nhinc.transform.audit.SubscribeTransforms;
-import gov.hhs.fha.nhinc.transform.audit.UnsubscribeTransforms;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 import org.apache.log4j.Logger;
@@ -69,11 +56,10 @@ import org.apache.log4j.Logger;
  *
  * @author Jon Hoppesch
  */
-public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLogger {
+public class AuditRepositoryLogger {
 
     private static final Logger LOG = Logger.getLogger(AuditRepositoryLogger.class);
     private final AdminDistTransforms adAuditTransformer = new AdminDistTransforms();
-    private NotifyTransforms transformLib = new NotifyTransforms();
 
     /**
      * Constructor code for the AuditRepositoryLogger. This instantiates the object.
@@ -120,115 +106,6 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
         logReqMsg.setMessage(message);
         LOG.warn("logFindAuditEventsResult method is not implemented");
         LOG.debug("Exiting AuditRepositoryLogger.logFindAuditEventsResult(...)");
-        return auditMsg;
-    }
-
-    /**
-     * This method will create the generic Audit Log Message from a Nhin Subscribe request.
-     *
-     * @param message The Nhin Subscribe Request message to be audit logged.
-     * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit Repository
-     */
-    public LogEventRequestType logNhinSubscribeRequest(SubscribeRequestType message, String direction, String _interface) {
-        LOG.debug("Entering AuditRepositoryLogger.logNhinSubscribeRequest(...)");
-        LogEventRequestType auditMsg = null;
-        SubscribeTransforms transformLib = new SubscribeTransforms();
-        LogNhinSubscribeRequestType logReqMsg = new LogNhinSubscribeRequestType();
-        logReqMsg.setMessage(message);
-        logReqMsg.setDirection(direction);
-        logReqMsg.setInterface(_interface);
-
-        auditMsg = transformLib.transformNhinSubscribeRequestToAuditMessage(logReqMsg);
-        LOG.debug("Exiting AuditRepositoryLogger.logNhinSubscribeRequest(...)");
-        return auditMsg;
-    }
-
-    /**
-     * This method will create the generic Audit Log Message from a Nhin notify request.
-     *
-     * @param message The Nhin Notify Request message to be audit logged.
-     * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit Repository
-     */
-    public LogEventRequestType logNhinNotifyRequest(NotifyRequestType message, String direction, String _interface) {
-        LOG.debug("Entering AuditRepositoryLogger.logNhinNotifyRequest(...)");
-        LogEventRequestType auditMsg = null;
-        LogNhinNotifyRequestType logReqMsg = new LogNhinNotifyRequestType();
-        logReqMsg.setMessage(message);
-        logReqMsg.setDirection(direction);
-        logReqMsg.setInterface(_interface);
-
-        auditMsg = transformLib.transformNhinNotifyRequestToAuditMessage(logReqMsg);
-        LOG.debug("Exiting AuditRepositoryLogger.logNhinNotifyRequest(...)");
-        return auditMsg;
-    }
-
-    /**
-     * This method will create the generic Audit Log Message from a Nhin unsubscribe request.
-     *
-     * @param message The Nhin Unsubscribe Request message to be audit logged.
-     * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit Repository
-     */
-    public LogEventRequestType logNhinUnsubscribeRequest(UnsubscribeRequestType message, String direction,
-        String _interface) {
-        LOG.debug("Entering AuditRepositoryLogger.logNhinUnsubscribeRequest(...)");
-        LogEventRequestType auditMsg = null;
-        UnsubscribeTransforms transformLib = new UnsubscribeTransforms();
-        LogNhinUnsubscribeRequestType logReqMsg = new LogNhinUnsubscribeRequestType();
-        logReqMsg.setMessage(message);
-        logReqMsg.setDirection(direction);
-        logReqMsg.setInterface(_interface);
-        auditMsg = transformLib.transformNhinUnsubscribeRequestToAuditMessage(logReqMsg);
-        LOG.debug("Exiting AuditRepositoryLogger.logNhinUnsubscribeRequest(...)");
-        return auditMsg;
-    }
-
-    /**
-     * This method will create the generic Audit Log Message from an unsubscribe response.
-     *
-     * @param message The Unsubscribe Response message to be audit logged.
-     * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit Repository
-     */
-    public LogEventRequestType logUnsubscribeResponse(UnsubscribeResponseMessageType message, String direction,
-        String _interface) {
-        LOG.debug("Entering AuditRepositoryLogger.logUnsubscribeResponse(...)");
-        LogEventRequestType auditMsg = null;
-        LogUnsubscribeResponseType logReqMsg = new LogUnsubscribeResponseType();
-        logReqMsg.setDirection(direction);
-        logReqMsg.setInterface(_interface);
-        logReqMsg.setMessage(message);
-        UnsubscribeTransforms transformLib = new UnsubscribeTransforms();
-        auditMsg = transformLib.transformUnsubscribeResponseToGenericAudit(logReqMsg);
-        LOG.debug("Exiting AuditRepositoryLogger.logUnsubscribeResponse(...)");
-        return auditMsg;
-    }
-
-    /**
-     * This method will create the generic Audit Log Message from a subscribe response.
-     *
-     * @param message The Subscribe Response message to be audit logged.
-     * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit Repository
-     */
-    public LogEventRequestType logSubscribeResponse(SubscribeResponseMessageType message, String direction,
-        String _interface) {
-        LOG.debug("Entering AuditRepositoryLogger.logSubscribeResponse(...)");
-        LogEventRequestType auditMsg = null;
-        LogSubscribeResponseType logReqMsg = new LogSubscribeResponseType();
-        logReqMsg.setDirection(direction);
-        logReqMsg.setInterface(_interface);
-        logReqMsg.setMessage(message);
-        SubscribeTransforms transformLib = new SubscribeTransforms();
-        auditMsg = transformLib.transformSubscribeResponseToAuditMessage(logReqMsg);
-        LOG.debug("Exiting AuditRepositoryLogger.logSubscribeResponse(...)");
         return auditMsg;
     }
 

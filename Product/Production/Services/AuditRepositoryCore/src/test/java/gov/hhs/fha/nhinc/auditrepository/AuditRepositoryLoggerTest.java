@@ -71,7 +71,6 @@ public class AuditRepositoryLoggerTest {
      */
     @Test
     public void testLogFindAuditEvents() {
-        System.out.println("testLogFindAuditEvents");
 
         AuditRepositoryLogger instance = new AuditRepositoryLogger();
         FindAuditEventsMessageType message = new FindAuditEventsMessageType();
