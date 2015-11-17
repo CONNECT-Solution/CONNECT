@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue;
 import gov.hhs.fha.nhinc.async.AddressingHeaderCreator;
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -39,8 +38,6 @@ import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryProcessor;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.proxy.EntityPatientDiscoveryDeferredResponseProxy;
@@ -61,6 +58,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
  * @author JHOPPESC
  */
 public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
+
     private static final Logger LOG = Logger.getLogger(AdapterPatientDiscoveryDeferredReqQueueOrchImpl.class);
 
     protected AsyncMessageProcessHelper createAsyncProcesser() {
@@ -68,18 +66,12 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
     }
 
     public MCCIIN000002UV01 addPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion,
-            NhinTargetCommunitiesType targets) {
+        NhinTargetCommunitiesType targets) {
         MCCIIN000002UV01 resp = new MCCIIN000002UV01();
         RespondingGatewayPRPAIN201305UV02RequestType unsecureRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
         unsecureRequest.setAssertion(assertion);
         unsecureRequest.setNhinTargetCommunities(targets);
         unsecureRequest.setPRPAIN201305UV02(request);
-
-        // Audit the incoming Nhin 201305 Message
-        PatientDiscoveryAuditor auditLogger = new PatientDiscoveryAuditLogger();
-        AcknowledgementType ack = auditLogger.auditEntityDeferred201305(unsecureRequest,
-                unsecureRequest.getAssertion(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_RESPONSE_PROCESS);
 
         // ASYNCMSG PROCESSING - RSPPROCESS
         AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
@@ -91,7 +83,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
             resp = addPatientDiscoveryAsyncReq(unsecureRequest);
 
             asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK,
-                    AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, resp);
+                AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, resp);
         } else {
             String ackMsg = "Deferred Patient Discovery response processing halted; deferred queue repository error encountered";
 
@@ -99,11 +91,6 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
             // fatal error with deferred queue repository
             resp = HL7AckTransforms.createAckErrorFrom201305(request, ackMsg);
         }
-
-        // Audit the responding Acknowledgement Message
-        ack = auditLogger.auditAck(resp, unsecureRequest.getAssertion(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
-
         return resp;
     }
 
@@ -113,37 +100,37 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
         // "process" the request and send a response out to the Nhin.
         PatientDiscoveryProcessor msgProcessor = new PatientDiscovery201305Processor();
         PRPAIN201306UV02 resp;
-		try {
-			resp = msgProcessor.process201305(request.getPRPAIN201305UV02(), request.getAssertion());
+        try {
+            resp = msgProcessor.process201305(request.getPRPAIN201305UV02(), request.getAssertion());
 
-			// Generate a new response assertion
-	        AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
-	        AssertionType newAssertion = asyncProcess.copyAssertionTypeObject(request.getAssertion());
-	        // Original request message id is now set as the relates to id
-	        newAssertion.getRelatesToList().add(request.getAssertion().getMessageId());
-	        // Generate a new unique response assertion Message ID
-	        newAssertion.setMessageId(AddressingHeaderCreator.generateMessageId());
-	        // Set user info homeCommunity
-	        String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
-	        HomeCommunityType homeCommunityType = new HomeCommunityType();
-	        homeCommunityType.setHomeCommunityId(homeCommunityId);
-	        homeCommunityType.setName(homeCommunityId);
-	        newAssertion.setHomeCommunity(homeCommunityType);
-	        if (newAssertion.getUserInfo() != null && newAssertion.getUserInfo().getOrg() != null) {
-	            newAssertion.getUserInfo().getOrg().setHomeCommunityId(homeCommunityId);
-	            newAssertion.getUserInfo().getOrg().setName(homeCommunityId);
-	        }
+            // Generate a new response assertion
+            AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();
+            AssertionType newAssertion = asyncProcess.copyAssertionTypeObject(request.getAssertion());
+            // Original request message id is now set as the relates to id
+            newAssertion.getRelatesToList().add(request.getAssertion().getMessageId());
+            // Generate a new unique response assertion Message ID
+            newAssertion.setMessageId(AddressingHeaderCreator.generateMessageId());
+            // Set user info homeCommunity
+            String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
+            HomeCommunityType homeCommunityType = new HomeCommunityType();
+            homeCommunityType.setHomeCommunityId(homeCommunityId);
+            homeCommunityType.setName(homeCommunityId);
+            newAssertion.setHomeCommunity(homeCommunityType);
+            if (newAssertion.getUserInfo() != null && newAssertion.getUserInfo().getOrg() != null) {
+                newAssertion.getUserInfo().getOrg().setHomeCommunityId(homeCommunityId);
+                newAssertion.getUserInfo().getOrg().setName(homeCommunityId);
+            }
 
-	        ack = sendToNhin(resp, newAssertion, request.getNhinTargetCommunities());
-		} catch (PatientDiscoveryException e) {
-			LOG.error("Error occurred while processing Patient Discovery Deferred Request", e);
-		}
+            ack = sendToNhin(resp, newAssertion, request.getNhinTargetCommunities());
+        } catch (PatientDiscoveryException e) {
+            LOG.error("Error occurred while processing Patient Discovery Deferred Request", e);
+        }
 
         return ack;
     }
 
     protected MCCIIN000002UV01 sendToNhin(PRPAIN201306UV02 respMsg, AssertionType assertion,
-            NhinTargetCommunitiesType targets) {
+        NhinTargetCommunitiesType targets) {
         MCCIIN000002UV01 resp = new MCCIIN000002UV01();
         java.util.List<UrlInfo> urlInfoList = null;
 
@@ -151,7 +138,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
             urlInfoList = getTargetEndpoints(targets);
 
             if (NullChecker.isNotNullish(urlInfoList) && urlInfoList.get(0) != null
-                    && NullChecker.isNotNullish(urlInfoList.get(0).getUrl())) {
+                && NullChecker.isNotNullish(urlInfoList.get(0).getUrl())) {
 
                 EntityPatientDiscoveryDeferredResponseProxyObjectFactory patientDiscoveryFactory = new EntityPatientDiscoveryDeferredResponseProxyObjectFactory();
                 EntityPatientDiscoveryDeferredResponseProxy proxy = patientDiscoveryFactory.getNhincPatientDiscoveryProxy();
@@ -171,11 +158,11 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
         // Obtain all the URLs for the targets being sent to
         try {
             urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(
-                    targetCommunities, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
+                targetCommunities, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
 
         } catch (ConnectionManagerException ex) {
             LOG.error("Failed to obtain target URLs for service "
-                    + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
+                + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
             return null;
         }
 

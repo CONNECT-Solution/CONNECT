@@ -549,9 +549,8 @@ public abstract class AuditTransforms<T, K> {
         LogEventRequestType result = new LogEventRequestType();
         result.setAuditMessage(auditMsg);
         result.setDirection(direction);
-        result.setInterface(_interface);
         //set the target community identifier
-        result.setCommunityId(communityId);
+        result.setRemoteHCID(communityId);
         return result;
     }
 

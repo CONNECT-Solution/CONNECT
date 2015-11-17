@@ -69,8 +69,7 @@ public class AuditRepositoryUnsecuredImpl {
                     LogEventSecureRequestType secureRequest = new LogEventSecureRequestType();
                     secureRequest.setAuditMessage(logEventRequest.getAuditMessage());
                     secureRequest.setDirection(logEventRequest.getDirection());
-                    secureRequest.setInterface(logEventRequest.getInterface());
-                    secureRequest.setCommunityId(logEventRequest.getCommunityId());
+                    secureRequest.setRemoteHCID(logEventRequest.getRemoteHCID());
 
                     response = processor.logAudit(secureRequest, assertion);
                 } catch (Exception ex) {

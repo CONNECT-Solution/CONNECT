@@ -56,7 +56,6 @@ import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
-import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
@@ -93,40 +92,30 @@ public class AuditRepositoryOrchImpl {
      */
     public AcknowledgementType logAudit(LogEventSecureRequestType mess, AssertionType assertion) {
 
-        AcknowledgementType response = null;
+        AcknowledgementType response = new AcknowledgementType();
         AuditRepositoryRecord auditRec = new AuditRepositoryRecord();
 
-        Date eventTimeStamp = null;
-        String eventCommunityId = null;
-
-        // This method should be removed when AuditLog.xsd schema changes are done. The values will be avialable from
-        //schema.
         EventIdentificationType eventIdentification = mess.getAuditMessage().getEventIdentification();
 
-        auditRec.setUserId("");
+        auditRec.setUserId(null);
 
-        // This method call should be removed when AuditLog.xsd schema changes are done. The values will be avialable
-        //from schema.
-        eventCommunityId = getCommunityID(mess);
+        String eventCommunityId = mess.getRemoteHCID();
         LOG.info("auditSourceID : " + eventCommunityId);
-        if (eventCommunityId != null && !eventCommunityId.equals("")) {
+        if (NullChecker.isNotNullish(eventCommunityId)) {
             auditRec.setRemoteHcid(eventCommunityId);
         } else {
             auditRec.setRemoteHcid("");
         }
 
-        auditRec.setDirection(mess.getInterface() + " " + mess.getDirection());
+        auditRec.setDirection(mess.getDirection());
         auditRec.setMessage(getBlobFromAuditMessage(mess.getAuditMessage()));
 
         XMLGregorianCalendar xMLCalDate = eventIdentification.getEventDateTime();
         if (xMLCalDate != null) {
-            eventTimeStamp = convertXMLGregorianCalendarToDate(xMLCalDate);
-            auditRec.setEventTimeStamp(eventTimeStamp);
+            auditRec.setEventTimeStamp(convertXMLGregorianCalendarToDate(xMLCalDate));
         }
 
-        // These are required DB data elements. But they should be cleaned up with appropriate values when
-        //AuditLog schema is updated
-        auditRec.setEventType("EventType");
+        auditRec.setEventType("servicetype");
         auditRec.setOutcome(0);
         auditRec.setEventId("EventId");
 
@@ -136,7 +125,6 @@ public class AuditRepositoryOrchImpl {
         boolean result = auditLogDao.insertAuditRepository(auditRecList);
         LOG.trace("AuditRepositoryOrchImpl.logAudit() -- Done calling auditLogDao to insert record into database.");
 
-        response = new AcknowledgementType();
         if (result) {
             response.setMessage("Created Log Message in Database...");
         } else {
@@ -202,10 +190,8 @@ public class AuditRepositoryOrchImpl {
         List<AuditRepositoryRecord> responseList = auditLogDao.queryAuditRepositoryOnCriteria(userId, patientId,
             beginDate, endDate);
         LOG.debug("after query call to logDAO.");
-        /* if (responseList != null && responseList.size() > 0) { */
         LOG.debug("responseList is not NULL ");
         auditEvents = buildAuditReponseType(responseList);
-        /* } */
 
         return auditEvents;
     }
@@ -300,25 +286,5 @@ public class AuditRepositoryOrchImpl {
         Date eventDate = cal.getTime();
         LOG.info("eventDate -> " + eventDate);
         return eventDate;
-    }
-
-    // This method should be removed when AuditLog.xsd schema changes are done. The values will be avialable from
-    //schema.
-    private String getCommunityID(LogEventSecureRequestType mess) {
-        String eventCommunityId = mess.getCommunityId();
-        //if the communityId is populated then use it else use the current logic getting the HCID from
-        //Audit Source Identification entry
-        if (!NullChecker.isNullish(eventCommunityId)) {
-            return eventCommunityId;
-        } else {
-            List<AuditSourceIdentificationType> auditSourceIdentificationList = null;
-            auditSourceIdentificationList = mess.getAuditMessage().getAuditSourceIdentification();
-            if (auditSourceIdentificationList != null && auditSourceIdentificationList.size() > 0) {
-                AuditSourceIdentificationType auditSourceIdentification = auditSourceIdentificationList.get(0);
-                eventCommunityId = auditSourceIdentification.getAuditSourceID();
-                LOG.debug("auditSourceID : " + eventCommunityId);
-            }
-            return eventCommunityId;
-        }
     }
 }

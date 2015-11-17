@@ -105,8 +105,6 @@ public class DocSubmissionAuditTransformsTest extends AuditTransformsTest<
         assertParticipantObjectIdentification(auditRequest.getAuditMessage());
         assertEquals("AuditMessage.Request direction mismatch", auditRequest.getDirection(),
             NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-        assertEquals("AuditMessage.Request interface mismatch", auditRequest.getInterface(),
-            NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
     }
 
     @Test
@@ -149,8 +147,6 @@ public class DocSubmissionAuditTransformsTest extends AuditTransformsTest<
         assertParticipantObjectIdentification(auditResponse.getAuditMessage());
         assertEquals("AuditMessage.Response direction mismatch", auditResponse.getDirection(),
             NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-        assertEquals("AuditMessage.Response interface mismatch", auditResponse.getInterface(),
-            NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
     }
 
     @Override

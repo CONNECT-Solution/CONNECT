@@ -79,58 +79,56 @@ public class AdminDistTransformsTest {
 
         LogEventRequestType expResult = null;
         LogEventRequestType result = instance.transformEDXLDistributionRequestToAuditMsg(message, assertion,
-                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
         assertEquals(expResult, result);
 
     }
 
     /**
-     * Test the HCID can be pulled from the local community for INBOUND ENTITY in the
-     * audit message.
+     * Test the HCID can be pulled from the local community for INBOUND ENTITY in the audit message.
      */
     @Test
     public void testTransformEDXLDistributionRequestToAuditMsg_Good_HCIDfromLocalHCID() {
-    	final String LOCAL_HCID = "1.1";
-    	EDXLDistribution message = new EDXLDistribution();
+        final String LOCAL_HCID = "1.1";
+        EDXLDistribution message = new EDXLDistribution();
         AssertionType assertion = new AssertionType();
 
         setUserForAssertion(assertion, LOCAL_HCID);
 
-        AdminDistTransforms instance = new AdminDistTransforms(){
-        	@Override
-        	protected String getHomeCommunityFromMapping(){
-        		return LOCAL_HCID;
-        	}
+        AdminDistTransforms instance = new AdminDistTransforms() {
+            @Override
+            protected String getHomeCommunityFromMapping() {
+                return LOCAL_HCID;
+            }
         };
 
         LogEventRequestType result = instance.transformEDXLDistributionRequestToAuditMsg(message, assertion,
-                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
         assertNotNull(result);
-        assertEquals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, result.getDirection());
-        assertEquals(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, result.getInterface());
+        assertEquals(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE + " " + NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+            result.getDirection());
 
         assertNotNull(result.getAuditMessage());
         assertEquals(1, result.getAuditMessage().getActiveParticipant().size());
 
         assertNotNull(result.getAuditMessage().getEventIdentification());
         assertEquals(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_T63, result.getAuditMessage()
-                .getEventIdentification().getEventID().getCode());
+            .getEventIdentification().getEventID().getCode());
         assertEquals(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_T63, result.getAuditMessage()
-                .getEventIdentification().getEventID().getCodeSystemName());
+            .getEventIdentification().getEventID().getCodeSystemName());
         assertEquals(result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID(), LOCAL_HCID);
 
     }
 
     /**
-     * Test the HCID can be pulled from the assertion for INBOUND NHIN in the
-     * audit message.
+     * Test the HCID can be pulled from the assertion for INBOUND NHIN in the audit message.
      */
     @Test
     public void testTransformEDXLDistributionRequestToAuditMsg_Good_HCIDfromAssertion() {
-    	final String LOCAL_HCID = "1.1";
-    	EDXLDistribution message = new EDXLDistribution();
+        final String LOCAL_HCID = "1.1";
+        EDXLDistribution message = new EDXLDistribution();
         AssertionType assertion = new AssertionType();
         HomeCommunityType homeCommunity = new HomeCommunityType();
         homeCommunity.setHomeCommunityId(LOCAL_HCID);
@@ -141,32 +139,31 @@ public class AdminDistTransformsTest {
         AdminDistTransforms instance = new AdminDistTransforms();
 
         LogEventRequestType result = instance.transformEDXLDistributionRequestToAuditMsg(message, assertion,
-                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
         assertNotNull(result);
-        assertEquals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, result.getDirection());
-        assertEquals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE, result.getInterface());
+        assertEquals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE + " " + NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+            result.getDirection());
 
         assertNotNull(result.getAuditMessage());
         assertEquals(1, result.getAuditMessage().getActiveParticipant().size());
 
         assertNotNull(result.getAuditMessage().getEventIdentification());
         assertEquals(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_T63, result.getAuditMessage()
-                .getEventIdentification().getEventID().getCode());
+            .getEventIdentification().getEventID().getCode());
         assertEquals(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_T63, result.getAuditMessage()
-                .getEventIdentification().getEventID().getCodeSystemName());
+            .getEventIdentification().getEventID().getCodeSystemName());
         assertEquals(result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID(), LOCAL_HCID);
 
     }
 
     /**
-     * Tests the HCID can be pulled from the target for NHINC OUTBOUND in the
-     * result message.
+     * Tests the HCID can be pulled from the target for NHINC OUTBOUND in the result message.
      */
     @Test
     public void testTransformEDXLDistributionRequestToAuditMsg_Good_HCIDfromTarget() {
-    	final String LOCAL_HCID = "2.2";
-    	EDXLDistribution message = new EDXLDistribution();
+        final String LOCAL_HCID = "2.2";
+        EDXLDistribution message = new EDXLDistribution();
         AssertionType assertion = new AssertionType();
 
         setUserForAssertion(assertion, LOCAL_HCID);
@@ -179,20 +176,20 @@ public class AdminDistTransformsTest {
         AdminDistTransforms instance = new AdminDistTransforms();
 
         LogEventRequestType result = instance.transformEDXLDistributionRequestToAuditMsg(message, assertion,
-                target, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+            target, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
         assertNotNull(result);
-        assertEquals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, result.getDirection());
-        assertEquals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE, result.getInterface());
+        assertEquals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE + " " + NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+            result.getDirection());
 
         assertNotNull(result.getAuditMessage());
         assertEquals(1, result.getAuditMessage().getActiveParticipant().size());
 
         assertNotNull(result.getAuditMessage().getEventIdentification());
         assertEquals(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_T63, result.getAuditMessage()
-                .getEventIdentification().getEventID().getCode());
+            .getEventIdentification().getEventID().getCode());
         assertEquals(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_T63, result.getAuditMessage()
-                .getEventIdentification().getEventID().getCodeSystemName());
+            .getEventIdentification().getEventID().getCodeSystemName());
         assertEquals(result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditSourceID(), LOCAL_HCID);
 
     }
@@ -299,8 +296,8 @@ public class AdminDistTransformsTest {
 
     }
 
-    private void setUserForAssertion(AssertionType assertion, String communityId){
-    	UserType user = new UserType();
+    private void setUserForAssertion(AssertionType assertion, String communityId) {
+        UserType user = new UserType();
         HomeCommunityType hc = new HomeCommunityType();
 
         hc.setHomeCommunityId(communityId);

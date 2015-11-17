@@ -26,24 +26,13 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.entity;
 
-import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
-import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
-import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import java.util.List;
-import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
-import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
 import org.apache.log4j.Logger;
 
 /**
@@ -53,7 +42,6 @@ import org.apache.log4j.Logger;
 public abstract class OutboundDocRetrieveStrategyBase implements OrchestrationStrategy {
 
     private static final Logger LOG = Logger.getLogger(OutboundDocRetrieveStrategyBase.class);
-    private static final DocRetrieveAuditLogger docRetrieveAuditor = new DocRetrieveAuditLogger();
 
     @Override
     public void execute(Orchestratable message) {
@@ -98,37 +86,4 @@ public abstract class OutboundDocRetrieveStrategyBase implements OrchestrationSt
     }
 
     protected abstract RetrieveDocumentSetResponseType callProxy(OutboundDocRetrieveOrchestratable message);
-
-    protected void auditRequestMessage(RetrieveDocumentSetRequestType request, String direction,
-        String connectInterface, AssertionType assertion, String requestCommunityID) {
-        DocRetrieveMessageType message = new DocRetrieveMessageType();
-        message.setRetrieveDocumentSetRequest(request);
-        message.setAssertion(assertion);
-        AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieve(message, direction, connectInterface,
-            requestCommunityID);
-        if (auditLogMsg != null) {
-            auditMessage(auditLogMsg, assertion);
-        }
-    }
-
-    protected void auditResponseMessage(RetrieveDocumentSetResponseType response, String direction,
-        String connectInterface, AssertionType assertion, String requestCommunityID) {
-        DocRetrieveResponseMessageType message = new DocRetrieveResponseMessageType();
-        message.setRetrieveDocumentSetResponse(response);
-        message.setAssertion(assertion);
-        AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-        LogEventRequestType auditLogMsg = auditLogger.logDocRetrieveResult(message, direction, connectInterface,
-            requestCommunityID);
-        if (auditLogMsg != null) {
-            auditMessage(auditLogMsg, assertion);
-        }
-    }
-
-    protected AcknowledgementType auditMessage(LogEventRequestType auditLogMsg, AssertionType assertion) {
-        AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-        AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-        return proxy.auditLog(auditLogMsg, assertion);
-    }
-
 }
