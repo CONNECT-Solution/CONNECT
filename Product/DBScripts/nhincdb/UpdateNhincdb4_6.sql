@@ -7,8 +7,7 @@ ADD COLUMN eventType VARCHAR(100) NOT NULL AFTER userId,
 ADD COLUMN outcome TINYINT(2) NOT NULL AFTER eventType,
 ADD COLUMN messageId VARCHAR(100) DEFAULT NULL AFTER outcome,
 ADD COLUMN relatesTo VARCHAR(100) DEFAULT NULL AFTER messageId,
-ADD COLUMN transactionId VARCHAR(100) DEFAULT NULL AFTER relatesTo,
-ADD COLUMN direction CHAR(20) NOT NULL AFTER transactionId;
+ADD COLUMN direction CHAR(20) NOT NULL AFTER relatesTo;
 
 Alter TABLE auditrepo.auditrepository
 DROP COLUMN participationTypeCode,
