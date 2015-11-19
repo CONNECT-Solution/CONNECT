@@ -50,6 +50,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Properties;
 import java.util.TimeZone;
 import java.util.UUID;
@@ -105,7 +106,9 @@ public abstract class AuditTransforms<T, K> {
         auditMsg = getParticipantObjectIdentificationForRequest(request, assertion, auditMsg);
 
         return buildLogEventRequestType(auditMsg, direction, getMessageCommunityId(assertion, target, isRequesting),
-            serviceName, assertion);
+            serviceName, assertion, auditMsg.getEventIdentification().getEventID().getDisplayName(),
+            auditMsg.getEventIdentification().getEventOutcomeIndicator(),
+            auditMsg.getEventIdentification().getEventDateTime(), getUserId(auditMsg.getActiveParticipant()));
     }
 
     /**
@@ -133,7 +136,9 @@ public abstract class AuditTransforms<T, K> {
         auditMsg = getParticipantObjectIdentificationForResponse(request, response, assertion, auditMsg);
 
         return buildLogEventRequestType(auditMsg, direction, getMessageCommunityId(assertion, target, isRequesting),
-            serviceName, assertion);
+            serviceName, assertion, auditMsg.getEventIdentification().getEventID().getDisplayName(),
+            auditMsg.getEventIdentification().getEventOutcomeIndicator(),
+            auditMsg.getEventIdentification().getEventDateTime(), getUserId(auditMsg.getActiveParticipant()));
     }
 
     /**
@@ -544,7 +549,8 @@ public abstract class AuditTransforms<T, K> {
     }
 
     private LogEventRequestType buildLogEventRequestType(AuditMessageType auditMsg, String direction, String communityId,
-        String serviceName, AssertionType assertion) {
+        String serviceName, AssertionType assertion, String eventId, BigInteger outcome, XMLGregorianCalendar eventDate,
+        String userId) {
 
         LogEventRequestType result = new LogEventRequestType();
         result.setAuditMessage(auditMsg);
@@ -553,6 +559,10 @@ public abstract class AuditTransforms<T, K> {
         result.setRemoteHCID(communityId);
         result.setEventType(serviceName);
         result.setAssertion(assertion);
+        result.setEventID(eventId);
+        result.setEventOutcomeIndicator(outcome);
+        result.setUserId(userId);
+        result.setEventTimestamp(eventDate);
         return result;
     }
 
@@ -610,5 +620,18 @@ public abstract class AuditTransforms<T, K> {
 
     protected void setAssertion(AssertionType assertion) {
         this.assertion = assertion;
+    }
+
+    private String getUserId(List<ActiveParticipant> participants) {
+        for (ActiveParticipant obj : participants) {
+            if (NullChecker.isNotNullish(obj.getRoleIDCode())
+                && !obj.getRoleIDCode().get(0).getDisplayName().equals(
+                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME)
+                && !obj.getRoleIDCode().get(0).getDisplayName().equals(
+                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME)) {
+                return obj.getUserID();
+            }
+        }
+        return null;
     }
 }

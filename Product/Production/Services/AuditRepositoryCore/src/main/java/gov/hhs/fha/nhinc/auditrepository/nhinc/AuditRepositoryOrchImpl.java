@@ -188,16 +188,16 @@ public class AuditRepositoryOrchImpl {
         auditRec.setDirection(mess.getDirection());
         auditRec.setMessage(getBlobFromAuditMessage(mess.getAuditMessage()));
 
-        XMLGregorianCalendar xMLCalDate = eventIdentification.getEventDateTime();
+        XMLGregorianCalendar xMLCalDate = mess.getEventTimestamp();
         if (xMLCalDate != null) {
             auditRec.setEventTimeStamp(convertXMLGregorianCalendarToDate(xMLCalDate));
         }
-        auditRec.setOutcome(eventIdentification.getEventOutcomeIndicator().intValue());
+        auditRec.setOutcome(mess.getEventOutcomeIndicator().intValue());
         auditRec.setEventType(mess.getEventType());
-        auditRec.setEventId(eventIdentification.getEventID().getDisplayName());
+        auditRec.setEventId(mess.getEventID());
         auditRec.setMessageId(MessageGeneratorUtils.getInstance().generateMessageId(assertion));
         auditRec.setRelatesTo(getRelatesTo(assertion));
-        auditRec.setUserId(getUserId(mess.getAuditMessage().getActiveParticipant()));
+        auditRec.setUserId(mess.getUserId());
 
         return auditRec;
     }
@@ -296,18 +296,5 @@ public class AuditRepositoryOrchImpl {
 
     private String getRelatesTo(AssertionType assertion) {
         return NullChecker.isNotNullish(assertion.getRelatesToList()) ? assertion.getRelatesToList().get(0) : null;
-    }
-
-    private String getUserId(List<ActiveParticipant> participants) {
-        for (ActiveParticipant obj : participants) {
-            if (NullChecker.isNotNullish(obj.getRoleIDCode())
-                && !obj.getRoleIDCode().get(0).getDisplayName().equals(
-                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME)
-                && !obj.getRoleIDCode().get(0).getDisplayName().equals(
-                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME)) {
-                return obj.getUserID();
-            }
-        }
-        return null;
     }
 }

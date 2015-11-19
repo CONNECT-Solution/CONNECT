@@ -71,6 +71,11 @@ public class AuditRepositoryUnsecuredImpl {
                     secureRequest.setDirection(logEventRequest.getDirection());
                     secureRequest.setRemoteHCID(logEventRequest.getRemoteHCID());
                     secureRequest.setEventType(logEventRequest.getEventType());
+                    secureRequest.setEventID(logEventRequest.getEventID());
+                    secureRequest.setEventOutcomeIndicator(logEventRequest.getEventOutcomeIndicator());
+                    secureRequest.setEventTimestamp(logEventRequest.getEventTimestamp());
+                    secureRequest.setUserId(logEventRequest.getUserId());
+
                     response = processor.logAudit(secureRequest, assertion);
                 } catch (Exception ex) {
                     String message = "Error occurred calling AuditRepositoryImpl.logAudit. Error: " + ex.getMessage();

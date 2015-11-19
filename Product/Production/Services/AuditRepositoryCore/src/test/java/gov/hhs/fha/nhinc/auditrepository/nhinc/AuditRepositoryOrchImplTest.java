@@ -68,9 +68,12 @@ public class AuditRepositoryOrchImplTest {
 
     private LogEventSecureRequestType createLogEventSecureObj() {
         LogEventSecureRequestType logObj = new LogEventSecureRequestType();
+        AuditMessageType audit = createAuditMessageType();
         logObj.setEventType(EVENT_TYPE);
         logObj.setDirection(DIRECTION);
-        logObj.setAuditMessage(createAuditMessageType());
+        logObj.setAuditMessage(audit);
+        logObj.setEventID(audit.getEventIdentification().getEventID().getDisplayName());
+        logObj.setEventOutcomeIndicator(audit.getEventIdentification().getEventOutcomeIndicator());
         return logObj;
     }
 

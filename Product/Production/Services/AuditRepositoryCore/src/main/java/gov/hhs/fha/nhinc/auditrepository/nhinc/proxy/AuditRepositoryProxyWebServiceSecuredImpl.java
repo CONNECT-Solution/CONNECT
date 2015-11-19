@@ -73,6 +73,10 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
         secureRequest.setDirection(request.getDirection());
         secureRequest.setRemoteHCID(request.getRemoteHCID());
         secureRequest.setEventType(request.getEventType());
+        secureRequest.setEventID(request.getEventID());
+        secureRequest.setEventOutcomeIndicator(request.getEventOutcomeIndicator());
+        secureRequest.setEventTimestamp(request.getEventTimestamp());
+        secureRequest.setUserId(request.getUserId());
 
         try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME);

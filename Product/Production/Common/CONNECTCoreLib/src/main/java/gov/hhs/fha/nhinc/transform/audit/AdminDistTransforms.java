@@ -102,6 +102,10 @@ public class AdminDistTransforms {
         result.setDirection(_interface + " " + direction);
         result.setRemoteHCID(HomeCommunityMap.formatHomeCommunityId(communityId));
         result.setEventType(NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
+        result.setEventID(auditMsg.getEventIdentification().getEventID().getDisplayName());
+        result.setEventOutcomeIndicator(auditMsg.getEventIdentification().getEventOutcomeIndicator());
+        result.setEventTimestamp(auditMsg.getEventIdentification().getEventDateTime());
+
         result.setAssertion(assertion);
         LOG.trace("Exiting ADTransform-getLogEventRequestType() method.");
 

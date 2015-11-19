@@ -116,6 +116,12 @@ public abstract class AuditTransformsTest<T, K> {
             eventIdentificationType.getEventTypeCode().get(0).getCodeSystemName());
         assertEquals("EventTypeCode.DisplayName mismatch", getAuditTransforms().getServiceEventTypeCodeDisplayName(),
             eventIdentificationType.getEventTypeCode().get(0).getDisplayName());
+        assertEquals("EventId.DisplayName and LogEventRequestType.EventId mismatch",
+            eventIdentificationType.getEventID().getDisplayName(), request.getEventID());
+        assertEquals("EventOutcomeIndicator and LogEventRequestType.EventOutcomeIndicator mismatch",
+            eventIdentificationType.getEventOutcomeIndicator().toString(), request.getEventOutcomeIndicator().toString());
+        assertEquals("EventDateTime and LogEventRequestType.EventTimestamp mismatch",
+            eventIdentificationType.getEventDateTime(), request.getEventTimestamp());
     }
 
     /**
@@ -151,6 +157,8 @@ public abstract class AuditTransformsTest<T, K> {
                 .getCodeSystemName(), userActiveParticipant.getRoleIDCode().get(0).getCodeSystemName());
             assertEquals("RoleIDCode.DisplayName mismatch", assertion.getUserInfo().getRoleCoded().getDisplayName(),
                 userActiveParticipant.getRoleIDCode().get(0).getDisplayName());
+            assertEquals("UserID and LogEventRequestType.UserId mismatch", userActiveParticipant.getUserID(),
+                request.getUserId());
         }
 
         // TODO: Should there be an else case here?
