@@ -104,8 +104,8 @@ public abstract class AuditTransforms<T, K> {
             serviceName);
         auditMsg = getParticipantObjectIdentificationForRequest(request, assertion, auditMsg);
 
-        return buildLogEventRequestType(auditMsg, direction, _interface,
-            getMessageCommunityId(assertion, target, isRequesting));
+        return buildLogEventRequestType(auditMsg, direction, getMessageCommunityId(assertion, target, isRequesting),
+            serviceName, assertion);
     }
 
     /**
@@ -132,8 +132,8 @@ public abstract class AuditTransforms<T, K> {
             serviceName);
         auditMsg = getParticipantObjectIdentificationForResponse(request, response, assertion, auditMsg);
 
-        return buildLogEventRequestType(auditMsg, direction, _interface,
-            getMessageCommunityId(assertion, target, isRequesting));
+        return buildLogEventRequestType(auditMsg, direction, getMessageCommunityId(assertion, target, isRequesting),
+            serviceName, assertion);
     }
 
     /**
@@ -543,14 +543,16 @@ public abstract class AuditTransforms<T, K> {
         return userName;
     }
 
-    private LogEventRequestType buildLogEventRequestType(AuditMessageType auditMsg, String direction,
-        String _interface, String communityId) {
+    private LogEventRequestType buildLogEventRequestType(AuditMessageType auditMsg, String direction, String communityId,
+        String serviceName, AssertionType assertion) {
 
         LogEventRequestType result = new LogEventRequestType();
         result.setAuditMessage(auditMsg);
         result.setDirection(direction);
         //set the target community identifier
         result.setRemoteHCID(communityId);
+        result.setEventType(serviceName);
+        result.setAssertion(assertion);
         return result;
     }
 

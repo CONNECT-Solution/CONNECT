@@ -141,6 +141,8 @@ public class DocRetrieveAuditTransformsTest
         testAuditSourceIdentification(auditRequest.getAuditMessage().getAuditSourceIdentification(), assertion);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticipantObjectIdentification(auditRequest, assertion);
+        assertEquals("AuditMessage.Request ServiceName mismatch", auditRequest.getEventType(),
+            NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
     }
 
     private void transformResponseToAuditMsg(RetrieveDocumentSetRequestType request,
@@ -182,6 +184,8 @@ public class DocRetrieveAuditTransformsTest
         testAuditSourceIdentification(auditResponse.getAuditMessage().getAuditSourceIdentification(), assertion);
         testGetActiveParticipantDestination(auditResponse, Boolean.FALSE, webContextProperties, REMOTE_IP);
         assertParticipantObjectIdentification(auditResponse, assertion);
+        assertEquals("AuditMessage.Response ServiceName mismatch", auditResponse.getEventType(),
+            NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
     }
 
     private void assertParticipantObjectIdentification(LogEventRequestType auditRequest, AssertionType assertion) {

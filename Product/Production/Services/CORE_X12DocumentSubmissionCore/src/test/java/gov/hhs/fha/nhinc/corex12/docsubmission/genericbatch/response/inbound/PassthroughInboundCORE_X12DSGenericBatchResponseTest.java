@@ -76,7 +76,7 @@ public class PassthroughInboundCORE_X12DSGenericBatchResponseTest {
 
         assertEquals("Actual and Expected response differ", actualResponse, expectedResponse);
         verify(mockEJBLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion),
-            isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+            isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
             eq(NhincConstants.CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME), any(COREX12BatchSubmissionAuditTransforms.class));
     }
@@ -94,7 +94,7 @@ public class PassthroughInboundCORE_X12DSGenericBatchResponseTest {
 
         assertEquals("Actual and Expected response differ", actualResponse, expectedResponse);
         verify(mockEJBLogger, never()).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion),
-            isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+            isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
             eq(NhincConstants.CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME), any(COREX12BatchSubmissionAuditTransforms.class));
     }

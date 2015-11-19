@@ -95,7 +95,7 @@ public abstract class AbstractInboundCORE_X12DSRealTime implements InboundCORE_X
     protected void auditResponseToNhin(COREEnvelopeRealTimeRequest request, COREEnvelopeRealTimeResponse oResponsse,
         AssertionType assertion, Properties webContextProperties) {
         getAuditLogger().auditResponseMessage(request, oResponsse, assertion, null,
-            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE,
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE,
             webContextProperties, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME);
     }
 

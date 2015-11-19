@@ -56,11 +56,14 @@ import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
+import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
 import com.services.nhinc.schema.auditmessage.ObjectFactory;
+import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import java.io.IOException;
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
@@ -93,34 +96,8 @@ public class AuditRepositoryOrchImpl {
     public AcknowledgementType logAudit(LogEventSecureRequestType mess, AssertionType assertion) {
 
         AcknowledgementType response = new AcknowledgementType();
-        AuditRepositoryRecord auditRec = new AuditRepositoryRecord();
-
-        EventIdentificationType eventIdentification = mess.getAuditMessage().getEventIdentification();
-
-        auditRec.setUserId(null);
-
-        String eventCommunityId = mess.getRemoteHCID();
-        LOG.info("auditSourceID : " + eventCommunityId);
-        if (NullChecker.isNotNullish(eventCommunityId)) {
-            auditRec.setRemoteHcid(eventCommunityId);
-        } else {
-            auditRec.setRemoteHcid("");
-        }
-
-        auditRec.setDirection(mess.getDirection());
-        auditRec.setMessage(getBlobFromAuditMessage(mess.getAuditMessage()));
-
-        XMLGregorianCalendar xMLCalDate = eventIdentification.getEventDateTime();
-        if (xMLCalDate != null) {
-            auditRec.setEventTimeStamp(convertXMLGregorianCalendarToDate(xMLCalDate));
-        }
-
-        auditRec.setEventType("servicetype");
-        auditRec.setOutcome(0);
-        auditRec.setEventId("EventId");
-
         List<AuditRepositoryRecord> auditRecList = new ArrayList<>();
-        auditRecList.add(auditRec);
+        auditRecList.add(createDBAuditObj(mess, assertion));
         LOG.trace("AuditRepositoryOrchImpl.logAudit() -- Calling auditLogDao to insert record into database.");
         boolean result = auditLogDao.insertAuditRepository(auditRecList);
         LOG.trace("AuditRepositoryOrchImpl.logAudit() -- Done calling auditLogDao to insert record into database.");
@@ -196,6 +173,35 @@ public class AuditRepositoryOrchImpl {
         return auditEvents;
     }
 
+    protected final AuditRepositoryRecord createDBAuditObj(LogEventSecureRequestType mess, AssertionType assertion) {
+        AuditRepositoryRecord auditRec = new AuditRepositoryRecord();
+        EventIdentificationType eventIdentification = mess.getAuditMessage().getEventIdentification();
+
+        String eventCommunityId = mess.getRemoteHCID();
+        LOG.info("auditSourceID : " + eventCommunityId);
+        if (NullChecker.isNotNullish(eventCommunityId)) {
+            auditRec.setRemoteHcid(eventCommunityId);
+        } else {
+            auditRec.setRemoteHcid("");
+        }
+
+        auditRec.setDirection(mess.getDirection());
+        auditRec.setMessage(getBlobFromAuditMessage(mess.getAuditMessage()));
+
+        XMLGregorianCalendar xMLCalDate = eventIdentification.getEventDateTime();
+        if (xMLCalDate != null) {
+            auditRec.setEventTimeStamp(convertXMLGregorianCalendarToDate(xMLCalDate));
+        }
+        auditRec.setOutcome(eventIdentification.getEventOutcomeIndicator().intValue());
+        auditRec.setEventType(mess.getEventType());
+        auditRec.setEventId(eventIdentification.getEventID().getDisplayName());
+        auditRec.setMessageId(MessageGeneratorUtils.getInstance().generateMessageId(assertion));
+        auditRec.setRelatesTo(getRelatesTo(assertion));
+        auditRec.setUserId(getUserId(mess.getAuditMessage().getActiveParticipant()));
+
+        return auditRec;
+    }
+
     /**
      * This method builds the Actual Response from each of the EventLogList coming from Database.
      *
@@ -206,11 +212,11 @@ public class AuditRepositoryOrchImpl {
 
         FindCommunitiesAndAuditEventsResponseType auditResType = new FindCommunitiesAndAuditEventsResponseType();
         FindAuditEventsResponseType response = new FindAuditEventsResponseType();
-        AuditMessageType auditMessageType = null;
-        Blob blobMessage = null;
+        AuditMessageType auditMessageType;
+        Blob blobMessage;
 
         int size = auditRecList.size();
-        AuditRepositoryRecord eachRecord = null;
+        AuditRepositoryRecord eachRecord;
         for (int i = 0; i < size; i++) {
             eachRecord = auditRecList.get(i);
             auditMessageType = new AuditMessageType();
@@ -286,5 +292,22 @@ public class AuditRepositoryOrchImpl {
         Date eventDate = cal.getTime();
         LOG.info("eventDate -> " + eventDate);
         return eventDate;
+    }
+
+    private String getRelatesTo(AssertionType assertion) {
+        return NullChecker.isNotNullish(assertion.getRelatesToList()) ? assertion.getRelatesToList().get(0) : null;
+    }
+
+    private String getUserId(List<ActiveParticipant> participants) {
+        for (ActiveParticipant obj : participants) {
+            if (NullChecker.isNotNullish(obj.getRoleIDCode())
+                && !obj.getRoleIDCode().get(0).getDisplayName().equals(
+                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME)
+                && !obj.getRoleIDCode().get(0).getDisplayName().equals(
+                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME)) {
+                return obj.getUserID();
+            }
+        }
+        return null;
     }
 }

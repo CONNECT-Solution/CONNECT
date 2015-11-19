@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.marshallers.Marshaller;
 import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
 import javax.xml.namespace.QName;
@@ -157,4 +158,24 @@ public class MessageGeneratorUtils {
         return (PRPAIN201305UV02) marshaller.unmarshallJaxbElement(jaxbElement, HL7_V3_CONTEXT);
     }
 
+    /**
+     * This message generates a messageId if it is not present and set it in the assertion object. If present it will
+     * format the messsageId and return it back.
+     *
+     * Note: AssertionType is a required element. It can never be null.
+     *
+     * @param assertion
+     * @return messageId
+     */
+    public String generateMessageId(AssertionType assertion) {
+        WSAHeaderHelper wsaHelper = new WSAHeaderHelper();
+        String assertionMsgId = assertion.getMessageId();
+        if (NullChecker.isNotNullish(assertionMsgId)) {
+            return wsaHelper.fixMessageIDPrefix(assertionMsgId);
+        } else {
+            assertionMsgId = wsaHelper.generateMessageID();
+            assertion.setMessageId(assertionMsgId);
+            return assertionMsgId;
+        }
+    }
 }

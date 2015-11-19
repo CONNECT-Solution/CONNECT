@@ -55,7 +55,7 @@ public class AuditRepositoryProxyJavaImpl implements AuditRepositoryProxy {
         securedRequest.setAuditMessage(request.getAuditMessage());
         securedRequest.setDirection(request.getDirection());
         securedRequest.setRemoteHCID(request.getRemoteHCID());
-
+        securedRequest.setEventType(request.getEventType());
         return getAuditRepositoryOrchImpl().logAudit(securedRequest, assertion);
 
     }

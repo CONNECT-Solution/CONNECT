@@ -27,18 +27,7 @@
 package gov.hhs.fha.nhinc.docquery.inbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.docquery.audit.transform.DocQueryAuditTransforms;
-import static gov.hhs.fha.nhinc.docquery.inbound.InboundDocQueryTest.request;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import java.util.Properties;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-
 import org.junit.Test;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.isNull;
-import static org.mockito.Mockito.verify;
 
 /**
  * @author akong
