@@ -614,7 +614,7 @@
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -804,7 +804,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -1124,7 +1124,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-18T17:07:43Z</con:value>
+          <con:value>2015-11-20T20:57:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -1176,7 +1176,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-18T00:00:00Z</con:value>
+          <con:value>2015-12-20T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
@@ -1228,11 +1228,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/18/2015 16:57:43</con:value>
+          <con:value>11/20/2015 20:47:34</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-18T16:57:43Z</con:value>
+          <con:value>2015-11-20T20:47:34Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1610,7 +1610,7 @@ if (propertiesFile.exists()) {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -1725,7 +1725,7 @@ parsedXmlMessage.AuditSourceIdentification.find{
         <con:settings/>
         <con:config>
           <script>context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -1945,7 +1945,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-18T17:07:58Z</con:value>
+          <con:value>2015-11-20T20:58:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -1997,15 +1997,15 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-18T00:00:00Z</con:value>
+          <con:value>2015-12-20T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/18/2015 16:57:58</con:value>
+          <con:value>11/20/2015 20:48:00</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-18T16:57:58Z</con:value>
+          <con:value>2015-11-20T20:48:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -2517,7 +2517,7 @@ if (propertiesFile.exists()) {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -2660,7 +2660,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -2936,7 +2936,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-18T17:08:13Z</con:value>
+          <con:value>2015-11-20T20:58:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -2988,7 +2988,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-18T00:00:00Z</con:value>
+          <con:value>2015-12-20T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
@@ -3040,11 +3040,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/18/2015 16:58:13</con:value>
+          <con:value>11/20/2015 20:48:19</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-18T16:58:13Z</con:value>
+          <con:value>2015-11-20T20:48:19Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3404,7 +3404,7 @@ if (propertiesFile.exists()) {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -3584,7 +3584,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -3973,7 +3973,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-18T17:08:27Z</con:value>
+          <con:value>2015-11-20T20:58:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -4053,7 +4053,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-18T00:00:00Z</con:value>
+          <con:value>2015-12-20T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -4285,7 +4285,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/18/2015 16:58:27</con:value>
+          <con:value>11/20/2015 20:48:35</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -4293,7 +4293,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-18T16:58:27Z</con:value>
+          <con:value>2015-11-20T20:48:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -4726,8 +4726,8 @@ if (propertiesFile.exists()) {
 {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 	
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
@@ -4906,7 +4906,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -5301,7 +5301,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-18T17:08:44Z</con:value>
+          <con:value>2015-11-20T20:58:52Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -5385,7 +5385,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-18T00:00:00Z</con:value>
+          <con:value>2015-12-20T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -5617,7 +5617,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/18/2015 16:58:44</con:value>
+          <con:value>11/20/2015 20:48:52</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -5625,7 +5625,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-18T16:58:44Z</con:value>
+          <con:value>2015-11-20T20:48:52Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -6022,7 +6022,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -6199,7 +6199,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -6514,7 +6514,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-18T17:09:06Z</con:value>
+          <con:value>2015-11-20T20:59:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -6554,7 +6554,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-18T00:00:00Z</con:value>
+          <con:value>2015-12-20T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>parameterList.livingSubjectAdministrativeGender.semanticsText</con:name>
@@ -6774,11 +6774,11 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/18/2015 16:59:06</con:value>
+          <con:value>11/20/2015 20:49:13</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-18T16:59:06Z</con:value>
+          <con:value>2015-11-20T20:49:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>statusCode.@code</con:name>
@@ -7146,7 +7146,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -7311,7 +7311,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -7619,7 +7619,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-18T17:09:22Z</con:value>
+          <con:value>2015-11-20T20:59:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -7663,7 +7663,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-18T00:00:00Z</con:value>
+          <con:value>2015-12-20T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -7779,11 +7779,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/18/2015 16:59:22</con:value>
+          <con:value>11/20/2015 20:49:29</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-18T16:59:22Z</con:value>
+          <con:value>2015-11-20T20:49:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
@@ -8116,7 +8116,7 @@ if (propertiesFile.exists()) {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -8279,7 +8279,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:config>
           <script><![CDATA[import java.util.regex.*
 context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -8572,7 +8572,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-18T17:09:39Z</con:value>
+          <con:value>2015-11-20T20:59:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -8624,7 +8624,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-18T00:00:00Z</con:value>
+          <con:value>2015-12-20T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectDataLifeCycle</con:name>
@@ -8740,11 +8740,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/18/2015 16:59:39</con:value>
+          <con:value>11/20/2015 20:49:47</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-18T16:59:39Z</con:value>
+          <con:value>2015-11-20T20:49:47Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -9137,19 +9137,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-18T16:59:55Z</con:value>
+          <con:value>2015-11-20T20:50:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-18T17:09:55Z</con:value>
+          <con:value>2015-11-20T21:00:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/18/2015 16:59:55</con:value>
+          <con:value>11/20/2015 20:50:02</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-18T00:00:00Z</con:value>
+          <con:value>2015-12-20T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -9709,7 +9709,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -9899,7 +9899,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -10221,7 +10221,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-18T17:11:05Z</con:value>
+          <con:value>2015-11-20T21:02:48Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -10273,7 +10273,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-18T00:00:00Z</con:value>
+          <con:value>2015-12-20T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
@@ -10325,11 +10325,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/18/2015 17:01:05</con:value>
+          <con:value>11/20/2015 20:52:48</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-18T17:01:05Z</con:value>
+          <con:value>2015-11-20T20:52:48Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -10707,7 +10707,7 @@ if (propertiesFile.exists()) {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -10821,7 +10821,7 @@ parsedXmlMessage.AuditSourceIdentification.find{
         <con:settings/>
         <con:config>
           <script>context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -11044,7 +11044,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-18T17:11:23Z</con:value>
+          <con:value>2015-11-20T21:03:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -11096,15 +11096,15 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-18T00:00:00Z</con:value>
+          <con:value>2015-12-20T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/18/2015 17:01:23</con:value>
+          <con:value>11/20/2015 20:53:05</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-18T17:01:23Z</con:value>
+          <con:value>2015-11-20T20:53:05Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -11616,7 +11616,7 @@ if (propertiesFile.exists()) {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -11759,7 +11759,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -12034,7 +12034,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-18T17:11:40Z</con:value>
+          <con:value>2015-11-20T21:03:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -12086,7 +12086,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-18T00:00:00Z</con:value>
+          <con:value>2015-12-20T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
@@ -12138,11 +12138,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/18/2015 17:01:40</con:value>
+          <con:value>11/20/2015 20:53:22</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-18T17:01:40Z</con:value>
+          <con:value>2015-11-20T20:53:22Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -12502,7 +12502,7 @@ if (propertiesFile.exists()) {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -12682,7 +12682,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -13071,7 +13071,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-18T17:11:57Z</con:value>
+          <con:value>2015-11-20T21:03:39Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -13151,7 +13151,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-18T00:00:00Z</con:value>
+          <con:value>2015-12-20T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -13383,7 +13383,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/18/2015 17:01:57</con:value>
+          <con:value>11/20/2015 20:53:39</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -13391,7 +13391,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-18T17:01:57Z</con:value>
+          <con:value>2015-11-20T20:53:39Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -13824,8 +13824,8 @@ if (propertiesFile.exists()) {
 {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 	
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1) - ACK")
@@ -13847,7 +13847,7 @@ else
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -14396,7 +14396,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-18T17:12:13Z</con:value>
+          <con:value>2015-11-20T21:03:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -14480,7 +14480,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-18T00:00:00Z</con:value>
+          <con:value>2015-12-20T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -14712,7 +14712,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/18/2015 17:02:13</con:value>
+          <con:value>11/20/2015 20:53:54</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -14720,7 +14720,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-18T17:02:13Z</con:value>
+          <con:value>2015-11-20T20:53:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -15117,7 +15117,7 @@ if (propertiesFile.exists()) {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -15295,7 +15295,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -15607,7 +15607,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-18T17:12:30Z</con:value>
+          <con:value>2015-11-20T21:04:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -15647,7 +15647,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-18T00:00:00Z</con:value>
+          <con:value>2015-12-20T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>parameterList.livingSubjectAdministrativeGender.semanticsText</con:name>
@@ -15867,11 +15867,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/18/2015 17:02:30</con:value>
+          <con:value>11/20/2015 20:54:11</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-18T17:02:30Z</con:value>
+          <con:value>2015-11-20T20:54:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>statusCode.@code</con:name>
@@ -16239,7 +16239,7 @@ if (propertiesFile.exists()) {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -16405,7 +16405,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -16713,7 +16713,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-18T17:12:49Z</con:value>
+          <con:value>2015-11-20T21:04:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -16757,7 +16757,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-18T00:00:00Z</con:value>
+          <con:value>2015-12-20T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -16869,11 +16869,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/18/2015 17:02:49</con:value>
+          <con:value>11/20/2015 20:54:30</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-18T17:02:49Z</con:value>
+          <con:value>2015-11-20T20:54:30Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -17198,7 +17198,7 @@ if (propertiesFile.exists()) {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -17362,7 +17362,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:config>
           <script><![CDATA[import java.util.regex.*
 context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -17658,7 +17658,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-18T17:13:05Z</con:value>
+          <con:value>2015-11-20T21:04:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -17710,7 +17710,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-18T00:00:00Z</con:value>
+          <con:value>2015-12-20T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectDataLifeCycle</con:name>
@@ -17826,11 +17826,11 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/18/2015 17:03:05</con:value>
+          <con:value>11/20/2015 20:54:45</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-18T17:03:05Z</con:value>
+          <con:value>2015-11-20T20:54:45Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -18223,19 +18223,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-18T17:03:25Z</con:value>
+          <con:value>2015-11-20T20:55:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-18T17:13:25Z</con:value>
+          <con:value>2015-11-20T21:05:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/18/2015 17:03:25</con:value>
+          <con:value>11/20/2015 20:55:05</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-18T00:00:00Z</con:value>
+          <con:value>2015-12-20T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
