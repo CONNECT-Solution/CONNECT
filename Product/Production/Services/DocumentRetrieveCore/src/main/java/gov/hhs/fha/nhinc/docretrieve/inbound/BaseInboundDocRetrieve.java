@@ -63,6 +63,8 @@ public abstract class BaseInboundDocRetrieve implements InboundDocRetrieve {
      *
      * @param body
      * @param assertion
+     * @param webContextProperties
+     * @return
      */
     abstract public InboundDocRetrieveOrchestratable createInboundOrchestrable(RetrieveDocumentSetRequestType body,
         AssertionType assertion, Properties webContextProperties);
@@ -70,11 +72,12 @@ public abstract class BaseInboundDocRetrieve implements InboundDocRetrieve {
     public void auditResponse(RetrieveDocumentSetRequestType request, RetrieveDocumentSetResponseType response,
         AssertionType assertion, Properties webContextProperties) {
         getAuditLogger().auditResponseMessage(request, response, assertion, null,
-            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
             Boolean.FALSE, webContextProperties,
             NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
     }
 
+    @Override
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
         AssertionType assertion, Properties webContextProperties) {
 

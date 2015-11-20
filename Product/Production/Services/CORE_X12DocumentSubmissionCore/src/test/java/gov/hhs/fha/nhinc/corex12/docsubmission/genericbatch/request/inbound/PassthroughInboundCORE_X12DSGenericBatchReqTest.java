@@ -72,7 +72,7 @@ public class PassthroughInboundCORE_X12DSGenericBatchReqTest {
         batchReq = new PassthroughInboundCORE_X12DSGenericBatchRequest(adpFactory, getAuditLogger(true));
         actualResposne = batchReq.batchSubmitTransaction(request, assertion, webContextProperties);
         verify(mockEJBLogger).auditResponseMessage(eq(request), eq(actualResposne),
-            eq(assertion), isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+            eq(assertion), isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
             eq(NhincConstants.CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME),
             any(COREX12BatchSubmissionAuditTransforms.class));
@@ -85,7 +85,7 @@ public class PassthroughInboundCORE_X12DSGenericBatchReqTest {
         batchReq = new PassthroughInboundCORE_X12DSGenericBatchRequest(adpFactory, getAuditLogger(false));
         actualResposne = batchReq.batchSubmitTransaction(request, assertion, webContextProperties);
         verify(mockEJBLogger, never()).auditResponseMessage(eq(request), eq(actualResposne),
-            eq(assertion), isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+            eq(assertion), isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
             eq(NhincConstants.CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME),
             any(COREX12BatchSubmissionAuditTransforms.class));

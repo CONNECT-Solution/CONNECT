@@ -71,7 +71,7 @@ public class PassthroughInboundCORE_X12DSRealTimeTest {
         COREEnvelopeRealTimeResponse actualResponse = realTimeX12.realTimeTransaction(request, assertion,
             webContextProperties);
         verify(mockEJBLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion),
-            isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+            isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
             eq(NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME), any(COREX12RealTimeAuditTransforms.class));
     }
@@ -87,7 +87,7 @@ public class PassthroughInboundCORE_X12DSRealTimeTest {
         COREEnvelopeRealTimeResponse actualResponse = realTimeX12.realTimeTransaction(request, assertion,
             webContextProperties);
         verify(mockEJBLogger, never()).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion),
-            isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
+            isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
             eq(NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME), any(COREX12RealTimeAuditTransforms.class));
     }

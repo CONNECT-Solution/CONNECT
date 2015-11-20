@@ -37,7 +37,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 public abstract class AbstractInboundDocQuery implements InboundDocQuery {
 
     abstract AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String hcid,
-            Properties webContextProperties);
+        Properties webContextProperties);
     protected DocQueryAuditLogger auditLogger;
 
     AbstractInboundDocQuery() {
@@ -57,14 +57,14 @@ public abstract class AbstractInboundDocQuery implements InboundDocQuery {
      */
     @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
-            Properties webContextProperties) {
+        Properties webContextProperties) {
         String senderHcid = null;
         if (msg != null) {
             senderHcid = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
         }
 
         AdhocQueryResponse resp = processDocQuery(msg, assertion, HomeCommunityMap.getLocalHomeCommunityId(),
-                webContextProperties);
+            webContextProperties);
 
         auditResponseToNhin(msg, resp, assertion, senderHcid, webContextProperties);
 
@@ -72,9 +72,9 @@ public abstract class AbstractInboundDocQuery implements InboundDocQuery {
     }
 
     protected void auditResponseToNhin(AdhocQueryRequest request, AdhocQueryResponse msg, AssertionType assertion,
-            String requestCommunityID, Properties webContextProperties) {
+        String requestCommunityID, Properties webContextProperties) {
         auditLogger.auditResponseMessage(request, msg, assertion, null,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                Boolean.FALSE, webContextProperties, NhincConstants.DOC_QUERY_SERVICE_NAME);
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+            Boolean.FALSE, webContextProperties, NhincConstants.DOC_QUERY_SERVICE_NAME);
     }
 }

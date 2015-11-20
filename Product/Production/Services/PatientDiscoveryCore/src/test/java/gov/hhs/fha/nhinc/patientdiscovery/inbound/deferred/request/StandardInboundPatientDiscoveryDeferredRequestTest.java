@@ -110,7 +110,7 @@ public class StandardInboundPatientDiscoveryDeferredRequestTest {
 
         assertSame(expectedResponse, actualResponse);
         verify(mockEJBLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), isNull(
-            NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(
+            NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(
             NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties), eq(
             NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME), any(
                 PatientDiscoveryDeferredRequestAuditTransforms.class));
@@ -148,7 +148,7 @@ public class StandardInboundPatientDiscoveryDeferredRequestTest {
 
         assertSame(expectedErrorResponse, actualResponse);
         verify(mockEJBLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), isNull(
-            NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(
+            NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(
             NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties), eq(
             NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME), any(
                 PatientDiscoveryDeferredRequestAuditTransforms.class));
@@ -183,7 +183,7 @@ public class StandardInboundPatientDiscoveryDeferredRequestTest {
 
         assertSame(expectedResponse, actualResponse);
         verify(mockEJBLogger, never()).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), isNull(
-            NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(
+            NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(
             NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties), eq(
             NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME), any(
                 PatientDiscoveryDeferredRequestAuditTransforms.class));

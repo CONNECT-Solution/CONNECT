@@ -107,7 +107,7 @@ public class InboundDocQueryTest {
         assertSame(expectedResponse, actualResponse);
 
         verify(mockEJBLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), eq(target),
-            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+            eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.DOC_QUERY_SERVICE_NAME),
             any(DocQueryAuditTransforms.class));
     }

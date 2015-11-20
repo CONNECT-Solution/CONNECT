@@ -40,8 +40,8 @@ public abstract class AbstractInboundDocSubmission implements InboundDocSubmissi
     abstract RegistryResponseType processDocSubmission(ProvideAndRegisterDocumentSetRequestType body,
         AssertionType assertion, Properties webContextProperties);
 
-    private DocSubmissionAuditLogger auditLogger;
-    private AdapterDocSubmissionProxyObjectFactory adapterFactory;
+    private DocSubmissionAuditLogger auditLogger = null;
+    private AdapterDocSubmissionProxyObjectFactory adapterFactory = null;
 
     public AbstractInboundDocSubmission(AdapterDocSubmissionProxyObjectFactory adapterFactory,
         DocSubmissionAuditLogger auditLogger) {
@@ -69,7 +69,7 @@ public abstract class AbstractInboundDocSubmission implements InboundDocSubmissi
     protected void auditResponse(ProvideAndRegisterDocumentSetRequestType request, RegistryResponseType response,
         AssertionType assertion, Properties webContextProperties) {
         auditLogger.auditResponseMessage(request, response, assertion, null,
-            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
             Boolean.FALSE, webContextProperties, NhincConstants.NHINC_XDR_SERVICE_NAME);
     }
 }

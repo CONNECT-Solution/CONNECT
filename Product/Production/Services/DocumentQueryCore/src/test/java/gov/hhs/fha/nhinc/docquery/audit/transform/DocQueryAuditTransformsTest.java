@@ -144,6 +144,8 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
         testAuditSourceIdentification(auditRequest.getAuditMessage().getAuditSourceIdentification(), assertion);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticipantObjectIdentification(auditRequest, hcid);
+        assertEquals("AuditMessage.Request ServiceName mismatch", auditRequest.getEventType(),
+            NhincConstants.DOC_QUERY_SERVICE_NAME);
     }
 
     private void transformResponseToAuditMsg(AdhocQueryRequest request, AdhocQueryResponse response, String hcid) throws
@@ -184,6 +186,8 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
         testGetActiveParticipantSource(auditResponse, Boolean.FALSE, webContextProperties, LOCAL_IP);
         testGetActiveParticipantDestination(auditResponse, Boolean.FALSE, webContextProperties, REMOTE_OBJECT_URL);
         assertParticipantObjectIdentification(auditResponse, hcid);
+        assertEquals("AuditMessage.Response ServiceName mismatch", auditResponse.getEventType(),
+            NhincConstants.DOC_QUERY_SERVICE_NAME);
     }
 
     private void assertParticipantObjectIdentification(LogEventRequestType auditRequest, String hcid) {

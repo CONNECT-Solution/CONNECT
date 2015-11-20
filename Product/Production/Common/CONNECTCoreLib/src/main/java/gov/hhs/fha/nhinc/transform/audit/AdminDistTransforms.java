@@ -34,6 +34,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.apache.log4j.Logger;
@@ -101,6 +102,12 @@ public class AdminDistTransforms {
         result.setAuditMessage(auditMsg);
         result.setDirection(_interface + " " + direction);
         result.setRemoteHCID(HomeCommunityMap.formatHomeCommunityId(communityId));
+        result.setEventType(NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
+        result.setEventID(auditMsg.getEventIdentification().getEventID().getDisplayName());
+        result.setEventOutcomeIndicator(auditMsg.getEventIdentification().getEventOutcomeIndicator());
+        result.setEventTimestamp(auditMsg.getEventIdentification().getEventDateTime());
+        result.setAssertion(assertion);
+        result.setRelatesTo(getRelatesTo(assertion));
         LOG.trace("Exiting ADTransform-getLogEventRequestType() method.");
 
         return result;
@@ -167,4 +174,9 @@ public class AdminDistTransforms {
     protected String getHomeCommunityFromMapping() {
         return HomeCommunityMap.getLocalHomeCommunityId();
     }
+
+    private String getRelatesTo(AssertionType assertion) {
+        return NullChecker.isNotNullish(assertion.getRelatesToList()) ? assertion.getRelatesToList().get(0) : null;
+    }
+
 }

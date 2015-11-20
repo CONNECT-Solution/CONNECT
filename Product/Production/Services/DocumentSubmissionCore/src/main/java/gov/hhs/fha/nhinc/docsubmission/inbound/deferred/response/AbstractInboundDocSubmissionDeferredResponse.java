@@ -39,8 +39,8 @@ public abstract class AbstractInboundDocSubmissionDeferredResponse implements In
 
     abstract XDRAcknowledgementType processDocSubmissionResponse(RegistryResponseType body, AssertionType assertion);
 
-    private DSDeferredResponseAuditLogger auditLogger;
-    private AdapterDocSubmissionDeferredResponseProxyObjectFactory adapterFactory;
+    private DSDeferredResponseAuditLogger auditLogger = null;
+    private AdapterDocSubmissionDeferredResponseProxyObjectFactory adapterFactory = null;
 
     public AbstractInboundDocSubmissionDeferredResponse(
         AdapterDocSubmissionDeferredResponseProxyObjectFactory adapterFactory, DSDeferredResponseAuditLogger auditLogger) {
@@ -66,7 +66,7 @@ public abstract class AbstractInboundDocSubmissionDeferredResponse implements In
 
     protected void auditResponse(RegistryResponseType body, XDRAcknowledgementType response, AssertionType assertion,
         Properties webContextProperties) {
-        auditLogger.auditResponseMessage(body, response, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+        auditLogger.auditResponseMessage(body, response, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
             NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, webContextProperties,
             NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME);
     }

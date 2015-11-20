@@ -78,7 +78,7 @@ public abstract class AbstractInboundPatientDiscoveryDeferredResponse implements
     protected void auditResponseToNhin(PRPAIN201306UV02 request, MCCIIN000002UV01 response, AssertionType assertion,
         Properties webContextProperties) {
         getAuditLogger().auditResponseMessage(request, response, assertion, null,
-            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE,
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE,
             webContextProperties, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
     }
 

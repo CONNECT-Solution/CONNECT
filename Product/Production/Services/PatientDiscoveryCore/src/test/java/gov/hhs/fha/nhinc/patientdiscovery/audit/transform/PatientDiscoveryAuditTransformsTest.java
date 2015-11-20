@@ -125,6 +125,8 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         testAuditSourceIdentification(auditRequest.getAuditMessage().getAuditSourceIdentification(), assertion);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticipantObjectIdentification(auditRequest);
+        assertEquals("AuditMessage.Request ServiceName mismatch", auditRequest.getEventType(),
+            NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
     }
 
     @Test
@@ -161,7 +163,7 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         };
 
         AssertionType assertion = createAssertion();
-        LogEventRequestType auditRequest = transforms.transformResponseToAuditMsg(
+        LogEventRequestType auditResponse = transforms.transformResponseToAuditMsg(
             TestPatientDiscoveryMessageHelper.createPRPAIN201305UV02Request("Gallow", "Younger", "M", "01-12-2967",
                 "1.1", "D123401", "2.2", "abd3453dcd24wkkks545"), TestPatientDiscoveryMessageHelper.
             createPRPAIN201306UV02Response("Gallow", "Younger", "M", "01-12-2967", "1.1", "D123401", "2.2",
@@ -169,12 +171,14 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
             NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, webContextProperties,
             NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
 
-        testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE);
-        testGetActiveParticipantSource(auditRequest, Boolean.FALSE, webContextProperties, localIp);
-        testGetActiveParticipantDestination(auditRequest, Boolean.FALSE, webContextProperties, remoteObjectUrl);
-        testCreateActiveParticipantFromUser(auditRequest, Boolean.FALSE, assertion);
-        testAuditSourceIdentification(auditRequest.getAuditMessage().getAuditSourceIdentification(), assertion);
-        assertParticipantObjectIdentification(auditRequest);
+        testGetEventIdentificationType(auditResponse, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, Boolean.TRUE);
+        testGetActiveParticipantSource(auditResponse, Boolean.FALSE, webContextProperties, localIp);
+        testGetActiveParticipantDestination(auditResponse, Boolean.FALSE, webContextProperties, remoteObjectUrl);
+        testCreateActiveParticipantFromUser(auditResponse, Boolean.FALSE, assertion);
+        testAuditSourceIdentification(auditResponse.getAuditMessage().getAuditSourceIdentification(), assertion);
+        assertParticipantObjectIdentification(auditResponse);
+        assertEquals("AuditMessage.Response ServiceName mismatch", auditResponse.getEventType(),
+            NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
     }
 
     private void assertParticipantObjectIdentification(LogEventRequestType auditRequest) {

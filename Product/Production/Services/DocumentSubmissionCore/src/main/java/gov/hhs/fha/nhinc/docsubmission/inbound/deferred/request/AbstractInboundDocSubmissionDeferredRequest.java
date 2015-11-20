@@ -40,8 +40,8 @@ public abstract class AbstractInboundDocSubmissionDeferredRequest implements Inb
     abstract XDRAcknowledgementType processDocSubmissionRequest(ProvideAndRegisterDocumentSetRequestType body,
         AssertionType assertion);
 
-    private DocSubmissionDeferredRequestAuditLogger auditLogger;
-    private AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory;
+    private DocSubmissionDeferredRequestAuditLogger auditLogger = null;
+    private AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory = null;
 
     public AbstractInboundDocSubmissionDeferredRequest(
         AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory,
@@ -75,7 +75,7 @@ public abstract class AbstractInboundDocSubmissionDeferredRequest implements Inb
 
     protected void auditResponse(ProvideAndRegisterDocumentSetRequestType request, XDRAcknowledgementType response,
         AssertionType assertion, Properties webContextProperties) {
-        auditLogger.auditResponseMessage(request, response, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+        auditLogger.auditResponseMessage(request, response, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
             NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, webContextProperties,
             NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME);
     }

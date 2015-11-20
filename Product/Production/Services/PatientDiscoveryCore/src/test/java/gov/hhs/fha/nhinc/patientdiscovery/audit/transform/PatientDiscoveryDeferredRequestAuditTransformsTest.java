@@ -110,6 +110,8 @@ public class PatientDiscoveryDeferredRequestAuditTransformsTest extends AuditTra
             .get(0));
         assertQueryParticipantObjectIdentification(auditRequest.getAuditMessage().getParticipantObjectIdentification().
             get(1));
+        assertEquals("AuditMessage.Request ServiceName mismatch", auditRequest.getEventType(),
+            NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
     }
 
     @Test
@@ -166,6 +168,8 @@ public class PatientDiscoveryDeferredRequestAuditTransformsTest extends AuditTra
             .getAuditMessage().getParticipantObjectIdentification().size(), 1);
         assertQueryParticipantObjectIdentification(auditResponse.getAuditMessage().getParticipantObjectIdentification().
             get(0));
+        assertEquals("AuditMessage.Response ServiceName mismatch", auditResponse.getEventType(),
+            NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
     }
 
     private void assertPatientParticipantObjectIdentification(ParticipantObjectIdentificationType participantPatient) {
