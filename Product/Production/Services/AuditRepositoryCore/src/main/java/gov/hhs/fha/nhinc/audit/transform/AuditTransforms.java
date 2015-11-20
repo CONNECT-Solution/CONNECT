@@ -563,6 +563,7 @@ public abstract class AuditTransforms<T, K> {
         result.setEventOutcomeIndicator(outcome);
         result.setUserId(userId);
         result.setEventTimestamp(eventDate);
+        result.setRelatesTo(getRelatesTo(assertion));
         return result;
     }
 
@@ -633,5 +634,9 @@ public abstract class AuditTransforms<T, K> {
             }
         }
         return null;
+    }
+
+    private String getRelatesTo(AssertionType assertion) {
+        return NullChecker.isNotNullish(assertion.getRelatesToList()) ? assertion.getRelatesToList().get(0) : null;
     }
 }

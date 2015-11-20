@@ -56,8 +56,8 @@ public class AuditRepositoryOrchImplTest {
     @Test
     public void testCreateDBAuditObj() {
         AuditRepositoryOrchImpl auditRepo = new AuditRepositoryOrchImpl();
-        LogEventSecureRequestType auditObj = createLogEventSecureObj();
         AssertionType assertion = createAssertion();
+        LogEventSecureRequestType auditObj = createLogEventSecureObj(assertion);
         AuditRepositoryRecord dbRec = auditRepo.createDBAuditObj(auditObj, assertion);
         assertEquals("AuditRepositoryRecord.Direction mismatch", dbRec.getDirection(), auditObj.getDirection());
         assertEquals("AuditRepositoryRecord.EventType mismatch", dbRec.getEventType(), EVENT_TYPE);
@@ -66,7 +66,7 @@ public class AuditRepositoryOrchImplTest {
         assertNotNull("AuditRepositoryRecord.MessageId", dbRec.getMessageId());
     }
 
-    private LogEventSecureRequestType createLogEventSecureObj() {
+    private LogEventSecureRequestType createLogEventSecureObj(AssertionType assertion) {
         LogEventSecureRequestType logObj = new LogEventSecureRequestType();
         AuditMessageType audit = createAuditMessageType();
         logObj.setEventType(EVENT_TYPE);
@@ -74,6 +74,7 @@ public class AuditRepositoryOrchImplTest {
         logObj.setAuditMessage(audit);
         logObj.setEventID(audit.getEventIdentification().getEventID().getDisplayName());
         logObj.setEventOutcomeIndicator(audit.getEventIdentification().getEventOutcomeIndicator());
+        logObj.setRelatesTo(assertion.getRelatesToList().get(0));
         return logObj;
     }
 

@@ -60,6 +60,7 @@ public class AuditRepositoryProxyJavaImpl implements AuditRepositoryProxy {
         securedRequest.setEventOutcomeIndicator(request.getEventOutcomeIndicator());
         securedRequest.setEventTimestamp(request.getEventTimestamp());
         securedRequest.setUserId(request.getUserId());
+        securedRequest.setRelatesTo(request.getRelatesTo());
         return getAuditRepositoryOrchImpl().logAudit(securedRequest, assertion);
 
     }

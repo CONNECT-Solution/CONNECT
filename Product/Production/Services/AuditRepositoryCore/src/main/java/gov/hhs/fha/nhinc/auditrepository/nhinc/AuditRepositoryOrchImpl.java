@@ -56,12 +56,9 @@ import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
-import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
-import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
 import com.services.nhinc.schema.auditmessage.ObjectFactory;
-import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import java.io.IOException;
@@ -175,8 +172,6 @@ public class AuditRepositoryOrchImpl {
 
     protected final AuditRepositoryRecord createDBAuditObj(LogEventSecureRequestType mess, AssertionType assertion) {
         AuditRepositoryRecord auditRec = new AuditRepositoryRecord();
-        EventIdentificationType eventIdentification = mess.getAuditMessage().getEventIdentification();
-
         String eventCommunityId = mess.getRemoteHCID();
         LOG.info("auditSourceID : " + eventCommunityId);
         if (NullChecker.isNotNullish(eventCommunityId)) {
@@ -196,7 +191,7 @@ public class AuditRepositoryOrchImpl {
         auditRec.setEventType(mess.getEventType());
         auditRec.setEventId(mess.getEventID());
         auditRec.setMessageId(MessageGeneratorUtils.getInstance().generateMessageId(assertion));
-        auditRec.setRelatesTo(getRelatesTo(assertion));
+        auditRec.setRelatesTo(mess.getRelatesTo());
         auditRec.setUserId(mess.getUserId());
 
         return auditRec;
@@ -292,9 +287,5 @@ public class AuditRepositoryOrchImpl {
         Date eventDate = cal.getTime();
         LOG.info("eventDate -> " + eventDate);
         return eventDate;
-    }
-
-    private String getRelatesTo(AssertionType assertion) {
-        return NullChecker.isNotNullish(assertion.getRelatesToList()) ? assertion.getRelatesToList().get(0) : null;
     }
 }
